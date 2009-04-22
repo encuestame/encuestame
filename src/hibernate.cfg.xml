@@ -8,7 +8,7 @@
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.default_catalog">encuestame</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-<<<<<<< .working
+
   
    <!-- Pool de Conexiones 
 	<property name="hibernate.c3p0.min_size">1</property>
@@ -58,13 +58,6 @@
   	<mapping resource="org/jp/developer/core/persistence/pojo/SurveyType.hbm.xml" />
   	<mapping resource="org/jp/developer/core/persistence/pojo/Versions.hbm.xml" />  
  </session-factory> 
-=======
-  <mapping resource="org/jp/developer/persistence/pojo/Users.hbm.xml" />
-  <mapping resource="org/jp/developer/persistence/pojo/Groups.hbm.xml" />
-  <mapping resource="org/jp/developer/persistence/pojo/GroupUser.hbm.xml" />
-  <mapping resource="org/jp/developer/persistence/pojo/GroupPermission.hbm.xml" />
-  <mapping resource="org/jp/developer/persistence/pojo/Permission.hbm.xml" />
-  <mapping resource="org/jp/developer/persistence/pojo/State.hbm.xml" />
- </session-factory>
->>>>>>> .merge-right.r71
+
+ 
 </hibernate-configuration>
