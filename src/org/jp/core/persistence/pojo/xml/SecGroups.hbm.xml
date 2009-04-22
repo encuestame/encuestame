@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.SecGroups" table="sec_groups">
+        <id name="groupId" type="java.lang.Integer">
+            <column name="group_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <property name="desInfo" type="string">
+            <column name="des_info" />
+        </property>
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
+        </property>
+        <set name="secGroupPermissions" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.developer.persistence.pojo.SecGroupPermission" />
+        </set>
+        <set name="secGroupUsers" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.developer.persistence.pojo.SecGroupUser" />
+        </set>
+    </class>
+</hibernate-mapping>

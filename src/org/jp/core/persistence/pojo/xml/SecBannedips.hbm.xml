@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.SecBannedips" table="sec_bannedips">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="ip" type="string">
+            <column name="ip" not-null="true" />
+        </property>
+        <property name="reason" type="string">
+            <column name="reason" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

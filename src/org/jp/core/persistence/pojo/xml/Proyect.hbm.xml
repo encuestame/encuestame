@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.Proyect" table="proyect">
+        <id name="siteid" type="java.lang.Integer">
+            <column name="siteid" />
+            <generator class="identity" />
+        </id>
+        <property name="description" type="string">
+            <column name="description" not-null="true" />
+        </property>
+        <property name="info" type="string">
+            <column name="info" length="65535" not-null="true" />
+        </property>
+        <property name="dateStart" type="timestamp">
+            <column name="date_start" length="0" not-null="true" />
+        </property>
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
+        </property>
+        <property name="logo" type="binary">
+            <column name="logo" />
+        </property>
+        <property name="header" type="string">
+            <column name="header" />
+        </property>
+        <property name="range" type="string">
+            <column name="range" />
+        </property>
+    </class>
+</hibernate-mapping>

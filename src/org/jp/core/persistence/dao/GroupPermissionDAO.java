@@ -10,8 +10,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
-import org.jp.developer.persistence.pojo.CatState;
-import org.jp.developer.persistence.util.DataAccessLayerException;
+import org.jp.core.persistence.pojo.CatState;
+import org.jp.core.persistence.util.DataAccessLayerException;
 
 import static org.hibernate.criterion.Example.create;
 

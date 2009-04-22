@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/aop 
        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
@@ -13,46 +11,76 @@
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/security 
        http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
-    
-    <!--bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="/WEB-INF/jdbc.properties" />
-    
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="${jdbc.driverClassName}"
-          p:url="${jdbc.url}"
-          p:username="${jdbc.username}"
-          p:password="${jdbc.password}" /-->
-    
-    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
-    
-    <security:http auto-config="true" >
-		<security:intercept-url
-			pattern="/login*"	access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+	<!--
+		bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		p:location="/WEB-INF/jdbc.properties" /> <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+		p:username="${jdbc.username}" p:password="${jdbc.password}" /
+	-->
+
+	<!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+
+	<bean id="myDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/encuestame" />
+		<property name="username" value="hibernate" />
+		<property name="password" value="hibernate" />
+	</bean>
+
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>org/jp/core/persistence/pojo/xml/CatLocation.hbm.xml
+				</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				org.hibernate.dialect.MySQL5Dialect
+      		</value>
+		</property>
+	</bean>
+
+
+
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/login*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/j_spring_security_switch_user"
 			access="ROLE_SUPERVISOR" />
-		<security:intercept-url pattern="/pages/**" access="ROLE_USER" />
-		<security:intercept-url pattern="/templates/**" access="ROLE_ADMIN" />
-		<security:form-login login-page="/login.me" login-processing-url="/j_spring_security_check" default-target-url='/pages/index.me'
+		<security:intercept-url pattern="/pages/**"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/templates/**"
+			access="ROLE_ADMIN" />
+		<security:form-login login-page="/login.me"
+			login-processing-url="/j_spring_security_check" default-target-url='/pages/index.me'
 			authentication-failure-url="/login.me?login_error=1" />
 		<security:logout logout-url="/logout"
-			logout-success-url="/" />	
+			logout-success-url="/" />
 	</security:http>
 
 
 	<security:authentication-provider>
 		<security:user-service>
-			<security:user name="jpicado" password="demodemo" authorities="ROLE_USER, ROLE_ADMIN" />
-			<security:user name="user" password="demodemo" authorities="ROLE_USER" />
+			<security:user name="jpicado" password="demodemo"
+				authorities="ROLE_USER, ROLE_ADMIN" />
+			<security:user name="user" password="demodemo"
+				authorities="ROLE_USER" />
 		</security:user-service>
 	</security:authentication-provider>
-    
-     <bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
-           <security:filter-chain-map path-type="ant">
-            <security:filter-chain pattern="/**" filters="sif"/>
-        </security:filter-chain-map>
-    </bean>
 
-    <bean id="sif" class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
+	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+			<security:filter-chain pattern="/**" filters="sif" />
+		</security:filter-chain-map>
+	</bean>
+
+	<bean id="sif"
+		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
 </beans>
