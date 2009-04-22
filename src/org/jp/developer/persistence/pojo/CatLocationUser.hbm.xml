@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.CatLocationUser" table="cat_location_user">
+        <composite-id name="id" class="org.jp.developer.persistence.pojo.CatLocationUserId">
+            <key-property name="tid" type="int">
+                <column name="tid" />
+            </key-property>
+            <key-property name="siteid" type="int">
+                <column name="siteid" />
+            </key-property>
+            <key-property name="uid" type="int">
+                <column name="uid" />
+            </key-property>
+        </composite-id>
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

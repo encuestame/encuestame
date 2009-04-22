@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.TransactionSurvey" table="transaction_survey">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="session" type="string">
+            <column name="session" not-null="true" />
+        </property>
+        <property name="uid" type="int">
+            <column name="uid" not-null="true" />
+        </property>
+        <property name="tranSql" type="string">
+            <column name="tran_sql" length="65535" not-null="true" />
+        </property>
+        <property name="horaFecha" type="timestamp">
+            <column name="hora_fecha" length="0" not-null="true" />
+        </property>
+        <property name="pagina" type="string">
+            <column name="pagina" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

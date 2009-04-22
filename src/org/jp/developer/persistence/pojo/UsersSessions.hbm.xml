@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.UsersSessions" table="users_sessions">
+        <id name="idSession" type="int">
+            <column name="id_session" />
+            <generator class="assigned" />
+        </id>
+        <property name="uid" type="int">
+            <column name="uid" not-null="true" />
+        </property>
+        <property name="ip" type="string">
+            <column name="ip" length="25" not-null="true" />
+        </property>
+        <property name="session" type="string">
+            <column name="session" not-null="true" />
+        </property>
+        <property name="dateTime" type="timestamp">
+            <column name="date_time" length="0" />
+        </property>
+        <property name="start" type="string">
+            <column name="start" />
+        </property>
+        <property name="cadenaConsulta" type="string">
+            <column name="cadena_consulta" length="65535" />
+        </property>
+        <property name="lenguajeCabecera" type="string">
+            <column name="lenguaje_cabecera" length="50" />
+        </property>
+        <property name="paginaReferencia" type="string">
+            <column name="pagina_referencia" />
+        </property>
+    </class>
+</hibernate-mapping>

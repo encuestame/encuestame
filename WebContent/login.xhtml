@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:authz="http://acegisecurity.org/authz"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:x_rt="http://java.sun.com/jstl/xml_rt"
+	xmlns:c_rt="http://java.sun.com/jstl/core_rt"
+	xmlns:fmt_rt="http://java.sun.com/jstl/fmt_rt"
+	xmlns:sql="http://java.sun.com/jstl/sql"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf">
+<body>
+<ui:composition template="/templates/login.xhtml">
+	<ui:define name="body">
+		<div id="wrapper_login">
+		<form method="POST"
+			action="${request.contextPath}/j_spring_security_check"
+			AUTOCOMPLETE="off"><h:panelGrid columns="2" cellpadding="3"
+			cellspacing="2">
+			<h:outputLabel value="Usuario" for="j_username" />
+			<h:inputText value="${SPRING_SECURITY_LAST_USERNAME}" id="j_username" />
+			<h:outputLabel value="Contraseña" for="j_password" />
+			<h:inputSecret value="" id="j_password" />
+			<h:commandButton style="margin-left:10px;" action="submit" value="Iniciar Sesion" />
+		</h:panelGrid>
+		<div id="errorBox" class="error"><h:outputText
+			value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
+		</form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</body>
+</html>

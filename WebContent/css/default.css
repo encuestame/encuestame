@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+
+/*
+LOGIN
+*/
+@IMPORT url("login.css");
+
+BODY {
+	background-color: #ebf376;
+	background: url("../images/back.png");
+	font-family: Arial;
+	font-size: 12px;
+	margin: 0px;
+}
+
+#header {
+	height: 20px;
+	background-color: #FFF;
+	border: 1px solid #000;
+	margin-bottom: 0px;
+	padding: 10px;
+}
+
+.menuLabel {
+	color: #FFF;
+	text-decoration: none;
+}

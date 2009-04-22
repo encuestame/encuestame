@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.CatLocation" table="cat_location">
+        <id name="tid" type="int">
+            <column name="tid" />
+            <generator class="assigned" />
+        </id>
+        <property name="tidtype" type="string">
+            <column name="tidtype" length="10" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" not-null="true" />
+        </property>
+        <property name="level" type="int">
+            <column name="level" not-null="true" />
+        </property>
+        <property name="active" type="string">
+            <column name="active" length="2" not-null="true" />
+        </property>
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
+        </property>
+        <property name="govId" type="java.lang.Integer">
+            <column name="gov_id" unique="true" />
+        </property>
+        <property name="lat" type="java.lang.Float">
+            <column name="lat" precision="10" scale="6" />
+        </property>
+        <property name="lng" type="java.lang.Float">
+            <column name="lng" precision="10" scale="6" />
+        </property>
+        <property name="topographySheet" type="string">
+            <column name="topography_sheet" />
+        </property>
+    </class>
+</hibernate-mapping>

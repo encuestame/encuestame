@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.developer.persistence.pojo.SurveyQuestionDependency" table="survey_question_dependency">
+        <composite-id name="id" class="org.jp.developer.persistence.pojo.SurveyQuestionDependencyId">
+            <key-property name="qid" type="int">
+                <column name="qid" />
+            </key-property>
+            <key-property name="ssid" type="int">
+                <column name="ssid" />
+            </key-property>
+            <key-property name="stid" type="int">
+                <column name="stid" />
+            </key-property>
+        </composite-id>
+        <property name="patronData" type="string">
+            <column name="patron_data" length="100" not-null="true" />
+        </property>
+        <property name="patronLimit" type="float">
+            <column name="patron_limit" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="depHome" type="java.lang.Float">
+            <column name="dep_home" precision="12" scale="0" />
+        </property>
+        <property name="patronOption" type="string">
+            <column name="patron_option" length="2" not-null="true" />
+        </property>
+        <property name="qidLim" type="java.lang.Integer">
+            <column name="qid_lim" />
+        </property>
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

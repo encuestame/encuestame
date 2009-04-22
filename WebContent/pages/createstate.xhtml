@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<body>
+<ui:composition template="/templates/home.xhtml">
+	<ui:define name="main">
+	Bienvenido.
+	<h:form>
+	<h:panelGrid columns="2" width="274">
+	<h:outputLabel value="IdEstado" for="" />
+	<h:inputText value="1" />
+	<h:outputLabel value="Descripcion" for="" />
+	<h:inputTextarea value="Activo"  />
+	<h:outputLabel value="Imagen" for="" />
+	<h:inputText value="2" size="45" />
+	
+	<h:selectOneMenu id="usuarios" value="">
+	<f:selectItem itemLabel="Paola" itemValue="4"/>
+	<f:selectItem itemLabel="Juan" itemValue="14"/>
+	</h:selectOneMenu>
+	
+	<h:selectOneMenu id="grupos" value="">
+	<f:selectItem itemLabel="Bandidos" itemValue="54"/>
+	<f:selectItem itemLabel="Goleadores" itemValue="676"/>
+	</h:selectOneMenu>
+	
+	<h:commandButton action="#{createGroupBean.guardarrelacion}" value="Guardar Relacion" />
+	
+	
+	</h:panelGrid>
+	
+	
+	</h:form>
+	  
+	</ui:define>
+</ui:composition>
+
+</body>
+</html>
