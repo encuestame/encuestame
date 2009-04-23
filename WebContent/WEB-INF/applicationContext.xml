@@ -36,8 +36,7 @@
 		<property name="dataSource" ref="myDataSource" />
 		<property name="mappingResources">
 			<list>
-				<value>org/jp/core/persistence/pojo/xml/CatLocation.hbm.xml
-				</value>
+				<value>org/jp/core/persistence/pojo/xml/CatLocation.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -83,4 +82,26 @@
 
 	<bean id="sif"
 		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
+		
+		
+	<!-- Beans de Prueba -->
+	
+	<bean id="barBean" class="bar.view.BarBean" scope="request">
+	<property name="startPage" value="/page1.xhtml"/>
+	<property name="orderService" >
+		<ref bean="service" />
+	</property>
+	</bean>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 </beans>

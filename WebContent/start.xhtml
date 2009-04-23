@@ -9,9 +9,55 @@
 <title>Testing Encuestame Config</title>
 </head>
 <body>
-	<rich:panel header="RichBar">
-		Testing Encuestame Config
+<h:form>
+	<!--  launch wizard button -->
+	<rich:panel header="Welcome to RichBar">
+		<a4j:commandButton value="Click to start your order"
+			oncomplete="#{rich:component('wizard')}.show()" />
 	</rich:panel>
+	<rich:editor rendered="false" />
+</h:form>
+
+
+<!--  modal panel where the wizard is running -->
+<rich:modalPanel id="wizard" width="550" height="300">
+	<f:facet name="header">Drink Order</f:facet>
+	<f:facet name="controls">
+		<a href="#" onclick="#{rich:component('wizard')}.hide()">X</a>
+	</f:facet>
+	<h:panelGroup id="wizardInclude">
+		<a4j:include viewId="#{wizardBean.startPage}" />
+	</h:panelGroup>
+</rich:modalPanel>
+
+<!--  order table -->
+<a4j:outputPanel id="orders">
+	<rich:dataTable value="#{barBean.orders}" var="order"
+		rendered="#{barBean.rowCount>0}" rowKeyVar="row">
+		<rich:column>
+			<f:facet name="header">Order #</f:facet>
+			<h:outputText value="#{row+1}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">Name</f:facet>
+			<h:outputText value="#{order.name}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">Email</f:facet>
+			<h:outputText value="#{order.email}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">Drink</f:facet>
+			<h:outputText value="#{order.drink}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">Comments</f:facet>
+			<h:outputText value="#{order.comments}" escape="false" />
+		</rich:column>
+	</rich:dataTable>
+</a4j:outputPanel>
+
+
 </body>
 </html>
 

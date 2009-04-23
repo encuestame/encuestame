@@ -1,0 +1,24 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:rich="http://richfaces.org/rich"
+   xmlns:a4j="http://richfaces.org/a4j"> 
+    <a4j:keepAlive beanName="wizardBean" />
+   <rich:panel>
+        <h:panelGrid>
+            <h:panelGroup>
+                <h:outputLabel value="Email:" for="email" />
+               <h:outputText value=" (We will email you your receipt!)"
+                    style="FONT-SIZE: small;" />
+            </h:panelGroup>
+           <h:panelGroup>
+                <h:inputText id="email" value="#{wizardBean.email}">
+                    <rich:ajaxValidator event="onkeyup" />
+              </h:inputText>
+                <rich:message for="email" />
+            </h:panelGroup>
+            <a4j:commandButton value="Next" action="next" />
+        </h:panelGrid>
+    </rich:panel>
+</h:form>
