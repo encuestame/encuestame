@@ -58,6 +58,8 @@
 			<list>
 				<value>org/jp/core/persistence/pojo/xml/CatLocation.hbm.xml
 				</value>
+				<value>org/jp/core/persistence/pojo/xml/CatState.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
