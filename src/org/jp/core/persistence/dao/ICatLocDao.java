@@ -1,4 +1,5 @@
-package bar.view;
+package org.jp.core.persistence.dao;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -17,25 +18,17 @@ package bar.view;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: BarBean.java Date: 22/04/2009 
- * @author Juan
- * package: bar.view
+ * Id: BaseBeanManager.java 1822 08/02/2009 
+ * @author juanpicado
  * @version 1.0
+ * package org.jp.developer.web.beans
  */
-public class BarBean {
-	private OrderService orderService;
-	  
-	   @SuppressWarnings("unchecked")
-	   public List getOrders () {
-	      return orderService.getOrders();
-	   }
-	   public int getRowCount () {
-	      return orderService.getOrders().size();
-	   }
-	   public Service getOrderService() {
-	     return orderService;
-	   }
-	   public void setOrderService(Service orderService) {
-	      this.orderService = orderService;
-	   }
+
+import java.util.List;
+import org.jp.core.persistence.pojo.CatLocation;
+
+public interface ICatLocDao  {
+	
+	
+	
 }

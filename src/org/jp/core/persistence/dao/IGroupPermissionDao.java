@@ -1,8 +1,8 @@
-package bar.utils;
+package org.jp.core.persistence.dao;
 
 /**
  * encuestame:  system online surveys
- * Copyright (C) 2005-2008 encuestame Development Team
+ * Copyright (C) 2008-2009 encuestame Development Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 3 of the GNU General Public
@@ -18,24 +18,11 @@ package bar.utils;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: JSFUtils.java Date: 22/04/2009 
- * @author Juan
- * package: bar.utils
+ * Id: IGroupPermissionDao.java 1822 23/04/2009 16:28:07
+ * @author juanpicado
  * @version 1.0
+ * package org.jp.core.persistence.dao
  */
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-
-public class JSFUtils {
-	public static List<SelectItem> createList(String[] data) {
-		ArrayList<SelectItem> list = new ArrayList<SelectItem>();
-		for (String item : data) {
-			list.add(new SelectItem(item, item));
-		}
-		return list;
-	}
+public interface IGroupPermissionDao extends BaseDao {
 
 }

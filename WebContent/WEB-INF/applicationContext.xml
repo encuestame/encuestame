@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/aop 
@@ -10,8 +12,13 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/security 
-       http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
-
+       http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://www.springframework.org/schema/jee
+       http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 	<!--
 		bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -20,33 +27,98 @@
 		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
 		p:username="${jdbc.username}" p:password="${jdbc.password}" /
 	-->
+	<!--
+		ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) <bean
+		id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" > <ref bean="mySessionFactory"/>
+		</property> </bean>
+	-->
 
-	<!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+	<!--
+		========================= HIBERNATE DEFINITIONS
+		=========================
+	-->
 
-	<bean id="myDataSource"
+	<!--
+		Transaction manager for a single Hibernate SessionFactory (alternative
+		to JTA)
+	-->
+	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/encuestame" />
-		<property name="username" value="hibernate" />
-		<property name="password" value="hibernate" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
 	</bean>
-
-	<bean id="mySessionFactory"
+	
+	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="myDataSource" />
 		<property name="mappingResources">
 			<list>
-				<value>org/jp/core/persistence/pojo/xml/CatLocation.hbm.xml</value>
+				<value>org/jp/core/persistence/pojo/xml/CatLocation.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
-			<value>
-				org.hibernate.dialect.MySQL5Dialect
-      		</value>
+			<props>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop>-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hbm2java">update</prop>
+			</props>
 		</property>
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="jdbcExceptionTranslator" class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator"> 
+		<property name="dataSource"><ref bean="dataSource"/></property> 
+	</bean> 
+	
+	<!-- Hibernate Template Defintion -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property> 
+		<property name="jdbcExceptionTranslator"><ref bean="jdbcExceptionTranslator"/></property> 
+	</bean> 
+
+	
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<!--
+		========================= BUSINESS OBJECT DEFINITIONS
+		=========================
+	-->
+	
+	<!-- Catalog DAO Definition: Hibernate implementation 
+	<bean id="catalogDao" class="catalog.model.dao.hibernate.CatalogDaoHibernateImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>	-->
+	
+	<bean id="catLocationDaoImp" class="org.jp.core.persistence.dao.CatLocationDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property> 
 	</bean>
 
 
+
+
+
+
+
+
+	<!--
+		========================= SECURITY OBJECT DEFINITIONS
+		=========================
+	-->
 
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/login*"
@@ -63,8 +135,6 @@
 		<security:logout logout-url="/logout"
 			logout-success-url="/" />
 	</security:http>
-
-
 	<security:authentication-provider>
 		<security:user-service>
 			<security:user name="jpicado" password="demodemo"
@@ -73,35 +143,25 @@
 				authorities="ROLE_USER" />
 		</security:user-service>
 	</security:authentication-provider>
-
 	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
 		<security:filter-chain-map path-type="ant">
 			<security:filter-chain pattern="/**" filters="sif" />
 		</security:filter-chain-map>
 	</bean>
-
 	<bean id="sif"
 		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
 		
-		
-	<!-- Beans de Prueba -->
-	
+	<!-- Beans de Prueba
 	<bean id="barBean" class="bar.view.BarBean" scope="request">
-	<property name="startPage" value="/page1.xhtml"/>
-	<property name="orderService" >
-		<ref bean="service" />
-	</property>
+		<property name="startPage" value="/page1.xhtml" />
+		<property name="orderService">
+			<ref bean="service" />
+		</property>
 	</bean>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
+	<bean id="service" class="bar.service.OrderService" scope="session" />
+	<bean id="orderService" class="bar.service.Service" scope="session"  init-method="create"/>
+	
+	<context:annotation-config/>-->
+	
 </beans>

@@ -1,79 +1,69 @@
 package org.jp.core.persistence.dao;
-// Generated 01-13-2009 09:54:12 PM by Hibernate Tools 3.2.2.GA
-
-
-import java.util.List;
-import javax.naming.InitialContext;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
-import org.jp.core.persistence.pojo.CatState;
 import org.jp.core.persistence.util.DataAccessLayerException;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import static org.hibernate.criterion.Example.create;
+import antlr.collections.List;
 
 /**
- * Home object for domain model class GroupPermission.
- * @see org.jp.developer.persistence.dao.GroupPermission
- * @author Hibernate Tools
+ * encuestame:  system online surveys
+ * Copyright (C) 2005-2008 encuestame Development Team
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 3 of the GNU General Public
+ * License as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ * Id: GroupPermissionDAO.java 1822 08/02/2009 
+ * @author juanpicado
+ * @version 1.0
+ * package org.jp.developer.web.beans
  */
-public class GroupPermissionDAO extends AbstractDao{
+
+public class GroupPermissionDAO extends HibernateDaoSupport implements IGroupPermissionDao{
 
     private static final Log log = LogFactory.getLog(GroupPermissionDAO.class);
 
-    public GroupPermissionDAO() {
-		super();
+	public void delete(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object find(Class clazz, Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public java.util.List<Object> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer lastRow(Class clase, String id)
+			throws DataAccessLayerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void saveOrUpdate(Object obj) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
-	public void updateState(CatState state)
-			throws DataAccessLayerException {
-		log.debug("update state instance");
-		super.saveOrUpdate(state);
-		log.debug("Update state successful");
-	}
-
 	
-	public void deleteState(CatState state)
-			throws DataAccessLayerException {
-		log.debug("delete state instance");
-		super.delete(state);
-		log.debug("delete state successful");
 
-	}
-
-	/**
-	 * 
-	 * @param estado
-	 * @throws DataAccessLayerException
-	 */
-	public void createState(CatState state)
-			throws DataAccessLayerException {
-		super.saveOrUpdate(state);
-	}
-
-	/**
-	 * Finds all BmEstados in the database.
-	 * 
-	 * @return
-	 */
-	public List<CatState> listAllStates() throws DataAccessLayerException {
-		return super.findAll(CatState.class);
-	}
-
-	/**
-	 * Find an Event by its primary key.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public CatState findStateById(Integer id) throws DataAccessLayerException {
-		return (CatState) super.find(CatState.class, id);
-	}
-    
    
 }
 
