@@ -1,4 +1,4 @@
-package org.jp.core.persistence.dao;
+package org.jp.core.persistence.dao.imp;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ import org.jp.core.persistence.util.DataAccessLayerException;
  * package org.jp.core.persistence.dao
  */
 
-public interface BaseDao {
+public interface IBaseDao {
 
 	/**
 	 * 	Creates or updates a record in the table

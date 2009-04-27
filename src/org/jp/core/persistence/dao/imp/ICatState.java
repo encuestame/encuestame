@@ -1,5 +1,4 @@
-package org.jp.core.persistence.dao;
-
+package org.jp.core.persistence.dao.imp;
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -18,17 +17,17 @@ package org.jp.core.persistence.dao;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: BaseBeanManager.java 1822 08/02/2009 
+ * Id: ICatState.java Date: 26/04/2009 
  * @author juanpicado
+ * package: org.jp.core.persistence.dao.imp
  * @version 1.0
- * package org.jp.developer.web.beans
  */
+/**
+ * @author Juan
+ *
+ */
+public interface ICatState extends IBaseDao {
+	
+	
 
-import java.util.List;
-import org.jp.core.persistence.pojo.CatLocation;
-
-public interface ICatLocDao  {
-	
-	
-	
 }

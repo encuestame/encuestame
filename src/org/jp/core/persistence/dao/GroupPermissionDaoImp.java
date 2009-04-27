@@ -2,6 +2,7 @@ package org.jp.core.persistence.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.core.persistence.dao.imp.IGroupPermissionDao;
 import org.jp.core.persistence.util.DataAccessLayerException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -31,9 +32,9 @@ import antlr.collections.List;
  * package org.jp.developer.web.beans
  */
 
-public class GroupPermissionDAO extends HibernateDaoSupport implements IGroupPermissionDao{
+public class GroupPermissionDaoImp extends HibernateDaoSupport implements IGroupPermissionDao{
 
-    private static final Log log = LogFactory.getLog(GroupPermissionDAO.class);
+    private static final Log log = LogFactory.getLog(GroupPermissionDaoImp.class);
 
 	public void delete(Object obj) {
 		// TODO Auto-generated method stub

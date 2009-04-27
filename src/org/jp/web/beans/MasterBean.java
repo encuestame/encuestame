@@ -1,8 +1,7 @@
-package org.jp.core.persistence.dao;
-
+package org.jp.web.beans;
 /**
  * encuestame:  system online surveys
- * Copyright (C) 2008-2009 encuestame Development Team
+ * Copyright (C) 2005-2008 encuestame Development Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 3 of the GNU General Public
@@ -18,11 +17,11 @@ package org.jp.core.persistence.dao;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: IGroupPermissionDao.java 1822 23/04/2009 16:28:07
+ * Id: MasterBean.java Date: 26/04/2009 
  * @author juanpicado
+ * package: org.jp.web.beans
  * @version 1.0
- * package org.jp.core.persistence.dao
  */
-public interface IGroupPermissionDao extends BaseDao {
+public class MasterBean {
 
 }
