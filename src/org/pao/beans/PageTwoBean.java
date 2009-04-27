@@ -1,5 +1,9 @@
 package org.pao.beans;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2008-2009 encuestame Development Team
@@ -27,10 +31,35 @@ public class PageTwoBean {
 	
 	private String texto3="Diana";
 	private String texto4="Urbina";
+	private List listaNombre;
 	
 	public PageTwoBean() {
+		listaNombre=new ArrayList();
+		//Iterator  e = listaNombre.iterator();
+		listaNombre.add("Juan");
+		listaNombre.add("Diego");
+		listaNombre.add("Ines");
+		listaNombre.add("Carolina");
+		listaNombre.add("Jose");
+		
+		
+		
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public List getListaNombre() {
+		return listaNombre;
+	}
+
+
+
+	public void setListaNombre(List listaNombre) {
+		this.listaNombre = listaNombre;
+	}
+
+
 
 	public String getTexto3() {
 		return texto3;

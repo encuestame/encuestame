@@ -1,4 +1,8 @@
 package org.jp.web.beans;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -23,5 +27,26 @@ package org.jp.web.beans;
  * @version 1.0
  */
 public class MasterBean {
+	
+	ServiceLocateBean servicelocatebean;
+	private Log logger = LogFactory.getLog(this.getClass());
+	
+	public MasterBean() {
+		logger.info("init master bean");
+	}
+
+	public ServiceLocateBean getServicelocatebean() {
+		logger.info("init getServicelocatebean");
+		return servicelocatebean;
+	}
+
+	public void setServicelocatebean(ServiceLocateBean servicelocatebean) {
+		logger.info("init setServicelocatebean");
+		this.servicelocatebean = servicelocatebean;
+		this.init();
+	}
+	
+	protected void init() {
+	}
 
 }

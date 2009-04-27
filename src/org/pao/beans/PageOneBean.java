@@ -1,5 +1,7 @@
 package org.pao.beans;
 
+import org.jp.web.beans.MasterBean;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2008-2009 encuestame Development Team
@@ -23,7 +25,7 @@ package org.pao.beans;
  * @version 1.0
  * package org.pao.beans
  */
-public class PageOneBean {
+public class PageOneBean{
 
 
 	private String texto1="Paola";
@@ -40,6 +42,7 @@ public class PageOneBean {
 	}
 	
 	public void cambiar(){
+		System.out.println("-------->"+getServicelocatebean().getStateDao());
 		setTexto1(getTexto1());		
 	}
 
