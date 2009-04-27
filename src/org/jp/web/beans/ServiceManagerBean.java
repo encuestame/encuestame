@@ -5,7 +5,10 @@ import javax.servlet.ServletContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.dao.CatStateDaoImp;
-import org.jp.web.serviceLocate.ServiceLocate;
+import org.jp.core.service.DataService;
+import org.jp.core.service.SecurityService;
+import org.jp.core.service.SurveyService;
+import org.jp.web.serviceManager.ServiceManager;
 import org.jp.web.utils.FacesUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -29,28 +32,64 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @version 1.0
  * package org.jp.web.beans */
 
-public class ServiceLocateBean implements ServiceLocate {
+public class ServiceManagerBean implements ServiceManager {
 
 	private ApplicationContext appContext;
-	CatStateDaoImp stateDao;
+	
+	private DataService dataService;
+	private SurveyService surveyService;
+	private SecurityService securityService;
+	
+	
 	//the user service bean nameate	
-	private static final String STATE_SERVICE_BEAN_NAME = "catStateDaoImp";
+	private static final String DATA_SERVICE_BEAN_NAME = "dataService";
+	private static final String SECURITY_SERVICE_BEAN_NAME = "sercurityService";
+	private static final String SURVEY_SERVICE_BEAN_NAME = "surveyService";
+	
 	private Log logger = LogFactory.getLog(this.getClass());
 	
 	
-	public ServiceLocateBean() {
-		logger.info("init service locate bean");
-		ServletContext context = FacesUtils.getServletContext();
-		this.appContext = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
-		this.stateDao = (CatStateDaoImp)this.lookupService(STATE_SERVICE_BEAN_NAME);
-	}
 	
-	public CatStateDaoImp getStateDao() {
-		return stateDao;
-	}
+		//logger.info("init service locate bean");
+		//ServletContext context = FacesUtils.getServletContext();
+		//this.appContext = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+		//this.stateDao = (CatStateDaoImp)this.lookupService(STATE_SERVICE_BEAN_NAME);
+
+	
+
+	
+	
 	
 	public Object lookupService(String serviceBeanName) {
 		return appContext.getBean(serviceBeanName);
 	}
+
+
+
+		public DataService getDataService() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+		public SecurityService getSecurityService() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+		public SurveyService getSurveyService() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+
+
+
+	
 
 }

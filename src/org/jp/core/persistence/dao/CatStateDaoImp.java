@@ -25,7 +25,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * USA
  *
  * Id: CatStateDaoImp.java Date: 26/04/2009 
- * @author Juan
+ * @author juanpicado
  * package: org.jp.core.persistence.dao
  * @version 1.0
  */

@@ -1,6 +1,8 @@
-package org.jp.web.serviceLocate;
+package org.jp.web.serviceManager;
 
-import org.jp.core.persistence.dao.CatStateDaoImp;
+import org.jp.core.service.DataService;
+import org.jp.core.service.SecurityService;
+import org.jp.core.service.SurveyService;
 
 /**
  * encuestame: system online surveys
@@ -21,9 +23,11 @@ import org.jp.core.persistence.dao.CatStateDaoImp;
  * @version 1.0
  * package org.jp.web.serviceLocate */
 
-public interface ServiceLocate {
+public interface ServiceManager {
 	
-	public CatStateDaoImp getStateDao();
+	public DataService getDataService();
+	public SurveyService getSurveyService();
+	public SecurityService getSecurityService();
 	
 
 }

@@ -34,7 +34,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author juanpicado
  * @version 1.0 package org.jp.web.beans
  */
-public class TestBeanFaces {
+public class TestBeanFaces extends MasterBean{
 
 	private String condega = "hola como esta amigo";
 	private List listaLocacizaciones;

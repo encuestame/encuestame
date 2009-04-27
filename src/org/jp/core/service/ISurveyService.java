@@ -1,8 +1,4 @@
-package org.jp.web.beans;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+package org.jp.core.service;
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -21,37 +17,11 @@ import org.apache.commons.logging.LogFactory;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: MasterBean.java Date: 26/04/2009 
+ * Id: SurveyService.java Date: 27/04/2009 
  * @author juanpicado
- * package: org.jp.web.beans
+ * package: org.jp.core.service
  * @version 1.0
  */
-public class MasterBean {
-	
-	ServiceManagerBean servicemanagerBean;
-	private Log logger = LogFactory.getLog(this.getClass());
-	
-	public MasterBean() {
-		logger.info("init master bean");
-	}
-
-	
-	
-	public ServiceManagerBean getServicemanagerBean() {
-		logger.info("init getServicelocatebean");
-		return servicemanagerBean;
-	}
-
-
-
-	public void setServicemanagerBean(ServiceManagerBean servicemanagerBean) {
-		logger.info("init setServicelocatebean");
-		this.servicemanagerBean = servicemanagerBean;
-	}
-
-
-
-	protected void init() {
-	}
+public interface ISurveyService {
 
 }
