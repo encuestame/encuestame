@@ -7,6 +7,28 @@
   <managed-bean-class>org.jp.web.beans.TestBeanFaces</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>pageOneBean</managed-bean-name>
+  <managed-bean-class>org.pao.beans.PageOneBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>pageTwoBean</managed-bean-name>
+  <managed-bean-class>org.pao.beans.PageTwoBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <navigation-rule>
+  <from-view-id>/start.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>pageone</from-outcome>
+   <to-view-id>/pageone.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>pagetwo</from-outcome>
+   <to-view-id>/pagetwo.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
   <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>

@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#start.xhtml" PATH="/start.xhtml"
+  SHAPE="136,176,50,25" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#start.xhtml:0" NAME="item"
+   PATH="/start.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="pageone::#pageone.xhtml" NAME="output"
+    PATH="/pageone.xhtml" TARGET="rules:#pageone.xhtml" TITLE="pageone" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="pagetwo::#pagetwo.xhtml" NAME="output1"
+    PATH="/pagetwo.xhtml" TARGET="rules:#pagetwo.xhtml" TITLE="pagetwo" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pageone.xhtml" PATH="/pageone.xhtml"
+  SHAPE="344,152,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pagetwo.xhtml" PATH="/pagetwo.xhtml"
+  SHAPE="344,248,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>
