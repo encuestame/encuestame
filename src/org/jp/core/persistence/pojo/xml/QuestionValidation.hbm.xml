@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.QuestionValidation" table="question_validation">
+    <class name="org.jp.core.persistence.pojo.QuestionValidation" table="question_validation">
         <id name="idValidation" type="java.lang.Integer">
             <column name="id_validation" />
             <generator class="identity" />
         </id>
-        <property name="qid" type="java.lang.Integer">
+        <many-to-one name="questions" class="org.jp.core.persistence.pojo.Questions" fetch="select">
             <column name="qid" />
-        </property>
-        <property name="idTypeVal" type="java.lang.Integer">
+        </many-to-one>
+        <many-to-one name="questionValidationType" class="org.jp.core.persistence.pojo.QuestionValidationType" fetch="select">
             <column name="id_type_val" />
-        </property>
-        <property name="parametros" type="string">
-            <column name="parametros" />
+        </many-to-one>
+        <property name="params" type="string">
+            <column name="params" />
         </property>
     </class>
 </hibernate-mapping>

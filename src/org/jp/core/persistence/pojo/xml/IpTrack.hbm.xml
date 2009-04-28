@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.core.persistence.pojo.IpTrack" table="ip_track">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.IpTrackId">
+            <key-property name="sid" type="int">
+                <column name="sid" />
+            </key-property>
+            <key-property name="uid" type="int">
+                <column name="uid" />
+            </key-property>
+        </composite-id>
+        <property name="ip" type="string">
+            <column name="ip" length="15" />
+        </property>
+        <property name="completed" type="int">
+            <column name="completed" not-null="true" />
+        </property>
+        <property name="fechaIngreso" type="timestamp">
+            <column name="fecha_ingreso" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

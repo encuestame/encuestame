@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.SurveySection" table="survey_section">
+    <class name="org.jp.core.persistence.pojo.SurveySection" table="survey_section">
         <id name="ssid" type="java.lang.Integer">
             <column name="ssid" />
             <generator class="identity" />
@@ -11,6 +11,9 @@
         <version name="version" type="int">
             <column name="version" not-null="true" />
         </version>
+        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" fetch="select">
+            <column name="id_state" not-null="true" />
+        </many-to-one>
         <property name="descSection" type="string">
             <column name="desc_section" />
         </property>
@@ -20,8 +23,29 @@
         <property name="template" type="string">
             <column name="template" length="100" not-null="true" />
         </property>
-        <property name="idState" type="int">
-            <column name="id_state" not-null="true" />
-        </property>
+        <set name="surveyQuestionDependencies" inverse="true">
+            <key>
+                <column name="ssid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyQuestionDependency" />
+        </set>
+        <set name="surveyDetails" inverse="true">
+            <key>
+                <column name="ssid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyDetail" />
+        </set>
+        <set name="surveyResults" inverse="true">
+            <key>
+                <column name="ssid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyResult" />
+        </set>
+        <set name="surveySectionTypes" inverse="true">
+            <key>
+                <column name="ssid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveySectionType" />
+        </set>
     </class>
 </hibernate-mapping>

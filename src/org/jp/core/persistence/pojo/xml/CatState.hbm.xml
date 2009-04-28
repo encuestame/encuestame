@@ -1,17 +1,48 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.CatState" table="cat_state">
-        <id name="idEstado" type="java.lang.Integer">
-            <column name="id_estado" />
+        <id name="idState" type="java.lang.Integer">
+            <column name="id_state" />
             <generator class="identity" />
         </id>
-        <property name="descEstado" type="string">
-            <column name="desc_estado" />
+        <property name="descState" type="string">
+            <column name="desc_state" />
         </property>
         <property name="image" type="string">
             <column name="image" />
         </property>
+        <set name="surveyses" inverse="true">
+            <key>
+                <column name="id_state" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
+        </set>
+        <set name="secUserses" inverse="true">
+            <key>
+                <column name="id_state" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SecUsers" />
+        </set>
+        <set name="proyects" inverse="true">
+            <key>
+                <column name="id_state" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.Proyect" />
+        </set>
+        <set name="catLocations" inverse="true">
+            <key>
+                <column name="id_state" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.CatLocation" />
+        </set>
+        <set name="questionses" inverse="true">
+            <key>
+                <column name="id_state" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.Questions" />
+        </set>
     </class>
 </hibernate-mapping>

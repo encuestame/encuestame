@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.SecGroups" table="sec_groups">
+    <class name="org.jp.core.persistence.pojo.SecGroups" table="sec_groups">
         <id name="groupId" type="java.lang.Integer">
             <column name="group_id" />
             <generator class="identity" />
@@ -17,17 +17,23 @@
         <property name="idState" type="int">
             <column name="id_state" not-null="true" />
         </property>
-        <set name="secGroupPermissions" inverse="true">
-            <key>
-                <column name="group_id" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.developer.persistence.pojo.SecGroupPermission" />
-        </set>
         <set name="secGroupUsers" inverse="true">
             <key>
                 <column name="group_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.developer.persistence.pojo.SecGroupUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser" />
+        </set>
+        <set name="proyectGroups" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectGroup" />
+        </set>
+        <set name="secGroupPermissions" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SecGroupPermission" />
         </set>
     </class>
 </hibernate-mapping>

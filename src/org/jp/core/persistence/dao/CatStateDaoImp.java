@@ -5,7 +5,8 @@ import java.util.List;
 import org.jp.core.persistence.dao.imp.ICatState;
 import org.jp.core.persistence.util.DataAccessLayerException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -30,6 +31,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @version 1.0
  */
 public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
+	
+	private Log logger = LogFactory.getLog(this.getClass());
+	
+	
 
 	public void delete(Object obj) {
 		// TODO Auto-generated method stub

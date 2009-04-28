@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.SecUsers" table="sec_users">
+    <class name="org.jp.core.persistence.pojo.SecUsers" table="sec_users">
         <id name="uid" type="java.lang.Integer">
             <column name="uid" />
             <generator class="identity" />
         </id>
+        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
+            <column name="id_state" not-null="true" />
+        </many-to-one>
         <property name="sex" type="string">
             <column name="sex" length="5" />
         </property>
@@ -41,9 +44,6 @@
         <property name="inviteCode" type="string">
             <column name="invite_code" />
         </property>
-        <property name="idState" type="int">
-            <column name="id_state" not-null="true" />
-        </property>
         <property name="position" type="string">
             <column name="position" />
         </property>
@@ -53,11 +53,41 @@
         <property name="publisher" type="string">
             <column name="publisher" length="2" not-null="true" />
         </property>
+        <set name="proyectUsers" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
+        </set>
         <set name="secGroupUsers" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.developer.persistence.pojo.SecGroupUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser" />
+        </set>
+        <set name="catLocationUsers" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.CatLocationUser" />
+        </set>
+        <set name="surveyResultMods" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyResultMod" />
+        </set>
+        <set name="questionColettions" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.QuestionColettion" />
+        </set>
+        <set name="surveyses" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
         </set>
     </class>
 </hibernate-mapping>

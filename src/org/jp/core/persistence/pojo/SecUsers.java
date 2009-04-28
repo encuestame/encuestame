@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA
+// Generated 27-abr-2009 18:04:46 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,6 +12,7 @@ import java.util.Set;
 public class SecUsers implements java.io.Serializable {
 
 	private Integer uid;
+	private CatState catState;
 	private String sex;
 	private String name;
 	private String email;
@@ -23,31 +24,42 @@ public class SecUsers implements java.io.Serializable {
 	private String nocId;
 	private int status;
 	private String inviteCode;
-	private int idState;
 	private String position;
 	private Date dateNew;
 	private String publisher;
+	private Set<ProyectUser> proyectUsers = new HashSet<ProyectUser>(0);
 	private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
+	private Set<CatLocationUser> catLocationUsers = new HashSet<CatLocationUser>(
+			0);
+	private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>(
+			0);
+	private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>(
+			0);
+	private Set<Surveys> surveyses = new HashSet<Surveys>(0);
 
 	public SecUsers() {
 	}
 
-	public SecUsers(String name, String email, String password, int status,
-			int idState, Date dateNew, String publisher) {
+	public SecUsers(CatState catState, String name, String email,
+			String password, int status, Date dateNew, String publisher) {
+		this.catState = catState;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.status = status;
-		this.idState = idState;
 		this.dateNew = dateNew;
 		this.publisher = publisher;
 	}
 
-	public SecUsers(String sex, String name, String email, String username,
-			String password, String passwordClean, Integer birthDate,
-			String address, String nocId, int status, String inviteCode,
-			int idState, String position, Date dateNew, String publisher,
-			Set<SecGroupUser> secGroupUsers) {
+	public SecUsers(CatState catState, String sex, String name, String email,
+			String username, String password, String passwordClean,
+			Integer birthDate, String address, String nocId, int status,
+			String inviteCode, String position, Date dateNew, String publisher,
+			Set<ProyectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
+			Set<CatLocationUser> catLocationUsers,
+			Set<SurveyResultMod> surveyResultMods,
+			Set<QuestionColettion> questionColettions, Set<Surveys> surveyses) {
+		this.catState = catState;
 		this.sex = sex;
 		this.name = name;
 		this.email = email;
@@ -59,11 +71,15 @@ public class SecUsers implements java.io.Serializable {
 		this.nocId = nocId;
 		this.status = status;
 		this.inviteCode = inviteCode;
-		this.idState = idState;
 		this.position = position;
 		this.dateNew = dateNew;
 		this.publisher = publisher;
+		this.proyectUsers = proyectUsers;
 		this.secGroupUsers = secGroupUsers;
+		this.catLocationUsers = catLocationUsers;
+		this.surveyResultMods = surveyResultMods;
+		this.questionColettions = questionColettions;
+		this.surveyses = surveyses;
 	}
 
 	public Integer getUid() {
@@ -72,6 +88,14 @@ public class SecUsers implements java.io.Serializable {
 
 	public void setUid(Integer uid) {
 		this.uid = uid;
+	}
+
+	public CatState getCatState() {
+		return this.catState;
+	}
+
+	public void setCatState(CatState catState) {
+		this.catState = catState;
 	}
 
 	public String getSex() {
@@ -162,14 +186,6 @@ public class SecUsers implements java.io.Serializable {
 		this.inviteCode = inviteCode;
 	}
 
-	public int getIdState() {
-		return this.idState;
-	}
-
-	public void setIdState(int idState) {
-		this.idState = idState;
-	}
-
 	public String getPosition() {
 		return this.position;
 	}
@@ -194,12 +210,52 @@ public class SecUsers implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
+	public Set<ProyectUser> getProyectUsers() {
+		return this.proyectUsers;
+	}
+
+	public void setProyectUsers(Set<ProyectUser> proyectUsers) {
+		this.proyectUsers = proyectUsers;
+	}
+
 	public Set<SecGroupUser> getSecGroupUsers() {
 		return this.secGroupUsers;
 	}
 
 	public void setSecGroupUsers(Set<SecGroupUser> secGroupUsers) {
 		this.secGroupUsers = secGroupUsers;
+	}
+
+	public Set<CatLocationUser> getCatLocationUsers() {
+		return this.catLocationUsers;
+	}
+
+	public void setCatLocationUsers(Set<CatLocationUser> catLocationUsers) {
+		this.catLocationUsers = catLocationUsers;
+	}
+
+	public Set<SurveyResultMod> getSurveyResultMods() {
+		return this.surveyResultMods;
+	}
+
+	public void setSurveyResultMods(Set<SurveyResultMod> surveyResultMods) {
+		this.surveyResultMods = surveyResultMods;
+	}
+
+	public Set<QuestionColettion> getQuestionColettions() {
+		return this.questionColettions;
+	}
+
+	public void setQuestionColettions(Set<QuestionColettion> questionColettions) {
+		this.questionColettions = questionColettions;
+	}
+
+	public Set<Surveys> getSurveyses() {
+		return this.surveyses;
+	}
+
+	public void setSurveyses(Set<Surveys> surveyses) {
+		this.surveyses = surveyses;
 	}
 
 }

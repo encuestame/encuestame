@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.SurveySectionType" table="survey_section_type">
-        <composite-id name="id" class="org.jp.developer.persistence.pojo.SurveySectionTypeId">
+    <class name="org.jp.core.persistence.pojo.SurveySectionType" table="survey_section_type">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.SurveySectionTypeId">
             <key-property name="stid" type="int">
                 <column name="stid" />
             </key-property>
@@ -12,5 +12,14 @@
                 <column name="ssid" />
             </key-property>
         </composite-id>
+        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.SurveyType" update="false" insert="false" fetch="select">
+            <column name="stid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="surveySection" class="org.jp.core.persistence.pojo.SurveySection" update="false" insert="false" fetch="select">
+            <column name="ssid" not-null="true" />
+        </many-to-one>
+        <property name="state" type="byte">
+            <column name="state" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

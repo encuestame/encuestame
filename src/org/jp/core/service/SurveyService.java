@@ -1,4 +1,7 @@
 package org.jp.core.service;
+
+import org.jp.core.persistence.dao.CatStateDaoImp;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -23,5 +26,20 @@ package org.jp.core.service;
  * @version 1.0
  */
 public class SurveyService implements ISurveyService {
+	
+	private CatStateDaoImp catStateDao;
+
+	public CatStateDaoImp getCatStateDao() {
+		return catStateDao;
+	}
+
+	public void setCatStateDao(CatStateDaoImp catStateDao) {
+		this.catStateDao = catStateDao;
+	}
+	
+	
+	
+	
+	
 
 }

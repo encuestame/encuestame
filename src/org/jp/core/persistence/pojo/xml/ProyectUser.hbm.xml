@@ -1,22 +1,25 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.ProyectUser" table="proyect_user">
-        <composite-id name="id" class="org.jp.developer.persistence.pojo.ProyectUserId">
+    <class name="org.jp.core.persistence.pojo.ProyectUser" table="proyect_user">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.ProyectUserId">
             <key-property name="uid" type="int">
                 <column name="uid" />
             </key-property>
-            <key-property name="siteid" type="int">
-                <column name="siteid" />
+            <key-property name="proyectId" type="int">
+                <column name="proyect_id" />
             </key-property>
         </composite-id>
-        <property name="fechaIngreso" type="timestamp">
-            <column name="fecha_ingreso" length="0" not-null="true" />
-        </property>
-        <property name="idEstado" type="int">
-            <column name="id_estado" not-null="true" />
+        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Proyect" update="false" insert="false" fetch="select">
+            <column name="proyect_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.SecUsers" update="false" insert="false" fetch="select">
+            <column name="uid" not-null="true" />
+        </many-to-one>
+        <property name="dateNew" type="timestamp">
+            <column name="date_new" length="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

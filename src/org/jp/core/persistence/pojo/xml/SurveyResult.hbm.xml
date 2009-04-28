@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.core.persistence.pojo.SurveyResult" table="survey_result">
+        <id name="rid" type="java.lang.Long">
+            <column name="rid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="surveys" class="org.jp.core.persistence.pojo.Surveys" fetch="select">
+            <column name="sid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="questions" class="org.jp.core.persistence.pojo.Questions" fetch="select">
+            <column name="qid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="surveySection" class="org.jp.core.persistence.pojo.SurveySection" fetch="select">
+            <column name="ssid" not-null="true" />
+        </many-to-one>
+        <property name="resp" type="string">
+            <column name="resp" length="65535" not-null="true" />
+        </property>
+        <set name="surveyResultMods" inverse="true">
+            <key>
+                <column name="rid" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyResultMod" />
+        </set>
+    </class>
+</hibernate-mapping>

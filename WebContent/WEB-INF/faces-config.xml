@@ -12,7 +12,7 @@
   <managed-bean-class>org.jp.web.beans.TestBeanFaces</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
   <managed-property>
-   <property-name>servicelocateBean</property-name>
+   <property-name>servicemanagerBean</property-name>
    <value>#{servicesManager}</value>
   </managed-property>
  </managed-bean>

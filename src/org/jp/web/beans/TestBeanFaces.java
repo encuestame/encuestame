@@ -89,7 +89,11 @@ public class TestBeanFaces extends MasterBean{
 			return listaLocacizaciones;
 		}
 	}
-
+	
+	public Object getObjeto(){
+		return super.getServicemanagerBean().getSurveyService().getCatStateDao();
+	}
+	
 	/**
 	 * @param listaLocacizaciones
 	 *            the listaLocacizaciones to set

@@ -9,46 +9,6 @@
 <title>Testing Encuestame Config</title>
 </head>
 <body>
-<h:form>
-	<h:commandButton action="pageone" value="Ir a pageone" />
-	<br />
-	<h:commandLink action="pagetwo" value="Ir a pagetwo" />
-	<h:outputText value="#{pageOneBean.texto1}" />
-	<br />
-	<br />
-
-	<h:outputText value="#{pageOneBean.texto2}" />
-</h:form>
-<br />
-<br />
-<h2>RICHFACES</h2>
-<h:form id="richform">
-	<h:panelGrid columns="2">
-		<h:outputLabel value="Mi Nombre" for="nombre" />
-		<h:panelGroup>
-			<h:inputText id="nombre" value="#{pageOneBean.texto1}">
-			</h:inputText>
-			<h:message for="nombre" />
-		</h:panelGroup>
-		<a4j:commandButton value="change" action="#{pageOneBean.cambiar}" reRender="nuevonombre">
-
-		</a4j:commandButton>
-
-	</h:panelGrid>
-	<br/>
-	<h:outputText id="nuevonombre" value="Mi Nuevo Nombre es #{pageOneBean.texto1}" />
-
-</h:form>
-<h:form id="listanombres">
-<rich:dataTable >
-
-
-</rich:dataTable>
-
-
-
-</h:form>
-
 
 
 </body>

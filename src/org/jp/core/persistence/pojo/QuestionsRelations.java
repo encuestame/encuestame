@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA
+// Generated 27-abr-2009 18:04:46 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 
@@ -10,17 +10,20 @@ import java.util.Date;
 public class QuestionsRelations implements java.io.Serializable {
 
 	private QuestionsRelationsId id;
-	private Date fechaRelacion;
-	private int idQColection;
+	private QuestionColettion questionColettion;
+	private Questions questions;
+	private Date relationDate;
 
 	public QuestionsRelations() {
 	}
 
-	public QuestionsRelations(QuestionsRelationsId id, Date fechaRelacion,
-			int idQColection) {
+	public QuestionsRelations(QuestionsRelationsId id,
+			QuestionColettion questionColettion, Questions questions,
+			Date relationDate) {
 		this.id = id;
-		this.fechaRelacion = fechaRelacion;
-		this.idQColection = idQColection;
+		this.questionColettion = questionColettion;
+		this.questions = questions;
+		this.relationDate = relationDate;
 	}
 
 	public QuestionsRelationsId getId() {
@@ -31,20 +34,28 @@ public class QuestionsRelations implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaRelacion() {
-		return this.fechaRelacion;
+	public QuestionColettion getQuestionColettion() {
+		return this.questionColettion;
 	}
 
-	public void setFechaRelacion(Date fechaRelacion) {
-		this.fechaRelacion = fechaRelacion;
+	public void setQuestionColettion(QuestionColettion questionColettion) {
+		this.questionColettion = questionColettion;
 	}
 
-	public int getIdQColection() {
-		return this.idQColection;
+	public Questions getQuestions() {
+		return this.questions;
 	}
 
-	public void setIdQColection(int idQColection) {
-		this.idQColection = idQColection;
+	public void setQuestions(Questions questions) {
+		this.questions = questions;
+	}
+
+	public Date getRelationDate() {
+		return this.relationDate;
+	}
+
+	public void setRelationDate(Date relationDate) {
+		this.relationDate = relationDate;
 	}
 
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.SurveyTime" table="survey_time">
-        <composite-id name="id" class="org.jp.developer.persistence.pojo.SurveyTimeId">
+    <class name="org.jp.core.persistence.pojo.SurveyTime" table="survey_time">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.SurveyTimeId">
             <key-property name="sequence" type="int">
                 <column name="sequence" />
             </key-property>
@@ -12,6 +12,9 @@
                 <column name="sid" />
             </key-property>
         </composite-id>
+        <many-to-one name="surveys" class="org.jp.core.persistence.pojo.Surveys" update="false" insert="false" fetch="select">
+            <column name="sid" not-null="true" />
+        </many-to-one>
         <property name="elapsedTime" type="int">
             <column name="elapsed_time" not-null="true" />
         </property>

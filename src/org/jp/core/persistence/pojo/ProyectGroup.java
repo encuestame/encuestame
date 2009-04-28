@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA
+// Generated 27-abr-2009 18:04:46 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 
@@ -10,13 +10,18 @@ import java.util.Date;
 public class ProyectGroup implements java.io.Serializable {
 
 	private ProyectGroupId id;
+	private Proyect proyect;
+	private SecGroups secGroups;
 	private Date fechaIngreso;
 
 	public ProyectGroup() {
 	}
 
-	public ProyectGroup(ProyectGroupId id, Date fechaIngreso) {
+	public ProyectGroup(ProyectGroupId id, Proyect proyect,
+			SecGroups secGroups, Date fechaIngreso) {
 		this.id = id;
+		this.proyect = proyect;
+		this.secGroups = secGroups;
 		this.fechaIngreso = fechaIngreso;
 	}
 
@@ -26,6 +31,22 @@ public class ProyectGroup implements java.io.Serializable {
 
 	public void setId(ProyectGroupId id) {
 		this.id = id;
+	}
+
+	public Proyect getProyect() {
+		return this.proyect;
+	}
+
+	public void setProyect(Proyect proyect) {
+		this.proyect = proyect;
+	}
+
+	public SecGroups getSecGroups() {
+		return this.secGroups;
+	}
+
+	public void setSecGroups(SecGroups secGroups) {
+		this.secGroups = secGroups;
 	}
 
 	public Date getFechaIngreso() {

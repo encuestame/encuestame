@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA
+// Generated 27-abr-2009 18:04:46 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 
@@ -10,16 +10,19 @@ import java.util.Date;
 public class ProyectUser implements java.io.Serializable {
 
 	private ProyectUserId id;
-	private Date fechaIngreso;
-	private int idEstado;
+	private Proyect proyect;
+	private SecUsers secUsers;
+	private Date dateNew;
 
 	public ProyectUser() {
 	}
 
-	public ProyectUser(ProyectUserId id, Date fechaIngreso, int idEstado) {
+	public ProyectUser(ProyectUserId id, Proyect proyect, SecUsers secUsers,
+			Date dateNew) {
 		this.id = id;
-		this.fechaIngreso = fechaIngreso;
-		this.idEstado = idEstado;
+		this.proyect = proyect;
+		this.secUsers = secUsers;
+		this.dateNew = dateNew;
 	}
 
 	public ProyectUserId getId() {
@@ -30,20 +33,28 @@ public class ProyectUser implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaIngreso() {
-		return this.fechaIngreso;
+	public Proyect getProyect() {
+		return this.proyect;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setProyect(Proyect proyect) {
+		this.proyect = proyect;
 	}
 
-	public int getIdEstado() {
-		return this.idEstado;
+	public SecUsers getSecUsers() {
+		return this.secUsers;
 	}
 
-	public void setIdEstado(int idEstado) {
-		this.idEstado = idEstado;
+	public void setSecUsers(SecUsers secUsers) {
+		this.secUsers = secUsers;
+	}
+
+	public Date getDateNew() {
+		return this.dateNew;
+	}
+
+	public void setDateNew(Date dateNew) {
+		this.dateNew = dateNew;
 	}
 
 }

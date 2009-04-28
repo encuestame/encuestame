@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.QuestionValidationType" table="question_validation_type">
+    <class name="org.jp.core.persistence.pojo.QuestionValidationType" table="question_validation_type">
         <id name="idTypeVal" type="int">
             <column name="id_type_val" />
             <generator class="assigned" />
@@ -14,11 +14,17 @@
         <property name="param" type="string">
             <column name="param" length="2" />
         </property>
-        <property name="ayuda" type="string">
-            <column name="ayuda" />
+        <property name="help" type="string">
+            <column name="help" />
         </property>
-        <property name="reglas" type="binary">
-            <column name="reglas" />
+        <property name="rules" type="binary">
+            <column name="rules" />
         </property>
+        <set name="questionValidations" inverse="true">
+            <key>
+                <column name="id_type_val" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.QuestionValidation" />
+        </set>
     </class>
 </hibernate-mapping>

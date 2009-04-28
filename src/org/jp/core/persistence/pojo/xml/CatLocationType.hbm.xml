@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.CatLocationType" table="cat_location_type">
         <id name="tidtype" type="string">
@@ -14,5 +14,11 @@
         <property name="level" type="java.lang.Integer">
             <column name="level" />
         </property>
+        <set name="catLocations" inverse="true">
+            <key>
+                <column name="tidtype" length="10" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.CatLocation" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-17-2009 11:50:28 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.developer.persistence.pojo.ResultMod" table="result_mod">
+    <class name="org.jp.core.persistence.pojo.SurveyResultMod" table="survey_result_mod">
         <id name="idMod" type="java.lang.Integer">
             <column name="id_mod" />
             <generator class="identity" />
         </id>
-        <property name="rid" type="int">
+        <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.SecUsers" fetch="select">
+            <column name="uid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="surveyResult" class="org.jp.core.persistence.pojo.SurveyResult" fetch="select">
             <column name="rid" not-null="true" />
-        </property>
+        </many-to-one>
         <property name="previousResponse" type="string">
             <column name="previous_response" not-null="true" />
         </property>
@@ -19,9 +22,6 @@
         </property>
         <property name="modDate" type="timestamp">
             <column name="mod_date" length="0" not-null="true" />
-        </property>
-        <property name="uid" type="int">
-            <column name="uid" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
