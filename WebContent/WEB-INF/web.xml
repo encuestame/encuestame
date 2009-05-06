@@ -4,7 +4,11 @@
 			
 	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
+        <param-value>/WEB-INF/config/encuestame-application-context.xml,
+     				/WEB-INF/config/encuestame-db-context.xml,
+     				/WEB-INF/config/encuestame-security-context.xml,
+     				/WEB-INF/config/encuestame-param-context.xml,
+        </param-value>
     </context-param>		
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX
@@ -27,7 +31,7 @@
 	</context-param>
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
-		<param-value>laguna</param-value>
+		<param-value>NULL</param-value>
 	</context-param>  
   	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener

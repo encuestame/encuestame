@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="40,64,53,74" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#index.xhtml" NAME="output"
+    PATH="/pages/index.xhtml" TARGET="rules:#pages#index.xhtml"
+    TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="survey::#pages#mod#survey#index.xhtml"
+    NAME="output1" PATH="/pages/mod/survey/index.xhtml"
+    TARGET="rules:#pages#mod#survey#index.xhtml" TITLE="survey" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="admon::#pages#mod#admon#index.xhtml"
+    NAME="output2" PATH="/pages/mod/admon/index.xhtml"
+    TARGET="rules:#pages#mod#admon#index.xhtml" TITLE="admon" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#mod#admon#index.xhtml"
+  PATH="/pages/mod/admon/index.xhtml" SHAPE="264,72,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#mod#survey#index.xhtml"
+  PATH="/pages/mod/survey/index.xhtml" SHAPE="264,152,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#index.xhtml" PATH="/pages/index.xhtml"
+  SHAPE="264,208,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>

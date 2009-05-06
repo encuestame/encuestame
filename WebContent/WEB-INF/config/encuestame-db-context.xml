@@ -30,10 +30,10 @@
 	-->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/encuestame" />
-		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="driverClassName" value="${datasource.classname}" />
+		<property name="url" value="${datasource.urldb}" />
+		<property name="username" value="${datasource.userbd}" />
+		<property name="password" value="${datasource.pass}" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -47,10 +47,9 @@
 		<property name="hibernateProperties">
 			<props>
 				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop>-->
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+				<prop key="hibernate.dialect">${datasource.dialect}
 				</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hbm2java">update</prop>
+				<prop key="hibernate.show_sql">${datasource.showsql}</prop>				
 			</props>
 		</property>
 		<property name="dataSource">
@@ -84,70 +83,6 @@
 	</bean>
 	<!--
 		======== BUSINESS OBJECT DEFINITIONS ========
-	-->
-
-
-	<bean id="catLocationDaoImp" class="org.jp.core.persistence.dao.CatLocationDaoImp">
-		<property name="hibernateTemplate">
-			<ref bean="hibernateTemplate" />
-		</property>
-	</bean>
-
-	<bean id="catStateDaoImp" class="org.jp.core.persistence.dao.CatStateDaoImp">
-		<property name="hibernateTemplate">
-			<ref bean="hibernateTemplate" />
-		</property>
-	</bean>
-
-	<bean id="surveyService" class="org.jp.core.service.SurveyService">
-		<property name="catStateDao">
-			<ref bean="catStateDaoImp"></ref>
-		</property>
-	</bean>
-
-	<!--
-		========================= SECURITY OBJECT DEFINITIONS
-		=========================
-	-->
-
-	<security:http auto-config="true">
-		<security:intercept-url pattern="/login*"
-			access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/j_spring_security_switch_user"
-			access="ROLE_SUPERVISOR" />
-		<security:intercept-url pattern="/pages/**"
-			access="ROLE_USER" />
-		<security:intercept-url pattern="/templates/**"
-			access="ROLE_ADMIN" />
-		<security:form-login login-page="/login.me"
-			login-processing-url="/j_spring_security_check" default-target-url='/pages/index.me'
-			authentication-failure-url="/login.me?login_error=1" />
-		<security:logout logout-url="/logout"
-			logout-success-url="/" />
-	</security:http>
-	<security:authentication-provider>
-		<security:user-service>
-			<security:user name="jpicado" password="demodemo"
-				authorities="ROLE_USER, ROLE_ADMIN" />
-			<security:user name="user" password="demodemo"
-				authorities="ROLE_USER" />
-		</security:user-service>
-	</security:authentication-provider>
-	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
-		<security:filter-chain-map path-type="ant">
-			<security:filter-chain pattern="/**" filters="sif" />
-		</security:filter-chain-map>
-	</bean>
-	<bean id="sif"
-		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
-
-	<!--
-		Beans de Prueba <bean id="barBean" class="bar.view.BarBean"
-		scope="request"> <property name="startPage" value="/page1.xhtml" />
-		<property name="orderService"> <ref bean="service" /> </property>
-		</bean> <bean id="service" class="bar.service.OrderService"
-		scope="session" /> <bean id="orderService" class="bar.service.Service"
-		scope="session" init-method="create"/> <context:annotation-config/>
 	-->
 
 </beans>

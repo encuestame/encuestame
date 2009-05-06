@@ -7,7 +7,7 @@
   <managed-bean-class>org.jp.web.beans.ServiceManagerBean</managed-bean-class>
   <managed-bean-scope>application</managed-bean-scope>
  </managed-bean>
-  <managed-bean>
+ <managed-bean>
   <managed-bean-name>testBeanFaces</managed-bean-name>
   <managed-bean-class>org.jp.web.beans.TestBeanFaces</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
@@ -16,6 +16,24 @@
    <value>#{servicesManager}</value>
   </managed-property>
  </managed-bean>
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>index</from-outcome>
+   <to-view-id>/pages/index.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>survey</from-outcome>
+   <to-view-id>/pages/mod/survey/index.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>admon</from-outcome>
+   <to-view-id>/pages/mod/admon/index.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
   <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>

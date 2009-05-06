@@ -6,97 +6,14 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	xmlns:rich="http://richfaces.org/rich">
-	<div id="menu"><h:form>
-		<rich:toolBar height="24" itemSeparator="line">
-			<h:outputText value=" Inicio" styleClass="menuLabel" />
-
-
-			<rich:dropDownMenu>
-				<f:facet name="label">
-					<h:panelGroup>
-						<h:outputText value="Administración" />
-					</h:panelGroup>
-				</f:facet>
-				<rich:menuGroup value="Auditoria">
-					<rich:menuItem submitMode="ajax" value="Sesiones Usuario"></rich:menuItem>
-					<rich:menuItem submitMode="ajax" value="Capturas Recientes"></rich:menuItem>
-				</rich:menuGroup>
-
-				<rich:menuGroup value="Boletin">
-					<rich:menuGroup value="Boletin">
-						<rich:menuItem submitMode="ajax" value="Crear"></rich:menuItem>
-					</rich:menuGroup>
-
-					<rich:menuItem submitMode="ajax" value="Buscar"></rich:menuItem>
-				</rich:menuGroup>
-				<rich:menuItem submitMode="ajax" value="Configuración"></rich:menuItem>
-				<rich:menuGroup value="Indicadores">
-					<rich:menuItem submitMode="ajax" value="Crear"></rich:menuItem>
-					<rich:menuItem submitMode="ajax" value="Compartir"></rich:menuItem>
-					<rich:menuItem submitMode="ajax" value="Buscar"></rich:menuItem>
-				</rich:menuGroup>
-				<rich:menuGroup value="Mensajes">
-
-				</rich:menuGroup>
-				<rich:menuGroup value="Proyectos">
-
-				</rich:menuGroup>
-				<rich:menuGroup value="Seguridad">
-					<rich:menuGroup value="Usuarios">
-						<rich:menuItem submitMode="ajax" value="Crear Usuario"></rich:menuItem>
-						<rich:menuItem submitMode="ajax" action="ListUserAccounts" value="Listar Usuario">
-						</rich:menuItem>
-					</rich:menuGroup>
-					<rich:menuGroup value="Grupos">
-						<rich:menuItem submitMode="ajax" value="Crear Grupo"></rich:menuItem>
-						<rich:menuItem submitMode="ajax" value="Listar Grupos"></rich:menuItem>
-						<rich:menuItem submitMode="ajax" value="Permisos Grupales"></rich:menuItem>
-					</rich:menuGroup>
-				</rich:menuGroup>
-				<rich:menuGroup value="Sindicación">
-
-				</rich:menuGroup>
-				<rich:menuGroup value="Territorios">
-
-				</rich:menuGroup>
-			</rich:dropDownMenu>
-			<rich:dropDownMenu>
-				<f:facet name="label">
-					<h:panelGroup>
-						<h:outputText value="Encuestas" />
-					</h:panelGroup>
-				</f:facet>
-			</rich:dropDownMenu>
-			<rich:dropDownMenu>
-				<f:facet name="label">
-					<h:panelGroup>
-						<h:outputText value="Reportes" />
-					</h:panelGroup>
-				</f:facet>
-			</rich:dropDownMenu>
-			<rich:dropDownMenu>
-				<f:facet name="label">
-					<h:panelGroup>
-						<h:outputText value="Social" />
-					</h:panelGroup>
-				</f:facet>
-			</rich:dropDownMenu>
-			<rich:dropDownMenu>
-				<f:facet name="label">
-					<h:panelGroup>
-						<h:outputText value="Ayuda" />
-					</h:panelGroup>
-				</f:facet>
-			</rich:dropDownMenu>
-			<rich:toolBarGroup location="right">
-				<h:inputText styleClass="barsearch" />
-				<h:commandButton styleClass="barsearchbutton"
-					onclick="return false;" value="Buscar" />
-			</rich:toolBarGroup>
-			<rich:toolBarGroup location="right">
-				<a href="${request.contextPath}/logout" class="menuLabel">Log
-				Out</a>
-			</rich:toolBarGroup>
-		</rich:toolBar>
-	</h:form></div>
+	<div id="menu">
+	<h:form>
+	<rich:toolBar id="RootMenu">
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="index" value="Home" ></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="admon"  value="Admon" ></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="survey"  value="Surveys" ></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" value="Stats"></rich:menuItem>
+	</rich:toolBar>
+	</h:form>
+	</div>
 </ui:composition>

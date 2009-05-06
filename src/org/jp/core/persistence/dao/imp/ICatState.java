@@ -23,7 +23,7 @@ package org.jp.core.persistence.dao.imp;
  * @version 1.0
  */
 /**
- * @author Juan
+ * @author jpicado
  *
  */
 public interface ICatState extends IBaseDao {
