@@ -9,10 +9,10 @@
 	<div id="menu">
 	<h:form>
 	<rich:toolBar id="RootMenu">
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="index" value="Home" ></rich:menuItem>
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="admon"  value="Admon" ></rich:menuItem>
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="survey"  value="Surveys" ></rich:menuItem>
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" value="Stats"></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="index"  value="#{temp.home}" ></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="admon"  value="#{temp.admon}" ></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="survey"  value="#{temp.surveys}" ></rich:menuItem>
+	<rich:menuItem iconDisabled="true" iconClass="iconMenu" value="#{temp.stats}"></rich:menuItem>
 	</rich:toolBar>
 	</h:form>
 	</div>

@@ -3,14 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:h="http://java.sun.com/jsf/html">
-	<link rel="STYLESHEET" type="text/css"
-	href="${facesContext.externalContext.requestContextPath}/css/default.css" />
-<link rel="shortcut icon"
+<a4j:loadBundle basename="messages" var="temp" />
+<a4j:loadStyle src="/css/default.css" type="text/css"></a4j:loadStyle>
+<link rel="icon" 
 	href="${facesContext.externalContext.requestContextPath}/favicon.ico"
-	type="image/x-icon"></link>
+	type="image/x-icon"/>
 <head>
-<title>encuesta.me</title>
+<title>encuestame - survey system</title>
 </head>
 <body>
 <ui:include src="/templates/includes/header.xhtml" />

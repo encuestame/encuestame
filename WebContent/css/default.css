@@ -3,18 +3,16 @@
 @IMPORT url("login.css");
 
 body {
-	
-	
-	background:#f5f6ee none repeat scroll 0 0;
+	background: #f5f6ee none repeat scroll 0 0;
 	font-family: Arial;
 	font-size: 12px;
 	margin: 0;
 	padding: 0;
 }
 
-img{border: 0px;}
-
-
+img {
+	border: 0px;
+}
 
 #header {
 	height: 25px;
@@ -24,7 +22,7 @@ img{border: 0px;}
 	padding: 10px;
 }
 
-#mainWrapper{
+#mainWrapper {
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-top: 5px;
@@ -34,7 +32,7 @@ img{border: 0px;}
 	border: 1px solid #000;*/
 	width: 98%;
 	min-height: 400px;
-	}
+}
 
 .menuLabel {
 	color: #FFF;
@@ -46,25 +44,24 @@ img{border: 0px;}
 	background-color: #DCD7D7;
 }
 
-#RootMenu {}
+#RootMenu {
+	
+}
 
 /*.dr-toolbar-ext{
 	background-color: #vvv;
 	padding: 2px;
 	}
-	*/
-	
-/*css for menu table root*/
-	
- #menu td.dr-toolbar-int {
+	*/ /*css for menu table root*/
+#menu td.dr-toolbar-int {
 	padding: 4px;
-  }
+}
 
 #menu .rich-toolbar {
 	padding: 4px;
-	height:30px;
+	height: 30px;
 	background: url("../images/ms1.png");
-	background-repeat: repeat-x;	
+	background-repeat: repeat-x;
 	color: #FFFFFF;
 }
 
@@ -78,7 +75,6 @@ img{border: 0px;}
 }
 
 #menu td.rich-toolbar-item {
-	
 	padding: 2px;
 	cursor: pointer;
 }
@@ -86,12 +82,11 @@ img{border: 0px;}
 /*
  * Menu Items
  */
- 
 #menu .rich-menu-item-label {
 	-x-system-font: none;
 	font-family: verdana;
 	font-size-adjust: none;
-	font-stretch:normal;
+	font-stretch: normal;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: bold;
@@ -100,10 +95,12 @@ img{border: 0px;}
 	font-size: 100%;
 	color: #000;
 }
+
 #menu a.rich-menu-item-label:hover {
 	color: red;
 	font-weight: bold;
 }
+
 /* hide icon menu item image */
 #menu  .iconMenu {
 	display: none;
@@ -122,5 +119,16 @@ img{border: 0px;}
 }
 
 .rich-menu-item-enabled {
+	
+}
+
+/***
+* Tool Bar
+**/
+.item-toolbar {
+	padding: 5px;
+	background: #EEE;
+	font-size: 110%;
+	
 	
 }

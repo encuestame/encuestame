@@ -28,5 +28,16 @@
 		</property>
 	</bean>
 
+	<bean id="log4jInitializer"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.springframework.util.Log4jConfigurer.initLogging" />
+		<property name="arguments">
+			<list>
+				<value>classpath:log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+
 
 </beans>
