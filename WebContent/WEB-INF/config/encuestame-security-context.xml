@@ -25,7 +25,7 @@
 		========================= SECURITY OBJECT DEFINITIONS
 		=========================
 	-->
-
+<!-- 
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/login*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY" />
@@ -41,6 +41,7 @@
 		<security:logout logout-url="/logout"
 			logout-success-url="/" />
 	</security:http>
+	
 	<security:authentication-provider>
 		<security:user-service>
 			<security:user name="jpicado" password="demodemo"
@@ -49,12 +50,40 @@
 				authorities="ROLE_USER" />
 		</security:user-service>
 	</security:authentication-provider>
+	-->
+	
+	<!-- General Config -->
+		
+	<bean id="authenticationManager" class="org.jp.core.security.spring.EnMeAuthenticationManager">
+    	<property name="providerString" value="userAuth"/>
+    </bean>
+	
+    <bean id="userAuth" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+  		<property name="userDetailsService" ref="dbUserService"/>
+  		<property name="passwordEncoder" ref="passwordEncoder"/>
+	</bean>
+	
+	<bean id="dbUserService" class="org.jp.core.security.spring.EnMeUserServiceImp">
+		<property name="userDao" ref="userDao"/>
+   	</bean>
+                      
+	<bean id="userDao" class="org.jp.core.persistence.dao.UserDaoImp">
+        <property name="sessionFactory" ref="sessionFactory"/>
+   	</bean>
+	
+	<!-- Filters -->	
 	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
 		<security:filter-chain-map path-type="ant">
 			<security:filter-chain pattern="/**" filters="sif" />
 		</security:filter-chain-map>
 	</bean>
+		
 	<bean id="sif"
 		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
+		
+		
+	<!-- Passwords -->	
+	<bean id="passwordEncoder" class="org.springframework.security.providers.encoding.Md5PasswordEncoder"/>
+		
 
 </beans>

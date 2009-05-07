@@ -1,93 +1,113 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.SecUsers" table="sec_users">
-        <id name="uid" type="java.lang.Integer">
-            <column name="uid" />
-            <generator class="identity" />
-        </id>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
-            <column name="id_state" not-null="true" />
-        </many-to-one>
-        <property name="sex" type="string">
-            <column name="sex" length="5" />
-        </property>
-        <property name="name" type="string">
-            <column name="name" length="50" not-null="true" />
-        </property>
-        <property name="email" type="string">
-            <column name="email" length="100" not-null="true" unique="true" />
-        </property>
-        <property name="username" type="string">
-            <column name="username" />
-        </property>
-        <property name="password" type="string">
-            <column name="password" not-null="true" />
-        </property>
-        <property name="passwordClean" type="string">
-            <column name="password_clean" />
-        </property>
-        <property name="birthDate" type="java.lang.Integer">
-            <column name="birth_date" />
-        </property>
-        <property name="address" type="string">
-            <column name="address" />
-        </property>
-        <property name="nocId" type="string">
-            <column name="noc_id" length="16" />
-        </property>
-        <property name="status" type="int">
-            <column name="status" not-null="true" />
-        </property>
-        <property name="inviteCode" type="string">
-            <column name="invite_code" />
-        </property>
-        <property name="position" type="string">
-            <column name="position" />
-        </property>
-        <property name="dateNew" type="timestamp">
-            <column name="date_new" length="0" not-null="true" />
-        </property>
-        <property name="publisher" type="string">
-            <column name="publisher" length="2" not-null="true" />
-        </property>
-        <set name="proyectUsers" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
-        </set>
-        <set name="secGroupUsers" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser" />
-        </set>
-        <set name="catLocationUsers" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.CatLocationUser" />
-        </set>
-        <set name="surveyResultMods" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyResultMod" />
-        </set>
-        <set name="questionColettions" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.QuestionColettion" />
-        </set>
-        <set name="surveyses" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
-        </set>
-    </class>
+ <class name="org.jp.core.persistence.pojo.SecUsers" table="sec_users">
+  <id name="uid" type="java.lang.Integer">
+   <column name="uid"/>
+   <generator class="identity"/>
+  </id>
+  <many-to-one class="org.jp.core.persistence.pojo.CatState"
+   fetch="select" name="catState">
+   <column name="id_state" not-null="true"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="sex" type="string">
+   <column length="5" name="sex"/>
+  </property>
+  <property generated="never" lazy="false" name="name" type="string">
+   <column length="50" name="name" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="email" type="string">
+   <column length="100" name="email" not-null="true" unique="true"/>
+  </property>
+  <property generated="never" lazy="false" name="username" type="string">
+   <column name="username"/>
+  </property>
+  <property generated="never" lazy="false" name="password" type="string">
+   <column name="password" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="passwordClean" type="string">
+   <column name="password_clean"/>
+  </property>
+  <property generated="never" lazy="false" name="birthDate" type="java.lang.Integer">
+   <column name="birth_date"/>
+  </property>
+  <property generated="never" lazy="false" name="address" type="string">
+   <column name="address"/>
+  </property>
+  <property generated="never" lazy="false" name="nocId" type="string">
+   <column length="16" name="noc_id"/>
+  </property>
+  <property generated="never" lazy="false" name="status" type="int">
+   <column name="status" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="inviteCode" type="string">
+   <column name="invite_code"/>
+  </property>
+  <property generated="never" lazy="false" name="position" type="string">
+   <column name="position"/>
+  </property>
+  <property generated="never" lazy="false" name="dateNew" type="timestamp">
+   <column length="0" name="date_new" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="publisher" type="string">
+   <column length="2" name="publisher" not-null="true"/>
+  </property>
+  <set inverse="true" name="proyectUsers" sort="unsorted">
+   <key>
+    <column name="uid" not-null="true"/>
+   </key>
+   <one-to-many class="org.jp.core.persistence.pojo.ProyectUser"/>
+  </set>
+  <set inverse="true" name="secGroupUsers" sort="unsorted">
+   <key>
+    <column name="uid" not-null="true"/>
+   </key>
+   <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser"/>
+  </set>
+  <set inverse="true" name="catLocationUsers" sort="unsorted">
+   <key>
+    <column name="uid" not-null="true"/>
+   </key>
+   <one-to-many class="org.jp.core.persistence.pojo.CatLocationUser"/>
+  </set>
+  <set inverse="true" name="surveyResultMods" sort="unsorted">
+   <key>
+    <column name="uid" not-null="true"/>
+   </key>
+   <one-to-many class="org.jp.core.persistence.pojo.SurveyResultMod"/>
+  </set>
+  <set inverse="true" name="questionColettions" sort="unsorted">
+   <key>
+    <column name="uid" not-null="true"/>
+   </key>
+   <one-to-many class="org.jp.core.persistence.pojo.QuestionColettion"/>
+  </set>
+  <set inverse="true" name="surveyses" sort="unsorted">
+   <key>
+    <column name="uid" not-null="true"/>
+   </key>
+   <one-to-many class="org.jp.core.persistence.pojo.Surveys"/>
+  </set>
+ </class>
+ 
+ <!-- HQL QUERIES -->
+ 
+ <query name="User.loadUserByUserName">
+ <![CDATA[
+        select u 
+        from org.jp.core.persistence.pojo.SecUsers as u 
+        where u.username = ?
+		]]>
+ </query>
+ 
+ <query name="User.loadUserByInviteCode">
+		<![CDATA[
+        select u 
+        from org.jp.core.persistence.pojo.SecUser as u 
+        where u.inviteCode = ?
+		]]>
+	</query> 
+ 
 </hibernate-mapping>

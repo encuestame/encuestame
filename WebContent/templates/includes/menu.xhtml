@@ -6,14 +6,26 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	xmlns:rich="http://richfaces.org/rich">
-	<div id="menu">
-	<h:form>
-	<rich:toolBar id="RootMenu">
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="index"  value="#{temp.home}" ></rich:menuItem>
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="admon"  value="#{temp.admon}" ></rich:menuItem>
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" action="survey"  value="#{temp.surveys}" ></rich:menuItem>
-	<rich:menuItem iconDisabled="true" iconClass="iconMenu" value="#{temp.stats}"></rich:menuItem>
-	</rich:toolBar>
-	</h:form>
-	</div>
+	<div id="menu"><h:form>
+		<rich:toolBar id="RootMenu">
+			<rich:toolBarGroup>
+				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
+					action="index" value="#{temp.home}"></rich:menuItem>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup>
+				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
+					action="admon" value="#{temp.admon}"></rich:menuItem>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup>
+				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
+					action="survey" value="#{temp.surveys}"></rich:menuItem>
+				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
+					value="#{temp.stats}"></rich:menuItem>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup location="right">			
+				<a href="${request.contextPath}/j_spring_security_logout"
+					iconClass="iconMenu"><h:outputText value="#{temp.close}" /></a>
+			</rich:toolBarGroup>
+		</rich:toolBar>
+	</h:form></div>
 </ui:composition>

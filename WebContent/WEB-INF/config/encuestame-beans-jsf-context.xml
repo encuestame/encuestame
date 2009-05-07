@@ -20,5 +20,8 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
+	<bean id="testBean" class="org.jp.web.beans.AutenticationBeanTest">
+		<property name="authenticationManager" ref="authenticationManager" />
+	</bean>
 	
 </beans>

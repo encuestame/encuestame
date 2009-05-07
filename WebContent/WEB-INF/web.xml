@@ -8,6 +8,7 @@
      				 /WEB-INF/config/encuestame-db-context.xml,
      				 /WEB-INF/config/encuestame-security-context.xml,
      				 /WEB-INF/config/encuestame-param-context.xml,
+     				 /WEB-INF/config/encuestame-beans-jsf-context.xml
         </param-value>
     </context-param>		
 	<context-param>

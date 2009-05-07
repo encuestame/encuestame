@@ -19,10 +19,9 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+
+	<!--  BUSINESS OBJECT DEFINITIONS -->
 	
-	<!--
-		======== BUSINESS OBJECT DEFINITIONS ========
-	-->
 	<bean id="catLocationDaoImp" class="org.jp.core.persistence.dao.CatLocationDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
@@ -33,9 +32,11 @@
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
+	
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
 		<property name="catStateDao">
 			<ref bean="catStateDaoImp"></ref>
 		</property>
 	</bean>
+	
 </beans>
