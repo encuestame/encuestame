@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.SecGroupPermission" table="sec_group_permission">
-        <composite-id name="id" class="org.jp.core.persistence.pojo.xml.SecGroupPermissionId">
+    <class name="org.jp.core.persistence.pojo.SecGroupPermission" table="sec_group_permission">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.SecGroupPermissionId">
             <key-property name="idPermission" type="int">
                 <column name="id_permission" />
             </key-property>
@@ -12,10 +12,10 @@
                 <column name="group_id" />
             </key-property>
         </composite-id>
-        <many-to-one name="secPermission" class="org.jp.core.persistence.pojo.xml.SecPermission" update="false" insert="false" fetch="select">
+        <many-to-one name="secPermission" class="org.jp.core.persistence.pojo.SecPermission" update="false" insert="false" fetch="select">
             <column name="id_permission" not-null="true" />
         </many-to-one>
-        <many-to-one name="secGroups" class="org.jp.core.persistence.pojo.xml.SecGroups" update="false" insert="false" fetch="select">
+        <many-to-one name="secGroups" class="org.jp.core.persistence.pojo.SecGroups" update="false" insert="false" fetch="select">
             <column name="group_id" not-null="true" />
         </many-to-one>
         <property name="state" type="java.lang.Boolean">

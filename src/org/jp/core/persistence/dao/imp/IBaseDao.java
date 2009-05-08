@@ -2,9 +2,6 @@ package org.jp.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.jp.core.persistence.util.DataAccessLayerException;
-
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2008-2009 encuestame Development Team
@@ -112,7 +109,7 @@ public interface IBaseDao {
 	 * @return the last id of a table
 	 * @throws DataAccessLayerException
 	 */
-	public Integer lastRow(Class clase, String id)
-			throws DataAccessLayerException;
+	public Integer lastRow(Class clase, String id);
+			
 
 }

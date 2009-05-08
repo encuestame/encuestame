@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.CatState" table="cat_state">
+    <class name="org.jp.core.persistence.pojo.CatState" table="cat_state">
         <id name="idState" type="java.lang.Integer">
             <column name="id_state" />
             <generator class="identity" />
@@ -18,31 +18,31 @@
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.Surveys" />
+            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
         </set>
         <set name="secUserses" inverse="true">
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SecUsers" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecUsers" />
         </set>
         <set name="proyects" inverse="true">
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.Proyect" />
+            <one-to-many class="org.jp.core.persistence.pojo.Proyect" />
         </set>
         <set name="catLocations" inverse="true">
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.CatLocation" />
+            <one-to-many class="org.jp.core.persistence.pojo.CatLocation" />
         </set>
         <set name="questionses" inverse="true">
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.Questions" />
+            <one-to-many class="org.jp.core.persistence.pojo.Questions" />
         </set>
     </class>
 </hibernate-mapping>

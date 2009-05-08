@@ -25,67 +25,172 @@
 		========================= SECURITY OBJECT DEFINITIONS
 		=========================
 	-->
-<!-- 
-	<security:http auto-config="true">
-		<security:intercept-url pattern="/login*"
-			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	<!--
+		<security:http auto-config="true"> <security:intercept-url
+		pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/j_spring_security_switch_user"
-			access="ROLE_SUPERVISOR" />
-		<security:intercept-url pattern="/pages/**"
-			access="ROLE_USER" />
-		<security:intercept-url pattern="/templates/**"
-			access="ROLE_ADMIN" />
-		<security:form-login login-page="/login.me"
-			login-processing-url="/j_spring_security_check" default-target-url='/pages/index.me'
-			authentication-failure-url="/login.me?login_error=1" />
-		<security:logout logout-url="/logout"
-			logout-success-url="/" />
-	</security:http>
-	
-	<security:authentication-provider>
-		<security:user-service>
-			<security:user name="jpicado" password="demodemo"
-				authorities="ROLE_USER, ROLE_ADMIN" />
-			<security:user name="user" password="demodemo"
-				authorities="ROLE_USER" />
-		</security:user-service>
-	</security:authentication-provider>
+		access="ROLE_SUPERVISOR" /> <security:intercept-url
+		pattern="/pages/**" access="ROLE_USER" /> <security:intercept-url
+		pattern="/templates/**" access="ROLE_ADMIN" /> <security:form-login
+		login-page="/login.me" login-processing-url="/j_spring_security_check"
+		default-target-url='/pages/index.me'
+		authentication-failure-url="/login.me?login_error=1" />
+		<security:logout logout-url="/logout" logout-success-url="/" />
+		</security:http>
 	-->
-	
+
 	<!-- General Config -->
-		
+
 	<bean id="authenticationManager" class="org.jp.core.security.spring.EnMeAuthenticationManager">
-    	<property name="providerString" value="userAuth"/>
-    </bean>
-	
-    <bean id="userAuth" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
-  		<property name="userDetailsService" ref="dbUserService"/>
-  		<property name="passwordEncoder" ref="passwordEncoder"/>
+		<property name="providerString" value="userAuth" />
 	</bean>
-	
+
+	<bean id="userAuth"
+		class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="dbUserService" />
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+
 	<bean id="dbUserService" class="org.jp.core.security.spring.EnMeUserServiceImp">
-		<property name="userDao" ref="userDao"/>
-		<property name="roleGroupAuth" value="true"/>
-		<property name="roleUserAuth"  value="true"/>
-   	</bean>
-                      
+		<property name="userDao" ref="userDao" />
+		<property name="roleGroupAuth" value="true" />
+		<property name="roleUserAuth" value="true" />
+	</bean>
+
 	<bean id="userDao" class="org.jp.core.persistence.dao.UserDaoImp">
-        <property name="sessionFactory" ref="sessionFactory"/>
-   	</bean>
-	
-	<!-- Filters -->	
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Filters -->
 	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
 		<security:filter-chain-map path-type="ant">
-			<security:filter-chain pattern="/**" filters="sif" />
+			<security:filter-chain pattern="/**"
+				filters="httpSessionContextIntegrationFilter,logoutFilter,basicProcessingFilter,authenticationProcessingFilter,formExceptionTranslationFilter,filterInvocationInterceptor" />
 		</security:filter-chain-map>
 	</bean>
-		
-	<bean id="sif"
+
+	<bean id="filterInvocationInterceptor"
+		class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="httpRequestAccessDecisionManager" />
+		<property name="objectDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/=ROLE_ANONYMOUS
+				/login.do = ROLE_ANONYMOUS
+				/pages/**=ROLE_ADMIN                    
+         </value>
+		</property>
+	</bean>
+
+	<bean id="httpRequestAccessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+		<property name="allowIfAllAbstainDecisions">
+			<value>false</value>
+		</property>
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<!--
+		An access decision voter that reads ROLE_* configuration settings
+	
+	<bean id="roleVoter" class="org.jp.core.security.spring.EnMeRoleVoter">
+		<property name="anonymousAccessAllowed" value="true" />
+	</bean>-->
+
+	<bean id="roleVoter" class="org.springframework.security.vote.RoleVoter">
+		<property name="rolePrefix" value="ROLE_" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter"
+		class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<ref local="authenticationEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="basicProcessingFilter"
+		class="org.springframework.security.ui.basicauth.BasicProcessingFilter">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		<property name="authenticationEntryPoint">
+			<ref bean="authenticationEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.ui.basicauth.BasicProcessingFilterEntryPoint">
+		<property name="realmName">
+			<value>encuestame</value>
+		</property>
+	</bean>
+
+	<bean id="authenticationProcessingFilter"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		<property name="authenticationFailureUrl">
+			<value>/login.me</value>
+		</property>
+		<property name="defaultTargetUrl">
+			<value>/</value>
+		</property>
+		<property name="filterProcessesUrl">
+			<value>/j_spring_security_check</value>
+		</property>
+	</bean>
+
+	<bean id="formEntryPoint"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<property name="loginFormUrl" value="/login.me" />
+	</bean>
+
+	<bean id="formExceptionTranslationFilter"
+		class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<ref local="formEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
+		<constructor-arg value="/pages/index.me" />
+		<constructor-arg>
+			<list>
+				<!--  <ref bean="rememberMeServices"/>  -->
+				<bean
+					class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="httpSessionContextIntegrationFilter"
 		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
-		
-		
-	<!-- Passwords -->	
-	<bean id="passwordEncoder" class="org.springframework.security.providers.encoding.Md5PasswordEncoder"/>
-		
+
+	<!--
+		Remember Me Implementation <bean id="rememberMeServices"
+		class="org.springframework.security.ui.rememberme.TokenBasedRememberMeServices">
+		<property name="userDetailsService" ref="securityService"/> <property
+		name="tokenValiditySeconds" value="1209600"></property> <property
+		name="key" value="${security.rememberMe.key}"/> <property
+		name="alwaysRemember" value="true"/> </bean> <bean id="rememberMeAuth"
+		class="org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider">
+		<property name="key" value="${security.rememberMe.key}"/> </bean>
+
+		<bean id="rememberMeProcessingFilter"
+		class="org.springframework.security.ui.rememberme.RememberMeProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager"/>
+		<property name="rememberMeServices" ref="rememberMeServices"/> </bean>
+	-->
+
+	<!-- Passwords -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.providers.encoding.Md5PasswordEncoder" />
+
 
 </beans>

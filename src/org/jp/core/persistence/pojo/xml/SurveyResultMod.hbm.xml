@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.SurveyResultMod" table="survey_result_mod">
+    <class name="org.jp.core.persistence.pojo.SurveyResultMod" table="survey_result_mod">
         <id name="idMod" type="java.lang.Integer">
             <column name="id_mod" />
             <generator class="identity" />
         </id>
-        <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.xml.SecUsers" fetch="select">
+        <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.SecUsers" fetch="select">
             <column name="uid" not-null="true" />
         </many-to-one>
-        <many-to-one name="surveyResult" class="org.jp.core.persistence.pojo.xml.SurveyResult" fetch="select">
+        <many-to-one name="surveyResult" class="org.jp.core.persistence.pojo.SurveyResult" fetch="select">
             <column name="rid" not-null="true" />
         </many-to-one>
         <property name="previousResponse" type="string">

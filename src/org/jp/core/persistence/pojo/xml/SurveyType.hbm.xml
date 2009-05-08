@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.SurveyType" table="survey_type">
+    <class name="org.jp.core.persistence.pojo.SurveyType" table="survey_type">
         <id name="stid" type="java.lang.Integer">
             <column name="stid" />
             <generator class="identity" />
@@ -11,7 +11,7 @@
         <version name="version" type="int">
             <column name="version" not-null="true" />
         </version>
-        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.xml.CatLocation" fetch="select">
+        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" fetch="select">
             <column name="id_state" not-null="true" />
         </many-to-one>
         <property name="description" type="string">
@@ -42,31 +42,31 @@
             <key>
                 <column name="stid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.Surveys" />
+            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
         </set>
         <set name="surveyQuestionDependencies" inverse="true">
             <key>
                 <column name="stid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyQuestionDependency" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyQuestionDependency" />
         </set>
         <set name="proyectTypeSurveies" inverse="true">
             <key>
                 <column name="stid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.ProyectTypeSurvey" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectTypeSurvey" />
         </set>
         <set name="surveySectionTypes" inverse="true">
             <key>
                 <column name="stid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveySectionType" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveySectionType" />
         </set>
         <set name="surveyDetails" inverse="true">
             <key>
                 <column name="stid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyDetail" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyDetail" />
         </set>
     </class>
 </hibernate-mapping>

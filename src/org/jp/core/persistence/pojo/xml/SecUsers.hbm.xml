@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.SecUsers" table="sec_users">
+    <class name="org.jp.core.persistence.pojo.SecUsers" table="sec_users">
         <id name="uid" type="java.lang.Integer">
             <column name="uid" />
             <generator class="identity" />
         </id>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.xml.CatState" fetch="select">
+        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
             <column name="id_state" not-null="true" />
         </many-to-one>
         <property name="sex" type="string">
@@ -38,7 +38,7 @@
         <property name="nocId" type="string">
             <column name="noc_id" length="16" />
         </property>
-        <property name="status" type="java.lang.Boolean">
+        <property name="status" type="boolean">
             <column name="status" not-null="true" />
         </property>
         <property name="inviteCode" type="string">
@@ -57,43 +57,74 @@
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.ProyectUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
         </set>
         <set name="secGroupUsers" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SecGroupUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser" />
         </set>
         <set name="secUserPermissions" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SecUserPermission" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecUserPermission" />
         </set>
         <set name="catLocationUsers" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.CatLocationUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.CatLocationUser" />
         </set>
         <set name="surveyResultMods" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyResultMod" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyResultMod" />
         </set>
         <set name="questionColettions" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.QuestionColettion" />
+            <one-to-many class="org.jp.core.persistence.pojo.QuestionColettion" />
         </set>
         <set name="surveyses" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.Surveys" />
+            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
         </set>
     </class>
+    
+    <!-- HQL QUERIES -->
+ 
+	 <query name="User.loadUserByUserName">
+	 <![CDATA[
+	        select u 
+	        from org.jp.core.persistence.pojo.SecUsers as u 
+	        where u.username = ?
+			]]>
+	 </query>
+	 
+	 <query name="User.loadPermissionUser">
+	 <![CDATA[
+	     select d from SecUserPermission d where d.secUsers = ? and d.state=1
+			]]>
+	 </query>
+	 
+	 <query name="User.loadUserByInviteCode">
+			<![CDATA[
+	        select u 
+	        from org.jp.core.persistence.pojo.SecUsers as u 
+	        where u.inviteCode = ?
+			]]>
+		</query> 
+		
+		 <query name="User.loadGroupsUser">
+			<![CDATA[
+	       select d from SecGroupUser d where d.secUsers = ? and d.state=1	       
+			]]>
+		</query> 
+	
 </hibernate-mapping>

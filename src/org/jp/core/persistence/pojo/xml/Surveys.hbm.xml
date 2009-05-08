@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.Surveys" table="surveys">
+    <class name="org.jp.core.persistence.pojo.Surveys" table="surveys">
         <id name="sid" type="int">
             <column name="sid" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.xml.Proyect" fetch="select">
+        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Proyect" fetch="select">
             <column name="proyect_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.xml.CatLocation" fetch="select">
+        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" fetch="select">
             <column name="tid" not-null="true" />
         </many-to-one>
-        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.xml.SurveyType" fetch="select">
+        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.SurveyType" fetch="select">
             <column name="stid" not-null="true" />
         </many-to-one>
-        <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.xml.SecUsers" fetch="select">
+        <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.SecUsers" fetch="select">
             <column name="uid" not-null="true" />
         </many-to-one>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.xml.CatState" fetch="select">
+        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
             <column name="id_state" not-null="true" />
         </many-to-one>
         <property name="ticket" type="int">
@@ -45,13 +45,13 @@
             <key>
                 <column name="sid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyResult" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyResult" />
         </set>
         <set name="surveyTimes" inverse="true">
             <key>
                 <column name="sid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyTime" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyTime" />
         </set>
     </class>
 </hibernate-mapping>

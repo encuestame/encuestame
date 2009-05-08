@@ -2,11 +2,10 @@ package org.jp.core.persistence.dao;
 
 import java.util.List;
 
-import org.jp.core.persistence.dao.imp.ICatState;
-import org.jp.core.persistence.util.DataAccessLayerException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.core.persistence.dao.imp.ICatState;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -52,7 +51,7 @@ public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
 	}
 
 	public Integer lastRow(Class clase, String id)
-			throws DataAccessLayerException {
+			{
 		// TODO Auto-generated method stub
 		return null;
 	}

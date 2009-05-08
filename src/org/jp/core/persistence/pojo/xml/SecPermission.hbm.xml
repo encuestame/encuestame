@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.SecPermission" table="sec_permission">
+    <class name="org.jp.core.persistence.pojo.SecPermission" table="sec_permission">
         <id name="idPermission" type="int">
             <column name="id_permission" />
             <generator class="assigned" />
@@ -18,13 +18,13 @@
             <key>
                 <column name="id_permission" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SecUserPermission" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecUserPermission" />
         </set>
         <set name="secGroupPermissions" inverse="true">
             <key>
                 <column name="id_permission" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SecGroupPermission" />
+            <one-to-many class="org.jp.core.persistence.pojo.SecGroupPermission" />
         </set>
     </class>
 </hibernate-mapping>

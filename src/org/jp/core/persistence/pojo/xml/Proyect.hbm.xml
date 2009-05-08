@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.Proyect" table="proyect">
+    <class name="org.jp.core.persistence.pojo.Proyect" table="proyect">
         <id name="proyectId" type="java.lang.Integer">
             <column name="proyect_id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.xml.CatState" fetch="select">
+        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
             <column name="id_state" not-null="true" />
         </many-to-one>
         <property name="description" type="string">
@@ -33,43 +33,43 @@
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.ProyectLocation" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectLocation" />
         </set>
         <set name="surveyses" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.Surveys" />
+            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
         </set>
         <set name="proyectGroups" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.ProyectGroup" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectGroup" />
         </set>
         <set name="surveyLocations" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyLocation" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyLocation" />
         </set>
         <set name="proyectTypeSurveies" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.ProyectTypeSurvey" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectTypeSurvey" />
         </set>
         <set name="catLocationUsers" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.CatLocationUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.CatLocationUser" />
         </set>
         <set name="proyectUsers" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.xml.ProyectUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
         </set>
     </class>
 </hibernate-mapping>

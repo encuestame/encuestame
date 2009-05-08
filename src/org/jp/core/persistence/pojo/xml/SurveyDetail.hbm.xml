@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.xml.SurveyDetail" table="survey_detail">
-        <composite-id name="id" class="org.jp.core.persistence.pojo.xml.SurveyDetailId">
+    <class name="org.jp.core.persistence.pojo.SurveyDetail" table="survey_detail">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.SurveyDetailId">
             <key-property name="idSd" type="int">
                 <column name="id_sd" />
             </key-property>
@@ -18,16 +18,16 @@
                 <column name="stid" />
             </key-property>
         </composite-id>
-        <many-to-one name="questionsPatron" class="org.jp.core.persistence.pojo.xml.QuestionsPatron" fetch="select">
+        <many-to-one name="questionsPatron" class="org.jp.core.persistence.pojo.QuestionsPatron" fetch="select">
             <column name="id_patron" />
         </many-to-one>
-        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.xml.SurveyType" update="false" insert="false" fetch="select">
+        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.SurveyType" update="false" insert="false" fetch="select">
             <column name="stid" not-null="true" />
         </many-to-one>
-        <many-to-one name="questions" class="org.jp.core.persistence.pojo.xml.Questions" update="false" insert="false" fetch="select">
+        <many-to-one name="questions" class="org.jp.core.persistence.pojo.Questions" update="false" insert="false" fetch="select">
             <column name="qid" not-null="true" />
         </many-to-one>
-        <many-to-one name="surveySection" class="org.jp.core.persistence.pojo.xml.SurveySection" update="false" insert="false" fetch="select">
+        <many-to-one name="surveySection" class="org.jp.core.persistence.pojo.SurveySection" update="false" insert="false" fetch="select">
             <column name="ssid" not-null="true" />
         </many-to-one>
         <property name="position" type="java.lang.Integer">

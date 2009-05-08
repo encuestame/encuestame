@@ -46,7 +46,7 @@ public class StartupSystem implements ServletContextListener {
 		elog.info("encuesta.me -- started system");
 		synchronized (this) {
 			try {
-				org.jp.core.persistence.util.HibernateFactory.buildSessionFactory();
+				
 			} catch (HibernateException ex) {
 				elog.info("encuesta.me -- error loading hibernate " + ex);
 			}

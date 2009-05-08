@@ -3,10 +3,7 @@ package org.jp.core.persistence.dao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.dao.imp.IGroupPermissionDao;
-import org.jp.core.persistence.util.DataAccessLayerException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
-import antlr.collections.List;
 
 /**
  * encuestame:  system online surveys
@@ -52,7 +49,7 @@ public class GroupPermissionDaoImp extends HibernateDaoSupport implements IGroup
 	}
 
 	public Integer lastRow(Class clase, String id)
-			throws DataAccessLayerException {
+			 {
 		// TODO Auto-generated method stub
 		return null;
 	}
