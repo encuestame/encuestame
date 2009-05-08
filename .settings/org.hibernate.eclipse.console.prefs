@@ -1,4 +1,4 @@
-#Mon Apr 27 18:03:53 CST 2009
-default.configuration=encuestame2
+#Thu May 07 17:30:14 CST 2009
+default.configuration=encuestame_core
 eclipse.preferences.version=1
 hibernate3.enabled=true

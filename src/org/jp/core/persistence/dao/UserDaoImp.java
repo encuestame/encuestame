@@ -3,6 +3,7 @@ package org.jp.core.persistence.dao;
 import java.util.List;
 
 import org.jp.core.persistence.dao.imp.IUserDao;
+import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.core.persistence.util.DataAccessLayerException;
@@ -76,8 +77,13 @@ public class UserDaoImp extends HibernateDaoSupport implements IUserDao {
 	
 	
 
-	public SecPermission getPermission(SecUsers user) {
+	public  List<SecPermission> getGroupPermission(List<SecGroups> groups) {
 		List permission = getHibernateTemplate().find("from SecGroupPermission d where d.bmGrupo = "+ user.getUid() + " and d.estado=1");
+		return null;
+	}
+
+	public List<SecPermission> getUserPermission(SecUsers user) {
+		
 		return null;
 	}
 	

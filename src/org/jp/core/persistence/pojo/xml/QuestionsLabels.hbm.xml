@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.QuestionsLabels" table="questions_labels">
+    <class name="org.jp.core.persistence.pojo.xml.QuestionsLabels" table="questions_labels">
         <id name="labelId" type="int">
             <column name="label_id" />
             <generator class="assigned" />
@@ -18,7 +18,7 @@
             <key>
                 <column name="label_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.QuestionsDependence" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.QuestionsDependence" />
         </set>
     </class>
 </hibernate-mapping>

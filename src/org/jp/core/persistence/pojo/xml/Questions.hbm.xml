@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.Questions" table="questions">
+    <class name="org.jp.core.persistence.pojo.xml.Questions" table="questions">
         <id name="qid" type="java.lang.Integer">
             <column name="qid" />
             <generator class="identity" />
@@ -11,7 +11,7 @@
         <version name="version" type="int">
             <column name="version" not-null="true" />
         </version>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
+        <many-to-one name="catState" class="org.jp.core.persistence.pojo.xml.CatState" fetch="select">
             <column name="id_state" not-null="true" />
         </many-to-one>
         <property name="question" type="string">
@@ -24,43 +24,43 @@
             <key>
                 <column name="qid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyQuestionDependency" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyQuestionDependency" />
         </set>
         <set name="surveyDetails" inverse="true">
             <key>
                 <column name="qid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyDetail" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyDetail" />
         </set>
         <set name="questionsRelationses" inverse="true">
             <key>
                 <column name="qid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.QuestionsRelations" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.QuestionsRelations" />
         </set>
         <set name="questionValidations" inverse="true">
             <key>
                 <column name="qid" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.QuestionValidation" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.QuestionValidation" />
         </set>
         <set name="surveyResults" inverse="true">
             <key>
                 <column name="qid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyResult" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyResult" />
         </set>
         <set name="questionsAnswerses" inverse="true">
             <key>
                 <column name="qid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.QuestionsAnswers" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.QuestionsAnswers" />
         </set>
         <set name="questionsDependences" inverse="true">
             <key>
                 <column name="qid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.QuestionsDependence" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.QuestionsDependence" />
         </set>
     </class>
 </hibernate-mapping>

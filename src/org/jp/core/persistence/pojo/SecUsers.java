@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 27-abr-2009 18:04:46 by Hibernate Tools 3.2.2.GA
+// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -22,13 +22,15 @@ public class SecUsers implements java.io.Serializable {
 	private Integer birthDate;
 	private String address;
 	private String nocId;
-	private int status;
+	private Boolean status;
 	private String inviteCode;
 	private String position;
 	private Date dateNew;
 	private String publisher;
 	private Set<ProyectUser> proyectUsers = new HashSet<ProyectUser>(0);
 	private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
+	private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
+			0);
 	private Set<CatLocationUser> catLocationUsers = new HashSet<CatLocationUser>(
 			0);
 	private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>(
@@ -41,7 +43,7 @@ public class SecUsers implements java.io.Serializable {
 	}
 
 	public SecUsers(CatState catState, String name, String email,
-			String password, int status, Date dateNew, String publisher) {
+			String password, boolean status, Date dateNew, String publisher) {
 		this.catState = catState;
 		this.name = name;
 		this.email = email;
@@ -53,9 +55,10 @@ public class SecUsers implements java.io.Serializable {
 
 	public SecUsers(CatState catState, String sex, String name, String email,
 			String username, String password, String passwordClean,
-			Integer birthDate, String address, String nocId, int status,
+			Integer birthDate, String address, String nocId, boolean status,
 			String inviteCode, String position, Date dateNew, String publisher,
 			Set<ProyectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
+			Set<SecUserPermission> secUserPermissions,
 			Set<CatLocationUser> catLocationUsers,
 			Set<SurveyResultMod> surveyResultMods,
 			Set<QuestionColettion> questionColettions, Set<Surveys> surveyses) {
@@ -76,6 +79,7 @@ public class SecUsers implements java.io.Serializable {
 		this.publisher = publisher;
 		this.proyectUsers = proyectUsers;
 		this.secGroupUsers = secGroupUsers;
+		this.secUserPermissions = secUserPermissions;
 		this.catLocationUsers = catLocationUsers;
 		this.surveyResultMods = surveyResultMods;
 		this.questionColettions = questionColettions;
@@ -170,11 +174,11 @@ public class SecUsers implements java.io.Serializable {
 		this.nocId = nocId;
 	}
 
-	public int getStatus() {
+	public Boolean isStatus() {
 		return this.status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
@@ -224,6 +228,14 @@ public class SecUsers implements java.io.Serializable {
 
 	public void setSecGroupUsers(Set<SecGroupUser> secGroupUsers) {
 		this.secGroupUsers = secGroupUsers;
+	}
+
+	public Set<SecUserPermission> getSecUserPermissions() {
+		return this.secUserPermissions;
+	}
+
+	public void setSecUserPermissions(Set<SecUserPermission> secUserPermissions) {
+		this.secUserPermissions = secUserPermissions;
 	}
 
 	public Set<CatLocationUser> getCatLocationUsers() {

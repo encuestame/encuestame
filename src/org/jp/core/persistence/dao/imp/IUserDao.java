@@ -1,5 +1,8 @@
 package org.jp.core.persistence.dao.imp;
 
+import java.util.List;
+
+import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.persistence.pojo.SecUsers;
 
@@ -30,5 +33,7 @@ public interface IUserDao extends IBaseDao {
 	
 	public SecUsers getUser(String username);
 	
-	public SecPermission getPermission(SecUsers user);
+	public List<SecPermission> getGroupPermission(List<SecGroups> groups);
+	
+	public List<SecPermission> getUserPermission(SecUsers user);
 }

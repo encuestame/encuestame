@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 27-abr-2009 18:04:46 by Hibernate Tools 3.2.2.GA
+// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +13,8 @@ public class SecPermission implements java.io.Serializable {
 	private int idPermission;
 	private String permission;
 	private String description;
+	private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
+			0);
 	private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(
 			0);
 
@@ -24,10 +26,12 @@ public class SecPermission implements java.io.Serializable {
 	}
 
 	public SecPermission(int idPermission, String permission,
-			String description, Set<SecGroupPermission> secGroupPermissions) {
+			String description, Set<SecUserPermission> secUserPermissions,
+			Set<SecGroupPermission> secGroupPermissions) {
 		this.idPermission = idPermission;
 		this.permission = permission;
 		this.description = description;
+		this.secUserPermissions = secUserPermissions;
 		this.secGroupPermissions = secGroupPermissions;
 	}
 
@@ -53,6 +57,14 @@ public class SecPermission implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set<SecUserPermission> getSecUserPermissions() {
+		return this.secUserPermissions;
+	}
+
+	public void setSecUserPermissions(Set<SecUserPermission> secUserPermissions) {
+		this.secUserPermissions = secUserPermissions;
 	}
 
 	public Set<SecGroupPermission> getSecGroupPermissions() {

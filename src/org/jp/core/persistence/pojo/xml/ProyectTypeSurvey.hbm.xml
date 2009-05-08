@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.ProyectTypeSurvey" table="proyect_type_survey">
-        <composite-id name="id" class="org.jp.core.persistence.pojo.ProyectTypeSurveyId">
+    <class name="org.jp.core.persistence.pojo.xml.ProyectTypeSurvey" table="proyect_type_survey">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.xml.ProyectTypeSurveyId">
             <key-property name="proyectId" type="int">
                 <column name="proyect_id" />
             </key-property>
@@ -12,10 +12,10 @@
                 <column name="stid" />
             </key-property>
         </composite-id>
-        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Proyect" update="false" insert="false" fetch="select">
+        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.xml.Proyect" update="false" insert="false" fetch="select">
             <column name="proyect_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.SurveyType" update="false" insert="false" fetch="select">
+        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.xml.SurveyType" update="false" insert="false" fetch="select">
             <column name="stid" not-null="true" />
         </many-to-one>
         <property name="state" type="boolean">

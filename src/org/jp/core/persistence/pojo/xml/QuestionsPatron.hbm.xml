@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-abr-2009 18:04:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 07-may-2009 17:38:18 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.QuestionsPatron" table="questions_patron">
+    <class name="org.jp.core.persistence.pojo.xml.QuestionsPatron" table="questions_patron">
         <id name="idPatron" type="java.lang.Integer">
             <column name="id_patron" />
             <generator class="identity" />
@@ -33,7 +33,7 @@
             <key>
                 <column name="id_patron" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyDetail" />
+            <one-to-many class="org.jp.core.persistence.pojo.xml.SurveyDetail" />
         </set>
     </class>
 </hibernate-mapping>
