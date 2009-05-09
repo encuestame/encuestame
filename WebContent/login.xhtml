@@ -16,21 +16,25 @@
 <body>
 <ui:composition template="/templates/login.xhtml">
 	<ui:define name="body">
-		<div id="wrapper_login">
-		<form method="POST"
-			action="${request.contextPath}/j_spring_security_check"
-			AUTOCOMPLETE="off"><h:panelGrid columns="2" cellpadding="3"
-			cellspacing="2">
-			<h:outputLabel value="Usuario" for="j_username" />
-			<h:inputText value="${SPRING_SECURITY_LAST_USERNAME}" id="j_username" />
-			<h:outputLabel value="Contraseña" for="j_password" />
-			<h:inputSecret value="" id="j_password" />
-			<h:commandButton style="margin-left:10px;" action="submit" value="Iniciar Sesion" />
-		</h:panelGrid>
-		<div id="errorBox" class="error"><h:outputText
-			value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
-		</form>
-		</div>
+		<div id="wrapper_login"><h:form id="loginForm">
+
+			<h:panelGrid columns="3" cellpadding="3" cellspacing="2">
+				<h:outputLabel value="Usuario" for="j_username" />
+				<h:inputText value="#{loginForm.userName}"
+					id="j_username" required="true" requiredMessage="Es necesario"/>					
+					
+					<rich:message for="j_username" errorClass="errorMsg"/>
+				<h:outputLabel value="Contraseña" for="j_password" />
+				<h:inputSecret value="#{loginForm.userPassword}" id="j_password" required="true" requiredMessage="Es necesario"/>
+				<rich:message for="j_password" errorClass="errorMessage"/>
+				<h:commandButton action="#{loginForm.login}" 
+									 value="Iniciar Sesion" 
+									 title="Iniciar Sesion"
+									 styleClass="rsButton"/>
+			</h:panelGrid>
+			<div id="errorBox" class="error"><h:outputText
+				value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
+		</h:form></div>
 	</ui:define>
 </ui:composition>
 

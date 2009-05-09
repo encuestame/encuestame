@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jp.core.persistence.dao.UserDaoImp;
-import org.jp.core.persistence.pojo.SecPermission;
+import org.jp.core.persistence.pojo.SecGroupPermission;
+import org.jp.core.persistence.pojo.SecUserPermission;
 import org.jp.core.persistence.pojo.SecUsers;
-import org.jp.web.beans.TestBeanFaces;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.GrantedAuthorityImpl;
@@ -63,10 +63,13 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 	 */
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
+		log.info("cargando el usuario por nombre");
 		SecUsers user = userDao.getUser(username);
 		if (user == null) {
+			log.info("no encontrado...");
 			throw new UsernameNotFoundException("username");
 		}
+		log.info("encontrado..."+user.getEmail());
 		return convertToUserDetails(user);
 	}
 
@@ -92,45 +95,54 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 			return null;
 		}
 		// verificamos si esta activado las autoridades por usuario
+		log.info("verificamos si esta activado las autoridades por usuario...");
 		if (this.roleGroupAuth == true) {
-			List<SecPermission> listGroupPermissions = userDao
-					.getGroupPermission(userDao.getUserGroups(user
-							.getUsername()));
-			log.info("listGroupPermissions "+listGroupPermissions);
+			List<SecGroupPermission> listGroupPermissions = userDao
+					.getGroupPermission(userDao.getUserGroups(user));
+			log.info("listGroupPermissions.."+listGroupPermissions.size());
+			log.info("listGroupPermissions "+ listGroupPermissions);
 			if (listGroupPermissions != null && listGroupPermissions.size() > 0) {
-				Iterator<SecPermission> i = listGroupPermissions.iterator();
+				Iterator<SecGroupPermission> i = listGroupPermissions.iterator();
 				while (i.hasNext()) {
-					SecPermission secPermission = (SecPermission) i.next();
-					if (listPermissions.indexOf(secPermission.getPermission()
-							.trim()) == -1) {
+					SecGroupPermission secPermission = (SecGroupPermission) i.next();
+					if (listPermissions.indexOf(secPermission.getSecPermission().getPermission()
+							.trim()) != -1) {
+						log.info("Rol Ignorado Group "+secPermission.getSecPermission().getPermission());
 						// se ignora porque el rol ya existe
 					} else {
-						listPermissions.add(secPermission.getPermission()
+						listPermissions.add(secPermission.getSecPermission().getPermission()
 								.trim());
+						log.info("Rol Agregado Group "+secPermission.getSecPermission().getPermission());
+						
 					}
 				}				
 			}
 		}
-		// verificamos si esta activado las autoridades por grupo
+		// verificamos si esta activado las autoridades del usuario
 		if (this.roleUserAuth == true) {
-			List<SecPermission> listUserPermissions = userDao
+			log.info("verificando permisos para el usuario");
+			List<SecUserPermission> listUserPermissions = userDao
 					.getUserPermission(user);
 			log.info("listUserPermissions "+listUserPermissions);
 			if (listUserPermissions != null && listUserPermissions.size() > 0) {
-				Iterator<SecPermission> i = listUserPermissions.iterator();
+				Iterator<SecUserPermission> i = listUserPermissions.iterator();
 				while (i.hasNext()) {
-					SecPermission secPermission = (SecPermission) i.next();
-					if (listPermissions.indexOf(secPermission.getPermission()
-							.trim()) == -1) {
+					SecUserPermission secPermission = (SecUserPermission) i.next();
+					if (listPermissions.indexOf(secPermission.getSecPermission().getPermission()
+							.trim()) != -1) {
 						// se ignora porque el rol ya existe
+						log.info("Rol Ignorado User "+secPermission.getSecPermission().getPermission()
+								.trim());
 					} else {
-						listPermissions.add(secPermission.getPermission()
+						listPermissions.add(secPermission.getSecPermission().getPermission()
+								.trim());
+						log.info("Rol Agregado User "+secPermission.getSecPermission().getPermission()
 								.trim());
 					}
 				}
 			}
 		}
-		log.info("listPermissions "+listPermissions.size());
+		log.info("listPermissions TOTALES "+listPermissions.size());
 		// agrupamos todas las autoridades en una lista
 		// crea las autoridades de spring
 		GrantedAuthority[] authorities = new GrantedAuthority[listPermissions

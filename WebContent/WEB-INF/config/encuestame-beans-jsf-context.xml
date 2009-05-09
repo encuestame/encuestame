@@ -24,4 +24,8 @@
 		<property name="authenticationManager" ref="authenticationManager" />
 	</bean>
 	
+	<bean id="loginForm" class="org.jp.web.beans.login.LoginSecurityBean" scope="request">
+		<property name="authenticationManager" ref="authenticationManager" />
+	</bean>
+	
 </beans>
