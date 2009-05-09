@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.SecGroupUser" table="sec_group_user">
+    <class name="org.jp.core.persistence.pojo.SecGroupUser" table="sec_group_user" lazy="false">
         <composite-id name="id" class="org.jp.core.persistence.pojo.SecGroupUserId">
             <key-property name="groupId" type="int">
                 <column name="group_id" />

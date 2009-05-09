@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.SecUserPermission" table="sec_user_permission">
+    <class name="org.jp.core.persistence.pojo.SecUserPermission" table="sec_user_permission" lazy="false">
         <composite-id name="id" class="org.jp.core.persistence.pojo.SecUserPermissionId">
             <key-property name="uid" type="int">
                 <column name="uid" />

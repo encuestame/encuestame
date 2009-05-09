@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.SecUsers" table="sec_users">
+    <class name="org.jp.core.persistence.pojo.SecUsers" table="sec_users" lazy="false">
         <id name="uid" type="java.lang.Integer">
             <column name="uid" />
             <generator class="identity" />
@@ -116,7 +116,7 @@
 	 <query name="User.loadUserByInviteCode">
 			<![CDATA[
 	        select u 
-	        from org.jp.core.persistence.pojo.SecUsers as u 
+	        from SecUsers as u 
 	        where u.inviteCode = ?
 			]]>
 		</query> 
@@ -124,6 +124,12 @@
 		 <query name="User.loadGroupsUser">
 			<![CDATA[
 	       select d from SecGroupUser d where d.secUsers = ? and d.state=1	       
+			]]>
+		</query> 
+		
+		 <query name="User.loadGroupPermission">
+			<![CDATA[
+	       from SecGroupPermission d where d.secGroups = ? and d.state=1	       
 			]]>
 		</query> 
 	

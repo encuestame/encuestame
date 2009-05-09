@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jp.core.persistence.dao.imp.IUserDao;
+import org.jp.core.persistence.pojo.SecGroupPermission;
+import org.jp.core.persistence.pojo.SecGroupUser;
 import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.core.persistence.pojo.SecPermission;
+import org.jp.core.persistence.pojo.SecUserPermission;
 import org.jp.core.persistence.pojo.SecUsers;
+import org.jp.core.security.spring.EnMeUserServiceImp;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -33,6 +38,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @version 1.0
  */
 public class UserDaoImp extends HibernateDaoSupport implements IUserDao {
+
+	private static Logger log = Logger.getLogger(UserDaoImp.class);
 
 	public void delete(Object obj) {
 		// TODO Auto-generated method stub
@@ -78,27 +85,34 @@ public class UserDaoImp extends HibernateDaoSupport implements IUserDao {
 	}
 
 	/**
-	 * Obtiene una lista de Permisos de los diferentes grupos a los que pertenece
-	 * @param lista de grupos
+	 * Obtiene una lista de Permisos de los diferentes grupos a los que
+	 * pertenece
+	 * 
+	 * @param lista
+	 *            de grupos
 	 * @return lista de permisos
 	 */
-	public List<SecPermission> getGroupPermission(List<SecGroups> groups) {
-		List<SecPermission> listGroupPermission = new ArrayList<SecPermission>();
-		Iterator<SecGroups> iList = groups.iterator();
+	public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups) {
+		List<SecGroupPermission> listGroupPermission = new ArrayList<SecGroupPermission>();
+		Iterator<SecGroupUser> iList = groups.iterator();
+		log.info("iniciando el while");
 		while (iList.hasNext()) {
-			SecGroups secGroups = (SecGroups) iList.next();
-			List<SecPermission> permission = getHibernateTemplate().find(
-					"from SecGroupPermission d where d.secGroups = "
-							+ secGroups.getGroupId() + " and d.estado=1");
+			SecGroupUser secGroups = (SecGroupUser) iList.next();
+			log.info("secGroups " + secGroups.getSecGroups().getName());
+			List<SecGroupPermission> permission = getHibernateTemplate()
+					.findByNamedQuery("User.loadGroupPermission",secGroups.getSecGroups());
+			log.info("permission para " + secGroups.getSecGroups().getName()
+					+ "->" + permission.size());
 			if (permission != null && permission.size() > 0) {
-				Iterator<SecPermission> ilistPermission = permission.iterator();
+				Iterator<SecGroupPermission> ilistPermission = permission.iterator();
 				while (ilistPermission.hasNext()) {
-					SecPermission secPermission = (SecPermission) ilistPermission
+					SecGroupPermission secPermission = (SecGroupPermission) ilistPermission
 							.next();
 					listGroupPermission.add(secPermission);
 				}
 			}
 		}
+		log.info("lista de permisos " + listGroupPermission.size());
 		return listGroupPermission;
 	}
 
@@ -109,10 +123,10 @@ public class UserDaoImp extends HibernateDaoSupport implements IUserDao {
 	 *            usuario
 	 * @return usuario o nulo si no lo encuentra
 	 */
-	public List<SecPermission> getUserPermission(SecUsers user) {
-		List<SecPermission> userPermission = getHibernateTemplate()
+	public List<SecUserPermission> getUserPermission(SecUsers user) {
+		List<SecUserPermission> userPermission = getHibernateTemplate()
 				.findByNamedQuery("User.loadPermissionUser",
-						user.getUsername().trim());
+						user);
 		if (userPermission == null || userPermission.size() == 0) {
 			return null;
 		} else {
@@ -126,12 +140,14 @@ public class UserDaoImp extends HibernateDaoSupport implements IUserDao {
 	 * @param username
 	 * @return list of user groups
 	 */
-	public List<SecGroups> getUserGroups(String username) {
-		List<SecGroups> userGroups = getHibernateTemplate().findByNamedQuery(
-				"User.loadGroupsUser", username.trim());
+	public List<SecGroupUser> getUserGroups(SecUsers user) {
+		log.info("buscando getUserGroups " + user);
+		List<SecGroupUser> userGroups = getHibernateTemplate()
+				.findByNamedQuery("User.loadGroupsUser", user);
 		if (userGroups == null || userGroups.size() == 0) {
 			return null;
 		} else {
+			log.info("encontrado userGroups->" + userGroups.size());
 			return userGroups;
 		}
 	}
