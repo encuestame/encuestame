@@ -22,9 +22,12 @@
 				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
 					value="#{temp.stats}"></rich:menuItem>
 			</rich:toolBarGroup>
-			<rich:toolBarGroup location="right">			
-				<a href="${request.contextPath}/j_spring_security_logout"
-					iconClass="iconMenu"><h:outputText value="#{temp.close}" /></a>
+			<rich:toolBarGroup location="right">				
+				<h:outputLink value="${request.contextPath}/j_spring_security_logout"
+						title="#{temp.close}"
+						onclick="if (! confirm('#{temp.closeMsgBox}')) return false;">
+						<h:outputText value="#{temp.close}" />
+					</h:outputLink>					
 			</rich:toolBarGroup>
 		</rich:toolBar>
 	</h:form></div>

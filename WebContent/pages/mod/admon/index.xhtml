@@ -4,21 +4,21 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
         xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
-<ui:composition template="/templates/home.xhtml">
-	<ui:define name="main">
+<ui:composition template="/templates/indexTemplate.xhtml">
+	<ui:define name="toolbar">
 		<table height="100px" border="0">
 			<tr>
-				<td id="toolBarLeft"><ui:include
-					src="/templates/includes/toolBar/admonToolBar.xhtml" /></td>
+				<td id="toolBarLeft">
+				<encuestame:adminToolBar/>								
+				<h:outputText value="Hola Mundo" />
+				</td>
 				<td></td>
 			</tr>
 		</table>
 	</ui:define>
 </ui:composition>
-
-
-
 </body>
 </html>

@@ -132,3 +132,10 @@ img {
 	
 	
 }
+
+/*
+textarea, textarea[type="textarea"], input[type="text"], input[type="password"], select {
+    background-color:#FFFFFF;
+    background-image: none;
+    border-color: silver;
+} */

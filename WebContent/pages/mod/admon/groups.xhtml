@@ -8,16 +8,18 @@
 <body>
 <ui:composition template="/templates/home.xhtml">
 	<ui:define name="main">
-		<table height="100px" border="1">
-			<tr>
-				<td id="toolBarLeft"></td>
-				<td></td>
-			</tr>
-
-		</table>	
-		  <h:outputText value="TestBean - #{testBean}" />
-		  
-		   <h:outputText value="catStateDaoImp - #{catStateDaoImp}" />
+		<h:form>
+			<h:outputText value="Grupos" />
+			<a4j:commandButton value="groups" rendered="true"
+				onclick="javascript:Richfaces.showModalPanel('requestStatusDlg',{width:400, top:200})">
+			</a4j:commandButton>
+			<rich:modalPanel id="requestStatusDlg">
+				<h:outputText value="test" />
+				<a4j:commandButton id="cancel_id" value="cerrar"
+									onclick="Richfaces.hideModalPanel('requestStatusDlg')"
+									 />
+			</rich:modalPanel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

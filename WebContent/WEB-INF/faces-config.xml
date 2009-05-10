@@ -2,9 +2,6 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
- 
- 
- 
  <managed-bean>
   <managed-bean-name>servicesManager</managed-bean-name>
   <managed-bean-class>org.jp.web.beans.ServiceManagerBean</managed-bean-class>
@@ -36,13 +33,24 @@
    <to-view-id>/pages/mod/admon/index.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>groups</from-outcome>
+   <to-view-id>/pages/mod/admon/groups.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/pages/mod/admon/index.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>groups</from-outcome>
+   <to-view-id>/pages/mod/admon/groups.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
   <locale-config>
-			  <default-locale>es</default-locale> 
-			<supported-locale>en</supported-locale>
-		</locale-config>
+   <default-locale>es</default-locale>
+   <supported-locale>en</supported-locale>
+  </locale-config>
   <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
  </application>
 </faces-config>
