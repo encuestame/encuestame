@@ -80,7 +80,11 @@
 	</login-config>
     <session-config>
         <session-timeout>
-            30
+            10
         </session-timeout>
     </session-config>    
+    <error-page>
+<error-code>404</error-code>
+<location>/WEB-INF/error404.xhtml</location>
+</error-page>
 </web-app>
