@@ -197,9 +197,7 @@ public class LoginSecurityBean implements InitializingBean {
 	 */
 	public String login() {
 		HttpServletRequest request = getRequest();
-		log.info("1Request -->"+request);
-		log.info("3Request -->"+request.getSession());
-		
+				
 	    try {
 	    	
 	    	String userName = getUserName();
@@ -222,8 +220,7 @@ public class LoginSecurityBean implements InitializingBean {
 	    	// it is not used - so, commented
 	    	//SecurityContext sessionSecCtx = (SecurityContext) session
 		    //  .getAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY); 
-	    	//log.debug("SecurityContext from session [{}]"/*, sessionSecCtx != null ? sessionSecCtx.toString() : "null");
-	    	
+	    	//log.debug("SecurityContext from session [{}]"/*, sessionSecCtx != null ? sessionSecCtx.toString() : "null");	    	
 	    	//Obtenemos el Contexto de Spring Security
 	    	SecurityContext secCtx = SecurityContextHolder.getContext();
 	    	//log.debug("SecurityContext from holder [{}]"/*, secCtx != null ? secCtx.toString() : "null");
