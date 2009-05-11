@@ -1,7 +1,11 @@
-package org.jp.core.service;
+package org.jp.web.beans.admon;
+
+import org.jp.web.beans.MasterBean;
+import org.jp.web.beans.ServiceManagerBean;
+
 /**
  * encuestame:  system online surveys
- * Copyright (C) 2005-2008 encuestame Development Team
+ * Copyright (C) 2009  encuestame Development Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 3 of the GNU General Public
@@ -17,12 +21,17 @@ package org.jp.core.service;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: DataService.java Date: 27/04/2009 
+ * Id: UserBean.java Date: 11/05/2009 13:52:28
  * @author juanpicado
- * package: org.jp.core.service
+ * package: org.jp.web.beans.admon
  * @version 1.0
  */
-public class DataService implements IDataService {
+public class UserBean extends MasterBean{
+	
+	public ServiceManagerBean obtenerServicesManager(){
+	
+		return super.getServicemanagerBean();
+	}
 	
 	
 

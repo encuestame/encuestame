@@ -1,4 +1,4 @@
-package org.jp.web.beans;
+package org.jp.web.beans.admon;
 
 public class PermissionBean {
 

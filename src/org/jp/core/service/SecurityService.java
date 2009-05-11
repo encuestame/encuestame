@@ -1,4 +1,9 @@
 package org.jp.core.service;
+
+import org.jp.core.persistence.dao.SecGroupDaoImp;
+import org.jp.core.persistence.dao.SecPermissionDaoImp;
+import org.jp.core.persistence.dao.UserDaoImp;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -24,4 +29,28 @@ package org.jp.core.service;
  */
 public class SecurityService implements ISecurityService {
 
+	private UserDaoImp userDao;
+	private SecGroupDaoImp groupDao;
+	private SecPermissionDaoImp permissionDao;
+	
+	public UserDaoImp getUserDao() {
+		return userDao;
+	}
+	public void setUserDao(UserDaoImp userDao) {
+		this.userDao = userDao;
+	}
+	public SecGroupDaoImp getGroupDao() {
+		return groupDao;
+	}
+	public void setGroupDao(SecGroupDaoImp groupDao) {
+		this.groupDao = groupDao;
+	}
+	public SecPermissionDaoImp getPermissionDao() {
+		return permissionDao;
+	}
+	public void setPermissionDao(SecPermissionDaoImp permissionDao) {
+		this.permissionDao = permissionDao;
+	}
+	
+	
 }

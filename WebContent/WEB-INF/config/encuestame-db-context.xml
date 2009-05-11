@@ -65,6 +65,7 @@
 	</bean>
 
 	<!-- Hibernate Template Defintion -->
+	
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />

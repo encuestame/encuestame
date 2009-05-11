@@ -20,47 +20,77 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-	<!--  DAO  -->
-	
+	<!--  Dao  -->
+
 	<bean id="catLocationDaoImp" class="org.jp.core.persistence.dao.CatLocationDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
-	
+
 	<bean id="catStateDaoImp" class="org.jp.core.persistence.dao.CatStateDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
-	
+
 	<bean id="secPermissionDaoImp" class="org.jp.core.persistence.dao.SecPermissionDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
-	
+
 	<bean id="userDao" class="org.jp.core.persistence.dao.UserDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
-	
+
 	<bean id="secGroupDaoImp" class="org.jp.core.persistence.dao.SecGroupDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
-	
-	<!--  SERVICES  -->
-	
+
+	<!--  Services  -->
+
+	<bean id="servicesManager" class="org.jp.web.beans.ServiceManagerBean">
+		<property name="dataService">
+			<ref bean="dataService"></ref>
+		</property>
+		<property name="surveyService">
+			<ref bean="surveyService"></ref>
+		</property>
+		<property name="securityService">
+			<ref bean="securityService"></ref>
+		</property>
+		<property name="applicationService">
+			<ref bean="applicationService"></ref>
+		</property>
+	</bean>
+
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
 		<property name="catStateDao">
 			<ref bean="catStateDaoImp"></ref>
 		</property>
 	</bean>
-	
-	
-	
-	
+
+	<bean id="dataService" class="org.jp.core.service.DataService">
+	</bean>
+
+	<bean id="securityService" class="org.jp.core.service.SecurityService">
+		<property name="userDao">
+			<ref bean="userDao"></ref>
+		</property>
+		<property name="groupDao">
+			<ref bean="secGroupDaoImp"></ref>
+		</property>
+		<property name="permissionDao">
+			<ref bean="secPermissionDaoImp"></ref>
+		</property>
+	</bean>
+
+	<bean id="applicationService" class="org.jp.core.service.ApplicationServices">
+	</bean>
+
 </beans>

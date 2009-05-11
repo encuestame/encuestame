@@ -1,5 +1,6 @@
 package org.jp.web.serviceManager;
 
+import org.jp.core.service.ApplicationServices;
 import org.jp.core.service.DataService;
 import org.jp.core.service.SecurityService;
 import org.jp.core.service.SurveyService;
@@ -25,9 +26,10 @@ import org.jp.core.service.SurveyService;
 
 public interface ServiceManager {
 	
-	public DataService getDataService();
-	public SurveyService getSurveyService();
-	public SecurityService getSecurityService();
+	//public DataService getDataService();
+	//public SurveyService getSurveyService();
+	//public SecurityService getSecurityService();
+	//public ApplicationServices getApplica
 	
 
 }

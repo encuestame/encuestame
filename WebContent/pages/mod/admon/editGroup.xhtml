@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:encuestame="http://encuesta.me/encuestame">
+<body>
+<ui:composition template="/pages/mod/admon/groups.xhtml">
+	<ui:define name="optionGroup">
+	<h2>Editar Grupos</h2>
+		<rich:dataTable>
+		<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="ID" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Nombre de grupo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Valido hasta" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Estado" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>		
+		</rich:dataTable>
+	</ui:define>	
+</ui:composition>
+
+
+
+</body>
+</html>

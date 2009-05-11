@@ -1,16 +1,13 @@
 package org.jp.web.beans;
 
-import javax.servlet.ServletContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.core.service.ApplicationServices;
 import org.jp.core.service.DataService;
 import org.jp.core.service.SecurityService;
 import org.jp.core.service.SurveyService;
 import org.jp.web.serviceManager.ServiceManager;
-import org.jp.web.utils.FacesUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * encuestame: system online surveys Copyright (C) 2008-2009 encuestame
@@ -35,38 +32,54 @@ public class ServiceManagerBean implements ServiceManager {
 	private DataService dataService;
 	private SurveyService surveyService;
 	private SecurityService securityService;
+	private ApplicationServices applicationService;
 
-	// the user service bean nameate
-	private static final String DATA_SERVICE_BEAN_NAME = "dataService";
-	private static final String SECURITY_SERVICE_BEAN_NAME = "sercurityService";
-	private static final String SURVEY_SERVICE_BEAN_NAME = "surveyService";
 
 	private Log logger = LogFactory.getLog(this.getClass());
 
 	public ServiceManagerBean() {
 		logger.info("init service locate bean");
-		ServletContext context = FacesUtils.getServletContext();
-		this.appContext = WebApplicationContextUtils
-				.getRequiredWebApplicationContext(context);
-		this.surveyService = (SurveyService) this
-				.lookupService(SURVEY_SERVICE_BEAN_NAME);
-	}
-
-	public Object lookupService(String serviceBeanName) {
-		return appContext.getBean(serviceBeanName);
 	}
 
 	public DataService getDataService() {
-		// TODO Auto-generated method stub
-		return null;
+		return dataService;
 	}
 
-	public SecurityService getSecurityService() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setDataService(DataService dataService) {
+		logger.info("dataService"+dataService);
+		this.dataService = dataService;
 	}
 
 	public SurveyService getSurveyService() {
-		return this.surveyService;
+		return surveyService;
 	}
+
+	public void setSurveyService(SurveyService surveyService) {
+		logger.info("surveyService"+surveyService);
+		this.surveyService = surveyService;
+	}
+
+	public ApplicationServices getApplicationService() {
+		return applicationService;
+	}
+
+	public void setApplicationService(ApplicationServices applicationService) {
+		logger.info("applicationService"+applicationService);
+		this.applicationService = applicationService;
+	}
+
+	public SecurityService getSecurityService() {
+		return securityService;
+	}
+
+	public void setSecurityService(SecurityService securityService) {
+		logger.info("dataService"+dataService);
+		this.securityService = securityService;
+	}
+
+	
+
+	
+	
+		
 }

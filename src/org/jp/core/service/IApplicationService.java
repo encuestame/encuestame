@@ -1,7 +1,7 @@
 package org.jp.core.service;
 /**
  * encuestame:  system online surveys
- * Copyright (C) 2005-2008 encuestame Development Team
+ * Copyright (C) 2009  encuestame Development Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 3 of the GNU General Public
@@ -17,13 +17,11 @@ package org.jp.core.service;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: DataService.java Date: 27/04/2009 
+ * Id: IApplicationService.java Date: 11/05/2009 14:35:21
  * @author juanpicado
  * package: org.jp.core.service
  * @version 1.0
  */
-public class DataService implements IDataService {
-	
-	
+public interface IApplicationService {
 
 }

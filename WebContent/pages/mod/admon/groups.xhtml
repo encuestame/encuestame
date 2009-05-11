@@ -8,85 +8,33 @@
 	xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
 <ui:composition template="/templates/indexTemplate.xhtml">
-	
+
+
 	<ui:define name="toolbar">
-		<table height="100px" border="0">
-			<tr>
-				<td id="toolBarLeft">
-				<encuestame:adminToolBar/>
-				</td>
-				<td><h:form>
-			<h:outputText value="Grupos" />
+		<encuestame:adminToolBar />
+	</ui:define>
+	<ui:define name="bodyOptions">
+		<h:form>
+			<h:panelGrid columns="8">
+				<a4j:commandLink value="#{temp.newGroup}" action="createGroup" />
+				<a4j:commandLink value="#{temp.edit}" action="editGroup" />
+			</h:panelGrid>				
+			<rich:panel>
+			<h:outputText value="#{groupBean.obtener}" />
+			<ui:insert name="optionGroup"></ui:insert>
+			</rich:panel>
+			<!--  <h:outputText value="Grupos" />
 			<a4j:commandButton value="groups" rendered="true"
 				onclick="javascript:Richfaces.showModalPanel('requestStatusDlg',{width:400, top:200})">
 			</a4j:commandButton>
-			
 			<rich:modalPanel id="requestStatusDlg">
 				<h:outputText value="test" />
 				<a4j:commandButton id="cancel_id" value="cerrar"
-									onclick="Richfaces.hideModalPanel('requestStatusDlg')"
-									 />			
+					onclick="Richfaces.hideModalPanel('requestStatusDlg')" />
 			</rich:modalPanel>
-			
+			-->
 		</h:form>
-		
-		<script type="text/javascript">
-            first=true;
-            function loopIt()
-            {
-                if( first )
-                {
-                    Appear1();
-                    Fade2();
-    
-                    first = false;
-                }
-                else
-                {
-                    Fade1();
-                    Appear2();
-
-                    first = true;
-                }
-            }
-        </script>
-
-        <style type="text/css">
-            .backgroundHigh { position: absolute; }
-        </style>
-
-        <a4j:region>
-            <h:form>
-                <a4j:poll id="poll1" interval="5000" enabled="true" oncomplete="loopIt();"></a4j:poll>
-            </h:form>
-        </a4j:region>
-
-        <h:form>
-            <h:outputLink value="http://www.google.com">
-                <h:graphicImage id="bgHigh_1" url="http://www.google.com/intl/en_ALL/images/logo.gif" styleClass="backgroundHigh" style="z-index:3;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;" ></h:graphicImage>
-            </h:outputLink>
-
-            <h:outputLink value="http://www.yahoo.com">
-                <h:graphicImage id="bgHigh_2" url="http://www.pcarena.org/images/upload/yahoo.jpg" styleClass="backgroundHigh" style="z-index:4"></h:graphicImage>
-            </h:outputLink>
-
-        </h:form>
-
-        <rich:effect name="Appear1" for="bgHigh_1" type="Appear" ></rich:effect>
-        <rich:effect name="Fade2" for="bgHigh_2" type="Fade" ></rich:effect>
-
-        <rich:effect name="Fade1" for="bgHigh_1" type="Fade" ></rich:effect>
-        <rich:effect name="Appear2" for="bgHigh_2" type="Appear" ></rich:effect>
-
-		
-		</td>
-			</tr>
-		</table>
 	</ui:define>
-	
-	<!-- <ui:define name="main">
-		
-	</ui:define>-->
 </ui:composition>
 
 

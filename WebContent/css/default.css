@@ -3,7 +3,7 @@
 @IMPORT url("login.css");
 
 body {
-	background: #f5f6ee none repeat scroll 0 0;
+	background: #fff none repeat scroll 0 0;
 	font-family: Arial;
 	font-size: 12px;
 	margin: 0;
@@ -139,3 +139,15 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
     background-image: none;
     border-color: silver;
 } */
+
+
+
+/**
+ * commons classes
+ */
+ 
+.padding{
+ padding: 10px;
+ margin-left: 20px;
+ }
+ 

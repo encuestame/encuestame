@@ -20,8 +20,13 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-	<bean id="testBean" class="org.jp.web.beans.AutenticationBeanTest">
-		<property name="authenticationManager" ref="authenticationManager" />
+
+	<bean id="userBean" class="org.jp.web.beans.admon.UserBean" scope="request">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+	
+	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean" scope="request">
+		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 	
 	<bean id="loginForm" class="org.jp.web.beans.login.LoginSecurityBean" scope="request">

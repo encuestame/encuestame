@@ -1,7 +1,12 @@
 package org.jp.web.beans;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.web.utils.FacesUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * encuestame:  system online surveys
@@ -28,24 +33,32 @@ import org.apache.commons.logging.LogFactory;
  */
 public class MasterBean {
 	
-	ServiceManagerBean servicemanagerBean;
+	private ApplicationContext appContext;
+	protected ServiceManagerBean servicemanagerBean;
 	private Log logger = LogFactory.getLog(this.getClass());
+	private static final String SERVICE_MANAGER_BEAN_NAME = "servicesManager";
 	
 	public MasterBean() {
 		logger.info("init master bean");
+		//ServletContext context = FacesUtils.getServletContext();
+		//this.appContext = WebApplicationContextUtils
+		//		.getRequiredWebApplicationContext(context);
+		//this.servicemanagerBean = (ServiceManagerBean) lookupService(SERVICE_MANAGER_BEAN_NAME);
 	}
 
-	
+	public Object lookupService(String serviceBeanName) {
+		return appContext.getBean(serviceBeanName);
+	}
 	
 	public ServiceManagerBean getServicemanagerBean() {
-		logger.info("init getServicelocatebean");
+		logger.info("init getServicelocatebean->"+servicemanagerBean);
 		return servicemanagerBean;
 	}
 
 
 
 	public void setServicemanagerBean(ServiceManagerBean servicemanagerBean) {
-		logger.info("init setServicelocatebean");
+		logger.info("init setServicelocatebean->"+servicemanagerBean);
 		this.servicemanagerBean = servicemanagerBean;
 	}
 
