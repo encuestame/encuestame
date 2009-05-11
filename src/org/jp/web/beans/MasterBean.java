@@ -36,14 +36,9 @@ public class MasterBean {
 	private ApplicationContext appContext;
 	protected ServiceManagerBean servicemanagerBean;
 	private Log logger = LogFactory.getLog(this.getClass());
-	private static final String SERVICE_MANAGER_BEAN_NAME = "servicesManager";
 	
 	public MasterBean() {
 		logger.info("init master bean");
-		//ServletContext context = FacesUtils.getServletContext();
-		//this.appContext = WebApplicationContextUtils
-		//		.getRequiredWebApplicationContext(context);
-		//this.servicemanagerBean = (ServiceManagerBean) lookupService(SERVICE_MANAGER_BEAN_NAME);
 	}
 
 	public Object lookupService(String serviceBeanName) {
@@ -54,7 +49,6 @@ public class MasterBean {
 		logger.info("init getServicelocatebean->"+servicemanagerBean);
 		return servicemanagerBean;
 	}
-
 
 
 	public void setServicemanagerBean(ServiceManagerBean servicemanagerBean) {

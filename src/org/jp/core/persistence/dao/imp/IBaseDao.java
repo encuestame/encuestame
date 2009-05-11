@@ -33,21 +33,21 @@ public interface IBaseDao {
 	 * 
 	 * @param obj
 	 */
-	public void saveOrUpdate(Object obj);
+	//public void saveOrUpdate(Object obj);
 
 	/**
 	 * Deletes a table row
 	 * 
 	 * @param obj
 	 */
-	public void delete(Object obj);
+	//public void delete(Object obj);
 
 	/**
 	 * 	Find an item in an entity by id, in Table
 	 * @param clazz
 	 * @param id
 	 */
-	public Object find(Class clazz, Integer id);
+	//public Object find(Class clazz, Integer id);
 		
 
 	/**
@@ -56,7 +56,7 @@ public interface IBaseDao {
 	 * @param clazz
 	 */
 
-	public List<Object> findAll();
+	//public List<Object> findAll();
 
 	/**
      * 
@@ -109,7 +109,7 @@ public interface IBaseDao {
 	 * @return the last id of a table
 	 * @throws DataAccessLayerException
 	 */
-	public Integer lastRow(Class clase, String id);
+	//public Integer lastRow(Class clase, String id);
 			
 
 }

@@ -1,9 +1,5 @@
 package org.jp.web.serviceManager;
 
-import org.jp.core.service.ApplicationServices;
-import org.jp.core.service.DataService;
-import org.jp.core.service.SecurityService;
-import org.jp.core.service.SurveyService;
 
 /**
  * encuestame: system online surveys

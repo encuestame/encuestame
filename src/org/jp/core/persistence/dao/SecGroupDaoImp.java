@@ -3,6 +3,7 @@ package org.jp.core.persistence.dao;
 import java.util.List;
 
 import org.jp.core.persistence.dao.imp.ISecGroups;
+import org.jp.core.persistence.pojo.SecGroups;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -51,7 +52,8 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 	}
 
 	public void saveOrUpdate(Object obj) {
-		// TODO Auto-generated method stub
+		SecGroups group = new SecGroups();
+		//group.setDesInfo(desInfo)
 		
 	}
 

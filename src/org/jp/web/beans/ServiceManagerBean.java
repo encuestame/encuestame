@@ -7,7 +7,6 @@ import org.jp.core.service.DataService;
 import org.jp.core.service.SecurityService;
 import org.jp.core.service.SurveyService;
 import org.jp.web.serviceManager.ServiceManager;
-import org.springframework.context.ApplicationContext;
 
 /**
  * encuestame: system online surveys Copyright (C) 2008-2009 encuestame
@@ -26,8 +25,6 @@ import org.springframework.context.ApplicationContext;
  */
 
 public class ServiceManagerBean implements ServiceManager {
-
-	private ApplicationContext appContext;
 
 	private DataService dataService;
 	private SurveyService surveyService;

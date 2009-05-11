@@ -12,7 +12,15 @@
 	<h2>Crear Grupo</h2>
 		<h:panelGrid columns="2">
 		<h:outputLabel value="Nombre del Grupo" for="" />
-		<h:inputText value="" />
+		<h:inputText id="name" value="#{groupBean.obtener}" />
+		<h:outputLabel value="Nombre del Grupo" for="" />
+		<h:inputTextarea value="#{groupBean.obtener}" />
+		<h:outputLabel value="Nombre del Grupo" for="" />
+		<h:selectOneMenu value="#{globalBean.taskProject}" id="selectProjectMenu"
+		  							 converter="emforge.ProjectIdConverter">
+		  				<f:selectItems value="#{globalSelectItems.projects}"/>
+		  				<a4j:support event="onchange" reRender="taskOptions, taskTransitions"/>
+		  			</h:selectOneMenu>
 		<a4j:commandButton value="Crear"></a4j:commandButton>
 		</h:panelGrid>
 	</ui:define>	

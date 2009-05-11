@@ -76,6 +76,9 @@
 	</bean>
 
 	<bean id="dataService" class="org.jp.core.service.DataService">
+	<property name="stateDao">
+			<ref bean="catStateDaoImp"></ref>
+		</property>
 	</bean>
 
 	<bean id="securityService" class="org.jp.core.service.SecurityService">
