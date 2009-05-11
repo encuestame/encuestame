@@ -15,6 +15,13 @@
 				<td></td>
 			</tr>
 		</table>
+		<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
+						minWidth="200" height="80" width="400" zindex="100">
+						<h2><h:outputText value="Cargando...">
+						</h:outputText></h2>
+						<rich:effect for="ajaxLoadingModalBox" type="BlindUp"/>
+		</rich:modalPanel>
+		
 	</ui:define>
 </ui:composition>
 

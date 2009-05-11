@@ -9,7 +9,13 @@
 	<table border="0">
 		<tr>
 			<td valign="top"><a4j:region id="indexToolBarRegion">
+
 				<h:form>
+					
+					<a4j:status for="indexToolBarRegion"
+						onstart="Richfaces.showModalPanel('ajaxLoadingModalBox',{width:100, top:100})"
+						onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')"></a4j:status>
+						
 					<h:panelGrid columns="1">
 						<h:panelGrid columns="1">
 							<f:facet name="header">

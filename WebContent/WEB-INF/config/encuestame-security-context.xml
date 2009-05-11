@@ -57,10 +57,7 @@
 		<property name="roleUserAuth" value="true" />
 	</bean>
 
-	<bean id="userDao" class="org.jp.core.persistence.dao.UserDaoImp">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
+	
 	<!-- Filters -->
 	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
 		<security:filter-chain-map path-type="ant">

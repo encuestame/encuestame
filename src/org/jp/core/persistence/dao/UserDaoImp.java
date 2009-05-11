@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.jp.core.persistence.dao.imp.IUserDao;
+import org.jp.core.persistence.dao.imp.ISecUserDao;
 import org.jp.core.persistence.pojo.SecGroupPermission;
 import org.jp.core.persistence.pojo.SecGroupUser;
 import org.jp.core.persistence.pojo.SecGroups;
@@ -37,7 +37,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author juanpicado package: org.jp.core.persistence.dao
  * @version 1.0
  */
-public class UserDaoImp extends HibernateDaoSupport implements IUserDao {
+public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 
 	private static Logger log = Logger.getLogger(UserDaoImp.class);
 

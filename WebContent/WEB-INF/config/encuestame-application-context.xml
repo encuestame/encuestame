@@ -20,23 +20,47 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-	<!--  BUSINESS OBJECT DEFINITIONS -->
+	<!--  DAO  -->
 	
 	<bean id="catLocationDaoImp" class="org.jp.core.persistence.dao.CatLocationDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
+	
 	<bean id="catStateDaoImp" class="org.jp.core.persistence.dao.CatStateDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
 	
+	<bean id="secPermissionDaoImp" class="org.jp.core.persistence.dao.SecPermissionDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean id="userDao" class="org.jp.core.persistence.dao.UserDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean id="secGroupDaoImp" class="org.jp.core.persistence.dao.SecGroupDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<!--  SERVICES  -->
+	
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
 		<property name="catStateDao">
 			<ref bean="catStateDaoImp"></ref>
 		</property>
 	</bean>
+	
+	
+	
 	
 </beans>
