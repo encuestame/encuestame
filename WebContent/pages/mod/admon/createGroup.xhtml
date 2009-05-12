@@ -8,20 +8,32 @@
 	xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
 <ui:composition template="/pages/mod/admon/groups.xhtml">
-	<ui:define name="optionGroup">
-		<h2>Crear Grupo</h2>
-		<h:panelGrid columns="2">
-			<h:outputLabel value="#{temp.name}" for="name" />
-			<h:inputText id="name" value="#{newGroupBean.groupName}" size="40" required="true" requiredMessage="#{temp.validateNameGroup}"/>
-			<h:outputLabel value="#{temp.description}" for="desc" />
-			<h:inputTextarea id="desc" value="#{newGroupBean.groupDescription}" cols="40" rows="3" required="true" requiredMessage="#{temp.validateDescrGroup}"/>
-			<h:outputLabel value="#{temp.state}" for="selectState" />
-			<h:selectOneMenu value="#{newGroupBean.stateId}" id="selectState" required="true" requiredMessage="#{temp.validateStaterGroup}">
-				<f:selectItems value="#{globalBean.loadListState}"/>
-			</h:selectOneMenu>
-			<a4j:commandButton value="#{temp.save}" action="#{groupBean.newGroup}"></a4j:commandButton>
-			<rich:messages></rich:messages>
-		</h:panelGrid>
+	<ui:define name="optionGroup">	
+		<h:form id="groupForm">
+			<h2>#{temp.titleCreateGroups}</h2>			
+				<h:panelGrid columns="2">
+					<h:outputLabel value="#{temp.name}" for="name" />
+					<h:inputText id="name" value="#{newGroupBean.groupName}" size="40"
+						required="true" requiredMessage="#{temp.validateNameGroup}" />
+					<h:outputLabel value="#{temp.description}" for="desc" />
+					<h:inputTextarea id="desc" value="#{newGroupBean.groupDescription}"
+						cols="40" rows="3" required="true"
+						requiredMessage="#{temp.validateDescrGroup}" />
+					<h:outputLabel value="#{temp.state}" for="selectState" />
+					<h:selectOneMenu value="#{newGroupBean.stateId}" id="selectState"
+						required="true" requiredMessage="#{temp.validateStaterGroup}">
+						<f:selectItems value="#{globalBean.loadListState}" />
+					</h:selectOneMenu>
+					<a4j:commandButton value="#{temp.save}"
+						action="#{groupBean.newGroup}" reRender="groupForm"></a4j:commandButton>						
+					<rich:messages id="groupMessage">
+
+					</rich:messages>
+					<rich:effect for="groupMessage" event="onload" type="Appear"
+						params="targetId:'contentDiv',duration:0.8,from:0.3,to:1.0" />
+				</h:panelGrid>
+			
+		</h:form>
 	</ui:define>
 </ui:composition>
 </body>

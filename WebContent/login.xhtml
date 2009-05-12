@@ -32,8 +32,7 @@
 									 title="Iniciar Sesion"
 									 styleClass="rsButton"/>
 			</h:panelGrid>
-			<div id="errorBox" class="error"><h:outputText
-				value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
+			<rich:messages errorClass="error"></rich:messages>			
 		</h:form></div>
 	</ui:define>
 </ui:composition>

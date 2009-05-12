@@ -28,7 +28,7 @@ import org.jp.web.beans.MasterBean;
  * @author juanpicado package: org.jp.web.beans.admon
  * @version 1.0
  */
-public class NewGroupBean extends MasterBean implements Serializable {
+public class UnitGroupBean extends MasterBean implements Serializable {
 	
 	
 	private static final long serialVersionUID = -3303088512430614308L;
@@ -38,7 +38,7 @@ public class NewGroupBean extends MasterBean implements Serializable {
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	
-	public NewGroupBean() {
+	public UnitGroupBean() {
 		log.info("create new group");
 	}
 	

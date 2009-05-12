@@ -13,20 +13,14 @@
 	</ui:define>
 	<ui:define name="bodyOptions">
 		<h:form>
-			<h:panelGrid columns="8" styleClass="subMenus"
-				style="padding:10px; background:#eee; width:auto;">
-				<h:commandLink value="#{temp.newGroup}" action="createGroup" />
-				<h:commandLink value="#{temp.edit}" action="editGroup" />
+			<h:panelGrid columns="8">
+				<a4j:commandLink value="#{temp.newUser}" action="newUser" />
+				<a4j:commandLink value="#{temp.edit}" action="editUser" ajaxSingle="true" />
 			</h:panelGrid>
 		</h:form>
-		<ui:insert name="optionGroup">
-			<p>
-			<ul>
-				<li>Crea un Grupo</li>
-				<li>Lista los Grupos y Edita sus Opciones</li>
-			</ul>
-			</p>
-		</ui:insert>
+		<rich:panel>			
+			<ui:insert name="optionGroup"></ui:insert>
+		</rich:panel>
 		<!--  <h:outputText value="Grupos" />
 			<a4j:commandButton value="groups" rendered="true"
 				onclick="javascript:Richfaces.showModalPanel('requestStatusDlg',{width:400, top:200})">

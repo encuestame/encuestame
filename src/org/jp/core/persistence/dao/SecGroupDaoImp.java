@@ -1,12 +1,13 @@
 package org.jp.core.persistence.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.dao.imp.ISecGroups;
 import org.jp.core.persistence.pojo.SecGroups;
-import org.jp.web.beans.admon.NewGroupBean;
+import org.jp.web.beans.admon.UnitGroupBean;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -45,9 +46,9 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 		return null;
 	}
 
-	public List<Object> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<SecGroups> findAllGroups() {
+		return getHibernateTemplate().find("from SecGroups");
+
 	}
 
 	public Integer lastRow(Class clase, String id) {
@@ -55,7 +56,7 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 		return null;
 	}
 
-	public void newGroup(NewGroupBean newG) {
+	public void newGroup(UnitGroupBean newG) {
 		log.info("save new group");
 		SecGroups group = new SecGroups();
 		group.setDesInfo(newG.getGroupDescription());

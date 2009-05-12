@@ -34,12 +34,9 @@
    <redirect/>
   </navigation-case>
   <navigation-case>
-   <from-outcome>groups</from-outcome>
-   <to-view-id>/pages/mod/admon/groups.xhtml</to-view-id>
+   <from-outcome>users</from-outcome>
+   <to-view-id>/pages/mod/admon/users.xhtml</to-view-id>
   </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/pages/mod/admon/index.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>groups</from-outcome>
    <to-view-id>/pages/mod/admon/groups.xhtml</to-view-id>
@@ -47,6 +44,17 @@
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/mod/admon/groups.xhtml</from-view-id>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>newUser</from-outcome>
+   <to-view-id>/pages/mod/admon/newUser.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>editUser</from-outcome>
+   <to-view-id>/pages/mod/admon/editUser.xhtml</to-view-id>
+  </navigation-case>
   <navigation-case>
    <from-outcome>createGroup</from-outcome>
    <to-view-id>/pages/mod/admon/createGroup.xhtml</to-view-id>

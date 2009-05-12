@@ -9,29 +9,32 @@
 <body>
 <ui:composition template="/pages/mod/admon/groups.xhtml">
 	<ui:define name="optionGroup">
-	<h2>Editar Grupos</h2>
-		<rich:dataTable>
-		<f:facet name="header">
-					<rich:columnGroup>
-						<rich:column>
-							<h:outputText value="ID" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="Nombre de grupo" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="Valido hasta" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="Estado" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="" />
-						</rich:column>
-					</rich:columnGroup>
-				</f:facet>		
+		<h2>#{temp.titleEditGroups}</h2>
+		<rich:dataTable width="800" style="margin: 5px; margin-top: 12px;" value="#{groupBean.list_unitBeans}" var="unitGroup">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column>
+						<h:outputText value="ID" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Nombre de grupo" />
+					</rich:column>					
+					<rich:column>
+						<h:outputText value="Estado" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<h:outputText value="#{unitGroup.groupName}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="#{unitGroup.groupDescription}" />
+			</rich:column>			
+			<rich:column>
+				<h:outputText value="#{unitGroup.stateId}" />
+			</rich:column>
 		</rich:dataTable>
-	</ui:define>	
+	</ui:define>
 </ui:composition>
 
 

@@ -11,45 +11,56 @@
    <PROCESS-ITEM-OUTPUT ID="admon::#pages#mod#admon#index.xhtml"
     NAME="output2" PATH="/pages/mod/admon/index.xhtml"
     TARGET="rules:#pages#mod#admon#index.xhtml" TITLE="admon" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="users::#pages#mod#admon#users.xhtml"
+    NAME="output4" PATH="/pages/mod/admon/users.xhtml"
+    TARGET="rules:#pages#mod#admon#users.xhtml" TITLE="users" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="groups::#pages#mod#admon#groups.xhtml"
     NAME="output3" PATH="/pages/mod/admon/groups.xhtml"
-    SHAPE="100,200,176,200,176,168,535,168"
     TARGET="rules:#pages#mod#admon#groups.xhtml" TITLE="groups" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#index.xhtml"
-  PATH="/pages/mod/admon/index.xhtml" SHAPE="232,64,50,41" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#pages#mod#admon#index.xhtml:0" NAME="item"
-   PATH="/pages/mod/admon/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="groups::#pages#mod#admon#groups.xhtml"
-    NAME="output" PATH="/pages/mod/admon/groups.xhtml"
-    SHAPE="281,96,496,96,496,168,535,168"
-    TARGET="rules:#pages#mod#admon#groups.xhtml" TITLE="groups" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
+  PATH="/pages/mod/admon/index.xhtml" SHAPE="240,88,50,25" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#mod#survey#index.xhtml"
-  PATH="/pages/mod/survey/index.xhtml" SHAPE="168,392,50,25"
+  PATH="/pages/mod/survey/index.xhtml" SHAPE="248,200,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#index.xhtml" PATH="/pages/index.xhtml"
-  SHAPE="184,312,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="240,144,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#groups.xhtml"
-  PATH="/pages/mod/admon/groups.xhtml" SHAPE="536,160,50,57" model-entity="JSFProcessGroup">
+  PATH="/pages/mod/admon/groups.xhtml" SHAPE="232,304,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#mod#admon#groups.xhtml:0" NAME="item"
-   PATH="/pages/mod/admon/groups.xhtml" model-entity="JSFProcessItem">
+   PATH="/pages/mod/admon/groups.xhtml" model-entity="JSFProcessItem"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#mod#admon#createGroup.xhtml"
+  PATH="/pages/mod/admon/createGroup.xhtml" SHAPE="792,128,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#mod#admon#editGroup.xhtml"
+  PATH="/pages/mod/admon/editGroup.xhtml" SHAPE="800,72,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#mod#admon#users.xhtml"
+  PATH="/pages/mod/admon/users.xhtml" SHAPE="240,248,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#mod#admon#newUser.xhtml"
+  PATH="/pages/mod/admon/newUser.xhtml" SHAPE="792,192,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#mod#admon#editUser.xhtml"
+  PATH="/pages/mod/admon/editUser.xhtml" SHAPE="784,248,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="608,72,53,90" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:1" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="newUser::#pages#mod#admon#newUser.xhtml"
+    NAME="output" PATH="/pages/mod/admon/newUser.xhtml"
+    TARGET="rules:#pages#mod#admon#newUser.xhtml" TITLE="newUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="editUser::#pages#mod#admon#editUser.xhtml"
+    NAME="output1" PATH="/pages/mod/admon/editUser.xhtml"
+    TARGET="rules:#pages#mod#admon#editUser.xhtml" TITLE="editUser" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="createGroup::#pages#mod#admon#createGroup.xhtml" NAME="output"
+    ID="createGroup::#pages#mod#admon#createGroup.xhtml" NAME="output2"
     PATH="/pages/mod/admon/createGroup.xhtml"
     TARGET="rules:#pages#mod#admon#createGroup.xhtml"
     TITLE="createGroup" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="editGroup::#pages#mod#admon#editGroup.xhtml"
-    NAME="output1" PATH="/pages/mod/admon/editGroup.xhtml"
+    NAME="output3" PATH="/pages/mod/admon/editGroup.xhtml"
     TARGET="rules:#pages#mod#admon#editGroup.xhtml" TITLE="editGroup" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#pages#mod#admon#createGroup.xhtml"
-  PATH="/pages/mod/admon/createGroup.xhtml" SHAPE="760,224,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:#pages#mod#admon#editGroup.xhtml"
-  PATH="/pages/mod/admon/editGroup.xhtml" SHAPE="768,272,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

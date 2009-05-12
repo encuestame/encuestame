@@ -27,16 +27,17 @@
 	
 	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean" scope="request">
 		<property name="servicemanagerBean" ref="servicesManager" />	
-		<property name="newGroup" ref="newGroupBean" />		
+		<property name="newGroup" ref="unitGroupBean" />		
 	</bean>
 	
-	<bean id="newGroupBean" class="org.jp.web.beans.admon.NewGroupBean" scope="session">
+	<bean id="unitGroupBean" class="org.jp.web.beans.admon.UnitGroupBean" scope="session">
 	<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 	
 	<!-- login bean -->	
 	<bean id="loginForm" class="org.jp.web.beans.login.LoginSecurityBean" scope="request">
 		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 	
 	
