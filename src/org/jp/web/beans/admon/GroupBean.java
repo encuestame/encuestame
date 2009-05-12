@@ -30,13 +30,14 @@ public class GroupBean extends MasterBean {
 	 */
 	public void newGroup() {
 		try {
-			log.info("new group->" + getNewGroup());
+			log.info("new group");
 			getServicemanagerBean().getSecurityService().getGroupDao()
 					.newGroup(getNewGroup());
 			addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
 		} catch (Exception e) {
 			addErrorMessage(getMessageProperties("errorCreateNewGroup"), e
 					.getMessage());
+			log.error("error new group->" + getMessageProperties("errorCreateNewGroup"));
 		}
 	}
 
