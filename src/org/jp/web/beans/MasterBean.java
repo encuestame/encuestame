@@ -46,13 +46,13 @@ public class MasterBean {
 	}
 	
 	public ServiceManagerBean getServicemanagerBean() {
-		logger.info("init getServicelocatebean->"+servicemanagerBean);
+		//logger.info("init getServicelocatebean->"+servicemanagerBean);
 		return servicemanagerBean;
 	}
 
 
 	public void setServicemanagerBean(ServiceManagerBean servicemanagerBean) {
-		logger.info("init setServicelocatebean->"+servicemanagerBean);
+		//logger.info("init setServicelocatebean->"+servicemanagerBean);
 		this.servicemanagerBean = servicemanagerBean;
 	}
 

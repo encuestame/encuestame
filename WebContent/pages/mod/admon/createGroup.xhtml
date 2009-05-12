@@ -9,24 +9,20 @@
 <body>
 <ui:composition template="/pages/mod/admon/groups.xhtml">
 	<ui:define name="optionGroup">
-	<h2>Crear Grupo</h2>
+		<h2>Crear Grupo</h2>
 		<h:panelGrid columns="2">
-		<h:outputLabel value="Nombre del Grupo" for="" />
-		<h:inputText id="name" value="#{groupBean.obtener}" />
-		<h:outputLabel value="Nombre del Grupo" for="" />
-		<h:inputTextarea value="#{groupBean.obtener}" />
-		<h:outputLabel value="Nombre del Grupo" for="" />
-		<h:selectOneMenu value="#{globalBean.taskProject}" id="selectProjectMenu"
-		  							 converter="emforge.ProjectIdConverter">
-		  				<f:selectItems value="#{globalSelectItems.projects}"/>
-		  				<a4j:support event="onchange" reRender="taskOptions, taskTransitions"/>
-		  			</h:selectOneMenu>
-		<a4j:commandButton value="Crear"></a4j:commandButton>
+			<h:outputLabel value="Nombre" for="name" />
+			<h:inputText id="name" value="#{newGroupBean}" size="40"/>
+			<h:outputLabel value="Descripcion" for="desc" />
+			<h:inputTextarea id="desc" value="#{newGroupBean}" cols="40" rows="3" />
+			<h:outputLabel value="Estado" for="selectState" />
+			<h:selectOneMenu value="" id="selectState">
+				<f:selectItems value="#{globalBean.loadListState}"/>
+			</h:selectOneMenu>
+			<a4j:commandButton value="Crear" action="#{groupBean.newGroup}"></a4j:commandButton>
+			<rich:messages></rich:messages>
 		</h:panelGrid>
-	</ui:define>	
+	</ui:define>
 </ui:composition>
-
-
-
 </body>
 </html>

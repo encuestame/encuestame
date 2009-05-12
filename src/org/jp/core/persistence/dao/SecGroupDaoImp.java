@@ -2,8 +2,11 @@ package org.jp.core.persistence.dao;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.dao.imp.ISecGroups;
 import org.jp.core.persistence.pojo.SecGroups;
+import org.jp.web.beans.admon.NewGroupBean;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -30,6 +33,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @version 1.0
  */
 public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
+	
+	private Log log = LogFactory.getLog(this.getClass());
 
 	public void delete(Object obj) {
 		// TODO Auto-generated method stub
@@ -51,9 +56,12 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 		return null;
 	}
 
-	public void saveOrUpdate(Object obj) {
+	public void newGroup(NewGroupBean newG) {
+		log.info("save new group");
 		SecGroups group = new SecGroups();
-		//group.setDesInfo(desInfo)
+		group.setDesInfo(newG.getGroupDescription());
+		group.setName(newG.getGroupName());
+		//group.s
 		
 	}
 

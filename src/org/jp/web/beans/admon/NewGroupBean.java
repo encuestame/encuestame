@@ -2,6 +2,10 @@ package org.jp.web.beans.admon;
 
 import java.io.Serializable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jp.web.beans.MasterBean;
+
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -24,16 +28,58 @@ import java.io.Serializable;
  * @author juanpicado package: org.jp.web.beans.admon
  * @version 1.0
  */
-public class NewGroupBean implements Serializable {
+public class NewGroupBean extends MasterBean implements Serializable {
 	
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3303088512430614308L;
 	private String groupName;
 	private String groupDescription;
 	private String stateId;
+	private Log log = LogFactory.getLog(this.getClass());
+	
+	
+	public NewGroupBean() {
+		log.info("create new group");
+	}
+	
+	/**
+	 * @return the groupName
+	 */
+	public String getGroupName() {
+		log.info("get name group");
+		return groupName;
+	}
+	/**
+	 * @param groupName the groupName to set
+	 */
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	/**
+	 * @return the groupDescription
+	 */
+	public String getGroupDescription() {
+		log.info("get name description");
+		return groupDescription;
+	}
+	/**
+	 * @param groupDescription the groupDescription to set
+	 */
+	public void setGroupDescription(String groupDescription) {
+		this.groupDescription = groupDescription;
+	}
+	/**
+	 * @return the stateId
+	 */
+	public String getStateId() {
+		return stateId;
+	}
+	/**
+	 * @param stateId the stateId to set
+	 */
+	public void setStateId(String stateId) {
+		this.stateId = stateId;
+	}
 	
 	
 	

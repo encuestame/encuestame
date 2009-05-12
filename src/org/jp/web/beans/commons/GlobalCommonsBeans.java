@@ -36,17 +36,22 @@ import org.jp.web.beans.MasterBean;
 public class GlobalCommonsBeans extends MasterBean {
 
 	private List lista = null;
-	private List<SelectItem> select = new ArrayList<SelectItem>();
+	private List<SelectItem> select = null;
 	private Log log = LogFactory.getLog(this.getClass());
 
 	public GlobalCommonsBeans() {
 		log.info("init GlobalCommonsBeans");
-		select.add(new SelectItem(null, ""));
+		
 	}
 
-	public List<SelectItem> loadListState() {
+	public List<SelectItem> getLoadListState() {
+	
+		select = new ArrayList<SelectItem>();
+		log.info("get load list state");
+		select.add(new SelectItem(null, ""));
 		lista = getServicemanagerBean().getDataService().getStateDao()
 				.findAll();
+		log.info("get load list state total->" + lista.size());
 		if (lista != null && lista.size() != 0) {
 			Iterator iterd = getServicemanagerBean().getDataService()
 					.getStateDao().findAll().iterator();
@@ -56,6 +61,7 @@ public class GlobalCommonsBeans extends MasterBean {
 						.getDescState()));
 			}
 		}
+		log.info("state select->" + select);
 		return select;
 
 	}

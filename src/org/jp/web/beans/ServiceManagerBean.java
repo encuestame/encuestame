@@ -43,7 +43,7 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setDataService(DataService dataService) {
-		logger.info("dataService"+dataService);
+		//logger.info("dataService"+dataService);
 		this.dataService = dataService;
 	}
 
@@ -52,7 +52,7 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setSurveyService(SurveyService surveyService) {
-		logger.info("surveyService"+surveyService);
+		//logger.info("surveyService"+surveyService);
 		this.surveyService = surveyService;
 	}
 
@@ -61,7 +61,7 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setApplicationService(ApplicationServices applicationService) {
-		logger.info("applicationService"+applicationService);
+		//logger.info("applicationService"+applicationService);
 		this.applicationService = applicationService;
 	}
 
@@ -70,7 +70,7 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setSecurityService(SecurityService securityService) {
-		logger.info("dataService"+dataService);
+		//logger.info("dataService"+dataService);
 		this.securityService = securityService;
 	}
 
