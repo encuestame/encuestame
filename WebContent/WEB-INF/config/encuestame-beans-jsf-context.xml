@@ -19,15 +19,15 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
-
+       
 	<!-- admon bean -->
 	<bean id="userBean" class="org.jp.web.beans.admon.UserBean" scope="request">
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 	
 	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean" scope="request">
-		<property name="servicemanagerBean" ref="servicesManager" />
-		<property name="newGroup" ref="newGroupBean" />
+		<property name="servicemanagerBean" ref="servicesManager" />	
+		<property name="newGroup" ref="newGroupBean" />		
 	</bean>
 	
 	<bean id="newGroupBean" class="org.jp.web.beans.admon.NewGroupBean" scope="session">
@@ -40,8 +40,7 @@
 	</bean>
 	
 	
-	<!-- globals -->
-	
+	<!-- globals -->	
 	<bean id="globalBean" class="org.jp.web.beans.commons.GlobalCommonsBeans" scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>

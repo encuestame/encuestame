@@ -12,11 +12,11 @@
 		<h2>Crear Grupo</h2>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nombre" for="name" />
-			<h:inputText id="name" value="#{newGroupBean}" size="40"/>
+			<h:inputText id="name" value="#{newGroupBean.groupName}" size="40"/>
 			<h:outputLabel value="Descripcion" for="desc" />
-			<h:inputTextarea id="desc" value="#{newGroupBean}" cols="40" rows="3" />
+			<h:inputTextarea id="desc" value="#{newGroupBean.groupDescription}" cols="40" rows="3" />
 			<h:outputLabel value="Estado" for="selectState" />
-			<h:selectOneMenu value="" id="selectState">
+			<h:selectOneMenu value="#{newGroupBean.stateId}" id="selectState">
 				<f:selectItems value="#{globalBean.loadListState}"/>
 			</h:selectOneMenu>
 			<a4j:commandButton value="Crear" action="#{groupBean.newGroup}"></a4j:commandButton>

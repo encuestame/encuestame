@@ -6,6 +6,7 @@ import org.jp.core.service.ApplicationServices;
 import org.jp.core.service.DataService;
 import org.jp.core.service.SecurityService;
 import org.jp.core.service.SurveyService;
+import org.jp.web.beans.commons.MessageSourceFactoryBean;
 import org.jp.web.serviceManager.ServiceManager;
 
 /**
@@ -30,6 +31,7 @@ public class ServiceManagerBean implements ServiceManager {
 	private SurveyService surveyService;
 	private SecurityService securityService;
 	private ApplicationServices applicationService;
+	private MessageSourceFactoryBean messageSource;
 
 
 	private Log logger = LogFactory.getLog(this.getClass());
@@ -54,6 +56,19 @@ public class ServiceManagerBean implements ServiceManager {
 	public void setSurveyService(SurveyService surveyService) {
 		//logger.info("surveyService"+surveyService);
 		this.surveyService = surveyService;
+	}
+
+	
+	public MessageSourceFactoryBean getMessageSource() {
+		return messageSource;
+	}
+
+	public void setMessageSource(MessageSourceFactoryBean messageSource) {
+		this.messageSource = messageSource;
+	}
+
+	public void setLogger(Log logger) {
+		this.logger = logger;
 	}
 
 	public ApplicationServices getApplicationService() {

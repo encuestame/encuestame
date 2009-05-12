@@ -20,6 +20,19 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
+	<!-- messages -->
+
+	<bean id="messageSource" class="org.jp.web.beans.commons.MessageSourceFactoryBean">
+		<property name="messagesource" ref="resourceBundleMessageSource" />		
+	</bean>
+
+	<bean id="resourceBundleMessageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>messages</value>
+		</property>
+	</bean>
+
 	<!--  Dao  -->
 
 	<bean id="catLocationDaoImp" class="org.jp.core.persistence.dao.CatLocationDaoImp">
@@ -67,6 +80,9 @@
 		<property name="applicationService">
 			<ref bean="applicationService"></ref>
 		</property>
+		<property name="messageSource">
+			<ref bean="messageSource"></ref>
+		</property>		
 	</bean>
 
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
@@ -76,7 +92,7 @@
 	</bean>
 
 	<bean id="dataService" class="org.jp.core.service.DataService">
-	<property name="stateDao">
+		<property name="stateDao">
 			<ref bean="catStateDaoImp"></ref>
 		</property>
 	</bean>

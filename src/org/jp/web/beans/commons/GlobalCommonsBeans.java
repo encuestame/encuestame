@@ -41,11 +41,10 @@ public class GlobalCommonsBeans extends MasterBean {
 
 	public GlobalCommonsBeans() {
 		log.info("init GlobalCommonsBeans");
-		
+
 	}
 
 	public List<SelectItem> getLoadListState() {
-	
 		select = new ArrayList<SelectItem>();
 		log.info("get load list state");
 		select.add(new SelectItem(null, ""));
