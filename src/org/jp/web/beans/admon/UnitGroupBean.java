@@ -32,16 +32,24 @@ public class UnitGroupBean extends MasterBean implements Serializable {
 	
 	
 	private static final long serialVersionUID = -3303088512430614308L;
+	private Integer id;
 	private String groupName;
 	private String groupDescription;
 	private String stateId;
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	
-	public UnitGroupBean() {
-		log.info("create new group");
+		
+	public Integer getId() {
+		return id;
 	}
-	
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	/**
 	 * @return the groupName
 	 */

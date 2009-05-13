@@ -25,7 +25,7 @@
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 	
-	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean" scope="request">
+	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean" scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />	
 		<property name="newGroup" ref="unitGroupBean" />		
 	</bean>

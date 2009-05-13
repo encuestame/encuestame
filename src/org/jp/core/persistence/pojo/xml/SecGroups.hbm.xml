@@ -35,4 +35,12 @@
             <one-to-many class="org.jp.core.persistence.pojo.SecGroupPermission" />
         </set>
     </class>
+    
+	 		
+	<query name="Groupr.loadGroup">
+	 <![CDATA[
+	     from SecGroups d where d.groupId = ?
+		]]>
+	 </query>
+    
 </hibernate-mapping>

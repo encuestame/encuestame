@@ -13,14 +13,14 @@
 			<h2>#{temp.titleCreateGroups}</h2>			
 				<h:panelGrid columns="2">
 					<h:outputLabel value="#{temp.name}" for="name" />
-					<h:inputText id="name" value="#{newGroupBean.groupName}" size="40"
+					<h:inputText id="name" value="#{unitGroupBean.groupName}" size="40"
 						required="true" requiredMessage="#{temp.validateNameGroup}" />
 					<h:outputLabel value="#{temp.description}" for="desc" />
-					<h:inputTextarea id="desc" value="#{newGroupBean.groupDescription}"
+					<h:inputTextarea id="desc" value="#{unitGroupBean.groupDescription}"
 						cols="40" rows="3" required="true"
 						requiredMessage="#{temp.validateDescrGroup}" />
 					<h:outputLabel value="#{temp.state}" for="selectState" />
-					<h:selectOneMenu value="#{newGroupBean.stateId}" id="selectState"
+					<h:selectOneMenu value="#{unitGroupBean.stateId}" id="selectState"
 						required="true" requiredMessage="#{temp.validateStaterGroup}">
 						<f:selectItems value="#{globalBean.loadListState}" />
 					</h:selectOneMenu>

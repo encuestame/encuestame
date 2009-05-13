@@ -40,7 +40,7 @@ public class MasterBean {
 	private Log logger = LogFactory.getLog(this.getClass());
 
 	public MasterBean() {
-		logger.info("init master bean");
+		//logger.info("init master bean");
 	}
 
 	/**

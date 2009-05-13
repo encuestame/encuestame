@@ -41,9 +41,16 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 
 	}
 
-	public Object find(Class clazz, Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public SecGroups find(Integer id) {
+		List<SecGroups> s = getHibernateTemplate().findByNamedQuery(
+				"Groupr.loadGroup", id);
+		if (s != null && s.size() > 0) {
+			SecGroups g = s.get(0);
+			return g;
+		} else {
+			return null;
+		}
+
 	}
 
 	public Collection<SecGroups> findAllGroups() {
@@ -64,6 +71,16 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 		group.setIdState(new Integer(newG.getStateId()).intValue());
 		getHibernateTemplate().save(group);
 
+	}
+
+	public void update(UnitGroupBean update) {
+		SecGroups group = find(update.getId());
+		if (group != null) {
+			group.setName(update.getGroupName());
+			group.setDesInfo(update.getGroupDescription());
+			group.setGroupId(new Integer(update.getStateId()));
+		}
+		getHibernateTemplate().save(group);
 	}
 
 }
