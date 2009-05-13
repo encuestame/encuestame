@@ -1,4 +1,6 @@
-package org.jp.core.service;
+package org.jp.web.beans.commons;
+
+import org.jp.core.service.ApplicationServices;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -17,40 +19,32 @@ package org.jp.core.service;
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
- * Id: ApplicationServices.java Date: 11/05/2009 14:35:36
+ * Id: UrlBean.java Date: 13/05/2009 15:40:14
  * 
- * @author juanpicado package: org.jp.core.service
+ * @author juanpicado package: org.jp.web.beans.commons
  * @version 1.0
  */
+public class UrlBean {
 
-public class ApplicationServices implements IApplicationService {
+	ApplicationServices applicationService;
+	public String img;
 
-	private String name;
-	private String urlImg;
-	private String encoding;
-
-	public String getName() {
-		return name;
+	public ApplicationServices getApplicationService() {
+		return applicationService;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setApplicationService(ApplicationServices applicationService) {
+		this.applicationService = applicationService;
 	}
 
-	public String getUrlImg() {
-		return urlImg;
+	public String getImg() {
+		img = getApplicationService().getUrlImg().trim();
+		return img;
 	}
 
-	public void setUrlImg(String urlImg) {
-		this.urlImg = urlImg;
+	public void setImg(String img) {
+		this.img = img;
 	}
 
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
+	
 }

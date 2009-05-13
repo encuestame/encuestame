@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.sql.Delete;
 import org.jp.core.persistence.dao.imp.ISecGroups;
 import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.web.beans.admon.UnitGroupBean;
@@ -36,11 +37,19 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
-	public void delete(Object obj) {
-		// TODO Auto-generated method stub
-
+	/**
+	 * delete group
+	 * @param newG
+	 */
+	public void delete(SecGroups newG) {
+		getHibernateTemplate().delete(newG);
 	}
 
+	/**
+	 * find a group
+	 * @param id
+	 * @return
+	 */
 	public SecGroups find(Integer id) {
 		List<SecGroups> s = getHibernateTemplate().findByNamedQuery(
 				"Groupr.loadGroup", id);
@@ -59,28 +68,20 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 	}
 
 	public Integer lastRow(Class clase, String id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void newGroup(UnitGroupBean newG) {
-		log.info("save new group");
-		SecGroups group = new SecGroups();
-		group.setDesInfo(newG.getGroupDescription());
-		group.setName(newG.getGroupName());
-		group.setIdState(new Integer(newG.getStateId()).intValue());
-		getHibernateTemplate().save(group);
+	public void newGroup(SecGroups newG) {
+		getHibernateTemplate().save(newG);
 
 	}
 
-	public void update(UnitGroupBean update) {
-		SecGroups group = find(update.getId());
-		if (group != null) {
-			group.setName(update.getGroupName());
-			group.setDesInfo(update.getGroupDescription());
-			group.setIdState((new Integer(update.getStateId())));
-		}
-		getHibernateTemplate().update(group);
+	public void update(SecGroups update) {
+		getHibernateTemplate().update(update);
+	}
+
+	public void Delete(SecGroups group) {
+		getHibernateTemplate().delete(group);
 	}
 
 }

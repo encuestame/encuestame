@@ -51,8 +51,8 @@ public class GroupBean extends MasterBean {
 	public void newGroup() {
 		try {
 			log.info("new group");
-			getServicemanagerBean().getSecurityService().getGroupDao()
-					.newGroup(getNewGroup());
+			getServicemanagerBean().getSecurityService().createGroup(
+					getNewGroup());
 			addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
 			reset();
 		} catch (Exception e) {
@@ -66,7 +66,7 @@ public class GroupBean extends MasterBean {
 	public void updateGroup() {
 		try {
 			log.info("new group");
-			getServicemanagerBean().getSecurityService().getGroupDao().update(
+			getServicemanagerBean().getSecurityService().updateGroup(
 					getNewGroup());
 			addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
 			reset();
@@ -75,6 +75,27 @@ public class GroupBean extends MasterBean {
 					.getMessage());
 			log.error("error new group->"
 					+ getMessageProperties("errorCreateNewGroup"));
+		}
+	}
+	
+	/**
+	 * Delete Group
+	 */
+	public void deleteGroup() {
+		try {
+			if (getProcessedGroupId() != null) {
+				log.info("deleting group..");
+				getServicemanagerBean().getSecurityService().deleteGroup(
+						getNewGroup());
+				reset();
+			} else {
+				addErrorMessage(getMessageProperties("errorDelteGroup"),
+						"errorDelteGroup");
+			}
+		} catch (Exception e) {
+			addErrorMessage(getMessageProperties("errorDelteGroup"), e
+					.getMessage());
+			log.error(e.getMessage());
 		}
 	}
 
@@ -93,10 +114,8 @@ public class GroupBean extends MasterBean {
 	}
 
 	private void fill(Integer idGroup) {
-		log.info("fill->" + idGroup);
 		SecGroups s = getServicemanagerBean().getSecurityService()
 				.getGroupDao().find(idGroup);
-		log.info("fill g->" + s.getName());
 		try {
 			if (s != null) {
 				reset();
@@ -124,7 +143,7 @@ public class GroupBean extends MasterBean {
 	public Collection<UnitGroupBean> getList_unitBeans() {
 		getLoadListGroups();
 		if (list_unitBeans.size() > 0)
-			isOneRow = false;
+			isOneRow = true;
 		else
 			isOneRow = false;
 		return list_unitBeans;

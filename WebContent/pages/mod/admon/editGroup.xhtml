@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,7 +15,8 @@
 				<a4j:status for="listGroup" startText="Buscando...." stopText=""></a4j:status>
 				<rich:dataTable id="dataTableGroups" width="800"
 					style="margin: 5px; margin-top: 12px;"
-					value="#{groupBean.list_unitBeans}" var="unitGroup">
+					value="#{groupBean.list_unitBeans}" var="unitGroup"
+					rendered="#{groupBean.oneRow}">
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column>
@@ -26,6 +27,9 @@
 							</rich:column>
 							<rich:column>
 								<h:outputText value="#{temp.state}" />
+							</rich:column>
+							<rich:column>
+
 							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
@@ -43,10 +47,19 @@
 					<rich:column>
 						<h:outputText value="#{unitGroup.stateId}" />
 					</rich:column>
+					<rich:column>
+						<a4j:commandLink action="#{groupBean.deleteGroup}" reRender="dataTableGroups">
+							<h:graphicImage value="#{url.img}/icons/uncheck.gif" />
+							<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
+								assignTo="#{groupBean.processedGroupId}" noEscape="true" />
+						</a4j:commandLink>
+					</rich:column>
 				</rich:dataTable>
 			</a4j:region>
+			<ui:fragment rendered="not #{groupBean.oneRow}">
+				<h3>#{temp.notfoundGroups}</h3>
+			</ui:fragment>
 		</h:form>
-
 		<rich:messages></rich:messages>
 		<rich:modalPanel id="panelEditGroup">
 			<h:form id="formEditGroup">

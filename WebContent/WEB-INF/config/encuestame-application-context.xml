@@ -23,7 +23,7 @@
 	<!-- messages -->
 
 	<bean id="messageSource" class="org.jp.web.beans.commons.MessageSourceFactoryBean">
-		<property name="messagesource" ref="resourceBundleMessageSource" />		
+		<property name="messagesource" ref="resourceBundleMessageSource" />
 	</bean>
 
 	<bean id="resourceBundleMessageSource"
@@ -82,7 +82,7 @@
 		</property>
 		<property name="messageSource">
 			<ref bean="messageSource"></ref>
-		</property>		
+		</property>
 	</bean>
 
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
@@ -110,6 +110,21 @@
 	</bean>
 
 	<bean id="applicationService" class="org.jp.core.service.ApplicationServices">
+		<property name="name">
+			<value>${application.name}</value>
+		</property>
+		<property name="urlImg">
+			<value>${application.urlImg}</value>
+		</property>
+		<property name="encoding">
+			<value>${application.encoding}</value>
+		</property>
+	</bean>
+	
+	<bean id="url" class="org.jp.web.beans.commons.UrlBean">
+	<property name="applicationService">
+			<ref bean="applicationService"></ref>
+		</property>
 	</bean>
 
 </beans>

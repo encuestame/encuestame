@@ -6,6 +6,7 @@ import org.jp.core.service.ApplicationServices;
 import org.jp.core.service.DataService;
 import org.jp.core.service.SecurityService;
 import org.jp.core.service.SurveyService;
+import org.jp.web.beans.admon.UnitGroupBean;
 import org.jp.web.beans.commons.MessageSourceFactoryBean;
 import org.jp.web.serviceManager.ServiceManager;
 
@@ -21,6 +22,7 @@ import org.jp.web.serviceManager.ServiceManager;
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA * Id: ServiceLocateBean.java 1822
  * 26/04/2009 20:25:26
+ * 
  * @author dianmorales
  * @version 1.0 package org.jp.web.beans
  */
@@ -33,7 +35,6 @@ public class ServiceManagerBean implements ServiceManager {
 	private ApplicationServices applicationService;
 	private MessageSourceFactoryBean messageSource;
 
-
 	private Log logger = LogFactory.getLog(this.getClass());
 
 	public ServiceManagerBean() {
@@ -45,7 +46,7 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setDataService(DataService dataService) {
-		//logger.info("dataService"+dataService);
+		// logger.info("dataService"+dataService);
 		this.dataService = dataService;
 	}
 
@@ -54,11 +55,10 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setSurveyService(SurveyService surveyService) {
-		//logger.info("surveyService"+surveyService);
+		// logger.info("surveyService"+surveyService);
 		this.surveyService = surveyService;
 	}
 
-	
 	public MessageSourceFactoryBean getMessageSource() {
 		return messageSource;
 	}
@@ -76,7 +76,7 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setApplicationService(ApplicationServices applicationService) {
-		//logger.info("applicationService"+applicationService);
+		// logger.info("applicationService"+applicationService);
 		this.applicationService = applicationService;
 	}
 
@@ -85,13 +85,9 @@ public class ServiceManagerBean implements ServiceManager {
 	}
 
 	public void setSecurityService(SecurityService securityService) {
-		//logger.info("dataService"+dataService);
+		// logger.info("dataService"+dataService);
 		this.securityService = securityService;
 	}
 
-	
 
-	
-	
-		
 }
