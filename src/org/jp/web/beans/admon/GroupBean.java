@@ -78,7 +78,7 @@ public class GroupBean extends MasterBean {
 		}
 	}
 
-	private void reset() {
+	public void reset() {
 		newGroup.setId(null);
 		newGroup.setGroupDescription(null);
 		newGroup.setGroupName(null);

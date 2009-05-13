@@ -78,9 +78,9 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 		if (group != null) {
 			group.setName(update.getGroupName());
 			group.setDesInfo(update.getGroupDescription());
-			group.setGroupId(new Integer(update.getStateId()));
+			group.setIdState((new Integer(update.getStateId())));
 		}
-		getHibernateTemplate().save(group);
+		getHibernateTemplate().update(group);
 	}
 
 }

@@ -11,38 +11,40 @@
 	<ui:define name="optionGroup">
 		<h:form>
 			<h2>#{temp.titleEditGroups}</h2>
-			<h:outputText value="Lista - #{groupBean.list_unitBeans}" />
-
-			<rich:dataTable width="800" style="margin: 5px; margin-top: 12px;"
-				value="#{groupBean.list_unitBeans}" var="unitGroup">
-				<f:facet name="header">
-					<rich:columnGroup>
-						<rich:column>
-							<h:outputText value="ID" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="Nombre de grupo" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="Estado" />
-						</rich:column>
-					</rich:columnGroup>
-				</f:facet>
-				<rich:column>
-					<a4j:commandLink value="#{unitGroup.groupName}" rendered="true"
-						oncomplete="javascript:Richfaces.showModalPanel('panelEditGroup',{width:500, top:300})"
-						reRender="formEditGroup">
-						<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
-							assignTo="#{groupBean.processedGroupId}" noEscape="true" />
-					</a4j:commandLink>
-				</rich:column>
-				<rich:column>
-					<h:outputText value="#{unitGroup.groupDescription}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText value="#{unitGroup.stateId}" />
-				</rich:column>
-			</rich:dataTable>
+			<a4j:region id="listGroup">
+				<a4j:status for="listGroup" startText="Buscando...." stopText=""></a4j:status>
+				<rich:dataTable id="dataTableGroups" width="800"
+					style="margin: 5px; margin-top: 12px;"
+					value="#{groupBean.list_unitBeans}" var="unitGroup">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{temp.id}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{temp.name}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{temp.state}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<a4j:commandLink value="#{unitGroup.groupName}" rendered="true"
+							oncomplete="javascript:Richfaces.showModalPanel('panelEditGroup',{width:500, top:300})"
+							reRender="formEditGroup">
+							<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
+								assignTo="#{groupBean.processedGroupId}" noEscape="true" />
+						</a4j:commandLink>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{unitGroup.groupDescription}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{unitGroup.stateId}" />
+					</rich:column>
+				</rich:dataTable>
+			</a4j:region>
 		</h:form>
 
 		<rich:messages></rich:messages>
@@ -56,19 +58,19 @@
 							requiredMessage="#{temp.validateNameGroup}" />
 						<h:outputLabel value="#{temp.description}" for="desc" />
 						<h:inputTextarea id="desc"
-							value="#{unitGroupBean.groupDescription}" cols="40"
-							rows="3" required="true"
-							requiredMessage="#{temp.validateDescrGroup}" />
+							value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
+							required="true" requiredMessage="#{temp.validateDescrGroup}" />
 						<h:outputLabel value="#{temp.state}" for="selectState" />
-						<h:selectOneMenu value="#{unitGroupBean.stateId}"
-							id="selectState" required="true"
-							requiredMessage="#{temp.validateStaterGroup}">
+						<h:selectOneMenu value="#{unitGroupBean.stateId}" id="selectState"
+							required="true" requiredMessage="#{temp.validateStaterGroup}">
 							<f:selectItems value="#{globalBean.loadListState}" />
 						</h:selectOneMenu>
-						<a4j:commandButton value="#{temp.save}" action="#{groupBean.updateGroup}" oncomplete="Richfaces.hideModalPanel('panelEditGroup')"></a4j:commandButton>
+						<a4j:commandButton value="#{temp.save}"
+							action="#{groupBean.updateGroup}" reRender="dataTableGroups"
+							oncomplete="Richfaces.hideModalPanel('panelEditGroup')"></a4j:commandButton>
 						<a4j:commandButton id="cancel_id" value="cerrar"
 							onclick="Richfaces.hideModalPanel('panelEditGroup')"
-							ajaxSingle="true" />
+							ajaxSingle="true" action="#{groupBean.reset}" />
 					</h:panelGrid>
 				</a4j:region>
 			</h:form>
