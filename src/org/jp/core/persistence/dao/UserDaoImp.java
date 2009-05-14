@@ -1,6 +1,7 @@
 package org.jp.core.persistence.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,9 +52,8 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 		return null;
 	}
 
-	public List<Object> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<SecUsers> findAll() {
+		return getHibernateTemplate().find("from SecUsers");
 	}
 
 	public Integer lastRow(Class clase, String id) {

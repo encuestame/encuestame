@@ -1,12 +1,18 @@
 package org.jp.core.service;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
 import org.jp.core.persistence.dao.SecPermissionDaoImp;
 import org.jp.core.persistence.dao.UserDaoImp;
 import org.jp.core.persistence.pojo.SecGroups;
+import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.web.beans.admon.UnitGroupBean;
+import org.jp.web.beans.admon.UnitUserBean;
 
 /**
  * encuestame: system online surveys Copyright (C) 2005-2008 encuestame
@@ -36,6 +42,7 @@ public class SecurityService implements ISecurityService {
 	private UserDaoImp userDao;
 	private SecGroupDaoImp groupDao;
 	private SecPermissionDaoImp permissionDao;
+	private Collection<SecUsers> loadListUsers;
 
 	public UserDaoImp getUserDao() {
 		return userDao;
@@ -61,15 +68,28 @@ public class SecurityService implements ISecurityService {
 		this.permissionDao = permissionDao;
 	}
 
+	public Collection<UnitUserBean> loadListUsers() {
+		Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+		Collection<SecUsers> listGroups = getUserDao().findAll();
+		for (Iterator<SecUsers> i = listGroups.iterator(); i.hasNext();) {
+			UnitUserBean userB = new UnitUserBean();
+			SecUsers user = i.next();
+			// users
+			loadListUsers.add(userB);
+		}
+
+		return loadListUsers;
+	}
+
 	/**
 	 * Delete Group
 	 * 
 	 * @param group
 	 */
 	public void deleteGroup(UnitGroupBean group) {
-		log.info("deleting group ->"+group.getGroupName());
+		log.info("deleting group ->" + group.getGroupName());
 		SecGroups g = getGroupDao().find(group.getId());
-		log.info("deleting search group ->"+g.getName());
+		log.info("deleting search group ->" + g.getName());
 		getGroupDao().delete(g);
 	}
 
