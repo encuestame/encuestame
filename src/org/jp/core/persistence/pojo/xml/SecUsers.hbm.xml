@@ -52,7 +52,7 @@
         <property name="publisher" type="string">
             <column name="publisher" length="2" not-null="true" />
         </property>
-        <set name="proyectUsers" inverse="true">
+        <set name="proyectUsers" inverse="true" >
             <key>
                 <column name="uid" not-null="true" />
             </key>
@@ -64,13 +64,13 @@
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser" />
         </set>
-        <set name="secUserPermissions" inverse="true">
+        <set name="secUserPermissions" inverse="true" >
             <key>
                 <column name="uid" not-null="true" />
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.SecUserPermission" />
         </set>
-        <set name="catLocationUsers" inverse="true">
+        <set name="catLocationUsers" inverse="true" >
             <key>
                 <column name="uid" not-null="true" />
             </key>

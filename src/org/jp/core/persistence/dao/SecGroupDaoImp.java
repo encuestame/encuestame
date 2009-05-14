@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.sql.Delete;
 import org.jp.core.persistence.dao.imp.ISecGroups;
+import org.jp.core.persistence.pojo.SecGroupUser;
 import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.web.beans.admon.UnitGroupBean;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -39,6 +40,7 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 
 	/**
 	 * delete group
+	 * 
 	 * @param newG
 	 */
 	public void delete(SecGroups newG) {
@@ -47,6 +49,7 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 
 	/**
 	 * find a group
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -59,6 +62,12 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 		} else {
 			return null;
 		}
+
+	}
+
+	public Collection<SecGroupUser> loadGroupsByUser(Integer id) {
+		return getHibernateTemplate().find(
+				"from SecGroupUser d where d.secUsers.uid =" + id);
 
 	}
 

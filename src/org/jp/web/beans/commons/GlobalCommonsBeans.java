@@ -1,7 +1,9 @@
 package org.jp.web.beans.commons;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -10,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.pojo.CatState;
 import org.jp.web.beans.MasterBean;
+import org.jp.web.beans.admon.UnitPermission;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -33,9 +36,10 @@ import org.jp.web.beans.MasterBean;
  * @author juanpicado package: org.jp.web.beans.commons
  * @version 1.0
  */
+
 public class GlobalCommonsBeans extends MasterBean {
 
-	private List lista = null;
+	private Collection lista = null;
 	private List<SelectItem> select = null;
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -44,6 +48,11 @@ public class GlobalCommonsBeans extends MasterBean {
 
 	}
 
+	/**
+	 * load selectItem state
+	 * 
+	 * @return
+	 */
 	public List<SelectItem> getLoadListState() {
 		select = new ArrayList<SelectItem>();
 		log.info("get load list state");
@@ -52,8 +61,7 @@ public class GlobalCommonsBeans extends MasterBean {
 				.findAll();
 		log.info("get load list state total->" + lista.size());
 		if (lista != null && lista.size() != 0) {
-			Iterator iterd = getServicemanagerBean().getDataService()
-					.getStateDao().findAll().iterator();
+			Iterator iterd = lista.iterator();
 			while (iterd.hasNext()) {
 				CatState state = (CatState) iterd.next();
 				select.add(new SelectItem(state.getIdState(), state
@@ -62,7 +70,23 @@ public class GlobalCommonsBeans extends MasterBean {
 		}
 		log.info("state select->" + select);
 		return select;
+	}
 
+	public List<SelectItem> getLoadListPermissions() {
+		select = new LinkedList<SelectItem>();
+		select.add(new SelectItem(null, ""));
+		lista = getServicemanagerBean().getSecurityService()
+				.loadAllListPermission();
+		if (lista != null && lista.size() != 0) {
+			Iterator iterd = lista.iterator();
+			while (iterd.hasNext()) {
+				UnitPermission permission = (UnitPermission) iterd.next();
+				select.add(new SelectItem(permission.getId(), permission
+						.getDescription()));
+			}
+		}
+		log.info("state select->" + select);
+		return select;
 	}
 
 }

@@ -7,10 +7,10 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.dialect.IngresDialect;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
 import org.jp.core.persistence.dao.SecPermissionDaoImp;
 import org.jp.core.persistence.dao.UserDaoImp;
-import org.jp.core.persistence.pojo.SecGroupPermission;
 import org.jp.core.persistence.pojo.SecGroupUser;
 import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.core.persistence.pojo.SecUserPermission;
@@ -46,7 +46,7 @@ public class SecurityService implements ISecurityService {
 	private Log log = LogFactory.getLog(this.getClass());
 	private UserDaoImp userDao;
 	private SecGroupDaoImp groupDao;
-	private SecPermissionDaoImp permissionDao;	
+	private SecPermissionDaoImp permissionDao;
 
 	public UserDaoImp getUserDao() {
 		return userDao;
@@ -72,20 +72,29 @@ public class SecurityService implements ISecurityService {
 		this.permissionDao = permissionDao;
 	}
 
+	/**
+	 * load list of users
+	 * 
+	 * @return list of users with groups and permission
+	 * @throws Exception
+	 */
 	public Collection<UnitUserBean> loadListUsers() throws Exception {
 		Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-		Collection<SecUsers> listGroups = getUserDao().findAll();
-		for (Iterator<SecUsers> i = listGroups.iterator(); i.hasNext();) {
-			UnitUserBean userB = new UnitUserBean();
-			SecUsers user = i.next();
-			userB.setName(user.getName());
-			userB.setAddress(user.getAddress());
-			userB.setUsername(user.getUsername());
-			userB.setListGroups(convertSetToUnitGroupBean(user
-					.getSecGroupUsers()));
-			userB.setListPermission(convertSetToUnitPermission(user
-					.getSecUserPermissions()));
-			loadListUsers.add(userB);
+		Collection<SecUsers> listUsers = getUserDao().findAll();
+		log.info("LOADED USERS-->" + listUsers.size());
+		if (listUsers != null && listUsers.size() > 0) {
+			for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
+				UnitUserBean userB = new UnitUserBean();
+				SecUsers user = i.next();
+				userB.setName(user.getName());
+				userB.setAddress(user.getAddress());
+				userB.setUsername(user.getUsername());
+				userB.setPublisher(user.getPublisher());
+				userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
+				userB.setListPermission(convertSetToUnitPermission(user
+						.getUid()));
+				loadListUsers.add(userB);
+			}
 		}
 		return loadListUsers;
 	}
@@ -97,18 +106,22 @@ public class SecurityService implements ISecurityService {
 	 * @return
 	 * @throws Exception
 	 */
-	private Collection<UnitGroupBean> convertSetToUnitGroupBean(
-			Set<SecGroupUser> set) throws Exception {
+	private Collection<UnitGroupBean> convertSetToUnitGroupBean(Integer id)
+			throws Exception {
 		Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-		UnitGroupBean group = new UnitGroupBean();
-		for (Iterator<SecGroupUser> i = set.iterator(); i.hasNext();) {
-			SecGroupUser userg = i.next();
-			group.setGroupName(userg.getSecGroups().getName());
-			group.setGroupDescription(userg.getSecGroups().getDesInfo());
-			group.setId(userg.getSecGroups().getGroupId());
-			group.setStateId(Integer
-					.toString(userg.getSecGroups().getIdState()));
-			loadListGroups.add(group);
+		if (id != null) {
+			UnitGroupBean group = new UnitGroupBean();
+			Collection<SecGroupUser> listSecGru = getGroupDao()
+					.loadGroupsByUser(id);
+			for (Iterator<SecGroupUser> i = listSecGru.iterator(); i.hasNext();) {
+				SecGroupUser userg = i.next();
+				group.setGroupName(userg.getSecGroups().getName());
+				group.setGroupDescription(userg.getSecGroups().getDesInfo());
+				group.setId(userg.getSecGroups().getGroupId());
+				group.setStateId(Integer.toString(userg.getSecGroups()
+						.getIdState()));
+				loadListGroups.add(group);
+			}
 		}
 		return loadListGroups;
 	}
@@ -120,17 +133,48 @@ public class SecurityService implements ISecurityService {
 	 * @return
 	 * @throws Exception
 	 */
-	private Collection<UnitPermission> convertSetToUnitPermission(
-			Set<SecUserPermission> set) throws Exception {
+	private Collection<UnitPermission> convertSetToUnitPermission(Integer id)
+			throws Exception {
 		Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-		UnitPermission per = new UnitPermission();
-		for (Iterator<SecUserPermission> i = set.iterator(); i.hasNext();) {
-			SecUserPermission secPer = i.next();
-			per.setPermission(secPer.getSecPermission().getPermission());
-			per.setDescription(secPer.getSecPermission().getDescription());
+		if (id != null) {
+			UnitPermission per = new UnitPermission();
+			Collection<SecUserPermission> listSecGru = getPermissionDao()
+					.loadPermissionByUser(id);
+			for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
+					.hasNext();) {
+				SecUserPermission permission = i.next();
+				per.setId(permission.getSecPermission().getIdPermission());
+				per
+						.setPermission(permission.getSecPermission()
+								.getPermission());
+				per.setDescription(permission.getSecPermission()
+						.getDescription());
+				loadListPermission.add(per);
+			}
+		}
+		return loadListPermission;
+	}
+
+	/**
+	 * load all list of permisssions
+	 * 
+	 * @return list of permisssions
+	 */
+	public Collection<UnitPermission> loadAllListPermission() {
+		Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
+		Collection<SecUserPermission> listSecPermission = getPermissionDao()
+				.loadAllPermissions();
+		for (Iterator<SecUserPermission> i = listSecPermission.iterator(); i
+				.hasNext();) {
+			UnitPermission per = new UnitPermission();
+			SecUserPermission permission = i.next();
+			per.setId(permission.getSecPermission().getIdPermission());
+			per.setPermission(permission.getSecPermission().getPermission());
+			per.setDescription(permission.getSecPermission().getDescription());
 			loadListPermission.add(per);
 		}
 		return loadListPermission;
+
 	}
 
 	/**
@@ -139,9 +183,7 @@ public class SecurityService implements ISecurityService {
 	 * @param group
 	 */
 	public void deleteGroup(UnitGroupBean group) {
-		log.info("deleting group ->" + group.getGroupName());
 		SecGroups g = getGroupDao().find(group.getId());
-		log.info("deleting search group ->" + g.getName());
 		getGroupDao().delete(g);
 	}
 

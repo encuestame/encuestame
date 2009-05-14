@@ -27,6 +27,7 @@ import org.jp.web.beans.MasterBean;
  */
 public class UnitPermission extends MasterBean{
 
+	private Integer id;
 	private String permission;
 	private String description;
 	public String getPermission() {
@@ -40,6 +41,18 @@ public class UnitPermission extends MasterBean{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

@@ -26,13 +26,17 @@
 
 					<h:panelGrid columns="9">
 						<h:selectOneMenu id="listaClientes" styleClass="comboboxStyle"
-							immediate="true">
+							immediate="true" value="#{userBean.selectedAction}">
+							
+							<f:selectItem itemLabel="Seleccione..." itemValue="" />
 							<f:selectItem itemLabel="Eliminar" itemValue="1" />
 							<f:selectItem itemLabel="Recordar Contrasenia" itemValue="2" />
 							<f:selectItem itemLabel="Editor" itemValue="3" />
 						</h:selectOneMenu>
 						<a4j:commandButton value="Aplicar"></a4j:commandButton>
-						<h:selectOneMenu></h:selectOneMenu>
+						<h:selectOneMenu value="#{userBean.selectedPermissionId}">
+							<f:selectItems value="#{globalBean.loadListPermissions}" />
+						</h:selectOneMenu>
 						<a4j:commandButton value="Asignar Rol"></a4j:commandButton>
 
 					</h:panelGrid>
@@ -74,10 +78,10 @@
 							<h:outputText value="#{unitUser.name}" />
 						</rich:column>
 						<rich:column>
-							<h:outputText value="#{unitUser.publisher}" />
+							<h:outputText value="#{unitUser.listGroups}" />
 						</rich:column>
 						<rich:column>
-
+							<h:outputText value="#{unitUser.listPermission}" />
 						</rich:column>
 						<rich:column>
 
