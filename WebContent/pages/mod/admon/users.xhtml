@@ -19,63 +19,82 @@
 		</h:form>
 		<ui:insert name="optionGroup">
 			<h:form>
-			<h2>#{temp.titleUserGroups}</h2>
-			<a4j:region id="listGroup">
-				<a4j:status for="listGroup" startText="Buscando...." stopText=""></a4j:status>
-				<rich:dataTable id="dataTableGroups" width="800"
-					style="margin: 5px; margin-top: 12px;"
-					value="#{groupBean.list_unitBeans}" var="unitGroup"
-					rendered="#{groupBean.oneRow}">
-					<f:facet name="header">
-						<rich:columnGroup>
-							<rich:column>
-								<h:outputText value="#{temp.id}" />
-							</rich:column>
-							<rich:column>
-								<h:outputText value="#{temp.name}" />
-							</rich:column>
-							<rich:column>
-								<h:outputText value="#{temp.state}" />
-							</rich:column>
-							<rich:column>
+				<h2>#{temp.titleUserGroups}</h2>
 
-							</rich:column>
-						</rich:columnGroup>
-					</f:facet>
-					<rich:column>
-						<a4j:commandLink value="#{unitGroup.groupName}" rendered="true"
-							oncomplete="javascript:Richfaces.showModalPanel('panelEditGroup',{width:500, top:300})"
-							reRender="formEditGroup">
-							<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
-								assignTo="#{groupBean.processedGroupId}" noEscape="true" />
-						</a4j:commandLink>
-					</rich:column>
-					<rich:column>
-						<h:outputText value="#{unitGroup.groupDescription}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText value="#{unitGroup.stateId}" />
-					</rich:column>
-					<rich:column>
-						<a4j:commandLink action="#{groupBean.deleteGroup}" reRender="dataTableGroups">
-							<h:graphicImage value="#{url.img}/icons/uncheck.gif" />
-							<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
-								assignTo="#{groupBean.processedGroupId}" noEscape="true" />
-						</a4j:commandLink>
-					</rich:column>
-				</rich:dataTable>
-			</a4j:region>
-			<ui:fragment rendered="not #{groupBean.oneRow}">
-				<h3>#{temp.notfoundGroups}</h3>
-			</ui:fragment>
-		</h:form>
-		<rich:messages></rich:messages>
-		<rich:modalPanel id="panelEditUser">
-			
-		</rich:modalPanel>
+
+				<a4j:region id="listGroup">
+
+					<h:panelGrid columns="9">
+						<h:selectOneMenu id="listaClientes" styleClass="comboboxStyle"
+							immediate="true">
+							<f:selectItem itemLabel="Eliminar" itemValue="1" />
+							<f:selectItem itemLabel="Recordar Contrasenia" itemValue="2" />
+							<f:selectItem itemLabel="Editor" itemValue="3" />
+						</h:selectOneMenu>
+						<a4j:commandButton value="Aplicar"></a4j:commandButton>
+						<h:selectOneMenu></h:selectOneMenu>
+						<a4j:commandButton value="Asignar Rol"></a4j:commandButton>
+
+					</h:panelGrid>
+					<a4j:status for="listGroup" startText="Procesando...." stopText=""></a4j:status>
+					<rich:dataTable id="dataTableGroups" width="100%"
+						style="margin: 5px; margin-top: 12px;"
+						value="#{userBean.list_unitBeans}" var="unitUser">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column width="20px">
+									<h:selectBooleanCheckbox />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{temp.username}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{temp.name}" />
+								</rich:column>
+
+								<rich:column>
+									<h:outputText value="#{temp.gruops}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{temp.roles}" />
+								</rich:column>
+
+								<rich:column>
+
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column width="20px">
+							<h:selectBooleanCheckbox />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{unitUser.username}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{unitUser.name}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{unitUser.publisher}" />
+						</rich:column>
+						<rich:column>
+
+						</rich:column>
+						<rich:column>
+
+						</rich:column>
+					</rich:dataTable>
+				</a4j:region>
+				<ui:fragment rendered="not #{userBean.oneRow}">
+					<h3>#{temp.notfoundGroups}</h3>
+				</ui:fragment>
+			</h:form>
+			<rich:messages></rich:messages>
+			<rich:modalPanel id="panelEditUser">
+
+			</rich:modalPanel>
 
 		</ui:insert>
-	
+
 		<!--  <h:outputText value="Grupos" />
 			<a4j:commandButton value="groups" rendered="true"
 				onclick="javascript:Richfaces.showModalPanel('requestStatusDlg',{width:400, top:200})">

@@ -35,7 +35,7 @@ public class GroupBean extends MasterBean {
 	private UnitGroupBean newGroup;
 	private Collection<UnitGroupBean> list_unitBeans;
 	private Log log = LogFactory.getLog(this.getClass());
-	private boolean isOneRow;
+	
 	private Integer processedGroupId;
 
 	public GroupBean() {
@@ -174,13 +174,7 @@ public class GroupBean extends MasterBean {
 		this.list_unitBeans = list_unitBeans;
 	}
 
-	public boolean isOneRow() {
-		return isOneRow;
-	}
 
-	public void setOneRow(boolean isOneRow) {
-		this.isOneRow = isOneRow;
-	}
 
 	public Integer getProcessedGroupId() {
 		log.info("getProcessedGroupId " + processedGroupId);

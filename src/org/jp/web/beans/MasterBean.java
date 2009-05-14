@@ -38,6 +38,7 @@ public class MasterBean {
 	private ApplicationContext appContext;
 	protected ServiceManagerBean servicemanagerBean;
 	private Log logger = LogFactory.getLog(this.getClass());
+	protected boolean isOneRow;
 
 	public MasterBean() {
 		//logger.info("init master bean");
@@ -134,4 +135,13 @@ public class MasterBean {
 				: getServicemanagerBean().getMessageSource().getMessage(
 						i_propertyId, null, null);
 	}
+
+	public boolean isOneRow() {
+		return isOneRow;
+	}
+
+	public void setOneRow(boolean isOneRow) {
+		this.isOneRow = isOneRow;
+	}
+	
 }

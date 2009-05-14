@@ -3,15 +3,20 @@ package org.jp.core.service;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
 import org.jp.core.persistence.dao.SecPermissionDaoImp;
 import org.jp.core.persistence.dao.UserDaoImp;
+import org.jp.core.persistence.pojo.SecGroupPermission;
+import org.jp.core.persistence.pojo.SecGroupUser;
 import org.jp.core.persistence.pojo.SecGroups;
+import org.jp.core.persistence.pojo.SecUserPermission;
 import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.web.beans.admon.UnitGroupBean;
+import org.jp.web.beans.admon.UnitPermission;
 import org.jp.web.beans.admon.UnitUserBean;
 
 /**
@@ -41,8 +46,7 @@ public class SecurityService implements ISecurityService {
 	private Log log = LogFactory.getLog(this.getClass());
 	private UserDaoImp userDao;
 	private SecGroupDaoImp groupDao;
-	private SecPermissionDaoImp permissionDao;
-	private Collection<SecUsers> loadListUsers;
+	private SecPermissionDaoImp permissionDao;	
 
 	public UserDaoImp getUserDao() {
 		return userDao;
@@ -68,17 +72,65 @@ public class SecurityService implements ISecurityService {
 		this.permissionDao = permissionDao;
 	}
 
-	public Collection<UnitUserBean> loadListUsers() {
+	public Collection<UnitUserBean> loadListUsers() throws Exception {
 		Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
 		Collection<SecUsers> listGroups = getUserDao().findAll();
 		for (Iterator<SecUsers> i = listGroups.iterator(); i.hasNext();) {
 			UnitUserBean userB = new UnitUserBean();
 			SecUsers user = i.next();
-			// users
+			userB.setName(user.getName());
+			userB.setAddress(user.getAddress());
+			userB.setUsername(user.getUsername());
+			userB.setListGroups(convertSetToUnitGroupBean(user
+					.getSecGroupUsers()));
+			userB.setListPermission(convertSetToUnitPermission(user
+					.getSecUserPermissions()));
 			loadListUsers.add(userB);
 		}
-
 		return loadListUsers;
+	}
+
+	/**
+	 * convert set to unit group bean
+	 * 
+	 * @param set
+	 * @return
+	 * @throws Exception
+	 */
+	private Collection<UnitGroupBean> convertSetToUnitGroupBean(
+			Set<SecGroupUser> set) throws Exception {
+		Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
+		UnitGroupBean group = new UnitGroupBean();
+		for (Iterator<SecGroupUser> i = set.iterator(); i.hasNext();) {
+			SecGroupUser userg = i.next();
+			group.setGroupName(userg.getSecGroups().getName());
+			group.setGroupDescription(userg.getSecGroups().getDesInfo());
+			group.setId(userg.getSecGroups().getGroupId());
+			group.setStateId(Integer
+					.toString(userg.getSecGroups().getIdState()));
+			loadListGroups.add(group);
+		}
+		return loadListGroups;
+	}
+
+	/**
+	 * convert dao permission in permission bean
+	 * 
+	 * @param set
+	 * @return
+	 * @throws Exception
+	 */
+	private Collection<UnitPermission> convertSetToUnitPermission(
+			Set<SecUserPermission> set) throws Exception {
+		Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
+		UnitPermission per = new UnitPermission();
+		for (Iterator<SecUserPermission> i = set.iterator(); i.hasNext();) {
+			SecUserPermission secPer = i.next();
+			per.setPermission(secPer.getSecPermission().getPermission());
+			per.setDescription(secPer.getSecPermission().getDescription());
+			loadListPermission.add(per);
+		}
+		return loadListPermission;
 	}
 
 	/**

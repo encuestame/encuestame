@@ -1,11 +1,14 @@
 package org.jp.web.beans.admon;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.core.persistence.pojo.SecGroups;
+import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.web.beans.MasterBean;
-import org.jp.web.beans.ServiceManagerBean;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -31,21 +34,25 @@ import org.jp.web.beans.ServiceManagerBean;
  */
 public class UserBean extends MasterBean {
 
-	UnitUserBean userBean;
-
+	private UnitUserBean unitUserBean;
 	private Collection<UnitUserBean> list_unitBeans;
-	private Log log = LogFactory.getLog(this.getClass());
-	private boolean isOneRow;
+	private Log log = LogFactory.getLog(this.getClass());	
 	private Integer processedUserId;
 
-	
-	
-	
 	/**
 	 * @return the list_unitBeans
+	 * @throws Exception 
 	 */
-	public Collection<UnitUserBean> getList_unitBeans() {
-		return list_unitBeans;
+	public Collection<UnitUserBean> loadListUsers() throws Exception {
+		list_unitBeans = new LinkedList<UnitUserBean>();
+		/*Collection<SecUsers> listGroups = getServicemanagerBean().getSecurityService().getUserDao().findAll();		
+		for (Iterator<SecUsers> i = listGroups.iterator(); i.hasNext();) {
+			UnitUserBean userB = new UnitUserBean();
+			SecUsers user = i.next();
+			userB.setName(user.getName());			
+			list_unitBeans.add(userB);
+		}*/
+		return list_unitBeans = getServicemanagerBean().getSecurityService().loadListUsers();
 	}
 
 	/**
@@ -54,6 +61,21 @@ public class UserBean extends MasterBean {
 	 */
 	public void setList_unitBeans(Collection<UnitUserBean> list_unitBeans) {
 		this.list_unitBeans = list_unitBeans;
+	}
+	
+	public Collection<UnitUserBean> getList_unitBeans() {
+		try{
+		loadListUsers();
+		log.info("2LISTA USUARIOS->"+list_unitBeans.size());
+		if (list_unitBeans.size() > 0)
+			setOneRow(true);
+		else
+			setOneRow(false);
+		return list_unitBeans;
+		}catch (Exception e) {
+			addErrorMessage("Error Cargando Datos->"+e.getMessage(), e.getMessage());
+			return null;
+		}
 	}
 
 	/**
@@ -71,12 +93,16 @@ public class UserBean extends MasterBean {
 		this.isOneRow = isOneRow;
 	}
 
-	/**
-	 * @param userBean
-	 *            the userBean to set
-	 */
-	public void setUserBean(UnitUserBean userBean) {
-		this.userBean = userBean;
+	public void setUnitUserBean(UnitUserBean unitUserBean) {
+		this.unitUserBean = unitUserBean;
+	}
+
+	public Integer getProcessedUserId() {
+		return processedUserId;
+	}
+
+	public void setProcessedUserId(Integer processedUserId) {
+		this.processedUserId = processedUserId;
 	}
 
 }

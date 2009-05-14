@@ -19,31 +19,41 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
-       
+
 	<!-- admon bean -->
 	<bean id="userBean" class="org.jp.web.beans.admon.UserBean" scope="request">
 		<property name="servicemanagerBean" ref="servicesManager" />
+		<property name="unitUserBean" ref="unitUserBean" />
 	</bean>
-	
-	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean" scope="session">
-		<property name="servicemanagerBean" ref="servicesManager" />	
-		<property name="newGroup" ref="unitGroupBean" />		
+
+	<bean id="groupBean" class="org.jp.web.beans.admon.GroupBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+		<property name="newGroup" ref="unitGroupBean" />
 	</bean>
-	
-	<bean id="unitGroupBean" class="org.jp.web.beans.admon.UnitGroupBean" scope="session">
-	<property name="servicemanagerBean" ref="servicesManager" />
+
+	<bean id="unitGroupBean" class="org.jp.web.beans.admon.UnitGroupBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
-	
-	<!-- login bean -->	
-	<bean id="loginForm" class="org.jp.web.beans.login.LoginSecurityBean" scope="request">
+
+	<bean id="unitUserBean" class="org.jp.web.beans.admon.UnitUserBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+
+	<!-- login bean -->
+	<bean id="loginForm" class="org.jp.web.beans.login.LoginSecurityBean"
+		scope="request">
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
-	
-	
-	<!-- globals -->	
-	<bean id="globalBean" class="org.jp.web.beans.commons.GlobalCommonsBeans" scope="session">
+
+
+	<!-- globals -->
+	<bean id="globalBean" class="org.jp.web.beans.commons.GlobalCommonsBeans"
+		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
-	
+
 </beans>
