@@ -32,20 +32,20 @@
    PATH="/pages/mod/admon/groups.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#createGroup.xhtml"
-  PATH="/pages/mod/admon/createGroup.xhtml" SHAPE="792,128,50,25"
+  PATH="/pages/mod/admon/createGroup.xhtml" SHAPE="744,104,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#editGroup.xhtml"
-  PATH="/pages/mod/admon/editGroup.xhtml" SHAPE="800,72,50,25"
+  PATH="/pages/mod/admon/editGroup.xhtml" SHAPE="768,32,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#users.xhtml"
   PATH="/pages/mod/admon/users.xhtml" SHAPE="240,248,50,25" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#newUser.xhtml"
-  PATH="/pages/mod/admon/newUser.xhtml" SHAPE="792,192,50,25"
+  PATH="/pages/mod/admon/newUser.xhtml" SHAPE="776,168,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#mod#admon#editUser.xhtml"
   PATH="/pages/mod/admon/editUser.xhtml" SHAPE="784,248,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="608,72,53,90" model-entity="JSFProcessGroup">
+ <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="528,104,53,90" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:1" NAME="item" PATH="*" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="newUser::#pages#mod#admon#newUser.xhtml"
     NAME="output" PATH="/pages/mod/admon/newUser.xhtml"
@@ -58,9 +58,6 @@
     PATH="/pages/mod/admon/createGroup.xhtml"
     TARGET="rules:#pages#mod#admon#createGroup.xhtml"
     TITLE="createGroup" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="editGroup::#pages#mod#admon#editGroup.xhtml"
-    NAME="output3" PATH="/pages/mod/admon/editGroup.xhtml"
-    TARGET="rules:#pages#mod#admon#editGroup.xhtml" TITLE="editGroup" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

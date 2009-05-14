@@ -59,10 +59,6 @@
    <from-outcome>createGroup</from-outcome>
    <to-view-id>/pages/mod/admon/createGroup.xhtml</to-view-id>
   </navigation-case>
-  <navigation-case>
-   <from-outcome>editGroup</from-outcome>
-   <to-view-id>/pages/mod/admon/editGroup.xhtml</to-view-id>
-  </navigation-case>
  </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
