@@ -81,7 +81,7 @@ public class SecurityService implements ISecurityService {
 	public Collection<UnitUserBean> loadListUsers() throws Exception {
 		Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
 		Collection<SecUsers> listUsers = getUserDao().findAll();
-		log.info("LOADED USERS-->" + listUsers.size());
+		//log.info("LOADED USERS-->" + listUsers.size());
 		if (listUsers != null && listUsers.size() > 0) {
 			for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
 				UnitUserBean userB = new UnitUserBean();

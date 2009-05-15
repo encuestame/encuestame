@@ -1,7 +1,11 @@
 package org.jp.web.beans.admon;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import javax.faces.component.UIData;
+import javax.faces.component.UISelectBoolean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +41,8 @@ public class UserBean extends MasterBean {
 	private Integer processedUserId;
 	private Integer selectedPermissionId;
 	private String selectedAction;
+	private UIData uiDataUserTable;
+	private UISelectBoolean addItem;
 
 	/**
 	 * @return the list_unitBeans
@@ -73,6 +79,32 @@ public class UserBean extends MasterBean {
 			addErrorMessage("Error Cargando Datos->" + e.getMessage(), e
 					.getMessage());
 			return null;
+		}
+	}
+
+	public void assingPermissions() {
+		try {
+			log.info("CHECK->" + getAddItem());
+			log.info("uiDataUserTable->" + uiDataUserTable.getChildren());
+			log.info("uiDataUserTable row count->" + uiDataUserTable.getRowCount());
+			log.info("1SELETED childCount//->"
+					+ uiDataUserTable.getChildCount());
+			// log.info("2SELETED total//->" + uiDataUserTable.getRowData());
+			ArrayList selected = new ArrayList();
+			int first = uiDataUserTable.getFirst();
+			log.info("1SELETED first//->" + first);
+			int rows = uiDataUserTable.getRows();
+			log.info("2SELETED//->" + rows);
+			for (int i = first; i < (first + rows); i++) {
+				this.uiDataUserTable.setRowIndex(i);
+				if (this.addItem.isSelected()) {
+					log.info("3SELETED//->" + this.uiDataUserTable);
+					selected.add(this.uiDataUserTable.getRowData());
+				}
+			}
+		} catch (Exception e) {
+			log.error("ERROR->" + e.getMessage());
+			addErrorMessage(e.getMessage(), e.getMessage());
 		}
 	}
 
@@ -131,6 +163,37 @@ public class UserBean extends MasterBean {
 	 */
 	public void setSelectedAction(String selectedAction) {
 		this.selectedAction = selectedAction;
+	}
+
+	/**
+	 * @return the uiDataUserTable
+	 */
+	public UIData getUiDataUserTable() {
+		log.info("DATA TABLE-?" + uiDataUserTable);
+		return uiDataUserTable;
+	}
+
+	/**
+	 * @param uiDataUserTable
+	 *            the uiDataUserTable to set
+	 */
+	public void setUiDataUserTable(UIData uiDataUserTable) {
+		this.uiDataUserTable = uiDataUserTable;
+	}
+
+	/**
+	 * @return the addItem
+	 */
+	public UISelectBoolean getAddItem() {
+		return addItem;
+	}
+
+	/**
+	 * @param addItem
+	 *            the addItem to set
+	 */
+	public void setAddItem(UISelectBoolean addItem) {
+		this.addItem = addItem;
 	}
 
 }

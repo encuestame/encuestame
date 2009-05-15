@@ -45,7 +45,6 @@ public class GlobalCommonsBeans extends MasterBean {
 
 	public GlobalCommonsBeans() {
 		log.info("init GlobalCommonsBeans");
-
 	}
 
 	/**
@@ -54,6 +53,7 @@ public class GlobalCommonsBeans extends MasterBean {
 	 * @return
 	 */
 	public List<SelectItem> getLoadListState() {
+		lista = new LinkedList();
 		select = new ArrayList<SelectItem>();
 		log.info("get load list state");
 		select.add(new SelectItem(null, ""));
@@ -68,11 +68,16 @@ public class GlobalCommonsBeans extends MasterBean {
 						.getDescState()));
 			}
 		}
-		log.info("state select->" + select);
 		return select;
 	}
 
+	/**
+	 * load list of permisssions
+	 * 
+	 * @return
+	 */
 	public List<SelectItem> getLoadListPermissions() {
+		lista = new LinkedList();
 		select = new LinkedList<SelectItem>();
 		select.add(new SelectItem(null, ""));
 		lista = getServicemanagerBean().getSecurityService()
@@ -85,7 +90,6 @@ public class GlobalCommonsBeans extends MasterBean {
 						.getDescription()));
 			}
 		}
-		log.info("state select->" + select);
 		return select;
 	}
 
