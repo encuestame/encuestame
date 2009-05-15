@@ -72,8 +72,7 @@
 							</rich:columnGroup>
 						</f:facet>
 						<rich:column width="20px">
-							<h:selectBooleanCheckbox forceId="selectAdd" id="selectAdd"
-								binding="#{userBean.addItem}" value="1"/>
+							<h:selectBooleanCheckbox id="selectAdd"	binding="#{userBean.checked}" value="1"/>
 						</rich:column>
 						<rich:column>
 							<h:outputText value="#{unitUser.username}" />

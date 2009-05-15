@@ -13,6 +13,7 @@ import org.jp.core.persistence.dao.SecPermissionDaoImp;
 import org.jp.core.persistence.dao.UserDaoImp;
 import org.jp.core.persistence.pojo.SecGroupUser;
 import org.jp.core.persistence.pojo.SecGroups;
+import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.persistence.pojo.SecUserPermission;
 import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.web.beans.admon.UnitGroupBean;
@@ -81,7 +82,7 @@ public class SecurityService implements ISecurityService {
 	public Collection<UnitUserBean> loadListUsers() throws Exception {
 		Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
 		Collection<SecUsers> listUsers = getUserDao().findAll();
-		//log.info("LOADED USERS-->" + listUsers.size());
+		// log.info("LOADED USERS-->" + listUsers.size());
 		if (listUsers != null && listUsers.size() > 0) {
 			for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
 				UnitUserBean userB = new UnitUserBean();
@@ -157,20 +158,20 @@ public class SecurityService implements ISecurityService {
 
 	/**
 	 * load all list of permisssions
-	 * 
 	 * @return list of permisssions
 	 */
 	public Collection<UnitPermission> loadAllListPermission() {
 		Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-		Collection<SecUserPermission> listSecPermission = getPermissionDao()
+		Collection<SecPermission> listSecPermission = getPermissionDao()
 				.loadAllPermissions();
-		for (Iterator<SecUserPermission> i = listSecPermission.iterator(); i
+		log.info("Permissions Total->" + listSecPermission.size());
+		for (Iterator<SecPermission> i = listSecPermission.iterator(); i
 				.hasNext();) {
 			UnitPermission per = new UnitPermission();
-			SecUserPermission permission = i.next();
-			per.setId(permission.getSecPermission().getIdPermission());
-			per.setPermission(permission.getSecPermission().getPermission());
-			per.setDescription(permission.getSecPermission().getDescription());
+			SecPermission permission = i.next();
+			per.setId(permission.getIdPermission());
+			per.setPermission(permission.getPermission());
+			per.setDescription(permission.getDescription());
 			loadListPermission.add(per);
 		}
 		return loadListPermission;

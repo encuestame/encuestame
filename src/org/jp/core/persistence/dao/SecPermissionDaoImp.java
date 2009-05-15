@@ -48,8 +48,8 @@ public class SecPermissionDaoImp extends HibernateDaoSupport implements
 	 * load all permisssion
 	 * @return
 	 */
-	public Collection<SecUserPermission> loadAllPermissions() {
-		return getHibernateTemplate().find("from SecUserPermission");
+	public Collection<SecPermission> loadAllPermissions() {
+		return getHibernateTemplate().find("from SecPermission");
 
 	}
 

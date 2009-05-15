@@ -42,7 +42,7 @@ public class UserBean extends MasterBean {
 	private Integer selectedPermissionId;
 	private String selectedAction;
 	private UIData uiDataUserTable;
-	private UISelectBoolean addItem;
+	private UISelectBoolean checked = null;
 
 	/**
 	 * @return the list_unitBeans
@@ -84,24 +84,15 @@ public class UserBean extends MasterBean {
 
 	public void assingPermissions() {
 		try {
-			log.info("CHECK->" + getAddItem());
-			log.info("uiDataUserTable->" + uiDataUserTable.getChildren());
-			log.info("uiDataUserTable row count->" + uiDataUserTable.getRowCount());
-			log.info("1SELETED childCount//->"
-					+ uiDataUserTable.getChildCount());
-			// log.info("2SELETED total//->" + uiDataUserTable.getRowData());
-			ArrayList selected = new ArrayList();
-			int first = uiDataUserTable.getFirst();
-			log.info("1SELETED first//->" + first);
-			int rows = uiDataUserTable.getRows();
-			log.info("2SELETED//->" + rows);
-			for (int i = first; i < (first + rows); i++) {
-				this.uiDataUserTable.setRowIndex(i);
-				if (this.addItem.isSelected()) {
-					log.info("3SELETED//->" + this.uiDataUserTable);
-					selected.add(this.uiDataUserTable.getRowData());
+			int n = uiDataUserTable.getRowCount();
+			for (int i = 0; i < n; i++) {
+				uiDataUserTable.setRowIndex(i);
+				if (checked.isSelected()) {
+					UnitUserBean thisTenant = (UnitUserBean) uiDataUserTable
+							.getRowData();				
+					log.info("SELECTED->" + thisTenant.getUsername());
 				}
-			}
+			}	
 		} catch (Exception e) {
 			log.error("ERROR->" + e.getMessage());
 			addErrorMessage(e.getMessage(), e.getMessage());
@@ -181,19 +172,14 @@ public class UserBean extends MasterBean {
 		this.uiDataUserTable = uiDataUserTable;
 	}
 
-	/**
-	 * @return the addItem
-	 */
-	public UISelectBoolean getAddItem() {
-		return addItem;
+	
+
+	public UISelectBoolean getChecked() {
+		return checked;
 	}
 
-	/**
-	 * @param addItem
-	 *            the addItem to set
-	 */
-	public void setAddItem(UISelectBoolean addItem) {
-		this.addItem = addItem;
+	public void setChecked(UISelectBoolean checked) {
+		this.checked = checked;
 	}
 
 }
