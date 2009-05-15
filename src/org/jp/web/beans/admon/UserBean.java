@@ -190,20 +190,7 @@ public class UserBean extends MasterBean {
 	}
 
 	public String getProcessedUserId() {
-		try {
-			log.info("getProcessedUserId->" + processedUserId);
-			if (processedUserId != null) {
-				log.info("Selected Users->"
-						+ getServicemanagerBean().getSecurityService()
-								.searchUserByUsername(processedUserId)
-								.getUsername());
-			}
-			return processedUserId;
-		} catch (Exception e) {
-			addErrorMessage("Error Cargando Datos Usuario"+processedUserId, "");
-			log.error("Error Cargando Datoss Usuario " + e.getMessage());
-			return null;
-		}
+		return processedUserId;
 	}
 
 	public void setProcessedUserId(String processedUserId) {
@@ -263,6 +250,23 @@ public class UserBean extends MasterBean {
 
 	public void setChecked(UISelectBoolean checked) {
 		this.checked = checked;
+	}
+
+	public UnitUserBean getUnitUserBean() {
+		try {
+			unitUserBean = null;
+			if (getProcessedUserId() != null) {
+				unitUserBean = getServicemanagerBean().getSecurityService()
+						.searchUserByUsername(getProcessedUserId());
+				log.info("Selected Users->" + unitUserBean);
+			}
+		} catch (Exception e) {
+			addErrorMessage("Error Cargando Datos Usuario"
+					+ getProcessedUserId(), "");
+			log.error("Error Cargando Datoss Usuario " + e.getMessage());
+			return null;
+		}
+		return unitUserBean;
 	}
 
 }
