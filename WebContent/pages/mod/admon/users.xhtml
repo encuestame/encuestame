@@ -18,29 +18,34 @@
 			</h:panelGrid>
 		</h:form>
 		<ui:insert name="optionGroup">
-			<h:form>
-				<h2>#{temp.titleUserGroups}</h2>
+			<h2>#{temp.titleUserGroups}</h2>
+			<a4j:region id="listGroup">
+				<h:form id="formUsers">
+					<h:panelGrid columns="9" cellpadding="3">
+						<h:panelGroup>
+							<h:selectOneMenu id="listActions" immediate="true"
+								value="#{userBean.selectedAction}">
+								<f:selectItem itemLabel="Seleccione..." itemValue="" />
+								<f:selectItem itemLabel="Eliminar" itemValue="1" />
+								<f:selectItem itemLabel="Recordar Contrasenia" itemValue="2" />
+								<f:selectItem itemLabel="Editor" itemValue="3" />
+							</h:selectOneMenu>
+							<a4j:commandButton value="Aplicar"
+								action="#{userBean.initAction}" reRender="formUsers,listActions"></a4j:commandButton>
 
+						</h:panelGroup>
+						<h:panelGroup>
 
-				<a4j:region id="listGroup">
+							<h:selectOneMenu id="selectPermission"
+								value="#{userBean.selectedPermissionId}"
+								requiredMessage="Es necesario un rol">
+								<f:selectItems value="#{globalBean.loadListPermissions}" />
+							</h:selectOneMenu>
+							<h:message for="selectPermission" />
+							<a4j:commandButton value="Asignar Rol"
+								action="#{userBean.assingPermissions}"></a4j:commandButton>
 
-					<h:panelGrid columns="9">
-						<h:selectOneMenu id="listaClientes" styleClass="comboboxStyle"
-							immediate="true" value="#{userBean.selectedAction}">
-
-							<f:selectItem itemLabel="Seleccione..." itemValue="" />
-							<f:selectItem itemLabel="Eliminar" itemValue="1" />
-							<f:selectItem itemLabel="Recordar Contrasenia" itemValue="2" />
-							<f:selectItem itemLabel="Editor" itemValue="3" />
-						</h:selectOneMenu>
-						<a4j:commandButton value="Aplicar"></a4j:commandButton>
-						<h:selectOneMenu id="selectPermission" value="#{userBean.selectedPermissionId}" required="true" requiredMessage="Es necesario un rol">
-							<f:selectItems value="#{globalBean.loadListPermissions}" />
-						</h:selectOneMenu>
-						<h:message for="selectPermission" />
-						<a4j:commandButton value="Asignar Rol"
-							action="#{userBean.assingPermissions}"></a4j:commandButton>
-
+						</h:panelGroup>
 					</h:panelGrid>
 					<a4j:status for="listGroup" startText="Procesando...." stopText=""></a4j:status>
 					<rich:dataTable id="dataTableGroups" width="100%"
@@ -58,7 +63,6 @@
 								<rich:column>
 									<h:outputText value="#{temp.name}" />
 								</rich:column>
-
 								<rich:column>
 									<h:outputText value="#{temp.gruops}" />
 								</rich:column>
@@ -72,34 +76,86 @@
 							</rich:columnGroup>
 						</f:facet>
 						<rich:column width="20px">
-							<h:selectBooleanCheckbox id="selectAdd"	binding="#{userBean.checked}" value="1"/>
+							<h:selectBooleanCheckbox id="selectAdd"
+								binding="#{userBean.checked}" value="1" />
 						</rich:column>
 						<rich:column>
-							<h:outputText value="#{unitUser.username}" />
+							<a4j:commandLink value="#{unitUser.username}" rendered="true"
+								oncomplete="javascript:Richfaces.showModalPanel('panelUserGroup')"
+								reRender="editFormUserUnit">
+								<a4j:actionparam name="userId" value="#{unitUser.username}"
+									assignTo="#{userBean.processedUserId}"></a4j:actionparam>
+							</a4j:commandLink>
 						</rich:column>
 						<rich:column>
 							<h:outputText value="#{unitUser.name}" />
 						</rich:column>
 						<rich:column>
-							<h:outputText value="#{unitUser.listGroups}" />
+							<a4j:repeat value="#{unitUser.listGroups}" var="group">
+								<h:outputText value="#{group.groupName}" />
+							</a4j:repeat>
 						</rich:column>
 						<rich:column>
-							<h:outputText value="#{unitUser.listPermission}" />
+							<a4j:repeat value="#{unitUser.listPermission}" var="per">
+								<h:outputText value="#{per.description}," />
+							</a4j:repeat>
 						</rich:column>
 						<rich:column>
 
 						</rich:column>
 					</rich:dataTable>
-				</a4j:region>
-				<ui:fragment rendered="not #{userBean.oneRow}">
-					<h3>#{temp.notfoundGroups}</h3>
-				</ui:fragment>
-				<rich:messages></rich:messages>
-			</h:form>
+					<rich:messages></rich:messages>
+				</h:form>
+				<rich:modalPanel id="panelUserGroup" autosized="true" width="200"
+					height="60" zindex="2000">
 
-			<rich:modalPanel id="panelEditUser">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Editar Usuario"></h:outputText>
+						</h:panelGroup>
+					</f:facet>
+					<f:facet name="controls">
+						<h:panelGroup>
+							<a4j:commandLink
+								onclick="Richfaces.hideModalPanel('panelUserGroup')"
+								ajaxSingle="true">
+								<h:graphicImage value="#{url.img}/icons/close.png" />
+							</a4j:commandLink>
 
-			</rich:modalPanel>
+						</h:panelGroup>
+					</f:facet>
+					<h:form id="editFormUserUnit">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Id" for="" />
+							<h:inputText value="#{userBean.processedUserId}" />
+							<h:outputLabel value="Nombre" for="" />
+							<h:inputText value="" />
+
+							<h:outputLabel value="Nombre" for="" />
+							<h:inputText value="" />
+
+							<h:outputLabel value="Nombre" for="" />
+							<h:inputText value="" />
+
+							<h:outputLabel value="Nombre" for="" />
+							<h:inputText value="" />
+
+
+
+						</h:panelGrid>
+					</h:form>
+				</rich:modalPanel>
+
+
+			</a4j:region>
+
+			<ui:fragment rendered="not #{userBean.oneRow}">
+				<h3>#{temp.notfoundGroups}</h3>
+			</ui:fragment>
+
+
+
+
 
 		</ui:insert>
 

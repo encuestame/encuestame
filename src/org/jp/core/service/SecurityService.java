@@ -87,6 +87,7 @@ public class SecurityService implements ISecurityService {
 			for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
 				UnitUserBean userB = new UnitUserBean();
 				SecUsers user = i.next();
+				userB.setId(user.getUid());
 				userB.setName(user.getName());
 				userB.setAddress(user.getAddress());
 				userB.setUsername(user.getUsername());
@@ -98,6 +99,47 @@ public class SecurityService implements ISecurityService {
 			}
 		}
 		return loadListUsers;
+	}
+
+	/**
+	 * search user by username
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public UnitUserBean searchUserByUsername(String username) {
+		SecUsers userD = getUserDao().getUser(username);
+		log.info("Usuario Encontrado por Nombnre->" + userD);
+		if (userD != null) {
+			UnitUserBean user = convertUserDaoToUserBean(userD);
+			log.info("Conversión Usuario to Bean ->" + user);
+			return user;
+		} else {
+			log.error("No se encontro usuario");
+			return null;
+		}
+
+	}
+
+	private UnitUserBean convertUserDaoToUserBean(SecUsers userD) {
+		UnitUserBean user = new UnitUserBean();
+		try {
+			user.setName(userD.getName());
+			user.setUsername(userD.getUsername());
+			user.setEmail(userD.getEmail());
+			user.setSex(userD.getSex());
+			user.setAddress(userD.getAddress());
+			user.setBirth_date(userD.getBirthDate().toString());
+			user.setId(userD.getUid());
+			user.setId_state(userD.getCatState().getIdState());
+			user.setNoc_id(userD.getNocId());
+			/*
+			 * aggregar luego el resto
+			 */
+		} catch (Exception e) {
+			log.error("Error convirtiendo a User BEan -"+e.getMessage());
+		}
+		return user;
 	}
 
 	/**
@@ -158,6 +200,7 @@ public class SecurityService implements ISecurityService {
 
 	/**
 	 * load all list of permisssions
+	 * 
 	 * @return list of permisssions
 	 */
 	public Collection<UnitPermission> loadAllListPermission() {
@@ -186,6 +229,18 @@ public class SecurityService implements ISecurityService {
 	public void deleteGroup(UnitGroupBean group) {
 		SecGroups g = getGroupDao().find(group.getId());
 		getGroupDao().delete(g);
+	}
+
+	/**
+	 * delete user
+	 * 
+	 * @param user
+	 *            to delte
+	 */
+	public void deleteUser(UnitUserBean user) {
+		SecUsers g = getUserDao().getUser(user.getUsername().trim());
+		log.info("delete deleteUserDao->" + g.getUsername());
+		getUserDao().delete(g);
 	}
 
 	/**

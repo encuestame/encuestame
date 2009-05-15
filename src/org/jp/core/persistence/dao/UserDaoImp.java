@@ -42,29 +42,21 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 
 	private static Logger log = Logger.getLogger(UserDaoImp.class);
 
-	public void delete(Object obj) {
-		// TODO Auto-generated method stub
+	/**
+	 * delete user
+	 * @param user to delete
+	 */
+	public void delete(SecUsers user) {
+		getHibernateTemplate().delete(user);
 
 	}
 
-	public Object find(Class clazz, Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	public Collection<SecUsers> findAll() {
 		return getHibernateTemplate().find("from SecUsers");
 	}
 
-	public Integer lastRow(Class clase, String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void saveOrUpdate(Object obj) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	/**
 	 * Obtiene el usuario por nombre de usuarui
@@ -100,11 +92,13 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 			SecGroupUser secGroups = (SecGroupUser) iList.next();
 			log.info("secGroups " + secGroups.getSecGroups().getName());
 			List<SecGroupPermission> permission = getHibernateTemplate()
-					.findByNamedQuery("User.loadGroupPermission",secGroups.getSecGroups());
+					.findByNamedQuery("User.loadGroupPermission",
+							secGroups.getSecGroups());
 			log.info("permission para " + secGroups.getSecGroups().getName()
 					+ "->" + permission.size());
 			if (permission != null && permission.size() > 0) {
-				Iterator<SecGroupPermission> ilistPermission = permission.iterator();
+				Iterator<SecGroupPermission> ilistPermission = permission
+						.iterator();
 				while (ilistPermission.hasNext()) {
 					SecGroupPermission secPermission = (SecGroupPermission) ilistPermission
 							.next();
@@ -125,8 +119,7 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 	 */
 	public List<SecUserPermission> getUserPermission(SecUsers user) {
 		List<SecUserPermission> userPermission = getHibernateTemplate()
-				.findByNamedQuery("User.loadPermissionUser",
-						user);
+				.findByNamedQuery("User.loadPermissionUser", user);
 		if (userPermission == null || userPermission.size() == 0) {
 			return null;
 		} else {

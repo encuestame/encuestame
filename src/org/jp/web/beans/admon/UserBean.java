@@ -2,6 +2,7 @@ package org.jp.web.beans.admon;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.faces.component.UIData;
@@ -9,6 +10,7 @@ import javax.faces.component.UISelectBoolean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.web.beans.MasterBean;
 
 /**
@@ -38,7 +40,7 @@ public class UserBean extends MasterBean {
 	private UnitUserBean unitUserBean;
 	private Collection<UnitUserBean> list_unitBeans;
 	private Log log = LogFactory.getLog(this.getClass());
-	private Integer processedUserId;
+	private String processedUserId;
 	private Integer selectedPermissionId;
 	private String selectedAction;
 	private UIData uiDataUserTable;
@@ -83,19 +85,88 @@ public class UserBean extends MasterBean {
 	}
 
 	public void assingPermissions() {
+		log.info(selectedUsers());
+	}
+
+	/**
+	 * get list of user select in datatable
+	 * 
+	 * @return
+	 */
+	private Collection<UnitUserBean> selectedUsers() {
+		Collection<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
 		try {
 			int n = uiDataUserTable.getRowCount();
 			for (int i = 0; i < n; i++) {
 				uiDataUserTable.setRowIndex(i);
 				if (checked.isSelected()) {
-					UnitUserBean thisTenant = (UnitUserBean) uiDataUserTable
-							.getRowData();				
-					log.info("SELECTED->" + thisTenant.getUsername());
+					UnitUserBean userUnit = (UnitUserBean) uiDataUserTable
+							.getRowData();
+					listSelectedUsers.add(userUnit);
 				}
-			}	
+			}
+			return listSelectedUsers;
 		} catch (Exception e) {
-			log.error("ERROR->" + e.getMessage());
 			addErrorMessage(e.getMessage(), e.getMessage());
+			log.error("ERROR->" + e.getMessage());
+			return listSelectedUsers;
+		}
+	}
+
+	/**
+	 * delete user
+	 * 
+	 * @param user
+	 */
+	private void deleteUser(UnitUserBean user) {
+		try {
+			getServicemanagerBean().getSecurityService().deleteUser(user);
+			log.info("Se borro bien->" + user.getUsername());
+			addInfoMessage("Se borro bien->" + user.getUsername(), "");
+		} catch (Exception e) {
+			log.info("No borro bien->" + user.getUsername());
+			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
+					+ e.getMessage(), "");
+		}
+
+	}
+
+	/**
+	 * init action
+	 */
+	public void initAction() {
+		log.info("init action->" + getSelectedAction());
+		try {
+			if (getSelectedAction() != null) {
+				switch (new Integer(getSelectedAction())) {
+				case 1:
+					for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
+							.hasNext();) {
+						UnitUserBean user = i.next();
+						log.info("delete action->" + user.getUsername());
+						deleteUser(user);
+					}
+					break;
+				case 2:
+					log.info("action 2" + selectedUsers());
+					break;
+				case 3:
+					log.info("action 3" + selectedUsers());
+					break;
+
+				default:
+					addErrorMessage("Acción Invalida", "");
+					log.error("invalid action -" + getSelectedAction());
+					break;
+				}
+
+			} else {
+				addInfoMessage("Seleccione una Acción", "");
+				log.info("init action->" + getSelectedAction());
+			}
+		} catch (Exception e) {
+			addErrorMessage("Error en la Acción", e.getMessage());
+			log.error("Error en la Acción -" + e.getMessage());
 		}
 	}
 
@@ -118,11 +189,25 @@ public class UserBean extends MasterBean {
 		this.unitUserBean = unitUserBean;
 	}
 
-	public Integer getProcessedUserId() {
-		return processedUserId;
+	public String getProcessedUserId() {
+		try {
+			log.info("getProcessedUserId->" + processedUserId);
+			if (processedUserId != null) {
+				log.info("Selected Users->"
+						+ getServicemanagerBean().getSecurityService()
+								.searchUserByUsername(processedUserId)
+								.getUsername());
+			}
+			return processedUserId;
+		} catch (Exception e) {
+			addErrorMessage("Error Cargando Datos Usuario"+processedUserId, "");
+			log.error("Error Cargando Datoss Usuario " + e.getMessage());
+			return null;
+		}
 	}
 
-	public void setProcessedUserId(Integer processedUserId) {
+	public void setProcessedUserId(String processedUserId) {
+		log.info("setProcessedUserId->" + processedUserId);
 		this.processedUserId = processedUserId;
 	}
 
@@ -171,8 +256,6 @@ public class UserBean extends MasterBean {
 	public void setUiDataUserTable(UIData uiDataUserTable) {
 		this.uiDataUserTable = uiDataUserTable;
 	}
-
-	
 
 	public UISelectBoolean getChecked() {
 		return checked;

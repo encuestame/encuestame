@@ -37,7 +37,7 @@ import org.jp.web.beans.MasterBean;
 public class UnitUserBean extends MasterBean implements Serializable {
 
 	private static final long serialVersionUID = -6690522000664394521L;
-	private String id;
+	private Integer id;
 	private String sex;
 	private String name;
 	private String email;
@@ -53,11 +53,13 @@ public class UnitUserBean extends MasterBean implements Serializable {
 	private Collection<UnitGroupBean> listGroups;
 	private Collection<UnitPermission> listPermission;
 
-	public String getId() {
+	
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
