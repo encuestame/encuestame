@@ -14,7 +14,10 @@
 	<ui:define name="bodyOptions">
 		<h:form>
 			<h:panelGrid columns="8">
-				<a4j:commandLink value="#{temp.newUser}" action="newUser" />
+				<a4j:commandLink value="#{temp.newUser}" rendered="true"
+					oncomplete="javascript:Richfaces.showModalPanel('panelnewUserGroup')"
+					reRender="newFormUserUnit,formHeaderNewtUser">
+				</a4j:commandLink>
 			</h:panelGrid>
 		</h:form>
 		<ui:insert name="optionGroup">
@@ -127,7 +130,7 @@
 					<h:form id="editFormUserUnit">
 						<rich:tabPanel switchType="client">
 							<rich:tab label="Datos Generales" focus="true">
-								<p><h:outputText
+								<p style="font-weight: bold;"><h:outputText
 									value="Usuario desde #{userBean.unitUserBean.date_new}" /></p>
 								<h:panelGrid columns="2" width="400px">
 
@@ -149,7 +152,8 @@
 									<h:inputText id="email" value="#{userBean.unitUserBean.email}"
 										required="true" size="50" />
 									<h:outputLabel value="Fecha de Nacimiento" for="birdthDate" />
-									<rich:calendar id="birdthDate"></rich:calendar>
+									<rich:calendar id="birdthDate"
+										value="#{userBean.unitUserBean.birth_date}"></rich:calendar>
 									<h:outputLabel value="Domicilio" for="address" />
 									<h:inputTextarea id="address"
 										value="#{userBean.unitUserBean.address}" cols="40" rows="5"
@@ -158,7 +162,6 @@
 									<h:inputText value="#{userBean.unitUserBean.noc_id}"
 										id="idCountry" required="true" />
 									<h:outputLabel value="Estado" for="status" />
-
 									<h:panelGroup>
 										<h:panelGrid columns="2">
 											<h:selectOneRadio id="status"
@@ -166,12 +169,9 @@
 												<f:selectItem itemValue="1" itemLabel="Si" />
 												<f:selectItem itemValue="0" itemLabel="No" />
 											</h:selectOneRadio>
-
 										</h:panelGrid>
 									</h:panelGroup>
-
 									<h:outputLabel value="Editor" for="editor" />
-
 									<h:panelGroup>
 										<h:panelGrid columns="2">
 											<h:selectOneRadio id="editor"
@@ -179,7 +179,6 @@
 												<f:selectItem itemValue="S" itemLabel="Si" />
 												<f:selectItem itemValue="N" itemLabel="No" />
 											</h:selectOneRadio>
-
 										</h:panelGrid>
 									</h:panelGroup>
 									<a4j:commandButton value="Actualizar Datos"></a4j:commandButton>
@@ -187,7 +186,13 @@
 								</h:panelGrid>
 							</rich:tab>
 							<rich:tab label="Permisos">
+								<h3>Permisos de Usuario</h3>
 								<h:panelGrid columns="2" width="400px">
+
+								</h:panelGrid>
+								<h3>Permisos Territoriales</h3>
+								<h:panelGrid columns="2" width="400px">
+
 								</h:panelGrid>
 							</rich:tab>
 							<rich:tab label="Bitacora">
@@ -197,6 +202,90 @@
 						</rich:tabPanel>
 					</h:form>
 				</rich:modalPanel>
+
+				<!-- NEW USER -->
+
+				<rich:modalPanel id="panelnewUserGroup" autosized="true" width="200"
+					height="60" zindex="2000">
+					<f:facet name="header">
+						<h:form id="formHeaderNewtUser">
+							<h:panelGroup>
+								<h:outputText id="headerEditUser" value="Nuevo Usuario"></h:outputText>
+							</h:panelGroup>
+						</h:form>
+					</f:facet>
+					<f:facet name="controls">
+						<h:form>
+							<h:panelGroup>
+								<a4j:commandLink
+									onclick="Richfaces.hideModalPanel('panelnewUserGroup')"
+									ajaxSingle="true">
+									<h:graphicImage value="#{url.img}/icons/close.png" />
+								</a4j:commandLink>
+							</h:panelGroup>
+						</h:form>
+					</f:facet>
+					<h:form id="newFormUserUnit">
+						<rich:tabPanel switchType="client">
+							<h:panelGrid columns="2" width="400px">
+								<h:outputLabel value="Nombre de Usuario" for="username" />
+								<h:inputText id="username"
+									value="#{userBean.newUnitUserBean.username}" disabled="true"
+									size="20" />
+								<h:outputLabel value="Nombre Real" for="realName" />
+								<h:inputText id="realName"
+									value="#{userBean.newUnitUserBean.name}" required="true"
+									requiredMessage="test" size="40" />
+								<h:outputLabel value="Sexo" for="sex" />
+								<h:selectOneListbox id="sex"
+									value="#{userBean.newUnitUserBean.sex}">
+									<f:selectItem itemLabel="Masculino" itemValue="M" />
+									<f:selectItem itemLabel="Femenino" itemValue="F" />
+								</h:selectOneListbox>
+								<h:outputLabel value="Correo" for="email" />
+								<h:inputText id="email"
+									value="#{userBean.newUnitUserBean.email}" required="true"
+									size="50" />
+								<h:outputLabel value="Fecha de Nacimiento" for="birdthDate" />
+								<rich:calendar id="birdthDate"
+									value="#{userBean.newUnitUserBean.birth_date}"></rich:calendar>
+								<h:outputLabel value="Domicilio" for="address" />
+								<h:inputTextarea id="address"
+									value="#{userBean.newUnitUserBean.address}" cols="40" rows="5"
+									required="true" />
+								<h:outputLabel value="Doducmento Identidad" for="idCountry" />
+								<h:inputText value="#{userBean.newUnitUserBean.noc_id}"
+									id="idCountry" required="true" />
+								<h:outputLabel value="Estado" for="status" />
+								<h:panelGroup>
+									<h:panelGrid columns="2">
+										<h:selectOneRadio id="status"
+											value="#{userBean.newUnitUserBean.status}">
+											<f:selectItem itemValue="1" itemLabel="Si" />
+											<f:selectItem itemValue="0" itemLabel="No" />
+										</h:selectOneRadio>
+									</h:panelGrid>
+								</h:panelGroup>
+								<h:outputLabel value="Editor" for="editor" />
+								<h:panelGroup>
+									<h:panelGrid columns="2">
+										<h:selectOneRadio id="editor"
+											value="#{userBean.newUnitUserBean.publisher}">
+											<f:selectItem itemValue="S" itemLabel="Si" />
+											<f:selectItem itemValue="N" itemLabel="No" />
+										</h:selectOneRadio>
+									</h:panelGrid>
+								</h:panelGroup>
+								<a4j:commandButton value="Crear"></a4j:commandButton>
+								<h:inputHidden id="idHd" value="#{userBean.newUnitUserBean.id}" />
+							</h:panelGrid>
+
+
+						</rich:tabPanel>
+					</h:form>
+				</rich:modalPanel>
+
+
 			</a4j:region>
 			<ui:fragment rendered="not #{userBean.oneRow}">
 				<h3>#{temp.notfoundGroups}</h3>

@@ -129,10 +129,14 @@ public class SecurityService implements ISecurityService {
 			user.setEmail(userD.getEmail());
 			user.setSex(userD.getSex());
 			user.setAddress(userD.getAddress());
-			user.setBirth_date(userD.getBirthDate().toString());
+			user.setBirth_date(userD.getBirthDate());
 			user.setId(userD.getUid());
 			user.setId_state(userD.getCatState().getIdState());
 			user.setNoc_id(userD.getNocId());
+			user.setStatus(userD.isStatus());
+			user.setDate_new(userD.getDateNew());
+			user.setInvite_code(userD.getInviteCode());
+			user.setPublisher(userD.getPublisher());
 			/*
 			 * aggregar luego el resto
 			 */

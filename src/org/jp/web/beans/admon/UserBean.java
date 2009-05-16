@@ -38,6 +38,7 @@ import org.jp.web.beans.MasterBean;
 public class UserBean extends MasterBean {
 
 	private UnitUserBean unitUserBean;
+	private UnitUserBean newUnitUserBean;
 	private Collection<UnitUserBean> list_unitBeans;
 	private Log log = LogFactory.getLog(this.getClass());
 	private String processedUserId;
@@ -252,6 +253,10 @@ public class UserBean extends MasterBean {
 		this.checked = checked;
 	}
 
+	/**
+	 * get unit user bean
+	 * @return
+	 */
 	public UnitUserBean getUnitUserBean() {
 		try {
 			unitUserBean = null;
@@ -267,6 +272,14 @@ public class UserBean extends MasterBean {
 			return null;
 		}
 		return unitUserBean;
+	}
+
+	public UnitUserBean getNewUnitUserBean() {
+		return newUnitUserBean;
+	}
+
+	public void setNewUnitUserBean(UnitUserBean newUnitUserBean) {
+		this.newUnitUserBean = newUnitUserBean;
 	}
 
 }

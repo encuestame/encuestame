@@ -2,6 +2,7 @@ package org.jp.web.beans.admon;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -42,13 +43,13 @@ public class UnitUserBean extends MasterBean implements Serializable {
 	private String name;
 	private String email;
 	private String username;
-	private String birth_date;
+	private Date birth_date;
 	private String address;
 	private String noc_id;
 	private Boolean status;
 	private String invite_code;
 	private Integer id_state;
-	private String date_new;
+	private Date date_new;
 	private String publisher;
 	private Collection<UnitGroupBean> listGroups;
 	private Collection<UnitPermission> listPermission;
@@ -95,11 +96,11 @@ public class UnitUserBean extends MasterBean implements Serializable {
 		this.username = username;
 	}
 
-	public String getBirth_date() {
+	public Date getBirth_date() {
 		return birth_date;
 	}
 
-	public void setBirth_date(String birth_date) {
+	public void setBirth_date(Date birth_date) {
 		this.birth_date = birth_date;
 	}
 
@@ -143,11 +144,11 @@ public class UnitUserBean extends MasterBean implements Serializable {
 		this.id_state = id_state;
 	}
 
-	public String getDate_new() {
+	public Date getDate_new() {
 		return date_new;
 	}
 
-	public void setDate_new(String date_new) {
+	public void setDate_new(Date date_new) {
 		this.date_new = date_new;
 	}
 

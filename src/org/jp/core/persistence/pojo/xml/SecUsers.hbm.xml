@@ -28,7 +28,7 @@
         <property name="passwordClean" type="string">
             <column name="password_clean" />
         </property>
-        <property name="birthDate" type="java.lang.Integer">
+        <property name="birthDate" type="timestamp">
             <column name="birth_date" />
         </property>
         <property name="address" type="string">

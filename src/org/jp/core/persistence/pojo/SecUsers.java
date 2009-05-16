@@ -19,7 +19,7 @@ public class SecUsers implements java.io.Serializable {
 	private String username;
 	private String password;
 	private String passwordClean;
-	private Integer birthDate;
+	private Date birthDate;
 	private String address;
 	private String nocId;
 	private Boolean status;
@@ -55,7 +55,7 @@ public class SecUsers implements java.io.Serializable {
 
 	public SecUsers(CatState catState, String sex, String name, String email,
 			String username, String password, String passwordClean,
-			Integer birthDate, String address, String nocId, boolean status,
+			Date birthDate, String address, String nocId, boolean status,
 			String inviteCode, String position, Date dateNew, String publisher,
 			Set<ProyectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
 			Set<SecUserPermission> secUserPermissions,
@@ -150,11 +150,11 @@ public class SecUsers implements java.io.Serializable {
 		this.passwordClean = passwordClean;
 	}
 
-	public Integer getBirthDate() {
+	public Date getBirthDate() {
 		return this.birthDate;
 	}
 
-	public void setBirthDate(Integer birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
