@@ -16,50 +16,7 @@
    <value>#{servicesManager}</value>
   </managed-property>
  </managed-bean>
- <navigation-rule>
-  <from-view-id>*</from-view-id>
-  <navigation-case>
-   <from-outcome>index</from-outcome>
-   <to-view-id>/pages/index.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>survey</from-outcome>
-   <to-view-id>/pages/mod/survey/index.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>admon</from-outcome>
-   <to-view-id>/pages/mod/admon/index.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>users</from-outcome>
-   <to-view-id>/pages/mod/admon/users.xhtml</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>groups</from-outcome>
-   <to-view-id>/pages/mod/admon/groups.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/pages/mod/admon/groups.xhtml</from-view-id>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>*</from-view-id>
-  <navigation-case>
-   <from-outcome>newUser</from-outcome>
-   <to-view-id>/pages/mod/admon/newUser.xhtml</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>editUser</from-outcome>
-   <to-view-id>/pages/mod/admon/editUser.xhtml</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>createGroup</from-outcome>
-   <to-view-id>/pages/mod/admon/createGroup.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
+ 
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
   <locale-config>

@@ -76,7 +76,8 @@
 				PATTERN_TYPE_APACHE_ANT
 				/=ROLE_ANONYMOUS
 				/login.do = ROLE_ANONYMOUS
-				/pages/**=ROLE_ADMIN                    
+				/pages/**=ROLE_USER
+				/pages/admon/**=ROLE_ADMIN                    
          </value>
 		</property>
 	</bean>
