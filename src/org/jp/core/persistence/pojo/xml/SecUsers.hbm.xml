@@ -7,12 +7,6 @@
             <column name="uid" />
             <generator class="identity" />
         </id>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
-            <column name="id_state" not-null="true" />
-        </many-to-one>
-        <property name="sex" type="string">
-            <column name="sex" length="5" />
-        </property>
         <property name="name" type="string">
             <column name="name" length="50" not-null="true" />
         </property>
@@ -24,28 +18,13 @@
         </property>
         <property name="password" type="string">
             <column name="password" not-null="true" />
-        </property>
-        <property name="passwordClean" type="string">
-            <column name="password_clean" />
-        </property>
-        <property name="birthDate" type="timestamp">
-            <column name="birth_date" />
-        </property>
-        <property name="address" type="string">
-            <column name="address" />
-        </property>
-        <property name="nocId" type="string">
-            <column name="noc_id" length="16" />
-        </property>
+        </property> 
         <property name="status" type="boolean">
             <column name="status" not-null="true" />
         </property>
         <property name="inviteCode" type="string">
             <column name="invite_code" />
-        </property>
-        <property name="position" type="string">
-            <column name="position" />
-        </property>
+        </property>        
         <property name="dateNew" type="timestamp">
             <column name="date_new" length="0" not-null="true" />
         </property>

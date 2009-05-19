@@ -39,22 +39,15 @@ public class UnitUserBean extends MasterBean implements Serializable {
 
 	private static final long serialVersionUID = -6690522000664394521L;
 	private Integer id;
-	private String sex;
-	private String name;
 	private String email;
+	private String name;
 	private String username;
-	private Date birth_date;
-	private String address;
-	private String noc_id;
 	private Boolean status;
 	private String invite_code;
-	private Integer id_state;
 	private Date date_new;
 	private String publisher;
 	private Collection<UnitGroupBean> listGroups;
 	private Collection<UnitPermission> listPermission;
-
-	
 
 	public Integer getId() {
 		return id;
@@ -62,22 +55,6 @@ public class UnitUserBean extends MasterBean implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getEmail() {
@@ -96,30 +73,6 @@ public class UnitUserBean extends MasterBean implements Serializable {
 		this.username = username;
 	}
 
-	public Date getBirth_date() {
-		return birth_date;
-	}
-
-	public void setBirth_date(Date birth_date) {
-		this.birth_date = birth_date;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getNoc_id() {
-		return noc_id;
-	}
-
-	public void setNoc_id(String noc_id) {
-		this.noc_id = noc_id;
-	}
-
 	public Boolean getStatus() {
 		return status;
 	}
@@ -134,14 +87,6 @@ public class UnitUserBean extends MasterBean implements Serializable {
 
 	public void setInvite_code(String invite_code) {
 		this.invite_code = invite_code;
-	}
-
-	public Integer getId_state() {
-		return id_state;
-	}
-
-	public void setId_state(Integer id_state) {
-		this.id_state = id_state;
 	}
 
 	public Date getDate_new() {
@@ -176,7 +121,12 @@ public class UnitUserBean extends MasterBean implements Serializable {
 		this.listPermission = listPermission;
 	}
 
-	
-	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

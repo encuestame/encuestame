@@ -89,7 +89,7 @@ public class SecurityService implements ISecurityService {
 				SecUsers user = i.next();
 				userB.setId(user.getUid());
 				userB.setName(user.getName());
-				userB.setAddress(user.getAddress());
+				
 				userB.setUsername(user.getUsername());
 				userB.setPublisher(user.getPublisher());
 				userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
@@ -126,13 +126,8 @@ public class SecurityService implements ISecurityService {
 		try {
 			user.setName(userD.getName());
 			user.setUsername(userD.getUsername());
-			user.setEmail(userD.getEmail());
-			user.setSex(userD.getSex());
-			user.setAddress(userD.getAddress());
-			user.setBirth_date(userD.getBirthDate());
-			user.setId(userD.getUid());
-			user.setId_state(userD.getCatState().getIdState());
-			user.setNoc_id(userD.getNocId());
+			user.setEmail(userD.getEmail());		
+			user.setId(userD.getUid());			
 			user.setStatus(userD.isStatus());
 			user.setDate_new(userD.getDateNew());
 			user.setInvite_code(userD.getInviteCode());

@@ -1,6 +1,5 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,19 +11,13 @@ import java.util.Set;
 public class SecUsers implements java.io.Serializable {
 
 	private Integer uid;
-	private CatState catState;
-	private String sex;
+
 	private String name;
 	private String email;
 	private String username;
 	private String password;
-	private String passwordClean;
-	private Date birthDate;
-	private String address;
-	private String nocId;
 	private Boolean status;
 	private String inviteCode;
-	private String position;
 	private Date dateNew;
 	private String publisher;
 	private Set<ProyectUser> proyectUsers = new HashSet<ProyectUser>(0);
@@ -42,9 +35,8 @@ public class SecUsers implements java.io.Serializable {
 	public SecUsers() {
 	}
 
-	public SecUsers(CatState catState, String name, String email,
-			String password, boolean status, Date dateNew, String publisher) {
-		this.catState = catState;
+	public SecUsers(String name, String email, String password, boolean status,
+			Date dateNew, String publisher) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -53,28 +45,22 @@ public class SecUsers implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
-	public SecUsers(CatState catState, String sex, String name, String email,
-			String username, String password, String passwordClean,
-			Date birthDate, String address, String nocId, boolean status,
-			String inviteCode, String position, Date dateNew, String publisher,
+	public SecUsers(String sex, String name, String email, String username,
+			String password, String passwordClean, Date birthDate,
+			String address, String nocId, boolean status, String inviteCode,
+			String position, Date dateNew, String publisher,
 			Set<ProyectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
 			Set<SecUserPermission> secUserPermissions,
 			Set<CatLocationUser> catLocationUsers,
 			Set<SurveyResultMod> surveyResultMods,
 			Set<QuestionColettion> questionColettions, Set<Surveys> surveyses) {
-		this.catState = catState;
-		this.sex = sex;
+
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.passwordClean = passwordClean;
-		this.birthDate = birthDate;
-		this.address = address;
-		this.nocId = nocId;
 		this.status = status;
 		this.inviteCode = inviteCode;
-		this.position = position;
 		this.dateNew = dateNew;
 		this.publisher = publisher;
 		this.proyectUsers = proyectUsers;
@@ -92,22 +78,6 @@ public class SecUsers implements java.io.Serializable {
 
 	public void setUid(Integer uid) {
 		this.uid = uid;
-	}
-
-	public CatState getCatState() {
-		return this.catState;
-	}
-
-	public void setCatState(CatState catState) {
-		this.catState = catState;
-	}
-
-	public String getSex() {
-		return this.sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
 	}
 
 	public String getName() {
@@ -142,38 +112,6 @@ public class SecUsers implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public String getPasswordClean() {
-		return this.passwordClean;
-	}
-
-	public void setPasswordClean(String passwordClean) {
-		this.passwordClean = passwordClean;
-	}
-
-	public Date getBirthDate() {
-		return this.birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getNocId() {
-		return this.nocId;
-	}
-
-	public void setNocId(String nocId) {
-		this.nocId = nocId;
-	}
-
 	public Boolean isStatus() {
 		return this.status;
 	}
@@ -188,14 +126,6 @@ public class SecUsers implements java.io.Serializable {
 
 	public void setInviteCode(String inviteCode) {
 		this.inviteCode = inviteCode;
-	}
-
-	public String getPosition() {
-		return this.position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
 	}
 
 	public Date getDateNew() {
