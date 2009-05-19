@@ -142,25 +142,11 @@
 									<h:inputText id="realName"
 										value="#{userBean.unitUserBean.name}" required="true"
 										requiredMessage="test" size="40" />
-									<h:outputLabel value="Sexo" for="sex" />
-									<h:selectOneListbox id="sex"
-										value="#{userBean.unitUserBean.sex}">
-										<f:selectItem itemLabel="Masculino" itemValue="M" />
-										<f:selectItem itemLabel="Femenino" itemValue="F" />
-									</h:selectOneListbox>
+
 									<h:outputLabel value="Correo" for="email" />
 									<h:inputText id="email" value="#{userBean.unitUserBean.email}"
 										required="true" size="50" />
-									<h:outputLabel value="Fecha de Nacimiento" for="birdthDate" />
-									<rich:calendar id="birdthDate"
-										value="#{userBean.unitUserBean.birth_date}"></rich:calendar>
-									<h:outputLabel value="Domicilio" for="address" />
-									<h:inputTextarea id="address"
-										value="#{userBean.unitUserBean.address}" cols="40" rows="5"
-										required="true" />
-									<h:outputLabel value="Doducmento Identidad" for="idCountry" />
-									<h:inputText value="#{userBean.unitUserBean.noc_id}"
-										id="idCountry" required="true" />
+
 									<h:outputLabel value="Estado" for="status" />
 									<h:panelGroup>
 										<h:panelGrid columns="2">
@@ -205,8 +191,9 @@
 
 				<!-- NEW USER -->
 
-				<rich:modalPanel id="panelnewUserGroup" autosized="true" width="200"
-					height="60" zindex="2000">
+				<rich:modalPanel id="panelnewUserGroup" autosized="true" width="600"
+					height="200" zindex="2000">
+
 					<f:facet name="header">
 						<h:form id="formHeaderNewtUser">
 							<h:panelGroup>
@@ -226,66 +213,78 @@
 						</h:form>
 					</f:facet>
 					<h:form id="newFormUserUnit">
-						<rich:tabPanel switchType="client">
-							<h:panelGrid columns="2" width="400px">
-								<h:outputLabel value="Nombre de Usuario" for="username" />
-								<h:inputText id="username"
-									value="#{userBean.newUnitUserBean.username}" disabled="true"
-									size="20" />
-								<h:outputLabel value="Nombre Real" for="realName" />
-								<h:inputText id="realName"
-									value="#{userBean.newUnitUserBean.name}" required="true"
-									requiredMessage="test" size="40" />
-								<h:outputLabel value="Sexo" for="sex" />
-								<h:selectOneListbox id="sex"
-									value="#{userBean.newUnitUserBean.sex}">
-									<f:selectItem itemLabel="Masculino" itemValue="M" />
-									<f:selectItem itemLabel="Femenino" itemValue="F" />
-								</h:selectOneListbox>
-								<h:outputLabel value="Correo" for="email" />
-								<h:inputText id="email"
-									value="#{userBean.newUnitUserBean.email}" required="true"
-									size="50" />
-								<h:outputLabel value="Fecha de Nacimiento" for="birdthDate" />
-								<rich:calendar id="birdthDate"
-									value="#{userBean.newUnitUserBean.birth_date}"></rich:calendar>
-								<h:outputLabel value="Domicilio" for="address" />
-								<h:inputTextarea id="address"
-									value="#{userBean.newUnitUserBean.address}" cols="40" rows="5"
-									required="true" />
-								<h:outputLabel value="Doducmento Identidad" for="idCountry" />
-								<h:inputText value="#{userBean.newUnitUserBean.noc_id}"
-									id="idCountry" required="true" />
-								<h:outputLabel value="Estado" for="status" />
-								<h:panelGroup>
-									<h:panelGrid columns="2">
-										<h:selectOneRadio id="status"
-											value="#{userBean.newUnitUserBean.status}">
-											<f:selectItem itemValue="1" itemLabel="Si" />
-											<f:selectItem itemValue="0" itemLabel="No" />
-										</h:selectOneRadio>
-									</h:panelGrid>
-								</h:panelGroup>
-								<h:outputLabel value="Editor" for="editor" />
-								<h:panelGroup>
-									<h:panelGrid columns="2">
-										<h:selectOneRadio id="editor"
-											value="#{userBean.newUnitUserBean.publisher}">
-											<f:selectItem itemValue="S" itemLabel="Si" />
-											<f:selectItem itemValue="N" itemLabel="No" />
-										</h:selectOneRadio>
-									</h:panelGrid>
-								</h:panelGroup>
-								<a4j:commandButton value="Crear"></a4j:commandButton>
-								<h:inputHidden id="idHd" value="#{userBean.newUnitUserBean.id}" />
-							</h:panelGrid>
+						<b>Como agregar un usuario al Sistema</b><br/>
+						<p>Existen tres formas para agregar un usuario, puede ser directamente ingresando sus datos, enviando una invitacion 
+						y el usuario directamente agregara sus datos o buscandolo en el LDAP de la empresa.													
+						</p>
+						<rich:panelBar>
+							<rich:panelBarItem label="Agregar Usuario Directamente">
+								<h:panelGrid columns="2" cellpadding="1" width="400px">
+									<h:outputLabel value="Nombre de Usuario" for="username" />
+									<h:inputText id="username"
+										value="#{userBean.newUnitUserBean.username}" size="40" />
+									<h:outputLabel value="Nombre Real" for="realName" />
+									<h:inputText id="realName"
+										value="#{userBean.newUnitUserBean.name}" required="true"
+										requiredMessage="test" size="40" />
+									<h:outputLabel value="Correo" for="email" />
+									<h:inputText id="email"
+										value="#{userBean.newUnitUserBean.email}" required="true"
+										size="20" />
+									<h:outputLabel value="Estado" for="status" />
+									<h:panelGroup>
+										<h:panelGrid columns="2">
+											<h:selectOneRadio id="status"
+												value="#{userBean.newUnitUserBean.status}">
+												<f:selectItem itemValue="1" itemLabel="Si" />
+												<f:selectItem itemValue="0" itemLabel="No" />
+											</h:selectOneRadio>
+										</h:panelGrid>
+									</h:panelGroup>
+									<h:outputLabel value="Editor" for="editor" />
+									<h:panelGroup>
+										<h:panelGrid columns="2">
+											<h:selectOneRadio id="editor"
+												value="#{userBean.newUnitUserBean.publisher}">
+												<f:selectItem itemValue="S" itemLabel="Si" />
+												<f:selectItem itemValue="N" itemLabel="No" />
+											</h:selectOneRadio>
+										</h:panelGrid>
+									</h:panelGroup>
+									<h:outputLabel value="Duenio" for="duenio" />
+									<h:panelGroup>
+										<h:panelGrid columns="2">
+											<h:selectOneRadio id="duenio"
+												value="#{userBean.newUnitUserBean.publisher}">
+												<f:selectItem itemValue="S" itemLabel="Si" />
+												<f:selectItem itemValue="N" itemLabel="No" />
+											</h:selectOneRadio>
+										</h:panelGrid>
+									</h:panelGroup>
+									<a4j:commandButton value="Crear"></a4j:commandButton>
+									<h:inputHidden id="idHd" value="#{userBean.newUnitUserBean.id}" />
+								</h:panelGrid>
+							</rich:panelBarItem>
+							<rich:panelBarItem label="Invitar Usuario por Correo">
+								<h:panelGrid columns="2" cellpadding="2" width="400px">
+									<h:outputLabel value="Escribe el Correo" for="" />
+									<h:inputText value="" size="40" />
+									<a4j:commandButton value="Enviar Ivitacion"></a4j:commandButton>
+								</h:panelGrid>
+							</rich:panelBarItem>
+							<rich:panelBarItem label="Buscar en LDAP">
+								<h:panelGrid columns="2" cellpadding="2" width="400px">
+									<h:outputLabel value="Nombre de Usuario" for="" />
+									<h:inputText value="" size="40" />
+									<a4j:commandButton value="Buscar"></a4j:commandButton>
+								</h:panelGrid>
+								<h4>Usuarios Encontrados</h4>
 
 
-						</rich:tabPanel>
+							</rich:panelBarItem>
+						</rich:panelBar>
 					</h:form>
 				</rich:modalPanel>
-
-
 			</a4j:region>
 			<ui:fragment rendered="not #{userBean.oneRow}">
 				<h3>#{temp.notfoundGroups}</h3>

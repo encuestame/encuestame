@@ -83,6 +83,9 @@
 		<property name="messageSource">
 			<ref bean="messageSource"></ref>
 		</property>
+		<property name="serviceMail">
+			<ref bean="serviceMail"></ref>
+		</property>
 	</bean>
 
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">

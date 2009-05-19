@@ -109,6 +109,7 @@ public class GroupBean extends MasterBean {
 				getServicemanagerBean().getSecurityService().deleteGroup(
 						getNewGroup());
 				reset();
+				getServicemanagerBean().getServiceMail().send("juan@local.com", "Grupo Borrado", "Se borro el grupo ");
 			} else {
 				addErrorMessage(getMessageProperties("errorDelteGroup"),
 						"errorDelteGroup");

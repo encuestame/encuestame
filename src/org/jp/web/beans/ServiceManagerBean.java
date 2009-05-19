@@ -2,6 +2,7 @@ package org.jp.web.beans;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jp.core.mail.MailServiceImpl;
 import org.jp.core.service.ApplicationServices;
 import org.jp.core.service.DataService;
 import org.jp.core.service.SecurityService;
@@ -39,6 +40,7 @@ public class ServiceManagerBean implements ServiceManager {
 	private SecurityService securityService;
 	private ApplicationServices applicationService;
 	private MessageSourceFactoryBean messageSource;
+	private MailServiceImpl serviceMail;
 
 	private Log logger = LogFactory.getLog(this.getClass());
 
@@ -92,6 +94,14 @@ public class ServiceManagerBean implements ServiceManager {
 	public void setSecurityService(SecurityService securityService) {
 		// logger.info("dataService"+dataService);
 		this.securityService = securityService;
+	}
+
+	public MailServiceImpl getServiceMail() {
+		return serviceMail;
+	}
+
+	public void setServiceMail(MailServiceImpl serviceMail) {
+		this.serviceMail = serviceMail;
 	}
 
 
