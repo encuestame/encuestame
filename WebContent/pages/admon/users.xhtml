@@ -48,7 +48,7 @@
 						</h:panelGroup>
 					</h:panelGrid>
 					<a4j:status for="listGroup" startText="Procesando...." stopText=""></a4j:status>
-					<rich:dataTable id="dataTableGroups" width="100%"
+					<rich:dataTable id="dataTableUsers" width="100%"
 						style="margin: 5px; margin-top: 12px;"
 						binding="#{userBean.uiDataUserTable}"
 						value="#{userBean.list_unitBeans}" var="unitUser">
@@ -101,7 +101,7 @@
 						<rich:column>
 						</rich:column>
 					</rich:dataTable>
-					<rich:messages></rich:messages>
+					<rich:messages errorClass="error" infoClass="info"></rich:messages>
 				</h:form>
 
 				<!-- MODAL PANELS -->
@@ -213,16 +213,18 @@
 						</h:form>
 					</f:facet>
 					<h:form id="newFormUserUnit">
-						<b>Como agregar un usuario al Sistema</b><br/>
-						<p>Existen tres formas para agregar un usuario, puede ser directamente ingresando sus datos, enviando una invitacion 
-						y el usuario directamente agregara sus datos o buscandolo en el LDAP de la empresa.													
-						</p>
+						<b>Como agregar un usuario al Sistema</b>
+						<br />
+						<p>Existen tres formas para agregar un usuario, puede ser
+						directamente ingresando sus datos, enviando una invitacion y el
+						usuario directamente agregara sus datos o buscandolo en el LDAP de
+						la empresa.</p>
 						<rich:panelBar>
 							<rich:panelBarItem label="Agregar Usuario Directamente">
 								<h:panelGrid columns="2" cellpadding="1" width="400px">
 									<h:outputLabel value="Nombre de Usuario" for="username" />
 									<h:inputText id="username"
-										value="#{userBean.newUnitUserBean.username}" size="40" />
+										value="#{userBean.newUnitUserBean.username}" size="20" />
 									<h:outputLabel value="Nombre Real" for="realName" />
 									<h:inputText id="realName"
 										value="#{userBean.newUnitUserBean.name}" required="true"
@@ -230,14 +232,14 @@
 									<h:outputLabel value="Correo" for="email" />
 									<h:inputText id="email"
 										value="#{userBean.newUnitUserBean.email}" required="true"
-										size="20" />
+										size="40" />
 									<h:outputLabel value="Estado" for="status" />
 									<h:panelGroup>
 										<h:panelGrid columns="2">
 											<h:selectOneRadio id="status"
 												value="#{userBean.newUnitUserBean.status}">
-												<f:selectItem itemValue="1" itemLabel="Si" />
-												<f:selectItem itemValue="0" itemLabel="No" />
+												<f:selectItem itemValue="1" itemLabel="Activo" />
+												<f:selectItem itemValue="0" itemLabel="Inactivo" />
 											</h:selectOneRadio>
 										</h:panelGrid>
 									</h:panelGroup>
@@ -261,8 +263,10 @@
 											</h:selectOneRadio>
 										</h:panelGrid>
 									</h:panelGroup>
-									<a4j:commandButton value="Crear"></a4j:commandButton>
-									<h:inputHidden id="idHd" value="#{userBean.newUnitUserBean.id}" />
+									<a4j:commandButton value="Crear"
+										action="#{userBean.createUser}"
+										oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
+										reRender="dataTableUsers"></a4j:commandButton>
 								</h:panelGrid>
 							</rich:panelBarItem>
 							<rich:panelBarItem label="Invitar Usuario por Correo">

@@ -129,8 +129,6 @@ img {
 	padding: 5px;
 	background: #EEE;
 	font-size: 110%;
-	
-	
 }
 
 /*
@@ -138,26 +136,52 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
     background-color:#FFFFFF;
     background-image: none;
     border-color: silver;
-} */
-
-
-
-/**
+} */ /**
  * commons classes
  */
- 
-.padding{
-  padding-left:: 50px;
- }
- 
- 
- /**
+.padding {
+	padding-left: : 50px;
+}
+
+/**
  groups css
  */
- 
- .subMenus{
- background: #eee;
- 
- }
- 
- 
+.subMenus {
+	background: #eee;
+}
+
+/**
+ user messages 
+ */
+.error {
+	padding: 5px;
+	background-color: #FFD0D0;
+	color: #F24B4B;
+	font-size: 14px;
+	border: 1px solid #E58787;
+	padding-left: 30px;
+	background-position: 3px;
+	background-repeat: no-repeat;
+}
+
+.war {
+	padding: 5px;
+	background-color: #FCFFC8;
+	color: #2E981F;
+	font-size: 14px;
+	border: 1px solid #F2F122;
+	padding-left: 30px;
+	background-position: 3px;
+	background-repeat: no-repeat;
+}
+
+.info {
+	padding: 5px;
+	background-color: #BAEAB3;
+	color: #2E981F;
+	font-size: 14px;
+	border: 1px solid #6AC45D;
+	padding-left: 30px;
+	background-position: 3px;
+	background-repeat: no-repeat;
+}

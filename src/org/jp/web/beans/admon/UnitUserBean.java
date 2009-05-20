@@ -43,6 +43,7 @@ public class UnitUserBean extends MasterBean implements Serializable {
 	private String name;
 	private String username;
 	private Boolean status;
+	private String password;
 	private String invite_code;
 	private Date date_new;
 	private String publisher;
@@ -127,6 +128,14 @@ public class UnitUserBean extends MasterBean implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

@@ -38,7 +38,7 @@ import org.jp.web.beans.MasterBean;
 public class UserBean extends MasterBean {
 
 	private UnitUserBean unitUserBean;
-	private UnitUserBean newUnitUserBean;
+	private UnitUserBean newUnitUserBean = new UnitUserBean();
 	private Collection<UnitUserBean> list_unitBeans;
 	private Log log = LogFactory.getLog(this.getClass());
 	private String processedUserId;
@@ -55,6 +55,33 @@ public class UserBean extends MasterBean {
 		list_unitBeans = new LinkedList<UnitUserBean>();
 		return list_unitBeans = getServicemanagerBean().getSecurityService()
 				.loadListUsers();
+	}
+
+	/**
+	 * create user
+	 */
+	public void createUser() {
+		try {
+			getServicemanagerBean().getSecurityService().createUser(
+					getNewUnitUserBean());
+			addInfoMessage("Usuario Creado Tuani", "");
+		} catch (Exception e) {
+			addErrorMessage("Error creando usuario->" + e, e.getMessage());
+		}
+	}
+
+	/**
+	 * invite user
+	 */
+	public void inviteUser() {
+
+	}
+
+	/**
+	 * search LDAP user
+	 */
+	public void searchLDAPUser() {
+
 	}
 
 	/**
@@ -255,6 +282,7 @@ public class UserBean extends MasterBean {
 
 	/**
 	 * get unit user bean
+	 * 
 	 * @return
 	 */
 	public UnitUserBean getUnitUserBean() {

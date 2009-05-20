@@ -40,7 +40,7 @@ public class ServiceManagerBean implements ServiceManager {
 	private SecurityService securityService;
 	private ApplicationServices applicationService;
 	private MessageSourceFactoryBean messageSource;
-	private MailServiceImpl serviceMail;
+	
 
 	private Log logger = LogFactory.getLog(this.getClass());
 
@@ -96,13 +96,7 @@ public class ServiceManagerBean implements ServiceManager {
 		this.securityService = securityService;
 	}
 
-	public MailServiceImpl getServiceMail() {
-		return serviceMail;
-	}
-
-	public void setServiceMail(MailServiceImpl serviceMail) {
-		this.serviceMail = serviceMail;
-	}
+	
 
 
 }

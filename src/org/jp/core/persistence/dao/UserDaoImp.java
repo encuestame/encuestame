@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.jp.core.persistence.dao.imp.ISecUserDao;
 import org.jp.core.persistence.pojo.SecGroupPermission;
 import org.jp.core.persistence.pojo.SecGroupUser;
@@ -44,19 +45,22 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 
 	/**
 	 * delete user
-	 * @param user to delete
+	 * 
+	 * @param user
+	 *            to delete
 	 */
-	public void delete(SecUsers user) {
+	public void delete(SecUsers user) throws HibernateException {
 		getHibernateTemplate().delete(user);
 
 	}
 
-	
-	public Collection<SecUsers> findAll() {
-		return getHibernateTemplate().find("from SecUsers");
+	public void createUser(SecUsers user) throws HibernateException {
+		getHibernateTemplate().save(user);
 	}
 
-	
+	public Collection<SecUsers> findAll() throws HibernateException {
+		return getHibernateTemplate().find("from SecUsers");
+	}
 
 	/**
 	 * Obtiene el usuario por nombre de usuarui

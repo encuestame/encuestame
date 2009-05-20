@@ -1,11 +1,10 @@
-package org.jp.core.service;
+package org.jp.test;
 
-import org.jp.core.mail.MailServiceImpl;
-import org.jp.core.persistence.dao.CatStateDaoImp;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 /**
  * encuestame:  system online surveys
- * Copyright (C) 2005-2008 encuestame Development Team
+ * Copyright (C) 2009  encuestame Development Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 3 of the GNU General Public
@@ -21,35 +20,21 @@ import org.jp.core.persistence.dao.CatStateDaoImp;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: DataSurvey.java Date: 27/04/2009 
+ * Id: StrongPasswords.java Date: 20/05/2009 11:48:46
  * @author juanpicado
- * package: org.jp.core.service
+ * package: org.jp.test
  * @version 1.0
  */
-public class SurveyService implements ISurveyService {
-	
-	private CatStateDaoImp catStateDao;
-	private MailServiceImpl serviceMail;
+public class StrongPasswords {
 
-	public CatStateDaoImp getCatStateDao() {
-		return catStateDao;
-	}
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		String encryptedPassword = passwordEncryptor.encryptPassword("test");
+		System.out.print(encryptedPassword);
 
-	public void setCatStateDao(CatStateDaoImp catStateDao) {
-		this.catStateDao = catStateDao;
 	}
-
-	public MailServiceImpl getServiceMail() {
-		return serviceMail;
-	}
-
-	public void setServiceMail(MailServiceImpl serviceMail) {
-		this.serviceMail = serviceMail;
-	}
-	
-	
-	
-	
-	
 
 }

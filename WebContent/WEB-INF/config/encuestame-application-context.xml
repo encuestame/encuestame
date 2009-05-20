@@ -83,14 +83,14 @@
 		<property name="messageSource">
 			<ref bean="messageSource"></ref>
 		</property>
-		<property name="serviceMail">
-			<ref bean="serviceMail"></ref>
-		</property>
 	</bean>
 
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
 		<property name="catStateDao">
 			<ref bean="catStateDaoImp"></ref>
+		</property>
+		<property name="serviceMail">
+			<ref bean="serviceMail"></ref>
 		</property>
 	</bean>
 
@@ -110,6 +110,9 @@
 		<property name="permissionDao">
 			<ref bean="secPermissionDaoImp"></ref>
 		</property>
+		<property name="serviceMail">
+			<ref bean="serviceMail"></ref>
+		</property>
 	</bean>
 
 	<bean id="applicationService" class="org.jp.core.service.ApplicationServices">
@@ -123,9 +126,9 @@
 			<value>${application.encoding}</value>
 		</property>
 	</bean>
-	
+
 	<bean id="url" class="org.jp.web.beans.commons.UrlBean">
-	<property name="applicationService">
+		<property name="applicationService">
 			<ref bean="applicationService"></ref>
 		</property>
 	</bean>

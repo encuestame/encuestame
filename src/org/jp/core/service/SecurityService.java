@@ -1,13 +1,17 @@
 package org.jp.core.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
+import org.jp.core.security.util.PasswordGenerator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.dialect.IngresDialect;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jp.core.mail.MailServiceImpl;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
 import org.jp.core.persistence.dao.SecPermissionDaoImp;
 import org.jp.core.persistence.dao.UserDaoImp;
@@ -48,6 +52,7 @@ public class SecurityService implements ISecurityService {
 	private UserDaoImp userDao;
 	private SecGroupDaoImp groupDao;
 	private SecPermissionDaoImp permissionDao;
+	private MailServiceImpl serviceMail;
 
 	public UserDaoImp getUserDao() {
 		return userDao;
@@ -89,7 +94,7 @@ public class SecurityService implements ISecurityService {
 				SecUsers user = i.next();
 				userB.setId(user.getUid());
 				userB.setName(user.getName());
-				
+
 				userB.setUsername(user.getUsername());
 				userB.setPublisher(user.getPublisher());
 				userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
@@ -126,8 +131,8 @@ public class SecurityService implements ISecurityService {
 		try {
 			user.setName(userD.getName());
 			user.setUsername(userD.getUsername());
-			user.setEmail(userD.getEmail());		
-			user.setId(userD.getUid());			
+			user.setEmail(userD.getEmail());
+			user.setId(userD.getUid());
 			user.setStatus(userD.isStatus());
 			user.setDate_new(userD.getDateNew());
 			user.setInvite_code(userD.getInviteCode());
@@ -136,7 +141,7 @@ public class SecurityService implements ISecurityService {
 			 * aggregar luego el resto
 			 */
 		} catch (Exception e) {
-			log.error("Error convirtiendo a User BEan -"+e.getMessage());
+			log.error("Error convirtiendo a User BEan -" + e.getMessage());
 		}
 		return user;
 	}
@@ -234,7 +239,8 @@ public class SecurityService implements ISecurityService {
 	 * delete user
 	 * 
 	 * @param user
-	 *            to delte
+	 *            to delete
+	 * 
 	 */
 	public void deleteUser(UnitUserBean user) {
 		SecUsers g = getUserDao().getUser(user.getUsername().trim());
@@ -268,6 +274,74 @@ public class SecurityService implements ISecurityService {
 		newG.setName(group.getGroupName());
 		newG.setIdState(new Integer(group.getStateId()).intValue());
 		getGroupDao().newGroup(newG);
+	}
+
+	/**
+	 * create a user
+	 * @param user
+	 */
+	public void createUser(UnitUserBean user) throws Exception {
+		SecUsers userBd = new SecUsers();
+		userBd.setEmail(user.getEmail());
+		String password = generatePassword();
+		userBd.setPassword(encryptPassworD(password));
+		userBd.setPublisher(user.getPublisher());
+		userBd.setName(user.getName());
+		userBd.setStatus(user.getStatus());
+		userBd.setDateNew(new Date());
+		userBd.setUsername(user.getUsername());
+		if (sendUserPassword(user.getEmail(), password)) {
+			getUserDao().createUser(userBd);
+		} else {
+			throw new Exception();
+		}
+	}
+
+	/**
+	 * send user to user
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	private Boolean sendUserPassword(String email, String password) {
+		try {
+			getServiceMail().send(email, "New Password", password);
+			return true;
+		} catch (Exception e) {
+			log.error("no se pudo enviar el pass->" + e);
+			return false;
+		}
+
+	}
+
+	/**
+	 * generate a password
+	 * @return
+	 */
+	private String generatePassword() {
+		String passGenerate = PasswordGenerator
+				.getPassword(PasswordGenerator.MINUSCULAS
+						+ PasswordGenerator.MAYUSCULAS, 10);
+		return passGenerate;
+	}
+
+	/**
+	 * encrypt the password
+	 * @param password
+	 * @return
+	 */
+	private String encryptPassworD(String password) {
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		String encryptedPassword = passwordEncryptor.encryptPassword(password);
+		return encryptedPassword;
+	}
+
+	public MailServiceImpl getServiceMail() {
+		return serviceMail;
+	}
+
+	public void setServiceMail(MailServiceImpl serviceMail) {
+		this.serviceMail = serviceMail;
 	}
 
 }
