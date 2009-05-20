@@ -282,7 +282,11 @@ public class SecurityService implements ISecurityService {
 	 */
 	public void createUser(UnitUserBean user) throws Exception {
 		SecUsers userBd = new SecUsers();
+		if(user.getEmail() !=null){
 		userBd.setEmail(user.getEmail());
+		}else{
+			throw new Exception();
+		}
 		String password = generatePassword();
 		userBd.setPassword(encryptPassworD(password));
 		userBd.setPublisher(user.getPublisher());
