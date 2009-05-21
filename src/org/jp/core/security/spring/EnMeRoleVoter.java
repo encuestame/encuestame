@@ -2,6 +2,8 @@ package org.jp.core.security.spring;
 
 import java.util.Iterator;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.vote.RoleVoter;
 import org.springframework.security.Authentication;
 import org.springframework.security.ConfigAttribute;
@@ -33,45 +35,56 @@ import org.springframework.security.vote.RoleVoter;
  */
 public class EnMeRoleVoter extends RoleVoter {
 
-	public static final String ROLE_ALWAYS = "ROLE_ALWAYS";
+	public static final String ROLE_ALWAYS = "ENCUESTAME_ALWAYS";
+	public static final String ROLE_ANONYMOUS = "ENCUESTAME_ANONYMOUS";
 	private boolean anonymousAccessAllowed = false;
+	private Log log = LogFactory.getLog(this.getClass());
 	
+	public EnMeRoleVoter() {
+		log.info("ROLE VOTER PERSONALIZADO");
+		
+	}
+
 	public void setAnonymousAccessAllowed(boolean i_anonymousAccessAllowed) {
 		anonymousAccessAllowed = i_anonymousAccessAllowed;
 	}
-	
+
 	@Override
-    public int vote(Authentication authentication, Object object, ConfigAttributeDefinition config) {
-        int result = ACCESS_ABSTAIN;
-        Iterator iter = config.getConfigAttributes().iterator();
-        GrantedAuthority[] authorities = authentication.getAuthorities();        
+	public int vote(Authentication authentication, Object object,
+			ConfigAttributeDefinition config) {
+		int result = ACCESS_ABSTAIN;
 
-        while (iter.hasNext()) {
-            ConfigAttribute attribute = (ConfigAttribute) iter.next();
+		Iterator iter = config.getConfigAttributes().iterator();
+		GrantedAuthority[] authorities = authentication.getAuthorities();
 
-            if (this.supports(attribute)) {
-            	// always grant access to resources, marked with ROLE_ALWAYS
-            	if (ROLE_ALWAYS.equals(attribute.getAttribute())) {
-            		return ACCESS_GRANTED;
-            	}
-            	
-                result = ACCESS_DENIED;
+		while (iter.hasNext()) {
+			ConfigAttribute attribute = (ConfigAttribute) iter.next();
+			log.info("ConfigAttribute->"+attribute.getAttribute());
+			if (this.supports(attribute)) {
+				// always grant access to resources, marked with ROLE_ALWAYS
+				if (ROLE_ALWAYS.equals(attribute.getAttribute())) {
+					return ACCESS_GRANTED;
+				}
+				result = ACCESS_DENIED;
 
-                // Attempt to find a matching granted authority
-                for (int i = 0; i < authorities.length; i++) {
-                	//if (!anonymousAccessAllowed && EmForgeUser.ROLE_ANONYMOUS.equals(authorities[i].getAuthority())) {
-                		// skip checking for anonymous role
-                	//	continue;
-                	//}
-                	
-                    if (attribute.getAttribute().equals(authorities[i].getAuthority())) {
-                        return ACCESS_GRANTED;
-                    }
-                }
-            }
-        }
+				// Attempt to find a matching granted authority
+				for (int i = 0; i < authorities.length; i++) {
+					if (!anonymousAccessAllowed
+							&& ROLE_ANONYMOUS.equals(authorities[i]
+									.getAuthority())) {
+						// skip checking for anonymous role
+						continue;
+					}
 
-        return result;
-    }
+					if (attribute.getAttribute().equals(
+							authorities[i].getAuthority())) {
+						return ACCESS_GRANTED;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
 
 }

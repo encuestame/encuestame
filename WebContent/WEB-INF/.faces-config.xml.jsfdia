@@ -66,12 +66,15 @@
    <PROCESS-ITEM-OUTPUT ID="register::#register.xhtml" NAME="output"
     PATH="/register.xhtml" TARGET="rules:#register.xhtml"
     TITLE="register" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="forget::#forget.xhtml" NAME="output1"
-    PATH="/forget.xhtml" TARGET="rules:#forget.xhtml" TITLE="forget" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="forget::#user#forget.xhtml" NAME="output1"
+    PATH="/user/forget.xhtml" TARGET="rules:#user#forget.xhtml"
+    TITLE="forget" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
   SHAPE="264,408,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#forget.xhtml" PATH="/forget.xhtml"
-  SHAPE="264,472,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="400,392,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#user#forget.xhtml" PATH="/user/forget.xhtml"
+  SHAPE="256,544,50,25" model-entity="JSFProcessGroup"/>
 </PROCESS>

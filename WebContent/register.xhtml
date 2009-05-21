@@ -14,27 +14,8 @@
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf">
 <body>
-<ui:composition template="/templates/login.xhtml">
-	<ui:define name="body">
-		<div id="wrapper_login"><h:form id="loginForm">
-
-			<h:panelGrid columns="3" cellpadding="3" cellspacing="2">
-				<h:outputLabel value="Usuario" for="j_username" />
-				<h:inputText value="#{loginForm.userName}"
-					id="j_username" required="true" requiredMessage="Es necesario"/>					
-					
-					<rich:message for="j_username" errorClass="errorMsg"/>
-				<h:outputLabel value="Contraseña" for="j_password" />
-				<h:inputSecret value="#{loginForm.userPassword}" id="j_password" required="true" requiredMessage="Es necesario"/>
-				<rich:message for="j_password" errorClass="errorMessage"/>
-				<h:commandButton action="#{loginForm.login}" 
-									 value="Iniciar Sesion" 
-									 title="Iniciar Sesion"
-									 styleClass="rsButton"/>
-			</h:panelGrid>
-			<rich:messages errorClass="error"></rich:messages>			
-		</h:form></div>
-	</ui:define>
+<ui:composition>
+	<h:outputText value="Registro" />
 </ui:composition>
 
 </body>

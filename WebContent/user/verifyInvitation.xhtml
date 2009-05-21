@@ -6,20 +6,11 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 <body>
-<ui:composition template="/templates/home.xhtml">
-	<ui:define name="main">
-		<table height="100px" border="1">
-			<tr>
-				<td id="toolBarLeft"></td>
-				<td></td>
-			</tr>
-
-		</table>	
-		  <h:outputText value="TestBean - #{param.login_error}" />
-		   <h:outputText value="MiGet #{testBeanDos.myGet}" />
+<ui:composition >
+	
+		<h:outputText value="Verificandando..." />
 		  
-		   <h:outputText value="catStateDaoImp - #{catStateDaoImp}" />
-	</ui:define>
+	
 </ui:composition>
 
 

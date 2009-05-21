@@ -56,4 +56,10 @@
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 
+	<bean id="testBeanDos" class="org.jp.test.MyVarGet" scope="request">
+		<property name="myGet">
+			<value>#{param.mygetparam}</value>
+		</property>
+	</bean>
+
 </beans>
