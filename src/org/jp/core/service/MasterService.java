@@ -1,5 +1,7 @@
 package org.jp.core.service;
 
+import org.jp.web.beans.commons.MessageSourceFactoryBean;
+
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -17,40 +19,35 @@ package org.jp.core.service;
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
- * Id: ApplicationServices.java Date: 11/05/2009 14:35:36
+ * Id: MasterService.java Date: 22/05/2009 1:02:45
  * 
  * @author juanpicado package: org.jp.core.service
  * @version 1.0
  */
+public class MasterService {
 
-public class ApplicationServices extends MasterService implements IApplicationService {
+	private MessageSourceFactoryBean messageSource;
 
-	private String name;
-	private String urlImg;
-	private String encoding;
-
-	public String getName() {
-		return name;
+	public MasterService() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	protected MessageSourceFactoryBean getMessageSource() {
+		return messageSource;
 	}
 
-	public String getUrlImg() {
-		return urlImg;
+	public void setMessageSource(MessageSourceFactoryBean messageSource) {
+		this.messageSource = messageSource;
 	}
 
-	public void setUrlImg(String urlImg) {
-		this.urlImg = urlImg;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
+	/**
+	 * 
+	 * @param i_propertyId
+	 * @return
+	 */
+	public String getMessageProperties(String i_propertyId) {
+		return getMessageSource() == null ? i_propertyId : getMessageSource()
+				.getMessage(i_propertyId, null, null);
 	}
 
 }

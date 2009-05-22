@@ -25,7 +25,7 @@ import org.jp.core.persistence.dao.CatStateDaoImp;
  * package: org.jp.core.service
  * @version 1.0
  */
-public class DataService implements IDataService {
+public class DataService extends MasterService implements IDataService {
 	
 	private CatStateDaoImp stateDao;
 

@@ -1,5 +1,7 @@
 package org.jp.core.mail;
 
+import org.springframework.mail.MailSendException;
+
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -24,6 +26,6 @@ package org.jp.core.mail;
  */
 public interface MailService {
 
-	public void send(String to, String subject, String text) throws Exception;
+	public void send(String to, String subject, String text) throws MailSendException;
 
 }

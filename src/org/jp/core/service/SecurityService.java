@@ -4,15 +4,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
-import org.jp.core.security.util.EmailUtils;
-import org.jp.core.security.util.PasswordGenerator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.dialect.IngresDialect;
-import org.hibernate.validator.EmailValidator;
+import org.hibernate.HibernateException;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.jp.core.mail.MailServiceImpl;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
@@ -23,10 +18,11 @@ import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.persistence.pojo.SecUserPermission;
 import org.jp.core.persistence.pojo.SecUsers;
+import org.jp.core.security.util.PasswordGenerator;
 import org.jp.web.beans.admon.UnitGroupBean;
 import org.jp.web.beans.admon.UnitPermission;
 import org.jp.web.beans.admon.UnitUserBean;
-import org.jp.web.beans.commons.MessageSourceFactoryBean;
+import org.springframework.mail.MailSendException;
 
 /**
  * encuestame: system online surveys Copyright (C) 2005-2008 encuestame
@@ -50,14 +46,15 @@ import org.jp.web.beans.commons.MessageSourceFactoryBean;
  * @author juanpicado package: org.jp.core.service
  * @version 1.0
  */
-public class SecurityService implements ISecurityService {
+public class SecurityService extends MasterService implements ISecurityService {
 
 	private Log log = LogFactory.getLog(this.getClass());
 	private UserDaoImp userDao;
 	private SecGroupDaoImp groupDao;
 	private SecPermissionDaoImp permissionDao;
 	private MailServiceImpl serviceMail;
-	private MessageSourceFactoryBean messageSource;
+	private String defaultUserPermission;
+	private Boolean suspendedNotification;
 
 	public UserDaoImp getUserDao() {
 		return userDao;
@@ -142,9 +139,6 @@ public class SecurityService implements ISecurityService {
 			user.setDate_new(userD.getDateNew());
 			user.setInvite_code(userD.getInviteCode());
 			user.setPublisher(userD.getPublisher());
-			/*
-			 * aggregar luego el resto
-			 */
 		} catch (Exception e) {
 			log.error("Error convirtiendo a User BEan -" + e.getMessage());
 		}
@@ -245,11 +239,15 @@ public class SecurityService implements ISecurityService {
 	 * 
 	 * @param user
 	 *            to delete
-	 * 
 	 */
-	public void deleteUser(UnitUserBean user) {
+	public void deleteUser(UnitUserBean user) throws MailSendException,
+			HibernateException {
 		SecUsers g = getUser(user.getUsername().trim());
 		log.info("delete deleteUserDao->" + g.getUsername());
+		if (getSuspendedNotification()) {
+			getServiceMail().sendDeleteNotification(user.getEmail(),
+					getMessageProperties("MessageDeleteNotification"));
+		}
 		getUserDao().delete(g);
 	}
 
@@ -259,18 +257,19 @@ public class SecurityService implements ISecurityService {
 	 * @param user
 	 * @throws Exception
 	 */
-	public void renewPassword(UnitUserBean user) throws Exception {
+	public void renewPassword(UnitUserBean user) throws MailSendException {
 		SecUsers g = getUser(user.getUsername().trim());
 		if (g.getPassword() != null) {
 			String newPassowrd = generatePassword();
 			g.setPassword(encryptPassworD(newPassowrd));
-			if (sendUserPassword(g.getEmail().trim(), newPassowrd)) {
+			try {
+				sendUserPassword(g.getEmail().trim(), newPassowrd);
 				getUserDao().updateUser(g);
-			} else {
-				throw new Exception();
+			} catch (MailSendException ex) {
+				throw new MailSendException(ex.getMessage());
 			}
 		} else {
-			throw new Exception();
+			throw new MailSendException("test");
 		}
 	}
 
@@ -317,12 +316,12 @@ public class SecurityService implements ISecurityService {
 	 * 
 	 * @param user
 	 */
-	public void createUser(UnitUserBean user) throws Exception {
+	public void createUser(UnitUserBean user) throws MailSendException {
 		SecUsers userBd = new SecUsers();
 		if (user.getEmail() != null) {
 			userBd.setEmail(user.getEmail());
 		} else {
-			throw new Exception();
+			throw new MailSendException("email nulo");
 		}
 		String password = generatePassword();
 		userBd.setPassword(encryptPassworD(password));
@@ -331,11 +330,68 @@ public class SecurityService implements ISecurityService {
 		userBd.setStatus(user.getStatus());
 		userBd.setDateNew(new Date());
 		userBd.setUsername(user.getUsername());
-		if (sendUserPassword(user.getEmail(), password)) {
+		try {
+			// send to user first password
+			sendUserPassword(user.getEmail(), password);
+			// create user
 			getUserDao().createUser(userBd);
-		} else {
-			throw new Exception();
+			// assing first permissions and default group
+			assignPermission(getUser(user.getUsername()),
+					loadPermission(getDefaultUserPermission()));
+			// assing firs default group to user
+			log
+					.info("getDefaultUserPermission ->"
+							+ getDefaultUserPermission());
+			log
+					.info("Message Source->"
+							+ getMessageProperties("Mailsuccesful"));
+
+		} catch (MailSendException e) {
+			throw new MailSendException(
+					"no se pudo notificar el nuevo usuario ->" + e);
 		}
+	}
+
+	/**
+	 * assign permission to user
+	 * 
+	 * @param user
+	 * @param permission
+	 */
+	private void assignPermission(SecUsers user, SecPermission permission)
+			throws HibernateException {
+
+	}
+
+	/**
+	 * load Permission bean
+	 * 
+	 * @param permission
+	 * @return
+	 */
+	public UnitPermission loadBeanPermission(String permission)
+			throws HibernateException {
+		SecPermission per = getPermissionDao().loadPermission(permission);
+		UnitPermission uPer = new UnitPermission();
+		if (per != null) {
+			uPer.setId(per.getIdPermission());
+			uPer.setPermission(per.getPermission());
+			uPer.setDescription(per.getDescription());
+		}
+		return uPer;
+	}
+
+	/**
+	 * load dao permission
+	 * 
+	 * @param permission
+	 * @return
+	 * @throws HibernateException
+	 */
+	public SecPermission loadPermission(String permission)
+			throws HibernateException {
+		SecPermission per = getPermissionDao().loadPermission(permission);
+		return per;
 	}
 
 	/**
@@ -351,9 +407,13 @@ public class SecurityService implements ISecurityService {
 
 	}
 
+	/**
+	 * generate hash code invitation
+	 * 
+	 * @return
+	 */
 	public String generateHashCodeInvitation() {
 		return generatePassword();
-
 	}
 
 	/**
@@ -363,15 +423,10 @@ public class SecurityService implements ISecurityService {
 	 * @param password
 	 * @return
 	 */
-	private Boolean sendUserPassword(String email, String password) {
-		try {
-			getServiceMail().send(email, "New Password", password);
-			return true;
-		} catch (Exception e) {
-			log.error("no se pudo enviar el pass->" + e);
-			return false;
-		}
-
+	private void sendUserPassword(String email, String password)
+			throws MailSendException {
+		getServiceMail().send(email, getMessageProperties("NewPassWordMail"),
+				password);
 	}
 
 	/**
@@ -380,9 +435,8 @@ public class SecurityService implements ISecurityService {
 	 * @return
 	 */
 	private String generatePassword() {
-		String passGenerate = PasswordGenerator
-				.getPassword(PasswordGenerator.MINUSCULAS
-						+ PasswordGenerator.MAYUSCULAS, 10);
+		String passGenerate = PasswordGenerator.getPassword(
+				PasswordGenerator.LOWERCASE + PasswordGenerator.CAPITALS, 10);
 		return passGenerate;
 	}
 
@@ -406,12 +460,20 @@ public class SecurityService implements ISecurityService {
 		this.serviceMail = serviceMail;
 	}
 
-	private MessageSourceFactoryBean getMessageSource() {
-		return messageSource;
+	private String getDefaultUserPermission() {
+		return defaultUserPermission;
 	}
 
-	public void setMessageSource(MessageSourceFactoryBean messageSource) {
-		this.messageSource = messageSource;
+	public void setDefaultUserPermission(String defaultUserPermission) {
+		this.defaultUserPermission = defaultUserPermission;
+	}
+
+	private Boolean getSuspendedNotification() {
+		return suspendedNotification;
+	}
+
+	public void setSuspendedNotification(Boolean suspendedNotification) {
+		this.suspendedNotification = suspendedNotification;
 	}
 
 }

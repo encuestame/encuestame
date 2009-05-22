@@ -3,9 +3,11 @@ package org.jp.core.persistence.dao;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.jp.core.persistence.dao.imp.ISecPermissionDao;
 import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.persistence.pojo.SecUserPermission;
+import org.jp.core.persistence.pojo.SecUsers;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -38,7 +40,7 @@ public class SecPermissionDaoImp extends HibernateDaoSupport implements
 	 * @param id
 	 * @return
 	 */
-	public Collection<SecUserPermission> loadPermissionByUser(Integer id) {
+	public Collection<SecUserPermission> loadPermissionByUser(Integer id) throws HibernateException {
 		return getHibernateTemplate().find(
 				"from SecUserPermission d where d.secUsers.uid =" + id);
 
@@ -48,9 +50,25 @@ public class SecPermissionDaoImp extends HibernateDaoSupport implements
 	 * load all permisssion
 	 * @return
 	 */
-	public Collection<SecPermission> loadAllPermissions() {
+	public Collection<SecPermission> loadAllPermissions() throws HibernateException{
 		return getHibernateTemplate().find("from SecPermission");
 
 	}
+	
+	/**
+	 * load permission
+	 * @param permission
+	 * @return
+	 */
+	public SecPermission loadPermission(String permission) throws HibernateException{
+		List<SecPermission> users = getHibernateTemplate().findByNamedQuery(
+				"Rol.loadPermissionByName", permission);
+		if (users.size() > 0) {
+			return (SecPermission) users.get(0);
+		} else {
+			return null;
+		}
+	}
+	
 
 }

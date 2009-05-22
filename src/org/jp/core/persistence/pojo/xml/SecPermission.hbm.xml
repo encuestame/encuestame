@@ -26,4 +26,12 @@
             <one-to-many class="org.jp.core.persistence.pojo.SecGroupPermission" />
         </set>
     </class>
+    
+    <!-- HQL Querys -->
+     <query name="Rol.loadPermissionByName">
+	 <![CDATA[
+	 		select u from SecPermission as u where u.permission = ?	       
+			]]>
+	 </query>
+    
 </hibernate-mapping>

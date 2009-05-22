@@ -2,8 +2,8 @@ package org.jp.core.mail;
 
 import org.apache.log4j.Logger;
 import org.jp.core.persistence.dao.CatLocationDaoImp;
-import org.jp.web.beans.commons.MessageSourceFactoryBean;
-import org.springframework.mail.MailException;
+import org.jp.core.service.MasterService;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -29,15 +29,13 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * @author juanpicado package: org.jp.core.mail
  * @version 1.0
  */
-public class MailServiceImpl implements MailService {
+public class MailServiceImpl extends MasterService implements MailService {
 
 	private static Logger log = Logger.getLogger(CatLocationDaoImp.class);
-	private static final String SUBJECT_INVITATION = "Invitation to EncuestaMe";
 
-	/** wrapper de Spring sobre javax.mail */
+	private String noEmailResponse;
 	private JavaMailSenderImpl mailSender;
 	private SimpleMailMessage templateMessage;
-	private MessageSourceFactoryBean messageSource;
 
 	public void setMailSender(JavaMailSenderImpl mailSender) {
 		this.mailSender = mailSender;
@@ -54,60 +52,57 @@ public class MailServiceImpl implements MailService {
 	/**
 	 * send email
 	 */
-	public void send(String to, String subject, String text) throws Exception {
+	public void send(String to, String subject, String text)
+			throws MailSendException {
 		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
-		// mail del usuario que envía
-		msg.setFrom("test@local.com");
-		// mails de los destinatarios
+		msg.setFrom(getNoEmailResponse());
 		msg.setTo(to);
-		// mail de los destinatarios CC (con copia)
 		// msg.setCc();
-		// mensaje
 		msg.setText(text);
-		// asunto
 		msg.setSubject(subject);
 		mailSender.send(msg);
-		log.info(getMessageSource("mail.succesful"));
+		// log.info(getMessageSource("mail.succesful"));
 	}
-	
+
 	/**
 	 * send invitation
+	 * 
 	 * @param to
 	 * @param code
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean sendInvitation(String to, String code) throws Exception {
+	public void sendInvitation(String to, String code) throws MailSendException {
 		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
-		// mail del usuario que envía
-		msg.setFrom("test@local.com");
-		// mails de los destinatarios
+		msg.setFrom(getNoEmailResponse());
 		msg.setTo(to);
-		// mail de los destinatarios CC (con copia)
-		// msg.setCc();
-		// mensaje
 		msg
 				.setText("<h1>Invitation to Encuestame</h1><p>Please confirm this invitation <a>http://www.encuesta.me/cod/"
 						+ code + "</a>");
-		// asunto
-		msg.setSubject(SUBJECT_INVITATION);
+		msg.setSubject(getMessageProperties("SubjectInvitation"));
 		mailSender.send(msg);
-		return true;
 	}
 
 	/**
-	 * 
-	 * @param i_propertyId
-	 * @return
+	 * delete notification
+	 * @param to
+	 * @param noti
 	 */
-
-	private String getMessageSource(String i_propertyId) {
-		return this.messageSource == null ? i_propertyId : this.messageSource
-				.getMessage(i_propertyId, null, null);
+	public void sendDeleteNotification(String to, String noti)throws MailSendException {
+		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
+		msg.setFrom(getNoEmailResponse());
+		msg.setTo(to);
+		msg.setText(noti);
+		msg.setSubject(getMessageProperties("DeleteSubjectInvitation"));
+		mailSender.send(msg);
 	}
 
-	public void setMessageSource(MessageSourceFactoryBean messageSource) {
-		this.messageSource = messageSource;
+	private String getNoEmailResponse() {
+		return noEmailResponse;
+	}
+
+	public void setNoEmailResponse(String noEmailResponse) {
+		this.noEmailResponse = noEmailResponse;
 	}
 
 }

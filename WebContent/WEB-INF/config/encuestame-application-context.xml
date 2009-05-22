@@ -116,6 +116,12 @@
 		<property name="messageSource">
 			<ref bean="messageSource"></ref>
 		</property>
+		<property name="defaultUserPermission">
+			<value>${sec.defaultUserPermission}</value>
+		</property>
+		<property name="suspendedNotification">
+		<value>${sec.suspendedNotification}</value>
+		</property>
 	</bean>
 
 	<bean id="applicationService" class="org.jp.core.service.ApplicationServices">

@@ -25,8 +25,8 @@ package org.jp.core.security.util;
 public class PasswordGenerator {
 
 	public static String NUMBERS = "0123456789";
-	public static String MAYUSCULAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	public static String MINUSCULAS = "abcdefghijklmnopqrstuvwxyz";
+	public static String CAPITALS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
 	public static String ESPECIALES = "Ò—%&@%=[]?ø{}#~,.*+$!";
 
 	public static String getPinNumber() {
@@ -34,11 +34,11 @@ public class PasswordGenerator {
 	}
 
 	public static String getEspecialPassword() {
-		return getPassword(NUMBERS + MAYUSCULAS + MINUSCULAS + ESPECIALES, 12);
+		return getPassword(NUMBERS + CAPITALS + LOWERCASE + ESPECIALES, 12);
 	}
 
 	public static String getEspecialPassword(Integer e) {
-		return getPassword(NUMBERS + MAYUSCULAS + MINUSCULAS + ESPECIALES, e);
+		return getPassword(NUMBERS + CAPITALS + LOWERCASE + ESPECIALES, e);
 	}
 
 	public static String getPassword() {
@@ -46,7 +46,7 @@ public class PasswordGenerator {
 	}
 
 	public static String getPassword(int length) {
-		return getPassword(NUMBERS + MAYUSCULAS + MINUSCULAS, length);
+		return getPassword(NUMBERS + CAPITALS + CAPITALS, length);
 	}
 
 	public static String getPassword(String key, int length) {

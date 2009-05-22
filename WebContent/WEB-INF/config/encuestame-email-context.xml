@@ -38,6 +38,7 @@
 		<property name="messageSource">
 			<ref bean="messageSource"></ref>
 		</property>
+		<property name="noEmailResponse" value="${mail.noresponse}" />			
 	</bean>
 
 

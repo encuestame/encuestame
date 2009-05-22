@@ -12,9 +12,11 @@ import javax.faces.component.UISelectBoolean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.security.util.EmailUtils;
 import org.jp.web.beans.MasterBean;
+import org.springframework.mail.MailSendException;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -68,8 +70,9 @@ public class UserBean extends MasterBean {
 		try {
 			getServicemanagerBean().getSecurityService().createUser(
 					getNewUnitUserBean());
-
 			addInfoMessage("Usuario Creado Tuani", "");
+		} catch (MailSendException e) {
+			addErrorMessage("Error notifiando usuario->" + e, e.getMessage());
 		} catch (Exception e) {
 			addErrorMessage("Error creando usuario->" + e, e.getMessage());
 		}
@@ -200,27 +203,38 @@ public class UserBean extends MasterBean {
 			getServicemanagerBean().getSecurityService().deleteUser(user);
 			log.info("Se borro bien->" + user.getUsername());
 			addInfoMessage("Se borro bien->" + user.getUsername(), "");
+		} catch (HibernateException e) {
+			log.info("Error SQL->" + user.getUsername());
+			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
+					+ e.getMessage(), "");
+		} catch (MailSendException e) {
+			log.info("No se pudo notificar->" + user.getUsername());
+			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
+					+ e.getMessage(), "");
 		} catch (Exception e) {
 			log.info("No borro bien->" + user.getUsername());
 			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
 					+ e.getMessage(), "");
 		}
-
 	}
 
 	/**
 	 * renew password
+	 * 
 	 * @param user
 	 */
 	private void renewPassword(UnitUserBean user) {
 		try {
 			getServicemanagerBean().getSecurityService().renewPassword(user);
-			addInfoMessage("Se envio la nueva contraseña a ->" + user.getUsername(), " a su correo "+user.getEmail());
-		} catch (Exception e) {
+			addInfoMessage("Se envio la nueva contraseña a ->"
+					+ user.getUsername(), " a su correo " + user.getEmail());
+		} catch (MailSendException e) {
 			log.info("No recordo bien la contraseña a->" + user.getUsername());
 			addErrorMessage("No pudo recordar a ->" + user.getUsername()
 					+ "por->" + e.getMessage(), "");
-
+		} catch (Exception e) {
+			addErrorMessage("Otro Error renewPassword a ->"
+					+ user.getUsername() + "por->" + e.getMessage(), "");
 		}
 	}
 

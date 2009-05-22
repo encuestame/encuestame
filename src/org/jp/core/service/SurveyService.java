@@ -26,7 +26,7 @@ import org.jp.core.persistence.dao.CatStateDaoImp;
  * package: org.jp.core.service
  * @version 1.0
  */
-public class SurveyService implements ISurveyService {
+public class SurveyService extends MasterService implements ISurveyService {
 	
 	private CatStateDaoImp catStateDao;
 	private MailServiceImpl serviceMail;
