@@ -4,12 +4,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
+import org.jp.core.security.util.EmailUtils;
 import org.jp.core.security.util.PasswordGenerator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.dialect.IngresDialect;
+import org.hibernate.validator.EmailValidator;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.jp.core.mail.MailServiceImpl;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
@@ -23,6 +26,7 @@ import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.web.beans.admon.UnitGroupBean;
 import org.jp.web.beans.admon.UnitPermission;
 import org.jp.web.beans.admon.UnitUserBean;
+import org.jp.web.beans.commons.MessageSourceFactoryBean;
 
 /**
  * encuestame: system online surveys Copyright (C) 2005-2008 encuestame
@@ -53,6 +57,7 @@ public class SecurityService implements ISecurityService {
 	private SecGroupDaoImp groupDao;
 	private SecPermissionDaoImp permissionDao;
 	private MailServiceImpl serviceMail;
+	private MessageSourceFactoryBean messageSource;
 
 	public UserDaoImp getUserDao() {
 		return userDao;
@@ -243,9 +248,40 @@ public class SecurityService implements ISecurityService {
 	 * 
 	 */
 	public void deleteUser(UnitUserBean user) {
-		SecUsers g = getUserDao().getUser(user.getUsername().trim());
+		SecUsers g = getUser(user.getUsername().trim());
 		log.info("delete deleteUserDao->" + g.getUsername());
 		getUserDao().delete(g);
+	}
+
+	/**
+	 * renew password
+	 * 
+	 * @param user
+	 * @throws Exception
+	 */
+	public void renewPassword(UnitUserBean user) throws Exception {
+		SecUsers g = getUser(user.getUsername().trim());
+		if (g.getPassword() != null) {
+			String newPassowrd = generatePassword();
+			g.setPassword(encryptPassworD(newPassowrd));
+			if (sendUserPassword(g.getEmail().trim(), newPassowrd)) {
+				getUserDao().updateUser(g);
+			} else {
+				throw new Exception();
+			}
+		} else {
+			throw new Exception();
+		}
+	}
+
+	/**
+	 * get user by username
+	 * 
+	 * @param username
+	 * @return
+	 */
+	private SecUsers getUser(String username) {
+		return getUserDao().getUser(username.trim());
 	}
 
 	/**
@@ -278,13 +314,14 @@ public class SecurityService implements ISecurityService {
 
 	/**
 	 * create a user
+	 * 
 	 * @param user
 	 */
 	public void createUser(UnitUserBean user) throws Exception {
 		SecUsers userBd = new SecUsers();
-		if(user.getEmail() !=null){
-		userBd.setEmail(user.getEmail());
-		}else{
+		if (user.getEmail() != null) {
+			userBd.setEmail(user.getEmail());
+		} else {
 			throw new Exception();
 		}
 		String password = generatePassword();
@@ -302,7 +339,26 @@ public class SecurityService implements ISecurityService {
 	}
 
 	/**
+	 * invite some users to register in the system
+	 * 
+	 * @param emails
+	 *            list of users
+	 * @throws Exception
+	 */
+	public void inviteUser(String email, String code) throws Exception {
+		log.info("Correo Usuarios->" + email);
+		getServiceMail().sendInvitation(email, code);
+
+	}
+
+	public String generateHashCodeInvitation() {
+		return generatePassword();
+
+	}
+
+	/**
 	 * send user to user
+	 * 
 	 * @param email
 	 * @param password
 	 * @return
@@ -320,6 +376,7 @@ public class SecurityService implements ISecurityService {
 
 	/**
 	 * generate a password
+	 * 
 	 * @return
 	 */
 	private String generatePassword() {
@@ -331,6 +388,7 @@ public class SecurityService implements ISecurityService {
 
 	/**
 	 * encrypt the password
+	 * 
 	 * @param password
 	 * @return
 	 */
@@ -346,6 +404,14 @@ public class SecurityService implements ISecurityService {
 
 	public void setServiceMail(MailServiceImpl serviceMail) {
 		this.serviceMail = serviceMail;
+	}
+
+	private MessageSourceFactoryBean getMessageSource() {
+		return messageSource;
+	}
+
+	public void setMessageSource(MessageSourceFactoryBean messageSource) {
+		this.messageSource = messageSource;
 	}
 
 }

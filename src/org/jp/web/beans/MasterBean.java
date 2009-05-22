@@ -119,6 +119,10 @@ public class MasterBean {
 		showMessage(null, message, description, FacesMessage.SEVERITY_ERROR);
 	}
 
+	
+	public void addWarningMessage(String message, String description) {
+		showMessage(null, message, description, FacesMessage.SEVERITY_WARN);
+	}
 	/**
 	 * Return the FacesContext instance for the current request.
 	 */

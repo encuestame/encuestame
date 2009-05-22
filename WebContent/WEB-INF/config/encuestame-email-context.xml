@@ -32,11 +32,14 @@
 	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage" />
 
 
-	<bean id="serviceMail"
-		class="org.jp.core.mail.MailServiceImpl">
+	<bean id="serviceMail" class="org.jp.core.mail.MailServiceImpl">
 		<property name="mailSender" ref="mailSender" />
 		<property name="templateMessage" ref="templateMessage" />
+		<property name="messageSource">
+			<ref bean="messageSource"></ref>
+		</property>
 	</bean>
+
 
 
 </beans>

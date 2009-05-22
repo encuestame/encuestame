@@ -1,126 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4"
- xmlns="http://java.sun.com/xml/ns/j2ee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
- <display-name>encuestame</display-name>
- <context-param>
-  <param-name>contextConfigLocation</param-name>
-  <param-value>/WEB-INF/config/encuestame-application-context.xml,
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>encuestame</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/config/encuestame-application-context.xml,
      				 /WEB-INF/config/encuestame-db-context.xml,
      				 /WEB-INF/config/encuestame-security-context.xml,
      				 /WEB-INF/config/encuestame-param-context.xml,
      				 /WEB-INF/config/encuestame-beans-jsf-context.xml,
        				  /WEB-INF/config/encuestame-email-context.xml</param-value>
- </context-param>
- <context-param>
-  <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-  <param-value>.xhtml</param-value>
- </context-param>
- <context-param>
-  <param-name>facelets.REFRESH_PERIOD</param-name>
-  <param-value>2</param-value>
- </context-param>
- <context-param>
-  <param-name>facelets.DEVELOPMENT</param-name>
-  <param-value>true</param-value>
- </context-param>
- <context-param>
-  <param-name>facelets.LIBRARIES</param-name>
-  <param-value>/WEB-INF/taglib/encuestame.taglib.xml</param-value>
- </context-param>
- <context-param>
-  <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-  <param-value>server</param-value>
- </context-param>
- <!-- skin control http://www.jboss.org/file-access/default/members/jbossrichfaces/freezone/docs/devguide/en/html/ArchitectureOverview.html#StControlsSkinning -->
- <context-param>
-  <param-name>org.richfaces.SKIN</param-name>
-  <param-value>darkX</param-value>
- </context-param>
- <context-param>
-  <param-name>oorg.richfaces.CONTROL_SKINNING</param-name>
-  <param-value>enable</param-value>
- </context-param>
- <context-param>
-  <param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
-  <param-value>enable</param-value>
- </context-param>
- <filter>
-  <display-name>Ajax4jsf Filter</display-name>
-  <filter-name>ajax4jsf</filter-name>
-  <filter-class>org.ajax4jsf.Filter</filter-class>
- </filter>
- <filter>
-  <filter-name>springSecurityFilterChain</filter-name>
-  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
- </filter>
- <filter>
-  <display-name>XSS</display-name>
-  <filter-name>XSS</filter-name>
-  <filter-class>org.jp.core.security.filter.CrossScriptingFilter</filter-class>
- </filter>
- <filter>
-  <description>Verifica el Código de Invitación enviado por correo electronico</description>
-  <filter-name>eMailVerification</filter-name>
-  <filter-class>org.jp.core.security.filter.InviteCodeVerification</filter-class>
- </filter>
- <filter-mapping>
-  <filter-name>XSS</filter-name>
-  <url-pattern>/*</url-pattern>
- </filter-mapping>
- <filter-mapping>
-  <filter-name>springSecurityFilterChain</filter-name>
-  <url-pattern>/*</url-pattern>
-  <dispatcher>FORWARD</dispatcher>
-  <dispatcher>REQUEST</dispatcher>
- </filter-mapping>
- <filter-mapping>
-  <filter-name>ajax4jsf</filter-name>
-  <servlet-name>Faces Servlet</servlet-name>
-  <dispatcher>REQUEST</dispatcher>
-  <dispatcher>FORWARD</dispatcher>
-  <dispatcher>INCLUDE</dispatcher>
- </filter-mapping>
- <filter-mapping>
-  <filter-name>eMailVerification</filter-name>
-  <url-pattern>/user/verifyInvitation.xhtml</url-pattern>
- </filter-mapping>
- <listener>
-  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
- </listener>
- <listener>
-  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
- </listener>
- <!-- URL REWRITE 
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.REFRESH_PERIOD</param-name>
+		<param-value>2</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/WEB-INF/taglib/encuestame.taglib.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<!--
+		skin control
+		http://www.jboss.org/file-access/default/members/jbossrichfaces/freezone/docs/devguide/en/html/ArchitectureOverview.html#StControlsSkinning
+	-->
+	<context-param>
+		<param-name>org.richfaces.SKIN</param-name>
+		<param-value>darkX</param-value>
+	</context-param>
+	<context-param>
+		<param-name>oorg.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
+		<param-value>enable</param-value>
+	</context-param>
 	<filter>
-            <filter-name>UrlRewriteFilter</filter-name>
-            <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-             <init-param>
-                <param-name>logLevel</param-name>
-                <param-value>DEBUG</param-value>
-            </init-param>
-    </filter>    
-   <filter-mapping>
-		<filter-name>UrlRewriteFilter</filter-name>
+		<display-name>Ajax4jsf Filter</display-name>
+		<filter-name>ajax4jsf</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter>
+		<display-name>XSS</display-name>
+		<filter-name>XSS</filter-name>
+		<filter-class>org.jp.core.security.filter.CrossScriptingFilter</filter-class>
+	</filter>
+	<filter>
+		<description>Verifica el Código de Invitación enviado por correo electronico</description>
+		<filter-name>eMailVerification</filter-name>
+		<filter-class>org.jp.core.security.filter.InviteCodeVerification</filter-class>
+		<init-param>
+		<param-name>miParametro</param-name>
+		<param-value>Juan</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>XSS</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>    -->
- <servlet>
-  <servlet-name>Faces Servlet</servlet-name>
-  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-  <load-on-startup>1</load-on-startup>
- </servlet>
- <servlet-mapping>
-  <servlet-name>Faces Servlet</servlet-name>
-  <url-pattern>*.me</url-pattern>
- </servlet-mapping>
- <session-config>
-  <session-timeout>10</session-timeout>
- </session-config>
- <error-page>
-  <error-code>404</error-code>
-  <location>/WEB-INF/error404.xhtml</location>
- </error-page>
- <login-config>
-  <auth-method>BASIC</auth-method>
- </login-config>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ajax4jsf</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>eMailVerification</filter-name>
+		<url-pattern>/user/verifyInvitation.me</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<!--
+		URL REWRITE <filter> <filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+		<init-param> <param-name>logLevel</param-name>
+		<param-value>DEBUG</param-value> </init-param> </filter>
+		<filter-mapping> <filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern> </filter-mapping>
+	-->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/error404.xhtml</location>
+	</error-page>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
 </web-app>

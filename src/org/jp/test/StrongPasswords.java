@@ -1,6 +1,16 @@
 package org.jp.test;
 
+import java.util.Date;
+import java.util.Formatter;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jp.core.security.util.PasswordGenerator;
+
+import sun.security.provider.MD5;
 
 /**
  * encuestame:  system online surveys
@@ -32,9 +42,22 @@ public class StrongPasswords {
 	 */
 	public static void main(String[] args) {
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		org.jasypt.util.password.BasicPasswordEncryptor d = new BasicPasswordEncryptor();
+		
+		
 		String encryptedPassword = passwordEncryptor.encryptPassword("test");
-		System.out.print(encryptedPassword);
+		String encryptedPassword2 = d.encryptPassword(new Date().toString()+"juanpicado19@gmail.com");
+		String randomNumber = new Formatter().format("%05d", new Random().nextInt(100000)).toString();
+		System.out.print(randomNumber);
 
+		StringBuffer sb = new StringBuffer();
+		Random random = new Random();
+		for(int i = 0; i < 60; i++) {
+		int num = random.nextInt(10);
+		sb.append(Integer.toString(num));
+		}
+		String randomnumber = sb.toString();
+		System.out.print(randomnumber);
 	}
 
 }

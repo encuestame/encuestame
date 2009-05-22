@@ -1,4 +1,7 @@
-package org.jp.core.mail;
+package org.jp.core.security.util;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -17,13 +20,29 @@ package org.jp.core.mail;
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
- * Id: MailService.java Date: 19/05/2009 14:16:11
+ * Id: EmailUtils.java Date: 21/05/2009 13:41:09
  * 
- * @author juanpicado package: org.jp.core.mail
+ * @author juanpicado package: org.jp.core.security.util
  * @version 1.0
  */
-public interface MailService {
+public class EmailUtils {
 
-	public void send(String to, String subject, String text) throws Exception;
+	/**
+	 * Validate Email
+	 * @param email
+	 * @return
+	 */
+	public static boolean validateEmail(String email) {
+		// Set the email pattern string
+		Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+		// Match the given string with the pattern
+		Matcher m = p.matcher(email);
+		// check whether match is found
+		boolean matchFound = m.matches();
+		if (matchFound)
+			return true;
+		else
+			return false;
+	}
 
 }

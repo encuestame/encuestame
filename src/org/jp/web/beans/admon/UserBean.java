@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.faces.component.UIData;
 import javax.faces.component.UISelectBoolean;
@@ -11,6 +13,7 @@ import javax.faces.component.UISelectBoolean;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.core.persistence.pojo.SecPermission;
+import org.jp.core.security.util.EmailUtils;
 import org.jp.web.beans.MasterBean;
 
 /**
@@ -46,6 +49,7 @@ public class UserBean extends MasterBean {
 	private String selectedAction;
 	private UIData uiDataUserTable;
 	private UISelectBoolean checked = null;
+	private String listUsers;
 
 	/**
 	 * @return the list_unitBeans
@@ -64,6 +68,7 @@ public class UserBean extends MasterBean {
 		try {
 			getServicemanagerBean().getSecurityService().createUser(
 					getNewUnitUserBean());
+
 			addInfoMessage("Usuario Creado Tuani", "");
 		} catch (Exception e) {
 			addErrorMessage("Error creando usuario->" + e, e.getMessage());
@@ -72,8 +77,52 @@ public class UserBean extends MasterBean {
 
 	/**
 	 * invite user
+	 * 
+	 * @throws Exception
 	 */
 	public void inviteUser() {
+
+		if (!getListUsers().isEmpty()) {
+			List<String> emails = new LinkedList<String>();
+			String strDatos = getListUsers().trim();
+			StringTokenizer tokens = new StringTokenizer(strDatos, ",");
+			int i = 0;
+			while (tokens.hasMoreTokens()) {
+				String str = tokens.nextToken();
+				emails.add(str.trim());
+				i++;
+			}
+			if (emails.size() > 0) {
+				Iterator<String> it = emails.iterator();
+				while (it.hasNext()) {
+					String email = (String) it.next();
+					if (EmailUtils.validateEmail(email)) {
+						try {
+							String code = getServicemanagerBean()
+									.getSecurityService()
+									.generateHashCodeInvitation();
+							getServicemanagerBean().getSecurityService()
+									.inviteUser(email, code);
+							addInfoMessage("Invitacion enviada para " + email
+									+ " Satisfactoriamente", "");
+						} catch (Exception e) {
+							addErrorMessage(
+									"Lo siento,ocurrio un error al enviar este correo->"
+											+ email + " error->" + e, e
+											.getMessage());
+						}
+					} else {
+						log.info("email invalido ->" + email);
+						addWarningMessage("email invalido ->" + email, "");
+					}
+				}
+				setListUsers(null);
+			} else {
+				addWarningMessage("Lo siento, la lista esta vacia", "");
+			}
+		} else {
+			addWarningMessage("Lo siento, la lista esta vacia", "");
+		}
 
 	}
 
@@ -160,6 +209,22 @@ public class UserBean extends MasterBean {
 	}
 
 	/**
+	 * renew password
+	 * @param user
+	 */
+	private void renewPassword(UnitUserBean user) {
+		try {
+			getServicemanagerBean().getSecurityService().renewPassword(user);
+			addInfoMessage("Se envio la nueva contraseña a ->" + user.getUsername(), " a su correo "+user.getEmail());
+		} catch (Exception e) {
+			log.info("No recordo bien la contraseña a->" + user.getUsername());
+			addErrorMessage("No pudo recordar a ->" + user.getUsername()
+					+ "por->" + e.getMessage(), "");
+
+		}
+	}
+
+	/**
 	 * init action
 	 */
 	public void initAction() {
@@ -176,10 +241,20 @@ public class UserBean extends MasterBean {
 					}
 					break;
 				case 2:
-					log.info("action 2" + selectedUsers());
+					log.info("renew password" + selectedUsers());
+					// Recordar Contraseña
+					for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
+							.hasNext();) {
+						UnitUserBean user = i.next();
+						log.info("recordar password action->"
+								+ user.getUsername());
+						renewPassword(user);
+					}
 					break;
 				case 3:
 					log.info("action 3" + selectedUsers());
+					// Editor
+
 					break;
 
 				default:
@@ -308,6 +383,14 @@ public class UserBean extends MasterBean {
 
 	public void setNewUnitUserBean(UnitUserBean newUnitUserBean) {
 		this.newUnitUserBean = newUnitUserBean;
+	}
+
+	public String getListUsers() {
+		return listUsers;
+	}
+
+	public void setListUsers(String listUsers) {
+		this.listUsers = listUsers;
 	}
 
 }

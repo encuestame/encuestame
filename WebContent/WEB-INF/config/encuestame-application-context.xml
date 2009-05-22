@@ -113,6 +113,9 @@
 		<property name="serviceMail">
 			<ref bean="serviceMail"></ref>
 		</property>
+		<property name="messageSource">
+			<ref bean="messageSource"></ref>
+		</property>
 	</bean>
 
 	<bean id="applicationService" class="org.jp.core.service.ApplicationServices">

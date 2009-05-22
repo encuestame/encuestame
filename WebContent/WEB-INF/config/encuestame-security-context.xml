@@ -98,10 +98,7 @@
 				/=ENCUESTAME_ANONYMOUS
 				/pages/**=ENCUESTAME_USER
 				/pages/admon/**=ENCUESTAME_ADMIN
-				/user/**=ENCUESTAME_ANONYMOUS
-				/css/**=ENCUESTAME_ANONYMOUS	
-				/images/**=ENCUESTAME_ANONYMOUS	
-				/images/icons/**=ENCUESTAME_ANONYMOUS			           
+				/user/**=ENCUESTAME_ANONYMOUS,ENCUESTAME_USER,ENCUESTAME_ADMIN				           
          </value>
 		</property>
 	</bean>

@@ -41,7 +41,7 @@ public class EnMeRoleVoter extends RoleVoter {
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	public EnMeRoleVoter() {
-		log.info("ROLE VOTER PERSONALIZADO");
+		//log.info("ROLE VOTER PERSONALIZADO");
 		
 	}
 

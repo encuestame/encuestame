@@ -54,10 +54,29 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 
 	}
 
+	/**
+	 * update user
+	 * @param user
+	 * @throws HibernateException
+	 */
+	public void updateUser(SecUsers user) throws HibernateException {
+		getHibernateTemplate().update(user);
+	}
+	
+	/**
+	 * create user
+	 * @param user
+	 * @throws HibernateException
+	 */
 	public void createUser(SecUsers user) throws HibernateException {
 		getHibernateTemplate().save(user);
 	}
-
+	
+	/**
+	 * list all users
+	 * @return
+	 * @throws HibernateException
+	 */
 	public Collection<SecUsers> findAll() throws HibernateException {
 		return getHibernateTemplate().find("from SecUsers");
 	}

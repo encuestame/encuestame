@@ -2,6 +2,7 @@ package org.jp.core.mail;
 
 import org.apache.log4j.Logger;
 import org.jp.core.persistence.dao.CatLocationDaoImp;
+import org.jp.web.beans.commons.MessageSourceFactoryBean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -31,10 +32,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class MailServiceImpl implements MailService {
 
 	private static Logger log = Logger.getLogger(CatLocationDaoImp.class);
+	private static final String SUBJECT_INVITATION = "Invitation to EncuestaMe";
 
 	/** wrapper de Spring sobre javax.mail */
 	private JavaMailSenderImpl mailSender;
 	private SimpleMailMessage templateMessage;
+	private MessageSourceFactoryBean messageSource;
 
 	public void setMailSender(JavaMailSenderImpl mailSender) {
 		this.mailSender = mailSender;
@@ -48,26 +51,63 @@ public class MailServiceImpl implements MailService {
 		this.templateMessage = templateMessage;
 	}
 
-	public void send(String to, String subject, String text) {
+	/**
+	 * send email
+	 */
+	public void send(String to, String subject, String text) throws Exception {
 		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
 		// mail del usuario que envía
 		msg.setFrom("test@local.com");
 		// mails de los destinatarios
 		msg.setTo(to);
 		// mail de los destinatarios CC (con copia)
-		//msg.setCc();
+		// msg.setCc();
 		// mensaje
 		msg.setText(text);
 		// asunto
 		msg.setSubject(subject);
-		try {
-			mailSender.send(msg);
-		} catch (MailException ex) {
-			log.info("Error al enviar mail : " + ex.getMessage());
-			return;
-		}
-		log.info(" envio de mail exitoso !!");
+		mailSender.send(msg);
+		log.info(getMessageSource("mail.succesful"));
+	}
+	
+	/**
+	 * send invitation
+	 * @param to
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean sendInvitation(String to, String code) throws Exception {
+		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
+		// mail del usuario que envía
+		msg.setFrom("test@local.com");
+		// mails de los destinatarios
+		msg.setTo(to);
+		// mail de los destinatarios CC (con copia)
+		// msg.setCc();
+		// mensaje
+		msg
+				.setText("<h1>Invitation to Encuestame</h1><p>Please confirm this invitation <a>http://www.encuesta.me/cod/"
+						+ code + "</a>");
+		// asunto
+		msg.setSubject(SUBJECT_INVITATION);
+		mailSender.send(msg);
+		return true;
+	}
 
+	/**
+	 * 
+	 * @param i_propertyId
+	 * @return
+	 */
+
+	private String getMessageSource(String i_propertyId) {
+		return this.messageSource == null ? i_propertyId : this.messageSource
+				.getMessage(i_propertyId, null, null);
+	}
+
+	public void setMessageSource(MessageSourceFactoryBean messageSource) {
+		this.messageSource = messageSource;
 	}
 
 }
