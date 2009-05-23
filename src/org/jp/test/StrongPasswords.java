@@ -45,19 +45,9 @@ public class StrongPasswords {
 		org.jasypt.util.password.BasicPasswordEncryptor d = new BasicPasswordEncryptor();
 		
 		
-		String encryptedPassword = passwordEncryptor.encryptPassword("test");
-		String encryptedPassword2 = d.encryptPassword(new Date().toString()+"juanpicado19@gmail.com");
-		String randomNumber = new Formatter().format("%05d", new Random().nextInt(100000)).toString();
-		System.out.print(randomNumber);
-
-		StringBuffer sb = new StringBuffer();
-		Random random = new Random();
-		for(int i = 0; i < 60; i++) {
-		int num = random.nextInt(10);
-		sb.append(Integer.toString(num));
-		}
-		String randomnumber = sb.toString();
-		System.out.print(randomnumber);
+		String encryptedPassword = passwordEncryptor.encryptPassword("gemazo");
+		
+		System.out.print(encryptedPassword);
 	}
 
 }

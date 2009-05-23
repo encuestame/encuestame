@@ -89,12 +89,17 @@ public class MailServiceImpl extends MasterService implements MailService {
 	 * @param noti
 	 */
 	public void sendDeleteNotification(String to, String noti)throws MailSendException {
+		log.info("sendDeleteNotification ->"+noti);
+		log.info("sendDeleteNotification to->"+to);
 		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
+		log.info("sendDeleteNotification setFrom..");
 		msg.setFrom(getNoEmailResponse());
 		msg.setTo(to);
 		msg.setText(noti);
 		msg.setSubject(getMessageProperties("DeleteSubjectInvitation"));
+		log.info("sendDeleteNotification sending..");
 		mailSender.send(msg);
+		log.info("sendDeleteNotification sendend..");
 	}
 
 	private String getNoEmailResponse() {

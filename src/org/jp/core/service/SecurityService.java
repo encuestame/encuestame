@@ -96,7 +96,7 @@ public class SecurityService extends MasterService implements ISecurityService {
 				SecUsers user = i.next();
 				userB.setId(user.getUid());
 				userB.setName(user.getName());
-
+				userB.setEmail(user.getEmail());
 				userB.setUsername(user.getUsername());
 				userB.setPublisher(user.getPublisher());
 				userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
@@ -241,14 +241,17 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 *            to delete
 	 */
 	public void deleteUser(UnitUserBean user) throws MailSendException,
-			HibernateException {
+			HibernateException, Exception {
 		SecUsers g = getUser(user.getUsername().trim());
 		log.info("delete deleteUserDao->" + g.getUsername());
 		if (getSuspendedNotification()) {
+			log.info("Notificar->" + user.getEmail());
 			getServiceMail().sendDeleteNotification(user.getEmail(),
 					getMessageProperties("MessageDeleteNotification"));
 		}
+		log.info("user to delete ->" + g.getEmail());
 		getUserDao().delete(g);
+		log.info("user delete");
 	}
 
 	/**
@@ -296,6 +299,22 @@ public class SecurityService extends MasterService implements ISecurityService {
 			group.setIdState((new Integer(uGroup.getStateId())));
 		}
 		getGroupDao().update(group);
+	}
+
+	/**
+	 * update user
+	 * 
+	 * @param userD
+	 */
+	public void updateUser(UnitUserBean userD)  {
+		SecUsers updateUser = getUserDao().getUser(userD.getUsername());
+		if (updateUser != null) {
+			updateUser.setEmail(userD.getEmail());
+			updateUser.setName(userD.getName());
+			updateUser.setStatus(userD.getStatus());
+			updateUser.setPublisher(userD.getPublisher());
+		}
+		getUserDao().updateUser(updateUser);
 	}
 
 	/**
@@ -469,6 +488,7 @@ public class SecurityService extends MasterService implements ISecurityService {
 	}
 
 	private Boolean getSuspendedNotification() {
+		log.info("suspendedNotification->" + suspendedNotification);
 		return suspendedNotification;
 	}
 

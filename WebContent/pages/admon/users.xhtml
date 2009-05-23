@@ -78,7 +78,8 @@
 								binding="#{userBean.checked}" value="1" />
 						</rich:column>
 						<rich:column>
-							<a4j:commandLink value="#{unitUser.username}" rendered="true"
+							<a4j:commandLink value="#{unitUser.username}"
+								action="#{userBean.loadSelectUser}" rendered="true"
 								oncomplete="javascript:Richfaces.showModalPanel('panelUserGroup')"
 								reRender="editFormUserUnit,headerEditUser">
 								<a4j:actionparam name="userId" value="#{unitUser.username}"
@@ -113,7 +114,7 @@
 					<h:form id="formHeaderEditUser">
 						<h:panelGroup>
 							<h:outputText id="headerEditUser"
-								value="Editanado a #{userBean.unitUserBean.name}"></h:outputText>
+								value="Editanado a #{userBean.unitUserBean}"></h:outputText>
 						</h:panelGroup>
 					</h:form>
 				</f:facet>
@@ -167,7 +168,10 @@
 										</h:selectOneRadio>
 									</h:panelGrid>
 								</h:panelGroup>
-								<a4j:commandButton value="Actualizar Datos"></a4j:commandButton>
+								<a4j:commandButton value="Actualizar Datos"
+									action="#{userBean.updateUser}"
+									oncomplete="Richfaces.hideModalPanel('panelUserGroup')"
+									reRender="dataTableUsers"></a4j:commandButton>
 								<h:inputHidden id="idHd" value="#{userBean.unitUserBean.id}" />
 							</h:panelGrid>
 						</rich:tab>
@@ -272,13 +276,16 @@
 					</rich:panelBarItem>
 					<rich:panelBarItem label="Invitar Usuario por Correo">
 						<h:form id="newFormUserUnit2">
-						<p>Introduce una lista de correos, separados por una coma. Cada uno de ellos recibira una invitacion valida
-						por un tiempo determinado, donde podran registrarse.</p>
+							<p>Introduce una lista de correos, separados por una coma.
+							Cada uno de ellos recibira una invitacion valida por un tiempo
+							determinado, donde podran registrarse.</p>
 							<h:panelGrid columns="2" cellpadding="2" width="400px">
 								<h:outputLabel value="Escribe el Correo" for="" />
 								<h:inputTextarea value="#{userBean.listUsers}" cols="40"
 									rows="5" required="true" />
-								<a4j:commandButton value="Enviar Ivitacion" action="#{userBean.inviteUser}" oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
+								<a4j:commandButton value="Enviar Ivitacion"
+									action="#{userBean.inviteUser}"
+									oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
 									reRender="newFormUserUnit2"></a4j:commandButton>
 							</h:panelGrid>
 						</h:form>

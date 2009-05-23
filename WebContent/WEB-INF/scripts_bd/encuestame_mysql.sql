@@ -1,8 +1,8 @@
 /*
 SQLyog Enterprise - MySQL GUI v6.07
-Host - 5.1.30-community-log : Database - encuestame_core
+Host - 5.1.34-community : Database - encuestame_core
 *********************************************************************
-Server version : 5.1.30-community-log
+Server version : 5.1.34-community
 */
 
 /*!40101 SET NAMES utf8 */;
@@ -417,7 +417,7 @@ CREATE TABLE `sec_group_user` (
 
 /*Data for the table `sec_group_user` */
 
-insert  into `sec_group_user`(`group_id`,`uid`,`state`) values (1,1,1);
+insert  into `sec_group_user`(`group_id`,`uid`,`state`) values (1,1,1),(1,2,1);
 
 /*Table structure for table `sec_groups` */
 
@@ -436,6 +436,19 @@ CREATE TABLE `sec_groups` (
 
 insert  into `sec_groups`(`group_id`,`name`,`des_info`,`id_state`) values (1,'Administrador','Administrador',1),(2,'Encuestador','Encuestador',1);
 
+/*Table structure for table `sec_invite` */
+
+DROP TABLE IF EXISTS `sec_invite`;
+
+CREATE TABLE `sec_invite` (
+  `code` varchar(36) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `createdOn` datetime NOT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `sec_invite` */
+
 /*Table structure for table `sec_permission` */
 
 DROP TABLE IF EXISTS `sec_permission`;
@@ -449,7 +462,7 @@ CREATE TABLE `sec_permission` (
 
 /*Data for the table `sec_permission` */
 
-insert  into `sec_permission`(`id_permission`,`permission`,`description`) values (1,'ROLE_ADMIN','Administrador'),(2,'ROLE_USER','Encuestador');
+insert  into `sec_permission`(`id_permission`,`permission`,`description`) values (1,'ENCUESTAME_ADMIN','Administrador'),(2,'ENCUESTAME_USER','Usuario'),(3,'ENCUESTAME_POLLSTER','Encuestador');
 
 /*Table structure for table `sec_user_permission` */
 
@@ -468,7 +481,7 @@ CREATE TABLE `sec_user_permission` (
 
 /*Data for the table `sec_user_permission` */
 
-insert  into `sec_user_permission`(`uid`,`id_permission`,`state`) values (1,1,1),(1,2,1);
+insert  into `sec_user_permission`(`uid`,`id_permission`,`state`) values (1,1,1),(1,2,1),(2,1,1),(2,2,1);
 
 /*Table structure for table `sec_users` */
 
@@ -476,31 +489,23 @@ DROP TABLE IF EXISTS `sec_users`;
 
 CREATE TABLE `sec_users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `sex` char(5) DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `password_clean` varchar(255) DEFAULT NULL,
-  `birth_date` int(11) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `noc_id` varchar(16) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `invite_code` varchar(255) DEFAULT NULL,
-  `id_state` int(11) NOT NULL DEFAULT '1',
-  `position` varchar(255) DEFAULT NULL,
   `date_new` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `publisher` enum('S','N') NOT NULL DEFAULT 'N',
+  `owner` enum('S','N') DEFAULT 'N',
+  `twitter` enum('S','N') DEFAULT 'N',
   PRIMARY KEY (`uid`),
-  UNIQUE KEY `email` (`email`),
-  KEY `id_estado` (`id_state`),
-  KEY `id_estado_2` (`id_state`),
-  CONSTRAINT `sec_users_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sec_users` */
 
-insert  into `sec_users`(`uid`,`sex`,`name`,`email`,`username`,`password`,`password_clean`,`birth_date`,`address`,`noc_id`,`status`,`invite_code`,`id_state`,`position`,`date_new`,`publisher`) values (1,'M','Juan','juanpicado19@gmail.com','jpicado','43925ca0df2c9d32d365d28c455a921a','gemazo',9,'Valle Dorado','8880904810000Y',1,NULL,1,'1','2009-05-08 14:26:18','S');
+insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herrera','juan@local.com','jpicado','xQR+6UMujYcZPgcvV9owfFjfjaq8f7C1Mrtf43c9cImCMfl9E+GRWwpYYh3njDIm',1,NULL,'2009-05-21 19:37:13','S','N','N'),(2,'Pavel Martinez','minibota@hotmail.com','pavel','B+s1MLtO+GdeP6brkeo1dEXvaXtlxpRn64nuDL2MFJub+uZy4dijsrzXlJR+mYJO',1,NULL,'2009-05-20 11:51:12','N','N','N');
 
 /*Table structure for table `survey_detail` */
 

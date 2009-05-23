@@ -79,6 +79,24 @@ public class UserBean extends MasterBean {
 	}
 
 	/**
+	 * update user
+	 */
+	public void updateUser() {
+		try {
+			getServicemanagerBean().getSecurityService().updateUser(
+					getUnitUserBean());
+		} catch (HibernateException e) {
+			addErrorMessage("Error HibernateException update User"
+					+ e.getMessage(), e.getMessage());
+			log.error("Error HibernateException User->" + e);
+		} catch (Exception e) {
+			addErrorMessage("Error Desconocido update User" + e.getMessage(), e
+					.getMessage());
+			log.error("Error Exception User->" + e);
+		}
+	}
+
+	/**
 	 * invite user
 	 * 
 	 * @throws Exception
@@ -204,15 +222,15 @@ public class UserBean extends MasterBean {
 			log.info("Se borro bien->" + user.getUsername());
 			addInfoMessage("Se borro bien->" + user.getUsername(), "");
 		} catch (HibernateException e) {
-			log.info("Error SQL->" + user.getUsername());
+			log.info("Error SQL->" + e);
 			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
 					+ e.getMessage(), "");
 		} catch (MailSendException e) {
-			log.info("No se pudo notificar->" + user.getUsername());
+			log.info("No se pudo notificar->" + e);
 			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
 					+ e.getMessage(), "");
 		} catch (Exception e) {
-			log.info("No borro bien->" + user.getUsername());
+			log.info("No borro bien->" + e);
 			addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
 					+ e.getMessage(), "");
 		}
@@ -375,20 +393,32 @@ public class UserBean extends MasterBean {
 	 * @return
 	 */
 	public UnitUserBean getUnitUserBean() {
+		return unitUserBean;
+	}
+
+	/**
+	 * load user selected in datatable
+	 */
+	public void loadSelectUser() {
+		log.info("loadSelectUser");
 		try {
-			unitUserBean = null;
 			if (getProcessedUserId() != null) {
-				unitUserBean = getServicemanagerBean().getSecurityService()
-						.searchUserByUsername(getProcessedUserId());
-				log.info("Selected Users->" + unitUserBean);
+				unitUserBean = null;
+				UnitUserBean unitUserBeanLocal = getServicemanagerBean()
+						.getSecurityService().searchUserByUsername(
+								getProcessedUserId());
+				log.info("Selected Users->" + unitUserBeanLocal);
+				setUnitUserBean(unitUserBeanLocal);
+			} else {
+				addErrorMessage(
+						"Lo siento, no se pudo cargar la info del usuario", "");
 			}
 		} catch (Exception e) {
 			addErrorMessage("Error Cargando Datos Usuario"
 					+ getProcessedUserId(), "");
-			log.error("Error Cargando Datoss Usuario " + e.getMessage());
-			return null;
+			log.error("Error Cargando Datos Usuario " + e.getMessage());
 		}
-		return unitUserBean;
+		log.info("loadSelectUser");
 	}
 
 	public UnitUserBean getNewUnitUserBean() {
