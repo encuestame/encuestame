@@ -9,14 +9,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jp.core.exception.EnMeExpcetion;
 import org.jp.core.mail.MailServiceImpl;
 import org.jp.core.persistence.dao.SecGroupDaoImp;
 import org.jp.core.persistence.dao.SecPermissionDaoImp;
 import org.jp.core.persistence.dao.UserDaoImp;
+import org.jp.core.persistence.pojo.SecGroupPermissionId;
 import org.jp.core.persistence.pojo.SecGroupUser;
+import org.jp.core.persistence.pojo.SecGroupUserId;
 import org.jp.core.persistence.pojo.SecGroups;
 import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.core.persistence.pojo.SecUserPermission;
+import org.jp.core.persistence.pojo.SecUserPermissionId;
 import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.core.security.util.PasswordGenerator;
 import org.jp.web.beans.admon.UnitGroupBean;
@@ -89,7 +93,6 @@ public class SecurityService extends MasterService implements ISecurityService {
 	public Collection<UnitUserBean> loadListUsers() throws Exception {
 		Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
 		Collection<SecUsers> listUsers = getUserDao().findAll();
-		// log.info("LOADED USERS-->" + listUsers.size());
 		if (listUsers != null && listUsers.size() > 0) {
 			for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
 				UnitUserBean userB = new UnitUserBean();
@@ -99,6 +102,7 @@ public class SecurityService extends MasterService implements ISecurityService {
 				userB.setEmail(user.getEmail());
 				userB.setUsername(user.getUsername());
 				userB.setPublisher(user.getPublisher());
+				userB.setStatus(user.isStatus());
 				userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
 				userB.setListPermission(convertSetToUnitPermission(user
 						.getUid()));
@@ -106,6 +110,13 @@ public class SecurityService extends MasterService implements ISecurityService {
 			}
 		}
 		return loadListUsers;
+	}
+
+	public void assingGroupToUser(UnitUserBean user, UnitGroupBean group)
+			throws HibernateException {
+		// SecUsers userD = getUser(user.getUsername());
+		// SecPermission perD = loadPermission(permission.getPermission());
+		assingGroup(user, group);
 	}
 
 	/**
@@ -290,15 +301,19 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 * Update a Group
 	 * 
 	 * @param group
+	 * @throws EnMeExpcetion
 	 */
-	public void updateGroup(UnitGroupBean uGroup) {
+	public void updateGroup(UnitGroupBean uGroup) throws EnMeExpcetion {
 		SecGroups group = getGroupDao().find(uGroup.getId());
 		if (group != null) {
 			group.setName(uGroup.getGroupName());
 			group.setDesInfo(uGroup.getGroupDescription());
 			group.setIdState((new Integer(uGroup.getStateId())));
+			getGroupDao().update(group);
+		} else {
+			throw new EnMeExpcetion("No se recupero el grupo.");
 		}
-		getGroupDao().update(group);
+
 	}
 
 	/**
@@ -306,15 +321,19 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 * 
 	 * @param userD
 	 */
-	public void updateUser(UnitUserBean userD)  {
+	public void updateUser(UnitUserBean userD) throws EnMeExpcetion {
 		SecUsers updateUser = getUserDao().getUser(userD.getUsername());
+		log.info("Update User Get->" + updateUser);
 		if (updateUser != null) {
 			updateUser.setEmail(userD.getEmail());
 			updateUser.setName(userD.getName());
 			updateUser.setStatus(userD.getStatus());
 			updateUser.setPublisher(userD.getPublisher());
+			getUserDao().updateUser(updateUser);
+		} else {
+			throw new EnMeExpcetion("No se recupero el usuaario");
 		}
-		getUserDao().updateUser(updateUser);
+
 	}
 
 	/**
@@ -334,8 +353,11 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 * create a user
 	 * 
 	 * @param user
+	 * @throws EnMeExpcetion
+	 * @throws HibernateException
 	 */
-	public void createUser(UnitUserBean user) throws MailSendException {
+	public void createUser(UnitUserBean user) throws MailSendException,
+			HibernateException, EnMeExpcetion {
 		SecUsers userBd = new SecUsers();
 		if (user.getEmail() != null) {
 			userBd.setEmail(user.getEmail());
@@ -355,19 +377,32 @@ public class SecurityService extends MasterService implements ISecurityService {
 			// create user
 			getUserDao().createUser(userBd);
 			// assing first permissions and default group
-			assignPermission(getUser(user.getUsername()),
-					loadPermission(getDefaultUserPermission()));
+			UnitPermission perM = loadDefaultPermissionBean();
+			assignPermission(user, perM);
 			// assing firs default group to user
-			log
-					.info("getDefaultUserPermission ->"
-							+ getDefaultUserPermission());
-			log
-					.info("Message Source->"
-							+ getMessageProperties("Mailsuccesful"));
-
 		} catch (MailSendException e) {
 			throw new MailSendException(
 					"no se pudo notificar el nuevo usuario ->" + e);
+		} catch (HibernateException e) {
+			throw new HibernateException(e);
+		} catch (EnMeExpcetion e) {
+			throw new EnMeExpcetion(e);
+		}
+	}
+
+	private UnitPermission loadDefaultPermissionBean()
+			throws HibernateException, EnMeExpcetion {
+
+		SecPermission per = getPermissionDao().loadPermission(
+				getDefaultUserPermission());
+		if (per != null) {
+			UnitPermission perU = new UnitPermission();
+			perU.setDescription(per.getDescription());
+			perU.setPermission(per.getPermission());
+			perU.setId(per.getIdPermission());
+			return perU;
+		} else {
+			throw new EnMeExpcetion("permiso no encontrado");
 		}
 	}
 
@@ -377,9 +412,33 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 * @param user
 	 * @param permission
 	 */
-	private void assignPermission(SecUsers user, SecPermission permission)
+	public void assignPermission(UnitUserBean user, UnitPermission permission)
 			throws HibernateException {
+		SecUserPermission userPerId = new SecUserPermission();
+		SecUserPermissionId id = new SecUserPermissionId();
+		id.setIdPermission(permission.getId());
+		id.setUid(user.getId());
+		userPerId.setId(id);
+		userPerId.setState(true);
+		getUserDao().assingPermissiontoUser(userPerId);
+	}
 
+	/**
+	 * assig group to user
+	 * 
+	 * @param user
+	 * @param group
+	 * @throws HibernateException
+	 */
+	private void assingGroup(UnitUserBean user, UnitGroupBean group)
+			throws HibernateException {
+		SecGroupUserId id = new SecGroupUserId();
+		id.setGroupId(group.getId());
+		id.setUid(user.getId());
+		SecGroupUser gu = new SecGroupUser();
+		gu.setId(id);
+		gu.setState(true);
+		getUserDao().assingGroupToUser(gu);
 	}
 
 	/**

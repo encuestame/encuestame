@@ -3,13 +3,7 @@ package org.jp.web.beans.admon;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
 
-import org.jp.core.persistence.pojo.SecGroupUser;
-import org.jp.core.persistence.pojo.SecGroups;
-import org.jp.core.persistence.pojo.SecPermission;
 import org.jp.web.beans.MasterBean;
 
 /**

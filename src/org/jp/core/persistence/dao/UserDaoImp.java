@@ -56,24 +56,47 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 
 	/**
 	 * update user
+	 * 
 	 * @param user
 	 * @throws HibernateException
 	 */
 	public void updateUser(SecUsers user) throws HibernateException {
 		getHibernateTemplate().update(user);
 	}
-	
+
 	/**
 	 * create user
+	 * 
 	 * @param user
 	 * @throws HibernateException
 	 */
 	public void createUser(SecUsers user) throws HibernateException {
 		getHibernateTemplate().save(user);
 	}
-	
+
+	/**
+	 * assig permission to user
+	 * 
+	 * @param secUsPer
+	 * @throws HibernateException
+	 */
+	public void assingPermissiontoUser(SecUserPermission secUsPer)
+			throws HibernateException {
+		getHibernateTemplate().save(secUsPer);
+	}
+
+	/**
+	 * assing user to group
+	 * @param gu
+	 * @throws HibernateException
+	 */
+	public void assingGroupToUser(SecGroupUser gu) throws HibernateException {
+		getHibernateTemplate().save(gu);
+	}
+
 	/**
 	 * list all users
+	 * 
 	 * @return
 	 * @throws HibernateException
 	 */

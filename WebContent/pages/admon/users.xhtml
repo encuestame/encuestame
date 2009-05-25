@@ -21,7 +21,7 @@
 			</h:panelGrid>
 		</h:form>
 		<ui:insert name="optionGroup">
-			<h2>#{temp.titleUserGroups}</h2>
+			<h2>#{temp .titleUserGroups}</h2>
 			<a4j:region id="listGroup">
 				<h:form id="formUsers">
 					<h:panelGrid columns="9" cellpadding="3">
@@ -70,6 +70,7 @@
 									<h:outputText value="#{temp.roles}" />
 								</rich:column>
 								<rich:column>
+								<h:outputText value="#{temp.editor}" />
 								</rich:column>
 							</rich:columnGroup>
 						</f:facet>
@@ -100,6 +101,7 @@
 							</a4j:repeat>
 						</rich:column>
 						<rich:column>
+						<h:outputText value="#{unitUser.publisher}" />
 						</rich:column>
 					</rich:dataTable>
 					<rich:messages errorClass="error" infoClass="info" warnClass="war"></rich:messages>

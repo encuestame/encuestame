@@ -21,7 +21,7 @@
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
 	<!-- admon bean -->
-	<bean id="userBean" class="org.jp.web.beans.admon.UserBean" scope="request">
+	<bean id="userBean" class="org.jp.web.beans.admon.UserBean" scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
 		<property name="unitUserBean" ref="unitUserBean" />
 	</bean>

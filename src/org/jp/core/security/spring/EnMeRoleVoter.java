@@ -59,7 +59,7 @@ public class EnMeRoleVoter extends RoleVoter {
 
 		while (iter.hasNext()) {
 			ConfigAttribute attribute = (ConfigAttribute) iter.next();
-			log.info("ConfigAttribute->"+attribute.getAttribute());
+			//log.info("ConfigAttribute->"+attribute.getAttribute());
 			if (this.supports(attribute)) {
 				// always grant access to resources, marked with ROLE_ALWAYS
 				if (ROLE_ALWAYS.equals(attribute.getAttribute())) {

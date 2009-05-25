@@ -1,6 +1,5 @@
 package org.jp.web.beans.admon;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,7 +12,7 @@ import javax.faces.component.UISelectBoolean;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
-import org.jp.core.persistence.pojo.SecPermission;
+import org.jp.core.exception.EnMeExpcetion;
 import org.jp.core.security.util.EmailUtils;
 import org.jp.web.beans.MasterBean;
 import org.springframework.mail.MailSendException;
@@ -73,8 +72,15 @@ public class UserBean extends MasterBean {
 			addInfoMessage("Usuario Creado Tuani", "");
 		} catch (MailSendException e) {
 			addErrorMessage("Error notifiando usuario->" + e, e.getMessage());
+		} catch (HibernateException e) {
+			addErrorMessage("Error HB creando usuario->" + e, e.getMessage());
+		} catch (EnMeExpcetion e) {
+			addErrorMessage(
+					"No se pudo recuperar información de configuración->" + e,
+					e.getMessage());
 		} catch (Exception e) {
-			addErrorMessage("Error creando usuario->" + e, e.getMessage());
+			addErrorMessage("Error Desconocido crear usuario->" + e, e
+					.getMessage());
 		}
 	}
 
@@ -84,7 +90,7 @@ public class UserBean extends MasterBean {
 	public void updateUser() {
 		try {
 			getServicemanagerBean().getSecurityService().updateUser(
-					getUnitUserBean());
+					this.unitUserBean);
 		} catch (HibernateException e) {
 			addErrorMessage("Error HibernateException update User"
 					+ e.getMessage(), e.getMessage());
@@ -183,7 +189,43 @@ public class UserBean extends MasterBean {
 	}
 
 	public void assingPermissions() {
-		log.info(selectedUsers());
+		try {
+			log.info(selectedUsers());
+			if (getSelectedPermissionId() != null) {
+				UnitPermission permission = new UnitPermission();
+				permission.setId(getSelectedPermissionId());
+				for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
+						.hasNext();) {
+					UnitUserBean user = i.next();
+					assingPermission(user, permission);
+					addInfoMessage("Usuario " + user.getUsername()
+							+ "se le asigno su rol.", "");
+				}
+
+			} else {
+				new EnMeExpcetion("Error Seleccionado selectedGroupId");
+			}
+		} catch (HibernateException e) {
+			addErrorMessage("Error Carga de Datos->" + e, e.getMessage());
+		} catch (EnMeExpcetion e) {
+			addErrorMessage("Error Local ->" + e, e.getMessage());
+		} catch (Exception e) {
+			addErrorMessage("Error Desconocido->" + e, e.getMessage());
+		}
+	}
+
+	/**
+	 * assing permission to user
+	 * @param user user
+	 * @param permission permission
+	 * @throws EnMeExpcetion if the default permission dont exist
+	 * @throws HibernateException error db
+	 */
+	private void assingPermission(UnitUserBean user, UnitPermission permission)
+			throws EnMeExpcetion, HibernateException {
+		getServicemanagerBean().getSecurityService().assignPermission(user,
+				permission);
+
 	}
 
 	/**
@@ -321,6 +363,7 @@ public class UserBean extends MasterBean {
 	}
 
 	public void setUnitUserBean(UnitUserBean unitUserBean) {
+		log.info("setUnitUserBean->" + unitUserBean);
 		this.unitUserBean = unitUserBean;
 	}
 
@@ -331,21 +374,6 @@ public class UserBean extends MasterBean {
 	public void setProcessedUserId(String processedUserId) {
 		log.info("setProcessedUserId->" + processedUserId);
 		this.processedUserId = processedUserId;
-	}
-
-	/**
-	 * @return the selectedPermissionId
-	 */
-	public Integer getSelectedPermissionId() {
-		return selectedPermissionId;
-	}
-
-	/**
-	 * @param selectedPermissionId
-	 *            the selectedPermissionId to set
-	 */
-	public void setSelectedPermissionId(Integer selectedPermissionId) {
-		this.selectedPermissionId = selectedPermissionId;
 	}
 
 	/**
@@ -400,14 +428,12 @@ public class UserBean extends MasterBean {
 	 * load user selected in datatable
 	 */
 	public void loadSelectUser() {
-		log.info("loadSelectUser");
 		try {
 			if (getProcessedUserId() != null) {
 				unitUserBean = null;
 				UnitUserBean unitUserBeanLocal = getServicemanagerBean()
 						.getSecurityService().searchUserByUsername(
 								getProcessedUserId());
-				log.info("Selected Users->" + unitUserBeanLocal);
 				setUnitUserBean(unitUserBeanLocal);
 			} else {
 				addErrorMessage(
@@ -418,7 +444,6 @@ public class UserBean extends MasterBean {
 					+ getProcessedUserId(), "");
 			log.error("Error Cargando Datos Usuario " + e.getMessage());
 		}
-		log.info("loadSelectUser");
 	}
 
 	public UnitUserBean getNewUnitUserBean() {
@@ -436,5 +461,22 @@ public class UserBean extends MasterBean {
 	public void setListUsers(String listUsers) {
 		this.listUsers = listUsers;
 	}
+
+	/**
+	 * @return the selectedPermissionId
+	 */
+	public Integer getSelectedPermissionId() {
+		return selectedPermissionId;
+	}
+
+	/**
+	 * @param selectedPermissionId the selectedPermissionId to set
+	 */
+	public void setSelectedPermissionId(Integer selectedPermissionId) {
+		this.selectedPermissionId = selectedPermissionId;
+	}
+
+	
+	
 
 }

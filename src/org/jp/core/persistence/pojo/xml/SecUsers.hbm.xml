@@ -37,15 +37,15 @@
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
         </set>
-        <set name="secGroupUsers" inverse="true">
+        <set name="secGroupUsers" cascade="delete" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.SecGroupUser" />
         </set>
-        <set name="secUserPermissions" inverse="true" >
+        <set name="secUserPermissions" cascade="delete" inverse="true" >
             <key>
-                <column name="uid" not-null="true" />
+                <column name="uid" not-null="true"  />
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.SecUserPermission" />
         </set>
