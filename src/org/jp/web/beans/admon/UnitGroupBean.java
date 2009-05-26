@@ -49,12 +49,10 @@ public class UnitGroupBean extends MasterBean implements Serializable {
 		this.id = id;
 	}
 
-
 	/**
 	 * @return the groupName
 	 */
-	public String getGroupName() {
-		log.info("get name group");
+	public String getGroupName() {		
 		return groupName;
 	}
 	/**
@@ -66,8 +64,7 @@ public class UnitGroupBean extends MasterBean implements Serializable {
 	/**
 	 * @return the groupDescription
 	 */
-	public String getGroupDescription() {
-		log.info("get name description");
+	public String getGroupDescription() {		
 		return groupDescription;
 	}
 	/**

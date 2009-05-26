@@ -57,7 +57,6 @@ public class InviteCodeVerification implements Filter {
 
 	public void init(FilterConfig arg0) throws ServletException {
 		log.info(" InviteCodeVerification FILTER init");
-
 	}
 
 	public String getMiParametro() {

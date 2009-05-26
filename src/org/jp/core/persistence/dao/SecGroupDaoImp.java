@@ -58,6 +58,7 @@ public class SecGroupDaoImp extends HibernateDaoSupport implements ISecGroups {
 				"Groupr.loadGroup", id);
 		if (s != null && s.size() > 0) {
 			SecGroups g = s.get(0);
+
 			return g;
 		} else {
 			return null;

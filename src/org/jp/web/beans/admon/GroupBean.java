@@ -128,6 +128,11 @@ public class GroupBean extends MasterBean {
 		newGroup.setStateId(null);
 	}
 
+	/**
+	 * 
+	 * @param newGroup
+	 */
+	@Deprecated
 	private void reset(UnitGroupBean newGroup) {
 		newGroup.setId(null);
 		newGroup.setGroupDescription(null);
