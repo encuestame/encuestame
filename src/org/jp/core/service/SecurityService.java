@@ -359,10 +359,11 @@ public class SecurityService extends MasterService implements ISecurityService {
 	public void createUser(UnitUserBean user) throws MailSendException,
 			HibernateException, EnMeExpcetion {
 		SecUsers userBd = new SecUsers();
-		if (user.getEmail() != null) {
+		if (user.getEmail() != null && user.getUsername() != null) {
 			userBd.setEmail(user.getEmail());
+			userBd.setUsername(user.getUsername());
 		} else {
-			throw new MailSendException("email nulo");
+			throw new EnMeExpcetion("we need email and username to create user");
 		}
 		String password = generatePassword();
 		userBd.setPassword(encryptPassworD(password));
@@ -370,19 +371,20 @@ public class SecurityService extends MasterService implements ISecurityService {
 		userBd.setName(user.getName());
 		userBd.setStatus(user.getStatus());
 		userBd.setDateNew(new Date());
-		userBd.setUsername(user.getUsername());
 		try {
 			// send to user first password
 			sendUserPassword(user.getEmail(), password);
 			// create user
 			getUserDao().createUser(userBd);
 			// assing first permissions and default group
-			UnitPermission perM = loadDefaultPermissionBean();
+			UnitPermission perM = new UnitPermission();
+			perM = loadDefaultPermissionBean();
+
 			assignPermission(user, perM);
 			// assing firs default group to user
 		} catch (MailSendException e) {
 			throw new MailSendException(
-					"no se pudo notificar el nuevo usuario ->" + e);
+					"no se pudo notificar el nuevo usuario " + e);
 		} catch (HibernateException e) {
 			throw new HibernateException(e);
 		} catch (EnMeExpcetion e) {
@@ -390,6 +392,13 @@ public class SecurityService extends MasterService implements ISecurityService {
 		}
 	}
 
+	/**
+	 * load default permission in the config
+	 * 
+	 * @return
+	 * @throws HibernateException
+	 * @throws EnMeExpcetion
+	 */
 	private UnitPermission loadDefaultPermissionBean()
 			throws HibernateException, EnMeExpcetion {
 
@@ -413,14 +422,38 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 * @param permission
 	 */
 	public void assignPermission(UnitUserBean user, UnitPermission permission)
-			throws HibernateException {
-		SecUserPermission userPerId = new SecUserPermission();
-		SecUserPermissionId id = new SecUserPermissionId();
-		id.setIdPermission(permission.getId());
-		id.setUid(user.getId());
-		userPerId.setId(id);
-		userPerId.setState(true);
-		getUserDao().assingPermissiontoUser(userPerId);
+			throws HibernateException, EnMeExpcetion {
+
+		if (user.getId() == null && user.getUsername() != null) {
+			SecUsers userRe = getUser(user.getUsername());
+			user.setId(userRe.getUid());
+		}
+		if (permission.getId() == null && permission.getPermission() != null) {
+			SecPermission perS = loadPermission(permission.getPermission());
+			permission.setId(perS.getIdPermission());
+		}
+		if (user.getId() != null && permission.getId() != null) {
+			SecUserPermission userPerId = new SecUserPermission();
+			SecUserPermissionId id = new SecUserPermissionId();
+			id.setIdPermission(permission.getId());
+			id.setUid(user.getId());
+			userPerId.setId(id);
+			userPerId.setState(true);
+			getUserDao().assingPermissiontoUser(userPerId);
+		} else {
+			throw new EnMeExpcetion("id user or permission null");
+		}
+	}
+
+	/**
+	 * verify if user have permissions
+	 * 
+	 * @param user
+	 * @param permission
+	 */
+	private void verifyUserPermission(UnitUserBean user,
+			UnitPermission permission) {
+
 	}
 
 	/**

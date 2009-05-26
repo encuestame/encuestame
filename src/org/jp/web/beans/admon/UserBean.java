@@ -67,7 +67,7 @@ public class UserBean extends MasterBean {
 	 */
 	public void createUser() {
 		try {
-			getServicemanagerBean().getSecurityService().createUser(
+				getServicemanagerBean().getSecurityService().createUser(
 					getNewUnitUserBean());
 			addInfoMessage("Usuario Creado Tuani", "");
 		} catch (MailSendException e) {
@@ -191,19 +191,23 @@ public class UserBean extends MasterBean {
 	public void assingPermissions() {
 		try {
 			log.info(selectedUsers());
-			if (getSelectedPermissionId() != null) {
-				UnitPermission permission = new UnitPermission();
-				permission.setId(getSelectedPermissionId());
-				for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
-						.hasNext();) {
-					UnitUserBean user = i.next();
-					assingPermission(user, permission);
-					addInfoMessage("Usuario " + user.getUsername()
-							+ "se le asigno su rol.", "");
-				}
+			if (selectedUsers().size() > 0) {
+				if (getSelectedPermissionId() != null) {
+					UnitPermission permission = new UnitPermission();
+					permission.setId(getSelectedPermissionId());
+					for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
+							.hasNext();) {
+						UnitUserBean user = i.next();
+						assingPermission(user, permission);
+						addInfoMessage("Usuario " + user.getUsername()
+								+ "se le asigno su rol.", "");
+					}
 
+				} else {
+					new EnMeExpcetion("Error Seleccionado selectedGroupId");
+				}
 			} else {
-				new EnMeExpcetion("Error Seleccionado selectedGroupId");
+				addWarningMessage("Selecciona Usuarios Para Asignar Roles", "");
 			}
 		} catch (HibernateException e) {
 			addErrorMessage("Error Carga de Datos->" + e, e.getMessage());
@@ -216,10 +220,15 @@ public class UserBean extends MasterBean {
 
 	/**
 	 * assing permission to user
-	 * @param user user
-	 * @param permission permission
-	 * @throws EnMeExpcetion if the default permission dont exist
-	 * @throws HibernateException error db
+	 * 
+	 * @param user
+	 *            user
+	 * @param permission
+	 *            permission
+	 * @throws EnMeExpcetion
+	 *             if the default permission dont exist
+	 * @throws HibernateException
+	 *             error db
 	 */
 	private void assingPermission(UnitUserBean user, UnitPermission permission)
 			throws EnMeExpcetion, HibernateException {
@@ -305,38 +314,41 @@ public class UserBean extends MasterBean {
 		log.info("init action->" + getSelectedAction());
 		try {
 			if (getSelectedAction() != null) {
-				switch (new Integer(getSelectedAction())) {
-				case 1:
-					for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
-							.hasNext();) {
-						UnitUserBean user = i.next();
-						log.info("delete action->" + user.getUsername());
-						deleteUser(user);
-					}
-					break;
-				case 2:
-					log.info("renew password" + selectedUsers());
-					// Recordar Contraseña
-					for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
-							.hasNext();) {
-						UnitUserBean user = i.next();
-						log.info("recordar password action->"
-								+ user.getUsername());
-						renewPassword(user);
-					}
-					break;
-				case 3:
-					log.info("action 3" + selectedUsers());
-					// Editor
+				if (selectedUsers().size() > 0) {
+					switch (new Integer(getSelectedAction())) {
+					case 1:
+						for (Iterator<UnitUserBean> i = selectedUsers()
+								.iterator(); i.hasNext();) {
+							UnitUserBean user = i.next();
+							log.info("delete action->" + user.getUsername());
+							deleteUser(user);
+						}
+						break;
+					case 2:
+						log.info("renew password" + selectedUsers());
+						// Recordar Contraseña
+						for (Iterator<UnitUserBean> i = selectedUsers()
+								.iterator(); i.hasNext();) {
+							UnitUserBean user = i.next();
+							log.info("recordar password action->"
+									+ user.getUsername());
+							renewPassword(user);
+						}
+						break;
+					case 3:
+						log.info("action 3" + selectedUsers());
+						// Editor
 
-					break;
+						break;
 
-				default:
-					addErrorMessage("Acción Invalida", "");
-					log.error("invalid action -" + getSelectedAction());
-					break;
+					default:
+						addErrorMessage("Acción Invalida", "");
+						log.error("invalid action -" + getSelectedAction());
+						break;
+					}
+				} else {
+					addWarningMessage("Seleccione Usuarios Primero", "");
 				}
-
 			} else {
 				addInfoMessage("Seleccione una Acción", "");
 				log.info("init action->" + getSelectedAction());
@@ -470,13 +482,11 @@ public class UserBean extends MasterBean {
 	}
 
 	/**
-	 * @param selectedPermissionId the selectedPermissionId to set
+	 * @param selectedPermissionId
+	 *            the selectedPermissionId to set
 	 */
 	public void setSelectedPermissionId(Integer selectedPermissionId) {
 		this.selectedPermissionId = selectedPermissionId;
 	}
-
-	
-	
 
 }
