@@ -322,13 +322,14 @@ public class SecurityService extends MasterService implements ISecurityService {
 	 * @param userD
 	 */
 	public void updateUser(UnitUserBean userD) throws EnMeExpcetion {
-		SecUsers updateUser = getUserDao().getUser(userD.getUsername());
-		log.info("Update User Get->" + updateUser);
+		SecUsers updateUser = getUserDao().getUser(userD.getUsername());		
 		if (updateUser != null) {
 			updateUser.setEmail(userD.getEmail());
 			updateUser.setName(userD.getName());
+			log.info("GET STATUS->"+userD.getStatus());
 			updateUser.setStatus(userD.getStatus());
 			updateUser.setPublisher(userD.getPublisher());
+			log.info("GET getPublisher->"+userD.getPublisher());
 			getUserDao().updateUser(updateUser);
 		} else {
 			throw new EnMeExpcetion("No se recupero el usuaario");
