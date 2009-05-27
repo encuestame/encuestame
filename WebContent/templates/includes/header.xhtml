@@ -5,7 +5,23 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<div id="header">
-	<a href="/encuestame/pages/index.me"><img src="${facesContext.externalContext.requestContextPath}/images/encuestame_header.png" alt="" title="Home" />
-	</a>
+	<table width="100%">
+		<tr>
+			<td width="90%"><a href="/encuestame/pages/index.me"> <img
+				src="${facesContext.externalContext.requestContextPath}/images/encuestame_header.png"
+				alt="" title="Home" /> </a></td>
+			<td valign="top"><a4j:form>
+				<span> <h:outputLink
+					value="${request.contextPath}/j_spring_security_logout"
+					title="#{temp.close}"
+					onclick="if (! confirm('#{temp.closeMsgBox}')) return false;">
+					<h:outputText value="#{temp.close}" />
+				</h:outputLink> </span>
+
+			</a4j:form></td>
+		</tr>
+	</table>
+
+
 	</div>
 </ui:composition>

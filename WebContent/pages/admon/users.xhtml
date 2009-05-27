@@ -106,7 +106,7 @@
 						</rich:column>
 					</rich:dataTable>
 					<rich:messages id="infoBox" errorClass="error" infoClass="info" warnClass="war"></rich:messages>
-				</h:form>
+				</a4j:form>
 			</a4j:region>
 
 			<!-- MODAL PANELS -->
@@ -114,15 +114,15 @@
 			<rich:modalPanel id="panelUserGroup" autosized="true" width="200"
 				height="60" zindex="2000">
 				<f:facet name="header">
-					<h:form id="formHeaderEditUser">
+					<a4j:form id="formHeaderEditUser">
 						<h:panelGroup>
 							<h:outputText id="headerEditUser"
 								value="Editanado a #{userBean.unitUserBean}"></h:outputText>
 						</h:panelGroup>
-					</h:form>
+					</a4j:form>
 				</f:facet>
 				<f:facet name="controls">
-					<h:form>
+					<a4j:form>
 						<h:panelGroup>
 							<a4j:commandLink
 								onclick="Richfaces.hideModalPanel('panelUserGroup')"
@@ -130,9 +130,9 @@
 								<h:graphicImage value="#{url.img}/icons/close.png" />
 							</a4j:commandLink>
 						</h:panelGroup>
-					</h:form>
+					</a4j:form>
 				</f:facet>
-				<h:form id="editFormUserUnit">
+				<a4j:form id="editFormUserUnit">
 					<rich:tabPanel switchType="client">
 						<rich:tab label="Datos Generales" focus="true">
 							<p style="font-weight: bold;"><h:outputText
@@ -193,7 +193,7 @@
 							</h:panelGrid>
 						</rich:tab>
 					</rich:tabPanel>
-				</h:form>
+				</a4j:form>
 			</rich:modalPanel>
 
 			<!-- NEW USER -->
@@ -202,14 +202,14 @@
 				height="200" zindex="2000">
 
 				<f:facet name="header">
-					<h:form id="formHeaderNewtUser">
+					<a4j:form id="formHeaderNewtUser">
 						<h:panelGroup>
 							<h:outputText id="headerEditUser" value="Nuevo Usuario"></h:outputText>
 						</h:panelGroup>
-					</h:form>
+					</a4j:form>
 				</f:facet>
 				<f:facet name="controls">
-					<h:form>
+					<a4j:form>
 						<h:panelGroup>
 							<a4j:commandLink
 								onclick="Richfaces.hideModalPanel('panelnewUserGroup')"
@@ -217,7 +217,7 @@
 								<h:graphicImage value="#{url.img}/icons/close.png" />
 							</a4j:commandLink>
 						</h:panelGroup>
-					</h:form>
+					</a4j:form>
 				</f:facet>
 
 				<b>Como agregar un usuario al Sistema</b>
@@ -228,7 +228,7 @@
 				la empresa.</p>
 				<rich:panelBar>
 					<rich:panelBarItem label="Agregar Usuario Directamente">
-						<h:form id="newFormUserUnit">
+						<a4j:form id="newFormUserUnit">
 							<h:panelGrid columns="2" cellpadding="1" width="400px">
 								<h:outputLabel value="Nombre de Usuario" for="username" />
 								<h:inputText id="username"
@@ -275,10 +275,10 @@
 									oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
 									reRender="dataTableUsers"></a4j:commandButton>
 							</h:panelGrid>
-						</h:form>
+						</a4j:form>
 					</rich:panelBarItem>
 					<rich:panelBarItem label="Invitar Usuario por Correo">
-						<h:form id="newFormUserUnit2">
+						<a4j:form id="newFormUserUnit2">
 							<p>Introduce una lista de correos, separados por una coma.
 							Cada uno de ellos recibira una invitacion valida por un tiempo
 							determinado, donde podran registrarse.</p>
@@ -291,10 +291,10 @@
 									oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
 									reRender="newFormUserUnit2"></a4j:commandButton>
 							</h:panelGrid>
-						</h:form>
+						</a4j:form>
 					</rich:panelBarItem>
 					<rich:panelBarItem label="Buscar en LDAP">
-						<h:form id="newFormUserUnit3">
+						<a4j:form id="newFormUserUnit3">
 							<h:panelGrid columns="2" cellpadding="2" width="400px">
 								<h:outputLabel value="Nombre de Usuario" for="" />
 								<h:inputText value="" size="40" />
@@ -302,7 +302,7 @@
 							</h:panelGrid>
 							<h4>Usuarios Encontrados</h4>
 
-						</h:form>
+						</a4j:form>
 					</rich:panelBarItem>
 				</rich:panelBar>
 

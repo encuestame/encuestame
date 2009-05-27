@@ -1,6 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 @IMPORT url("login.css");
+@IMPORT url("menu.css");
 
 body {
 	background: #fff none repeat scroll 0 0;
@@ -15,9 +16,9 @@ img {
 }
 
 #header {
-	height: 25px;
+	height: 55px;
 	background-color: #FFF;
-	border: 1px solid #000;
+	border: 0px solid #000;
 	margin-bottom: 0px;
 	padding: 10px;
 }

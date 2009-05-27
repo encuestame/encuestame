@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+#time4bed-nav{position:relative;height:43px;font-size:14px;text-transform:uppercase;background:#fff url("../images/time4bed_bg.gif") repeat-x bottom left;font-family:Georgia, "Times New Roman", Times, serif;}
+#time4bed-nav ul{margin:0;padding:0;list-style-type:none;width:auto;float:left;}
+#time4bed-nav ul li{display:block;float:left;margin:0 2px;}
+#time4bed-nav ul li a{display:block;float:left;color:#ffdab6;text-decoration:none;padding:0 0 0 25px;height:43px;line-height:50px;}
+#time4bed-nav ul li a span{display:block;float:left;padding:0 25px 0 0;height:31px;width:auto;}
+#time4bed-nav ul li a:hover{color:#fff;}
+#time4bed-nav ul li a:hover span{display:block;cursor:pointer;}
+#time4bed-nav ul li a.current,#time4bed-nav ul li a.current:hover{color:#894d12;background:transparent url("../images/time2bed_left-ON.gif") no-repeat top left;}
+#time4bed-nav ul li a.current span{background:transparent url("../images/time2bed_right-ON.gif") no-repeat top right;height:43px;}

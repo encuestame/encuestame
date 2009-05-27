@@ -34,13 +34,12 @@ CREATE TABLE `cat_location` (
   PRIMARY KEY (`tid`),
   KEY `Ref5137` (`tidtype`),
   KEY `id_estado` (`id_state`),
-  CONSTRAINT `cat_location_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`),
   CONSTRAINT `FK_cat_location` FOREIGN KEY (`tidtype`) REFERENCES `cat_location_type` (`tidtype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `cat_location` */
 
-insert  into `cat_location`(`tid`,`tidtype`,`description`,`level`,`active`,`id_state`,`gov_id`,`lat`,`lng`,`topography_sheet`) values (1,'1','Juan',1,'S',1,1,1.000000,1.000000,'1'),(2,'1','Paola',1,'S',1,1,1.000000,1.000000,'1'),(3,'1','Casa',1,'S',1,1,1.000000,1.000000,'1');
+insert  into `cat_location`(`tid`,`tidtype`,`description`,`level`,`active`,`id_state`,`gov_id`,`lat`,`lng`,`topography_sheet`) values (1,'1','Region Atlantica',0,'S',1,1,1.000000,1.000000,'1'),(2,'1','Región Norte',0,'S',1,1,1.000000,1.000000,'1'),(3,'1','Región Pacífico',0,'S',1,1,1.000000,1.000000,'1'),(4,'2','Managua',3,'S',2,NULL,NULL,NULL,NULL),(5,'3','El Crucero',4,'S',2,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `cat_location_type` */
 
@@ -55,7 +54,7 @@ CREATE TABLE `cat_location_type` (
 
 /*Data for the table `cat_location_type` */
 
-insert  into `cat_location_type`(`tidtype`,`description`,`level`) values ('1','dsadsa',0);
+insert  into `cat_location_type`(`tidtype`,`description`,`level`) values ('1','Región',0),('2','Departamento',1),('3','Municipio',2),('4','Distrito',3);
 
 /*Table structure for table `cat_location_user` */
 
@@ -417,7 +416,7 @@ CREATE TABLE `sec_group_user` (
 
 /*Data for the table `sec_group_user` */
 
-insert  into `sec_group_user`(`group_id`,`uid`,`state`) values (1,1,1),(1,2,1);
+insert  into `sec_group_user`(`group_id`,`uid`,`state`) values (1,1,1),(1,2,1),(2,2,1);
 
 /*Table structure for table `sec_groups` */
 
@@ -430,11 +429,11 @@ CREATE TABLE `sec_groups` (
   `id_state` int(11) NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `id_estado` (`id_state`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sec_groups` */
 
-insert  into `sec_groups`(`group_id`,`name`,`des_info`,`id_state`) values (1,'Administrador','Administrador',1),(2,'Encuestador','Encuestador',1);
+insert  into `sec_groups`(`group_id`,`name`,`des_info`,`id_state`) values (1,'Administrador','Administrador',1),(2,'Encuestador','Encuestador',1),(3,'Juan','Juan',2),(4,'newGripo','dsadsadas',1),(5,'dsadsa','dsadsa',1);
 
 /*Table structure for table `sec_invite` */
 
@@ -481,7 +480,7 @@ CREATE TABLE `sec_user_permission` (
 
 /*Data for the table `sec_user_permission` */
 
-insert  into `sec_user_permission`(`uid`,`id_permission`,`state`) values (1,1,1),(1,2,1),(2,1,1),(2,2,1);
+insert  into `sec_user_permission`(`uid`,`id_permission`,`state`) values (1,1,1),(2,1,1),(2,2,1);
 
 /*Table structure for table `sec_users` */
 
@@ -501,11 +500,11 @@ CREATE TABLE `sec_users` (
   `twitter` enum('S','N') DEFAULT 'N',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sec_users` */
 
-insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herrera','juan@local.com','jpicado','xQR+6UMujYcZPgcvV9owfFjfjaq8f7C1Mrtf43c9cImCMfl9E+GRWwpYYh3njDIm',1,NULL,'2009-05-21 19:37:13','S','N','N'),(2,'Pavel Martinez','minibota@hotmail.com','pavel','B+s1MLtO+GdeP6brkeo1dEXvaXtlxpRn64nuDL2MFJub+uZy4dijsrzXlJR+mYJO',1,NULL,'2009-05-20 11:51:12','N','N','N');
+insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herreraa','juan@local.com','jpicado','k5psZT4pPLI6olP+K9gmJTWKpz0jO5YPonapNw/2ekJnqdohEPu5IoEqc6ESSZ9f',1,NULL,'2009-05-25 13:35:36','S','N','N'),(2,'Pavel Martinezss','minibota@hotmail.com','pavel','B+s1MLtO+GdeP6brkeo1dEXvaXtlxpRn64nuDL2MFJub+uZy4dijsrzXlJR+mYJO',1,NULL,'2009-05-22 20:00:04','S','N','N');
 
 /*Table structure for table `survey_detail` */
 

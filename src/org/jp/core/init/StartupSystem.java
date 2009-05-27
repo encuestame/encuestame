@@ -9,7 +9,7 @@ import org.hibernate.HibernateException;
 
 /**
  * encuestame:  system online surveys
- * Copyright (C) 2005-2008 encuestame Development Team
+ * Copyright (C) 2005-2008 encuestame  Development Team
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 3 of the GNU General Public

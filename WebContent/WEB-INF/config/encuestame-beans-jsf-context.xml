@@ -67,6 +67,12 @@
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 
+	<!-- menu's bean -->
+	
+	<bean id="menuBean" class="org.jp.web.beans.navigation.MenuBean"
+		scope="session">
+	</bean>
+
 
 	<!-- globals -->
 	<bean id="globalBean" class="org.jp.web.beans.commons.GlobalCommonsBeans"

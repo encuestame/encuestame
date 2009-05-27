@@ -6,29 +6,23 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	xmlns:rich="http://richfaces.org/rich">
-	<div id="menu"><h:form>
-		<rich:toolBar id="RootMenu">
-			<rich:toolBarGroup>
-				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
-					action="index" value="#{temp.home}"></rich:menuItem>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup>
-				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
-					action="admon" value="#{temp.admon}"></rich:menuItem>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup>
-				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
-					action="surveys" value="#{temp.surveys}"></rich:menuItem>
-				<rich:menuItem iconDisabled="true" iconClass="iconMenu"
-					value="#{temp.stats}"></rich:menuItem>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup location="right">				
-				<h:outputLink value="${request.contextPath}/j_spring_security_logout"
-						title="#{temp.close}"
-						onclick="if (! confirm('#{temp.closeMsgBox}')) return false;">
-						<h:outputText value="#{temp.close}" />
-					</h:outputLink>					
-			</rich:toolBarGroup>
-		</rich:toolBar>
-	</h:form></div>
+	<a4j:form ajaxSubmit="true">
+		<div id="time4bed-nav">
+		<ul>
+			<li><a4j:commandLink styleClass="css menus current"
+				action="index" actionListener="">
+				<span>#{temp.home}</span>
+			</a4j:commandLink></li>
+			<li><a4j:commandLink styleClass="css menus " action="admon">
+				<span>#{temp.admon}</span>
+			</a4j:commandLink></li>
+			<li><a4j:commandLink styleClass="css menus " action="surveys">
+				<span>#{temp.surveys}</span>
+			</a4j:commandLink></li>
+			<li><a4j:commandLink styleClass="css menus " action="stats">
+				<span>#{temp.stats}</span>
+			</a4j:commandLink></li>
+		</ul>
+		</div>
+	</a4j:form>
 </ui:composition>
