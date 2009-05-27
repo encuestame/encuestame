@@ -4,6 +4,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.jp.core.persistence.dao.CatLocationDaoImp;
+
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -27,22 +30,37 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  */
 public class MyVarGet {
-	private String myGet;
+	private String myGet = "/test/page1.xhtml";
+	private static Logger log = Logger.getLogger(CatLocationDaoImp.class);
+
+	public MyVarGet() {
+		log.info("myVar");
+	}
 
 	public String getMyGet() {
-		try{
-			HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-			HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
-			System.out.println("REQ->"+req);
-			System.out.println("RES->"+res);
-		}catch (Exception e) {
-			System.out.println("ERROR->"+e);
-		}
 		return myGet;
 	}
 
 	public void setMyGet(String myGet) {
+		log.info("myGet->" + myGet);
 		this.myGet = myGet;
 	}
 
+	public void reasignone() {
+		try {
+			log.info("reasignone->" + myGet);
+			setMyGet("/test/page2.xhtml");
+		} catch (Exception e) {
+			log.error("error reasignone->" + e);
+		}
+	}
+
+	public void testing() {
+		try {
+			log.info("testing->" + myGet);
+			setMyGet("/test/page1.xhtml");
+		} catch (Exception e) {
+			log.error("error reasignone->" + e);
+		}
+	}
 }
