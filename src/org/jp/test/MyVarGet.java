@@ -58,7 +58,7 @@ public class MyVarGet {
 	public void testing() {
 		try {
 			log.info("testing->" + myGet);
-			setMyGet("/test/page1.xhtml");
+			setMyGet("/pages/admon/users.xhtml");
 		} catch (Exception e) {
 			log.error("error reasignone->" + e);
 		}

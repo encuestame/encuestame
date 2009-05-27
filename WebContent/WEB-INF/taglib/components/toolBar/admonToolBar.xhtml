@@ -26,20 +26,16 @@
 						</h:panelGrid>
 						<h:panelGrid columns="1">
 							<f:facet name="header">
-								<a4j:commandLink value="#{temp.territory}"></a4j:commandLink>
+								<a4j:commandLink value="#{temp.territory}" action="location"></a4j:commandLink>
 							</f:facet>
-							<a4j:commandLink value="#{temp.new}"></a4j:commandLink>
-							<a4j:commandLink value="#{temp.edit}"></a4j:commandLink>
-							<a4j:commandLink value="#{temp.geo}"></a4j:commandLink>
-							<a4j:commandLink value="#{temp.permission}"></a4j:commandLink>
+							<a4j:commandLink value="#{temp.geo}" action="geo"></a4j:commandLink>
+							<a4j:commandLink value="#{temp.permission}" action="locationPer"></a4j:commandLink>
 						</h:panelGrid>
 						<h:panelGrid columns="1">
 							<f:facet name="header">
-								<a4j:commandLink value="#{temp.proyects}"></a4j:commandLink>
+								<a4j:commandLink value="#{temp.proyects}" action="project"></a4j:commandLink>
 							</f:facet>
 						</h:panelGrid>
-						<a4j:commandLink value="#{temp.new}"></a4j:commandLink>
-						<a4j:commandLink value="#{temp.edit}"></a4j:commandLink>
 					</h:panelGrid>
 				</h:form>
 			</a4j:region></td>

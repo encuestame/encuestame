@@ -42,6 +42,24 @@
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 
+	<!-- Proyect -->
+	<bean id="proyectUserBean" class="org.jp.web.beans.project.ProjectBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+
+	<!-- Location -->
+
+	<bean id="locationUserBean" class="org.jp.web.beans.location.LocationBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+	
+	<bean id="treeNodeLocationBean" class="org.jp.web.beans.location.TreeNodeTest"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+
 	<!-- login bean -->
 	<bean id="loginForm" class="org.jp.web.beans.login.LoginSecurityBean"
 		scope="request">
@@ -57,9 +75,6 @@
 	</bean>
 
 	<bean id="testBeanDos" class="org.jp.test.MyVarGet" scope="request">
-		<property name="myGet">
-			<value>#{param.mygetparam}</value>
-		</property>
 	</bean>
 
 </beans>

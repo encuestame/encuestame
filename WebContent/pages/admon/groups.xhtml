@@ -7,7 +7,8 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
-<ui:composition template="/templates/indexTemplate.xhtml">
+<ui:composition template="/templates/admonTemplate.xhtml">
+<ui:define name="title"> #{temp.admonTitle} - #{temp.titleGroups}</ui:define>
 	<ui:define name="toolbar">
 		<encuestame:adminToolBar />
 	</ui:define>
@@ -123,6 +124,7 @@
 							</a4j:commandLink>
 						</rich:column>
 					</rich:dataTable>
+					
 				</a4j:region>
 				<ui:fragment rendered="not #{groupBean.oneRow}">
 					<h3>#{temp.notfoundGroups}</h3>

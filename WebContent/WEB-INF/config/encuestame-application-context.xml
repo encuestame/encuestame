@@ -134,6 +134,9 @@
 		<property name="encoding">
 			<value>${application.encoding}</value>
 		</property>
+		<property name="apiKeygoogle">
+		<value>${application.apiKeygoogle}</value>
+		</property>
 	</bean>
 
 	<bean id="url" class="org.jp.web.beans.commons.UrlBean">

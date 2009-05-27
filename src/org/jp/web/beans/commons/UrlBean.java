@@ -1,5 +1,6 @@
 package org.jp.web.beans.commons;
 
+import org.jp.core.exception.EnMeExpcetion;
 import org.jp.core.service.ApplicationServices;
 
 /**
@@ -28,6 +29,7 @@ public class UrlBean {
 
 	ApplicationServices applicationService;
 	public String img;
+	public String googleKey;
 
 	public ApplicationServices getApplicationService() {
 		return applicationService;
@@ -46,5 +48,23 @@ public class UrlBean {
 		this.img = img;
 	}
 
-	
+	/**
+	 * @return the googleKey
+	 */
+	public String getGoogleKey() {
+		googleKey = getApplicationService().getApiKeygoogle();
+		if (googleKey == null) {
+			googleKey = "";
+		}
+		return googleKey;
+	}
+
+	/**
+	 * @param googleKey
+	 *            the googleKey to set
+	 */
+	public void setGoogleKey(String googleKey) {
+		this.googleKey = googleKey;
+	}
+
 }

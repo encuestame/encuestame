@@ -9,20 +9,17 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 <a4j:loadBundle basename="messages" var="temp" />
 <a4j:loadStyle src="/css/default.css" type="text/css"></a4j:loadStyle>
-
 <link rel="icon" 
 	href="${facesContext.externalContext.requestContextPath}/favicon.ico"
-	type="image/x-icon"/>
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAZf9tmUBWs70LNEs037RG0RS4uSxNcZeiHmsInBcucCK4dMkMwRQ9p5jqPdw2Vbj8ZqfJQhkiG_MZaw" 
-        type="text/javascript"></script>
+	type="image/x-icon"/>	
+	<ui:insert name="googleMaps"></ui:insert>
 <head>
-<title>encuestame - survey system</title>
+<title> #{temp.appTitle} -  <ui:insert name="title"> encuestame - survey system </ui:insert></title>
 </head>
 <body>
 <ui:include src="/templates/includes/header.xhtml" />
 <ui:include src="/templates/includes/menu.xhtml" />
 <div id="mainWrapper"><ui:insert name="main">main</ui:insert></div>
 <ui:include src="/templates/includes/footer.xhtml" />
-
 </body>
 </html>

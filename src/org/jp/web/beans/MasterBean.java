@@ -37,7 +37,7 @@ public class MasterBean {
 
 	private ApplicationContext appContext;
 	protected ServiceManagerBean servicemanagerBean;
-	private Log logger = LogFactory.getLog(this.getClass());
+	private Log log = LogFactory.getLog(this.getClass());
 	protected boolean isOneRow;
 
 	public MasterBean() {

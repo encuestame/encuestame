@@ -28,6 +28,7 @@ public class ApplicationServices extends MasterService implements IApplicationSe
 	private String name;
 	private String urlImg;
 	private String encoding;
+	private String apiKeygoogle;
 
 	public String getName() {
 		return name;
@@ -52,5 +53,21 @@ public class ApplicationServices extends MasterService implements IApplicationSe
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
+
+	/**
+	 * @return the apiKeygoogle
+	 */
+	public String getApiKeygoogle() {
+		return apiKeygoogle;
+	}
+
+	/**
+	 * @param apiKeygoogle the apiKeygoogle to set
+	 */
+	public void setApiKeygoogle(String apiKeygoogle) {
+		this.apiKeygoogle = apiKeygoogle;
+	}
+
+	
 
 }

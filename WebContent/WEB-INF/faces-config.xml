@@ -41,31 +41,31 @@
    <from-outcome>reports</from-outcome>
    <to-view-id>/pages/reports.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>groups</from-outcome>
+   <to-view-id>/pages/admon/groups.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>users</from-outcome>
+   <to-view-id>/pages/admon/users.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>location</from-outcome>
+   <to-view-id>/pages/admon/location.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>project</from-outcome>
+   <to-view-id>/pages/admon/project.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/admon/index.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>groups</from-outcome>
-   <to-view-id>/pages/admon/groups.xhtml</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>users</from-outcome>
-   <to-view-id>/pages/admon/users.xhtml</to-view-id>
-  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/admon/groups.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>users</from-outcome>
-   <to-view-id>/pages/admon/users.xhtml</to-view-id>
-  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/admon/users.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>groups</from-outcome>
-   <to-view-id>/pages/admon/groups.xhtml</to-view-id>
-  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/login.xhtml</from-view-id>
@@ -77,6 +77,12 @@
    <from-outcome>forget</from-outcome>
    <to-view-id>/user/forget.xhtml</to-view-id>
   </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/pages/admon/project.xhtml</from-view-id>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/pages/admon/location.xhtml</from-view-id>
  </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>

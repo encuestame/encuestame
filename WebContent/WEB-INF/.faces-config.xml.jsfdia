@@ -17,50 +17,37 @@
    <PROCESS-ITEM-OUTPUT ID="reports::#pages#reports.xhtml"
     NAME="output4" PATH="/pages/reports.xhtml"
     TARGET="rules:#pages#reports.xhtml" TITLE="reports" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#pages#index.xhtml" PATH="/pages/index.xhtml"
-  SHAPE="168,40,50,25" model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
-  PATH="/pages/admon/index.xhtml" SHAPE="272,104,50,57" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#pages#admon#index.xhtml:0" NAME="item"
-   PATH="/pages/admon/index.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="groups::#pages#admon#groups.xhtml"
-    NAME="output" PATH="/pages/admon/groups.xhtml"
+    NAME="output5" PATH="/pages/admon/groups.xhtml"
     TARGET="rules:#pages#admon#groups.xhtml" TITLE="groups" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="users::#pages#admon#users.xhtml"
-    NAME="output1" PATH="/pages/admon/users.xhtml"
+    NAME="output6" PATH="/pages/admon/users.xhtml"
     TARGET="rules:#pages#admon#users.xhtml" TITLE="users" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="location::#pages#admon#location.xhtml"
+    NAME="output7" PATH="/pages/admon/location.xhtml"
+    TARGET="rules:#pages#admon#location.xhtml" TITLE="location" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="project::#pages#admon#project.xhtml"
+    NAME="output8" PATH="/pages/admon/project.xhtml"
+    TARGET="rules:#pages#admon#project.xhtml" TITLE="project" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#pages#surveys.xhtml"
-  PATH="/pages/surveys.xhtml" SHAPE="240,232,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
+  PATH="/pages/admon/index.xhtml" SHAPE="320,64,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#admon#index.xhtml:0" NAME="item"
+   PATH="/pages/admon/index.xhtml" model-entity="JSFProcessItem"/>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#groups.xhtml"
-  PATH="/pages/admon/groups.xhtml" SHAPE="504,48,50,41" model-entity="JSFProcessGroup">
+  PATH="/pages/admon/groups.xhtml" SHAPE="312,128,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#admon#groups.xhtml:0" NAME="item"
-   PATH="/pages/admon/groups.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="users::#pages#admon#users.xhtml"
-    NAME="output" PATH="/pages/admon/users.xhtml"
-    TARGET="rules:#pages#admon#users.xhtml" TITLE="users" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
+   PATH="/pages/admon/groups.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#users.xhtml"
-  PATH="/pages/admon/users.xhtml" SHAPE="504,152,50,41" model-entity="JSFProcessGroup">
+  PATH="/pages/admon/users.xhtml" SHAPE="464,136,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#admon#users.xhtml:0" NAME="item"
-   PATH="/pages/admon/users.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="groups::#pages#admon#groups.xhtml"
-    NAME="output" PATH="/pages/admon/groups.xhtml"
-    TARGET="rules:#pages#admon#groups.xhtml" TITLE="groups" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
+   PATH="/pages/admon/users.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#pages#stats.xhtml" PATH="/pages/stats.xhtml"
-  SHAPE="240,280,50,25" model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:#pages#reports.xhtml"
-  PATH="/pages/reports.xhtml" SHAPE="240,336,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
-  SHAPE="80,408,50,57" model-entity="JSFProcessGroup">
+  SHAPE="40,472,50,57" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
    PATH="/login.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="register::#register.xhtml" NAME="output"
@@ -71,10 +58,30 @@
     TITLE="forget" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
-  SHAPE="264,408,50,25" model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:#forget.xhtml" PATH="/forget.xhtml"
-  SHAPE="400,392,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#admon#project.xhtml"
+  PATH="/pages/admon/project.xhtml" SHAPE="456,312,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#admon#project.xhtml:0" NAME="item"
+   PATH="/pages/admon/project.xhtml" model-entity="JSFProcessItem"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#admon#location.xhtml"
+  PATH="/pages/admon/location.xhtml" SHAPE="456,208,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#admon#location.xhtml:0" NAME="item"
+   PATH="/pages/admon/location.xhtml" model-entity="JSFProcessItem"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#surveys.xhtml"
+  PATH="/pages/surveys.xhtml" SHAPE="232,248,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#stats.xhtml" PATH="/pages/stats.xhtml"
+  SHAPE="216,304,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#index.xhtml" PATH="/pages/index.xhtml"
+  SHAPE="176,24,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#user#forget.xhtml" PATH="/user/forget.xhtml"
-  SHAPE="256,544,50,25" model-entity="JSFProcessGroup"/>
+  SHAPE="176,608,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#reports.xhtml"
+  PATH="/pages/reports.xhtml" SHAPE="168,368,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
+  SHAPE="160,448,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#forget.xhtml" PATH="/forget.xhtml"
+  SHAPE="208,520,50,25" model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

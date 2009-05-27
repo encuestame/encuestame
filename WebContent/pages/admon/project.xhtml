@@ -5,24 +5,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:encuestame="http://encuesta.me/encuestame">
+	xmlns:encuestame="http://encuesta.me/encuestame"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/">
 <body>
 <ui:composition template="/templates/admonTemplate.xhtml">
-	<ui:define name="title"> #{temp.admonTitle}</ui:define>
+	<ui:define name="title">Proyectos</ui:define>
 	<ui:define name="toolbar">
-		<table height="100px" border="0">
-			<tr>
-				<td id="toolBarLeft"><encuestame:adminToolBar /></td>
-				<td><ui:insert name="optionGroup">
-					<h:form>
-						<a4j:outputPanel id="testOut">
-							<ui:include src="#{testBeanDos.myGet}">
-							</ui:include>
-						</a4j:outputPanel>
-					</h:form>
-				</ui:insert></td>
-			</tr>
-		</table>
+		<encuestame:adminToolBar />
+	</ui:define>
+	<ui:define name="bodyOptions">
+		
+		<h:outputText value="Proyectos" />
 	</ui:define>
 </ui:composition>
 </body>

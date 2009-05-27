@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<body>
+<ui:composition template="/templates/home.xhtml">
+	<ui:define name="main">
+	  
+	<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
+			minWidth="200" height="80" width="400" zindex="100">
+			<h2><h:outputText value="Cargando...">
+			</h:outputText></h2>			
+		</rich:modalPanel>
+		 
+		<table height="100px" border="0">
+			<tr>
+				<td id="toolBarLeft" valign="top"><ui:insert name="toolbar"></ui:insert></td>
+				<td class="padding" style="padding-left: 40px;" valign="top"
+					width="100%"><ui:insert name="bodyOptions"></ui:insert></td>
+			</tr>
+		</table>		
+	</ui:define>
+</ui:composition>
+</body>
+</html>

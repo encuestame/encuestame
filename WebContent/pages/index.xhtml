@@ -5,34 +5,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:m="http://code.google.com/p/gmaps4jsf/">
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
 <ui:composition template="/templates/home.xhtml">
-	<ui:define name="main">
-		<table height="100px" border="1">
-			<tr>
-				<td id="toolBarLeft"></td>
-				<td></td>
-			</tr>
-		</table>	
-		  <!-- 
-		    <m:map width="500px" height="500px" zoom="4" latitude="30.01" longitude="31.14">
-                <m:marker  latitude="30.01" longitude="81.14"/>
-                  <m:mapControl name="GLargeMapControl" position="G_ANCHOR_BOTTOM_RIGHT"/>
-                 <m:mapControl name="GMapTypeControl"/>  
-                  <m:polygon lineWidth="4">
-                <m:point latitude="30.01" longitude="31.14"/>
-                <m:point latitude="-33" longitude="19"/>                                
-                <m:point latitude="39" longitude="-101"/>       
-                <m:point latitude="30.01" longitude="31.14"/>
-                 <m:groundoverlay imageURL="http://www.jroller.com/HazemBlog/resource/gmaps4jsf-logo.png" 
-                  startLatitude="7" endLatitude="23" 
-                  startLongitude="-54" endLongitude="84" />  
-        </m:polygon>
-                <m:htmlInformationWindow latitude="80.01" longitude="61.14" 
-                           htmlText="&lt;b&gt;This is Egypt&lt;b&gt;"/>
-      </m:map> -->
-
+	<ui:define name="googleMaps"><script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=#{url.googleKey}" type="text/javascript"></script>
+	</ui:define>
+	<ui:define name="main">		
+		<h:form id="form">
+		<rich:tree style="width:300px" switchType="ajax">
+				<rich:recursiveTreeNodesAdaptor
+					roots="#{treeNodeLocationBean.sourceRoots}" var="item"
+					nodes="#{item.nodes}" />
+			</rich:tree>
+    	
+    		<m:map width="500px" height="500px" latitude="30.01" longitude="31.14">
+                <m:marker  latitude="30.01" longitude="31.14"/>
+                <m:htmlInformationWindow latitude="30.01" longitude="31.14" 
+                           htmlText="MiPrimerBocadillo"/>
+      </m:map>    		
+    	</h:form>
+   
 	</ui:define>
 </ui:composition>
 
