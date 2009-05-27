@@ -5,11 +5,12 @@
 
 body {
 	background: #fff none repeat scroll 0 0;
-	font-family: Arial;
+	font-family:Georgia, "Times New Roman", Times, serif;
 	font-size: 12px;
 	margin: 0;
 	padding: 0;
 }
+
 
 img {
 	border: 0px;

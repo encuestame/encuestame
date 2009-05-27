@@ -69,7 +69,7 @@
 
 	<!-- menu's bean -->
 	
-	<bean id="menuBean" class="org.jp.web.beans.navigation.MenuBean"
+	<bean id="menuBean" class="org.jp.web.navigation.MenuBean"
 		scope="session">
 	</bean>
 

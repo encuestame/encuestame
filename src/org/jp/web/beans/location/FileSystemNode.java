@@ -35,36 +35,36 @@ public class FileSystemNode {
 	private static FileSystemNode[] CHILDREN_ABSENT = new FileSystemNode[0];
 	private FileSystemNode[] children;
 	private String shortPath;
-	private Log log = LogFactory.getLog(this.getClass());
+	//private Log log = LogFactory.getLog(this.getClass());
 
 	public FileSystemNode(String path) {
 		this.path = path;
 		int idx = path.lastIndexOf('/');
 		if (idx != -1) {
-			log.info("1this.idx->"+idx);
+			//log.info("1this.idx->"+idx);
 			shortPath = path.substring(idx + 1);
 		} else {
-			log.info("2this.path->"+path);
+			//log.info("2this.path->"+path);
 			shortPath = path;
 		}
-		log.info("this.shortPath->"+shortPath);
+		//log.info("this.shortPath->"+shortPath);
 	}
 
 	public synchronized FileSystemNode[] getNodes() {
 		if (children == null) {
-			log.info("this.path->"+this.path);
+			//log.info("this.path->"+this.path);
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
-			log.info("externalContext->"
-					+ externalContext.getResourcePaths(this.path));
+			//log.info("externalContext->"
+			//		+ externalContext.getResourcePaths(this.path));
 			Set resourcePaths = externalContext.getResourcePaths(this.path);
-			log.info("resourcePaths->" + resourcePaths);
+			//log.info("resourcePaths->" + resourcePaths);
 			if (resourcePaths != null) {
 				Object[] nodes = (Object[]) resourcePaths.toArray();
 				children = new FileSystemNode[nodes.length];
 				for (int i = 0; i < nodes.length; i++) {
 					String nodePath = nodes[i].toString();
-					log.info("nodePath->" + nodePath);
+					//.info("nodePath->" + nodePath);
 					if (nodePath.endsWith("/")) {
 						nodePath = nodePath.substring(0, nodePath.length() - 1);
 					}

@@ -3,6 +3,9 @@ package org.jp.web.navigation;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.apache.log4j.Logger;
+import org.jp.core.persistence.dao.CatLocationDaoImp;
+
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -28,7 +31,17 @@ import javax.faces.event.ActionEvent;
 public class MenuBean {
 
 	private String currentSelected = "current";
-
+	private String menuSelected;
+	private String admonCss;
+	private String indexCss;
+	private String surveyCss;
+	private String statsCss;
+	private static Logger log = Logger.getLogger(CatLocationDaoImp.class);
+	
+	public MenuBean() {
+		setIndexCss(getCurrentSelected());
+	}
+	
 	/**
 	 * @return the currentSelected
 	 */
@@ -44,10 +57,105 @@ public class MenuBean {
 		this.currentSelected = currentSelected;
 	}
 
-	public void process(ActionEvent arg0) {
-		FacesContext f = FacesContext.getCurrentInstance();
-		// message2=message2+arg0.getComponent().getClientId(f) +
-		// " Triggered anAction Listener";
-
+	private void changeCurrentMenu() {
+		resetMenus();
+		log.info("changeCurrentMenu->"+getCurrentSelected());
+		if (getMenuSelected().compareTo("index") == 0) {
+			setIndexCss(getCurrentSelected());
+		} else if (getMenuSelected().compareTo("admon") == 0) {
+			setAdmonCss(getCurrentSelected());
+		} else if (getMenuSelected().compareTo("survey") == 0) {
+			setSurveyCss(getCurrentSelected());
+		} else if (getMenuSelected().compareTo("stats") == 0) {
+			setStatsCss(getCurrentSelected());
+		} else {
+			setIndexCss(getCurrentSelected());
+		}
 	}
+
+	private void resetMenus() {
+		setIndexCss("");
+		setAdmonCss("");
+		setStatsCss("");
+		setSurveyCss("");
+	}
+
+	/**
+	 * @return the menuSelected
+	 */
+	public String getMenuSelected() {
+		
+		return menuSelected;
+	}
+
+	/**
+	 * @param menuSelected
+	 *            the menuSelected to set
+	 */
+	public void setMenuSelected(String menuSelected) {
+		log.info("menuSelected->"+menuSelected);	
+		this.menuSelected = menuSelected;
+		changeCurrentMenu();
+	}
+
+	/**
+	 * @return the admonCss
+	 */
+	public String getAdmonCss() {
+		return admonCss;
+	}
+
+	/**
+	 * @param admonCss
+	 *            the admonCss to set
+	 */
+	public void setAdmonCss(String admonCss) {
+		this.admonCss = admonCss;
+	}
+
+	/**
+	 * @return the indexCss
+	 */
+	public String getIndexCss() {
+		return indexCss;
+	}
+
+	/**
+	 * @param indexCss
+	 *            the indexCss to set
+	 */
+	public void setIndexCss(String indexCss) {
+		this.indexCss = indexCss;
+	}
+
+	/**
+	 * @return the surveyCss
+	 */
+	public String getSurveyCss() {
+		return surveyCss;
+	}
+
+	/**
+	 * @param surveyCss
+	 *            the surveyCss to set
+	 */
+	public void setSurveyCss(String surveyCss) {
+		this.surveyCss = surveyCss;
+	}
+
+	/**
+	 * @return the statsCss
+	 */
+	public String getStatsCss() {
+		return statsCss;
+	}
+
+	/**
+	 * @param statsCss
+	 *            the statsCss to set
+	 */
+	public void setStatsCss(String statsCss) {
+		this.statsCss = statsCss;
+	}
+
 }

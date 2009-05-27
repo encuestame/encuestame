@@ -6,21 +6,32 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	xmlns:rich="http://richfaces.org/rich">
-	<a4j:form ajaxSubmit="true">
+	<a4j:form ajaxSubmit="true" id="menuForm">
 		<div id="time4bed-nav">
 		<ul>
-			<li><a4j:commandLink styleClass="css menus current"
-				action="index" actionListener="">
+			<li><a4j:commandLink styleClass="css menus #{menuBean.indexCss}"
+				action="index" reRender="menuForm">
 				<span>#{temp.home}</span>
+				<a4j:actionparam name="indexSelected" value="index"
+					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
 			</a4j:commandLink></li>
-			<li><a4j:commandLink styleClass="css menus " action="admon">
+			<li><a4j:commandLink styleClass="css menus #{menuBean.admonCss}"
+				action="admon" reRender="menuForm">
 				<span>#{temp.admon}</span>
+				<a4j:actionparam name="indexSelected" value="admon"
+					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
 			</a4j:commandLink></li>
-			<li><a4j:commandLink styleClass="css menus " action="surveys">
+			<li><a4j:commandLink
+				styleClass="css menus #{menuBean.surveyCss}" action="surveys" reRender="menuForm">
 				<span>#{temp.surveys}</span>
+				<a4j:actionparam name="indexSelected" value="survey"
+					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
 			</a4j:commandLink></li>
-			<li><a4j:commandLink styleClass="css menus " action="stats">
+			<li><a4j:commandLink styleClass="css menus #{menuBean.statsCss}"
+				action="stats" reRender="menuForm">
 				<span>#{temp.stats}</span>
+				<a4j:actionparam name="indexSelected" value="stats"
+					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
 			</a4j:commandLink></li>
 		</ul>
 		</div>
