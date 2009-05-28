@@ -46,6 +46,12 @@
 	<bean id="proyectUserBean" class="org.jp.web.beans.project.ProjectBean"
 		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
+		<property name="beanUProyect" ref="unitProyectBean" />
+	</bean>
+	
+	<bean id="unitProyectBean" class="org.jp.web.beans.project.UnitProjectBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 
 	<!-- Location -->
@@ -54,7 +60,7 @@
 		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
-	
+
 	<bean id="treeNodeLocationBean" class="org.jp.web.beans.location.TreeNodeTest"
 		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
@@ -68,9 +74,8 @@
 	</bean>
 
 	<!-- menu's bean -->
-	
-	<bean id="menuBean" class="org.jp.web.navigation.MenuBean"
-		scope="session">
+
+	<bean id="menuBean" class="org.jp.web.navigation.MenuBean" scope="session">
 	</bean>
 
 
@@ -78,6 +83,11 @@
 	<bean id="globalBean" class="org.jp.web.beans.commons.GlobalCommonsBeans"
 		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+
+	<bean id="calendarBean" class="org.jp.web.beans.commons.CalendarBean"
+		scope="request">
+
 	</bean>
 
 	<bean id="testBeanDos" class="org.jp.test.MyVarGet" scope="request">

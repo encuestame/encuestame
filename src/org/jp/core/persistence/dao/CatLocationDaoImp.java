@@ -49,7 +49,10 @@ public class CatLocationDaoImp extends HibernateDaoSupport  implements ICatLocDa
 	public CatLocationDaoImp() {
 		super();
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public List getAccountsumById(){
 		try{
 			ServletContext context = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();

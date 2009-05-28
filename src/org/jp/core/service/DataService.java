@@ -1,6 +1,8 @@
 package org.jp.core.service;
 
+import org.jp.core.persistence.dao.CatLocationDaoImp;
 import org.jp.core.persistence.dao.CatStateDaoImp;
+import org.jp.core.persistence.dao.ProyectDaoImp;
 
 /**
  * encuestame:  system online surveys
@@ -28,13 +30,55 @@ import org.jp.core.persistence.dao.CatStateDaoImp;
 public class DataService extends MasterService implements IDataService {
 	
 	private CatStateDaoImp stateDao;
+	private CatLocationDaoImp locateDao;
+	private ProyectDaoImp proyectDao;
 
+	
+	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public CatStateDaoImp getStateDao() {
 		return stateDao;
 	}
 
+	/**
+	 * 
+	 * @param stateDao
+	 */
 	public void setStateDao(CatStateDaoImp stateDao) {
 		this.stateDao = stateDao;
+	}
+
+	/**
+	 * @return the locateDao
+	 */
+	public CatLocationDaoImp getLocateDao() {
+		return locateDao;
+	}
+
+	/**
+	 * @param locateDao the locateDao to set
+	 */
+	public void setLocateDao(CatLocationDaoImp locateDao) {
+		this.locateDao = locateDao;
+	}
+
+	/**
+	 * @return the proyectDao
+	 */
+	public ProyectDaoImp getProyectDao() {
+		return proyectDao;
+	}
+
+	/**
+	 * @param proyectDao the proyectDao to set
+	 */
+	public void setProyectDao(ProyectDaoImp proyectDao) {
+		this.proyectDao = proyectDao;
 	}
 	
 	

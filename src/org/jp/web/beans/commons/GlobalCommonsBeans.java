@@ -55,11 +55,11 @@ public class GlobalCommonsBeans extends MasterBean {
 	public List<SelectItem> getLoadListState() {
 		lista = new LinkedList();
 		select = new ArrayList<SelectItem>();
-		log.info("get load list state");
+		//log.info("get load list state");
 		select.add(new SelectItem(null, ""));
 		lista = getServicemanagerBean().getDataService().getStateDao()
 				.findAll();
-		log.info("get load list state total->" + lista.size());
+		//log.info("get load list state total->" + lista.size());
 		if (lista != null && lista.size() != 0) {
 			Iterator iterd = lista.iterator();
 			while (iterd.hasNext()) {

@@ -10,14 +10,13 @@
 <body>
 <ui:composition template="/templates/home.xhtml">
 	<ui:define name="main">
-		<encuestame:adminToolBar />
-
+		<encuestame:adminToolBar/>
 		<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
 			minWidth="200" height="80" width="400" zindex="100">
 			<h2><h:outputText value="Cargando...">
 			</h:outputText></h2>
 		</rich:modalPanel>
-		<ui:insert name="bodyOptions"></ui:insert>			
+		<div id="bodyOptionsWrapper"><ui:insert name="bodyOptions"></ui:insert></div>			
 	</ui:define>
 </ui:composition>
 </body>

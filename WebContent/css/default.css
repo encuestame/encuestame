@@ -138,9 +138,13 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
     background-color:#FFFFFF;
     background-image: none;
     border-color: silver;
-} */ /**
+} */
+
+
+/***************************************************
  * commons classes
- */
+ ***************************************************/
+ 
 .padding {
 	padding-left: : 50px;
 }
@@ -152,9 +156,9 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
 	background: #eee;
 }
 
-/**
+/************************************
  user messages 
- */
+ ***********************************/
 .error {
 	padding: 5px;
 	background-color: #FFD0D0;
@@ -187,3 +191,32 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
 	background-position: 3px;
 	background-repeat: no-repeat;
 }
+
+/**********************************
+Templates Admon
+**********************************/
+
+#bodyOptionsWrapper{
+	margin-left: 10%;
+	margin-right: 10%;
+	}
+
+/************************************
+Proyect CSS	
+**********************************/
+
+#proyectBox{
+	/*border: 1px solid  #eee;*/
+	padding: 4px;	
+	}
+
+#formProyect p{
+	font-size: 14px;
+	}
+	
+#proyectRow{
+	width: 90%;
+	border: 1px solid #eee;
+	min-height: 15px;
+}
+
