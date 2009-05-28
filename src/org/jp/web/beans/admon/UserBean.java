@@ -49,7 +49,7 @@ public class UserBean extends MasterBean {
 	private Integer selectedPermissionId;
 	private String selectedAction;
 	private UIData uiDataUserTable;
-	private UISelectBoolean checked = null;
+	private UISelectBoolean checked = new UISelectBoolean();
 	private String listUsers;
 
 	/**
@@ -246,14 +246,16 @@ public class UserBean extends MasterBean {
 		Collection<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
 		try {
 			int n = uiDataUserTable.getRowCount();
+			log.info("uiDataUserTable getRowCount->"+n);
 			for (int i = 0; i < n; i++) {
 				uiDataUserTable.setRowIndex(i);
 				if (checked.isSelected()) {
 					UnitUserBean userUnit = (UnitUserBean) uiDataUserTable
 							.getRowData();
-					listSelectedUsers.add(userUnit);
+					listSelectedUsers.add(userUnit);					
 				}
 			}
+			
 			return listSelectedUsers;
 		} catch (Exception e) {
 			addErrorMessage(e.getMessage(), e.getMessage());
@@ -407,7 +409,7 @@ public class UserBean extends MasterBean {
 	 * @return the uiDataUserTable
 	 */
 	public UIData getUiDataUserTable() {
-		log.info("DATA TABLE-?" + uiDataUserTable);
+		
 		return uiDataUserTable;
 	}
 
@@ -416,6 +418,7 @@ public class UserBean extends MasterBean {
 	 *            the uiDataUserTable to set
 	 */
 	public void setUiDataUserTable(UIData uiDataUserTable) {
+		log.info("uiDataUserTable ->"+uiDataUserTable);
 		this.uiDataUserTable = uiDataUserTable;
 	}
 

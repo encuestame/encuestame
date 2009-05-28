@@ -32,17 +32,17 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
-  PATH="/pages/admon/index.xhtml" SHAPE="320,64,50,41" model-entity="JSFProcessGroup">
+  PATH="/pages/admon/index.xhtml" SHAPE="320,40,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#admon#index.xhtml:0" NAME="item"
    PATH="/pages/admon/index.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#groups.xhtml"
-  PATH="/pages/admon/groups.xhtml" SHAPE="312,128,50,41" model-entity="JSFProcessGroup">
+  PATH="/pages/admon/groups.xhtml" SHAPE="376,104,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#admon#groups.xhtml:0" NAME="item"
    PATH="/pages/admon/groups.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#users.xhtml"
-  PATH="/pages/admon/users.xhtml" SHAPE="464,136,50,41" model-entity="JSFProcessGroup">
+  PATH="/pages/admon/users.xhtml" SHAPE="496,152,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#admon#users.xhtml:0" NAME="item"
    PATH="/pages/admon/users.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>

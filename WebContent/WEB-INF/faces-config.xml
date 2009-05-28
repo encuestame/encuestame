@@ -44,10 +44,12 @@
   <navigation-case>
    <from-outcome>groups</from-outcome>
    <to-view-id>/pages/admon/groups.xhtml</to-view-id>
+   <redirect/>
   </navigation-case>
   <navigation-case>
    <from-outcome>users</from-outcome>
    <to-view-id>/pages/admon/users.xhtml</to-view-id>
+   <redirect/>
   </navigation-case>
   <navigation-case>
    <from-outcome>location</from-outcome>

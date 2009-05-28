@@ -10,10 +10,7 @@
 <body>
 <ui:composition template="/templates/admonTemplate.xhtml">
 
-<ui:define name="googleMaps"><script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAZf9tmUBWs70LNEs037RG0RS4uSxNcZeiHmsInBcucCK4dMkMwRQ9p5jqPdw2Vbj8ZqfJQhkiG_MZaw" type="text/javascript"></script></ui:define>
-	<ui:define name="toolbar">
-		<encuestame:adminToolBar />
-	</ui:define>
+<ui:define name="googleMaps"></ui:define>
 	<ui:define name="bodyOptions">
 		<h:form>
 			<rich:tree style="width:300px" switchType="ajax">
@@ -23,12 +20,7 @@
 			</rich:tree>
 		
 		
-				<m:map width="500px" height="500px" latitude="30.01"
-					longitude="31.14">
-					<m:marker latitude="30.01" longitude="31.14" />
-					<m:htmlInformationWindow latitude="30.01" longitude="31.14"
-						htmlText="MiPrimerBocadillo" />
-				</m:map>
+				
 				<h:outputText value="tedsa" />
 		</h:form>
 	</ui:define>

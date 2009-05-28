@@ -9,33 +9,27 @@
 <body>
 <ui:composition template="/templates/admonTemplate.xhtml">
 <ui:define name="title"> #{temp.admonTitle} - #{temp.titleGroups}</ui:define>
-	<ui:define name="toolbar">
-		<encuestame:adminToolBar />
-	</ui:define>
 	<ui:define name="bodyOptions">
-		<h:form>
-			<h:panelGrid columns="8" styleClass="subMenus"
-				style="padding:10px; background:#eee; width:auto;">
-
+		<a4j:form ajaxSubmit="true">
+			<h:panelGrid columns="8">
 				<a4j:commandLink value="#{temp.newGroup}" rendered="true"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewGroup')"
 					reRender="newFormUserUnit,formHeaderNewtUser">
 				</a4j:commandLink>
 
 			</h:panelGrid>
-		</h:form>
-
+		</a4j:form>
 		<rich:modalPanel id="panelnewGroup" autosized="true" width="600"
 			height="200" zindex="2000">
 			<f:facet name="header">
-				<h:form id="formHeaderNewtUser">
+				<a4j:form id="formHeaderNewtUser">
 					<h:panelGroup>
 						<h:outputText id="headerEditUser" value="Nuevo Grupo"></h:outputText>
 					</h:panelGroup>
-				</h:form>
+				</a4j:form>
 			</f:facet>
 			<f:facet name="controls">
-				<h:form>
+				<a4j:form ajaxSubmit="true">
 					<h:panelGroup>
 						<a4j:commandLink
 							onclick="Richfaces.hideModalPanel('panelnewGroup')"
@@ -43,10 +37,10 @@
 							<h:graphicImage value="#{url.img}/icons/close.png" />
 						</a4j:commandLink>
 					</h:panelGroup>
-				</h:form>
+				</a4j:form>
 			</f:facet>
 
-			<h:form id="groupForm">
+			<a4j:form id="groupForm" ajaxSubmit="true">
 				<h2>#{temp.titleCreateGroups}</h2>
 				<h:panelGrid columns="2">
 					<h:outputLabel value="#{temp.name}" for="name" />
@@ -71,8 +65,7 @@
 					<rich:effect for="groupMessage" event="onload" type="Appear"
 						params="targetId:'contentDiv',duration:0.8,from:0.3,to:1.0" />
 				</h:panelGrid>
-
-			</h:form>
+			</a4j:form>
 
 		</rich:modalPanel>
 		<ui:insert name="optionGroup">
@@ -86,11 +79,11 @@
 						rendered="#{groupBean.oneRow}">
 						<f:facet name="header">
 							<rich:columnGroup>
-								<rich:column>
-									<h:outputText value="#{temp.id}" />
+								<rich:column width="30px">
+									<h:outputText value="#{temp.id}"  />
 								</rich:column>
 								<rich:column>
-									<h:outputText value="#{temp.name}" />
+									<h:outputText value="#{temp.description}" />
 								</rich:column>
 								<rich:column>
 									<h:outputText value="#{temp.state}" />
@@ -145,7 +138,7 @@
 				</rich:modalPanel>
 			</h:form>
 			<rich:modalPanel id="panelEditGroup">
-				<h:form id="formEditGroup">
+				<a4j:form id="formEditGroup">
 					<a4j:region id="editGroup">
 						<h:panelGrid columns="2">
 							<h:outputLabel value="#{temp.name}" for="name" />
@@ -170,21 +163,11 @@
 								ajaxSingle="true" action="#{groupBean.reset}" />
 						</h:panelGrid>
 					</a4j:region>
-				</h:form>
+				</a4j:form>
 			</rich:modalPanel>
-
+			
+			
 		</ui:insert>
-		<!--  <h:outputText value="Grupos" />
-			<a4j:commandButton value="groups" rendered="true"
-				onclick="javascript:Richfaces.showModalPanel('requestStatusDlg',{width:400, top:200})">
-			</a4j:commandButton>
-			<rich:modalPanel id="requestStatusDlg">
-				<h:outputText value="test" />
-				<a4j:commandButton id="cancel_id" value="cerrar"
-					onclick="Richfaces.hideModalPanel('requestStatusDlg')" />
-			</rich:modalPanel>
-			-->
-
 	</ui:define>
 </ui:composition>
 

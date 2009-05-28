@@ -10,9 +10,10 @@
 <ui:composition template="/templates/admonTemplate.xhtml">
 	<ui:define name="title"> #{temp.admonTitle}</ui:define>
 	<ui:define name="toolbar">
+	
 		<table height="100px" border="0">
 			<tr>
-				<td id="toolBarLeft"><encuestame:adminToolBar /></td>
+				<td id="toolBarLeft"></td>
 				<td><ui:insert name="optionGroup">
 					<h:form>
 						<a4j:outputPanel id="testOut">

@@ -221,7 +221,7 @@ public class SecurityService extends MasterService implements ISecurityService {
 		Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
 		Collection<SecPermission> listSecPermission = getPermissionDao()
 				.loadAllPermissions();
-		log.info("Permissions Total->" + listSecPermission.size());
+		log.debug("Permissions Total->" + listSecPermission.size());
 		for (Iterator<SecPermission> i = listSecPermission.iterator(); i
 				.hasNext();) {
 			UnitPermission per = new UnitPermission();

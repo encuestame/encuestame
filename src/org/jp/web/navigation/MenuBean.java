@@ -57,6 +57,9 @@ public class MenuBean {
 		this.currentSelected = currentSelected;
 	}
 
+	/**
+	 * 
+	 */
 	private void changeCurrentMenu() {
 		resetMenus();
 		log.info("changeCurrentMenu->"+getCurrentSelected());
