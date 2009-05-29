@@ -54,7 +54,7 @@
             <key>
                 <column name="stid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectTypeSurvey" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectTypeSurvey" />
         </set>
         <set name="surveySectionTypes" inverse="true">
             <key>

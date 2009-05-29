@@ -8,14 +8,14 @@ package org.jp.core.persistence.pojo;
 public class CatLocationUser implements java.io.Serializable {
 
 	private CatLocationUserId id;
-	private Proyect proyect;
+	private Project proyect;
 	private SecUsers secUsers;
 	private CatLocation catLocation;
 
 	public CatLocationUser() {
 	}
 
-	public CatLocationUser(CatLocationUserId id, Proyect proyect,
+	public CatLocationUser(CatLocationUserId id, Project proyect,
 			SecUsers secUsers, CatLocation catLocation) {
 		this.id = id;
 		this.proyect = proyect;
@@ -31,11 +31,11 @@ public class CatLocationUser implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Proyect getProyect() {
+	public Project getProyect() {
 		return this.proyect;
 	}
 
-	public void setProyect(Proyect proyect) {
+	public void setProyect(Project proyect) {
 		this.proyect = proyect;
 	}
 

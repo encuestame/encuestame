@@ -30,7 +30,7 @@
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.Proyect" />
+            <one-to-many class="org.jp.core.persistence.pojo.Project" />
         </set>
         <set name="catLocations" inverse="true">
             <key>

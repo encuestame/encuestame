@@ -26,7 +26,7 @@
             <key>
                 <column name="group_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectGroup" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectGroup" />
         </set>
         <set name="secGroupPermissions" inverse="true">
             <key>

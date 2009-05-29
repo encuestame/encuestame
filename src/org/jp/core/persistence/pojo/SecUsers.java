@@ -20,7 +20,7 @@ public class SecUsers implements java.io.Serializable {
 	private String inviteCode;
 	private Date dateNew;
 	private String publisher;
-	private Set<ProyectUser> proyectUsers = new HashSet<ProyectUser>(0);
+	private Set<ProjectUser> proyectUsers = new HashSet<ProjectUser>(0);
 	private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
 	private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
 			0);
@@ -49,7 +49,7 @@ public class SecUsers implements java.io.Serializable {
 			String password, String passwordClean, Date birthDate,
 			String address, String nocId, boolean status, String inviteCode,
 			String position, Date dateNew, String publisher,
-			Set<ProyectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
+			Set<ProjectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
 			Set<SecUserPermission> secUserPermissions,
 			Set<CatLocationUser> catLocationUsers,
 			Set<SurveyResultMod> surveyResultMods,
@@ -144,11 +144,11 @@ public class SecUsers implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
-	public Set<ProyectUser> getProyectUsers() {
+	public Set<ProjectUser> getProyectUsers() {
 		return this.proyectUsers;
 	}
 
-	public void setProyectUsers(Set<ProyectUser> proyectUsers) {
+	public void setProyectUsers(Set<ProjectUser> proyectUsers) {
 		this.proyectUsers = proyectUsers;
 	}
 

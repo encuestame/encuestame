@@ -45,7 +45,7 @@
             <key>
                 <column name="tid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectLocation" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectLocation" />
         </set>
         <set name="surveyLocations" inverse="true">
             <key>

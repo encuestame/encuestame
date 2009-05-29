@@ -22,7 +22,7 @@ public class CatLocation implements java.io.Serializable {
 	private String topographySheet;
 	private Set<SurveyQuestionDependency> surveyQuestionDependencies = new HashSet<SurveyQuestionDependency>(
 			0);
-	private Set<ProyectLocation> proyectLocations = new HashSet<ProyectLocation>(
+	private Set<ProjectLocation> proyectLocations = new HashSet<ProjectLocation>(
 			0);
 	private Set<SurveyLocation> surveyLocations = new HashSet<SurveyLocation>(0);
 	private Set<SurveyType> surveyTypes = new HashSet<SurveyType>(0);
@@ -48,7 +48,7 @@ public class CatLocation implements java.io.Serializable {
 			CatState catState, String description, int level, String active,
 			Integer govId, Float lat, Float lng, String topographySheet,
 			Set<SurveyQuestionDependency> surveyQuestionDependencies,
-			Set<ProyectLocation> proyectLocations,
+			Set<ProjectLocation> proyectLocations,
 			Set<SurveyLocation> surveyLocations, Set<SurveyType> surveyTypes,
 			Set<CatLocationUser> catLocationUsers, Set<Surveys> surveyses,
 			Set<SurveySection> surveySections) {
@@ -160,11 +160,11 @@ public class CatLocation implements java.io.Serializable {
 		this.surveyQuestionDependencies = surveyQuestionDependencies;
 	}
 
-	public Set<ProyectLocation> getProyectLocations() {
+	public Set<ProjectLocation> getProyectLocations() {
 		return this.proyectLocations;
 	}
 
-	public void setProyectLocations(Set<ProyectLocation> proyectLocations) {
+	public void setProyectLocations(Set<ProjectLocation> proyectLocations) {
 		this.proyectLocations = proyectLocations;
 	}
 

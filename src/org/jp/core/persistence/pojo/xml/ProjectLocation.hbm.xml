@@ -3,8 +3,8 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.ProyectLocation" table="proyect_location">
-        <composite-id name="id" class="org.jp.core.persistence.pojo.ProyectLocationId">
+    <class name="org.jp.core.persistence.pojo.ProjectLocation" table="project_location">
+        <composite-id name="id" class="org.jp.core.persistence.pojo.ProjectLocationId">
             <key-property name="tid" type="int">
                 <column name="tid" />
             </key-property>
@@ -12,7 +12,7 @@
                 <column name="proyect_id" />
             </key-property>
         </composite-id>
-        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Proyect" update="false" insert="false" fetch="select">
+        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Project" update="false" insert="false" fetch="select">
             <column name="proyect_id" not-null="true" />
         </many-to-one>
         <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" update="false" insert="false" fetch="select">

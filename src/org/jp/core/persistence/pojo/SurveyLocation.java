@@ -8,7 +8,7 @@ package org.jp.core.persistence.pojo;
 public class SurveyLocation implements java.io.Serializable {
 
 	private SurveyLocationId id;
-	private Proyect proyect;
+	private Project proyect;
 	private CatLocation catLocation;
 	private int from;
 	private int to;
@@ -18,7 +18,7 @@ public class SurveyLocation implements java.io.Serializable {
 	public SurveyLocation() {
 	}
 
-	public SurveyLocation(SurveyLocationId id, Proyect proyect,
+	public SurveyLocation(SurveyLocationId id, Project proyect,
 			CatLocation catLocation, int from, int to) {
 		this.id = id;
 		this.proyect = proyect;
@@ -27,7 +27,7 @@ public class SurveyLocation implements java.io.Serializable {
 		this.to = to;
 	}
 
-	public SurveyLocation(SurveyLocationId id, Proyect proyect,
+	public SurveyLocation(SurveyLocationId id, Project proyect,
 			CatLocation catLocation, int from, int to, Integer captured,
 			Integer reported) {
 		this.id = id;
@@ -47,11 +47,11 @@ public class SurveyLocation implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Proyect getProyect() {
+	public Project getProyect() {
 		return this.proyect;
 	}
 
-	public void setProyect(Proyect proyect) {
+	public void setProyect(Project proyect) {
 		this.proyect = proyect;
 	}
 

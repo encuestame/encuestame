@@ -3,7 +3,7 @@ package org.jp.core.persistence.dao;
 import org.hibernate.HibernateException;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.jp.core.persistence.dao.imp.IProyect;
-import org.jp.core.persistence.pojo.Proyect;
+import org.jp.core.persistence.pojo.Project;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -35,7 +35,7 @@ public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 	 * @param proyect
 	 * @throws HibernateException
 	 */
-	public void createProyect(Proyect proyect) throws HibernateException {
+	public void createProyect(Project proyect) throws HibernateException {
 		getHibernateTemplate().save(proyect);
 	}
 
@@ -45,7 +45,7 @@ public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 	 * @param proyect
 	 * @throws HibernateExceptio
 	 */
-	public void updateProyect(Proyect proyect) throws HibernateException {
+	public void updateProyect(Project proyect) throws HibernateException {
 		getHibernateTemplate().update(proyect);
 
 	}
@@ -56,7 +56,7 @@ public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 	 * @param proyect
 	 * @throws HibernateException
 	 */
-	public void deleteProyect(Proyect proyect) throws HibernateException {
+	public void deleteProyect(Project proyect) throws HibernateException {
 		getHibernateTemplate().delete(proyect);
 
 	}

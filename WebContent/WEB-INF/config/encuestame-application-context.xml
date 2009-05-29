@@ -41,6 +41,13 @@
 		</property>
 	</bean>
 
+
+	<bean id="proyectDaoImp" class="org.jp.core.persistence.dao.ProyectDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
 	<bean id="catStateDaoImp" class="org.jp.core.persistence.dao.CatStateDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
@@ -97,6 +104,12 @@
 	<bean id="dataService" class="org.jp.core.service.DataService">
 		<property name="stateDao">
 			<ref bean="catStateDaoImp"></ref>
+		</property>
+		<property name="proyectDaoImp">
+			<ref bean="proyectDaoImp"></ref>
+		</property>
+		<property name="catLocationDaoImp">
+			<ref bean="catLocationDaoImp"></ref>
 		</property>
 	</bean>
 

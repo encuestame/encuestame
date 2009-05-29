@@ -30,10 +30,8 @@ import org.jp.core.persistence.dao.ProyectDaoImp;
 public class DataService extends MasterService implements IDataService {
 	
 	private CatStateDaoImp stateDao;
-	private CatLocationDaoImp locateDao;
-	private ProyectDaoImp proyectDao;
-
-	
+	private CatLocationDaoImp catLocationDaoImp;
+	private ProyectDaoImp proyectDaoImp;
 	
 	
 	
@@ -54,32 +52,34 @@ public class DataService extends MasterService implements IDataService {
 	}
 
 	/**
-	 * @return the locateDao
+	 * @return the catLocationDaoImp
 	 */
-	public CatLocationDaoImp getLocateDao() {
-		return locateDao;
+	public CatLocationDaoImp getCatLocationDaoImp() {
+		return catLocationDaoImp;
 	}
 
 	/**
-	 * @param locateDao the locateDao to set
+	 * @param catLocationDaoImp the catLocationDaoImp to set
 	 */
-	public void setLocateDao(CatLocationDaoImp locateDao) {
-		this.locateDao = locateDao;
+	public void setCatLocationDaoImp(CatLocationDaoImp catLocationDaoImp) {
+		this.catLocationDaoImp = catLocationDaoImp;
 	}
 
 	/**
-	 * @return the proyectDao
+	 * @return the proyectDaoImp
 	 */
-	public ProyectDaoImp getProyectDao() {
-		return proyectDao;
+	public ProyectDaoImp getProyectDaoImp() {
+		return proyectDaoImp;
 	}
 
 	/**
-	 * @param proyectDao the proyectDao to set
+	 * @param proyectDaoImp the proyectDaoImp to set
 	 */
-	public void setProyectDao(ProyectDaoImp proyectDao) {
-		this.proyectDao = proyectDao;
+	public void setProyectDaoImp(ProyectDaoImp proyectDaoImp) {
+		this.proyectDaoImp = proyectDaoImp;
 	}
+
+	
 	
 	
 	

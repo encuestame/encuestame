@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.Proyect" table="proyect">
+    <class name="org.jp.core.persistence.pojo.Project" table="project">
         <id name="proyectId" type="java.lang.Integer">
             <column name="proyect_id" />
             <generator class="identity" />
@@ -33,7 +32,7 @@
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectLocation" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectLocation" />
         </set>
         <set name="surveyses" inverse="true">
             <key>
@@ -45,7 +44,7 @@
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectGroup" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectGroup" />
         </set>
         <set name="surveyLocations" inverse="true">
             <key>
@@ -57,7 +56,7 @@
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectTypeSurvey" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectTypeSurvey" />
         </set>
         <set name="catLocationUsers" inverse="true">
             <key>
@@ -69,7 +68,7 @@
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectUser" />
         </set>
     </class>
 </hibernate-mapping>

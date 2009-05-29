@@ -35,7 +35,7 @@
             <key>
                 <column name="uid" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProyectUser" />
+            <one-to-many class="org.jp.core.persistence.pojo.ProjectUser" />
         </set>
         <set name="secGroupUsers" cascade="delete" inverse="true">
             <key>

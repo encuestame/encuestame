@@ -15,7 +15,7 @@ public class CatState implements java.io.Serializable {
 	private String image;
 	private Set<Surveys> surveyses = new HashSet<Surveys>(0);
 	private Set<SecUsers> secUserses = new HashSet<SecUsers>(0);
-	private Set<Proyect> proyects = new HashSet<Proyect>(0);
+	private Set<Project> proyects = new HashSet<Project>(0);
 	private Set<CatLocation> catLocations = new HashSet<CatLocation>(0);
 	private Set<Questions> questionses = new HashSet<Questions>(0);
 
@@ -23,7 +23,7 @@ public class CatState implements java.io.Serializable {
 	}
 
 	public CatState(String descState, String image, Set<Surveys> surveyses,
-			Set<SecUsers> secUserses, Set<Proyect> proyects,
+			Set<SecUsers> secUserses, Set<Project> proyects,
 			Set<CatLocation> catLocations, Set<Questions> questionses) {
 		this.descState = descState;
 		this.image = image;
@@ -74,11 +74,11 @@ public class CatState implements java.io.Serializable {
 		this.secUserses = secUserses;
 	}
 
-	public Set<Proyect> getProyects() {
+	public Set<Project> getProyects() {
 		return this.proyects;
 	}
 
-	public void setProyects(Set<Proyect> proyects) {
+	public void setProyects(Set<Project> proyects) {
 		this.proyects = proyects;
 	}
 

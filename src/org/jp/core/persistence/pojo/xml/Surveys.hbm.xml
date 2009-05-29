@@ -8,7 +8,7 @@
             <column name="sid" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Proyect" fetch="select">
+        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Project" fetch="select">
             <column name="proyect_id" not-null="true" />
         </many-to-one>
         <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" fetch="select">

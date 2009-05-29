@@ -25,7 +25,7 @@ public class SurveyType implements java.io.Serializable {
 	private Set<Surveys> surveyses = new HashSet<Surveys>(0);
 	private Set<SurveyQuestionDependency> surveyQuestionDependencies = new HashSet<SurveyQuestionDependency>(
 			0);
-	private Set<ProyectTypeSurvey> proyectTypeSurveies = new HashSet<ProyectTypeSurvey>(
+	private Set<ProjectTypeSurvey> proyectTypeSurveies = new HashSet<ProjectTypeSurvey>(
 			0);
 	private Set<SurveySectionType> surveySectionTypes = new HashSet<SurveySectionType>(
 			0);
@@ -44,7 +44,7 @@ public class SurveyType implements java.io.Serializable {
 			String redirectPage, Integer numberCopy, String hash,
 			String public_, Set<Surveys> surveyses,
 			Set<SurveyQuestionDependency> surveyQuestionDependencies,
-			Set<ProyectTypeSurvey> proyectTypeSurveies,
+			Set<ProjectTypeSurvey> proyectTypeSurveies,
 			Set<SurveySectionType> surveySectionTypes,
 			Set<SurveyDetail> surveyDetails) {
 		this.catLocation = catLocation;
@@ -168,12 +168,12 @@ public class SurveyType implements java.io.Serializable {
 		this.surveyQuestionDependencies = surveyQuestionDependencies;
 	}
 
-	public Set<ProyectTypeSurvey> getProyectTypeSurveies() {
+	public Set<ProjectTypeSurvey> getProyectTypeSurveies() {
 		return this.proyectTypeSurveies;
 	}
 
 	public void setProyectTypeSurveies(
-			Set<ProyectTypeSurvey> proyectTypeSurveies) {
+			Set<ProjectTypeSurvey> proyectTypeSurveies) {
 		this.proyectTypeSurveies = proyectTypeSurveies;
 	}
 

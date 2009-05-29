@@ -15,7 +15,7 @@ public class SecGroups implements java.io.Serializable {
 	private String desInfo;
 	private int idState;
 	private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
-	private Set<ProyectGroup> proyectGroups = new HashSet<ProyectGroup>(0);
+	private Set<ProjectGroup> proyectGroups = new HashSet<ProjectGroup>(0);
 	private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(
 			0);
 
@@ -27,7 +27,7 @@ public class SecGroups implements java.io.Serializable {
 	}
 
 	public SecGroups(String name, String desInfo, int idState,
-			Set<SecGroupUser> secGroupUsers, Set<ProyectGroup> proyectGroups,
+			Set<SecGroupUser> secGroupUsers, Set<ProjectGroup> proyectGroups,
 			Set<SecGroupPermission> secGroupPermissions) {
 		this.name = name;
 		this.desInfo = desInfo;
@@ -77,11 +77,11 @@ public class SecGroups implements java.io.Serializable {
 		this.secGroupUsers = secGroupUsers;
 	}
 
-	public Set<ProyectGroup> getProyectGroups() {
+	public Set<ProjectGroup> getProyectGroups() {
 		return this.proyectGroups;
 	}
 
-	public void setProyectGroups(Set<ProyectGroup> proyectGroups) {
+	public void setProyectGroups(Set<ProjectGroup> proyectGroups) {
 		this.proyectGroups = proyectGroups;
 	}
 

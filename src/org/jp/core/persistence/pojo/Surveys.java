@@ -12,7 +12,7 @@ import java.util.Set;
 public class Surveys implements java.io.Serializable {
 
 	private int sid;
-	private Proyect proyect;
+	private Project proyect;
 	private CatLocation catLocation;
 	private SurveyType surveyType;
 	private SecUsers secUsers;
@@ -29,7 +29,7 @@ public class Surveys implements java.io.Serializable {
 	public Surveys() {
 	}
 
-	public Surveys(int sid, Proyect proyect, CatLocation catLocation,
+	public Surveys(int sid, Project proyect, CatLocation catLocation,
 			SurveyType surveyType, SecUsers secUsers, CatState catState,
 			int ticket, Date startDate, Date endDate) {
 		this.sid = sid;
@@ -43,7 +43,7 @@ public class Surveys implements java.io.Serializable {
 		this.endDate = endDate;
 	}
 
-	public Surveys(int sid, Proyect proyect, CatLocation catLocation,
+	public Surveys(int sid, Project proyect, CatLocation catLocation,
 			SurveyType surveyType, SecUsers secUsers, CatState catState,
 			int ticket, Date startDate, Date endDate, Date dateInterview,
 			String public_, String complete, Set<SurveyResult> surveyResults,
@@ -72,11 +72,11 @@ public class Surveys implements java.io.Serializable {
 		this.sid = sid;
 	}
 
-	public Proyect getProyect() {
+	public Project getProyect() {
 		return this.proyect;
 	}
 
-	public void setProyect(Proyect proyect) {
+	public void setProyect(Project proyect) {
 		this.proyect = proyect;
 	}
 
