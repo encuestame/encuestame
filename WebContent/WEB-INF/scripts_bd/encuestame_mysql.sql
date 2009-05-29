@@ -1,8 +1,8 @@
 /*
 SQLyog Enterprise - MySQL GUI v6.07
-Host - 5.1.34-community : Database - encuestame_core
+Host - 5.1.32-community-log : Database - encuestame_core
 *********************************************************************
-Server version : 5.1.34-community
+Server version : 5.1.32-community-log
 */
 
 /*!40101 SET NAMES utf8 */;
@@ -21,57 +21,45 @@ USE `encuestame_core`;
 DROP TABLE IF EXISTS `cat_location`;
 
 CREATE TABLE `cat_location` (
-  `tid` int(11) NOT NULL,
+  `locate_id` int(11) NOT NULL,
   `tidtype` char(10) NOT NULL,
   `description` varchar(255) NOT NULL DEFAULT '',
   `level` int(5) NOT NULL,
-  `active` enum('S','N') NOT NULL DEFAULT 'S',
-  `id_state` int(11) NOT NULL DEFAULT '2',
-  `gov_id` int(4) DEFAULT NULL,
+  `active` enum('S','N') DEFAULT NULL,
   `lat` float(10,6) DEFAULT NULL,
   `lng` float(10,6) DEFAULT NULL,
-  `topography_sheet` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`tid`),
-  KEY `Ref5137` (`tidtype`),
-  KEY `id_estado` (`id_state`),
-  CONSTRAINT `FK_cat_location` FOREIGN KEY (`tidtype`) REFERENCES `cat_location_type` (`tidtype`)
+  PRIMARY KEY (`locate_id`),
+  KEY `Ref5137` (`tidtype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `cat_location` */
-
-insert  into `cat_location`(`tid`,`tidtype`,`description`,`level`,`active`,`id_state`,`gov_id`,`lat`,`lng`,`topography_sheet`) values (1,'1','Region Atlantica',0,'S',1,1,1.000000,1.000000,'1'),(2,'1','Región Norte',0,'S',1,1,1.000000,1.000000,'1'),(3,'1','Región Pacífico',0,'S',1,1,1.000000,1.000000,'1'),(4,'2','Managua',3,'S',2,NULL,NULL,NULL,NULL),(5,'3','El Crucero',4,'S',2,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `cat_location_type` */
 
 DROP TABLE IF EXISTS `cat_location_type`;
 
 CREATE TABLE `cat_location_type` (
-  `tidtype` char(10) NOT NULL,
+  `loc_id_type` char(10) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `level` int(4) DEFAULT NULL,
-  PRIMARY KEY (`tidtype`)
+  PRIMARY KEY (`loc_id_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `cat_location_type` */
 
-insert  into `cat_location_type`(`tidtype`,`description`,`level`) values ('1','Región',0),('2','Departamento',1),('3','Municipio',2),('4','Distrito',3);
+insert  into `cat_location_type`(`loc_id_type`,`description`,`level`) values ('1','Región',0),('2','Departamento',1),('3','Municipio',2),('4','Distrito',3);
 
 /*Table structure for table `cat_location_user` */
 
 DROP TABLE IF EXISTS `cat_location_user`;
 
 CREATE TABLE `cat_location_user` (
-  `tid` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
-  `id_state` int(11) NOT NULL,
-  PRIMARY KEY (`tid`,`proyect_id`,`uid`),
-  KEY `tid` (`tid`,`proyect_id`,`uid`,`id_state`),
-  KEY `id_estado` (`id_state`),
+  `state` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`location_id`,`uid`),
+  KEY `tid` (`location_id`,`uid`),
   KEY `uid` (`uid`),
-  KEY `proyect_id` (`proyect_id`),
-  CONSTRAINT `cat_location_user_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_location` (`id_state`),
-  CONSTRAINT `cat_location_user_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`),
   CONSTRAINT `FK_cat_location_user` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -92,81 +80,29 @@ CREATE TABLE `cat_state` (
 
 insert  into `cat_state`(`id_state`,`desc_state`,`image`) values (1,'Activo','activo'),(2,'Inactivo','inactivo'),(3,'Pendiente','pendiente');
 
-/*Table structure for table `error_reports` */
+/*Table structure for table `project` */
 
-DROP TABLE IF EXISTS `error_reports`;
+DROP TABLE IF EXISTS `project`;
 
-CREATE TABLE `error_reports` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `domain` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `page_url` text CHARACTER SET latin1,
-  `reported_by` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `reported_on` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fixed_by` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `fixed_on` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `time_taken` varchar(20) CHARACTER SET latin1 DEFAULT NULL,
-  `location` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `category` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `is_browser` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
-  `cause` text CHARACTER SET latin1,
-  `solution` text CHARACTER SET latin1,
-  `severity` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
-  `incorrect_solution` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
-  `owned_by_us` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
-  `reporter_comments` text CHARACTER SET latin1,
-  `error_details` text CHARACTER SET latin1,
-  `fixer_comments` text CHARACTER SET latin1,
-  `is_fixed` varchar(10) CHARACTER SET latin1 DEFAULT 'false',
-  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `error_reports` */
-
-/*Table structure for table `ip_track` */
-
-DROP TABLE IF EXISTS `ip_track`;
-
-CREATE TABLE `ip_track` (
-  `sid` int(11) NOT NULL DEFAULT '0',
-  `ip` varchar(15) DEFAULT NULL,
-  `completed` int(11) NOT NULL DEFAULT '0',
-  `fecha_ingreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `uid` int(11) NOT NULL,
-  PRIMARY KEY (`sid`,`uid`),
-  UNIQUE KEY `sid` (`sid`,`uid`),
-  KEY `Ref3717` (`sid`),
-  KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `ip_track` */
-
-/*Table structure for table `proyect` */
-
-DROP TABLE IF EXISTS `proyect`;
-
-CREATE TABLE `proyect` (
+CREATE TABLE `project` (
   `proyect_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) NOT NULL DEFAULT '',
   `info` text NOT NULL,
   `date_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_state` int(11) NOT NULL,
-  `logo` blob,
-  `header` varchar(255) DEFAULT NULL,
-  `range` varchar(255) DEFAULT NULL,
+  `date_finish` datetime DEFAULT NULL,
   PRIMARY KEY (`proyect_id`),
   KEY `id_estado` (`id_state`),
-  CONSTRAINT `proyect_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
+  CONSTRAINT `project_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `proyect` */
+/*Data for the table `project` */
 
-/*Table structure for table `proyect_group` */
+/*Table structure for table `project_group` */
 
-DROP TABLE IF EXISTS `proyect_group`;
+DROP TABLE IF EXISTS `project_group`;
 
-CREATE TABLE `proyect_group` (
+CREATE TABLE `project_group` (
   `group_id` int(11) NOT NULL,
   `proyect_id` int(11) NOT NULL,
   `fecha_ingreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -174,62 +110,58 @@ CREATE TABLE `proyect_group` (
   KEY `group_id` (`group_id`,`proyect_id`),
   KEY `group_id_2` (`group_id`),
   KEY `proyect_id` (`proyect_id`),
-  CONSTRAINT `proyect_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`),
-  CONSTRAINT `proyect_group_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`)
+  CONSTRAINT `project_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`),
+  CONSTRAINT `project_group_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `proyect_group` */
+/*Data for the table `project_group` */
 
-/*Table structure for table `proyect_location` */
+/*Table structure for table `project_location` */
 
-DROP TABLE IF EXISTS `proyect_location`;
+DROP TABLE IF EXISTS `project_location`;
 
-CREATE TABLE `proyect_location` (
-  `tid` int(11) NOT NULL,
+CREATE TABLE `project_location` (
+  `group_id` int(11) NOT NULL,
   `proyect_id` int(11) NOT NULL,
-  `id_estado` int(11) NOT NULL,
-  PRIMARY KEY (`tid`,`proyect_id`),
+  `id_state` int(11) NOT NULL,
+  PRIMARY KEY (`group_id`,`proyect_id`),
   KEY `proyect_id` (`proyect_id`),
-  CONSTRAINT `proyect_location_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `cat_location` (`tid`),
-  CONSTRAINT `proyect_location_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`)
+  KEY `group_id` (`group_id`),
+  CONSTRAINT `project_location_fk` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`),
+  CONSTRAINT `project_location_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `proyect_location` */
+/*Data for the table `project_location` */
 
-/*Table structure for table `proyect_type_survey` */
+/*Table structure for table `project_user` */
 
-DROP TABLE IF EXISTS `proyect_type_survey`;
+DROP TABLE IF EXISTS `project_user`;
 
-CREATE TABLE `proyect_type_survey` (
-  `proyect_id` int(11) NOT NULL,
-  `stid` int(11) NOT NULL,
-  `state` tinyint(1) NOT NULL,
-  PRIMARY KEY (`proyect_id`,`stid`),
-  KEY `stid` (`stid`),
-  KEY `proyect_id` (`proyect_id`),
-  KEY `proyect_id_2` (`proyect_id`),
-  CONSTRAINT `proyect_type_survey_ibfk_1` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`),
-  CONSTRAINT `proyect_type_survey_ibfk_2` FOREIGN KEY (`stid`) REFERENCES `survey_type` (`stid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `proyect_type_survey` */
-
-/*Table structure for table `proyect_user` */
-
-DROP TABLE IF EXISTS `proyect_user`;
-
-CREATE TABLE `proyect_user` (
+CREATE TABLE `project_user` (
   `uid` int(11) NOT NULL,
   `proyect_id` int(11) NOT NULL,
   `date_new` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`,`proyect_id`),
   KEY `uid` (`uid`,`proyect_id`),
   KEY `siteid` (`proyect_id`),
-  CONSTRAINT `proyect_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`),
-  CONSTRAINT `proyect_user_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`)
+  CONSTRAINT `project_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`),
+  CONSTRAINT `project_user_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `proyect_user` */
+/*Data for the table `project_user` */
+
+/*Table structure for table `projet_cat_location` */
+
+DROP TABLE IF EXISTS `projet_cat_location`;
+
+CREATE TABLE `projet_cat_location` (
+  `project_id` int(11) NOT NULL,
+  `locate_id` int(11) NOT NULL,
+  `state` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`locate_id`,`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `projet_cat_location` */
 
 /*Table structure for table `question_colettion` */
 
@@ -246,39 +178,6 @@ CREATE TABLE `question_colettion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `question_colettion` */
-
-/*Table structure for table `question_validation` */
-
-DROP TABLE IF EXISTS `question_validation`;
-
-CREATE TABLE `question_validation` (
-  `id_validation` int(11) NOT NULL AUTO_INCREMENT,
-  `qid` int(11) DEFAULT NULL,
-  `id_type_val` int(11) DEFAULT NULL,
-  `params` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_validation`),
-  KEY `id_type_val` (`id_type_val`),
-  KEY `qid` (`qid`),
-  CONSTRAINT `FK_question_validation` FOREIGN KEY (`id_type_val`) REFERENCES `question_validation_type` (`id_type_val`),
-  CONSTRAINT `FK_question_validation1` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `question_validation` */
-
-/*Table structure for table `question_validation_type` */
-
-DROP TABLE IF EXISTS `question_validation_type`;
-
-CREATE TABLE `question_validation_type` (
-  `id_type_val` int(11) NOT NULL,
-  `des_val` varchar(255) DEFAULT NULL,
-  `param` enum('S','N','A') DEFAULT NULL,
-  `help` varchar(255) DEFAULT NULL,
-  `rules` varbinary(255) DEFAULT NULL,
-  PRIMARY KEY (`id_type_val`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `question_validation_type` */
 
 /*Table structure for table `questions` */
 
@@ -313,37 +212,6 @@ CREATE TABLE `questions_answers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `questions_answers` */
-
-/*Table structure for table `questions_dependence` */
-
-DROP TABLE IF EXISTS `questions_dependence`;
-
-CREATE TABLE `questions_dependence` (
-  `qid` int(11) NOT NULL,
-  `label_id` int(11) NOT NULL,
-  `conditional` varchar(10) DEFAULT NULL,
-  `dependence_start` int(11) DEFAULT NULL,
-  `dependence_finalize` int(11) DEFAULT NULL,
-  PRIMARY KEY (`qid`,`label_id`),
-  KEY `FK_questions_dependence` (`label_id`),
-  CONSTRAINT `FK_questions_dependence` FOREIGN KEY (`label_id`) REFERENCES `questions_labels` (`label_id`),
-  CONSTRAINT `FK_questions_dependence_Qid` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
-/*Data for the table `questions_dependence` */
-
-/*Table structure for table `questions_labels` */
-
-DROP TABLE IF EXISTS `questions_labels`;
-
-CREATE TABLE `questions_labels` (
-  `label_id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `label_order` int(11) DEFAULT NULL,
-  PRIMARY KEY (`label_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
-/*Data for the table `questions_labels` */
 
 /*Table structure for table `questions_patron` */
 
@@ -504,81 +372,94 @@ CREATE TABLE `sec_users` (
 
 /*Data for the table `sec_users` */
 
-insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herreraa','juan@local.com','jpicado','k5psZT4pPLI6olP+K9gmJTWKpz0jO5YPonapNw/2ekJnqdohEPu5IoEqc6ESSZ9f',1,NULL,'2009-05-25 13:35:36','S','N','N'),(2,'Pavel Martinezss','minibota@hotmail.com','pavel','B+s1MLtO+GdeP6brkeo1dEXvaXtlxpRn64nuDL2MFJub+uZy4dijsrzXlJR+mYJO',1,NULL,'2009-05-22 20:00:04','S','N','N');
+insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herreraa','juan@local.com','jpicado','u8cSYZmDmbqXpVk0jaBxhuQzeSyrNYBFTGwuFvfClrnusZqP7UOEsL82AFYQl3a/',1,NULL,'2009-05-29 12:26:56','S','N','N'),(2,'Pavel Martinezss','minibota@hotmail.com','pavel','u8cSYZmDmbqXpVk0jaBxhuQzeSyrNYBFTGwuFvfClrnusZqP7UOEsL82AFYQl3a/',1,NULL,'2009-05-29 12:26:41','S','N','N');
 
 /*Table structure for table `survey_detail` */
 
 DROP TABLE IF EXISTS `survey_detail`;
 
 CREATE TABLE `survey_detail` (
-  `id_sd` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sd` bigint(20) NOT NULL,
   `qid` int(11) NOT NULL,
+  `position` int(11) DEFAULT NULL,
+  `nopreg` varchar(10) DEFAULT NULL,
+  `id_sid_format` int(11) NOT NULL,
   `ssid` int(11) NOT NULL,
-  `stid` int(11) NOT NULL,
-  `position` int(11) DEFAULT '0',
-  `noquestion` float NOT NULL DEFAULT '0',
-  `template` varchar(100) DEFAULT NULL,
-  `id_patron` int(11) DEFAULT '7',
-  PRIMARY KEY (`id_sd`,`qid`,`ssid`,`stid`),
-  KEY `qid` (`qid`),
-  KEY `ssid` (`ssid`),
-  KEY `stid` (`stid`),
-  KEY `id_patron` (`id_patron`),
-  CONSTRAINT `FK_survey_detail_patron` FOREIGN KEY (`id_patron`) REFERENCES `questions_patron` (`id_patron`),
-  CONSTRAINT `FK_survey_detail_question` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
-  CONSTRAINT `FK_survey_detail_type` FOREIGN KEY (`stid`) REFERENCES `survey_type` (`stid`),
-  CONSTRAINT `survey_detail_ibfk_1` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`)
+  PRIMARY KEY (`id_sd`,`qid`,`id_sid_format`,`ssid`),
+  KEY `FK_survey_detail` (`id_sid_format`),
+  KEY `FK_survey_detail_qid` (`qid`),
+  KEY `FK_survey_detail_ssid` (`ssid`),
+  CONSTRAINT `FK_survey_detail_ssid` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`),
+  CONSTRAINT `FK_survey_detail` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
+  CONSTRAINT `FK_survey_detail_qid` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `survey_detail` */
 
-/*Table structure for table `survey_location` */
+/*Table structure for table `survey_format` */
 
-DROP TABLE IF EXISTS `survey_location`;
+DROP TABLE IF EXISTS `survey_format`;
 
-CREATE TABLE `survey_location` (
-  `stid` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL DEFAULT '1',
-  `tid` int(11) NOT NULL,
-  `from` int(11) NOT NULL,
-  `to` int(11) NOT NULL,
-  `captured` int(11) DEFAULT NULL,
-  `reported` int(11) DEFAULT NULL,
-  PRIMARY KEY (`stid`,`proyect_id`,`tid`),
-  KEY `Ref4860` (`stid`),
-  KEY `Ref5061` (`tid`),
-  KEY `siteid` (`proyect_id`),
-  CONSTRAINT `survey_location_ibfk_1` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`),
-  CONSTRAINT `survey_location_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `cat_location` (`tid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `survey_format` (
+  `id_sid_format` int(11) NOT NULL,
+  `name` varchar(60) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `survey_location` */
+/*Data for the table `survey_format` */
 
-/*Table structure for table `survey_question_dependency` */
+/*Table structure for table `survey_format_group` */
 
-DROP TABLE IF EXISTS `survey_question_dependency`;
+DROP TABLE IF EXISTS `survey_format_group`;
 
-CREATE TABLE `survey_question_dependency` (
-  `qid` int(11) NOT NULL,
-  `ssid` int(11) NOT NULL,
-  `stid` int(11) NOT NULL,
-  `patron_data` varchar(100) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `patron_limit` float NOT NULL,
-  `dep_home` float DEFAULT NULL,
-  `patron_option` enum('I','D') COLLATE utf8_unicode_ci NOT NULL,
-  `qid_lim` int(11) DEFAULT NULL,
-  `id_state` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`qid`,`ssid`,`stid`),
-  KEY `ssid` (`ssid`),
-  KEY `stid` (`stid`),
-  KEY `id_state` (`id_state`),
-  CONSTRAINT `survey_question_dependency_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
-  CONSTRAINT `survey_question_dependency_ibfk_2` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`),
-  CONSTRAINT `survey_question_dependency_ibfk_3` FOREIGN KEY (`stid`) REFERENCES `survey_type` (`stid`),
-  CONSTRAINT `survey_question_dependency_ibfk_4` FOREIGN KEY (`id_state`) REFERENCES `cat_location` (`id_state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `survey_format_group` (
+  `id_sid_format` int(11) NOT NULL,
+  `sg_id` int(11) NOT NULL,
+  `state` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`sg_id`,`id_sid_format`),
+  KEY `FK_survey_format_group` (`id_sid_format`),
+  KEY `sg_id` (`sg_id`),
+  CONSTRAINT `survey_format_group_fk` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`),
+  CONSTRAINT `FK_survey_format_group` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `survey_question_dependency` */
+/*Data for the table `survey_format_group` */
+
+/*Table structure for table `survey_group` */
+
+DROP TABLE IF EXISTS `survey_group`;
+
+CREATE TABLE `survey_group` (
+  `sg_id` int(11) NOT NULL,
+  `group_name` varchar(60) DEFAULT NULL,
+  `date_create` datetime DEFAULT NULL,
+  `id_state` int(11) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  `id_sid_format` int(11) NOT NULL,
+  PRIMARY KEY (`sg_id`),
+  KEY `id_sid_format` (`id_sid_format`),
+  KEY `id_state` (`id_state`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `survey_group` */
+
+/*Table structure for table `survey_group_project` */
+
+DROP TABLE IF EXISTS `survey_group_project`;
+
+CREATE TABLE `survey_group_project` (
+  `sg_id` int(11) NOT NULL,
+  `proyect_id` int(11) NOT NULL,
+  `state` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`sg_id`,`proyect_id`),
+  KEY `proyect_id` (`proyect_id`),
+  KEY `sg_id` (`sg_id`),
+  CONSTRAINT `survey_group_project_fk1` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`),
+  CONSTRAINT `survey_group_project_fk` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `survey_group_project` */
 
 /*Table structure for table `survey_result` */
 
@@ -587,17 +468,12 @@ DROP TABLE IF EXISTS `survey_result`;
 CREATE TABLE `survey_result` (
   `rid` bigint(35) NOT NULL AUTO_INCREMENT,
   `qid` int(11) NOT NULL,
-  `ssid` int(11) NOT NULL,
-  `sid` int(11) NOT NULL,
+  `sid` bigint(20) NOT NULL,
   `resp` text NOT NULL,
   PRIMARY KEY (`rid`),
-  KEY `qid` (`qid`,`ssid`,`sid`),
-  KEY `ssid` (`ssid`),
+  KEY `qid` (`qid`,`sid`),
   KEY `sid` (`sid`),
-  KEY `rid` (`rid`),
-  CONSTRAINT `survey_result_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
-  CONSTRAINT `survey_result_ibfk_2` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`),
-  CONSTRAINT `survey_result_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`)
+  KEY `rid` (`rid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `survey_result` */
@@ -608,7 +484,7 @@ DROP TABLE IF EXISTS `survey_result_mod`;
 
 CREATE TABLE `survey_result_mod` (
   `id_mod` int(11) NOT NULL AUTO_INCREMENT,
-  `rid` bigint(11) NOT NULL DEFAULT '0',
+  `rid` bigint(35) NOT NULL DEFAULT '0',
   `previous_response` longtext NOT NULL,
   `new_response` longtext,
   `mod_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -629,35 +505,14 @@ DROP TABLE IF EXISTS `survey_section`;
 CREATE TABLE `survey_section` (
   `ssid` int(11) NOT NULL AUTO_INCREMENT,
   `desc_section` varchar(255) DEFAULT NULL,
-  `level` int(11) NOT NULL,
-  `template` varchar(100) NOT NULL,
-  `version` int(11) NOT NULL DEFAULT '1',
   `id_state` int(11) NOT NULL DEFAULT '2',
   PRIMARY KEY (`ssid`),
-  KEY `ssid` (`ssid`,`version`),
+  KEY `ssid` (`ssid`),
   KEY `id_estado` (`id_state`),
-  KEY `version` (`version`),
-  CONSTRAINT `survey_section_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_location` (`id_state`)
+  CONSTRAINT `FK_survey_section` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `survey_section` */
-
-/*Table structure for table `survey_section_type` */
-
-DROP TABLE IF EXISTS `survey_section_type`;
-
-CREATE TABLE `survey_section_type` (
-  `stid` int(11) NOT NULL,
-  `ssid` int(11) NOT NULL,
-  `state` tinyint(4) NOT NULL,
-  PRIMARY KEY (`stid`,`ssid`),
-  KEY `stid` (`stid`),
-  KEY `ssid` (`ssid`),
-  CONSTRAINT `survey_section_type_ibfk_1` FOREIGN KEY (`stid`) REFERENCES `survey_type` (`stid`),
-  CONSTRAINT `survey_section_type_ibfk_2` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `survey_section_type` */
 
 /*Table structure for table `survey_time` */
 
@@ -665,67 +520,32 @@ DROP TABLE IF EXISTS `survey_time`;
 
 CREATE TABLE `survey_time` (
   `sequence` int(11) NOT NULL DEFAULT '0',
-  `sid` int(11) NOT NULL DEFAULT '0',
+  `sid` bigint(20) NOT NULL DEFAULT '0',
   `elapsed_time` int(11) NOT NULL DEFAULT '0',
   `quitflag` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`sequence`,`sid`),
   KEY `Ref374` (`sid`),
-  CONSTRAINT `survey_time_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`)
+  CONSTRAINT `FK_survey_time` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `survey_time` */
-
-/*Table structure for table `survey_type` */
-
-DROP TABLE IF EXISTS `survey_type`;
-
-CREATE TABLE `survey_type` (
-  `stid` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `label_graphic` varchar(255) DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `template` varchar(255) DEFAULT NULL,
-  `redirect_page` varchar(255) DEFAULT NULL,
-  `number_copy` int(11) DEFAULT '1',
-  `id_state` int(11) NOT NULL DEFAULT '2',
-  `version` int(11) NOT NULL DEFAULT '1',
-  `hash` varchar(255) DEFAULT NULL,
-  `public` enum('S','N') NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`stid`),
-  KEY `id_estado` (`id_state`),
-  CONSTRAINT `survey_type_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_location` (`id_state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `survey_type` */
 
 /*Table structure for table `surveys` */
 
 DROP TABLE IF EXISTS `surveys`;
 
 CREATE TABLE `surveys` (
-  `sid` int(11) NOT NULL,
+  `sid` bigint(20) NOT NULL,
   `ticket` int(11) NOT NULL,
-  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
   `date_interview` date DEFAULT NULL,
   `uid` int(11) NOT NULL DEFAULT '0',
-  `stid` int(11) NOT NULL,
-  `tid` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL DEFAULT '1',
-  `public` enum('S','N') DEFAULT 'N',
   `complete` enum('S','N') DEFAULT 'N',
-  `id_state` int(11) NOT NULL,
+  `id_sid_format` int(11) DEFAULT NULL,
   PRIMARY KEY (`sid`),
   KEY `Ref4029` (`uid`),
-  KEY `Ref4842` (`stid`),
-  KEY `tid` (`tid`),
-  KEY `proyect_id` (`proyect_id`),
-  KEY `id_state` (`id_state`),
-  CONSTRAINT `surveys_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `cat_location` (`tid`),
-  CONSTRAINT `surveys_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`),
-  CONSTRAINT `surveys_ibfk_3` FOREIGN KEY (`stid`) REFERENCES `survey_type` (`stid`),
-  CONSTRAINT `surveys_ibfk_4` FOREIGN KEY (`proyect_id`) REFERENCES `proyect` (`proyect_id`),
-  CONSTRAINT `surveys_ibfk_5` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
+  CONSTRAINT `surveys_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `surveys` */

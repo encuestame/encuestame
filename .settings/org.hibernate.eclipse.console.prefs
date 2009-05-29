@@ -1,4 +1,4 @@
-#Thu May 07 17:30:14 CST 2009
-default.configuration=encuestame_core
+#Fri May 29 13:07:55 CST 2009
+default.configuration=encuestame remote
 eclipse.preferences.version=1
 hibernate3.enabled=true
