@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,17 +15,10 @@ public class Questions implements java.io.Serializable {
 	private CatState catState;
 	private String question;
 	private String qidKey;
-	private Set<SurveyQuestionDependency> surveyQuestionDependencies = new HashSet<SurveyQuestionDependency>(
-			0);
-	private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
 	private Set<QuestionsRelations> questionsRelationses = new HashSet<QuestionsRelations>(
 			0);
-	private Set<QuestionValidation> questionValidations = new HashSet<QuestionValidation>(
-			0);
-	private Set<SurveyResult> surveyResults = new HashSet<SurveyResult>(0);
+	private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
 	private Set<QuestionsAnswers> questionsAnswerses = new HashSet<QuestionsAnswers>(
-			0);
-	private Set<QuestionsDependence> questionsDependences = new HashSet<QuestionsDependence>(
 			0);
 
 	public Questions() {
@@ -36,23 +29,15 @@ public class Questions implements java.io.Serializable {
 	}
 
 	public Questions(CatState catState, String question, String qidKey,
-			Set<SurveyQuestionDependency> surveyQuestionDependencies,
-			Set<SurveyDetail> surveyDetails,
 			Set<QuestionsRelations> questionsRelationses,
-			Set<QuestionValidation> questionValidations,
-			Set<SurveyResult> surveyResults,
-			Set<QuestionsAnswers> questionsAnswerses,
-			Set<QuestionsDependence> questionsDependences) {
+			Set<SurveyDetail> surveyDetails,
+			Set<QuestionsAnswers> questionsAnswerses) {
 		this.catState = catState;
 		this.question = question;
 		this.qidKey = qidKey;
-		this.surveyQuestionDependencies = surveyQuestionDependencies;
-		this.surveyDetails = surveyDetails;
 		this.questionsRelationses = questionsRelationses;
-		this.questionValidations = questionValidations;
-		this.surveyResults = surveyResults;
+		this.surveyDetails = surveyDetails;
 		this.questionsAnswerses = questionsAnswerses;
-		this.questionsDependences = questionsDependences;
 	}
 
 	public Integer getQid() {
@@ -95,13 +80,13 @@ public class Questions implements java.io.Serializable {
 		this.qidKey = qidKey;
 	}
 
-	public Set<SurveyQuestionDependency> getSurveyQuestionDependencies() {
-		return this.surveyQuestionDependencies;
+	public Set<QuestionsRelations> getQuestionsRelationses() {
+		return this.questionsRelationses;
 	}
 
-	public void setSurveyQuestionDependencies(
-			Set<SurveyQuestionDependency> surveyQuestionDependencies) {
-		this.surveyQuestionDependencies = surveyQuestionDependencies;
+	public void setQuestionsRelationses(
+			Set<QuestionsRelations> questionsRelationses) {
+		this.questionsRelationses = questionsRelationses;
 	}
 
 	public Set<SurveyDetail> getSurveyDetails() {
@@ -112,47 +97,12 @@ public class Questions implements java.io.Serializable {
 		this.surveyDetails = surveyDetails;
 	}
 
-	public Set<QuestionsRelations> getQuestionsRelationses() {
-		return this.questionsRelationses;
-	}
-
-	public void setQuestionsRelationses(
-			Set<QuestionsRelations> questionsRelationses) {
-		this.questionsRelationses = questionsRelationses;
-	}
-
-	public Set<QuestionValidation> getQuestionValidations() {
-		return this.questionValidations;
-	}
-
-	public void setQuestionValidations(
-			Set<QuestionValidation> questionValidations) {
-		this.questionValidations = questionValidations;
-	}
-
-	public Set<SurveyResult> getSurveyResults() {
-		return this.surveyResults;
-	}
-
-	public void setSurveyResults(Set<SurveyResult> surveyResults) {
-		this.surveyResults = surveyResults;
-	}
-
 	public Set<QuestionsAnswers> getQuestionsAnswerses() {
 		return this.questionsAnswerses;
 	}
 
 	public void setQuestionsAnswerses(Set<QuestionsAnswers> questionsAnswerses) {
 		this.questionsAnswerses = questionsAnswerses;
-	}
-
-	public Set<QuestionsDependence> getQuestionsDependences() {
-		return this.questionsDependences;
-	}
-
-	public void setQuestionsDependences(
-			Set<QuestionsDependence> questionsDependences) {
-		this.questionsDependences = questionsDependences;
 	}
 
 }

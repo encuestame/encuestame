@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,40 +11,22 @@ import java.util.Set;
 public class SurveySection implements java.io.Serializable {
 
 	private Integer ssid;
-	private int version;
-	private CatLocation catLocation;
+	private CatState catState;
 	private String descSection;
-	private int level;
-	private String template;
-	private Set<SurveyQuestionDependency> surveyQuestionDependencies = new HashSet<SurveyQuestionDependency>(
-			0);
 	private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
-	private Set<SurveyResult> surveyResults = new HashSet<SurveyResult>(0);
-	private Set<SurveySectionType> surveySectionTypes = new HashSet<SurveySectionType>(
-			0);
 
 	public SurveySection() {
 	}
 
-	public SurveySection(CatLocation catLocation, int level, String template) {
-		this.catLocation = catLocation;
-		this.level = level;
-		this.template = template;
+	public SurveySection(CatState catState) {
+		this.catState = catState;
 	}
 
-	public SurveySection(CatLocation catLocation, String descSection,
-			int level, String template,
-			Set<SurveyQuestionDependency> surveyQuestionDependencies,
-			Set<SurveyDetail> surveyDetails, Set<SurveyResult> surveyResults,
-			Set<SurveySectionType> surveySectionTypes) {
-		this.catLocation = catLocation;
+	public SurveySection(CatState catState, String descSection,
+			Set<SurveyDetail> surveyDetails) {
+		this.catState = catState;
 		this.descSection = descSection;
-		this.level = level;
-		this.template = template;
-		this.surveyQuestionDependencies = surveyQuestionDependencies;
 		this.surveyDetails = surveyDetails;
-		this.surveyResults = surveyResults;
-		this.surveySectionTypes = surveySectionTypes;
 	}
 
 	public Integer getSsid() {
@@ -55,20 +37,12 @@ public class SurveySection implements java.io.Serializable {
 		this.ssid = ssid;
 	}
 
-	public int getVersion() {
-		return this.version;
+	public CatState getCatState() {
+		return this.catState;
 	}
 
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
-	public CatLocation getCatLocation() {
-		return this.catLocation;
-	}
-
-	public void setCatLocation(CatLocation catLocation) {
-		this.catLocation = catLocation;
+	public void setCatState(CatState catState) {
+		this.catState = catState;
 	}
 
 	public String getDescSection() {
@@ -79,53 +53,12 @@ public class SurveySection implements java.io.Serializable {
 		this.descSection = descSection;
 	}
 
-	public int getLevel() {
-		return this.level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public String getTemplate() {
-		return this.template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
-	}
-
-	public Set<SurveyQuestionDependency> getSurveyQuestionDependencies() {
-		return this.surveyQuestionDependencies;
-	}
-
-	public void setSurveyQuestionDependencies(
-			Set<SurveyQuestionDependency> surveyQuestionDependencies) {
-		this.surveyQuestionDependencies = surveyQuestionDependencies;
-	}
-
 	public Set<SurveyDetail> getSurveyDetails() {
 		return this.surveyDetails;
 	}
 
 	public void setSurveyDetails(Set<SurveyDetail> surveyDetails) {
 		this.surveyDetails = surveyDetails;
-	}
-
-	public Set<SurveyResult> getSurveyResults() {
-		return this.surveyResults;
-	}
-
-	public void setSurveyResults(Set<SurveyResult> surveyResults) {
-		this.surveyResults = surveyResults;
-	}
-
-	public Set<SurveySectionType> getSurveySectionTypes() {
-		return this.surveySectionTypes;
-	}
-
-	public void setSurveySectionTypes(Set<SurveySectionType> surveySectionTypes) {
-		this.surveySectionTypes = surveySectionTypes;
 	}
 
 }

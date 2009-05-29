@@ -1,22 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.SurveyResult" table="survey_result">
         <id name="rid" type="java.lang.Long">
             <column name="rid" />
             <generator class="identity" />
         </id>
-        <many-to-one name="surveys" class="org.jp.core.persistence.pojo.Surveys" fetch="select">
-            <column name="sid" not-null="true" />
-        </many-to-one>
-        <many-to-one name="questions" class="org.jp.core.persistence.pojo.Questions" fetch="select">
+        <property name="qid" type="int">
             <column name="qid" not-null="true" />
-        </many-to-one>
-        <many-to-one name="surveySection" class="org.jp.core.persistence.pojo.SurveySection" fetch="select">
-            <column name="ssid" not-null="true" />
-        </many-to-one>
+        </property>
+        <property name="sid" type="long">
+            <column name="sid" not-null="true" />
+        </property>
         <property name="resp" type="string">
             <column name="resp" length="65535" not-null="true" />
         </property>

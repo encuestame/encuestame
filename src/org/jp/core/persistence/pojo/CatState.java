@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,24 +13,20 @@ public class CatState implements java.io.Serializable {
 	private Integer idState;
 	private String descState;
 	private String image;
-	private Set<Surveys> surveyses = new HashSet<Surveys>(0);
-	private Set<SecUsers> secUserses = new HashSet<SecUsers>(0);
-	private Set<Project> proyects = new HashSet<Project>(0);
-	private Set<CatLocation> catLocations = new HashSet<CatLocation>(0);
+	private Set<SurveySection> surveySections = new HashSet<SurveySection>(0);
+	private Set<Project> projects = new HashSet<Project>(0);
 	private Set<Questions> questionses = new HashSet<Questions>(0);
 
 	public CatState() {
 	}
 
-	public CatState(String descState, String image, Set<Surveys> surveyses,
-			Set<SecUsers> secUserses, Set<Project> proyects,
-			Set<CatLocation> catLocations, Set<Questions> questionses) {
+	public CatState(String descState, String image,
+			Set<SurveySection> surveySections, Set<Project> projects,
+			Set<Questions> questionses) {
 		this.descState = descState;
 		this.image = image;
-		this.surveyses = surveyses;
-		this.secUserses = secUserses;
-		this.proyects = proyects;
-		this.catLocations = catLocations;
+		this.surveySections = surveySections;
+		this.projects = projects;
 		this.questionses = questionses;
 	}
 
@@ -58,36 +54,20 @@ public class CatState implements java.io.Serializable {
 		this.image = image;
 	}
 
-	public Set<Surveys> getSurveyses() {
-		return this.surveyses;
+	public Set<SurveySection> getSurveySections() {
+		return this.surveySections;
 	}
 
-	public void setSurveyses(Set<Surveys> surveyses) {
-		this.surveyses = surveyses;
+	public void setSurveySections(Set<SurveySection> surveySections) {
+		this.surveySections = surveySections;
 	}
 
-	public Set<SecUsers> getSecUserses() {
-		return this.secUserses;
+	public Set<Project> getProjects() {
+		return this.projects;
 	}
 
-	public void setSecUserses(Set<SecUsers> secUserses) {
-		this.secUserses = secUserses;
-	}
-
-	public Set<Project> getProyects() {
-		return this.proyects;
-	}
-
-	public void setProyects(Set<Project> proyects) {
-		this.proyects = proyects;
-	}
-
-	public Set<CatLocation> getCatLocations() {
-		return this.catLocations;
-	}
-
-	public void setCatLocations(Set<CatLocation> catLocations) {
-		this.catLocations = catLocations;
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
 	}
 
 	public Set<Questions> getQuestionses() {

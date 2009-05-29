@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.CatState" table="cat_state">
         <id name="idState" type="java.lang.Integer">
@@ -14,29 +14,17 @@
         <property name="image" type="string">
             <column name="image" />
         </property>
-        <set name="surveyses" inverse="true">
+        <set name="surveySections" inverse="true">
             <key>
                 <column name="id_state" not-null="true" />
             </key>
-            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
+            <one-to-many class="org.jp.core.persistence.pojo.SurveySection" />
         </set>
-        <set name="secUserses" inverse="true">
-            <key>
-                <column name="id_state" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SecUsers" />
-        </set>
-        <set name="proyects" inverse="true">
+        <set name="projects" inverse="true">
             <key>
                 <column name="id_state" not-null="true" />
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.Project" />
-        </set>
-        <set name="catLocations" inverse="true">
-            <key>
-                <column name="id_state" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.CatLocation" />
         </set>
         <set name="questionses" inverse="true">
             <key>

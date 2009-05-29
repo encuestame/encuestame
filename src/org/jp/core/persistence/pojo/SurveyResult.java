@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +11,8 @@ import java.util.Set;
 public class SurveyResult implements java.io.Serializable {
 
 	private Long rid;
-	private Surveys surveys;
-	private Questions questions;
-	private SurveySection surveySection;
+	private int qid;
+	private long sid;
 	private String resp;
 	private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>(
 			0);
@@ -21,20 +20,16 @@ public class SurveyResult implements java.io.Serializable {
 	public SurveyResult() {
 	}
 
-	public SurveyResult(Surveys surveys, Questions questions,
-			SurveySection surveySection, String resp) {
-		this.surveys = surveys;
-		this.questions = questions;
-		this.surveySection = surveySection;
+	public SurveyResult(int qid, long sid, String resp) {
+		this.qid = qid;
+		this.sid = sid;
 		this.resp = resp;
 	}
 
-	public SurveyResult(Surveys surveys, Questions questions,
-			SurveySection surveySection, String resp,
+	public SurveyResult(int qid, long sid, String resp,
 			Set<SurveyResultMod> surveyResultMods) {
-		this.surveys = surveys;
-		this.questions = questions;
-		this.surveySection = surveySection;
+		this.qid = qid;
+		this.sid = sid;
 		this.resp = resp;
 		this.surveyResultMods = surveyResultMods;
 	}
@@ -47,28 +42,20 @@ public class SurveyResult implements java.io.Serializable {
 		this.rid = rid;
 	}
 
-	public Surveys getSurveys() {
-		return this.surveys;
+	public int getQid() {
+		return this.qid;
 	}
 
-	public void setSurveys(Surveys surveys) {
-		this.surveys = surveys;
+	public void setQid(int qid) {
+		this.qid = qid;
 	}
 
-	public Questions getQuestions() {
-		return this.questions;
+	public long getSid() {
+		return this.sid;
 	}
 
-	public void setQuestions(Questions questions) {
-		this.questions = questions;
-	}
-
-	public SurveySection getSurveySection() {
-		return this.surveySection;
-	}
-
-	public void setSurveySection(SurveySection surveySection) {
-		this.surveySection = surveySection;
+	public void setSid(long sid) {
+		this.sid = sid;
 	}
 
 	public String getResp() {

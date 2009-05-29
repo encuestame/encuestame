@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.Project" table="project">
         <id name="proyectId" type="java.lang.Integer">
@@ -19,52 +20,28 @@
         <property name="dateStart" type="timestamp">
             <column name="date_start" length="0" not-null="true" />
         </property>
-        <property name="logo" type="binary">
-            <column name="logo" />
+        <property name="dateFinish" type="timestamp">
+            <column name="date_finish" length="0" />
         </property>
-        <property name="header" type="string">
-            <column name="header" />
-        </property>
-        <property name="range" type="string">
-            <column name="range" />
-        </property>
-        <set name="proyectLocations" inverse="true">
+        <set name="surveyGroupProjects" inverse="true">
+            <key>
+                <column name="proyect_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyGroupProject" />
+        </set>
+        <set name="projectLocations" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.ProjectLocation" />
         </set>
-        <set name="surveyses" inverse="true">
-            <key>
-                <column name="proyect_id" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.Surveys" />
-        </set>
-        <set name="proyectGroups" inverse="true">
+        <set name="projectGroups" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>
             <one-to-many class="org.jp.core.persistence.pojo.ProjectGroup" />
         </set>
-        <set name="surveyLocations" inverse="true">
-            <key>
-                <column name="proyect_id" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyLocation" />
-        </set>
-        <set name="proyectTypeSurveies" inverse="true">
-            <key>
-                <column name="proyect_id" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.ProjectTypeSurvey" />
-        </set>
-        <set name="catLocationUsers" inverse="true">
-            <key>
-                <column name="proyect_id" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.CatLocationUser" />
-        </set>
-        <set name="proyectUsers" inverse="true">
+        <set name="projectUsers" inverse="true">
             <key>
                 <column name="proyect_id" not-null="true" />
             </key>

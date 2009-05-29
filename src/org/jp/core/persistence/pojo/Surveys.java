@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,89 +11,48 @@ import java.util.Set;
  */
 public class Surveys implements java.io.Serializable {
 
-	private int sid;
-	private Project proyect;
-	private CatLocation catLocation;
-	private SurveyType surveyType;
+	private long sid;
 	private SecUsers secUsers;
-	private CatState catState;
 	private int ticket;
 	private Date startDate;
 	private Date endDate;
 	private Date dateInterview;
-	private String public_;
 	private String complete;
-	private Set<SurveyResult> surveyResults = new HashSet<SurveyResult>(0);
+	private Integer idSidFormat;
 	private Set<SurveyTime> surveyTimes = new HashSet<SurveyTime>(0);
 
 	public Surveys() {
 	}
 
-	public Surveys(int sid, Project proyect, CatLocation catLocation,
-			SurveyType surveyType, SecUsers secUsers, CatState catState,
-			int ticket, Date startDate, Date endDate) {
+	public Surveys(long sid, SecUsers secUsers, int ticket, Date startDate,
+			Date endDate) {
 		this.sid = sid;
-		this.proyect = proyect;
-		this.catLocation = catLocation;
-		this.surveyType = surveyType;
 		this.secUsers = secUsers;
-		this.catState = catState;
 		this.ticket = ticket;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
 
-	public Surveys(int sid, Project proyect, CatLocation catLocation,
-			SurveyType surveyType, SecUsers secUsers, CatState catState,
-			int ticket, Date startDate, Date endDate, Date dateInterview,
-			String public_, String complete, Set<SurveyResult> surveyResults,
-			Set<SurveyTime> surveyTimes) {
+	public Surveys(long sid, SecUsers secUsers, int ticket, Date startDate,
+			Date endDate, Date dateInterview, String complete,
+			Integer idSidFormat, Set<SurveyTime> surveyTimes) {
 		this.sid = sid;
-		this.proyect = proyect;
-		this.catLocation = catLocation;
-		this.surveyType = surveyType;
 		this.secUsers = secUsers;
-		this.catState = catState;
 		this.ticket = ticket;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.dateInterview = dateInterview;
-		this.public_ = public_;
 		this.complete = complete;
-		this.surveyResults = surveyResults;
+		this.idSidFormat = idSidFormat;
 		this.surveyTimes = surveyTimes;
 	}
 
-	public int getSid() {
+	public long getSid() {
 		return this.sid;
 	}
 
-	public void setSid(int sid) {
+	public void setSid(long sid) {
 		this.sid = sid;
-	}
-
-	public Project getProyect() {
-		return this.proyect;
-	}
-
-	public void setProyect(Project proyect) {
-		this.proyect = proyect;
-	}
-
-	public CatLocation getCatLocation() {
-		return this.catLocation;
-	}
-
-	public void setCatLocation(CatLocation catLocation) {
-		this.catLocation = catLocation;
-	}
-
-	public SurveyType getSurveyType() {
-		return this.surveyType;
-	}
-
-	public void setSurveyType(SurveyType surveyType) {
-		this.surveyType = surveyType;
 	}
 
 	public SecUsers getSecUsers() {
@@ -102,14 +61,6 @@ public class Surveys implements java.io.Serializable {
 
 	public void setSecUsers(SecUsers secUsers) {
 		this.secUsers = secUsers;
-	}
-
-	public CatState getCatState() {
-		return this.catState;
-	}
-
-	public void setCatState(CatState catState) {
-		this.catState = catState;
 	}
 
 	public int getTicket() {
@@ -144,14 +95,6 @@ public class Surveys implements java.io.Serializable {
 		this.dateInterview = dateInterview;
 	}
 
-	public String getPublic_() {
-		return this.public_;
-	}
-
-	public void setPublic_(String public_) {
-		this.public_ = public_;
-	}
-
 	public String getComplete() {
 		return this.complete;
 	}
@@ -160,12 +103,12 @@ public class Surveys implements java.io.Serializable {
 		this.complete = complete;
 	}
 
-	public Set<SurveyResult> getSurveyResults() {
-		return this.surveyResults;
+	public Integer getIdSidFormat() {
+		return this.idSidFormat;
 	}
 
-	public void setSurveyResults(Set<SurveyResult> surveyResults) {
-		this.surveyResults = surveyResults;
+	public void setIdSidFormat(Integer idSidFormat) {
+		this.idSidFormat = idSidFormat;
 	}
 
 	public Set<SurveyTime> getSurveyTimes() {

@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.ProjectLocation" table="project_location">
         <composite-id name="id" class="org.jp.core.persistence.pojo.ProjectLocationId">
-            <key-property name="tid" type="int">
-                <column name="tid" />
+            <key-property name="groupId" type="int">
+                <column name="group_id" />
             </key-property>
             <key-property name="proyectId" type="int">
                 <column name="proyect_id" />
             </key-property>
         </composite-id>
-        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Project" update="false" insert="false" fetch="select">
+        <many-to-one name="project" class="org.jp.core.persistence.pojo.Project" update="false" insert="false" fetch="select">
             <column name="proyect_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" update="false" insert="false" fetch="select">
-            <column name="tid" not-null="true" />
+        <many-to-one name="secGroups" class="org.jp.core.persistence.pojo.SecGroups" update="false" insert="false" fetch="select">
+            <column name="group_id" not-null="true" />
         </many-to-one>
-        <property name="idEstado" type="int">
-            <column name="id_estado" not-null="true" />
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

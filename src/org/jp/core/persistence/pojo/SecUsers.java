@@ -1,5 +1,6 @@
 package org.jp.core.persistence.pojo;
 
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +12,6 @@ import java.util.Set;
 public class SecUsers implements java.io.Serializable {
 
 	private Integer uid;
-
 	private String name;
 	private String email;
 	private String username;
@@ -20,7 +20,8 @@ public class SecUsers implements java.io.Serializable {
 	private String inviteCode;
 	private Date dateNew;
 	private String publisher;
-	private Set<ProjectUser> proyectUsers = new HashSet<ProjectUser>(0);
+	private String owner;
+	private String twitter;
 	private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
 	private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
 			0);
@@ -28,6 +29,7 @@ public class SecUsers implements java.io.Serializable {
 			0);
 	private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>(
 			0);
+	private Set<ProjectUser> projectUsers = new HashSet<ProjectUser>(0);
 	private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>(
 			0);
 	private Set<Surveys> surveyses = new HashSet<Surveys>(0);
@@ -35,7 +37,7 @@ public class SecUsers implements java.io.Serializable {
 	public SecUsers() {
 	}
 
-	public SecUsers(String name, String email, String password, boolean status,
+	public SecUsers(String name, String email, String password, Boolean status,
 			Date dateNew, String publisher) {
 		this.name = name;
 		this.email = email;
@@ -45,16 +47,15 @@ public class SecUsers implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
-	public SecUsers(String sex, String name, String email, String username,
-			String password, String passwordClean, Date birthDate,
-			String address, String nocId, boolean status, String inviteCode,
-			String position, Date dateNew, String publisher,
-			Set<ProjectUser> proyectUsers, Set<SecGroupUser> secGroupUsers,
+	public SecUsers(String name, String email, String username,
+			String password, Boolean status, String inviteCode, Date dateNew,
+			String publisher, String owner, String twitter,
+			Set<SecGroupUser> secGroupUsers,
 			Set<SecUserPermission> secUserPermissions,
 			Set<CatLocationUser> catLocationUsers,
 			Set<SurveyResultMod> surveyResultMods,
+			Set<ProjectUser> projectUsers,
 			Set<QuestionColettion> questionColettions, Set<Surveys> surveyses) {
-
 		this.name = name;
 		this.email = email;
 		this.username = username;
@@ -63,11 +64,13 @@ public class SecUsers implements java.io.Serializable {
 		this.inviteCode = inviteCode;
 		this.dateNew = dateNew;
 		this.publisher = publisher;
-		this.proyectUsers = proyectUsers;
+		this.owner = owner;
+		this.twitter = twitter;
 		this.secGroupUsers = secGroupUsers;
 		this.secUserPermissions = secUserPermissions;
 		this.catLocationUsers = catLocationUsers;
 		this.surveyResultMods = surveyResultMods;
+		this.projectUsers = projectUsers;
 		this.questionColettions = questionColettions;
 		this.surveyses = surveyses;
 	}
@@ -144,12 +147,20 @@ public class SecUsers implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
-	public Set<ProjectUser> getProyectUsers() {
-		return this.proyectUsers;
+	public String getOwner() {
+		return this.owner;
 	}
 
-	public void setProyectUsers(Set<ProjectUser> proyectUsers) {
-		this.proyectUsers = proyectUsers;
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getTwitter() {
+		return this.twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
 	}
 
 	public Set<SecGroupUser> getSecGroupUsers() {
@@ -182,6 +193,14 @@ public class SecUsers implements java.io.Serializable {
 
 	public void setSurveyResultMods(Set<SurveyResultMod> surveyResultMods) {
 		this.surveyResultMods = surveyResultMods;
+	}
+
+	public Set<ProjectUser> getProjectUsers() {
+		return this.projectUsers;
+	}
+
+	public void setProjectUsers(Set<ProjectUser> projectUsers) {
+		this.projectUsers = projectUsers;
 	}
 
 	public Set<QuestionColettion> getQuestionColettions() {

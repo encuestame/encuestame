@@ -1,27 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.Surveys" table="surveys">
-        <id name="sid" type="int">
+        <id name="sid" type="long">
             <column name="sid" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="proyect" class="org.jp.core.persistence.pojo.Project" fetch="select">
-            <column name="proyect_id" not-null="true" />
-        </many-to-one>
-        <many-to-one name="catLocation" class="org.jp.core.persistence.pojo.CatLocation" fetch="select">
-            <column name="tid" not-null="true" />
-        </many-to-one>
-        <many-to-one name="surveyType" class="org.jp.core.persistence.pojo.SurveyType" fetch="select">
-            <column name="stid" not-null="true" />
-        </many-to-one>
         <many-to-one name="secUsers" class="org.jp.core.persistence.pojo.SecUsers" fetch="select">
             <column name="uid" not-null="true" />
-        </many-to-one>
-        <many-to-one name="catState" class="org.jp.core.persistence.pojo.CatState" fetch="select">
-            <column name="id_state" not-null="true" />
         </many-to-one>
         <property name="ticket" type="int">
             <column name="ticket" not-null="true" />
@@ -35,18 +23,12 @@
         <property name="dateInterview" type="date">
             <column name="date_interview" length="0" />
         </property>
-        <property name="public_" type="string">
-            <column name="public" length="2" />
-        </property>
         <property name="complete" type="string">
             <column name="complete" length="2" />
         </property>
-        <set name="surveyResults" inverse="true">
-            <key>
-                <column name="sid" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.SurveyResult" />
-        </set>
+        <property name="idSidFormat" type="java.lang.Integer">
+            <column name="id_sid_format" />
+        </property>
         <set name="surveyTimes" inverse="true">
             <key>
                 <column name="sid" not-null="true" />

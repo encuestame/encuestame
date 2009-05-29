@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.jp.core.persistence.pojo.SurveyGroup" table="survey_group">
+        <id name="sgId" type="int">
+            <column name="sg_id" />
+            <generator class="assigned" />
+        </id>
+        <version name="version" type="java.lang.Integer">
+            <column name="version" />
+        </version>
+        <property name="groupName" type="string">
+            <column name="group_name" length="60" />
+        </property>
+        <property name="dateCreate" type="timestamp">
+            <column name="date_create" length="0" />
+        </property>
+        <property name="idState" type="java.lang.Integer">
+            <column name="id_state" />
+        </property>
+        <property name="idSidFormat" type="int">
+            <column name="id_sid_format" not-null="true" />
+        </property>
+        <set name="surveyFormatGroups" inverse="true">
+            <key>
+                <column name="sg_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyFormatGroup" />
+        </set>
+        <set name="surveyGroupProjects" inverse="true">
+            <key>
+                <column name="sg_id" not-null="true" />
+            </key>
+            <one-to-many class="org.jp.core.persistence.pojo.SurveyGroupProject" />
+        </set>
+    </class>
+</hibernate-mapping>

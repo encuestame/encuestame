@@ -1,6 +1,6 @@
 package org.jp.core.persistence.pojo;
 
-// Generated 07-may-2009 17:38:33 by Hibernate Tools 3.2.2.GA
+// Generated 29-may-2009 13:17:50 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +15,10 @@ public class SecGroups implements java.io.Serializable {
 	private String desInfo;
 	private int idState;
 	private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
-	private Set<ProjectGroup> proyectGroups = new HashSet<ProjectGroup>(0);
 	private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(
+			0);
+	private Set<ProjectGroup> projectGroups = new HashSet<ProjectGroup>(0);
+	private Set<ProjectLocation> projectLocations = new HashSet<ProjectLocation>(
 			0);
 
 	public SecGroups() {
@@ -27,14 +29,17 @@ public class SecGroups implements java.io.Serializable {
 	}
 
 	public SecGroups(String name, String desInfo, int idState,
-			Set<SecGroupUser> secGroupUsers, Set<ProjectGroup> proyectGroups,
-			Set<SecGroupPermission> secGroupPermissions) {
+			Set<SecGroupUser> secGroupUsers,
+			Set<SecGroupPermission> secGroupPermissions,
+			Set<ProjectGroup> projectGroups,
+			Set<ProjectLocation> projectLocations) {
 		this.name = name;
 		this.desInfo = desInfo;
 		this.idState = idState;
 		this.secGroupUsers = secGroupUsers;
-		this.proyectGroups = proyectGroups;
 		this.secGroupPermissions = secGroupPermissions;
+		this.projectGroups = projectGroups;
+		this.projectLocations = projectLocations;
 	}
 
 	public Integer getGroupId() {
@@ -77,14 +82,6 @@ public class SecGroups implements java.io.Serializable {
 		this.secGroupUsers = secGroupUsers;
 	}
 
-	public Set<ProjectGroup> getProyectGroups() {
-		return this.proyectGroups;
-	}
-
-	public void setProyectGroups(Set<ProjectGroup> proyectGroups) {
-		this.proyectGroups = proyectGroups;
-	}
-
 	public Set<SecGroupPermission> getSecGroupPermissions() {
 		return this.secGroupPermissions;
 	}
@@ -92,6 +89,22 @@ public class SecGroups implements java.io.Serializable {
 	public void setSecGroupPermissions(
 			Set<SecGroupPermission> secGroupPermissions) {
 		this.secGroupPermissions = secGroupPermissions;
+	}
+
+	public Set<ProjectGroup> getProjectGroups() {
+		return this.projectGroups;
+	}
+
+	public void setProjectGroups(Set<ProjectGroup> projectGroups) {
+		this.projectGroups = projectGroups;
+	}
+
+	public Set<ProjectLocation> getProjectLocations() {
+		return this.projectLocations;
+	}
+
+	public void setProjectLocations(Set<ProjectLocation> projectLocations) {
+		this.projectLocations = projectLocations;
 	}
 
 }

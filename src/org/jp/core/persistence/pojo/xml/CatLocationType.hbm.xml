@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-may-2009 22:13:47 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="org.jp.core.persistence.pojo.CatLocationType" table="cat_location_type">
-        <id name="tidtype" type="string">
-            <column name="tidtype" length="10" />
+        <id name="locIdType" type="string">
+            <column name="loc_id_type" length="10" />
             <generator class="assigned" />
         </id>
         <property name="description" type="string">
@@ -14,11 +14,5 @@
         <property name="level" type="java.lang.Integer">
             <column name="level" />
         </property>
-        <set name="catLocations" inverse="true">
-            <key>
-                <column name="tidtype" length="10" not-null="true" />
-            </key>
-            <one-to-many class="org.jp.core.persistence.pojo.CatLocation" />
-        </set>
     </class>
 </hibernate-mapping>
