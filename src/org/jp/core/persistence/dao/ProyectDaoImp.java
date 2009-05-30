@@ -1,9 +1,12 @@
 package org.jp.core.persistence.dao;
 
+import java.util.Collection;
+
 import org.hibernate.HibernateException;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.jp.core.persistence.dao.imp.IProyect;
 import org.jp.core.persistence.pojo.Project;
+import org.jp.core.persistence.pojo.SecUsers;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -30,8 +33,19 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 
+	
 	/**
+	 * find all projects
 	 * 
+	 * @return
+	 * @throws HibernateException
+	 */
+	public Collection<Project> findAll() throws HibernateException {
+		return getHibernateTemplate().find("from Project");
+	}
+	
+	/**
+	 * create projects
 	 * @param proyect
 	 * @throws HibernateException
 	 */

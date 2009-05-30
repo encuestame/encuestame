@@ -1,8 +1,12 @@
 package org.jp.web.beans.project;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jp.web.beans.MasterBean;
+import org.jp.web.beans.admon.UnitUserBean;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -33,11 +37,18 @@ public class ProjectBean extends MasterBean {
 	public Boolean edit;
 	private Log log = LogFactory.getLog(this.getClass());
 	private UnitProjectBean beanUProyect;
+	private Collection<UnitProjectBean> list_unitBeans;
 
 	public ProjectBean() {
 		log.info("create proyect bean");
 	}
 
+	
+	public Collection<UnitProjectBean> loadListProjects() throws Exception {
+		list_unitBeans = new LinkedList<UnitProjectBean>();
+		return list_unitBeans = getServicemanagerBean().getDataService().loadListProjects();
+	}
+	
 	/**
 	 * save data new proyect
 	 */
@@ -136,6 +147,20 @@ public class ProjectBean extends MasterBean {
 	 */
 	public void setBeanUProyect(UnitProjectBean beanUProyect) {
 		this.beanUProyect = beanUProyect;
+	}
+
+	/**
+	 * @return the list_unitBeans
+	 */
+	public Collection<UnitProjectBean> getList_unitBeans() {
+		return list_unitBeans;
+	}
+
+	/**
+	 * @param list_unitBeans the list_unitBeans to set
+	 */
+	public void setList_unitBeans(Collection<UnitProjectBean> list_unitBeans) {
+		this.list_unitBeans = list_unitBeans;
 	}
 
 }

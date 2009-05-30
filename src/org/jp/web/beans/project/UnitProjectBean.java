@@ -1,9 +1,13 @@
 package org.jp.web.beans.project;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import org.jp.web.beans.MasterBean;
+import org.jp.web.beans.admon.UnitGroupBean;
+import org.jp.web.beans.admon.UnitPermission;
+import org.jp.web.beans.location.UnitLocationBean;
 
 /**
  * encuestame:  system online surveys
@@ -39,6 +43,28 @@ public class UnitProjectBean extends MasterBean implements Serializable {
 	private Date dateFinish;
 	private Integer state;
 	private String description;
+	private Integer id;
+	private Collection<UnitGroupBean> listGroups;
+	private Collection<UnitLocationBean> listLocations;
+	private Collection<UnitGroupBean> listUsers;
+	private Collection<UnitPermission> listGroupsSurveys;
+
+
+	
+	
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	/**
 	 * @return the name
 	 */

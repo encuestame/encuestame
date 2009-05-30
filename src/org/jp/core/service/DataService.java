@@ -1,8 +1,16 @@
 package org.jp.core.service;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import org.jp.core.persistence.dao.CatLocationDaoImp;
 import org.jp.core.persistence.dao.CatStateDaoImp;
 import org.jp.core.persistence.dao.ProyectDaoImp;
+import org.jp.core.persistence.pojo.Project;
+import org.jp.core.persistence.pojo.SecUsers;
+import org.jp.web.beans.admon.UnitUserBean;
+import org.jp.web.beans.project.UnitProjectBean;
 
 /**
  * encuestame:  system online surveys
@@ -33,7 +41,33 @@ public class DataService extends MasterService implements IDataService {
 	private CatLocationDaoImp catLocationDaoImp;
 	private ProyectDaoImp proyectDaoImp;
 	
-	
+
+	public Collection<UnitProjectBean> loadListProjects(){
+		
+		Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
+		Collection<Project> list = getProyectDaoImp().findAll();
+		
+		
+		if (list != null && list.size() > 0) {
+			for (Iterator<Project> i = list.iterator(); i.hasNext();) {
+				UnitProjectBean proB = new UnitProjectBean();
+				Project project = i.next();
+				proB.setId(project.getProyectId());
+				proB.setName(project.getDescription());
+				proB.setDescription(project.getInfo());
+				proB.setDateInit(project.getDateStart());
+				proB.setDateFinish(project.getDateFinish());
+				
+				userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
+				userB.setListPermission(convertSetToUnitPermission(user
+						.getUid()));
+				loadListUsers.add(userB);
+			}
+		}
+		return loadListUsers;
+		
+		
+	}
 	
 	/**
 	 * 
