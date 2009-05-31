@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.jp.core.persistence.dao.imp.ICatState;
 import org.jp.core.persistence.pojo.CatState;
+import org.jp.core.persistence.pojo.SecUsers;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -32,25 +34,42 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
 
-	private Log logger = LogFactory.getLog(this.getClass());
+	private Log log = LogFactory.getLog(this.getClass());
 
-	public void delete(Object obj) {
-		// TODO Auto-generated method stub
-
+	
+	/**
+	 * delete state
+	 * @param state
+	 * @throws HibernateException
+	 */
+	public void delete(CatState state) throws HibernateException{
+		getHibernateTemplate().delete(state);
 	}
 
-	public List<CatState> findAll() {
+	/**
+	 * load all states
+	 * 
+	 * @return
+	 */
+	public List<CatState> findAll() throws HibernateException {
 		return getHibernateTemplate().find("from CatState");
 	}
 
-	public Integer lastRow(Class clase, String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void saveOrUpdate(Object obj) {
-		// TODO Auto-generated method stub
-
+	/**
+	 * get state
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public CatState getState(Integer id) throws HibernateException {
+		List<CatState> state = getHibernateTemplate().findByNamedQuery(
+				"State.loadStateByUsername", id);
+		// obtiene el primer elemento
+		if (state.size() > 0) {
+			return (CatState) state.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

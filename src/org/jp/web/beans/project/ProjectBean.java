@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
+import org.jp.core.exception.EnMeExpcetion;
 import org.jp.web.beans.MasterBean;
 import org.jp.web.beans.admon.UnitUserBean;
 
@@ -35,20 +37,22 @@ public class ProjectBean extends MasterBean {
 	public Boolean noProyects = true;
 	public Boolean create = true;
 	public Boolean edit;
+	public Boolean editDetail;
 	private Log log = LogFactory.getLog(this.getClass());
 	private UnitProjectBean beanUProyect;
+	private Integer projectSelected;
 	private Collection<UnitProjectBean> list_unitBeans;
 
 	public ProjectBean() {
 		log.info("create proyect bean");
 	}
 
-	
 	public Collection<UnitProjectBean> loadListProjects() throws Exception {
 		list_unitBeans = new LinkedList<UnitProjectBean>();
-		return list_unitBeans = getServicemanagerBean().getDataService().loadListProjects();
+		return list_unitBeans = getServicemanagerBean().getDataService()
+				.loadListProjects();
 	}
-	
+
 	/**
 	 * save data new proyect
 	 */
@@ -57,10 +61,72 @@ public class ProjectBean extends MasterBean {
 			log.info("save proyect");
 			log.info("name->" + getBeanUProyect().getName());
 			addInfoMessage("Proyecto Creado", "");
+			if (getBeanUProyect() != null) {
+				getServicemanagerBean().getDataService().createProject(
+						getBeanUProyect());
+				log.info("projecto creado");
+				cleanProyect();
+			} else {
+				log.error("error create project");
+				addErrorMessage(
+						"No se pudo recuperar los datos del formulario", "");
+			}
+		} catch (HibernateException e) {
+			log.error("error create project" + e);
+			addErrorMessage("1Error Creando Proyecto", "");
+		} catch (EnMeExpcetion e) {
+			log.error("error create project " + e);
+			addErrorMessage("2Error Creando Proyecto", "");
 		} catch (Exception e) {
-			addErrorMessage("Error Creando Proyecto", "");
+			log.error("error create project " + e);
+			addErrorMessage("3Error Creando Proyecto", "");
 		}
+	}
 
+	/**
+	 * 
+	 */
+	public void editProject() {
+		log.info("edit project selected->" + getProjectSelected());
+		if (getProjectSelected() != null) {
+			setNoProyects(false);
+			setEditDetail(true);
+		} else {
+			addWarningMessage("Error getProjectSelected", "");
+		}
+	}
+
+	/**
+	 * loadProjectInfo
+	 * @param id
+	 */
+	private void loadProjectInfo(Integer id) {
+		try {
+			getServicemanagerBean().getDataService().loadProjectInfo(id);
+			//fullFormEditProject(project)
+		} catch (Exception e) {
+			addErrorMessage("Error Cargando Datos Proyecto->" + e.getMessage(),
+					"");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 */
+	private void fullFormEditProject(UnitProjectBean project){
+		
+	}
+
+	/**
+	 * clear form project
+	 */
+	private void cleanProyect() {
+		getBeanUProyect().setDateFinish(null);
+		getBeanUProyect().setDateInit(null);
+		getBeanUProyect().setDescription(null);
+		getBeanUProyect().setName(null);
+		getBeanUProyect().setState(null);
 	}
 
 	/**
@@ -153,14 +219,57 @@ public class ProjectBean extends MasterBean {
 	 * @return the list_unitBeans
 	 */
 	public Collection<UnitProjectBean> getList_unitBeans() {
-		return list_unitBeans;
+		try {
+			loadListProjects();
+			if (list_unitBeans.size() > 0)
+				setOneRow(true);
+			else
+				setOneRow(false);
+			return list_unitBeans;
+		} catch (Exception e) {
+			addErrorMessage("Error Cargando Datos->" + e.getMessage(), e
+					.getMessage());
+			return null;
+		}
 	}
 
 	/**
-	 * @param list_unitBeans the list_unitBeans to set
+	 * @param list_unitBeans
+	 *            the list_unitBeans to set
 	 */
 	public void setList_unitBeans(Collection<UnitProjectBean> list_unitBeans) {
 		this.list_unitBeans = list_unitBeans;
+	}
+
+	/**
+	 * @return the projectSelected
+	 */
+	public Integer getProjectSelected() {
+		log.info("projectSelected->" + projectSelected);
+		return projectSelected;
+	}
+
+	/**
+	 * @param projectSelected
+	 *            the projectSelected to set
+	 */
+	public void setProjectSelected(Integer projectSelected) {
+		this.projectSelected = projectSelected;
+	}
+
+	/**
+	 * @return the editDetail
+	 */
+	public Boolean getEditDetail() {
+		return editDetail;
+	}
+
+	/**
+	 * @param editDetail
+	 *            the editDetail to set
+	 */
+	public void setEditDetail(Boolean editDetail) {
+		this.editDetail = editDetail;
 	}
 
 }

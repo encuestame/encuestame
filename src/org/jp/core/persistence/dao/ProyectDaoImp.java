@@ -2,6 +2,8 @@ package org.jp.core.persistence.dao;
 
 import java.util.Collection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.jp.core.persistence.dao.imp.IProyect;
@@ -33,6 +35,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 
+	private Log log = LogFactory.getLog(this.getClass());
 	
 	/**
 	 * find all projects
@@ -50,6 +53,7 @@ public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 	 * @throws HibernateException
 	 */
 	public void createProyect(Project proyect) throws HibernateException {
+		log.info("save create project");
 		getHibernateTemplate().save(proyect);
 	}
 

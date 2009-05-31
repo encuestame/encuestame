@@ -25,7 +25,7 @@
 
 			<table style="padding: 0px;">
 				<tr>
-					<td valign="top" width="40%"> <h:panelGroup>
+					<td valign="top" width="40%"><h:panelGroup>
 
 						<h:panelGrid columns="4" cellpadding="4">
 							<a4j:commandLink value="Crear Proyecto"
@@ -36,45 +36,70 @@
 
 						<div id="proyectBox"><a4j:outputPanel id="te"
 							rendered="#{proyectUserBean.create}">
-							
-								<h3>Crear Proyecto</h3>
-								<p>Para crear un proyecto, es necesario un nombre unico,</p>
-								<h:panelGrid columns="2" cellpadding="4" cellspacing="4">
-									<h:outputLabel value="Nombre" for="nameProyect" />
-									<h:inputText value="#{unitProyectBean.name}" id="nameProyect"
-										 />
-									<h:outputLabel value="Fecha Inicio" for="dateInitProyect" />
-									<rich:calendar id="dateInitProyect"
-										value="#{unitProyectBean.dateInit}"
-										datePattern="#{calendarBean.pattern}" ></rich:calendar>
-									<h:outputLabel value="Fecha Final" for="dateFinishProyect" />
-									<rich:calendar id="dateFinishProyect"
-										value="#{unitProyectBean.dateFinish}"
-										datePattern="#{calendarBean.pattern}" ></rich:calendar>
-									<h:outputLabel value="Descripcion" for="proyectDescription" />
-									<h:inputTextarea id="proyectDescription" cols="30" rows="4"
-										value="#{unitProyectBean.description}" />
-									<h:outputLabel value="Estado" for="proyectStatus" />
-									<h:selectOneMenu value="#{unitProyectBean.state}"
-										id="proyectStatus" 
-										requiredMessage="#{temp.validateStaterGroup}">
-										<f:selectItems value="#{globalBean.loadListState}" />
-									</h:selectOneMenu>
-									<a4j:commandButton value="Guardar"
-										action="#{proyectUserBean.saveProyect}"></a4j:commandButton>
 
-								</h:panelGrid>
+							<h3>Crear Proyecto</h3>
+							<p>Para crear un proyecto, es necesario un nombre unico,</p>
+							<h:panelGrid columns="2" cellpadding="4" cellspacing="4">
+								<h:outputLabel value="Nombre" for="nameProyect" />
+								<h:inputText value="#{unitProyectBean.name}" id="nameProyect" />
+								<h:outputLabel value="Fecha Inicio" for="dateInitProyect" />
+								<rich:calendar id="dateInitProyect"
+									value="#{unitProyectBean.dateInit}"
+									datePattern="#{calendarBean.pattern}"></rich:calendar>
+								<h:outputLabel value="Fecha Final" for="dateFinishProyect" />
+								<rich:calendar id="dateFinishProyect"
+									value="#{unitProyectBean.dateFinish}"
+									datePattern="#{calendarBean.pattern}"></rich:calendar>
+								<h:outputLabel value="Descripcion" for="proyectDescription" />
+								<h:inputTextarea id="proyectDescription" cols="30" rows="4"
+									value="#{unitProyectBean.description}" />
+								<h:outputLabel value="Estado" for="proyectStatus" />
+								<h:selectOneMenu value="#{unitProyectBean.state}"
+									id="proyectStatus"
+									requiredMessage="#{temp.validateStaterGroup}">
+									<f:selectItems value="#{globalBean.loadListState}" />
+								</h:selectOneMenu>
+								<a4j:commandButton value="Guardar"
+									action="#{proyectUserBean.saveProyect}" reRender="te"></a4j:commandButton>
+
+							</h:panelGrid>
 						</a4j:outputPanel> <a4j:outputPanel id="vd" rendered="#{proyectUserBean.edit}">
 							<h3>Editar Proyecto</h3>
-							<a4j:repeat>
-								<div id="proyectRow"></div>
+
+							<a4j:repeat value="#{proyectUserBean.list_unitBeans}" var="pro" >
+								<div id="proyectRow">
+								<div class="title"><a4j:commandLink value="#{pro.name}"
+									action="#{proyectUserBean.editProject}"
+									reRender="detailPanelGroup,editSelected">
+									<a4j:actionparam name="proId" value="#{pro.id}"
+										assignTo="#{proyectUserBean.projectSelected}"></a4j:actionparam>
+								</a4j:commandLink></div>
+								<h:outputText value="#{pro.description}" /></div>
 							</a4j:repeat>
+
 						</a4j:outputPanel></div>
 					</h:panelGroup></td>
-					<td valign="top" style="padding-left: 40px;"><h:panelGroup>
-						<ui:fragment rendered="#{proyectUserBean.noProyects}">
+					<td valign="top" style="padding-left: 40px;"><h:panelGroup
+						id="detailPanelGroup">
+						<a4j:outputPanel rendered="#{proyectUserBean.noProyects}">
 							<h3>#{temp.notfoundProyects}</h3>
-						</ui:fragment>
+						</a4j:outputPanel>
+						<a4j:outputPanel id="editSelected"
+							rendered="#{proyectUserBean.editDetail}">
+
+							<rich:tabPanel switchType="ajax">
+								<rich:tab label="General">
+									<h:outputText value="#{proyectUserBean.projectSelected}" />
+								</rich:tab>
+								<rich:tab label="Grupos Asignados"></rich:tab>
+								<rich:tab label="Localizaciones Asignadas"></rich:tab>
+								<rich:tab label="Encuestas Asignadas"></rich:tab>
+
+							</rich:tabPanel>
+
+
+						</a4j:outputPanel>
+
 					</h:panelGroup></td>
 				</tr>
 			</table>

@@ -207,7 +207,12 @@ Proyect CSS
 
 #proyectBox{
 	/*border: 1px solid  #eee;*/
-	padding: 4px;	
+	padding: 5px;	
+	}
+.title{
+	font-weight: bold;
+	padding: 2px;
+	font-size: 14px;
 	}
 
 #formProyect p{
