@@ -111,7 +111,7 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 	 *            nombre de usuarii
 	 * @return usuario o nulo si no lo encuentra
 	 */
-	public SecUsers getUser(String username) {
+	public SecUsers getUser(String username)throws HibernateException {
 		List<SecUsers> users = getHibernateTemplate().findByNamedQuery(
 				"User.loadUserByUserName", username);
 		// obtiene el primer elemento

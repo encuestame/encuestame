@@ -1,6 +1,7 @@
 package org.jp.core.persistence.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +37,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 
 	private Log log = LogFactory.getLog(this.getClass());
-	
+
 	/**
 	 * find all projects
 	 * 
@@ -46,9 +47,27 @@ public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
 	public Collection<Project> findAll() throws HibernateException {
 		return getHibernateTemplate().find("from Project");
 	}
-	
+
+	/**
+	 * search project by id
+	 * @param id
+	 * @return
+	 * @throws HibernateException
+	 */
+	public Project getProject(Integer id) throws HibernateException {
+		List<Project> project = getHibernateTemplate().findByNamedQuery(
+				"Pro.loadProjByIDe", id);
+		log.info("project found's ->"+project.size());
+		if (project.size() > 0) {
+			return (Project) project.get(0);
+		} else {
+			throw new HibernateException("project not found");
+		}
+	}
+
 	/**
 	 * create projects
+	 * 
 	 * @param proyect
 	 * @throws HibernateException
 	 */

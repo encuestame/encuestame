@@ -70,10 +70,39 @@ public class DataService extends MasterService implements IDataService {
 		log.info("list listProjects->" + listProjects.size());
 		return listProjects;
 	}
-	
-	//public UnitProjectBean loadProjectInfo(Integer id){
-	//	
-	//}
+
+	/**
+	 * load project info
+	 * 
+	 * @param id
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion {
+		log.info("loadProjectInfo DATASERVICE -->"+project);
+		if (project.getId()!= null) {
+			Project pro = getProyectDaoImp().getProject(project.getId());
+			if (pro != null) {
+				log.info("2 project found name ->"+pro.getDescription());				
+				project.setId(pro.getProyectId());
+				project.setDateFinish(pro.getDateFinish());
+				project.setDateInit(pro.getDateStart());
+				project.setDescription(pro.getInfo());
+				project.setName(pro.getDescription());
+				project.setState(pro.getCatState().getIdState());
+				log.info("Rescue->"+project.getName());
+				log.info("loadProjectInfo DATASERVICE Rescue -->"+project);
+				return project;
+			} else {
+				log.info("id project is not found");
+				throw new EnMeExpcetion("id project is not found");
+			}
+		} else {
+			log.info("id project is null");
+			throw new EnMeExpcetion("id project is null");
+		}
+
+	}
 
 	/**
 	 * create project
@@ -106,9 +135,10 @@ public class DataService extends MasterService implements IDataService {
 
 	/**
 	 * load state by id
+	 * 
 	 * @param id
 	 */
-	private CatState getState(Integer id) throws Exception{
+	private CatState getState(Integer id) throws Exception {
 		return getStateDao().getState(id);
 	}
 

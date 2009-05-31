@@ -91,6 +91,7 @@ public class ProjectBean extends MasterBean {
 		if (getProjectSelected() != null) {
 			setNoProyects(false);
 			setEditDetail(true);
+			loadProjectInfo(getProjectSelected());
 		} else {
 			addWarningMessage("Error getProjectSelected", "");
 		}
@@ -98,24 +99,38 @@ public class ProjectBean extends MasterBean {
 
 	/**
 	 * loadProjectInfo
+	 * 
 	 * @param id
 	 */
 	private void loadProjectInfo(Integer id) {
 		try {
-			getServicemanagerBean().getDataService().loadProjectInfo(id);
-			//fullFormEditProject(project)
+			log.info("loadProjectInfo");
+			cleanProyect();
+			getBeanUProyect().setId(getProjectSelected());
+			setBeanUProyect(getServicemanagerBean().getDataService()
+					.loadProjectInfo(getBeanUProyect()));
+			fullFormEditProject(getBeanUProyect());
+			log.info("projecto Cargado");
 		} catch (Exception e) {
 			addErrorMessage("Error Cargando Datos Proyecto->" + e.getMessage(),
 					"");
 		}
 	}
-	
+
 	/**
-	 * 
+	 * full form edit project
 	 * @param project
 	 */
-	private void fullFormEditProject(UnitProjectBean project){
-		
+	private void fullFormEditProject(UnitProjectBean project) {
+		log.info("fullFormEditProject");
+		try {
+			log.info("INFO EDIT PRO->"+project.getDescription());
+			log.info("INFO EDIT PRO->"+project);
+			setBeanUProyect(project);
+			log.info("BEAN proyect->"+getBeanUProyect());
+		} catch (Exception e) {
+			addErrorMessage("Imposible Llena Formulario->" + e.getMessage(), "");
+		}
 	}
 
 	/**
@@ -204,6 +219,8 @@ public class ProjectBean extends MasterBean {
 	 * @return the beanUProyect
 	 */
 	public UnitProjectBean getBeanUProyect() {
+		log.info("DDDDDDDget UnitProjectBean->"+beanUProyect.getName());
+		log.info("get UnitProjectBean->"+beanUProyect);
 		return beanUProyect;
 	}
 
@@ -212,6 +229,7 @@ public class ProjectBean extends MasterBean {
 	 *            the beanUProyect to set
 	 */
 	public void setBeanUProyect(UnitProjectBean beanUProyect) {
+		log.info("set UnitProjectBean->"+beanUProyect);
 		this.beanUProyect = beanUProyect;
 	}
 

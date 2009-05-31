@@ -48,4 +48,12 @@
             <one-to-many class="org.jp.core.persistence.pojo.ProjectUser" />
         </set>
     </class>
+    
+    <query name="Pro.loadProjByIDe">
+	 <![CDATA[
+	        select u 
+	        from Project as u 
+	        where u.proyectId = ?
+			]]>
+	 </query>
 </hibernate-mapping>
