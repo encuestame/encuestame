@@ -134,6 +134,16 @@ public class ProjectBean extends MasterBean {
 	}
 
 	/**
+	 * 
+	 */
+	public void deselectedProject(){
+		log.info("deselectedProject");
+		cleanProyect();
+		setEditDetail(false);
+		setNoProyects(true);
+	}
+	
+	/**
 	 * clear form project
 	 */
 	private void cleanProyect() {
@@ -150,6 +160,7 @@ public class ProjectBean extends MasterBean {
 	public void changeCreate() {
 		try {
 			log.info("changeCreate");
+			deselectedProject();
 			setCreate(true);
 			setEdit(false);
 			log.info("Create " + getCreate());
@@ -164,6 +175,7 @@ public class ProjectBean extends MasterBean {
 	 */
 	public void changeEdit() {
 		log.info("changeEdit");
+		deselectedProject();
 		setCreate(false);
 		setEdit(true);
 		log.info("Create " + getCreate());

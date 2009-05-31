@@ -59,6 +59,16 @@
    <from-outcome>project</from-outcome>
    <to-view-id>/pages/admon/project.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>createSurvey</from-outcome>
+   <to-view-id>/pages/createSurvey.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>organizeSurveys</from-outcome>
+   <to-view-id>/pages/organizeSurveys.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/admon/index.xhtml</from-view-id>

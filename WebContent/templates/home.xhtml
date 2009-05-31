@@ -21,5 +21,10 @@
 <ui:include src="/templates/includes/menu.xhtml" />
 <div id="mainWrapper"><ui:insert name="main">main</ui:insert></div>
 <ui:include src="/templates/includes/footer.xhtml" />
+<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
+			minWidth="200" height="80" width="400" zindex="100">
+			<h2><h:outputText value="#{temp.loading}">
+			</h:outputText></h2>
+		</rich:modalPanel>
 </body>
 </html>

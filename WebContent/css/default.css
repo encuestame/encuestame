@@ -206,15 +206,23 @@ Proyect CSS
 **********************************/
 
 #proyectBox{
-	/*border: 1px solid  #eee;*/
 	padding: 5px;
 	min-width: 40%;	
 	}
+	
+#proyectRow{
+	width: 100%;
+	padding:3px;
+	border-bottom: 1px solid #eee;
+	min-height: 15px;
+}
+
 .title{
 	font-weight: bold;
 	padding: 2px;
 	font-size: 14px;
 	}
+
 
 #proyectRowWrapper{
 	width: 100%;
@@ -225,9 +233,5 @@ Proyect CSS
 	font-size: 14px;
 	}
 	
-#proyectRow{
-	width: 90%;
-	border: 1px solid #eee;
-	min-height: 15px;
-}
+
 

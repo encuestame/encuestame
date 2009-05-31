@@ -29,6 +29,14 @@
    <PROCESS-ITEM-OUTPUT ID="project::#pages#admon#project.xhtml"
     NAME="output8" PATH="/pages/admon/project.xhtml"
     TARGET="rules:#pages#admon#project.xhtml" TITLE="project" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="createSurvey::#pages#createSurvey.xhtml"
+    NAME="output9" PATH="/pages/createSurvey.xhtml"
+    SHAPE="100,312,296,312,296,408,447,408"
+    TARGET="rules:#pages#createSurvey.xhtml" TITLE="createSurvey" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="organizeSurveys::#pages#organizeSurveys.xhtml" NAME="output10"
+    PATH="/pages/organizeSurveys.xhtml"
+    TARGET="rules:#pages#organizeSurveys.xhtml" TITLE="organizeSurveys" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
@@ -84,4 +92,10 @@
   SHAPE="160,448,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#forget.xhtml" PATH="/forget.xhtml"
   SHAPE="208,520,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#createSurvey.xhtml"
+  PATH="/pages/createSurvey.xhtml" SHAPE="448,400,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#organizeSurveys.xhtml"
+  PATH="/pages/organizeSurveys.xhtml" SHAPE="440,464,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>
