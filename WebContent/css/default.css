@@ -2,6 +2,7 @@
 
 @IMPORT url("login.css");
 @IMPORT url("menu.css");
+@IMPORT url("survey.css");
 
 body {
 	background: #fff none repeat scroll 0 0;
@@ -233,5 +234,18 @@ Proyect CSS
 	font-size: 14px;
 	}
 	
+/*************************************
+	Commons
+**************************************/
+
+p.infoBox{
+	background: transparent url("../images/icons/ip_icon_04_Info.jpg") no-repeat top left;
+	padding-left: 50px;
+	padding-top:6px;
+	min-height: 40px;
+	font-size: 14px;
+	border-bottom:1px solid #bae9fb;
+	border-top: 1px solid #bae9fb;
+	}
 
 

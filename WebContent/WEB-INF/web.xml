@@ -39,7 +39,7 @@
 	-->
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
-		<param-value>darkX</param-value>
+		<param-value>classic</param-value>
 	</context-param>
 	<context-param>
 		<param-name>oorg.richfaces.CONTROL_SKINNING</param-name>

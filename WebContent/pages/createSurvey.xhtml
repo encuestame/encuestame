@@ -1,18 +1,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
 <body>
 <ui:composition template="/templates/surveyTemplate.xhtml">
-<ui:define name="title"> #{temp.surveyTitle}</ui:define>
+	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
-	<h3>Crear Encuesta</h3>
-	
+		<h2>#{temp.createSurvey}</h2>
+		<p class="infoBox">#{temp.surveyTitle}Crea una encuesta, solo escribe un nombre que
+		identifique bien su</p>
+		<rich:messages id="infoBox" errorClass="error" infoClass="info"
+			warnClass="war"></rich:messages>
+
+		<a4j:form id="cSurForm">
+
+			<h:panelGrid columns="1" styleClass="wrapperNewSurvey">
+				<h:outputLabel value="#{temp.question1Survey}"
+					styleClass="titleSurvey" for="nameSurvey" />
+				<h:panelGroup>
+					<h:panelGrid columns="2">
+						<h:inputText value="" id="nameSurvey" styleClass="textBox"
+							size="50" />
+						<a4j:commandButton value="#{temp.createSurvey}"
+							action="buildSurvey" styleClass="testButton"
+							style="testButton fontBackgroundColor"></a4j:commandButton>
+					</h:panelGrid>
+					<rich:suggestionbox id="suggestionBoxId" for="nameSurvey"
+						suggestionAction="#{surveyFormatBean.autocompletar}" var="result"
+						tokens="," height="150" width="160" cellpadding="2"
+						cellspacing="2" shadowOpacity="4" shadowDepth="4" minChars="1"
+						rules="none" nothingLabel="no existe ninguna localidad">
+						<h:column>
+							<h:outputText value="#{result}" style="font-style:bold" />
+						</h:column>
+					</rich:suggestionbox>
+				</h:panelGroup>
+			</h:panelGrid>
+		</a4j:form>
+
 	</ui:define>
-	
+
 </ui:composition>
 
 </body>

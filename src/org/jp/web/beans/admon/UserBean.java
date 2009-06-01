@@ -118,6 +118,7 @@ public class UserBean extends MasterBean {
 				String str = tokens.nextToken();
 				emails.add(str.trim());
 				i++;
+				
 			}
 			if (emails.size() > 0) {
 				Iterator<String> it = emails.iterator();

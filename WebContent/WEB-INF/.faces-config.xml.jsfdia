@@ -31,7 +31,7 @@
     TARGET="rules:#pages#admon#project.xhtml" TITLE="project" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="createSurvey::#pages#createSurvey.xhtml"
     NAME="output9" PATH="/pages/createSurvey.xhtml"
-    SHAPE="100,312,296,312,296,408,447,408"
+    SHAPE="100,312,296,312,296,416,479,416"
     TARGET="rules:#pages#createSurvey.xhtml" TITLE="createSurvey" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="organizeSurveys::#pages#organizeSurveys.xhtml" NAME="output10"
@@ -67,7 +67,7 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#project.xhtml"
-  PATH="/pages/admon/project.xhtml" SHAPE="456,312,50,41" model-entity="JSFProcessGroup">
+  PATH="/pages/admon/project.xhtml" SHAPE="680,312,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#admon#project.xhtml:0" NAME="item"
    PATH="/pages/admon/project.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
@@ -93,9 +93,20 @@
  <PROCESS-ITEM NAME="rules:#forget.xhtml" PATH="/forget.xhtml"
   SHAPE="208,520,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#createSurvey.xhtml"
-  PATH="/pages/createSurvey.xhtml" SHAPE="448,400,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
+  PATH="/pages/createSurvey.xhtml" SHAPE="480,408,50,25" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#createSurvey.xhtml:0" NAME="item"
+   PATH="/pages/createSurvey.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="buildSurvey::#templates#includes#survey#buildSurvey.xhtml"
+    NAME="output" PATH="/templates/includes/survey/buildSurvey.xhtml"
+    TARGET="rules:#templates#includes#survey#buildSurvey.xhtml"
+    TITLE="buildSurvey" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#organizeSurveys.xhtml"
-  PATH="/pages/organizeSurveys.xhtml" SHAPE="440,464,50,25"
+  PATH="/pages/organizeSurveys.xhtml" SHAPE="416,504,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#templates#includes#survey#buildSurvey.xhtml"
+  PATH="/templates/includes/survey/buildSurvey.xhtml"
+  SHAPE="680,440,50,25" model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

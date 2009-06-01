@@ -96,6 +96,14 @@
  <navigation-rule>
   <from-view-id>/pages/admon/location.xhtml</from-view-id>
  </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/pages/createSurvey.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>buildSurvey</from-outcome>
+   <to-view-id>/templates/includes/survey/buildSurvey.xhtml</to-view-id>
+  </navigation-case>
+  
+ </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
   <locale-config>

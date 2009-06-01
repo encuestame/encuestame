@@ -2,6 +2,7 @@ package org.jp.core.service;
 
 import org.jp.core.mail.MailServiceImpl;
 import org.jp.core.persistence.dao.CatStateDaoImp;
+import org.jp.core.persistence.dao.SurveyDaoImp;
 
 /**
  * encuestame:  system online surveys
@@ -28,16 +29,12 @@ import org.jp.core.persistence.dao.CatStateDaoImp;
  */
 public class SurveyService extends MasterService implements ISurveyService {
 	
-	private CatStateDaoImp catStateDao;
+	
 	private MailServiceImpl serviceMail;
-
-	public CatStateDaoImp getCatStateDao() {
-		return catStateDao;
-	}
-
-	public void setCatStateDao(CatStateDaoImp catStateDao) {
-		this.catStateDao = catStateDao;
-	}
+	private SurveyDaoImp surveyDaoImp;
+	private SecurityService securityService;
+	private DataService dataService;
+	
 
 	public MailServiceImpl getServiceMail() {
 		return serviceMail;
@@ -45,6 +42,50 @@ public class SurveyService extends MasterService implements ISurveyService {
 
 	public void setServiceMail(MailServiceImpl serviceMail) {
 		this.serviceMail = serviceMail;
+	}
+
+	/**
+	 * @return the surveyDaoImp
+	 */
+	public SurveyDaoImp getSurveyDaoImp() {
+		return surveyDaoImp;
+	}
+
+	/**
+	 * @param surveyDaoImp the surveyDaoImp to set
+	 */
+	public void setSurveyDaoImp(SurveyDaoImp surveyDaoImp) {
+		this.surveyDaoImp = surveyDaoImp;
+	}
+
+	
+
+	/**
+	 * @return the securityService
+	 */
+	private SecurityService getSecurityService() {
+		return securityService;
+	}
+
+	/**
+	 * @param securityService the securityService to set
+	 */
+	public void setSecurityService(SecurityService securityService) {
+		this.securityService = securityService;
+	}
+
+	/**
+	 * @return the dataService
+	 */
+	private DataService getDataService() {
+		return dataService;
+	}
+
+	/**
+	 * @param dataService the dataService to set
+	 */
+	public void setDataService(DataService dataService) {
+		this.dataService = dataService;
 	}
 	
 	

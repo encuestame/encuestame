@@ -47,7 +47,7 @@
 			<ref bean="hibernateTemplate" />
 		</property>
 	</bean>
-	
+
 	<bean id="catStateDaoImp" class="org.jp.core.persistence.dao.CatStateDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
@@ -67,6 +67,12 @@
 	</bean>
 
 	<bean id="secGroupDaoImp" class="org.jp.core.persistence.dao.SecGroupDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+
+	<bean id="surveyDaoImp" class="org.jp.core.persistence.dao.SurveyDaoImp">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate" />
 		</property>
@@ -93,11 +99,17 @@
 	</bean>
 
 	<bean id="surveyService" class="org.jp.core.service.SurveyService">
-		<property name="catStateDao">
-			<ref bean="catStateDaoImp"></ref>
+		<property name="surveyDaoImp">
+			<ref bean="surveyDaoImp"></ref>
 		</property>
 		<property name="serviceMail">
 			<ref bean="serviceMail"></ref>
+		</property>
+		<property name="securityService">
+			<ref bean="securityService"></ref>
+		</property>
+		<property name="dataService">
+			<ref bean="dataService"></ref>
 		</property>
 	</bean>
 
@@ -130,10 +142,12 @@
 			<ref bean="messageSource"></ref>
 		</property>
 		<property name="defaultUserPermission">
-			<value>${sec.defaultUserPermission}</value>
+			<value>${sec.defaultUserPermission}
+			</value>
 		</property>
 		<property name="suspendedNotification">
-		<value>${sec.suspendedNotification}</value>
+			<value>${sec.suspendedNotification}
+			</value>
 		</property>
 	</bean>
 
@@ -148,7 +162,7 @@
 			<value>${application.encoding}</value>
 		</property>
 		<property name="apiKeygoogle">
-		<value>${application.apiKeygoogle}</value>
+			<value>${application.apiKeygoogle}</value>
 		</property>
 	</bean>
 

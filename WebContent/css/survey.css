@@ -1,0 +1,97 @@
+@CHARSET "ISO-8859-1";
+
+.textBox {
+	font-size: 14px;
+	padding: 7px;
+	font-weight: bold;
+}
+
+.wrapperNewSurvey {
+	margin-top: 30px;
+}
+
+.fontBackgroundColor{
+	background-color: #ff7e00;
+	}
+
+.titleSurvey {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 2px;
+}
+
+input[type=button]{
+	font-style: 14px;	
+}
+
+.testButton{
+	font-size:14px;
+	background-color: #eee;
+	padding: 7px;
+	
+	}
+/*
+.clear { 
+    overflow: hidden;
+    width: 100%;
+}
+
+a.button {
+    background: transparent url("../images/bg_button_a.gif") no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; 
+    text-decoration: none;
+}
+
+a.button span {
+    background: transparent url("../images/bg_button_span.gif") no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; 
+}
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; 
+}
+
+.button {
+    background: transparent url("../images/bg_button_a.gif") no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; 
+    text-decoration: none;
+}
+
+.button span {
+    background: transparent url("../images/bg_button_span.gif") no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; 
+}
+
+.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px 
+}*/
