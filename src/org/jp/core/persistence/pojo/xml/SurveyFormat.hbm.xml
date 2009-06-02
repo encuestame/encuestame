@@ -33,7 +33,8 @@
 	 <![CDATA[
 	        select u 
 	        from SurveyFormat as u 
-	        where u.name like %?% 
+	        where u.name like '?'
 			]]>
 	 </query>
+	 
 </hibernate-mapping>

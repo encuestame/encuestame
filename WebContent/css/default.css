@@ -245,7 +245,21 @@ p.infoBox{
 	min-height: 40px;
 	font-size: 14px;
 	border-bottom:1px solid #bae9fb;
-	border-top: 1px solid #bae9fb;
+	/*border-top: 1px solid #bae9fb;*/
+	font-weight:bold;
+	color: #45b9d6;
+	
 	}
 
+
+p.ideasBox{
+	background: transparent url("../images/icons/1243965762_001_11.gif") no-repeat top left;
+	padding-left: 30px;
+	padding-top:6px;
+	min-height: 25px;
+	font-size: 14px;
+	font-weight:bold;
+	border-bottom:1px solid #fa9a50;
+	color: #b87b4d;
+	}
 

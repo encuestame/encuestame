@@ -10,9 +10,9 @@
 	margin-top: 30px;
 }
 
-.fontBackgroundColor{
+.fontBackgroundColor {
 	background-color: #ff7e00;
-	}
+}
 
 .titleSurvey {
 	font-size: 14px;
@@ -20,16 +20,26 @@
 	padding: 2px;
 }
 
-input[type=button]{
-	font-style: 14px;	
+input[type=button] {
+	font-style: 14px;
 }
 
-.testButton{
-	font-size:14px;
+.testButton {
+	font-size: 14px;
 	background-color: #eee;
 	padding: 7px;
-	
-	}
+}
+
+.surveySuggestItem {
+	padding: 10px;
+	width: 100%;
+	border-bottom:#ddd 1px solid; 
+}
+
+.surveySuggestItemTitle {
+	font-size: 16px;
+	color: #bdbfbf;
+}
 /*
 .clear { 
     overflow: hidden;

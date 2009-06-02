@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
 import org.jp.core.persistence.dao.imp.ISurvey;
 import org.jp.core.persistence.pojo.SecUsers;
 import org.jp.core.persistence.pojo.SurveyFormat;
@@ -48,8 +50,13 @@ public class SurveyDaoImp extends HibernateDaoSupport implements ISurvey {
 	public Collection<SurveyFormat> searchSurveyByName(String searchString)
 			throws HibernateException {
 		
-		List<SurveyFormat> survey = getHibernateTemplate().findByNamedQuery(
-				"Survey.searchFormatByName", searchString);
+		//List<SurveyFormat> survey = getHibernateTemplate().findByNamedQuery(
+		//		"Survey.searchFormatByName", searchString);
+		
+		Criteria crit = getSession().createCriteria(SurveyFormat.class);
+        crit.add(Restrictions.like("name","%"+searchString+"%"));
+        crit.setMaxResults(10);
+        List<SurveyFormat> survey = crit.list();
 		log.info("Encuestas Encontradas->" + survey);
 		if (survey != null) {
 			return survey;

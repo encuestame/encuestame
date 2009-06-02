@@ -39,6 +39,7 @@ public class SurveyFormatBean extends MasterBean {
 	Collection<UnitSurveySection> sections = new LinkedList<UnitSurveySection>();
 	private String surveyName;
 	private Log log = LogFactory.getLog(this.getClass());
+	private Boolean listSuggest = false;
 
 	public SurveyFormatBean() {
 
@@ -47,14 +48,29 @@ public class SurveyFormatBean extends MasterBean {
 	/**
 	 * 
 	 * @param suggest
+	 * @return public List<SurveyFormat> autocomplete(Object suggest) {
+	 *         log.info("autocomplete->" + suggest); ArrayList<SurveyFormat>
+	 *         result = new ArrayList<SurveyFormat>(); try { String pref =
+	 *         (String) suggest; setSurveyName(pref); loadSurveySuggestion();
+	 *         log.info("before loadSurveySuggestion->"); Iterator<SurveyFormat>
+	 *         iterator = lista.iterator(); while (iterator.hasNext()) {
+	 *         SurveyFormat elem = ((SurveyFormat) iterator.next()); if
+	 *         ((elem.getName() != null && elem.getName().toLowerCase()
+	 *         .indexOf(pref.toLowerCase()) == 0) || "".equals(pref)) {
+	 *         result.add(elem); } } } catch (Exception e) {
+	 *         log.info("Exception->" + e);
+	 *         addErrorMessage("Error autocomplentar->" + e.getMessage(), e
+	 *         .getMessage()); } return result; }
+	 */
+
+	/**
+	 * 
 	 * @return
 	 */
-	public List<SurveyFormat> autocomplete(Object suggest) {
-		log.info("autocomplete->" + suggest);
+	public List<SurveyFormat> suggestSurveysNames() {
 		ArrayList<SurveyFormat> result = new ArrayList<SurveyFormat>();
 		try {
-			String pref = (String) suggest;
-			setSurveyName(pref);
+			String pref = getSurveyName();
 			loadSurveySuggestion();
 			log.info("before loadSurveySuggestion->");
 			Iterator<SurveyFormat> iterator = lista.iterator();
@@ -66,6 +82,9 @@ public class SurveyFormatBean extends MasterBean {
 					result.add(elem);
 				}
 			}
+
+			log.info("suggest bolean->" + getListSuggest());
+
 		} catch (Exception e) {
 			log.info("Exception->" + e);
 			addErrorMessage("Error autocomplentar->" + e.getMessage(), e
@@ -78,14 +97,19 @@ public class SurveyFormatBean extends MasterBean {
 	 * 
 	 */
 	private void loadSurveySuggestion() {
-		log.info("loadSurveySuggestion-"+getSurveyName());
-		if (getSurveyName() != null) {
+		log.info("loadSurveySuggestion-->" + getSurveyName());
+		if (getSurveyName() != null && !getSurveyName().trim().isEmpty()) {
 			lista = getServicemanagerBean().getSurveyService()
 					.getSurveyDaoImp().searchSurveyByName(
 							getSurveyName().trim());
-			log.info("Lista Encuestas->" + lista.size());
+			if (lista.size() > 0)
+				setListSuggest(true);
+			else
+				setListSuggest(false);
+
 		} else {
-			log.info("getSurveyName->" + getSurveyName());
+			setListSuggest(false);
+			log.info("getSurveyName empty->" + getSurveyName());
 		}
 	}
 
@@ -101,7 +125,38 @@ public class SurveyFormatBean extends MasterBean {
 	 *            the surveyName to set
 	 */
 	public void setSurveyName(String surveyName) {
-		this.surveyName = surveyName;
+		this.surveyName = surveyName.trim();
+	}
+
+	/**
+	 * @return the lista
+	 */
+	public Collection<SurveyFormat> getLista() {
+		log.info("lista->" + lista.size());
+		return lista;
+	}
+
+	/**
+	 * @param lista
+	 *            the lista to set
+	 */
+	public void setLista(Collection<SurveyFormat> lista) {
+		this.lista = lista;
+	}
+
+	/**
+	 * @return the listSuggest
+	 */
+	public Boolean getListSuggest() {
+		return listSuggest;
+	}
+
+	/**
+	 * @param listSuggest
+	 *            the listSuggest to set
+	 */
+	public void setListSuggest(Boolean listSuggest) {
+		this.listSuggest = listSuggest;
 	}
 
 }

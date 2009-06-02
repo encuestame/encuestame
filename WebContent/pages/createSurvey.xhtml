@@ -10,8 +10,8 @@
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.createSurvey}</h2>
-		<p class="infoBox">#{temp.surveyTitle}Crea una encuesta, solo escribe un nombre que
-		identifique bien su</p>
+		<p class="infoBox">#{temp.surveyTitle}Crea una encuesta, solo
+		escribe un nombre que identifique bien su</p>
 		<rich:messages id="infoBox" errorClass="error" infoClass="info"
 			warnClass="war"></rich:messages>
 
@@ -22,23 +22,41 @@
 					styleClass="titleSurvey" for="nameSurvey" />
 				<h:panelGroup>
 					<h:panelGrid columns="2">
-						<h:inputText value="#{surveyFormatBean.surveyName}" id="nameSurvey" styleClass="textBox"
-							size="50" />
+						<h:inputText value="#{surveyFormatBean.surveyName}"
+							id="nameSurvey" styleClass="textBox" size="50">
+							<a4j:support event="onchange" reRender="cSurForm"
+								action="#{surveyFormatBean.suggestSurveysNames}"></a4j:support>
+
+						</h:inputText>
 						<a4j:commandButton value="#{temp.createSurvey}"
 							action="buildSurvey" styleClass="testButton"
 							style="testButton fontBackgroundColor"></a4j:commandButton>
 					</h:panelGrid>
-					<rich:suggestionbox id="suggestionBoxId" for="nameSurvey"
-						suggestionAction="#{surveyFormatBean.autocomplete}" var="result"
-						tokens="," height="150" width="160" cellpadding="2"
-						cellspacing="2" shadowOpacity="4" shadowDepth="4" minChars="1"
-						rules="none" nothingLabel="no existe ninguna localidad">
-						<h:column>
-							<h:outputText value="#{result}" style="font-style:bold" />
-						</h:column>
-					</rich:suggestionbox>
 				</h:panelGroup>
 			</h:panelGrid>
+			<rich:spacer height="40"></rich:spacer>
+			<ui:fragment rendered="#{surveyFormatBean.listSuggest}"
+				id="dsadjaskdjlkasdsa">
+				<a4j:outputPanel id="test" ajaxRendered="true">
+					<rich:effect name="showDiv2" event="onchange" for="test"
+						type="BlindDown" params="duration:0.8" />
+					<p class="ideasBox">Existen algunas encuestas similares, tal
+					vez devas replantear el nombre.</p>
+
+					<a4j:repeat id="dsdsds" value="#{surveyFormatBean.lista}" var="t"
+						rendered="#{surveyFormatBean.listSuggest}">
+						<div class="surveySuggestItem"><h:panelGrid columns="8">
+							<h:panelGroup>
+								<h:outputText value="#{t.name}"
+									styleClass="surveySuggestItemTitle" />
+							</h:panelGroup>
+							<a4j:commandLink value="Resultados"></a4j:commandLink>
+							<a4j:commandLink value="Editar"></a4j:commandLink>
+							<a4j:commandLink value="Publicar"></a4j:commandLink>
+						</h:panelGrid></div>
+					</a4j:repeat>
+				</a4j:outputPanel>
+			</ui:fragment>
 		</a4j:form>
 
 	</ui:define>
