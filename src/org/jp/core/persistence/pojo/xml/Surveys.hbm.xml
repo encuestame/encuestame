@@ -36,4 +36,6 @@
             <one-to-many class="org.jp.core.persistence.pojo.SurveyTime" />
         </set>
     </class>
+    
+   
 </hibernate-mapping>

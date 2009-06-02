@@ -1,12 +1,15 @@
 package org.jp.web.beans.survey;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jp.core.persistence.pojo.SurveyFormat;
 import org.jp.web.beans.MasterBean;
-
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -32,32 +35,58 @@ import org.jp.web.beans.MasterBean;
  */
 public class SurveyFormatBean extends MasterBean {
 
-	List<String> lista = new ArrayList<String>();
-	private String surveyName; 
+	Collection<SurveyFormat> lista = new ArrayList<SurveyFormat>();
+	Collection<UnitSurveySection> sections = new LinkedList<UnitSurveySection>();
+	private String surveyName;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	public SurveyFormatBean() {
-		lista.add("JotaDeveloper");
-		lista.add("SwordFishCode");
-		lista.add("Juan Ortega");
-		lista.add("CNN Noticiero");
-		lista.add("Adobe Photoshop");
-		lista.add("Adobe Photoshop");
+
 	}
 
-	public List<String> autocompletar(Object suggest) {
-		String pref = (String) suggest;
-		ArrayList<String> result = new ArrayList<String>();
-
-		Iterator<String> iterator = lista.iterator();
-		while (iterator.hasNext()) {
-			String elem = ((String) iterator.next());
-			if ((elem != null && elem.toLowerCase().indexOf(pref.toLowerCase()) == 0)
-					|| "".equals(pref)) {
-				result.add(elem);
+	/**
+	 * 
+	 * @param suggest
+	 * @return
+	 */
+	public List<SurveyFormat> autocomplete(Object suggest) {
+		log.info("autocomplete->" + suggest);
+		ArrayList<SurveyFormat> result = new ArrayList<SurveyFormat>();
+		try {
+			String pref = (String) suggest;
+			setSurveyName(pref);
+			loadSurveySuggestion();
+			log.info("before loadSurveySuggestion->");
+			Iterator<SurveyFormat> iterator = lista.iterator();
+			while (iterator.hasNext()) {
+				SurveyFormat elem = ((SurveyFormat) iterator.next());
+				if ((elem.getName() != null && elem.getName().toLowerCase()
+						.indexOf(pref.toLowerCase()) == 0)
+						|| "".equals(pref)) {
+					result.add(elem);
+				}
 			}
+		} catch (Exception e) {
+			log.info("Exception->" + e);
+			addErrorMessage("Error autocomplentar->" + e.getMessage(), e
+					.getMessage());
 		}
 		return result;
+	}
 
+	/**
+	 * 
+	 */
+	private void loadSurveySuggestion() {
+		log.info("loadSurveySuggestion-"+getSurveyName());
+		if (getSurveyName() != null) {
+			lista = getServicemanagerBean().getSurveyService()
+					.getSurveyDaoImp().searchSurveyByName(
+							getSurveyName().trim());
+			log.info("Lista Encuestas->" + lista.size());
+		} else {
+			log.info("getSurveyName->" + getSurveyName());
+		}
 	}
 
 	/**
@@ -68,12 +97,11 @@ public class SurveyFormatBean extends MasterBean {
 	}
 
 	/**
-	 * @param surveyName the surveyName to set
+	 * @param surveyName
+	 *            the surveyName to set
 	 */
 	public void setSurveyName(String surveyName) {
 		this.surveyName = surveyName;
 	}
 
-	
-	
 }

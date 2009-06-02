@@ -22,14 +22,14 @@
 					styleClass="titleSurvey" for="nameSurvey" />
 				<h:panelGroup>
 					<h:panelGrid columns="2">
-						<h:inputText value="" id="nameSurvey" styleClass="textBox"
+						<h:inputText value="#{surveyFormatBean.surveyName}" id="nameSurvey" styleClass="textBox"
 							size="50" />
 						<a4j:commandButton value="#{temp.createSurvey}"
 							action="buildSurvey" styleClass="testButton"
 							style="testButton fontBackgroundColor"></a4j:commandButton>
 					</h:panelGrid>
 					<rich:suggestionbox id="suggestionBoxId" for="nameSurvey"
-						suggestionAction="#{surveyFormatBean.autocompletar}" var="result"
+						suggestionAction="#{surveyFormatBean.autocomplete}" var="result"
 						tokens="," height="150" width="160" cellpadding="2"
 						cellspacing="2" shadowOpacity="4" shadowDepth="4" minChars="1"
 						rules="none" nothingLabel="no existe ninguna localidad">

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="org.jp.core.persistence.pojo.SurveyFormat" table="survey_format">
+    <class name="org.jp.core.persistence.pojo.SurveyFormat" table="survey_format" lazy="false">
         <id name="idSidFormat" type="int">
             <column name="id_sid_format" />
             <generator class="assigned" />
@@ -27,4 +27,13 @@
             <one-to-many class="org.jp.core.persistence.pojo.SurveyDetail" />
         </set>
     </class>
+    
+     
+	 <query name="Survey.searchFormatByName">
+	 <![CDATA[
+	        select u 
+	        from SurveyFormat as u 
+	        where u.name like %?% 
+			]]>
+	 </query>
 </hibernate-mapping>
