@@ -24,21 +24,27 @@ input[type=button] {
 	font-style: 14px;
 }
 
-.testButton {
-	font-size: 14px;
-	background-color: #eee;
-	padding: 7px;
-}
-
 .surveySuggestItem {
 	padding: 10px;
 	width: 100%;
-	border-bottom:#ddd 1px solid; 
+	border-bottom: #ddd 1px solid;
 }
 
 .surveySuggestItemTitle {
 	font-size: 16px;
 	color: #bdbfbf;
+}
+
+#surveyBuildBar {
+	text-align: right;
+	padding: 3px;
+}
+
+#surveyBuildBar .testButton {
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #eee;
+	padding: 4px;
 }
 /*
 .clear { 

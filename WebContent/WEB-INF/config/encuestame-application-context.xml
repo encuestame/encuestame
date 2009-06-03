@@ -78,6 +78,12 @@
 		</property>
 	</bean>
 
+	<bean id="questionDaoImp" class="org.jp.core.persistence.dao.QuestionDaoImp">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+
 	<!--  Services  -->
 
 	<bean id="servicesManager" class="org.jp.web.beans.ServiceManagerBean">
@@ -110,6 +116,9 @@
 		</property>
 		<property name="dataService">
 			<ref bean="dataService"></ref>
+		</property>
+		<property name="questionDaoImp">
+			<ref bean="questionDaoImp"></ref>
 		</property>
 	</bean>
 

@@ -48,11 +48,7 @@ public class SurveyDaoImp extends HibernateDaoSupport implements ISurvey {
 	 * @throws HibernateException
 	 */
 	public Collection<SurveyFormat> searchSurveyByName(String searchString)
-			throws HibernateException {
-		
-		//List<SurveyFormat> survey = getHibernateTemplate().findByNamedQuery(
-		//		"Survey.searchFormatByName", searchString);
-		
+			throws HibernateException {	
 		Criteria crit = getSession().createCriteria(SurveyFormat.class);
         crit.add(Restrictions.like("name","%"+searchString+"%"));
         crit.setMaxResults(10);

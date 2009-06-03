@@ -108,5 +108,5 @@
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#templates#includes#survey#buildSurvey.xhtml"
   PATH="/templates/includes/survey/buildSurvey.xhtml"
-  SHAPE="680,440,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="688,440,50,25" model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

@@ -10,10 +10,57 @@
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.builSurvey}</h2>
-		
 
+		<rich:messages id="infoBox" errorClass="error" infoClass="info"
+			warnClass="war"></rich:messages>
 		<a4j:form id="cSurForm">
-			<h:outputText value="build" />
+			<h3>#{surveyFormatBean.surveyName}</h3>
+
+			<rich:dragIndicator id="indicator">
+				<f:facet name="multiple">
+					<f:verbatim>
+						<b>Single item</b> {DragInfo}
+            </f:verbatim>
+				</f:facet>
+			</rich:dragIndicator>
+			<h:panelGrid columns="2">
+				<h:panelGroup>
+					<a4j:repeat value="#{surveyControllerBean.questionsList}" var="fm">
+						<a4j:outputPanel
+							style="width:100px;border:1px solid gray;padding:2px"
+							layout="block">
+							<rich:dragSupport dragIndicator=":indicator" dragType="#{fm.id}"
+								dragValue="#{fm}">
+								<rich:dndParam name="label" value="#{fm.id}" />
+							</rich:dragSupport>
+							<h:outputText value="#{fm.questionName}"></h:outputText>
+
+						</a4j:outputPanel>
+
+					</a4j:repeat>
+				</h:panelGroup>
+				<h:panelGroup>
+					<!-- 
+					<rich:panel styleClass="dropTargetPanel">
+						<f:facet name="header">
+							<h:outputText value="PHP Frameworks" />
+						</f:facet>
+						<rich:dropSupport id="php" acceptedTypes="PHP" dropValue="PHP"
+							dropListener="#{eventBean.processDrop}" reRender="phptable, src">
+						</rich:dropSupport>
+
+						<h:dataTable id="phptable" columns="1"
+							value="#{dndBean.containerPHP}" var="fm">
+							<h:column>
+								<h:outputText value="#{fm.name}"></h:outputText>
+							</h:column>
+						</h:dataTable>
+					</rich:panel>
+ -->
+				</h:panelGroup>
+
+
+			</h:panelGrid>
 		</a4j:form>
 
 	</ui:define>

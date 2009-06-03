@@ -10,12 +10,16 @@
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.createSurvey}</h2>
-		<p class="infoBox">#{temp.surveyTitle}Crea una encuesta, solo
-		escribe un nombre que identifique bien su</p>
-		<rich:messages id="infoBox" errorClass="error" infoClass="info"
-			warnClass="war"></rich:messages>
+		<p class="infoBox">Crea una encuesta, solo escribe un nombre que
+		identifique.</p>
 
 		<a4j:form id="cSurForm">
+			<div id="surveyBuildBar"><a4j:commandButton
+				value="Construir Encuesta" action="buildSurvey"
+				styleClass="testButton" style="testButton fontBackgroundColor"></a4j:commandButton>
+			</div>
+
+
 
 			<h:panelGrid columns="1" styleClass="wrapperNewSurvey">
 				<h:outputLabel value="#{temp.question1Survey}"
@@ -23,18 +27,18 @@
 				<h:panelGroup>
 					<h:panelGrid columns="2">
 						<h:inputText value="#{surveyFormatBean.surveyName}"
-							id="nameSurvey" styleClass="textBox" size="50">
+							id="nameSurvey" styleClass="textBox" size="50" required="true"
+							requiredMessage="Es necesario el nombre de la Encuesta">
 							<a4j:support event="onchange" reRender="cSurForm"
 								action="#{surveyFormatBean.suggestSurveysNames}"></a4j:support>
 
 						</h:inputText>
-						<a4j:commandButton value="#{temp.createSurvey}"
-							action="buildSurvey" styleClass="testButton"
-							style="testButton fontBackgroundColor"></a4j:commandButton>
 					</h:panelGrid>
 				</h:panelGroup>
 			</h:panelGrid>
-			<rich:spacer height="40"></rich:spacer>
+			<rich:spacer height="20"></rich:spacer>
+			<rich:messages id="infoBox" errorClass="error" infoClass="info"
+				warnClass="war"></rich:messages>
 			<ui:fragment rendered="#{surveyFormatBean.listSuggest}"
 				id="dsadjaskdjlkasdsa">
 				<a4j:outputPanel id="test" ajaxRendered="true">

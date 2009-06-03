@@ -45,23 +45,6 @@ public class SurveyFormatBean extends MasterBean {
 
 	}
 
-	/**
-	 * 
-	 * @param suggest
-	 * @return public List<SurveyFormat> autocomplete(Object suggest) {
-	 *         log.info("autocomplete->" + suggest); ArrayList<SurveyFormat>
-	 *         result = new ArrayList<SurveyFormat>(); try { String pref =
-	 *         (String) suggest; setSurveyName(pref); loadSurveySuggestion();
-	 *         log.info("before loadSurveySuggestion->"); Iterator<SurveyFormat>
-	 *         iterator = lista.iterator(); while (iterator.hasNext()) {
-	 *         SurveyFormat elem = ((SurveyFormat) iterator.next()); if
-	 *         ((elem.getName() != null && elem.getName().toLowerCase()
-	 *         .indexOf(pref.toLowerCase()) == 0) || "".equals(pref)) {
-	 *         result.add(elem); } } } catch (Exception e) {
-	 *         log.info("Exception->" + e);
-	 *         addErrorMessage("Error autocomplentar->" + e.getMessage(), e
-	 *         .getMessage()); } return result; }
-	 */
 
 	/**
 	 * 
@@ -106,7 +89,6 @@ public class SurveyFormatBean extends MasterBean {
 				setListSuggest(true);
 			else
 				setListSuggest(false);
-
 		} else {
 			setListSuggest(false);
 			log.info("getSurveyName empty->" + getSurveyName());
