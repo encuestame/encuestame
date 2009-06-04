@@ -81,6 +81,23 @@
 	<bean id="surveyControllerBean" class="org.jp.web.beans.survey.BuildSurveyControllerBean"
 		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
+		<property name="unitSurveySection" ref="unitSurveySection" />
+		<property name="unitQuestionBean" ref="unitQuestionBean" />
+	</bean>
+	
+	<bean id="unitSurveySection" class="org.jp.web.beans.survey.UnitSurveySection"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+	
+	<bean id="unitQuestionBean" class="org.jp.web.beans.survey.UnitQuestionBean"
+		scope="session">
+		<property name="servicemanagerBean" ref="servicesManager" />
+	</bean>
+
+	<bean id="buildEventSurvey" class="org.jp.web.utils.DropEventBean"
+		scope="session">
+		<property name="buildSurvey" ref="surveyControllerBean" />
 	</bean>
 
 	<!-- login bean -->

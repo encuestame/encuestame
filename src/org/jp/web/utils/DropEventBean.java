@@ -1,6 +1,7 @@
 package org.jp.web.utils;
 
 import org.jp.web.beans.admon.UnitUserBean;
+import org.jp.web.beans.survey.BuildSurveyControllerBean;
 import org.richfaces.component.Dropzone;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
@@ -28,32 +29,28 @@ import org.richfaces.event.DropListener;
  * @version 1.0
  */
 public class DropEventBean implements DropListener {
-	
-	public UnitUserBean unitUser;
+
+	public BuildSurveyControllerBean buildSurvey;
 
 	public void processDrop(DropEvent dropEvent) {
 		Dropzone dropzone = (Dropzone) dropEvent.getComponent();
-		
-		unitUser
-				.moveFramework(dropEvent.getDragValue(), dropzone
-						.getDropValue());
-		
-		
-
+		buildSurvey.moveQuestion(dropEvent.getDragValue(), dropzone
+				.getDropValue());
 	}
 
 	/**
-	 * @return the unitUser
+	 * @return the buildSurvey
 	 */
-	public UnitUserBean getUnitUser() {
-		return unitUser;
+	public BuildSurveyControllerBean getBuildSurvey() {
+		return buildSurvey;
 	}
 
 	/**
-	 * @param unitUser the unitUser to set
+	 * @param buildSurvey
+	 *            the buildSurvey to set
 	 */
-	public void setUnitUser(UnitUserBean unitUser) {
-		this.unitUser = unitUser;
+	public void setBuildSurvey(BuildSurveyControllerBean buildSurvey) {
+		this.buildSurvey = buildSurvey;
 	}
 
 }

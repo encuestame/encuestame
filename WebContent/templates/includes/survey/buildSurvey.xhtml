@@ -1,20 +1,81 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/templates/surveyTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-<body>
-<ui:composition template="/templates/surveyTemplate.xhtml">
+
+	<style>
+.panelc {
+	width: 25%;
+	vertical-align: top;
+}
+
+.dropTargetPanel {
+	width: 90%;
+}
+
+.footerClass {
+	text-align: center;
+	padding-top: 5px;
+}
+</style>
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.builSurvey}</h2>
 
 		<rich:messages id="infoBox" errorClass="error" infoClass="info"
 			warnClass="war"></rich:messages>
+
+
+
+
+
+		<rich:modalPanel id="panelnewSeccion" autosized="true" width="600"
+			height="200" zindex="2000">
+			<f:facet name="header">
+				<a4j:form id="formHeaderNewtUser">
+					<h:panelGroup>
+						<h:outputText id="headerEditUser" value="Nuevo Grupo"></h:outputText>
+					</h:panelGroup>
+				</a4j:form>
+			</f:facet>
+			<f:facet name="controls">
+				<a4j:form ajaxSubmit="true">
+					<h:panelGroup>
+						<a4j:commandLink
+							onclick="Richfaces.hideModalPanel('panelnewSeccion')"
+							ajaxSingle="true">
+							<h:graphicImage value="#{url.img}/icons/close.png" />
+						</a4j:commandLink>
+					</h:panelGroup>
+				</a4j:form>
+			</f:facet>
+			<a4j:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="id" for="" />
+					<h:inputText value="#{unitSurveySection.id}" />
+					<h:outputLabel value="name" for="" />
+					<h:inputText value="#{unitSurveySection.name}" />
+					<h:outputLabel value="state" for="" />
+					<h:inputText value="#{unitSurveySection.stateId}" />
+					<a4j:commandButton value="Crear"
+						action="#{surveyControllerBean.createSecction}"
+						oncomplete="Richfaces.hideModalPanel('panelnewSeccion')"
+						reRender="cSurForm"></a4j:commandButton>
+
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
 		<a4j:form id="cSurForm">
 			<h3>#{surveyFormatBean.surveyName}</h3>
+
+			<h:panelGrid columns="1">
+				<a4j:commandLink value="Crear Seccion"
+					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
+
+			</h:panelGrid>
 
 			<rich:dragIndicator id="indicator">
 				<f:facet name="multiple">
@@ -29,34 +90,25 @@
 						<a4j:outputPanel
 							style="width:100px;border:1px solid gray;padding:2px"
 							layout="block">
-							<rich:dragSupport dragIndicator=":indicator" dragType="#{fm.id}"
+							<rich:dragSupport dragIndicator=":indicator" dragType="PHP"
 								dragValue="#{fm}">
 								<rich:dndParam name="label" value="#{fm.id}" />
 							</rich:dragSupport>
 							<h:outputText value="#{fm.questionName}"></h:outputText>
-
 						</a4j:outputPanel>
 
 					</a4j:repeat>
 				</h:panelGroup>
 				<h:panelGroup>
-					<!-- 
-					<rich:panel styleClass="dropTargetPanel">
-						<f:facet name="header">
-							<h:outputText value="PHP Frameworks" />
-						</f:facet>
-						<rich:dropSupport id="php" acceptedTypes="PHP" dropValue="PHP"
-							dropListener="#{eventBean.processDrop}" reRender="phptable, src">
-						</rich:dropSupport>
-
-						<h:dataTable id="phptable" columns="1"
-							value="#{dndBean.containerPHP}" var="fm">
-							<h:column>
-								<h:outputText value="#{fm.name}"></h:outputText>
-							</h:column>
-						</h:dataTable>
-					</rich:panel>
- -->
+					<a4j:repeat value="#{surveyControllerBean.sectionList}"
+						var="seccion">
+						<rich:panel styleClass="dropTargetPanel" style="width:400px;">
+							<h:outputText value="#{seccion.name}" />
+							<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion.id}"
+								dropListener="#{buildEventSurvey.processDrop}">
+							</rich:dropSupport>
+						</rich:panel>
+					</a4j:repeat>
 				</h:panelGroup>
 
 
@@ -66,6 +118,3 @@
 	</ui:define>
 
 </ui:composition>
-
-</body>
-</html>

@@ -1,8 +1,10 @@
 package org.jp.web.beans.survey;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.jp.core.exception.EnMeExpcetion;
 import org.jp.web.beans.MasterBean;
@@ -34,8 +36,32 @@ public class BuildSurveyControllerBean extends MasterBean {
 	private String questionSearch;
 	private Collection<UnitQuestionBean> questionsList;
 	private Collection<UnitSurveySection> sectionList;
+	private Log log = LogFactory.getLog(this.getClass());
+
+	private UnitQuestionBean unitQuestionBean;
+	private UnitSurveySection unitSurveySection;
 
 	public BuildSurveyControllerBean() {
+		log.info("seccion add's");
+	}
+
+	/**
+	 * 
+	 */
+	public void createSecction() {
+		if (getUnitSurveySection() != null) {
+			if (sectionList == null) {
+				sectionList = new ArrayList<UnitSurveySection>();
+			}
+			log.info("Creando 1Seccion->"+getUnitSurveySection().getName());
+			log.info("Creando 2Seccion->"+getUnitSurveySection().getId());
+			log.info("Creando 3Seccion->"+getUnitSurveySection().getStateId());
+			UnitSurveySection sec = new UnitSurveySection(getUnitSurveySection().getId(),getUnitSurveySection().getName(),2);
+			sectionList.add(sec);
+			addInfoMessage("Seccion Creada", "");
+		} else {
+			addErrorMessage("No se pudo Crear Seccion", "");
+		}
 
 	}
 
@@ -54,6 +80,26 @@ public class BuildSurveyControllerBean extends MasterBean {
 			addErrorMessage("Error->" + e, "");
 		}
 
+	}
+
+	public void moveQuestion(Object fm, Object family) {
+		ArrayList target = null;
+		UnitQuestionBean dd = (UnitQuestionBean) fm;
+		log.info("Object Move fm->" + fm);
+		log.info("Object family->" + family);
+		addInfoMessage("Pregunta ASignada a la Sección ->" + family
+				+ "La pregunta->" + dd.getQuestionName(), "");
+
+		/*
+		 * if ("PHP".equals(family)) target = containerPHP; else if
+		 * ("DNET".equals(family)) target = containerDNET; else if
+		 * ("CF".equals(family)) target = containerCF;
+		 * 
+		 * if (target != null) { int ind = frameworks.indexOf(fm); if (ind > -1)
+		 * { target.add(frameworks.get(ind)); frameworks.remove(ind); }
+		 * 
+		 * }
+		 */
 	}
 
 	/**
@@ -100,6 +146,36 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 */
 	public void setSectionList(Collection<UnitSurveySection> sectionList) {
 		this.sectionList = sectionList;
+	}
+
+	/**
+	 * @return the unitQuestionBean
+	 */
+	public UnitQuestionBean getUnitQuestionBean() {
+		return unitQuestionBean;
+	}
+
+	/**
+	 * @param unitQuestionBean
+	 *            the unitQuestionBean to set
+	 */
+	public void setUnitQuestionBean(UnitQuestionBean unitQuestionBean) {
+		this.unitQuestionBean = unitQuestionBean;
+	}
+
+	/**
+	 * @return the unitSurveySection
+	 */
+	public UnitSurveySection getUnitSurveySection() {
+		return unitSurveySection;
+	}
+
+	/**
+	 * @param unitSurveySection
+	 *            the unitSurveySection to set
+	 */
+	public void setUnitSurveySection(UnitSurveySection unitSurveySection) {
+		this.unitSurveySection = unitSurveySection;
 	}
 
 }
