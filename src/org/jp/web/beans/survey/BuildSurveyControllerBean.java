@@ -2,6 +2,7 @@ package org.jp.web.beans.survey;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,9 +35,10 @@ import org.jp.web.beans.MasterBean;
 public class BuildSurveyControllerBean extends MasterBean {
 
 	private String questionSearch;
-	private Collection<UnitQuestionBean> questionsList;
-	private Collection<UnitSurveySection> sectionList;
+	private List<UnitQuestionBean> questionsList;
+	private List<UnitSurveySection> sectionList;
 	private Log log = LogFactory.getLog(this.getClass());
+	private Integer idCounterSection = 1;
 
 	private UnitQuestionBean unitQuestionBean;
 	private UnitSurveySection unitSurveySection;
@@ -46,23 +48,47 @@ public class BuildSurveyControllerBean extends MasterBean {
 	}
 
 	/**
-	 * 
+	 * create new section
 	 */
 	public void createSecction() {
 		if (getUnitSurveySection() != null) {
 			if (sectionList == null) {
 				sectionList = new ArrayList<UnitSurveySection>();
 			}
-			log.info("Creando 1Seccion->"+getUnitSurveySection().getName());
-			log.info("Creando 2Seccion->"+getUnitSurveySection().getId());
-			log.info("Creando 3Seccion->"+getUnitSurveySection().getStateId());
-			UnitSurveySection sec = new UnitSurveySection(getUnitSurveySection().getId(),getUnitSurveySection().getName(),2);
+			UnitSurveySection sec = new UnitSurveySection(getNewIdCounter(),
+					getUnitSurveySection().getName(), 2);
+			//UnitQuestionBean test = new UnitQuestionBean();
+			//test.setQuestionName("Holaaaaaaaaa");
+			///sec.getQuestions().add(test);
 			sectionList.add(sec);
 			addInfoMessage("Seccion Creada", "");
+			cleanSecctionBean();
 		} else {
 			addErrorMessage("No se pudo Crear Seccion", "");
 		}
 
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private Integer getNewIdCounter() {
+		Integer idRe = null;
+		if (idCounterSection != null) {
+			idRe = idCounterSection;
+			idCounterSection = idCounterSection + 1;
+			return idRe;
+		} else {
+			idCounterSection = 1;
+			return idCounterSection;
+		}
+	}
+
+	private void cleanSecctionBean() {
+		getUnitSurveySection().setName(null);
+		getUnitSurveySection().setId(null);
+		getUnitSurveySection().setStateId(null);
 	}
 
 	/**
@@ -82,6 +108,11 @@ public class BuildSurveyControllerBean extends MasterBean {
 
 	}
 
+	/**
+	 * move question to section
+	 * @param fm
+	 * @param family
+	 */
 	public void moveQuestion(Object fm, Object family) {
 		ArrayList target = null;
 		UnitQuestionBean dd = (UnitQuestionBean) fm;
@@ -89,7 +120,14 @@ public class BuildSurveyControllerBean extends MasterBean {
 		log.info("Object family->" + family);
 		addInfoMessage("Pregunta ASignada a la Sección ->" + family
 				+ "La pregunta->" + dd.getQuestionName(), "");
-
+		int ind = sectionList.indexOf(family);
+		UnitSurveySection d =  sectionList.get(ind);
+		d.getQuestions().add((UnitQuestionBean) fm);
+		log.info("Posicion Encontrada->"+ind);
+		log.info("Posicion sectionList->"+sectionList);
+		
+		UnitSurveySection ddedd =  sectionList.get(ind);
+		log.info("Posicion Preguntas Totales->"+ddedd.getQuestions());
 		/*
 		 * if ("PHP".equals(family)) target = containerPHP; else if
 		 * ("DNET".equals(family)) target = containerDNET; else if
@@ -120,7 +158,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	/**
 	 * @return the questionsList
 	 */
-	public Collection<UnitQuestionBean> getQuestionsList() {
+	public List<UnitQuestionBean> getQuestionsList() {
 		searchQuestions();
 		return questionsList;
 	}
@@ -129,14 +167,14 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 * @param questionsList
 	 *            the questionsList to set
 	 */
-	public void setQuestionsList(Collection<UnitQuestionBean> questionsList) {
+	public void setQuestionsList(List<UnitQuestionBean> questionsList) {
 		this.questionsList = questionsList;
 	}
 
 	/**
 	 * @return the sectionList
 	 */
-	public Collection<UnitSurveySection> getSectionList() {
+	public List<UnitSurveySection> getSectionList() {
 		return sectionList;
 	}
 
@@ -144,7 +182,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 * @param sectionList
 	 *            the sectionList to set
 	 */
-	public void setSectionList(Collection<UnitSurveySection> sectionList) {
+	public void setSectionList(List<UnitSurveySection> sectionList) {
 		this.sectionList = sectionList;
 	}
 

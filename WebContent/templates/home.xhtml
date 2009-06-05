@@ -9,22 +9,23 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 <a4j:loadBundle basename="messages" var="temp" />
 <a4j:loadStyle src="/css/default.css" type="text/css"></a4j:loadStyle>
-<link rel="icon" 
+<link rel="icon"
 	href="${facesContext.externalContext.requestContextPath}/favicon.ico"
-	type="image/x-icon"/>	
-	<ui:insert name="googleMaps"></ui:insert>
+	type="image/x-icon" />
+<ui:insert name="googleMaps"></ui:insert>
 <head>
-<title> #{temp.appTitle} -  <ui:insert name="title"> encuestame - survey system </ui:insert></title>
+<title>#{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert></title>
+<ui:insert name="javascript"></ui:insert>
 </head>
 <body>
 <ui:include src="/templates/includes/header.xhtml" />
 <ui:include src="/templates/includes/menu.xhtml" />
 <div id="mainWrapper"><ui:insert name="main">main</ui:insert></div>
 <ui:include src="/templates/includes/footer.xhtml" />
-<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
-			minWidth="200" height="80" width="400" zindex="100">
-			<h2><h:outputText value="#{temp.loading}">
-			</h:outputText></h2>
-		</rich:modalPanel>
+<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="200"
+	height="80" width="400" zindex="100">
+	<h2><h:outputText value="#{temp.loading}">
+	</h:outputText></h2>
+</rich:modalPanel>
 </body>
 </html>

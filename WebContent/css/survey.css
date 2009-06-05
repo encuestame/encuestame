@@ -46,6 +46,12 @@ input[type=button] {
 	background-color: #eee;
 	padding: 4px;
 }
+
+#cSurForm .questionBox {
+	width: 40%;
+	border: 1px solid gray;
+	padding: 5px;
+}
 /*
 .clear { 
     overflow: hidden;

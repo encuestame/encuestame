@@ -18,3 +18,53 @@ padding: 10px;
 #menuSecondLevel a:active{ font-size: 14px; text-transform: uppercase;  }
 #menuSecondLevel a:hover{ color: #EEER;}
 .space{}
+
+/**
+TABS
+*/
+body{
+color: #333;
+font-size: 11px;
+font-family: verdana;
+}
+a{
+color: #fff;
+text-decoration: none;
+}
+a:hover{
+color: #DFE44F;
+}
+p{
+margin: 0;
+padding: 5px;
+line-height: 1.5em;
+text-align: justify;
+border: 1px solid #73A405;
+}
+#wrapper{
+width: 500px;
+margin: 0 auto;
+}
+.box{
+background: #fff;
+}
+.boxholder{
+clear: both;
+padding: 5px;
+background: #8DC70A;
+}
+.tab{
+float: left;
+height: 32px;
+width: 102px;
+margin: 0 1px 0 0;
+text-align: center;
+background: #8DC70A url(../images/greentab.jpg) no-repeat;
+}
+.tabtxt{
+margin: 0;
+color: #fff;
+font-size: 12px;
+font-weight: bold;
+padding: 9px 0 0 0;
+}

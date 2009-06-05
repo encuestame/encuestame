@@ -123,10 +123,10 @@ public class SurveyService extends MasterService implements ISurveyService {
 	 * @throws Exception
 	 * @throws EnMeExpcetion
 	 */
-	public Collection<UnitQuestionBean> loadAllQuestions()
+	public List<UnitQuestionBean> loadAllQuestions()
 			throws HibernateException, Exception, EnMeExpcetion {
 
-		Collection<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
+		List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
 		try {
 			List<Questions> questionsList = getQuestionDaoImp()
 					.loadAllQuestions();

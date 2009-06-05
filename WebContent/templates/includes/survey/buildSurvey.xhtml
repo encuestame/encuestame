@@ -28,7 +28,32 @@
 		<rich:messages id="infoBox" errorClass="error" infoClass="info"
 			warnClass="war"></rich:messages>
 
-
+	<div id="wrapper">
+	<div id="content">
+	<h3 class="tab" title="first"><div class="tabtxt"><a href="">first</a></div></h3>
+	<div class="tab"><h3 class="tabtxt" title="second"><a href="">second</a></h3></div>
+	<div class="tab"><h3 class="tabtxt" title="third"><a href="">third</a></h3></div>
+	<div class="tab"><h3 class="tabtxt" title="fourth"><a href="">fourth</a></h3></div>
+	<div class="boxholder">
+		<div class="box">
+			<p><strong>The First Box</strong><br />Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In tempus ante nec ipsum. In ut felis id leo aliquet euismod. In augue lorem, posuere eu, tincidunt non, bibendum quis, nisl. Integer erat erat, posuere vel, convallis feugiat, accumsan ac, sem. Sed scelerisque tortor nec leo. Etiam vel massa vitae nulla elementum aliquet. Donec egestas semper tellus. Donec ultrices ante cursus lacus. Integer nec est. Suspendisse potenti. Donec fringilla. Maecenas condimentum, arcu sit amet volutpat tincidunt, mi urna sodales nunc, eget porttitor odio lectus sit amet metus. Vivamus aliquam. Etiam lectus leo, venenatis sit amet, vestibulum eu, sollicitudin vitae, metus.</p>
+		</div>
+		<div class="box">
+			<p><strong>The Second Box</strong><br />Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut molestie nunc eu turpis. Donec facilisis enim sed dui. Sed nunc. Cras eu arcu. Praesent vel augue vel dolor ultricies convallis. Nam consectetuer risus eu urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam suscipit. Duis quis lacus sed tellus auctor blandit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin eget massa in ante vehicula pharetra. Ut massa pede, ornare id, ultrices eget, porta et, metus.</p>
+		</div>
+		<div class="box">
+			<p><strong>The Third Box</strong><br />Suspendisse accumsan velit at dui tristique consectetuer. Quisque vitae felis ac arcu dignissim facilisis. Quisque ullamcorper. Cras molestie, elit vel blandit mattis, eros metus tempus tortor, id lobortis sem nunc eget dolor. Nullam dui. Aenean justo. Curabitur ullamcorper, libero eu faucibus ultricies, ipsum arcu interdum tellus, eget tempus augue mauris nec purus. Donec a pede nec tortor venenatis bibendum. Nunc quis erat ac augue rhoncus dictum. Nullam id augue at augue iaculis posuere. Nulla volutpat facilisis quam.</p>
+		</div>
+		<div class="box">
+			<p><strong>The Fourth Box</strong><br />Morbi feugiat mauris at velit. Proin rutrum lectus. Proin pulvinar turpis tempor nibh. Cras sit amet magna sed risus tempor vestibulum. Nunc vitae nulla. Vivamus fermentum. Praesent a sem. Cras eu neque ultricies tellus tristique vehicula. Praesent dignissim consequat metus. Integer dolor. Donec pellentesque, libero eu ullamcorper suscipit, lorem augue molestie arcu, vitae sodales quam nulla vel urna. Suspendisse accumsan sem nec leo. Proin dui ante, placerat id, consectetuer et, gravida in, velit. Duis non massa. Etiam mollis. Vestibulum id est. Sed sit amet tellus. Vestibulum varius dolor vitae velit.</p>
+		</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	Element.cleanWhitespace('content');
+	init();
+</script>
 
 
 
@@ -54,12 +79,8 @@
 			</f:facet>
 			<a4j:form>
 				<h:panelGrid columns="2">
-					<h:outputLabel value="id" for="" />
-					<h:inputText value="#{unitSurveySection.id}" />
 					<h:outputLabel value="name" for="" />
 					<h:inputText value="#{unitSurveySection.name}" />
-					<h:outputLabel value="state" for="" />
-					<h:inputText value="#{unitSurveySection.stateId}" />
 					<a4j:commandButton value="Crear"
 						action="#{surveyControllerBean.createSecction}"
 						oncomplete="Richfaces.hideModalPanel('panelnewSeccion')"
@@ -71,8 +92,10 @@
 		<a4j:form id="cSurForm">
 			<h3>#{surveyFormatBean.surveyName}</h3>
 
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="5" cellpadding="4" cellspacing="4">
 				<a4j:commandLink value="Crear Seccion"
+					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
+				<a4j:commandLink value="Crear Pregunta"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
 
 			</h:panelGrid>
@@ -86,27 +109,37 @@
 			</rich:dragIndicator>
 			<h:panelGrid columns="2">
 				<h:panelGroup>
+					<h:panelGrid columns="1">
+						<h:outputLabel value="Buscar Preguntas" for="" />
+						<h:inputText value="" />
+						<a4j:commandButton value="Buscar"></a4j:commandButton>
+					</h:panelGrid>
 					<a4j:repeat value="#{surveyControllerBean.questionsList}" var="fm">
-						<a4j:outputPanel
-							style="width:100px;border:1px solid gray;padding:2px"
-							layout="block">
+						<a4j:outputPanel styleClass="questionBox" layout="block">
+							<h:outputText value="#{fm.questionName}"></h:outputText>
 							<rich:dragSupport dragIndicator=":indicator" dragType="PHP"
-								dragValue="#{fm}">
+								dragValue="#{fm}" reRender="repeatSeccion,cSurForm">
 								<rich:dndParam name="label" value="#{fm.id}" />
 							</rich:dragSupport>
-							<h:outputText value="#{fm.questionName}"></h:outputText>
+
 						</a4j:outputPanel>
 
 					</a4j:repeat>
 				</h:panelGroup>
 				<h:panelGroup>
-					<a4j:repeat value="#{surveyControllerBean.sectionList}"
-						var="seccion">
-						<rich:panel styleClass="dropTargetPanel" style="width:400px;">
+					<a4j:repeat id="repeatSeccion"
+						value="#{surveyControllerBean.sectionList}" var="seccion">
+						<rich:panel styleClass="dropTargetPanel" style="width:100%;">
 							<h:outputText value="#{seccion.name}" />
-							<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion.id}"
-								dropListener="#{buildEventSurvey.processDrop}">
+							<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion}"
+								dropListener="#{buildEventSurvey.processDrop}"
+								reRender="repeatSeccion,cSurForm">
 							</rich:dropSupport>
+							<a4j:repeat value="#{seccion.questions}" var="sec2">
+								<rich:panel>
+									<h:outputText value="Test #{sec2}" />
+								</rich:panel>
+							</a4j:repeat>
 						</rich:panel>
 					</a4j:repeat>
 				</h:panelGroup>
@@ -114,6 +147,9 @@
 
 			</h:panelGrid>
 		</a4j:form>
+		
+			
+
 
 	</ui:define>
 

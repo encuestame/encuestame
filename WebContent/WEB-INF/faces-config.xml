@@ -102,7 +102,6 @@
    <from-outcome>buildSurvey</from-outcome>
    <to-view-id>/templates/includes/survey/buildSurvey.xhtml</to-view-id>
   </navigation-case>
-  
  </navigation-rule>
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>

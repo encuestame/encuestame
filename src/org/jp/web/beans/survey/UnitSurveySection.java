@@ -1,6 +1,8 @@
 package org.jp.web.beans.survey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +39,7 @@ public class UnitSurveySection extends MasterBean  implements Serializable{
 	private Integer id;
 	private String name;
 	private Integer stateId;
+	private Collection<UnitQuestionBean> questions = new ArrayList<UnitQuestionBean>();
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	public UnitSurveySection() {}
@@ -56,7 +59,6 @@ public class UnitSurveySection extends MasterBean  implements Serializable{
 	 * @param id the id to set
 	 */
 	public void setId(Integer id) {
-		log.info("set Secction id->"+id);
 		this.id = id;
 	}
 	/**
@@ -69,7 +71,6 @@ public class UnitSurveySection extends MasterBean  implements Serializable{
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
-		log.info("set Secction Name->"+name);
 		this.name = name;
 	}
 	/**
@@ -82,8 +83,21 @@ public class UnitSurveySection extends MasterBean  implements Serializable{
 	 * @param stateId the stateId to set
 	 */
 	public void setStateId(Integer stateId) {
-		log.info("set Secction stateId->"+stateId);
 		this.stateId = stateId;
+	}
+
+	/**
+	 * @return the questions
+	 */
+	public Collection<UnitQuestionBean> getQuestions() {
+		return questions;
+	}
+
+	/**
+	 * @param questions the questions to set
+	 */
+	public void setQuestions(Collection<UnitQuestionBean> questions) {
+		this.questions = questions;
 	}
 	
 	
