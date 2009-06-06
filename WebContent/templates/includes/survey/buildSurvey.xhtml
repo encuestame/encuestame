@@ -5,58 +5,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-
-	<style>
-.panelc {
-	width: 25%;
-	vertical-align: top;
-}
-
-.dropTargetPanel {
-	width: 90%;
-}
-
-.footerClass {
-	text-align: center;
-	padding-top: 5px;
-}
-</style>
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.builSurvey}</h2>
 
 		<rich:messages id="infoBox" errorClass="error" infoClass="info"
-			warnClass="war"></rich:messages>
-
-	<div id="wrapper">
-	<div id="content">
-	<h3 class="tab" title="first"><div class="tabtxt"><a href="">first</a></div></h3>
-	<div class="tab"><h3 class="tabtxt" title="second"><a href="">second</a></h3></div>
-	<div class="tab"><h3 class="tabtxt" title="third"><a href="">third</a></h3></div>
-	<div class="tab"><h3 class="tabtxt" title="fourth"><a href="">fourth</a></h3></div>
-	<div class="boxholder">
-		<div class="box">
-			<p><strong>The First Box</strong><br />Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In tempus ante nec ipsum. In ut felis id leo aliquet euismod. In augue lorem, posuere eu, tincidunt non, bibendum quis, nisl. Integer erat erat, posuere vel, convallis feugiat, accumsan ac, sem. Sed scelerisque tortor nec leo. Etiam vel massa vitae nulla elementum aliquet. Donec egestas semper tellus. Donec ultrices ante cursus lacus. Integer nec est. Suspendisse potenti. Donec fringilla. Maecenas condimentum, arcu sit amet volutpat tincidunt, mi urna sodales nunc, eget porttitor odio lectus sit amet metus. Vivamus aliquam. Etiam lectus leo, venenatis sit amet, vestibulum eu, sollicitudin vitae, metus.</p>
-		</div>
-		<div class="box">
-			<p><strong>The Second Box</strong><br />Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut molestie nunc eu turpis. Donec facilisis enim sed dui. Sed nunc. Cras eu arcu. Praesent vel augue vel dolor ultricies convallis. Nam consectetuer risus eu urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam suscipit. Duis quis lacus sed tellus auctor blandit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin eget massa in ante vehicula pharetra. Ut massa pede, ornare id, ultrices eget, porta et, metus.</p>
-		</div>
-		<div class="box">
-			<p><strong>The Third Box</strong><br />Suspendisse accumsan velit at dui tristique consectetuer. Quisque vitae felis ac arcu dignissim facilisis. Quisque ullamcorper. Cras molestie, elit vel blandit mattis, eros metus tempus tortor, id lobortis sem nunc eget dolor. Nullam dui. Aenean justo. Curabitur ullamcorper, libero eu faucibus ultricies, ipsum arcu interdum tellus, eget tempus augue mauris nec purus. Donec a pede nec tortor venenatis bibendum. Nunc quis erat ac augue rhoncus dictum. Nullam id augue at augue iaculis posuere. Nulla volutpat facilisis quam.</p>
-		</div>
-		<div class="box">
-			<p><strong>The Fourth Box</strong><br />Morbi feugiat mauris at velit. Proin rutrum lectus. Proin pulvinar turpis tempor nibh. Cras sit amet magna sed risus tempor vestibulum. Nunc vitae nulla. Vivamus fermentum. Praesent a sem. Cras eu neque ultricies tellus tristique vehicula. Praesent dignissim consequat metus. Integer dolor. Donec pellentesque, libero eu ullamcorper suscipit, lorem augue molestie arcu, vitae sodales quam nulla vel urna. Suspendisse accumsan sem nec leo. Proin dui ante, placerat id, consectetuer et, gravida in, velit. Duis non massa. Etiam mollis. Vestibulum id est. Sed sit amet tellus. Vestibulum varius dolor vitae velit.</p>
-		</div>
-	</div>
-</div>
-</div>
-<script type="text/javascript">
-	Element.cleanWhitespace('content');
-	init();
-</script>
-
-
-
+			warnClass="war">
+		</rich:messages>
 		<rich:modalPanel id="panelnewSeccion" autosized="true" width="600"
 			height="200" zindex="2000">
 			<f:facet name="header">
@@ -84,71 +39,104 @@
 					<a4j:commandButton value="Crear"
 						action="#{surveyControllerBean.createSecction}"
 						oncomplete="Richfaces.hideModalPanel('panelnewSeccion')"
-						reRender="cSurForm"></a4j:commandButton>
-
+						reRender="cSurForm">
+						<rich:effect event="oncomplete" targetId="panelnewSeccion"
+							type="Fade" params="delay:1.0,duration:0.5" />
+						<rich:effect event="oncomplete" targetId="infoBox" type="Appear"
+							params="delay:2.0,duration:0.5" />
+					</a4j:commandButton>
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
 		<a4j:form id="cSurForm">
+		
 			<h3>#{surveyFormatBean.surveyName}</h3>
-
+			
 			<h:panelGrid columns="5" cellpadding="4" cellspacing="4">
+
 				<a4j:commandLink value="Crear Seccion"
-					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
+					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')">
+				</a4j:commandLink>
 				<a4j:commandLink value="Crear Pregunta"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
+				<a4j:commandLink value="Ventana">
+					<rich:effect event="onclick" targetId="addedMessage" type="Appear" />
+				</a4j:commandLink>
 
 			</h:panelGrid>
+
+			<rich:effect name="hideCrit" for="repeatSeccionss" type="BlindUp" />
+			<rich:effect name="showResult" for="repeatSeccion" type="BlindDown" />
 
 			<rich:dragIndicator id="indicator">
 				<f:facet name="multiple">
 					<f:verbatim>
 						<b>Single item</b> {DragInfo}
-            </f:verbatim>
+					</f:verbatim>
 				</f:facet>
 			</rich:dragIndicator>
-			<h:panelGrid columns="2">
-				<h:panelGroup>
-					<h:panelGrid columns="1">
-						<h:outputLabel value="Buscar Preguntas" for="" />
-						<h:inputText value="" />
-						<a4j:commandButton value="Buscar"></a4j:commandButton>
-					</h:panelGrid>
-					<a4j:repeat value="#{surveyControllerBean.questionsList}" var="fm">
-						<a4j:outputPanel styleClass="questionBox" layout="block">
-							<h:outputText value="#{fm.questionName}"></h:outputText>
-							<rich:dragSupport dragIndicator=":indicator" dragType="PHP"
-								dragValue="#{fm}" reRender="repeatSeccion,cSurForm">
-								<rich:dndParam name="label" value="#{fm.id}" />
-							</rich:dragSupport>
 
-						</a4j:outputPanel>
-
-					</a4j:repeat>
-				</h:panelGroup>
-				<h:panelGroup>
-					<a4j:repeat id="repeatSeccion"
-						value="#{surveyControllerBean.sectionList}" var="seccion">
-						<rich:panel styleClass="dropTargetPanel" style="width:100%;">
-							<h:outputText value="#{seccion.name}" />
-							<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion}"
-								dropListener="#{buildEventSurvey.processDrop}"
-								reRender="repeatSeccion,cSurForm">
-							</rich:dropSupport>
-							<a4j:repeat value="#{seccion.questions}" var="sec2">
+			<table>
+				<tr>
+					<td valign="top"><h:panelGroup>
+						<h:panelGrid columns="1">
+							<h:outputLabel value="Buscar Preguntas" for="" />
+							<h:inputText value="" />
+							<a4j:commandButton value="Buscar"></a4j:commandButton>
+						</h:panelGrid>
+						<a4j:repeat value="#{surveyControllerBean.questionsList}" var="fm">
+							<a4j:outputPanel styleClass="questionBox" layout="block">
+								<h:outputText value="#{fm.questionName}"></h:outputText>
+								<rich:dragSupport dragIndicator=":indicator" dragType="PHP"
+									dragValue="#{fm}" reRender="repeatSeccion,cSurForm">
+									<rich:dndParam name="label" value="#{fm.id}" />
+								</rich:dragSupport>
+							</a4j:outputPanel>
+						</a4j:repeat>
+					</h:panelGroup></td>
+					<td valign="top"><h:panelGroup>
+						<a4j:outputPanel id="addedMessage" styleClass="popup_message"
+							style="display: none">
+							<a4j:outputPanel layout="block" styleClass="popup_content">
 								<rich:panel>
-									<h:outputText value="Test #{sec2}" />
+									<a4j:commandLink value="Item added!">
+									</a4j:commandLink>
+									<rich:effect event="onclick" type="Fade"
+										params="delay:1.0,duration:0.1" />
 								</rich:panel>
+							</a4j:outputPanel>
+						</a4j:outputPanel>
+						<h:panelGrid columns="100" cellpadding="4" cellspacing="5">
+							<a4j:repeat id="repeatSeccionss"
+								value="#{surveyControllerBean.sectionList}" var="seccion">
+								<a4j:commandLink value="#{seccion.name}" action="#{surveyControllerBean.changeRenderedSection}" reRender="cSurForm">									
+									<a4j:actionparam name="sectionId" value="#{seccion.id}"
+										assignTo="#{surveyControllerBean.sectionSelected}" ></a4j:actionparam>
+								</a4j:commandLink>
 							</a4j:repeat>
-						</rich:panel>
-					</a4j:repeat>
-				</h:panelGroup>
-
-
-			</h:panelGrid>
+						</h:panelGrid>
+						<a4j:repeat id="repeatSeccion"
+							value="#{surveyControllerBean.sectionList}" var="seccion">
+							<rich:panel styleClass="dropTargetPanel" style="width:100%;"
+								rendered="#{seccion.showPanel}">
+								<h:outputText value="#{seccion.name}" />
+								<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion}"
+									dropListener="#{buildEventSurvey.processDrop}"
+									reRender="repeatSeccion,cSurForm">
+								</rich:dropSupport>
+								<a4j:repeat value="#{seccion.questions}" var="sec2">
+									<rich:panel>
+										<h:outputText value="Test #{sec2.questionName}" />
+									</rich:panel>
+								</a4j:repeat>
+							</rich:panel>
+						</a4j:repeat>
+					</h:panelGroup></td>
+				</tr>
+			</table>
 		</a4j:form>
-		
-			
+
+
 
 
 	</ui:define>

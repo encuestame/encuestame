@@ -2,6 +2,7 @@ package org.jp.web.beans.survey;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -36,9 +37,12 @@ public class BuildSurveyControllerBean extends MasterBean {
 
 	private String questionSearch;
 	private List<UnitQuestionBean> questionsList;
+	private Boolean showQuestionForm = false;
+	private Boolean showSectionForm = false;
 	private List<UnitSurveySection> sectionList;
 	private Log log = LogFactory.getLog(this.getClass());
 	private Integer idCounterSection = 1;
+	private Integer sectionSelected;
 
 	private UnitQuestionBean unitQuestionBean;
 	private UnitSurveySection unitSurveySection;
@@ -57,16 +61,12 @@ public class BuildSurveyControllerBean extends MasterBean {
 			}
 			UnitSurveySection sec = new UnitSurveySection(getNewIdCounter(),
 					getUnitSurveySection().getName(), 2);
-			//UnitQuestionBean test = new UnitQuestionBean();
-			//test.setQuestionName("Holaaaaaaaaa");
-			///sec.getQuestions().add(test);
 			sectionList.add(sec);
 			addInfoMessage("Seccion Creada", "");
 			cleanSecctionBean();
 		} else {
 			addErrorMessage("No se pudo Crear Seccion", "");
 		}
-
 	}
 
 	/**
@@ -85,6 +85,9 @@ public class BuildSurveyControllerBean extends MasterBean {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void cleanSecctionBean() {
 		getUnitSurveySection().setName(null);
 		getUnitSurveySection().setId(null);
@@ -110,6 +113,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 
 	/**
 	 * move question to section
+	 * 
 	 * @param fm
 	 * @param family
 	 */
@@ -121,23 +125,12 @@ public class BuildSurveyControllerBean extends MasterBean {
 		addInfoMessage("Pregunta ASignada a la Sección ->" + family
 				+ "La pregunta->" + dd.getQuestionName(), "");
 		int ind = sectionList.indexOf(family);
-		UnitSurveySection d =  sectionList.get(ind);
+		UnitSurveySection d = sectionList.get(ind);
 		d.getQuestions().add((UnitQuestionBean) fm);
-		log.info("Posicion Encontrada->"+ind);
-		log.info("Posicion sectionList->"+sectionList);
-		
-		UnitSurveySection ddedd =  sectionList.get(ind);
-		log.info("Posicion Preguntas Totales->"+ddedd.getQuestions());
-		/*
-		 * if ("PHP".equals(family)) target = containerPHP; else if
-		 * ("DNET".equals(family)) target = containerDNET; else if
-		 * ("CF".equals(family)) target = containerCF;
-		 * 
-		 * if (target != null) { int ind = frameworks.indexOf(fm); if (ind > -1)
-		 * { target.add(frameworks.get(ind)); frameworks.remove(ind); }
-		 * 
-		 * }
-		 */
+		log.info("Posicion Encontrada->" + ind);
+		log.info("Posicion sectionList->" + sectionList);
+		UnitSurveySection ddedd = sectionList.get(ind);
+		log.info("Posicion Preguntas Totales->" + ddedd.getQuestions());
 	}
 
 	/**
@@ -214,6 +207,94 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 */
 	public void setUnitSurveySection(UnitSurveySection unitSurveySection) {
 		this.unitSurveySection = unitSurveySection;
+	}
+
+	/**
+	 * @return the showQuestionForm
+	 */
+	public Boolean getShowQuestionForm() {
+		return showQuestionForm;
+	}
+
+	/**
+	 * @param showQuestionForm
+	 *            the showQuestionForm to set
+	 */
+	public void setShowQuestionForm(Boolean showQuestionForm) {
+		this.showQuestionForm = showQuestionForm;
+	}
+
+	/**
+	 * @return the showSectionForm
+	 */
+	public Boolean getShowSectionForm() {
+		return showSectionForm;
+	}
+
+	/**
+	 * @param showSectionForm
+	 *            the showSectionForm to set
+	 */
+	public void setShowSectionForm(Boolean showSectionForm) {
+		this.showSectionForm = showSectionForm;
+	}
+
+	/**
+	 * @return the sectionSelected
+	 */
+	public Integer getSectionSelected() {
+		log.info("get Selected Section->" + sectionSelected);
+		return sectionSelected;
+	}
+
+	/**
+	 * change rendered section
+	 * 
+	 * @param selected
+	 */
+	public void changeRenderedSection() {
+		if (getSectionSelected() != null) {
+			UnitSurveySection ind = sectionList.get(getSectionSelected()
+					.intValue() - 1);
+			changeShowedSection(ind);
+		} else {
+			addErrorMessage("getSectionSelected() is null", "");
+		}
+	}
+
+	/**
+	 * 
+	 * @param sec
+	 */
+	private void changeShowedSection(UnitSurveySection sec) {
+
+		try {
+			Iterator<UnitSurveySection> i = sectionList.iterator();
+			while (i.hasNext()) {
+				UnitSurveySection unitSurveySection = (UnitSurveySection) i
+						.next();
+				unitSurveySection.setShowPanel(false);				
+			}
+			log.info("Todos en False");
+			if (sec != null) {
+				log.info("Panel en Verdadero->"+sec.getId());
+				sec.setShowPanel(true);
+				
+			} else {
+				addErrorMessage("No se pudo cambiar la sección", "");
+			}
+		} catch (Exception e) {
+			addErrorMessage("No se pudo cambiar la sección", "");
+		}
+	}
+
+	/**
+	 * @param sectionSelected
+	 *            the sectionSelected to set
+	 */
+	public void setSectionSelected(Integer sectionSelected) {
+		log.info("section selected param ->" + sectionSelected);
+		this.sectionSelected = sectionSelected;
 	}
 
 }

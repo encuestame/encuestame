@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/templates/home.xhtml" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -7,12 +6,8 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:m="http://code.google.com/p/gmaps4jsf/"
 	xmlns:encuestame="http://encuesta.me/encuestame">
-<body>
-<ui:composition template="/templates/home.xhtml">
 	<ui:define name="main">
 		<encuestame:adminToolBar/>
 		<div id="bodyOptionsWrapper"><ui:insert name="bodyOptions"></ui:insert></div>			
 	</ui:define>
 </ui:composition>
-</body>
-</html>

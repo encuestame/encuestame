@@ -41,6 +41,7 @@ public class UnitSurveySection extends MasterBean  implements Serializable{
 	private Integer stateId;
 	private Collection<UnitQuestionBean> questions = new ArrayList<UnitQuestionBean>();
 	private Log log = LogFactory.getLog(this.getClass());
+	private Boolean showPanel = false;
 	
 	public UnitSurveySection() {}
 	
@@ -98,6 +99,20 @@ public class UnitSurveySection extends MasterBean  implements Serializable{
 	 */
 	public void setQuestions(Collection<UnitQuestionBean> questions) {
 		this.questions = questions;
+	}
+
+	/**
+	 * @return the showPanel
+	 */
+	public Boolean getShowPanel() {
+		return showPanel;
+	}
+
+	/**
+	 * @param showPanel the showPanel to set
+	 */
+	public void setShowPanel(Boolean showPanel) {
+		this.showPanel = showPanel;
 	}
 	
 	

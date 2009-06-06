@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/templates/home.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -7,46 +7,11 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:m="http://code.google.com/p/gmaps4jsf/"
 	xmlns:encuestame="http://encuesta.me/encuestame">
-<body>
-<ui:composition template="/templates/home.xhtml">
 	<ui:define name="javascript">
-	<!-- <a4j:loadScript src="scripts/prototype.lite.js"	type="text/javascript" />
-	<a4j:loadScript src="scripts/moo.fx.js" type="text/javascript" />
-	<a4j:loadScript src="scripts/moo.fx.js"	type="text/javascript" />-->
-	
-			
-			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/scripts/prototype.lite.js"></script>
-			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/scripts/moo.fx.js"></script>
-			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/scripts/moo.fx.pack.js"></script>
-	<script type="text/javascript">
-		initHighlightingOnLoad('java', 'html', 'css', 'xml');
-	</script>
-		<script type="text/javascript">
-	function init(){
-	var stretchers = document.getElementsByClassName('box');
-	var toggles = document.getElementsByClassName('tab');
-	var myAccordion = new fx.Accordion(
-		toggles, stretchers, {opacity: false, height: true, duration: 600}
-	);
-	//hash functions
-	var found = false;
-	toggles.each(function(h3, i){
-		var div = Element.find(h3, 'nextSibling');
-			if (window.location.href.indexOf(h3.title) > 0) {
-				myAccordion.showThisHideOpen(div);
-				found = true;
-			}
-		});
-		if (!found) myAccordion.showThisHideOpen(stretchers[0]);
-	}
-</script>
-
+	<a4j:loadScript src="scripts/encuestame.js"	type="text/javascript" />		
 	</ui:define>
-
 	<ui:define name="main">
 		<encuestame:surveyToolBar />
 		<div id="bodyOptionsWrapper"><ui:insert name="bodyOptions"></ui:insert></div>
 	</ui:define>
 </ui:composition>
-</body>
-</html>
