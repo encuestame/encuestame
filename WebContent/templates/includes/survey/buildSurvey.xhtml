@@ -49,9 +49,9 @@
 			</a4j:form>
 		</rich:modalPanel>
 		<a4j:form id="cSurForm">
-		
+
 			<h3>#{surveyFormatBean.surveyName}</h3>
-			
+
 			<h:panelGrid columns="5" cellpadding="4" cellspacing="4">
 
 				<a4j:commandLink value="Crear Seccion"
@@ -59,14 +59,11 @@
 				</a4j:commandLink>
 				<a4j:commandLink value="Crear Pregunta"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
-				<a4j:commandLink value="Ventana">
-					<rich:effect event="onclick" targetId="addedMessage" type="Appear" />
-				</a4j:commandLink>
+
 
 			</h:panelGrid>
 
-			<rich:effect name="hideCrit" for="repeatSeccionss" type="BlindUp" />
-			<rich:effect name="showResult" for="repeatSeccion" type="BlindDown" />
+
 
 			<rich:dragIndicator id="indicator">
 				<f:facet name="multiple">
@@ -95,42 +92,40 @@
 						</a4j:repeat>
 					</h:panelGroup></td>
 					<td valign="top"><h:panelGroup>
-						<a4j:outputPanel id="addedMessage" styleClass="popup_message"
-							style="display: none">
-							<a4j:outputPanel layout="block" styleClass="popup_content">
-								<rich:panel>
-									<a4j:commandLink value="Item added!">
-									</a4j:commandLink>
-									<rich:effect event="onclick" type="Fade"
-										params="delay:1.0,duration:0.1" />
-								</rich:panel>
-							</a4j:outputPanel>
-						</a4j:outputPanel>
-						<h:panelGrid columns="100" cellpadding="4" cellspacing="5">
-							<a4j:repeat id="repeatSeccionss"
-								value="#{surveyControllerBean.sectionList}" var="seccion">
-								<a4j:commandLink value="#{seccion.name}" action="#{surveyControllerBean.changeRenderedSection}" reRender="cSurForm">									
-									<a4j:actionparam name="sectionId" value="#{seccion.id}"
-										assignTo="#{surveyControllerBean.sectionSelected}" ></a4j:actionparam>
-								</a4j:commandLink>
-							</a4j:repeat>
-						</h:panelGrid>
-						<a4j:repeat id="repeatSeccion"
-							value="#{surveyControllerBean.sectionList}" var="seccion">
-							<rich:panel styleClass="dropTargetPanel" style="width:100%;"
-								rendered="#{seccion.showPanel}">
-								<h:outputText value="#{seccion.name}" />
-								<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion}"
-									dropListener="#{buildEventSurvey.processDrop}"
-									reRender="repeatSeccion,cSurForm">
-								</rich:dropSupport>
-								<a4j:repeat value="#{seccion.questions}" var="sec2">
-									<rich:panel>
-										<h:outputText value="Test #{sec2.questionName}" />
-									</rich:panel>
+						<a4j:region id="sectionRegion">
+
+							<h:panelGrid columns="100" cellpadding="4" cellspacing="5">
+								<a4j:repeat id="repeatSeccionss"
+									value="#{surveyControllerBean.sectionList}" var="seccion">
+									<a4j:outputPanel styleClass="">
+										<a4j:commandLink value="#{seccion.name}"
+											action="#{surveyControllerBean.changeRenderedSection}"
+											reRender="cSurForm">
+											<a4j:actionparam name="sectionId" value="#{seccion.id}"
+												assignTo="#{surveyControllerBean.sectionSelected}"></a4j:actionparam>
+										</a4j:commandLink>
+									</a4j:outputPanel>
 								</a4j:repeat>
-							</rich:panel>
-						</a4j:repeat>
+							</h:panelGrid>
+							<a4j:status for="sectionRegion" startText="Cargando..."
+								stopText="Ya Medi..."></a4j:status>
+							<a4j:repeat id="repeatSeccion"
+								value="#{surveyControllerBean.sectionList}" var="seccion">
+								<rich:panel styleClass="dropTargetPanel" style="width:100%;"
+									rendered="#{seccion.showPanel}">
+									<h:outputText value="#{seccion.name}" />
+									<rich:dropSupport acceptedTypes="PHP" dropValue="#{seccion}"
+										dropListener="#{buildEventSurvey.processDrop}"
+										reRender="repeatSeccion,cSurForm">
+									</rich:dropSupport>
+									<a4j:repeat value="#{seccion.questions}" var="sec2">
+										<rich:panel>
+											<h:outputText value="Test #{sec2.questionName}" />
+										</rich:panel>
+									</a4j:repeat>
+								</rich:panel>
+							</a4j:repeat>
+						</a4j:region>
 					</h:panelGroup></td>
 				</tr>
 			</table>

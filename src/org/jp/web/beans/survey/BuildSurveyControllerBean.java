@@ -42,6 +42,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	private List<UnitSurveySection> sectionList;
 	private Log log = LogFactory.getLog(this.getClass());
 	private Integer idCounterSection = 1;
+	private Integer idCounterQuestion = 1;
 	private Integer sectionSelected;
 
 	private UnitQuestionBean unitQuestionBean;
@@ -59,30 +60,68 @@ public class BuildSurveyControllerBean extends MasterBean {
 			if (sectionList == null) {
 				sectionList = new ArrayList<UnitSurveySection>();
 			}
-			UnitSurveySection sec = new UnitSurveySection(getNewIdCounter(),
-					getUnitSurveySection().getName(), 2);
-			sectionList.add(sec);
-			addInfoMessage("Seccion Creada", "");
-			cleanSecctionBean();
+			UnitSurveySection sec;
+			try {
+				sec = new UnitSurveySection(getNewIdCounter(1),
+						getUnitSurveySection().getName(), 2);
+				sectionList.add(sec);
+				addInfoMessage("Seccion Creada", "");
+				cleanSecctionBean();
+			} catch (EnMeExpcetion e) {
+				addErrorMessage("error->" + e.getMessage(), "");
+			}
 		} else {
 			addErrorMessage("No se pudo Crear Seccion", "");
 		}
 	}
 
+	public void createQuestion() {
+		if (getUnitQuestionBean() != null) {
+			if (questionsList == null) {
+				questionsList = new ArrayList<UnitQuestionBean>();
+			}
+			UnitQuestionBean question;
+			try {
+				int d = getNewIdCounter(2);
+				question = new UnitQuestionBean();
+				addInfoMessage("Pregunta Creada", "");
+				cleanSecctionBean();
+			} catch (EnMeExpcetion e) {
+				addErrorMessage("error->" + e.getMessage(), "");
+			}
+
+		}
+
+	}
+
 	/**
 	 * 
 	 * @return
+	 * @throws EnMeExpcetion
 	 */
-	private Integer getNewIdCounter() {
+	private Integer getNewIdCounter(Integer op) throws EnMeExpcetion {
 		Integer idRe = null;
-		if (idCounterSection != null) {
-			idRe = idCounterSection;
-			idCounterSection = idCounterSection + 1;
-			return idRe;
-		} else {
-			idCounterSection = 1;
-			return idCounterSection;
+		switch (op) {
+		case 1:
+			if (idCounterSection != null) {
+				idRe = idCounterSection;
+				idCounterSection = idCounterSection + 1;
+			} else {
+				idRe = idCounterSection = 1;
+			}
+			break;
+		case 2:
+			if (idCounterQuestion != null) {
+				idRe = idCounterQuestion;
+				idCounterQuestion = idCounterQuestion + 1;
+			} else {
+				idRe = idCounterQuestion = 1;
+			}
+			break;
+		default:
+			throw new EnMeExpcetion("counter error");
 		}
+		return idRe;
 	}
 
 	/**
@@ -243,7 +282,6 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 * @return the sectionSelected
 	 */
 	public Integer getSectionSelected() {
-		log.info("get Selected Section->" + sectionSelected);
 		return sectionSelected;
 	}
 
@@ -273,13 +311,11 @@ public class BuildSurveyControllerBean extends MasterBean {
 			while (i.hasNext()) {
 				UnitSurveySection unitSurveySection = (UnitSurveySection) i
 						.next();
-				unitSurveySection.setShowPanel(false);				
+				unitSurveySection.setShowPanel(false);
 			}
-			log.info("Todos en False");
 			if (sec != null) {
-				log.info("Panel en Verdadero->"+sec.getId());
 				sec.setShowPanel(true);
-				
+
 			} else {
 				addErrorMessage("No se pudo cambiar la sección", "");
 			}
@@ -293,7 +329,6 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 *            the sectionSelected to set
 	 */
 	public void setSectionSelected(Integer sectionSelected) {
-		log.info("section selected param ->" + sectionSelected);
 		this.sectionSelected = sectionSelected;
 	}
 
