@@ -31,7 +31,7 @@ public class UnitQuestionBean extends MasterBean {
 
 	public String questionName;
 	public String version;
-	public Integer idPatron;
+	public UnitPatronBean patron;
 	public Integer idState;
 	public Integer id;
 	public Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
@@ -39,17 +39,21 @@ public class UnitQuestionBean extends MasterBean {
 	public UnitQuestionBean() {
 	}
 
+	
+
 	public UnitQuestionBean(String questionName, String version,
-			Integer idPatron, Integer idState, Integer id,
+			UnitPatronBean patron, Integer idState, Integer id,
 			Collection<UnitAnswersBean> listAnswers) {
 		super();
 		this.questionName = questionName;
 		this.version = version;
-		this.idPatron = idPatron;
+		this.patron = patron;
 		this.idState = idState;
 		this.id = id;
 		this.listAnswers = listAnswers;
 	}
+
+
 
 	/**
 	 * @return the questionName
@@ -81,20 +85,25 @@ public class UnitQuestionBean extends MasterBean {
 		this.version = version;
 	}
 
-	/**
-	 * @return the idPatron
-	 */
-	public Integer getIdPatron() {
-		return idPatron;
-	}
+	
 
 	/**
-	 * @param idPatron
-	 *            the idPatron to set
+	 * @return the patron
 	 */
-	public void setIdPatron(Integer idPatron) {
-		this.idPatron = idPatron;
+	public UnitPatronBean getPatron() {
+		return patron;
 	}
+
+
+
+	/**
+	 * @param patron the patron to set
+	 */
+	public void setPatron(UnitPatronBean patron) {
+		this.patron = patron;
+	}
+
+
 
 	/**
 	 * @return the idState

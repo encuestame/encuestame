@@ -48,6 +48,43 @@
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
+		
+		<rich:modalPanel id="panelnewQuestion" autosized="true" width="600"
+			height="200" zindex="2000">
+			<f:facet name="header">
+				<a4j:form id="formHeaderNewtUser">
+					<h:panelGroup>
+						<h:outputText id="headerEditUser" value="Nueva Pregunta"></h:outputText>
+					</h:panelGroup>
+				</a4j:form>
+			</f:facet>
+			<f:facet name="controls">
+				<a4j:form ajaxSubmit="true">
+					<h:panelGroup>
+						<a4j:commandLink
+							onclick="Richfaces.hideModalPanel('panelnewSeccion')"
+							ajaxSingle="true">
+							<h:graphicImage value="#{url.img}/icons/close.png" />
+						</a4j:commandLink>
+					</h:panelGroup>
+				</a4j:form>
+			</f:facet>
+			<a4j:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="name" for="" />
+					<h:inputText value="#{unitQuestionBean.questionName}" />
+					<a4j:commandButton value="Crear"
+						action="#{surveyControllerBean.createSecction}"
+						oncomplete="Richfaces.hideModalPanel('panelnewQuestion')"
+						reRender="cSurForm">
+						<rich:effect event="oncomplete" targetId="panelnewSeccion"
+							type="Fade" params="delay:1.0,duration:0.5" />
+						<rich:effect event="oncomplete" targetId="infoBox" type="Appear"
+							params="delay:2.0,duration:0.5" />
+					</a4j:commandButton>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
 		<a4j:form id="cSurForm">
 
 			<h3>#{surveyFormatBean.surveyName}</h3>

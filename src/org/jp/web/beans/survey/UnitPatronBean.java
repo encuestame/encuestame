@@ -27,9 +27,10 @@ import org.jp.web.beans.MasterBean;
  */
 public class UnitPatronBean extends MasterBean{
 	
+	private Integer id;
 	private String descripcion;
 	private String label;
-	private Integer patronType;
+	private String patronType;
 	/**
 	 * @return the descripcion
 	 */
@@ -57,14 +58,26 @@ public class UnitPatronBean extends MasterBean{
 	/**
 	 * @return the patronType
 	 */
-	public Integer getPatronType() {
+	public String getPatronType() {
 		return patronType;
 	}
 	/**
 	 * @param patronType the patronType to set
 	 */
-	public void setPatronType(Integer patronType) {
+	public void setPatronType(String patronType) {
 		this.patronType = patronType;
+	}
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

@@ -10,6 +10,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.jp.core.persistence.pojo.CatState;
 import org.jp.web.beans.MasterBean;
 import org.jp.web.beans.admon.UnitPermission;
@@ -55,11 +56,11 @@ public class GlobalCommonsBeans extends MasterBean {
 	public List<SelectItem> getLoadListState() {
 		lista = new LinkedList();
 		select = new ArrayList<SelectItem>();
-		//log.info("get load list state");
+		// log.info("get load list state");
 		select.add(new SelectItem(null, ""));
 		lista = getServicemanagerBean().getDataService().getStateDao()
 				.findAll();
-		//log.info("get load list state total->" + lista.size());
+		// log.info("get load list state total->" + lista.size());
 		if (lista != null && lista.size() != 0) {
 			Iterator iterd = lista.iterator();
 			while (iterd.hasNext()) {
@@ -89,6 +90,30 @@ public class GlobalCommonsBeans extends MasterBean {
 				select.add(new SelectItem(permission.getId(), permission
 						.getDescription()));
 			}
+		}
+		return select;
+	}
+
+	public List<SelectItem> getLoadListQuestionPatron() {
+		lista = new LinkedList();
+		select = new LinkedList<SelectItem>();
+		select.add(new SelectItem(null, ""));
+		try {
+			lista = getServicemanagerBean().getSurveyService().loadAllPatrons();
+			if (lista != null && lista.size() != 0) {
+				Iterator iterd = lista.iterator();
+				while (iterd.hasNext()) {
+					UnitPermission permission = (UnitPermission) iterd.next();
+					select.add(new SelectItem(permission.getId(), permission
+							.getDescription()));
+				}
+			}
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return select;
 	}

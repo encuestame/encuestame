@@ -1,5 +1,6 @@
 package org.jp.core.persistence.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -7,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.jp.core.persistence.dao.imp.IQuestionDao;
 import org.jp.core.persistence.pojo.Questions;
+import org.jp.core.persistence.pojo.QuestionsPatron;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -57,6 +59,16 @@ public class QuestionDaoImp extends HibernateDaoSupport implements IQuestionDao 
 	 */
 	public List<Questions> loadAllQuestions() throws HibernateException{
 		return getHibernateTemplate().find("from Questions");
+	}
+	
+	
+	/**
+	 * load question patron
+	 * @return
+	 * @throws HibernateException
+	 */
+	public List<QuestionsPatron> loadAllQuestionPatron()throws HibernateException{
+	return getHibernateTemplate().find("from QuestionsPatron");	
 	}
 	
 	
