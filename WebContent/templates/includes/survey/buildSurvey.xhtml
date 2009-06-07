@@ -15,9 +15,9 @@
 		<rich:modalPanel id="panelnewSeccion" autosized="true" width="600"
 			height="200" zindex="2000">
 			<f:facet name="header">
-				<a4j:form id="formHeaderNewtUser">
+				<a4j:form id="formHeaderNewtSection">
 					<h:panelGroup>
-						<h:outputText id="headerEditUser" value="Nuevo Grupo"></h:outputText>
+						<h:outputText value="Nuevo Seccion"></h:outputText>
 					</h:panelGroup>
 				</a4j:form>
 			</f:facet>
@@ -52,7 +52,7 @@
 		<rich:modalPanel id="panelnewQuestion" autosized="true" width="600"
 			height="200" zindex="2000">
 			<f:facet name="header">
-				<a4j:form id="formHeaderNewtUser">
+				<a4j:form id="formHeaderNewtQuestion">
 					<h:panelGroup>
 						<h:outputText id="headerEditUser" value="Nueva Pregunta"></h:outputText>
 					</h:panelGroup>
@@ -71,10 +71,15 @@
 			</f:facet>
 			<a4j:form>
 				<h:panelGrid columns="2">
-					<h:outputLabel value="name" for="" />
+					<h:outputLabel value="Question" for="" />
 					<h:inputText value="#{unitQuestionBean.questionName}" />
+					<h:outputLabel value="Patron" for="" />
+					<h:selectOneMenu value="#{unitQuestionBean.patron.id}" id="selectState"
+						required="true" requiredMessage="Es necesario el patron">
+						<f:selectItems value="#{globalBean.loadListQuestionPatron}" />
+					</h:selectOneMenu>
 					<a4j:commandButton value="Crear"
-						action="#{surveyControllerBean.createSecction}"
+						action="#{surveyControllerBean.createQuestion}"
 						oncomplete="Richfaces.hideModalPanel('panelnewQuestion')"
 						reRender="cSurForm">
 						<rich:effect event="oncomplete" targetId="panelnewSeccion"
@@ -95,7 +100,7 @@
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')">
 				</a4j:commandLink>
 				<a4j:commandLink value="Crear Pregunta"
-					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')"></a4j:commandLink>
+					oncomplete="javascript:Richfaces.showModalPanel('panelnewQuestion')"></a4j:commandLink>
 
 
 			</h:panelGrid>

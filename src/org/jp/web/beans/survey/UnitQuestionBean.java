@@ -37,9 +37,8 @@ public class UnitQuestionBean extends MasterBean {
 	public Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
 
 	public UnitQuestionBean() {
+		patron = new UnitPatronBean();
 	}
-
-	
 
 	public UnitQuestionBean(String questionName, String version,
 			UnitPatronBean patron, Integer idState, Integer id,
@@ -52,8 +51,6 @@ public class UnitQuestionBean extends MasterBean {
 		this.id = id;
 		this.listAnswers = listAnswers;
 	}
-
-
 
 	/**
 	 * @return the questionName
@@ -85,8 +82,6 @@ public class UnitQuestionBean extends MasterBean {
 		this.version = version;
 	}
 
-	
-
 	/**
 	 * @return the patron
 	 */
@@ -94,16 +89,13 @@ public class UnitQuestionBean extends MasterBean {
 		return patron;
 	}
 
-
-
 	/**
-	 * @param patron the patron to set
+	 * @param patron
+	 *            the patron to set
 	 */
 	public void setPatron(UnitPatronBean patron) {
 		this.patron = patron;
 	}
-
-
 
 	/**
 	 * @return the idState

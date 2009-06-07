@@ -94,7 +94,8 @@ public class BuildSurveyControllerBean extends MasterBean {
 				question.setVersion("1");
 				question.setIdState(2);
 				addInfoMessage("Pregunta Creada", "");
-				cleanSecctionBean();
+				questionsList.add(question);
+				//cleanSecctionBean();
 			} catch (EnMeExpcetion e) {
 				addErrorMessage("error->" + e.getMessage(), "");
 			}

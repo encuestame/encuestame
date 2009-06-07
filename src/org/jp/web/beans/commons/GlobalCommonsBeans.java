@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.jp.core.persistence.pojo.CatState;
 import org.jp.web.beans.MasterBean;
 import org.jp.web.beans.admon.UnitPermission;
+import org.jp.web.beans.survey.UnitPatronBean;
 
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
@@ -93,7 +94,11 @@ public class GlobalCommonsBeans extends MasterBean {
 		}
 		return select;
 	}
-
+	
+	/**
+	 * load list patron
+	 * @return
+	 */
 	public List<SelectItem> getLoadListQuestionPatron() {
 		lista = new LinkedList();
 		select = new LinkedList<SelectItem>();
@@ -103,9 +108,9 @@ public class GlobalCommonsBeans extends MasterBean {
 			if (lista != null && lista.size() != 0) {
 				Iterator iterd = lista.iterator();
 				while (iterd.hasNext()) {
-					UnitPermission permission = (UnitPermission) iterd.next();
-					select.add(new SelectItem(permission.getId(), permission
-							.getDescription()));
+					UnitPatronBean patron = (UnitPatronBean) iterd.next();
+					select.add(new SelectItem(patron.getId(), patron
+							.getPatronType()));
 				}
 			}
 		} catch (HibernateException e) {
