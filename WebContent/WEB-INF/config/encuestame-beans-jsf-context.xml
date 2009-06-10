@@ -83,7 +83,7 @@
 		<property name="servicemanagerBean" ref="servicesManager" />
 		<property name="unitSurveySection" ref="unitSurveySection" />
 		<property name="unitQuestionBean" ref="unitQuestionBean" />
-		<property name="unitPatronBean" ref="unitPatronBean" />
+		<property name="unitPatterBean" ref="unitPatterBean" />
 	</bean>
 	
 	<bean id="unitSurveySection" class="org.jp.web.beans.survey.UnitSurveySection"
@@ -96,7 +96,7 @@
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>
 	
-	<bean id="unitPatronBean" class="org.jp.web.beans.survey.UnitPatronBean"
+	<bean id="unitPatterBean" class="org.jp.web.beans.survey.UnitPatternBean"
 		scope="session">
 		<property name="servicemanagerBean" ref="servicesManager" />
 	</bean>

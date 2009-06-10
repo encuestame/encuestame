@@ -4,13 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<table>
-		<tr>
-			<td valign="top"><a4j:region id="indexToolBarRegion">
-			</a4j:region></td>
-			<td valign="top">
-			<div id="wrapper_menu"><ui:insert name="element"></ui:insert></div>
-			</td>
-		</tr>
-	</table>
+	<h:outputLabel value="#{label}: ">
+		<h:inputText value="#{value}" />
+	</h:outputLabel>
 </ui:component>

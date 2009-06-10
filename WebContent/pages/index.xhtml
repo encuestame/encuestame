@@ -6,26 +6,30 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:m="http://code.google.com/p/gmaps4jsf/"
-	xmlns:encuestame="http://encuesta.me/encuestame">
+	xmlns:en="http://encuesta.me/encuestame">
 <body>
 <ui:composition template="/templates/home.xhtml">
-	<ui:define name="googleMaps"><script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=#{url.googleKey}" type="text/javascript"></script>
+	<ui:define name="googleMaps">
+		<script
+			src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=#{url.googleKey}"
+			type="text/javascript"></script>
 	</ui:define>
-	<ui:define name="main">		
+	<ui:define name="main">
 		<h:form id="form">
-		<rich:tree style="width:300px" switchType="ajax">
+			<rich:tree style="width:300px" switchType="ajax">
 				<rich:recursiveTreeNodesAdaptor
 					roots="#{treeNodeLocationBean.sourceRoots}" var="item"
 					nodes="#{item.nodes}" />
 			</rich:tree>
-    	<!-- 
+			<!-- 
     		<m:map width="500px" height="500px" latitude="30.01" longitude="31.14">
                 <m:marker  latitude="30.01" longitude="31.14"/>
                 <m:htmlInformationWindow latitude="30.01" longitude="31.14" 
                            htmlText="MiPrimerBocadillo"/>
-      </m:map> -->    		
-    	</h:form>
-   
+      </m:map> -->
+			<en:testInput label="Name" value="#{userBean}" />
+		</h:form>
+
 	</ui:define>
 </ui:composition>
 

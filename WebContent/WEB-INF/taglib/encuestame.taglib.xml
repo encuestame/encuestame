@@ -20,4 +20,14 @@
 		<tag-name>statToolBar</tag-name>
 		<source>components/toolBar/statToolBar.xhtml</source>
 	</tag>
+	<tag>
+		<tag-name>pattern</tag-name>
+		<source>components/pattern.xhtml</source>
+	</tag>
+	
+	<!-- test tag lib -->
+	<tag>
+		<tag-name>testInput</tag-name>
+		<source>test/customTest.xhtml</source>
+	</tag>
 </facelet-taglib>

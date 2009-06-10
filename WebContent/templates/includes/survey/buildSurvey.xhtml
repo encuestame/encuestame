@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:en="http://encuesta.me/encuestame">
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.builSurvey}</h2>
@@ -48,7 +49,7 @@
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
-		
+
 		<rich:modalPanel id="panelnewQuestion" autosized="true" width="600"
 			height="200" zindex="2000">
 			<f:facet name="header">
@@ -74,9 +75,10 @@
 					<h:outputLabel value="Question" for="" />
 					<h:inputText value="#{unitQuestionBean.questionName}" />
 					<h:outputLabel value="Patron" for="" />
-					<h:selectOneMenu value="#{unitQuestionBean.patron.id}" id="selectState"
-						required="true" requiredMessage="Es necesario el patron">
-						<f:selectItems value="#{globalBean.loadListQuestionPatron}" />
+					<h:selectOneMenu value="#{unitQuestionBean.pattern.id}"
+						id="selectState" required="true"
+						requiredMessage="Es necesario el patron">
+						<f:selectItems value="#{globalBean.loadListQuestionPattern}" />
 					</h:selectOneMenu>
 					<a4j:commandButton value="Crear"
 						action="#{surveyControllerBean.createQuestion}"
@@ -160,9 +162,10 @@
 										dropListener="#{buildEventSurvey.processDrop}"
 										reRender="repeatSeccion,cSurForm">
 									</rich:dropSupport>
-									<a4j:repeat value="#{seccion.questions}" var="sec2">
+									<a4j:repeat value="#{seccion.questions}" var="question">
 										<rich:panel>
-											<h:outputText value="Test #{sec2.questionName}" />
+											<en:pattern value="#{question}" />
+											<h:outputText value="#{question.questionName}" />
 										</rich:panel>
 									</a4j:repeat>
 								</rich:panel>

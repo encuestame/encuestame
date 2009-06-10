@@ -39,7 +39,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	private List<UnitQuestionBean> questionsList;
 	private Boolean showQuestionForm = false;
 	private Boolean showSectionForm = false;
-	private UnitPatronBean unitPatronBean;
+	private UnitPatternBean unitPatterBean;
 	private List<UnitSurveySection> sectionList;
 	private Log log = LogFactory.getLog(this.getClass());
 	private Integer idCounterSection = 1;
@@ -89,7 +89,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 				int d = getNewIdCounter(2);
 				question = new UnitQuestionBean();
 				question.setId(d);
-				question.setPatron(getUnitPatronBean());
+				question.setPattern(getUnitPatterBean());
 				question.setQuestionName(getUnitQuestionBean().getQuestionName());
 				question.setVersion("1");
 				question.setIdState(2);
@@ -99,7 +99,6 @@ public class BuildSurveyControllerBean extends MasterBean {
 			} catch (EnMeExpcetion e) {
 				addErrorMessage("error->" + e.getMessage(), "");
 			}
-
 		}
 	}
 	
@@ -342,19 +341,15 @@ public class BuildSurveyControllerBean extends MasterBean {
 		this.sectionSelected = sectionSelected;
 	}
 
-	/**
-	 * @return the unitPatronBean
-	 */
-	public UnitPatronBean getUnitPatronBean() {
-		return unitPatronBean;
+	public UnitPatternBean getUnitPatterBean() {
+		return unitPatterBean;
 	}
 
-	/**
-	 * @param unitPatronBean the unitPatronBean to set
-	 */
-	public void setUnitPatronBean(UnitPatronBean unitPatronBean) {
-		this.unitPatronBean = unitPatronBean;
+	public void setUnitPatterBean(UnitPatternBean unitPatterBean) {
+		this.unitPatterBean = unitPatterBean;
 	}
+
+	
 	
 
 }

@@ -25,7 +25,7 @@ import org.jp.web.beans.MasterBean;
  * package: org.jp.web.beans.survey
  * @version 1.0
  */
-public class UnitPatronBean extends MasterBean{
+public class UnitPatternBean extends MasterBean{
 	
 	private Integer id;
 	private String descripcion;

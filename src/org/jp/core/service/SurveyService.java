@@ -15,7 +15,7 @@ import org.jp.core.persistence.dao.QuestionDaoImp;
 import org.jp.core.persistence.dao.SurveyDaoImp;
 import org.jp.core.persistence.pojo.Questions;
 import org.jp.core.persistence.pojo.QuestionsPatron;
-import org.jp.web.beans.survey.UnitPatronBean;
+import org.jp.web.beans.survey.UnitPatternBean;
 import org.jp.web.beans.survey.UnitQuestionBean;
 
 /**
@@ -156,8 +156,8 @@ public class SurveyService extends MasterService implements ISurveyService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public Collection<UnitPatronBean> loadAllPatrons() throws HibernateException, Exception{
-		List<UnitPatronBean> listPatronBean = new LinkedList<UnitPatronBean>();
+	public Collection<UnitPatternBean> loadAllPatrons() throws HibernateException, Exception{
+		List<UnitPatternBean> listPatronBean = new LinkedList<UnitPatternBean>();
 		try {
 			List<QuestionsPatron> patronList = getQuestionDaoImp()
 					.loadAllQuestionPatron();
@@ -165,7 +165,7 @@ public class SurveyService extends MasterService implements ISurveyService {
 				Iterator<QuestionsPatron> i = patronList.iterator();
 				while (i.hasNext()) {
 					QuestionsPatron patron = (QuestionsPatron) i.next();
-					UnitPatronBean p = new UnitPatronBean();
+					UnitPatternBean p = new UnitPatternBean();
 					p.setId(patron.getIdPatron());
 					p.setPatronType(patron.getTypePatron());					
 					listPatronBean.add(p);
