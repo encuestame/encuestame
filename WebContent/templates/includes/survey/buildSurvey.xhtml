@@ -9,7 +9,6 @@
 	<ui:define name="title"> #{temp.surveyTitle}</ui:define>
 	<ui:define name="bodyOptions">
 		<h2>#{temp.builSurvey}</h2>
-
 		<rich:messages id="infoBox" errorClass="error" infoClass="info"
 			warnClass="war">
 		</rich:messages>
@@ -49,7 +48,6 @@
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
-
 		<rich:modalPanel id="panelnewQuestion" autosized="true" width="600"
 			height="200" zindex="2000">
 			<f:facet name="header">
@@ -93,22 +91,14 @@
 			</a4j:form>
 		</rich:modalPanel>
 		<a4j:form id="cSurForm">
-
 			<h3>#{surveyFormatBean.surveyName}</h3>
-
 			<h:panelGrid columns="5" cellpadding="4" cellspacing="4">
-
 				<a4j:commandLink value="Crear Seccion"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')">
 				</a4j:commandLink>
 				<a4j:commandLink value="Crear Pregunta"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewQuestion')"></a4j:commandLink>
-
-
 			</h:panelGrid>
-
-
-
 			<rich:dragIndicator id="indicator">
 				<f:facet name="multiple">
 					<f:verbatim>
@@ -116,7 +106,6 @@
 					</f:verbatim>
 				</f:facet>
 			</rich:dragIndicator>
-
 			<table>
 				<tr>
 					<td valign="top"><h:panelGroup>
@@ -137,7 +126,6 @@
 					</h:panelGroup></td>
 					<td valign="top"><h:panelGroup>
 						<a4j:region id="sectionRegion">
-
 							<h:panelGrid columns="100" cellpadding="4" cellspacing="5">
 								<a4j:repeat id="repeatSeccionss"
 									value="#{surveyControllerBean.sectionList}" var="seccion">
@@ -175,10 +163,5 @@
 				</tr>
 			</table>
 		</a4j:form>
-
-
-
-
 	</ui:define>
-
 </ui:composition>

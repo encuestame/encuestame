@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/templates/admonTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -7,8 +7,6 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:encuestame="http://encuesta.me/encuestame"
 	xmlns:m="http://code.google.com/p/gmaps4jsf/">
-<body>
-<ui:composition template="/templates/admonTemplate.xhtml">
 	<ui:define name="title"> #{temp.admonTitle} - #{temp.titleProyect}</ui:define>
 	<ui:define name="bodyOptions">
 
@@ -17,7 +15,7 @@
 
 		<rich:spacer height="20"></rich:spacer>
 		<a4j:form id="formProyect" ajaxSubmit="true">
-		
+
 			<rich:messages id="infoBox" errorClass="error" infoClass="info"
 				warnClass="war"></rich:messages>
 
@@ -32,12 +30,12 @@
 								action="#{proyectUserBean.changeEdit}" reRender="formProyect"></a4j:commandLink>
 						</h:panelGrid>
 
-						<div id="proyectBox">
-						<a4j:outputPanel id="te"
-							rendered="#{proyectUserBean.create}" >
+						<div id="proyectBox"><a4j:outputPanel id="te"
+							rendered="#{proyectUserBean.create}">
 							<h3>Crear Proyecto</h3>
 							<p>Para crear un proyecto, es necesario un nombre unico,</p>
-							<h:panelGrid columns="2" cellpadding="4" cellspacing="4" width="100%">
+							<h:panelGrid columns="2" cellpadding="4" cellspacing="4"
+								width="100%">
 								<h:outputLabel value="Nombre" for="nameProyect" />
 								<h:inputText value="#{unitProyectBean.name}" id="nameProyect" />
 								<h:outputLabel value="Fecha Inicio" for="dateInitProyect" />
@@ -61,13 +59,12 @@
 									action="#{proyectUserBean.saveProyect}" reRender="te"></a4j:commandButton>
 
 							</h:panelGrid>
-						</a4j:outputPanel> 
-						
-						<a4j:outputPanel id="vd" rendered="#{proyectUserBean.edit}">
+						</a4j:outputPanel> <a4j:outputPanel id="vd" rendered="#{proyectUserBean.edit}">
 							<h3>Editar Proyecto</h3>
-							<p>Este es el listado de tus proyectos, elige uno y edita sus propiedades.</p>
-							<div id="proyectRowWrapper">
-							<a4j:repeat	value="#{proyectUserBean.list_unitBeans}" var="pro">
+							<p>Este es el listado de tus proyectos, elige uno y edita sus
+							propiedades.</p>
+							<div id="proyectRowWrapper"><a4j:repeat
+								value="#{proyectUserBean.list_unitBeans}" var="pro">
 								<div id="proyectRow">
 								<div class="title"><a4j:commandLink value="#{pro.name}"
 									action="#{proyectUserBean.editProject}"
@@ -88,11 +85,12 @@
 							rendered="#{proyectUserBean.editDetail}">
 							<h3>Editando #{unitProyectBean.name}</h3>
 							<p>#{unitProyectBean.description}</p>
-							<rich:tabPanel switchType="ajax" width="100%" >
-								<rich:tab label="General">									
+							<rich:tabPanel switchType="ajax" width="100%">
+								<rich:tab label="General">
 									<h:panelGrid columns="2" cellpadding="4" cellspacing="4">
 										<h:outputLabel value="Nombre" for="editnameProyect" />
-										<h:inputText value="#{unitProyectBean.name}" id="editnameProyect" />
+										<h:inputText value="#{unitProyectBean.name}"
+											id="editnameProyect" />
 										<h:outputLabel value="Fecha Inicio" for="editdateInitProyect" />
 										<rich:calendar id="editdateInitProyect"
 											value="#{unitProyectBean.dateInit}"
@@ -101,9 +99,10 @@
 										<rich:calendar id="editdateFinishProyect"
 											value="#{unitProyectBean.dateFinish}"
 											datePattern="#{calendarBean.pattern}"></rich:calendar>
-										<h:outputLabel value="Descripcion" for="editproyectDescription" />
-										<h:inputTextarea id="editproyectDescription" cols="50" rows="7"
-											value="#{unitProyectBean.description}" />
+										<h:outputLabel value="Descripcion"
+											for="editproyectDescription" />
+										<h:inputTextarea id="editproyectDescription" cols="50"
+											rows="7" value="#{unitProyectBean.description}" />
 										<h:outputLabel value="Estado" for="editproyectStatus" />
 										<h:selectOneMenu value="#{unitProyectBean.state}"
 											id="editproyectStatus"
@@ -128,8 +127,5 @@
 				</tr>
 			</table>
 		</a4j:form>
-
 	</ui:define>
 </ui:composition>
-</body>
-</html>
