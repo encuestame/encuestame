@@ -17,6 +17,10 @@
 		<source>components/toolBar/surveyToolBar.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>pollToolBar</tag-name>
+		<source>components/toolBar/pollToolBar.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>statToolBar</tag-name>
 		<source>components/toolBar/statToolBar.xhtml</source>
 	</tag>

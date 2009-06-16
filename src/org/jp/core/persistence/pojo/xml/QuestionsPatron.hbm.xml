@@ -12,7 +12,7 @@
             <column name="type_patron" length="25" not-null="true" />
         </property>
         <property name="desQid" type="string">
-            <column name="des_qid" length="16777215" not-null="true" />
+            <column name="des_qid" length="50" not-null="true" />
         </property>
         <property name="labelQid" type="string">
             <column name="label_qid" not-null="true" />
@@ -30,4 +30,9 @@
             <column name="nivel" />
         </property>
     </class>
+    
+    <query name="Pattern.loadPatternInfo">
+    <![CDATA[
+	     select d from QuestionsPatron d where d.idPatron = ? ]]>
+	 </query>
 </hibernate-mapping>

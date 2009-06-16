@@ -125,8 +125,8 @@ public class SurveyService extends MasterService implements ISurveyService {
 	 * @throws Exception
 	 * @throws EnMeExpcetion
 	 */
-	public List<UnitQuestionBean> loadAllQuestions()
-			throws HibernateException, Exception, EnMeExpcetion {
+	public List<UnitQuestionBean> loadAllQuestions() throws HibernateException,
+			Exception, EnMeExpcetion {
 
 		List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
 		try {
@@ -150,24 +150,51 @@ public class SurveyService extends MasterService implements ISurveyService {
 		}
 		return listQuestionBean;
 	}
-	
+
+	/**
+	 * load pattern info
+	 * 
+	 * @param unit
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	public UnitPatternBean loadPatternInfo(UnitPatternBean unit)
+			throws EnMeExpcetion, HibernateException {
+		log.info("loadPatternInfo init ->"+unit.getId());
+		if (unit != null && unit.getId() != null) {
+			QuestionsPatron q = getQuestionDaoImp().loadPatternInfo(
+					unit.getId());
+			log.info("loadPatternInfo QuestionsPatron ->"+q);
+			unit.setId(q.getIdPatron());
+			unit.setDescripcion(q.getDesQid());
+			unit.setLabel(q.getLabelQid());
+			unit.setPatronType(q.getTypePatron());
+			unit.setTemplate(q.getTemplatePatron());
+			// pueden agregar mas datos
+			return unit;
+		} else {
+			throw new EnMeExpcetion("unit is null");
+		}
+	}
+
 	/**
 	 * 
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public Collection<UnitPatternBean> loadAllPatrons() throws HibernateException, Exception{
+	public Collection<UnitPatternBean> loadAllPatrons()
+			throws HibernateException, Exception {
 		List<UnitPatternBean> listPatronBean = new LinkedList<UnitPatternBean>();
 		try {
 			List<QuestionsPatron> patronList = getQuestionDaoImp()
-					.loadAllQuestionPatron();
+					.loadAllQuestionPattern();
 			if (patronList != null && patronList.size() > 0) {
 				Iterator<QuestionsPatron> i = patronList.iterator();
 				while (i.hasNext()) {
 					QuestionsPatron patron = (QuestionsPatron) i.next();
 					UnitPatternBean p = new UnitPatternBean();
 					p.setId(patron.getIdPatron());
-					p.setPatronType(patron.getTypePatron());					
+					p.setPatronType(patron.getTypePatron());
 					listPatronBean.add(p);
 				}
 			}

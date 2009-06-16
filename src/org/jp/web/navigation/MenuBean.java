@@ -33,6 +33,7 @@ public class MenuBean {
 	private String currentSelected = "current";
 	private String menuSelected;
 	private String admonCss;
+	private String pollCss;
 	private String indexCss;
 	private String surveyCss;
 	private String statsCss;
@@ -71,6 +72,8 @@ public class MenuBean {
 			setSurveyCss(getCurrentSelected());
 		} else if (getMenuSelected().compareTo("stats") == 0) {
 			setStatsCss(getCurrentSelected());
+		} else if (getMenuSelected().compareTo("poll") == 0) {
+			setPollCss(getCurrentSelected());
 		} else {
 			setIndexCss(getCurrentSelected());
 		}
@@ -80,6 +83,7 @@ public class MenuBean {
 		setIndexCss("");
 		setAdmonCss("");
 		setStatsCss("");
+		setPollCss("");
 		setSurveyCss("");
 	}
 
@@ -159,6 +163,14 @@ public class MenuBean {
 	 */
 	public void setStatsCss(String statsCss) {
 		this.statsCss = statsCss;
+	}
+
+	public String getPollCss() {
+		return pollCss;
+	}
+
+	public void setPollCss(String pollCss) {
+		this.pollCss = pollCss;
 	}
 
 }

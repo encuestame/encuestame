@@ -40,9 +40,7 @@ public class MasterBean {
 	private Log log = LogFactory.getLog(this.getClass());
 	protected boolean isOneRow;
 
-	public MasterBean() {
-		//logger.info("init master bean");
-	}
+	public MasterBean() {}
 
 	/**
 	 * 

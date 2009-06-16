@@ -37,6 +37,9 @@
     ID="organizeSurveys::#pages#organizeSurveys.xhtml" NAME="output10"
     PATH="/pages/organizeSurveys.xhtml"
     TARGET="rules:#pages#organizeSurveys.xhtml" TITLE="organizeSurveys" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="polls::#pages#polls.xhtml" NAME="output11"
+    PATH="/pages/polls.xhtml" TARGET="rules:#pages#polls.xhtml"
+    TITLE="polls" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
@@ -109,4 +112,6 @@
  <PROCESS-ITEM NAME="rules:#templates#includes#survey#buildSurvey.xhtml"
   PATH="/templates/includes/survey/buildSurvey.xhtml"
   SHAPE="688,440,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#polls.xhtml" PATH="/pages/polls.xhtml"
+  SHAPE="413,260,0,0" model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

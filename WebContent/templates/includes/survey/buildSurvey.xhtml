@@ -73,7 +73,7 @@
 					<h:outputLabel value="Question" for="" />
 					<h:inputText value="#{unitQuestionBean.questionName}" />
 					<h:outputLabel value="Patron" for="" />
-					<h:selectOneMenu value="#{unitQuestionBean.pattern.id}"
+					<h:selectOneMenu value="#{surveyControllerBean.patternSelected}"
 						id="selectState" required="true"
 						requiredMessage="Es necesario el patron">
 						<f:selectItems value="#{globalBean.loadListQuestionPattern}" />

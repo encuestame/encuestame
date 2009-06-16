@@ -31,6 +31,16 @@ public class UnitPatternBean extends MasterBean{
 	private String descripcion;
 	private String label;
 	private String patronType;
+	private String template;
+	
+	public UnitPatternBean() {
+	
+	}
+	
+	public UnitPatternBean(Integer id) {
+		super();
+		this.id = id;
+	}
 	/**
 	 * @return the descripcion
 	 */
@@ -78,6 +88,12 @@ public class UnitPatternBean extends MasterBean{
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getTemplate() {
+		return template;
+	}
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 	
 	

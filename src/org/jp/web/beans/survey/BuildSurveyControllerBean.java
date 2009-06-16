@@ -45,6 +45,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	private Integer idCounterSection = 1;
 	private Integer idCounterQuestion = 1;
 	private Integer sectionSelected;
+	private Integer patternSelected;
 
 	private UnitQuestionBean unitQuestionBean;
 	private UnitSurveySection unitSurveySection;
@@ -89,19 +90,37 @@ public class BuildSurveyControllerBean extends MasterBean {
 				int d = getNewIdCounter(2);
 				question = new UnitQuestionBean();
 				question.setId(d);
-				question.setPattern(getUnitPatterBean());
-				question.setQuestionName(getUnitQuestionBean().getQuestionName());
-				question.setVersion("1");
-				question.setIdState(2);
-				addInfoMessage("Pregunta Creada", "");
-				questionsList.add(question);
-				//cleanSecctionBean();
-			} catch (EnMeExpcetion e) {
+				if (getPatternSelected() != null) {
+					// getUnitPatterBean().setId(getPatternSelected());
+					UnitPatternBean patternN = new UnitPatternBean(
+							getPatternSelected());
+					patternN = getServicemanagerBean().getSurveyService()
+							.loadPatternInfo(patternN);
+					//cleanPatterBean(getUnitPatterBean());
+					question.setPattern(patternN);
+					question.setQuestionName(getUnitQuestionBean()
+							.getQuestionName());
+					question.setVersion("1");
+					question.setIdState(2);
+					addInfoMessage("Pregunta Creada", "");
+					questionsList.add(question);
+				} else {
+					addErrorMessage("error message", "");
+					new EnMeExpcetion("patron nulo");
+				}
+				// cleanSecctionBean();
+			} catch (Exception e) {
 				addErrorMessage("error->" + e.getMessage(), "");
 			}
 		}
 	}
-	
+
+	private void cleanPatterBean(UnitPatternBean bean) {
+		bean.setId(null);
+		bean.setLabel(null);
+		bean.setTemplate(null);
+		bean.setDescripcion(null);
+	}
 
 	/**
 	 * 
@@ -168,17 +187,18 @@ public class BuildSurveyControllerBean extends MasterBean {
 	public void moveQuestion(Object fm, Object family) {
 		ArrayList target = null;
 		UnitQuestionBean dd = (UnitQuestionBean) fm;
-		log.info("Object Move fm->" + fm);
-		log.info("Object family->" + family);
+		dd.getPattern().setTemplate("pattern/url.xhtml");
+		// log.info("Object Move fm->" + fm);
+		// log.info("Object family->" + family);
 		addInfoMessage("Pregunta ASignada a la Sección ->" + family
 				+ "La pregunta->" + dd.getQuestionName(), "");
 		int ind = sectionList.indexOf(family);
 		UnitSurveySection d = sectionList.get(ind);
 		d.getQuestions().add((UnitQuestionBean) fm);
-		log.info("Posicion Encontrada->" + ind);
-		log.info("Posicion sectionList->" + sectionList);
+		// log.info("Posicion Encontrada->" + ind);
+		// log.info("Posicion sectionList->" + sectionList);
 		UnitSurveySection ddedd = sectionList.get(ind);
-		log.info("Posicion Preguntas Totales->" + ddedd.getQuestions());
+		// log.info("Posicion Preguntas Totales->" + ddedd.getQuestions());
 	}
 
 	/**
@@ -200,7 +220,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	 * @return the questionsList
 	 */
 	public List<UnitQuestionBean> getQuestionsList() {
-		//searchQuestions();
+		// searchQuestions();
 		return questionsList;
 	}
 
@@ -349,7 +369,12 @@ public class BuildSurveyControllerBean extends MasterBean {
 		this.unitPatterBean = unitPatterBean;
 	}
 
-	
-	
+	public Integer getPatternSelected() {
+		return patternSelected;
+	}
+
+	public void setPatternSelected(Integer patternSelected) {
+		this.patternSelected = patternSelected;
+	}
 
 }

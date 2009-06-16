@@ -27,6 +27,18 @@
 				<a4j:actionparam name="indexSelected" value="survey"
 					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
 			</a4j:commandLink></li>
+			<li><a4j:commandLink
+				styleClass="css menus #{menuBean.pollCss}" action="polls" reRender="menuForm">
+				<span>#{temp.poll}</span>
+				<a4j:actionparam name="indexSelected" value="poll"
+					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
+			</a4j:commandLink></li>
+			<li><a4j:commandLink styleClass="css menus #{menuBean.statsCss}"
+				action="stats" reRender="menuForm">
+				<span>#{temp.stats}</span>
+				<a4j:actionparam name="indexSelected" value="stats"
+					assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
+			</a4j:commandLink></li>
 			<li><a4j:commandLink styleClass="css menus #{menuBean.statsCss}"
 				action="stats" reRender="menuForm">
 				<span>#{temp.stats}</span>

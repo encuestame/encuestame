@@ -69,6 +69,10 @@
    <to-view-id>/pages/organizeSurveys.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>polls</from-outcome>
+   <to-view-id>/pages/polls.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/admon/index.xhtml</from-view-id>
