@@ -1,0 +1,8 @@
+@charset "ISO-8859-1";
+
+
+.questionBox {
+	width: 40%;
+	border: 1px solid gray;
+	padding: 5px;
+}

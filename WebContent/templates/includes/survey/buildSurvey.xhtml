@@ -93,9 +93,7 @@
 		<a4j:form id="cSurForm">
 			<h3>#{surveyFormatBean.surveyName}</h3>
 			<h:panelGrid columns="5" cellpadding="4" cellspacing="4">
-				<a4j:commandLink value="Crear Seccion"
-					oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')">
-				</a4j:commandLink>
+
 				<a4j:commandLink value="Crear Pregunta"
 					oncomplete="javascript:Richfaces.showModalPanel('panelnewQuestion')"></a4j:commandLink>
 			</h:panelGrid>
@@ -108,14 +106,15 @@
 			</rich:dragIndicator>
 			<table>
 				<tr>
-					<td valign="top"><h:panelGroup>
+					<td valign="top" width="300px"><h:panelGroup>
 						<h:panelGrid columns="1">
 							<h:outputLabel value="Buscar Preguntas" for="" />
 							<h:inputText value="" />
 							<a4j:commandButton value="Buscar"></a4j:commandButton>
 						</h:panelGrid>
 						<a4j:repeat value="#{surveyControllerBean.questionsList}" var="fm">
-							<a4j:outputPanel styleClass="questionBox" layout="block">
+							<a4j:outputPanel styleClass="questionBox" layout="block"
+								style="wi">
 								<h:outputText value="#{fm.questionName}"></h:outputText>
 								<rich:dragSupport dragIndicator=":indicator" dragType="PHP"
 									dragValue="#{fm}" reRender="repeatSeccion,cSurForm">
@@ -126,10 +125,12 @@
 					</h:panelGroup></td>
 					<td valign="top"><h:panelGroup>
 						<a4j:region id="sectionRegion">
+
 							<h:panelGrid columns="100" cellpadding="4" cellspacing="5">
 								<a4j:repeat id="repeatSeccionss"
 									value="#{surveyControllerBean.sectionList}" var="seccion">
-									<a4j:outputPanel styleClass="">
+									<a4j:outputPanel styleClass="secctionTab"
+										style="width: 40%;border: 1px solid gray;	padding: 5px;margin: 3px;">
 										<a4j:commandLink value="#{seccion.name}"
 											action="#{surveyControllerBean.changeRenderedSection}"
 											reRender="cSurForm">
@@ -138,9 +139,13 @@
 										</a4j:commandLink>
 									</a4j:outputPanel>
 								</a4j:repeat>
+								<a4j:commandLink value="Crear Seccion"
+									oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')">
+								</a4j:commandLink>
 							</h:panelGrid>
-							<a4j:status for="sectionRegion" startText="Cargando..."
-								stopText="Ya Medi..."></a4j:status>
+
+
+							<a4j:status for="sectionRegion" startText="Cargando..."></a4j:status>
 							<a4j:repeat id="repeatSeccion"
 								value="#{surveyControllerBean.sectionList}" var="seccion">
 								<rich:panel styleClass="dropTargetPanel" style="width:100%;"
