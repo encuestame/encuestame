@@ -1,8 +1,8 @@
 /*
 SQLyog Enterprise - MySQL GUI v6.07
-Host - 5.1.32-community-log : Database - encuestame_core
+Host - 5.1.33-community-log : Database - encuestame_core
 *********************************************************************
-Server version : 5.1.32-community-log
+Server version : 5.1.33-community-log
 */
 
 /*!40101 SET NAMES utf8 */;
@@ -94,9 +94,11 @@ CREATE TABLE `project` (
   PRIMARY KEY (`proyect_id`),
   KEY `id_estado` (`id_state`),
   CONSTRAINT `project_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `project` */
+
+insert  into `project`(`proyect_id`,`description`,`info`,`date_start`,`id_state`,`date_finish`) values (1,'Encuestame','dsadsad','2009-05-30 01:49:56',2,'2009-05-30 01:49:56'),(2,'Proyecto 2','dsadsad','2009-05-30 02:18:55',2,'2009-05-30 02:18:55'),(3,'Proyecto 3','dsadsa','2009-05-30 02:19:09',2,'2009-05-30 02:19:09'),(4,'dasdasdas','dsadas','2009-05-13 12:00:00',1,'2009-05-13 12:00:00'),(5,'JotaProyect','dadasdasdas','2009-05-05 12:00:00',1,'2009-05-21 12:00:00'),(6,'dsadsa','dasdsad','2009-05-05 12:00:00',1,'2009-05-05 12:00:00'),(7,'dsadsadsa','dsadsadasdsad','2009-05-05 12:00:00',2,'2009-05-12 12:00:00'),(8,'dsadsadsa','dsadsadasdsad','2009-05-05 12:00:00',2,'2009-05-12 12:00:00'),(9,'Proyecto dsadsa','dsadsadsa','2009-05-11 12:00:00',1,'2009-05-11 12:00:00'),(16,'Paola Project','dasdsad','2009-05-05 12:00:00',1,'2009-05-07 12:00:00'),(17,'Proyecto Paola','dasdsadsa','2009-05-04 12:00:00',1,'2009-05-21 12:00:00');
 
 /*Table structure for table `project_group` */
 
@@ -193,9 +195,11 @@ CREATE TABLE `questions` (
   KEY `version` (`version`),
   KEY `id_estado` (`id_state`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `questions` */
+
+insert  into `questions`(`qid`,`question`,`version`,`id_state`,`qid_key`) values (1,'¿Porque la gallina cruzó la calle?',1,2,'sadsadq21321321321dsadsa'),(2,'¿Porqué todo junto se escribe separado y separado todo junto?',1,2,'dsadsa321321dsadsa');
 
 /*Table structure for table `questions_answers` */
 
@@ -220,16 +224,18 @@ DROP TABLE IF EXISTS `questions_patron`;
 CREATE TABLE `questions_patron` (
   `id_patron` int(11) NOT NULL AUTO_INCREMENT,
   `type_patron` varchar(25) NOT NULL,
-  `des_qid` mediumtext NOT NULL,
+  `des_qid` varchar(50) NOT NULL,
   `label_qid` varchar(255) NOT NULL,
-  `finallity` mediumtext NOT NULL,
+  `finallity` mediumtext,
   `template_patron` varchar(25) DEFAULT NULL,
   `class` varchar(50) NOT NULL,
   `nivel` int(2) DEFAULT '1',
   PRIMARY KEY (`id_patron`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `questions_patron` */
+
+insert  into `questions_patron`(`id_patron`,`type_patron`,`des_qid`,`label_qid`,`finallity`,`template_patron`,`class`,`nivel`) values (1,'email','Text Email','1','dsadas','dasdsa','asdasda',1),(2,'unique_text','Text Unique','1','dsadsa','dsadas','dsa',1),(3,'paragrahp','Text Paragrahp','1',NULL,'dsadsadsadsa','dsadas',1),(4,'select-multi','Selection Multiple','1',NULL,'dsadsa','hkl',1),(5,'select-unique','Selection Unique','1',NULL,'kjlñkjñl','23j',1),(6,'postal-code','Code Postal','1',NULL,'jklj','kljkl',1),(7,'url','URL Pattern','1',NULL,'jkjkl','jkj',1),(8,'html','HTML Question','1',NULL,'dsajkj','jkl',1),(9,'image-multiple','Image Select Multiple','1',NULL,'hjkl','jk',1),(10,'image-single','Image Single','1',NULL,'jjk','jkl',1),(11,'matrix','Matrix','1',NULL,'kjl','sd',1),(12,'geo','Geo Selected','1',NULL,'dsa','jk',1);
 
 /*Table structure for table `questions_relations` */
 
@@ -301,7 +307,7 @@ CREATE TABLE `sec_groups` (
 
 /*Data for the table `sec_groups` */
 
-insert  into `sec_groups`(`group_id`,`name`,`des_info`,`id_state`) values (1,'Administrador','Administrador',1),(2,'Encuestador','Encuestador',1),(3,'Juan','Juan',2),(4,'newGripo','dsadsadas',1),(5,'dsadsa','dsadsa',1);
+insert  into `sec_groups`(`group_id`,`name`,`des_info`,`id_state`) values (1,'Administrador','Administrador',1),(2,'Encuestador','Encuestador',1),(3,'Juan','Juan',2),(4,'newGripos','dsadsadassa dsa a',1),(5,'dsadsa','dsadsa',1);
 
 /*Table structure for table `sec_invite` */
 
@@ -372,7 +378,7 @@ CREATE TABLE `sec_users` (
 
 /*Data for the table `sec_users` */
 
-insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herreraa','juan@local.com','jpicado','u8cSYZmDmbqXpVk0jaBxhuQzeSyrNYBFTGwuFvfClrnusZqP7UOEsL82AFYQl3a/',1,NULL,'2009-05-29 12:26:56','S','N','N'),(2,'Pavel Martinezss','minibota@hotmail.com','pavel','u8cSYZmDmbqXpVk0jaBxhuQzeSyrNYBFTGwuFvfClrnusZqP7UOEsL82AFYQl3a/',1,NULL,'2009-05-29 12:26:41','S','N','N');
+insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herreraa','juan@local.com','jpicado','ZGnklBN5BzLrL8Y/oW2h1w2azAaiMIGgWYsbLCKzmU6JB0GetUb7fg+6z8RLWqZK',1,NULL,'2009-05-29 12:26:56','S','N','N'),(2,'Pavel Martinezss','minibota@hotmail.com','pavel','u8cSYZmDmbqXpVk0jaBxhuQzeSyrNYBFTGwuFvfClrnusZqP7UOEsL82AFYQl3a/',1,NULL,'2009-05-29 12:26:41','S','N','N');
 
 /*Table structure for table `survey_detail` */
 
@@ -389,9 +395,9 @@ CREATE TABLE `survey_detail` (
   KEY `FK_survey_detail` (`id_sid_format`),
   KEY `FK_survey_detail_qid` (`qid`),
   KEY `FK_survey_detail_ssid` (`ssid`),
-  CONSTRAINT `FK_survey_detail_ssid` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`),
   CONSTRAINT `FK_survey_detail` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
-  CONSTRAINT `FK_survey_detail_qid` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`)
+  CONSTRAINT `FK_survey_detail_qid` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
+  CONSTRAINT `FK_survey_detail_ssid` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `survey_detail` */
@@ -403,11 +409,13 @@ DROP TABLE IF EXISTS `survey_format`;
 CREATE TABLE `survey_format` (
   `id_sid_format` int(11) NOT NULL,
   `name` varchar(60) DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_sid_format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `survey_format` */
+
+insert  into `survey_format`(`id_sid_format`,`name`,`date_created`) values (1,'Encuestame','2008-04-01 15:30:24'),(2,'Proyecto 2','2008-04-01 15:30:24'),(3,'Proyecto 3','2008-04-01 15:30:24'),(4,'Proyecto 4','2009-06-02 10:05:23');
 
 /*Table structure for table `survey_format_group` */
 
@@ -420,8 +428,8 @@ CREATE TABLE `survey_format_group` (
   PRIMARY KEY (`sg_id`,`id_sid_format`),
   KEY `FK_survey_format_group` (`id_sid_format`),
   KEY `sg_id` (`sg_id`),
-  CONSTRAINT `survey_format_group_fk` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`),
-  CONSTRAINT `FK_survey_format_group` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`)
+  CONSTRAINT `FK_survey_format_group` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
+  CONSTRAINT `survey_format_group_fk` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `survey_format_group` */
@@ -455,8 +463,8 @@ CREATE TABLE `survey_group_project` (
   PRIMARY KEY (`sg_id`,`proyect_id`),
   KEY `proyect_id` (`proyect_id`),
   KEY `sg_id` (`sg_id`),
-  CONSTRAINT `survey_group_project_fk1` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`),
-  CONSTRAINT `survey_group_project_fk` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
+  CONSTRAINT `survey_group_project_fk` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`),
+  CONSTRAINT `survey_group_project_fk1` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `survey_group_project` */
