@@ -26,5 +26,8 @@ import org.jp.core.persistence.dao.imp.ICatLocation;
  * @version 1.0
  */
 public class CatLocationDao implements ICatLocation {
-
+ 
+	public CatLocationDao() {
+		// TODO Auto-generated constructor stub
+	}
 }
