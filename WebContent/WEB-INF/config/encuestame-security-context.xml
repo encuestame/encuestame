@@ -25,20 +25,7 @@
 		========================= SECURITY OBJECT DEFINITIONS
 		=========================
 	-->
-	<!--
-		<security:http auto-config="true"> <security:intercept-url
-		pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/j_spring_security_switch_user"
-		access="ROLE_SUPERVISOR" /> <security:intercept-url
-		pattern="/pages/**" access="ROLE_USER" /> <security:intercept-url
-		pattern="/templates/**" access="ROLE_ADMIN" /> <security:form-login
-		login-page="/login.me" login-processing-url="/j_spring_security_check"
-		default-target-url='/pages/index.me'
-		authentication-failure-url="/login.me?login_error=1" />
-		<security:logout logout-url="/logout" logout-success-url="/" />
-		</security:http>
-	-->
-
+	
 	<!-- General Config -->
 
 	<bean id="authenticationManager" class="org.jp.core.security.spring.EnMeAuthenticationManager">
