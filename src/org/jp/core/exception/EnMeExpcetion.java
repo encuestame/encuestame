@@ -19,7 +19,7 @@ package org.jp.core.exception;
  *
  * Id: EnMeExpcetion.java Date: 07/05/2009 
  * @author juanpicado
- * package: org.jp.core.exception
+ * package: org.jp.core.exception 
  * @version 1.0
  */
 public class EnMeExpcetion extends Exception{
