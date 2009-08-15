@@ -127,18 +127,22 @@
 						<a4j:region id="sectionRegion">
 
 							<h:panelGrid columns="100" cellpadding="4" cellspacing="5">
+								<!-- Repitiendo Secciones -->
 								<a4j:repeat id="repeatSeccionss"
 									value="#{surveyControllerBean.sectionList}" var="seccion">
 									<a4j:outputPanel styleClass="secctionTab"
 										style="width: 40%;border: 1px solid gray;	padding: 5px;margin: 3px;">
+										<!-- Cambia la vista de la sección -->
 										<a4j:commandLink value="#{seccion.name}"
 											action="#{surveyControllerBean.changeRenderedSection}"
 											reRender="cSurForm">
+											
 											<a4j:actionparam name="sectionId" value="#{seccion.id}"
 												assignTo="#{surveyControllerBean.sectionSelected}"></a4j:actionparam>
 										</a4j:commandLink>
 									</a4j:outputPanel>
 								</a4j:repeat>
+								<!-- Repitiendo Secciones -->
 								<a4j:commandLink value="Crear Seccion"
 									oncomplete="javascript:Richfaces.showModalPanel('panelnewSeccion')">
 								</a4j:commandLink>
@@ -146,6 +150,7 @@
 
 
 							<a4j:status for="sectionRegion" startText="Cargando..."></a4j:status>
+							<!-- Repetir Sección -->
 							<a4j:repeat id="repeatSeccion"
 								value="#{surveyControllerBean.sectionList}" var="seccion">
 								<rich:panel styleClass="dropTargetPanel" style="width:100%;"
@@ -155,14 +160,17 @@
 										dropListener="#{buildEventSurvey.processDrop}"
 										reRender="repeatSeccion,cSurForm">
 									</rich:dropSupport>
+									<!-- Repetir Preguntas de Sección -->
 									<a4j:repeat value="#{seccion.questions}" var="question">
 										<rich:panel>
 											<en:pattern value="#{question}" />
 											<h:outputText value="#{question.questionName}" />
 										</rich:panel>
 									</a4j:repeat>
+									<!-- Repetir Preguntas de Sección -->
 								</rich:panel>
 							</a4j:repeat>
+							<!-- Repetir Sección -->
 						</a4j:region>
 					</h:panelGroup></td>
 				</tr>

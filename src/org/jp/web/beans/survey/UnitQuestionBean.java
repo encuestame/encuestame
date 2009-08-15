@@ -36,10 +36,23 @@ public class UnitQuestionBean extends MasterBean {
 	public Integer id;
 	public Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
 
+	/**
+	 * 
+	 */
+	
 	public UnitQuestionBean() {
 		pattern = new UnitPatternBean();
 	}
 
+	/**
+	 * 
+	 * @param questionName
+	 * @param version
+	 * @param pattern
+	 * @param idState
+	 * @param id
+	 * @param listAnswers
+	 */
 	public UnitQuestionBean(String questionName, String version,
 			UnitPatternBean pattern, Integer idState, Integer id,
 			Collection<UnitAnswersBean> listAnswers) {

@@ -1,7 +1,6 @@
 package org.jp.web.beans.survey;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,30 +32,40 @@ import org.jp.web.beans.MasterBean;
  * @author juanpicado package: org.jp.web.beans.survey
  * @version 1.0
  */
+
 public class BuildSurveyControllerBean extends MasterBean {
 
 	private String questionSearch;
-	private List<UnitQuestionBean> questionsList;
+	
 	private Boolean showQuestionForm = false;
 	private Boolean showSectionForm = false;
-	private UnitPatternBean unitPatterBean;
+		
+	
+	private List<UnitQuestionBean> questionsList;
 	private List<UnitSurveySection> sectionList;
-	private Log log = LogFactory.getLog(this.getClass());
+	
+
 	private Integer idCounterSection = 1;
 	private Integer idCounterQuestion = 1;
 	private Integer sectionSelected;
 	private Integer patternSelected;
 
 	private UnitQuestionBean unitQuestionBean;
+	private UnitPatternBean unitPatterBean;
 	private UnitSurveySection unitSurveySection;
+	
+	private Log log = LogFactory.getLog(this.getClass());
 
+	
 	public BuildSurveyControllerBean() {
 		log.info("seccion add's");
 	}
 
 	/**
 	 * create new section
+	 * @author juanpicado
 	 */
+	
 	public void createSecction() {
 		if (getUnitSurveySection() != null) {
 			if (sectionList == null) {
@@ -79,6 +88,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 
 	/**
 	 * create a question
+	 * @author juanpicado
 	 */
 	public void createQuestion() {
 		if (getUnitQuestionBean() != null) {
@@ -115,6 +125,10 @@ public class BuildSurveyControllerBean extends MasterBean {
 		}
 	}
 
+	/**
+	 * clean pattern bean
+	 * @param bean
+	 */
 	private void cleanPatterBean(UnitPatternBean bean) {
 		bean.setId(null);
 		bean.setLabel(null);
@@ -153,7 +167,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	}
 
 	/**
-	 * 
+	 * clean section bean
 	 */
 	private void cleanSecctionBean() {
 		getUnitSurveySection().setName(null);
@@ -162,7 +176,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 	}
 
 	/**
-	 * 
+	 * search questions in bd
 	 */
 	public void searchQuestions() {
 		try {
@@ -179,8 +193,8 @@ public class BuildSurveyControllerBean extends MasterBean {
 	}
 
 	/**
-	 * move question to section
-	 * 
+	 * Mueve una pregunta a una secciÃ³n
+	 * @author juanpicado
 	 * @param fm
 	 * @param family
 	 */
@@ -190,7 +204,7 @@ public class BuildSurveyControllerBean extends MasterBean {
 		dd.getPattern().setTemplate("pattern/url.xhtml");
 		// log.info("Object Move fm->" + fm);
 		// log.info("Object family->" + family);
-		addInfoMessage("Pregunta ASignada a la Sección ->" + family
+		addInfoMessage("Pregunta ASignada a la Seccion ->" + family
 				+ "La pregunta->" + dd.getQuestionName(), "");
 		int ind = sectionList.indexOf(family);
 		UnitSurveySection d = sectionList.get(ind);
@@ -346,10 +360,10 @@ public class BuildSurveyControllerBean extends MasterBean {
 				sec.setShowPanel(true);
 
 			} else {
-				addErrorMessage("No se pudo cambiar la sección", "");
+				addErrorMessage("No se pudo cambiar la secciï¿½n", "");
 			}
 		} catch (Exception e) {
-			addErrorMessage("No se pudo cambiar la sección", "");
+			addErrorMessage("No se pudo cambiar la secciï¿½n", "");
 		}
 	}
 

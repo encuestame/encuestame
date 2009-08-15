@@ -31,7 +31,7 @@
     TARGET="rules:#pages#admon#project.xhtml" TITLE="project" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="createSurvey::#pages#createSurvey.xhtml"
     NAME="output9" PATH="/pages/createSurvey.xhtml"
-    SHAPE="100,312,296,312,296,416,479,416"
+    SHAPE="100,312,296,312,296,392,503,392"
     TARGET="rules:#pages#createSurvey.xhtml" TITLE="createSurvey" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="organizeSurveys::#pages#organizeSurveys.xhtml" NAME="output10"
@@ -96,7 +96,7 @@
  <PROCESS-ITEM NAME="rules:#forget.xhtml" PATH="/forget.xhtml"
   SHAPE="208,520,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#createSurvey.xhtml"
-  PATH="/pages/createSurvey.xhtml" SHAPE="480,408,50,25" model-entity="JSFProcessGroup">
+  PATH="/pages/createSurvey.xhtml" SHAPE="504,384,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#createSurvey.xhtml:0" NAME="item"
    PATH="/pages/createSurvey.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT

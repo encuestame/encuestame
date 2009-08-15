@@ -1,6 +1,5 @@
 package org.jp.web.utils;
 
-import org.jp.web.beans.admon.UnitUserBean;
 import org.jp.web.beans.survey.BuildSurveyControllerBean;
 import org.richfaces.component.Dropzone;
 import org.richfaces.event.DropEvent;
@@ -28,12 +27,19 @@ import org.richfaces.event.DropListener;
  * @author juanpicado package: org.jp.web.utils
  * @version 1.0
  */
+
 public class DropEventBean implements DropListener {
 
 	public BuildSurveyControllerBean buildSurvey;
 
+	/**
+	 * Evento de arrastre para mover una pregunta a una sección
+	 * @author juanpicado
+	 */
 	public void processDrop(DropEvent dropEvent) {
-		Dropzone dropzone = (Dropzone) dropEvent.getComponent();
+		//Obtiene  la sección a la cual fue movido o la que escuho el movimieto.
+		Dropzone dropzone = (Dropzone) dropEvent.getComponent();		
+		//Mueve pregunta a sección, dropEvent recoge el objeto pregunta
 		buildSurvey.moveQuestion(dropEvent.getDragValue(), dropzone
 				.getDropValue());
 	}
