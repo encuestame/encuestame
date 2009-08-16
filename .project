@@ -31,11 +31,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.hibernate.eclipse.console.hibernateBuilder</name>
 			<arguments>
 			</arguments>
