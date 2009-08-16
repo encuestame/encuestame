@@ -159,8 +159,8 @@
 	</target>
 
 	<target name="clean-doc">
-		<fail unless="doc" />
-		<delete dir="${doc}" />
+		<fail unless="doc.r" />
+		<delete dir="${doc.r}" />
 	</target>
 
 
@@ -184,7 +184,7 @@
 		<delete file="${dist.dir}/${war.name}" />
 	</target>
 
-	<target name="clean-all" depends="clean-class,clean-jar,clean-web,clean-war,clean-build" />
+	<target name="clean-all" depends="clean-class,clean-jar,clean-web,clean-war,clean-build,clean-doc" />
 
 
 	<!-- compile source code -->
