@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.encuestame.core.persistence.pojo.SecPermission" table="sec_permission" lazy="false">
+        <id name="idPermission" type="int">
+            <column name="id_permission" />
+            <generator class="assigned" />
+        </id>
+        <property name="permission" type="string">
+            <column name="permission" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" />
+        </property>
+        <set name="secUserPermissions" inverse="true">
+            <key>
+                <column name="id_permission" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SecUserPermission" />
+        </set>
+        <set name="secGroupPermissions" inverse="true">
+            <key>
+                <column name="id_permission" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SecGroupPermission" />
+        </set>
+    </class>
+     <!-- HQL Querys -->
+     <query name="Rol.loadPermissionByName">
+	 <![CDATA[
+	 		select u from SecPermission as u where u.permission = ?	       
+			]]>
+	 </query>
+</hibernate-mapping>

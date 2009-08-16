@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.encuestame.core.persistence.pojo.SurveyFormatGroup" table="survey_format_group">
+        <composite-id name="id" class="org.encuestame.core.persistence.pojo.SurveyFormatGroupId">
+            <key-property name="sgId" type="int">
+                <column name="sg_id" />
+            </key-property>
+            <key-property name="idSidFormat" type="int">
+                <column name="id_sid_format" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="surveyFormat" class="org.encuestame.core.persistence.pojo.SurveyFormat" update="false" insert="false" fetch="select">
+            <column name="id_sid_format" not-null="true" />
+        </many-to-one>
+        <many-to-one name="surveyGroup" class="org.encuestame.core.persistence.pojo.SurveyGroup" update="false" insert="false" fetch="select">
+            <column name="sg_id" not-null="true" />
+        </many-to-one>
+        <property name="state" type="java.lang.Boolean">
+            <column name="state" />
+        </property>
+    </class>
+</hibernate-mapping>

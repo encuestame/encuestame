@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/security 
+       http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://www.springframework.org/schema/jee
+       http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+
+
+	<!--
+		========================= SECURITY OBJECT DEFINITIONS
+		=========================
+	-->
+	
+	<!-- General Config -->
+
+	<bean id="authenticationManager" class="org.encuestame.core.security.spring.EnMeAuthenticationManager">
+		<property name="providerString" value="userAuth" />
+	</bean>
+
+	<bean id="userAuth"
+		class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="dbUserService" />
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+
+	<bean id="dbUserService" class="org.encuestame.core.security.spring.EnMeUserServiceImp">
+		<property name="userDao" ref="userDao" />
+		<property name="roleGroupAuth" value="true" />
+		<property name="roleUserAuth" value="true" />
+	</bean>
+
+
+	<!-- Filters 
+	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+			<security:filter-chain pattern="/**"
+				filters="httpSessionContextIntegrationFilter,logoutFilter,basicProcessingFilter,authenticationProcessingFilter,formExceptionTranslationFilter,filterInvocationInterceptor,anonymousProcessingFilter" />
+		</security:filter-chain-map>
+	</bean>-->
+	
+	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
+      <property name="filterInvocationDefinitionSource">
+         <value>
+		    CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+		    PATTERN_TYPE_APACHE_ANT
+               /**=httpSessionContextIntegrationFilter,logoutFilter,anonymousProcessingFilter,basicProcessingFilter,authenticationProcessingFilter,formExceptionTranslationFilter,filterInvocationInterceptor
+         </value>
+      </property>
+    </bean>
+
+	<bean id="anonymousProcessingFilter"
+		class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter">
+		<property name="key">
+			<value>MU7kyU0he1MvXEDZ9Mdj7MVvkXOXJ8uRgtg/Xb/3eJyW0HZa3csBoyvinGEC4vmi</value>
+		</property>
+		<property name="userAttribute">
+			<value>anonymousUser,ENCUESTAME_ANONYMOUS
+			</value>
+		</property>
+	</bean>
+
+	<bean id="filterInvocationInterceptor"
+		class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="voteAccessDecisionManager" />
+		<property name="objectDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/=ENCUESTAME_ANONYMOUS
+				/pages/**=ENCUESTAME_USER
+				/pages/admon/**=ENCUESTAME_ADMIN
+				/user/**=ENCUESTAME_ANONYMOUS,ENCUESTAME_USER,ENCUESTAME_ADMIN				           
+         </value>
+		</property>
+	</bean>
+
+	<bean id="loggerListener"
+		class="org.springframework.security.event.authentication.LoggerListener" />
+
+	<bean id="voteAccessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+		<property name="allowIfAllAbstainDecisions">
+			<value>false</value>
+		</property>
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="roleVoter" class="org.encuestame.core.security.spring.EnMeRoleVoter">
+		<property name="rolePrefix" value="ENCUESTAME_" />
+		<property name="anonymousAccessAllowed" value="true" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter"
+		class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<ref local="authenticationEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="basicProcessingFilter"
+		class="org.springframework.security.ui.basicauth.BasicProcessingFilter">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		<property name="authenticationEntryPoint">
+			<ref bean="authenticationEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.ui.basicauth.BasicProcessingFilterEntryPoint">
+		<property name="realmName">
+			<value>encuestame</value>
+		</property>
+	</bean>
+
+	<bean id="authenticationProcessingFilter"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		<property name="authenticationFailureUrl">
+			<value>/login.me</value>
+		</property>
+		<property name="defaultTargetUrl">
+			<value>/</value>
+		</property>
+		<property name="filterProcessesUrl">
+			<value>/j_spring_security_check</value>
+		</property>
+	</bean>
+
+	<bean id="formEntryPoint"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<property name="loginFormUrl" value="/login.me" />
+	</bean>
+
+	<bean id="formExceptionTranslationFilter"
+		class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<ref local="formEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
+		<constructor-arg value="/pages/index.me" />
+		<constructor-arg>
+			<list>
+				<!--  <ref bean="rememberMeServices"/>  -->
+				<bean
+					class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="httpSessionContextIntegrationFilter"
+		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
+
+	<!--
+		Remember Me Implementation <bean id="rememberMeServices"
+		class="org.springframework.security.ui.rememberme.TokenBasedRememberMeServices">
+		<property name="userDetailsService" ref="securityService"/> <property
+		name="tokenValiditySeconds" value="1209600"></property> <property
+		name="key" value="${security.rememberMe.key}"/> <property
+		name="alwaysRemember" value="true"/> </bean> <bean id="rememberMeAuth"
+		class="org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider">
+		<property name="key" value="${security.rememberMe.key}"/> </bean>
+
+		<bean id="rememberMeProcessingFilter"
+		class="org.springframework.security.ui.rememberme.RememberMeProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager"/>
+		<property name="rememberMeServices" ref="rememberMeServices"/> </bean>
+	-->
+
+	<!--
+		Passwords <bean id="passwordEncoder"
+		class="org.springframework.security.providers.encoding.Md5PasswordEncoder"
+		/>
+	-->
+
+	<!--
+		Encriptación de Contraseñas con Jasypt y Spring Security 2
+		http://blog.jotadeveloper.com/2008/11/29/encriptacion-japyst-spring-sec-2/
+	-->
+
+	<bean id="passwordEncoder" class="org.jasypt.spring.security2.PasswordEncoder">
+		<property name="passwordEncryptor">
+			<ref bean="jasyptPasswordEncryptor" />
+		</property>
+	</bean>
+
+	<bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+
+</beans>

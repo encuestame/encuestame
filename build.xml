@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+
+<!--
+ encuestame system online surveys
+ Copyright (C) 2005-2008 encuestame Development Team
+
+ This product is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License version 2.1 as published by the Free Software Foundation.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+-->
+
+<project name="encuestame" default="usage" basedir=".">
+	<property file="build.properties" />
+
+	<target name="usage">
+		<echo message="Targets:" />
+		<echo message="  clean -- limpia todo" />
+		<echo message="  compile -- compila los java" />
+		<echo message="  usage -- muestra la ayuda" />
+		<echo message="  init -- ejecuta todo la construccion" />
+		<echo message="  build -- crea el encuestame-core.jar" />
+		<echo message="  web -- crea el WebContent para ejecutar en tomcat" />
+		<echo message="  war -- crea el WAR para ejecutar en tomcat" />
+	</target>
+
+	<!-- create javadoc -->
+	<target name="doc" depends="compile">
+		<fail unless="dist.dir" message="falta la direccion de dist" />
+		<delete dir="${doc}" />
+		<mkdir dir="${doc}" />
+		<javadoc sourcepath="${src.java}" destdir="${doc}" packagenames="*" author="true" private="true" version="true">
+			<classpath>
+				<fileset dir="${em.app.lib}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javadoc>
+	</target>
+
+	<!-- classpath -->
+	<path id="lib.classpath">
+		<fileset dir="${em.app.lib}" includes="**/*.jar" />
+	</path>
+
+	<!-- create war -->
+	<target name="war" depends="clean-war,web">
+		<war destfile="${dist.dir}/${war.name}" basedir="${webcontent}" webxml="${webcontent}/WEB-INF/web.xml" />
+	</target>
+
+
+	<!-- web build -->
+	<target name="web" depends="clean-web,build">
+
+		<fail unless="webapp.dir" message="falta la variable webapp.dir que debe apuntar al directorio webapps o .deployables" />
+		<fail unless="webcontent" message="falta el dato de webcontent" />
+		<fail unless="jar.name" message="falta el nombre del jar" />
+		<fail unless="dist.dir" message="falta la direccion de dist" />
+
+		<!-- creo los directorios para el web -->
+		<mkdir dir="${webcontent}" />
+		<mkdir dir="${web-inf}" />
+		<mkdir dir="${web-inf}/classes" />
+		<mkdir dir="${web-inf}/lib" />
+		<mkdir dir="${web-inf}/config" />
+		<mkdir dir="${web-inf}/scripts" />
+		<mkdir dir="${web-inf}/taglibs" />
+
+
+		<!-- creando el manifiesto -->
+		<mkdir dir="${web-inf}/META-INF" />
+		<manifest file="${web-inf}/META-INF/MANIFEST.MF">
+			<attribute name="Built-By" value="Juan C Picado">
+			</attribute>
+			<section name="common">
+				<attribute name="Specification-Title" value="${em.app.name}">
+				</attribute>
+				<attribute name="Specification-Version" value="${em.version}">
+				</attribute>
+				<attribute name="Specification-Vendor" value="juan@encuesta.me">
+				</attribute>
+				<attribute name="Implementation-Title" value="encuestame">
+				</attribute>
+				<attribute name="Implementation-Version" value="${version}">
+				</attribute>
+				<attribute name="Implementation-Vendor" value="encuestame.org">
+				</attribute>
+			</section>
+		</manifest>
+
+
+		<!--copia directorio lib a web-inf -->
+		<copy todir="${web-inf}/lib">
+			<fileset dir="${em.app.lib}" />
+		</copy>
+		<!-- copio el core a lib's -->
+		<copy file="${dist.dir}/${jar.name}" todir="${web-inf}/lib" />
+
+		<!-- copio los js -->
+		<copy todir="${webcontent}/scripts/">
+			<fileset dir="${src.js}/" />
+		</copy>
+		<!-- copio los taglibs -->
+
+		<copy todir="${web-inf}/taglibs/">
+			<fileset dir="${src.taglibs}/" />
+		</copy>
+		<!-- copio los spring -->
+		<copy todir="${web-inf}">
+			<fileset dir="${src.spring}/" />
+		</copy>
+		<!-- copio los recursos -->
+		<copy todir="${webcontent}">
+			<fileset dir="${src.re}/" />
+		</copy>
+
+		<copy todir="${webcontent}">
+			<fileset dir="${src.xhtml}/" excludes="error*.*" />
+		</copy>
+
+		<!-- copio los archivos de configuracion -->
+		<copy file="${src.java}/faces-config.xml" todir="${web-inf}" />
+		<copy file="${src.java}/web.xml" todir="${web-inf}" />
+		<copy file="${src.java}/urlrewrite.xml" todir="${web-inf}" />
+		<copy file="${src.xhtml}/error404.xhtml" todir="${web-inf}" />
+
+
+		<!--<copy file="${src.java}/encuestame-config.properties" todir="${web-inf}/classes" />
+		<copy file="${src.java}/log4j.properties" todir="${web-inf}/classes" />-->
+
+		<copy todir="${web-inf}/classes">
+			<fileset dir="${src.java}">
+				<exclude name="**/org/**" />
+				<exclude name="**/*.xml" />
+			</fileset>
+		</copy>
+
+
+
+	</target>
+
+	<!-- Clean -->
+	<target name="clean-class">
+		<fail unless="build.class" />
+		<delete dir="${build.class}" />
+	</target>
+
+	<target name="clean-build">
+		<fail unless="build" />
+		<delete dir="${build}" />
+	</target>
+
+	<target name="clean-doc">
+		<fail unless="doc" />
+		<delete dir="${doc}" />
+	</target>
+
+
+	<!-- Clean -->
+	<target name="clean-jar">
+		<fail unless="build" />
+		<delete dir="${build}/dist.dir" />
+	</target>
+
+
+	<!-- Clean -->
+	<target name="clean-web">
+		<fail unless="em.app.webcontent" />
+		<delete dir="${em.app.webcontent}" />
+	</target>
+
+	<!-- Clean -->
+	<target name="clean-war">
+		<fail unless="dist.dir" />
+		<fail unless="war.name" />
+		<delete file="${dist.dir}/${war.name}" />
+	</target>
+
+	<target name="clean-all" depends="clean-class,clean-jar,clean-web,clean-war,clean-build" />
+
+
+	<!-- compile source code -->
+	<target name="compile" description="compile core source code" depends="clean-class">
+		<fail unless="build" message="se neceista la variable build" />
+		<mkdir dir="${build}" />
+		<fail unless="build.class" message="se neceista la variable build" />
+		<mkdir dir="${build.class}">
+		</mkdir>
+		<javac destdir="${build.class}" debug="true" deprecation="false" optimize="false" failonerror="true">
+			<src path="${build.src}">
+			</src>
+			<classpath>
+				<fileset dir="${em.app.lib}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+
+	<target name="init" depends="clean-all,web,doc,war" />
+
+
+
+
+	<!-- build  jar -->
+	<target name="build" depends="compile,clean-jar" description="jar file">
+		<mkdir dir="${dist.dir}">
+		</mkdir>
+		<jar destfile="${dist.dir}/${jar.name}" basedir="${build.class}">
+			<manifest>
+				<attribute name="Built-By" value="Juan C Picado">
+				</attribute>
+				<section name="common">
+					<attribute name="Specification-Title" value="${em.app.name}">
+					</attribute>
+					<attribute name="Specification-Version" value="${em.version}">
+					</attribute>
+					<attribute name="Specification-Vendor" value="juan@encuesta.me">
+					</attribute>
+					<attribute name="Implementation-Title" value="encuestame">
+					</attribute>
+					<attribute name="Implementation-Version" value="${version}">
+					</attribute>
+					<attribute name="Implementation-Vendor" value="encuestame.org">
+					</attribute>
+				</section>
+			</manifest>
+		</jar>
+	</target>
+</project>

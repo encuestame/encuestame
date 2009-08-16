@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.encuestame.core.persistence.pojo.SecUsers" table="sec_users" lazy="false">
+        <id name="uid" type="java.lang.Integer">
+            <column name="uid" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="50" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" not-null="true" unique="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" not-null="true" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="inviteCode" type="string">
+            <column name="invite_code" />
+        </property>
+        <property name="dateNew" type="timestamp">
+            <column name="date_new" length="0" not-null="true" />
+        </property>
+        <property name="publisher" type="string">
+            <column name="publisher" length="2" not-null="true" />
+        </property>
+        <property name="owner" type="string">
+            <column name="owner" length="2" />
+        </property>
+        <property name="twitter" type="string">
+            <column name="twitter" length="2" />
+        </property>
+        <set name="secGroupUsers" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SecGroupUser" />
+        </set>
+        <set name="secUserPermissions" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SecUserPermission" />
+        </set>
+        <set name="catLocationUsers" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.CatLocationUser" />
+        </set>
+        <set name="surveyResultMods" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SurveyResultMod" />
+        </set>
+        <set name="projectUsers" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.ProjectUser" />
+        </set>
+        <set name="questionColettions" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.QuestionColettion" />
+        </set>
+        <set name="surveyses" inverse="true">
+            <key>
+                <column name="uid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.Surveys" />
+        </set>
+    </class>
+    
+    <!-- HQL QUERIES -->
+ 
+	 <query name="User.loadUserByUserName">
+	 <![CDATA[
+	        select u 
+	        from org.encuestame.core.persistence.pojo.SecUsers as u 
+	        where u.username = ?
+			]]>
+	 </query>
+	 
+	 <query name="User.loadPermissionUser">
+	 <![CDATA[
+	     select d from SecUserPermission d where d.secUsers = ? and d.state=1
+			]]>
+	 </query>
+	 
+	 <query name="User.loadUserByInviteCode">
+			<![CDATA[
+	        select u 
+	        from SecUsers as u 
+	        where u.inviteCode = ?
+			]]>
+		</query> 
+		
+		 <query name="User.loadGroupsUser">
+			<![CDATA[
+	       select d from SecGroupUser d where d.secUsers = ? and d.state=1	       
+			]]>
+		</query> 
+		
+		 <query name="User.loadGroupPermission">
+			<![CDATA[
+	       from SecGroupPermission d where d.secGroups = ? and d.state=1	       
+			]]>
+		</query> 
+	
+</hibernate-mapping>

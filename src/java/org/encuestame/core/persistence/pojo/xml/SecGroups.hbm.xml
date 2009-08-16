@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.encuestame.core.persistence.pojo.SecGroups" table="sec_groups" lazy="false">
+        <id name="groupId" type="java.lang.Integer">
+            <column name="group_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <property name="desInfo" type="string">
+            <column name="des_info" />
+        </property>
+        <property name="idState" type="int">
+            <column name="id_state" not-null="true" />
+        </property>
+        <set name="secGroupUsers" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SecGroupUser" />
+        </set>
+        <set name="secGroupPermissions" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SecGroupPermission" />
+        </set>
+        <set name="projectGroups" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.ProjectGroup" />
+        </set>
+        <set name="projectLocations" inverse="true">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.ProjectLocation" />
+        </set>
+    </class>
+    
+    <query name="Groupr.loadGroup">
+	 <![CDATA[
+	     from SecGroups d where d.groupId = ?
+		]]>
+	 </query>
+</hibernate-mapping>

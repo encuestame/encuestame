@@ -1,0 +1,70 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:en="http://encuesta.me/encuestame">
+	<!-- if patter template is not null -->
+	<a4j:outputPanel rendered="#{value.pattern !=null}">
+		<h:outputText value="ID PREGUNTA #{value.pattern}" />
+		<a4j:outputPanel rendered="#{value.pattern.id eq 1}">
+			<ui:include src="pattern/email.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 2}">
+			<ui:include src="pattern/select-unique.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 3}">
+			<ui:include src="pattern/paragrahp.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 4}">
+			<ui:include src="pattern/select-multi.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 5}">
+			<ui:include src="pattern/select-unique.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 6}">
+			<ui:include src="pattern/postalcode.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 7}">
+			<ui:include src="pattern/url.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 8}">
+			<ui:include src="pattern/html.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 9}">
+			<ui:include src="pattern/image-multiple.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 10}">
+			<ui:include src="pattern/image-single.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+		<a4j:outputPanel rendered="#{value.pattern.id eq 11	}">
+			<ui:include src="pattern/matrix.xhtml">
+				<ui:param name="parametro" value="#{value}" />
+			</ui:include>
+		</a4j:outputPanel>
+	</a4j:outputPanel>
+	<a4j:outputPanel rendered="#{value.pattern ==null}">
+	<h:outputText value="Question Value Null" styleClass="error" />
+	</a4j:outputPanel>
+</ui:component>

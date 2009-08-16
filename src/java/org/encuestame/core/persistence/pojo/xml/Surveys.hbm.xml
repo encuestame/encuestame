@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-may-2009 13:38:51 by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="org.encuestame.core.persistence.pojo.Surveys" table="surveys">
+        <id name="sid" type="long">
+            <column name="sid" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="secUsers" class="org.encuestame.core.persistence.pojo.SecUsers" fetch="select">
+            <column name="uid" not-null="true" />
+        </many-to-one>
+        <property name="ticket" type="int">
+            <column name="ticket" not-null="true" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="start_date" length="0" not-null="true" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="end_date" length="0" not-null="true" />
+        </property>
+        <property name="dateInterview" type="date">
+            <column name="date_interview" length="0" />
+        </property>
+        <property name="complete" type="string">
+            <column name="complete" length="2" />
+        </property>
+        <property name="idSidFormat" type="java.lang.Integer">
+            <column name="id_sid_format" />
+        </property>
+        <set name="surveyTimes" inverse="true">
+            <key>
+                <column name="sid" not-null="true" />
+            </key>
+            <one-to-many class="org.encuestame.core.persistence.pojo.SurveyTime" />
+        </set>
+    </class>
+    
+   
+</hibernate-mapping>

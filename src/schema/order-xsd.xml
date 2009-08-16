@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<me:encuesta xmlns:me="http://schemas.encuestame.org/me/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.encuestame.org/me/ C:\DOCUME~1\Jota\MISDOC~1\encuestame.xsd">
+	<me:encuestaInfo>
+		<me:start_date/>
+		<me:finish_date/>
+		<me:date_interview/>
+		<me:uid/>
+		<me:completed/>
+		<me:id_survey_format/>
+		<me:ticket/>
+	</me:encuestaInfo>
+	<me:seccionGroup>
+		<me:secionItem decrip="" ssid="" id_state="">
+			<me:question id="" question="" qid_key="" id_state="" version="">
+				<me:email>
+					<me:emailResponse/>
+				</me:email>
+			</me:question>
+		</me:secionItem>
+	</me:seccionGroup>
+</me:encuesta>

@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+
+
+#wrapper_login{
+margin-top:9%;
+margin-left:25%;
+background: url("../images/login_encuestame.png");
+background-repeat: no-repeat;
+height: 300px;
+padding-top: 120px;
+padding-left: 130px;
+}
