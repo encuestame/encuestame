@@ -23,7 +23,7 @@
 
 	<target name="usage">
 		<echo message="Targets:" />
-		<echo message="  clean -- limpia todo" />
+		<echo message="  clean-all -- limpia todo" />
 		<echo message="  compile -- compila los java" />
 		<echo message="  usage -- muestra la ayuda" />
 		<echo message="  init -- ejecuta todo la construccion" />
