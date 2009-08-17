@@ -72,7 +72,7 @@
 		<mkdir dir="${web-inf}/lib" />
 		<mkdir dir="${web-inf}/config" />
 		<mkdir dir="${web-inf}/scripts" />
-		<mkdir dir="${web-inf}/taglibs" />
+		<mkdir dir="${web-inf}/taglib" />
 
 
 		<!-- creando el manifiesto -->
@@ -110,7 +110,7 @@
 		</copy>
 		<!-- copio los taglibs -->
 
-		<copy todir="${web-inf}/taglibs/">
+		<copy todir="${web-inf}/taglib/">
 			<fileset dir="${src.taglibs}/" />
 		</copy>
 		<!-- copio los spring -->
