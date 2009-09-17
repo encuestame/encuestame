@@ -3,6 +3,9 @@
     <wb-module deploy-name="encuestame">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test/java"/>
         <property name="context-root" value="encuestame"/>
         <property name="java-output-path"/>
     </wb-module>
