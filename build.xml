@@ -19,364 +19,366 @@
 -->
 
 <project name="encuestame" default="usage" basedir=".">
-	<property file="build.properties" />
+    <property file="build.properties" />
 
-	<target name="usage">
-		<echo message="Targets:" />
-		<echo message="  clean -- clean all" />
-		<echo message="  compile -- compile java's" />
-		<echo message="  usage -- help" />
-		<echo message="  init -- init all tagets" />
-		<echo message="  tests -- init testcase" />
-	</target>
+    <target name="usage">
+        <echo message="Targets:" />
+        <echo message="  clean -- clean all" />
+        <echo message="  compile -- compile java's" />
+        <echo message="  usage -- help" />
+        <echo message="  init -- init all tagets" />
+        <echo message="  tests -- init testcase" />
+    </target>
 
-	<!-- classpath -->
-	<path id="lib.classpath">
-		<fileset dir="${em.app.lib}" includes="**/*.jar" />
-	</path>
+    <!-- classpath -->
+    <path id="lib.classpath">
+        <fileset dir="${em.app.lib}" includes="**/*.jar" />
+    </path>
 
-	<path id="build.classpath">
-		<path refid="lib.classpath" />
-		<pathelement location="${build.class}" />
-	</path>
+    <path id="build.classpath">
+        <path refid="lib.classpath" />
+        <pathelement location="${build.class}" />
+    </path>
 
-	<path id="all.classpath">
-		<path refid="lib.classpath" />
-		<pathelement location="${build.class}" />
-		<pathelement location="${build.test}" />
-	</path>
+    <path id="all.classpath">
+        <path refid="lib.classpath" />
+        <pathelement location="${build.class}" />
+        <pathelement location="${build.test}" />
+        <pathelement location="${src.spring}/config/" />
+        <pathelement location="${src.java}/" />
+    </path>
 
-	<!-- create javadoc -->
-	<target name="doc" depends="">
-		<fail unless="dist.dir" message="documentation" />
-		<delete dir="${doc}" />
-		<mkdir dir="${doc}" />
-		<javadoc sourcepath="${src.java}" destdir="${doc}" packagenames="*" author="true" private="true" version="true">
-			<classpath refid="build.classpath" />
-		</javadoc>
-	</target>
+    <!-- create javadoc -->
+    <target name="doc" depends="">
+        <fail unless="dist.dir" message="documentation" />
+        <delete dir="${doc}" />
+        <mkdir dir="${doc}" />
+        <javadoc sourcepath="${src.java}" destdir="${doc}" packagenames="*" author="true" private="true" version="true">
+            <classpath refid="build.classpath" />
+        </javadoc>
+    </target>
 
-	<!-- create war -->
-	<target name="dist" depends="clean-dist,web">
-		<fail unless="war.name" message="falta el nombre del war" />
-		<fail unless="webcontent" message="path of webcontent" />
-		<war destfile="${dist.dir}/${war.name}" basedir="${webcontent}" webxml="${webcontent}/WEB-INF/web.xml" />
-	</target>
-
-
-	<!-- web build -->
-	<target name="web" depends="clean-web,build">
-		<fail unless="webapp.dir" message="falta la variable webapp.dir que debe apuntar al directorio webapps o .deployables" />
-		<fail unless="webcontent" message="falta el dato de webcontent" />
-		<fail unless="jar.name" message="falta el nombre del jar" />
-		<fail unless="dist.dir" message="falta la direccion de dist" />
-
-		<!-- creo los directorios para el web -->
-		<mkdir dir="${webcontent}" />
-		<mkdir dir="${web-inf}" />
-		<mkdir dir="${web-inf}/classes" />
-		<mkdir dir="${web-inf}/lib" />
-		<mkdir dir="${web-inf}/config" />
-		<mkdir dir="${web-inf}/scripts" />
-		<mkdir dir="${web-inf}/taglib" />
-
-		<!-- creando el manifiesto -->
-		<mkdir dir="${web-inf}/META-INF" />
-		<manifest file="${web-inf}/META-INF/MANIFEST.MF">
-			<attribute name="Built-By" value="Juan C Picado">
-			</attribute>
-			<section name="common">
-				<attribute name="Specification-Title" value="${em.app.name}">
-				</attribute>
-				<attribute name="Specification-Version" value="${em.version}">
-				</attribute>
-				<attribute name="Specification-Vendor" value="juan@encuesta.me">
-				</attribute>
-				<attribute name="Implementation-Title" value="encuestame">
-				</attribute>
-				<attribute name="Implementation-Version" value="${version}">
-				</attribute>
-				<attribute name="Implementation-Vendor" value="encuestame.org">
-				</attribute>
-			</section>
-		</manifest>
+    <!-- create war -->
+    <target name="dist" depends="clean-dist,web">
+        <fail unless="war.name" message="falta el nombre del war" />
+        <fail unless="webcontent" message="path of webcontent" />
+        <war destfile="${dist.dir}/${war.name}" basedir="${webcontent}" webxml="${webcontent}/WEB-INF/web.xml" />
+    </target>
 
 
-		<!--copia directorio lib a web-inf -->
-		<copy todir="${web-inf}/lib">
-			<fileset dir="${em.app.lib}" />
-		</copy>
-		<!-- copio el core a lib's -->
-		<copy file="${dist.dir}/${jar.name}" todir="${web-inf}/lib" />
+    <!-- web build -->
+    <target name="web" depends="clean-web,build">
+        <fail unless="webapp.dir" message="falta la variable webapp.dir que debe apuntar al directorio webapps o .deployables" />
+        <fail unless="webcontent" message="falta el dato de webcontent" />
+        <fail unless="jar.name" message="falta el nombre del jar" />
+        <fail unless="dist.dir" message="falta la direccion de dist" />
 
-		<!-- copio los js -->
-		<copy todir="${webcontent}/scripts/">
-			<fileset dir="${src.js}/" />
-		</copy>
-		<!-- copio los taglibs -->
+        <!-- creo los directorios para el web -->
+        <mkdir dir="${webcontent}" />
+        <mkdir dir="${web-inf}" />
+        <mkdir dir="${web-inf}/classes" />
+        <mkdir dir="${web-inf}/lib" />
+        <mkdir dir="${web-inf}/config" />
+        <mkdir dir="${web-inf}/scripts" />
+        <mkdir dir="${web-inf}/taglib" />
 
-		<copy todir="${web-inf}/taglib/">
-			<fileset dir="${src.taglibs}/" />
-		</copy>
-		<!-- copio los spring -->
-		<copy todir="${web-inf}">
-			<fileset dir="${src.spring}/" />
-		</copy>
-		<!-- copio los recursos -->
-		<copy todir="${webcontent}">
-			<fileset dir="${src.re}/" />
-		</copy>
-
-		<copy todir="${webcontent}">
-			<fileset dir="${src.xhtml}/" excludes="error*.*" />
-		</copy>
-
-		<!-- copio los archivos de configuracion -->
-		<copy file="${src.java}/faces-config.xml" todir="${web-inf}" />
-		<copy file="${src.java}/web.xml" todir="${web-inf}" />
-		<copy file="${src.java}/urlrewrite.xml" todir="${web-inf}" />
-		<copy file="${src.xhtml}/error404.xhtml" todir="${web-inf}" />
-
-		<!--<copy file="${src.java}/encuestame-config.properties" todir="${web-inf}/classes" />
-		<copy file="${src.java}/log4j.properties" todir="${web-inf}/classes" />-->
-
-		<copy todir="${web-inf}/classes">
-			<fileset dir="${src.java}">
-				<exclude name="**/org/**" />
-				<exclude name="**/*.xml" />
-			</fileset>
-		</copy>
-	</target>
-
-	<target name="clean-build">
-		<fail unless="build" />
-		<delete dir="${build.class}" />
-		<delete dir="${build.test}" />
-		<delete dir="${build}" />
-	</target>
-
-	<target name="clean-web">
-		<fail unless="em.app.webcontent" />
-		<delete dir="${em.app.webcontent}" />
-	</target>
-
-	<target name="clean-doc">
-		<fail unless="doc" />
-		<delete dir="${doc}" />
-	</target>
-
-	<target name="clean-dist">
-		<fail unless="dist.dir" />
-		<delete dir="${dist.dir}" />
-	</target>
-
-	<target name="clean-report">
-		<fail unless="report.dir" />
-		<delete dir="${report.dir}" />
-	</target>
-
-	<target name="clean-junit">
-		<fail unless="test.reports.dir" />
-		<fail unless="test.results.dir" />
-		<delete dir="${test.reports.dir}" />
-		<delete dir="${test.results.dir}" />
-	</target>
-
-	<target name="clean" depends="clean-web,clean-dist,clean-junit,clean-doc,clean-build" />
+        <!-- creando el manifiesto -->
+        <mkdir dir="${web-inf}/META-INF" />
+        <manifest file="${web-inf}/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="Juan C Picado">
+            </attribute>
+            <section name="common">
+                <attribute name="Specification-Title" value="${em.app.name}">
+                </attribute>
+                <attribute name="Specification-Version" value="${em.version}">
+                </attribute>
+                <attribute name="Specification-Vendor" value="juan@encuesta.me">
+                </attribute>
+                <attribute name="Implementation-Title" value="encuestame">
+                </attribute>
+                <attribute name="Implementation-Version" value="${version}">
+                </attribute>
+                <attribute name="Implementation-Vendor" value="encuestame.org">
+                </attribute>
+            </section>
+        </manifest>
 
 
-	<target name="prepare-build" description="compile core source code">
-		<fail unless="build" message="se neceista la variable build" />
-		<mkdir dir="${build}" />
-		<fail unless="build.compile" message="se neceista la variable build" />
-		<mkdir dir="${build.compile}" />
-		<fail unless="build.class" message="se neceista la variable build" />
-		<mkdir dir="${build.class}" />
-		<fail unless="build.test" message="se neceista la variable build" />
-		<mkdir dir="${build.test}" />
-	</target>
+        <!--copia directorio lib a web-inf -->
+        <copy todir="${web-inf}/lib">
+            <fileset dir="${em.app.lib}" />
+        </copy>
+        <!-- copio el core a lib's -->
+        <copy file="${dist.dir}/${jar.name}" todir="${web-inf}/lib" />
 
-	<!-- compile source code -->
-	<target name="compile" description="compile core source code" depends="prepare-build">
-		<!-- Compilando Codigo Fuente -->
-		<javac destdir="${build.class}" debug="on" deprecation="false" optimize="false" failonerror="true">
-			<src path="${src.java}">
-			</src>
-			<classpath refid="lib.classpath" />
-		</javac>
-		<!-- Compilando Test -->
-		<javac debug="on" srcdir="${src.test}" destdir="${build.test}" target="1.6" source="1.6" fork="yes" deprecation="false">
-			<classpath refid="build.classpath" />
-			<!-- classpath refid="cobertura.classpath" -->
-		</javac>
-	</target>
+        <!-- copio los js -->
+        <copy todir="${webcontent}/scripts/">
+            <fileset dir="${src.js}/" />
+        </copy>
+        <!-- copio los taglibs -->
 
-	<!-- build  jar -->
-	<target name="build" depends="compile" description="jar file">
-		<mkdir dir="${dist.dir}" />
-		<jar destfile="${dist.dir}/${jar.name}" basedir="${build.class}">
-			<manifest>
-				<attribute name="Built-By" value="Juan C Picado">
-				</attribute>
-				<section name="common">
-					<attribute name="Specification-Title" value="${em.app.name}">
-					</attribute>
-					<attribute name="Specification-Version" value="${em.version}">
-					</attribute>
-					<attribute name="Specification-Vendor" value="juan@encuesta.me">
-					</attribute>
-					<attribute name="Implementation-Title" value="encuestame">
-					</attribute>
-					<attribute name="Implementation-Version" value="${version}">
-					</attribute>
-					<attribute name="Implementation-Vendor" value="encuestame.org">
-					</attribute>
-				</section>
-			</manifest>
-		</jar>
-	</target>
+        <copy todir="${web-inf}/taglib/">
+            <fileset dir="${src.taglibs}/" />
+        </copy>
+        <!-- copio los spring -->
+        <copy todir="${web-inf}">
+            <fileset dir="${src.spring}/" />
+        </copy>
+        <!-- copio los recursos -->
+        <copy todir="${webcontent}">
+            <fileset dir="${src.re}/" />
+        </copy>
 
-	<!-- cobertura task definition -->
-	<path id="cobertura.classpath">
-		<fileset dir="${cobertura.dir}">
-			<include name="${cobertura.jar.file}" />
-			<include name="${em.app.lib}**/*.jar" />
-		</fileset>
+        <copy todir="${webcontent}">
+            <fileset dir="${src.xhtml}/" excludes="error*.*" />
+        </copy>
 
-	</path>
+        <!-- copio los archivos de configuracion -->
+        <copy file="${src.java}/faces-config.xml" todir="${web-inf}" />
+        <copy file="${src.java}/web.xml" todir="${web-inf}" />
+        <copy file="${src.java}/urlrewrite.xml" todir="${web-inf}" />
+        <copy file="${src.xhtml}/error404.xhtml" todir="${web-inf}" />
 
-	<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+        <!--<copy file="${src.java}/encuestame-config.properties" todir="${web-inf}/classes" />
+        <copy file="${src.java}/log4j.properties" todir="${web-inf}/classes" />-->
 
-	<target name="instrument" depends="compile">
-		<mkdir dir="${cobertura.classes.dir}" />
-		<mkdir dir="${cobertura.report.dir}" />
-		<mkdir dir="${cobertura.result.dir}" />
-		
-		<cobertura-instrument todir="${cobertura.classes.dir}" datafile="${cobertura.ser.file}">
-			<fileset dir="${build.compile}">
-				<include name="**/*.class" />
-			</fileset>
-		</cobertura-instrument>
-	</target>
+        <copy todir="${web-inf}/classes">
+            <fileset dir="${src.java}">
+                <exclude name="**/org/**" />
+                <exclude name="**/*.xml" />
+            </fileset>
+        </copy>
+    </target>
 
-	<target name="cover-test" depends="instrument">
+    <target name="clean-build">
+        <fail unless="build" />
+        <delete dir="${build.class}" />
+        <delete dir="${build.test}" />
+        <delete dir="${build}" />
+    </target>
 
-		<junit dir="${basedir}" showoutput="true" printsummary="yes" fork="true" haltonerror="true">
-			<sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser.file}" />
-			
-			<classpath location="${cobertura.classes.dir}" />
-			<classpath>
-				<path refid="cobertura.classpath" />
-			</classpath>
-			<classpath>
-				<path refid="all.classpath" />
-			</classpath>
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml"/>
-			<batchtest fork="yes" todir="${cobertura.result.dir}">
-				<fileset dir="${cobertura.classes.dir}">
-					 <include name="**/Test*"/>
-				</fileset>
-			</batchtest>
-		</junit>
-		<junitreport todir="${cobertura.result.dir}">
-					<fileset dir="${cobertura.result.dir}">
-						<include name="*.xml" />
-					</fileset>
-		<report format="frames" todir="${cobertura.result.dir}" />
-		</junitreport>
-	</target>
+    <target name="clean-web">
+        <fail unless="em.app.webcontent" />
+        <delete dir="${em.app.webcontent}" />
+    </target>
 
-	<!-- run this target to generate the coverage reports -->
-	<target name="coverage-report" depends="cover-test">
-		<cobertura-report srcdir="${src.java}" format="xml" datafile="${cobertura.ser.file}" destdir="${report.dir}" />
-		<cobertura-report srcdir="${src.java}" format="html" datafile="${cobertura.ser.file}" destdir="${cobertura.report.dir}" />
-	</target>
+    <target name="clean-doc">
+        <fail unless="doc" />
+        <delete dir="${doc}" />
+    </target>
+
+    <target name="clean-dist">
+        <fail unless="dist.dir" />
+        <delete dir="${dist.dir}" />
+    </target>
+
+    <target name="clean-report">
+        <fail unless="report.dir" />
+        <delete dir="${report.dir}" />
+    </target>
+
+    <target name="clean-junit">
+        <fail unless="test.reports.dir" />
+        <fail unless="test.results.dir" />
+        <delete dir="${test.reports.dir}" />
+        <delete dir="${test.results.dir}" />
+    </target>
+
+    <target name="clean" depends="clean-dist,clean-junit,clean-doc,clean-build" />
 
 
+    <target name="prepare-build" description="compile core source code">
+        <fail unless="build" message="se neceista la variable build" />
+        <mkdir dir="${build}" />
+        <fail unless="build.compile" message="se neceista la variable build" />
+        <mkdir dir="${build.compile}" />
+        <fail unless="build.class" message="se neceista la variable build" />
+        <mkdir dir="${build.class}" />
+        <fail unless="build.test" message="se neceista la variable build" />
+        <mkdir dir="${build.test}" />
+    </target>
 
-	<!-- tests -->
-	<target name="tests" depends="compile">		
-		<mkdir dir="${test.reports.dir}" />
-		<mkdir dir="${test.results.dir}" />
-		<junit dir="${basedir}" showoutput="on" haltonfailure="yes" printsummary="yes" fork="yes">
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml" />
-			<classpath refid="all.classpath" />
-			<batchtest fork="yes" todir="${test.results.dir}">
-				<fileset dir="${build.test}">
-					<include name="**/*.class" />
-				</fileset>
-			</batchtest>
-		</junit>
+    <!-- compile source code -->
+    <target name="compile" description="compile core source code" depends="prepare-build">
+        <!-- Compilando Codigo Fuente -->
+        <javac destdir="${build.class}" debug="on" deprecation="false" optimize="false" failonerror="true">
+            <src path="${src.java}">
+            </src>
+            <classpath refid="lib.classpath" />
+        </javac>
+        <!-- Compilando Test -->
+        <javac debug="on" srcdir="${src.test}" destdir="${build.test}" target="1.6" source="1.6" fork="yes" deprecation="false">
+            <classpath refid="build.classpath" />
+            <!-- classpath refid="cobertura.classpath" -->
+        </javac>
+    </target>
 
-		<junitreport todir="${test.results.dir}">
-			<fileset dir="${test.results.dir}">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${test.reports.dir}" />
-		</junitreport>
-	
-	</target>
+    <!-- build  jar -->
+    <target name="build" depends="compile" description="jar file">
+        <mkdir dir="${dist.dir}" />
+        <jar destfile="${dist.dir}/${jar.name}" basedir="${build.class}">
+            <manifest>
+                <attribute name="Built-By" value="Juan C Picado">
+                </attribute>
+                <section name="common">
+                    <attribute name="Specification-Title" value="${em.app.name}">
+                    </attribute>
+                    <attribute name="Specification-Version" value="${em.version}">
+                    </attribute>
+                    <attribute name="Specification-Vendor" value="juan@encuesta.me">
+                    </attribute>
+                    <attribute name="Implementation-Title" value="encuestame">
+                    </attribute>
+                    <attribute name="Implementation-Version" value="${version}">
+                    </attribute>
+                    <attribute name="Implementation-Vendor" value="encuestame.org">
+                    </attribute>
+                </section>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- cobertura task definition -->
+    <path id="cobertura.classpath">
+        <fileset dir="${cobertura.dir}">
+            <include name="${cobertura.jar.file}" />
+            <include name="${em.app.lib}**/*.jar" />
+        </fileset>
+
+    </path>
+
+    <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+
+    <target name="instrument" depends="compile">
+        <mkdir dir="${cobertura.classes.dir}" />
+        <mkdir dir="${cobertura.report.dir}" />
+        <mkdir dir="${cobertura.result.dir}" />
+
+        <cobertura-instrument todir="${cobertura.classes.dir}" datafile="${cobertura.ser.file}">
+            <fileset dir="${build.compile}">
+                <include name="**/*.class" />
+            </fileset>
+        </cobertura-instrument>
+    </target>
+
+    <target name="cover-test" depends="instrument">
+
+        <junit dir="${basedir}" showoutput="true" printsummary="yes" fork="true" haltonerror="false">
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser.file}" />
+
+            <classpath location="${cobertura.classes.dir}" />
+            <classpath>
+                <path refid="cobertura.classpath" />
+            </classpath>
+            <classpath>
+                <path refid="all.classpath" />
+            </classpath>
+            <formatter type="brief" usefile="false" />
+            <formatter type="xml"/>
+            <batchtest fork="yes" todir="${cobertura.result.dir}">
+                <fileset dir="${cobertura.classes.dir}">
+                     <include name="**/Test*"/>
+                </fileset>
+            </batchtest>
+        </junit>
+        <junitreport todir="${cobertura.result.dir}">
+                    <fileset dir="${cobertura.result.dir}">
+                        <include name="*.xml" />
+                    </fileset>
+        <report format="frames" todir="${cobertura.result.dir}" />
+        </junitreport>
+    </target>
+
+    <!-- run this target to generate the coverage reports -->
+    <target name="coverage-report" depends="cover-test">
+        <cobertura-report srcdir="${src.java}" format="xml" datafile="${cobertura.ser.file}" destdir="${report.dir}" />
+        <cobertura-report srcdir="${src.java}" format="html" datafile="${cobertura.ser.file}" destdir="${cobertura.report.dir}" />
+    </target>
 
 
-	<!--FINDBUGS -->
 
-	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" />
-	<target name="findbugs" depends="report">
-		<findbugs home="${findbugs.home}" output="xml" outputFile="${report.dir}encuestame-fb.xml">
-			<class location="${build.class}" />
-			<sourcePath path="${src.java}" />
-		</findbugs>
-	</target>
+    <!-- tests -->
+    <target name="tests" depends="compile">
+        <mkdir dir="${test.reports.dir}" />
+        <mkdir dir="${test.results.dir}" />
+        <junit dir="${basedir}" showoutput="on" haltonfailure="false" printsummary="yes" fork="yes">
+            <formatter type="brief" usefile="false" />
+            <formatter type="xml" />
+            <classpath refid="all.classpath" />
+            <batchtest fork="yes" todir="${test.results.dir}">
+                <fileset dir="${build.test}">
+                    <include name="**/Test*.class" />
+                </fileset>
+            </batchtest>
+        </junit>
 
-	<!--CHECKSTYLE -->
+        <junitreport todir="${test.results.dir}">
+            <fileset dir="${test.results.dir}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="${test.reports.dir}" />
+        </junitreport>
 
-	<taskdef resource="checkstyletask.properties" classpath="${em.app.lib}checkstyle-all-5.0.jar" />
-
-	<taskdef resource="checkstyletask.properties" />
-
-	<target name="checkstyle" description="Generates a report of code convention violations." depends="report">
-		<checkstyle config="sun_checks.xml" failureProperty="checkstyle.failure" failOnViolation="false">
-			<formatter type="xml" tofile="${report.dir}checkstyle_report.xml" />
-			<fileset dir="${src.java}" includes="**/*.java" />
-		</checkstyle>
-	</target>
-
-	<target name="report">
-		<fail unless="report.dir" />
-		<mkdir dir="${report.dir}" />
-	</target>
+    </target>
 
 
-	<!--PMD-->
+    <!--FINDBUGS -->
 
-	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
+    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" />
+    <target name="findbugs" depends="report">
+        <findbugs home="${findbugs.home}" output="xml" outputFile="${report.dir}encuestame-fb.xml">
+            <class location="${build.class}" />
+            <sourcePath path="${src.java}" />
+        </findbugs>
+    </target>
+
+    <!--CHECKSTYLE -->
+
+    <taskdef resource="checkstyletask.properties" classpath="${em.app.lib}checkstyle-all-5.0.jar" />
+
+    <taskdef resource="checkstyletask.properties" />
+
+    <target name="checkstyle" description="Generates a report of code convention violations." depends="report">
+        <checkstyle config="sun_checks.xml" failureProperty="checkstyle.failure" failOnViolation="false">
+            <formatter type="xml" tofile="${report.dir}checkstyle_report.xml" />
+            <fileset dir="${src.java}" includes="**/*.java" />
+        </checkstyle>
+    </target>
+
+    <target name="report">
+        <fail unless="report.dir" />
+        <mkdir dir="${report.dir}" />
+    </target>
 
 
-	<target name="pmd">
-		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="lib.classpath" />
-		<pmd rulesetfiles="imports">
-			<formatter type="xml" toFile="${report.dir}pmd_report.xml" toConsole="true" />
-			<fileset dir="${src.java}">
-				<include name="**/*.java" />
-			</fileset>
-		</pmd>
-	</target>
+    <!--PMD-->
 
-	<!-- DRY -->
-
-	<target name="cpd">
-		<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" />
-		<cpd minimumTokenCount="10" outputFile="${report.dir}cpd.xml" format="xml">
-			<fileset dir="${src.java}">
-				<include name="**/*.java" />
-			</fileset>
-		</cpd>
-	</target>
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
 
 
-	<!-- findbugs,checkstyle,pmd -->
-	<target name="init" depends="clean,web,tests,findbugs,checkstyle,pmd,coverage-report,doc" />
+    <target name="pmd">
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="lib.classpath" />
+        <pmd rulesetfiles="imports">
+            <formatter type="xml" toFile="${report.dir}pmd_report.xml" toConsole="true" />
+            <fileset dir="${src.java}">
+                <include name="**/*.java" />
+            </fileset>
+        </pmd>
+    </target>
+
+    <!-- DRY -->
+
+    <target name="cpd">
+        <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" />
+        <cpd minimumTokenCount="10" outputFile="${report.dir}cpd.xml" format="xml">
+            <fileset dir="${src.java}">
+                <include name="**/*.java" />
+            </fileset>
+        </cpd>
+    </target>
+
+
+    <!-- findbugs,checkstyle,pmd -->
+    <target name="init" depends="clean,web,tests,findbugs,checkstyle,pmd,coverage-report,doc" />
 
 </project>
