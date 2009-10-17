@@ -19,8 +19,6 @@ package org.encuestame.core.persistence.dao;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.hibernate.HibernateException;
@@ -32,8 +30,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @since April 26, 2009
  */
 public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
-
-    private Log log = LogFactory.getLog(this.getClass());
 
 
     /**
@@ -59,12 +55,7 @@ public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
      * @return state
      */
     public CatState getState(final Integer id) throws HibernateException {
-        List<CatState> state = getHibernateTemplate().findByNamedQuery(
+        return (CatState) getHibernateTemplate().findByNamedQuery(
                 "State.loadStateByUsername", id);
-        if (state.size() > 0) {
-            return (CatState) state.get(0);
-        } else {
-            return null;
-        }
     }
 }
