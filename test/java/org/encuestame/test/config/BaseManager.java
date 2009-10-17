@@ -18,24 +18,47 @@
 
 package org.encuestame.test.config;
 
+import org.encuestame.core.persistence.dao.CatStateDaoImp;
+import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Base Class to Test Cases.
+ *
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:encuestame-application-context.xml",
+@ContextConfiguration(locations = {
+        "classpath:encuestame-application-context.xml",
         "classpath:encuestame-beans-jsf-context.xml",
         "classpath:encuestame-db-context.xml",
         "classpath:encuestame-email-context.xml",
         "classpath:encuestame-param-context.xml",
-        "classpath:encuestame-security-context.xml"})
-public class BaseManager extends AbstractJUnit4SpringContextTests{
+        "classpath:encuestame-security-context.xml" })
+public class BaseManager extends AbstractJUnit4SpringContextTests {
 
+    /** State Catalog Dao. **/
+    @Autowired
+    private ICatState catStateDaoImp;
+
+    /**
+     * @return the catStateDaoImp
+     */
+    public ICatState getCatStateDaoImp() {
+        return catStateDaoImp;
+    }
+
+    /**
+     * @param catStateDaoImp
+     *            the catStateDaoImp to set
+     */
+    public void setCatStateDaoImp(final ICatState catStateDaoImp) {
+        this.catStateDaoImp = catStateDaoImp;
+    }
 
 }

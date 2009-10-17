@@ -19,12 +19,12 @@ package org.encuestame.core.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.test.config.BaseManager;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * CatStaeDaoImp
@@ -33,21 +33,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestCatStateDaoImp extends BaseManager{
 
-    /** State Catalog Dao. **/
-    @Autowired
-    private CatStateDaoImp catStateDaoImp;
-
     @Test
     public void testCatState(){
-        List<CatState> listStates = catStateDaoImp.findAll();
+        List<CatState> listStates = getCatStateDaoImp().findAll();
         assertNotNull(listStates);
-        assertEquals(listStates.size(), listStates.size());
+        assertEquals(listStates.size(),listStates.size());
     }
 
-    /**
-     * @param catStateDaoImp the catStateDaoImp to set
-     */
-    public void setCatStateDaoImp(CatStateDaoImp catStateDaoImp) {
-        this.catStateDaoImp = catStateDaoImp;
-    }
+
 }
