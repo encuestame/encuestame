@@ -20,8 +20,10 @@ package org.encuestame.test.config;
 
 import org.encuestame.core.persistence.dao.CatStateDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.pojo.CatState;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -40,7 +42,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:encuestame-email-context.xml",
         "classpath:encuestame-param-context.xml",
         "classpath:encuestame-security-context.xml" })
-public class BaseManager extends AbstractJUnit4SpringContextTests {
+public class BaseManager extends AbstractTransactionalDataSourceSpringContextTests {
 
     /** State Catalog Dao. **/
     @Autowired
@@ -59,6 +61,19 @@ public class BaseManager extends AbstractJUnit4SpringContextTests {
      */
     public void setCatStateDaoImp(final ICatState catStateDaoImp) {
         this.catStateDaoImp = catStateDaoImp;
+    }
+
+    /**
+     * Helper to create state.
+     * @param name name of state
+     * @return state
+     */
+    public CatState createState(final String name){
+        CatState state = new CatState();
+        state.setDescState(name);
+        state.setImage("image.jpg");
+        catStateDaoImp.save(state);
+        return state;
     }
 
 }

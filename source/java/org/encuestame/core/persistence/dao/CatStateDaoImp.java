@@ -42,6 +42,15 @@ public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
     }
 
     /**
+     * Save catalog state.
+     * @param state catalog state
+     * @throws HibernateException exception
+     */
+    public void save(final CatState state) throws HibernateException {
+        getHibernateTemplate().save(state);
+    }
+
+    /**
      * Retrieve all states.
      * @return list of states
      */
@@ -58,4 +67,5 @@ public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
         return (CatState) getHibernateTemplate().findByNamedQuery(
                 "State.loadStateByUsername", id);
     }
+
 }

@@ -17,9 +17,6 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatState;
@@ -34,11 +31,12 @@ import org.junit.Test;
 public class TestCatStateDaoImp extends BaseManager{
 
     @Test
-    public void testCatState(){
+    public void testListCatState(){
+        CatState state = super.createState("state1");
+        System.out.println(state);
         List<CatState> listStates = getCatStateDaoImp().findAll();
+        System.out.println(listStates.size());
         assertNotNull(listStates);
         assertEquals(listStates.size(),listStates.size());
     }
-
-
 }

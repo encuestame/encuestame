@@ -35,4 +35,6 @@ public interface ICatState extends IBaseDao {
 
      public CatState getState(final Integer id) throws HibernateException ;
 
+     public void save(final CatState state) throws HibernateException;
+
 }
