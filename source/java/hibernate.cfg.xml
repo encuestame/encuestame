@@ -4,22 +4,23 @@
 <hibernate-configuration>
  <session-factory name="encuestame">
   <property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
-  <property name="hibernate.connection.url">jdbc:mysql://192.168.1.101:3306/encuestame_core</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/encuestame_core</property>
   <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password">root</property>
   <property name="hibernate.default_catalog">encuestame_core</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
 
-   <!-- Pool de Conexiones 
-	<property name="hibernate.c3p0.min_size">1</property>
-	<property name="hibernate.c3p0.max_size">20</property>
-	<property name="hibernate.c3p0.timeout">300</property>
-	<property name="hibernate.c3p0.max_statements">50</property>
-	<property name="hibernate.c3p0.idle_test_period">3000</property>
-	 Show and print nice SQL on stdout -->
-	<property name="show_sql">true</property>
-	<property name="format_sql">true</property> 
- </session-factory> 
+   <!-- Pool de Conexiones
+    <property name="hibernate.c3p0.min_size">1</property>
+    <property name="hibernate.c3p0.max_size">20</property>
+    <property name="hibernate.c3p0.timeout">300</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.idle_test_period">3000</property>
+     Show and print nice SQL on stdout -->
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+ </session-factory>
 
- 
+
 </hibernate-configuration>

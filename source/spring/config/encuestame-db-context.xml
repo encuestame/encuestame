@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-       http://www.springframework.org/schema/security 
+       http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -20,70 +20,111 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-	<!--
-		======= HIBERNATE DEFINITIONS ========
-	-->
+    <!--
+        ======= HIBERNATE DEFINITIONS ========
+    -->
 
-	<!--
-		Transaction manager for a single Hibernate SessionFactory (alternative
-		to JTA)
-	-->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${datasource.classname}" />
-		<property name="url" value="${datasource.urldb}" />
-		<property name="username" value="${datasource.userbd}" />
-		<property name="password" value="${datasource.pass}" />
-	</bean>
+    <!--
+        Transaction manager for a single Hibernate SessionFactory (alternative
+        to JTA)
+    -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${datasource.classname}" />
+        <property name="url" value="${datasource.urldb}" />
+        <property name="username" value="${datasource.userbd}" />
+        <property name="password" value="${datasource.pass}" />
+    </bean>
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="mappingLocations">
-			<list>
-				<value>classpath*:/org/encuestame/core/persistence/pojo/xml/*.hbm.xml
-				</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop>-->
-				<prop key="hibernate.dialect">${datasource.dialect}
-				</prop>
-				<prop key="hibernate.show_sql">${datasource.showsql}</prop>				
-			</props>
-		</property>
-		<property name="dataSource">
-			<ref local="dataSource" />
-		</property>
-	</bean>
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+          <list>
+              <value>org.encuestame.core.persistence.pojo.CatState</value>
+              <value>org.encuestame.core.persistence.pojo.CatLocation</value>
+              <value>org.encuestame.core.persistence.pojo.CatLocationType</value>
+              <value>org.encuestame.core.persistence.pojo.CatLocationUser</value>
+              <value>org.encuestame.core.persistence.pojo.CatLocationUserId</value>
+              <value>org.encuestame.core.persistence.pojo.CatState</value>
+              <value>org.encuestame.core.persistence.pojo.Project</value>
+              <value>org.encuestame.core.persistence.pojo.ProjectGroup</value>
+              <value>org.encuestame.core.persistence.pojo.ProjectGroupId</value>
+              <value>org.encuestame.core.persistence.pojo.ProjectLocation</value>
+              <value>org.encuestame.core.persistence.pojo.ProjectLocationId</value>
+              <value>org.encuestame.core.persistence.pojo.ProjectUser</value>
+              <value>org.encuestame.core.persistence.pojo.ProjectUserId</value>
+              <value>org.encuestame.core.persistence.pojo.ProjetCatLocation</value>
+              <value>org.encuestame.core.persistence.pojo.ProjetCatLocationId</value>
+              <value>org.encuestame.core.persistence.pojo.QuestionColettion</value>
+              <value>org.encuestame.core.persistence.pojo.Questions</value>
+              <value>org.encuestame.core.persistence.pojo.QuestionsAnswers</value>
+              <value>org.encuestame.core.persistence.pojo.QuestionsAnswersId</value>
+              <value>org.encuestame.core.persistence.pojo.QuestionsPatron</value>
+              <value>org.encuestame.core.persistence.pojo.QuestionsRelations</value>
+              <value>org.encuestame.core.persistence.pojo.QuestionsRelationsId</value>
+              <value>org.encuestame.core.persistence.pojo.SecGroupPermission</value>
+              <value>org.encuestame.core.persistence.pojo.SecGroupPermissionId</value>
+              <value>org.encuestame.core.persistence.pojo.SecGroups</value>
+              <value>org.encuestame.core.persistence.pojo.SecGroupUser</value>
+              <value>org.encuestame.core.persistence.pojo.SecInvite</value>
+              <value>org.encuestame.core.persistence.pojo.SecPermission</value>
+              <value>org.encuestame.core.persistence.pojo.SecUserPermission</value>
+              <value>org.encuestame.core.persistence.pojo.SecUserPermissionId</value>
+              <value>org.encuestame.core.persistence.pojo.SecUsers</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyFormat</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyFormatGroup</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyFormatGroupId</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyGroup</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyGroupProject</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyGroupProjectId</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyResult</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyResultMod</value>
+              <value>org.encuestame.core.persistence.pojo.Surveys</value>
+              <value>org.encuestame.core.persistence.pojo.SurveySection</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyTime</value>
+              <value>org.encuestame.core.persistence.pojo.SurveyTimeId</value>
+          </list>
+        </property>
+        <property name="hibernateProperties">
+           <props>
+                <!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+                <prop key="hibernate.dialect">${datasource.dialect}
+                </prop>
+                <prop key="hibernate.show_sql">${datasource.showsql}</prop>
+            </props>
+        </property>
+      </bean>
 
-	<bean id="jdbcExceptionTranslator"
-		class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-	</bean>
+    <bean id="jdbcExceptionTranslator"
+        class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+    </bean>
 
-	<!-- Hibernate Template Defintion -->
-	
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-		<property name="jdbcExceptionTranslator">
-			<ref bean="jdbcExceptionTranslator" />
-		</property>
-	</bean>
+    <!-- Hibernate Template Defintion -->
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="jdbcExceptionTranslator">
+            <ref bean="jdbcExceptionTranslator" />
+        </property>
+    </bean>
 
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-	<!--
-		======== BUSINESS OBJECT DEFINITIONS ========
-	-->
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    <!--
+        ======== BUSINESS OBJECT DEFINITIONS ========
+    -->
 
 </beans>
