@@ -91,7 +91,7 @@ public class SurveyResult implements java.io.Serializable {
         this.sid = sid;
     }
 
-    @Column(name = "resp", nullable = false, length = 65535)
+    @Column(name = "resp", nullable = false)
     public String getResp() {
         return this.resp;
     }

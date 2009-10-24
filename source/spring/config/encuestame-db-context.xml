@@ -94,6 +94,7 @@
                 <prop key="hibernate.dialect">${datasource.dialect}
                 </prop>
                 <prop key="hibernate.show_sql">${datasource.showsql}</prop>
+                <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
             </props>
         </property>
       </bean>

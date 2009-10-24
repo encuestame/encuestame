@@ -111,7 +111,7 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    @Column(name = "info", nullable = false, length = 65535)
+    @Column(name = "info", nullable = false)
     public String getInfo() {
         return this.info;
     }
