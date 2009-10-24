@@ -44,9 +44,10 @@
         <path refid="lib.classpath" />
         <pathelement location="${build.class}" />
         <pathelement location="${build.test}" />
-        <pathelement location="${src.spring}/config/" />
-        <pathelement location="${src.java}/" />
+        <pathelement location="${src.spring}" />
+        <pathelement location="${src.properties}" />
     </path>
+
 
     <!-- create javadoc -->
     <target name="doc" depends="">
@@ -104,7 +105,7 @@
         </manifest>
 
 
-        <!--copia directorio lib a web-inf -->
+        <!-- copia directorio lib a web-inf -->
         <copy todir="${web-inf}/lib">
             <fileset dir="${em.app.lib}" />
         </copy>
@@ -121,7 +122,7 @@
             <fileset dir="${src.taglibs}/" />
         </copy>
         <!-- copio los spring -->
-        <copy todir="${web-inf}">
+        <copy todir="${web-inf}/config/">
             <fileset dir="${src.spring}/" />
         </copy>
         <!-- copio los recursos -->
@@ -134,18 +135,16 @@
         </copy>
 
         <!-- copio los archivos de configuracion -->
-        <copy file="${src.java}/faces-config.xml" todir="${web-inf}" />
-        <copy file="${src.java}/web.xml" todir="${web-inf}" />
-        <copy file="${src.java}/urlrewrite.xml" todir="${web-inf}" />
+        <copy file="${src.jsf}/faces-config.xml" todir="${web-inf}" />
+        <copy file="${src.jsf}/web.xml" todir="${web-inf}" />
+        <copy file="${src.jsf}/urlrewrite.xml" todir="${web-inf}" />
         <copy file="${src.xhtml}/error404.xhtml" todir="${web-inf}" />
 
         <!--<copy file="${src.java}/encuestame-config.properties" todir="${web-inf}/classes" />
         <copy file="${src.java}/log4j.properties" todir="${web-inf}/classes" />-->
 
         <copy todir="${web-inf}/classes">
-            <fileset dir="${src.java}">
-                <exclude name="**/org/**" />
-                <exclude name="**/*.xml" />
+            <fileset dir="${src.properties}">
             </fileset>
         </copy>
     </target>
