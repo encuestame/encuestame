@@ -255,7 +255,7 @@
         <mkdir dir="${cobertura.result.dir}" />
 
         <cobertura-instrument todir="${cobertura.classes.dir}" datafile="${cobertura.ser.file}">
-            <fileset dir="${build.compile}">
+            <fileset dir="${build.class}">
                 <include name="**/*.class" />
             </fileset>
         </cobertura-instrument>
@@ -265,7 +265,6 @@
 
         <junit dir="${basedir}" showoutput="true" printsummary="yes" fork="true" haltonerror="false">
             <sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser.file}" />
-
             <classpath location="${cobertura.classes.dir}" />
             <classpath>
                 <path refid="cobertura.classpath" />
@@ -376,6 +375,18 @@
             </fileset>
         </cpd>
     </target>
+
+    <!-- Create or Drop Schema -->
+     <target name="schema"
+          depends="compile">
+          <sequential>
+            <java classname="org.encuestame.core.persistence.util.EnMeSchemaExport"
+                  fork="yes">
+            <classpath refid="all.classpath" />
+            <jvmarg value="-Xmx512M"/>
+            </java>
+         </sequential>
+     </target>
 
 
     <!-- findbugs,checkstyle,pmd -->
