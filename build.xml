@@ -24,10 +24,12 @@
     <target name="usage">
         <echo message="Targets:" />
         <echo message="  clean -- clean all" />
+        <echo message="  doc --   java doc" />
         <echo message="  compile -- compile java's" />
         <echo message="  usage -- help" />
         <echo message="  init -- init all tagets" />
         <echo message="  tests -- init testcase" />
+        <echo message="  dist -- create jar and war" />
     </target>
 
     <!-- classpath -->
@@ -40,12 +42,29 @@
         <pathelement location="${build.class}" />
     </path>
 
-    <path id="all.classpath">
-        <path refid="lib.classpath" />
-        <pathelement location="${build.class}" />
-        <pathelement location="${build.test}" />
+    <path id="config.classpath">
         <pathelement location="${src.spring}" />
         <pathelement location="${src.properties}" />
+    </path>
+
+    <path id="all.classpath">
+        <path refid="build.classpath" />
+        <path refid="config.classpath" />
+
+    </path>
+
+     <path id="cobertura.classpath">
+            <fileset dir="${cobertura.dir}">
+                <include name="${cobertura.jar.file}" />
+                <include name="${em.app.lib}**/*.jar" />
+            </fileset>
+
+     </path>
+
+    <path id="tests.classpath">
+        <pathelement location="${cobertura.dir}${cobertura.jar.file}"/>
+        <pathelement location="${test.source}"/>
+        <pathelement location="${build.test}"/>
     </path>
 
 
@@ -73,8 +92,6 @@
         <fail unless="webcontent" message="falta el dato de webcontent" />
         <fail unless="jar.name" message="falta el nombre del jar" />
         <fail unless="dist.dir" message="falta la direccion de dist" />
-
-        <!-- creo los directorios para el web -->
         <mkdir dir="${webcontent}" />
         <mkdir dir="${web-inf}" />
         <mkdir dir="${web-inf}/classes" />
@@ -93,7 +110,7 @@
                 </attribute>
                 <attribute name="Specification-Version" value="${em.version}">
                 </attribute>
-                <attribute name="Specification-Vendor" value="juan@encuesta.me">
+                <attribute name="Specification-Vendor" value="info@encuestame.org">
                 </attribute>
                 <attribute name="Implementation-Title" value="encuestame">
                 </attribute>
@@ -105,49 +122,52 @@
         </manifest>
 
 
-        <!-- copia directorio lib a web-inf -->
+        <!-- copy libs -->
         <copy todir="${web-inf}/lib">
             <fileset dir="${em.app.lib}" />
         </copy>
-        <!-- copio el core a lib's -->
+        <!-- copy encuestame jar to lib -->
         <copy file="${dist.dir}/${jar.name}" todir="${web-inf}/lib" />
 
-        <!-- copio los js -->
+        <!-- copy javascript source -->
         <copy todir="${webcontent}/scripts/">
             <fileset dir="${src.js}/" />
         </copy>
-        <!-- copio los taglibs -->
 
+        <!-- copy taglibs -->
         <copy todir="${web-inf}/taglib/">
             <fileset dir="${src.taglibs}/" />
         </copy>
-        <!-- copio los spring -->
+
+        <!-- copy  spring xml config-->
         <copy todir="${web-inf}/config/">
             <fileset dir="${src.spring}/" />
         </copy>
-        <!-- copio los recursos -->
+
+        <!-- copy resources -->
         <copy todir="${webcontent}">
             <fileset dir="${src.re}/" />
         </copy>
 
+         <!-- copy error xhtml -->
         <copy todir="${webcontent}">
             <fileset dir="${src.xhtml}/" excludes="error*.*" />
         </copy>
 
-        <!-- copio los archivos de configuracion -->
+        <!-- copy webconfig xml files -->
         <copy file="${src.jsf}/faces-config.xml" todir="${web-inf}" />
         <copy file="${src.jsf}/web.xml" todir="${web-inf}" />
         <copy file="${src.jsf}/urlrewrite.xml" todir="${web-inf}" />
         <copy file="${src.xhtml}/error404.xhtml" todir="${web-inf}" />
 
-        <!--<copy file="${src.java}/encuestame-config.properties" todir="${web-inf}/classes" />
-        <copy file="${src.java}/log4j.properties" todir="${web-inf}/classes" />-->
-
+        <!-- copy properties files -->
         <copy todir="${web-inf}/classes">
             <fileset dir="${src.properties}">
             </fileset>
         </copy>
     </target>
+
+     <!-- clean targets -->
 
     <target name="clean-build">
         <fail unless="build" />
@@ -183,8 +203,11 @@
         <delete dir="${test.results.dir}" />
     </target>
 
+    <!-- clean targets -->
+
     <target name="clean" depends="clean-dist,clean-junit,clean-doc,clean-build" />
 
+    <!-- prepare build directory -->
 
     <target name="prepare-build" description="compile core source code">
         <fail unless="build" message="se neceista la variable build" />
@@ -199,16 +222,13 @@
 
     <!-- compile source code -->
     <target name="compile" description="compile core source code" depends="prepare-build">
-        <!-- Compilando Codigo Fuente -->
         <javac destdir="${build.class}" debug="on" deprecation="false" optimize="false" failonerror="true">
             <src path="${src.java}">
             </src>
             <classpath refid="lib.classpath" />
         </javac>
-        <!-- Compilando Test -->
         <javac debug="on" srcdir="${src.test}" destdir="${build.test}" target="1.6" source="1.6" fork="yes" deprecation="false">
             <classpath refid="build.classpath" />
-            <!-- classpath refid="cobertura.classpath" -->
         </javac>
     </target>
 
@@ -237,87 +257,88 @@
         </jar>
     </target>
 
-    <!-- cobertura task definition -->
-    <path id="cobertura.classpath">
-        <fileset dir="${cobertura.dir}">
-            <include name="${cobertura.jar.file}" />
-            <include name="${em.app.lib}**/*.jar" />
-        </fileset>
-
-    </path>
+    <!--cobertura -->
 
     <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
 
-    <target name="instrument" depends="compile">
-        <mkdir dir="${cobertura.classes.dir}" />
+    <target name="cobertura-instrument" depends="compile">
+        <mkdir dir="${cobertura.classes.instrument}" />
         <mkdir dir="${cobertura.report.dir}" />
-        <mkdir dir="${cobertura.result.dir}" />
-
-        <cobertura-instrument todir="${cobertura.classes.dir}" datafile="${cobertura.ser.file}">
+        <mkdir dir="${cobertura.xml.dir}" />
+        <cobertura-instrument todir="${cobertura.classes.instrument}"  datafile="${cobertura.ser.file}">
+            <ignore regex="org.apache.log4j.*" />
             <fileset dir="${build.class}">
                 <include name="**/*.class" />
+                <exclude name="**/*Test.class" />
             </fileset>
         </cobertura-instrument>
     </target>
 
-    <target name="cover-test" depends="instrument">
 
-        <junit dir="${basedir}" showoutput="true" printsummary="yes" fork="true" haltonerror="false">
-            <sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser.file}" />
-            <classpath location="${cobertura.classes.dir}" />
-            <classpath>
-                <path refid="cobertura.classpath" />
-            </classpath>
-            <classpath>
-                <path refid="all.classpath" />
-            </classpath>
-            <formatter type="brief" usefile="false" />
-            <formatter type="xml"/>
-            <batchtest fork="yes" todir="${cobertura.result.dir}">
-                <fileset dir="${cobertura.classes.dir}">
-                     <include name="**/Test*"/>
-                </fileset>
-            </batchtest>
-        </junit>
-        <junitreport todir="${cobertura.result.dir}">
-                    <fileset dir="${cobertura.result.dir}">
-                        <include name="*.xml" />
-                    </fileset>
-        <report format="frames" todir="${cobertura.result.dir}" />
-        </junitreport>
-    </target>
 
     <!-- run this target to generate the coverage reports -->
-    <target name="coverage-report" depends="cover-test">
-        <cobertura-report srcdir="${src.java}" format="xml" datafile="${cobertura.ser.file}" destdir="${report.dir}" />
-        <cobertura-report srcdir="${src.java}" format="html" datafile="${cobertura.ser.file}" destdir="${cobertura.report.dir}" />
+    <target name="coverage-report" depends="tests">
+        <fail unless="cobertura.report.dir"/>
+                    <mkdir dir="${cobertura.report.dir}"/>
+                    <cobertura-report srcdir="${src.java}"
+                      format="html"
+                      datafile="${cobertura.ser.file}"
+                      destdir="${cobertura.report.dir}">
+
+                    </cobertura-report>
+                    <cobertura-report
+                      format="xml" srcdir="${src.java}"
+                      datafile="${cobertura.ser.file}"
+                      destdir="${cobertura.report.dir}">
+
+        </cobertura-report>
     </target>
 
+    <target name="cobertura" depends="coverage-report"/>
 
 
     <!-- tests -->
-    <target name="tests" depends="compile">
+    <target name="tests-compile" depends="compile">
         <mkdir dir="${test.reports.dir}" />
         <mkdir dir="${test.results.dir}" />
-        <junit dir="${basedir}" showoutput="on" haltonfailure="false" printsummary="yes" fork="yes">
-            <formatter type="brief" usefile="false" />
+        <junit  printsummary="yes"
+            fork="yes"
+            forkmode="once">
+            <classpath>
+              <!-- always first -->
+            <pathelement location="${cobertura.classes.instrument}"/>
+             <path refid="build.classpath" />
+             <path refid="tests.classpath"/>
+             <path refid="config.classpath" />
+            </classpath>
+             <sysproperty
+              key="net.sourceforge.cobertura.datafile"
+              file="${cobertura.ser.file}"/>
             <formatter type="xml" />
-            <classpath refid="all.classpath" />
-            <batchtest fork="yes" todir="${test.results.dir}">
-                <fileset dir="${build.test}">
-                    <include name="**/Test*.class" />
-                </fileset>
+            <batchtest todir="${test.results.dir}">
+               <fileset dir="${test.source}">
+                 <include name="**/*Test*.java"/>
+                 <exclude name="**/*Base*.java"/>
+               </fileset>
             </batchtest>
         </junit>
-
-        <junitreport todir="${test.results.dir}">
-            <fileset dir="${test.results.dir}">
-                <include name="TEST-*.xml" />
-            </fileset>
-            <report format="frames" todir="${test.reports.dir}" />
-        </junitreport>
-
     </target>
+
+    <target  name="tests-report" >
+         <fail unless="test.reports.dir"/>
+                <mkdir dir="${test.reports.dir}"/>
+                    <junitreport todir="${test.reports.dir}">
+                        <fileset dir="${test.results.dir}">
+                            <include name="TEST-*.xml"/>
+                        </fileset>
+          <report todir="${test.reports.dir}" format="frames"/>
+        </junitreport>
+    </target>
+
+    <target  name="run-tests" depends="tests-compile,tests-report" />
+
+    <target  name="tests" depends="cobertura-instrument,run-tests" />
+
 
 
     <!--FINDBUGS -->
@@ -389,6 +410,6 @@
 
 
     <!-- findbugs,checkstyle,pmd -->
-    <target name="init" depends="clean,web,tests,findbugs,checkstyle,pmd,coverage-report,doc" />
+    <target name="init" depends="clean,web,tests,findbugs,checkstyle,pmd,cobertura,doc" />
 
 </project>
