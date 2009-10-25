@@ -20,7 +20,8 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatState;
-import org.encuestame.test.config.BaseManager;
+import org.encuestame.test.config.AbstractBaseTest;
+import org.hibernate.annotations.Loader;
 import org.junit.Test;
 
 /**
@@ -28,7 +29,8 @@ import org.junit.Test;
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
  */
-public class TestCatStateDaoImp extends BaseManager{
+
+public class TestCatStateDaoImp extends AbstractBaseTest{
 
     @Test
     public void testListCatState(){
