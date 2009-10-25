@@ -42,10 +42,8 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = {
         "classpath:encuestame-application-context.xml",
         "classpath:encuestame-beans-jsf-context.xml",
-        "classpath:encuestame-db-context.xml",
-        "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-param-context.xml",
-        "classpath:encuestame-security-context.xml" })
+        "classpath:encuestame-hibernate-context.xml",
+        "classpath:encuestame-param-context.xml",})
 public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringContextTests {
 
     /** State Catalog Dao. **/
