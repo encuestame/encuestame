@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:encuestame-application-context.xml",
         "classpath:encuestame-beans-jsf-context.xml",
         "classpath:encuestame-hibernate-context.xml",
-        "classpath:encuestame-param-context.xml",})
+        "classpath:encuestame-param-context.xml"})
 public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringContextTests {
 
     /** State Catalog Dao. **/
