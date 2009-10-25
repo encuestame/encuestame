@@ -29,7 +29,7 @@ public class EnMeSchemaExport {
 
     /** spring config files. **/
      private static final String[] SPRING_CONFIG_FILES =
-         new String[]{"source/spring/config/encuestame-db-context.xml", "source/spring/config/encuestame-param-context.xml"};
+         new String[]{"source/config/spring/encuestame-hibernate-context.xml", "source/config/spring/encuestame-param-context.xml"};
 
      /**
       * Drop schema and create schema.
