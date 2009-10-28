@@ -180,7 +180,7 @@ public class SecUsers implements Serializable {
         this.dateNew = dateNew;
     }
 
-    @Column(name = "publisher", nullable = false, length = 2)
+    @Column(name = "publisher", nullable = true, length = 2)
     public String getPublisher() {
         return this.publisher;
     }
