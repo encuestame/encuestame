@@ -18,8 +18,12 @@
 
 package org.encuestame.test.config;
 
+import java.util.Date;
+
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -52,6 +56,10 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     @Autowired
     private ICatState catStateDaoImp;
 
+    /** User Security Dao. **/
+    @Autowired
+    private ISecUserDao userDao;
+
     /**
      * @return the catStateDaoImp
      */
@@ -68,6 +76,20 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
+     * @return the userDao
+     */
+    public ISecUserDao getUserDao() {
+        return userDao;
+    }
+
+    /**
+     * @param userDao the userDao to set
+     */
+    public void setUserDao(final ISecUserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    /**
      * Helper to create state.
      * @param name name of state
      * @return state
@@ -79,5 +101,23 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         catStateDaoImp.save(state);
         return state;
     }
+    /**
+     * Helper to create User.
+     * @param name user name
+     * @return state
+     */
+    public SecUsers createUsers(final String name){
+        SecUsers user= new SecUsers();
+        user.setName(name);
+        user.setPassword("12345");
+        user.setEmail("users@users.com");
+        user.setDateNew(new Date());
+        user.setStatus(true);
+        getUserDao().createUser(user);
+        return user;
+
+    }
+
+
 
 }
