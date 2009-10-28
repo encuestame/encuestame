@@ -21,12 +21,16 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
 
-/** UserDao.
+/**
+* UserDao.
 * @author Morales, Diana Paola paola@encuestame.org
 * @since October 27, 2009
 */
 public class TestUserDao extends AbstractBaseTest{
 
+    /***
+     *Test Create User.
+     */
     @Test
     public void testCreateUser(){
         SecUsers user = super.createUsers("Pahola");
