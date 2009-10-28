@@ -8,6 +8,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.hibernate.HibernateException;
 
 /**
  * encuestame:  system online surveys
@@ -27,18 +28,22 @@ import org.encuestame.core.persistence.pojo.SecUsers;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: IUserDao.java Date: 07/05/2009 
+ * Id: IUserDao.java Date: 07/05/2009
  * @author juanpicado
  * package: org.encuestame.core.persistence.dao.imp
  * @version 1.0
  */
 public interface ISecUserDao extends IBaseDao {
-	
-	public SecUsers getUser(String username);
-	
-	public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
-	
-	public List<SecUserPermission> getUserPermission(SecUsers user);
-	
-	public List<SecGroupUser> getUserGroups(SecUsers username);
+
+    public SecUsers getUser(String username);
+
+    public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
+
+    public List<SecUserPermission> getUserPermission(SecUsers user);
+
+    public List<SecGroupUser> getUserGroups(SecUsers username);
+
+    public void delete(SecUsers user) throws HibernateException;
+
+    public void createUser(SecUsers user) throws HibernateException;
 }
