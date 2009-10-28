@@ -1,15 +1,3 @@
-package org.encuestame.core.persistence.dao.imp;
-
-import java.util.List;
-
-import org.encuestame.core.persistence.pojo.SecGroupPermission;
-import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
-import org.encuestame.core.persistence.pojo.SecUsers;
-import org.hibernate.HibernateException;
-
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -28,6 +16,20 @@ import org.hibernate.HibernateException;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
+ */
+package org.encuestame.core.persistence.dao.imp;
+
+import java.util.List;
+
+import org.encuestame.core.persistence.pojo.SecGroupPermission;
+import org.encuestame.core.persistence.pojo.SecGroupUser;
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.hibernate.HibernateException;
+
+/**
  * Id: IUserDao.java Date: 07/05/2009
  * @author juanpicado
  * package: org.encuestame.core.persistence.dao.imp
