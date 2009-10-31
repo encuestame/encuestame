@@ -278,7 +278,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             g.setPassword(encryptPassworD(newPassowrd));
             try {
                 sendUserPassword(g.getEmail().trim(), newPassowrd);
-                getUserDao().updateUser(g);
+                getUserDao().saveOrCreateUser(g);
             } catch (MailSendException ex) {
                 throw new MailSendException(ex.getMessage());
             }
@@ -330,7 +330,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             updateUser.setStatus(userD.getStatus());
             updateUser.setPublisher(userD.getPublisher());
             log.info("GET getPublisher->"+userD.getPublisher());
-            getUserDao().updateUser(updateUser);
+            getUserDao().saveOrCreateUser(updateUser);
         } else {
             throw new EnMeExpcetion("No se recupero el usuaario");
         }
@@ -376,7 +376,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             // send to user first password
             sendUserPassword(user.getEmail(), password);
             // create user
-            getUserDao().createUser(userBd);
+            getUserDao().saveOrCreateUser(userBd);
             // assing first permissions and default group
             UnitPermission perM = new UnitPermission();
             perM = loadDefaultPermissionBean();
