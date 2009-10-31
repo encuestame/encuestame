@@ -1,3 +1,0 @@
-org.encuestame.core.persistence.pojo.CatState@127ff0d
-1
-
