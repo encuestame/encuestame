@@ -24,10 +24,10 @@ import java.util.Collection;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.hibernate.HibernateException;
 /**
- * Id: ISecGroups.java Date: 11/05/2009 10:45:30
- * @author juanpicado
- * package: org.encuestame.core.persistence.dao.imp
- * @version 1.0
+ * UserDao.
+ *
+ * @author Morales, Diana Paola paola@encuestame.org
+ * @since October 29, 2009
  */
 public interface ISecGroups extends IBaseDao {
     public void delete(SecGroups newG) throws HibernateException;
@@ -35,7 +35,7 @@ public interface ISecGroups extends IBaseDao {
     public void update(SecGroups update) throws HibernateException;
     public void Delete(SecGroups group) throws HibernateException;
     public Collection<SecGroups> findAllGroups() throws HibernateException;
-
+    public SecGroups getGroupById(Long groupId) throws HibernateException;
     }
 
 
