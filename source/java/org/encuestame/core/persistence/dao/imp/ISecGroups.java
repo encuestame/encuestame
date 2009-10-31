@@ -1,4 +1,10 @@
 package org.encuestame.core.persistence.dao.imp;
+
+import java.util.Collection;
+
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.hibernate.HibernateException;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2009  encuestame Development Team
@@ -23,5 +29,17 @@ package org.encuestame.core.persistence.dao.imp;
  * @version 1.0
  */
 public interface ISecGroups extends IBaseDao {
+    public void delete(SecGroups newG) throws HibernateException;
+    public void newGroup(SecGroups newG) throws HibernateException;
+    public void update(SecGroups update) throws HibernateException;
+    public void Delete(SecGroups group) throws HibernateException;
+    public Collection<SecGroups> findAllGroups() throws HibernateException;
 
-}
+
+
+
+
+    }
+
+
+
