@@ -1,4 +1,11 @@
 package org.encuestame.core.persistence.dao.imp;
+
+import java.util.Collection;
+
+import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.hibernate.HibernateException;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2009  encuestame Development Team
@@ -23,5 +30,9 @@ package org.encuestame.core.persistence.dao.imp;
  * @version 1.0
  */
 public interface ISecPermissionDao extends IBaseDao {
+
+    public Collection<SecUserPermission> loadPermissionByUser(Integer id) throws HibernateException;
+    public Collection<SecPermission> loadAllPermissions() throws HibernateException;
+    public SecPermission loadPermission(String permission) throws HibernateException;
 
 }

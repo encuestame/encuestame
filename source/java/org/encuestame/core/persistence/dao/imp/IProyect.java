@@ -1,4 +1,10 @@
 package org.encuestame.core.persistence.dao.imp;
+
+import java.util.Collection;
+
+import org.encuestame.core.persistence.pojo.Project;
+import org.hibernate.HibernateException;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -17,14 +23,18 @@ package org.encuestame.core.persistence.dao.imp;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: ICatState.java Date: 26/04/2009 
+ * Id: ICatState.java Date: 26/04/2009
  * @author juanpicado
  * package: org.encuestame.core.persistence.dao.imp
  * @version 1.0
  */
 
 public interface IProyect extends IBaseDao {
-	
-	
+
+    public Project getProject(Integer id) throws HibernateException;
+
+
+
+
 
 }

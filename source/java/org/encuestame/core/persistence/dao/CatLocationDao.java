@@ -1,6 +1,10 @@
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
+import org.encuestame.core.persistence.pojo.CatLocation;
+import org.hibernate.HibernateException;
 
 /**
  * encuestame:  system online surveys
@@ -25,9 +29,9 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
  * package: org.encuestame.core.persistence.dao.imp
  * @version 1.0
  */
-public class CatLocationDao implements ICatLocation {
- 
-	public CatLocationDao() {
-		
-	}
+public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatLocation {
+
+    public List<CatLocation> findAll() throws HibernateException {
+        return super.findAll("from CatLocation");
+    }
 }

@@ -19,12 +19,13 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
-import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
+import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     @Autowired
     private ISecGroups groupDao;
 
-
+    /** Security Permissions Dao. **/
+    @Autowired
+    private ISecPermissionDao secPermissionDaoImp;
     /**
      * @return the catStateDaoImp
      */
@@ -95,12 +98,32 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         this.secUserDao = userDao;
     }
 
+    /**
+     * @return
+     */
     public ISecGroups getSecGroup(){
         return groupDao;
     }
 
+    /**
+     * @param groupDao
+     */
     public void setgroupDao(final ISecGroups groupDao){
         this.groupDao = groupDao;
+    }
+
+    /**
+     * @return the secPermissionDaoImp
+     */
+    public ISecPermissionDao getSecPermissionDaoImp() {
+        return secPermissionDaoImp;
+    }
+
+    /**
+     * @param secPermissionDaoImp the secPermissionDaoImp to set
+     */
+    public void setSecPermissionDaoImp(ISecPermissionDao secPermissionDaoImp) {
+        this.secPermissionDaoImp = secPermissionDaoImp;
     }
 
     /**
@@ -109,10 +132,10 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @return state
      */
     public CatState createState(final String name){
-        CatState state = new CatState();
+        final CatState state = new CatState();
         state.setDescState(name);
         state.setImage("image.jpg");
-        catStateDaoImp.save(state);
+        catStateDaoImp.saveOrUpdate(state);
         return state;
     }
     /**
@@ -121,14 +144,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @return state
      */
     public SecUsers createUsers(final String name){
-        SecUsers user= new SecUsers();
+        final SecUsers user= new SecUsers();
         user.setName(name);
         user.setUsername(name+"_encuestame_test");
         user.setPassword("12345");
         user.setEmail(name+"@users.com");
         user.setDateNew(new Date());
         user.setStatus(true);
-        getSecUserDao().saveOrCreateUser(user);
+        getSecUserDao().saveOrUpdate(user);
         return user;
     }
     /**
@@ -137,11 +160,24 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @return state
      */
     public SecGroups createGroups(final String groupname){
-        SecGroups group = new SecGroups();
+        final SecGroups group = new SecGroups();
         group.setName(groupname);
         group.setIdState(1);
         group.setDesInfo("Primer Grupo");
-        getSecGroup().newGroup(group);
+        getSecGroup().saveOrUpdate(group);
         return group;
+    }
+
+    /**
+     * Helper to create Permission.
+     * @param permissionName name
+     * @return Permission
+     */
+    public SecPermission createPermission(final String permissionName){
+        final SecPermission permission = new SecPermission();
+        permission.setDescription(permissionName+" description");
+        permission.setPermission(permissionName);
+        getSecPermissionDaoImp().saveOrUpdate(permission);
+        return permission;
     }
 }

@@ -278,7 +278,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             g.setPassword(encryptPassworD(newPassowrd));
             try {
                 sendUserPassword(g.getEmail().trim(), newPassowrd);
-                getUserDao().saveOrCreateUser(g);
+                getUserDao().saveOrUpdate(g);
             } catch (MailSendException ex) {
                 throw new MailSendException(ex.getMessage());
             }
@@ -309,7 +309,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             group.setName(uGroup.getGroupName());
             group.setDesInfo(uGroup.getGroupDescription());
             group.setIdState((new Integer(uGroup.getStateId())));
-            getGroupDao().update(group);
+            getGroupDao().saveOrUpdate(group);
         } else {
             throw new EnMeExpcetion("No se recupero el grupo.");
         }
@@ -330,7 +330,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             updateUser.setStatus(userD.getStatus());
             updateUser.setPublisher(userD.getPublisher());
             log.info("GET getPublisher->"+userD.getPublisher());
-            getUserDao().saveOrCreateUser(updateUser);
+            getUserDao().saveOrUpdate(updateUser);
         } else {
             throw new EnMeExpcetion("No se recupero el usuaario");
         }
@@ -347,7 +347,7 @@ public class SecurityService extends MasterService implements ISecurityService {
         newG.setDesInfo(group.getGroupDescription());
         newG.setName(group.getGroupName());
         newG.setIdState(new Integer(group.getStateId()).intValue());
-        getGroupDao().newGroup(newG);
+        getGroupDao().saveOrUpdate(newG);
     }
 
     /**
@@ -376,7 +376,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             // send to user first password
             sendUserPassword(user.getEmail(), password);
             // create user
-            getUserDao().saveOrCreateUser(userBd);
+            getUserDao().saveOrUpdate(userBd);
             // assing first permissions and default group
             UnitPermission perM = new UnitPermission();
             perM = loadDefaultPermissionBean();

@@ -15,87 +15,63 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 3 of the GNU General Public License as published by the
  * Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Id: IProyectDao.java Date: 26/05/2009 14:46:20
- * 
+ *
  * @author juanpicado package: org.encuestame.core.persistence.dao.imp
  * @version 1.0
  */
-public class ProyectDaoImp extends HibernateDaoSupport implements IProyect {
+public class ProyectDaoImp extends AbstractHibernateDaoSupport implements IProyect {
 
-	private Log log = LogFactory.getLog(this.getClass());
 
-	/**
-	 * find all projects
-	 * 
-	 * @return
-	 * @throws HibernateException
-	 */
-	public Collection<Project> findAll() throws HibernateException {
-		return getHibernateTemplate().find("from Project");
-	}
+    /**
+     * find all projects
+     *
+     * @return
+     * @throws HibernateException
+     */
+    @SuppressWarnings("unchecked")
+    public List<Project> findAll() throws HibernateException {
+        return getHibernateTemplate().find("from Project");
+    }
 
-	/**
-	 * search project by id
-	 * @param id
-	 * @return
-	 * @throws HibernateException
-	 */
-	public Project getProject(Integer id) throws HibernateException {
-		List<Project> project = getHibernateTemplate().findByNamedQuery(
-				"Pro.loadProjByIDe", id);
-		log.info("project found's ->"+project.size());
-		if (project.size() > 0) {
-			return (Project) project.get(0);
-		} else {
-			throw new HibernateException("project not found");
-		}
-	}
+    /**
+     * Retrieve project by id.
+     * @param projectId
+     * @return
+     * @throws HibernateException
+     */
+    public Project getProject(Integer projectId) throws HibernateException {
+        return (Project) getHibernateTemplate().get(Project.class, projectId);
+    }
 
-	/**
-	 * create projects
-	 * 
-	 * @param proyect
-	 * @throws HibernateException
-	 */
-	public void createProyect(Project proyect) throws HibernateException {
-		log.info("save create project");
-		getHibernateTemplate().save(proyect);
-	}
+    /**
+     * Delete project.
+     *
+     * @param project
+     * @throws HibernateException
+     */
+    public void delete(Object project) throws HibernateException {
+        getHibernateTemplate().delete(project);
+    }
 
-	/**
-	 * update proyect
-	 * 
-	 * @param proyect
-	 * @throws HibernateExceptio
-	 */
-	public void updateProyect(Project proyect) throws HibernateException {
-		getHibernateTemplate().update(proyect);
-
-	}
-
-	/**
-	 * delete proyect
-	 * 
-	 * @param proyect
-	 * @throws HibernateException
-	 */
-	public void deleteProyect(Project proyect) throws HibernateException {
-		getHibernateTemplate().delete(proyect);
-
-	}
-
+    /**
+     *
+     */
+    public void saveOrUpdate(Object project) throws HibernateException {
+         getHibernateTemplate().saveOrUpdate(project);
+    }
 }

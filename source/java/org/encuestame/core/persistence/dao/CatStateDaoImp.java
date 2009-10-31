@@ -22,40 +22,22 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.hibernate.HibernateException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * Catalog State Dao.
  * @author Picado, Juan juan@encuestame.org
  * @since April 26, 2009
  */
-public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
+public class CatStateDaoImp extends AbstractHibernateDaoSupport implements ICatState {
 
-
-    /**
-     * Delete catalog state.
-     * @param state catalog state
-     * @throws HibernateException exception
-     */
-    public void delete(final CatState state) throws HibernateException{
-        getHibernateTemplate().delete(state);
-    }
-
-    /**
-     * Save catalog state.
-     * @param state catalog state
-     * @throws HibernateException exception
-     */
-    public void save(final CatState state) throws HibernateException {
-        getHibernateTemplate().save(state);
-    }
 
     /**
      * Retrieve all states.
      * @return list of states
      */
+    @SuppressWarnings("unchecked")
     public List<CatState> findAll() throws HibernateException {
-        return getHibernateTemplate().find("from CatState");
+        return super.findAll("from CatState");
     }
 
     /**
@@ -67,5 +49,4 @@ public class CatStateDaoImp extends HibernateDaoSupport implements ICatState {
         return (CatState) getHibernateTemplate().findByNamedQuery(
                 "State.loadStateByUsername", id);
     }
-
 }

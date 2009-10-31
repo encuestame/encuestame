@@ -17,9 +17,12 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecGroupUserId;
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
@@ -71,7 +74,7 @@ public class TestUserDao extends AbstractBaseTest {
         final SecUsers user = super.createUsers("user 1");
         user.setPassword(newPassword);
         user.setEmail(newEmail);
-        getSecUserDao().saveOrCreateUser(user);
+        getSecUserDao().saveOrUpdate(user);
         final SecUsers retrieveUser = getSecUserDao().getUserById(Long.valueOf(
               user.getUid().toString()));
         assertEquals("Password should be",newPassword,
@@ -92,8 +95,11 @@ public class TestUserDao extends AbstractBaseTest {
           retrieveUser.getUsername());
     }
 
+    /**
+     * Test Assing Group to User.
+     */
     @Test
-    public void testassingGroupToUser(){
+    public void testAssingGroupToUser(){
         final SecUsers user = super.createUsers("user 4");
         final SecGroups group = super.createGroups("group 1");
         final SecGroupUserId id = new SecGroupUserId();
@@ -101,10 +107,12 @@ public class TestUserDao extends AbstractBaseTest {
         id.setUid(user.getUid());
         final SecGroupUser secGroupUser = new SecGroupUser();
         secGroupUser.setId(id);
+        secGroupUser.setSecUsers(user);
+        secGroupUser.setSecGroups(group);
         getSecUserDao().assingGroupToUser(secGroupUser);
-        System.out.println(secGroupUser.getSecGroups());
-        System.out.println(secGroupUser.getSecUsers());
-        assertNotNull(secGroupUser.getId());
+        List<SecUserPermission> permissions = getSecUserDao()
+                                .getUserPermission(user);
+              assertNotNull(secGroupUser.getId());
     }
 
 

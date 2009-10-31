@@ -17,48 +17,57 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 3 of the GNU General Public License as published by the
  * Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Id: SurveyDaoImp.java Date: 01/06/2009 13:12:44
- * 
+ *
  * @author juanpicado package: org.encuestame.core.persistence.dao
  * @version 1.0
  */
-public class SurveyDaoImp extends HibernateDaoSupport implements ISurvey {
+public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey {
 
-	private Log log = LogFactory.getLog(this.getClass());
 
-	/**
-	 * 
-	 * 
-	 * @param searchString
-	 * @return
-	 * @throws HibernateException
-	 */
-	public Collection<SurveyFormat> searchSurveyByName(String searchString)
-			throws HibernateException {	
-		Criteria crit = getSession().createCriteria(SurveyFormat.class);
+    /**
+     *
+     *
+     * @param searchString
+     * @return
+     * @throws HibernateException
+     */
+    public Collection<SurveyFormat> searchSurveyByName(String searchString)
+            throws HibernateException {
+        Criteria crit = getSession().createCriteria(SurveyFormat.class);
         crit.add(Restrictions.like("name","%"+searchString+"%"));
         crit.setMaxResults(10);
         List<SurveyFormat> survey = crit.list();
-		log.info("Encuestas Encontradas->" + survey);
-		if (survey != null) {
-			return survey;
-		} else {
-			return survey = new LinkedList<SurveyFormat>();
-		}
-	}
+        log.info("Encuestas Encontradas->" + survey);
+        if (survey != null) {
+            return survey;
+        } else {
+            return survey = new LinkedList<SurveyFormat>();
+        }
+    }
+
+    public void delete(Object obj) throws HibernateException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public List findAll() throws HibernateException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

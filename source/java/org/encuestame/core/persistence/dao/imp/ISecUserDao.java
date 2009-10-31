@@ -27,7 +27,6 @@ import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 
-
 /**
  * Interface SecUsers.
  *
@@ -47,11 +46,8 @@ public interface ISecUserDao extends IBaseDao {
 
     public List<SecGroupUser> getUserGroups(SecUsers username);
 
-    public Collection<SecUsers> findAll() throws HibernateException;
-
-    public void delete(SecUsers user) throws HibernateException;
-
-    public void saveOrCreateUser(SecUsers user) throws HibernateException;
-
     public SecUsers getUserById(Long userId) throws HibernateException;
+
+    public List<SecUsers> findAll() throws HibernateException;
+
 }

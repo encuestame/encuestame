@@ -38,28 +38,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author Picado, Juan juan@encuestame.org
  * @since May 05, 2009
  */
-public class SecUserDaoImp extends HibernateDaoSupport implements ISecUserDao {
+public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUserDao {
 
-    private static Logger log = Logger.getLogger(SecUserDaoImp.class);
-
-    /**
-     * Delete User.
-     * @param user user
-     * @throws HibernateException hibernate
-     */
-    public void delete(final SecUsers user) throws HibernateException {
-        getHibernateTemplate().delete(user);
-
-    }
-
-    /**
-     * Save or Create user.
-     * @param user user
-     * @throws HibernateException hibernate
-     */
-    public void saveOrCreateUser(final SecUsers user) throws HibernateException {
-        getHibernateTemplate().saveOrUpdate(user);
-    }
 
     /**
      * Assing permission to user.
@@ -86,8 +66,8 @@ public class SecUserDaoImp extends HibernateDaoSupport implements ISecUserDao {
      * @return list of all users
      * @throws HibernateException hibernate
      */
-    public Collection<SecUsers> findAll() throws HibernateException {
-        return getHibernateTemplate().find("from SecUsers");
+    public List<SecUsers> findAll() throws HibernateException {
+        return super.findAll("from SecUsers");
     }
 
     /**
@@ -147,20 +127,16 @@ public class SecUserDaoImp extends HibernateDaoSupport implements ISecUserDao {
     }
 
     /**
-     * Obtiene los permisos asignados a un usuario
-     *
-     * @param user
-     *            usuario
-     * @return usuario o nulo si no lo encuentra
+     * Get User Permissions.
+     * @param user user
+     * @return list of permissions
      */
+    @SuppressWarnings("unchecked")
     public List<SecUserPermission> getUserPermission(SecUsers user) {
-        List<SecUserPermission> userPermission = getHibernateTemplate()
-                .findByNamedQuery("User.loadPermissionUser", user);
-        if (userPermission == null || userPermission.size() == 0) {
-            return null;
-        } else {
-            return userPermission;
-        }
+        return getHibernateTemplate()
+                .findByNamedParam("from " +
+                        "SecUserPermission  where secUsers.uid "
+                        +"= :user ", "user", user.getUid());
     }
 
     /**
@@ -180,5 +156,4 @@ public class SecUserDaoImp extends HibernateDaoSupport implements ISecUserDao {
             return userGroups;
         }
     }
-
 }

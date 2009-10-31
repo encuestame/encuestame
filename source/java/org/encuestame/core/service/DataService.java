@@ -121,7 +121,7 @@ public class DataService extends MasterService implements IDataService {
                 proB.setDescription(project.getName());
                 proB.setInfo(project.getDescription());
                 log.info("create project 2");
-                getProyectDaoImp().createProyect(proB);
+                getProyectDaoImp().saveOrUpdate(proB);
             } catch (HibernateException e) {
                 throw new HibernateException(e);
             } catch (Exception e) {
