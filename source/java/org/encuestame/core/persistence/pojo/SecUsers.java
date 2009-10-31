@@ -43,6 +43,8 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "sec_users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class SecUsers implements Serializable {
 
+
+    private static final long serialVersionUID = -2014198943983282167L;
     private Integer uid;
     private String name;
     private String email;

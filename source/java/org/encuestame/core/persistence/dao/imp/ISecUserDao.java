@@ -15,29 +15,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
- *
  */
 package org.encuestame.core.persistence.dao.imp;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 
+
 /**
- * Id: IUserDao.java Date: 07/05/2009
- * @author juanpicado
- * package: org.encuestame.core.persistence.dao.imp
- * @version 1.0
+ * Interface SecUsers.
+ *
+ * @author Picado, Juan juan@encuestame.org
+ * @since May 05, 2009
  */
 public interface ISecUserDao extends IBaseDao {
 
-    public SecUsers getUser(String username);
+    public SecUsers getUserByUsername(String username);
 
     public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
 
@@ -45,7 +44,11 @@ public interface ISecUserDao extends IBaseDao {
 
     public List<SecGroupUser> getUserGroups(SecUsers username);
 
+    public Collection<SecUsers> findAll() throws HibernateException;
+
     public void delete(SecUsers user) throws HibernateException;
 
-    public void createUser(SecUsers user) throws HibernateException;
+    public void saveOrCreateUser(SecUsers user) throws HibernateException;
+
+    public SecUsers getUserById(Long userId) throws HibernateException;
 }

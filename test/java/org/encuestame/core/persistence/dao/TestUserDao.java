@@ -22,20 +22,60 @@ import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
 
 /**
-* UserDao.
-* @author Morales, Diana Paola paola@encuestame.org
-* @since October 27, 2009
-*/
-public class TestUserDao extends AbstractBaseTest{
+ * UserDao.
+ *
+ * @author Morales, Diana Paola paola@encuestame.org
+ * @since October 27, 2009
+ */
+public class TestUserDao extends AbstractBaseTest {
 
     /***
      *Test Create User.
      */
     @Test
-    public void testCreateUser(){
-        SecUsers user = super.createUsers("Pahola");
+    public void testCreateUser() {
+        final SecUsers user = super.createUsers("user 1");
         assertNotNull(user);
-
     }
+
+    /**
+     * Test delete user method.
+     */
+    @Test
+    public void testDeleteUser() {
+        final SecUsers user = super.createUsers("user 1");
+        getUserDao().delete(user);
+        assertEquals("Should be equals",0, getUserDao().findAll().size());
+    }
+
+    /**
+     * Test find all users method.
+     */
+    @Test
+    public void testFindAllUsers() {
+        super.createUsers("user 1");
+        super.createUsers("user 2");
+        assertEquals("Should be equals",2, getUserDao().findAll().size());
+    }
+
+    /**
+     * Test Update user.
+     */
+    @Test
+    public void testUpdateUser(){
+        final String newPassword = "54321";
+        final String newEmail = "user2@users.com";
+        final SecUsers user = super.createUsers("user 1");
+        user.setPassword(newPassword);
+        user.setEmail(newEmail);
+        getUserDao().saveOrCreateUser(user);
+        final SecUsers retrieveUser = getUserDao().getUserById(Long.valueOf(
+              user.getUid().toString()));
+        assertEquals("Password should be",newPassword,
+                      retrieveUser.getPassword());
+        assertEquals("Email should be",newEmail,
+                retrieveUser.getEmail());
+    }
+
 
 }

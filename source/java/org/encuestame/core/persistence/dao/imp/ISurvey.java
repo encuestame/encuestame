@@ -1,6 +1,5 @@
 package org.encuestame.core.persistence.dao.imp;
 
-import org.encuestame.core.persistence.dao.SurveyDaoImp;
 
 /**
  * encuestame:  system online surveys
@@ -27,7 +26,7 @@ import org.encuestame.core.persistence.dao.SurveyDaoImp;
  */
 public interface ISurvey extends IBaseDao{
 
-	
-	
-	
+
+
+
 }

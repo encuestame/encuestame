@@ -15,7 +15,6 @@
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-
 package org.encuestame.test.config;
 
 import java.util.Date;
@@ -68,8 +67,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
-     * @param catStateDaoImp
-     *            the catStateDaoImp to set
+     * @param catStateDaoImp the catStateDaoImp to set
      */
     public void setCatStateDaoImp(final ICatState catStateDaoImp) {
         this.catStateDaoImp = catStateDaoImp;
@@ -110,14 +108,10 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         SecUsers user= new SecUsers();
         user.setName(name);
         user.setPassword("12345");
-        user.setEmail("users@users.com");
+        user.setEmail(name+"@users.com");
         user.setDateNew(new Date());
         user.setStatus(true);
-        getUserDao().createUser(user);
+        getUserDao().saveOrCreateUser(user);
         return user;
-
     }
-
-
-
 }
