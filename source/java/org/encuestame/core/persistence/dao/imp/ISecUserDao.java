@@ -36,9 +36,12 @@ import org.hibernate.HibernateException;
  */
 public interface ISecUserDao extends IBaseDao {
 
-    public SecUsers getUserByUsername(String username);
+    public SecUsers getUserByUsername(final String username)throws HibernateException;
 
     public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
+
+    public void assingGroupToUser(final SecGroupUser secGroupUser)
+    throws HibernateException;
 
     public List<SecUserPermission> getUserPermission(SecUsers user);
 

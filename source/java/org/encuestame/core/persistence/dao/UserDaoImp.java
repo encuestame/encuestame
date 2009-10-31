@@ -30,6 +30,7 @@ import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * SecUsers.
@@ -42,12 +43,11 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
     private static Logger log = Logger.getLogger(UserDaoImp.class);
 
     /**
-     * delete user
-     *
-     * @param user
-     *            to delete
+     * Delete User.
+     * @param user user
+     * @throws HibernateException hibernate
      */
-    public void delete(SecUsers user) throws HibernateException {
+    public void delete(final SecUsers user) throws HibernateException {
         getHibernateTemplate().delete(user);
 
     }
@@ -57,13 +57,12 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
      * @param user user
      * @throws HibernateException hibernate
      */
-    public void saveOrCreateUser(SecUsers user) throws HibernateException {
+    public void saveOrCreateUser(final SecUsers user) throws HibernateException {
         getHibernateTemplate().saveOrUpdate(user);
     }
 
     /**
-     * assig permission to user
-     *
+     * Assing permission to user.
      * @param secUsPer
      * @throws HibernateException
      */
@@ -73,19 +72,19 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
     }
 
     /**
-     * assing user to group
-     * @param gu
+     * Assing user to group.
+     * @param secGroupUser group user
      * @throws HibernateException
      */
-    public void assingGroupToUser(SecGroupUser secGroupUser) throws HibernateException {
+    public void assingGroupToUser(final SecGroupUser secGroupUser)
+                throws HibernateException {
         getHibernateTemplate().save(secGroupUser);
     }
 
     /**
-     * list all users
-     *
-     * @return
-     * @throws HibernateException
+     * Find All Users.
+     * @return list of all users
+     * @throws HibernateException hibernate
      */
     public Collection<SecUsers> findAll() throws HibernateException {
         return getHibernateTemplate().find("from SecUsers");
@@ -97,26 +96,20 @@ public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
      * @return SecUsers
      * @throws HibernateException hibernate exception
      */
-    public SecUsers getUserById(Long userId) throws HibernateException{
+    public SecUsers getUserById(final Long userId) throws HibernateException{
         return (SecUsers) getSession().get(SecUsers.class, Integer.valueOf(userId.toString()));
     }
 
     /**
-     * Obtiene el usuario por nombre de usuarui
-     *
-     * @param username
-     *            nombre de usuarii
-     * @return usuario o nulo si no lo encuentra
+     * Get list of user by username.
+     * @param username username
+     * @return list of users
      */
-    public SecUsers getUserByUsername(String username)throws HibernateException {
-        List<SecUsers> users = getHibernateTemplate().findByNamedQuery(
-                "User.loadUserByUserName", username);
-        // obtiene el primer elemento
-        if (users.size() > 0) {
-            return (SecUsers) users.get(0);
-        } else {
-            return null;
-        }
+    public SecUsers getUserByUsername(final String username)throws HibernateException {
+        return  (SecUsers) getSession()
+        .createCriteria(SecUsers.class)
+        .add(Restrictions.eq("username", username))
+        .uniqueResult();
     }
 
     /**
