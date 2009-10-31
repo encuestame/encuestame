@@ -1,9 +1,3 @@
-package org.encuestame.core.persistence.dao.imp;
-
-import java.util.Collection;
-
-import org.encuestame.core.persistence.pojo.SecGroups;
-import org.hibernate.HibernateException;
 
 /**
  * encuestame:  system online surveys
@@ -22,7 +16,14 @@ import org.hibernate.HibernateException;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
- *
+ */
+package org.encuestame.core.persistence.dao.imp;
+
+import java.util.Collection;
+
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.hibernate.HibernateException;
+/**
  * Id: ISecGroups.java Date: 11/05/2009 10:45:30
  * @author juanpicado
  * package: org.encuestame.core.persistence.dao.imp
@@ -34,10 +35,6 @@ public interface ISecGroups extends IBaseDao {
     public void update(SecGroups update) throws HibernateException;
     public void Delete(SecGroups group) throws HibernateException;
     public Collection<SecGroups> findAllGroups() throws HibernateException;
-
-
-
-
 
     }
 
