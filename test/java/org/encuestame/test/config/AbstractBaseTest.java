@@ -19,9 +19,12 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
+import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,11 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     @Autowired
     private ISecUserDao userDao;
 
+    /**Group Security Dao*/
+    @Autowired
+    private ISecGroups groupDao;
+
+
     /**
      * @return the catStateDaoImp
      */
@@ -85,6 +93,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public void setUserDao(final ISecUserDao userDao) {
         this.userDao = userDao;
+    }
+
+    public ISecGroups getSecGroup(){
+        return groupDao;
+    }
+
+    public void setgroupDao(final ISecGroups groupDao){
+        this.groupDao = groupDao;
     }
 
     /**
@@ -114,5 +130,18 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         user.setStatus(true);
         getUserDao().saveOrCreateUser(user);
         return user;
+    }
+    /**
+     * Helper to create Group.
+     * @param name user name
+     * @return state
+     */
+    public SecGroups createGroups(final String groupname){
+        SecGroups group = new SecGroups();
+        group.setName(groupname);
+        group.setIdState(1);
+        group.setDesInfo("Primer Grupo");
+        getSecGroup().newGroup(group);
+        return group;
     }
 }
