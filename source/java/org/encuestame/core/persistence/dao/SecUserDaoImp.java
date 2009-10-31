@@ -38,9 +38,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author Picado, Juan juan@encuestame.org
  * @since May 05, 2009
  */
-public class UserDaoImp extends HibernateDaoSupport implements ISecUserDao {
+public class SecUserDaoImp extends HibernateDaoSupport implements ISecUserDao {
 
-    private static Logger log = Logger.getLogger(UserDaoImp.class);
+    private static Logger log = Logger.getLogger(SecUserDaoImp.class);
 
     /**
      * Delete User.

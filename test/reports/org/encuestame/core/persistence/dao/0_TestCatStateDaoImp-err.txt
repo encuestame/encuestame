@@ -1,0 +1,134 @@
+51 [main] INFO org.hibernate.cfg.annotations.Version - Hibernate Annotations 3.4.0.CR1
+60 [main] INFO org.hibernate.cfg.Environment - Hibernate 3.3.1.GA
+62 [main] INFO org.hibernate.cfg.Environment - hibernate.properties not found
+65 [main] INFO org.hibernate.cfg.Environment - Bytecode provider name : javassist
+68 [main] INFO org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling
+114 [main] INFO org.hibernate.annotations.common.Version - Hibernate Commons Annotations 3.1.0.GA
+176 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatState
+203 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatState on table cat_state
+271 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatLocation
+271 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatLocation on table cat_location
+273 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatLocationType
+273 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatLocationType on table cat_location_type
+274 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatLocationUser
+274 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatLocationUser on table cat_location_user
+294 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.Project
+294 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.Project on table project
+305 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjectGroup
+305 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjectGroup on table project_group
+316 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjectLocation
+316 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjectLocation on table project_location
+330 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjectUser
+330 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjectUser on table project_user
+333 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjetCatLocation
+333 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjetCatLocation on table projet_cat_location
+335 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionColettion
+335 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionColettion on table question_colettion
+337 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.Questions
+337 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.Questions on table questions
+344 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionsAnswers
+344 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionsAnswers on table questions_answers
+347 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionsPatron
+347 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionsPatron on table questions_patron
+349 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionsRelations
+349 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionsRelations on table questions_relations
+351 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecGroupPermission
+351 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecGroupPermission on table sec_group_permission
+354 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecGroups
+354 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecGroups on table sec_groups
+371 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecGroupUser
+371 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecGroupUser on table sec_group_user
+375 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecInvite
+375 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecInvite on table sec_invite
+376 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecPermission
+376 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecPermission on table sec_permission
+379 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecUserPermission
+379 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecUserPermission on table sec_user_permission
+382 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecUsers
+382 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecUsers on table sec_users
+389 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyDetail
+389 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyDetail on table survey_detail
+395 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyFormat
+395 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyFormat on table survey_format
+397 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyFormatGroup
+397 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyFormatGroup on table survey_format_group
+410 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyGroup
+411 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyGroup on table survey_group
+413 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyGroupProject
+413 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyGroupProject on table survey_group_project
+416 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyResult
+416 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyResult on table survey_result
+417 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyResultMod
+418 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyResultMod on table survey_result_mod
+424 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.Surveys
+424 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.Surveys on table surveys
+429 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveySection
+429 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveySection on table survey_section
+430 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyTime
+431 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyTime on table survey_time
+484 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.CatState.projects -> project
+485 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.CatState.questionses -> questions
+485 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.CatState.surveySections -> survey_section
+485 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.projectGroups -> project_group
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.projectLocations -> project_location
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.projectUsers -> project_user
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.surveyGroupProjects -> survey_group_project
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.QuestionColettion.questionsRelationses -> questions_relations
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Questions.questionsAnswerses -> questions_answers
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Questions.questionsRelationses -> questions_relations
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Questions.surveyDetails -> survey_detail
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.projectGroups -> project_group
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.projectLocations -> project_location
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.secGroupPermissions -> sec_group_permission
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.secGroupUsers -> sec_group_user
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecPermission.secGroupPermissions -> sec_group_permission
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecPermission.secUserPermissions -> sec_user_permission
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.catLocationUsers -> cat_location_user
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.projectUsers -> project_user
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.questionColettions -> question_colettion
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.secGroupUsers -> sec_group_user
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.secUserPermissions -> sec_user_permission
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.surveyResultMods -> survey_result_mod
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.surveyses -> surveys
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyFormat.surveyDetails -> survey_detail
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyFormat.surveyFormatGroups -> survey_format_group
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyGroup.surveyFormatGroups -> survey_format_group
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyGroup.surveyGroupProjects -> survey_group_project
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyResult.surveyResultMods -> survey_result_mod
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Surveys.surveyTimes -> survey_time
+488 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveySection.surveyDetails -> survey_detail
+497 [main] INFO org.hibernate.validator.Version - Hibernate Validator 3.1.0.GA
+635 [main] INFO org.hibernate.connection.ConnectionProviderFactory - Initializing connection provider: org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider
+811 [main] INFO org.hibernate.cfg.SettingsFactory - RDBMS: MySQL, version: 5.1.31-1ubuntu2-log
+811 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC driver: MySQL-AB JDBC Driver, version: mysql-connector-java-5.0.7 ( $Date: 2007-03-09 22:13:57 +0100 (Fri, 09 Mar 2007) $, $Revision: 6341 $ )
+824 [main] INFO org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.MySQLInnoDBDialect
+827 [main] INFO org.hibernate.transaction.TransactionFactoryFactory - Transaction strategy: org.springframework.orm.hibernate3.SpringTransactionFactory
+827 [main] INFO org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+827 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+827 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+827 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+827 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Maximum outer join fetch depth: 2
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+830 [main] INFO org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+830 [main] INFO org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Query cache: disabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Statistics: disabled
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+902 [main] INFO org.hibernate.impl.SessionFactoryImpl - building session factory
+1300 [main] INFO org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+

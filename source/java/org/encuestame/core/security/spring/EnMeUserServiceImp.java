@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.persistence.dao.UserDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -41,12 +41,12 @@ import org.springframework.security.userdetails.UsernameNotFoundException;
  */
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
-    protected UserDaoImp userDao;
+    protected SecUserDaoImp userDao;
     protected Boolean roleGroupAuth = true;
     protected Boolean roleUserAuth;
     private static Logger log = Logger.getLogger(EnMeUserServiceImp.class);
 
-    public void setUserDao(UserDaoImp userDao) {
+    public void setUserDao(SecUserDaoImp userDao) {
         this.userDao = userDao;
     }
 

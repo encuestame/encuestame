@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="jotadeveloper-desktop" name="org.encuestame.core.persistence.dao.TestCatStateDaoImp" tests="1" time="2.798" timestamp="2009-10-31T06:12:29">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="cobertura.classes.instrument" value="/home/jpicado/workspacesJava/encuestame/build//cobertura/instrument/" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot Tiered Compilers" />
+    <property name="cobertura.report.dir" value="/home/jpicado/workspacesJava/encuestame/build//cobertura//report" />
+    <property name="os.name" value="Linux" />
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rhino.jar:/usr/lib/jvm/java-6-openjdk/jre/classes" />
+    <property name="test.reports.dir" value="test//reports/" />
+    <property name="findbugs.home" value="/opt/findbugs" />
+    <property name="sun.desktop" value="gnome" />
+    <property name="build.compile" value="/home/jpicado/workspacesJava/encuestame/build/compile/" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="net.sourceforge.cobertura.datafile" value="/home/jpicado/workspacesJava/encuestame/build/cobertura/instrument/cobertura.ser" />
+    <property name="ant.home" value="/usr/share/ant" />
+    <property name="src.properties" value="source/config/properties/" />
+    <property name="java.runtime.version" value="1.6.0_0-b14" />
+    <property name="cobertura.dir" value="/opt/cobertura/" />
+    <property name="user.name" value="jpicado" />
+    <property name="src.java" value="source/java/" />
+    <property name="src.jsf" value="source/config/jsf/" />
+    <property name="user.language" value="es" />
+    <property name="cobertura.xml.dir" value="/home/jpicado/workspacesJava/encuestame/build//cobertura//junit" />
+    <property name="build" value="/home/jpicado/workspacesJava/encuestame/build/" />
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/i386" />
+    <property name="src.templates" value="source/xhtml/templates/" />
+    <property name="webcontent" value="WebContent" />
+    <property name="ant.project.name" value="encuestame" />
+    <property name="java.version" value="1.6.0_0" />
+    <property name="user.timezone" value="" />
+    <property name="em.version" value="1.0-beta" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="cobertura.jar.file" value="cobertura.jar" />
+    <property name="user.zoneinfo.dir" value="/usr/share/javazi" />
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-6-openjdk/jre/lib/endorsed" />
+    <property name="doc" value="/home/jpicado/workspacesJava/encuestame/build//javadoc" />
+    <property name="em.app.lib" value="lib/" />
+    <property name="sun.cpu.isalist" value="" />
+    <property name="sun.jnu.encoding" value="UTF-8" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="cobertura.data.dir" value="/home/jpicado/workspacesJava/encuestame/build//cobertura/" />
+    <property name="file.separator" value="/" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="src.spring" value="source/config/spring/" />
+    <property name="java.class.version" value="50.0" />
+    <property name="user.country" value="CR" />
+    <property name="java.home" value="/usr/lib/jvm/java-6-openjdk/jre" />
+    <property name="dist.dir" value="dist/" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="build.class" value="/home/jpicado/workspacesJava/encuestame/build/compile/prod/" />
+    <property name="ant.file" value="/home/jpicado/workspacesJava/encuestame/build.xml" />
+    <property name="os.version" value="2.6.28-15-generic" />
+    <property name="path.separator" value=":" />
+    <property name="webapp.dir" value="/home/jpicado/workspacesJava/encuestame" />
+    <property name="test.results.dir" value="test//result/" />
+    <property name="java.vm.version" value="14.0-b08" />
+    <property name="report.dir" value="/home/jpicado/workspacesJava/encuestame/report/" />
+    <property name="ant.library.dir" value="/usr/share/ant/lib" />
+    <property name="src.code" value="source/" />
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="web-inf" value="WebContent/WEB-INF/" />
+    <property name="user.home" value="/home/jpicado" />
+    <property name="src.re" value="source/resources/" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="src.user" value="source/xhtml//user" />
+    <property name="test.dir" value="test/" />
+    <property name="java.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib" />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="src.taglibs" value="source/taglibs/" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+    <property name="ant.version" value="Apache Ant version 1.7.1 compiled on November 10 2008" />
+    <property name="java.class.path" value="/home/jpicado/workspacesJava/encuestame/build/cobertura/instrument:/home/jpicado/workspacesJava/encuestame/lib/activation-1.1.jar:/home/jpicado/workspacesJava/encuestame/lib/ant-junit-1.7.0.jar:/home/jpicado/workspacesJava/encuestame/lib/antlr-2.7.6.jar:/home/jpicado/workspacesJava/encuestame/lib/asm-attrs.jar:/home/jpicado/workspacesJava/encuestame/lib/asm.jar:/home/jpicado/workspacesJava/encuestame/lib/c3p0-0.9.0.jar:/home/jpicado/workspacesJava/encuestame/lib/cglib-2.2.jar:/home/jpicado/workspacesJava/encuestame/lib/checkstyle-5.0.jar:/home/jpicado/workspacesJava/encuestame/lib/common-annotations.jar:/home/jpicado/workspacesJava/encuestame/lib/commons-beanutils-1.7.0.jar:/home/jpicado/workspacesJava/encuestame/lib/commons-codec-1.3.jar:/home/jpicado/workspacesJava/encuestame/lib/commons-collections-3.2.1.jar:/home/jpicado/workspacesJava/encuestame/lib/commons-digester-1.8.jar:/home/jpicado/workspacesJava/encuestame/lib/commons-lang-2.1.jar:/home/jpicado/workspacesJava/encuestame/lib/commons-logging-1.0.4.jar:/home/jpicado/workspacesJava/encuestame/lib/darkX-3.2.2.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/dom4j-1.6.1.jar:/home/jpicado/workspacesJava/encuestame/lib/ehcache-1.2.jar:/home/jpicado/workspacesJava/encuestame/lib/ejb3-persistence.jar:/home/jpicado/workspacesJava/encuestame/lib/findbugs-ant.jar:/home/jpicado/workspacesJava/encuestame/lib/glassX-3.2.2.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/gmaps4jsf-core-1.1.1.jar:/home/jpicado/workspacesJava/encuestame/lib/hibernate-annotations.jar:/home/jpicado/workspacesJava/encuestame/lib/hibernate-commons-annotations.jar:/home/jpicado/workspacesJava/encuestame/lib/hibernate-validator.jar:/home/jpicado/workspacesJava/encuestame/lib/hibernate3.jar:/home/jpicado/workspacesJava/encuestame/lib/jasypt-1.5.jar:/home/jpicado/workspacesJava/encuestame/lib/javassist.jar:/home/jpicado/workspacesJava/encuestame/lib/jaxen-1.1.1.jar:/home/jpicado/workspacesJava/encuestame/lib/jdom.jar:/home/jpicado/workspacesJava/encuestame/lib/jsf-api-1.2_09.jar:/home/jpicado/workspacesJava/encuestame/lib/jsf-facelets-1.1.14.jar:/home/jpicado/workspacesJava/encuestame/lib/jsf-impl-1.2_09.jar:/home/jpicado/workspacesJava/encuestame/lib/jsf-tlds.jar:/home/jpicado/workspacesJava/encuestame/lib/jstl-1.2.jar:/home/jpicado/workspacesJava/encuestame/lib/jta.jar:/home/jpicado/workspacesJava/encuestame/lib/junit-4.4.jar:/home/jpicado/workspacesJava/encuestame/lib/laguna-3.2.2.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/laguna-3.3.0.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/log4j-1.2.11.jar:/home/jpicado/workspacesJava/encuestame/lib/mail-1.4.jar:/home/jpicado/workspacesJava/encuestame/lib/mysql-connector-java-5.0.7-bin.jar:/home/jpicado/workspacesJava/encuestame/lib/pmd-4.1.jar:/home/jpicado/workspacesJava/encuestame/lib/richfaces-api-3.3.0.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/richfaces-impl-3.3.0.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/richfaces-ui-3.3.0.GA.jar:/home/jpicado/workspacesJava/encuestame/lib/servlet-api.jar:/home/jpicado/workspacesJava/encuestame/lib/slf4j-api-1.5.5.jar:/home/jpicado/workspacesJava/encuestame/lib/slf4j-simple-1.5.5.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-aop.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-beans.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-context.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-core.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-jdbc.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-security-acl-2.0.3.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-security-core-2.0.3.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-security-core-tiger-2.0.3.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-security-taglibs-2.0.3.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-test.jar:/home/jpicado/workspacesJava/encuestame/lib/spring-web.jar:/home/jpicado/workspacesJava/encuestame/lib/spring.jar:/home/jpicado/workspacesJava/encuestame/lib/standard.jar:/home/jpicado/workspacesJava/encuestame/lib/urlrewrite-2.6.0.jar:/home/jpicado/workspacesJava/encuestame/lib/xerces.jar:/home/jpicado/workspacesJava/encuestame/build/compile/prod:/opt/cobertura/cobertura.jar:/home/jpicado/workspacesJava/encuestame/test/java:/home/jpicado/workspacesJava/encuestame/build/compile/test:/home/jpicado/workspacesJava/encuestame/source/config/spring:/home/jpicado/workspacesJava/encuestame/source/config/properties:/usr/share/ant/lib/junit.jar:/usr/share/ant/lib/ant-launcher.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-junit.jar" />
+    <property name="ant.file.encuestame" value="/home/jpicado/workspacesJava/encuestame/build.xml" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="sun.os.patch.level" value="unknown" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="src.test" value="/home/jpicado/workspacesJava/encuestame/test/java/" />
+    <property name="java.io.tmpdir" value="/tmp" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="em.app.name" value="encuestame" />
+    <property name="src.scripts" value="source/scripts/" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="os.arch" value="i386" />
+    <property name="cobertura.ser.file" value="/home/jpicado/workspacesJava/encuestame/build//cobertura/instrument//cobertura.ser" />
+    <property name="src.js" value="source/scripts/js/" />
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/usr/java/packages/lib/ext" />
+    <property name="src.pages" value="source/xhtml/pages/" />
+    <property name="user.dir" value="/home/jpicado/workspacesJava/encuestame" />
+    <property name="src.xhtml" value="source/xhtml/" />
+    <property name="src.config" value="source/config/" />
+    <property name="line.separator" value="
+" />
+    <property name="java.vm.name" value="OpenJDK Server VM" />
+    <property name="src.schema" value="source/schema" />
+    <property name="basedir" value="/home/jpicado/workspacesJava/encuestame" />
+    <property name="ant.java.version" value="1.6" />
+    <property name="ant.core.lib" value="/usr/share/ant/lib/ant.jar" />
+    <property name="jar.name" value="encuestame-core.jar" />
+    <property name="file.encoding" value="UTF-8" />
+    <property name="war.name" value="encuestame.war" />
+    <property name="build.test" value="/home/jpicado/workspacesJava/encuestame/build/compile/test/" />
+    <property name="test.source" value="test/java/" />
+    <property name="em.app.webcontent" value="WebContent/" />
+    <property name="java.specification.version" value="1.6" />
+  </properties>
+  <testcase classname="org.encuestame.core.persistence.dao.TestCatStateDaoImp" name="testListCatState" time="0.292" />
+  <system-out><![CDATA[org.encuestame.core.persistence.pojo.CatState@127ff0d
+1
+]]></system-out>
+  <system-err><![CDATA[51 [main] INFO org.hibernate.cfg.annotations.Version - Hibernate Annotations 3.4.0.CR1
+60 [main] INFO org.hibernate.cfg.Environment - Hibernate 3.3.1.GA
+62 [main] INFO org.hibernate.cfg.Environment - hibernate.properties not found
+65 [main] INFO org.hibernate.cfg.Environment - Bytecode provider name : javassist
+68 [main] INFO org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling
+114 [main] INFO org.hibernate.annotations.common.Version - Hibernate Commons Annotations 3.1.0.GA
+176 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatState
+203 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatState on table cat_state
+271 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatLocation
+271 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatLocation on table cat_location
+273 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatLocationType
+273 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatLocationType on table cat_location_type
+274 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.CatLocationUser
+274 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.CatLocationUser on table cat_location_user
+294 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.Project
+294 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.Project on table project
+305 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjectGroup
+305 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjectGroup on table project_group
+316 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjectLocation
+316 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjectLocation on table project_location
+330 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjectUser
+330 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjectUser on table project_user
+333 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.ProjetCatLocation
+333 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.ProjetCatLocation on table projet_cat_location
+335 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionColettion
+335 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionColettion on table question_colettion
+337 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.Questions
+337 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.Questions on table questions
+344 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionsAnswers
+344 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionsAnswers on table questions_answers
+347 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionsPatron
+347 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionsPatron on table questions_patron
+349 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.QuestionsRelations
+349 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.QuestionsRelations on table questions_relations
+351 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecGroupPermission
+351 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecGroupPermission on table sec_group_permission
+354 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecGroups
+354 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecGroups on table sec_groups
+371 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecGroupUser
+371 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecGroupUser on table sec_group_user
+375 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecInvite
+375 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecInvite on table sec_invite
+376 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecPermission
+376 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecPermission on table sec_permission
+379 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecUserPermission
+379 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecUserPermission on table sec_user_permission
+382 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SecUsers
+382 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SecUsers on table sec_users
+389 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyDetail
+389 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyDetail on table survey_detail
+395 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyFormat
+395 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyFormat on table survey_format
+397 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyFormatGroup
+397 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyFormatGroup on table survey_format_group
+410 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyGroup
+411 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyGroup on table survey_group
+413 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyGroupProject
+413 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyGroupProject on table survey_group_project
+416 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyResult
+416 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyResult on table survey_result
+417 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyResultMod
+418 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyResultMod on table survey_result_mod
+424 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.Surveys
+424 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.Surveys on table surveys
+429 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveySection
+429 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveySection on table survey_section
+430 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.encuestame.core.persistence.pojo.SurveyTime
+431 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity org.encuestame.core.persistence.pojo.SurveyTime on table survey_time
+484 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.CatState.projects -> project
+485 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.CatState.questionses -> questions
+485 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.CatState.surveySections -> survey_section
+485 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.projectGroups -> project_group
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.projectLocations -> project_location
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.projectUsers -> project_user
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Project.surveyGroupProjects -> survey_group_project
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.QuestionColettion.questionsRelationses -> questions_relations
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Questions.questionsAnswerses -> questions_answers
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Questions.questionsRelationses -> questions_relations
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Questions.surveyDetails -> survey_detail
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.projectGroups -> project_group
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.projectLocations -> project_location
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.secGroupPermissions -> sec_group_permission
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecGroups.secGroupUsers -> sec_group_user
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecPermission.secGroupPermissions -> sec_group_permission
+486 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecPermission.secUserPermissions -> sec_user_permission
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.catLocationUsers -> cat_location_user
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.projectUsers -> project_user
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.questionColettions -> question_colettion
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.secGroupUsers -> sec_group_user
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.secUserPermissions -> sec_user_permission
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.surveyResultMods -> survey_result_mod
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SecUsers.surveyses -> surveys
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyFormat.surveyDetails -> survey_detail
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyFormat.surveyFormatGroups -> survey_format_group
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyGroup.surveyFormatGroups -> survey_format_group
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyGroup.surveyGroupProjects -> survey_group_project
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveyResult.surveyResultMods -> survey_result_mod
+487 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.Surveys.surveyTimes -> survey_time
+488 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.encuestame.core.persistence.pojo.SurveySection.surveyDetails -> survey_detail
+497 [main] INFO org.hibernate.validator.Version - Hibernate Validator 3.1.0.GA
+635 [main] INFO org.hibernate.connection.ConnectionProviderFactory - Initializing connection provider: org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider
+811 [main] INFO org.hibernate.cfg.SettingsFactory - RDBMS: MySQL, version: 5.1.31-1ubuntu2-log
+811 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC driver: MySQL-AB JDBC Driver, version: mysql-connector-java-5.0.7 ( $Date: 2007-03-09 22:13:57 +0100 (Fri, 09 Mar 2007) $, $Revision: 6341 $ )
+824 [main] INFO org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.MySQLInnoDBDialect
+827 [main] INFO org.hibernate.transaction.TransactionFactoryFactory - Transaction strategy: org.springframework.orm.hibernate3.SpringTransactionFactory
+827 [main] INFO org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+827 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+827 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+827 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+827 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Maximum outer join fetch depth: 2
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+828 [main] INFO org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+830 [main] INFO org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+830 [main] INFO org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Query cache: disabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+830 [main] INFO org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Statistics: disabled
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+834 [main] INFO org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+902 [main] INFO org.hibernate.impl.SessionFactoryImpl - building session factory
+1300 [main] INFO org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+]]></system-err>
+</testsuite>

@@ -13,7 +13,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
-import org.encuestame.core.persistence.dao.UserDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecGroupUserId;
@@ -53,19 +53,19 @@ import org.springframework.mail.MailSendException;
 public class SecurityService extends MasterService implements ISecurityService {
 
     private Log log = LogFactory.getLog(this.getClass());
-    private UserDaoImp userDao;
+    private SecUserDaoImp secUserDao;
     private SecGroupDaoImp groupDao;
     private SecPermissionDaoImp permissionDao;
     private MailServiceImpl serviceMail;
     private String defaultUserPermission;
     private Boolean suspendedNotification;
 
-    public UserDaoImp getUserDao() {
-        return userDao;
+    public SecUserDaoImp getUserDao() {
+        return secUserDao;
     }
 
-    public void setUserDao(UserDaoImp userDao) {
-        this.userDao = userDao;
+    public void setUserDao(SecUserDaoImp userDao) {
+        this.secUserDao = userDao;
     }
 
     public SecGroupDaoImp getGroupDao() {

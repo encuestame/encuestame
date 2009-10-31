@@ -60,7 +60,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     /** User Security Dao. **/
     @Autowired
-    private ISecUserDao userDao;
+    private ISecUserDao secUserDao;
 
     /**Group Security Dao*/
     @Autowired
@@ -84,15 +84,15 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /**
      * @return the userDao
      */
-    public ISecUserDao getUserDao() {
-        return userDao;
+    public ISecUserDao getSecUserDao() {
+        return secUserDao;
     }
 
     /**
      * @param userDao the userDao to set
      */
-    public void setUserDao(final ISecUserDao userDao) {
-        this.userDao = userDao;
+    public void setSecUserDao(final ISecUserDao userDao) {
+        this.secUserDao = userDao;
     }
 
     public ISecGroups getSecGroup(){
@@ -128,7 +128,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         user.setEmail(name+"@users.com");
         user.setDateNew(new Date());
         user.setStatus(true);
-        getUserDao().saveOrCreateUser(user);
+        getSecUserDao().saveOrCreateUser(user);
         return user;
     }
     /**

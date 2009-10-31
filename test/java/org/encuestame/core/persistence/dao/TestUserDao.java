@@ -17,6 +17,9 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import org.encuestame.core.persistence.pojo.SecGroupUser;
+import org.encuestame.core.persistence.pojo.SecGroupUserId;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
@@ -44,8 +47,8 @@ public class TestUserDao extends AbstractBaseTest {
     @Test
     public void testDeleteUser() {
         final SecUsers user = super.createUsers("user 1");
-        getUserDao().delete(user);
-        assertEquals("Should be equals",0, getUserDao().findAll().size());
+        getSecUserDao().delete(user);
+        assertEquals("Should be equals",0, getSecUserDao().findAll().size());
     }
 
     /**
@@ -55,7 +58,7 @@ public class TestUserDao extends AbstractBaseTest {
     public void testFindAllUsers() {
         super.createUsers("user 1");
         super.createUsers("user 2");
-        assertEquals("Should be equals",2, getUserDao().findAll().size());
+        assertEquals("Should be equals",2, getSecUserDao().findAll().size());
     }
 
     /**
@@ -68,13 +71,40 @@ public class TestUserDao extends AbstractBaseTest {
         final SecUsers user = super.createUsers("user 1");
         user.setPassword(newPassword);
         user.setEmail(newEmail);
-        getUserDao().saveOrCreateUser(user);
-        final SecUsers retrieveUser = getUserDao().getUserById(Long.valueOf(
+        getSecUserDao().saveOrCreateUser(user);
+        final SecUsers retrieveUser = getSecUserDao().getUserById(Long.valueOf(
               user.getUid().toString()));
         assertEquals("Password should be",newPassword,
                       retrieveUser.getPassword());
         assertEquals("Email should be",newEmail,
                 retrieveUser.getEmail());
+    }
+
+    /**
+     * Test Get User by Username.
+     */
+    @Test
+    public void testGetUserByUsername(){
+          final SecUsers user = super.createUsers("user 3");
+          final SecUsers retrieveUser = getSecUserDao()
+          .getUserByUsername(user.getUsername());
+          assertEquals("Username should be",user.getUsername(),
+          retrieveUser.getUsername());
+    }
+
+    @Test
+    public void testassingGroupToUser(){
+        final SecUsers user = super.createUsers("user 4");
+        final SecGroups group = super.createGroups("group 1");
+        final SecGroupUserId id = new SecGroupUserId();
+        id.setGroupId(group.getGroupId());
+        id.setUid(user.getUid());
+        final SecGroupUser secGroupUser = new SecGroupUser();
+        secGroupUser.setId(id);
+        getSecUserDao().assingGroupToUser(secGroupUser);
+        System.out.println(secGroupUser.getSecGroups());
+        System.out.println(secGroupUser.getSecUsers());
+        assertNotNull(secGroupUser.getId());
     }
 
 

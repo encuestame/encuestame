@@ -60,7 +60,7 @@
         </property>
     </bean>
 
-    <bean id="userDao" class="org.encuestame.core.persistence.dao.UserDaoImp">
+    <bean id="secUserDao" class="org.encuestame.core.persistence.dao.SecUserDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
@@ -136,7 +136,7 @@
 
     <bean id="securityService" class="org.encuestame.core.service.SecurityService">
         <property name="userDao">
-            <ref bean="userDao"></ref>
+            <ref bean="secUserDao"></ref>
         </property>
         <property name="groupDao">
             <ref bean="secGroupDaoImp"></ref>
