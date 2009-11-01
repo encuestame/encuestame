@@ -26,6 +26,8 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUserPermissionId;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,5 +181,20 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         permission.setPermission(permissionName);
         getSecPermissionDaoImp().saveOrUpdate(permission);
         return permission;
+    }
+
+    /**
+     * Helper to add permission to user.
+     * @param user user
+     * @param permission permission
+     */
+    public void addPermissionToUser(final SecUsers user, final SecPermission permission){
+            final SecUserPermission userPerId = new SecUserPermission();
+            final SecUserPermissionId id = new SecUserPermissionId();
+            id.setIdPermission(permission.getIdPermission());
+            id.setUid(user.getUid());
+            userPerId.setId(id);
+            userPerId.setState(true);
+            getSecUserDao().saveOrUpdate(userPerId);
     }
 }
