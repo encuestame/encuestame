@@ -30,5 +30,6 @@ import org.hibernate.HibernateException;
  */
 public interface ISecGroups extends IBaseDao {
     public Collection<SecGroups> findAllGroups() throws HibernateException;
+    public SecGroups getGroupById(Long groupId) throws HibernateException;
 }
 

@@ -17,13 +17,9 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import com.puppycrawl.tools.checkstyle.checks.coding.SuperCloneCheck;
-
-import org.encuestame.test.config.AbstractBaseTest;
-import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
-import org.junit.Test;
 import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.test.config.AbstractBaseTest;
+import org.junit.Test;
 /**
  * UserDao.
  *
@@ -69,12 +65,12 @@ public class TestSecGroupDaoImp extends AbstractBaseTest{
     group.setName(newname);
     group.setDesInfo(newdescription);
     getSecGroup().saveOrUpdate(group);
-   /* final SecGroups retrieveGroup = getSecGroup().getGroupById(Long.valueOf(
+    final SecGroups retrieveGroup = getSecGroup().getGroupById(Long.valueOf(
           group.getGroupId().toString()));
     assertEquals("New Name should be",newname,
             retrieveGroup.getName());
     assertEquals("New Description should be",newdescription,
-            retrieveGroup.getDesInfo());*/
+            retrieveGroup.getDesInfo());
     }
 
 }
