@@ -22,7 +22,6 @@ import java.util.List;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecGroupUserId;
 import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
@@ -102,18 +101,14 @@ public class TestUserDao extends AbstractBaseTest {
     public void testAssingGroupToUser(){
         final SecUsers user = super.createUsers("user 4");
         final SecGroups group = super.createGroups("group 1");
-        final SecGroupUserId id = new SecGroupUserId();
-        id.setGroupId(group.getGroupId());
-        id.setUid(user.getUid());
-        final SecGroupUser secGroupUser = new SecGroupUser();
-        secGroupUser.setId(id);
-        secGroupUser.setSecUsers(user);
-        secGroupUser.setSecGroups(group);
-        getSecUserDao().assingGroupToUser(secGroupUser);
-        List<SecUserPermission> permissions = getSecUserDao()
-                                .getUserPermission(user);
-              assertNotNull(secGroupUser.getId());
+        super.addGroupUser(user, group);
+        final List<SecGroupUser> groups = getSecUserDao()
+                                .getUserGroups(user);
+        assertEquals("Should be equals", 1,groups.size());
     }
 
+    @Test
+    public void testgetGroupPermission(){
 
+    }
 }

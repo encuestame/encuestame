@@ -24,6 +24,10 @@ import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.SecGroupPermission;
+import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
+import org.encuestame.core.persistence.pojo.SecGroupUser;
+import org.encuestame.core.persistence.pojo.SecGroupUserId;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
@@ -189,12 +193,50 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @param permission permission
      */
     public void addPermissionToUser(final SecUsers user, final SecPermission permission){
-            final SecUserPermission userPerId = new SecUserPermission();
-            final SecUserPermissionId id = new SecUserPermissionId();
-            id.setIdPermission(permission.getIdPermission());
-            id.setUid(user.getUid());
-            userPerId.setId(id);
-            userPerId.setState(true);
-            getSecUserDao().saveOrUpdate(userPerId);
+        final SecUserPermission userPerId = new SecUserPermission();
+        final SecUserPermissionId id = new SecUserPermissionId();
+        id.setIdPermission(permission.getIdPermission());
+        id.setUid(user.getUid());
+        userPerId.setId(id);
+        userPerId.setState(true);
+        getSecUserDao().saveOrUpdate(userPerId);
+    }
+
+    /**
+     * Helper to add user to group.
+     * @param user user
+     * @param group group
+     */
+    public void addGroupUser(
+            final SecUsers user,
+            final SecGroups group)
+    {
+        final SecGroupUserId id = new SecGroupUserId();
+        id.setGroupId(group.getGroupId());
+        id.setUid(user.getUid());
+        final SecGroupUser secGroupUser = new SecGroupUser();
+        secGroupUser.setId(id);
+        secGroupUser.setSecUsers(user);
+        secGroupUser.setSecGroups(group);
+        getSecUserDao().assingGroupToUser(secGroupUser);
+    }
+
+    /**
+     * Helper permission to group.
+     * @param permission permission
+     * @param group group
+     */
+    public void addPermissionToGroup(
+            final SecPermission permission,
+            final SecGroups group)
+    {
+        final SecGroupPermissionId groupPermissionId = new SecGroupPermissionId();
+        groupPermissionId.setGroupId(group.getGroupId());
+        groupPermissionId.setIdPermission(permission.getIdPermission());
+        final SecGroupPermission groupPermission = new SecGroupPermission();
+        groupPermission.setId(groupPermissionId);
+        groupPermission.setSecGroups(group);
+        groupPermission.setSecPermission(permission);
+        getSecGroup().saveOrUpdate(groupPermission);
     }
 }
