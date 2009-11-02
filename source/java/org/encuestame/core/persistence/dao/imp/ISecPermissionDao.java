@@ -31,7 +31,7 @@ import org.hibernate.HibernateException;
  */
 public interface ISecPermissionDao extends IBaseDao {
 
-    public Collection<SecUserPermission> loadPermissionByUser(Integer id) throws HibernateException;
+    public Collection<SecUserPermission> loadPermissionByUserId(Integer id) throws HibernateException;
     public Collection<SecPermission> loadAllPermissions() throws HibernateException;
     public SecPermission loadPermission(String permission) throws HibernateException;
 

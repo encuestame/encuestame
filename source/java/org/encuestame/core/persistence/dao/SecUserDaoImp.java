@@ -40,17 +40,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUserDao {
 
-
-    /**
-     * Assing permission to user.
-     * @param secUsPer
-     * @throws HibernateException
-     */
-    public void assingPermissiontoUser(SecUserPermission secUsPer)
-            throws HibernateException {
-        getHibernateTemplate().save(secUsPer);
-    }
-
     /**
      * Assing user to group.
      * @param secGroupUser group user
@@ -140,20 +129,13 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     }
 
     /**
-     * List of groups for one user
-     *
-     * @param username
+     * List of groups for one user.
+     * @param username username
      * @return list of user groups
      */
-    public List<SecGroupUser> getUserGroups(SecUsers user) {
-        log.info("buscando getUserGroups " + user);
-        List<SecGroupUser> userGroups = getHibernateTemplate()
-                .findByNamedQuery("User.loadGroupsUser", user);
-        if (userGroups == null || userGroups.size() == 0) {
-            return null;
-        } else {
-            log.info("encontrado userGroups->" + userGroups.size());
-            return userGroups;
-        }
+    public List<SecGroupUser> getUserGroups(final SecUsers user) {
+        return getHibernateTemplate()
+                .findByNamedParam("from SecGroupUser "
+                 +" where secUsers = :user ", "user", user);
     }
 }
