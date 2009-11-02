@@ -196,7 +196,7 @@ public class SecurityService extends MasterService implements ISecurityService {
         if (id != null) {
             UnitPermission per = new UnitPermission();
             Collection<SecUserPermission> listSecGru = getPermissionDao()
-                    .loadPermissionByUser(id);
+                    .loadPermissionByUserId(id);
             for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
                     .hasNext();) {
                 SecUserPermission permission = i.next();
@@ -440,7 +440,7 @@ public class SecurityService extends MasterService implements ISecurityService {
             id.setUid(user.getId());
             userPerId.setId(id);
             userPerId.setState(true);
-            getUserDao().assingPermissiontoUser(userPerId);
+            getUserDao().saveOrUpdate(userPerId);
         } else {
             throw new EnMeExpcetion("id user or permission null");
         }
