@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.test.config.AbstractBaseTest;
-import org.hibernate.annotations.Loader;
 import org.junit.Test;
 
 /**
@@ -32,13 +31,25 @@ import org.junit.Test;
 
 public class TestCatStateDaoImp extends AbstractBaseTest{
 
+    /**
+     * Test Find All States.
+     */
     @Test
     public void testListCatState(){
-        CatState state = super.createState("state1");
-        System.out.println(state);
-        List<CatState> listStates = getCatStateDaoImp().findAll();
-        System.out.println(listStates.size());
+        super.createState("state1");
+        final List<CatState> listStates = getCatStateDaoImp().findAll();
         assertNotNull(listStates);
         assertEquals(listStates.size(),listStates.size());
+    }
+
+    /**
+     * Test Get State By Id.
+     */
+    @Test
+    public void testGroupById(){
+        final CatState state = super.createState("state 2");
+        final CatState retrieveState = getCatStateDaoImp()
+        .getState(state.getIdState());
+        assertNotNull(retrieveState);
     }
 }
