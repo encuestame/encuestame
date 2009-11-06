@@ -82,36 +82,29 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     }
 
     /**
-     * Obtiene una lista de Permisos de los diferentes grupos a los que
-     * pertenece
-     *
-     * @param lista
-     *            de grupos
-     * @return lista de permisos
+     * Retrieve a list of permissions by group.
+     * @param groups list of groups
+     * @return list of permissions.
      */
-    public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups) {
-        List<SecGroupPermission> listGroupPermission = new ArrayList<SecGroupPermission>();
-        Iterator<SecGroupUser> iList = groups.iterator();
-        log.info("iniciando el while");
+    @SuppressWarnings("unchecked")
+    public List<SecGroupPermission> getGroupPermission(final List<SecGroupUser> groups) {
+        final List<SecGroupPermission> listGroupPermission = new ArrayList<SecGroupPermission>();
+        final Iterator<SecGroupUser> iList = groups.iterator();
         while (iList.hasNext()) {
-            SecGroupUser secGroups = (SecGroupUser) iList.next();
-            log.info("secGroups " + secGroups.getSecGroups().getName());
+            final SecGroupUser secGroups = (SecGroupUser) iList.next();
             List<SecGroupPermission> permission = getHibernateTemplate()
-                    .findByNamedQuery("User.loadGroupPermission",
+                    .findByNamedParam("from SecGroupPermission d where d.secGroups = :groupId", "groupId",
                             secGroups.getSecGroups());
-            log.info("permission para " + secGroups.getSecGroups().getName()
-                    + "->" + permission.size());
             if (permission != null && permission.size() > 0) {
                 Iterator<SecGroupPermission> ilistPermission = permission
                         .iterator();
                 while (ilistPermission.hasNext()) {
-                    SecGroupPermission secPermission = (SecGroupPermission) ilistPermission
+                    final SecGroupPermission secPermission = (SecGroupPermission) ilistPermission
                             .next();
                     listGroupPermission.add(secPermission);
                 }
             }
         }
-        log.info("lista de permisos " + listGroupPermission.size());
         return listGroupPermission;
     }
 
