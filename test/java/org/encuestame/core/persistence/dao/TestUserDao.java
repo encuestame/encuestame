@@ -17,11 +17,14 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecGroupUserId;
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
@@ -107,8 +110,20 @@ public class TestUserDao extends AbstractBaseTest {
         assertEquals("Should be equals", 1,groups.size());
     }
 
+    /**
+     * Test Search Group Permission.
+     */
     @Test
     public void testgetGroupPermission(){
-
+        final SecUsers user = super.createUsers("user 1");
+        final SecGroups security = super.createGroups("group 1");
+        addGroupUser(user, security);
+        final SecPermission editor = super.createPermission("permission");
+        final SecPermission admon = super.createPermission("admon");
+        addPermissionToGroup(admon, security);
+        addPermissionToGroup(editor, security);
+        final List<SecGroupPermission> listofPermissions = getSecUserDao()
+        .getGroupPermission(getSecUserDao().getUserGroups(user));
+        assertEquals("Should be equals",2, listofPermissions.size());
     }
 }
