@@ -46,7 +46,6 @@ public class CatStateDaoImp extends AbstractHibernateDaoSupport implements ICatS
      * @return state
      */
     public CatState getState(final Integer id) throws HibernateException {
-        return (CatState) getHibernateTemplate().findByNamedQuery(
-                "State.loadStateByUsername", id);
+        return (CatState) getHibernateTemplate().get(CatState.class, id);
     }
 }

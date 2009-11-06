@@ -19,11 +19,9 @@
 package org.encuestame.core.persistence.dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
@@ -31,7 +29,7 @@ import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
 /**
  * SecUsers.
  *
@@ -114,7 +112,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @return list of permissions
      */
     @SuppressWarnings("unchecked")
-    public List<SecUserPermission> getUserPermission(SecUsers user) {
+    public List<SecUserPermission> getUserPermission(final SecUsers user) {
         return getHibernateTemplate()
                 .findByNamedParam("from " +
                         "SecUserPermission  where secUsers.uid "
