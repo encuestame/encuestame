@@ -1,49 +1,46 @@
+/**
+ * encuestame:  system online surveys
+ * Copyright (C) 2005-2008 encuestame Development Team
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 3 of the GNU General Public
+ * License as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
 package org.encuestame.core.service;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.dao.CatLocationDaoImp;
+import org.encuestame.core.persistence.dao.CatLocationDao;
 import org.encuestame.core.persistence.dao.CatStateDaoImp;
 import org.encuestame.core.persistence.dao.ProjectDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.web.beans.admon.UnitUserBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
-
+import org.hibernate.HibernateException;
 /**
- * encuestame: system online surveys Copyright (C) 2005-2008 encuestame
- * Development Team
+ * Data Services.
  *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: DataService.java Date: 27/04/2009
- *
- * @author juanpicado package: org.encuestame.core.service
- * @version 1.0
+ * @author Picado, Juan juan@encuestame.org
+ * @since April 27, 2009
  */
 public class DataService extends MasterService implements IDataService {
 
     private CatStateDaoImp stateDao;
-    private CatLocationDaoImp catLocationDaoImp;
-    private ProjectDaoImp proyectDaoImp;
+    private CatLocationDao catLocationDao;
+    private ProjectDaoImp projectDaoImp;
 
     /**
      *
@@ -51,7 +48,7 @@ public class DataService extends MasterService implements IDataService {
      */
     public Collection<UnitProjectBean> loadListProjects() {
         Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-        Collection<Project> list = getProyectDaoImp().findAll();
+        Collection<Project> list = getProjectDaoImp().findAll();
         log.info("list getProyectDaoImp->" + list.size());
         if (list != null && list.size() > 0) {
             for (Iterator<Project> i = list.iterator(); i.hasNext();) {
@@ -80,7 +77,7 @@ public class DataService extends MasterService implements IDataService {
     public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion {
         log.info("loadProjectInfo DATASERVICE -->"+project);
         if (project.getId()!= null) {
-            Project pro = getProyectDaoImp().getProjectbyId(project.getId());
+            Project pro = getProjectDaoImp().getProjectbyId(project.getId());
             if (pro != null) {
                 log.info("2 project found name ->"+pro.getDescription());
                 project.setId(pro.getProyectId());
@@ -121,7 +118,7 @@ public class DataService extends MasterService implements IDataService {
                 proB.setDescription(project.getName());
                 proB.setInfo(project.getDescription());
                 log.info("create project 2");
-                getProyectDaoImp().saveOrUpdate(proB);
+                getProjectDaoImp().saveOrUpdate(proB);
             } catch (HibernateException e) {
                 throw new HibernateException(e);
             } catch (Exception e) {
@@ -158,33 +155,30 @@ public class DataService extends MasterService implements IDataService {
     }
 
     /**
-     * @return the catLocationDaoImp
+     * @return the catLocationDao
      */
-    public CatLocationDaoImp getCatLocationDaoImp() {
-        return catLocationDaoImp;
+    public CatLocationDao getCatLocationDao() {
+        return catLocationDao;
     }
 
     /**
-     * @param catLocationDaoImp
-     *            the catLocationDaoImp to set
+     * @param catLocationDao the catLocationDao to set
      */
-    public void setCatLocationDaoImp(CatLocationDaoImp catLocationDaoImp) {
-        this.catLocationDaoImp = catLocationDaoImp;
+    public void setCatLocationDao(CatLocationDao catLocationDao) {
+        this.catLocationDao = catLocationDao;
     }
 
     /**
-     * @return the proyectDaoImp
+     * @return the projectDaoImp
      */
-    public ProjectDaoImp getProyectDaoImp() {
-        return proyectDaoImp;
+    public ProjectDaoImp getProjectDaoImp() {
+        return projectDaoImp;
     }
 
     /**
-     * @param proyectDaoImp
-     *            the proyectDaoImp to set
+     * @param projectDaoImp the projectDaoImp to set
      */
-    public void setProyectDaoImp(ProjectDaoImp proyectDaoImp) {
-        this.proyectDaoImp = proyectDaoImp;
+    public void setProjectDaoImp(ProjectDaoImp projectDaoImp) {
+        this.projectDaoImp = projectDaoImp;
     }
-
 }

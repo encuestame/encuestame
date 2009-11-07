@@ -126,8 +126,8 @@
         <property name="stateDao">
             <ref bean="catStateDaoImp"></ref>
         </property>
-        <property name="proyectDaoImp">
-            <ref bean="proyectDaoImp"></ref>
+        <property name="projectDaoImp">
+            <ref bean="projectDaoImp"></ref>
         </property>
         <property name="catLocationDaoImp">
             <ref bean="catLocationDaoImp"></ref>
