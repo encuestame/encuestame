@@ -80,7 +80,7 @@ public class DataService extends MasterService implements IDataService {
     public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion {
         log.info("loadProjectInfo DATASERVICE -->"+project);
         if (project.getId()!= null) {
-            Project pro = getProyectDaoImp().getProject(project.getId());
+            Project pro = getProyectDaoImp().getProjectbyId(project.getId());
             if (pro != null) {
                 log.info("2 project found name ->"+pro.getDescription());
                 project.setId(pro.getProyectId());

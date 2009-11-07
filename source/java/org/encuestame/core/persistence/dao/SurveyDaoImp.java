@@ -1,47 +1,43 @@
+/**
+ * encuestame:  system online surveys
+ * Copyright (C) 2005-2008 encuestame Development Team
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 3 of the GNU General Public
+ * License as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
 package org.encuestame.core.persistence.dao;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.dao.imp.ISurvey;
+import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
-import org.encuestame.core.persistence.dao.imp.ISurvey;
-import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.persistence.pojo.SurveyFormat;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
+ * Survey Dao.
  *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: SurveyDaoImp.java Date: 01/06/2009 13:12:44
- *
- * @author juanpicado package: org.encuestame.core.persistence.dao
- * @version 1.0
+ * @author Picado, Juan juan@encuestame.org
+ * @since June 01, 2009
  */
 public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey {
 
-
     /**
-     *
-     *
+     * Search survey by name.
      * @param searchString
      * @return
      * @throws HibernateException
@@ -59,15 +55,4 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             return survey = new LinkedList<SurveyFormat>();
         }
     }
-
-    public void delete(Object obj) throws HibernateException {
-        // TODO Auto-generated method stub
-
-    }
-
-    public List findAll() throws HibernateException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

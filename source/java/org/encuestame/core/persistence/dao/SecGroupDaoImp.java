@@ -26,24 +26,30 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.hibernate.HibernateException;
 
 /**
- *
+ * Security Group Dao.
  * @author Picado, Juan Carlos juan@encuestame.org
  * @since May 05, 2009
  */
-
 public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
         ISecGroups {
 
     /**
-     *
+     * Find all groups.
      */
+    @SuppressWarnings("unchecked")
     public List<SecGroups> findAllGroups() {
         return super.findAll("from SecGroups");
     }
 
-    public Collection<SecGroupUser> loadGroupsByUser(Integer id) {
+    /**
+     * Load Groups By User.
+     * @param userId user id
+     * @return list of groups.
+     */
+    @SuppressWarnings("unchecked")
+    public Collection<SecGroupUser> loadGroupsByUser(Integer userId) {
         return getHibernateTemplate().find(
-                "from SecGroupUser d where d.secUsers.uid =" + id);
+                "from SecGroupUser d where d.secUsers.uid =" + userId);
     }
 
     public SecGroups getGroupById(Long groupId) throws HibernateException {
@@ -52,19 +58,11 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     }
 
     /**
-     * find a group
-     *
-     * @param id
-     * @return
+     * Find group by Id.
+     * @param groupId group id.
+     * @return group
      */
-    public SecGroups find(Integer id) {
-        List<SecGroups> s = getHibernateTemplate().findByNamedQuery(
-                "Groupr.loadGroup", id);
-        if (s != null && s.size() > 0) {
-            SecGroups g = s.get(0);
-            return g;
-        } else {
-            return null;
-        }
+    public SecGroups find(final Integer groupId) {
+        return (SecGroups) getHibernateTemplate().get(SecGroups.class, groupId);
     }
 }
