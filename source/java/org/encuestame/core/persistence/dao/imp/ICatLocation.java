@@ -1,4 +1,10 @@
 package org.encuestame.core.persistence.dao.imp;
+
+import java.util.List;
+
+import org.encuestame.core.persistence.dao.HibernateException;
+import org.encuestame.core.persistence.pojo.CatLocation;
+
 /**
  * encuestame:  system online surveys
  * Copyright (C) 2005-2008 encuestame Development Team
@@ -24,6 +30,7 @@ package org.encuestame.core.persistence.dao.imp;
  */
 
 public interface ICatLocation extends IBaseDao {
+	public List<CatLocation> findAll() throws HibernateException;
 	
 	
 
