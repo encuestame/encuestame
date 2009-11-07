@@ -27,6 +27,9 @@ import org.encuestame.test.config.AbstractBaseTest;
  * @since 02/11/2009 16:18:49
  */
 public class TestCatLocation extends AbstractBaseTest{
+    /**
+     * Test Catalag Location.
+     */
 	@Test
 	public void testCatLocation(){
 	final CatLocation catLoc = new CatLocation();
@@ -37,12 +40,14 @@ public class TestCatLocation extends AbstractBaseTest{
 	catLoc.setLng(3F);
 	catLoc.setTidtype("1");
 	getCatLocationDao().saveOrUpdate(catLoc);
-	
-	
-	//catLoc.setLocateId(locateId);
+	 //catLoc.setLocateId(locateId);
 	}
 	
-	public void testCat(){
+    /**
+     * Test Catalog Location Constructor.
+     */
+
+	public void testCatLocationConstructor(){
 		final CatLocation catLoc = new CatLocation(1,"1","Locate Description",3);
 		final CatLocation catLoc1 = new CatLocation(1,"1","Locate Description",1,"S",2.5F,22.5F);
 	}
