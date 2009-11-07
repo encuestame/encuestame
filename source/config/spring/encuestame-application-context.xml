@@ -35,14 +35,14 @@
 
     <!--  Dao  -->
 
-    <bean id="catLocationDaoImp" class="org.encuestame.core.persistence.dao.CatLocationDaoImp">
+    <bean id="catLocationDao" class="org.encuestame.core.persistence.dao.CatLocationDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
 
 
-    <bean id="proyectDaoImp" class="org.encuestame.core.persistence.dao.ProyectDaoImp">
+    <bean id="projectDaoImp" class="org.encuestame.core.persistence.dao.ProjectDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>

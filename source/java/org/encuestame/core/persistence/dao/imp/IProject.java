@@ -29,7 +29,7 @@ import org.hibernate.HibernateException;
  * @version 1.0
  */
 
-public interface IProyect extends IBaseDao {
+public interface IProject extends IBaseDao {
 
     public Project getProjectbyId(Integer id) throws HibernateException;
 

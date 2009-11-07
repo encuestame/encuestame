@@ -20,7 +20,7 @@ package org.encuestame.core.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.dao.imp.IProyect;
+import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.Project;
 import org.hibernate.HibernateException;
 
@@ -29,7 +29,7 @@ import org.hibernate.HibernateException;
  * @author Picado, Juan Carlos juan@encuestame.org
  * @since May 26, 2009
  */
-public class ProyectDaoImp extends AbstractHibernateDaoSupport implements IProyect {
+public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProject {
 
 
     /**

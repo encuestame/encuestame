@@ -19,10 +19,14 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
+import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.IProject;
+import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
+import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
@@ -71,12 +75,31 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     /**Group Security Dao*/
     @Autowired
-    private ISecGroups groupDao;
+    private ISecGroups secGroupDaoImp;
 
     /** Security Permissions Dao. **/
     @Autowired
     private ISecPermissionDao secPermissionDaoImp;
+
+    /** Catalog Location Dao. **/
+    @Autowired
+    private ICatLocation catLocationDao;
+
+    /** Project Dao Imp **/
+    @Autowired
+    private IProject projectDaoImp;
+
+    /** Survey Dao Imp. **/
+    @Autowired
+    private ISurvey surveyDaoImp;
+
+    /** Question Dao Imp. **/
+    @Autowired
+    private IQuestionDao questionDaoImp;
+
+
     /**
+     * Getter.
      * @return the catStateDaoImp
      */
     public ICatState getCatStateDaoImp() {
@@ -108,14 +131,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @return
      */
     public ISecGroups getSecGroup(){
-        return groupDao;
+        return secGroupDaoImp;
     }
 
     /**
      * @param groupDao
      */
-    public void setgroupDao(final ISecGroups groupDao){
-        this.groupDao = groupDao;
+    public void setgroupDao(final ISecGroups secGroupDaoImp){
+        this.secGroupDaoImp = secGroupDaoImp;
     }
 
     /**
@@ -128,8 +151,78 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /**
      * @param secPermissionDaoImp the secPermissionDaoImp to set
      */
-    public void setSecPermissionDaoImp(ISecPermissionDao secPermissionDaoImp) {
+    public void setSecPermissionDaoImp(final ISecPermissionDao secPermissionDaoImp) {
         this.secPermissionDaoImp = secPermissionDaoImp;
+    }
+
+    /**
+     * @return the secGroupDaoImp
+     */
+    public ISecGroups getSecGroupDaoImp() {
+        return secGroupDaoImp;
+    }
+
+    /**
+     * @param secGroupDaoImp the secGroupDaoImp to set
+     */
+    public void setSecGroupDaoImp(final ISecGroups secGroupDaoImp) {
+        this.secGroupDaoImp = secGroupDaoImp;
+    }
+
+    /**
+     * @return the catLocationDao
+     */
+    public ICatLocation getCatLocationDao() {
+        return catLocationDao;
+    }
+
+    /**
+     * @param catLocationDao the catLocationDao to set
+     */
+    public void setCatLocationDao(final ICatLocation catLocationDao) {
+        this.catLocationDao = catLocationDao;
+    }
+
+    /**
+     * @return the projectDaoImp
+     */
+    public IProject getProjectDaoImp() {
+        return projectDaoImp;
+    }
+
+    /**
+     * @param projectDaoImp the projectDaoImp to set
+     */
+    public void setProjectDaoImp(final IProject projectDaoImp) {
+        this.projectDaoImp = projectDaoImp;
+    }
+
+    /**
+     * @return the surveyDaoImp
+     */
+    public ISurvey getSurveyDaoImp() {
+        return surveyDaoImp;
+    }
+
+    /**
+     * @param surveyDaoImp the surveyDaoImp to set
+     */
+    public void setSurveyDaoImp(final ISurvey surveyDaoImp) {
+        this.surveyDaoImp = surveyDaoImp;
+    }
+
+    /**
+     * @return the questionDaoImp
+     */
+    public IQuestionDao getQuestionDaoImp() {
+        return questionDaoImp;
+    }
+
+    /**
+     * @param questionDaoImp the questionDaoImp to set
+     */
+    public void setQuestionDaoImp(final IQuestionDao questionDaoImp) {
+        this.questionDaoImp = questionDaoImp;
     }
 
     /**

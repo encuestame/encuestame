@@ -10,7 +10,7 @@ import org.hibernate.HibernateException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatLocationDaoImp;
 import org.encuestame.core.persistence.dao.CatStateDaoImp;
-import org.encuestame.core.persistence.dao.ProyectDaoImp;
+import org.encuestame.core.persistence.dao.ProjectDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -43,7 +43,7 @@ public class DataService extends MasterService implements IDataService {
 
     private CatStateDaoImp stateDao;
     private CatLocationDaoImp catLocationDaoImp;
-    private ProyectDaoImp proyectDaoImp;
+    private ProjectDaoImp proyectDaoImp;
 
     /**
      *
@@ -175,7 +175,7 @@ public class DataService extends MasterService implements IDataService {
     /**
      * @return the proyectDaoImp
      */
-    public ProyectDaoImp getProyectDaoImp() {
+    public ProjectDaoImp getProyectDaoImp() {
         return proyectDaoImp;
     }
 
@@ -183,7 +183,7 @@ public class DataService extends MasterService implements IDataService {
      * @param proyectDaoImp
      *            the proyectDaoImp to set
      */
-    public void setProyectDaoImp(ProyectDaoImp proyectDaoImp) {
+    public void setProyectDaoImp(ProjectDaoImp proyectDaoImp) {
         this.proyectDaoImp = proyectDaoImp;
     }
 
