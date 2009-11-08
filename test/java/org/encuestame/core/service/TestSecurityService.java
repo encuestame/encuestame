@@ -18,6 +18,8 @@
 package org.encuestame.core.service;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +54,21 @@ public class TestSecurityService extends AbstractBaseTest{
 
     @Test
     public void testLoadListUsers() throws EnMeExpcetion{
-        super.createUsers("user 1");
-        super.createUsers("user 2");
+        addGroupUser(super.createUsers("user 1"),super.createGroups("editor"));
+        addGroupUser(super.createUsers("user 2"),super.createGroups("admon"));
         assertEquals("Should be equals",2,securityService.loadListUsers().size());
+    }
+
+    /**
+     * Test User By Username.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchUserByUsername() throws EnMeExpcetion{
+       final SecUsers userDomain = super.createUsers("user 1");
+        super.createUsers("user 2");
+        assertEquals("Should be equals",userDomain.getUsername(),
+                securityService.searchUserByUsername(userDomain.getUsername()).getUsername());
     }
 
 

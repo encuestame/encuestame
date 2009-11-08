@@ -246,7 +246,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     public SecUsers createUsers(final String name){
         final SecUsers user= new SecUsers();
         user.setName(name);
-        user.setUsername(name+"_encuestame_test");
+        user.setUsername(name);
         user.setPassword("12345");
         user.setEmail(name+"@users.com");
         user.setDateNew(new Date());
