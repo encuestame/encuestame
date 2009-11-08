@@ -143,7 +143,7 @@ public class SecurityService extends Service implements ISecurityService {
     public void assingGroupToUser(final UnitUserBean user, final UnitGroupBean group){
         // SecUsers userD = getUser(user.getUsername());
         // SecPermission perD = loadPermission(permission.getPermission());
-        assingGroup(user, group);
+        //assingGroup(user, group);
     }
 
     /**
@@ -306,230 +306,214 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     * Update a Group
-     *
+     * Update a Group.
      * @param group
      * @throws EnMeExpcetion
      */
-    public void updateGroup(UnitGroupBean uGroup) throws EnMeExpcetion {
-        SecGroups group = getGroupDao().find(uGroup.getId());
+    public void updateGroup(UnitGroupBean groupBean){
+        final SecGroups group = getGroupDao().find(groupBean.getId());
         if (group != null) {
-            group.setName(uGroup.getGroupName());
-            group.setDesInfo(uGroup.getGroupDescription());
-            group.setIdState((new Integer(uGroup.getStateId())));
+            group.setName(groupBean.getGroupName());
+            group.setDesInfo(groupBean.getGroupDescription());
+            group.setIdState((new Integer(groupBean.getStateId())));
             getGroupDao().saveOrUpdate(group);
-        } else {
-            throw new EnMeExpcetion("No se recupero el grupo.");
         }
-
     }
 
     /**
-     * update user
-     *
-     * @param userD
+     * Update user.
+     * @param userBean user bean.
      */
-    public void updateUser(UnitUserBean userD) throws EnMeExpcetion {
-        SecUsers updateUser = getUserDao().getUserByUsername(userD.getUsername());
+    public void updateUser(final UnitUserBean userBean) {
+        final SecUsers updateUser = getUserDao().getUserByUsername(userBean.getUsername());
         if (updateUser != null) {
-            updateUser.setEmail(userD.getEmail());
-            updateUser.setName(userD.getName());
-            log.info("GET STATUS->"+userD.getStatus());
-            updateUser.setStatus(userD.getStatus());
-            updateUser.setPublisher(userD.getPublisher());
-            log.info("GET getPublisher->"+userD.getPublisher());
+            updateUser.setEmail(userBean.getEmail());
+            updateUser.setName(userBean.getName());
+            updateUser.setStatus(userBean.getStatus());
+            updateUser.setPublisher(userBean.getPublisher());
             getUserDao().saveOrUpdate(updateUser);
-        } else {
-            throw new EnMeExpcetion("No se recupero el usuaario");
         }
-
     }
 
     /**
-     * Create a new Group
-     *
-     * @param group
+     * Create a new Group.
+     * @param groupBean group bean
      */
-    public void createGroup(UnitGroupBean group) {
-        SecGroups newG = new SecGroups();
-        newG.setDesInfo(group.getGroupDescription());
-        newG.setName(group.getGroupName());
-        newG.setIdState(new Integer(group.getStateId()).intValue());
-        getGroupDao().saveOrUpdate(newG);
+    public void createGroup(final UnitGroupBean groupBean) {
+        final SecGroups groupDomain = new SecGroups();
+        groupDomain.setDesInfo(groupBean.getGroupDescription());
+        groupDomain.setName(groupBean.getGroupName());
+        groupDomain.setIdState(new Integer(groupBean.getStateId()).intValue());
+        getGroupDao().saveOrUpdate(groupDomain);
     }
 
     /**
-     * create a user
-     *
-     * @param user
-     * @throws EnMeExpcetion
-     * @throws HibernateException
+     * Create a user, generate password for user and send email to confirmate
+     * the account.
+     * @param userBean user bean
+     * @throws EnMeExpcetion personalize exception
      */
-    public void createUser(UnitUserBean user) throws MailSendException,
-            HibernateException, EnMeExpcetion {
-        SecUsers userBd = new SecUsers();
-        if (user.getEmail() != null && user.getUsername() != null) {
-            userBd.setEmail(user.getEmail());
-            userBd.setUsername(user.getUsername());
+    public void createUser(UnitUserBean userBean) throws EnMeExpcetion {
+        final SecUsers userDomain = new SecUsers();
+        if (userBean.getEmail() != null && userBean.getUsername() != null) {
+            userDomain.setEmail(userBean.getEmail());
+            userDomain.setUsername(userBean.getUsername());
         } else {
             throw new EnMeExpcetion("we need email and username to create user");
         }
-        String password = generatePassword();
-        userBd.setPassword(encryptPassworD(password));
-        userBd.setPublisher(user.getPublisher());
-        userBd.setName(user.getName());
-        userBd.setStatus(user.getStatus());
-        userBd.setDateNew(new Date());
+        final String passwordGenerated = generatePassword();
+        userDomain.setPassword(encryptPassworD(passwordGenerated));
+        userDomain.setPublisher(userBean.getPublisher());
+        userDomain.setName(userBean.getName());
+        userDomain.setStatus(userBean.getStatus());
+        userDomain.setDateNew(new Date());
         try {
-            // send to user first password
-            sendUserPassword(user.getEmail(), password);
-            // create user
-            getUserDao().saveOrUpdate(userBd);
+            // send to user the password to her emails
+            sendUserPassword(userBean.getEmail(), passwordGenerated);
+            // save user
+            getUserDao().saveOrUpdate(userDomain);
             // assing first permissions and default group
-            UnitPermission perM = new UnitPermission();
-            perM = loadDefaultPermissionBean();
-
-            assignPermission(user, perM);
+            assignPermission(userBean, loadDefaultPermissionBean());
             // assing firs default group to user
-        } catch (MailSendException e) {
-            throw new MailSendException(
-                    "no se pudo notificar el nuevo usuario " + e);
-        } catch (HibernateException e) {
-            throw new HibernateException(e);
-        } catch (EnMeExpcetion e) {
-            throw new EnMeExpcetion(e);
+            //TODO: we need assing defaul group to user.
+        } catch (MailSendException ex) {
+            log.error("user could not be notified :"+ex.getMessage());
+            throw new EnMeExpcetion(
+                    "user could not be notified");
+        } catch (HibernateException ex) {
+            log.error("user could not be saved :"+ex.getMessage());
+            throw new EnMeExpcetion("user could not be saved");
         }
     }
 
     /**
-     * load default permission in the config
-     *
+     * Load default permission when create user.
      * @return
-     * @throws HibernateException
      * @throws EnMeExpcetion
      */
     private UnitPermission loadDefaultPermissionBean()
-            throws HibernateException, EnMeExpcetion {
-
-        SecPermission per = getPermissionDao().loadPermission(
+            throws EnMeExpcetion {
+        final SecPermission permissionDomain = getPermissionDao().loadPermission(
                 getDefaultUserPermission());
-        if (per != null) {
-            UnitPermission perU = new UnitPermission();
-            perU.setDescription(per.getDescription());
-            perU.setPermission(per.getPermission());
-            perU.setId(per.getIdPermission());
-            return perU;
+        if (permissionDomain != null) {
+            //convert domain to bean permission
+            final UnitPermission permissionBean = new UnitPermission();
+            permissionBean.setDescription(permissionDomain.getDescription());
+            permissionBean.setPermission(permissionDomain.getPermission());
+            permissionBean.setId(permissionDomain.getIdPermission());
+            return permissionBean;
         } else {
-            throw new EnMeExpcetion("permiso no encontrado");
+            throw new EnMeExpcetion("default permission not found.");
         }
     }
 
     /**
-     * assign permission to user
-     *
-     * @param user
-     * @param permission
+     * Assign permission to user.
+     * @param userBean
+     * @param permissionBean
      */
-    public void assignPermission(UnitUserBean user, UnitPermission permission)
-            throws HibernateException, EnMeExpcetion {
-
-        if (user.getId() == null && user.getUsername() != null) {
-            SecUsers userRe = getUser(user.getUsername());
-            user.setId(userRe.getUid());
+    public void assignPermission(
+            final UnitUserBean userBean,
+            final UnitPermission permissionBean)
+            throws EnMeExpcetion {
+        if (userBean.getId() == null && userBean.getUsername() != null) {
+            final SecUsers userDomain = getUser(userBean.getUsername());
+            userBean.setId(userDomain.getUid());
         }
-        if (permission.getId() == null && permission.getPermission() != null) {
-            SecPermission perS = loadPermission(permission.getPermission());
-            permission.setId(perS.getIdPermission());
+        if (permissionBean.getId() == null && permissionBean.getPermission() != null) {
+            final SecPermission permissionDomain = loadPermission(permissionBean.getPermission());
+            permissionBean.setId(permissionDomain.getIdPermission());
         }
-        if (user.getId() != null && permission.getId() != null) {
-            SecUserPermission userPerId = new SecUserPermission();
-            SecUserPermissionId id = new SecUserPermissionId();
-            id.setIdPermission(permission.getId());
-            id.setUid(user.getId());
-            userPerId.setId(id);
+        if (userBean.getId() != null && permissionBean.getId() != null) {
+            final SecUserPermission userPerId = new SecUserPermission();
+            SecUserPermissionId userPermissionId = new SecUserPermissionId();
+            userPermissionId.setIdPermission(permissionBean.getId());
+            userPermissionId.setUid(userBean.getId());
+            userPerId.setId(userPermissionId);
             userPerId.setState(true);
             getUserDao().saveOrUpdate(userPerId);
         } else {
-            throw new EnMeExpcetion("id user or permission null");
+            throw new EnMeExpcetion("id user or permission was null");
         }
     }
 
     /**
-     * verify if user have permissions
-     *
+     * Verify if user have permissions.
      * @param user
      * @param permission
      */
-    private void verifyUserPermission(UnitUserBean user,
-            UnitPermission permission) {
-
+    private void verifyUserPermission(
+            final UnitUserBean user,
+            final UnitPermission permission) {
+        //TODO: need finihs this.
     }
 
     /**
-     * assig group to user
-     *
-     * @param user
-     * @param group
+     * Assing group to user.
+     * @param userBean
+     * @param groupBean
      * @throws HibernateException
      */
-    private void assingGroup(UnitUserBean user, UnitGroupBean group)
-            throws HibernateException {
-        SecGroupUserId id = new SecGroupUserId();
-        id.setGroupId(group.getId());
-        id.setUid(user.getId());
-        SecGroupUser gu = new SecGroupUser();
-        gu.setId(id);
-        gu.setState(true);
-        getUserDao().assingGroupToUser(gu);
-    }
-
-    /**
-     * load Permission bean
-     *
-     * @param permission
-     * @return
-     */
-    public UnitPermission loadBeanPermission(String permission)
-            throws HibernateException {
-        SecPermission per = getPermissionDao().loadPermission(permission);
-        UnitPermission uPer = new UnitPermission();
-        if (per != null) {
-            uPer.setId(per.getIdPermission());
-            uPer.setPermission(per.getPermission());
-            uPer.setDescription(per.getDescription());
+    private void assingGroup(
+            final UnitUserBean userBean,
+            final UnitGroupBean groupBean)
+            throws EnMeExpcetion {
+        try{
+            SecGroupUserId groupUserId = new SecGroupUserId();
+            groupUserId.setGroupId(groupBean.getId());
+            groupUserId.setUid(userBean.getId());
+            SecGroupUser groupUser = new SecGroupUser();
+            groupUser.setId(groupUserId);
+            groupUser.setState(true);
+            getUserDao().assingGroupToUser(groupUser);
         }
-        return uPer;
+        catch (Exception e) {
+           throw new EnMeExpcetion(e.getMessage());
+        }
     }
 
     /**
-     * load dao permission
-     *
-     * @param permission
-     * @return
-     * @throws HibernateException
+     * Load Permission domain and covert to permission bean.
+     * @param permission permission
+     * @return permission bean
      */
-    public SecPermission loadPermission(String permission)
-            throws HibernateException {
-        SecPermission per = getPermissionDao().loadPermission(permission);
-        return per;
+    public UnitPermission loadBeanPermission(final String permission)
+            throws EnMeExpcetion {
+        final UnitPermission permissionBean = new UnitPermission();
+        try{
+            final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
+                if (permissionDomain != null) {
+                    permissionBean.setId(permissionDomain.getIdPermission());
+                    permissionBean.setPermission(permissionDomain.getPermission());
+                    permissionBean.setDescription(permissionDomain.getDescription());
+                }
+            }catch (Exception e) {
+                throw new EnMeExpcetion(e.getMessage());
+            }
+        return permissionBean;
     }
 
     /**
-     * invite some users to register in the system
-     *
-     * @param emails
-     *            list of users
+     * Load domain permission.
+     * @param permission permission
+     * @return permission domain
+     */
+    public SecPermission loadPermission(final String permission){
+        return getPermissionDao().loadPermission(permission);
+    }
+
+    /**
+     * Invite some users to register in the system.
+     * @param emails list of users
      * @throws Exception
      */
     public void inviteUser(String email, String code) throws Exception {
-        log.info("Correo Usuarios->" + email);
         getServiceMail().sendInvitation(email, code);
 
     }
 
     /**
-     * generate hash code invitation
-     *
+     * Generate hash code invitation.
      * @return
      */
     public String generateHashCodeInvitation() {
@@ -537,63 +521,76 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     * send user to user
-     *
+     * Send password to user
      * @param email
      * @param password
      * @return
      */
-    private void sendUserPassword(String email, String password)
+    private void sendUserPassword(final String email,
+            final String password)
             throws MailSendException {
         getServiceMail().send(email, getMessageProperties("NewPassWordMail"),
                 password);
     }
 
     /**
-     * generate a password
-     *
-     * @return
+     * Generate a password.
+     * @return generate password string
      */
     private String generatePassword() {
-        String passGenerate = PasswordGenerator.getPassword(
+        return PasswordGenerator.getPassword(
                 PasswordGenerator.LOWERCASE + PasswordGenerator.CAPITALS, 10);
-        return passGenerate;
     }
 
     /**
-     * encrypt the password
-     *
+     * Encrypt the password.
      * @param password
      * @return
      */
-    private String encryptPassworD(String password) {
-        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-        String encryptedPassword = passwordEncryptor.encryptPassword(password);
-        return encryptedPassword;
+    private String encryptPassworD(final String password) {
+        final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        return passwordEncryptor.encryptPassword(password);
     }
 
     public MailServiceImpl getServiceMail() {
         return serviceMail;
     }
-
-    public void setServiceMail(MailServiceImpl serviceMail) {
+    /**
+     * Setter.
+     * @param serviceMail
+     */
+    public void setServiceMail(final MailServiceImpl serviceMail) {
         this.serviceMail = serviceMail;
     }
 
+    /**
+     * Getter.
+     * @return
+     */
     private String getDefaultUserPermission() {
         return defaultUserPermission;
     }
-
-    public void setDefaultUserPermission(String defaultUserPermission) {
+    /**
+     * Setter.
+     * @param defaultUserPermission
+     */
+    public void setDefaultUserPermission(final String defaultUserPermission) {
         this.defaultUserPermission = defaultUserPermission;
     }
 
+    /**
+     * Getter.
+     * @return
+     */
     private Boolean getSuspendedNotification() {
         log.info("suspendedNotification->" + suspendedNotification);
         return suspendedNotification;
     }
-
-    public void setSuspendedNotification(Boolean suspendedNotification) {
+    /**
+     * Setter.
+     * @param suspendedNotification
+     */
+    public void setSuspendedNotification(final Boolean suspendedNotification) {
         this.suspendedNotification = suspendedNotification;
     }
 
