@@ -36,7 +36,7 @@ import org.hibernate.HibernateException;
  * @author Picado, Juan juan@encuestame.org
  * @since April 27, 2009
  */
-public class DataService extends MasterService implements IDataService {
+public class DataService extends Service implements IDataService {
 
     private CatStateDaoImp stateDao;
     private CatLocationDao catLocationDao;

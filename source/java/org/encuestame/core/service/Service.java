@@ -26,12 +26,12 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * @author juanpicado package: org.encuestame.core.service
  * @version 1.0
  */
-public class MasterService {
+public class Service {
 
     private MessageSourceFactoryBean messageSource;
     protected Log log = LogFactory.getLog(this.getClass());
 
-    public MasterService() {
+    public Service() {
         // TODO Auto-generated constructor stub
     }
 

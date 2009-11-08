@@ -23,7 +23,7 @@ package org.encuestame.core.service;
  * @version 1.0
  */
 
-public class ApplicationServices extends MasterService implements IApplicationService {
+public class ApplicationServices extends Service implements IApplicationService {
 
 	private String name;
 	private String urlImg;

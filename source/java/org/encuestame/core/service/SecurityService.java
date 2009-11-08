@@ -1,36 +1,6 @@
-package org.encuestame.core.service;
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
-import org.jasypt.util.password.StrongPasswordEncryptor;
-import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.dao.SecGroupDaoImp;
-import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
-import org.encuestame.core.persistence.dao.SecUserDaoImp;
-import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
-import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecGroupUserId;
-import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermissionId;
-import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.web.beans.admon.UnitGroupBean;
-import org.encuestame.web.beans.admon.UnitPermission;
-import org.encuestame.web.beans.admon.UnitUserBean;
-import org.springframework.mail.MailSendException;
-
 /**
- * encuestame: system online surveys Copyright (C) 2005-2008 encuestame
- * Development Team
+ * encuestame: system online surveys Copyright (C) 2009 encuestame Development
+ * Team
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 3 of the GNU General Public License as published by the
@@ -44,59 +14,112 @@ import org.springframework.mail.MailSendException;
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: SecurityService.java Date: 27/04/2009
- *
- * @author juanpicado package: org.encuestame.core.service
- * @version 1.0
  */
-public class SecurityService extends MasterService implements ISecurityService {
+package org.encuestame.core.service;
 
-    private Log log = LogFactory.getLog(this.getClass());
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.dao.SecGroupDaoImp;
+import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
+import org.encuestame.core.persistence.pojo.SecGroupUser;
+import org.encuestame.core.persistence.pojo.SecGroupUserId;
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUserPermissionId;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.web.beans.admon.UnitGroupBean;
+import org.encuestame.web.beans.admon.UnitPermission;
+import org.encuestame.web.beans.admon.UnitUserBean;
+import org.hibernate.HibernateException;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.mail.MailSendException;
+
+/**
+ * Security Bean Service.
+ * @author Picado, Juan juan@encuestame.org
+ * @since 27/04/2009 11:35:01
+ */
+public class SecurityService extends Service implements ISecurityService {
+
+    /** SecUserDao. **/
     private SecUserDaoImp secUserDao;
+    /** Group Dao. **/
     private SecGroupDaoImp groupDao;
+    /** Permission Dao **/
     private SecPermissionDaoImp permissionDao;
+    /** Services Mail **/
     private MailServiceImpl serviceMail;
+
     private String defaultUserPermission;
     private Boolean suspendedNotification;
 
+    /**
+     * Getter.
+     * @return
+     */
     public SecUserDaoImp getUserDao() {
         return secUserDao;
     }
-
-    public void setUserDao(SecUserDaoImp userDao) {
+    /**
+     * Setter.
+     * @param userDao
+     */
+    public void setUserDao(final SecUserDaoImp userDao) {
         this.secUserDao = userDao;
     }
 
+    /**
+     * Getter.
+     * @return
+     */
     public SecGroupDaoImp getGroupDao() {
         return groupDao;
     }
 
-    public void setGroupDao(SecGroupDaoImp groupDao) {
+    /**
+     * Setter.
+     * @param groupDao
+     */
+    public void setGroupDao(final SecGroupDaoImp groupDao) {
         this.groupDao = groupDao;
     }
 
+    /**
+     * Getter.
+     * @return
+     */
     public SecPermissionDaoImp getPermissionDao() {
         return permissionDao;
     }
 
-    public void setPermissionDao(SecPermissionDaoImp permissionDao) {
+    /**
+     * Setter.
+     * @param permissionDao
+     */
+    public void setPermissionDao(final SecPermissionDaoImp permissionDao) {
         this.permissionDao = permissionDao;
     }
 
     /**
-     * load list of users
-     *
+     * Load list of users.
      * @return list of users with groups and permission
      * @throws Exception
      */
     public Collection<UnitUserBean> loadListUsers() throws Exception {
-        Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        Collection<SecUsers> listUsers = getUserDao().findAll();
+        final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+        final Collection<SecUsers> listUsers = getUserDao().findAll();
         if (listUsers != null && listUsers.size() > 0) {
             for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
-                UnitUserBean userB = new UnitUserBean();
-                SecUsers user = i.next();
+                final UnitUserBean userB = new UnitUserBean();
+                final  SecUsers user = i.next();
                 userB.setId(user.getUid());
                 userB.setName(user.getName());
                 userB.setEmail(user.getEmail());
@@ -112,44 +135,49 @@ public class SecurityService extends MasterService implements ISecurityService {
         return loadListUsers;
     }
 
-    public void assingGroupToUser(UnitUserBean user, UnitGroupBean group)
-            throws HibernateException {
+    /**
+     * Assing Group to User.
+     * @param user user
+     * @param group group
+     */
+    public void assingGroupToUser(final UnitUserBean user, final UnitGroupBean group){
         // SecUsers userD = getUser(user.getUsername());
         // SecPermission perD = loadPermission(permission.getPermission());
         assingGroup(user, group);
     }
 
     /**
-     * search user by username
-     *
+     * Search user by username.
      * @param username
      * @return
      */
-    public UnitUserBean searchUserByUsername(String username) {
-        SecUsers userD = getUserDao().getUserByUsername(username);
-        log.info("Usuario Encontrado por Nombnre->" + userD);
+    public UnitUserBean searchUserByUsername(final String username) {
+        final SecUsers userD = getUserDao().getUserByUsername(username);
+        UnitUserBean user = null;
         if (userD != null) {
-            UnitUserBean user = convertUserDaoToUserBean(userD);
-            log.info("Conversi�n Usuario to Bean ->" + user);
-            return user;
+            user = convertUserDaoToUserBean(userD);
         } else {
-            log.error("No se encontro usuario");
-            return null;
+            log.error("user not found");
         }
-
+        return user;
     }
 
-    private UnitUserBean convertUserDaoToUserBean(SecUsers userD) {
-        UnitUserBean user = new UnitUserBean();
+    /**
+     * Convert Domain user to Bean User.
+     * @param domainUser Domain User
+     * @return Bean User
+     */
+    private UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
+        final UnitUserBean user = new UnitUserBean();
         try {
-            user.setName(userD.getName());
-            user.setUsername(userD.getUsername());
-            user.setEmail(userD.getEmail());
-            user.setId(userD.getUid());
-            user.setStatus(userD.isStatus());
-            user.setDate_new(userD.getDateNew());
-            user.setInvite_code(userD.getInviteCode());
-            user.setPublisher(userD.getPublisher());
+            user.setName(domainUser.getName());
+            user.setUsername(domainUser.getUsername());
+            user.setEmail(domainUser.getEmail());
+            user.setId(domainUser.getUid());
+            user.setStatus(domainUser.isStatus());
+            user.setDate_new(domainUser.getDateNew());
+            user.setInvite_code(domainUser.getInviteCode());
+            user.setPublisher(domainUser.getPublisher());
         } catch (Exception e) {
             log.error("Error convirtiendo a User BEan -" + e.getMessage());
         }
@@ -157,21 +185,20 @@ public class SecurityService extends MasterService implements ISecurityService {
     }
 
     /**
-     * convert set to unit group bean
-     *
-     * @param set
-     * @return
+     * Convert set to unit group bean
+     * @param userId user id
+     * @return collection of groups beans.
      * @throws Exception
      */
-    private Collection<UnitGroupBean> convertSetToUnitGroupBean(Integer id)
+    private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Integer userId)
             throws Exception {
-        Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-        if (id != null) {
-            UnitGroupBean group = new UnitGroupBean();
+        final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
+        if (userId != null) {
+            final UnitGroupBean group = new UnitGroupBean();
             Collection<SecGroupUser> listSecGru = getGroupDao()
-                    .loadGroupsByUser(id);
+                    .loadGroupsByUser(userId);
             for (Iterator<SecGroupUser> i = listSecGru.iterator(); i.hasNext();) {
-                SecGroupUser userg = i.next();
+                final SecGroupUser userg = i.next();
                 group.setGroupName(userg.getSecGroups().getName());
                 group.setGroupDescription(userg.getSecGroups().getDesInfo());
                 group.setId(userg.getSecGroups().getGroupId());
@@ -184,116 +211,97 @@ public class SecurityService extends MasterService implements ISecurityService {
     }
 
     /**
-     * convert dao permission in permission bean
-     *
-     * @param set
-     * @return
-     * @throws Exception
+     * Convert Domain Permission to Bean Permission.
+     * @param userId user id
+     * @return collection of permission
+     * @throws Exception all exceptions.
      */
-    private Collection<UnitPermission> convertSetToUnitPermission(Integer id)
+    private Collection<UnitPermission> convertSetToUnitPermission(final Integer userId)
             throws Exception {
-        Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        if (id != null) {
-            UnitPermission per = new UnitPermission();
-            Collection<SecUserPermission> listSecGru = getPermissionDao()
-                    .loadPermissionByUserId(id);
+        final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
+        if (userId != null) {
+            final UnitPermission permissionBean = new UnitPermission();
+            final Collection<SecUserPermission> listSecGru = getPermissionDao()
+                    .loadPermissionByUserId(userId);
             for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
                     .hasNext();) {
-                SecUserPermission permission = i.next();
-                per.setId(permission.getSecPermission().getIdPermission());
-                per
+                final SecUserPermission permission = i.next();
+                permissionBean.setId(permission.getSecPermission().getIdPermission());
+                permissionBean
                         .setPermission(permission.getSecPermission()
                                 .getPermission());
-                per.setDescription(permission.getSecPermission()
+                permissionBean.setDescription(permission.getSecPermission()
                         .getDescription());
-                loadListPermission.add(per);
+                loadListPermission.add(permissionBean);
             }
         }
         return loadListPermission;
     }
 
     /**
-     * load all list of permisssions
-     *
+     * Load all list of permisssions and covert to permission bean.
      * @return list of permisssions
      */
     public Collection<UnitPermission> loadAllListPermission() {
-        Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        Collection<SecPermission> listSecPermission = getPermissionDao()
+        final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
+        final Collection<SecPermission> listSecPermission = getPermissionDao()
                 .loadAllPermissions();
-        log.debug("Permissions Total->" + listSecPermission.size());
-        for (Iterator<SecPermission> i = listSecPermission.iterator(); i
+        for (Iterator<SecPermission> iterator = listSecPermission.iterator(); iterator
                 .hasNext();) {
-            UnitPermission per = new UnitPermission();
-            SecPermission permission = i.next();
-            per.setId(permission.getIdPermission());
-            per.setPermission(permission.getPermission());
-            per.setDescription(permission.getDescription());
-            loadListPermission.add(per);
+            final UnitPermission permissionBean = new UnitPermission();
+            SecPermission permission = iterator.next();
+            permissionBean.setId(permission.getIdPermission());
+            permissionBean.setPermission(permission.getPermission());
+            permissionBean.setDescription(permission.getDescription());
+            loadListPermission.add(permissionBean);
         }
         return loadListPermission;
-
     }
 
     /**
-     * Delete Group
-     *
-     * @param group
+     * Delete Group Domain.
+     * @param group group
      */
-    public void deleteGroup(UnitGroupBean group) {
-        SecGroups g = getGroupDao().find(group.getId());
+    public void deleteGroup(final UnitGroupBean group) {
+        final SecGroups g = getGroupDao().find(group.getId());
         getGroupDao().delete(g);
     }
 
     /**
-     * delete user
-     *
-     * @param user
-     *            to delete
+     * Delete user.
+     * @param user user to delete
      */
-    public void deleteUser(UnitUserBean user) throws MailSendException,
-            HibernateException, Exception {
-        SecUsers g = getUser(user.getUsername().trim());
-        log.info("delete deleteUserDao->" + g.getUsername());
+    public void deleteUser(final UnitUserBean user){
+        final SecUsers userDomain = getUser(user.getUsername().trim());
         if (getSuspendedNotification()) {
-            log.info("Notificar->" + user.getEmail());
             getServiceMail().sendDeleteNotification(user.getEmail(),
                     getMessageProperties("MessageDeleteNotification"));
         }
-        log.info("user to delete ->" + g.getEmail());
-        getUserDao().delete(g);
-        log.info("user delete");
+        getUserDao().delete(userDomain);
     }
 
     /**
-     * renew password
-     *
-     * @param user
+     * Renew password.
+     * @param userBean
      * @throws Exception
      */
-    public void renewPassword(UnitUserBean user) throws MailSendException {
-        SecUsers g = getUser(user.getUsername().trim());
-        if (g.getPassword() != null) {
-            String newPassowrd = generatePassword();
-            g.setPassword(encryptPassworD(newPassowrd));
-            try {
-                sendUserPassword(g.getEmail().trim(), newPassowrd);
-                getUserDao().saveOrUpdate(g);
-            } catch (MailSendException ex) {
-                throw new MailSendException(ex.getMessage());
-            }
-        } else {
-            throw new MailSendException("test");
+    public void renewPassword(final UnitUserBean userBean){
+        final SecUsers userDomain = getUser(userBean.getUsername().trim());
+        if (userDomain.getPassword() != null) {
+            final String newPassowrd = generatePassword();
+            userDomain.setPassword(encryptPassworD(newPassowrd));
+                sendUserPassword(userDomain.getEmail().trim(), newPassowrd);
+                getUserDao().saveOrUpdate(userDomain);
         }
     }
 
     /**
-     * get user by username
-     *
+     * Get User.
      * @param username
-     * @return
+     * @return user domain
      */
-    private SecUsers getUser(String username) {
+    // TODO: maybe should be move to parent beans.
+    private SecUsers getUser(final String username) {
         return getUserDao().getUserByUsername(username.trim());
     }
 

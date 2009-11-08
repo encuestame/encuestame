@@ -40,7 +40,7 @@ import org.encuestame.web.beans.survey.UnitQuestionBean;
  * @author juanpicado package: org.encuestame.core.service
  * @version 1.0
  */
-public class SurveyService extends MasterService implements ISurveyService {
+public class SurveyService extends Service implements ISurveyService {
 
 	private MailServiceImpl serviceMail;
 	private SurveyDaoImp surveyDaoImp;
