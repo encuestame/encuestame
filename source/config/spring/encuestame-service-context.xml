@@ -20,8 +20,6 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-    <!-- messages -->
-
     <bean id="messageSource" class="org.encuestame.web.beans.commons.MessageSourceFactoryBean">
         <property name="messagesource" ref="resourceBundleMessageSource" />
     </bean>
@@ -32,59 +30,6 @@
             <value>messages</value>
         </property>
     </bean>
-
-    <!--  Dao  -->
-
-    <bean id="catLocationDao" class="org.encuestame.core.persistence.dao.CatLocationDao">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-
-    <bean id="projectDaoImp" class="org.encuestame.core.persistence.dao.ProjectDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <bean id="catStateDaoImp"  scope="singleton" class="org.encuestame.core.persistence.dao.CatStateDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <bean id="secPermissionDaoImp" class="org.encuestame.core.persistence.dao.SecPermissionDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <bean id="secUserDao" class="org.encuestame.core.persistence.dao.SecUserDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <bean id="secGroupDaoImp" class="org.encuestame.core.persistence.dao.SecGroupDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <bean id="surveyDaoImp" class="org.encuestame.core.persistence.dao.SurveyDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <bean id="questionDaoImp" class="org.encuestame.core.persistence.dao.QuestionDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-
-    <!--  Services  -->
 
     <bean id="servicesManager" class="org.encuestame.web.beans.ServiceManagerBean">
         <property name="dataService">
