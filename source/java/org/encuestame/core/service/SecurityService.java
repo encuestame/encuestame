@@ -57,8 +57,9 @@ public class SecurityService extends Service implements ISecurityService {
     private SecPermissionDaoImp permissionDao;
     /** Services Mail **/
     private MailServiceImpl serviceMail;
-
+    /** Default User Permission **/
     private String defaultUserPermission;
+    /** Suspende Notification. **/
     private Boolean suspendedNotification;
 
     /**
@@ -111,26 +112,31 @@ public class SecurityService extends Service implements ISecurityService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
-     * @throws Exception
+     * @throws EnMeExpcetion
      */
-    public Collection<UnitUserBean> loadListUsers() throws Exception {
+    public Collection<UnitUserBean> loadListUsers() throws EnMeExpcetion{
         final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        final Collection<SecUsers> listUsers = getUserDao().findAll();
-        if (listUsers != null && listUsers.size() > 0) {
-            for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
-                final UnitUserBean userB = new UnitUserBean();
-                final  SecUsers user = i.next();
-                userB.setId(user.getUid());
-                userB.setName(user.getName());
-                userB.setEmail(user.getEmail());
-                userB.setUsername(user.getUsername());
-                userB.setPublisher(user.getPublisher());
-                userB.setStatus(user.isStatus());
-                userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
-                userB.setListPermission(convertSetToUnitPermission(user
-                        .getUid()));
-                loadListUsers.add(userB);
-            }
+        try {
+            final Collection<SecUsers> listUsers = getUserDao().findAll();
+                if (listUsers != null && listUsers.size() > 0) {
+                    for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
+                        final UnitUserBean userB = new UnitUserBean();
+                        final  SecUsers user = i.next();
+                        userB.setId(user.getUid());
+                        userB.setName(user.getName());
+                        userB.setEmail(user.getEmail());
+                        userB.setUsername(user.getUsername());
+                        userB.setPublisher(user.getPublisher());
+                        userB.setStatus(user.isStatus());
+                        userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
+                        userB.setListPermission(convertSetToUnitPermission(user
+                                .getUid()));
+                        loadListUsers.add(userB);
+                    }
+                }
+        }
+        catch (Exception e) {
+           throw new EnMeExpcetion(e.getMessage());
         }
         return loadListUsers;
     }
@@ -567,7 +573,7 @@ public class SecurityService extends Service implements ISecurityService {
      * Getter.
      * @return
      */
-    private String getDefaultUserPermission() {
+    public String getDefaultUserPermission() {
         return defaultUserPermission;
     }
     /**
@@ -582,7 +588,7 @@ public class SecurityService extends Service implements ISecurityService {
      * Getter.
      * @return
      */
-    private Boolean getSuspendedNotification() {
+    public Boolean getSuspendedNotification() {
         log.info("suspendedNotification->" + suspendedNotification);
         return suspendedNotification;
     }
