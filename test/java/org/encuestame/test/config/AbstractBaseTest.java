@@ -57,7 +57,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Scope("singleton")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-application-context.xml",
+        "classpath:encuestame-service-context.xml",
+        "classpath:encuestame-dao-context.xml",
         "classpath:encuestame-beans-jsf-context.xml",
         "classpath:encuestame-hibernate-context.xml",
         "classpath:encuestame-email-context.xml",

@@ -19,10 +19,11 @@ package org.encuestame.core.persistence.pojos;
 
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.junit.Test;
 
 /**
  * Test Catalog Location.
- * 
+ *
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 02/11/2009 16:18:49
  */
@@ -30,26 +31,26 @@ public class TestCatLocation extends AbstractBaseTest{
     /**
      * Test Catalag Location.
      */
-	@Test
-	public void testCatLocation(){
-	final CatLocation catLoc = new CatLocation();
-	catLoc.setActive("S");
-	catLoc.setDescription("Locate Description");
-	catLoc.setLevel(1);
-	catLoc.setlat(2F);
-	catLoc.setLng(3F);
-	catLoc.setTidtype("1");
-	getCatLocationDao().saveOrUpdate(catLoc);
-	 //catLoc.setLocateId(locateId);
-	}
-	
+    @Test
+    public void testCatLocation(){
+    final CatLocation catLoc = new CatLocation();
+    catLoc.setActive("S");
+    catLoc.setDescription("Locate Description");
+    catLoc.setLevel(1);
+    catLoc.setLat(2F);
+    catLoc.setLng(3F);
+    catLoc.setTidtype("1");
+    getCatLocationDao().saveOrUpdate(catLoc);
+     //catLoc.setLocateId(locateId);
+    }
+
     /**
      * Test Catalog Location Constructor.
      */
-
-	public void testCatLocationConstructor(){
-		final CatLocation catLoc = new CatLocation(1,"1","Locate Description",3);
-		final CatLocation catLoc1 = new CatLocation(1,"1","Locate Description",1,"S",2.5F,22.5F);
-	}
+    @Test
+    public void testCatLocationConstructor(){
+       new CatLocation(1,"1","Locate Description",3);
+       new CatLocation(1,"1","Locate Description",1,"S",2.5F,22.5F);
+    }
 
 }

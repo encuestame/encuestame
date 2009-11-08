@@ -43,7 +43,7 @@ public class TestSecUsers extends AbstractBaseTest{
         user.setEmail("user@d.com");
         final Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
         user.setProjectUsers(projectUser);
-        getSecUserDao().saveOrUpdate(user);
+       // getSecUserDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }
 }

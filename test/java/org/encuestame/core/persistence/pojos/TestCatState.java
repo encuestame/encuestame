@@ -19,29 +19,30 @@ package org.encuestame.core.persistence.pojos;
 
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.junit.Test;
 
 /**
 * Test Catalog State Pojo.
 * @author Morales, Diana Paola paola@encuestame.org
 * @since November 06, 2009
 */
-public class TestCatState {
+public class TestCatState extends AbstractBaseTest {
     /**
      * Test Catalog State.
      */
-	@Test
-	public void testCatState(){
-		final CatState catState = new CatState();
-		catState.setDescState("State Description");
-		catState.setImage("Image");
-		//getCatStateDaoImp().saveorUpdate(catState);
-	 } 
-    
-	/**
+    @Test
+    public void testCatState(){
+        final CatState catState = new CatState();
+        catState.setDescState("State Description");
+        catState.setImage("Image");
+        getCatStateDaoImp().saveOrUpdate(catState);
+     }
+
+    /**
      * Test Catalog Location Constructor.
      */
-	@Test
-	public void testCatStateConstructor(){
-	final CatState catState = new CatState("State Description","Image",null,null,null);
-	}
+    @Test
+    public void testCatStateConstructor(){
+    final CatState catState = new CatState("State Description","Image",null,null,null);
+    }
 }
