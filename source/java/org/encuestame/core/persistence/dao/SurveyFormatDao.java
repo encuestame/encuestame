@@ -18,7 +18,16 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.Date;
+
+
+
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SurveyFormat;
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Restrictions;
+import java.util.List;
 
 /**
  * SurveyFormat Dao.
@@ -28,5 +37,44 @@ import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
  */
 public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISurveyFormatDao{
 	
+	 /**
+     * Get User By Id.
+     * @param idSidFormat idSidFormat
+     * @return SurveyFormat
+     * @throws HibernateException hibernate exception
+     */
+    public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException{
+        return (SurveyFormat) getSession().get(SurveyFormat.class, idSidFormat);
+    }
+    /**
+     * Get User By Name.
+     * @param name name
+     * @return SurveyFormat
+     * @throws HibernateException hibernate exception
+     */
+    public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException {
+        return  (SurveyFormat) getSession()
+        .createCriteria(SurveyFormat.class)
+        .add(Restrictions.eq("formatname", name))
+        .uniqueResult();
+    }
 
+    
+    /**
+     * Get SurveyFormat By Date.
+     * @param date startDate
+     * @param date endDate
+     * @return SurveyFormat
+     * @throws HibernateException hibernate exception
+     */
+    
+    @SuppressWarnings("unchecked")
+	public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate){
+    	
+    	return getSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
+    			.setDate("start", startDate)
+    			.setDate("end", endDate)
+    			.list();
+    }
+    
 }

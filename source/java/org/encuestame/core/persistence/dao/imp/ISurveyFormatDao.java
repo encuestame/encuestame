@@ -18,6 +18,12 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
+import java.util.Date;
+import java.util.List;
+
+import org.encuestame.core.persistence.pojo.SurveyFormat;
+import org.hibernate.HibernateException;
+
 
 /**
  * SurveyFormat Interface.
@@ -26,5 +32,9 @@ package org.encuestame.core.persistence.dao.imp;
  * @since November 10, 2009
  */
 public interface ISurveyFormatDao extends IBaseDao {
+	 public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException;
+	 public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException;
+	 public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate);
+	    	
 
 }
