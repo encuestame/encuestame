@@ -18,9 +18,9 @@
 package org.encuestame.core.service;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.encuestame.web.beans.admon.UnitUserBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -67,10 +67,15 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testSearchUserByUsername() throws EnMeExpcetion{
        final SecUsers userDomain = super.createUsers("user 1");
         super.createUsers("user 2");
-        assertEquals("Should be equals",userDomain.getUsername(),
-                securityService.searchUserByUsername(userDomain.getUsername()).getUsername());
+        UnitUserBean userBean = securityService.searchUserByUsername(userDomain.getUsername());
+        assertEquals("Should be equals",userDomain.getUsername(),userBean.getUsername()
+                );
     }
 
+    @Test
+    public void testSearchUserByUsernameNotFound() throws EnMeExpcetion{
+        assertNull(securityService.searchUserByUsername("user test"));
+    }
 
     /**
      * Test Default User Permission.
