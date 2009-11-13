@@ -1,3 +1,20 @@
+/**
+ * encuestame: system online surveys Copyright (C) 2009 encuestame Development
+ * Team
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 3 of the GNU General Public License as published by the
+ * Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.encuestame.core.security.spring;
 
 import java.util.ArrayList;
@@ -18,26 +35,10 @@ import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 
 /**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
+ * Encuestame user service implementation.
  *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: EnMeUserServiceImp.java Date: 07/05/2009 14:19:02
- *
- * @author juanpicado package: org.encuestame.core.security.spring
- * @version 1.0
+ * @author Picado, Juan juan@encuestame.org
+ * @since 07/05/2009 14:19:02
  */
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
@@ -46,30 +47,50 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     protected Boolean roleUserAuth;
     private static Logger log = Logger.getLogger(EnMeUserServiceImp.class);
 
-    public void setUserDao(SecUserDaoImp userDao) {
-        this.userDao = userDao;
-    }
+    /**
+     * Setter.
+     *
+     * @param userDao
+     */
 
     public void setRoleGroupAuth(Boolean roleGroupAuth) {
         this.roleGroupAuth = roleGroupAuth;
     }
 
+    /**
+     * Setter.
+     *
+     * @param userDao
+     *            the userDao to set
+     */
+    public void setUserDao(SecUserDaoImp userDao) {
+        this.userDao = userDao;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param roleUserAuth
+     */
     public void setRoleUserAuth(Boolean roleUserAuth) {
         this.roleUserAuth = roleUserAuth;
     }
 
     /**
-     * Carga el Usuario por nombre de usuario
+     * Search user by username
+     *
+     * @param username
+     *            username return {@link UserDetails}
      */
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
-        log.info("cargando el usuario por nombre");
-        SecUsers user = userDao.getUserByUsername(username);
+        log.info("loading by username");
+        final SecUsers user = userDao.getUserByUsername(username);
         if (user == null) {
-            log.info("no encontrado...");
-            throw new UsernameNotFoundException("username");
+            log.warn("not found");
+            throw new UsernameNotFoundException("user not found");
         }
-        log.info("encontrado..."+user.getEmail());
+        log.info("found..." + user.getEmail());
         return convertToUserDetails(user);
     }
 
@@ -89,78 +110,76 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * @param user
      * @return
      */
-    protected UserDetails convertToUserDetails(SecUsers user){
-        List<String> listPermissions = new ArrayList<String>();
+    protected UserDetails convertToUserDetails(final SecUsers user) {
+        final List<String> listPermissions = new ArrayList<String>();
         if (user == null) {
             return null;
         }
-        // verificamos si esta activado las autoridades por usuario
+        // search if authorities if the group are activated
         log.info("verificamos si esta activado las autoridades por usuario...");
         if (this.roleGroupAuth == true) {
-            List<SecGroupPermission> listGroupPermissions = userDao
+            //search groups of the user
+            final List<SecGroupPermission> listGroupPermissions = userDao
                     .getGroupPermission(userDao.getUserGroups(user));
-            log.info("listGroupPermissions.."+listGroupPermissions.size());
-            log.info("listGroupPermissions "+ listGroupPermissions);
-            if (listGroupPermissions != null && listGroupPermissions.size() > 0) {
-                Iterator<SecGroupPermission> i = listGroupPermissions.iterator();
-                while (i.hasNext()) {
-                    SecGroupPermission secPermission = (SecGroupPermission) i.next();
-                    if (listPermissions.indexOf(secPermission.getSecPermission().getPermission()
-                            .trim()) != -1) {
-                        log.info("Rol Ignorado Group "+secPermission.getSecPermission().getPermission());
-                        // se ignora porque el rol ya existe
+                //iterator list of groups permissions
+                final Iterator<SecGroupPermission> iterator = listGroupPermissions
+                        .iterator();
+                while (iterator.hasNext()) {
+                    final SecGroupPermission secPermission = (SecGroupPermission) iterator
+                            .next();
+                    //search if permission exits in the list, if permission exists are ignored
+                    if (listPermissions.indexOf(secPermission
+                            .getSecPermission().getPermission().trim()) != -1) {
+                        log.warn("ignore permission"
+                                + secPermission.getSecPermission()
+                                        .getPermission());
                     } else {
-                        listPermissions.add(secPermission.getSecPermission().getPermission()
-                                .trim());
-                        log.info("Rol Agregado Group "+secPermission.getSecPermission().getPermission());
-
+                        listPermissions.add(secPermission.getSecPermission()
+                                .getPermission().trim());
+                        log.info("permission added"
+                                + secPermission.getSecPermission()
+                                        .getPermission());
                     }
                 }
             }
-        }
-        // verificamos si esta activado las autoridades del usuario
+        // verify is user permission flag is activated
         if (this.roleUserAuth == true) {
-            log.info("verificando permisos para el usuario");
-            List<SecUserPermission> listUserPermissions = userDao
+           final List<SecUserPermission> listUserPermissions = userDao
                     .getUserPermission(user);
-            log.info("listUserPermissions "+listUserPermissions);
-            if (listUserPermissions != null && listUserPermissions.size() > 0) {
-                Iterator<SecUserPermission> i = listUserPermissions.iterator();
-                while (i.hasNext()) {
-                    SecUserPermission secPermission = (SecUserPermission) i.next();
-                    if (listPermissions.indexOf(secPermission.getSecPermission().getPermission()
-                            .trim()) != -1) {
-                        // se ignora porque el rol ya existe
-                        log.info("Rol Ignorado User "+secPermission.getSecPermission().getPermission()
-                                .trim());
+                Iterator<SecUserPermission> iteratorUser = listUserPermissions.iterator();
+                while (iteratorUser.hasNext()) {
+                    final SecUserPermission secPermission = (SecUserPermission) iteratorUser
+                            .next();
+                    if (listPermissions.indexOf(secPermission
+                            .getSecPermission().getPermission().trim()) != -1) {
+                        log.info("permission ignored "
+                                + secPermission.getSecPermission()
+                                        .getPermission().trim());
                     } else {
-                        listPermissions.add(secPermission.getSecPermission().getPermission()
-                                .trim());
-                        log.info("Rol Agregado User "+secPermission.getSecPermission().getPermission()
-                                .trim());
+                        listPermissions.add(secPermission.getSecPermission()
+                                .getPermission().trim());
+                        log.info("permission added "
+                                + secPermission.getSecPermission()
+                                        .getPermission().trim());
                     }
                 }
             }
-        }
-        log.info("listPermissions TOTALES "+listPermissions.size());
-        // agrupamos todas las autoridades en una lista
-        // crea las autoridades de spring
-        GrantedAuthority[] authorities = new GrantedAuthority[listPermissions
+        log.info("total permission " + listPermissions.size());
+        final GrantedAuthority[] authorities = new GrantedAuthority[listPermissions
                 .size()];
+        //convert list to array
         int i = 0;
-        for (String permission : listPermissions) {
+        for (final String permission : listPermissions) {
             authorities[i++] = new GrantedAuthorityImpl(permission.trim());
         }
-
-        User userDetails = new User(user.getUsername(), user.getPassword(),
-                user.isStatus() == null ? false : user.isStatus(), true, // account
-                // not
-                // expired
+        //creating user details
+        final User userDetails = new User(user.getUsername(), user.getPassword(),
+                user.isStatus() == null ? false : user.isStatus(),
+                true,  // accoun  not expired
                 true, // cridentials not expired
                 true, // account not locked
                 authorities);
-        log.info("userDetails "+userDetails);
+        log.info("userDetails " + userDetails);
         return userDetails;
     }
-
 }
