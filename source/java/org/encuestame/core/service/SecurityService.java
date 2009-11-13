@@ -274,13 +274,26 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     * Delete user.
-     * @param user user to delete
+     * Convert Group Domain to Group Bean
+     * @param groupDomain
+     * @return
      */
-    public void deleteUser(final UnitUserBean user){
-        final SecUsers userDomain = getUser(user.getUsername().trim());
+    public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain){
+        UnitGroupBean groupBean = new UnitGroupBean();
+        groupBean.setId(groupDomain.getGroupId());
+        groupBean.setGroupDescription(groupDomain.getDesInfo());
+        groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
+        return groupBean;
+    }
+
+    /**
+     * Delete user.
+     * @param userBean user to delete
+     */
+    public void deleteUser(final UnitUserBean userBean){
+        final SecUsers userDomain = getUser(userBean.getUsername().trim());
         if (getSuspendedNotification()) {
-            getServiceMail().sendDeleteNotification(user.getEmail(),
+            getServiceMail().sendDeleteNotification(userBean.getEmail(),
                     getMessageProperties("MessageDeleteNotification"));
         }
         getUserDao().delete(userDomain);
