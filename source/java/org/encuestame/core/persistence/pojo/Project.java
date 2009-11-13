@@ -45,7 +45,7 @@ import javax.persistence.TemporalType;
 @Table(name = "project")
 public class Project implements Serializable {
 
-    private Integer proyectId;
+    private Long proyectId;
     private CatState catState;
     private String description;
     private String info;
@@ -84,11 +84,11 @@ public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "proyect_id", unique = true, nullable = false)
-    public Integer getProyectId() {
+    public Long getProyectId() {
         return this.proyectId;
     }
 
-    public void setProyectId(Integer proyectId) {
+    public void setProyectId(Long proyectId) {
         this.proyectId = proyectId;
     }
 

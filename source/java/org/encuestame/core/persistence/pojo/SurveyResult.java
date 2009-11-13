@@ -39,8 +39,8 @@ import javax.persistence.Table;
 public class SurveyResult implements java.io.Serializable {
 
     private Long rid;
-    private int qid;
-    private long sid;
+    private Long qid;
+    private Long sid;
     private String resp;
     private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>(
             0);
@@ -48,13 +48,13 @@ public class SurveyResult implements java.io.Serializable {
     public SurveyResult() {
     }
 
-    public SurveyResult(int qid, long sid, String resp) {
+    public SurveyResult(Long qid, Long sid, String resp) {
         this.qid = qid;
         this.sid = sid;
         this.resp = resp;
     }
 
-    public SurveyResult(int qid, long sid, String resp,
+    public SurveyResult(Long qid, Long sid, String resp,
             Set<SurveyResultMod> surveyResultMods) {
         this.qid = qid;
         this.sid = sid;
@@ -74,20 +74,20 @@ public class SurveyResult implements java.io.Serializable {
     }
 
     @Column(name = "qid", nullable = false)
-    public int getQid() {
+    public Long getQid() {
         return this.qid;
     }
 
-    public void setQid(int qid) {
+    public void setQid(Long qid) {
         this.qid = qid;
     }
 
     @Column(name = "sid", nullable = false)
-    public long getSid() {
+    public Long getSid() {
         return this.sid;
     }
 
-    public void setSid(long sid) {
+    public void setSid(Long sid) {
         this.sid = sid;
     }
 

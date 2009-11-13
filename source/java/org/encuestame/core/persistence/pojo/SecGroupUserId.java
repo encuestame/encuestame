@@ -29,32 +29,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SecGroupUserId implements java.io.Serializable {
 
-    private int groupId;
-    private int uid;
+    private Long groupId;
+    private Long uid;
 
     public SecGroupUserId() {
     }
 
-    public SecGroupUserId(int groupId, int uid) {
+    public SecGroupUserId(Long groupId, Long uid) {
         this.groupId = groupId;
         this.uid = uid;
     }
 
     @Column(name = "group_id", nullable = false)
-    public int getGroupId() {
+    public Long getGroupId() {
         return this.groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
     @Column(name = "uid", nullable = false)
-    public int getUid() {
+    public Long getUid() {
         return this.uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 
@@ -74,8 +74,8 @@ public class SecGroupUserId implements java.io.Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getGroupId();
-        result = 37 * result + this.getUid();
+        result = (int) (37 * result + this.getGroupId());
+        result = (int) (37 * result + this.getUid());
         return result;
     }
 

@@ -34,7 +34,7 @@ import javax.persistence.Table;
 @Table(name = "questions_patron")
 public class QuestionsPatron implements java.io.Serializable {
 
-    private Integer idPatron;
+    private Long idPatron;
     private String typePatron;
     private String desQid;
     private String labelQid;
@@ -69,11 +69,11 @@ public class QuestionsPatron implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id_patron", unique = true, nullable = false)
-    public Integer getIdPatron() {
+    public Long getIdPatron() {
         return this.idPatron;
     }
 
-    public void setIdPatron(Integer idPatron) {
+    public void setIdPatron(Long idPatron) {
         this.idPatron = idPatron;
     }
 

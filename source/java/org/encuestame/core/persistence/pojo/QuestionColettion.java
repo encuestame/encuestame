@@ -44,7 +44,7 @@ import javax.persistence.TemporalType;
 @Table(name = "question_colettion")
 public class QuestionColettion implements Serializable {
 
-    private Integer idQColection;
+    private Long idQColection;
     private SecUsers secUsers;
     private String desColeccion;
     private Date creationDate;
@@ -72,11 +72,11 @@ public class QuestionColettion implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id_q_colection", unique = true, nullable = false)
-    public Integer getIdQColection() {
+    public Long getIdQColection() {
         return this.idQColection;
     }
 
-    public void setIdQColection(Integer idQColection) {
+    public void setIdQColection(Long idQColection) {
         this.idQColection = idQColection;
     }
 

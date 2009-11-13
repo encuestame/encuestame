@@ -38,7 +38,7 @@ import javax.persistence.Table;
 @Table(name = "sec_permission")
 public class SecPermission implements java.io.Serializable {
 
-    private int idPermission;
+    private Long idPermission;
     private String permission;
     private String description;
     private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
@@ -49,11 +49,11 @@ public class SecPermission implements java.io.Serializable {
     public SecPermission() {
     }
 
-    public SecPermission(int idPermission) {
+    public SecPermission(Long idPermission) {
         this.idPermission = idPermission;
     }
 
-    public SecPermission(int idPermission, String permission,
+    public SecPermission(Long idPermission, String permission,
             String description, Set<SecUserPermission> secUserPermissions,
             Set<SecGroupPermission> secGroupPermissions) {
         this.idPermission = idPermission;
@@ -66,11 +66,11 @@ public class SecPermission implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_permission", unique = true, nullable = false)
-    public int getIdPermission() {
+    public Long getIdPermission() {
         return this.idPermission;
     }
 
-    public void setIdPermission(int idPermission) {
+    public void setIdPermission(Long idPermission) {
         this.idPermission = idPermission;
     }
 

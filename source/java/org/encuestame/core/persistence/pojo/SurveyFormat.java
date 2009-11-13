@@ -19,6 +19,7 @@ package org.encuestame.core.persistence.pojo;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * SurveyFormat.
@@ -39,21 +42,22 @@ import javax.persistence.TemporalType;
 @Table(name = "survey_format")
 public class SurveyFormat implements java.io.Serializable {
 
-    private int idSidFormat;
+    private Long idSidFormat;
     private String name;
     private Date dateCreated;
-    private Set<SurveyFormatGroup> surveyFormatGroups = new HashSet<SurveyFormatGroup>(
+    private Set<SurveyFormatGroup> surveyFormatGroups = new  HashSet<SurveyFormatGroup>(
             0);
     private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
+    //private Set<Surveys> survey = new HashSet<Surveys>(0);
 
     public SurveyFormat() {
     }
 
-    public SurveyFormat(int idSidFormat) {
+    public SurveyFormat(Long idSidFormat) {
         this.idSidFormat = idSidFormat;
     }
 
-    public SurveyFormat(int idSidFormat, String name, Date dateCreated,
+    public SurveyFormat(Long idSidFormat, String name, Date dateCreated,
             Set<SurveyFormatGroup> surveyFormatGroups,
             Set<SurveyDetail> surveyDetails) {
         this.idSidFormat = idSidFormat;
@@ -65,11 +69,11 @@ public class SurveyFormat implements java.io.Serializable {
 
     @Id
     @Column(name = "id_sid_format", unique = true, nullable = false)
-    public int getIdSidFormat() {
+    public Long getIdSidFormat() {
         return this.idSidFormat;
     }
 
-    public void setIdSidFormat(int idSidFormat) {
+    public void setIdSidFormat(Long idSidFormat) {
         this.idSidFormat = idSidFormat;
     }
 

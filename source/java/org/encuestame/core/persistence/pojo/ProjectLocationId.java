@@ -31,32 +31,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ProjectLocationId implements Serializable {
 
-    private int groupId;
-    private int proyectId;
+    private Long groupId;
+    private Long proyectId;
 
     public ProjectLocationId() {
     }
 
-    public ProjectLocationId(int groupId, int proyectId) {
+    public ProjectLocationId(Long groupId, Long proyectId) {
         this.groupId = groupId;
         this.proyectId = proyectId;
     }
 
     @Column(name = "group_id", nullable = false)
-    public int getGroupId() {
+    public Long getGroupId() {
         return this.groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
     @Column(name = "proyect_id", nullable = false)
-    public int getProyectId() {
+    public Long getProyectId() {
         return this.proyectId;
     }
 
-    public void setProyectId(int proyectId) {
+    public void setProyectId(Long proyectId) {
         this.proyectId = proyectId;
     }
 
@@ -76,8 +76,8 @@ public class ProjectLocationId implements Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getGroupId();
-        result = 37 * result + this.getProyectId();
+        result = (int) (37 * result + this.getGroupId());
+        result = (int) (37 * result + this.getProyectId());
         return result;
     }
 

@@ -47,7 +47,7 @@ public class SecUsers implements Serializable {
 
 
     private static final long serialVersionUID = -2014198943983282167L;
-    private Integer uid;
+    private Long uid;
     private String name;
     private String email;
     private String username;
@@ -112,11 +112,11 @@ public class SecUsers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uid", unique = true, nullable = false)
-    public Integer getUid() {
+    public Long getUid() {
         return this.uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 

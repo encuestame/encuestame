@@ -31,15 +31,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SurveyDetailId implements java.io.Serializable {
 
-    private long idSd;
-    private int qid;
-    private int idSidFormat;
-    private int ssid;
+    private Long idSd;
+    private Long qid;
+    private Long idSidFormat;
+    private Long ssid;
 
     public SurveyDetailId() {
     }
 
-    public SurveyDetailId(long idSd, int qid, int idSidFormat, int ssid) {
+    public SurveyDetailId(long idSd, Long qid, Long idSidFormat, Long ssid) {
         this.idSd = idSd;
         this.qid = qid;
         this.idSidFormat = idSidFormat;
@@ -56,29 +56,29 @@ public class SurveyDetailId implements java.io.Serializable {
     }
 
     @Column(name = "qid", nullable = false)
-    public int getQid() {
+    public Long getQid() {
         return this.qid;
     }
 
-    public void setQid(int qid) {
+    public void setQid(Long qid) {
         this.qid = qid;
     }
 
     @Column(name = "id_sid_format", nullable = false)
-    public int getIdSidFormat() {
+    public Long getIdSidFormat() {
         return this.idSidFormat;
     }
 
-    public void setIdSidFormat(int idSidFormat) {
+    public void setIdSidFormat(Long idSidFormat) {
         this.idSidFormat = idSidFormat;
     }
 
     @Column(name = "ssid", nullable = false)
-    public int getSsid() {
+    public Long getSsid() {
         return this.ssid;
     }
 
-    public void setSsid(int ssid) {
+    public void setSsid(Long ssid) {
         this.ssid = ssid;
     }
 
@@ -101,9 +101,9 @@ public class SurveyDetailId implements java.io.Serializable {
         int result = 17;
 
         result = 37 * result + (int) this.getIdSd();
-        result = 37 * result + this.getQid();
-        result = 37 * result + this.getIdSidFormat();
-        result = 37 * result + this.getSsid();
+        result = (int) (37 * result + this.getQid());
+        result = (int) (37 * result + this.getIdSidFormat());
+        result = (int) (37 * result + this.getSsid());
         return result;
     }
 

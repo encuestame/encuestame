@@ -39,14 +39,14 @@ public class SurveyTime implements java.io.Serializable {
 
     private SurveyTimeId id;
     private Surveys surveys;
-    private int elapsedTime;
-    private int quitflag;
+    private Integer elapsedTime;
+    private Integer quitflag;
 
     public SurveyTime() {
     }
 
-    public SurveyTime(SurveyTimeId id, Surveys surveys, int elapsedTime,
-            int quitflag) {
+    public SurveyTime(SurveyTimeId id, Surveys surveys, Integer elapsedTime,
+            Integer quitflag) {
         this.id = id;
         this.surveys = surveys;
         this.elapsedTime = elapsedTime;
@@ -76,20 +76,20 @@ public class SurveyTime implements java.io.Serializable {
     }
 
     @Column(name = "elapsed_time", nullable = false)
-    public int getElapsedTime() {
+    public Integer getElapsedTime() {
         return this.elapsedTime;
     }
 
-    public void setElapsedTime(int elapsedTime) {
+    public void setElapsedTime(Integer elapsedTime) {
         this.elapsedTime = elapsedTime;
     }
 
     @Column(name = "quitflag", nullable = false)
-    public int getQuitflag() {
+    public Integer getQuitflag() {
         return this.quitflag;
     }
 
-    public void setQuitflag(int quitflag) {
+    public void setQuitflag(Integer quitflag) {
         this.quitflag = quitflag;
     }
 

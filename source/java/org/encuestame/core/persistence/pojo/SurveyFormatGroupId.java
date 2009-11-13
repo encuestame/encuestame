@@ -29,32 +29,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SurveyFormatGroupId implements java.io.Serializable {
 
-    private int sgId;
-    private int idSidFormat;
+    private Long sgId;
+    private Long idSidFormat;
 
     public SurveyFormatGroupId() {
     }
 
-    public SurveyFormatGroupId(int sgId, int idSidFormat) {
+    public SurveyFormatGroupId(Long sgId, Long idSidFormat) {
         this.sgId = sgId;
         this.idSidFormat = idSidFormat;
     }
 
     @Column(name = "sg_id", nullable = false)
-    public int getSgId() {
+    public Long getSgId() {
         return this.sgId;
     }
 
-    public void setSgId(int sgId) {
+    public void setSgId(Long sgId) {
         this.sgId = sgId;
     }
 
     @Column(name = "id_sid_format", nullable = false)
-    public int getIdSidFormat() {
+    public Long getIdSidFormat() {
         return this.idSidFormat;
     }
 
-    public void setIdSidFormat(int idSidFormat) {
+    public void setIdSidFormat(Long idSidFormat) {
         this.idSidFormat = idSidFormat;
     }
 
@@ -74,8 +74,8 @@ public class SurveyFormatGroupId implements java.io.Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getSgId();
-        result = 37 * result + this.getIdSidFormat();
+        result = (int) (37 * result + this.getSgId());
+        result = (int) (37 * result + this.getIdSidFormat());
         return result;
     }
 

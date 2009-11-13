@@ -40,12 +40,12 @@ import javax.persistence.Version;
 @Table(name = "survey_group")
 public class SurveyGroup implements java.io.Serializable {
 
-    private int sgId;
+    private Long sgId;
     private Integer version;
     private String groupName;
     private Date dateCreate;
-    private Integer idState;
-    private int idSidFormat;
+    private Long idState;
+    private Long idSidFormat;
     private Set<SurveyFormatGroup> surveyFormatGroups = new HashSet<SurveyFormatGroup>(
             0);
     private Set<SurveyGroupProject> surveyGroupProjects = new HashSet<SurveyGroupProject>(
@@ -54,13 +54,13 @@ public class SurveyGroup implements java.io.Serializable {
     public SurveyGroup() {
     }
 
-    public SurveyGroup(int sgId, int idSidFormat) {
+    public SurveyGroup(Long sgId, Long idSidFormat) {
         this.sgId = sgId;
         this.idSidFormat = idSidFormat;
     }
 
-    public SurveyGroup(int sgId, String groupName, Date dateCreate,
-            Integer idState, int idSidFormat,
+    public SurveyGroup(Long sgId, String groupName, Date dateCreate,
+    		Long idState, Long idSidFormat,
             Set<SurveyFormatGroup> surveyFormatGroups,
             Set<SurveyGroupProject> surveyGroupProjects) {
         this.sgId = sgId;
@@ -74,11 +74,11 @@ public class SurveyGroup implements java.io.Serializable {
 
     @Id
     @Column(name = "sg_id", unique = true, nullable = false)
-    public int getSgId() {
+    public Long getSgId() {
         return this.sgId;
     }
 
-    public void setSgId(int sgId) {
+    public void setSgId(Long sgId) {
         this.sgId = sgId;
     }
 
@@ -112,20 +112,20 @@ public class SurveyGroup implements java.io.Serializable {
     }
 
     @Column(name = "id_state")
-    public Integer getIdState() {
+    public Long getIdState() {
         return this.idState;
     }
 
-    public void setIdState(Integer idState) {
+    public void setIdState(Long idState) {
         this.idState = idState;
     }
 
     @Column(name = "id_sid_format", nullable = false)
-    public int getIdSidFormat() {
+    public Long getIdSidFormat() {
         return this.idSidFormat;
     }
 
-    public void setIdSidFormat(int idSidFormat) {
+    public void setIdSidFormat(Long idSidFormat) {
         this.idSidFormat = idSidFormat;
     }
 

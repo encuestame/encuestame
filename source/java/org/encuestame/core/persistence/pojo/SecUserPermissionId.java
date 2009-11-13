@@ -29,32 +29,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SecUserPermissionId implements java.io.Serializable {
 
-    private int uid;
-    private int idPermission;
+    private Long uid;
+    private Long idPermission;
 
     public SecUserPermissionId() {
     }
 
-    public SecUserPermissionId(int uid, int idPermission) {
+    public SecUserPermissionId(Long uid, Long idPermission) {
         this.uid = uid;
         this.idPermission = idPermission;
     }
 
     @Column(name = "uid", nullable = false)
-    public int getUid() {
+    public Long getUid() {
         return this.uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 
     @Column(name = "id_permission", nullable = false)
-    public int getIdPermission() {
+    public Long getIdPermission() {
         return this.idPermission;
     }
 
-    public void setIdPermission(int idPermission) {
+    public void setIdPermission(Long idPermission) {
         this.idPermission = idPermission;
     }
 
@@ -74,8 +74,8 @@ public class SecUserPermissionId implements java.io.Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getUid();
-        result = 37 * result + this.getIdPermission();
+        result = (int) (37 * result + this.getUid());
+        result = (int) (37 * result + this.getIdPermission());
         return result;
     }
 

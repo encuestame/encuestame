@@ -29,32 +29,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SurveyGroupProjectId implements java.io.Serializable {
 
-    private int sgId;
-    private int proyectId;
+    private Long sgId;
+    private Long proyectId;
 
     public SurveyGroupProjectId() {
     }
 
-    public SurveyGroupProjectId(int sgId, int proyectId) {
+    public SurveyGroupProjectId(Long sgId, Long proyectId) {
         this.sgId = sgId;
         this.proyectId = proyectId;
     }
 
     @Column(name = "sg_id", nullable = false)
-    public int getSgId() {
+    public Long getSgId() {
         return this.sgId;
     }
 
-    public void setSgId(int sgId) {
+    public void setSgId(Long sgId) {
         this.sgId = sgId;
     }
 
     @Column(name = "proyect_id", nullable = false)
-    public int getProyectId() {
+    public Long getProyectId() {
         return this.proyectId;
     }
 
-    public void setProyectId(int proyectId) {
+    public void setProyectId(Long proyectId) {
         this.proyectId = proyectId;
     }
 
@@ -74,8 +74,8 @@ public class SurveyGroupProjectId implements java.io.Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getSgId();
-        result = 37 * result + this.getProyectId();
+        result = (int) (37 * result + this.getSgId());
+        result = (int) (37 * result + this.getProyectId());
         return result;
     }
 

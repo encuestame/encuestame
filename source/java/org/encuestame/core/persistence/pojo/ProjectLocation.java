@@ -43,13 +43,13 @@ public class ProjectLocation implements Serializable {
     private ProjectLocationId id;
     private Project project;
     private SecGroups secGroups;
-    private int idState;
+    private Long idState;
 
     public ProjectLocation() {
     }
 
     public ProjectLocation(ProjectLocationId id, Project project,
-            SecGroups secGroups, int idState) {
+            SecGroups secGroups, Long idState) {
         this.id = id;
         this.project = project;
         this.secGroups = secGroups;
@@ -89,11 +89,11 @@ public class ProjectLocation implements Serializable {
     }
 
     @Column(name = "id_state", nullable = false)
-    public int getIdState() {
+    public Long getIdState() {
         return this.idState;
     }
 
-    public void setIdState(int idState) {
+    public void setIdState(Long idState) {
         this.idState = idState;
     }
 

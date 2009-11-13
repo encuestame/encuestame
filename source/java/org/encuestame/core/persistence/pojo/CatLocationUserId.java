@@ -31,32 +31,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CatLocationUserId implements Serializable {
 
-    private int locationId;
-    private int uid;
+    private Long locationId;
+    private Long uid;
 
     public CatLocationUserId() {
     }
 
-    public CatLocationUserId(int locationId, int uid) {
+    public CatLocationUserId(Long locationId, Long uid) {
         this.locationId = locationId;
         this.uid = uid;
     }
 
     @Column(name = "location_id", nullable = false)
-    public int getLocationId() {
+    public Long getLocationId() {
         return this.locationId;
     }
 
-    public void setLocationId(int locationId) {
+    public void setLocationId(Long locationId) {
         this.locationId = locationId;
     }
 
     @Column(name = "uid", nullable = false)
-    public int getUid() {
+    public Long getUid() {
         return this.uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 
@@ -76,8 +76,8 @@ public class CatLocationUserId implements Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getLocationId();
-        result = 37 * result + this.getUid();
+        result = (int) (37 * result + this.getLocationId());
+        result = (int) (37 * result + this.getUid());
         return result;
     }
 

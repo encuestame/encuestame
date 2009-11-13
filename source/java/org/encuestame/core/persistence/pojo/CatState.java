@@ -39,7 +39,7 @@ import javax.persistence.Table;
 @Table(name = "cat_state")
 public class CatState implements Serializable {
 
-    private Integer idState;
+    private Long idState;
     private String descState;
     private String image;
     private Set<SurveySection> surveySections = new HashSet<SurveySection>(0);
@@ -61,11 +61,11 @@ public class CatState implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id_state", unique = true, nullable = false)
-    public Integer getIdState() {
+    public Long getIdState() {
         return this.idState;
     }
 
-    public void setIdState(Integer idState) {
+    public void setIdState(Long idState) {
         this.idState = idState;
     }
 

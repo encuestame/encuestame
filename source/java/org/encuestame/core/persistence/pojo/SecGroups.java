@@ -40,10 +40,10 @@ import javax.persistence.Table;
 @Table(name = "sec_groups")
 public class SecGroups implements java.io.Serializable {
 
-    private Integer groupId;
+    private Long groupId;
     private String name;
     private String desInfo;
-    private int idState;
+    private Long idState;
     private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
     private Set secGroupPermissions = new HashSet(0);
     private Set projectGroups = new HashSet(0);
@@ -52,11 +52,11 @@ public class SecGroups implements java.io.Serializable {
     public SecGroups() {
     }
 
-    public SecGroups(int idState) {
+    public SecGroups(Long idState) {
         this.idState = idState;
     }
 
-    public SecGroups(String name, String desInfo, int idState,
+    public SecGroups(String name, String desInfo, Long idState,
             Set<SecGroupUser> secGroupUsers, Set secGroupPermissions,
             Set projectGroups, Set projectLocations) {
         this.name = name;
@@ -71,11 +71,11 @@ public class SecGroups implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "group_id", unique = true, nullable = false)
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return this.groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
@@ -98,11 +98,11 @@ public class SecGroups implements java.io.Serializable {
     }
 
     @Column(name = "id_state", nullable = false)
-    public int getIdState() {
+    public Long getIdState() {
         return this.idState;
     }
 
-    public void setIdState(int idState) {
+    public void setIdState(Long idState) {
         this.idState = idState;
     }
 

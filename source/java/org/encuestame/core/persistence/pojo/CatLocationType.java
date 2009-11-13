@@ -35,31 +35,18 @@ import javax.persistence.Table;
 @Table(name = "cat_location_type")
 public class CatLocationType implements Serializable {
 
-    private String locIdType;
+    private Long locationTypeId;
     private String description;
-    private Integer level;
-
-    public CatLocationType() {
-    }
-
-    public CatLocationType(String locIdType) {
-        this.locIdType = locIdType;
-    }
-
-    public CatLocationType(String locIdType, String description, Integer level) {
-        this.locIdType = locIdType;
-        this.description = description;
-        this.level = level;
-    }
+    private Integer level; 
 
     @Id
     @Column(name = "loc_id_type", unique = true, nullable = false, length = 10)
-    public String getLocIdType() {
-        return this.locIdType;
+    public Long getLocationTypeId() {
+        return this.locationTypeId;
     }
 
-    public void setLocIdType(String locIdType) {
-        this.locIdType = locIdType;
+    public void setLocationTypeId(Long locationTypeId) {
+        this.locationTypeId = locationTypeId;
     }
 
     @Column(name = "description")

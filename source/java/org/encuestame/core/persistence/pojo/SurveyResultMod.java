@@ -40,7 +40,7 @@ import javax.persistence.TemporalType;
 @Table(name = "survey_result_mod")
 public class SurveyResultMod implements java.io.Serializable {
 
-    private Integer idMod;
+    private Long idMod;
     private SecUsers secUsers;
     private SurveyResult surveyResult;
     private String previousResponse;
@@ -70,11 +70,11 @@ public class SurveyResultMod implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id_mod", unique = true, nullable = false)
-    public Integer getIdMod() {
+    public Long getIdMod() {
         return this.idMod;
     }
 
-    public void setIdMod(Integer idMod) {
+    public void setIdMod(Long idMod) {
         this.idMod = idMod;
     }
 

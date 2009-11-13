@@ -42,22 +42,7 @@ public class CatLocationUser implements Serializable {
     private CatLocationUserId id;
     private SecUsers secUsers;
     private Boolean state;
-
-    public CatLocationUser() {
-    }
-
-    public CatLocationUser(CatLocationUserId id, SecUsers secUsers) {
-        this.id = id;
-        this.secUsers = secUsers;
-    }
-
-    public CatLocationUser(CatLocationUserId id, SecUsers secUsers,
-            Boolean state) {
-        this.id = id;
-        this.secUsers = secUsers;
-        this.state = state;
-    }
-
+ 
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "locationId", column = @Column(name = "location_id", nullable = false)),

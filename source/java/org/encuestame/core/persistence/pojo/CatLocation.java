@@ -35,10 +35,10 @@ import javax.persistence.Table;
 @Table(name = "cat_location")
 public class CatLocation implements Serializable {
 
-    private int locateId;
+    private Long locateId;
     private String tidtype;
     private String description;
-    private int level;
+    private Integer level;
     private String active;
     private Float lat;
     private Float lng;
@@ -46,7 +46,7 @@ public class CatLocation implements Serializable {
     public CatLocation() {
     }
 
-    public CatLocation(int locateId, String tidtype, String description,
+    public CatLocation(Long locateId, String tidtype, String description,
             int level) {
         this.locateId = locateId;
         this.tidtype = tidtype;
@@ -54,8 +54,8 @@ public class CatLocation implements Serializable {
         this.level = level;
     }
 
-    public CatLocation(int locateId, String tidtype, String description,
-            int level, String active, Float lat, Float lng) {
+    public CatLocation(Long locateId, String tidtype, String description,
+            Integer level, String active, Float lat, Float lng) {
         this.locateId = locateId;
         this.tidtype = tidtype;
         this.description = description;
@@ -67,11 +67,11 @@ public class CatLocation implements Serializable {
 
     @Id
     @Column(name = "locate_id", unique = true, nullable = false)
-    public int getLocateId() {
+    public Long getLocateId() {
         return this.locateId;
     }
 
-    public void setLocateId(int locateId) {
+    public void setLocateId(Long locateId) {
         this.locateId = locateId;
     }
 

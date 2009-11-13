@@ -40,7 +40,7 @@ import javax.persistence.Table;
 @Table(name = "survey_section")
 public class SurveySection implements java.io.Serializable {
 
-    private Integer ssid;
+    private Long ssid;
     private CatState catState;
     private String descSection;
     private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
@@ -62,11 +62,11 @@ public class SurveySection implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ssid", unique = true, nullable = false)
-    public Integer getSsid() {
+    public Long getSsid() {
         return this.ssid;
     }
 
-    public void setSsid(Integer ssid) {
+    public void setSsid(Long ssid) {
         this.ssid = ssid;
     }
 

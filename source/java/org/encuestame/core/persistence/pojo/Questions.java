@@ -42,8 +42,8 @@ import javax.persistence.Version;
 @Table(name = "questions")
 public class Questions implements Serializable {
 
-    private Integer qid;
-    private int version;
+    private Long qid;
+    private Float version;
     private CatState catState;
     private String question;
     private String qidKey;
@@ -75,21 +75,21 @@ public class Questions implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "qid", unique = true, nullable = false)
-    public Integer getQid() {
+    public Long getQid() {
         return this.qid;
     }
 
-    public void setQid(Integer qid) {
+    public void setQid(Long qid) {
         this.qid = qid;
     }
 
     @Version
     @Column(name = "version", nullable = false)
-    public int getVersion() {
+    public Float getVersion() {
         return this.version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Float version) {
         this.version = version;
     }
 

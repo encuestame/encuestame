@@ -29,32 +29,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SurveyTimeId implements java.io.Serializable {
 
-    private int sequence;
-    private long sid;
+    private Integer sequence;
+    private Long sid;
 
     public SurveyTimeId() {
     }
 
-    public SurveyTimeId(int sequence, long sid) {
+    public SurveyTimeId(Integer sequence, Long sid) {
         this.sequence = sequence;
         this.sid = sid;
     }
 
     @Column(name = "sequence", nullable = false)
-    public int getSequence() {
+    public Integer getSequence() {
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(Integer sequence) {
         this.sequence = sequence;
     }
 
     @Column(name = "sid", nullable = false)
-    public long getSid() {
+    public Long getSid() {
         return this.sid;
     }
 
-    public void setSid(long sid) {
+    public void setSid(Long sid) {
         this.sid = sid;
     }
 
@@ -75,7 +75,7 @@ public class SurveyTimeId implements java.io.Serializable {
         int result = 17;
 
         result = 37 * result + this.getSequence();
-        result = 37 * result + (int) this.getSid();
+        result = (int) (37 * result +  this.getSid());
         return result;
     }
 

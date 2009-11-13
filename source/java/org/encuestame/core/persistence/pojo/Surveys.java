@@ -41,9 +41,9 @@ import javax.persistence.TemporalType;
 @Table(name = "surveys")
 public class Surveys implements java.io.Serializable {
 
-    private long sid;
+    private Long sid;
     private SecUsers secUsers;
-    private int ticket;
+    private Integer ticket;
     private Date startDate;
     private Date endDate;
     private Date dateInterview;
@@ -54,7 +54,7 @@ public class Surveys implements java.io.Serializable {
     public Surveys() {
     }
 
-    public Surveys(long sid, SecUsers secUsers, int ticket, Date startDate,
+    public Surveys(Long sid, SecUsers secUsers, Integer ticket, Date startDate,
             Date endDate) {
         this.sid = sid;
         this.secUsers = secUsers;
@@ -63,7 +63,7 @@ public class Surveys implements java.io.Serializable {
         this.endDate = endDate;
     }
 
-    public Surveys(long sid, SecUsers secUsers, int ticket, Date startDate,
+    public Surveys(Long sid, SecUsers secUsers, Integer ticket, Date startDate,
             Date endDate, Date dateInterview, String complete,
             Integer idSidFormat, Set surveyTimes) {
         this.sid = sid;
@@ -83,7 +83,7 @@ public class Surveys implements java.io.Serializable {
         return this.sid;
     }
 
-    public void setSid(long sid) {
+    public void setSid(Long sid) {
         this.sid = sid;
     }
 

@@ -29,32 +29,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class QuestionsAnswersId implements java.io.Serializable {
 
-    private int idAnswers;
-    private int qid;
+    private Long idAnswers;
+    private Long qid;
 
     public QuestionsAnswersId() {
     }
 
-    public QuestionsAnswersId(int idAnswers, int qid) {
+    public QuestionsAnswersId(Long idAnswers, Long qid) {
         this.idAnswers = idAnswers;
         this.qid = qid;
     }
 
     @Column(name = "id_answers", nullable = false)
-    public int getIdAnswers() {
+    public Long getIdAnswers() {
         return this.idAnswers;
     }
 
-    public void setIdAnswers(int idAnswers) {
+    public void setIdAnswers(Long idAnswers) {
         this.idAnswers = idAnswers;
     }
 
     @Column(name = "qid", nullable = false)
-    public int getQid() {
+    public Long getQid() {
         return this.qid;
     }
 
-    public void setQid(int qid) {
+    public void setQid(Long qid) {
         this.qid = qid;
     }
 
@@ -74,8 +74,8 @@ public class QuestionsAnswersId implements java.io.Serializable {
     public int hashCode() {
         int result = 17;
 
-        result = 37 * result + this.getIdAnswers();
-        result = 37 * result + this.getQid();
+        result = (int) (37 * result + this.getIdAnswers());
+        result = (int) (37 * result + this.getQid());
         return result;
     }
 
