@@ -43,7 +43,6 @@ import javax.persistence.Version;
 public class Questions implements Serializable {
 
     private Long qid;
-    private Float version;
     private CatState catState;
     private String question;
     private String qidKey;
@@ -83,15 +82,6 @@ public class Questions implements Serializable {
         this.qid = qid;
     }
 
-    @Version
-    @Column(name = "version", nullable = false)
-    public Float getVersion() {
-        return this.version;
-    }
-
-    public void setVersion(Float version) {
-        this.version = version;
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_state", nullable = false)
