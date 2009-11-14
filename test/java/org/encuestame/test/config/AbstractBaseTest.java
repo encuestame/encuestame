@@ -27,6 +27,7 @@ import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
+import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
@@ -66,6 +67,10 @@ import org.springframework.transaction.annotation.Transactional;
          })
 public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringContextTests {
 
+	 /** SurveyFormat  Dao. **/
+    @Autowired
+    private ISurveyFormatDao surveyformatDaoImp;
+	
     /** State Catalog Dao. **/
     @Autowired
     private ICatState catStateDaoImp;
@@ -99,6 +104,22 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     private IQuestionDao questionDaoImp;
 
 
+    /**
+     * Getter.
+     * @return the surveyFormatDaoImp
+     */
+    public ISurveyFormatDao getSurveyFormatDaoImp() {
+        return surveyformatDaoImp;
+    }
+
+    /**
+     * @param catStateDaoImp the catStateDaoImp to set
+     */
+    public void setCatStateDaoImp(final ISurveyFormatDao surveyformatDaoImp) {
+        this.surveyformatDaoImp = surveyformatDaoImp;
+    }
+    
+    
     /**
      * Getter.
      * @return the catStateDaoImp
