@@ -46,7 +46,6 @@
               <value>org.encuestame.core.persistence.pojo.CatLocationType</value>
               <value>org.encuestame.core.persistence.pojo.CatLocationUser</value>
               <value>org.encuestame.core.persistence.pojo.CatLocationUserId</value>
-              <value>org.encuestame.core.persistence.pojo.CatState</value>
               <value>org.encuestame.core.persistence.pojo.Project</value>
               <value>org.encuestame.core.persistence.pojo.ProjectGroup</value>
               <value>org.encuestame.core.persistence.pojo.ProjectGroupId</value>

@@ -59,10 +59,10 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="surveyFormatDaoImp" class="org.encuestame.core.persistence.dao.SurveyFormatDaoImp">
+    <bean id="surveyFormatDaoImp" class="org.encuestame.core.persistence.dao.SurveyFormatDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    
+
 </beans>
