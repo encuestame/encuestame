@@ -42,7 +42,7 @@ import org.springframework.security.userdetails.UsernameNotFoundException;
  */
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
-    protected SecUserDaoImp userDao;
+    protected SecUserDaoImp secUserDao;
     protected Boolean roleGroupAuth = true;
     protected Boolean roleUserAuth;
     private static Logger log = Logger.getLogger(EnMeUserServiceImp.class);
@@ -50,7 +50,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     /**
      * Setter.
      *
-     * @param userDao
+     * @param secUserDao
      */
 
     public void setRoleGroupAuth(Boolean roleGroupAuth) {
@@ -64,7 +64,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      *            the userDao to set
      */
     public void setUserDao(SecUserDaoImp userDao) {
-        this.userDao = userDao;
+        this.secUserDao = userDao;
     }
 
     /**
@@ -85,7 +85,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
         log.info("loading by username");
-        final SecUsers user = userDao.getUserByUsername(username);
+        final SecUsers user = secUserDao.getUserByUsername(username);
         if (user == null) {
             log.warn("not found");
             throw new UsernameNotFoundException("user not found");
@@ -119,8 +119,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         log.info("verificamos si esta activado las autoridades por usuario...");
         if (this.roleGroupAuth == true) {
             //search groups of the user
-            final List<SecGroupPermission> listGroupPermissions = userDao
-                    .getGroupPermission(userDao.getUserGroups(user));
+            final List<SecGroupPermission> listGroupPermissions = secUserDao
+                    .getGroupPermission(secUserDao.getUserGroups(user));
                 //iterator list of groups permissions
                 final Iterator<SecGroupPermission> iterator = listGroupPermissions
                         .iterator();
@@ -144,7 +144,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             }
         // verify is user permission flag is activated
         if (this.roleUserAuth == true) {
-           final List<SecUserPermission> listUserPermissions = userDao
+           final List<SecUserPermission> listUserPermissions = secUserDao
                     .getUserPermission(user);
                 Iterator<SecUserPermission> iteratorUser = listUserPermissions.iterator();
                 while (iteratorUser.hasNext()) {
