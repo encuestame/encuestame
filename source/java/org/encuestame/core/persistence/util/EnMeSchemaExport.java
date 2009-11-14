@@ -29,15 +29,18 @@ public class EnMeSchemaExport {
 
     /** spring config files. **/
      private static final String[] SPRING_CONFIG_FILES =
-         new String[]{"source/config/spring/encuestame-hibernate-context.xml", "source/config/spring/encuestame-param-context.xml"};
+         new String[]{
+         "source/config/spring/encuestame-hibernate-context.xml",
+         "source/config/spring/encuestame-param-context.xml"
+         };
 
      /**
       * Drop schema and create schema.
       */
      public void create(){
-         FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(SPRING_CONFIG_FILES);
-         AnnotationSessionFactoryBean annotationSF = (AnnotationSessionFactoryBean)  appContext.getBean("&sessionFactory");
-         annotationSF.dropDatabaseSchema();
+         final FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(SPRING_CONFIG_FILES);
+         final AnnotationSessionFactoryBean annotationSF = (AnnotationSessionFactoryBean)  appContext.getBean("&sessionFactory");
+         //annotationSF.dropDatabaseSchema();
          annotationSF.createDatabaseSchema();
      }
 
