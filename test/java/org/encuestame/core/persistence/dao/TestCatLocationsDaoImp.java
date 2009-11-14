@@ -42,6 +42,6 @@ public class TestCatLocationsDaoImp extends AbstractBaseTest{
         final SecPermission permission1 = super.createPermission("admon");
         final SecPermission permission2 = super.createPermission("editor");
 
-        final Collection<SecUserPermission> listofPermissions = getSecPermissionDaoImp().loadPermissionByUserId(user.getUid());
+        final Collection<SecUserPermission> listofPermissions = getSecPermissionDaoImp().loadPermissionByUserId(Integer.valueOf(user.getUid().toString()));
     }
 }

@@ -32,7 +32,7 @@ public class UnitQuestionBean extends MasterBean {
 	public String questionName;
 	public String version;
 	public UnitPatternBean pattern;
-	public Integer idState;
+	public Long idState;
 	public Integer id;
 	public Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
 
@@ -54,7 +54,7 @@ public class UnitQuestionBean extends MasterBean {
 	 * @param listAnswers
 	 */
 	public UnitQuestionBean(String questionName, String version,
-			UnitPatternBean pattern, Integer idState, Integer id,
+			UnitPatternBean pattern, Long idState, Integer id,
 			Collection<UnitAnswersBean> listAnswers) {
 		super();
 		this.questionName = questionName;
@@ -108,7 +108,7 @@ public class UnitQuestionBean extends MasterBean {
 	/**
 	 * @return the idState
 	 */
-	public Integer getIdState() {
+	public Long getIdState() {
 		return idState;
 	}
 
@@ -116,7 +116,7 @@ public class UnitQuestionBean extends MasterBean {
 	 * @param idState
 	 *            the idState to set
 	 */
-	public void setIdState(Integer idState) {
+	public void setIdState(Long idState) {
 		this.idState = idState;
 	}
 

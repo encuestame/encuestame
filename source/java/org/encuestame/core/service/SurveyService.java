@@ -137,7 +137,7 @@ public class SurveyService extends Service implements ISurveyService {
 				while (i.hasNext()) {
 					Questions questions = (Questions) i.next();
 					UnitQuestionBean q = new UnitQuestionBean();
-					q.setId(questions.getQid());
+					q.setId(Integer.valueOf(questions.getQid().toString()));
 					q.setQuestionName(questions.getQuestion());
 					q.setIdState(questions.getCatState().getIdState());
 					listQuestionBean.add(q);
@@ -165,7 +165,7 @@ public class SurveyService extends Service implements ISurveyService {
 			QuestionsPatron q = getQuestionDaoImp().loadPatternInfo(
 					unit.getId());
 			log.info("loadPatternInfo QuestionsPatron ->"+q);
-			unit.setId(q.getIdPatron());
+			unit.setId(Integer.valueOf(q.getIdPatron().toString()));
 			unit.setDescripcion(q.getDesQid());
 			unit.setLabel(q.getLabelQid());
 			unit.setPatronType(q.getTypePatron());
@@ -193,7 +193,7 @@ public class SurveyService extends Service implements ISurveyService {
 				while (i.hasNext()) {
 					QuestionsPatron patron = (QuestionsPatron) i.next();
 					UnitPatternBean p = new UnitPatternBean();
-					p.setId(patron.getIdPatron());
+					p.setId(Integer.valueOf(patron.getIdPatron().toString()));
 					p.setPatronType(patron.getTypePatron());
 					listPatronBean.add(p);
 				}

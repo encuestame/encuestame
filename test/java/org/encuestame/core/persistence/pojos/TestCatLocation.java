@@ -49,8 +49,8 @@ public class TestCatLocation extends AbstractBaseTest{
      */
     @Test
     public void testCatLocationConstructor(){
-       new CatLocation(1,"1","Locate Description",3);
-       new CatLocation(1,"1","Locate Description",1,"S",2.5F,22.5F);
+       new CatLocation(1L,"1","Locate Description",3);
+       new CatLocation(1L,"1","Locate Description",1,"S",2.5F,22.5F);
     }
 
 }

@@ -50,10 +50,10 @@ public class GroupBean extends MasterBean {
 			for (Iterator<SecGroups> i = listGroups.iterator(); i.hasNext();) {
 				UnitGroupBean newGroup = new UnitGroupBean();
 				SecGroups group = i.next();
-				newGroup.setId(group.getGroupId());
+				newGroup.setId(Integer.valueOf(group.getGroupId().toString()));
 				newGroup.setGroupName(group.getName());
 				newGroup.setGroupDescription(group.getDesInfo());
-				newGroup.setStateId(Integer.toString(group.getIdState()));
+				newGroup.setStateId((group.getIdState().toString()));
 				list_unitBeans.add(newGroup);
 			}
 			return list_unitBeans;
@@ -146,10 +146,10 @@ public class GroupBean extends MasterBean {
 		try {
 			if (s != null) {
 				reset();
-				this.newGroup.setId(s.getGroupId());
+				this.newGroup.setId(Integer.valueOf(s.getGroupId().toString()));
 				this.newGroup.setGroupDescription(s.getDesInfo());
 				this.newGroup.setGroupName(s.getName());
-				this.newGroup.setStateId(Integer.toString(s.getIdState()));
+				this.newGroup.setStateId((s.getIdState().toString()));
 			} else {
 				addErrorMessage("No se pudo recuperar Grupo", "");
 			}

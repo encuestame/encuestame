@@ -54,7 +54,7 @@ public class DataService extends Service implements IDataService {
             for (Iterator<Project> i = list.iterator(); i.hasNext();) {
                 UnitProjectBean proB = new UnitProjectBean();
                 Project project = i.next();
-                proB.setId(project.getProyectId());
+                proB.setId(Integer.valueOf(project.getProyectId().toString()));
                 proB.setName(project.getDescription());
                 proB.setDescription(project.getInfo());
                 proB.setDateInit(project.getDateStart());
@@ -80,12 +80,12 @@ public class DataService extends Service implements IDataService {
             Project pro = getProjectDaoImp().getProjectbyId(project.getId());
             if (pro != null) {
                 log.info("2 project found name ->"+pro.getDescription());
-                project.setId(pro.getProyectId());
+                project.setId(Integer.valueOf(pro.getProyectId().toString()));
                 project.setDateFinish(pro.getDateFinish());
                 project.setDateInit(pro.getDateStart());
                 project.setDescription(pro.getInfo());
                 project.setName(pro.getDescription());
-                project.setState(pro.getCatState().getIdState());
+                project.setState(Integer.valueOf(pro.getCatState().getIdState().toString()));
                 log.info("Rescue->"+project.getName());
                 log.info("loadProjectInfo DATASERVICE Rescue -->"+project);
                 return project;

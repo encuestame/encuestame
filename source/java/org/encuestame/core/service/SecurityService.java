@@ -122,15 +122,14 @@ public class SecurityService extends Service implements ISecurityService {
                     for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
                         final UnitUserBean userB = new UnitUserBean();
                         final  SecUsers user = i.next();
-                        userB.setId(user.getUid());
+                        userB.setId(Integer.valueOf(user.getUid().toString()));
                         userB.setName(user.getName());
                         userB.setEmail(user.getEmail());
                         userB.setUsername(user.getUsername());
                         userB.setPublisher(user.getPublisher());
                         userB.setStatus(user.isStatus());
-                        userB.setListGroups(convertSetToUnitGroupBean(user.getUid()));
-                        userB.setListPermission(convertSetToUnitPermission(user
-                                .getUid()));
+                        userB.setListGroups(convertSetToUnitGroupBean(Integer.valueOf((user.getUid().toString()))));
+                        userB.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));
                         loadListUsers.add(userB);
                     }
                 }
@@ -179,7 +178,7 @@ public class SecurityService extends Service implements ISecurityService {
             user.setName(domainUser.getName());
             user.setUsername(domainUser.getUsername());
             user.setEmail(domainUser.getEmail());
-            user.setId(domainUser.getUid());
+            user.setId(Integer.valueOf(domainUser.getUid().toString()));
             user.setStatus(domainUser.isStatus());
             user.setDate_new(domainUser.getDateNew());
             user.setInvite_code(domainUser.getInviteCode());
@@ -207,9 +206,8 @@ public class SecurityService extends Service implements ISecurityService {
                 final SecGroupUser userg = i.next();
                 group.setGroupName(userg.getSecGroups().getName());
                 group.setGroupDescription(userg.getSecGroups().getDesInfo());
-                group.setId(userg.getSecGroups().getGroupId());
-                group.setStateId(Integer.toString(userg.getSecGroups()
-                        .getIdState()));
+                group.setId(Integer.valueOf(userg.getSecGroups().getGroupId().toString()));
+                group.setStateId(userg.getSecGroups().getIdState().toString());
                 loadListGroups.add(group);
             }
         }
@@ -232,7 +230,7 @@ public class SecurityService extends Service implements ISecurityService {
             for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
                     .hasNext();) {
                 final SecUserPermission permission = i.next();
-                permissionBean.setId(permission.getSecPermission().getIdPermission());
+                permissionBean.setId(Integer.valueOf(permission.getSecPermission().getIdPermission().toString()));
                 permissionBean
                         .setPermission(permission.getSecPermission()
                                 .getPermission());
@@ -256,7 +254,7 @@ public class SecurityService extends Service implements ISecurityService {
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             SecPermission permission = iterator.next();
-            permissionBean.setId(permission.getIdPermission());
+            permissionBean.setId(Integer.valueOf(permission.getIdPermission().toString()));
             permissionBean.setPermission(permission.getPermission());
             permissionBean.setDescription(permission.getDescription());
             loadListPermission.add(permissionBean);
@@ -280,7 +278,7 @@ public class SecurityService extends Service implements ISecurityService {
      */
     public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain){
         UnitGroupBean groupBean = new UnitGroupBean();
-        groupBean.setId(groupDomain.getGroupId());
+        groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
         groupBean.setGroupDescription(groupDomain.getDesInfo());
         groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
         return groupBean;
@@ -334,7 +332,7 @@ public class SecurityService extends Service implements ISecurityService {
         if (group != null) {
             group.setName(groupBean.getGroupName());
             group.setDesInfo(groupBean.getGroupDescription());
-            group.setIdState((new Integer(groupBean.getStateId())));
+            group.setIdState(Long.valueOf((groupBean.getStateId())));
             getGroupDao().saveOrUpdate(group);
         }
     }
@@ -362,7 +360,7 @@ public class SecurityService extends Service implements ISecurityService {
         final SecGroups groupDomain = new SecGroups();
         groupDomain.setDesInfo(groupBean.getGroupDescription());
         groupDomain.setName(groupBean.getGroupName());
-        groupDomain.setIdState(new Integer(groupBean.getStateId()).intValue());
+        groupDomain.setIdState(Long.valueOf((groupBean.getStateId())));
         getGroupDao().saveOrUpdate(groupDomain);
     }
 
@@ -419,7 +417,7 @@ public class SecurityService extends Service implements ISecurityService {
             final UnitPermission permissionBean = new UnitPermission();
             permissionBean.setDescription(permissionDomain.getDescription());
             permissionBean.setPermission(permissionDomain.getPermission());
-            permissionBean.setId(permissionDomain.getIdPermission());
+            permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
             return permissionBean;
         } else {
             throw new EnMeExpcetion("default permission not found.");
@@ -437,17 +435,17 @@ public class SecurityService extends Service implements ISecurityService {
             throws EnMeExpcetion {
         if (userBean.getId() == null && userBean.getUsername() != null) {
             final SecUsers userDomain = getUser(userBean.getUsername());
-            userBean.setId(userDomain.getUid());
+            userBean.setId(Integer.valueOf(userDomain.getUid().toString()));
         }
         if (permissionBean.getId() == null && permissionBean.getPermission() != null) {
             final SecPermission permissionDomain = loadPermission(permissionBean.getPermission());
-            permissionBean.setId(permissionDomain.getIdPermission());
+            permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
         }
         if (userBean.getId() != null && permissionBean.getId() != null) {
             final SecUserPermission userPerId = new SecUserPermission();
             SecUserPermissionId userPermissionId = new SecUserPermissionId();
-            userPermissionId.setIdPermission(permissionBean.getId());
-            userPermissionId.setUid(userBean.getId());
+            userPermissionId.setIdPermission(Long.valueOf(permissionBean.getId().toString()));
+            userPermissionId.setUid(Long.valueOf(userBean.getId().toString()));
             userPerId.setId(userPermissionId);
             userPerId.setState(true);
             getUserDao().saveOrUpdate(userPerId);
@@ -479,8 +477,8 @@ public class SecurityService extends Service implements ISecurityService {
             throws EnMeExpcetion {
         try{
             SecGroupUserId groupUserId = new SecGroupUserId();
-            groupUserId.setGroupId(groupBean.getId());
-            groupUserId.setUid(userBean.getId());
+            groupUserId.setGroupId(Long.valueOf(groupBean.getId().toString()));
+            groupUserId.setUid(Long.valueOf(userBean.getId().toString()));
             SecGroupUser groupUser = new SecGroupUser();
             groupUser.setId(groupUserId);
             groupUser.setState(true);
@@ -502,7 +500,7 @@ public class SecurityService extends Service implements ISecurityService {
         try{
             final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
                 if (permissionDomain != null) {
-                    permissionBean.setId(permissionDomain.getIdPermission());
+                    permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
                     permissionBean.setPermission(permissionDomain.getPermission());
                     permissionBean.setDescription(permissionDomain.getDescription());
                 }

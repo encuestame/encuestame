@@ -262,7 +262,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     public SecGroups createGroups(final String groupname){
         final SecGroups group = new SecGroups();
         group.setName(groupname);
-        group.setIdState(1);
+        group.setIdState(1L);
         group.setDesInfo("Primer Grupo");
         getSecGroup().saveOrUpdate(group);
         return group;

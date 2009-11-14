@@ -49,7 +49,7 @@ public class TestCatStateDaoImp extends AbstractBaseTest{
     public void testGroupById(){
         final CatState state = super.createState("state 2");
         final CatState retrieveState = getCatStateDaoImp()
-        .getState(state.getIdState());
+        .getState(Integer.valueOf(state.getIdState().toString()));
         assertNotNull(retrieveState);
     }
 }
