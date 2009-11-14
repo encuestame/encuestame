@@ -93,15 +93,13 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
             List<SecGroupPermission> permission = getHibernateTemplate()
                     .findByNamedParam("from SecGroupPermission d where d.secGroups = :groupId", "groupId",
                             secGroups.getSecGroups());
-            if (permission != null && permission.size() > 0) {
-                Iterator<SecGroupPermission> ilistPermission = permission
+                final Iterator<SecGroupPermission> ilistPermission = permission
                         .iterator();
                 while (ilistPermission.hasNext()) {
                     final SecGroupPermission secPermission = (SecGroupPermission) ilistPermission
                             .next();
                     listGroupPermission.add(secPermission);
                 }
-            }
         }
         return listGroupPermission;
     }

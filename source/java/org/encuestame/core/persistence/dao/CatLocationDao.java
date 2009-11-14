@@ -31,6 +31,11 @@ import org.hibernate.HibernateException;
  */
 public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatLocation {
 
+    /**
+     * Find All Location.
+     * @return list of all locations
+     * @throws HibernateException hibernate
+     */
     public List<CatLocation> findAll() throws HibernateException {
         return super.findAll("from CatLocation");
     }

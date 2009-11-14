@@ -36,8 +36,8 @@ import java.util.List;
  * @since November 10, 2009
  */
 public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISurveyFormatDao{
-	
-	 /**
+
+     /**
      * Get User By Id.
      * @param idSidFormat idSidFormat
      * @return SurveyFormat
@@ -46,6 +46,7 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
     public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException{
         return (SurveyFormat) getSession().get(SurveyFormat.class, idSidFormat);
     }
+
     /**
      * Get User By Name.
      * @param name name
@@ -59,7 +60,7 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
         .uniqueResult();
     }
 
-    
+
     /**
      * Get SurveyFormat By Date.
      * @param date startDate
@@ -67,14 +68,13 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
      * @return SurveyFormat
      * @throws HibernateException hibernate exception
      */
-    
     @SuppressWarnings("unchecked")
-	public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate){
-    	
-    	return getSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
-    			.setDate("start", startDate)
-    			.setDate("end", endDate)
-    			.list();
+    public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate){
+
+        return getSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
+                .setDate("start", startDate)
+                .setDate("end", endDate)
+                .list();
     }
-    
+
 }

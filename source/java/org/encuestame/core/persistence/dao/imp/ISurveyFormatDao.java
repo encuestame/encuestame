@@ -32,9 +32,30 @@ import org.hibernate.HibernateException;
  * @since November 10, 2009
  */
 public interface ISurveyFormatDao extends IBaseDao {
-	 public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException;
-	 public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException;
-	 public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate);
-	    	
+
+    /**
+     * Get User By Id.
+     * @param idSidFormat idSidFormat
+     * @return SurveyFormat
+     * @throws HibernateException hibernate exception
+     */
+     public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException;
+     /**
+      * Get User By Name.
+      * @param name name
+      * @return SurveyFormat
+      * @throws HibernateException hibernate exception
+      */
+     public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException;
+
+     /**
+      * Get SurveyFormat By Date.
+      * @param date startDate
+      * @param date endDate
+      * @return SurveyFormat
+      * @throws HibernateException hibernate exception
+      */
+     public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate);
+
 
 }
