@@ -19,8 +19,8 @@ package org.encuestame.core.persistence.pojo;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,8 +29,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * SurveyFormat.
@@ -48,7 +46,6 @@ public class SurveyFormat implements java.io.Serializable {
     private Set<SurveyFormatGroup> surveyFormatGroups = new  HashSet<SurveyFormatGroup>(
             0);
     private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
-    //private Set<Surveys> survey = new HashSet<Surveys>(0);
 
     public SurveyFormat() {
     }
