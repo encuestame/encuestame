@@ -41,7 +41,7 @@ public class TestCatLocation extends AbstractBaseTest{
     catLoc.setLng(3F);
     catLoc.setTidtype("1");
     getCatLocationDao().saveOrUpdate(catLoc);
-     //catLoc.setLocateId(locateId);
+
     }
 
     /**
