@@ -201,7 +201,7 @@ public class SecurityService extends Service implements ISecurityService {
         if (userId != null) {
             final UnitGroupBean group = new UnitGroupBean();
             Collection<SecGroupUser> listSecGru = getGroupDao()
-                    .loadGroupsByUser(userId);
+                    .loadGroupsByUser(Long.valueOf(userId));
             for (Iterator<SecGroupUser> i = listSecGru.iterator(); i.hasNext();) {
                 final SecGroupUser userg = i.next();
                 group.setGroupName(userg.getSecGroups().getName());
@@ -267,7 +267,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param group group
      */
     public void deleteGroup(final UnitGroupBean group) {
-        final SecGroups g = getGroupDao().find(group.getId());
+        final SecGroups g = getGroupDao().find(Long.valueOf(group.getId()));
         getGroupDao().delete(g);
     }
 
@@ -328,7 +328,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @throws EnMeExpcetion
      */
     public void updateGroup(UnitGroupBean groupBean){
-        final SecGroups group = getGroupDao().find(groupBean.getId());
+        final SecGroups group = getGroupDao().find(Long.valueOf(groupBean.getId()));
         if (group != null) {
             group.setName(groupBean.getGroupName());
             group.setDesInfo(groupBean.getGroupDescription());

@@ -33,100 +33,100 @@ import org.encuestame.web.beans.location.UnitLocationBean;
  * @version 1.0
  */
 public class UnitProjectBean extends MasterBean implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9098305021342831224L;
-	private String name;
-	private Date dateInit;
-	private Date dateFinish;
-	private Integer state;
-	private String description;
-	private Integer id;
-	private Collection<UnitGroupBean> listGroups;
-	private Collection<UnitLocationBean> listLocations;
-	private Collection<UnitGroupBean> listUsers;
-	private Collection<UnitPermission> listGroupsSurveys;
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -9098305021342831224L;
+    private String name;
+    private Date dateInit;
+    private Date dateFinish;
+    private Long state;
+    private String description;
+    private Integer id;
+    private Collection<UnitGroupBean> listGroups;
+    private Collection<UnitLocationBean> listLocations;
+    private Collection<UnitGroupBean> listUsers;
+    private Collection<UnitPermission> listGroupsSurveys;
 
 
-	
-	
-	
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @return the dateInit
-	 */
-	public Date getDateInit() {
-		return dateInit;
-	}
-	/**
-	 * @param dateInit the dateInit to set
-	 */
-	public void setDateInit(Date dateInit) {
-		this.dateInit = dateInit;
-	}
-	/**
-	 * @return the dateFinish
-	 */
-	public Date getDateFinish() {
-		return dateFinish;
-	}
-	/**
-	 * @param dateFinish the dateFinish to set
-	 */
-	public void setDateFinish(Date dateFinish) {
-		this.dateFinish = dateFinish;
-	}
-	/**
-	 * @return the state
-	 */
-	public Integer getState() {
-		return state;
-	}
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(Integer state) {
-		this.state = state;
-	}
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	
-	
+
+
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * @return the dateInit
+     */
+    public Date getDateInit() {
+        return dateInit;
+    }
+    /**
+     * @param dateInit the dateInit to set
+     */
+    public void setDateInit(Date dateInit) {
+        this.dateInit = dateInit;
+    }
+    /**
+     * @return the dateFinish
+     */
+    public Date getDateFinish() {
+        return dateFinish;
+    }
+    /**
+     * @param dateFinish the dateFinish to set
+     */
+    public void setDateFinish(Date dateFinish) {
+        this.dateFinish = dateFinish;
+    }
+    /**
+     * @return the state
+     */
+    public Long getState() {
+        return state;
+    }
+    /**
+     * @param state the state to set
+     */
+    public void setState(Long state) {
+        this.state = state;
+    }
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
 
 }

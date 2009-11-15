@@ -43,7 +43,7 @@ public class DataService extends Service implements IDataService {
     private ProjectDaoImp projectDaoImp;
 
     /**
-     * 
+     *
      * @return
      */
     public Collection<UnitProjectBean> loadListProjects() {
@@ -85,7 +85,7 @@ public class DataService extends Service implements IDataService {
                 project.setDateInit(pro.getDateStart());
                 project.setDescription(pro.getInfo());
                 project.setName(pro.getDescription());
-                project.setState(Integer.valueOf(pro.getCatState().getIdState().toString()));
+                project.setState(Long.valueOf(pro.getCatState().getIdState().toString()));
                 log.info("Rescue->"+project.getName());
                 log.info("loadProjectInfo DATASERVICE Rescue -->"+project);
                 return project;
@@ -132,10 +132,10 @@ public class DataService extends Service implements IDataService {
     /**
      * load state by id
      *
-     * @param id
+     * @param stateId
      */
-    private CatState getState(Integer id) throws Exception {
-        return getStateDao().getState(id);
+    private CatState getState(Long stateId) throws Exception {
+        return getStateDao().getState(stateId);
     }
 
     /**

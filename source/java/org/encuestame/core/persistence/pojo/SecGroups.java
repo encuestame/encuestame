@@ -45,28 +45,9 @@ public class SecGroups implements java.io.Serializable {
     private String desInfo;
     private Long idState;
     private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
-    private Set secGroupPermissions = new HashSet(0);
-    private Set projectGroups = new HashSet(0);
-    private Set projectLocations = new HashSet(0);
-
-    public SecGroups() {
-    }
-
-    public SecGroups(Long idState) {
-        this.idState = idState;
-    }
-
-    public SecGroups(String name, String desInfo, Long idState,
-            Set<SecGroupUser> secGroupUsers, Set secGroupPermissions,
-            Set projectGroups, Set projectLocations) {
-        this.name = name;
-        this.desInfo = desInfo;
-        this.idState = idState;
-        this.secGroupUsers = secGroupUsers;
-        this.secGroupPermissions = secGroupPermissions;
-        this.projectGroups = projectGroups;
-        this.projectLocations = projectLocations;
-    }
+    private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(0);
+    private Set<ProjectGroup> projectGroups = new HashSet<ProjectGroup>(0);
+    private Set<ProjectLocation> projectLocations = new HashSet<ProjectLocation>(0);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

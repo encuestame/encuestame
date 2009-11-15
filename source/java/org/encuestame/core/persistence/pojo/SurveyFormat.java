@@ -24,6 +24,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -47,24 +49,8 @@ public class SurveyFormat implements java.io.Serializable {
             0);
     private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
 
-    public SurveyFormat() {
-    }
-
-    public SurveyFormat(Long idSidFormat) {
-        this.idSidFormat = idSidFormat;
-    }
-
-    public SurveyFormat(Long idSidFormat, String name, Date dateCreated,
-            Set<SurveyFormatGroup> surveyFormatGroups,
-            Set<SurveyDetail> surveyDetails) {
-        this.idSidFormat = idSidFormat;
-        this.name = name;
-        this.dateCreated = dateCreated;
-        this.surveyFormatGroups = surveyFormatGroups;
-        this.surveyDetails = surveyDetails;
-    }
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_sid_format", unique = true, nullable = false)
     public Long getIdSidFormat() {
         return this.idSidFormat;
