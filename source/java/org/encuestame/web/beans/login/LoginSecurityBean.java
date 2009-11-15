@@ -1,3 +1,20 @@
+/**
+ * encuestame: system online surveys Copyright (C) 2009 encuestame Development
+ * Team
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 3 of the GNU General Public License as published by the
+ * Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.encuestame.web.beans.login;
 
 import java.io.IOException;
@@ -34,297 +51,266 @@ import org.springframework.security.ui.savedrequest.SavedRequest;
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 
 /**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- * 
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
- * Id: LoginSecurityBean.java Date: 08/05/2009 14:40:44
- * 
- * @author juanpicado package: org.encuestame.web.beans.login
- * @version 1.0
+ * Login Security Bean.
+ * @author Picado, Juan juan@encuestame.org
+ * @since 08/05/2009 14:40:44
  */
 public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
-	private final Log log = LogFactory.getLog(getClass());
+    /** AuthenticationManager. */
+    private AuthenticationManager authenticationManager;
+    /** user name. */
+    private String userName;
+    /** user password. **/
+    private String userPassword;
+    /** default localte. */
+    private String defaultLocale;
+    /** remember session flag. */
+    private Boolean rememberMe = Boolean.FALSE;
+    /** application face. */
+    private Application applicationFaces;
+    /** source of message */
+    protected MessageSource m_messageSource;
+    /** remember services. */
+    private RememberMeServices rememberMeServices;
+    /** index target */
+    private final String TARGET = "/pages/index.me";
 
-	private AuthenticationManager authenticationManager;
-	private String userName;
-	private String userPassword;
-	private String defaultLocale;
-	private Boolean rememberMe = Boolean.FALSE;
-	private Application app;
-	protected MessageSource m_messageSource;
+    /**
+     * Getter.
+     * @return
+     */
+    public String getUserName() {
+        return userName;
+    }
 
-	private RememberMeServices rememberMeServices;
+    /**
+     * Setter.
+     * @param userName
+     */
+    public void setUserName(final String userName) {
+        this.userName = userName;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    /**
+     * Getter.
+     * @return
+     */
+    public String getUserPassword() {
+        return userPassword;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * Setter.
+     * @param userPassword
+     */
+    public void setUserPassword(final String userPassword) {
+        this.userPassword = userPassword;
+    }
 
-	public String getUserPassword() {
-		return userPassword;
-	}
+    /**
+     * Getter.
+     * @return
+     */
+    public String getDefaultLocale() {
+        return defaultLocale;
+    }
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
+    /**
+     * Default Locale.
+     * @param defaultLocale
+     */
+    public void setDefaultLocale(final  String defaultLocale) {
+        this.defaultLocale = defaultLocale;
+    }
 
-	public String getDefaultLocale() {
-		return defaultLocale;
-	}
+    /**
+     * Getter.
+     * @return
+     */
+    public Boolean getRememberMe() {
+        return rememberMe;
+    }
 
-	public void setDefaultLocale(String defaultLocale) {
-		this.defaultLocale = defaultLocale;
-	}
+    /**
+     * Setter.
+     * @param rememberMe
+     */
+    public void setRememberMe(final  Boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
 
-	public Boolean getRememberMe() {
-		return rememberMe;
-	}
+    /**
+     * Getter.
+     * @return
+     */
+    public AuthenticationManager getAuthenticationManager() {
+        return authenticationManager;
+    }
 
-	public void setRememberMe(Boolean rememberMe) {
-		this.rememberMe = rememberMe;
-	}
+    /**
+     * Setter.
+     * @param authenticationManager
+     */
+    public void setAuthenticationManager(
+            final AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
-	public AuthenticationManager getAuthenticationManager() {
-		return authenticationManager;
-	}
+    /**
+     * Getter.
+     * Execute in the first phase of life cycle
+     * http://java-matias.blogspot.com/2008/12/spring-25-dia-2.html
+     */
+    public void afterPropertiesSet() throws Exception {
+        defaultLocale = getFacesContext().getViewRoot().getLocale().toString();
+    }
 
-	public void setAuthenticationManager(
-			AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
+    /**
+     * Send to url.
+     * @param urlPath url to foward
+     */
+    protected void forward(final String urlPath) {
+        //get face context
+        final FacesContext facesCtx = getFacesContext();
+        final UIViewRoot view = getApplication().getViewHandler().createView(facesCtx, urlPath);
+        facesCtx.setViewRoot(view);
+        facesCtx.renderResponse();
+    }
 
-	/**
-	 * 
-	 public void setMessageSource(MessageSource i_messageSource) {
-	 * m_messageSource = i_messageSource; }
-	 */
+    /**
+     * Get application context.
+     */
+    protected Application getApplication() {
+        if (applicationFaces == null) {
+            ApplicationFactory appFactory = (ApplicationFactory) FactoryFinder
+                    .getFactory(FactoryFinder.APPLICATION_FACTORY);
+            applicationFaces = appFactory.getApplication();
+        }
+        return applicationFaces;
+    }
 
-	/**
-	 * Se ejecuta al inicio del ciclo de vida Explicado en
-	 * http://java-matias.blogspot.com/2008/12/spring-25-dia-2.html
-	 */
-	public void afterPropertiesSet() throws Exception {
-		Locale locale = getFacesContext().getViewRoot().getLocale();
-		defaultLocale = locale.toString();
-	}
+    /**
+     * Get current face context.
+     */
+    protected FacesContext getFacesContext() {
+        return FacesContext.getCurrentInstance();
+    }
 
-	/**
-	 * Ejecuta un envio a un url definido por la navegaci�n JSF
-	 * 
-	 * @param viewId
-	 */
-	protected void forward(String viewId) {
-		ViewHandler viewHandler = getApplication().getViewHandler();
-		FacesContext facesCtx = getFacesContext();
-		UIViewRoot view = viewHandler.createView(facesCtx, viewId);
-		facesCtx.setViewRoot(view);
-		facesCtx.renderResponse();
-	}
+    /**
+     * Get Request.
+     * @return http servlet request
+     */
+    protected HttpServletRequest getRequest() {
+        return (HttpServletRequest) getFacesContext().getExternalContext()
+        .getRequest();
+    }
 
-	/**
-	 * Obtiene el contexto de la Aplicaci�n
-	 * 
-	 * @return
-	 */
-	protected Application getApplication() {
-		if (app == null) {
-			ApplicationFactory appFactory = (ApplicationFactory) FactoryFinder
-					.getFactory(FactoryFinder.APPLICATION_FACTORY);
-			app = appFactory.getApplication();
-		}
-		return app;
-	}
+    /**
+     * Get Response.
+     * @return http servlet response
+     */
+    protected HttpServletResponse getResponse() {
+        return (HttpServletResponse) getFacesContext().getExternalContext()
+        .getResponse();
+    }
 
-	/**
-	 * Obtiene el Contexto de JSF
-	 * 
-	 * @return
-	 */
-	protected FacesContext getFacesContext() {
-		return FacesContext.getCurrentInstance();
-	}
+    /**
+     * Login Action
+     * http://www.jroller.com/fairTrade/entry/integrating_acegi_and_jsf_revisited
+     */
+    public String login() {
+        HttpServletRequest request = getRequest();
 
-	/**
-	 * Obtiene la Petici�n del HttpServletRequest
-	 * 
-	 * @return
-	 */
-	protected HttpServletRequest getRequest() {
-		ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) context.getRequest();
-		return request;
-	}
+        try {
+            final String userName = getUserName();
+            final String password = getUserPassword();
+            //create spring token
+            final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                    userName, password);
+            // add to token de servlet request
+            token.setDetails(new WebAuthenticationDetails(request));
+            // create a http session
+            final  HttpSession session = request.getSession();
+            // set username attribute to session
+            session.setAttribute(
+            AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
+            userName);
+            // get authentication manager and setter token
+            final Authentication authenticationManager = getAuthenticationManager().authenticate(
+                    token);
 
-	/**
-	 * Obtiene la Respuesta del HttpServletResponse
-	 * 
-	 * @return
-	 */
-	protected HttpServletResponse getResponse() {
-		ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		HttpServletResponse response = (HttpServletResponse) context
-				.getResponse();
+            //TODO: need investigate this.
+            // it is not used - so, commented
+            // SecurityContext sessionSecCtx = (SecurityContext) session
+            // .getAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY);
+            // log.debug("SecurityContext from session [{}]"/*, sessionSecCtx !=
+            // null ? sessionSecCtx.toString() : "null");
 
-		return response;
-	}
+            // get spring security context
+            final SecurityContext secCtx = SecurityContextHolder.getContext();
 
-	/**
-	 * Performs Login Action
-	 * 
-	 * [AKA]Initially I tried to implement it very simple - as it displayed in
-	 * http://wiki.apache.org/myfaces/JSF_and_Acegi But seems since we are using
-	 * Facelets/Acegi it did not worked - during redirecting to the
-	 * j_acegi_security_check I've got error from facelets So, I've got solution
-	 * from here: http://www.jroller.com/page/fairTrade?entry=
-	 * integrating_acegi_and_jsf_revisited
-	 * 
-	 * @return always null - because this method (if it is success) should call
-	 *         redirect
-	 */
-	public String login() {
-		HttpServletRequest request = getRequest();
+            // set to security context the autentication manager
+            secCtx.setAuthentication(authenticationManager);
+            session
+                    .setAttribute(
+                            HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY,
+                            secCtx);
 
-		try {
+            // set remember me TODO: need implement.
+            /*
+             * if (rememberMe && rememberMeServices != null) {
+             * rememberMeServices.loginSuccess(request, getResponse(), auth); }
+             *
+             * if (defaultLocale != null) { Cookie cookie = new
+             * Cookie(LocaleRequestWrapper.PREFERED_LOCALE, defaultLocale);
+             * cookie.setMaxAge(60 * 60 * 24 * 365);
+             * getResponse().addCookie(cookie); }
+             */
 
-			String userName = getUserName();
-			log.info("userName -->" + userName);
-			String password = getUserPassword();
-			log.info("password -->" + password);
-			// Creamos un token para Spring
-			UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(
-					userName, password);
-			log.info("UsernamePasswordAuthenticationToken -->" + authReq);
-			// le agregamos al toker el request de HttpServletRequest
-			authReq.setDetails(new WebAuthenticationDetails(request));
-			// Creamos una sesi�n
-			HttpSession session = request.getSession();
-			log.info("HttpSession -->" + session);
-			// Asignamos la sesi�n el atributo UserName
-			session
-					.setAttribute(
-							AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
-							userName);
-			// Obtenemos el manager auth y le asignamos el token
-			Authentication auth = getAuthenticationManager().authenticate(
-					authReq);
-			log.info("Authentication -->" + auth);
-			// it is not used - so, commented
-			// SecurityContext sessionSecCtx = (SecurityContext) session
-			// .getAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY);
-			// log.debug("SecurityContext from session [{}]"/*, sessionSecCtx !=
-			// null ? sessionSecCtx.toString() : "null");
-			// Obtenemos el Contexto de Spring Security
-			SecurityContext secCtx = SecurityContextHolder.getContext();
-			// log.debug("SecurityContext from holder [{}]"/*, secCtx != null ?
-			// secCtx.toString() : "null");
+            //set default locale
+            //TODO: need test this.
+            // userSettingsService.setDefaultLocale(defaultLocale);
 
-			// Le asignamos el Autentication Manager al Contexto de Seguridad
-			secCtx.setAuthentication(auth);
-			log.info("placing SecurityContext from holder into session");
-			session
-					.setAttribute(
-							HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY,
-							secCtx);
-
-			// set remember me
-			/*
-			 * if (rememberMe && rememberMeServices != null) {
-			 * rememberMeServices.loginSuccess(request, getResponse(), auth); }
-			 * 
-			 * if (defaultLocale != null) { Cookie cookie = new
-			 * Cookie(LocaleRequestWrapper.PREFERED_LOCALE, defaultLocale);
-			 * cookie.setMaxAge(60 * 60 * 24 * 365);
-			 * getResponse().addCookie(cookie); }
-			 */
-
-			// userSettingsService.setDefaultLocale(defaultLocale);
-			// Obtenemos la llave de la petici�n
-			String urlKey = AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY;
-			log.info("SPRING_SECURITY_SAVED_REQUEST_KEY -->" + urlKey);
-			// Guardamos la llave
-			SavedRequest savedRequest = (SavedRequest) session
-					.getAttribute(urlKey);
-			// Removemos la llave e la sesi�n
-			session.removeAttribute(urlKey);
-
-			String target = "/pages/index.me";
-
-			// Si es diferente de nulo, obtenemos la direcci�n exacta del URL
-			if (savedRequest != null) {
-				log
-						.info("Si es diferente de nulo, obtenemos la direcci�n exacta del URL -->"
-								+ savedRequest);
-				String targetUrl = null;
-				targetUrl = savedRequest.getFullRequestUrl();
-				// Redireccionamos a la siguiente URL
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect(targetUrl);
-				return null;
-
-			} else {
-				// Si fuera nulo entonces
-				log.info("Si fuera nulo entonces -->" + savedRequest);
-				// if (m_trailController.getCurrentUrl() != null) {
-				// log.debug("authentication successful, forwarded to " +
-				// m_trailController.getCurrentUrl());
-				// FacesContext.getCurrentInstance().getExternalContext().redirect(m_trailController.getCurrentUrl());
-				// return null;
-				// }
-			}
-
-			// log.debug("authentication successful, forwarding to [{}] obtained from [{}]"/*,
-			// target, targetUrl);
-			//
-			forward(target);
-
-		} catch (BadCredentialsException e) {
-			addErrorMessage((getMessageProperties("error_credentials")), e
-					.getMessage());
-
-			if (rememberMeServices != null) {
-				rememberMeServices.loginFail(request, getResponse());
-			}
-
-			return null;
-		} catch (AuthenticationException e) {
-			addErrorMessage(getMessageProperties("auth_credentials"), e
-					.getMessage());
-
-			if (rememberMeServices != null) {
-				rememberMeServices.loginFail(request, getResponse());
-			}
-
-			return null;
-		} catch (IOException ioException) {
-			addErrorMessage(ioException.getMessage(), ioException.getMessage());
-			return null;
-		} catch (Exception e) {
-			addErrorMessage(getMessageProperties("indefined_error"), e
-					.getMessage());
-		}
-
-		// in case we have nothing in trails - go to main wiki page
-		log.info("in case we have nothing in trails - go to main wiki page-->");
-		return "index";
-	}
+            // get request key
+            final String urlKey = AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY;
+            // save request key
+            final SavedRequest savedRequest = (SavedRequest) session
+                    .getAttribute(urlKey);
+            // remove key to session
+            session.removeAttribute(urlKey);
+            String targetUrl = null;
+            // if diferent of null get url
+            if (savedRequest != null) {
+                targetUrl = savedRequest.getFullRequestUrl();
+                log.info("save request "+targetUrl);
+                // Redireccionamos a la siguiente URL
+                getFacesContext().getExternalContext().redirect(targetUrl);
+            }
+             log.info("authentication successful, forwarding to ["+TARGET+"] obtained from [{"+targetUrl+"}]");
+            //forward(TARGET);
+        } catch (BadCredentialsException e) {
+            log.error("Error Security "+e);
+            addErrorMessage((getMessageProperties("error_credentials")), e
+                    .getMessage());
+            if (rememberMeServices != null) {
+                rememberMeServices.loginFail(request, getResponse());
+            }
+        } catch (AuthenticationException e) {
+            addErrorMessage(getMessageProperties("auth_credentials"), e
+                    .getMessage());
+            if (rememberMeServices != null) {
+                rememberMeServices.loginFail(request, getResponse());
+            }
+        } catch (IOException ioException) {
+            addErrorMessage(ioException.getMessage(), ioException.getMessage());
+            return null;
+        } catch (Exception e) {
+            addErrorMessage(getMessageProperties("indefined_error"), e
+                    .getMessage());
+        }
+        log.info("index login");
+        return "index";
+    }
 
 }
