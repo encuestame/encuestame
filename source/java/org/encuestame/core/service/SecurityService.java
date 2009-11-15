@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -39,6 +40,7 @@ import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.hibernate.HibernateException;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 
@@ -389,8 +391,14 @@ public class SecurityService extends Service implements ISecurityService {
         } else {
             throw new EnMeExpcetion("we need email and username to create user");
         }
-        final String passwordGenerated = generatePassword();
-        userDomain.setPassword(encryptPassworD(passwordGenerated));
+        String password = null;
+        if(userBean.getPassword()!=null){
+             password = userBean.getPassword();
+             userDomain.setPassword(encryptPassworD(password));
+        }else{
+            password = generatePassword();
+            userDomain.setPassword(encryptPassworD(password));
+        }
         userDomain.setPublisher(userBean.getPublisher());
         userDomain.setName(userBean.getName());
         userDomain.setStatus(userBean.getStatus());
@@ -398,7 +406,7 @@ public class SecurityService extends Service implements ISecurityService {
         try {
             // send to user the password to her emails
             if((!getSuspendedNotification())) {
-            sendUserPassword(userBean.getEmail(), passwordGenerated);
+            sendUserPassword(userBean.getEmail(), password);
             }
             // save user
             getUserDao().saveOrUpdate(userDomain);
@@ -581,6 +589,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return
      */
     private String encryptPassworD(final String password) {
+        //return DigestUtils.md5Hex(password);
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return passwordEncryptor.encryptPassword(password);
     }
