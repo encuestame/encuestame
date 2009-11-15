@@ -64,7 +64,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @throws HibernateException hibernate exception
      */
     public SecUsers getUserById(final Long userId) throws HibernateException{
-        return (SecUsers) getSession().get(SecUsers.class, Integer.valueOf(userId.toString()));
+        return (SecUsers) getSession().get(SecUsers.class, userId.toString());
     }
 
     /**

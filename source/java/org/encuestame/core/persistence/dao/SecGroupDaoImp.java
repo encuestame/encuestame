@@ -47,14 +47,17 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      * @return list of groups.
      */
     @SuppressWarnings("unchecked")
-    public Collection<SecGroupUser> loadGroupsByUser(Integer userId) {
-        return getHibernateTemplate().find(
-                "from SecGroupUser d where d.secUsers.uid =" + userId);
+    public Collection<SecGroupUser> loadGroupsByUser(Long userId) {
+        return getHibernateTemplate().findByNamedParam("from SecGroupUser  "
+         +"where secUsers.uid = :uid", "uid", userId);
     }
 
+    /**
+     *
+     */
     public SecGroups getGroupById(Long groupId) throws HibernateException {
         return (SecGroups) getSession().get(SecGroups.class,
-                Integer.valueOf(groupId.toString()));
+               groupId.toString());
     }
 
     /**
@@ -62,7 +65,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      * @param groupId group id.
      * @return group
      */
-    public SecGroups find(final Integer groupId) {
+    public SecGroups find(final Long groupId) {
         return (SecGroups) getHibernateTemplate().get(SecGroups.class, groupId);
     }
 }
