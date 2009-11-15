@@ -27,6 +27,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.CascadeType;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -69,45 +70,6 @@ public class SecUsers implements Serializable {
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>(
             0);
     private Set<Surveys> surveyses = new HashSet<Surveys>(0);
-
-    public SecUsers() {
-    }
-
-    public SecUsers(String name, String email, String password, boolean status,
-            Date dateNew, String publisher) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.status = status;
-        this.dateNew = dateNew;
-        this.publisher = publisher;
-    }
-
-    public SecUsers(String name, String email, String username,
-            String password, Boolean status, String inviteCode, Date dateNew,
-            String publisher, String owner, String twitter,
-            Set<SecGroupUser> secGroupUsers,
-            Set<SecUserPermission> secUserPermissions, Set catLocationUsers,
-            Set surveyResultMods, Set<ProjectUser> projectUsers,
-            Set<QuestionColettion> questionColettions, Set<Surveys> surveyses) {
-        this.name = name;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.status = status;
-        this.inviteCode = inviteCode;
-        this.dateNew = dateNew;
-        this.publisher = publisher;
-        this.owner = owner;
-        this.twitter = twitter;
-        this.secGroupUsers = secGroupUsers;
-        this.secUserPermissions = secUserPermissions;
-        this.catLocationUsers = catLocationUsers;
-        this.surveyResultMods = surveyResultMods;
-        this.projectUsers = projectUsers;
-        this.questionColettions = questionColettions;
-        this.surveyses = surveyses;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -156,7 +118,7 @@ public class SecUsers implements Serializable {
         this.password = password;
     }
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = true)
     public Boolean isStatus() {
         return this.status;
     }
@@ -211,7 +173,7 @@ public class SecUsers implements Serializable {
         this.twitter = twitter;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<SecGroupUser> getSecGroupUsers() {
         return this.secGroupUsers;
     }
@@ -220,7 +182,7 @@ public class SecUsers implements Serializable {
         this.secGroupUsers = secGroupUsers;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<SecUserPermission> getSecUserPermissions() {
         return this.secUserPermissions;
     }
@@ -229,7 +191,7 @@ public class SecUsers implements Serializable {
         this.secUserPermissions = secUserPermissions;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<CatLocationUser> getCatLocationUsers() {
         return this.catLocationUsers;
     }
@@ -238,7 +200,7 @@ public class SecUsers implements Serializable {
         this.catLocationUsers = catLocationUsers;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<SurveyResultMod> getSurveyResultMods() {
         return this.surveyResultMods;
     }
@@ -247,7 +209,7 @@ public class SecUsers implements Serializable {
         this.surveyResultMods = surveyResultMods;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<ProjectUser> getProjectUsers() {
         return this.projectUsers;
     }
@@ -256,7 +218,7 @@ public class SecUsers implements Serializable {
         this.projectUsers = projectUsers;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<QuestionColettion> getQuestionColettions() {
         return this.questionColettions;
     }
@@ -265,7 +227,7 @@ public class SecUsers implements Serializable {
         this.questionColettions = questionColettions;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secUsers")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<Surveys> getSurveyses() {
         return this.surveyses;
     }

@@ -19,6 +19,7 @@ package org.encuestame.core.persistence.pojo;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -72,7 +73,7 @@ public class SecUserPermission implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_permission", nullable = false, insertable = false, updatable = false)
     public SecPermission getSecPermission() {
         return this.secPermission;
@@ -82,7 +83,7 @@ public class SecUserPermission implements java.io.Serializable {
         this.secPermission = secPermission;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false, insertable = false, updatable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;

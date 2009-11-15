@@ -19,6 +19,8 @@ package org.encuestame.core.persistence.pojo;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -92,7 +94,7 @@ public class SecPermission implements java.io.Serializable {
         this.description = description;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secPermission")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secPermission")
     public Set<SecUserPermission> getSecUserPermissions() {
         return this.secUserPermissions;
     }
@@ -101,7 +103,7 @@ public class SecPermission implements java.io.Serializable {
         this.secUserPermissions = secUserPermissions;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secPermission")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secPermission")
     public Set<SecGroupPermission> getSecGroupPermissions() {
         return this.secGroupPermissions;
     }
