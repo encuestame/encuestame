@@ -20,6 +20,7 @@
 
 <project name="encuestame" default="usage" basedir=".">
     <property file="build.properties" />
+  <property file="dev.properties" />
 
     <target name="usage">
         <echo message="Targets:" />
@@ -58,7 +59,6 @@
                 <include name="${cobertura.jar.file}" />
                 <include name="${em.app.lib}**/*.jar" />
             </fileset>
-
      </path>
 
     <path id="tests.classpath">
@@ -88,10 +88,10 @@
 
     <!-- web build -->
     <target name="web" depends="clean-web,build">
-        <fail unless="webapp.dir" message="falta la variable webapp.dir que debe apuntar al directorio webapps o .deployables" />
-        <fail unless="webcontent" message="falta el dato de webcontent" />
-        <fail unless="jar.name" message="falta el nombre del jar" />
-        <fail unless="dist.dir" message="falta la direccion de dist" />
+        <fail unless="webapp.dir" message="required path base dir" />
+        <fail unless="webcontent" message="required path of web content" />
+        <fail unless="jar.name" message="required name of jar" />
+        <fail unless="dist.dir" message="required path of distribution directory" />
         <mkdir dir="${webcontent}" />
         <mkdir dir="${web-inf}" />
         <mkdir dir="${web-inf}/classes" />
@@ -100,7 +100,7 @@
         <mkdir dir="${web-inf}/scripts" />
         <mkdir dir="${web-inf}/taglib" />
 
-        <!-- creando el manifiesto -->
+        <!-- create manifest -->
         <mkdir dir="${web-inf}/META-INF" />
         <manifest file="${web-inf}/META-INF/MANIFEST.MF">
             <attribute name="Built-By" value="Juan C Picado">
@@ -121,12 +121,11 @@
             </section>
         </manifest>
 
-
         <!-- copy libs -->
         <copy todir="${web-inf}/lib">
             <fileset dir="${em.app.lib}" />
         </copy>
-        <!-- copy encuestame jar to lib -->
+
         <copy file="${dist.dir}/${jar.name}" todir="${web-inf}/lib" />
 
         <!-- copy javascript source -->
@@ -167,6 +166,18 @@
         </copy>
     </target>
 
+   <target
+        name="fast.deploy"
+        depends="web">
+          <fail unless="tomcat.path"/>
+          <fail unless="webcontent"/>
+          <delete file="${tomcat.path}webapps/encuestame"/>
+          <delete file="${tomcat.path}webapps/encuestame/${war.name}"/>
+          <copy todir="${tomcat.path}webapps/encuestame">
+              <fileset dir="${webcontent}"/>
+          </copy>
+      </target>
+
      <!-- clean targets -->
 
     <target name="clean-build">
@@ -177,8 +188,8 @@
     </target>
 
     <target name="clean-web">
-        <fail unless="em.app.webcontent" />
-        <delete dir="${em.app.webcontent}" />
+        <fail unless="webcontent" />
+        <delete dir="${webcontent}" />
     </target>
 
     <target name="clean-doc">
@@ -205,7 +216,7 @@
 
     <!-- clean targets -->
 
-    <target name="clean" depends="clean-dist,clean-junit,clean-doc,clean-build" />
+    <target name="clean" depends="clean-dist,clean-junit,clean-doc,clean-build,clean-web" />
 
     <!-- prepare build directory -->
 
