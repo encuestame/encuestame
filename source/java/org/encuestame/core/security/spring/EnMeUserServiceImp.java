@@ -85,9 +85,10 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
         log.info("loading by username");
+        log.info("username: "+username);
         final SecUsers user = secUserDao.getUserByUsername(username);
         if (user == null) {
-            log.warn("not found");
+            log.warn("user not found");
             throw new UsernameNotFoundException("user not found");
         }
         log.info("found..." + user.getEmail());
@@ -116,14 +117,16 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             return null;
         }
         // search if authorities if the group are activated
-        log.info("verificamos si esta activado las autoridades por usuario...");
+        log.info("verificamos si esta activado las autoridades por grupo...");
         if (this.roleGroupAuth == true) {
             //search groups of the user
+            log.info("list group permissions");
             final List<SecGroupPermission> listGroupPermissions = secUserDao
                     .getGroupPermission(secUserDao.getUserGroups(user));
                 //iterator list of groups permissions
                 final Iterator<SecGroupPermission> iterator = listGroupPermissions
                         .iterator();
+                log.info("list group ite permissions");
                 while (iterator.hasNext()) {
                     final SecGroupPermission secPermission = (SecGroupPermission) iterator
                             .next();
@@ -143,7 +146,9 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
                 }
             }
         // verify is user permission flag is activated
+        log.info("verify is user permission flag is activated");
         if (this.roleUserAuth == true) {
+            log.info("list user permissions");
            final List<SecUserPermission> listUserPermissions = secUserDao
                     .getUserPermission(user);
                 Iterator<SecUserPermission> iteratorUser = listUserPermissions.iterator();
@@ -173,6 +178,9 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             authorities[i++] = new GrantedAuthorityImpl(permission.trim());
         }
         //creating user details
+        log.info("user detail");
+        log.info("user pass "+user.getPassword());
+        log.info("user name "+user.getUsername());
         final User userDetails = new User(user.getUsername(), user.getPassword(),
                 user.isStatus() == null ? false : user.isStatus(),
                 true,  // accoun  not expired

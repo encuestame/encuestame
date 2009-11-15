@@ -40,7 +40,7 @@
 
   <bean id="dbUserService" class="org.encuestame.core.security.spring.EnMeUserServiceImp">
     <property name="userDao" ref="secUserDao" />
-    <property name="roleGroupAuth" value="true" />
+    <property name="roleGroupAuth" value="false" />
     <property name="roleUserAuth" value="true" />
   </bean>
 
@@ -191,16 +191,16 @@
     <property name="rememberMeServices" ref="rememberMeServices"/> </bean>
   -->
 
-  <!--
-    Passwords <bean id="passwordEncoder"
+
+     <bean id="passwordEncoder"
     class="org.springframework.security.providers.encoding.Md5PasswordEncoder"
     />
-  -->
+
 
   <!--
     Encriptación de Contraseñas con Jasypt y Spring Security 2
     http://blog.jotadeveloper.com/2008/11/29/encriptacion-japyst-spring-sec-2/
-  -->
+
 
   <bean id="passwordEncoder" class="org.jasypt.spring.security2.PasswordEncoder">
     <property name="passwordEncryptor">
@@ -209,5 +209,5 @@
   </bean>
 
   <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
-
+ -->
 </beans>

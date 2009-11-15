@@ -58,7 +58,7 @@ public class SecurityService extends Service implements ISecurityService {
     /** Services Mail **/
     private MailServiceImpl serviceMail;
     /** Default User Permission **/
-    private String defaultUserPermission;
+    private String defaultUserPermission = "ENCUESTAME_USER";
     /** Suspende Notification. **/
     private Boolean suspendedNotification;
 
@@ -365,6 +365,17 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
+     *Create a new Permisssion.
+     * @param permissionBean
+     */
+    public void createPermission(final UnitPermission permissionBean){
+        final SecPermission permissionDomain = new SecPermission();
+        permissionDomain.setPermission(permissionBean.getPermission());
+        permissionDomain.setDescription(permissionBean.getDescription());
+        getPermissionDao().saveOrUpdate(permissionDomain);
+    }
+
+    /**
      * Create a user, generate password for user and send email to confirmate
      * the account.
      * @param userBean user bean
@@ -386,7 +397,9 @@ public class SecurityService extends Service implements ISecurityService {
         userDomain.setDateNew(new Date());
         try {
             // send to user the password to her emails
+            if((!getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), passwordGenerated);
+            }
             // save user
             getUserDao().saveOrUpdate(userDomain);
             // assing first permissions and default group
@@ -410,8 +423,10 @@ public class SecurityService extends Service implements ISecurityService {
      */
     private UnitPermission loadDefaultPermissionBean()
             throws EnMeExpcetion {
+        log.info("default permission  "+getDefaultUserPermission());
         final SecPermission permissionDomain = getPermissionDao().loadPermission(
-                getDefaultUserPermission());
+                getDefaultUserPermission().trim());
+        log.info("default permission load "+permissionDomain);
         if (permissionDomain != null) {
             //convert domain to bean permission
             final UnitPermission permissionBean = new UnitPermission();
@@ -432,7 +447,8 @@ public class SecurityService extends Service implements ISecurityService {
     public void assignPermission(
             final UnitUserBean userBean,
             final UnitPermission permissionBean)
-            throws EnMeExpcetion {
+            throws EnMeExpcetion
+   {
         if (userBean.getId() == null && userBean.getUsername() != null) {
             final SecUsers userDomain = getUser(userBean.getUsername());
             userBean.setId(Integer.valueOf(userDomain.getUid().toString()));
