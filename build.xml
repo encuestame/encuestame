@@ -166,7 +166,7 @@
         </copy>
     </target>
 
-   <target
+     <target
         name="fast.deploy"
         depends="web">
           <fail unless="tomcat.path"/>
@@ -177,6 +177,15 @@
               <fileset dir="${webcontent}"/>
           </copy>
       </target>
+
+    <target
+          name="html.deploy">
+            <fail unless="tomcat.path"/>
+            <copy todir="${tomcat.path}webapps/encuestame/">
+                <fileset dir="${src.xhtml}"/>
+            </copy>
+    </target>
+
 
      <!-- clean targets -->
 
