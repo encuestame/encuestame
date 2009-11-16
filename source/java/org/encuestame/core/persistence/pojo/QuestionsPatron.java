@@ -20,6 +20,8 @@ package org.encuestame.core.persistence.pojo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -44,7 +46,7 @@ public class QuestionsPatron implements java.io.Serializable {
     private Integer nivel;
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_patron", unique = true, nullable = false)
     public Long getIdPatron() {
         return this.idPatron;

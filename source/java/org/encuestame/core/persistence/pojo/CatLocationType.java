@@ -22,6 +22,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -37,9 +39,10 @@ public class CatLocationType implements Serializable {
 
     private Long locationTypeId;
     private String description;
-    private Integer level; 
+    private Integer level;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "loc_id_type", unique = true, nullable = false, length = 10)
     public Long getLocationTypeId() {
         return this.locationTypeId;

@@ -39,18 +39,6 @@ public class ProjetCatLocation implements Serializable {
     private ProjetCatLocationId id;
     private Boolean state;
 
-    public ProjetCatLocation() {
-    }
-
-    public ProjetCatLocation(ProjetCatLocationId id) {
-        this.id = id;
-    }
-
-    public ProjetCatLocation(ProjetCatLocationId id, Boolean state) {
-        this.id = id;
-        this.state = state;
-    }
-
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "locateId", column = @Column(name = "locate_id", nullable = false)),

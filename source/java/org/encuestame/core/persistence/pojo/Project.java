@@ -27,6 +27,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -56,33 +58,9 @@ public class Project implements Serializable {
     private Set<ProjectGroup> projectGroups = new HashSet(0);
     private Set<ProjectUser> projectUsers = new HashSet(0);
 
-    public Project() {
-    }
-
-    public Project(CatState catState, String description, String info,
-            Date dateStart) {
-        this.catState = catState;
-        this.description = description;
-        this.info = info;
-        this.dateStart = dateStart;
-    }
-
-    public Project(CatState catState, String description, String info,
-            Date dateStart, Date dateFinish, Set surveyGroupProjects,
-            Set projectLocations, Set projectGroups, Set projectUsers) {
-        this.catState = catState;
-        this.description = description;
-        this.info = info;
-        this.dateStart = dateStart;
-        this.dateFinish = dateFinish;
-        this.surveyGroupProjects = surveyGroupProjects;
-        this.projectLocations = projectLocations;
-        this.projectGroups = projectGroups;
-        this.projectUsers = projectUsers;
-    }
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "proyect_id", unique = true, nullable = false)
     public Long getProyectId() {
         return this.proyectId;

@@ -46,17 +46,6 @@ public class ProjectUser implements Serializable {
     private SecUsers secUsers;
     private Date dateNew;
 
-    public ProjectUser() {
-    }
-
-    public ProjectUser(ProjectUserId id, Project project, SecUsers secUsers,
-            Date dateNew) {
-        this.id = id;
-        this.project = project;
-        this.secUsers = secUsers;
-        this.dateNew = dateNew;
-    }
-
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "uid", column = @Column(name = "uid", nullable = false)),

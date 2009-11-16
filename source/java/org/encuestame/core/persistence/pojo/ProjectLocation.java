@@ -20,12 +20,10 @@ package org.encuestame.core.persistence.pojo;
 import java.io.Serializable;
 
 import javax.persistence.AttributeOverride;
-
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -44,17 +42,6 @@ public class ProjectLocation implements Serializable {
     private Project project;
     private SecGroups secGroups;
     private Long idState;
-
-    public ProjectLocation() {
-    }
-
-    public ProjectLocation(ProjectLocationId id, Project project,
-            SecGroups secGroups, Long idState) {
-        this.id = id;
-        this.project = project;
-        this.secGroups = secGroups;
-        this.idState = idState;
-    }
 
     @EmbeddedId
     @AttributeOverrides( {

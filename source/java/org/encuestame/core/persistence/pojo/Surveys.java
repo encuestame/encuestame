@@ -25,6 +25,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -54,6 +56,8 @@ public class Surveys implements java.io.Serializable {
     private Set<SurveyTime> surveyTimes = new HashSet<SurveyTime>(0);
 
     @Id
+    //TODO: need add autoincrement
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sid", unique = true, nullable = false)
     public long getSid() {
         return this.sid;
