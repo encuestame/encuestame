@@ -53,7 +53,7 @@ public class SecUsers implements Serializable {
     private String email;
     private String username;
     private String password;
-    private Boolean status;
+     private Boolean status;
     private String inviteCode;
     private Date dateNew;
     private String publisher;
@@ -137,7 +137,7 @@ public class SecUsers implements Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_new", nullable = false, length = 0)
+    @Column(name = "date_new", nullable = true, length = 0)
     public Date getDateNew() {
         return this.dateNew;
     }

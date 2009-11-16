@@ -21,6 +21,7 @@
 package org.encuestame.core.persistence.pojos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,9 +42,16 @@ public class TestSecUsers extends AbstractBaseTest{
     public void testSecUser(){
         final SecUsers user = new SecUsers();
         user.setEmail("user@d.com");
+        user.setStatus(true);
+        user.setDateNew(new Date());
+        user.setName("prueba");
+        user.setPassword("1111");
+        user.setInviteCode("2");
+        user.setPublisher("11");
+
         final Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
-        user.setProjectUsers(projectUser);
-       // getSecUserDao().saveOrUpdate(user);
+       // user.setProjectUsers(projectUser);
+        getSecUserDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }
 }
