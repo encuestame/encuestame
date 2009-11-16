@@ -23,6 +23,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -47,26 +49,6 @@ public class SurveyResultMod implements java.io.Serializable {
     private String newResponse;
     private Date modDate;
 
-    public SurveyResultMod() {
-    }
-
-    public SurveyResultMod(SecUsers secUsers, SurveyResult surveyResult,
-            String previousResponse, Date modDate) {
-        this.secUsers = secUsers;
-        this.surveyResult = surveyResult;
-        this.previousResponse = previousResponse;
-        this.modDate = modDate;
-    }
-
-    public SurveyResultMod(SecUsers secUsers, SurveyResult surveyResult,
-            String previousResponse, String newResponse, Date modDate) {
-        this.secUsers = secUsers;
-        this.surveyResult = surveyResult;
-        this.previousResponse = previousResponse;
-        this.newResponse = newResponse;
-        this.modDate = modDate;
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id_mod", unique = true, nullable = false)
@@ -78,7 +60,7 @@ public class SurveyResultMod implements java.io.Serializable {
         this.idMod = idMod;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
@@ -88,7 +70,7 @@ public class SurveyResultMod implements java.io.Serializable {
         this.secUsers = secUsers;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "rid", nullable = false)
     public SurveyResult getSurveyResult() {
         return this.surveyResult;

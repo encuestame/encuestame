@@ -92,7 +92,7 @@ public class Project implements Serializable {
         this.proyectId = proyectId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_state", nullable = false)
     public CatState getCatState() {
         return this.catState;
@@ -140,7 +140,7 @@ public class Project implements Serializable {
         this.dateFinish = dateFinish;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(mappedBy = "project")
     public Set<SurveyGroupProject> getSurveyGroupProjects() {
         return this.surveyGroupProjects;
     }
@@ -150,7 +150,7 @@ public class Project implements Serializable {
         this.surveyGroupProjects = surveyGroupProjects;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(mappedBy = "project")
     public Set<ProjectLocation> getProjectLocations() {
         return this.projectLocations;
     }
@@ -159,7 +159,7 @@ public class Project implements Serializable {
         this.projectLocations = projectLocations;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(mappedBy = "project")
     public Set<ProjectGroup> getProjectGroups() {
         return this.projectGroups;
     }
@@ -168,7 +168,7 @@ public class Project implements Serializable {
         this.projectGroups = projectGroups;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(mappedBy = "project")
     public Set<ProjectUser> getProjectUsers() {
         return this.projectUsers;
     }

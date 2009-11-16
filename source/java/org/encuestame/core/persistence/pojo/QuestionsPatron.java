@@ -43,29 +43,6 @@ public class QuestionsPatron implements java.io.Serializable {
     private String class_;
     private Integer nivel;
 
-    public QuestionsPatron() {
-    }
-
-    public QuestionsPatron(String typePatron, String desQid, String labelQid,
-            String class_) {
-        this.typePatron = typePatron;
-        this.desQid = desQid;
-        this.labelQid = labelQid;
-        this.class_ = class_;
-    }
-
-    public QuestionsPatron(String typePatron, String desQid, String labelQid,
-            String finallity, String templatePatron, String class_,
-            Integer nivel) {
-        this.typePatron = typePatron;
-        this.desQid = desQid;
-        this.labelQid = labelQid;
-        this.finallity = finallity;
-        this.templatePatron = templatePatron;
-        this.class_ = class_;
-        this.nivel = nivel;
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id_patron", unique = true, nullable = false)

@@ -19,6 +19,7 @@ package org.encuestame.core.persistence.pojo;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -65,7 +66,7 @@ public class SurveyTime implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "sid", nullable = false, insertable = false, updatable = false)
     public Surveys getSurveys() {
         return this.surveys;

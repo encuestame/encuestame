@@ -41,21 +41,6 @@ public class QuestionsAnswers implements java.io.Serializable {
     private Questions questions;
     private String answer;
 
-    public QuestionsAnswers() {
-    }
-
-    public QuestionsAnswers(QuestionsAnswersId id, Questions questions) {
-        this.id = id;
-        this.questions = questions;
-    }
-
-    public QuestionsAnswers(QuestionsAnswersId id, Questions questions,
-            String answer) {
-        this.id = id;
-        this.questions = questions;
-        this.answer = answer;
-    }
-
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "idAnswers", column = @Column(name = "id_answers", nullable = false)),
@@ -68,7 +53,7 @@ public class QuestionsAnswers implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "qid", nullable = false, insertable = false, updatable = false)
     public Questions getQuestions() {
         return this.questions;

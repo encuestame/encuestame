@@ -72,7 +72,7 @@ public class SecGroupPermission implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_permission", nullable = false, insertable = false, updatable = false)
     public SecPermission getSecPermission() {
         return this.secPermission;
@@ -82,7 +82,7 @@ public class SecGroupPermission implements java.io.Serializable {
         this.secPermission = secPermission;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "group_id", nullable = false, insertable = false, updatable = false)
     public SecGroups getSecGroups() {
         return this.secGroups;

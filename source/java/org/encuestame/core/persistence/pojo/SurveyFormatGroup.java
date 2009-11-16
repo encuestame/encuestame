@@ -72,7 +72,7 @@ public class SurveyFormatGroup implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_sid_format", nullable = false, insertable = false, updatable = false)
     public SurveyFormat getSurveyFormat() {
         return this.surveyFormat;
@@ -82,7 +82,7 @@ public class SurveyFormatGroup implements java.io.Serializable {
         this.surveyFormat = surveyFormat;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "sg_id", nullable = false, insertable = false, updatable = false)
     public SurveyGroup getSurveyGroup() {
         return this.surveyGroup;

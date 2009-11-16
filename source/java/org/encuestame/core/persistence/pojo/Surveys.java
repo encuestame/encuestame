@@ -20,6 +20,8 @@ package org.encuestame.core.persistence.pojo;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,32 +53,6 @@ public class Surveys implements java.io.Serializable {
     private Integer idSidFormat;
     private Set<SurveyTime> surveyTimes = new HashSet<SurveyTime>(0);
 
-    public Surveys() {
-    }
-
-    public Surveys(Long sid, SecUsers secUsers, Integer ticket, Date startDate,
-            Date endDate) {
-        this.sid = sid;
-        this.secUsers = secUsers;
-        this.ticket = ticket;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public Surveys(Long sid, SecUsers secUsers, Integer ticket, Date startDate,
-            Date endDate, Date dateInterview, String complete,
-            Integer idSidFormat, Set surveyTimes) {
-        this.sid = sid;
-        this.secUsers = secUsers;
-        this.ticket = ticket;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.dateInterview = dateInterview;
-        this.complete = complete;
-        this.idSidFormat = idSidFormat;
-        this.surveyTimes = surveyTimes;
-    }
-
     @Id
     @Column(name = "sid", unique = true, nullable = false)
     public long getSid() {
@@ -87,7 +63,7 @@ public class Surveys implements java.io.Serializable {
         this.sid = sid;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
@@ -154,7 +130,7 @@ public class Surveys implements java.io.Serializable {
         this.idSidFormat = idSidFormat;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveys")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveys")
     public Set<SurveyTime> getSurveyTimes() {
         return this.surveyTimes;
     }

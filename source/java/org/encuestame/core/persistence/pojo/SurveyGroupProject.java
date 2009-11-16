@@ -19,6 +19,7 @@ package org.encuestame.core.persistence.pojo;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -42,24 +43,6 @@ public class SurveyGroupProject implements java.io.Serializable {
     private SurveyGroup surveyGroup;
     private Boolean state;
 
-    public SurveyGroupProject() {
-    }
-
-    public SurveyGroupProject(SurveyGroupProjectId id, Project project,
-            SurveyGroup surveyGroup) {
-        this.id = id;
-        this.project = project;
-        this.surveyGroup = surveyGroup;
-    }
-
-    public SurveyGroupProject(SurveyGroupProjectId id, Project project,
-            SurveyGroup surveyGroup, Boolean state) {
-        this.id = id;
-        this.project = project;
-        this.surveyGroup = surveyGroup;
-        this.state = state;
-    }
-
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "sgId", column = @Column(name = "sg_id", nullable = false)),
@@ -72,7 +55,7 @@ public class SurveyGroupProject implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "proyect_id", nullable = false, insertable = false, updatable = false)
     public Project getProject() {
         return this.project;
@@ -82,7 +65,7 @@ public class SurveyGroupProject implements java.io.Serializable {
         this.project = project;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "sg_id", nullable = false, insertable = false, updatable = false)
     public SurveyGroup getSurveyGroup() {
         return this.surveyGroup;

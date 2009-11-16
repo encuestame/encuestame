@@ -72,7 +72,7 @@ public class SecGroupUser implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "group_id", nullable = false, insertable = false, updatable = false)
     public SecGroups getSecGroups() {
         return this.secGroups;
@@ -82,7 +82,7 @@ public class SecGroupUser implements java.io.Serializable {
         this.secGroups = secGroups;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "uid", nullable = false, insertable = false, updatable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;

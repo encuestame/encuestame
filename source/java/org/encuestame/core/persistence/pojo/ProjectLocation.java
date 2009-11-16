@@ -68,7 +68,7 @@ public class ProjectLocation implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "proyect_id", nullable = false, insertable = false, updatable = false)
     public Project getProject() {
         return this.project;
@@ -78,7 +78,7 @@ public class ProjectLocation implements Serializable {
         this.project = project;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "group_id", nullable = false, insertable = false, updatable = false)
     public SecGroups getSecGroups() {
         return this.secGroups;

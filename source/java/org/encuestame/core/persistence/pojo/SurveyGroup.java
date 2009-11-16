@@ -20,6 +20,8 @@ package org.encuestame.core.persistence.pojo;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,7 +43,6 @@ import javax.persistence.Version;
 public class SurveyGroup implements java.io.Serializable {
 
     private Long sgId;
-    private Integer version;
     private String groupName;
     private Date dateCreate;
     private Long idState;
@@ -51,27 +52,6 @@ public class SurveyGroup implements java.io.Serializable {
     private Set<SurveyGroupProject> surveyGroupProjects = new HashSet<SurveyGroupProject>(
             0);
 
-    public SurveyGroup() {
-    }
-
-    public SurveyGroup(Long sgId, Long idSidFormat) {
-        this.sgId = sgId;
-        this.idSidFormat = idSidFormat;
-    }
-
-    public SurveyGroup(Long sgId, String groupName, Date dateCreate,
-    		Long idState, Long idSidFormat,
-            Set<SurveyFormatGroup> surveyFormatGroups,
-            Set<SurveyGroupProject> surveyGroupProjects) {
-        this.sgId = sgId;
-        this.groupName = groupName;
-        this.dateCreate = dateCreate;
-        this.idState = idState;
-        this.idSidFormat = idSidFormat;
-        this.surveyFormatGroups = surveyFormatGroups;
-        this.surveyGroupProjects = surveyGroupProjects;
-    }
-
     @Id
     @Column(name = "sg_id", unique = true, nullable = false)
     public Long getSgId() {
@@ -80,16 +60,6 @@ public class SurveyGroup implements java.io.Serializable {
 
     public void setSgId(Long sgId) {
         this.sgId = sgId;
-    }
-
-    @Version
-    @Column(name = "version")
-    public Integer getVersion() {
-        return this.version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     @Column(name = "group_name", length = 60)
@@ -129,7 +99,7 @@ public class SurveyGroup implements java.io.Serializable {
         this.idSidFormat = idSidFormat;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyGroup")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveyGroup")
     public Set<SurveyFormatGroup> getSurveyFormatGroups() {
         return this.surveyFormatGroups;
     }
@@ -138,7 +108,7 @@ public class SurveyGroup implements java.io.Serializable {
         this.surveyFormatGroups = surveyFormatGroups;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyGroup")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveyGroup")
     public Set<SurveyGroupProject> getSurveyGroupProjects() {
         return this.surveyGroupProjects;
     }

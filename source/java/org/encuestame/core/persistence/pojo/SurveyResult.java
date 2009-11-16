@@ -19,6 +19,8 @@ package org.encuestame.core.persistence.pojo;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -100,7 +102,7 @@ public class SurveyResult implements java.io.Serializable {
         this.resp = resp;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyResult")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveyResult")
     public Set<SurveyResultMod> getSurveyResultMods() {
         return this.surveyResultMods;
     }

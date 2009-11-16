@@ -19,6 +19,7 @@ package org.encuestame.core.persistence.pojo;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -44,28 +45,6 @@ public class SurveyDetail implements java.io.Serializable {
     private Integer position;
     private String nopreg;
 
-    public SurveyDetail() {
-    }
-
-    public SurveyDetail(SurveyDetailId id, SurveyFormat surveyFormat,
-            Questions questions, SurveySection surveySection) {
-        this.id = id;
-        this.surveyFormat = surveyFormat;
-        this.questions = questions;
-        this.surveySection = surveySection;
-    }
-
-    public SurveyDetail(SurveyDetailId id, SurveyFormat surveyFormat,
-            Questions questions, SurveySection surveySection, Integer position,
-            String nopreg) {
-        this.id = id;
-        this.surveyFormat = surveyFormat;
-        this.questions = questions;
-        this.surveySection = surveySection;
-        this.position = position;
-        this.nopreg = nopreg;
-    }
-
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "idSd", column = @Column(name = "id_sd", nullable = false)),
@@ -80,7 +59,7 @@ public class SurveyDetail implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_sid_format", nullable = false, insertable = false, updatable = false)
     public SurveyFormat getSurveyFormat() {
         return this.surveyFormat;
@@ -90,7 +69,7 @@ public class SurveyDetail implements java.io.Serializable {
         this.surveyFormat = surveyFormat;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "qid", nullable = false, insertable = false, updatable = false)
     public Questions getQuestions() {
         return this.questions;
@@ -100,7 +79,7 @@ public class SurveyDetail implements java.io.Serializable {
         this.questions = questions;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "ssid", nullable = false, insertable = false, updatable = false)
     public SurveySection getSurveySection() {
         return this.surveySection;

@@ -69,7 +69,7 @@ public class QuestionsRelations implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_q_colection", nullable = false)
     public QuestionColettion getQuestionColettion() {
         return this.questionColettion;
@@ -79,7 +79,7 @@ public class QuestionsRelations implements java.io.Serializable {
         this.questionColettion = questionColettion;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "qid", nullable = false, insertable = false, updatable = false)
     public Questions getQuestions() {
         return this.questions;

@@ -24,6 +24,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -45,20 +47,6 @@ public class SurveySection implements java.io.Serializable {
     private String descSection;
     private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
 
-    public SurveySection() {
-    }
-
-    public SurveySection(CatState catState) {
-        this.catState = catState;
-    }
-
-    public SurveySection(CatState catState, String descSection,
-            Set surveyDetails) {
-        this.catState = catState;
-        this.descSection = descSection;
-        this.surveyDetails = surveyDetails;
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ssid", unique = true, nullable = false)
@@ -70,7 +58,7 @@ public class SurveySection implements java.io.Serializable {
         this.ssid = ssid;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_state", nullable = false)
     public CatState getCatState() {
         return this.catState;
@@ -89,7 +77,7 @@ public class SurveySection implements java.io.Serializable {
         this.descSection = descSection;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveySection")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveySection")
     public Set<SurveyDetail> getSurveyDetails() {
         return this.surveyDetails;
     }

@@ -32,14 +32,6 @@ public class QuestionsAnswersId implements java.io.Serializable {
     private Long idAnswers;
     private Long qid;
 
-    public QuestionsAnswersId() {
-    }
-
-    public QuestionsAnswersId(Long idAnswers, Long qid) {
-        this.idAnswers = idAnswers;
-        this.qid = qid;
-    }
-
     @Column(name = "id_answers", nullable = false)
     public Long getIdAnswers() {
         return this.idAnswers;

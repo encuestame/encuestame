@@ -52,25 +52,6 @@ public class Questions implements Serializable {
     private Set<QuestionsAnswers> questionsAnswerses = new HashSet<QuestionsAnswers>(
             0);
 
-    public Questions() {
-    }
-
-    public Questions(CatState catState) {
-        this.catState = catState;
-    }
-
-    public Questions(CatState catState, String question, String qidKey,
-            Set<QuestionsRelations> questionsRelationses,
-            Set<SurveyDetail> surveyDetails,
-            Set<QuestionsAnswers> questionsAnswerses) {
-        this.catState = catState;
-        this.question = question;
-        this.qidKey = qidKey;
-        this.questionsRelationses = questionsRelationses;
-        this.surveyDetails = surveyDetails;
-        this.questionsAnswerses = questionsAnswerses;
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "qid", unique = true, nullable = false)
@@ -83,7 +64,7 @@ public class Questions implements Serializable {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_state", nullable = false)
     public CatState getCatState() {
         return this.catState;
@@ -111,7 +92,7 @@ public class Questions implements Serializable {
         this.qidKey = qidKey;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questions")
+    @OneToMany(mappedBy = "questions")
     public Set<QuestionsRelations> getQuestionsRelationses() {
         return this.questionsRelationses;
     }
@@ -121,7 +102,7 @@ public class Questions implements Serializable {
         this.questionsRelationses = questionsRelationses;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questions")
+    @OneToMany(mappedBy = "questions")
     public Set<SurveyDetail> getSurveyDetails() {
         return this.surveyDetails;
     }
@@ -130,7 +111,7 @@ public class Questions implements Serializable {
         this.surveyDetails = surveyDetails;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questions")
+    @OneToMany(mappedBy = "questions")
     public Set<QuestionsAnswers> getQuestionsAnswerses() {
         return this.questionsAnswerses;
     }

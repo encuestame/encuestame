@@ -87,7 +87,7 @@ public class SecGroups implements java.io.Serializable {
         this.idState = idState;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secGroups")
+    @OneToMany(mappedBy = "secGroups")
     public Set<SecGroupUser> getSecGroupUsers() {
         return this.secGroupUsers;
     }
@@ -96,7 +96,7 @@ public class SecGroups implements java.io.Serializable {
         this.secGroupUsers = secGroupUsers;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secGroups")
+    @OneToMany(mappedBy = "secGroups")
     public Set<SecGroupPermission> getSecGroupPermissions() {
         return this.secGroupPermissions;
     }
@@ -106,7 +106,7 @@ public class SecGroups implements java.io.Serializable {
         this.secGroupPermissions = secGroupPermissions;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secGroups")
+    @OneToMany(mappedBy = "secGroups")
     public Set<ProjectGroup> getProjectGroups() {
         return this.projectGroups;
     }
@@ -115,7 +115,7 @@ public class SecGroups implements java.io.Serializable {
         this.projectGroups = projectGroups;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "secGroups")
+    @OneToMany(mappedBy = "secGroups")
     public Set<ProjectLocation> getProjectLocations() {
         return this.projectLocations;
     }

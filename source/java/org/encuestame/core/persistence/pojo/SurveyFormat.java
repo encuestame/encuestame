@@ -79,7 +79,7 @@ public class SurveyFormat implements java.io.Serializable {
         this.dateCreated = dateCreated;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyFormat")
+    @OneToMany(mappedBy = "surveyFormat")
     public Set<SurveyFormatGroup> getSurveyFormatGroups() {
         return this.surveyFormatGroups;
     }
@@ -88,7 +88,7 @@ public class SurveyFormat implements java.io.Serializable {
         this.surveyFormatGroups = surveyFormatGroups;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyFormat")
+    @OneToMany(mappedBy = "surveyFormat")
     public Set<SurveyDetail> getSurveyDetails() {
         return this.surveyDetails;
     }

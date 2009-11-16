@@ -42,7 +42,7 @@ public class CatLocationUser implements Serializable {
     private CatLocationUserId id;
     private SecUsers secUsers;
     private Boolean state;
- 
+
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "locationId", column = @Column(name = "location_id", nullable = false)),
@@ -55,7 +55,7 @@ public class CatLocationUser implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "uid", nullable = false, insertable = false, updatable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;

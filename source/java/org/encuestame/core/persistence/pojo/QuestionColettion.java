@@ -80,7 +80,7 @@ public class QuestionColettion implements Serializable {
         this.idQColection = idQColection;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
@@ -109,7 +109,7 @@ public class QuestionColettion implements Serializable {
         this.creationDate = creationDate;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionColettion")
+    @OneToMany(mappedBy = "questionColettion")
     public Set<QuestionsRelations> getQuestionsRelationses() {
         return this.questionsRelationses;
     }
