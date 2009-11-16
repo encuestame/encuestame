@@ -20,7 +20,9 @@ package org.encuestame.core.persistence.util;
 import java.util.Date;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.dao.CatStateDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
+import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.web.beans.admon.UnitPermission;
@@ -81,7 +83,14 @@ public class EnMeSchemaExport {
             securityService.createUser(user);
             //admin user permission
             securityService.assignPermission(user, permissionAdmin);
-
+            final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
+            final CatState activate = new CatState();
+            activate.setDescState("activate");
+            stateDao.saveOrUpdate(activate);
+            final CatState inactive = new CatState();
+            inactive.setDescState("inactive");
+            stateDao.saveOrUpdate(inactive);
+            stateDao.saveOrUpdate(inactive);
         } catch (EnMeExpcetion e) {
             System.out.println("Error create data " + e.getMessage());
         }
