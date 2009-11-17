@@ -17,6 +17,8 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.pojo.Project;
 import org.hibernate.HibernateException;
 
@@ -28,4 +30,5 @@ import org.hibernate.HibernateException;
 public interface IProject extends IBaseDao {
 
     public Project getProjectbyId(Integer projectId) throws HibernateException;
+    public List<Project> findAll() throws HibernateException;
 }

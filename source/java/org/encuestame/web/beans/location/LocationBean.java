@@ -27,6 +27,54 @@ import org.encuestame.web.beans.MasterBean;
  * package: org.encuestame.web.beans.territory
  * @version 1.0
  */
-public class LocationBean extends MasterBean{
+public class LocationBean extends MasterBean implements Serializable{
+
+    private static final long serialVersionUID = -9098305021342831224L;
+    private Long locateId;
+    //private String tidtype;
+    private String description;
+    private Integer level;
+    private String active;
+    private Float lat;
+    private Float lng;
+
+
+    public Long getLocateId() {
+        return locateId;
+    }
+    public void setLocateId(Long locateId) {
+        this.locateId = locateId;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public Integer getLevel() {
+        return level;
+    }
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+    public String getActive() {
+        return active;
+    }
+    public void setActive(String active) {
+        this.active = active;
+    }
+    public Float getLat() {
+        return lat;
+    }
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+    public Float getLng() {
+        return lng;
+    }
+    public void setLng(Float lng) {
+        this.lng = lng;
+    }
+
 
 }

@@ -39,4 +39,8 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
     public List<CatLocation> findAll() throws HibernateException {
         return super.findAll("from CatLocation");
     }
+
+    public CatLocation getLocationById(final Long locateId) throws HibernateException{
+        return (CatLocation) getSession().get(CatLocation.class,locateId);
+    }
 }

@@ -36,4 +36,5 @@ public interface ICatLocation extends IBaseDao {
      * @throws HibernateException hibernate
      */
     public List<CatLocation> findAll() throws HibernateException;
+    public CatLocation getLocationById(final Long locateId) throws HibernateException;
 }

@@ -23,11 +23,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.dao.CatLocationDao;
-import org.encuestame.core.persistence.dao.CatStateDaoImp;
-import org.encuestame.core.persistence.dao.ProjectDaoImp;
+
+import org.encuestame.core.persistence.dao.imp.ICatLocation;
+import org.encuestame.core.persistence.dao.imp.ICatLocationType;
+import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.IProject;
+import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.web.beans.location.LocationBean;
+import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.hibernate.HibernateException;
 /**
@@ -38,9 +44,10 @@ import org.hibernate.HibernateException;
  */
 public class DataService extends Service implements IDataService {
 
-    private CatStateDaoImp stateDao;
-    private CatLocationDao catLocationDao;
-    private ProjectDaoImp projectDaoImp;
+    private ICatState stateDao;
+    private ICatLocation catLocationDao;
+    private IProject projectDaoImp;
+    private ICatLocationType catLocationTypeDao;
 
     /**
      *
@@ -129,6 +136,64 @@ public class DataService extends Service implements IDataService {
         }
     }
 
+
+
+    /**
+     * create Cat LocationType.
+     * @param locatType
+     * @throws EnMeExpcetion
+     */
+    public void createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion,HibernateException, Exception
+    {
+         log.info("create LocationType");
+         if (locatType!=null){
+             try {
+             CatLocationType locType = new CatLocationType();
+             locType.setDescription(locatType.getDescription());
+             locType.setLevel(locatType.getLevel());
+             log.info("Creating Cat Location Type");
+             getLocationTypeDao().saveOrUpdate(locType);
+
+         } catch (HibernateException e) {
+             throw new HibernateException(e);
+         } catch (Exception e) {
+             throw new Exception(e);
+         }
+     } else {
+         throw new EnMeExpcetion("Cat Location Type is null");
+     }
+ }
+
+    /**
+     * create Cat Location.
+     * @param location
+     * @throws EnMeExpcetion
+     */
+
+    public void createCatLocation(LocationBean location) throws EnMeExpcetion, HibernateException, Exception
+    {
+        log.info("create Cat Location");
+        if (location!=null){
+            try{
+                CatLocation catLoc = new CatLocation();
+                catLoc.setDescription(location.getDescription());
+                catLoc.setActive(location.getActive());
+                catLoc.setLat(location.getLat());
+                catLoc.setLng(location.getLng());
+                catLoc.setLevel(location.getLevel());
+                getCatLocationDao().saveOrUpdate(catLoc);
+            } catch (HibernateException e) {
+                throw new HibernateException(e);
+            } catch (Exception e) {
+                throw new Exception(e);
+            }
+        } else {
+            throw new EnMeExpcetion("Cat Location is null");
+        }
+    }
+
+
+
     /**
      * load state by id
      *
@@ -142,7 +207,7 @@ public class DataService extends Service implements IDataService {
      *
      * @return
      */
-    public CatStateDaoImp getStateDao() {
+    public ICatState getStateDao() {
         return stateDao;
     }
 
@@ -150,35 +215,51 @@ public class DataService extends Service implements IDataService {
      *
      * @param stateDao
      */
-    public void setStateDao(CatStateDaoImp stateDao) {
+    public void setICatState(final ICatState stateDao) {
         this.stateDao = stateDao;
     }
 
     /**
      * @return the catLocationDao
      */
-    public CatLocationDao getCatLocationDao() {
+    public ICatLocation getCatLocationDao() {
         return catLocationDao;
     }
 
     /**
      * @param catLocationDao the catLocationDao to set
      */
-    public void setCatLocationDao(CatLocationDao catLocationDao) {
+    public void setICatLocation(final ICatLocation catLocationDao) {
         this.catLocationDao = catLocationDao;
     }
 
     /**
      * @return the projectDaoImp
      */
-    public ProjectDaoImp getProjectDaoImp() {
+    public IProject getProjectDaoImp() {
         return projectDaoImp;
     }
 
     /**
      * @param projectDaoImp the projectDaoImp to set
      */
-    public void setProjectDaoImp(ProjectDaoImp projectDaoImp) {
+    public void setIProject(final IProject projectDaoImp) {
         this.projectDaoImp = projectDaoImp;
     }
+
+
+    /**
+     * @return the CatLocationType
+     */
+    public ICatLocationType getLocationTypeDao() {
+        return catLocationTypeDao;
+    }
+
+    /**
+     * @param projectDaoImp the projectDaoImp to set
+     */
+    public void setICatLocationType(final ICatLocationType catLocationTypeDao) {
+        this.catLocationTypeDao = catLocationTypeDao;
+    }
+
 }
