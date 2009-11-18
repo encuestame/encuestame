@@ -17,6 +17,8 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.dao.imp.ICatLocationType;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.hibernate.HibernateException;
@@ -35,4 +37,15 @@ public CatLocationType getLocationTypeById(final Long LocationTypeId) throws Hib
 
 return (CatLocationType) getSession().get(CatLocationType.class,LocationTypeId);
 }
+
+/**
+ * Retrieve all Location Types.
+ * @return list of Location Types
+ */
+public List<CatLocationType> findAll() throws HibernateException
+{
+	return findAll("from CatLocationType");
+	}
+
 }
+
