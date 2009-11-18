@@ -20,6 +20,7 @@ package org.encuestame.test.config;
 import java.util.Date;
 
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
+import org.encuestame.core.persistence.dao.imp.ICatLocationType;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
@@ -38,6 +39,8 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermissionId;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.CatLocationType;
+import org.encuestame.web.beans.location.LocationTypeBean;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -102,8 +105,29 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /** Question Dao Imp. **/
     @Autowired
     private IQuestionDao questionDaoImp;
+    
+    /**Cat Location Dao Imp**/
+    @Autowired
+    private ICatLocationType catLocationTypeDao;
 
+    /**
+     *Getter.
+     *@return CatLocationType
+     **/
+    public ICatLocationType getCatLocationType(){
+    	return catLocationTypeDao;
+    }
 
+    /**
+     *Setter.
+     * 
+     **/
+    
+    public void setCatLocationType(final ICatLocationType catLocationTypeDao) {
+        this.catLocationTypeDao = catLocationTypeDao;
+    }
+    
+    
     /**
      * Getter.
      * @return the surveyFormatDaoImp
@@ -275,6 +299,22 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         getSecUserDao().saveOrUpdate(user);
         return user;
     }
+
+    /**
+     * Helper to create LocationType.
+     * @param locationType
+     * @return locationType
+     */
+    
+    public CatLocationType createCatLocationType(final String catLocationType){
+    	final CatLocationType catLocatType = new CatLocationType();
+    	catLocatType.setDescription(catLocationType);
+    	catLocatType.setLevel(1);
+    	getCatLocationType().saveOrUpdate(catLocatType);
+    	return catLocatType;
+    }
+     
+    
     /**
      * Helper to create Group.
      * @param name user name

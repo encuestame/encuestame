@@ -1,7 +1,4 @@
 /**
- *
- */
-/**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
  *
