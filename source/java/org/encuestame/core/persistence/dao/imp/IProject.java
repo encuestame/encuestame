@@ -30,5 +30,7 @@ import org.hibernate.HibernateException;
 public interface IProject extends IBaseDao {
 
     public Project getProjectbyId(Integer projectId) throws HibernateException;
+
     public List<Project> findAll() throws HibernateException;
+
 }
