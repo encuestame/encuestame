@@ -23,7 +23,7 @@ import org.junit.Test;
 
 /**
  * Test Catalog Location Type.
- * 
+ *
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 06/11/2009 12:18:49
  */
@@ -31,11 +31,11 @@ import org.junit.Test;
 public class TestLocationType extends AbstractBaseTest {
 @Test
 public void testLocationType(){
-	final CatLocationType catLocType = new CatLocationType();
-	catLocType.setDescription("Description");
-	catLocType.setLevel(1);
-	catLocType.setLocationTypeId(1L);
-	getCatLocationType().saveOrUpdate(catLocType); 
-} 
+    final CatLocationType catLocType = new CatLocationType();
+    catLocType.setDescription("Description");
+    catLocType.setLevel(1);
+    catLocType.setLocationTypeId(1L);
+    //getCatLocationType().saveOrUpdate(catLocType);
+}
 
 }

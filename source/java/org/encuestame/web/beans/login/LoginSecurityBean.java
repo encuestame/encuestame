@@ -18,21 +18,16 @@
 package org.encuestame.web.beans.login;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.web.beans.MasterBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;

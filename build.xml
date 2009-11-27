@@ -430,6 +430,6 @@
 
 
     <!-- findbugs,checkstyle,pmd -->
-    <target name="init" depends="clean,web,tests,findbugs,checkstyle,pmd,cobertura,doc" />
+    <target name="init" depends="clean,web,tests,findbugs,pmd,cobertura,doc" />
 
 </project>
