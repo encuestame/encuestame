@@ -285,7 +285,7 @@
         <mkdir dir="${cobertura.classes.instrument}" />
         <mkdir dir="${cobertura.report.dir}" />
         <mkdir dir="${cobertura.xml.dir}" />
-        <cobertura-instrument todir="${cobertura.classes.instrument}"  datafile="${cobertura.ser.file}">
+        <cobertura-instrument todir="${cobertura.classes.instrument}"  datafile="${cobertura.data.dir}${cobertura.ser.file}">
             <ignore regex="org.apache.log4j.*" />
             <fileset dir="${build.class}">
                 <include name="**/*.class" />
@@ -302,13 +302,13 @@
                     <mkdir dir="${cobertura.report.dir}"/>
                     <cobertura-report srcdir="${src.java}"
                       format="html"
-                      datafile="${cobertura.ser.file}"
+                      datafile="${cobertura.data.dir}${cobertura.ser.file}"
                       destdir="${cobertura.report.dir}">
 
                     </cobertura-report>
                     <cobertura-report
                       format="xml" srcdir="${src.java}"
-                      datafile="${cobertura.ser.file}"
+                      datafile="${cobertura.data.dir}${cobertura.ser.file}"
                       destdir="${cobertura.report.dir}">
 
         </cobertura-report>
@@ -333,7 +333,7 @@
             </classpath>
              <sysproperty
               key="net.sourceforge.cobertura.datafile"
-              file="${cobertura.ser.file}"/>
+              file="${cobertura.data.dir}${cobertura.ser.file}"/>
             <formatter type="xml" />
             <batchtest todir="${test.results.dir}">
                <fileset dir="${test.source}">
