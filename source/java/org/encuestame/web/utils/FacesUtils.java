@@ -62,7 +62,6 @@ public class FacesUtils {
      *
      * @param beanName the bean name of the managed bean to be removed
      */
-    @SuppressWarnings("deprecation")
     public static void resetManagedBean(String beanName) {
         getValueBinding(getJsfEl(beanName)).setValue(FacesContext.getCurrentInstance(), null);
     }

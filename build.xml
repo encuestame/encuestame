@@ -309,7 +309,7 @@
                     <cobertura-report
                       format="xml" srcdir="${src.java}"
                       datafile="${cobertura.data.dir}${cobertura.ser.file}"
-                      destdir="${report.dir}">
+                      destdir="${cobertura.report.dir}">
 
         </cobertura-report>
     </target>
