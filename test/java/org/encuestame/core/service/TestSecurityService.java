@@ -28,6 +28,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Class Description.
  * @author Picado, Juan juan@encuestame.org
  * @since 08/11/2009 11:35:01
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestSecurityService extends AbstractBaseTest{
 

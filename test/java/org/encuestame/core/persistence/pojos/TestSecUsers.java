@@ -20,7 +20,6 @@
  */
 package org.encuestame.core.persistence.pojos;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +34,10 @@ import org.junit.Test;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 01/11/2009 21:31:49
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestSecUsers extends AbstractBaseTest{
 

@@ -25,6 +25,10 @@ import org.junit.Test;
 * Test Catalog State Pojo.
 * @author Morales, Diana Paola paola@encuestame.org
 * @since November 06, 2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
 */
 public class TestCatState extends AbstractBaseTest {
     /**

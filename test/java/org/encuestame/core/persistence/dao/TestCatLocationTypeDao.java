@@ -17,10 +17,7 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.List;
-
 import org.encuestame.core.persistence.pojo.CatLocationType;
-import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
 
@@ -28,6 +25,10 @@ import org.junit.Test;
  * Test Catatalog Location Type Dao.
  * @author Morales, Diana Paola paola@encuestame.org
  * @since November 17,2009 09:10:55
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestCatLocationTypeDao extends AbstractBaseTest{
     @Test

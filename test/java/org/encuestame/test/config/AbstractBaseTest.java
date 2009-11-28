@@ -53,6 +53,10 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(transactionManager = "transactionManager" ,defaultRollback = true)

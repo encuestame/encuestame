@@ -26,6 +26,10 @@ import org.junit.Test;
  *
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 02/11/2009 16:18:49
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestCatLocation extends AbstractBaseTest{
     /**

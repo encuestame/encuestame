@@ -25,6 +25,10 @@ import org.junit.Test;
  *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 29, 2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestSecGroupDaoImp extends AbstractBaseTest{
 

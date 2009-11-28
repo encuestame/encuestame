@@ -30,6 +30,10 @@ import org.junit.Test;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 13:00:55
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestCatLocationsDaoImp extends AbstractBaseTest{
 

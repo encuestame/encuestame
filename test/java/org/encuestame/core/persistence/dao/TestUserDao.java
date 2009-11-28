@@ -17,12 +17,10 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecGroupUserId;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -34,6 +32,10 @@ import org.junit.Test;
  *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 27, 2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class TestUserDao extends AbstractBaseTest {
 

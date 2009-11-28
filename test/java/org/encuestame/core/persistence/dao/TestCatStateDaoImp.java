@@ -27,6 +27,10 @@ import org.junit.Test;
  * CatStaeDaoImp
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 
 public class TestCatStateDaoImp extends AbstractBaseTest{
