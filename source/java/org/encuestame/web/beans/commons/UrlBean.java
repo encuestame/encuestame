@@ -23,7 +23,10 @@ import org.encuestame.core.service.ApplicationServices;
  * Url Bean.
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 13/05/2009 15:40:14
- * $Id
+ * File name: $HeadURL$
+ * Revision: $Revison$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class UrlBean {
 
