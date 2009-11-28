@@ -413,6 +413,9 @@
             <fileset dir="${src.java}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${test.source}">
+                          <include name="**/*.java" />
+            </fileset>
         </cpd>
     </target>
 
