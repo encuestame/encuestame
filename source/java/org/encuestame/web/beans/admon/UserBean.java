@@ -26,12 +26,10 @@ import java.util.StringTokenizer;
 import javax.faces.component.UIData;
 import javax.faces.component.UISelectBoolean;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.EmailUtils;
 import org.encuestame.web.beans.MasterBean;
+import org.hibernate.HibernateException;
 import org.springframework.mail.MailSendException;
 
 /**

@@ -1,19 +1,6 @@
-package org.encuestame.web.beans;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.web.utils.FacesUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
 /**
- * encuestame: system online surveys Copyright (C) 2005-2008 encuestame
- * Development Team
+ * encuestame: system online surveys Copyright (C) 2009 encuestame Development
+ * Team
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 3 of the GNU General Public License as published by the
@@ -27,11 +14,22 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+package org.encuestame.web.beans;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.FacesContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
+
+/**
+ * Master Bean.
  *
- * Id: MasterBean.java Date: 26/04/2009
- *
- * @author juanpicado package: org.encuestame.web.beans
- * @version 1.0
+ * @author Picado, Juan juan@encuestame.org
+ * @since 26/04/2009
  */
 public class MasterBean {
 

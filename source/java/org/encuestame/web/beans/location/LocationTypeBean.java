@@ -18,7 +18,6 @@
 package org.encuestame.web.beans.location;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.encuestame.web.beans.MasterBean;
 

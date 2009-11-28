@@ -18,7 +18,6 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
