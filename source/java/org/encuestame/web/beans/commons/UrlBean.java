@@ -1,7 +1,3 @@
-package org.encuestame.web.beans.commons;
-
-import org.encuestame.core.service.ApplicationServices;
-
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -18,11 +14,16 @@ import org.encuestame.core.service.ApplicationServices;
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: UrlBean.java Date: 13/05/2009 15:40:14
- *
- * @author juanpicado package: org.encuestame.web.beans.commons
- * @version 1.0
+ */
+package org.encuestame.web.beans.commons;
+
+import org.encuestame.core.service.ApplicationServices;
+
+/**
+ * Url Bean.
+ * @author Morales Urbina, Diana paola@encuestame.org
+ * @since 13/05/2009 15:40:14
+ * $Id
  */
 public class UrlBean {
 
