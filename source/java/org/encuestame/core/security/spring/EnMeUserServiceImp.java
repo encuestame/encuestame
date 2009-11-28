@@ -49,8 +49,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
     /**
      * Setter.
-     *
-     * @param secUserDao
+     * @param roleGroupAuth
      */
 
     public void setRoleGroupAuth(Boolean roleGroupAuth) {
@@ -107,9 +106,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
     /**
      * Convert Survey User to Spring Security UserDetails
-     *
      * @param user
-     * @return
+     * @return {@link UserDetails}
      */
     protected UserDetails convertToUserDetails(final SecUsers user) {
         final List<String> listPermissions = new ArrayList<String>();

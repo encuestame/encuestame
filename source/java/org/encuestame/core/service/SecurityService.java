@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -40,7 +39,6 @@ import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.hibernate.HibernateException;
-import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 
@@ -66,7 +64,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Getter.
-     * @return
+     * @return {@link SecUserDaoImp}
      */
     public SecUserDaoImp getUserDao() {
         return secUserDao;
@@ -81,7 +79,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Getter.
-     * @return
+     * @return {@link SecGroupDaoImp}
      */
     public SecGroupDaoImp getGroupDao() {
         return groupDao;
@@ -97,7 +95,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Getter.
-     * @return
+     * @return {@link SecPermissionDaoImp}
      */
     public SecPermissionDaoImp getPermissionDao() {
         return permissionDao;
@@ -545,7 +543,8 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Invite some users to register in the system.
-     * @param emails list of users
+     * @param email list of users
+     * @param code code
      * @throws Exception
      */
     public void inviteUser(String email, String code) throws Exception {
@@ -562,10 +561,10 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     * Send password to user
-     * @param email
-     * @param password
-     * @return
+     * Send password to user.
+     * @param email email
+     * @param password password
+     * @throws MailSendException
      */
     private void sendUserPassword(final String email,
             final String password)
@@ -585,11 +584,10 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Encrypt the password.
-     * @param password
-     * @return
+     * @param password password
+     * @return encrypt password
      */
     private String encryptPassworD(final String password) {
-        //return DigestUtils.md5Hex(password);
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return passwordEncryptor.encryptPassword(password);
     }
@@ -607,7 +605,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Getter.
-     * @return
+     * @return default user permission.
      */
     public String getDefaultUserPermission() {
         return defaultUserPermission;
@@ -622,7 +620,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Getter.
-     * @return
+     * @return suspendend notification
      */
     public Boolean getSuspendedNotification() {
         log.info("suspendedNotification->" + suspendedNotification);

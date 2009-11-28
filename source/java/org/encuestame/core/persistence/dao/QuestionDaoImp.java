@@ -43,7 +43,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 
     /**
      * Load All Questions.
-     * @return
+     * @return List of {@link Questions}
      * @throws HibernateException
      */
     @SuppressWarnings("unchecked")
@@ -53,7 +53,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 
     /**
      * Load All Questions Patron.
-     * @return
+     * @return  List of {@link QuestionsPatron}
      * @throws HibernateException
      */
     @SuppressWarnings("unchecked")

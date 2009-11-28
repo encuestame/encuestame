@@ -19,15 +19,12 @@
 package org.encuestame.core.persistence.dao;
 
 import java.util.Date;
-
-
+import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
-import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
-import java.util.List;
 
 /**
  * SurveyFormat Dao.
@@ -63,8 +60,8 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
 
     /**
      * Get SurveyFormat By Date.
-     * @param date startDate
-     * @param date endDate
+     * @param startDate startDate
+     * @param endDate endDate
      * @return SurveyFormat
      * @throws HibernateException hibernate exception
      */

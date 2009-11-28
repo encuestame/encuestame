@@ -19,12 +19,9 @@
 package org.encuestame.core.persistence.dao;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 
@@ -38,21 +35,16 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 
     /**
      * Search survey by name.
-     * @param searchString
-     * @return
+     * @param searchString search string
+     * @return {@link Collection} of {@link SurveyFormat}
      * @throws HibernateException
      */
+    @SuppressWarnings("unchecked")
     public Collection<SurveyFormat> searchSurveyByName(String searchString)
             throws HibernateException {
-        Criteria crit = getSession().createCriteria(SurveyFormat.class);
-        crit.add(Restrictions.like("name","%"+searchString+"%"));
-        crit.setMaxResults(10);
-        List<SurveyFormat> survey = crit.list();
-        log.info("Encuestas Encontradas->" + survey);
-        if (survey != null) {
-            return survey;
-        } else {
-            return survey = new LinkedList<SurveyFormat>();
-        }
+        return getSession().createCriteria(SurveyFormat.class)
+        .add(Restrictions.like("name","%"+searchString+"%"))
+        .setMaxResults(10).list();
+
     }
 }

@@ -119,9 +119,10 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
 
     /**
      * List of groups for one user.
-     * @param username username
+     * @param user username
      * @return list of user groups
      */
+    @SuppressWarnings("unchecked")
     public List<SecGroupUser> getUserGroups(final SecUsers user) {
         return getHibernateTemplate()
                 .findByNamedParam("from SecGroupUser "

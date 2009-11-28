@@ -42,8 +42,8 @@ public class CatStateDaoImp extends AbstractHibernateDaoSupport implements ICatS
 
     /**
      * Get catalog state by id.
-     * @param id id state
-     * @return state
+     * @param stateId id state
+     * @return state {@link CatState}
      */
     public CatState getState(final Long stateId) throws HibernateException {
         return (CatState) getHibernateTemplate().get(CatState.class, stateId);

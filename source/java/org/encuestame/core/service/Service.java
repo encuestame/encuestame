@@ -1,9 +1,3 @@
-package org.encuestame.core.service;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
-
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -20,37 +14,49 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: MasterService.java Date: 22/05/2009 1:02:45
- *
- * @author juanpicado package: org.encuestame.core.service
- * @version 1.0
+ */
+package org.encuestame.core.service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
+
+/**
+ * Service.
+ * @author Picado, Juan juan@encuestame.org
+ * @since 22/05/2009 1:02:45
  */
 public class Service {
 
     private MessageSourceFactoryBean messageSource;
     protected Log log = LogFactory.getLog(this.getClass());
 
-    public Service() {
-        // TODO Auto-generated constructor stub
-    }
+    public Service() {}
 
+    /**
+     * Getter.
+     * @return {@link MessageSourceFactoryBean}
+     */
     protected MessageSourceFactoryBean getMessageSource() {
         return messageSource;
     }
 
+
+    /**
+     * Setter.
+     * @param messageSource
+     */
     public void setMessageSource(MessageSourceFactoryBean messageSource) {
         this.messageSource = messageSource;
     }
 
     /**
-     *
-     * @param i_propertyId
-     * @return
+     * Getter by propertie Id.
+     * @param propertieId
+     * @return value of propertie
      */
-    public String getMessageProperties(String i_propertyId) {
-        return getMessageSource() == null ? i_propertyId : getMessageSource()
-                .getMessage(i_propertyId, null, null);
+    public String getMessageProperties(String propertieId) {
+        return getMessageSource() == null ? propertieId : getMessageSource()
+                .getMessage(propertieId, null, null);
     }
-
 }

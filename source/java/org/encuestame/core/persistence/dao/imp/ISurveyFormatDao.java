@@ -50,8 +50,8 @@ public interface ISurveyFormatDao extends IBaseDao {
 
      /**
       * Get SurveyFormat By Date.
-      * @param date startDate
-      * @param date endDate
+      * @param startDate startDate
+      * @param endDate endDate
       * @return SurveyFormat
       * @throws HibernateException hibernate exception
       */

@@ -36,6 +36,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return list of all locations
      * @throws HibernateException hibernate
      */
+    @SuppressWarnings("unchecked")
     public List<CatLocation> findAll() throws HibernateException {
         return super.findAll("from CatLocation");
     }

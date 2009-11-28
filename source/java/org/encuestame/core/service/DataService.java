@@ -51,8 +51,8 @@ public class DataService extends Service implements IDataService {
 
 
     /**
-     *
-     * @return
+     * Load List of Project.
+     * @return {@link Collection} of {@link UnitProjectBean}
      */
     public Collection<UnitProjectBean> loadListProjects() {
         Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
@@ -76,10 +76,9 @@ public class DataService extends Service implements IDataService {
     }
 
     /**
-     * load project info
-     *
-     * @param id
-     * @return
+     * Load project info.
+     * @param project
+     * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion
      */
     public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion {

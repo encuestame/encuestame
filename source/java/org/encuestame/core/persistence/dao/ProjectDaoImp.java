@@ -44,8 +44,8 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
 
     /**
      * Retrieve project by id.
-     * @param projectId
-     * @return
+     * @param projectId project id
+     * @return {@link Project}
      * @throws HibernateException
      */
     public Project getProjectbyId(Integer projectId) throws HibernateException {

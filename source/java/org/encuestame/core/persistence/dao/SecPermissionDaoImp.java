@@ -35,19 +35,19 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
 
     /**
      * Load permissions by user.
-     * @param id
-     * @return
+     * @param userId user id
+     * @return {@link SecUserPermission}
      */
     @SuppressWarnings("unchecked")
-    public Collection<SecUserPermission> loadPermissionByUserId(Integer id)
+    public Collection<SecUserPermission> loadPermissionByUserId(Integer userId)
            throws HibernateException {
         return getHibernateTemplate().find(
-                "from SecUserPermission d where d.secUsers.uid =" + id);
+                "from SecUserPermission d where d.secUsers.uid =" + userId);
     }
 
     /**
      * Load all permisssion.
-     * @return
+     * @return List of  {@link SecPermission}
      */
     @SuppressWarnings("unchecked")
     public Collection<SecPermission> loadAllPermissions() throws HibernateException{
@@ -58,7 +58,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
     /**
      * Load permission.
      * @param permission
-     * @return
+     * @return {@link SecPermission}
      */
     public SecPermission loadPermission(final String permission)
            throws HibernateException{
@@ -70,6 +70,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
 
     /**
      * Find All Permissions.
+     * @return List of {@link SecPermission}
      */
     @SuppressWarnings("unchecked")
     public List<SecPermission> findAllPermissions() throws HibernateException {
@@ -78,7 +79,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
 
     /**
      * Save or Update Permission.
-     * @param permission
+     * @param permission permission
      */
     public void saveOrUpdate(Object permission) throws HibernateException {
            getHibernateTemplate().saveOrUpdate(permission);
