@@ -24,7 +24,7 @@ import org.encuestame.core.service.ApplicationServices;
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 13/05/2009 15:40:14
  * File name: $HeadURL$
- * Revision: $Revison$
+ * Revision: $Revision$
  * Last modified: $Date$
  * Last modified by: $Author$
  */
