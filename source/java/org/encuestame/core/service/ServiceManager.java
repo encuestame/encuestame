@@ -23,9 +23,9 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
 
 /**
  * Service Manager.
+ *
  * @author Picado, Juan juan@encuestame.org
  * @since 26/04/2009
- * File name: $HeadURL:$
  * Revision: $Revision$
  * Last modified: $Date:$
  * Last modified by: $Author:$
@@ -34,54 +34,84 @@ public class ServiceManager implements IServiceManager {
 
     public Log log = LogFactory.getLog(this.getClass());
 
-    public ApplicationServices getApplicationServices() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public SecurityService securityService;
+    public DataService dataService;
+    public ApplicationServices applicationServices;
+    public MessageSourceFactoryBean messageSourceFactoryBean;
+    public SurveyService surveyService;
 
-    public DataService getDataService() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public MessageSourceFactoryBean getMessageSource() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public SecurityService getSecurityService() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public SurveyService getSurveyService() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void setApplicationService(ApplicationServices applicationService) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void setDataService(DataService dataService) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void setMessageSource(MessageSourceFactoryBean messageSource) {
-        // TODO Auto-generated method stub
-
-    }
-
+    /**
+     * @param securityService
+     *            the securityService to set
+     */
     public void setSecurityService(SecurityService securityService) {
-        // TODO Auto-generated method stub
-
+        this.securityService = securityService;
     }
 
+    /**
+     * @param dataService
+     *            the dataService to set
+     */
+    public void setDataService(DataService dataService) {
+        this.dataService = dataService;
+    }
+
+    /**
+     * @param applicationServices
+     *            the applicationServices to set
+     */
+    public void setApplicationServices(ApplicationServices applicationServices) {
+        this.applicationServices = applicationServices;
+    }
+
+    /**
+     * @param messageSourceFactoryBean
+     *            the messageSourceFactoryBean to set
+     */
+    public void setMessageSource(MessageSourceFactoryBean messageSource) {
+        this.messageSourceFactoryBean = messageSourceFactoryBean;
+    }
+
+    /**
+     * @param surveyService
+     *            the surveyService to set
+     */
     public void setSurveyService(SurveyService surveyService) {
-        // TODO Auto-generated method stub
-
+        this.surveyService = surveyService;
     }
 
+    /**
+     * @return the securityService
+     */
+    public SecurityService getSecurityService() {
+        return securityService;
+    }
+
+    /**
+     * @return the dataService
+     */
+    public DataService getDataService() {
+        return dataService;
+    }
+
+    /**
+     * @return the applicationServices
+     */
+    public ApplicationServices getApplicationServices() {
+        return applicationServices;
+    }
+
+    /**
+     * @return the messageSourceFactoryBean
+     */
+    public MessageSourceFactoryBean getMessageSource() {
+        return messageSourceFactoryBean;
+    }
+
+    /**
+     * @return the surveyService
+     */
+    public SurveyService getSurveyService() {
+        return surveyService;
+    }
 }

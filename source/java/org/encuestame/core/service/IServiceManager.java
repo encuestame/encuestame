@@ -38,7 +38,7 @@ public interface IServiceManager {
     public SecurityService getSecurityService();
     public void setSecurityService(SecurityService securityService);
     public ApplicationServices getApplicationServices();
-    public void setApplicationService(ApplicationServices applicationService);
+    public void setApplicationServices(ApplicationServices applicationServices);
     public MessageSourceFactoryBean getMessageSource();
     public void setMessageSource(MessageSourceFactoryBean messageSource);
 }
