@@ -25,6 +25,10 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public abstract class Service {
 

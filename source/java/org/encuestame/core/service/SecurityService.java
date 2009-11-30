@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailService;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
@@ -47,10 +46,10 @@ import org.springframework.mail.MailSendException;
  * Security Bean Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009 11:35:01
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class SecurityService extends Service implements ISecurityService {
 

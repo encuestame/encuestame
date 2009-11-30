@@ -39,6 +39,10 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class SurveyService extends Service implements ISurveyService {
 
