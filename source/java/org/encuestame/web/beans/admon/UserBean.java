@@ -64,7 +64,7 @@ public class UserBean extends MasterBean {
      */
     public void createUser() {
         try {
-                getServicemanagerBean().getSecurityService().createUser(
+                getServicemanager().getApplicationServices().getSecurityService().createUser(
                     getNewUnitUserBean());
             addInfoMessage("Usuario Creado Tuani", "");
         } catch (MailSendException e) {
@@ -86,7 +86,7 @@ public class UserBean extends MasterBean {
      */
     public void updateUser() {
         try {
-            getServicemanagerBean().getSecurityService().updateUser(
+            getServicemanager().getApplicationServices().getSecurityService().updateUser(
                     this.unitUserBean);
         } catch (HibernateException e) {
             addErrorMessage("Error HibernateException update User"
@@ -123,10 +123,13 @@ public class UserBean extends MasterBean {
                     String email = (String) it.next();
                     if (EmailUtils.validateEmail(email)) {
                         try {
-                            String code = getServicemanagerBean()
+                            String code = getServicemanager()
+                                    .getApplicationServices()
                                     .getSecurityService()
                                     .generateHashCodeInvitation();
-                            getServicemanagerBean().getSecurityService()
+                            getServicemanager()
+                            .getApplicationServices()
+                            .getSecurityService()
                                     .inviteUser(email, code);
                             addInfoMessage("Invitacion enviada para " + email
                                     + " Satisfactoriamente", "");
@@ -230,7 +233,7 @@ public class UserBean extends MasterBean {
      */
     private void assingPermission(UnitUserBean user, UnitPermission permission)
             throws EnMeExpcetion, HibernateException {
-        getServicemanagerBean().getSecurityService().assignPermission(user,
+        getServicemanager().getApplicationServices().getSecurityService().assignPermission(user,
                 permission);
 
     }
@@ -269,7 +272,7 @@ public class UserBean extends MasterBean {
      */
     private void deleteUser(UnitUserBean user) {
         try {
-            getServicemanagerBean().getSecurityService().deleteUser(user);
+            getServicemanager().getApplicationServices().getSecurityService().deleteUser(user);
             log.info("Se borro bien->" + user.getUsername());
             addInfoMessage("Se borro bien->" + user.getUsername(), "");
         } catch (HibernateException e) {
@@ -294,7 +297,7 @@ public class UserBean extends MasterBean {
      */
     private void renewPassword(UnitUserBean user) {
         try {
-            getServicemanagerBean().getSecurityService().renewPassword(user);
+            getServicemanager().getApplicationServices().getSecurityService().renewPassword(user);
             addInfoMessage("Se envio la nueva contrase�a a ->"
                     + user.getUsername(), " a su correo " + user.getEmail());
         } catch (MailSendException e) {
@@ -444,8 +447,8 @@ public class UserBean extends MasterBean {
         try {
             if (getProcessedUserId() != null) {
                 unitUserBean = null;
-                UnitUserBean unitUserBeanLocal = getServicemanagerBean()
-                        .getSecurityService().searchUserByUsername(
+                UnitUserBean unitUserBeanLocal = getServicemanager()
+                        .getApplicationServices().getSecurityService().searchUserByUsername(
                                 getProcessedUserId());
                 setUnitUserBean(unitUserBeanLocal);
             } else {

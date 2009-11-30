@@ -17,6 +17,7 @@
  */
 package org.encuestame.core.mail;
 
+import org.encuestame.core.service.IService;
 import org.encuestame.core.service.Service;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,7 +28,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * @author Picado, Juan juan@encuestame.org
  * @since May 05, 2009
  */
-public class MailServiceImpl extends Service implements MailService {
+public class MailServiceImpl extends Service implements MailService, IService {
 
     /** email to  no-response. **/
     private String noEmailResponse;

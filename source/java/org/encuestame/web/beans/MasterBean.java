@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.ServiceManager;
+import org.encuestame.core.service.IServiceManager;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -31,15 +31,15 @@ import org.springframework.context.ApplicationContext;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 26/04/2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class MasterBean {
 
     private ApplicationContext appContext;
-    protected ServiceManager servicemanagerBean;
+    protected IServiceManager servicemanager;
     protected Log log = LogFactory.getLog(this.getClass());
     protected boolean isOneRow;
 
@@ -58,16 +58,16 @@ public class MasterBean {
      *
      * @return
      */
-    public ServiceManager getServicemanagerBean() {
-        return servicemanagerBean;
+    public IServiceManager getServicemanager() {
+        return servicemanager;
     }
 
     /**
      *
      * @param servicemanagerBean
      */
-    public void setServicemanagerBean(ServiceManager servicemanagerBean) {
-        this.servicemanagerBean = servicemanagerBean;
+    public void setServicemanagerBean(IServiceManager servicemanagerBean) {
+        this.servicemanager = servicemanagerBean;
     }
 
     protected void init() {
@@ -136,8 +136,8 @@ public class MasterBean {
      *         property id
      */
     public String getMessageProperties(String i_propertyId) {
-        return getServicemanagerBean().getMessageSource() == null ? i_propertyId
-                : getServicemanagerBean().getMessageSource().getMessage(
+        return  getServicemanager().getMessageSource() == null ? i_propertyId
+                : getServicemanager().getMessageSource().getMessage(
                         i_propertyId, null, null);
     }
 

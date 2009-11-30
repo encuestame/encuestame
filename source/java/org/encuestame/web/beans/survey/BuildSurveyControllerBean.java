@@ -13,382 +13,384 @@ import org.encuestame.web.beans.MasterBean;
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 3 of the GNU General Public License as published by the
  * Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * Id: BuildSurveyControllerBean.java Date: 02/06/2009 19:36:44
- * 
+ *
  * @author juanpicado package: org.encuestame.web.beans.survey
  * @version 1.0
  */
 
 public class BuildSurveyControllerBean extends MasterBean {
 
-	private String questionSearch;
-	
-	private Boolean showQuestionForm = false;
-	private Boolean showSectionForm = false;
-		
-	
-	private List<UnitQuestionBean> questionsList;
-	private List<UnitSurveySection> sectionList;
-	
+    private String questionSearch;
 
-	private Integer idCounterSection = 1;
-	private Integer idCounterQuestion = 1;
-	private Integer sectionSelected;
-	private Integer patternSelected;
+    private Boolean showQuestionForm = false;
+    private Boolean showSectionForm = false;
 
-	private UnitQuestionBean unitQuestionBean;
-	private UnitPatternBean unitPatterBean;
-	private UnitSurveySection unitSurveySection;
-	
-	private Log log = LogFactory.getLog(this.getClass());
 
-	
-	public BuildSurveyControllerBean() {
-		log.info("seccion add's");
-	}
+    private List<UnitQuestionBean> questionsList;
+    private List<UnitSurveySection> sectionList;
 
-	/**
-	 * create new section
-	 * @author juanpicado
-	 */
-	
-	public void createSecction() {
-		if (getUnitSurveySection() != null) {
-			if (sectionList == null) {
-				sectionList = new ArrayList<UnitSurveySection>();
-			}
-			UnitSurveySection sec;
-			try {
-				sec = new UnitSurveySection(getNewIdCounter(1),
-						getUnitSurveySection().getName(), 2);
-				sectionList.add(sec);
-				addInfoMessage("Seccion Creada", "");
-				cleanSecctionBean();
-			} catch (EnMeExpcetion e) {
-				addErrorMessage("error->" + e.getMessage(), "");
-			}
-		} else {
-			addErrorMessage("No se pudo Crear Seccion", "");
-		}
-	}
 
-	/**
-	 * create a question
-	 * @author juanpicado
-	 */
-	public void createQuestion() {
-		if (getUnitQuestionBean() != null) {
-			if (questionsList == null) {
-				questionsList = new ArrayList<UnitQuestionBean>();
-			}
-			UnitQuestionBean question;
-			try {
-				int d = getNewIdCounter(2);
-				question = new UnitQuestionBean();
-				question.setId(d);
-				if (getPatternSelected() != null) {
-					// getUnitPatterBean().setId(getPatternSelected());
-					UnitPatternBean patternN = new UnitPatternBean(
-							getPatternSelected());
-					patternN = getServicemanagerBean().getSurveyService()
-							.loadPatternInfo(patternN);
-					//cleanPatterBean(getUnitPatterBean());
-					question.setPattern(patternN);
-					question.setQuestionName(getUnitQuestionBean()
-							.getQuestionName());
-					question.setVersion("1");
-					question.setIdState(2L);
-					addInfoMessage("Pregunta Creada", "");
-					questionsList.add(question);
-				} else {
-					addErrorMessage("error message", "");
-					new EnMeExpcetion("patron nulo");
-				}
-				// cleanSecctionBean();
-			} catch (Exception e) {
-				addErrorMessage("error->" + e.getMessage(), "");
-			}
-		}
-	}
+    private Integer idCounterSection = 1;
+    private Integer idCounterQuestion = 1;
+    private Integer sectionSelected;
+    private Integer patternSelected;
 
-	/**
-	 * clean pattern bean
-	 * @param bean
-	 */
-	private void cleanPatterBean(UnitPatternBean bean) {
-		bean.setId(null);
-		bean.setLabel(null);
-		bean.setTemplate(null);
-		bean.setDescripcion(null);
-	}
+    private UnitQuestionBean unitQuestionBean;
+    private UnitPatternBean unitPatterBean;
+    private UnitSurveySection unitSurveySection;
 
-	/**
-	 * 
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	private Integer getNewIdCounter(Integer op) throws EnMeExpcetion {
-		Integer idRe = null;
-		switch (op) {
-		case 1:
-			if (idCounterSection != null) {
-				idRe = idCounterSection;
-				idCounterSection = idCounterSection + 1;
-			} else {
-				idRe = idCounterSection = 1;
-			}
-			break;
-		case 2:
-			if (idCounterQuestion != null) {
-				idRe = idCounterQuestion;
-				idCounterQuestion = idCounterQuestion + 1;
-			} else {
-				idRe = idCounterQuestion = 1;
-			}
-			break;
-		default:
-			throw new EnMeExpcetion("counter error");
-		}
-		return idRe;
-	}
+    private Log log = LogFactory.getLog(this.getClass());
 
-	/**
-	 * clean section bean
-	 */
-	private void cleanSecctionBean() {
-		getUnitSurveySection().setName(null);
-		getUnitSurveySection().setId(null);
-		getUnitSurveySection().setStateId(null);
-	}
 
-	/**
-	 * search questions in bd
-	 */
-	public void searchQuestions() {
-		try {
-			questionsList = getServicemanagerBean().getSurveyService()
-					.loadAllQuestions();
-		} catch (HibernateException e) {
-			addErrorMessage("Error->" + e, "");
-		} catch (EnMeExpcetion e) {
-			addErrorMessage("Error->" + e, "");
-		} catch (Exception e) {
-			addErrorMessage("Error->" + e, "");
-		}
+    public BuildSurveyControllerBean() {
+        log.info("seccion add's");
+    }
 
-	}
+    /**
+     * create new section
+     * @author juanpicado
+     */
 
-	/**
-	 * Mueve una pregunta a una sección
-	 * @author juanpicado
-	 * @param fm
-	 * @param family
-	 */
-	public void moveQuestion(Object fm, Object family) {
-		ArrayList target = null;
-		UnitQuestionBean dd = (UnitQuestionBean) fm;
-		dd.getPattern().setTemplate("pattern/url.xhtml");
-		// log.info("Object Move fm->" + fm);
-		// log.info("Object family->" + family);
-		addInfoMessage("Pregunta ASignada a la Seccion ->" + family
-				+ "La pregunta->" + dd.getQuestionName(), "");
-		int ind = sectionList.indexOf(family);
-		UnitSurveySection d = sectionList.get(ind);
-		d.getQuestions().add((UnitQuestionBean) fm);
-		// log.info("Posicion Encontrada->" + ind);
-		// log.info("Posicion sectionList->" + sectionList);
-		UnitSurveySection ddedd = sectionList.get(ind);
-		// log.info("Posicion Preguntas Totales->" + ddedd.getQuestions());
-	}
+    public void createSecction() {
+        if (getUnitSurveySection() != null) {
+            if (sectionList == null) {
+                sectionList = new ArrayList<UnitSurveySection>();
+            }
+            UnitSurveySection sec;
+            try {
+                sec = new UnitSurveySection(getNewIdCounter(1),
+                        getUnitSurveySection().getName(), 2);
+                sectionList.add(sec);
+                addInfoMessage("Seccion Creada", "");
+                cleanSecctionBean();
+            } catch (EnMeExpcetion e) {
+                addErrorMessage("error->" + e.getMessage(), "");
+            }
+        } else {
+            addErrorMessage("No se pudo Crear Seccion", "");
+        }
+    }
 
-	/**
-	 * @return the questionSearch
-	 */
-	public String getQuestionSearch() {
-		return questionSearch;
-	}
+    /**
+     * create a question
+     * @author juanpicado
+     */
+    public void createQuestion() {
+        if (getUnitQuestionBean() != null) {
+            if (questionsList == null) {
+                questionsList = new ArrayList<UnitQuestionBean>();
+            }
+            UnitQuestionBean question;
+            try {
+                int d = getNewIdCounter(2);
+                question = new UnitQuestionBean();
+                question.setId(d);
+                if (getPatternSelected() != null) {
+                    // getUnitPatterBean().setId(getPatternSelected());
+                    UnitPatternBean patternN = new UnitPatternBean(
+                            getPatternSelected());
+                    patternN = getServicemanager().getApplicationServices().getSecurityService().getSurveyService()
+                            .loadPatternInfo(patternN);
+                    //cleanPatterBean(getUnitPatterBean());
+                    question.setPattern(patternN);
+                    question.setQuestionName(getUnitQuestionBean()
+                            .getQuestionName());
+                    question.setVersion("1");
+                    question.setIdState(2L);
+                    addInfoMessage("Pregunta Creada", "");
+                    questionsList.add(question);
+                } else {
+                    addErrorMessage("error message", "");
+                    new EnMeExpcetion("patron nulo");
+                }
+                // cleanSecctionBean();
+            } catch (Exception e) {
+                addErrorMessage("error->" + e.getMessage(), "");
+            }
+        }
+    }
 
-	/**
-	 * @param questionSearch
-	 *            the questionSearch to set
-	 */
-	public void setQuestionSearch(String questionSearch) {
-		this.questionSearch = questionSearch;
-	}
+    /**
+     * clean pattern bean
+     * @param bean
+     */
+    private void cleanPatterBean(UnitPatternBean bean) {
+        bean.setId(null);
+        bean.setLabel(null);
+        bean.setTemplate(null);
+        bean.setDescripcion(null);
+    }
 
-	/**
-	 * @return the questionsList
-	 */
-	public List<UnitQuestionBean> getQuestionsList() {
-		// searchQuestions();
-		return questionsList;
-	}
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    private Integer getNewIdCounter(Integer op) throws EnMeExpcetion {
+        Integer idRe = null;
+        switch (op) {
+        case 1:
+            if (idCounterSection != null) {
+                idRe = idCounterSection;
+                idCounterSection = idCounterSection + 1;
+            } else {
+                idRe = idCounterSection = 1;
+            }
+            break;
+        case 2:
+            if (idCounterQuestion != null) {
+                idRe = idCounterQuestion;
+                idCounterQuestion = idCounterQuestion + 1;
+            } else {
+                idRe = idCounterQuestion = 1;
+            }
+            break;
+        default:
+            throw new EnMeExpcetion("counter error");
+        }
+        return idRe;
+    }
 
-	/**
-	 * @param questionsList
-	 *            the questionsList to set
-	 */
-	public void setQuestionsList(List<UnitQuestionBean> questionsList) {
-		this.questionsList = questionsList;
-	}
+    /**
+     * clean section bean
+     */
+    private void cleanSecctionBean() {
+        getUnitSurveySection().setName(null);
+        getUnitSurveySection().setId(null);
+        getUnitSurveySection().setStateId(null);
+    }
 
-	/**
-	 * @return the sectionList
-	 */
-	public List<UnitSurveySection> getSectionList() {
-		return sectionList;
-	}
+    /**
+     * search questions in bd
+     */
+    public void searchQuestions() {
+        try {
+            questionsList = getServicemanager().getApplicationServices()
+            .getSecurityService()
+            .getSurveyService()
+                    .loadAllQuestions();
+        } catch (HibernateException e) {
+            addErrorMessage("Error->" + e, "");
+        } catch (EnMeExpcetion e) {
+            addErrorMessage("Error->" + e, "");
+        } catch (Exception e) {
+            addErrorMessage("Error->" + e, "");
+        }
 
-	/**
-	 * @param sectionList
-	 *            the sectionList to set
-	 */
-	public void setSectionList(List<UnitSurveySection> sectionList) {
-		this.sectionList = sectionList;
-	}
+    }
 
-	/**
-	 * @return the unitQuestionBean
-	 */
-	public UnitQuestionBean getUnitQuestionBean() {
-		return unitQuestionBean;
-	}
+    /**
+     * Mueve una pregunta a una sección
+     * @author juanpicado
+     * @param fm
+     * @param family
+     */
+    public void moveQuestion(Object fm, Object family) {
+        ArrayList target = null;
+        UnitQuestionBean dd = (UnitQuestionBean) fm;
+        dd.getPattern().setTemplate("pattern/url.xhtml");
+        // log.info("Object Move fm->" + fm);
+        // log.info("Object family->" + family);
+        addInfoMessage("Pregunta ASignada a la Seccion ->" + family
+                + "La pregunta->" + dd.getQuestionName(), "");
+        int ind = sectionList.indexOf(family);
+        UnitSurveySection d = sectionList.get(ind);
+        d.getQuestions().add((UnitQuestionBean) fm);
+        // log.info("Posicion Encontrada->" + ind);
+        // log.info("Posicion sectionList->" + sectionList);
+        UnitSurveySection ddedd = sectionList.get(ind);
+        // log.info("Posicion Preguntas Totales->" + ddedd.getQuestions());
+    }
 
-	/**
-	 * @param unitQuestionBean
-	 *            the unitQuestionBean to set
-	 */
-	public void setUnitQuestionBean(UnitQuestionBean unitQuestionBean) {
-		this.unitQuestionBean = unitQuestionBean;
-	}
+    /**
+     * @return the questionSearch
+     */
+    public String getQuestionSearch() {
+        return questionSearch;
+    }
 
-	/**
-	 * @return the unitSurveySection
-	 */
-	public UnitSurveySection getUnitSurveySection() {
-		return unitSurveySection;
-	}
+    /**
+     * @param questionSearch
+     *            the questionSearch to set
+     */
+    public void setQuestionSearch(String questionSearch) {
+        this.questionSearch = questionSearch;
+    }
 
-	/**
-	 * @param unitSurveySection
-	 *            the unitSurveySection to set
-	 */
-	public void setUnitSurveySection(UnitSurveySection unitSurveySection) {
-		this.unitSurveySection = unitSurveySection;
-	}
+    /**
+     * @return the questionsList
+     */
+    public List<UnitQuestionBean> getQuestionsList() {
+        // searchQuestions();
+        return questionsList;
+    }
 
-	/**
-	 * @return the showQuestionForm
-	 */
-	public Boolean getShowQuestionForm() {
-		return showQuestionForm;
-	}
+    /**
+     * @param questionsList
+     *            the questionsList to set
+     */
+    public void setQuestionsList(List<UnitQuestionBean> questionsList) {
+        this.questionsList = questionsList;
+    }
 
-	/**
-	 * @param showQuestionForm
-	 *            the showQuestionForm to set
-	 */
-	public void setShowQuestionForm(Boolean showQuestionForm) {
-		this.showQuestionForm = showQuestionForm;
-	}
+    /**
+     * @return the sectionList
+     */
+    public List<UnitSurveySection> getSectionList() {
+        return sectionList;
+    }
 
-	/**
-	 * @return the showSectionForm
-	 */
-	public Boolean getShowSectionForm() {
-		return showSectionForm;
-	}
+    /**
+     * @param sectionList
+     *            the sectionList to set
+     */
+    public void setSectionList(List<UnitSurveySection> sectionList) {
+        this.sectionList = sectionList;
+    }
 
-	/**
-	 * @param showSectionForm
-	 *            the showSectionForm to set
-	 */
-	public void setShowSectionForm(Boolean showSectionForm) {
-		this.showSectionForm = showSectionForm;
-	}
+    /**
+     * @return the unitQuestionBean
+     */
+    public UnitQuestionBean getUnitQuestionBean() {
+        return unitQuestionBean;
+    }
 
-	/**
-	 * @return the sectionSelected
-	 */
-	public Integer getSectionSelected() {
-		return sectionSelected;
-	}
+    /**
+     * @param unitQuestionBean
+     *            the unitQuestionBean to set
+     */
+    public void setUnitQuestionBean(UnitQuestionBean unitQuestionBean) {
+        this.unitQuestionBean = unitQuestionBean;
+    }
 
-	/**
-	 * change rendered section
-	 * 
-	 * @param selected
-	 */
-	public void changeRenderedSection() {
-		if (getSectionSelected() != null) {
-			UnitSurveySection ind = sectionList.get(getSectionSelected()
-					.intValue() - 1);
-			changeShowedSection(ind);
-		} else {
-			addErrorMessage("getSectionSelected() is null", "");
-		}
-	}
+    /**
+     * @return the unitSurveySection
+     */
+    public UnitSurveySection getUnitSurveySection() {
+        return unitSurveySection;
+    }
 
-	/**
-	 * 
-	 * @param sec
-	 */
-	private void changeShowedSection(UnitSurveySection sec) {
+    /**
+     * @param unitSurveySection
+     *            the unitSurveySection to set
+     */
+    public void setUnitSurveySection(UnitSurveySection unitSurveySection) {
+        this.unitSurveySection = unitSurveySection;
+    }
 
-		try {
-			Iterator<UnitSurveySection> i = sectionList.iterator();
-			while (i.hasNext()) {
-				UnitSurveySection unitSurveySection = (UnitSurveySection) i
-						.next();
-				unitSurveySection.setShowPanel(false);
-			}
-			if (sec != null) {
-				sec.setShowPanel(true);
+    /**
+     * @return the showQuestionForm
+     */
+    public Boolean getShowQuestionForm() {
+        return showQuestionForm;
+    }
 
-			} else {
-				addErrorMessage("No se pudo cambiar la secci�n", "");
-			}
-		} catch (Exception e) {
-			addErrorMessage("No se pudo cambiar la secci�n", "");
-		}
-	}
+    /**
+     * @param showQuestionForm
+     *            the showQuestionForm to set
+     */
+    public void setShowQuestionForm(Boolean showQuestionForm) {
+        this.showQuestionForm = showQuestionForm;
+    }
 
-	/**
-	 * @param sectionSelected
-	 *            the sectionSelected to set
-	 */
-	public void setSectionSelected(Integer sectionSelected) {
-		this.sectionSelected = sectionSelected;
-	}
+    /**
+     * @return the showSectionForm
+     */
+    public Boolean getShowSectionForm() {
+        return showSectionForm;
+    }
 
-	public UnitPatternBean getUnitPatterBean() {
-		return unitPatterBean;
-	}
+    /**
+     * @param showSectionForm
+     *            the showSectionForm to set
+     */
+    public void setShowSectionForm(Boolean showSectionForm) {
+        this.showSectionForm = showSectionForm;
+    }
 
-	public void setUnitPatterBean(UnitPatternBean unitPatterBean) {
-		this.unitPatterBean = unitPatterBean;
-	}
+    /**
+     * @return the sectionSelected
+     */
+    public Integer getSectionSelected() {
+        return sectionSelected;
+    }
 
-	public Integer getPatternSelected() {
-		return patternSelected;
-	}
+    /**
+     * change rendered section
+     *
+     * @param selected
+     */
+    public void changeRenderedSection() {
+        if (getSectionSelected() != null) {
+            UnitSurveySection ind = sectionList.get(getSectionSelected()
+                    .intValue() - 1);
+            changeShowedSection(ind);
+        } else {
+            addErrorMessage("getSectionSelected() is null", "");
+        }
+    }
 
-	public void setPatternSelected(Integer patternSelected) {
-		this.patternSelected = patternSelected;
-	}
+    /**
+     *
+     * @param sec
+     */
+    private void changeShowedSection(UnitSurveySection sec) {
+
+        try {
+            Iterator<UnitSurveySection> i = sectionList.iterator();
+            while (i.hasNext()) {
+                UnitSurveySection unitSurveySection = (UnitSurveySection) i
+                        .next();
+                unitSurveySection.setShowPanel(false);
+            }
+            if (sec != null) {
+                sec.setShowPanel(true);
+
+            } else {
+                addErrorMessage("No se pudo cambiar la secci�n", "");
+            }
+        } catch (Exception e) {
+            addErrorMessage("No se pudo cambiar la secci�n", "");
+        }
+    }
+
+    /**
+     * @param sectionSelected
+     *            the sectionSelected to set
+     */
+    public void setSectionSelected(Integer sectionSelected) {
+        this.sectionSelected = sectionSelected;
+    }
+
+    public UnitPatternBean getUnitPatterBean() {
+        return unitPatterBean;
+    }
+
+    public void setUnitPatterBean(UnitPatternBean unitPatterBean) {
+        this.unitPatterBean = unitPatterBean;
+    }
+
+    public Integer getPatternSelected() {
+        return patternSelected;
+    }
+
+    public void setPatternSelected(Integer patternSelected) {
+        this.patternSelected = patternSelected;
+    }
 
 }

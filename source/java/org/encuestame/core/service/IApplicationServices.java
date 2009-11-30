@@ -16,20 +16,18 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package org.encuestame.core.service;
-
-
 /**
- * Interface to Service Manager.
- *
+ * Interface to Application Bean Service.
  * @author Picado, Juan juan@encuestame.org
- * @since 26/04/2009 20:12:31
- * File name: $HeadURL$
+ * @since 11/05/2009 14:35:21
+ * File name: $HeadURL:$
  * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
-public interface IServiceManager extends IService {
+public interface IApplicationServices  extends IService {
 
-    public IApplicationServices getApplicationServices();
-    public void setApplicationServices(IApplicationServices applicationServices);
+    public ISecurityService getSecurityService();
+    public void setSecurityService(ISecurityService securityService);
+
 }

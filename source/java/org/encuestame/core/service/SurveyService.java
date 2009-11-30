@@ -45,7 +45,7 @@ public class SurveyService extends Service implements ISurveyService {
     private MailServiceImpl serviceMail;
     private SurveyDaoImp surveyDaoImp;
     private SecurityService securityService;
-    private DataService dataService;
+    private DataSource dataService;
     private QuestionDaoImp questionDaoImp;
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -90,7 +90,7 @@ public class SurveyService extends Service implements ISurveyService {
     /**
      * @return the dataService
      */
-    private DataService getDataService() {
+    private DataSource getDataService() {
         return dataService;
     }
 
@@ -98,7 +98,7 @@ public class SurveyService extends Service implements ISurveyService {
      * @param dataService
      *            the dataService to set
      */
-    public void setDataService(DataService dataService) {
+    public void setDataService(DataSource dataService) {
         this.dataService = dataService;
     }
 

@@ -20,10 +20,6 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-    <bean id="messageSource" class="org.encuestame.web.beans.commons.MessageSourceFactoryBean">
-        <property name="messagesource" ref="resourceBundleMessageSource" />
-    </bean>
-
     <bean id="resourceBundleMessageSource"
         class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename">
@@ -31,43 +27,23 @@
         </property>
     </bean>
 
-    <bean id="servicesManager" class="org.encuestame.web.beans.ServiceManagerBean">
-        <property name="dataService">
-            <ref bean="dataService"></ref>
-        </property>
-        <property name="surveyService">
-            <ref bean="surveyService"></ref>
-        </property>
-        <property name="securityService">
-            <ref bean="securityService"></ref>
-        </property>
-        <property name="applicationService">
-            <ref bean="applicationService"></ref>
-        </property>
+    <bean id="service" class="org.encuestame.core.service.Service"
+        abstract="true">
         <property name="messageSource">
-            <ref bean="messageSource"></ref>
+            <ref bean="messageSource" />
+        </property>
+        <property name="dataEnMeSource">
+            <ref bean="dataEnMeSource"></ref>
         </property>
     </bean>
 
-    <bean id="surveyService" class="org.encuestame.core.service.SurveyService">
-        <property name="surveyDaoImp">
-            <ref bean="surveyDaoImp"></ref>
-        </property>
-        <property name="serviceMail">
-            <ref bean="serviceMail"></ref>
-        </property>
-        <property name="securityService">
-            <ref bean="securityService"></ref>
-        </property>
-        <property name="dataService">
-            <ref bean="dataService"></ref>
-        </property>
-        <property name="questionDaoImp">
-            <ref bean="questionDaoImp"></ref>
-        </property>
+    <bean id="messageSource"
+        class="org.encuestame.web.beans.commons.MessageSourceFactoryBean">
+        <property name="messagesource" ref="resourceBundleMessageSource" />
     </bean>
 
-    <bean id="dataService" class="org.encuestame.core.service.DataService">
+
+    <bean id="dataEnMeSource" class="org.encuestame.core.service.DataSource">
         <property name="stateDao">
             <ref bean="catStateDaoImp"></ref>
         </property>
@@ -79,7 +55,31 @@
         </property>
     </bean>
 
-    <bean id="securityService" class="org.encuestame.core.service.SecurityService">
+    <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager"
+        parent="service">
+        <property name="applicationServices">
+            <ref bean="applicationServices"></ref>
+        </property>
+    </bean>
+
+    <bean id="surveyService" class="org.encuestame.core.service.SurveyService"
+        parent="service">
+        <property name="surveyDaoImp">
+            <ref bean="surveyDaoImp"></ref>
+        </property>
+        <property name="serviceMail">
+            <ref bean="serviceMail"></ref>
+        </property>
+        <property name="questionDaoImp">
+            <ref bean="questionDaoImp"></ref>
+        </property>
+    </bean>
+
+    <bean id="securityService" class="org.encuestame.core.service.SecurityService"
+        parent="service">
+        <property name="surveyService">
+            <ref bean="surveyService"></ref>
+        </property>
         <property name="userDao">
             <ref bean="secUserDao"></ref>
         </property>
@@ -92,9 +92,6 @@
         <property name="serviceMail">
             <ref bean="serviceMail"></ref>
         </property>
-        <property name="messageSource">
-            <ref bean="messageSource"></ref>
-        </property>
         <property name="defaultUserPermission">
             <value>${sec.defaultUserPermission}
             </value>
@@ -105,7 +102,11 @@
         </property>
     </bean>
 
-    <bean id="applicationService" class="org.encuestame.core.service.ApplicationServices">
+    <bean id="applicationServices" class="org.encuestame.core.service.ApplicationServices"
+        parent="service">
+        <property name="securityService">
+            <ref bean="securityService"></ref>
+        </property>
         <property name="name">
             <value>${application.name}</value>
         </property>
@@ -119,11 +120,4 @@
             <value>${application.apiKeygoogle}</value>
         </property>
     </bean>
-
-    <bean id="url" class="org.encuestame.web.beans.commons.UrlBean">
-        <property name="applicationService">
-            <ref bean="applicationService"></ref>
-        </property>
-    </bean>
-
 </beans>

@@ -16,17 +16,27 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package org.encuestame.core.service;
+
+import org.encuestame.web.beans.commons.UrlBean;
+
 /**
- * Application Bean Service.
+ * Application Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 11/05/2009 11:35:01
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
-public class ApplicationServices extends Service implements IApplicationService {
+public class ApplicationServices extends Service implements IApplicationServices {
 
     private String name;
     private String urlImg;
     private String encoding;
     private String apiKeygoogle;
+    private UrlBean url;
+
+    private ISecurityService securityService;
 
     public String getName() {
         return name;
@@ -65,4 +75,33 @@ public class ApplicationServices extends Service implements IApplicationService 
     public void setApiKeygoogle(String apiKeygoogle) {
         this.apiKeygoogle = apiKeygoogle;
     }
+
+    /**
+     * @return the securityService
+     */
+    public ISecurityService getSecurityService() {
+        return securityService;
+    }
+
+    /**
+     * @param securityService the securityService to set
+     */
+    public void setSecurityService(ISecurityService securityService) {
+        this.securityService = securityService;
+    }
+
+    /**
+     * @return the url
+     */
+    public UrlBean getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(UrlBean url) {
+        this.url = url;
+    }
+
 }

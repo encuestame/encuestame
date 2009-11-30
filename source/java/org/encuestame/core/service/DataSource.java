@@ -22,6 +22,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
@@ -41,13 +43,18 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since April 27, 2009
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
-public class DataService extends Service implements IDataService {
+public class DataSource implements IDataSource {
 
 
     private ICatState stateDao;
     private ICatLocation catLocationDao;
     private IProject projectDaoImp;
+    protected Log log = LogFactory.getLog(this.getClass());
 
 
     /**
@@ -198,7 +205,7 @@ public class DataService extends Service implements IDataService {
      * Load state by id.
      * @param stateId
      */
-    private CatState getState(Long stateId) throws Exception {
+    public CatState getState(Long stateId) throws Exception {
         return getStateDao().getState(stateId);
     }
 

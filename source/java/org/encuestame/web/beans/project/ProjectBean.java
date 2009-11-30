@@ -53,7 +53,7 @@ public class ProjectBean extends MasterBean {
      */
     public Collection<UnitProjectBean> loadListProjects() throws Exception {
         list_unitBeans = new LinkedList<UnitProjectBean>();
-        return list_unitBeans = getServicemanagerBean().getDataService()
+        return list_unitBeans = getServicemanager().getDataEnMeSource()
                 .loadListProjects();
     }
 
@@ -66,7 +66,7 @@ public class ProjectBean extends MasterBean {
             log.info("name->" + getBeanUProyect().getName());
 
             if (getBeanUProyect() != null) {
-                getServicemanagerBean().getDataService().createProject(
+                getServicemanager().getDataEnMeSource().createProject(
                         getBeanUProyect());
                 log.info("projecto creado");
                 addInfoMessage("Proyecto Creado", "");
@@ -112,7 +112,7 @@ public class ProjectBean extends MasterBean {
             log.info("loadProjectInfo");
             cleanProyect();
             getBeanUProyect().setId(getProjectSelected());
-            setBeanUProyect(getServicemanagerBean().getDataService()
+            setBeanUProyect(getServicemanager().getDataEnMeSource()
                     .loadProjectInfo(getBeanUProyect()));
             fullFormEditProject(getBeanUProyect());
             log.info("projecto Cargado");

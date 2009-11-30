@@ -45,7 +45,7 @@ public class GroupBean extends MasterBean {
     private Collection<UnitGroupBean> getLoadListGroups() {
         try {
             list_unitBeans = new LinkedList<UnitGroupBean>();
-            Collection<SecGroups> listGroups = getServicemanagerBean()
+            Collection<SecGroups> listGroups = getServicemanager().getApplicationServices()
                     .getSecurityService().getGroupDao().findAllGroups();
             for (Iterator<SecGroups> i = listGroups.iterator(); i.hasNext();) {
                 UnitGroupBean newGroup = new UnitGroupBean();
@@ -72,7 +72,7 @@ public class GroupBean extends MasterBean {
     public void newGroup() {
         try {
             log.info("new group");
-            getServicemanagerBean().getSecurityService().createGroup(
+            getServicemanager().getApplicationServices().getSecurityService().createGroup(
                     getNewGroup());
             addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
             reset();
@@ -87,7 +87,7 @@ public class GroupBean extends MasterBean {
     public void updateGroup() {
         try {
             log.info("new group");
-            getServicemanagerBean().getSecurityService().updateGroup(
+            getServicemanager().getApplicationServices().getSecurityService().updateGroup(
                     getNewGroup());
             addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
             reset();
@@ -106,7 +106,7 @@ public class GroupBean extends MasterBean {
         try {
             if (getProcessedGroupId() != null) {
                 log.info("deleting group..");
-                getServicemanagerBean().getSecurityService().deleteGroup(
+                getServicemanager().getApplicationServices().getSecurityService().deleteGroup(
                         getNewGroup());
                 reset();
 
@@ -141,7 +141,7 @@ public class GroupBean extends MasterBean {
     }
 
     private void fill(Integer idGroup) {
-        SecGroups s = getServicemanagerBean().getSecurityService()
+        SecGroups s = getServicemanager().getApplicationServices().getSecurityService()
                 .getGroupDao().find(Long.valueOf(idGroup));
         try {
             if (s != null) {

@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.mail.MailService;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
@@ -46,6 +47,10 @@ import org.springframework.mail.MailSendException;
  * Security Bean Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009 11:35:01
+ * File name: $HeadURL:$
+ * Revision: $Revision$
+ * Last modified: $Date:$
+ * Last modified by: $Author:$
  */
 public class SecurityService extends Service implements ISecurityService {
 
@@ -59,8 +64,10 @@ public class SecurityService extends Service implements ISecurityService {
     private MailServiceImpl serviceMail;
     /** Default User Permission **/
     private String defaultUserPermission = "ENCUESTAME_USER";
-    /** Suspende Notification. **/
+    /** Suspended Notification. **/
     private Boolean suspendedNotification;
+    /**  {@link SurveyService} **/
+    private SurveyService surveyService;
 
     /**
      * Getter.
@@ -114,7 +121,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return list of users with groups and permission
      * @throws EnMeExpcetion
      */
-    public Collection<UnitUserBean> loadListUsers() throws EnMeExpcetion{
+    public Collection<UnitUserBean> loadListUsers() throws EnMeExpcetion {
         final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         try {
             final Collection<SecUsers> listUsers = getUserDao().findAll();
@@ -276,7 +283,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param groupDomain
      * @return
      */
-    public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain){
+    public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
         UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
         groupBean.setGroupDescription(groupDomain.getDesInfo());
@@ -288,7 +295,7 @@ public class SecurityService extends Service implements ISecurityService {
      * Delete user.
      * @param userBean user to delete
      */
-    public void deleteUser(final UnitUserBean userBean){
+    public void deleteUser(final UnitUserBean userBean) {
         final SecUsers userDomain = getUser(userBean.getUsername().trim());
         if (getSuspendedNotification()) {
             getServiceMail().sendDeleteNotification(userBean.getEmail(),
@@ -302,7 +309,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userBean
      * @throws Exception
      */
-    public void renewPassword(final UnitUserBean userBean){
+    public void renewPassword(final UnitUserBean userBean) {
         final SecUsers userDomain = getUser(userBean.getUsername().trim());
         if (userDomain.getPassword() != null) {
             final String newPassowrd = generatePassword();
@@ -327,7 +334,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param group
      * @throws EnMeExpcetion
      */
-    public void updateGroup(UnitGroupBean groupBean){
+    public void updateGroup(UnitGroupBean groupBean) {
         final SecGroups group = getGroupDao().find(Long.valueOf(groupBean.getId()));
         if (group != null) {
             group.setName(groupBean.getGroupName());
@@ -368,7 +375,7 @@ public class SecurityService extends Service implements ISecurityService {
      *Create a new Permisssion.
      * @param permissionBean
      */
-    public void createPermission(final UnitPermission permissionBean){
+    public void createPermission(final UnitPermission permissionBean) {
         final SecPermission permissionDomain = new SecPermission();
         permissionDomain.setPermission(permissionBean.getPermission());
         permissionDomain.setDescription(permissionBean.getDescription());
@@ -537,7 +544,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param permission permission
      * @return permission domain
      */
-    public SecPermission loadPermission(final String permission){
+    public SecPermission loadPermission(final String permission) {
         return getPermissionDao().loadPermission(permission);
     }
 
@@ -633,5 +640,16 @@ public class SecurityService extends Service implements ISecurityService {
     public void setSuspendedNotification(final Boolean suspendedNotification) {
         this.suspendedNotification = suspendedNotification;
     }
-
+    /**
+     * @return the surveyService
+     */
+    public SurveyService getSurveyService() {
+        return surveyService;
+    }
+    /**
+     * @param surveyService the surveyService to set
+     */
+    public void setSurveyService(SurveyService surveyService) {
+        this.surveyService = surveyService;
+    }
 }

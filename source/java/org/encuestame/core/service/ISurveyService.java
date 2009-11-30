@@ -17,11 +17,11 @@ package org.encuestame.core.service;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Id: SurveyService.java Date: 27/04/2009 
+ * Id: SurveyService.java Date: 27/04/2009
  * @author juanpicado
  * package: org.encuestame.core.service
  * @version 1.0
  */
-public interface ISurveyService {
+public interface ISurveyService extends IService {
 
 }

@@ -26,9 +26,11 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
  */
-public class Service {
+public abstract class Service {
 
     private MessageSourceFactoryBean messageSource;
+    private IDataSource dataEnMeSource;
+
     protected Log log = LogFactory.getLog(this.getClass());
 
     public Service() {}
@@ -37,7 +39,7 @@ public class Service {
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    protected MessageSourceFactoryBean getMessageSource() {
+    public MessageSourceFactoryBean getMessageSource() {
         return messageSource;
     }
 
@@ -58,5 +60,19 @@ public class Service {
     public String getMessageProperties(String propertieId) {
         return getMessageSource() == null ? propertieId : getMessageSource()
                 .getMessage(propertieId, null, null);
+    }
+
+    /**
+     * @return the dataSource
+     */
+    public IDataSource getDataEnMeSource() {
+        return dataEnMeSource;
+    }
+
+    /**
+     * @param dataSource the dataSource to set
+     */
+    public void setDataEnMeSource(final IDataSource dataSource) {
+        this.dataEnMeSource = dataSource;
     }
 }

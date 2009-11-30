@@ -27,91 +27,28 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * @author Picado, Juan juan@encuestame.org
  * @since 26/04/2009
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
-public class ServiceManager implements IServiceManager {
+public class ServiceManager extends Service implements IServiceManager {
 
     public Log log = LogFactory.getLog(this.getClass());
 
-    public SecurityService securityService;
-    public DataService dataService;
-    public ApplicationServices applicationServices;
-    public MessageSourceFactoryBean messageSourceFactoryBean;
-    public SurveyService surveyService;
+    public IApplicationServices applicationServices;
 
     /**
-     * @param securityService
-     *            the securityService to set
+     * Setter of {@link ApplicationServices}.
+     * @param applicationServices the applicationServices to set
      */
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
-    }
-
-    /**
-     * @param dataService
-     *            the dataService to set
-     */
-    public void setDataService(DataService dataService) {
-        this.dataService = dataService;
-    }
-
-    /**
-     * @param applicationServices
-     *            the applicationServices to set
-     */
-    public void setApplicationServices(ApplicationServices applicationServices) {
+    public void setApplicationServices(IApplicationServices applicationServices) {
         this.applicationServices = applicationServices;
     }
 
     /**
-     * @param messageSourceFactoryBean
-     *            the messageSourceFactoryBean to set
-     */
-    public void setMessageSource(MessageSourceFactoryBean messageSource) {
-        this.messageSourceFactoryBean = messageSourceFactoryBean;
-    }
-
-    /**
-     * @param surveyService
-     *            the surveyService to set
-     */
-    public void setSurveyService(SurveyService surveyService) {
-        this.surveyService = surveyService;
-    }
-
-    /**
-     * @return the securityService
-     */
-    public SecurityService getSecurityService() {
-        return securityService;
-    }
-
-    /**
-     * @return the dataService
-     */
-    public DataService getDataService() {
-        return dataService;
-    }
-
-    /**
+     * Getter of {@link ApplicationServices}
      * @return the applicationServices
      */
-    public ApplicationServices getApplicationServices() {
+    public IApplicationServices getApplicationServices() {
         return applicationServices;
-    }
-
-    /**
-     * @return the messageSourceFactoryBean
-     */
-    public MessageSourceFactoryBean getMessageSource() {
-        return messageSourceFactoryBean;
-    }
-
-    /**
-     * @return the surveyService
-     */
-    public SurveyService getSurveyService() {
-        return surveyService;
     }
 }
