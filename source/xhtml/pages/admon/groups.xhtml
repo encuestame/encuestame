@@ -1,173 +1,173 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:encuestame="http://encuesta.me/encuestame">
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
 <ui:composition template="/templates/admonTemplate.xhtml">
 <ui:define name="title"> #{temp.admonTitle} - #{temp.titleGroups}</ui:define>
-	<ui:define name="bodyOptions">
-		<a4j:form ajaxSubmit="true">
-			<h:panelGrid columns="8">
-				<a4j:commandLink value="#{temp.newGroup}" rendered="true"
-					oncomplete="javascript:Richfaces.showModalPanel('panelnewGroup')"
-					reRender="newFormUserUnit,formHeaderNewtUser">
-				</a4j:commandLink>
-			</h:panelGrid>
-		</a4j:form>
-		<rich:modalPanel id="panelnewGroup" autosized="true" width="600"
-			height="200" zindex="2000">
-			<f:facet name="header">
-				<a4j:form id="formHeaderNewtUser">
-					<h:panelGroup>
-						<h:outputText id="headerEditUser" value="Nuevo Grupo"></h:outputText>
-					</h:panelGroup>
-				</a4j:form>
-			</f:facet>
-			<f:facet name="controls">
-				<a4j:form ajaxSubmit="true">
-					<h:panelGroup>
-						<a4j:commandLink
-							onclick="Richfaces.hideModalPanel('panelnewGroup')"
-							ajaxSingle="true">
-							<h:graphicImage value="#{url.img}/icons/close.png" />
-						</a4j:commandLink>
-					</h:panelGroup>
-				</a4j:form>
-			</f:facet>
+  <ui:define name="bodyOptions">
+    <a4j:form ajaxSubmit="true">
+      <h:panelGrid columns="8">
+        <a4j:commandLink value="#{temp.newGroup}" rendered="true"
+          oncomplete="javascript:Richfaces.showModalPanel('panelnewGroup')"
+          reRender="newFormUserUnit,formHeaderNewtUser">
+        </a4j:commandLink>
+      </h:panelGrid>
+    </a4j:form>
+    <rich:modalPanel id="panelnewGroup" autosized="true" width="600"
+      height="200" zindex="2000">
+      <f:facet name="header">
+        <a4j:form id="formHeaderNewtUser">
+          <h:panelGroup>
+            <h:outputText id="headerEditUser" value="Nuevo Grupo"></h:outputText>
+          </h:panelGroup>
+        </a4j:form>
+      </f:facet>
+      <f:facet name="controls">
+        <a4j:form ajaxSubmit="true">
+          <h:panelGroup>
+            <a4j:commandLink
+              onclick="Richfaces.hideModalPanel('panelnewGroup')"
+              ajaxSingle="true">
+              <h:graphicImage value="#{url.img}/icons/close.png" />
+            </a4j:commandLink>
+          </h:panelGroup>
+        </a4j:form>
+      </f:facet>
 
-			<a4j:form id="groupForm" ajaxSubmit="true">
-				<h2>#{temp.titleCreateGroups}</h2>
-				<h:panelGrid columns="2">
-					<h:outputLabel value="#{temp.name}" for="name" />
-					<h:inputText id="name" value="#{unitGroupBean.groupName}" size="40"
-						required="true" requiredMessage="#{temp.validateNameGroup}" />
-					<h:outputLabel value="#{temp.description}" for="desc" />
-					<h:inputTextarea id="desc"
-						value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
-						required="true" requiredMessage="#{temp.validateDescrGroup}" />
-					<h:outputLabel value="#{temp.state}" for="selectState" />
-					<h:selectOneMenu value="#{unitGroupBean.stateId}" id="selectState"
-						required="true" requiredMessage="#{temp.validateStaterGroup}">
-						<f:selectItems value="#{globalBean.loadListState}" />
-					</h:selectOneMenu>
-					<a4j:commandButton value="#{temp.save}"
-						action="#{groupBean.newGroup}"
-						oncomplete="Richfaces.hideModalPanel('panelnewGroup')"
-						reRender="listGroupsTableForm"></a4j:commandButton>
-					<rich:messages id="groupMessage">
+      <a4j:form id="groupForm" ajaxSubmit="true">
+        <h2>#{temp.titleCreateGroups}</h2>
+        <h:panelGrid columns="2">
+          <h:outputLabel value="#{temp.name}" for="name" />
+          <h:inputText id="name" value="#{unitGroupBean.groupName}" size="40"
+            required="true" requiredMessage="#{temp.validateNameGroup}" />
+          <h:outputLabel value="#{temp.description}" for="desc" />
+          <h:inputTextarea id="desc"
+            value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
+            required="true" requiredMessage="#{temp.validateDescrGroup}" />
+          <h:outputLabel value="#{temp.state}" for="selectState" />
+          <h:selectOneMenu value="#{unitGroupBean.stateId}" id="selectState"
+            required="true" requiredMessage="#{temp.validateStaterGroup}">
+            <f:selectItems value="#{globalBean.loadListState}" />
+          </h:selectOneMenu>
+          <a4j:commandButton value="#{temp.save}"
+            action="#{groupBean.newGroup}"
+            oncomplete="Richfaces.hideModalPanel('panelnewGroup')"
+            reRender="listGroupsTableForm"></a4j:commandButton>
+          <rich:messages id="groupMessage">
 
-					</rich:messages>
-					<rich:effect for="groupMessage" event="onload" type="Appear"
-						params="targetId:'contentDiv',duration:0.8,from:0.3,to:1.0" />
-				</h:panelGrid>
-			</a4j:form>
+          </rich:messages>
+          <rich:effect for="groupMessage" event="onload" type="Appear"
+            params="targetId:'contentDiv',duration:0.8,from:0.3,to:1.0" />
+        </h:panelGrid>
+      </a4j:form>
 
-		</rich:modalPanel>
-		<ui:insert name="optionGroup">
-			<h:form id="listGroupsTableForm">
-				<h2>#{temp.titleEditGroups}</h2>
-				<a4j:region id="listGroup">
-					<a4j:status for="listGroup" startText="Buscando...." stopText=""></a4j:status>
-					<rich:dataTable id="dataTableGroups" width="100%"
-						style="margin: 5px; margin-top: 12px;"
-						value="#{groupBean.list_unitBeans}" var="unitGroup"
-						rendered="#{groupBean.oneRow}">
-						<f:facet name="header">
-							<rich:columnGroup>
-								<rich:column width="30px">
-									<h:outputText value="#{temp.id}"  />
-								</rich:column>
-								<rich:column>
-									<h:outputText value="#{temp.description}" />
-								</rich:column>
-								<rich:column>
-									<h:outputText value="#{temp.state}" />
-								</rich:column>
-								<rich:column>
+    </rich:modalPanel>
+    <ui:insert name="optionGroup">
+      <h:form id="listGroupsTableForm">
+        <h2>#{temp.titleEditGroups}</h2>
+        <a4j:region id="listGroup">
+          <a4j:status for="listGroup" startText="Buscando...." stopText=""></a4j:status>
+          <rich:dataTable id="dataTableGroups" width="100%"
+            style="margin: 5px; margin-top: 12px;"
+            value="#{groupBean.listUnitGroupBeans}" var="unitGroup"
+            rendered="#{groupBean.oneRow}">
+            <f:facet name="header">
+              <rich:columnGroup>
+                <rich:column width="30px">
+                  <h:outputText value="#{temp.id}"  />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="#{temp.description}" />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="#{temp.state}" />
+                </rich:column>
+                <rich:column>
 
-								</rich:column>
-							</rich:columnGroup>
-						</f:facet>
-						<rich:column>
-							<a4j:commandLink value="#{unitGroup.groupName}" rendered="true"
-								oncomplete="javascript:Richfaces.showModalPanel('panelEditGroup',{width:500, top:300})"
-								reRender="formEditGroup">
-								<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
-									assignTo="#{groupBean.processedGroupId}" noEscape="true" />
-							</a4j:commandLink>
-						</rich:column>
-						<rich:column>
-							<h:outputText value="#{unitGroup.groupDescription}" />
-						</rich:column>
-						<rich:column>
-							<h:outputText value="#{unitGroup.stateId}" />
-						</rich:column>
-						<rich:column>
-							<a4j:commandLink
-								oncomplete="javascript:Richfaces.showModalPanel('panelDelteGroup')"
-								reRender="formEditGroup, dataTableGroups">
-								<h:graphicImage value="#{url.img}/icons/uncheck.gif" />
-								<a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
-									assignTo="#{groupBean.processedGroupId}" noEscape="true" />
-							</a4j:commandLink>
-						</rich:column>
-					</rich:dataTable>
-					
-				</a4j:region>
-				<ui:fragment rendered="not #{groupBean.oneRow}">
-					<h3>#{temp.notfoundGroups}</h3>
-				</ui:fragment>
-			</h:form>
-			<rich:messages id="infoBox" errorClass="error" infoClass="info"
-				warnClass="war"></rich:messages>
-			<h:form id="formDeleteGroup">
-				<rich:modalPanel id="panelDelteGroup" autosized="true" width="200"
-					height="60" zindex="2000">
-					<h:outputText value="Desea eliminar?" />
-					<a4j:commandButton action="#{groupBean.deleteGroup}" value="Si"
-						oncomplete="Richfaces.hideModalPanel('panelDelteGroup')"
-						reRender="dataTableGroups"></a4j:commandButton>
-					<a4j:commandButton value="No"
-						onclick="Richfaces.hideModalPanel('panelDelteGroup')"
-						ajaxSingle="true"></a4j:commandButton>
-				</rich:modalPanel>
-			</h:form>
-			<rich:modalPanel id="panelEditGroup">
-				<a4j:form id="formEditGroup">
-					<a4j:region id="editGroup">
-						<h:panelGrid columns="2">
-							<h:outputLabel value="#{temp.name}" for="name" />
-							<h:inputText id="name" value="#{unitGroupBean.groupName}"
-								size="40" required="true"
-								requiredMessage="#{temp.validateNameGroup}" />
-							<h:outputLabel value="#{temp.description}" for="desc" />
-							<h:inputTextarea id="desc"
-								value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
-								required="true" requiredMessage="#{temp.validateDescrGroup}" />
-							<h:outputLabel value="#{temp.state}" for="selectState" />
-							<h:selectOneMenu value="#{unitGroupBean.stateId}"
-								id="selectState" required="true"
-								requiredMessage="#{temp.validateStaterGroup}">
-								<f:selectItems value="#{globalBean.loadListState}" />
-							</h:selectOneMenu>
-							<a4j:commandButton value="#{temp.save}"
-								action="#{groupBean.updateGroup}" reRender="dataTableGroups"
-								oncomplete="Richfaces.hideModalPanel('panelEditGroup')"></a4j:commandButton>
-							<a4j:commandButton id="cancel_id" value="cerrar"
-								onclick="Richfaces.hideModalPanel('panelEditGroup')"
-								ajaxSingle="true" action="#{groupBean.reset}" />
-						</h:panelGrid>
-					</a4j:region>
-				</a4j:form>
-			</rich:modalPanel>
-			
-			
-		</ui:insert>
-	</ui:define>
+                </rich:column>
+              </rich:columnGroup>
+            </f:facet>
+            <rich:column>
+              <a4j:commandLink value="#{unitGroup.groupName}" rendered="true"
+                oncomplete="javascript:Richfaces.showModalPanel('panelEditGroup',{width:500, top:300})"
+                reRender="formEditGroup">
+                <a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
+                  assignTo="#{groupBean.processedGroupId}" noEscape="true" />
+              </a4j:commandLink>
+            </rich:column>
+            <rich:column>
+              <h:outputText value="#{unitGroup.groupDescription}" />
+            </rich:column>
+            <rich:column>
+              <h:outputText value="#{unitGroup.stateId}" />
+            </rich:column>
+            <rich:column>
+              <a4j:commandLink
+                oncomplete="javascript:Richfaces.showModalPanel('panelDelteGroup')"
+                reRender="formEditGroup, dataTableGroups">
+                <h:graphicImage value="#{url.img}/icons/uncheck.gif" />
+                <a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
+                  assignTo="#{groupBean.processedGroupId}" noEscape="true" />
+              </a4j:commandLink>
+            </rich:column>
+          </rich:dataTable>
+
+        </a4j:region>
+        <ui:fragment rendered="not #{groupBean.oneRow}">
+          <h3>#{temp.notfoundGroups}</h3>
+        </ui:fragment>
+      </h:form>
+      <rich:messages id="infoBox" errorClass="error" infoClass="info"
+        warnClass="war"></rich:messages>
+      <h:form id="formDeleteGroup">
+        <rich:modalPanel id="panelDelteGroup" autosized="true" width="200"
+          height="60" zindex="2000">
+          <h:outputText value="Desea eliminar?" />
+          <a4j:commandButton action="#{groupBean.deleteGroup}" value="Si"
+            oncomplete="Richfaces.hideModalPanel('panelDelteGroup')"
+            reRender="dataTableGroups"></a4j:commandButton>
+          <a4j:commandButton value="No"
+            onclick="Richfaces.hideModalPanel('panelDelteGroup')"
+            ajaxSingle="true"></a4j:commandButton>
+        </rich:modalPanel>
+      </h:form>
+      <rich:modalPanel id="panelEditGroup">
+        <a4j:form id="formEditGroup">
+          <a4j:region id="editGroup">
+            <h:panelGrid columns="2">
+              <h:outputLabel value="#{temp.name}" for="name" />
+              <h:inputText id="name" value="#{unitGroupBean.groupName}"
+                size="40" required="true"
+                requiredMessage="#{temp.validateNameGroup}" />
+              <h:outputLabel value="#{temp.description}" for="desc" />
+              <h:inputTextarea id="desc"
+                value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
+                required="true" requiredMessage="#{temp.validateDescrGroup}" />
+              <h:outputLabel value="#{temp.state}" for="selectState" />
+              <h:selectOneMenu value="#{unitGroupBean.stateId}"
+                id="selectState" required="true"
+                requiredMessage="#{temp.validateStaterGroup}">
+                <f:selectItems value="#{globalBean.loadListState}" />
+              </h:selectOneMenu>
+              <a4j:commandButton value="#{temp.save}"
+                action="#{groupBean.updateGroup}" reRender="dataTableGroups"
+                oncomplete="Richfaces.hideModalPanel('panelEditGroup')"></a4j:commandButton>
+              <a4j:commandButton id="cancel_id" value="cerrar"
+                onclick="Richfaces.hideModalPanel('panelEditGroup')"
+                ajaxSingle="true" action="#{groupBean.reset}" />
+            </h:panelGrid>
+          </a4j:region>
+        </a4j:form>
+      </rich:modalPanel>
+
+
+    </ui:insert>
+  </ui:define>
 </ui:composition>
 
 
