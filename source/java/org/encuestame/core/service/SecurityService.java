@@ -77,7 +77,7 @@ public class SecurityService extends Service implements ISecurityService {
     }
     /**
      * Setter.
-     * @param userDao
+     * @param userDao {@link SecUserDaoImp}
      */
     public void setUserDao(final SecUserDaoImp userDao) {
         this.secUserDao = userDao;
@@ -93,7 +93,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Setter.
-     * @param groupDao
+     * @param groupDao {@link SecGroupDaoImp}
      */
     public void setGroupDao(final SecGroupDaoImp groupDao) {
         this.groupDao = groupDao;
@@ -109,7 +109,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Setter.
-     * @param permissionDao
+     * @param permissionDao {@link SecPermissionDaoImp}
      */
     public void setPermissionDao(final SecPermissionDaoImp permissionDao) {
         this.permissionDao = permissionDao;
@@ -118,7 +118,7 @@ public class SecurityService extends Service implements ISecurityService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
-     * @throws EnMeExpcetion
+     * @throws EnMeExpcetion excepcion
      */
     public Collection<UnitUserBean> loadListUsers() throws EnMeExpcetion {
         final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
@@ -159,8 +159,8 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Search user by username.
-     * @param username
-     * @return
+     * @param username username
+     * @return {@link UnitUserBean}
      */
     public UnitUserBean searchUserByUsername(final String username) {
         final SecUsers userD = getUserDao().getUserByUsername(username);
@@ -178,7 +178,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param domainUser Domain User
      * @return Bean User
      */
-    private UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
+    public UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
             user.setName(domainUser.getName());
@@ -279,8 +279,8 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Convert Group Domain to Group Bean
-     * @param groupDomain
-     * @return
+     * @param groupDomain {@link SecGroups}
+     * @return {@link UnitGroupBean}
      */
     public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
         UnitGroupBean groupBean = new UnitGroupBean();
@@ -305,8 +305,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Renew password.
-     * @param userBean
-     * @throws Exception
+     * @param userBean {@link UnitUserBean}
      */
     public void renewPassword(final UnitUserBean userBean) {
         final SecUsers userDomain = getUser(userBean.getUsername().trim());
@@ -330,8 +329,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Update a Group.
-     * @param group
-     * @throws EnMeExpcetion
+     * @param groupBean {@link UnitGroupBean}
      */
     public void updateGroup(UnitGroupBean groupBean) {
         final SecGroups group = getGroupDao().find(Long.valueOf(groupBean.getId()));
@@ -372,7 +370,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      *Create a new Permisssion.
-     * @param permissionBean
+     * @param permissionBean {@link UnitPermission}
      */
     public void createPermission(final UnitPermission permissionBean) {
         final SecPermission permissionDomain = new SecPermission();
@@ -453,8 +451,8 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Assign permission to user.
-     * @param userBean
-     * @param permissionBean
+     * @param userBean {@link UnitUserBean}
+     * @param permissionBean {@link UnitPermission}
      */
     public void assignPermission(
             final UnitUserBean userBean,
@@ -551,7 +549,7 @@ public class SecurityService extends Service implements ISecurityService {
      * Invite some users to register in the system.
      * @param email list of users
      * @param code code
-     * @throws Exception
+     * @throws Exception excepcion
      */
     public void inviteUser(String email, String code) throws Exception {
         getServiceMail().sendInvitation(email, code);
@@ -560,7 +558,7 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Generate hash code invitation.
-     * @return
+     * @return generated code
      */
     public String generateHashCodeInvitation() {
         return generatePassword();
@@ -603,7 +601,7 @@ public class SecurityService extends Service implements ISecurityService {
     }
     /**
      * Setter.
-     * @param serviceMail
+     * @param serviceMail {@link MailServiceImpl}
      */
     public void setServiceMail(final MailServiceImpl serviceMail) {
         this.serviceMail = serviceMail;
@@ -618,7 +616,7 @@ public class SecurityService extends Service implements ISecurityService {
     }
     /**
      * Setter.
-     * @param defaultUserPermission
+     * @param defaultUserPermission default permission
      */
     public void setDefaultUserPermission(final String defaultUserPermission) {
         this.defaultUserPermission = defaultUserPermission;
@@ -634,7 +632,7 @@ public class SecurityService extends Service implements ISecurityService {
     }
     /**
      * Setter.
-     * @param suspendedNotification
+     * @param suspendedNotification suspended notification
      */
     public void setSuspendedNotification(final Boolean suspendedNotification) {
         this.suspendedNotification = suspendedNotification;
