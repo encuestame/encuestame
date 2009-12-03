@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import org.encuestame.test.config.AbstractBaseTest;
 import org.encuestame.web.beans.project.UnitProjectBean;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,8 +32,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestDataSource extends AbstractBaseTest{
 
+    /** {@link IDataSource} **/
     @Autowired
     IDataSource  dataSource;
+
+    /**
+     * Before.
+     */
+    @Before
+    public void initService(){
+        createProject("project 1");
+        createProject("project 2");
+    }
 
     /**
      * Load List of Projects.
@@ -40,7 +51,7 @@ public class TestDataSource extends AbstractBaseTest{
     @Test
     public void testloadListProjects(){
         Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
-        assertEquals(0, listProjects.size());
+        assertEquals(2, listProjects.size());
     }
 
     /**

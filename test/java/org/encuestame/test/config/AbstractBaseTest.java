@@ -30,6 +30,7 @@ import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
@@ -41,6 +42,7 @@ import org.encuestame.core.persistence.pojo.SecUserPermissionId;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.context.annotation.Scope;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 import org.springframework.test.context.ContextConfiguration;
@@ -53,10 +55,10 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(transactionManager = "transactionManager" ,defaultRollback = true)
@@ -263,6 +265,23 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         catStateDaoImp.saveOrUpdate(state);
         return state;
     }
+
+    /**
+     * Create project.
+     * @param name name of project.
+     * @return {@link Project}
+     */
+    public Project createProject(final String name) {
+          Project project = new Project();
+          project.setCatState(createState("active"));
+          project.setDateFinish(new Date());
+          project.setDateStart(new Date());
+          project.setInfo("info");
+          project.setDescription("description");
+          projectDaoImp.saveOrUpdate(project);
+          return project;
+    }
+
     /**
      * Helper to create User.
      * @param name user name
