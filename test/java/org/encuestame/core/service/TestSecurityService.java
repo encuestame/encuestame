@@ -18,8 +18,10 @@
 package org.encuestame.core.service;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Class Description.
  * @author Picado, Juan juan@encuestame.org
  * @since 08/11/2009 11:35:01
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestSecurityService extends AbstractBaseTest{
 
@@ -56,6 +58,9 @@ public class TestSecurityService extends AbstractBaseTest{
         assertEquals("Should be equals",4,securityService.loadAllListPermission().size());
     }
 
+    /**
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
     @Test
     public void testLoadListUsers() throws EnMeExpcetion{
         addGroupUser(super.createUsers("user 1"),super.createGroups("editor"));
@@ -65,7 +70,7 @@ public class TestSecurityService extends AbstractBaseTest{
 
     /**
      * Test User By Username.
-     * @throws EnMeExpcetion
+     * @throws EnMeExpcetion EnMeExpcetion
      */
     @Test
     public void testSearchUserByUsername() throws EnMeExpcetion{
@@ -76,6 +81,9 @@ public class TestSecurityService extends AbstractBaseTest{
                 );
     }
 
+    /**
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
     @Test
     public void testSearchUserByUsernameNotFound() throws EnMeExpcetion{
         assertNull(securityService.searchUserByUsername("user test"));
@@ -100,4 +108,53 @@ public class TestSecurityService extends AbstractBaseTest{
     public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
+
+
+
+    /**
+     *Test delete Group
+     */
+    @Test
+    public void testdeleteGroup(){
+      SecGroups groupDomain = createGroups("admin");
+      Long idGroup = groupDomain.getGroupId();
+      UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
+      securityService.deleteGroup(group);
+      SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
+      assertNull(groupRetrieve);
+
+    }
+
+    /**
+    *Test delete User
+     */
+    @Test
+    public void testDeleteUser(){
+      SecUsers secUsers = createUsers("administrator");
+      Long idUser = secUsers.getUid();
+      String username = secUsers.getUsername();
+      UnitUserBean user = securityService.convertUserDaoToUserBean(secUsers);
+      securityService.deleteUser(user);
+      SecUsers userRetrieve = getSecUserDao().getUserById(idUser);
+      assertNull(userRetrieve);
+
+
+    }
+
+    /**
+       *Test Update Group
+     */
+    @Test
+    public void testUpdateGroup(){
+      SecGroups secgroups = createGroups("guests");
+      Long idGroupUpdate = secgroups.getGroupId();
+      UnitGroupBean groupbean = securityService.convertGroupDomainToBean(secgroups);
+      securityService.updateGroup(groupbean);
+      SecGroups groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
+
+
+
+    }
+
 }
+;
