@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitUserBean;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,6 +40,14 @@ public class TestSecurityService extends AbstractBaseTest{
 
     @Autowired
     private SecurityService securityService;
+
+    /**
+     * Before.
+     */
+    @Before
+    public void initService(){
+        securityService.setSuspendedNotification(false);
+    }
 
     /**
      * Generate Hash Code Invitation.
@@ -101,6 +110,20 @@ public class TestSecurityService extends AbstractBaseTest{
         assertEquals("Should be","ENCUESTAME_EDITOR",newDefaultPermission.toString());
     }
 
+
+    /**
+     *
+     */
+    @Test
+    public void testDeleteGroup(){
+        SecGroups groupDomain = createGroups("admin");
+        Long idGroup = groupDomain.getGroupId();
+        UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
+        securityService.deleteGroup(group);
+        SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
+        assertNull(groupRetrieve);
+    }
+
     /**
      * Setter.
      * @param securityService the securityService to set
@@ -112,7 +135,7 @@ public class TestSecurityService extends AbstractBaseTest{
 
 
     /**
-     *Test delete Group
+     *Test delete Group.
      */
     @Test
     public void testdeleteGroup(){
@@ -126,7 +149,7 @@ public class TestSecurityService extends AbstractBaseTest{
     }
 
     /**
-    *Test delete User
+    *Test delete User.
      */
     @Test
     public void testDeleteUser(){
@@ -137,18 +160,15 @@ public class TestSecurityService extends AbstractBaseTest{
       securityService.deleteUser(user);
       SecUsers userRetrieve = getSecUserDao().getUserById(idUser);
       assertNull(userRetrieve);
-
-
     }
 
     /**
-       *Test Update Group
+     * Test Update Group/
      */
     @Test
     public void testUpdateGroup(){
       SecGroups secgroups = createGroups("guests");
       Long idGroupUpdate = secgroups.getGroupId();
-
       UnitGroupBean groupBean = securityService.convertGroupDomainToBean(secgroups);
       groupBean.setGroupName("editors");
       securityService.updateGroup(groupBean);
