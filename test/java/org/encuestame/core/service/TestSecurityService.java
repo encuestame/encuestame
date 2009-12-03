@@ -148,11 +148,12 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testUpdateGroup(){
       SecGroups secgroups = createGroups("guests");
       Long idGroupUpdate = secgroups.getGroupId();
-      UnitGroupBean groupbean = securityService.convertGroupDomainToBean(secgroups);
-      securityService.updateGroup(groupbean);
+
+      UnitGroupBean groupBean = securityService.convertGroupDomainToBean(secgroups);
+      groupBean.setGroupName("editors");
+      securityService.updateGroup(groupBean);
       SecGroups groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
-
-
+      assertEquals("Should be","editors",groupUpdateRetrieve.getName());
 
     }
 
