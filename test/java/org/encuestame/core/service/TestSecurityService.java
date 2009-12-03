@@ -163,7 +163,7 @@ public class TestSecurityService extends AbstractBaseTest{
     }
 
     /**
-     * Test Update Group/
+     * Test Update Group.
      */
     @Test
     public void testUpdateGroup(){
@@ -174,6 +174,21 @@ public class TestSecurityService extends AbstractBaseTest{
       securityService.updateGroup(groupBean);
       SecGroups groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
       assertEquals("Should be","editors",groupUpdateRetrieve.getName());
+
+    }
+
+    /**
+     *Test Update User
+     **/
+    @Test
+    public void testUpdateUser(){
+      SecUsers secUsers = createUsers("developer");
+      Long idUser = secUsers.getUid();
+      UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
+      userBean.setName("editor");
+      securityService.updateUser(userBean);
+      SecUsers userUpdateRetrieve = getSecUserDao().getUserById(idUser);
+      assertEquals("shouldbe", "editor", userUpdateRetrieve.getName());
 
     }
 
