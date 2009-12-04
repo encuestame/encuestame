@@ -111,7 +111,7 @@ public class ProjectBean extends MasterBean {
         try {
             log.info("loadProjectInfo");
             cleanProyect();
-            getBeanUProyect().setId(getProjectSelected());
+            getBeanUProyect().setId(Long.valueOf(getProjectSelected()));
             setBeanUProyect(getServicemanager().getDataEnMeSource()
                     .loadProjectInfo(getBeanUProyect()));
             fullFormEditProject(getBeanUProyect());
