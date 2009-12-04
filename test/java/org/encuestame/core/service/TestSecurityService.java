@@ -19,9 +19,12 @@ package org.encuestame.core.service;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.encuestame.web.beans.admon.UnitGroupBean;
+import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -178,7 +181,7 @@ public class TestSecurityService extends AbstractBaseTest{
     }
 
     /**
-     *Test Update User
+     *Test Update User.
      **/
     @Test
     public void testUpdateUser(){
@@ -189,6 +192,21 @@ public class TestSecurityService extends AbstractBaseTest{
       securityService.updateUser(userBean);
       SecUsers userUpdateRetrieve = getSecUserDao().getUserById(idUser);
       assertEquals("shouldbe", "editor", userUpdateRetrieve.getName());
+
+    }
+
+    /**
+     * Test Create Permission.
+     */
+    @Test
+    public void testCreatePermission(){
+      SecPermission secPerm = createPermission("writer");
+      UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPerm);
+      securityService.createPermission(permissionBean);
+      SecPermission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
+      assertNotNull(permissionRetrieve);
+      assertEquals("should be","writer", permissionRetrieve.getDescription());
+
 
     }
 

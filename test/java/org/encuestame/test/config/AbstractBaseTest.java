@@ -335,7 +335,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public SecPermission createPermission(final String permissionName){
         final SecPermission permission = new SecPermission();
-        permission.setDescription(permissionName+" description");
+        permission.setDescription(permissionName);
         permission.setPermission(permissionName);
         getSecPermissionDaoImp().saveOrUpdate(permission);
         return permission;

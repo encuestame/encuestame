@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.hibernate.HibernateException;
@@ -84,4 +85,13 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
     public void saveOrUpdate(Object permission) throws HibernateException {
            getHibernateTemplate().saveOrUpdate(permission);
     }
+
+    /**
+    *
+    */
+   public SecPermission getPermissionById(Long permId) throws HibernateException {
+       return (SecPermission) getSession().get(SecPermission.class,
+           permId);
+   }
+
 }
