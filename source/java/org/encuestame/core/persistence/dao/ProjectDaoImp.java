@@ -35,7 +35,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
     /**
      * Find all projects.
      * @return List of Project
-     * @throws HibernateException
+     * @throws HibernateException hibernate expcetion
      */
     @SuppressWarnings("unchecked")
     public List<Project> findAll() throws HibernateException {
@@ -46,9 +46,9 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * Retrieve project by id.
      * @param projectId project id
      * @return {@link Project}
-     * @throws HibernateException
+     * @throws HibernateException hibernate expcetion
      */
-    public Project getProjectbyId(Integer projectId) throws HibernateException {
+    public Project getProjectbyId(Long projectId) throws HibernateException {
         return (Project) getHibernateTemplate().get(Project.class, projectId);
     }
 }

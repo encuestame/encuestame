@@ -31,8 +31,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ServiceManager extends Service implements IServiceManager {
 
-    public Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * {@link ApplicationServices}.
+     */
     public IApplicationServices applicationServices;
 
     /**

@@ -19,6 +19,8 @@ package org.encuestame.core.service;
 
 import java.util.Collection;
 
+import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.junit.Before;
@@ -36,12 +38,15 @@ public class TestDataSource extends AbstractBaseTest{
     @Autowired
     IDataSource  dataSource;
 
+    /** {@link Project} **/
+    Project project;
+
     /**
      * Before.
      */
     @Before
     public void initService(){
-        createProject("project 1");
+        project = createProject("project 1");
         createProject("project 2");
     }
 
@@ -54,15 +59,24 @@ public class TestDataSource extends AbstractBaseTest{
         assertEquals(2, listProjects.size());
     }
 
+
+    /**
+     * Test loadProjectInfo.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    public void testloadProjectInfo() throws EnMeExpcetion{
+          final UnitProjectBean projectBean = new UnitProjectBean();
+          projectBean.setId(project.getProyectId());
+          final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
+          assertNotNull(projectRetrieve);
+          assertEquals("Should be",project.getProyectId(),projectRetrieve.getId());
+    }
+
     /**
      * @param dataSource the dataSource to set
      */
     public void setDataSource(IDataSource dataSource) {
         this.dataSource = dataSource;
     }
-
-
-
-
-
 }

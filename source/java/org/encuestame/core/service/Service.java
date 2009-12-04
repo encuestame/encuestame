@@ -25,10 +25,10 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public abstract class Service {
 
@@ -37,6 +37,9 @@ public abstract class Service {
 
     protected Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * Constructor.
+     */
     public Service() {}
 
     /**
@@ -50,7 +53,7 @@ public abstract class Service {
 
     /**
      * Setter.
-     * @param messageSource
+     * @param messageSource {@link MessageSourceFactoryBean}
      */
     public void setMessageSource(MessageSourceFactoryBean messageSource) {
         this.messageSource = messageSource;
@@ -58,7 +61,7 @@ public abstract class Service {
 
     /**
      * Getter by propertie Id.
-     * @param propertieId
+     * @param propertieId propertieId
      * @return value of propertie
      */
     public String getMessageProperties(String propertieId) {

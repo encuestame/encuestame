@@ -23,10 +23,10 @@ import org.encuestame.web.beans.commons.UrlBean;
  * Application Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 11/05/2009 11:35:01
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class ApplicationServices extends Service implements IApplicationServices {
 
@@ -38,26 +38,48 @@ public class ApplicationServices extends Service implements IApplicationServices
 
     private ISecurityService securityService;
 
+    /**
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Getter.
+     * @return url image
+     */
     public String getUrlImg() {
         return urlImg;
     }
 
+    /**
+     * Setter.
+     * @param urlImg url image
+     */
     public void setUrlImg(String urlImg) {
         this.urlImg = urlImg;
     }
 
+    /**
+     * Getter.
+     * @return  encoding
+     */
     public String getEncoding() {
         return encoding;
     }
 
+    /**
+     * Setter.
+     * @param encoding encoding
+     */
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }

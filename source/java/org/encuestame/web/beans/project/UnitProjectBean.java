@@ -43,7 +43,7 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     private Date dateFinish;
     private Long state;
     private String description;
-    private Integer id;
+    private Long id;
     private Collection<UnitGroupBean> listGroups;
     private Collection<UnitLocationBean> listLocations;
     private Collection<UnitGroupBean> listUsers;
@@ -56,13 +56,13 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     /**
      * @return the id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     /**

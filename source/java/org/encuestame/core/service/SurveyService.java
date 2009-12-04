@@ -39,10 +39,10 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class SurveyService extends Service implements ISurveyService {
 
@@ -53,10 +53,16 @@ public class SurveyService extends Service implements ISurveyService {
     private QuestionDaoImp questionDaoImp;
     private Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * @return {@link MailServiceImpl}.
+     */
     public MailServiceImpl getServiceMail() {
         return serviceMail;
     }
 
+    /**
+     * @param serviceMail {@link MailServiceImpl}.
+     */
     public void setServiceMail(MailServiceImpl serviceMail) {
         this.serviceMail = serviceMail;
     }
@@ -122,25 +128,18 @@ public class SurveyService extends Service implements ISurveyService {
     }
 
     /**
-     * load all questions
-     *
-     * @return
-     * @throws HibernateException
-     * @throws Exception
-     * @throws EnMeExpcetion
+     * Load all questions.
+     * @return List of {@link UnitQuestionBean}
+     * @throws EnMeExpcetion exception
      */
-    public List<UnitQuestionBean> loadAllQuestions() throws HibernateException,
-            Exception, EnMeExpcetion {
-
-        List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
+    public List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion {
+        final List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
         try {
-            List<Questions> questionsList = getQuestionDaoImp()
+            final  List<Questions> questionsList = getQuestionDaoImp()
                     .loadAllQuestions();
             if (questionsList != null && questionsList.size() > 0) {
-                Iterator<Questions> i = questionsList.iterator();
-                while (i.hasNext()) {
-                    Questions questions = (Questions) i.next();
-                    UnitQuestionBean q = new UnitQuestionBean();
+               for (Questions questions : questionsList) {
+                    final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Integer.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
                     q.setIdState(questions.getCatState().getIdState());
@@ -148,54 +147,51 @@ public class SurveyService extends Service implements ISurveyService {
                 }
             }
         } catch (HibernateException e) {
-            throw new HibernateException(e);
+            throw new EnMeExpcetion(e);
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new EnMeExpcetion(e);
         }
         return listQuestionBean;
     }
 
     /**
-     * load pattern info
-     *
-     * @param unit
-     * @return
-     * @throws EnMeExpcetion
+     * Load pattern info.
+     * @param unitPatternBean {@link UnitPatternBean}
+     * @return {@link UnitPatternBean}
+     * @throws EnMeExpcetion exception
      */
-    public UnitPatternBean loadPatternInfo(UnitPatternBean unit)
-            throws EnMeExpcetion, HibernateException {
-        log.info("loadPatternInfo init ->"+unit.getId());
-        if (unit != null && unit.getId() != null) {
+    public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
+            throws EnMeExpcetion {
+        log.info("loadPatternInfo init ->"+unitPatternBean.getId());
+        if (unitPatternBean != null && unitPatternBean.getId() != null) {
             QuestionsPatron q = getQuestionDaoImp().loadPatternInfo(
-                    unit.getId());
+                    unitPatternBean.getId());
             log.info("loadPatternInfo QuestionsPatron ->"+q);
-            unit.setId(Integer.valueOf(q.getIdPatron().toString()));
-            unit.setDescripcion(q.getDesQid());
-            unit.setLabel(q.getLabelQid());
-            unit.setPatronType(q.getTypePatron());
-            unit.setTemplate(q.getTemplatePatron());
+            unitPatternBean.setId(Integer.valueOf(q.getIdPatron().toString()));
+            unitPatternBean.setDescripcion(q.getDesQid());
+            unitPatternBean.setLabel(q.getLabelQid());
+            unitPatternBean.setPatronType(q.getTypePatron());
+            unitPatternBean.setTemplate(q.getTemplatePatron());
             // pueden agregar mas datos
-            return unit;
+            return unitPatternBean;
         } else {
             throw new EnMeExpcetion("unit is null");
         }
     }
 
     /**
-     *
-     * @return
-     * @throws Exception
+     * Load all Patrons.
+     * @return List of {@link UnitPatternBean}
+     * @throws EnMeExpcetion exception
      */
     public Collection<UnitPatternBean> loadAllPatrons()
-            throws HibernateException, Exception {
-        List<UnitPatternBean> listPatronBean = new LinkedList<UnitPatternBean>();
+            throws EnMeExpcetion {
+        final List<UnitPatternBean> listPatronBean = new LinkedList<UnitPatternBean>();
         try {
-            List<QuestionsPatron> patronList = getQuestionDaoImp()
+            final List<QuestionsPatron> patronList = getQuestionDaoImp()
                     .loadAllQuestionPattern();
             if (patronList != null && patronList.size() > 0) {
-                Iterator<QuestionsPatron> i = patronList.iterator();
-                while (i.hasNext()) {
-                    QuestionsPatron patron = (QuestionsPatron) i.next();
+               for (QuestionsPatron patron : patronList) {
                     UnitPatternBean p = new UnitPatternBean();
                     p.setId(Integer.valueOf(patron.getIdPatron().toString()));
                     p.setPatronType(patron.getTypePatron());
@@ -203,9 +199,9 @@ public class SurveyService extends Service implements ISurveyService {
                 }
             }
         } catch (HibernateException e) {
-            throw new HibernateException(e);
+            throw new EnMeExpcetion(e);
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new EnMeExpcetion(e);
         }
         return listPatronBean;
     }

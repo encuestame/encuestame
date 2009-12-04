@@ -34,21 +34,61 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public interface IDataSource {
 
+    /**
+     * @return
+     */
     public Collection<UnitProjectBean> loadListProjects();
+    /**
+     * @param project
+     * @return
+     * @throws EnMeExpcetion
+     */
     public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion;
+    /**
+     * @param project
+     * @throws EnMeExpcetion
+     * @throws HibernateException
+     * @throws Exception
+     */
     public void createProject(UnitProjectBean project) throws EnMeExpcetion,
     HibernateException, Exception;
+    /**
+     * @param locatType
+     * @throws EnMeExpcetion
+     * @throws HibernateException
+     * @throws Exception
+     */
     public void createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion,HibernateException, Exception;
+    /**
+     * @param location
+     * @throws EnMeExpcetion
+     * @throws HibernateException
+     * @throws Exception
+     */
     public void createCatLocation(LocationBean location) throws EnMeExpcetion, HibernateException, Exception;
+    /**
+     * @param stateId
+     * @return
+     * @throws Exception
+     */
     public CatState getState(Long stateId) throws Exception;
+    /**
+     * @return
+     */
     public ICatState getStateDao();
+    /**
+     * @return
+     */
     public ICatLocation getCatLocationDao();
+    /**
+     * @return
+     */
     public IProject getProjectDaoImp();
 }

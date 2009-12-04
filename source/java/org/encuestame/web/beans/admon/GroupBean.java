@@ -67,7 +67,7 @@ public class GroupBean extends MasterBean {
         } catch (Exception e) {
             addErrorMessage(getMessageProperties("error_load_groups"), e
                     .getMessage());
-            log.error("error load groups");
+            log.error("error load groups "+e.getMessage());
         }
         return listUnitGroupBeans;
     }
@@ -86,7 +86,7 @@ public class GroupBean extends MasterBean {
         } catch (Exception e) {
             addErrorMessage(getMessageProperties("errorCreateNewGroup"), e
                     .getMessage());
-            log.error("error new group->"
+            log.error("error new group: "
                     + getMessageProperties("errorCreateNewGroup"));
         }
     }

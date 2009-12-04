@@ -19,22 +19,23 @@ package org.encuestame.core.service.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
+import org.encuestame.web.beans.project.UnitProjectBean;
 
 /**
- * Class Description.
+ * Convert Domain to  Beans.
  * @author Picado, Juan juan@encuestame.org
  * @since 03/12/2009 06:38:32
  */
 public class ConvertDomainBean {
 
     private static Log log = LogFactory.getLog(ConvertDomainBean.class);
-
 
     /**
      * Convert Domain user to Bean User.
@@ -71,6 +72,23 @@ public class ConvertDomainBean {
         return groupBean;
     }
 
+
+    /**
+     * Convert {@link Project} to {@link UnitProjectBean}
+      * @param project {@link UnitProjectBean}
+     * @return {@link UnitProjectBean}
+     */
+    public static UnitProjectBean convertProjectDomainToBean(final Project project) {
+        final UnitProjectBean projectBean = new UnitProjectBean();
+        projectBean.setName(project.getDescription());
+        projectBean.setDateFinish(project.getDateFinish());
+        projectBean.setDateInit(project.getDateStart());
+        projectBean.setId(project.getProyectId());
+        projectBean.setState(project.getCatState().getIdState());
+        return projectBean;
+    }
+
+
     /**
      * @param permission permission.
      * @return permBean
@@ -82,4 +100,5 @@ public class ConvertDomainBean {
       permBean.setPermission(permission.getPermission());
       return permBean;
     }
+
 }

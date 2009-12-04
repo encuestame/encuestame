@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.IServiceManager;
+import org.encuestame.core.service.ServiceManager;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -43,28 +44,31 @@ public class MasterBean {
     protected Log log = LogFactory.getLog(this.getClass());
     protected boolean isOneRow;
 
+    /**
+     * Constructor.
+     */
     public MasterBean() {}
 
     /**
-     *
-     * @param serviceBeanName
-     * @return
+     * Description.
+     * @param serviceBeanName bean name
+     * @return {@link Object}
      */
     public Object lookupService(String serviceBeanName) {
         return appContext.getBean(serviceBeanName);
     }
 
     /**
-     *
-     * @return
+     * Getter {@link ServiceManager}.
+     * @return {@link ServiceManager}
      */
     public IServiceManager getServicemanager() {
         return servicemanager;
     }
 
     /**
-     *
-     * @param servicemanagerBean
+     * Setter {@link ServiceManager}.
+     * @param servicemanagerBean {@link ServiceManager}
      */
     public void setServicemanagerBean(IServiceManager servicemanagerBean) {
         this.servicemanager = servicemanagerBean;
@@ -74,17 +78,16 @@ public class MasterBean {
     }
 
     /**
-     * add message to context
-     *
-     * @param forS
-     * @param message
-     * @param descrip
-     * @param severity
+     * Add message to context.
+     * @param forS forS
+     * @param message message
+     * @param description description
+     * @param severity severity
      */
-    public void showMessage(String forS, String message, String descrip,
+    public void showMessage(String forS, String message, String description,
             Severity severity) {
         FacesContext context = FacesContext.getCurrentInstance();
-        FacesMessage fm = new FacesMessage(message, descrip);
+        FacesMessage fm = new FacesMessage(message, description);
         fm.setSeverity(severity);
         context.addMessage(forS, fm);
     }
@@ -92,35 +95,38 @@ public class MasterBean {
     /**
      * add message to context
      *
-     * @param message
-     * @param descrip
-     * @param severity
+     * @param message message
+     * @param description description
+     * @param severity severity
      */
-    public void showMessage(String message, String descrip, Severity severity) {
-        showMessage(null, message, descrip, severity);
+    public void showMessage(String message, String description, Severity severity) {
+        showMessage(null, message, description, severity);
     }
 
     /**
      * add info message to context
      *
-     * @param i_message
-     * @param i_detailedMessage
+     * @param message message
+     * @param description description
      */
     public void addInfoMessage(String message, String description) {
         showMessage(null, message, description, FacesMessage.SEVERITY_INFO);
     }
 
     /**
-     * add error message to context
-     *
-     * @param i_message
-     * @param i_detailedMessage
+     * Add error message to context.
+     * @param message message
+     * @param description  description
      */
     public void addErrorMessage(String message, String description) {
         showMessage(null, message, description, FacesMessage.SEVERITY_ERROR);
     }
 
-
+    /**
+     * Add warning message to context.
+     * @param message message
+     * @param description description
+     */
     public void addWarningMessage(String message, String description) {
         showMessage(null, message, description, FacesMessage.SEVERITY_WARN);
     }
@@ -132,20 +138,27 @@ public class MasterBean {
     }
 
     /**
+     * @param propertieId propertie Id
      * @return the localized message if it is exists, otherwise the specified
      *         property id
      */
-    public String getMessageProperties(String i_propertyId) {
-        return  getServicemanager().getMessageSource() == null ? i_propertyId
+    public String getMessageProperties(String propertieId) {
+        return  getServicemanager().getMessageSource() == null ? propertieId
                 : getServicemanager().getMessageSource().getMessage(
-                        i_propertyId, null, null);
+                        propertieId, null, null);
     }
 
-    public boolean isOneRow() {
+    /**
+     * @return
+     */
+    protected boolean isOneRow() {
         return isOneRow;
     }
 
-    public void setOneRow(boolean isOneRow) {
+    /**
+     * @param isOneRow
+     */
+    protected void setOneRow(boolean isOneRow) {
         this.isOneRow = isOneRow;
     }
 

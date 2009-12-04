@@ -43,10 +43,10 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since April 27, 2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class DataSource implements IDataSource {
 
@@ -69,7 +69,7 @@ public class DataSource implements IDataSource {
             for (Iterator<Project> i = list.iterator(); i.hasNext();) {
                 UnitProjectBean proB = new UnitProjectBean();
                 Project project = i.next();
-                proB.setId(Integer.valueOf(project.getProyectId().toString()));
+                proB.setId(project.getProyectId());
                 proB.setName(project.getDescription());
                 proB.setDescription(project.getInfo());
                 proB.setDateInit(project.getDateStart());
@@ -84,9 +84,9 @@ public class DataSource implements IDataSource {
 
     /**
      * Load project info.
-     * @param project
+     * @param project {@link Project}
      * @return {@link UnitProjectBean}
-     * @throws EnMeExpcetion
+     * @throws EnMeExpcetion excepcion
      */
     public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion {
         log.info("loadProjectInfo DATASERVICE -->"+project);
@@ -94,7 +94,7 @@ public class DataSource implements IDataSource {
             Project pro = getProjectDaoImp().getProjectbyId(project.getId());
             if (pro != null) {
                 log.info("2 project found name ->"+pro.getDescription());
-                project.setId(Integer.valueOf(pro.getProyectId().toString()));
+                project.setId(pro.getProyectId());
                 project.setDateFinish(pro.getDateFinish());
                 project.setDateInit(pro.getDateStart());
                 project.setDescription(pro.getInfo());
@@ -117,20 +117,20 @@ public class DataSource implements IDataSource {
     /**
      * create project
      *
-     * @param project
-     * @throws EnMeExpcetion
+     * @param projectBean {@link UnitProjectBean}
+     * @throws EnMeExpcetion exception
      */
-    public void createProject(UnitProjectBean project) throws EnMeExpcetion,
+    public void createProject(UnitProjectBean projectBean) throws EnMeExpcetion,
             HibernateException, Exception {
         log.info("create project");
-        if (project != null) {
+        if (projectBean != null) {
             try {
                 Project proB = new Project();
-                proB.setCatState(getState(project.getState()));
-                proB.setDateFinish(project.getDateFinish());
-                proB.setDateStart(project.getDateInit());
-                proB.setDescription(project.getName());
-                proB.setInfo(project.getDescription());
+                proB.setCatState(getState(projectBean.getState()));
+                proB.setDateFinish(projectBean.getDateFinish());
+                proB.setDateStart(projectBean.getDateInit());
+                proB.setDescription(projectBean.getName());
+                proB.setInfo(projectBean.getDescription());
                 log.info("create project 2");
                 getProjectDaoImp().saveOrUpdate(proB);
             } catch (HibernateException e) {
@@ -147,8 +147,8 @@ public class DataSource implements IDataSource {
 
     /**
      * create Cat LocationType.
-     * @param locatType
-     * @throws EnMeExpcetion
+     * @param locatType {@link LocationTypeBean}
+     * @throws EnMeExpcetion exception
      */
     public void createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion,HibernateException, Exception
     {
@@ -173,8 +173,8 @@ public class DataSource implements IDataSource {
 
     /**
      * create Cat Location.
-     * @param location
-     * @throws EnMeExpcetion
+     * @param location {@link LocationBean}
+     * @throws EnMeExpcetion exception
      */
 
     public void createCatLocation(LocationBean location) throws EnMeExpcetion, HibernateException, Exception
@@ -203,7 +203,7 @@ public class DataSource implements IDataSource {
 
     /**
      * Load state by id.
-     * @param stateId
+     * @param stateId state id
      */
     public CatState getState(Long stateId) throws Exception {
         return getStateDao().getState(stateId);

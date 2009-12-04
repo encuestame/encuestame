@@ -42,7 +42,7 @@ public class UserBean extends MasterBean {
 
     private UnitUserBean unitUserBean;
     private UnitUserBean newUnitUserBean = new UnitUserBean();
-    private List<UnitUserBean> list_unitBeans;
+    private List<UnitUserBean> listUnitBeans;
     private String processedUserId;
     private Integer selectedPermissionId;
     private String selectedAction;
@@ -51,63 +51,60 @@ public class UserBean extends MasterBean {
     private String listUsers;
 
     /**
-     * @return the list_unitBeans
+     * @return the listUnitBeans
      * @throws Exception
      */
     public Collection<UnitUserBean> loadListUsers() throws Exception {
-        list_unitBeans = new LinkedList<UnitUserBean>();
+        listUnitBeans = new LinkedList<UnitUserBean>();
         return null;
     }
 
     /**
-     * create user
+     * Create user.
      */
     public void createUser() {
         try {
-                getServicemanager().getApplicationServices().getSecurityService().createUser(
+            getServicemanager().getApplicationServices().getSecurityService().createUser(
                     getNewUnitUserBean());
-            addInfoMessage("Usuario Creado Tuani", "");
+            addInfoMessage("User created", "");
         } catch (MailSendException e) {
-            addErrorMessage("Error notifiando usuario->" + e, e.getMessage());
+            addErrorMessage("notification error " + e, e.getMessage());
         } catch (HibernateException e) {
-            addErrorMessage("Error HB creando usuario->" + e, e.getMessage());
+            addErrorMessage("" + e, e.getMessage());
         } catch (EnMeExpcetion e) {
             addErrorMessage(
-                    "No se pudo recuperar informaci�n de configuraci�n->" + e,
+                    "error on get user " + e,
                     e.getMessage());
         } catch (Exception e) {
-            addErrorMessage("Error Desconocido crear usuario->" + e, e
+            addErrorMessage("error created user " + e, e
                     .getMessage());
         }
     }
 
     /**
-     * update user
+     * Update user.
      */
     public void updateUser() {
         try {
             getServicemanager().getApplicationServices().getSecurityService().updateUser(
                     this.unitUserBean);
         } catch (HibernateException e) {
-            addErrorMessage("Error HibernateException update User"
+            addErrorMessage("error update user "
                     + e.getMessage(), e.getMessage());
-            log.error("Error HibernateException User->" + e);
+            log.error("error update user: " + e);
         } catch (Exception e) {
-            addErrorMessage("Error Desconocido update User" + e.getMessage(), e
+            addErrorMessage("error update user " + e.getMessage(), e
                     .getMessage());
-            log.error("Error Exception User->" + e);
+            log.error("error update user: " + e);
         }
     }
 
     /**
-     * invite user
-     *
-     * @throws Exception
+     * Invite user.
      */
     public void inviteUser() {
-
         if (!getListUsers().isEmpty()) {
-            List<String> emails = new LinkedList<String>();
+            final List<String> emails = new LinkedList<String>();
             String strDatos = getListUsers().trim();
             StringTokenizer tokens = new StringTokenizer(strDatos, ",");
             int i = 0;
@@ -141,32 +138,32 @@ public class UserBean extends MasterBean {
                         }
                     } else {
                         log.info("email invalido ->" + email);
-                        addWarningMessage("email invalido ->" + email, "");
+                        addWarningMessage("invalid email: " + email, "");
                     }
                 }
                 setListUsers(null);
             } else {
-                addWarningMessage("Lo siento, la lista esta vacia", "");
+                addWarningMessage("sorry, no results", "");
             }
         } else {
-            addWarningMessage("Lo siento, la lista esta vacia", "");
+            addWarningMessage("sorry, no results", "");
         }
 
     }
 
     /**
-     * search LDAP user
+     * Search LDAP user.
      */
     public void searchLDAPUser() {
-
+        //TODO: need implement.
     }
 
     /**
-     * @param list_unitBeans
-     *            the list_unitBeans to set
+     * @param listUnitBeans
+     *            the listUnitBeans to set
      */
-    public void setList_unitBeans(List<UnitUserBean> list_unitBeans) {
-        this.list_unitBeans = list_unitBeans;
+    public void setlistUnitBeans(List<UnitUserBean> listUnitBeans) {
+        this.listUnitBeans = listUnitBeans;
     }
 
     /**
@@ -174,14 +171,14 @@ public class UserBean extends MasterBean {
      *
      * @return
      */
-    public Collection<UnitUserBean> getList_unitBeans() {
+    public Collection<UnitUserBean> getlistUnitBeans() {
         try {
             loadListUsers();
-            if (list_unitBeans.size() > 0)
+            if (listUnitBeans.size() > 0)
                 setOneRow(true);
             else
                 setOneRow(false);
-            return list_unitBeans;
+            return listUnitBeans;
         } catch (Exception e) {
             addErrorMessage("Error Cargando Datos->" + e.getMessage(), e
                     .getMessage());
@@ -189,6 +186,9 @@ public class UserBean extends MasterBean {
         }
     }
 
+    /**
+     * Assing permissions.
+     */
     public void assingPermissions() {
         try {
             log.info(selectedUsers());
@@ -220,18 +220,15 @@ public class UserBean extends MasterBean {
     }
 
     /**
-     * assing permission to user
-     *
-     * @param user
-     *            user
-     * @param permission
-     *            permission
-     * @throws EnMeExpcetion
-     *             if the default permission dont exist
-     * @throws HibernateException
-     *             error db
+     * Assing permission to user.
+     * @param user  user
+     * @param permission  permission
+     * @throws EnMeExpcetion  if the default permission dont exist
+     * @throws HibernateException error db
      */
-    private void assingPermission(UnitUserBean user, UnitPermission permission)
+    private void assingPermission(
+            final UnitUserBean user,
+            final UnitPermission permission)
             throws EnMeExpcetion, HibernateException {
         getServicemanager().getApplicationServices().getSecurityService().assignPermission(user,
                 permission);
@@ -239,30 +236,28 @@ public class UserBean extends MasterBean {
     }
 
     /**
-     * get list of user select in datatable
-     *
+     * Get list of user select in datatable.
      * @return
      */
-    private Collection<UnitUserBean> selectedUsers() {
-        Collection<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
+    private List<UnitUserBean> selectedUsers() {
+        List<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
         try {
-            int n = uiDataUserTable.getRowCount();
-            log.info("uiDataUserTable getRowCount->"+n);
-            for (int i = 0; i < n; i++) {
+            final Integer uiDataUserTableCount = uiDataUserTable.getRowCount();
+            log.info("uiDataUserTable getRowCount: "+uiDataUserTableCount);
+            for (int i = 0; i < uiDataUserTableCount; i++) {
                 uiDataUserTable.setRowIndex(i);
                 if (checked.isSelected()) {
-                    UnitUserBean userUnit = (UnitUserBean) uiDataUserTable
+                    final UnitUserBean userUnit = (UnitUserBean) uiDataUserTable
                             .getRowData();
                     listSelectedUsers.add(userUnit);
                 }
             }
-
-            return listSelectedUsers;
         } catch (Exception e) {
             addErrorMessage(e.getMessage(), e.getMessage());
             log.error("ERROR->" + e.getMessage());
-            return listSelectedUsers;
+
         }
+        return listSelectedUsers;
     }
 
     /**
@@ -419,7 +414,7 @@ public class UserBean extends MasterBean {
      *            the uiDataUserTable to set
      */
     public void setUiDataUserTable(UIData uiDataUserTable) {
-        log.info("uiDataUserTable ->"+uiDataUserTable);
+        log.info("uiDataUserTable: "+uiDataUserTable);
         this.uiDataUserTable = uiDataUserTable;
     }
 
