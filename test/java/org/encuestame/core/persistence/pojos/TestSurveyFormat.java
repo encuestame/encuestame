@@ -25,13 +25,16 @@ import org.junit.Test;
 * Test Survey Format Pojo.
 * @author Morales, Diana Paola paola@encuestame.org
 * @since November 14, 2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
 */
 
 public class TestSurveyFormat extends AbstractBaseTest{
+/**
+ *
+ */
 @Test
     public void testSurveyFormat(){
     SurveyFormat surveyformat = new SurveyFormat();

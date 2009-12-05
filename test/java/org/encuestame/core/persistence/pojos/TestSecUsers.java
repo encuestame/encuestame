@@ -34,13 +34,16 @@ import org.junit.Test;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 01/11/2009 21:31:49
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestSecUsers extends AbstractBaseTest{
 
+    /**
+     *
+     */
     @Test
     public void testSecUser(){
         final SecUsers user = new SecUsers();

@@ -21,18 +21,19 @@ import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.test.config.AbstractBaseTest;
+import org.encuestame.test.config.AbstractBeanBaseTest;
+import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Class Description.
  * @author Picado, Juan juan@encuestame.org
  * @since 02/12/2009 22:26:24
  */
-public class TestDataSource extends AbstractBaseTest{
+public class TestDataSource extends AbstractBeanBaseTest{
 
     /** {@link IDataSource} **/
     @Autowired
@@ -44,7 +45,6 @@ public class TestDataSource extends AbstractBaseTest{
     /**
      * Before.
      */
-    @Before
     public void initService(){
         project = createProject("project 1");
         createProject("project 2");
@@ -55,8 +55,19 @@ public class TestDataSource extends AbstractBaseTest{
      */
     @Test
     public void testloadListProjects(){
+        this.initService();
         Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
         assertEquals(2, listProjects.size());
+    }
+
+
+    /**
+     * Load List of Projects WithoutResults.
+     */
+    @Test
+    public void testloadListProjectsWithoutResults(){
+        Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
+        assertEquals(0, listProjects.size());
     }
 
 
@@ -66,11 +77,71 @@ public class TestDataSource extends AbstractBaseTest{
      */
     @Test
     public void testloadProjectInfo() throws EnMeExpcetion{
+          this.initService();
           final UnitProjectBean projectBean = new UnitProjectBean();
           projectBean.setId(project.getProyectId());
           final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
           assertNotNull(projectRetrieve);
           assertEquals("Should be",project.getProyectId(),projectRetrieve.getId());
+    }
+
+    /**
+     * Test loadProjectInfo id null.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    @ExpectedException(EnMeExpcetion.class)
+    public void testloadProjectInfoIdNull() throws EnMeExpcetion{
+          final UnitProjectBean projectBean = new UnitProjectBean();
+          final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
+    }
+
+    /**
+     * Test loadProjectInfo project null.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    @ExpectedException(EnMeExpcetion.class)
+    public void testloadProjectInfoProjectNull() throws EnMeExpcetion {
+          final UnitProjectBean projectBean = new UnitProjectBean();
+          projectBean.setId(444L);
+          final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
+    }
+
+    /**
+     * Test create project.
+     * @throws EnMeExpcetion encuestame exception.
+     */
+    @Test
+    @ExpectedException(EnMeExpcetion.class)
+    public void testcreateProjectNull()throws EnMeExpcetion{
+        dataSource.createProject(null);
+    }
+
+    /**
+     * Test create project.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    public void testcreateProject()throws EnMeExpcetion {
+        final UnitProjectBean projectBean = createProjectBean("encuestame");
+        dataSource.createProject(projectBean);
+        final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
+        assertNotNull(projectRetrieve);
+        assertEquals("Should be equals ",projectBean.getName(),projectRetrieve.getName());
+    }
+
+    /**
+     * Test Location Type.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    public void testcreateCatLocationType()throws EnMeExpcetion {
+        final LocationTypeBean locationTypeBean = createLocationTypeBean("nicaragua",0);
+        dataSource.createCatLocationType(locationTypeBean);
+        //final UnitProjectBean projectRetrieve = dataSource.l(locationTypeBean);
+        //assertNotNull(projectRetrieve);
+        //assertEquals("Should be equals ",projectBean.getName(),projectRetrieve.getName());
     }
 
     /**

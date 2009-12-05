@@ -30,19 +30,21 @@ import org.junit.Test;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 13:00:55
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestCatLocationsDaoImp extends AbstractBaseTest{
 
+    /**
+     *
+     */
     @Test
     public void testloadPermissionByUserId(){
         final SecUsers user = super.createUsers("user 1");
         final SecPermission permission1 = super.createPermission("admon");
         final SecPermission permission2 = super.createPermission("editor");
-
         final Collection<SecUserPermission> listofPermissions = getSecPermissionDaoImp().loadPermissionByUserId(Integer.valueOf(user.getUid().toString()));
     }
 }

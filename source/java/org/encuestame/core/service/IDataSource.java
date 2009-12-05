@@ -24,10 +24,10 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
-import org.hibernate.HibernateException;
 
 /**
  * Data Services.
@@ -42,53 +42,64 @@ import org.hibernate.HibernateException;
 public interface IDataSource {
 
     /**
-     * @return
+     * Load List of Project.
+     * @return {@link Collection} of {@link UnitProjectBean}
      */
     public Collection<UnitProjectBean> loadListProjects();
+
     /**
-     * @param project
-     * @return
-     * @throws EnMeExpcetion
+     * Load project info.
+     * @param project {@link Project}
+     * @return {@link UnitProjectBean}
+     * @throws EnMeExpcetion excepcion
      */
     public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion;
+
     /**
-     * @param project
-     * @throws EnMeExpcetion
-     * @throws HibernateException
-     * @throws Exception
+     * create project.
+     *
+     * @param projectBean {@link UnitProjectBean}
+     * @return {@link UnitProjectBean}
+     * @throws EnMeExpcetion exception
      */
-    public void createProject(UnitProjectBean project) throws EnMeExpcetion,
-    HibernateException, Exception;
+    public UnitProjectBean createProject(UnitProjectBean projectBean) throws EnMeExpcetion;
+
     /**
-     * @param locatType
-     * @throws EnMeExpcetion
-     * @throws HibernateException
-     * @throws Exception
+     * create Cat LocationType.
+     * @param locatType {@link LocationTypeBean}
+     * @return {@link LocationTypeBean}
+     * @throws EnMeExpcetion exception
      */
-    public void createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion,HibernateException, Exception;
+    public LocationTypeBean createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion;
+
     /**
-     * @param location
-     * @throws EnMeExpcetion
-     * @throws HibernateException
-     * @throws Exception
+     * create Cat Location.
+     * @param location {@link LocationBean}
+     * @return {@link LocationBean}
+     * @throws EnMeExpcetion exception
      */
-    public void createCatLocation(LocationBean location) throws EnMeExpcetion, HibernateException, Exception;
+    public LocationBean createCatLocation(LocationBean location) throws EnMeExpcetion;
+
     /**
-     * @param stateId
-     * @return
-     * @throws Exception
+     * Load state by id.
+     * @param stateId state id
+     * @return {@link CatState}
+     * @throws Exception exception
      */
     public CatState getState(Long stateId) throws Exception;
+
     /**
-     * @return
+     * @return the stateDao
      */
     public ICatState getStateDao();
+
     /**
-     * @return
+     * @return the catLocationDao
      */
     public ICatLocation getCatLocationDao();
+
     /**
-     * @return
+     * @return the projectDaoImp
      */
     public IProject getProjectDaoImp();
 }

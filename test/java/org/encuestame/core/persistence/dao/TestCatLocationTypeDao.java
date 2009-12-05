@@ -25,12 +25,16 @@ import org.junit.Test;
  * Test Catatalog Location Type Dao.
  * @author Morales, Diana Paola paola@encuestame.org
  * @since November 17,2009 09:10:55
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestCatLocationTypeDao extends AbstractBaseTest{
+
+    /**
+     *
+     */
     @Test
     public void testListLocationType(){
         super.createCatLocationType("First Location Type");
@@ -39,6 +43,9 @@ public class TestCatLocationTypeDao extends AbstractBaseTest{
         //    assertEquals(listCatLocationType.size(),listCatLocationType.size());
     }
 
+    /**
+     *
+     */
     public void testLocationTypeByID(){
         CatLocationType locType = super.createCatLocationType("Second Location Type");
         //final CatLocationType retrieveLocType = getCatLocationType().getLocationTypeById(Long.valueOf(locType.getLocationTypeId().toString()));

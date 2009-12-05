@@ -65,7 +65,7 @@ public class DataSource implements IDataSource {
         Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
         Collection<Project> list = getProjectDaoImp().findAll();
         log.info("list getProyectDaoImp->" + list.size());
-        if (list != null && list.size() > 0) {
+        if (list.size() > 0) {
             for (Iterator<Project> i = list.iterator(); i.hasNext();) {
                 UnitProjectBean proB = new UnitProjectBean();
                 Project project = i.next();
@@ -74,7 +74,7 @@ public class DataSource implements IDataSource {
                 proB.setDescription(project.getInfo());
                 proB.setDateInit(project.getDateStart());
                 proB.setDateFinish(project.getDateFinish());
-                // falta agregar lista de grupos, usuarios y grupos de encuestas
+                // TODO: falta agregar lista de grupos, usuarios y grupos de encuestas
                 listProjects.add(proB);
             }
         }
@@ -84,25 +84,22 @@ public class DataSource implements IDataSource {
 
     /**
      * Load project info.
-     * @param project {@link Project}
+     * @param projectBean {@link Project}
      * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion excepcion
      */
-    public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion {
-        log.info("loadProjectInfo DATASERVICE -->"+project);
-        if (project.getId()!= null) {
-            Project pro = getProjectDaoImp().getProjectbyId(project.getId());
+    public UnitProjectBean loadProjectInfo(UnitProjectBean projectBean) throws EnMeExpcetion {
+        if (projectBean.getId()!= null) {
+            Project pro = getProjectDaoImp().getProjectbyId(projectBean.getId());
             if (pro != null) {
-                log.info("2 project found name ->"+pro.getDescription());
-                project.setId(pro.getProyectId());
-                project.setDateFinish(pro.getDateFinish());
-                project.setDateInit(pro.getDateStart());
-                project.setDescription(pro.getInfo());
-                project.setName(pro.getDescription());
-                project.setState(Long.valueOf(pro.getCatState().getIdState().toString()));
-                log.info("Rescue->"+project.getName());
-                log.info("loadProjectInfo DATASERVICE Rescue -->"+project);
-                return project;
+                log.info("project found name ->"+pro.getDescription());
+                projectBean.setId(pro.getProyectId());
+                projectBean.setDateFinish(pro.getDateFinish());
+                projectBean.setDateInit(pro.getDateStart());
+                projectBean.setDescription(pro.getInfo());
+                projectBean.setName(pro.getDescription());
+                projectBean.setState(Long.valueOf(pro.getCatState().getIdState().toString()));
+                return projectBean;
             } else {
                 log.info("id project is not found");
                 throw new EnMeExpcetion("id project is not found");
@@ -118,26 +115,27 @@ public class DataSource implements IDataSource {
      * create project
      *
      * @param projectBean {@link UnitProjectBean}
+     * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public void createProject(UnitProjectBean projectBean) throws EnMeExpcetion,
-            HibernateException, Exception {
+    public UnitProjectBean createProject(UnitProjectBean projectBean) throws EnMeExpcetion {
         log.info("create project");
         if (projectBean != null) {
             try {
-                Project proB = new Project();
-                proB.setCatState(getState(projectBean.getState()));
-                proB.setDateFinish(projectBean.getDateFinish());
-                proB.setDateStart(projectBean.getDateInit());
-                proB.setDescription(projectBean.getName());
-                proB.setInfo(projectBean.getDescription());
-                log.info("create project 2");
-                getProjectDaoImp().saveOrUpdate(proB);
+                Project projectDomain = new Project();
+                projectDomain.setCatState(getState(projectBean.getState()));
+                projectDomain.setDateFinish(projectBean.getDateFinish());
+                projectDomain.setDateStart(projectBean.getDateInit());
+                projectDomain.setDescription(projectBean.getName());
+                projectDomain.setInfo(projectBean.getDescription());
+                log.info("created domain project");
+                getProjectDaoImp().saveOrUpdate(projectDomain);
+                projectBean.setId(projectDomain.getProyectId());
             } catch (HibernateException e) {
-                throw new HibernateException(e);
+                throw new EnMeExpcetion(e);
             } catch (Exception e) {
-                throw new Exception(e);
-            }
+                throw new EnMeExpcetion(e);
+            }return projectBean;
         } else {
             throw new EnMeExpcetion("project is null");
         }
@@ -150,7 +148,7 @@ public class DataSource implements IDataSource {
      * @param locatType {@link LocationTypeBean}
      * @throws EnMeExpcetion exception
      */
-    public void createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion,HibernateException, Exception
+    public LocationTypeBean createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion
     {
          log.info("create LocationType");
          if (locatType!=null){
@@ -159,12 +157,12 @@ public class DataSource implements IDataSource {
              locType.setDescription(locatType.getDescription());
              locType.setLevel(locatType.getLevel());
              log.info("Creating Cat Location Type");
-            // getLocationTypeDao().saveOrUpdate(locType);
-
+             //getLocationTypeDao().saveOrUpdate(locType);
+             return locatType;
          } catch (HibernateException e) {
-             throw new HibernateException(e);
+             throw new EnMeExpcetion(e);
          } catch (Exception e) {
-             throw new Exception(e);
+             throw new EnMeExpcetion(e);
          }
      } else {
          throw new EnMeExpcetion("Cat Location Type is null");
@@ -176,8 +174,7 @@ public class DataSource implements IDataSource {
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-
-    public void createCatLocation(LocationBean location) throws EnMeExpcetion, HibernateException, Exception
+    public LocationBean createCatLocation(LocationBean location) throws EnMeExpcetion
     {
         log.info("create Cat Location");
         if (location!=null){
@@ -189,11 +186,13 @@ public class DataSource implements IDataSource {
                 catLoc.setLng(location.getLng());
                 catLoc.setLevel(location.getLevel());
                 getCatLocationDao().saveOrUpdate(catLoc);
+                location.setLocateId(catLoc.getLocateId());
             } catch (HibernateException e) {
-                throw new HibernateException(e);
+                throw new EnMeExpcetion(e);
             } catch (Exception e) {
-                throw new Exception(e);
+                throw new EnMeExpcetion(e);
             }
+            return location;
         } else {
             throw new EnMeExpcetion("Cat Location is null");
         }
@@ -204,6 +203,7 @@ public class DataSource implements IDataSource {
     /**
      * Load state by id.
      * @param stateId state id
+     * @return {@link CatState}
      */
     public CatState getState(Long stateId) throws Exception {
         return getStateDao().getState(stateId);

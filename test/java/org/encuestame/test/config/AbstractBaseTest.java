@@ -19,7 +19,6 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
-import org.encuestame.core.persistence.dao.SurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
@@ -43,7 +42,6 @@ import org.encuestame.core.persistence.pojo.SecUserPermissionId;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.context.annotation.Scope;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 import org.springframework.test.context.ContextConfiguration;
