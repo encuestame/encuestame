@@ -210,5 +210,22 @@ public class TestSecurityService extends AbstractBaseTest{
 
     }
 
+    /**
+     * Test Renew Password.
+     */
+    @Test
+    public void testRenewPassword(){
+      SecUsers secUser = createUsers("paola");
+      Long idUser = secUser.getUid();
+      String passwd = secUser.getPassword();
+      UnitUserBean userPass = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+      userPass.setPassword("newPass");
+      securityService.updateUser(userPass);
+      SecUsers userPassRetrieve = getSecUserDao().getUserById(idUser);
+      assertEquals("should be", "newPass",userPass.getPassword());
+
+
+    }
+
 }
 ;
