@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
+import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
 
@@ -34,10 +35,13 @@ import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.hibernate.HibernateException;
+
+import sun.security.action.GetLongAction;
 /**
  * Data Services.
  *
@@ -53,6 +57,7 @@ public class DataSource implements IDataSource {
 
     private ICatState stateDao;
     private ICatLocation catLocationDao;
+    private ICatLocationTypeDao catLocationTypeDao;
     private IProject projectDaoImp;
     protected Log log = LogFactory.getLog(this.getClass());
 
@@ -90,16 +95,9 @@ public class DataSource implements IDataSource {
      */
     public UnitProjectBean loadProjectInfo(UnitProjectBean projectBean) throws EnMeExpcetion {
         if (projectBean.getId()!= null) {
-            Project pro = getProjectDaoImp().getProjectbyId(projectBean.getId());
-            if (pro != null) {
-                log.info("project found name ->"+pro.getDescription());
-                projectBean.setId(pro.getProyectId());
-                projectBean.setDateFinish(pro.getDateFinish());
-                projectBean.setDateInit(pro.getDateStart());
-                projectBean.setDescription(pro.getInfo());
-                projectBean.setName(pro.getDescription());
-                projectBean.setState(Long.valueOf(pro.getCatState().getIdState().toString()));
-                return projectBean;
+            Project projectDomain = getProjectDaoImp().getProjectbyId(projectBean.getId());
+            if (projectDomain != null) {
+                return ConvertDomainBean.convertProjectDomainToBean(projectDomain);
             } else {
                 log.info("id project is not found");
                 throw new EnMeExpcetion("id project is not found");
@@ -108,7 +106,6 @@ public class DataSource implements IDataSource {
             log.info("id project is null");
             throw new EnMeExpcetion("id project is null");
         }
-
     }
 
     /**
@@ -145,25 +142,25 @@ public class DataSource implements IDataSource {
 
     /**
      * create Cat LocationType.
-     * @param locatType {@link LocationTypeBean}
+     * @param locatTypeBean {@link LocationTypeBean}
      * @throws EnMeExpcetion exception
      */
-    public LocationTypeBean createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion
+    public LocationTypeBean createCatLocationType(LocationTypeBean locatTypeBean) throws EnMeExpcetion
     {
          log.info("create LocationType");
-         if (locatType!=null){
+         if (locatTypeBean!=null){
              try {
-             CatLocationType locType = new CatLocationType();
-             locType.setDescription(locatType.getDescription());
-             locType.setLevel(locatType.getLevel());
-             log.info("Creating Cat Location Type");
-             //getLocationTypeDao().saveOrUpdate(locType);
-             return locatType;
+             CatLocationType locationTypeDomain = new CatLocationType();
+             locationTypeDomain.setDescription(locatTypeBean.getDescription());
+             locationTypeDomain.setLevel(locatTypeBean.getLevel());
+             getCatLocationTypeDao().saveOrUpdate(locationTypeDomain);
+             locatTypeBean.setLocationTypeId(locationTypeDomain.getLocationTypeId());
          } catch (HibernateException e) {
              throw new EnMeExpcetion(e);
          } catch (Exception e) {
              throw new EnMeExpcetion(e);
          }
+         return locatTypeBean;
      } else {
          throw new EnMeExpcetion("Cat Location Type is null");
      }
@@ -251,4 +248,19 @@ public class DataSource implements IDataSource {
     public void setProjectDaoImp(IProject projectDaoImp) {
         this.projectDaoImp = projectDaoImp;
     }
+
+    /**
+     * @return the catLocationTypeDao
+     */
+    public ICatLocationTypeDao getCatLocationTypeDao() {
+        return catLocationTypeDao;
+    }
+
+    /**
+     * @param catLocationTypeDao the catLocationTypeDao to set
+     */
+    public void setCatLocationTypeDao(ICatLocationTypeDao catLocationTypeDao) {
+        this.catLocationTypeDao = catLocationTypeDao;
+    }
+
 }

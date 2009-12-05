@@ -24,7 +24,7 @@ import org.hibernate.HibernateException;
 
 
 /**
- * Interface to implement Survey Dao.
+ * Interface to implement Catalog Location Dao.
  * @author Picado, Juan juan@encuestame.org
  * @since  26/04/2009
  */
@@ -36,5 +36,13 @@ public interface ICatLocation extends IBaseDao {
      * @throws HibernateException hibernate
      */
     public List<CatLocation> findAll() throws HibernateException;
+
+
+    /**
+     * Find Location by Id.
+     * @param locateId locate id
+     * @return {@link CatLocation}
+     * @throws HibernateException excetion
+     */
     public CatLocation getLocationById(final Long locateId) throws HibernateException;
 }

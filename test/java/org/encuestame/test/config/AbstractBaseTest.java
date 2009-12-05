@@ -20,6 +20,7 @@ package org.encuestame.test.config;
 import java.util.Date;
 
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
+import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
@@ -108,6 +109,10 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /** Question Dao Imp. **/
     @Autowired
     private IQuestionDao questionDaoImp;
+    /** Catalog Location Type Dao. */
+
+    @Autowired
+    private ICatLocationTypeDao catLocationTypeDao;
 
     /**
      * Getter.
@@ -250,6 +255,35 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public void setQuestionDaoImp(final IQuestionDao questionDaoImp) {
         this.questionDaoImp = questionDaoImp;
+    }
+
+
+    /**
+     * @return the surveyformatDaoImp
+     */
+    public ISurveyFormatDao getSurveyformatDaoImp() {
+        return surveyformatDaoImp;
+    }
+
+    /**
+     * @param surveyformatDaoImp the surveyformatDaoImp to set
+     */
+    public void setSurveyformatDaoImp(ISurveyFormatDao surveyformatDaoImp) {
+        this.surveyformatDaoImp = surveyformatDaoImp;
+    }
+
+    /**
+     * @return the catLocationTypeDao
+     */
+    public ICatLocationTypeDao getCatLocationTypeDao() {
+        return catLocationTypeDao;
+    }
+
+    /**
+     * @param catLocationTypeDao the catLocationTypeDao to set
+     */
+    public void setCatLocationTypeDao(ICatLocationTypeDao catLocationTypeDao) {
+        this.catLocationTypeDao = catLocationTypeDao;
     }
 
     /**

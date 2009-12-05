@@ -31,20 +31,25 @@ public interface IBaseDao {
 
     /**
      * 	Creates or updates a record in the table.
-     * @param obj
+     * @param domain domain
+     * @throws HibernateException exception
      */
-    public void saveOrUpdate(final Object obj) throws HibernateException;
+    public void saveOrUpdate(final Object domain) throws HibernateException;
 
     /**
      * Deletes a table row.
-     * @param obj
+     * @param domain domain
+     * @throws HibernateException  exception
      */
-    public void delete(final Object obj) throws HibernateException;
+    public void delete(final Object domain) throws HibernateException;
 
     /**
      * 	Return all the elements of an entity in Table.
+     * @param query hql query
+     * @return {@link List} of {@link Object}
+     * @throws HibernateException  exception
      */
-    public List findAll(final String query) throws HibernateException;
+    public List<Object> findAll(final String query) throws HibernateException;
 
 
 }

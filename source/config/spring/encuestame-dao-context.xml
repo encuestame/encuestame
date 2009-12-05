@@ -19,7 +19,13 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+
     <bean id="catLocationDao" class="org.encuestame.core.persistence.dao.CatLocationDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="catLocationTypeDao" class="org.encuestame.core.persistence.dao.CatLocationTypeDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>

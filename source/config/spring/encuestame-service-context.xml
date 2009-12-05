@@ -53,6 +53,9 @@
         <property name="catLocationDao">
             <ref bean="catLocationDao"></ref>
         </property>
+         <property name="catLocationTypeDao">
+            <ref bean="catLocationTypeDao"></ref>
+        </property>
     </bean>
 
     <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager"

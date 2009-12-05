@@ -38,17 +38,41 @@ public class LocationTypeBean extends MasterBean implements Serializable{
     private Long locationTypeId;
 
 
+    /**
+     * @return
+     */
     public String getDescription() {
         return this.description;
     }
+    /**
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
+    /**
+     * @return
+     */
     public Integer getLevel() {
         return level;
     }
+    /**
+     * @param level
+     */
     public void setLevel(Integer level) {
         this.level = level;
+    }
+    /**
+     * @return the locationTypeId
+     */
+    public Long getLocationTypeId() {
+        return locationTypeId;
+    }
+    /**
+     * @param locationTypeId the locationTypeId to set
+     */
+    public void setLocationTypeId(Long locationTypeId) {
+        this.locationTypeId = locationTypeId;
     }
 
 
