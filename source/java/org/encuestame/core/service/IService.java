@@ -30,10 +30,33 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  */
 public interface IService {
 
+    /**
+     * Getter.
+     * @return {@link MessageSourceFactoryBean}
+     */
     public MessageSourceFactoryBean getMessageSource();
+
+    /**
+     * Setter.
+     * @param messageSource {@link MessageSourceFactoryBean}
+     */
     public void setMessageSource(MessageSourceFactoryBean messageSource);
+
+    /**
+     * Getter by propertie Id.
+     * @param propertieId propertieId
+     * @return value of propertie
+     */
     public String getMessageProperties(String propertieId);
+
+    /**
+     * @return the dataSource
+     */
     public IDataSource getDataEnMeSource();
+
+    /**
+     * @param dataSource the dataSource to set
+     */
     public void setDataEnMeSource(final IDataSource dataSource);
 
 }

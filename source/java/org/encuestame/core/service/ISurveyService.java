@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 
@@ -60,4 +61,14 @@ public interface ISurveyService extends IService {
      */
     public Collection<UnitPatternBean> loadAllPatrons()
     throws EnMeExpcetion;
+
+    /**
+     * @param serviceMail serviceMail
+     */
+    public void setServiceMail(MailServiceImpl serviceMail);
+
+    /**
+     * @return serviceMail
+     */
+    public MailServiceImpl getServiceMail();
 }

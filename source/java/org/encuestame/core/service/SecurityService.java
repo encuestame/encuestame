@@ -124,7 +124,7 @@ public class SecurityService extends Service implements ISecurityService {
         final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         try {
             final Collection<SecUsers> listUsers = getUserDao().findAll();
-                if (listUsers != null && listUsers.size() > 0) {
+                if (listUsers.size() > 0) {
                     for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
                         final UnitUserBean userB = new UnitUserBean();
                         final  SecUsers user = i.next();

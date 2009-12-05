@@ -18,12 +18,9 @@
 package org.encuestame.core.service;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
@@ -48,10 +45,7 @@ public class SurveyService extends Service implements ISurveyService {
 
     private MailServiceImpl serviceMail;
     private SurveyDaoImp surveyDaoImp;
-    private SecurityService securityService;
-    private DataSource dataService;
     private QuestionDaoImp questionDaoImp;
-    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * @return {@link MailServiceImpl}.
@@ -80,36 +74,6 @@ public class SurveyService extends Service implements ISurveyService {
      */
     public void setSurveyDaoImp(SurveyDaoImp surveyDaoImp) {
         this.surveyDaoImp = surveyDaoImp;
-    }
-
-    /**
-     * @return the securityService
-     */
-    private SecurityService getSecurityService() {
-        return securityService;
-    }
-
-    /**
-     * @param securityService
-     *            the securityService to set
-     */
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
-    }
-
-    /**
-     * @return the dataService
-     */
-    private DataSource getDataService() {
-        return dataService;
-    }
-
-    /**
-     * @param dataService
-     *            the dataService to set
-     */
-    public void setDataService(DataSource dataService) {
-        this.dataService = dataService;
     }
 
     /**

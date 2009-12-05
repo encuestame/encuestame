@@ -29,8 +29,20 @@ import org.hibernate.HibernateException;
  */
 public interface ICatState extends IBaseDao {
 
+
+    /**
+     * Retrieve all states.
+     * @return list of states
+     * @throws HibernateException  Exception
+     */
      public List<CatState> findAll() throws HibernateException;
 
+     /**
+      * Get catalog state by id.
+      * @param stateId id state
+      * @return state {@link CatState}
+     * @throws HibernateException  Exception
+      */
      public CatState getState(final Long stateId) throws HibernateException ;
 
 }

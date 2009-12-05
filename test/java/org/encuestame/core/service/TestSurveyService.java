@@ -21,12 +21,13 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsPatron;
-import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.test.config.AbstractBeanBaseTest;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.ExpectedException;
@@ -42,8 +43,22 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     @Autowired
     private ISurveyService surveyService;
 
+    @Autowired
+    private MailServiceImpl mailServiceImpl;
+
+    /** {@link Questions} */
     private Questions question;
+
+    /** {@link QuestionsPatron} **/
     private QuestionsPatron pattern;
+
+    /**
+     * Before.
+     */
+    @Before
+    public void setterBeans(){
+        surveyService.setServiceMail(mailServiceImpl);
+    }
 
     private void serviceInit(){
             this.question = createQuestion("Why the sky is blue?");
@@ -134,5 +149,12 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
      */
     public QuestionsPatron getPattern() {
         return pattern;
+    }
+
+    /**
+     * @param mailServiceImpl the mailServiceImpl to set
+     */
+    public void setMailServiceImpl(MailServiceImpl mailServiceImpl) {
+        this.mailServiceImpl = mailServiceImpl;
     }
 }
