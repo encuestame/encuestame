@@ -103,7 +103,7 @@ public class EnMeSchemaExport {
                 SPRING_CONFIG_TEST_FILES);
         final AnnotationSessionFactoryBean annotationSFTest = (AnnotationSessionFactoryBean) appContextTest
                 .getBean("&sessionFactory");
-         annotationSF.dropDatabaseSchema();
+        annotationSFTest.dropDatabaseSchema();
         annotationSFTest.createDatabaseSchema();
     }
 
