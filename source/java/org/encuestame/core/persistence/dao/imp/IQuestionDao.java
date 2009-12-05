@@ -17,6 +17,12 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
+import java.util.List;
+
+import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsPatron;
+import org.hibernate.HibernateException;
+
  /**
   * Interface to implement Question Dao.
   * @author Picado, Juan juan@encuestame.org
@@ -24,4 +30,33 @@ package org.encuestame.core.persistence.dao.imp;
   */
 public interface IQuestionDao extends IBaseDao {
 
+    /**
+     * Create Question.
+     * @param question question
+     * @throws HibernateException exception
+     */
+    public void createQuestion(final Questions question) throws HibernateException;
+
+    /**
+     * Load All Questions.
+     * @return List of {@link Questions}
+     * @throws HibernateException exception
+     */
+    public List<Questions> loadAllQuestions() throws HibernateException;
+
+    /**
+     * Load All Questions Patron.
+     * @return  List of {@link QuestionsPatron}
+     * @throws HibernateException exception
+     */
+    public List<QuestionsPatron> loadAllQuestionPattern()
+    throws HibernateException;
+
+    /**
+     * Load pattern info.
+     * @param patronId patron id
+     * @return QuestionPatron
+     * @throws HibernateException exception
+     */
+    public QuestionsPatron loadPatternInfo(final Long patronId) throws HibernateException;
 }

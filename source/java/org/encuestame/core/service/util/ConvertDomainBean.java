@@ -20,13 +20,16 @@ package org.encuestame.core.service.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.QuestionsPatron;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.web.beans.admon.GroupBean;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
+import org.encuestame.web.beans.survey.UnitPatternBean;
 
 /**
  * Convert Domain to  Beans.
@@ -60,12 +63,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert Group Domain to Group Bean
+     * Convert {@link SecGroups} to {@link UnitGroupBean}
      * @param groupDomain {@link SecGroups}
      * @return {@link UnitGroupBean}
      */
     public static UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
-        UnitGroupBean groupBean = new UnitGroupBean();
+        final UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
         groupBean.setGroupDescription(groupDomain.getDesInfo());
         groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
@@ -90,15 +93,29 @@ public class ConvertDomainBean {
 
 
     /**
+     * Convert {@link SecPermission} to {@link UnitPermission}
      * @param permission permission.
      * @return permBean
      */
     public static UnitPermission convertPermissionToBean(final SecPermission permission){
-      UnitPermission permBean = new UnitPermission();
+      final UnitPermission permBean = new UnitPermission();
       permBean.setId(Integer.valueOf(permission.getIdPermission().toString()));
       permBean.setDescription(permission.getDescription());
       permBean.setPermission(permission.getPermission());
       return permBean;
     }
 
+
+    /**
+     * Convert {@link QuestionsPatron} to {@link UnitPatternBean}.
+     * @param pattern  {@link QuestionsPatron}
+     * @return {@link UnitPatternBean}
+     */
+    public static UnitPatternBean convertQuestionPatternToBean(final QuestionsPatron pattern){
+        final UnitPatternBean patterBean = new UnitPatternBean();
+        patterBean.setId(pattern.getIdPatron());
+        patterBean.setPatronType(pattern.getTypePatron());
+        patterBean.setLabel(pattern.getLabelQid());
+        return patterBean;
+    }
 }

@@ -34,8 +34,8 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 
     /**
      * Create Question.
-     * @param question
-     * @throws HibernateException
+     * @param question question
+     * @throws HibernateException exception
      */
     public void createQuestion(final Questions question) throws HibernateException {
         super.saveOrUpdate(question);
@@ -44,7 +44,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     /**
      * Load All Questions.
      * @return List of {@link Questions}
-     * @throws HibernateException
+     * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
     public List<Questions> loadAllQuestions() throws HibernateException {
@@ -54,7 +54,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     /**
      * Load All Questions Patron.
      * @return  List of {@link QuestionsPatron}
-     * @throws HibernateException
+     * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
     public List<QuestionsPatron> loadAllQuestionPattern()
@@ -66,9 +66,9 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * Load pattern info.
      * @param patronId patron id
      * @return QuestionPatron
+     * @throws HibernateException exception
      */
-    public QuestionsPatron loadPatternInfo(final Integer patronId) throws HibernateException{
+    public QuestionsPatron loadPatternInfo(final Long patronId) throws HibernateException{
         return (QuestionsPatron) getSession().get(QuestionsPatron.class, patronId);
     }
-
 }

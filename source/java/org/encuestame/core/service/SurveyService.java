@@ -137,7 +137,7 @@ public class SurveyService extends Service implements ISurveyService {
         try {
             final  List<Questions> questionsList = getQuestionDaoImp()
                     .loadAllQuestions();
-            if (questionsList != null && questionsList.size() > 0) {
+            if (questionsList.size() > 0) {
                for (Questions questions : questionsList) {
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Integer.valueOf(questions.getQid().toString()));
@@ -162,20 +162,18 @@ public class SurveyService extends Service implements ISurveyService {
      */
     public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
             throws EnMeExpcetion {
-        log.info("loadPatternInfo init ->"+unitPatternBean.getId());
         if (unitPatternBean != null && unitPatternBean.getId() != null) {
-            QuestionsPatron q = getQuestionDaoImp().loadPatternInfo(
+            final QuestionsPatron questionPatternDomain = getQuestionDaoImp().loadPatternInfo(
                     unitPatternBean.getId());
-            log.info("loadPatternInfo QuestionsPatron ->"+q);
-            unitPatternBean.setId(Integer.valueOf(q.getIdPatron().toString()));
-            unitPatternBean.setDescripcion(q.getDesQid());
-            unitPatternBean.setLabel(q.getLabelQid());
-            unitPatternBean.setPatronType(q.getTypePatron());
-            unitPatternBean.setTemplate(q.getTemplatePatron());
-            // pueden agregar mas datos
+            unitPatternBean.setId(questionPatternDomain.getIdPatron());
+            unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
+            unitPatternBean.setLabel(questionPatternDomain.getLabelQid());
+            unitPatternBean.setPatronType(questionPatternDomain.getTypePatron());
+            unitPatternBean.setTemplate(questionPatternDomain.getTemplatePatron());
+            //TODO : need more properties.
             return unitPatternBean;
         } else {
-            throw new EnMeExpcetion("unit is null");
+            throw new EnMeExpcetion("unit patter bean is null");
         }
     }
 
@@ -190,10 +188,10 @@ public class SurveyService extends Service implements ISurveyService {
         try {
             final List<QuestionsPatron> patronList = getQuestionDaoImp()
                     .loadAllQuestionPattern();
-            if (patronList != null && patronList.size() > 0) {
+            if (patronList.size() > 0) {
                for (QuestionsPatron patron : patronList) {
                     UnitPatternBean p = new UnitPatternBean();
-                    p.setId(Integer.valueOf(patron.getIdPatron().toString()));
+                    p.setId(patron.getIdPatron());
                     p.setPatronType(patron.getTypePatron());
                     listPatronBean.add(p);
                 }

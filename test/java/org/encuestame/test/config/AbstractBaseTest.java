@@ -32,6 +32,8 @@ import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsPatron;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
@@ -425,5 +427,36 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         groupPermission.setSecGroups(group);
         groupPermission.setSecPermission(permission);
         getSecGroup().saveOrUpdate(groupPermission);
+    }
+
+    /**
+     * Create question.
+     * @param question question
+     * @return {@link Questions}
+     */
+    public Questions createQuestion(final String question){
+        final Questions questions = new Questions();
+        questions.setCatState(this.createState("active"));
+        questions.setQidKey("1");
+        questions.setQuestion(question);
+        getQuestionDaoImp().saveOrUpdate(questions);
+        return questions;
+    }
+
+    /**
+     * Create Patron Domain.
+     * @param typePatron name of patron
+     * @return {@link QuestionsPatron}
+     */
+    public QuestionsPatron createQuestionPattern(final String typePatron){
+        final QuestionsPatron patron = new QuestionsPatron();
+        patron.setClass_("class.patron1.class");
+        patron.setDesQid("");
+        patron.setTemplatePatron("");
+        patron.setLabelQid("");
+        patron.setTypePatron(typePatron);
+        //TODO: need patron dao to save this domain.
+        getQuestionDaoImp().saveOrUpdate(patron);
+        return patron;
     }
 }

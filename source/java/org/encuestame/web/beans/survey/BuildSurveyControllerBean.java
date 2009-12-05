@@ -57,6 +57,9 @@ public class BuildSurveyControllerBean extends MasterBean {
     private Log log = LogFactory.getLog(this.getClass());
 
 
+    /**
+     *
+     */
     public BuildSurveyControllerBean() {
         log.info("seccion add's");
     }
@@ -102,8 +105,8 @@ public class BuildSurveyControllerBean extends MasterBean {
                 question.setId(d);
                 if (getPatternSelected() != null) {
                     // getUnitPatterBean().setId(getPatternSelected());
-                    UnitPatternBean patternN = new UnitPatternBean(
-                            getPatternSelected());
+                    UnitPatternBean patternN = new UnitPatternBean();
+                    patternN.setId(Long.valueOf(getPatternSelected()));
                     patternN = getServicemanager().getApplicationServices().getSecurityService().getSurveyService()
                             .loadPatternInfo(patternN);
                     //cleanPatterBean(getUnitPatterBean());
@@ -197,8 +200,8 @@ public class BuildSurveyControllerBean extends MasterBean {
     /**
      * Mueve una pregunta a una sección
      * @author juanpicado
-     * @param fm
-     * @param family
+     * @param fm fm
+     * @param family family
      */
     public void moveQuestion(Object fm, Object family) {
         ArrayList target = null;
@@ -333,7 +336,7 @@ public class BuildSurveyControllerBean extends MasterBean {
     /**
      * change rendered section
      *
-     * @param selected
+     * @param selected selected
      */
     public void changeRenderedSection() {
         if (getSectionSelected() != null) {
@@ -377,18 +380,30 @@ public class BuildSurveyControllerBean extends MasterBean {
         this.sectionSelected = sectionSelected;
     }
 
+    /**
+     * @return
+     */
     public UnitPatternBean getUnitPatterBean() {
         return unitPatterBean;
     }
 
+    /**
+     * @param unitPatterBean
+     */
     public void setUnitPatterBean(UnitPatternBean unitPatterBean) {
         this.unitPatterBean = unitPatterBean;
     }
 
+    /**
+     * @return
+     */
     public Integer getPatternSelected() {
         return patternSelected;
     }
 
+    /**
+     * @param patternSelected
+     */
     public void setPatternSelected(Integer patternSelected) {
         this.patternSelected = patternSelected;
     }
