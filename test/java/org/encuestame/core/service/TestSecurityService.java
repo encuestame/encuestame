@@ -67,7 +67,7 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testLoadAllListPermission(){
         super.createPermission("ADMON");
         super.createPermission("EDITOR");
-        assertEquals("Should be equals",4,securityService.loadAllListPermission().size());
+        assertEquals("Should be equals",2,securityService.loadAllListPermission().size());
     }
 
     /**
@@ -77,7 +77,7 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testLoadListUsers() throws EnMeExpcetion{
         addGroupUser(super.createUsers("user 1"),super.createGroups("editor"));
         addGroupUser(super.createUsers("user 2"),super.createGroups("admon"));
-        assertEquals("Should be equals",3,securityService.loadListUsers().size());
+        assertEquals("Should be equals",2,securityService.loadListUsers().size());
     }
 
     /**

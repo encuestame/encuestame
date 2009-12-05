@@ -32,10 +32,10 @@ import org.junit.Test;
  *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 27, 2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestUserDao extends AbstractBaseTest {
 
@@ -55,7 +55,7 @@ public class TestUserDao extends AbstractBaseTest {
     public void testDeleteUser() {
         final SecUsers user = super.createUsers("user 1");
         getSecUserDao().delete(user);
-        assertEquals("Should be equals",1, getSecUserDao().findAll().size());
+        assertEquals("Should be equals",0, getSecUserDao().findAll().size());
     }
 
     /**
@@ -65,7 +65,7 @@ public class TestUserDao extends AbstractBaseTest {
     public void testFindAllUsers() {
         super.createUsers("user 1");
         super.createUsers("user 2");
-        assertEquals("Should be equals",3, getSecUserDao().findAll().size());
+        assertEquals("Should be equals",2, getSecUserDao().findAll().size());
     }
 
     /**
