@@ -19,6 +19,7 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
+import org.encuestame.core.persistence.dao.SurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
@@ -70,7 +71,7 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:encuestame-beans-jsf-context.xml",
         "classpath:encuestame-hibernate-context.xml",
         "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-param-context.xml"
+        "classpath:encuestame-param-test-context.xml"
          })
 public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringContextTests {
 
@@ -119,9 +120,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
-     * @param catStateDaoImp the catStateDaoImp to set
+     * @param surveyformatDaoImp {@link ISurveyFormatDao}
      */
-    public void setCatStateDaoImp(final ISurveyFormatDao surveyformatDaoImp) {
+    public void setSurveyFormatDaoImp(final ISurveyFormatDao surveyformatDaoImp) {
         this.surveyformatDaoImp = surveyformatDaoImp;
     }
 
@@ -156,14 +157,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
-     * @return
+     * @return {@link ISecGroups}
      */
     public ISecGroups getSecGroup(){
         return secGroupDaoImp;
     }
 
     /**
-     * @param groupDao
+     * @param secGroupDaoImp  {@link ISecGroups}
      */
     public void setgroupDao(final ISecGroups secGroupDaoImp){
         this.secGroupDaoImp = secGroupDaoImp;
@@ -301,7 +302,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     /**
      * Helper to create LocationType.
-     * @param locationType
+     * @param catLocationType cat location type
      * @return locationType
      */
 
@@ -316,7 +317,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     /**
      * Helper to create Group.
-     * @param name user name
+     * @param groupname user name
      * @return state
      */
     public SecGroups createGroups(final String groupname){
