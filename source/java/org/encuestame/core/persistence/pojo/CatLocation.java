@@ -56,7 +56,7 @@ public class CatLocation implements Serializable {
         this.locateId = locateId;
     }
 
-    @Column(name = "tidtype", nullable = false, length = 10)
+    @Column(name = "tidtype", nullable = true, length = 10)
     public String getTidtype() {
         return this.tidtype;
     }

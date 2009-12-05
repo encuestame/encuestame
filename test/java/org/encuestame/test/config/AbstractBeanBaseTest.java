@@ -19,6 +19,7 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
+import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 
@@ -59,4 +60,28 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
         return locationTypeBean;
     }
 
+
+    /**
+     * Create Location Bean.
+     * @param active active
+     * @param description description
+     * @param lng longitud
+     * @param lat latitud
+     * @param level level
+     * @return {@link LocationBean}
+     */
+    public LocationBean createLocationBean(
+            final String active,
+            final String description,
+            final Float lng,
+            final Float lat,
+            final Integer level){
+        final LocationBean locationBean = new LocationBean();
+        locationBean.setActive(active);
+        locationBean.setDescription(description);
+        locationBean.setLat(lat);
+        locationBean.setLng(lng);
+        locationBean.setLevel(level);
+        return locationBean;
+    }
 }

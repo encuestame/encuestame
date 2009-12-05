@@ -20,8 +20,10 @@ package org.encuestame.core.service;
 import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.test.config.AbstractBeanBaseTest;
+import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.junit.Test;
@@ -132,17 +134,52 @@ public class TestDataSource extends AbstractBeanBaseTest{
     }
 
     /**
-     * Test Location Type.
+     * Test Create Location Type.
      * @throws EnMeExpcetion exception
      */
     @Test
     public void testcreateCatLocationType()throws EnMeExpcetion {
-        final LocationTypeBean locationTypeBean = createLocationTypeBean("nicaragua",0);
-        dataSource.createCatLocationType(locationTypeBean);
-        //final UnitProjectBean projectRetrieve = dataSource.l(locationTypeBean);
-        //assertNotNull(projectRetrieve);
-        //assertEquals("Should be equals ",projectBean.getName(),projectRetrieve.getName());
+        LocationTypeBean locationTypeBean = createLocationTypeBean("nicaragua",0);
+        locationTypeBean = dataSource.createCatLocationType(locationTypeBean);
+        final CatLocationType locationTypeDomain = getCatLocationTypeDao().getLocationById(locationTypeBean.getLocationTypeId());
+        assertNotNull(locationTypeDomain);
+        assertEquals("Should be equals ",locationTypeDomain.getLocationTypeId(),locationTypeBean.getLocationTypeId());
     }
+
+
+    /**
+     * Test Create Location Type Null.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    @ExpectedException(EnMeExpcetion.class)
+    public void testcreateCatLocationTypeNull()throws EnMeExpcetion {
+       dataSource.createCatLocationType(null);
+    }
+
+    /**
+     * Test Create Location Null.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    @ExpectedException(EnMeExpcetion.class)
+    public void testcreateCatLocationNull() throws EnMeExpcetion{
+        dataSource.createCatLocationType(null);
+    }
+
+    /**
+     * Test Create Location.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    public void testcreateCatLocation() throws EnMeExpcetion{
+        final LocationBean locationBean = createLocationBean("S", "managua",1F, 2F, 0);
+        final LocationBean locationBeanResponse = dataSource.createCatLocation(locationBean);
+        assertNotNull(locationBean);
+        assertEquals("Should be equasl",locationBean.getDescription(),
+        locationBeanResponse.getDescription());
+    }
+
 
     /**
      * @param dataSource the dataSource to set

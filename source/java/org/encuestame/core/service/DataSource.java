@@ -25,12 +25,10 @@ import java.util.LinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
-
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
-
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
@@ -40,8 +38,6 @@ import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.hibernate.HibernateException;
-
-import sun.security.action.GetLongAction;
 /**
  * Data Services.
  *
@@ -67,20 +63,19 @@ public class DataSource implements IDataSource {
      * @return {@link Collection} of {@link UnitProjectBean}
      */
     public Collection<UnitProjectBean> loadListProjects() {
-        Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-        Collection<Project> list = getProjectDaoImp().findAll();
-        log.info("list getProyectDaoImp->" + list.size());
-        if (list.size() > 0) {
-            for (Iterator<Project> i = list.iterator(); i.hasNext();) {
-                UnitProjectBean proB = new UnitProjectBean();
+        final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
+        final Collection<Project> projectList = getProjectDaoImp().findAll();
+        if (projectList.size() > 0) {
+            for (Iterator<Project> i = projectList.iterator(); i.hasNext();) {
+                final UnitProjectBean projectBean = new UnitProjectBean();
                 Project project = i.next();
-                proB.setId(project.getProyectId());
-                proB.setName(project.getDescription());
-                proB.setDescription(project.getInfo());
-                proB.setDateInit(project.getDateStart());
-                proB.setDateFinish(project.getDateFinish());
+                projectBean.setId(project.getProyectId());
+                projectBean.setName(project.getDescription());
+                projectBean.setDescription(project.getInfo());
+                projectBean.setDateInit(project.getDateStart());
+                projectBean.setDateFinish(project.getDateFinish());
                 // TODO: falta agregar lista de grupos, usuarios y grupos de encuestas
-                listProjects.add(proB);
+                listProjects.add(projectBean);
             }
         }
         log.info("list listProjects->" + listProjects.size());
@@ -176,14 +171,14 @@ public class DataSource implements IDataSource {
         log.info("create Cat Location");
         if (location!=null){
             try{
-                CatLocation catLoc = new CatLocation();
-                catLoc.setDescription(location.getDescription());
-                catLoc.setActive(location.getActive());
-                catLoc.setLat(location.getLat());
-                catLoc.setLng(location.getLng());
-                catLoc.setLevel(location.getLevel());
-                getCatLocationDao().saveOrUpdate(catLoc);
-                location.setLocateId(catLoc.getLocateId());
+                final CatLocation catLocationDomain = new CatLocation();
+                catLocationDomain.setDescription(location.getDescription());
+                catLocationDomain.setActive(location.getActive());
+                catLocationDomain.setLat(location.getLat());
+                catLocationDomain.setLng(location.getLng());
+                catLocationDomain.setLevel(location.getLevel());
+                getCatLocationDao().saveOrUpdate(catLocationDomain);
+                location.setLocateId(catLocationDomain.getLocateId());
             } catch (HibernateException e) {
                 throw new EnMeExpcetion(e);
             } catch (Exception e) {
