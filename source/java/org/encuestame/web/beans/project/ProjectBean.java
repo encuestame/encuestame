@@ -1,14 +1,3 @@
-package org.encuestame.web.beans.project;
-
-import java.util.Collection;
-import java.util.LinkedList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.web.beans.MasterBean;
-import org.hibernate.HibernateException;
-
 /**
  * encuestame: system online surveys Copyright (C) 2009 encuestame Development
  * Team
@@ -25,46 +14,71 @@ import org.hibernate.HibernateException;
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * Id: ProjectBean.java Date: 26/05/2009 10:25:05
- *
- * @author juanpicado package: org.encuestame.web.beans.project
- * @version 1.0
+ */
+package org.encuestame.web.beans.project;
+
+import java.util.Collection;
+
+import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.web.beans.MasterBean;
+import org.hibernate.HibernateException;
+
+/**
+ * Project Bean.
+ * @author Picado, Juan juan@encuestame.org
+ * @since 26/05/2009 10:25:05
+ * File name: $HeadURL$
+ * Revision: $Revision$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class ProjectBean extends MasterBean {
 
+    /**
+     *
+     */
     public Boolean noProyects = true;
+    /**
+     *
+     */
     public Boolean create = true;
+    /**
+     *
+     */
     public Boolean edit;
+    /**
+     *
+     */
     public Boolean editDetail;
-    private Log log = LogFactory.getLog(this.getClass());
     private UnitProjectBean beanUProyect;
     private Integer projectSelected;
-    private Collection<UnitProjectBean> list_unitBeans;
+    private Collection<UnitProjectBean> listProjectsBeans;
 
+    /**
+     * Constructor.
+     */
     public ProjectBean() {
         log.info("create proyect bean");
     }
 
     /**
-     *
-     * @return
-     * @throws Exception
+     * Load List of Projects.
+     * @return List of {@link UnitProjectBean}
+     * @throws Exception exception
      */
+    @SuppressWarnings("unchecked")
     public Collection<UnitProjectBean> loadListProjects() throws Exception {
-        list_unitBeans = new LinkedList<UnitProjectBean>();
-        return list_unitBeans = getServicemanager().getDataEnMeSource()
+        return  getServicemanager().getDataEnMeSource()
                 .loadListProjects();
     }
 
     /**
-     * save data new proyect
+     * Save data new proyect
      */
     public void saveProyect() {
         try {
             log.info("save proyect");
             log.info("name->" + getBeanUProyect().getName());
-
             if (getBeanUProyect() != null) {
                 getServicemanager().getDataEnMeSource().createProject(
                         getBeanUProyect());
@@ -256,11 +270,11 @@ public class ProjectBean extends MasterBean {
     public Collection<UnitProjectBean> getList_unitBeans() {
         try {
             loadListProjects();
-            if (list_unitBeans.size() > 0)
+            if (listProjectsBeans.size() > 0)
                 setOneRow(true);
             else
                 setOneRow(false);
-            return list_unitBeans;
+            return listProjectsBeans;
         } catch (Exception e) {
             addErrorMessage("Error Cargando Datos->" + e.getMessage(), e
                     .getMessage());
@@ -273,7 +287,7 @@ public class ProjectBean extends MasterBean {
      *            the list_unitBeans to set
      */
     public void setList_unitBeans(Collection<UnitProjectBean> list_unitBeans) {
-        this.list_unitBeans = list_unitBeans;
+        this.listProjectsBeans = list_unitBeans;
     }
 
     /**

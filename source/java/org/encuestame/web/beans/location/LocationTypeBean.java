@@ -25,6 +25,10 @@ import org.encuestame.web.beans.MasterBean;
  * Description.
  * @author Morales, Diana Paola paola@encuestame.org
  * @since  16/11/2009 21:25:07
+ * File name: $HeadURL$
+ * Revision: $Revision$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class LocationTypeBean extends MasterBean implements Serializable{
 

@@ -22,9 +22,11 @@
 
     <bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:encuestame-config.properties
-            </value>
+        <property name="locations">
+        <list>
+            <value>classpath:encuestame-config.properties</value>
+            <value> classpath:hibernate.test.properties</value>
+       </list>
         </property>
     </bean>
 

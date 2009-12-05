@@ -44,6 +44,14 @@ public class EnMeSchemaExport {
             "source/config/spring/encuestame-service-context.xml",
             "source/config/spring/encuestame-email-context.xml" };
 
+    /** spring config files. **/
+    private static final String[] SPRING_CONFIG_TEST_FILES = new String[] {
+        "source/config/spring/encuestame-hibernate-context.xml",
+        "source/config/spring/encuestame-dao-context.xml",
+        "source/config/spring/encuestame-param-test-context.xml",
+        "source/config/spring/encuestame-service-context.xml",
+        "source/config/spring/encuestame-email-context.xml" };
+
     /**
      * Drop schema and create schema.
      */
@@ -52,7 +60,7 @@ public class EnMeSchemaExport {
                 SPRING_CONFIG_FILES);
         final AnnotationSessionFactoryBean annotationSF = (AnnotationSessionFactoryBean) appContext
                 .getBean("&sessionFactory");
-        // annotationSF.dropDatabaseSchema();
+        annotationSF.dropDatabaseSchema();
         final SecurityService securityService = (SecurityService) appContext
                 .getBean("securityService");
         annotationSF.createDatabaseSchema();
@@ -89,10 +97,18 @@ public class EnMeSchemaExport {
         } catch (EnMeExpcetion e) {
             System.out.println("Error create data " + e.getMessage());
         }
+        //Create test database
+
+        final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
+                SPRING_CONFIG_TEST_FILES);
+        final AnnotationSessionFactoryBean annotationSFTest = (AnnotationSessionFactoryBean) appContextTest
+                .getBean("&sessionFactory");
+         annotationSF.dropDatabaseSchema();
+        annotationSFTest.createDatabaseSchema();
     }
 
     /**
-     * @param args
+     * @param args args
      */
     public static void main(String[] args) {
         new EnMeSchemaExport().create();
