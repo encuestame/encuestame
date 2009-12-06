@@ -176,7 +176,7 @@ public class TestSecurityService extends AbstractBaseTest{
       groupBean.setGroupName("editors");
       securityService.updateGroup(groupBean);
       SecGroups groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
-      assertEquals("Should be","editors",groupUpdateRetrieve.getName());
+      assertEquals("Should be","editors",groupUpdateRetrieve.getGroupName());
 
     }
 
@@ -205,7 +205,7 @@ public class TestSecurityService extends AbstractBaseTest{
       securityService.createPermission(permissionBean);
       SecPermission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
       assertNotNull(permissionRetrieve);
-      assertEquals("should be","writer", permissionRetrieve.getDescription());
+      assertEquals("should be","writer", permissionRetrieve.getPermissionDescription());
 
 
     }

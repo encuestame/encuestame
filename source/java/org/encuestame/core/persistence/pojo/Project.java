@@ -18,7 +18,6 @@
 
 package org.encuestame.core.persistence.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +42,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "project")
-public class Project implements Serializable {
+public class Project {
 
     private Long proyectId;
     private CatState catStateProject;

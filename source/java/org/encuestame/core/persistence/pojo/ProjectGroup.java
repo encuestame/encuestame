@@ -19,12 +19,12 @@ package org.encuestame.core.persistence.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -44,19 +44,11 @@ public class ProjectGroup implements Serializable {
     private ProjectGroupId id;
     private Project project;
     private SecGroups secGroups;
-    private Date fechaIngreso;
+    private Date entryDate;
 
-    public ProjectGroup() {
-    }
-
-    public ProjectGroup(ProjectGroupId id, Project project,
-            SecGroups secGroups, Date fechaIngreso) {
-        this.id = id;
-        this.project = project;
-        this.secGroups = secGroups;
-        this.fechaIngreso = fechaIngreso;
-    }
-
+    /**
+     * @return id
+     */
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "groupId", column = @Column(name = "group_id", nullable = false)),
@@ -65,38 +57,59 @@ public class ProjectGroup implements Serializable {
         return this.id;
     }
 
+    /**
+     * @param id id
+     */
     public void setId(ProjectGroupId id) {
         this.id = id;
     }
 
+    /**
+     * @return project
+     */
     @ManyToOne()
     @JoinColumn(name = "proyect_id", nullable = false, insertable = false, updatable = false)
     public Project getProject() {
         return this.project;
     }
 
+    /**
+     * @param project project
+     */
     public void setProject(Project project) {
         this.project = project;
     }
 
+    /**
+     * @return secGroups
+     */
     @ManyToOne()
     @JoinColumn(name = "group_id", nullable = false, insertable = false, updatable = false)
     public SecGroups getSecGroups() {
         return this.secGroups;
     }
 
+    /**
+     * @param secGroups secGroups
+     */
     public void setSecGroups(SecGroups secGroups) {
         this.secGroups = secGroups;
     }
 
+    /**
+     * @return entryDate
+     */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_ingreso", nullable = false, length = 0)
-    public Date getFechaIngreso() {
-        return this.fechaIngreso;
+    @Column(name = "projectGroup_entryDate", nullable = false, length = 0)
+    public Date getEntryDate() {
+        return this.entryDate;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    /**
+     * @param entryDate entryDate
+     */
+    public void setEntryDate(Date entryDate) {
+        this.entryDate = entryDate;
     }
 
 }

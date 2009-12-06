@@ -25,10 +25,10 @@ import org.junit.Test;
  *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 29, 2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestSecGroupDaoImp extends AbstractBaseTest{
 
@@ -66,8 +66,8 @@ public class TestSecGroupDaoImp extends AbstractBaseTest{
     final String newname="Administrator";
     final String newdescription="System Admin";
     final SecGroups group = super.createGroups("fifth group");
-    group.setName(newname);
-    group.setDesInfo(newdescription);
+    group.setGroupName(newname);
+    group.setGroupDescriptionInfo(newdescription);
     getSecGroup().saveOrUpdate(group);
   final SecGroups retrieveGroup =getSecGroupDaoImp().getGroupById(Long.valueOf(group.getGroupId()));
     /*sertEquals("New Name should be",newname,

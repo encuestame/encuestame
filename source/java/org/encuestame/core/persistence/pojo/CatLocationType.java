@@ -18,8 +18,6 @@
 
 package org.encuestame.core.persistence.pojo;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +33,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "cat_location_type")
-public class CatLocationType implements Serializable {
+public class CatLocationType {
 
     private Long locationTypeId;
     private String locationTypeDescription;

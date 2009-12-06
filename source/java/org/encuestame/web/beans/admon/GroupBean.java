@@ -59,8 +59,8 @@ public class GroupBean extends MasterBean {
             for (SecGroups group : listGroups) {
                 final UnitGroupBean newGroup = new UnitGroupBean();
                 newGroup.setId(Integer.valueOf(group.getGroupId().toString()));
-                newGroup.setGroupName(group.getName());
-                newGroup.setGroupDescription(group.getDesInfo());
+                newGroup.setGroupName(group.getGroupName());
+                newGroup.setGroupDescription(group.getGroupDescriptionInfo());
                 newGroup.setStateId((group.getIdState().toString()));
                 listUnitGroupBeans.add(newGroup);
             }
@@ -151,8 +151,8 @@ public class GroupBean extends MasterBean {
             if (secGroups != null) {
                 reset();
                 this.newGroup.setId(Integer.valueOf(secGroups.getGroupId().toString()));
-                this.newGroup.setGroupDescription(secGroups.getDesInfo());
-                this.newGroup.setGroupName(secGroups.getName());
+                this.newGroup.setGroupDescription(secGroups.getGroupDescriptionInfo());
+                this.newGroup.setGroupName(secGroups.getGroupName());
                 this.newGroup.setStateId((secGroups.getIdState().toString()));
             } else {
                 addErrorMessage("group can't be created", "");

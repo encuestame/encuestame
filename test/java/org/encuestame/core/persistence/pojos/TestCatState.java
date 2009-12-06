@@ -25,10 +25,10 @@ import org.junit.Test;
 * Test Catalog State Pojo.
 * @author Morales, Diana Paola paola@encuestame.org
 * @since November 06, 2009
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
 */
 public class TestCatState extends AbstractBaseTest {
     /**
@@ -38,15 +38,7 @@ public class TestCatState extends AbstractBaseTest {
     public void testCatState(){
         final CatState catState = new CatState();
         catState.setDescState("State Description");
-        catState.setImage("Image");
+        catState.setStateImage("Image");
         getCatStateDaoImp().saveOrUpdate(catState);
      }
-
-    /**
-     * Test Catalog Location Constructor.
-     */
-    @Test
-    public void testCatStateConstructor(){
-    final CatState catState = new CatState("State Description","Image",null,null,null);
-    }
 }

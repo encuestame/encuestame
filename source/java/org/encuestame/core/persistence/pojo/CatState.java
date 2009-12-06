@@ -17,16 +17,13 @@
  */
 package org.encuestame.core.persistence.pojo;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,27 +36,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "cat_state")
-public class CatState implements Serializable {
+public class CatState {
 
     private Long idState;
     private String descState;
-    private String image;
+    private String stateImage;
     private Set<SurveySection> surveySections = new HashSet<SurveySection>(0);
-    private Set<Project> projects = new HashSet<Project>(0);
+    private Set<Project> catStateProject = new HashSet<Project>(0);
     private Set<Questions> questionses = new HashSet<Questions>(0);
 
-    public CatState() {
-    }
 
-    public CatState(String descState, String image, Set surveySections,
-            Set projects, Set questionses) {
-        this.descState = descState;
-        this.image = image;
-        this.surveySections = surveySections;
-        this.projects = projects;
-        this.questionses = questionses;
-    }
-
+    /**
+     * @return idState
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_state", unique = true, nullable = false)
@@ -67,51 +56,84 @@ public class CatState implements Serializable {
         return this.idState;
     }
 
-    public void setIdState(Long idState) {
+    /**
+     * @param idState idState
+     */
+    public void setIdState(final Long idState) {
         this.idState = idState;
     }
 
+    /**
+     * @return descState
+     */
     @Column(name = "desc_state")
     public String getDescState() {
         return this.descState;
     }
 
+    /**
+     * @param descState descState
+     */
     public void setDescState(String descState) {
         this.descState = descState;
     }
 
+    /**
+     * @return stateImage
+     */
     @Column(name = "image")
-    public String getImage() {
-        return this.image;
+    public String getStateImage() {
+        return this.stateImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    /**
+     * @param stateImage stateImage
+     */
+    public void setStateImage(final String stateImage) {
+        this.stateImage = stateImage;
     }
 
+    /**
+     * @return surveySections
+     */
     @OneToMany(mappedBy = "catState")
     public Set<SurveySection> getSurveySections() {
         return this.surveySections;
     }
 
+    /**
+     * @param surveySections surveySections
+     */
     public void setSurveySections(Set<SurveySection> surveySections) {
         this.surveySections = surveySections;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "catStateProject")
-    public Set<Project> getProjects() {
-        return this.projects;
+    /**
+     * @return catStateProject
+     */
+    @OneToMany(mappedBy = "catStateProject")
+    public Set<Project> getCatStateProject() {
+        return this.catStateProject;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    /**
+     * @param catStateProject catStateProject
+     */
+    public void setCatStateProject(final Set<Project> catStateProject) {
+        this.catStateProject = catStateProject;
     }
 
+    /**
+     * @return questionses
+     */
     @OneToMany(mappedBy = "catState")
     public Set<Questions> getQuestionses() {
         return this.questionses;
     }
 
+    /**
+     * @param questionses questionses
+     */
     public void setQuestionses(Set<Questions> questionses) {
         this.questionses = questionses;
     }

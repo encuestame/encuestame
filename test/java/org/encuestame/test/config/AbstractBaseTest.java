@@ -296,7 +296,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     public CatState createState(final String name){
         final CatState state = new CatState();
         state.setDescState(name);
-        state.setImage("image.jpg");
+        state.setStateImage("image.jpg");
         catStateDaoImp.saveOrUpdate(state);
         return state;
     }
@@ -356,9 +356,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public SecGroups createGroups(final String groupname){
         final SecGroups group = new SecGroups();
-        group.setName(groupname);
+        group.setGroupName(groupname);
         group.setIdState(1L);
-        group.setDesInfo("Primer Grupo");
+        group.setGroupDescriptionInfo("Primer Grupo");
         getSecGroup().saveOrUpdate(group);
         return group;
     }
@@ -370,7 +370,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public SecPermission createPermission(final String permissionName){
         final SecPermission permission = new SecPermission();
-        permission.setDescription(permissionName);
+        permission.setPermissionDescription(permissionName);
         permission.setPermission(permissionName);
         getSecPermissionDaoImp().saveOrUpdate(permission);
         return permission;
@@ -404,7 +404,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         id.setGroupId(group.getGroupId());
         id.setUid(user.getUid());
         final SecGroupUser secGroupUser = new SecGroupUser();
-        secGroupUser.setId(id);
+        secGroupUser.setSecGroupUserId(id);
         secGroupUser.setSecUsers(user);
         secGroupUser.setSecGroups(group);
         getSecUserDao().assingGroupToUser(secGroupUser);

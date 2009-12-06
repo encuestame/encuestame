@@ -19,13 +19,11 @@ package org.encuestame.core.persistence.pojo;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,17 +36,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sec_groups")
-public class SecGroups implements java.io.Serializable {
+public class SecGroups {
 
     private Long groupId;
-    private String name;
-    private String desInfo;
+    private String groupName;
+    private String groupDescriptionInfo;
     private Long idState;
     private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
     private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(0);
     private Set<ProjectGroup> projectGroups = new HashSet<ProjectGroup>(0);
     private Set<ProjectLocation> projectLocations = new HashSet<ProjectLocation>(0);
 
+    /**
+     * @return groupId
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "group_id", unique = true, nullable = false)
@@ -56,71 +57,117 @@ public class SecGroups implements java.io.Serializable {
         return this.groupId;
     }
 
+    /**
+     * @param groupId groupId
+     */
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
+    /**
+     * @return groupName
+     */
     @Column(name = "name", length = 50)
-    public String getName() {
-        return this.name;
+    public String getGroupName() {
+        return this.groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param groupName groupName
+     */
+    public void setGroupName(final String groupName) {
+        this.groupName = groupName;
     }
 
+    /**
+     * @return groupDescriptionInfo
+     */
     @Column(name = "des_info")
-    public String getDesInfo() {
-        return this.desInfo;
+    public String getGroupDescriptionInfo() {
+        return this.groupDescriptionInfo;
     }
 
-    public void setDesInfo(String desInfo) {
-        this.desInfo = desInfo;
+    /**
+     * @param groupDescriptionInfo groupDescriptionInfo
+     */
+    public void setGroupDescriptionInfo(String groupDescriptionInfo) {
+        this.groupDescriptionInfo = groupDescriptionInfo;
     }
 
+    /**
+     * @return idState
+     */
     @Column(name = "id_state", nullable = false)
     public Long getIdState() {
         return this.idState;
     }
 
+    /**
+     * @param idState idState
+     */
     public void setIdState(Long idState) {
         this.idState = idState;
     }
 
+    /**
+     * @return secGroupUsers
+     */
     @OneToMany(mappedBy = "secGroups")
     public Set<SecGroupUser> getSecGroupUsers() {
         return this.secGroupUsers;
     }
 
-    public void setSecGroupUsers(Set<SecGroupUser> secGroupUsers) {
+    /**
+     * @param secGroupUsers secGroupUsers
+     */
+    public void setSecGroupUsers(final Set<SecGroupUser> secGroupUsers) {
         this.secGroupUsers = secGroupUsers;
     }
 
+    /**
+     * @return secGroupPermissions secGroupPermissions
+     */
     @OneToMany(mappedBy = "secGroups")
     public Set<SecGroupPermission> getSecGroupPermissions() {
         return this.secGroupPermissions;
     }
 
+    /**
+     *
+     * @param secGroupPermissions secGroupPermissions
+     */
     public void setSecGroupPermissions(
-            Set<SecGroupPermission> secGroupPermissions) {
+            final Set<SecGroupPermission> secGroupPermissions) {
         this.secGroupPermissions = secGroupPermissions;
     }
 
+    /**
+     * @return projectGroups
+     */
     @OneToMany(mappedBy = "secGroups")
     public Set<ProjectGroup> getProjectGroups() {
         return this.projectGroups;
     }
 
+    /**
+     * @param projectGroups projectGroups
+     */
     public void setProjectGroups(Set<ProjectGroup> projectGroups) {
         this.projectGroups = projectGroups;
     }
 
+    /**
+     * @return projectLocations
+     */
     @OneToMany(mappedBy = "secGroups")
     public Set<ProjectLocation> getProjectLocations() {
         return this.projectLocations;
     }
 
-    public void setProjectLocations(Set<ProjectLocation> projectLocations) {
+    /**
+     * @param projectLocations projectLocations
+     */
+    public void setProjectLocations(final Set<ProjectLocation> projectLocations) {
         this.projectLocations = projectLocations;
     }
 

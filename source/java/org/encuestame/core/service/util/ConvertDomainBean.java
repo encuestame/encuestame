@@ -70,7 +70,7 @@ public class ConvertDomainBean {
     public static UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
-        groupBean.setGroupDescription(groupDomain.getDesInfo());
+        groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
         groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
         return groupBean;
     }
@@ -100,7 +100,7 @@ public class ConvertDomainBean {
     public static UnitPermission convertPermissionToBean(final SecPermission permission){
       final UnitPermission permBean = new UnitPermission();
       permBean.setId(Integer.valueOf(permission.getIdPermission().toString()));
-      permBean.setDescription(permission.getDescription());
+      permBean.setDescription(permission.getPermissionDescription());
       permBean.setPermission(permission.getPermission());
       return permBean;
     }

@@ -17,14 +17,11 @@
  */
 package org.encuestame.core.persistence.pojo;
 
-import java.io.Serializable;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -37,39 +34,57 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "cat_location_user")
-public class CatLocationUser implements Serializable {
+public class CatLocationUser{
 
-    private CatLocationUserId id;
+    private CatLocationUserId catLocationUserId;
     private SecUsers secUsers;
     private Boolean state;
 
+    /**
+     * @return catLocationUserId
+     */
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "locationId", column = @Column(name = "location_id", nullable = false)),
             @AttributeOverride(name = "uid", column = @Column(name = "uid", nullable = false)) })
-    public CatLocationUserId getId() {
-        return this.id;
+    public CatLocationUserId getCatLocationUserId() {
+        return this.catLocationUserId;
     }
 
-    public void setId(CatLocationUserId id) {
-        this.id = id;
+    /**
+     * @param catLocationUserId catLocationUserId
+     */
+    public void setCatLocationUserId(CatLocationUserId catLocationUserId) {
+        this.catLocationUserId = catLocationUserId;
     }
 
+    /**
+     * @return secUsers
+     */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false, insertable = false, updatable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
     }
 
-    public void setSecUsers(SecUsers secUsers) {
+    /**
+     * @param secUsers secUsers
+     */
+    public void setSecUsers(final SecUsers secUsers) {
         this.secUsers = secUsers;
     }
 
+    /**
+     * @return state
+     */
     @Column(name = "state")
     public Boolean getState() {
         return this.state;
     }
 
+    /**
+     * @param state state
+     */
     public void setState(Boolean state) {
         this.state = state;
     }

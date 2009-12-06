@@ -22,7 +22,6 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -35,69 +34,75 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sec_group_user")
-public class SecGroupUser implements java.io.Serializable {
+public class SecGroupUser {
 
-    private SecGroupUserId id;
+    private SecGroupUserId secGroupUserId;
     private SecGroups secGroups;
     private SecUsers secUsers;
     private Boolean state;
 
-    public SecGroupUser() {
-    }
-
-    public SecGroupUser(SecGroupUserId id, SecGroups secGroups,
-            SecUsers secUsers) {
-        this.id = id;
-        this.secGroups = secGroups;
-        this.secUsers = secUsers;
-    }
-
-    public SecGroupUser(SecGroupUserId id, SecGroups secGroups,
-            SecUsers secUsers, Boolean state) {
-        this.id = id;
-        this.secGroups = secGroups;
-        this.secUsers = secUsers;
-        this.state = state;
-    }
-
+    /**
+     * @return id
+     */
     @EmbeddedId
     @AttributeOverrides( {
             @AttributeOverride(name = "groupId", column = @Column(name = "group_id", nullable = false)),
             @AttributeOverride(name = "uid", column = @Column(name = "uid", nullable = false)) })
-    public SecGroupUserId getId() {
-        return this.id;
+    public SecGroupUserId getSecGroupUserId() {
+        return this.secGroupUserId;
     }
 
-    public void setId(SecGroupUserId id) {
-        this.id = id;
+    /**
+     * @param secGroupUserId secGroupUserId
+     */
+    public void setSecGroupUserId(final SecGroupUserId secGroupUserId) {
+        this.secGroupUserId = secGroupUserId;
     }
 
+    /**
+     * @return secGroups
+     */
     @ManyToOne()
     @JoinColumn(name = "group_id", nullable = false, insertable = false, updatable = false)
     public SecGroups getSecGroups() {
         return this.secGroups;
     }
 
-    public void setSecGroups(SecGroups secGroups) {
+    /**
+     * @param secGroups secGroups
+     */
+    public void setSecGroups(final SecGroups secGroups) {
         this.secGroups = secGroups;
     }
 
+    /**
+     * @return secUsers
+     */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false, insertable = false, updatable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
     }
 
-    public void setSecUsers(SecUsers secUsers) {
+    /**
+     * @param secUsers secUsers
+     */
+    public void setSecUsers(final SecUsers secUsers) {
         this.secUsers = secUsers;
     }
 
+    /**
+     * @return state
+     */
     @Column(name = "state")
     public Boolean getState() {
         return this.state;
     }
 
-    public void setState(Boolean state) {
+    /**
+     * @param state state
+     */
+    public void setState(final Boolean state) {
         this.state = state;
     }
 

@@ -38,33 +38,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sec_permission")
-public class SecPermission implements java.io.Serializable {
+public class SecPermission {
 
     private Long idPermission;
     private String permission;
-    private String description;
+    private String permissionDescription;
     private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
             0);
     private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(
             0);
 
-    public SecPermission() {
-    }
 
-    public SecPermission(Long idPermission) {
-        this.idPermission = idPermission;
-    }
-
-    public SecPermission(Long idPermission, String permission,
-            String description, Set<SecUserPermission> secUserPermissions,
-            Set<SecGroupPermission> secGroupPermissions) {
-        this.idPermission = idPermission;
-        this.permission = permission;
-        this.description = description;
-        this.secUserPermissions = secUserPermissions;
-        this.secGroupPermissions = secGroupPermissions;
-    }
-
+    /**
+     * @return idPermission
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_permission", unique = true, nullable = false)
@@ -72,42 +59,69 @@ public class SecPermission implements java.io.Serializable {
         return this.idPermission;
     }
 
+    /**
+     * @param idPermission idPermission
+     */
     public void setIdPermission(Long idPermission) {
         this.idPermission = idPermission;
     }
 
+    /**
+     * @return permission
+     */
     @Column(name = "permission")
     public String getPermission() {
         return this.permission;
     }
 
+    /**
+     * @param permission permission
+     */
     public void setPermission(String permission) {
         this.permission = permission;
     }
 
+    /**
+     * @return permissionDescription
+     */
     @Column(name = "description")
-    public String getDescription() {
-        return this.description;
+    public String getPermissionDescription() {
+        return this.permissionDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * @param permissionDescription permissionDescription
+     */
+    public void setPermissionDescription(final String permissionDescription) {
+        this.permissionDescription = permissionDescription;
     }
 
+    /**
+     * @return secUserPermissions
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secPermission")
     public Set<SecUserPermission> getSecUserPermissions() {
         return this.secUserPermissions;
     }
 
+    /**
+     * @param secUserPermissions secUserPermissions
+     */
     public void setSecUserPermissions(Set<SecUserPermission> secUserPermissions) {
         this.secUserPermissions = secUserPermissions;
     }
 
+    /**
+     * @return secGroupPermissions
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secPermission")
     public Set<SecGroupPermission> getSecGroupPermissions() {
         return this.secGroupPermissions;
     }
 
+    /**
+     * @param secGroupPermissions secGroupPermissions
+     */
     public void setSecGroupPermissions(
             Set<SecGroupPermission> secGroupPermissions) {
         this.secGroupPermissions = secGroupPermissions;
