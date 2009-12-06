@@ -77,7 +77,7 @@ public class EnMeSchemaExport {
             securityService.createPermission(permissionAdmin);
             //create user admin
             final UnitUserBean user = new UnitUserBean();
-            user.setDate_new(new Date());
+            user.setDateNew(new Date());
             user.setEmail("juan@encuestame.org");
             user.setPassword("12345");
             user.setUsername("admin");

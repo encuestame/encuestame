@@ -191,7 +191,7 @@ public class TestSecurityService extends AbstractBaseTest{
       userBean.setName("editor");
       securityService.updateUser(userBean);
       SecUsers userUpdateRetrieve = getSecUserDao().getUserById(idUser);
-      assertEquals("shouldbe", "editor", userUpdateRetrieve.getName());
+      assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
 
     }
 

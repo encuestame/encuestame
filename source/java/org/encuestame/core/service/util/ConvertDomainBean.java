@@ -48,13 +48,13 @@ public class ConvertDomainBean {
     public static UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
-            user.setName(domainUser.getName());
+            user.setName(domainUser.getCompleteName());
             user.setUsername(domainUser.getUsername());
-            user.setEmail(domainUser.getEmail());
+            user.setEmail(domainUser.getUserEmail());
             user.setId(Integer.valueOf(domainUser.getUid().toString()));
-            user.setStatus(domainUser.isStatus());
-            user.setDate_new(domainUser.getDateNew());
-            user.setInvite_code(domainUser.getInviteCode());
+            user.setStatus(domainUser.isUserStatus());
+            user.setDateNew(domainUser.getEnjoyDate());
+            user.setInviteCode(domainUser.getInviteCode());
             user.setPublisher(domainUser.getPublisher());
         } catch (Exception e) {
             log.error("Error convirtiendo a User BEan -" + e.getMessage());

@@ -77,14 +77,14 @@ public class TestUserDao extends AbstractBaseTest {
         final String newEmail = "user2@users.com";
         final SecUsers user = super.createUsers("user 1");
         user.setPassword(newPassword);
-        user.setEmail(newEmail);
+        user.setUserEmail(newEmail);
         getSecUserDao().saveOrUpdate(user);
         final SecUsers retrieveUser = getSecUserDao().getUserById(Long.valueOf(
               user.getUid()));
         assertEquals("Password should be",newPassword,
                       retrieveUser.getPassword());
         assertEquals("Email should be",newEmail,
-                retrieveUser.getEmail());
+                retrieveUser.getUserEmail());
     }
 
     /**

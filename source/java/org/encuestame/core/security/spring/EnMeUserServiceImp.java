@@ -49,10 +49,10 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
     /**
      * Setter.
-     * @param roleGroupAuth
+     * @param roleGroupAuth roleGroupAuth
      */
 
-    public void setRoleGroupAuth(Boolean roleGroupAuth) {
+    public void setRoleGroupAuth(final Boolean roleGroupAuth) {
         this.roleGroupAuth = roleGroupAuth;
     }
 
@@ -69,9 +69,9 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     /**
      * Setter.
      *
-     * @param roleUserAuth
+     * @param roleUserAuth roleUserAuth
      */
-    public void setRoleUserAuth(Boolean roleUserAuth) {
+    public void setRoleUserAuth(final Boolean roleUserAuth) {
         this.roleUserAuth = roleUserAuth;
     }
 
@@ -90,7 +90,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             log.warn("user not found");
             throw new UsernameNotFoundException("user not found");
         }
-        log.info("found..." + user.getEmail());
+        log.info("found..." + user.getUserEmail());
         return convertToUserDetails(user);
     }
 
@@ -180,7 +180,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         log.info("user pass "+user.getPassword());
         log.info("user name "+user.getUsername());
         final User userDetails = new User(user.getUsername(), user.getPassword(),
-                user.isStatus() == null ? false : user.isStatus(),
+                user.isUserStatus() == null ? false : user.isUserStatus(),
                 true,  // accoun  not expired
                 true, // cridentials not expired
                 true, // account not locked

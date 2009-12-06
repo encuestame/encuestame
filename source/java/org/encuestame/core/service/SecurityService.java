@@ -126,17 +126,17 @@ public class SecurityService extends Service implements ISecurityService {
             final Collection<SecUsers> listUsers = getUserDao().findAll();
                 if (listUsers.size() > 0) {
                     for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
-                        final UnitUserBean userB = new UnitUserBean();
+                        final UnitUserBean userBean = new UnitUserBean();
                         final  SecUsers user = i.next();
-                        userB.setId(Integer.valueOf(user.getUid().toString()));
-                        userB.setName(user.getName());
-                        userB.setEmail(user.getEmail());
-                        userB.setUsername(user.getUsername());
-                        userB.setPublisher(user.getPublisher());
-                        userB.setStatus(user.isStatus());
-                        userB.setListGroups(convertSetToUnitGroupBean(Integer.valueOf((user.getUid().toString()))));
-                        userB.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));
-                        loadListUsers.add(userB);
+                        userBean.setId(Integer.valueOf(user.getUid().toString()));
+                        userBean.setName(user.getCompleteName());
+                        userBean.setEmail(user.getUserEmail());
+                        userBean.setUsername(user.getUsername());
+                        userBean.setPublisher(user.getPublisher());
+                        userBean.setStatus(user.isUserStatus());
+                        userBean.setListGroups(convertSetToUnitGroupBean(Integer.valueOf((user.getUid().toString()))));
+                        userBean.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));
+                        loadListUsers.add(userBean);
                     }
                 }
         }
@@ -181,13 +181,13 @@ public class SecurityService extends Service implements ISecurityService {
     public UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
-            user.setName(domainUser.getName());
+            user.setName(domainUser.getCompleteName());
             user.setUsername(domainUser.getUsername());
-            user.setEmail(domainUser.getEmail());
+            user.setEmail(domainUser.getUserEmail());
             user.setId(Integer.valueOf(domainUser.getUid().toString()));
-            user.setStatus(domainUser.isStatus());
-            user.setDate_new(domainUser.getDateNew());
-            user.setInvite_code(domainUser.getInviteCode());
+            user.setStatus(domainUser.isUserStatus());
+            user.setDateNew(domainUser.getEnjoyDate());
+            user.setInviteCode(domainUser.getInviteCode());
             user.setPublisher(domainUser.getPublisher());
         } catch (Exception e) {
             log.error("Error convirtiendo a User BEan -" + e.getMessage());
@@ -312,7 +312,7 @@ public class SecurityService extends Service implements ISecurityService {
         if (userDomain.getPassword() != null) {
             final String newPassowrd = generatePassword();
             userDomain.setPassword(encryptPassworD(newPassowrd));
-                sendUserPassword(userDomain.getEmail().trim(), newPassowrd);
+                sendUserPassword(userDomain.getUserEmail().trim(), newPassowrd);
                 getUserDao().saveOrUpdate(userDomain);
         }
     }
@@ -348,9 +348,9 @@ public class SecurityService extends Service implements ISecurityService {
     public void updateUser(final UnitUserBean userBean) {
         final SecUsers updateUser = getUserDao().getUserByUsername(userBean.getUsername());
         if (updateUser != null) {
-            updateUser.setEmail(userBean.getEmail());
-            updateUser.setName(userBean.getName());
-            updateUser.setStatus(userBean.getStatus());
+            updateUser.setUserEmail(userBean.getEmail());
+            updateUser.setCompleteName(userBean.getName());
+            updateUser.setUserStatus(userBean.getStatus());
             updateUser.setPublisher(userBean.getPublisher());
             getUserDao().saveOrUpdate(updateUser);
         }
@@ -388,7 +388,7 @@ public class SecurityService extends Service implements ISecurityService {
     public void createUser(UnitUserBean userBean) throws EnMeExpcetion {
         final SecUsers userDomain = new SecUsers();
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
-            userDomain.setEmail(userBean.getEmail());
+            userDomain.setUserEmail(userBean.getEmail());
             userDomain.setUsername(userBean.getUsername());
         } else {
             throw new EnMeExpcetion("we need email and username to create user");
@@ -402,9 +402,9 @@ public class SecurityService extends Service implements ISecurityService {
             userDomain.setPassword(encryptPassworD(password));
         }
         userDomain.setPublisher(userBean.getPublisher());
-        userDomain.setName(userBean.getName());
-        userDomain.setStatus(userBean.getStatus());
-        userDomain.setDateNew(new Date());
+        userDomain.setCompleteName(userBean.getName());
+        userDomain.setUserStatus(userBean.getStatus());
+        userDomain.setEnjoyDate(new Date());
         try {
             // send to user the password to her emails
             if((!getSuspendedNotification())) {

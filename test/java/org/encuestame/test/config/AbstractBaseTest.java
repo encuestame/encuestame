@@ -324,12 +324,12 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public SecUsers createUsers(final String name){
         final SecUsers user= new SecUsers();
-        user.setName(name);
+        user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
-        user.setEmail(name+"@users.com");
-        user.setDateNew(new Date());
-        user.setStatus(true);
+        user.setUserEmail(name+"@users.com");
+        user.setEnjoyDate(new Date());
+        user.setUserStatus(true);
         getSecUserDao().saveOrUpdate(user);
         return user;
     }

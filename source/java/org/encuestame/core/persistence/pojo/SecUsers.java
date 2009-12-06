@@ -44,21 +44,20 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "sec_users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class SecUsers implements Serializable {
+public class SecUsers{
 
 
-    private static final long serialVersionUID = -2014198943983282167L;
     private Long uid;
-    private String name;
-    private String email;
+    private String completeName;
+    private String userEmail;
     private String username;
     private String password;
-     private Boolean status;
+    private Boolean userStatus;
     private String inviteCode;
-    private Date dateNew;
-    private String publisher;
-    private String owner;
-    private String twitter;
+    private Date enjoyDate;
+    private Boolean isPublisher;
+    private Boolean isOwner;
+    private String userTwitterAccount;
     private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
     private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
             0);
@@ -71,6 +70,9 @@ public class SecUsers implements Serializable {
             0);
     private Set<Surveys> surveyses = new HashSet<Surveys>(0);
 
+    /**
+     * @return uid
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uid", unique = true, nullable = false)
@@ -78,161 +80,266 @@ public class SecUsers implements Serializable {
         return this.uid;
     }
 
+    /**
+     * @param uid uid
+     */
     public void setUid(Long uid) {
         this.uid = uid;
     }
 
+    /**
+     * @return completeName
+     */
     @Column(name = "name", nullable = false, length = 50)
-    public String getName() {
-        return this.name;
+    public String getCompleteName() {
+        return this.completeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param completeName completeName
+     */
+    public void setCompleteName(String completeName) {
+        this.completeName = completeName;
     }
 
+    /**
+     * @return userEmail userEmail
+     */
     @Column(name = "email", unique = true, nullable = false, length = 100)
-    public String getEmail() {
-        return this.email;
+    public String getUserEmail() {
+        return this.userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    /**
+     * @param userEmail userEmail
+     */
+    public void setUserEmail(final String userEmail) {
+        this.userEmail = userEmail;
     }
 
+    /**
+     * @return username
+     */
     @Column(name = "username")
     public String getUsername() {
         return this.username;
     }
 
-    public void setUsername(String username) {
+    /**
+     * @param username username
+     */
+    public void setUsername(final String username) {
         this.username = username;
     }
 
+    /**
+     * @return password
+     */
     @Column(name = "password", nullable = false)
     public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password) {
+    /**
+     * @param password password
+     */
+    public void setPassword(final String password) {
         this.password = password;
     }
 
+    /**
+     * @return userStatus
+     */
     @Column(name = "status", nullable = true)
-    public Boolean isStatus() {
-        return this.status;
+    public Boolean isUserStatus() {
+        return this.userStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    /**
+     * @param userStatus userStatus
+     */
+    public void setUserStatus(final boolean userStatus) {
+        this.userStatus = userStatus;
     }
 
+    /**
+     * @return inviteCode
+     */
     @Column(name = "invite_code")
     public String getInviteCode() {
         return this.inviteCode;
     }
 
-    public void setInviteCode(String inviteCode) {
+    /**
+     * @param inviteCode inviteCode
+     */
+    public void setInviteCode(final String inviteCode) {
         this.inviteCode = inviteCode;
     }
 
+    /**
+     * @return enjoyDate
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_new", nullable = true, length = 0)
-    public Date getDateNew() {
-        return this.dateNew;
+    public Date getEnjoyDate() {
+        return this.enjoyDate;
     }
 
-    public void setDateNew(Date dateNew) {
-        this.dateNew = dateNew;
+    /**
+     * @param enjoyDate enjoyDate
+     */
+    public void setEnjoyDate(final Date enjoyDate) {
+        this.enjoyDate = enjoyDate;
     }
 
+    /**
+     * @return isPublisher
+     */
     @Column(name = "publisher", nullable = true, length = 2)
-    public String getPublisher() {
-        return this.publisher;
+    public Boolean getPublisher() {
+        return this.isPublisher;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    /**
+     * @param isPublisher isPublisher
+     */
+    public void setPublisher(final Boolean isPublisher) {
+        this.isPublisher = isPublisher;
     }
 
+    /**
+     * @return isOwner
+     */
     @Column(name = "owner", length = 2)
-    public String getOwner() {
-        return this.owner;
+    public Boolean getOwner() {
+        return this.isOwner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    /**
+     * @param isOwner isOwner
+     */
+    public void setOwner(final Boolean isOwner) {
+        this.isOwner = isOwner;
     }
 
+    /**
+     * @return userTwitterAccount
+     */
     @Column(name = "twitter", length = 2)
-    public String getTwitter() {
-        return this.twitter;
+    public String getUserTwitterAccount() {
+        return this.userTwitterAccount;
     }
 
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
+    /**
+     * @param userTwitterAccount userTwitterAccount
+     */
+    public void setUserTwitterAccount(final String userTwitterAccount) {
+        this.userTwitterAccount = userTwitterAccount;
     }
 
+    /**
+     * @return secGroupUsers
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<SecGroupUser> getSecGroupUsers() {
         return this.secGroupUsers;
     }
 
-    public void setSecGroupUsers(Set<SecGroupUser> secGroupUsers) {
+    /**
+     * @param secGroupUsers secGroupUsers
+     */
+    public void setSecGroupUsers(final Set<SecGroupUser> secGroupUsers) {
         this.secGroupUsers = secGroupUsers;
     }
 
+    /**
+     * @return secUserPermissions
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<SecUserPermission> getSecUserPermissions() {
         return this.secUserPermissions;
     }
 
-    public void setSecUserPermissions(Set<SecUserPermission> secUserPermissions) {
+    /**
+     * @param secUserPermissions secUserPermissions
+     */
+    public void setSecUserPermissions(final Set<SecUserPermission> secUserPermissions) {
         this.secUserPermissions = secUserPermissions;
     }
 
+    /**
+     * @return catLocationUsers
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<CatLocationUser> getCatLocationUsers() {
         return this.catLocationUsers;
     }
 
-    public void setCatLocationUsers(Set<CatLocationUser> catLocationUsers) {
+    /**
+     * @param catLocationUsers catLocationUsers
+     */
+    public void setCatLocationUsers(final Set<CatLocationUser> catLocationUsers) {
         this.catLocationUsers = catLocationUsers;
     }
 
+    /**
+     * @return surveyResultMods
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<SurveyResultMod> getSurveyResultMods() {
         return this.surveyResultMods;
     }
 
-    public void setSurveyResultMods(Set<SurveyResultMod> surveyResultMods) {
+    /**
+     * @param surveyResultMods surveyResultMods
+     */
+    public void setSurveyResultMods(final Set<SurveyResultMod> surveyResultMods) {
         this.surveyResultMods = surveyResultMods;
     }
 
+    /**
+     * @return projectUsers
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<ProjectUser> getProjectUsers() {
         return this.projectUsers;
     }
 
-    public void setProjectUsers(Set<ProjectUser> projectUsers) {
+    /**
+     * @param projectUsers projectUsers
+     */
+    public void setProjectUsers(final Set<ProjectUser> projectUsers) {
         this.projectUsers = projectUsers;
     }
 
+    /**
+     * @return questionColettions
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<QuestionColettion> getQuestionColettions() {
         return this.questionColettions;
     }
 
-    public void setQuestionColettions(Set<QuestionColettion> questionColettions) {
+    /**
+     * @param questionColettions questionColettions
+     */
+    public void setQuestionColettions(final Set<QuestionColettion> questionColettions) {
         this.questionColettions = questionColettions;
     }
 
+    /**
+     * @return surveyses
+     */
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
     public Set<Surveys> getSurveyses() {
         return this.surveyses;
     }
 
-    public void setSurveyses(Set<Surveys> surveyses) {
+    /**
+     * @param surveyses surveyses
+     */
+    public void setSurveyses(final Set<Surveys> surveyses) {
         this.surveyses = surveyses;
     }
 
