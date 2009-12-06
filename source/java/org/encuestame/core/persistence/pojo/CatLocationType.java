@@ -38,9 +38,12 @@ import javax.persistence.Table;
 public class CatLocationType implements Serializable {
 
     private Long locationTypeId;
-    private String description;
-    private Integer level;
+    private String locationTypeDescription;
+    private Integer locationTypeLevel;
 
+    /**
+     * @return locationTypeId
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "loc_id_type", unique = true, nullable = false, length = 10)
@@ -48,26 +51,41 @@ public class CatLocationType implements Serializable {
         return this.locationTypeId;
     }
 
+    /**
+     * @param locationTypeId locationTypeId
+     */
     public void setLocationTypeId(Long locationTypeId) {
         this.locationTypeId = locationTypeId;
     }
 
+    /**
+     * @return locationTypeDescription
+     */
     @Column(name = "description")
-    public String getDescription() {
-        return this.description;
+    public String getLocationTypeDescription() {
+        return this.locationTypeDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * @param locationTypeDescription locationTypeDescription
+     */
+    public void setLocationTypeDescription(String locationTypeDescription) {
+        this.locationTypeDescription = locationTypeDescription;
     }
 
+    /**
+     * @return locationTypeLevel
+     */
     @Column(name = "level")
-    public Integer getLevel() {
-        return this.level;
+    public Integer getLocationTypeLevel() {
+        return this.locationTypeLevel;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    /**
+     * @param locationTypeLevel locationTypeLevel
+     */
+    public void setLocationTypeLevel(Integer locationTypeLevel) {
+        this.locationTypeLevel = locationTypeLevel;
     }
 
 }

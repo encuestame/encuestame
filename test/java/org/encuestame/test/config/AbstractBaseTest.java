@@ -308,11 +308,11 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public Project createProject(final String name) {
           Project project = new Project();
-          project.setCatState(createState("active"));
-          project.setDateFinish(new Date());
-          project.setDateStart(new Date());
-          project.setInfo("info");
-          project.setDescription("description");
+          project.setCatStateProject(createState("active"));
+          project.setProjectDateFinish(new Date());
+          project.setProjectDateStart(new Date());
+          project.setProjectInfo("info");
+          project.setProjectDescription("description");
           projectDaoImp.saveOrUpdate(project);
           return project;
     }
@@ -342,8 +342,8 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     public CatLocationType createCatLocationType(final String catLocationType){
         final CatLocationType catLocatType = new CatLocationType();
-        catLocatType.setDescription(catLocationType);
-        catLocatType.setLevel(1);
+        catLocatType.setLocationTypeDescription(catLocationType);
+        catLocatType.setLocationTypeLevel(1);
         //getCatLocationType().saveOrUpdate(catLocatType);
         return catLocatType;
     }

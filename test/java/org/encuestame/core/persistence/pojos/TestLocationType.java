@@ -39,8 +39,8 @@ public class TestLocationType extends AbstractBaseTest {
 @Test
 public void testLocationType(){
     final CatLocationType catLocType = new CatLocationType();
-    catLocType.setDescription("Description");
-    catLocType.setLevel(1);
+    catLocType.setLocationTypeDescription("Description");
+    catLocType.setLocationTypeLevel(1);
     catLocType.setLocationTypeId(1L);
     //getCatLocationType().saveOrUpdate(catLocType);
 }

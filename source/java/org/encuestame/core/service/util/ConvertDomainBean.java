@@ -83,11 +83,11 @@ public class ConvertDomainBean {
      */
     public static UnitProjectBean convertProjectDomainToBean(final Project project) {
         final UnitProjectBean projectBean = new UnitProjectBean();
-        projectBean.setName(project.getDescription());
-        projectBean.setDateFinish(project.getDateFinish());
-        projectBean.setDateInit(project.getDateStart());
+        projectBean.setName(project.getProjectDescription());
+        projectBean.setDateFinish(project.getProjectDateFinish());
+        projectBean.setDateInit(project.getProjectDateStart());
         projectBean.setId(project.getProyectId());
-        projectBean.setState(project.getCatState().getIdState());
+        projectBean.setState(project.getCatStateProject().getIdState());
         return projectBean;
     }
 

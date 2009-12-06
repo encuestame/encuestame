@@ -70,10 +70,10 @@ public class DataSource implements IDataSource {
                 final UnitProjectBean projectBean = new UnitProjectBean();
                 Project project = i.next();
                 projectBean.setId(project.getProyectId());
-                projectBean.setName(project.getDescription());
-                projectBean.setDescription(project.getInfo());
-                projectBean.setDateInit(project.getDateStart());
-                projectBean.setDateFinish(project.getDateFinish());
+                projectBean.setName(project.getProjectDescription());
+                projectBean.setDescription(project.getProjectInfo());
+                projectBean.setDateInit(project.getProjectDateStart());
+                projectBean.setDateFinish(project.getProjectDateFinish());
                 // TODO: falta agregar lista de grupos, usuarios y grupos de encuestas
                 listProjects.add(projectBean);
             }
@@ -115,11 +115,11 @@ public class DataSource implements IDataSource {
         if (projectBean != null) {
             try {
                 Project projectDomain = new Project();
-                projectDomain.setCatState(getState(projectBean.getState()));
-                projectDomain.setDateFinish(projectBean.getDateFinish());
-                projectDomain.setDateStart(projectBean.getDateInit());
-                projectDomain.setDescription(projectBean.getName());
-                projectDomain.setInfo(projectBean.getDescription());
+                projectDomain.setCatStateProject(getState(projectBean.getState()));
+                projectDomain.setProjectDateFinish(projectBean.getDateFinish());
+                projectDomain.setProjectDateStart(projectBean.getDateInit());
+                projectDomain.setProjectDescription(projectBean.getName());
+                projectDomain.setProjectInfo(projectBean.getDescription());
                 log.info("created domain project");
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());
@@ -146,8 +146,8 @@ public class DataSource implements IDataSource {
          if (locatTypeBean!=null){
              try {
              CatLocationType locationTypeDomain = new CatLocationType();
-             locationTypeDomain.setDescription(locatTypeBean.getDescription());
-             locationTypeDomain.setLevel(locatTypeBean.getLevel());
+             locationTypeDomain.setLocationTypeDescription(locatTypeBean.getDescription());
+             locationTypeDomain.setLocationTypeLevel(locatTypeBean.getLevel());
              getCatLocationTypeDao().saveOrUpdate(locationTypeDomain);
              locatTypeBean.setLocationTypeId(locationTypeDomain.getLocationTypeId());
          } catch (HibernateException e) {
@@ -172,11 +172,11 @@ public class DataSource implements IDataSource {
         if (location!=null){
             try{
                 final CatLocation catLocationDomain = new CatLocation();
-                catLocationDomain.setDescription(location.getDescription());
-                catLocationDomain.setActive(location.getActive());
-                catLocationDomain.setLat(location.getLat());
-                catLocationDomain.setLng(location.getLng());
-                catLocationDomain.setLevel(location.getLevel());
+                catLocationDomain.setlocationDescription(location.getDescription());
+                catLocationDomain.setLocationActive(location.getActive());
+                catLocationDomain.setLocationLatitude(location.getLat());
+                catLocationDomain.setLocationLongitude(location.getLng());
+                catLocationDomain.setLocationLevel(location.getLevel());
                 getCatLocationDao().saveOrUpdate(catLocationDomain);
                 location.setLocateId(catLocationDomain.getLocateId());
             } catch (HibernateException e) {

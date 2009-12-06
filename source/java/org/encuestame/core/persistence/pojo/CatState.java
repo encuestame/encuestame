@@ -98,7 +98,7 @@ public class CatState implements Serializable {
         this.surveySections = surveySections;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "catState")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "catStateProject")
     public Set<Project> getProjects() {
         return this.projects;
     }

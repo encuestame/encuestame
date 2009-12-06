@@ -39,12 +39,15 @@ public class CatLocation implements Serializable {
 
     private Long locateId;
     private String tidtype;
-    private String description;
-    private Integer level;
-    private String active;
-    private Float lat;
-    private Float lng;
+    private String locationDescription;
+    private Integer locationLevel;
+    private String locationActive;
+    private Float locationLatitude;
+    private Float locationLongitude;
 
+    /**
+     * @return locateId
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "locate_id", unique = true, nullable = false)
@@ -52,62 +55,100 @@ public class CatLocation implements Serializable {
         return this.locateId;
     }
 
+    /**
+     * @param locateId locateId
+     */
     public void setLocateId(Long locateId) {
         this.locateId = locateId;
     }
 
+    /**
+     * @return tidtype
+     */
     @Column(name = "tidtype", nullable = true, length = 10)
     public String getTidtype() {
         return this.tidtype;
     }
 
+    /**
+     * @param tidtype tidtype
+     */
     public void setTidtype(String tidtype) {
         this.tidtype = tidtype;
     }
 
+    /**
+     * @return locationDescription
+     */
     @Column(name = "description", nullable = false)
-    public String getDescription() {
-        return this.description;
+    public String getLocationDescription() {
+        return this.locationDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * @param locationDescription locationDescription
+     */
+    public void setlocationDescription(final String locationDescription) {
+        this.locationDescription = locationDescription;
     }
 
+    /**
+     * @return locationLevel
+     */
     @Column(name = "level", nullable = false)
-    public int getLevel() {
-        return this.level;
+    public int getLocationLevel() {
+        return this.locationLevel;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    /**
+     * @param locationLevel locationLevel
+     */
+    public void setLocationLevel(final  int locationLevel) {
+        this.locationLevel = locationLevel;
     }
 
+    /**
+     * @return locationActive
+     */
     @Column(name = "active", length = 2)
-    public String getActive() {
-        return this.active;
+    public String getLocationActive() {
+        return this.locationActive;
     }
 
-    public void setActive(String active) {
-        this.active = active;
+    /**
+     * @param locationActive locationActive
+     */
+    public void setLocationActive(final String locationActive) {
+        this.locationActive = locationActive;
     }
 
+    /**
+     * @return locationLatitude
+     */
     @Column(name = "lat", precision = 10, scale = 6)
-    public Float getLat() {
-        return this.lat;
+    public Float getLocationLatitude() {
+        return this.locationLatitude;
     }
 
-    public void setLat(Float lat) {
-        this.lat = lat;
+    /**
+     * @param locationLatitude locationLatitude
+     */
+    public void setLocationLatitude(final Float locationLatitude) {
+        this.locationLatitude = locationLatitude;
     }
 
+    /**
+     * @return locationLongitude
+     */
     @Column(name = "lng", precision = 10, scale = 6)
-    public Float getLng() {
-        return this.lng;
+    public Float getLocationLongitude() {
+        return this.locationLongitude;
     }
 
-    public void setLng(Float lng) {
-        this.lng = lng;
+    /**
+     * @param locationLongitude locationLongitude
+     */
+    public void setLocationLongitude(final Float locationLongitude) {
+        this.locationLongitude = locationLongitude;
     }
-
 }

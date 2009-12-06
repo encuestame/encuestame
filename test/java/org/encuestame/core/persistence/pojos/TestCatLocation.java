@@ -26,10 +26,10 @@ import org.junit.Test;
  *
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 02/11/2009 16:18:49
- * File name: $HeadURL:$
+ * File name: $HeadURL$
  * Revision: $Revision$
- * Last modified: $Date:$
- * Last modified by: $Author:$
+ * Last modified: $Date$
+ * Last modified by: $Author$
  */
 public class TestCatLocation extends AbstractBaseTest{
     /**
@@ -38,11 +38,11 @@ public class TestCatLocation extends AbstractBaseTest{
     @Test
     public void testCatLocation(){
     final CatLocation catLoc = new CatLocation();
-    catLoc.setActive("S");
-    catLoc.setDescription("Locate Description");
-    catLoc.setLevel(1);
-    catLoc.setLat(2F);
-    catLoc.setLng(3F);
+    catLoc.setLocationActive("S");
+    catLoc.setlocationDescription("Locate Description");
+    catLoc.setLocationLevel(1);
+    catLoc.setLocationLatitude(2F);
+    catLoc.setLocationLongitude(3F);
     catLoc.setTidtype("1");
     getCatLocationDao().saveOrUpdate(catLoc);
 
