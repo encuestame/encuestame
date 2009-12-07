@@ -31,7 +31,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Class Description.
+ * Test Security Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 08/11/2009 11:35:01
  * File name: $HeadURL$
