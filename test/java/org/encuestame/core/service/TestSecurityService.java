@@ -17,6 +17,8 @@
  */
 package org.encuestame.core.service;
 
+import java.util.Date;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
@@ -29,6 +31,7 @@ import org.encuestame.web.beans.admon.UnitUserBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Test Security Service.
@@ -227,5 +230,221 @@ public class TestSecurityService extends AbstractBaseTest{
 
     }
 
+    /**
+     * Test Renew Password without Pass.
+     * @throws EnMeExpcetion  EnMeExpcetion
+     */
+    /*  @Test
+    @ExpectedException(EnMeExpcetion.class)
+   public void testRenewPasswordwithoutPass()throws EnMeExpcetion{
+      SecUsers secUser = createUsers("diana");
+
+      UnitUserBean userPassBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+      userPassBean.setPassword(null);
+      securityService.renewPassword(userPassBean);
+
+    }
+/*
+    /**
+     * Test Create User without Email.
+     * @throws EnMeExpcetion EnMeExpcetion
+     **/
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+       public void testCreateUserwithoutEmail() throws EnMeExpcetion{
+        final UnitUserBean userCreateBean = new UnitUserBean();
+        userCreateBean.setEmail(null);
+        userCreateBean.setUsername("diana");
+          securityService.createUser(userCreateBean);
+       }
+
+      /**
+       * Test Create User without Username.
+       * @throws EnMeExpcetion EnMeExpcetion
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+       public void testCreateUserwithoutUsername() throws EnMeExpcetion{
+        UnitUserBean userCreateBean = new UnitUserBean();
+        userCreateBean.setEmail("paola@jotadeveloper.com");
+        userCreateBean.setUsername(null);
+          securityService.createUser(userCreateBean);
+       }
+
+      /**
+       * Test Create User with Username.
+       * @throws EnMeExpcetion EnMeExpcetion
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+       public void testCreateUserwithUsernameEmail() throws EnMeExpcetion{
+        final UnitUserBean userCreateBean = new UnitUserBean();
+        userCreateBean.setEmail("paola@jotadeveloper.com");
+        userCreateBean.setUsername("paola");
+        userCreateBean.setStatus(true);
+        userCreateBean.setPublisher(Boolean.TRUE);
+        userCreateBean.setName("Diana Paola");
+        userCreateBean.setDateNew(new Date());
+          securityService.createUser(userCreateBean);
+       }
+
+      /**
+       * Test Create User without Password.
+       * @throws EnMeExpcetion EnMeExpcetion
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+       public void testCreateUserwithoutPassword() throws EnMeExpcetion{
+        SecUsers secCreateUser = new SecUsers();
+        UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);
+        userCreateBean.setPassword(null);
+        userCreateBean.setEmail("paola@jotadeveloper.com");
+        userCreateBean.setUsername("paola");
+        userCreateBean.setStatus(true);
+        userCreateBean.setPublisher(Boolean.TRUE);
+        userCreateBean.setName("Diana Paola");
+        userCreateBean.setDateNew(new Date());
+
+          securityService.createUser(userCreateBean);
+       }
+
+      /**
+       * Test Create User without Password.
+       * @throws EnMeExpcetion EnMeExpcetion
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+       public void testCreateUserwithPassword() throws EnMeExpcetion{
+        SecUsers secCreateUser = new SecUsers();
+        UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);
+        userCreateBean.setPassword("12345");
+        userCreateBean.setEmail("paola@jotadeveloper.com");
+        userCreateBean.setUsername("paola");
+        userCreateBean.setStatus(true);
+        userCreateBean.setPublisher(Boolean.TRUE);
+        userCreateBean.setName("Diana Paola");
+        userCreateBean.setDateNew(new Date());
+        securityService.createUser(userCreateBean);
+       }
+
+
+      /**
+       * Test Create Group.
+       */
+      @Test
+      public void testCreateGroup(){
+        SecGroups secCreateGroup = new SecGroups();
+        secCreateGroup.setGroupId(12L);
+        secCreateGroup.setGroupDescriptionInfo("1111");
+        secCreateGroup.setGroupName("vvvv");
+        secCreateGroup.setIdState(1L);
+        UnitGroupBean createGroupBean = ConvertDomainBean.convertGroupDomainToBean(secCreateGroup);
+        securityService.createGroup(createGroupBean);
+      }
+
+      /**
+       * Test Assing Permission without Id an Username.
+       * @throws EnMeExpcetion  EnMeExpcetion
+       */
+      @Test
+
+      public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
+        final SecUsers secUser = createUsers("juanpicado");
+        final SecPermission secPermission = createPermission("redactor");
+       /*0secPermission.setIdPermission(1L);
+        secPermission.setPermissionDescription("new Permission");
+        secPermission.setPermission("permission");*/
+        UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+        UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
+        userPermissionBean.setId(1);
+        userPermissionBean.setUsername("josefina");
+        securityService.assignPermission(userPermissionBean, permissionBean);
+      }
+
+        /**
+         * Test Assign Permission without Username.
+         * @throws EnMeExpcetion EnMeExpcetion
+         */
+        @Test
+        public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion{
+          final SecUsers secUser = createUsers("juanpicado");
+          final SecPermission secPermission = createPermission("redactor");
+         /*0secPermission.setIdPermission(1L);
+          secPermission.setPermissionDescription("new Permission");
+          secPermission.setPermission("permission");*/
+          UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+          UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
+          permissionBean.setId(1);
+          permissionBean.setPermission("auditor");
+          securityService.assignPermission(userPermissionBean, permissionBean);
+
+      }
+
+
+        /**
+         * Test Assign Permission with Permission.
+         * @throws EnMeExpcetion EnMeExpcetion
+         */
+        @Test
+        public void testAssignPermissionwithPermission() throws EnMeExpcetion{
+          final SecUsers secUser = createUsers("jpicado");
+          final SecPermission secPermission = createPermission("redactor");
+         /*0secPermission.setIdPermission(1L);
+          secPermission.setPermissionDescription("new Permission");
+          secPermission.setPermission("permission");*/
+          UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+          UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
+          userPermissionBean.setId(1);
+          userPermissionBean.setUsername(null);
+          permissionBean.setId(1);
+          permissionBean.setPermission("analista");
+          securityService.assignPermission(userPermissionBean, permissionBean);
+
+      }
+
+
+        /**
+         * Test Assign Permission with Permission Id and User Id.
+         * @throws EnMeExpcetion EnMeExpcetion
+         */
+        @Test
+        public void testAssignPermissionwithPermissionIdandUserId() throws EnMeExpcetion{
+          final SecUsers secUser = createUsers("dmorales");
+          final SecPermission secPermission = createPermission("redactor");
+         /*0secPermission.setIdPermission(1L);
+          secPermission.setPermissionDescription("new Permission");
+          secPermission.setPermission("permission");*/
+          UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+          UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
+          //userPermissionBean.setId(1);
+          //userPermissionBean.setUsername(null);
+          securityService.assignPermission(userPermissionBean, permissionBean);
+
+      }
+
+        /**
+         * Test Assign Group.
+         * @throws EnMeExpcetion EnMeExpcetion
+         */
+        @Test
+        public void testAssignGroup() throws EnMeExpcetion{
+          final SecUsers users=  createUsers("cherrera");
+          final SecGroups groups = createGroups("encuestador");
+          UnitUserBean userBean = ConvertDomainBean.convertUserDaoToUserBean(users);
+          UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
+          securityService.assingGroup(userBean, groupBean);
+
+        }
+
+        /**
+         *Test Load Bean Permission.
+         * @throws EnMeExpcetion EnMeExpcetion
+         */
+        @Test
+        public void testloadBeanPermission() throws EnMeExpcetion{
+          securityService.loadBeanPermission("permission");
+
+        }
+
 }
-;
+

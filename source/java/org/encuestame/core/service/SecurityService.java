@@ -407,7 +407,7 @@ public class SecurityService extends Service implements ISecurityService {
         userDomain.setEnjoyDate(new Date());
         try {
             // send to user the password to her emails
-            if((!getSuspendedNotification())) {
+            if((getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), password);
             }
             // save user
@@ -493,11 +493,11 @@ public class SecurityService extends Service implements ISecurityService {
 
     /**
      * Assing group to user.
-     * @param userBean
-     * @param groupBean
-     * @throws HibernateException
+     * @param userBean userBean
+     * @param groupBean groupBean
+     * @throws EnMeExpcetion EnMeExpcetion
      */
-    private void assingGroup(
+    public void assingGroup(
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion {
