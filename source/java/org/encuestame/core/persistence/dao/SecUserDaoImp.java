@@ -26,6 +26,7 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
@@ -53,18 +54,18 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @return list of all users
      * @throws HibernateException hibernate
      */
-    public List<SecUsers> findAll() throws HibernateException {
-        return super.findAll("from SecUsers");
+    public List<SecUserSecondary> findAll() throws HibernateException {
+        return super.findAll("from SecUserSecondary");
     }
 
     /**
      * Get User By Id.
      * @param userId userId
-     * @return SecUsers
+     * @return SecUserSecondary
      * @throws HibernateException hibernate exception
      */
-    public SecUsers getUserById(final Long userId) throws HibernateException{
-        return (SecUsers) getSession().get(SecUsers.class, userId);
+    public SecUserSecondary getUserById(final Long userId) throws HibernateException{
+        return (SecUserSecondary) getSession().get(SecUserSecondary.class, userId);
     }
 
     /**
@@ -72,9 +73,9 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param username username
      * @return list of users
      */
-    public SecUsers getUserByUsername(final String username)throws HibernateException {
-        return  (SecUsers) getSession()
-        .createCriteria(SecUsers.class)
+    public SecUserSecondary getUserByUsername(final String username)throws HibernateException {
+        return  (SecUserSecondary) getSession()
+        .createCriteria(SecUserSecondary.class)
         .add(Restrictions.eq("username", username))
         .uniqueResult();
     }

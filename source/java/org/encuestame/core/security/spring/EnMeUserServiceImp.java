@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.GrantedAuthority;
@@ -85,7 +86,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             throws UsernameNotFoundException, DataAccessException {
         log.info("loading by username");
         log.info("username: "+username);
-        final SecUsers user = secUserDao.getUserByUsername(username);
+        final SecUserSecondary user = secUserDao.getUserByUsername(username);
         if (user == null) {
             log.warn("user not found");
             throw new UsernameNotFoundException("user not found");
@@ -109,7 +110,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * @param user
      * @return {@link UserDetails}
      */
-    protected UserDetails convertToUserDetails(final SecUsers user) {
+    protected UserDetails convertToUserDetails(final SecUserSecondary user) {
         final List<String> listPermissions = new ArrayList<String>();
         if (user == null) {
             return null;
@@ -120,7 +121,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             //search groups of the user
             log.info("list group permissions");
             final List<SecGroupPermission> listGroupPermissions = secUserDao
-                    .getGroupPermission(secUserDao.getUserGroups(user));
+                    .getGroupPermission(secUserDao.getUserGroups(user.getSecUser()));
                 //iterator list of groups permissions
                 final Iterator<SecGroupPermission> iterator = listGroupPermissions
                         .iterator();
@@ -148,7 +149,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         if (this.roleUserAuth == true) {
             log.info("list user permissions");
            final List<SecUserPermission> listUserPermissions = secUserDao
-                    .getUserPermission(user);
+                    .getUserPermission(user.getSecUser());
                 Iterator<SecUserPermission> iteratorUser = listUserPermissions.iterator();
                 while (iteratorUser.hasNext()) {
                     final SecUserPermission secPermission = (SecUserPermission) iteratorUser

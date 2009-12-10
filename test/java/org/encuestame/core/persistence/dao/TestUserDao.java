@@ -23,8 +23,10 @@ import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -39,13 +41,23 @@ import org.junit.Test;
  */
 public class TestUserDao extends AbstractBaseTest {
 
+    private SecUsers userPrimary;
+
+    /**
+     * Before.
+     */
+    @Before
+    public void initService(){
+        this.userPrimary = createUser();
+    }
+
     /***
      *Test Create User.
      */
     @Test
     public void testCreateUser() {
-        final SecUsers user = super.createUsers("user 1");
-        assertNotNull(user);
+       final SecUserSecondary user = createSecondaryUser("user 1", this.userPrimary);
+       assertNotNull(user);
     }
 
     /**
@@ -53,8 +65,8 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testDeleteUser() {
-        final SecUsers user = super.createUsers("user 1");
-        getSecUserDao().delete(user);
+        final SecUserSecondary user = createSecondaryUser("user 2", this.userPrimary);
+         getSecUserDao().delete(user);
         assertEquals("Should be equals",0, getSecUserDao().findAll().size());
     }
 
@@ -63,8 +75,8 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testFindAllUsers() {
-        super.createUsers("user 1");
-        super.createUsers("user 2");
+        createSecondaryUser("user 1", this.userPrimary);
+        createSecondaryUser("user 2", this.userPrimary);
         assertEquals("Should be equals",2, getSecUserDao().findAll().size());
     }
 
@@ -75,11 +87,11 @@ public class TestUserDao extends AbstractBaseTest {
     public void testUpdateUser(){
         final String newPassword = "54321";
         final String newEmail = "user2@users.com";
-        final SecUsers user = super.createUsers("user 1");
+        final SecUserSecondary user = createSecondaryUser("user 1", this.userPrimary);
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
         getSecUserDao().saveOrUpdate(user);
-        final SecUsers retrieveUser = getSecUserDao().getUserById(Long.valueOf(
+        final SecUserSecondary retrieveUser = getSecUserDao().getUserById(Long.valueOf(
               user.getUid()));
         assertEquals("Password should be",newPassword,
                       retrieveUser.getPassword());
@@ -92,8 +104,8 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testGetUserByUsername(){
-          final SecUsers user = super.createUsers("user 3");
-          final SecUsers retrieveUser = getSecUserDao()
+          final SecUserSecondary user = createSecondaryUser("user 3", this.userPrimary);
+          final SecUserSecondary retrieveUser = getSecUserDao()
           .getUserByUsername(user.getUsername());
           assertEquals("Username should be",user.getUsername(),
           retrieveUser.getUsername());
@@ -104,11 +116,11 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testAssingGroupToUser(){
-        final SecUsers user = super.createUsers("user 4");
+        final SecUserSecondary user = createSecondaryUser("user 4", this.userPrimary);
         final SecGroups group = super.createGroups("group 1");
-        super.addGroupUser(user, group);
+        super.addGroupUser(user.getSecUser(), group);
         final List<SecGroupUser> groups = getSecUserDao()
-                                .getUserGroups(user);
+                                .getUserGroups(user.getSecUser());
         assertEquals("Should be equals", 1,groups.size());
     }
 
@@ -117,15 +129,15 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testgetGroupPermission(){
-        final SecUsers user = super.createUsers("user 1");
+        final SecUserSecondary user = createSecondaryUser("user 5", this.userPrimary);
         final SecGroups security = super.createGroups("group 1");
-        addGroupUser(user, security);
+        addGroupUser(user.getSecUser(), security);
         final SecPermission editor = super.createPermission("permission");
         final SecPermission admon = super.createPermission("admon");
         addPermissionToGroup(admon, security);
         addPermissionToGroup(editor, security);
         final List<SecGroupPermission> listofPermissions = getSecUserDao()
-        .getGroupPermission(getSecUserDao().getUserGroups(user));
+        .getGroupPermission(getSecUserDao().getUserGroups(user.getSecUser()));
         assertEquals("Should be equals",2, listofPermissions.size());
     }
 }

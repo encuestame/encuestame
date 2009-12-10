@@ -47,16 +47,8 @@ public class TestSecUsers extends AbstractBaseTest{
     @Test
     public void testSecUser(){
         final SecUsers user = new SecUsers();
-        user.setUserEmail("user@d.com");
-        user.setUserStatus(true);
-        user.setEnjoyDate(new Date());
-        user.setCompleteName("prueba");
-        user.setPassword("1111");
-        user.setInviteCode("2");
-        user.setPublisher(false);
-
         final Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
-       // user.setProjectUsers(projectUser);
+        user.setProjectUsers(projectUser);
         getSecUserDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }

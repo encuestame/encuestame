@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionsPatron;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.web.beans.admon.GroupBean;
 import org.encuestame.web.beans.admon.UnitGroupBean;
@@ -45,7 +46,7 @@ public class ConvertDomainBean {
      * @param domainUser Domain User
      * @return Bean User
      */
-    public static UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
+    public static UnitUserBean convertUserDaoToUserBean(SecUserSecondary domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
             user.setName(domainUser.getCompleteName());

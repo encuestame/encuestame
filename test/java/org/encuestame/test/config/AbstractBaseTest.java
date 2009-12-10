@@ -42,6 +42,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermissionId;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -318,18 +319,35 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
-     * Helper to create User.
+     * Helper to create Secondary User.
      * @param name user name
+     * @param secUser {@link SecUsers}
      * @return state
      */
-    public SecUsers createUsers(final String name){
-        final SecUsers user= new SecUsers();
+    public SecUserSecondary createSecondaryUser(
+            final String name,
+            final SecUsers secUser){
+        final SecUserSecondary user= new SecUserSecondary();
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
         user.setUserEmail(name+"@users.com");
         user.setEnjoyDate(new Date());
+        user.setInviteCode("xxxxxxx");
+        user.setOwner(true);
+        user.setPublisher(true);
+        user.setSecUser(secUser);
         user.setUserStatus(true);
+        getSecUserDao().saveOrUpdate(user);
+        return user;
+    }
+
+    /**
+     * Create User.
+     * @return {@link SecUsers}
+     */
+    public SecUsers createUser(){
+        SecUsers user = new SecUsers();
         getSecUserDao().saveOrUpdate(user);
         return user;
     }

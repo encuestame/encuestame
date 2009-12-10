@@ -23,6 +23,7 @@ import java.util.List;
 import org.encuestame.core.persistence.pojo.SecGroupPermission;
 import org.encuestame.core.persistence.pojo.SecGroupUser;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 
@@ -34,7 +35,7 @@ import org.hibernate.HibernateException;
  */
 public interface ISecUserDao extends IBaseDao {
 
-    public SecUsers getUserByUsername(final String username)throws HibernateException;
+    public SecUserSecondary getUserByUsername(final String username)throws HibernateException;
 
     public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
 
@@ -45,8 +46,8 @@ public interface ISecUserDao extends IBaseDao {
 
     public List<SecGroupUser> getUserGroups(SecUsers username);
 
-    public SecUsers getUserById(Long userId) throws HibernateException;
+    public SecUserSecondary getUserById(Long userId) throws HibernateException;
 
-    public List<SecUsers> findAll() throws HibernateException;
+    public List<SecUserSecondary> findAll() throws HibernateException;
 
 }

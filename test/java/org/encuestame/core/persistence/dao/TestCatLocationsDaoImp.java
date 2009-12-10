@@ -21,8 +21,10 @@ import java.util.Collection;
 
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -37,12 +39,22 @@ import org.junit.Test;
  */
 public class TestCatLocationsDaoImp extends AbstractBaseTest{
 
+    private SecUsers userPrimary;
+
+    /**
+     * Before.
+     */
+    @Before
+    public void initService(){
+        this.userPrimary = createUser();
+    }
+
     /**
      *
      */
     @Test
     public void testloadPermissionByUserId(){
-        final SecUsers user = super.createUsers("user 1");
+        final SecUserSecondary user = super.createSecondaryUser("user 1",this.userPrimary);
         final SecPermission permission1 = super.createPermission("admon");
         final SecPermission permission2 = super.createPermission("editor");
         final Collection<SecUserPermission> listofPermissions = getSecPermissionDaoImp().loadPermissionByUserId(Integer.valueOf(user.getUid().toString()));

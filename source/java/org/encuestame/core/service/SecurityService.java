@@ -33,6 +33,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermissionId;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.web.beans.admon.UnitGroupBean;
@@ -123,17 +124,17 @@ public class SecurityService extends Service implements ISecurityService {
     public Collection<UnitUserBean> loadListUsers() throws EnMeExpcetion {
         final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         try {
-            final Collection<SecUsers> listUsers = getUserDao().findAll();
+            final Collection<SecUserSecondary> listUsers = getUserDao().findAll();
                 if (listUsers.size() > 0) {
-                    for (Iterator<SecUsers> i = listUsers.iterator(); i.hasNext();) {
+                    for (Iterator<SecUserSecondary> i = listUsers.iterator(); i.hasNext();) {
                         final UnitUserBean userBean = new UnitUserBean();
-                        final  SecUsers user = i.next();
+                        final  SecUserSecondary user = i.next();
                         userBean.setId(Integer.valueOf(user.getUid().toString()));
                         userBean.setName(user.getCompleteName());
                         userBean.setEmail(user.getUserEmail());
                         userBean.setUsername(user.getUsername());
-                        userBean.setPublisher(user.getPublisher());
-                        userBean.setStatus(user.isUserStatus());
+                       // userBean.setPublisher(user.getPublisher());
+                       // userBean.setStatus(user.isUserStatus());
                         userBean.setListGroups(convertSetToUnitGroupBean(Integer.valueOf((user.getUid().toString()))));
                         userBean.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));
                         loadListUsers.add(userBean);
@@ -163,7 +164,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return {@link UnitUserBean}
      */
     public UnitUserBean searchUserByUsername(final String username) {
-        final SecUsers userD = getUserDao().getUserByUsername(username);
+        final SecUserSecondary userD = getUserDao().getUserByUsername(username);
         UnitUserBean user = null;
         if (userD != null) {
             user = convertUserDaoToUserBean(userD);
@@ -178,7 +179,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param domainUser Domain User
      * @return Bean User
      */
-    public UnitUserBean convertUserDaoToUserBean(SecUsers domainUser) {
+    public UnitUserBean convertUserDaoToUserBean(SecUserSecondary domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
             user.setName(domainUser.getCompleteName());
@@ -295,7 +296,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userBean user to delete
      */
     public void deleteUser(final UnitUserBean userBean) {
-        final SecUsers userDomain = getUser(userBean.getUsername().trim());
+        final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
         if (getSuspendedNotification()) {
             getServiceMail().sendDeleteNotification(userBean.getEmail(),
                     getMessageProperties("MessageDeleteNotification"));
@@ -308,7 +309,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userBean {@link UnitUserBean}
      */
     public void renewPassword(final UnitUserBean userBean) {
-        final SecUsers userDomain = getUser(userBean.getUsername().trim());
+        final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
         if (userDomain.getPassword() != null) {
             final String newPassowrd = generatePassword();
             userDomain.setPassword(encryptPassworD(newPassowrd));
@@ -323,7 +324,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return user domain
      */
     // TODO: maybe should be move to parent beans.
-    private SecUsers getUser(final String username) {
+    private SecUserSecondary getUser(final String username) {
         return getUserDao().getUserByUsername(username.trim());
     }
 
@@ -346,7 +347,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userBean user bean.
      */
     public void updateUser(final UnitUserBean userBean) {
-        final SecUsers updateUser = getUserDao().getUserByUsername(userBean.getUsername());
+        final SecUserSecondary updateUser = getUserDao().getUserByUsername(userBean.getUsername());
         if (updateUser != null) {
             updateUser.setUserEmail(userBean.getEmail());
             updateUser.setCompleteName(userBean.getName());
@@ -386,7 +387,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @throws EnMeExpcetion personalize exception
      */
     public void createUser(UnitUserBean userBean) throws EnMeExpcetion {
-        final SecUsers userDomain = new SecUsers();
+        final SecUserSecondary userDomain = new SecUserSecondary();
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
             userDomain.setUserEmail(userBean.getEmail());
             userDomain.setUsername(userBean.getUsername());
@@ -460,7 +461,7 @@ public class SecurityService extends Service implements ISecurityService {
             throws EnMeExpcetion
    {
         if (userBean.getId() == null && userBean.getUsername() != null) {
-            final SecUsers userDomain = getUser(userBean.getUsername());
+            final SecUserSecondary userDomain = getUser(userBean.getUsername());
             userBean.setId(Integer.valueOf(userDomain.getUid().toString()));
         }
         if (permissionBean.getId() == null && permissionBean.getPermission() != null) {

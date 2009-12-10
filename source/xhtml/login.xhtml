@@ -17,7 +17,7 @@
 <ui:composition template="/templates/login.xhtml">
   <ui:define name="body">
     <div id="wrapper_login">
-    <h:form id="loginForm">
+    <h:form id="loginForm" >
       <h:panelGrid columns="3" cellpadding="3" cellspacing="2">
         <h:outputLabel value="User" for="j_username" />
         <h:inputText value="#{loginForm.userName}"
@@ -34,7 +34,7 @@
       <h:commandLink value="register" action="register">
 
     </h:commandLink>
-      <rich:messages errorClass="error"></rich:messages>
+      <rich:messages errorClass="error" ></rich:messages>
     </h:form></div>
   </ui:define>
 </ui:composition>

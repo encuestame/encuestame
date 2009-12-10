@@ -71,6 +71,7 @@
               <value>org.encuestame.core.persistence.pojo.SecUserPermission</value>
               <value>org.encuestame.core.persistence.pojo.SecUserPermissionId</value>
               <value>org.encuestame.core.persistence.pojo.SecUsers</value>
+              <value>org.encuestame.core.persistence.pojo.SecUserSecondary</value>
               <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
               <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>
               <value>org.encuestame.core.persistence.pojo.SurveyFormat</value>
