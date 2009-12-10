@@ -43,6 +43,7 @@ public class UnitUserBean extends MasterBean implements Serializable {
     private String password;
     private String inviteCode;
     private Date dateNew;
+    private Long primaryUserId;
     private Boolean publisher;
     private Collection<UnitGroupBean> listGroups;
     private Collection<UnitPermission> listPermission;
@@ -178,4 +179,17 @@ public class UnitUserBean extends MasterBean implements Serializable {
     public void setListPermission(Collection<UnitPermission> listPermission) {
         this.listPermission = listPermission;
     }
+    /**
+     * @return the primaryUserId
+     */
+    public Long getPrimaryUserId() {
+        return primaryUserId;
+    }
+    /**
+     * @param primaryUserId the primaryUserId to set
+     */
+    public void setPrimaryUserId(Long primaryUserId) {
+        this.primaryUserId = primaryUserId;
+    }
+
 }

@@ -388,6 +388,8 @@ public class SecurityService extends Service implements ISecurityService {
      */
     public void createUser(UnitUserBean userBean) throws EnMeExpcetion {
         final SecUserSecondary userDomain = new SecUserSecondary();
+        final SecUsers userPrimary = new SecUsers();
+        getUserDao().saveOrUpdate(userPrimary);
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
             userDomain.setUserEmail(userBean.getEmail());
             userDomain.setUsername(userBean.getUsername());
@@ -406,6 +408,7 @@ public class SecurityService extends Service implements ISecurityService {
         userDomain.setCompleteName(userBean.getName());
         userDomain.setUserStatus(userBean.getStatus());
         userDomain.setEnjoyDate(new Date());
+        userDomain.setSecUser(userPrimary);
         try {
             // send to user the password to her emails
             if((getSuspendedNotification())) {
