@@ -43,73 +43,73 @@ public class LocationBean extends MasterBean implements Serializable{
 
 
     /**
-     * @return
+     * @return locateId
      */
     public Long getLocateId() {
         return locateId;
     }
     /**
-     * @param locateId
+     * @param locateId locateId
      */
     public void setLocateId(Long locateId) {
         this.locateId = locateId;
     }
     /**
-     * @return
+     * @return description
      */
     public String getDescription() {
         return description;
     }
     /**
-     * @param description
+     * @param description description
      */
     public void setDescription(String description) {
         this.description = description;
     }
     /**
-     * @return
+     * @return level
      */
     public Integer getLevel() {
         return level;
     }
     /**
-     * @param level
+     * @param level level
      */
     public void setLevel(Integer level) {
         this.level = level;
     }
     /**
-     * @return
+     * @return active
      */
     public String getActive() {
         return active;
     }
     /**
-     * @param active
+     * @param active active
      */
     public void setActive(String active) {
         this.active = active;
     }
     /**
-     * @return
+     * @return lat
      */
     public Float getLat() {
         return lat;
     }
     /**
-     * @param lat
+     * @param lat lat
      */
     public void setLat(Float lat) {
         this.lat = lat;
     }
     /**
-     * @return
+     * @return lng
      */
     public Float getLng() {
         return lng;
     }
     /**
-     * @param lng
+     * @param lng lng
      */
     public void setLng(Float lng) {
         this.lng = lng;

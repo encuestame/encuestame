@@ -17,64 +17,41 @@
  */
 package org.encuestame.web.beans.location;
 
-import java.io.Serializable;
-
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.web.beans.MasterBean;
 
 /**
- * Description.
+ * Location Type Bean.
  * @author Morales, Diana Paola paola@encuestame.org
- * @since  16/11/2009 21:25:07
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @since 16/11/2009 21:25:07
  */
-public class LocationTypeBean extends MasterBean implements Serializable{
-
-    private static final long serialVersionUID = -9098305021342831224L;
-    private String description;
-    private Integer level;
-    private Long locationTypeId;
-
+public class LocationTypeBean extends MasterBean {
+    /**Unit Location Type.*/
+    UnitLocationTypeBean locationTypeBean;
 
     /**
-     * @return
+     * Location Type Bean Constructor.
      */
-    public String getDescription() {
-        return this.description;
-    }
-    /**
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    /**
-     * @return
-     */
-    public Integer getLevel() {
-        return level;
-    }
-    /**
-     * @param level
-     */
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-    /**
-     * @return the locationTypeId
-     */
-    public Long getLocationTypeId() {
-        return locationTypeId;
-    }
-    /**
-     * @param locationTypeId the locationTypeId to set
-     */
-    public void setLocationTypeId(Long locationTypeId) {
-        this.locationTypeId = locationTypeId;
+    public LocationTypeBean() {
+
     }
 
+    /**
+     *Create Location Type.
+     */
+    public void createLocationType(){
+        try {
+            getServicemanager().getDataEnMeSource().createCatLocationType(this.locationTypeBean);
+        } catch (EnMeExpcetion e) {
+            addErrorMessage(e.getMessage(),e.getMessage());
+        }
 
+    }
 
+    /**
+     * @param locationTypeBean the locationTypeBean to set
+     */
+    public void setLocationTypeBean(UnitLocationTypeBean locationTypeBean) {
+        this.locationTypeBean = locationTypeBean;
+    }
 }

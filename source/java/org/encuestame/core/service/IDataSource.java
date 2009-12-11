@@ -27,6 +27,7 @@ import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
+import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 
 /**
@@ -70,7 +71,7 @@ public interface IDataSource {
      * @return {@link LocationTypeBean}
      * @throws EnMeExpcetion exception
      */
-    public LocationTypeBean createCatLocationType(LocationTypeBean locatType) throws EnMeExpcetion;
+    public UnitLocationTypeBean createCatLocationType(UnitLocationTypeBean locatType) throws EnMeExpcetion;
 
     /**
      * create Cat Location.

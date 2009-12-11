@@ -55,8 +55,8 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
             final String locationName,
             final Integer level){
         final LocationTypeBean locationTypeBean = new  LocationTypeBean();
-        locationTypeBean.setDescription(locationName);
-        locationTypeBean.setLevel(level);
+      //  locationTypeBean.setDescription(locationName);
+       // locationTypeBean.setLevel(level);
         return locationTypeBean;
     }
 

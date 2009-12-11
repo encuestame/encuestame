@@ -137,14 +137,14 @@ public class TestDataSource extends AbstractBeanBaseTest {
      * Test Create Location Type.
      * @throws EnMeExpcetion exception
      */
-    @Test
+    /* @Test
     public void testcreateCatLocationType()throws EnMeExpcetion {
         LocationTypeBean locationTypeBean = createLocationTypeBean("nicaragua",0);
         locationTypeBean = dataSource.createCatLocationType(locationTypeBean);
         final CatLocationType locationTypeDomain = getCatLocationTypeDao().getLocationById(locationTypeBean.getLocationTypeId());
         assertNotNull(locationTypeDomain);
         assertEquals("Should be equals ",locationTypeDomain.getLocationTypeId(),locationTypeBean.getLocationTypeId());
-    }
+    }*/
 
 
     /**

@@ -36,6 +36,7 @@ import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
+import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.hibernate.HibernateException;
 /**
@@ -138,25 +139,29 @@ public class DataSource implements IDataSource {
     /**
      * create Cat LocationType.
      * @param locatTypeBean {@link LocationTypeBean}
+     * @return locatTypeBean
      * @throws EnMeExpcetion exception
      */
-    public LocationTypeBean createCatLocationType(LocationTypeBean locatTypeBean) throws EnMeExpcetion
+    public UnitLocationTypeBean createCatLocationType(UnitLocationTypeBean locatTypeBean) throws EnMeExpcetion
     {
          log.info("create LocationType");
          if (locatTypeBean!=null){
              try {
-             CatLocationType locationTypeDomain = new CatLocationType();
-             locationTypeDomain.setLocationTypeDescription(locatTypeBean.getDescription());
+             final CatLocationType locationTypeDomain = new CatLocationType();
+             locationTypeDomain.setLocationTypeDescription(locatTypeBean.getLocTypeDesc());
              locationTypeDomain.setLocationTypeLevel(locatTypeBean.getLevel());
              getCatLocationTypeDao().saveOrUpdate(locationTypeDomain);
-             locatTypeBean.setLocationTypeId(locationTypeDomain.getLocationTypeId());
-         } catch (HibernateException e) {
+             locatTypeBean.setIdLocType((locationTypeDomain.getLocationTypeId()));
+         }
+         catch (HibernateException e) {
              throw new EnMeExpcetion(e);
-         } catch (Exception e) {
+         }
+         catch (Exception e) {
              throw new EnMeExpcetion(e);
          }
          return locatTypeBean;
-     } else {
+     }
+     else {
          throw new EnMeExpcetion("Cat Location Type is null");
      }
  }

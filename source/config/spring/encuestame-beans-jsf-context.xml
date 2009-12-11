@@ -56,12 +56,24 @@
 
     <!-- Location -->
 
-    <bean id="locationUserBean" class="org.encuestame.web.beans.location.LocationBean"
+
+    <bean id="locationBean" class="org.encuestame.web.beans.location.LocationBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
+    <bean id="locationTypeBean" class="org.encuestame.web.beans.location.LocationTypeBean"
+        scope="session">
+        <property name="servicemanagerBean" ref="servicesManager" />
+        <property name="locationTypeBean" ref="unitLocationTypeBean" />
+    </bean>
+
     <bean id="treeNodeLocationBean" class="org.encuestame.web.beans.location.TreeNodeTest"
+        scope="session">
+        <property name="servicemanagerBean" ref="servicesManager" />
+    </bean>
+
+     <bean id="unitLocationTypeBean" class="org.encuestame.web.beans.location.UnitLocationTypeBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>

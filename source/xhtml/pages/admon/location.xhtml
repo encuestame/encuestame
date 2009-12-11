@@ -1,29 +1,56 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:encuestame="http://encuesta.me/encuestame"
-	xmlns:m="http://code.google.com/p/gmaps4jsf/">
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:encuestame="http://encuesta.me/encuestame">
 <body>
 <ui:composition template="/templates/admonTemplate.xhtml">
 
-<ui:define name="googleMaps"></ui:define>
-	<ui:define name="bodyOptions">
-		<h:form>
-			<rich:tree style="width:300px" switchType="ajax">
-				<rich:recursiveTreeNodesAdaptor
-					roots="#{treeNodeLocationBean.sourceRoots}" var="item"
-					nodes="#{item.nodes}" />
-			</rich:tree>
-		
-		
-				
-				<h:outputText value="tedsa" />
-		</h:form>
-	</ui:define>
+<ui:define name="title"> #{temp.locTitle} - #{temp.titleLoc}></ui:define>
+  <ui:define name="bodyOptions">
+    <a4j:form ajaxSubmit="true">
+    <h:panelGrid columns="4">
+    <a4j:commandLink value="#{temp.newLocalization}" rendered="true"
+          oncomplete= "javascript:Richfaces.showModalPanel('panelnewLocType')"
+          reRender="formHeaderNewLoc"></a4j:commandLink>
+    <a4j:commandLink value="#{temp.NewLocType}"></a4j:commandLink>
+   </h:panelGrid>
+ </a4j:form>
+<rich:modalPanel id="panelnewLocType" autosized="true" width="600" height="500" zindex="2000">
+  <f:facet name="header">
+        <a4j:form id="formHeaderNewLoc">
+          <h:panelGroup>
+            <h:outputText id="headerEditLoc" value="Nuevo Tipo Localizacion">
+            </h:outputText>
+          </h:panelGroup>
+        </a4j:form>
+      </f:facet>
+
+      <a4j:form id="LocForm" ajaxSubmit="true">
+        <h2>#{temp.titleCreateGroups}</h2>
+        <h:panelGrid columns="2">
+          <h:outputLabel value="#{temp.NewLocType}" for="name"/>
+          <h:inputText id="name" value="#{unitLocationTypeBean.locTypeDesc}" size="40"
+            required="true" requiredMessage="#{temp.validateNameLocType}" />
+          <h:outputLabel value="#{temp.description}" for="desc" />
+          <h:inputTextarea id="level"
+            value="#{unitLocationTypeBean.level}" cols="40" rows="3"
+            required="true"  requiredMessage="#{temp.validateDescrGroup}" />
+
+          <a4j:commandButton value="#{temp.save}"
+            action="#{locationTypeBean.createLocationType}"/>
+            <a4j:commandButton value="#{temp.close}" oncomplete="Richfaces.hideModalPanel('panelnewLocType')"></a4j:commandButton>
+             </h:panelGrid>
+            <rich:messages errorClass="error" infoClass="info" warnClass="war"></rich:messages>
+      </a4j:form>
+</rich:modalPanel>
+
+        <h:outputText value="tedsa" />
+
+  </ui:define>
 </ui:composition>
 </body>
 </html>
