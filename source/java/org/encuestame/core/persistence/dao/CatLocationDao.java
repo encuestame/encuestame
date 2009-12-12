@@ -49,4 +49,30 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
     public CatLocation getLocationById(final Long locateId) throws HibernateException {
         return (CatLocation) getSession().get(CatLocation.class,locateId);
     }
-}
+
+    /**
+     * @param tidtype tidtype.
+     * @return List of {@link CatLocation}
+     * @throws HibernateException HibernateException
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatLocation> getLocationByTypeLocationId(final Long tidtype) throws HibernateException{
+        return getSession().createQuery("FROM CatLocation WHERE tidtype = :typeLocId")
+        .setParameter("typeLocId", tidtype)
+        .list();
+    }
+
+    /**
+     * @param locateId  locateId.
+     * @return List of {@link CatLocation} by Level
+     * @throws HibernateException HibernateException
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatLocation> getLocationbyLevelId(final Long locateId) throws HibernateException{
+        return getSession().createQuery("FROM CatLocation WHERE locationLevel = :locateId")
+        .setParameter("locateId", locateId)
+        .list();
+
+
+    }
+    }

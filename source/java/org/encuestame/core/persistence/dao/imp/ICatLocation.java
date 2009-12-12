@@ -45,4 +45,19 @@ public interface ICatLocation extends IBaseDao {
      * @throws HibernateException excetion
      */
     public CatLocation getLocationById(final Long locateId) throws HibernateException;
+
+    /**
+     * @param locateId locateId
+     * @return aa
+      * @throws HibernateException HibernateException
+     */
+    public List<CatLocation> getLocationbyLevelId(final Long locateId) throws HibernateException;
+
+    /**
+     * @param tidtype tidtype
+     * @return aa
+     * @throws HibernateException HibernateException
+     */
+    public List<CatLocation> getLocationByTypeLocationId(final Long tidtype) throws HibernateException;
+
 }

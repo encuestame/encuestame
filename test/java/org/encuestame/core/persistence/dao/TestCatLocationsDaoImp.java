@@ -18,7 +18,10 @@
 package org.encuestame.core.persistence.dao;
 
 import java.util.Collection;
+import java.util.List;
 
+import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -52,11 +55,27 @@ public class TestCatLocationsDaoImp extends AbstractBaseTest{
     /**
      *
      */
-    @Test
+   /* @Test
     public void testloadPermissionByUserId(){
         final SecUserSecondary user = super.createSecondaryUser("user 1",this.userPrimary);
         final SecPermission permission1 = super.createPermission("admon");
         final SecPermission permission2 = super.createPermission("editor");
         final Collection<SecUserPermission> listofPermissions = getSecPermissionDaoImp().loadPermissionByUserId(Integer.valueOf(user.getUid().toString()));
     }
+*/
+    /**
+     *
+     */
+    @Test
+    public void getLocationByTypeLocationId()
+    {
+
+        final CatLocation catLoc = createCatLocation("Managua","Departamento");
+        final List<CatLocation> retrieveLocation = getCatLocationDao().getLocationByTypeLocationId(catLoc.getTidtype().getLocationTypeId());
+
+        //final CatLocationType retrieveLocType = getCatLocationType().getLocationTypeById(Long.valueOf(locType.getLocationTypeId().toString()));
+        //assertNotNull(retrieveLocType);
+
+    }
+
 }
