@@ -91,7 +91,7 @@ public class TestUserDao extends AbstractBaseTest {
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
         getSecUserDao().saveOrUpdate(user);
-        final SecUserSecondary retrieveUser = getSecUserDao().getUserById(Long.valueOf(
+        final SecUserSecondary retrieveUser = getSecUserDao().getSecondaryUserById(Long.valueOf(
               user.getUid()));
         assertEquals("Password should be",newPassword,
                       retrieveUser.getPassword());

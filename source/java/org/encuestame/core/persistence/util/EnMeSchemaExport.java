@@ -21,7 +21,9 @@ import java.util.Date;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatStateDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
@@ -76,8 +78,12 @@ public class EnMeSchemaExport {
             permissionAdmin.setDescription("ENCUESTAME_ADMIN");
             securityService.createPermission(permissionAdmin);
             //create user admin
+            final SecUsers userPrimary = new SecUsers();
+            final SecUserDaoImp secUserDao = (SecUserDaoImp) appContext.getBean("secUserDao");
+            secUserDao.saveOrUpdate(userPrimary);
             final UnitUserBean user = new UnitUserBean();
             user.setDateNew(new Date());
+            user.setPrimaryUserId(userPrimary.getUid());
             user.setEmail("juan@encuestame.org");
             user.setPassword("12345");
             user.setUsername("admin");

@@ -46,8 +46,10 @@ public interface ISecUserDao extends IBaseDao {
 
     public List<SecGroupUser> getUserGroups(SecUsers username);
 
-    public SecUserSecondary getUserById(Long userId) throws HibernateException;
+    public SecUserSecondary getSecondaryUserById(Long userId) throws HibernateException;
 
     public List<SecUserSecondary> findAll() throws HibernateException;
 
+
+    public SecUsers getUserById(final Long userId) throws HibernateException;
 }

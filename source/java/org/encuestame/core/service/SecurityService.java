@@ -1,19 +1,14 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.service;
 
@@ -21,6 +16,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
@@ -47,10 +43,7 @@ import org.springframework.mail.MailSendException;
  * Security Bean Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009 11:35:01
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public class SecurityService extends Service implements ISecurityService {
 
@@ -117,12 +110,21 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
+     * Find {@link SecUserSecondary} by UserName
+     * @param username user name
+     * @return {@link SecUserSecondary}
+     */
+    public SecUserSecondary findUserByUserName(final String username) {
+        return getUserDao().getUserByUsername(username);
+    }
+
+    /**
      * Load list of users.
      * @return list of users with groups and permission
      * @throws EnMeExpcetion excepcion
      */
-    public Collection<UnitUserBean> loadListUsers() throws EnMeExpcetion {
-        final Collection<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+    public List<UnitUserBean> loadListUsers() throws EnMeExpcetion {
+        final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         try {
             final Collection<SecUserSecondary> listUsers = getUserDao().findAll();
                 if (listUsers.size() > 0) {
@@ -370,7 +372,7 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     *Create a new Permisssion.
+     * Create a new Permisssion.
      * @param permissionBean {@link UnitPermission}
      */
     public void createPermission(final UnitPermission permissionBean) {
@@ -381,18 +383,28 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
+     *
+     * @return
+     */
+    private SecUsers verifyUserPrimary() {
+        final SecUsers userPrimary = new SecUsers();
+        getUserDao().saveOrUpdate(userPrimary);
+        return userPrimary;
+    }
+
+    /**
      * Create a user, generate password for user and send email to confirmate
      * the account.
      * @param userBean user bean
      * @throws EnMeExpcetion personalize exception
      */
-    public void createUser(UnitUserBean userBean) throws EnMeExpcetion {
+    public void createUser(final UnitUserBean userBean) throws EnMeExpcetion {
         final SecUserSecondary userDomain = new SecUserSecondary();
-        final SecUsers userPrimary = new SecUsers();
-        getUserDao().saveOrUpdate(userPrimary);
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
             userDomain.setUserEmail(userBean.getEmail());
             userDomain.setUsername(userBean.getUsername());
+            log.info("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
+            userDomain.setSecUser(getUserDao().getUserById(userBean.getPrimaryUserId()));
         } else {
             throw new EnMeExpcetion("we need email and username to create user");
         }
@@ -408,7 +420,6 @@ public class SecurityService extends Service implements ISecurityService {
         userDomain.setCompleteName(userBean.getName());
         userDomain.setUserStatus(userBean.getStatus());
         userDomain.setEnjoyDate(new Date());
-        userDomain.setSecUser(userPrimary);
         try {
             // send to user the password to her emails
             if((getSuspendedNotification())) {
@@ -416,8 +427,6 @@ public class SecurityService extends Service implements ISecurityService {
             }
             // save user
             getUserDao().saveOrUpdate(userDomain);
-            // assing first permissions and default group
-            assignPermission(userBean, loadDefaultPermissionBean());
             // assing firs default group to user
             //TODO: we need assing defaul group to user.
         } catch (MailSendException ex) {
@@ -437,7 +446,6 @@ public class SecurityService extends Service implements ISecurityService {
      */
     private UnitPermission loadDefaultPermissionBean()
             throws EnMeExpcetion {
-        log.info("default permission  "+getDefaultUserPermission());
         final SecPermission permissionDomain = getPermissionDao().loadPermission(
                 getDefaultUserPermission().trim());
         log.info("default permission load "+permissionDomain);
@@ -457,6 +465,7 @@ public class SecurityService extends Service implements ISecurityService {
      * Assign permission to user.
      * @param userBean {@link UnitUserBean}
      * @param permissionBean {@link UnitPermission}
+     * @throws EnMeExpcetion exception
      */
     public void assignPermission(
             final UnitUserBean userBean,
@@ -600,6 +609,9 @@ public class SecurityService extends Service implements ISecurityService {
         return passwordEncryptor.encryptPassword(password);
     }
 
+    /**
+     * {@link MailServiceImpl}.
+     */
     public MailServiceImpl getServiceMail() {
         return serviceMail;
     }
@@ -641,6 +653,7 @@ public class SecurityService extends Service implements ISecurityService {
     public void setSuspendedNotification(final Boolean suspendedNotification) {
         this.suspendedNotification = suspendedNotification;
     }
+
     /**
      * @return the surveyService
      */

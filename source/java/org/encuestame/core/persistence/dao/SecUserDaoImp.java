@@ -64,8 +64,18 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @return SecUserSecondary
      * @throws HibernateException hibernate exception
      */
-    public SecUserSecondary getUserById(final Long userId) throws HibernateException{
+    public SecUserSecondary getSecondaryUserById(final Long userId) throws HibernateException {
         return (SecUserSecondary) getSession().get(SecUserSecondary.class, userId);
+    }
+
+    /**
+     * Get Primary User By Id.
+     * @param userId user id
+     * @return {@link SecUsers}
+     * @throws HibernateException exception
+     */
+    public SecUsers getUserById(final Long userId) throws HibernateException {
+        return (SecUsers) getSession().get(SecUsers.class, userId);
     }
 
     /**

@@ -17,7 +17,6 @@
  */
 package org.encuestame.web.beans.admon;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,12 +29,14 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.EmailUtils;
 import org.encuestame.web.beans.MasterBean;
 import org.hibernate.HibernateException;
+import org.richfaces.component.html.HtmlDataTable;
 import org.springframework.mail.MailSendException;
 
 /**
- * Security user Bean.
+ * Security User Bean.
  * @author Picado, Juan juan@encuestame.org
  * @since 11/05/2009 13:52:28
+ * @version $Id$
  */
 
 public class UserBean extends MasterBean {
@@ -47,25 +48,28 @@ public class UserBean extends MasterBean {
     private Integer selectedPermissionId;
     private String selectedAction;
     private UIData uiDataUserTable;
+    private HtmlDataTable dataTable;
     private UISelectBoolean checked = new UISelectBoolean();
     private String listUsers;
 
     /**
      * @return the listUnitBeans
-     * @throws Exception
+     * @throws Exception exception
      */
-    public Collection<UnitUserBean> loadListUsers() throws Exception {
-        listUnitBeans = new LinkedList<UnitUserBean>();
-        return null;
+    public List<UnitUserBean> loadListUsers() throws Exception {
+        return listUnitBeans = getSecurityService().loadListUsers();
     }
+
+
 
     /**
      * Create user.
      */
     public void createUser() {
         try {
-            getServicemanager().getApplicationServices().getSecurityService().createUser(
-                    getNewUnitUserBean());
+            getNewUnitUserBean().setPrimaryUserId(
+                    getSecurityService().findUserByUserName(getUserPrincipalUsername()).getSecUser().getUid());
+            getSecurityService().createUser(getNewUnitUserBean());
             addInfoMessage("User created", "");
         } catch (MailSendException e) {
             addErrorMessage("notification error " + e, e.getMessage());
@@ -169,9 +173,9 @@ public class UserBean extends MasterBean {
     /**
      * get list_unit_beans
      *
-     * @return
+     * @return dsadsa
      */
-    public Collection<UnitUserBean> getlistUnitBeans() {
+    public List<UnitUserBean> getListUnitBeans() {
         try {
             loadListUsers();
             if (listUnitBeans.size() > 0)
@@ -243,7 +247,7 @@ public class UserBean extends MasterBean {
         List<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
         try {
             final Integer uiDataUserTableCount = uiDataUserTable.getRowCount();
-            log.info("uiDataUserTable getRowCount: "+uiDataUserTableCount);
+            log.info("k getRowCount: "+uiDataUserTableCount);
             for (int i = 0; i < uiDataUserTableCount; i++) {
                 uiDataUserTable.setRowIndex(i);
                 if (checked.isSelected()) {
@@ -372,15 +376,24 @@ public class UserBean extends MasterBean {
         this.isOneRow = isOneRow;
     }
 
-    public void setUnitUserBean(UnitUserBean unitUserBean) {
+    /**
+     * @param unitUserBean {@link UnitUserBean}
+     */
+    public void setUnitUserBean(final UnitUserBean unitUserBean) {
         log.info("setUnitUserBean->" + unitUserBean);
         this.unitUserBean = unitUserBean;
     }
 
+    /**
+     * @return id
+     */
     public String getProcessedUserId() {
         return processedUserId;
     }
 
+    /**
+     * @param processedUserId id.
+     */
     public void setProcessedUserId(String processedUserId) {
         log.info("setProcessedUserId->" + processedUserId);
         this.processedUserId = processedUserId;
@@ -418,25 +431,30 @@ public class UserBean extends MasterBean {
         this.uiDataUserTable = uiDataUserTable;
     }
 
+    /**
+     * @return {@link UISelectBoolean}
+     */
     public UISelectBoolean getChecked() {
         return checked;
     }
 
-    public void setChecked(UISelectBoolean checked) {
+    /**
+     * @param checked {@link UISelectBoolean}
+     */
+    public void setChecked(final UISelectBoolean checked) {
         this.checked = checked;
     }
 
     /**
-     * get unit user bean
-     *
-     * @return
+     * Gettter.
+     * @return {@link UnitUserBean}
      */
     public UnitUserBean getUnitUserBean() {
         return unitUserBean;
     }
 
     /**
-     * load user selected in datatable
+     * Load user selected in datatable
      */
     public void loadSelectUser() {
         try {
@@ -457,18 +475,30 @@ public class UserBean extends MasterBean {
         }
     }
 
+    /**
+     * @return sda
+     */
     public UnitUserBean getNewUnitUserBean() {
         return newUnitUserBean;
     }
 
+    /**
+     * @param newUnitUserBean das
+     */
     public void setNewUnitUserBean(UnitUserBean newUnitUserBean) {
         this.newUnitUserBean = newUnitUserBean;
     }
 
+    /**
+     * @return dsa
+     */
     public String getListUsers() {
         return listUsers;
     }
 
+    /**
+     * @param listUsers das
+     */
     public void setListUsers(String listUsers) {
         this.listUsers = listUsers;
     }
@@ -487,5 +517,25 @@ public class UserBean extends MasterBean {
     public void setSelectedPermissionId(Integer selectedPermissionId) {
         this.selectedPermissionId = selectedPermissionId;
     }
+
+
+
+    /**
+     * @return the dataTable
+     */
+    public HtmlDataTable getDataTable() {
+        return dataTable;
+    }
+
+
+
+    /**
+     * @param dataTable the dataTable to set
+     */
+    public void setDataTable(HtmlDataTable dataTable) {
+        this.dataTable = dataTable;
+    }
+
+
 
 }
