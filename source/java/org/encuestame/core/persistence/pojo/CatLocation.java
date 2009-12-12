@@ -32,6 +32,7 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "cat_location")

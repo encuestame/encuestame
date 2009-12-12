@@ -34,7 +34,7 @@ public class LocationBean extends MasterBean implements Serializable{
 
     private static final long serialVersionUID = -9098305021342831224L;
     private Long locateId;
-    //private String tidtype;
+    private Long tidtype;
     private String description;
     private Integer level;
     private String active;
@@ -113,6 +113,18 @@ public class LocationBean extends MasterBean implements Serializable{
      */
     public void setLng(Float lng) {
         this.lng = lng;
+    }
+    /**
+     * @return the tidtype
+     */
+    public Long getTidtype() {
+        return tidtype;
+    }
+    /**
+     * @param tidtype the tidtype to set
+     */
+    public void setTidtype(Long tidtype) {
+        this.tidtype = tidtype;
     }
 
 

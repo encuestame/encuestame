@@ -35,10 +35,7 @@ import org.encuestame.web.beans.project.UnitProjectBean;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public interface IDataSource {
 

@@ -447,7 +447,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @param group group
      */
     public void addGroupUser(
-            final SecUsers user,
+            final SecUserSecondary user,
             final SecGroups group)
     {
         final SecGroupUserId id = new SecGroupUserId();
@@ -455,7 +455,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         id.setUid(user.getUid());
         final SecGroupUser secGroupUser = new SecGroupUser();
         secGroupUser.setSecGroupUserId(id);
-       // secGroupUser.setSecUsersSecondary(user);
+         secGroupUser.setSecUsers(user);
         secGroupUser.setSecGroups(group);
         getSecUserDao().assingGroupToUser(secGroupUser);
     }

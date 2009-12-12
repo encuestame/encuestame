@@ -20,11 +20,9 @@ package org.encuestame.core.service;
 import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.test.config.AbstractBeanBaseTest;
 import org.encuestame.web.beans.location.LocationBean;
-import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,7 @@ import org.springframework.test.annotation.ExpectedException;
  * Class Description.
  * @author Picado, Juan juan@encuestame.org
  * @since 02/12/2009 22:26:24
+ * @version $Id: $
  */
 public class TestDataSource extends AbstractBeanBaseTest {
 

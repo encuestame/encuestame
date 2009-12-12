@@ -82,8 +82,8 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Test
     public void testLoadListUsers() throws EnMeExpcetion{
-        addGroupUser(super.createSecondaryUser("user 1",this.userPrimary).getSecUser(),super.createGroups("editor"));
-        addGroupUser(super.createSecondaryUser("user 2",this.userPrimary).getSecUser(),super.createGroups("admon"));
+        addGroupUser(super.createSecondaryUser("user 1",this.userPrimary),super.createGroups("editor"));
+        addGroupUser(super.createSecondaryUser("user 2",this.userPrimary),super.createGroups("admon"));
         assertEquals("Should be equals",2,securityService.loadListUsers().size());
     }
 
@@ -290,7 +290,8 @@ public class TestSecurityService extends AbstractBaseTest{
         userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setDateNew(new Date());
-          securityService.createUser(userCreateBean);
+        userCreateBean.setPrimaryUserId(createUser().getUid());
+        securityService.createUser(userCreateBean);
        }
 
       /**
@@ -308,9 +309,9 @@ public class TestSecurityService extends AbstractBaseTest{
         userCreateBean.setStatus(true);
         userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
+        userCreateBean.setPrimaryUserId(createUser().getUid());
         userCreateBean.setDateNew(new Date());
-
-          securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean);
        }
 
       /**
@@ -329,6 +330,7 @@ public class TestSecurityService extends AbstractBaseTest{
         userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setDateNew(new Date());
+        userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean);
        }
 

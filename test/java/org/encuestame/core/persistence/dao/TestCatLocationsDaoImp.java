@@ -17,14 +17,9 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationType;
-import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Before;
@@ -64,18 +59,14 @@ public class TestCatLocationsDaoImp extends AbstractBaseTest{
     }
 */
     /**
-     *
+     * Test LocationByTypeLocationId.
      */
     @Test
     public void getLocationByTypeLocationId()
     {
-
         final CatLocation catLoc = createCatLocation("Managua","Departamento");
-        final List<CatLocation> retrieveLocation = getCatLocationDao().getLocationByTypeLocationId(catLoc.getTidtype().getLocationTypeId());
-
-        //final CatLocationType retrieveLocType = getCatLocationType().getLocationTypeById(Long.valueOf(locType.getLocationTypeId().toString()));
-        //assertNotNull(retrieveLocType);
-
+        final List<CatLocation> retrieveLocations = getCatLocationDao().getLocationByTypeLocationId(catLoc.getTidtype().getLocationTypeId());
+        assertEquals("Should be equals ", 1 , retrieveLocations.size());
     }
 
 }

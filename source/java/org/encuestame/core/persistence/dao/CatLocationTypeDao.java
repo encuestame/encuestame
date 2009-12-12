@@ -28,6 +28,7 @@ import org.hibernate.HibernateException;
  * Catalog Location Type Dao.
  * @author Picado, Juan juan@encuestame.org
  * @since 05/12/2009 12:36:22
+ * @version $Id: $
  */
 public class CatLocationTypeDao extends AbstractHibernateDaoSupport implements ICatLocationTypeDao {
 

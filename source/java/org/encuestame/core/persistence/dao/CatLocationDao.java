@@ -57,7 +57,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      */
     @SuppressWarnings("unchecked")
     public List<CatLocation> getLocationByTypeLocationId(final Long tidtype) throws HibernateException{
-        return getSession().createQuery("FROM CatLocation WHERE tidtype = :typeLocId")
+        return getSession().createQuery("FROM CatLocation WHERE tidtype.id = :typeLocId")
         .setParameter("typeLocId", tidtype)
         .list();
     }

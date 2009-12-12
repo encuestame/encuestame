@@ -82,6 +82,7 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
         locationBean.setLat(lat);
         locationBean.setLng(lng);
         locationBean.setLevel(level);
+        locationBean.setTidtype(createCatLocationType("managua").getLocationTypeId());
         return locationBean;
     }
 }

@@ -117,7 +117,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             //search groups of the user
             log.info("list group permissions");
             final List<SecGroupPermission> listGroupPermissions = secUserDao
-                    .getGroupPermission(secUserDao.getUserGroups(user.getSecUser()));
+                    .getGroupPermission(secUserDao.getUserGroups(user));
                 //iterator list of groups permissions
                 final Iterator<SecGroupPermission> iterator = listGroupPermissions
                         .iterator();

@@ -44,10 +44,7 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since April 27, 2009
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public class DataSource implements IDataSource {
 
@@ -182,6 +179,7 @@ public class DataSource implements IDataSource {
                 catLocationDomain.setLocationLatitude(location.getLat());
                 catLocationDomain.setLocationLongitude(location.getLng());
                 catLocationDomain.setLocationLevel(location.getLevel());
+                catLocationDomain.setTidtype(getCatLocationTypeDao().getLocationById(location.getTidtype()));
                 getCatLocationDao().saveOrUpdate(catLocationDomain);
                 location.setLocateId(catLocationDomain.getLocateId());
             } catch (HibernateException e) {
