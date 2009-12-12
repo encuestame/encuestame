@@ -1,23 +1,20 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,6 +23,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,6 +32,7 @@ import javax.persistence.TemporalType;
  * Security User Secondary.
  * @author Picado, Juan juan@encuestame.org
  * @since 08/12/2009 19:01:26
+ * @version $Id: $
  */
 @Entity
 @Table(name = "sec_user_secondary")
@@ -50,6 +49,11 @@ public class SecUserSecondary {
     private Boolean isPublisher;
     private Boolean isOwner;
     private Boolean userStatus;
+    private String userTwitterAccount;
+
+    private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
+    private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
+            0);
 
     /**
      * @return uid
@@ -219,4 +223,50 @@ public class SecUserSecondary {
     public void setUserStatus(final boolean userStatus) {
         this.userStatus = userStatus;
     }
+
+    /**
+     * @return secGroupUsers
+     */
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
+    public Set<SecGroupUser> getSecGroupUsers() {
+        return this.secGroupUsers;
+    }
+
+    /**
+     * @param secGroupUsers secGroupUsers
+     */
+    public void setSecGroupUsers(final Set<SecGroupUser> secGroupUsers) {
+        this.secGroupUsers = secGroupUsers;
+    }
+
+    /**
+     * @return secUserPermissions
+     */
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
+    public Set<SecUserPermission> getSecUserPermissions() {
+        return this.secUserPermissions;
+    }
+
+    /**
+     * @param secUserPermissions secUserPermissions
+     */
+    public void setSecUserPermissions(final Set<SecUserPermission> secUserPermissions) {
+        this.secUserPermissions = secUserPermissions;
+    }
+
+    /**
+     * @return userTwitterAccount
+     */
+    @Column(name = "twitter", length = 2)
+    public String getUserTwitterAccount() {
+        return this.userTwitterAccount;
+    }
+
+    /**
+     * @param userTwitterAccount userTwitterAccount
+     */
+    public void setUserTwitterAccount(final String userTwitterAccount) {
+        this.userTwitterAccount = userTwitterAccount;
+    }
+
 }

@@ -31,6 +31,7 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "sec_group_user")
@@ -38,7 +39,7 @@ public class SecGroupUser {
 
     private SecGroupUserId secGroupUserId;
     private SecGroups secGroups;
-    private SecUsers secUsers;
+    private SecUserSecondary secUsers;
     private Boolean state;
 
     /**
@@ -80,14 +81,14 @@ public class SecGroupUser {
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false, insertable = false, updatable = false)
-    public SecUsers getSecUsers() {
+    public SecUserSecondary getSecUsers() {
         return this.secUsers;
     }
 
     /**
      * @param secUsers secUsers
      */
-    public void setSecUsers(final SecUsers secUsers) {
+    public void setSecUsers(final SecUserSecondary secUsers) {
         this.secUsers = secUsers;
     }
 
