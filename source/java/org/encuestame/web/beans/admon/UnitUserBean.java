@@ -27,10 +27,7 @@ import org.encuestame.web.beans.MasterBean;
  * Unit Use rBean.
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public class UnitUserBean extends MasterBean implements Serializable {
 
