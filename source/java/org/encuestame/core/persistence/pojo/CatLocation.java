@@ -23,6 +23,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,7 +38,7 @@ import javax.persistence.Table;
 public class CatLocation {
 
     private Long locateId;
-    private String tidtype;
+    private CatLocationType tidtype;
     private String locationDescription;
     private Integer locationLevel;
     private String locationActive;
@@ -63,15 +65,16 @@ public class CatLocation {
     /**
      * @return tidtype
      */
-    @Column(name = "tidtype", nullable = true, length = 10)
-    public String getTidtype() {
+    @ManyToOne()
+    @JoinColumn(name = "loc_id_type", nullable = false)
+    public CatLocationType getTidtype() {
         return this.tidtype;
     }
 
     /**
      * @param tidtype tidtype
      */
-    public void setTidtype(String tidtype) {
+    public void setTidtype(CatLocationType tidtype) {
         this.tidtype = tidtype;
     }
 
