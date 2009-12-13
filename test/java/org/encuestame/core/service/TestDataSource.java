@@ -27,7 +27,7 @@ import org.springframework.test.annotation.ExpectedException;
  * Class Description.
  * @author Picado, Juan juan@encuestame.org
  * @since 02/12/2009 22:26:24
- * @version $Id: $
+ * @version $Id$
  */
 public class TestDataSource extends AbstractBeanBaseTest {
 

@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
  * Security User Secondary.
  * @author Picado, Juan juan@encuestame.org
  * @since 08/12/2009 19:01:26
- * @version $Id: $
+ * @version $Id$
  */
 @Entity
 @Table(name = "sec_user_secondary")

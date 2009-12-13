@@ -22,7 +22,7 @@ import org.encuestame.web.beans.project.UnitProjectBean;
  * Abstract class for beans.
  * @author Picado, Juan juan@encuestame.org
  * @since 05/12/2009 11:16:31
- * @version $Id: $
+ * @version $Id$
  */
 public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
 
