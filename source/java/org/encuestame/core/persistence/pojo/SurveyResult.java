@@ -31,7 +31,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "survey_result")
-public class SurveyResult implements java.io.Serializable {
+public class SurveyResult {
 
     private Long rid;
     private String resp;

@@ -39,7 +39,6 @@ public class SecPermission {
     private Long idPermission;
     private String permission;
     private String permissionDescription;
-   // private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>();
     private Set<SecGroups> secGroups = new HashSet<SecGroups>();
     private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 

@@ -31,7 +31,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "survey_section")
-public class SurveySection implements java.io.Serializable {
+public class SurveySection {
 
     private Long ssid;
     private CatState catState;

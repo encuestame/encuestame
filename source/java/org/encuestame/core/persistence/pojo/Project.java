@@ -127,7 +127,7 @@ public class Project {
     /**
      * @param projectDateFinish projectDateFinish
      */
-    public void setProjectDateFinish(Date projectDateFinish) {
+    public void setProjectDateFinish(final Date projectDateFinish) {
         this.projectDateFinish = projectDateFinish;
     }
 
@@ -145,7 +145,7 @@ public class Project {
     /**
      * @param locations the locations to set
      */
-    public void setLocations(Set<CatLocation> locations) {
+    public void setLocations(final Set<CatLocation> locations) {
         this.locations = locations;
     }
 
@@ -163,7 +163,7 @@ public class Project {
     /**
      * @param groups the groups to set
      */
-    public void setGroups(Set<SecGroups> groups) {
+    public void setGroups(final Set<SecGroups> groups) {
         this.groups = groups;
     }
 
@@ -181,7 +181,7 @@ public class Project {
     /**
      * @param secUserSecondaries the secUserSecondaries to set
      */
-    public void setSecUserSecondaries(Set<SecUserSecondary> secUserSecondaries) {
+    public void setSecUserSecondaries(final Set<SecUserSecondary> secUserSecondaries) {
         this.secUserSecondaries = secUserSecondaries;
     }
 
@@ -197,7 +197,7 @@ public class Project {
     /**
      * @param stateProject the stateProject to set
      */
-    public void setStateProject(CatState stateProject) {
+    public void setStateProject(final CatState stateProject) {
         this.stateProject = stateProject;
     }
 
@@ -215,9 +215,7 @@ public class Project {
     /**
      * @param surveyGroups the surveyGroups to set
      */
-    public void setSurveyGroups(Set<SurveyGroup> surveyGroups) {
+    public void setSurveyGroups(final Set<SurveyGroup> surveyGroups) {
         this.surveyGroups = surveyGroups;
     }
-
-
 }

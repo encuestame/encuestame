@@ -129,11 +129,11 @@ public class SurveyService extends Service implements ISurveyService {
         if (unitPatternBean != null && unitPatternBean.getId() != null) {
             final QuestionPattern questionPatternDomain = getQuestionDaoImp().loadPatternInfo(
                     unitPatternBean.getId());
-            unitPatternBean.setId(questionPatternDomain.getIdPatron());
+            unitPatternBean.setId(questionPatternDomain.getPatternId());
             unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
             unitPatternBean.setLabel(questionPatternDomain.getLabelQid());
-            unitPatternBean.setPatronType(questionPatternDomain.getTypePatron());
-            unitPatternBean.setTemplate(questionPatternDomain.getTemplatePatron());
+            unitPatternBean.setPatronType(questionPatternDomain.getPatternType());
+            unitPatternBean.setTemplate(questionPatternDomain.getPatternTemplate());
             //TODO : need more properties.
             return unitPatternBean;
         } else {
@@ -155,8 +155,8 @@ public class SurveyService extends Service implements ISurveyService {
             if (patronList.size() > 0) {
                for (QuestionPattern patron : patronList) {
                     UnitPatternBean p = new UnitPatternBean();
-                    p.setId(patron.getIdPatron());
-                    p.setPatronType(patron.getTypePatron());
+                    p.setId(patron.getPatternId());
+                    p.setPatronType(patron.getPatternType());
                     listPatronBean.add(p);
                 }
             }

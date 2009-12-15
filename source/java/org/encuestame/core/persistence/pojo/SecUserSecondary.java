@@ -301,9 +301,9 @@ public class SecUserSecondary {
      * @return the cLocations
      */
     @ManyToMany()
-    @JoinTable(name="sec_user_locations",
+    @JoinTable(name="cat_locations_user",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
-               inverseJoinColumns={@JoinColumn(name="sec_id_location")})
+               inverseJoinColumns={@JoinColumn(name="cat_location_id")})
     public Set<CatLocation> getcLocations() {
         return cLocations;
     }

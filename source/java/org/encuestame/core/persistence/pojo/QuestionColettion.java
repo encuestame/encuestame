@@ -12,21 +12,15 @@
  */
 package org.encuestame.core.persistence.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,7 +34,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "question_collection")
-public class QuestionColettion implements Serializable {
+public class QuestionColettion {
 
     private Long idQColection;
     private SecUsers secUsers;
@@ -48,7 +42,7 @@ public class QuestionColettion implements Serializable {
     private Date creationDate;
 
     /**
-     * @return
+     * @return idQColection
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,14 +52,14 @@ public class QuestionColettion implements Serializable {
     }
 
     /**
-     * @param idQColection
+     * @param idQColection idQColection
      */
     public void setIdQColection(final Long idQColection) {
         this.idQColection = idQColection;
     }
 
     /**
-     * @return
+     * @return {@link SecUsers}
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
@@ -74,14 +68,14 @@ public class QuestionColettion implements Serializable {
     }
 
     /**
-     * @param secUsers
+     * @param secUsers {@link SecUsers}
      */
     public void setSecUsers(final SecUsers secUsers) {
         this.secUsers = secUsers;
     }
 
     /**
-     * @return
+     * @return desColeccion
      */
     @Column(name = "des_coleccion", nullable = false)
     public String getDesColeccion() {
@@ -89,14 +83,14 @@ public class QuestionColettion implements Serializable {
     }
 
     /**
-     * @param desColeccion
+     * @param desColeccion desColeccion
      */
     public void setDesColeccion(final String desColeccion) {
         this.desColeccion = desColeccion;
     }
 
     /**
-     * @return
+     * @return creationDate
      */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false, length = 0)
@@ -105,10 +99,9 @@ public class QuestionColettion implements Serializable {
     }
 
     /**
-     * @param creationDate
+     * @param creationDate creationDate
      */
     public void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
     }
-
 }

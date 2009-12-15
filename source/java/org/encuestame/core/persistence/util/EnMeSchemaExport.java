@@ -123,12 +123,12 @@ public class EnMeSchemaExport {
         }
         //Create test database
 
-        final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
+     /*   final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
                 SPRING_CONFIG_TEST_FILES);
         final AnnotationSessionFactoryBean annotationSFTest = (AnnotationSessionFactoryBean) appContextTest
                 .getBean("&sessionFactory");
         annotationSFTest.dropDatabaseSchema();
-        annotationSFTest.createDatabaseSchema();
+        annotationSFTest.createDatabaseSchema();*/
     }
 
     /**

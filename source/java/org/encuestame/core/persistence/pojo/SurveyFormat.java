@@ -37,7 +37,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "survey_format")
-public class SurveyFormat implements java.io.Serializable {
+public class SurveyFormat{
 
     private Long idSidFormat;
     private String surveyFormatName;

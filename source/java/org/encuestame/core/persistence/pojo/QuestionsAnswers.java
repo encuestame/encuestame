@@ -30,7 +30,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "questions_answers")
-public class QuestionsAnswers implements java.io.Serializable {
+public class QuestionsAnswers {
 
     private Long questionAnswerId;
     private Questions questions;

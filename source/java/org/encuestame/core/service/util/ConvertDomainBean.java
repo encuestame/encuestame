@@ -148,8 +148,8 @@ public class ConvertDomainBean {
      */
     public static UnitPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
         final UnitPatternBean patterBean = new UnitPatternBean();
-        patterBean.setId(pattern.getIdPatron());
-        patterBean.setPatronType(pattern.getTypePatron());
+        patterBean.setId(pattern.getPatternId());
+        patterBean.setPatronType(pattern.getPatternType());
         patterBean.setLabel(pattern.getLabelQid());
         return patterBean;
     }

@@ -497,9 +497,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         final QuestionPattern patron = new QuestionPattern();
         patron.setClass_("class.patron1.class");
         patron.setDesQid("");
-        patron.setTemplatePatron("");
+        patron.setPatternTemplate("");
         patron.setLabelQid("");
-        patron.setTypePatron(typePatron);
+        patron.setPatternType(typePatron);
         //TODO: need patron dao to save this domain.
         getQuestionDaoImp().saveOrUpdate(patron);
         return patron;

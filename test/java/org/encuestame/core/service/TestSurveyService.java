@@ -103,10 +103,10 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     public void testloadPatternInfo() throws EnMeExpcetion {
         this.serviceInit();
         UnitPatternBean patternBean = new UnitPatternBean();
-        patternBean.setId(createQuestionPattern("html").getIdPatron());
+        patternBean.setId(createQuestionPattern("html").getPatternId());
         patternBean = surveyService.loadPatternInfo(patternBean);
         assertNotNull(patternBean);
-        assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getTypePatron());
+        assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
     }
 
     /**

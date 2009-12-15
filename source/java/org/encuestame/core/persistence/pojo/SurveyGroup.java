@@ -39,7 +39,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "survey_group")
-public class SurveyGroup implements java.io.Serializable {
+public class SurveyGroup {
 
     private Long sgId;
     private String groupName;

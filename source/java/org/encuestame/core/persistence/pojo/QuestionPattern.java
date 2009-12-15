@@ -16,8 +16,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -28,91 +26,141 @@ import javax.persistence.Table;
  * @since October 17, 2009
  * @version $Id$
  */
+
 @Entity
 @Table(name = "questions_pattern")
-public class QuestionPattern implements java.io.Serializable {
+public class QuestionPattern {
 
-    private Long idPatron;
-    private String typePatron;
+    private Long patternId;
+    private String patternType;
     private String desQid;
     private String labelQid;
     private String finallity;
-    private String templatePatron;
+    private String patternTemplate;
     private String class_;
-    private Integer nivel;
+    private Integer level;
 
+
+    /**
+     * @return the patternId
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_patron", unique = true, nullable = false)
-    public Long getIdPatron() {
-        return this.idPatron;
+    @Column(name = "pattenr_id", unique = true, nullable = false)
+    public Long getPatternId() {
+        return patternId;
     }
 
-    public void setIdPatron(Long idPatron) {
-        this.idPatron = idPatron;
+    /**
+     * @param patternId the patternId to set
+     */
+    public void setPatternId(Long patternId) {
+        this.patternId = patternId;
     }
 
-    @Column(name = "type_patron", nullable = false, length = 25)
-    public String getTypePatron() {
-        return this.typePatron;
+    /**
+     * @return the patternType
+     */
+    @Column(name = "type_pattern", nullable = false, length = 25)
+    public String getPatternType() {
+        return patternType;
     }
 
-    public void setTypePatron(String typePatron) {
-        this.typePatron = typePatron;
+    /**
+     * @param patternType the patternType to set
+     */
+    public void setPatternType(String patternType) {
+        this.patternType = patternType;
     }
 
+    /**
+     * @return the patternTemplate
+     */
+    @Column(name = "template_patron", length = 25)
+    public String getPatternTemplate() {
+        return patternTemplate;
+    }
+
+    /**
+     * @param patternTemplate the patternTemplate to set
+     */
+    public void setPatternTemplate(String patternTemplate) {
+        this.patternTemplate = patternTemplate;
+    }
+
+
+    /**
+     * @return desQid
+     */
     @Column(name = "des_qid", nullable = false, length = 50)
     public String getDesQid() {
         return this.desQid;
     }
 
+    /**
+     * @param desQid desQid
+     */
     public void setDesQid(String desQid) {
         this.desQid = desQid;
     }
 
+    /**
+     * @return labelQid
+     */
     @Column(name = "label_qid", nullable = false)
     public String getLabelQid() {
         return this.labelQid;
     }
 
+    /**
+     * @param labelQid labelQid
+     */
     public void setLabelQid(String labelQid) {
         this.labelQid = labelQid;
     }
 
+    /**
+     * @return finallity
+     */
     @Column(name = "finallity", length = 16777215)
     public String getFinallity() {
         return this.finallity;
     }
 
+    /**
+     * @param finallity finallity
+     */
     public void setFinallity(String finallity) {
         this.finallity = finallity;
     }
 
-    @Column(name = "template_patron", length = 25)
-    public String getTemplatePatron() {
-        return this.templatePatron;
-    }
-
-    public void setTemplatePatron(String templatePatron) {
-        this.templatePatron = templatePatron;
-    }
-
+       /**
+     * @return class_
+     */
     @Column(name = "class", nullable = false, length = 50)
     public String getClass_() {
         return this.class_;
     }
 
+    /**
+     * @param class_ class
+     */
     public void setClass_(String class_) {
         this.class_ = class_;
     }
 
-    @Column(name = "nivel")
-    public Integer getNivel() {
-        return this.nivel;
+    /**
+     * @return the level
+     */
+    @Column(name = "level")
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setNivel(Integer nivel) {
-        this.nivel = nivel;
+    /**
+     * @param level the level to set
+     */
+    public void setLevel(Integer level) {
+        this.level = level;
     }
-
 }

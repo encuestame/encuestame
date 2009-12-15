@@ -45,7 +45,6 @@ public class CatLocation {
     private Float locationLatitude;
     private Float locationLongitude;
     private Set<Project> projects = new HashSet<Project>();
-    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     /**
      * @return locateId
@@ -171,24 +170,6 @@ public class CatLocation {
      */
     public void setProjects(final Set<Project> projects) {
         this.projects = projects;
-    }
-
-    /**
-     * @return the secUserSecondaries
-     */
-    @ManyToMany()
-    @JoinTable(name="sec_user_locations",
-               joinColumns={@JoinColumn(name=" sec_id_location")},
-               inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
-    public Set<SecUserSecondary> getSecUserSecondaries() {
-        return secUserSecondaries;
-    }
-
-    /**
-     * @param secUserSecondaries the secUserSecondaries to set
-     */
-    public void setSecUserSecondaries(final Set<SecUserSecondary> secUserSecondaries) {
-        this.secUserSecondaries = secUserSecondaries;
     }
 
     /**

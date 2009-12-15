@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.persistence.pojo;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,7 +35,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "questions")
-public class Questions implements Serializable {
+public class Questions {
 
     private Long qid;
     private CatState catState;

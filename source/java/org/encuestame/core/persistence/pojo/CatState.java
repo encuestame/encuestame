@@ -33,9 +33,6 @@ public class CatState {
     private Long idState;
     private String descState;
     private String stateImage;
-    //private Set<SurveySection> surveySections = new HashSet<SurveySection>(0);
-    //private Set<Questions> questionses = new HashSet<Questions>(0);
-
 
     /**
      * @return idState

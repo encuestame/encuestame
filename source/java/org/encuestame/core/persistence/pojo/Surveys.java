@@ -35,7 +35,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "surveys")
-public class Surveys implements java.io.Serializable {
+public class Surveys {
 
     private Long sid;
     private SecUsers secUsers;
