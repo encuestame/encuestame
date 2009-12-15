@@ -19,6 +19,8 @@ package org.encuestame.core.service.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionsPatron;
 import org.encuestame.core.persistence.pojo.SecGroups;
@@ -29,6 +31,8 @@ import org.encuestame.web.beans.admon.GroupBean;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
+import org.encuestame.web.beans.location.UnitLocationBean;
+import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 
@@ -76,6 +80,36 @@ public class ConvertDomainBean {
         return groupBean;
     }
 
+    /**
+     * Convert {@link CatLocation} to {@link UnitLocationBean}
+     * @param location {@link CatLocation}
+     * @return {@link UnitLocationBean}
+     */
+    public static UnitLocationBean convertLocationToBean(final CatLocation location){
+        final UnitLocationBean locationBean = new UnitLocationBean();
+        locationBean.setTid(location.getLocateId());
+        locationBean.setActive(location.getLocationActive());
+        locationBean.setDescriptionLocation(location.getLocationDescription());
+        locationBean.setLatitude(location.getLocationLatitude());
+        locationBean.setLevel(location.getLocationLevel());
+        locationBean.setLongitude(location.getLocationLongitude());
+        locationBean.setLocationTypeId(location.getTidtype().getLocationTypeId());
+        return locationBean;
+
+    }
+
+    /**
+     * @param locationType {@link CatLocationType}
+     * @return {@link UnitLocationTypeBean}
+     */
+    public static UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
+        final UnitLocationTypeBean locationTypeBean = new UnitLocationTypeBean();
+        locationTypeBean.setIdLocType(locationType.getLocationTypeId());
+        locationTypeBean.setLocTypeDesc(locationType.getLocationTypeDescription());
+        locationTypeBean.setLevel(locationType.getLocationTypeLevel());
+        return locationTypeBean;
+
+    }
 
     /**
      * Convert {@link Project} to {@link UnitProjectBean}

@@ -384,14 +384,15 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /** Helper to create CatLocation
      * @param CatLocation CatLocation
      * @param LocationType LocationType
+     * @param Level Level
      * @return location
      */
-    public CatLocation createCatLocation(final String CatLocation, final String LocationType){
+    public CatLocation createCatLocation(final String CatLocation, final String LocationType, Integer Level){
         final CatLocation location = new CatLocation();
         location.setLocationActive("S");
-        location.setlocationDescription("locate description");
+        location.setlocationDescription(CatLocation);
         location.setLocationLatitude(2F);
-        location.setLocationLevel(1);
+        location.setLocationLevel(Level);
         location.setLocationLongitude(3F);
         location.setTidtype(createCatLocationType(LocationType));
         getCatLocationDao().saveOrUpdate(location);

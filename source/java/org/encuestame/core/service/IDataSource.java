@@ -27,6 +27,7 @@ import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
+import org.encuestame.web.beans.location.UnitLocationBean;
 import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 
@@ -100,4 +101,16 @@ public interface IDataSource {
      * @return the projectDaoImp
      */
     public IProject getProjectDaoImp();
+
+    /**
+     * @param locationTypeBean locationTypeBean
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    public void updateCatLocationType(UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion;
+
+    /**
+     * @param locationBean locationBean
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    public void updateCatLocation(UnitLocationBean locationBean) throws EnMeExpcetion;
 }

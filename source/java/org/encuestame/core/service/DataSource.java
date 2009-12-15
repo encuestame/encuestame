@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.dao.CatLocationTypeDao;
+import org.encuestame.core.persistence.dao.ProjectDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
@@ -27,9 +29,12 @@ import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
+import org.encuestame.web.beans.location.UnitLocationBean;
 import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.hibernate.HibernateException;
@@ -42,11 +47,15 @@ import org.hibernate.HibernateException;
  */
 public class DataSource implements IDataSource {
 
-
+    /** {@link CatState}. */
     private ICatState stateDao;
+    /** {@link CatLocation}. */
     private ICatLocation catLocationDao;
+    /** {@link CatLocationTypeDao}. */
     private ICatLocationTypeDao catLocationTypeDao;
+    /** {@link ProjectDaoImp}. */
     private IProject projectDaoImp;
+    /**Log. */
     protected Log log = LogFactory.getLog(this.getClass());
 
 
@@ -156,6 +165,49 @@ public class DataSource implements IDataSource {
          throw new EnMeExpcetion("Cat Location Type is null");
      }
  }
+
+    /**
+     * @param locationBean locationBean
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    public void updateCatLocation(UnitLocationBean locationBean) throws EnMeExpcetion
+    {
+        log.info("Update Location");
+        final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getTid());
+        System.out.println("IDLOCATION-->"+catLocation);
+        if (catLocation!=null){
+        catLocation.setLocationActive(locationBean.getActive());
+        catLocation.setlocationDescription(locationBean.getDescriptionLocation());
+        catLocation.setLocationLatitude(locationBean.getLatitude());
+        catLocation.setLocationLevel(locationBean.getLevel());
+        catLocation.setLocationLongitude(locationBean.getLongitude());
+        final CatLocationType catLocationType = getCatLocationTypeDao().getLocationById(locationBean.getLocationTypeId());
+        catLocation.setTidtype(catLocationType);
+        getCatLocationDao().saveOrUpdate(catLocation);
+
+
+        }
+   }
+
+
+    /**
+     * @param locationTypeBean locationTypeBean
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    public void updateCatLocationType(UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion{
+        log.info("update LocationType");
+        final CatLocationType catLocationType = getCatLocationTypeDao().getLocationById(locationTypeBean.getIdLocType());
+        if (catLocationType!=null){
+            System.out.println("IDLOCATION-->");
+            catLocationType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
+            catLocationType.setLocationTypeLevel(locationTypeBean.getLevel());
+            getCatLocationTypeDao().saveOrUpdate(catLocationType);
+        }
+
+
+
+
+    }
 
     /**
      * create Cat Location.

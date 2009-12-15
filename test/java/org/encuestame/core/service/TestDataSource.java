@@ -15,9 +15,16 @@ package org.encuestame.core.service;
 import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.test.config.AbstractBeanBaseTest;
+import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.location.LocationBean;
+import org.encuestame.web.beans.location.UnitLocationBean;
+import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,4 +188,41 @@ public class TestDataSource extends AbstractBeanBaseTest {
     public void setDataSource(IDataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    /**
+     * Test Update Location.
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    @Test
+    public void testUpdateLocation() throws EnMeExpcetion{
+        final CatLocation catLoc = createCatLocation("Masaya", "Departamento", 1);
+        Long idLocation = catLoc.getLocateId();
+        System.out.println("**********************");
+        UnitLocationBean locationBean = ConvertDomainBean.convertLocationToBean(catLoc);
+        locationBean.setDescriptionLocation("Granada");
+        System.out.println(locationBean.getTid());
+        dataSource.updateCatLocation(locationBean);
+        System.out.println(idLocation);
+        CatLocation locRetrieve = getCatLocation().getLocationById(idLocation);
+        assertEquals("Should be", "Granada", locRetrieve.getLocationDescription());
+      }
+
+    /**
+     * Test Update Location Type
+     * @throws EnMeExpcetion  EnMeExpcetion
+     */
+    @Test
+    public void testUpdateLocationType() throws EnMeExpcetion{
+        final CatLocationType catLocType = createCatLocationType("Comarca");
+        Long idLocationType = catLocType.getLocationTypeId();
+        System.out.println("IDLOCATION-->"+idLocationType);
+        UnitLocationTypeBean locationTypeBean = ConvertDomainBean.convertLocationTypeToBean(catLocType);
+        locationTypeBean.setLocTypeDesc("pueblo");
+        dataSource.updateCatLocationType(locationTypeBean);
+        CatLocationType locTypeRetrieve = getCatLocationTypeDao().getLocationById(idLocationType);
+        assertEquals("should be","pueblo", locTypeRetrieve.getLocationTypeDescription());
+
+
+    }
+
 }

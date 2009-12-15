@@ -43,5 +43,5 @@ public interface ICatLocationTypeDao extends IBaseDao {
      * @return {@link CatLocation}
      * @throws HibernateException excetion
      */
-    public CatLocationType getLocationById(final Long locaTypeId) throws HibernateException;
+    public CatLocationType getLocationById(final Long locaTypeId) throws HibernateException ;
 }

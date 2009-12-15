@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.hibernate.HibernateException;
 
 /**
@@ -70,9 +71,10 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
     @SuppressWarnings("unchecked")
     public List<CatLocation> getLocationbyLevelId(final Long locateId) throws HibernateException{
         return getSession().createQuery("FROM CatLocation WHERE locationLevel = :locateId")
-        .setParameter("locateId", locateId)
+        .setParameter("locateId", Integer.valueOf(locateId.intValue()))
         .list();
 
 
     }
+
     }
