@@ -109,26 +109,26 @@ public class EnMeSchemaExport {
 
             System.out.println("permisos total -> "+secUserDao.getSecondaryUserById(1L).getSecUserPermissions().size());
 
-          /*  final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
+            final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
             final CatState activate = new CatState();
             activate.setDescState("activate");
             stateDao.saveOrUpdate(activate);
             final CatState inactive = new CatState();
             inactive.setDescState("inactive");
             stateDao.saveOrUpdate(inactive);
-            stateDao.saveOrUpdate(inactive);*/
+            stateDao.saveOrUpdate(inactive);
 
         } catch (EnMeExpcetion e) {
             System.out.println("Error create data " + e.getMessage());
         }
         //Create test database
 
-     /*   final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
+        final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
                 SPRING_CONFIG_TEST_FILES);
         final AnnotationSessionFactoryBean annotationSFTest = (AnnotationSessionFactoryBean) appContextTest
                 .getBean("&sessionFactory");
         annotationSFTest.dropDatabaseSchema();
-        annotationSFTest.createDatabaseSchema();*/
+        annotationSFTest.createDatabaseSchema();
     }
 
     /**
