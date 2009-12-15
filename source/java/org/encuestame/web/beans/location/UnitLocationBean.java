@@ -150,9 +150,4 @@ public class UnitLocationBean extends MasterBean implements Serializable  {
     public void setActive(String active) {
         this.active = active;
     }
-
-
-
-
-
 }

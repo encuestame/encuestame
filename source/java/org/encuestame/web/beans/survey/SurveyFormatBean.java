@@ -41,11 +41,6 @@ public class SurveyFormatBean extends MasterBean {
     private Log log = LogFactory.getLog(this.getClass());
     private Boolean listSuggest = false;
 
-    public SurveyFormatBean() {
-
-    }
-
-
     /**
      *
      * @return
@@ -59,7 +54,7 @@ public class SurveyFormatBean extends MasterBean {
             Iterator<SurveyFormat> iterator = lista.iterator();
             while (iterator.hasNext()) {
                 SurveyFormat elem = ((SurveyFormat) iterator.next());
-                if ((elem.getName() != null && elem.getName().toLowerCase()
+                if ((elem.getSurveyFormatName() != null && elem.getSurveyFormatName().toLowerCase()
                         .indexOf(pref.toLowerCase()) == 0)
                         || "".equals(pref)) {
                     result.add(elem);

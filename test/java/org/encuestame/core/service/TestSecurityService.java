@@ -194,14 +194,13 @@ public class TestSecurityService extends AbstractBaseTest{
      **/
     @Test
     public void testUpdateUser(){
-      //SecUsers secUsers = createUsers("developer");
-     // Long idUser = secUsers.getUid();
-      //UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
-      //userBean.setName("editor");
-      //securityService.updateUser(userBean);
-      //SecUsers userUpdateRetrieve = getSecUserDao().getUserById(idUser);
-      //assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
-
+      final SecUserSecondary secUsers = createSecondaryUser("developer",createUser());
+      Long idUser = secUsers.getUid();
+      UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
+      userBean.setName("editor");
+      securityService.updateUser(userBean);
+      //SecUserSecondary userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);
+     // assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
     }
 
     /**

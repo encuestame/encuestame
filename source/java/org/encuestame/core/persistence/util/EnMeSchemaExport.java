@@ -21,8 +21,11 @@ import java.util.Date;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatStateDaoImp;
+import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.web.beans.admon.UnitPermission;
@@ -65,6 +68,7 @@ public class EnMeSchemaExport {
         annotationSF.dropDatabaseSchema();
         final SecurityService securityService = (SecurityService) appContext
                 .getBean("securityService");
+
         annotationSF.createDatabaseSchema();
         try {
             final UnitPermission permissionBean = new UnitPermission();
@@ -77,6 +81,7 @@ public class EnMeSchemaExport {
             permissionAdmin.setPermission("ENCUESTAME_ADMIN");
             permissionAdmin.setDescription("ENCUESTAME_ADMIN");
             securityService.createPermission(permissionAdmin);
+
             //create user admin
             final SecUsers userPrimary = new SecUsers();
             final SecUserDaoImp secUserDao = (SecUserDaoImp) appContext.getBean("secUserDao");
@@ -91,15 +96,28 @@ public class EnMeSchemaExport {
             user.setStatus(true);
             securityService.createUser(user);
             //admin user permission
-            securityService.assignPermission(user, permissionAdmin);
-            final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
+            //securityService.assignPermission(user, permissionAdmin);
+
+            final SecPermissionDaoImp secPermissionDaoImp = (SecPermissionDaoImp) appContext.getBean("secPermissionDaoImp");
+            SecPermission d = secPermissionDaoImp.getPermissionById(1L);
+            SecPermission d2 = secPermissionDaoImp.getPermissionById(2L);
+            SecUserSecondary s = secUserDao.getSecondaryUserById(1L);
+            s.getSecUserPermissions().add(d);
+            s.getSecUserPermissions().add(d2);
+            secUserDao.saveOrUpdate(s);
+
+
+            System.out.println("permisos total -> "+secUserDao.getSecondaryUserById(1L).getSecUserPermissions().size());
+
+          /*  final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
             final CatState activate = new CatState();
             activate.setDescState("activate");
             stateDao.saveOrUpdate(activate);
             final CatState inactive = new CatState();
             inactive.setDescState("inactive");
             stateDao.saveOrUpdate(inactive);
-            stateDao.saveOrUpdate(inactive);
+            stateDao.saveOrUpdate(inactive);*/
+
         } catch (EnMeExpcetion e) {
             System.out.println("Error create data " + e.getMessage());
         }

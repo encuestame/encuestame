@@ -20,11 +20,6 @@
  */
 package org.encuestame.core.persistence.pojos;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.encuestame.core.persistence.pojo.ProjectUser;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Test;
@@ -47,8 +42,8 @@ public class TestSecUsers extends AbstractBaseTest{
     @Test
     public void testSecUser(){
         final SecUsers user = new SecUsers();
-        final Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
-        user.setProjectUsers(projectUser);
+      //  final Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
+        //user.setProjectUsers(projectUser);
         getSecUserDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }

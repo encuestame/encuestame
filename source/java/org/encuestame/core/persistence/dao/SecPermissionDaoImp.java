@@ -21,9 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
-import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 /**
@@ -37,20 +35,20 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
     /**
      * Load permissions by user.
      * @param userId user id
-     * @return {@link SecUserPermission}
+     * @return
      */
     @SuppressWarnings("unchecked")
-    public Collection<SecUserPermission> loadPermissionByUserId(Integer userId)
-           throws HibernateException {
-        return getHibernateTemplate().find(
-                "from SecUserPermission d where d.secUsers.uid =" + userId);
-    }
+   // public Collection<SecUserPermission> loadPermissionByUserId(Integer userId)
+    //       throws HibernateException {
+    //    return getHibernateTemplate().find(
+    //            "from SecUserPermission d where d.secUsers.uid =" + userId);
+    //}
 
     /**
      * Load all permisssion.
      * @return List of  {@link SecPermission}
      */
-    @SuppressWarnings("unchecked")
+
     public Collection<SecPermission> loadAllPermissions() throws HibernateException{
         return getHibernateTemplate().find("from SecPermission");
 
@@ -63,15 +61,23 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
      */
     public SecPermission loadPermission(final String permission)
            throws HibernateException{
-        return (SecPermission) getSession()
-        .createCriteria(SecPermission.class)
-        .add(Restrictions.eq("permission", permission))
-        .uniqueResult();
+        session = getEnMeSession();
+        try {
+            return (SecPermission) session
+            .createCriteria(SecPermission.class)
+            .add(Restrictions.eq("permission", permission))
+            .uniqueResult();
+        } catch (HibernateException e) {
+            throw new HibernateException(e);
+        }finally{
+           // releaseEnMeSession(session);
+        }
     }
 
     /**
      * Find All Permissions.
      * @return List of {@link SecPermission}
+     * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
     public List<SecPermission> findAllPermissions() throws HibernateException {
@@ -79,19 +85,17 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
     }
 
     /**
-     * Save or Update Permission.
-     * @param permission permission
-     */
-    public void saveOrUpdate(Object permission) throws HibernateException {
-           getHibernateTemplate().saveOrUpdate(permission);
-    }
-
-    /**
     *
     */
    public SecPermission getPermissionById(Long permId) throws HibernateException {
-       return (SecPermission) getSession().get(SecPermission.class,
-           permId);
+       session = getEnMeSession();
+       try {
+           return (SecPermission) session.get(SecPermission.class, permId);
+       } catch (HibernateException e) {
+           throw new HibernateException(e);
+       }finally{
+           //releaseEnMeSession(session);
+       }
    }
 
 }

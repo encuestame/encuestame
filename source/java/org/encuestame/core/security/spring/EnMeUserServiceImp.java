@@ -13,19 +13,13 @@
 package org.encuestame.core.security.spring;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
-import org.encuestame.core.persistence.pojo.SecGroupPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.userdetails.User;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
@@ -116,41 +110,41 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         if (this.roleGroupAuth == true) {
             //search groups of the user
             log.info("list group permissions");
-            final List<SecGroupPermission> listGroupPermissions = secUserDao
-                    .getGroupPermission(secUserDao.getUserGroups(user));
-                //iterator list of groups permissions
-                final Iterator<SecGroupPermission> iterator = listGroupPermissions
-                        .iterator();
+           // final List<SecGroupPermission> listGroupPermissions = secUserDao
+             //       .getGroupPermission(secUserDao.getUserGroups(user));
+            ///    //iterator list of groups permissions
+               /// final Iterator<SecGroupPermission> iterator = listGroupPermissions
+             //           .iterator();
                 log.info("list group ite permissions");
-                while (iterator.hasNext()) {
-                    final SecGroupPermission secPermission = (SecGroupPermission) iterator
-                            .next();
+              //  while (iterator.hasNext()) {
+              //      final SecGroupPermission secPermission = (SecGroupPermission) iterator
+                   //         .next();
                     //search if permission exits in the list, if permission exists are ignored
-                    if (listPermissions.indexOf(secPermission
-                            .getSecPermission().getPermission().trim()) != -1) {
-                        log.warn("ignore permission"
-                                + secPermission.getSecPermission()
-                                        .getPermission());
-                    } else {
-                        listPermissions.add(secPermission.getSecPermission()
-                                .getPermission().trim());
-                        log.info("permission added"
-                                + secPermission.getSecPermission()
-                                        .getPermission());
-                    }
+                  //  if (listPermissions.indexOf(secPermission
+                  //          .getSecPermission().getPermission().trim()) != -1) {
+                   //     log.warn("ignore permission"
+                  //              + secPermission.getSecPermission()
+                  //                      .getPermission());
+                  //  } else {
+                    //    listPermissions.add(secPermission.getSecPermission()
+                   //             .getPermission().trim());
+                   //     log.info("permission added"
+                   //             + secPermission.getSecPermission()
+                   //                     .getPermission());
+                   // }
                 }
-            }
+         //   }
         // verify is user permission flag is activated
-        log.info("verify is user permission flag is activated");
+      //  log.info("verify is user permission flag is activated");
         if (this.roleUserAuth == true) {
             log.info("list user permissions");
-           final List<SecUserPermission> listUserPermissions = secUserDao
+          /* final List<SecUserPermission> listUserPermissions = secUserDao
                     .getUserPermission(user.getSecUser());
                 Iterator<SecUserPermission> iteratorUser = listUserPermissions.iterator();
                 while (iteratorUser.hasNext()) {
                     final SecUserPermission secPermission = (SecUserPermission) iteratorUser
-                            .next();
-                    if (listPermissions.indexOf(secPermission
+                            .next();*/
+               /*     if (listPermissions.indexOf(secPermission
                             .getSecPermission().getPermission().trim()) != -1) {
                         log.info("permission ignored "
                                 + secPermission.getSecPermission()
@@ -161,28 +155,28 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
                         log.info("permission added "
                                 + secPermission.getSecPermission()
                                         .getPermission().trim());
-                    }
-                }
+                    }*/
+                //}
             }
-        log.info("total permission " + listPermissions.size());
-        final GrantedAuthority[] authorities = new GrantedAuthority[listPermissions
-                .size()];
+       // log.info("total permission " + listPermissions.size());
+       // final GrantedAuthority[] authorities = new GrantedAuthority[listPermissions
+       //         .size()];
         //convert list to array
-        int i = 0;
-        for (final String permission : listPermissions) {
-            authorities[i++] = new GrantedAuthorityImpl(permission.trim());
-        }
+        //int i = 0;
+        //for (final String permission : listPermissions) {
+        //    authorities[i++] = new GrantedAuthorityImpl(permission.trim());
+       // }
         //creating user details
-        log.info("user detail");
-        log.info("user pass "+user.getPassword());
-        log.info("user name "+user.getUsername());
-        final User userDetails = new User(user.getUsername(), user.getPassword(),
-                user.isUserStatus() == null ? false : user.isUserStatus(),
-                true,  // accoun  not expired
-                true, // cridentials not expired
-                true, // account not locked
-                authorities);
-        log.info("userDetails " + userDetails);
-        return userDetails;
+      //  log.info("user detail");
+      ////  log.info("user pass "+user.getPassword());
+       // log.info("user name "+user.getUsername());
+      //  final User userDetails = new User(user.getUsername(), user.getPassword(),
+       //         user.isUserStatus() == null ? false : user.isUserStatus(),
+         //       true,  // accoun  not expired
+          //      true, // cridentials not expired
+         //       true, // account not locked
+        //        authorities);
+        //log.info("userDetails " + userDetails);
+        return null;
     }
 }

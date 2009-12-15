@@ -20,7 +20,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.QuestionsPatron;
+import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.hibernate.HibernateException;
 
  /**
@@ -46,10 +46,10 @@ public interface IQuestionDao extends IBaseDao {
 
     /**
      * Load All Questions Patron.
-     * @return  List of {@link QuestionsPatron}
+     * @return  List of {@link QuestionPattern}
      * @throws HibernateException exception
      */
-    public List<QuestionsPatron> loadAllQuestionPattern()
+    public List<QuestionPattern> loadAllQuestionPattern()
     throws HibernateException;
 
     /**
@@ -58,5 +58,5 @@ public interface IQuestionDao extends IBaseDao {
      * @return QuestionPatron
      * @throws HibernateException exception
      */
-    public QuestionsPatron loadPatternInfo(final Long patronId) throws HibernateException;
+    public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException;
 }

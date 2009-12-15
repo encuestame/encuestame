@@ -23,12 +23,8 @@ import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
-import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecGroupUserId;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermissionId;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.PasswordGenerator;
@@ -138,7 +134,7 @@ public class SecurityService extends Service implements ISecurityService {
                        // userBean.setPublisher(user.getPublisher());
                        // userBean.setStatus(user.isUserStatus());
                         userBean.setListGroups(convertSetToUnitGroupBean(Integer.valueOf((user.getUid().toString()))));
-                        userBean.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));
+                      /*  userBean.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));*/
                         loadListUsers.add(userBean);
                     }
                 }
@@ -207,7 +203,7 @@ public class SecurityService extends Service implements ISecurityService {
     private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Integer userId)
             throws Exception {
         final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-        if (userId != null) {
+      /*  if (userId != null) {
             final UnitGroupBean group = new UnitGroupBean();
             Collection<SecGroupUser> listSecGru = getGroupDao()
                     .loadGroupsByUser(Long.valueOf(userId));
@@ -219,7 +215,7 @@ public class SecurityService extends Service implements ISecurityService {
                 group.setStateId(userg.getSecGroups().getIdState().toString());
                 loadListGroups.add(group);
             }
-        }
+        }*/
         return loadListGroups;
     }
 
@@ -228,15 +224,14 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userId user id
      * @return collection of permission
      * @throws Exception all exceptions.
-     */
+  */
     private Collection<UnitPermission> convertSetToUnitPermission(final Integer userId)
             throws Exception {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
         if (userId != null) {
             final UnitPermission permissionBean = new UnitPermission();
-            final Collection<SecUserPermission> listSecGru = getPermissionDao()
-                    .loadPermissionByUserId(userId);
-            for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
+
+           /* for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
                     .hasNext();) {
                 final SecUserPermission permission = i.next();
                 permissionBean.setId(Integer.valueOf(permission.getSecPermission().getIdPermission().toString()));
@@ -246,7 +241,7 @@ public class SecurityService extends Service implements ISecurityService {
                 permissionBean.setDescription(permission.getSecPermission()
                         .getPermissionDescription());
                 loadListPermission.add(permissionBean);
-            }
+            }*/
         }
         return loadListPermission;
     }
@@ -259,7 +254,7 @@ public class SecurityService extends Service implements ISecurityService {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
         final Collection<SecPermission> listSecPermission = getPermissionDao()
                 .loadAllPermissions();
-        for (Iterator<SecPermission> iterator = listSecPermission.iterator(); iterator
+      /*  for (Iterator<SecPermission> iterator = listSecPermission.iterator(); iterator
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             SecPermission permission = iterator.next();
@@ -267,7 +262,7 @@ public class SecurityService extends Service implements ISecurityService {
             permissionBean.setPermission(permission.getPermission());
             permissionBean.setDescription(permission.getPermissionDescription());
             loadListPermission.add(permissionBean);
-        }
+        }*/
         return loadListPermission;
     }
 
@@ -349,12 +344,15 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userBean user bean.
      */
     public void updateUser(final UnitUserBean userBean) {
+        log.info("service update user method");
         final SecUserSecondary updateUser = getUserDao().getUserByUsername(userBean.getUsername());
+        log.info("update user, user found: "+updateUser.getUid());
         if (updateUser != null) {
             updateUser.setUserEmail(userBean.getEmail());
             updateUser.setCompleteName(userBean.getName());
             updateUser.setUserStatus(userBean.getStatus());
             updateUser.setPublisher(userBean.getPublisher());
+            log.info("updateing user, user "+updateUser.getUid());
             getUserDao().saveOrUpdate(updateUser);
         }
     }
@@ -481,13 +479,13 @@ public class SecurityService extends Service implements ISecurityService {
             permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
         }
         if (userBean.getId() != null && permissionBean.getId() != null) {
-            final SecUserPermission userPerId = new SecUserPermission();
-            SecUserPermissionId userPermissionId = new SecUserPermissionId();
-            userPermissionId.setIdPermission(Long.valueOf(permissionBean.getId().toString()));
-            userPermissionId.setUid(Long.valueOf(userBean.getId().toString()));
-            userPerId.setId(userPermissionId);
-            userPerId.setState(true);
-            getUserDao().saveOrUpdate(userPerId);
+           // final SecUserPermission userPerId = new SecUserPermission();
+            //SecUserPermissionId userPermissionId = new SecUserPermissionId();
+            //userPermissionId.setIdPermission(Long.valueOf(permissionBean.getId().toString()));
+           // userPermissionId.setUid(Long.valueOf(userBean.getId().toString()));
+           // userPerId.setId(userPermissionId);
+          //  userPerId.setState(true);
+            //getUserDao().saveOrUpdate(userPerId);
         } else {
             throw new EnMeExpcetion("id user or permission was null");
         }
@@ -515,13 +513,13 @@ public class SecurityService extends Service implements ISecurityService {
             final UnitGroupBean groupBean)
             throws EnMeExpcetion {
         try{
-            SecGroupUserId groupUserId = new SecGroupUserId();
+         /*   SecGroupUserId groupUserId = new SecGroupUserId();
             groupUserId.setGroupId(Long.valueOf(groupBean.getId().toString()));
             groupUserId.setUid(Long.valueOf(userBean.getId().toString()));
             SecGroupUser groupUser = new SecGroupUser();
             groupUser.setSecGroupUserId(groupUserId);
             groupUser.setState(true);
-            getUserDao().assingGroupToUser(groupUser);
+            getUserDao().assingGroupToUser(groupUser);*/
         }
         catch (Exception e) {
            throw new EnMeExpcetion(e.getMessage());

@@ -89,15 +89,16 @@ public class UserBean extends MasterBean {
      * Update user.
      */
     public void updateUser() {
+        log.info("update user bean");
         try {
             getServicemanager().getApplicationServices().getSecurityService().updateUser(
-                    this.unitUserBean);
+                    getUnitUserBean());
         } catch (HibernateException e) {
             addErrorMessage("error update user "
                     + e.getMessage(), e.getMessage());
             log.error("error update user: " + e);
         } catch (Exception e) {
-            addErrorMessage("error update user " + e.getMessage(), e
+            addErrorMessage("error exception update " + e.getMessage(), e
                     .getMessage());
             log.error("error update user: " + e);
         }

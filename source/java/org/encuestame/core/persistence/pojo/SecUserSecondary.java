@@ -16,14 +16,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +40,7 @@ import javax.persistence.TemporalType;
 public class SecUserSecondary {
 
     private Long uid;
+
     private String completeName;
     private String userEmail;
     private String username;
@@ -51,9 +53,10 @@ public class SecUserSecondary {
     private Boolean userStatus;
     private String userTwitterAccount;
 
-    private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
-    private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
-            0);
+    private Set<SecGroups> secGroups = new HashSet<SecGroups>();
+    private Set<Project> projects = new HashSet<Project>();
+    private Set<SecPermission> secUserPermissions = new HashSet<SecPermission>();
+    private Set<CatLocation> cLocations = new HashSet<CatLocation>();
 
     /**
      * @return uid
@@ -136,7 +139,8 @@ public class SecUserSecondary {
     /**
      * @return the secUser
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
+    //@JoinColumn(name = "uid")
     public SecUsers getSecUser() {
         return secUser;
     }
@@ -225,41 +229,29 @@ public class SecUserSecondary {
     }
 
     /**
-     * @return secGroupUsers
-     */
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
-    public Set<SecGroupUser> getSecGroupUsers() {
-        return this.secGroupUsers;
-    }
-
-    /**
-     * @param secGroupUsers secGroupUsers
-     */
-    public void setSecGroupUsers(final Set<SecGroupUser> secGroupUsers) {
-        this.secGroupUsers = secGroupUsers;
-    }
-
-    /**
-     * @return secUserPermissions
-     */
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secUsers")
-    public Set<SecUserPermission> getSecUserPermissions() {
-        return this.secUserPermissions;
-    }
-
-    /**
-     * @param secUserPermissions secUserPermissions
-     */
-    public void setSecUserPermissions(final Set<SecUserPermission> secUserPermissions) {
-        this.secUserPermissions = secUserPermissions;
-    }
-
-    /**
      * @return userTwitterAccount
      */
     @Column(name = "twitter", length = 2)
     public String getUserTwitterAccount() {
         return this.userTwitterAccount;
+    }
+
+    /**
+     * @return the secUserPermissions
+     */
+    @ManyToMany()
+    @JoinTable(name="sec_user_permission",
+               joinColumns={@JoinColumn(name="sec_id_secondary")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
+    public Set<SecPermission> getSecUserPermissions() {
+        return secUserPermissions;
+    }
+
+    /**
+     * @param secUserPermissions the secUserPermissions to set
+     */
+    public void setSecUserPermissions(Set<SecPermission> secUserPermissions) {
+        this.secUserPermissions = secUserPermissions;
     }
 
     /**
@@ -269,4 +261,57 @@ public class SecUserSecondary {
         this.userTwitterAccount = userTwitterAccount;
     }
 
+    /**
+     * @return the secGroups
+     */
+    @ManyToMany()
+    @JoinTable(name="sec_user_group",
+               joinColumns={@JoinColumn(name="sec_id_secondary")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_group")})
+    public Set<SecGroups> getSecGroups() {
+        return secGroups;
+    }
+
+    /**
+     * @param secGroups the secGroups to set
+     */
+    public void setSecGroups(Set<SecGroups> secGroups) {
+        this.secGroups = secGroups;
+    }
+
+    /**
+     * @return the projects
+     */
+    @ManyToMany()
+    @JoinTable(name="sec_user_project",
+               joinColumns={@JoinColumn(name="sec_id_secondary")},
+               inverseJoinColumns={@JoinColumn(name="cat_id_project")})
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    /**
+     * @param projects the projects to set
+     */
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    /**
+     * @return the cLocations
+     */
+    @ManyToMany()
+    @JoinTable(name="sec_user_locations",
+               joinColumns={@JoinColumn(name="sec_id_secondary")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_location")})
+    public Set<CatLocation> getcLocations() {
+        return cLocations;
+    }
+
+    /**
+     * @param cLocations the cLocations to set
+     */
+    public void setcLocations(Set<CatLocation> cLocations) {
+        this.cLocations = cLocations;
+    }
 }

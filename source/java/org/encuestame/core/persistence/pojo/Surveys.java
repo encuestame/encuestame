@@ -1,36 +1,27 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +31,7 @@ import javax.persistence.TemporalType;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "surveys")
@@ -52,95 +44,141 @@ public class Surveys implements java.io.Serializable {
     private Date endDate;
     private Date dateInterview;
     private String complete;
-    private Integer idSidFormat;
-    private Set<SurveyTime> surveyTimes = new HashSet<SurveyTime>(0);
+    private SurveyFormat surveyFormat = new SurveyFormat();
 
+    /**
+     * @return sid
+     */
     @Id
     //TODO: need add autoincrement
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sid", unique = true, nullable = false)
-    public long getSid() {
+    public Long getSid() {
         return this.sid;
     }
 
+    /**
+     * @param sid sid
+     */
     public void setSid(Long sid) {
         this.sid = sid;
     }
 
+    /**
+     * @return secUsers
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
     }
 
+    /**
+     * @param secUsers secUsers
+     */
     public void setSecUsers(SecUsers secUsers) {
         this.secUsers = secUsers;
     }
 
+    /**
+     * @return ticket
+     */
     @Column(name = "ticket", nullable = false)
     public int getTicket() {
         return this.ticket;
     }
 
+    /**
+     * @param ticket ticket
+     */
     public void setTicket(int ticket) {
         this.ticket = ticket;
     }
 
+    /**
+     * @return startDate
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_date", nullable = false, length = 0)
     public Date getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * @param startDate startDate
+     */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     * @return endDate
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_date", nullable = false, length = 0)
     public Date getEndDate() {
         return this.endDate;
     }
 
+    /**
+     * @param endDate endDate
+     */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
+    /**
+     * @return dateInterview
+     */
     @Temporal(TemporalType.DATE)
     @Column(name = "date_interview", length = 0)
     public Date getDateInterview() {
         return this.dateInterview;
     }
 
+    /**
+     * @param dateInterview dateInterview
+     */
     public void setDateInterview(Date dateInterview) {
         this.dateInterview = dateInterview;
     }
 
+    /**
+     * @return complete
+     */
     @Column(name = "complete", length = 2)
     public String getComplete() {
         return this.complete;
     }
 
+    /**
+     * @param complete complete
+     */
     public void setComplete(String complete) {
         this.complete = complete;
     }
 
-    @Column(name = "id_sid_format")
-    public Integer getIdSidFormat() {
-        return this.idSidFormat;
+    /**
+     * @return the surveyFormat
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_sid_format", nullable = false)
+    public SurveyFormat getSurveyFormat() {
+        return surveyFormat;
     }
 
-    public void setIdSidFormat(Integer idSidFormat) {
-        this.idSidFormat = idSidFormat;
+    /**
+     * @param surveyFormat the surveyFormat to set
+     */
+    public void setSurveyFormat(SurveyFormat surveyFormat) {
+        this.surveyFormat = surveyFormat;
     }
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveys")
-    public Set<SurveyTime> getSurveyTimes() {
-        return this.surveyTimes;
-    }
-
-    public void setSurveyTimes(Set<SurveyTime> surveyTimes) {
-        this.surveyTimes = surveyTimes;
+    /**
+     * @param ticket the ticket to set
+     */
+    public void setTicket(Integer ticket) {
+        this.ticket = ticket;
     }
 
 }

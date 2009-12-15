@@ -44,6 +44,6 @@ public class CatLocationTypeDao extends AbstractHibernateDaoSupport implements I
      * @throws HibernateException excetion
      */
     public CatLocationType getLocationById(final Long locaTypeId) throws HibernateException {
-        return (CatLocationType) getSession().get(CatLocationType.class,locaTypeId);
+        return (CatLocationType) getEnMeSession().get(CatLocationType.class,locaTypeId);
     }
 }

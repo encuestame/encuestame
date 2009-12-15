@@ -1,28 +1,22 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -32,44 +26,55 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "questions_answers")
 public class QuestionsAnswers implements java.io.Serializable {
 
-    private QuestionsAnswersId id;
+    private Long questionAnswerId;
     private Questions questions;
     private String answer;
 
-    @EmbeddedId
-    @AttributeOverrides( {
-            @AttributeOverride(name = "idAnswers", column = @Column(name = "id_answers", nullable = false)),
-            @AttributeOverride(name = "qid", column = @Column(name = "qid", nullable = false)) })
-    public QuestionsAnswersId getId() {
-        return this.id;
+    /**
+     * @return the questionAnswerId
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "q_answer_id", unique = true, nullable = false)
+    public Long getQuestionAnswerId() {
+        return questionAnswerId;
     }
-
-    public void setId(QuestionsAnswersId id) {
-        this.id = id;
+    /**
+     * @param questionAnswerId the questionAnswerId to set
+     */
+    public void setQuestionAnswerId(Long questionAnswerId) {
+        this.questionAnswerId = questionAnswerId;
     }
-
+    /**
+     * @return the questions
+     */
     @ManyToOne()
-    @JoinColumn(name = "qid", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_question_answer", nullable = false)
     public Questions getQuestions() {
-        return this.questions;
+        return questions;
     }
-
+    /**
+     * @param questions the questions to set
+     */
     public void setQuestions(Questions questions) {
         this.questions = questions;
     }
-
-    @Column(name = "answer", length = 20)
+    /**
+     * @return the answer
+     */
     public String getAnswer() {
-        return this.answer;
+        return answer;
     }
-
+    /**
+     * @param answer the answer to set
+     */
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
 }

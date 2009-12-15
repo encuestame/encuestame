@@ -1,19 +1,14 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
@@ -24,21 +19,23 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 
 /**
  * SurveyGroup.
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "survey_group")
@@ -47,13 +44,13 @@ public class SurveyGroup implements java.io.Serializable {
     private Long sgId;
     private String groupName;
     private Date dateCreate;
-    private Long idState;
-    private Long idSidFormat;
-    private Set<SurveyFormatGroup> surveyFormatGroups = new HashSet<SurveyFormatGroup>(
-            0);
-    private Set<SurveyGroupProject> surveyGroupProjects = new HashSet<SurveyGroupProject>(
-            0);
+    private CatState catState;
+    private Set<SurveyFormat> surveyFormats = new HashSet<SurveyFormat>();
+    private Set<Project> projects = new HashSet<Project>();
 
+    /**
+     * @return sgId
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sg_id", unique = true, nullable = false)
@@ -61,64 +58,93 @@ public class SurveyGroup implements java.io.Serializable {
         return this.sgId;
     }
 
+    /**
+     * @param sgId sgId
+     */
     public void setSgId(Long sgId) {
         this.sgId = sgId;
     }
 
+    /**
+     * @return groupName
+     */
     @Column(name = "group_name", length = 60)
     public String getGroupName() {
         return this.groupName;
     }
 
+    /**
+     * @param groupName groupName
+     */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
+    /**
+     * @return dateCreate
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_create", length = 0)
     public Date getDateCreate() {
         return this.dateCreate;
     }
 
+    /**
+     * @param dateCreate dateCreate
+     */
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    @Column(name = "id_state")
-    public Long getIdState() {
-        return this.idState;
+    /**
+     * @return the catState
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cat_state_id_survey_group", nullable = false)
+    public CatState getCatState() {
+        return catState;
     }
 
-    public void setIdState(Long idState) {
-        this.idState = idState;
+    /**
+     * @param catState the catState to set
+     */
+    public void setCatState(CatState catState) {
+        this.catState = catState;
     }
 
-    @Column(name = "id_sid_format", nullable = false)
-    public Long getIdSidFormat() {
-        return this.idSidFormat;
+    /**
+     * @return the surveyFormats
+     */
+    @ManyToMany()
+    @JoinTable(name="survey_group_format",
+               joinColumns={@JoinColumn(name="sg_id")},
+               inverseJoinColumns={@JoinColumn(name="id_sid_format")})
+    public Set<SurveyFormat> getSurveyFormats() {
+        return surveyFormats;
     }
 
-    public void setIdSidFormat(Long idSidFormat) {
-        this.idSidFormat = idSidFormat;
+    /**
+     * @param surveyFormats the surveyFormats to set
+     */
+    public void setSurveyFormats(Set<SurveyFormat> surveyFormats) {
+        this.surveyFormats = surveyFormats;
     }
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveyGroup")
-    public Set<SurveyFormatGroup> getSurveyFormatGroups() {
-        return this.surveyFormatGroups;
+    /**
+     * @return the projects
+     */
+    @ManyToMany()
+    @JoinTable(name="survey_group_project",
+               joinColumns={@JoinColumn(name="id_sid_format")},
+               inverseJoinColumns={@JoinColumn(name="cat_id_project")})
+    public Set<Project> getProjects() {
+        return projects;
     }
 
-    public void setSurveyFormatGroups(Set<SurveyFormatGroup> surveyFormatGroups) {
-        this.surveyFormatGroups = surveyFormatGroups;
+    /**
+     * @param projects the projects to set
+     */
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
-
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveyGroup")
-    public Set<SurveyGroupProject> getSurveyGroupProjects() {
-        return this.surveyGroupProjects;
-    }
-
-    public void setSurveyGroupProjects(
-            Set<SurveyGroupProject> surveyGroupProjects) {
-        this.surveyGroupProjects = surveyGroupProjects;
-    }
-
 }

@@ -1,19 +1,14 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
@@ -41,36 +36,20 @@ import javax.persistence.TemporalType;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
-@Table(name = "question_colettion")
+@Table(name = "question_collection")
 public class QuestionColettion implements Serializable {
 
     private Long idQColection;
     private SecUsers secUsers;
     private String desColeccion;
     private Date creationDate;
-    private Set<QuestionsRelations> questionsRelationses = new HashSet<QuestionsRelations>(
-            0);
 
-    public QuestionColettion() {
-    }
-
-    public QuestionColettion(SecUsers secUsers, String desColeccion,
-            Date creationDate) {
-        this.secUsers = secUsers;
-        this.desColeccion = desColeccion;
-        this.creationDate = creationDate;
-    }
-
-    public QuestionColettion(SecUsers secUsers, String desColeccion,
-            Date creationDate, Set<QuestionsRelations> questionsRelationses) {
-        this.secUsers = secUsers;
-        this.desColeccion = desColeccion;
-        this.creationDate = creationDate;
-        this.questionsRelationses = questionsRelationses;
-    }
-
+    /**
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_q_colection", unique = true, nullable = false)
@@ -78,47 +57,58 @@ public class QuestionColettion implements Serializable {
         return this.idQColection;
     }
 
-    public void setIdQColection(Long idQColection) {
+    /**
+     * @param idQColection
+     */
+    public void setIdQColection(final Long idQColection) {
         this.idQColection = idQColection;
     }
 
+    /**
+     * @return
+     */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
     public SecUsers getSecUsers() {
         return this.secUsers;
     }
 
-    public void setSecUsers(SecUsers secUsers) {
+    /**
+     * @param secUsers
+     */
+    public void setSecUsers(final SecUsers secUsers) {
         this.secUsers = secUsers;
     }
 
+    /**
+     * @return
+     */
     @Column(name = "des_coleccion", nullable = false)
     public String getDesColeccion() {
         return this.desColeccion;
     }
 
-    public void setDesColeccion(String desColeccion) {
+    /**
+     * @param desColeccion
+     */
+    public void setDesColeccion(final String desColeccion) {
         this.desColeccion = desColeccion;
     }
 
+    /**
+     * @return
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false, length = 0)
     public Date getCreationDate() {
         return this.creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    /**
+     * @param creationDate
+     */
+    public void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    @OneToMany(mappedBy = "questionColettion")
-    public Set<QuestionsRelations> getQuestionsRelationses() {
-        return this.questionsRelationses;
-    }
-
-    public void setQuestionsRelationses(
-            Set<QuestionsRelations> questionsRelationses) {
-        this.questionsRelationses = questionsRelationses;
     }
 
 }

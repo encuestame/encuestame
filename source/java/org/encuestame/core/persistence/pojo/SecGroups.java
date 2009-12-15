@@ -1,19 +1,14 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
@@ -25,7 +20,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,6 +30,7 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "sec_groups")
@@ -42,10 +40,9 @@ public class SecGroups {
     private String groupName;
     private String groupDescriptionInfo;
     private Long idState;
-    private Set<SecGroupUser> secGroupUsers = new HashSet<SecGroupUser>(0);
-    private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(0);
-    private Set<ProjectGroup> projectGroups = new HashSet<ProjectGroup>(0);
-    private Set<ProjectLocation> projectLocations = new HashSet<ProjectLocation>(0);
+    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
+    private Set<Project> projects = new HashSet<Project>();
+    private Set<SecPermission> secPermissions = new HashSet<SecPermission>();
 
     /**
      * @return groupId
@@ -110,65 +107,56 @@ public class SecGroups {
     }
 
     /**
-     * @return secGroupUsers
+     * @return the secPermissions
      */
-    @OneToMany(mappedBy = "secGroups")
-    public Set<SecGroupUser> getSecGroupUsers() {
-        return this.secGroupUsers;
+    @ManyToMany()
+    @JoinTable(name="sec_group_permission",
+               joinColumns={@JoinColumn(name="sec_id_group")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
+    public Set<SecPermission> getSecPermissions() {
+        return secPermissions;
     }
 
     /**
-     * @param secGroupUsers secGroupUsers
+     * @param secPermissions the secPermissions to set
      */
-    public void setSecGroupUsers(final Set<SecGroupUser> secGroupUsers) {
-        this.secGroupUsers = secGroupUsers;
+    public void setSecPermissions(Set<SecPermission> secPermissions) {
+        this.secPermissions = secPermissions;
     }
 
     /**
-     * @return secGroupPermissions secGroupPermissions
+     * @return the secUserSecondaries
      */
-    @OneToMany(mappedBy = "secGroups")
-    public Set<SecGroupPermission> getSecGroupPermissions() {
-        return this.secGroupPermissions;
+    @ManyToMany()
+    @JoinTable(name="sec_user_group",
+               joinColumns={@JoinColumn(name="sec_id_group")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
+    public Set<SecUserSecondary> getSecUserSecondaries() {
+        return secUserSecondaries;
     }
 
     /**
-     *
-     * @param secGroupPermissions secGroupPermissions
+     * @param secUserSecondaries the secUserSecondaries to set
      */
-    public void setSecGroupPermissions(
-            final Set<SecGroupPermission> secGroupPermissions) {
-        this.secGroupPermissions = secGroupPermissions;
+    public void setSecUserSecondaries(Set<SecUserSecondary> secUserSecondaries) {
+        this.secUserSecondaries = secUserSecondaries;
     }
 
     /**
-     * @return projectGroups
+     * @return the projects
      */
-    @OneToMany(mappedBy = "secGroups")
-    public Set<ProjectGroup> getProjectGroups() {
-        return this.projectGroups;
+    @ManyToMany()
+    @JoinTable(name="sec_project_group",
+              joinColumns={@JoinColumn(name="sec_id_group")},
+              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
+    public Set<Project> getProjects() {
+        return projects;
     }
 
     /**
-     * @param projectGroups projectGroups
+     * @param projects the projects to set
      */
-    public void setProjectGroups(Set<ProjectGroup> projectGroups) {
-        this.projectGroups = projectGroups;
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
-
-    /**
-     * @return projectLocations
-     */
-    @OneToMany(mappedBy = "secGroups")
-    public Set<ProjectLocation> getProjectLocations() {
-        return this.projectLocations;
-    }
-
-    /**
-     * @param projectLocations projectLocations
-     */
-    public void setProjectLocations(final Set<ProjectLocation> projectLocations) {
-        this.projectLocations = projectLocations;
-    }
-
 }

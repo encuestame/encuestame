@@ -18,11 +18,7 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.List;
-
 import org.encuestame.core.persistence.dao.imp.IGroupPermissionDao;
-import org.encuestame.core.persistence.pojo.SecGroupPermission;
-import org.hibernate.HibernateException;
 
 /**
  * Group Permission Dao.
@@ -37,7 +33,7 @@ public class GroupPermissionDaoImp extends AbstractHibernateDaoSupport implement
      * @return list of groups permissions.
      * @throws HibernateException
      */
-    public List<SecGroupPermission> findAll() throws HibernateException {
-        return super.findAll("from SecGroupPermission");
-    }
+    //public List<SecGroupPermission> findAll() throws HibernateException {
+    //    return super.findAll("from SecGroupPermission");
+    //}
 }

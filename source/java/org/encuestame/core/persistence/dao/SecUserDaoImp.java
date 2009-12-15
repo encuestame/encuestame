@@ -12,14 +12,9 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
-import org.encuestame.core.persistence.pojo.SecGroupPermission;
-import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
@@ -38,11 +33,11 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * Assing user to group.
      * @param secGroupUser group user
      * @throws HibernateException exception
-     */
+
     public void assingGroupToUser(final SecGroupUser secGroupUser)
                 throws HibernateException {
         getHibernateTemplate().save(secGroupUser);
-    }
+    } */
 
     /**
      * Find All Users.
@@ -55,22 +50,42 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
 
     /**
      * Get User By Id.
+     *
      * @param userId userId
      * @return SecUserSecondary
      * @throws HibernateException hibernate exception
      */
-    public SecUserSecondary getSecondaryUserById(final Long userId) throws HibernateException {
-        return (SecUserSecondary) getSession().get(SecUserSecondary.class, userId);
+    public SecUserSecondary getSecondaryUserById(final Long userId)
+            throws HibernateException {
+        session = getEnMeSession();
+        try {
+            return (SecUserSecondary) session.get(SecUserSecondary.class,
+                    userId);
+        } catch (HibernateException e) {
+            throw new HibernateException(e);
+        } finally {
+            //releaseSession(session);
+        }
     }
 
     /**
      * Get Primary User By Id.
-     * @param userId user id
+     *
+     * @param userId
+     *            user id
      * @return {@link SecUsers}
-     * @throws HibernateException exception
+     * @throws HibernateException
+     *             exception
      */
     public SecUsers getUserById(final Long userId) throws HibernateException {
-        return (SecUsers) getSession().get(SecUsers.class, userId);
+        session = getEnMeSession();
+        try {
+            return (SecUsers) session.get(SecUsers.class, userId);
+        } catch (HibernateException e) {
+            throw new HibernateException(e);
+        } finally {
+            //releaseSession(session);
+        }
     }
 
     /**
@@ -79,17 +94,25 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @return list of users
      */
     public SecUserSecondary getUserByUsername(final String username)throws HibernateException {
-        return  (SecUserSecondary) getSession()
-        .createCriteria(SecUserSecondary.class)
-        .add(Restrictions.eq("username", username))
-        .uniqueResult();
+        session = getEnMeSession();
+        try {
+            return  (SecUserSecondary) session
+            .createCriteria(SecUserSecondary.class)
+            .add(Restrictions.eq("username", username))
+            .uniqueResult();
+        } catch (HibernateException e) {
+            throw new HibernateException(e);
+        } finally {
+           // releaseSession(session);
+           // System.out.println("despues de getUserByUsername->"+ session);
+        }
     }
 
     /**
      * Retrieve a list of permissions by group.
      * @param groups list of groups
      * @return list of permissions.
-     */
+
     @SuppressWarnings("unchecked")
     public List<SecGroupPermission> getGroupPermission(final List<SecGroupUser> groups) {
         final List<SecGroupPermission> listGroupPermission = new ArrayList<SecGroupPermission>();
@@ -108,30 +131,31 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
                 }
         }
         return listGroupPermission;
-    }
+    }*/
 
     /**
      * Get User Permissions.
      * @param user user
      * @return list of permissions
-     */
+
     @SuppressWarnings("unchecked")
     public List<SecUserPermission> getUserPermission(final SecUsers user) {
         return getHibernateTemplate()
                 .findByNamedParam("from " +
                         "SecUserPermission  where secUsers.uid "
                         +"= :user ", "user", user.getUid());
-    }
+    }*/
 
     /**
      * List of groups for one user.
      * @param user username
      * @return list of user groups
-     */
+
     @SuppressWarnings("unchecked")
     public List<SecGroupUser> getUserGroups(final SecUserSecondary user) {
         return getHibernateTemplate()
                 .findByNamedParam("from SecGroupUser "
                  +" where secUsers = :user ", "user", user);
-    }
+    } */
+
 }

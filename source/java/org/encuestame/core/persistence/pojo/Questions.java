@@ -1,44 +1,38 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 /**
  * Questions.
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "questions")
@@ -48,12 +42,12 @@ public class Questions implements Serializable {
     private CatState catState;
     private String question;
     private String qidKey;
-    private Set<QuestionsRelations> questionsRelationses = new HashSet<QuestionsRelations>(
-            0);
-    private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
-    private Set<QuestionsAnswers> questionsAnswerses = new HashSet<QuestionsAnswers>(
-            0);
+    private QuestionPattern questionPattern;
+    private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
+    /**
+     * @return qid
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "qid", unique = true, nullable = false)
@@ -61,65 +55,91 @@ public class Questions implements Serializable {
         return this.qid;
     }
 
-    public void setQid(Long qid) {
+    /**
+     * @param qid qid
+     */
+    public void setQid(final Long qid) {
         this.qid = qid;
     }
 
 
+    /**
+     * @return catState
+     */
     @ManyToOne()
     @JoinColumn(name = "id_state", nullable = false)
     public CatState getCatState() {
         return this.catState;
     }
 
-    public void setCatState(CatState catState) {
+    /**
+     * @param catState catState
+     */
+    public void setCatState(final CatState catState) {
         this.catState = catState;
     }
 
+    /**
+     * @return question
+     */
     @Column(name = "question")
     public String getQuestion() {
         return this.question;
     }
 
-    public void setQuestion(String question) {
+    /**
+     * @param question question
+     */
+    public void setQuestion(final String question) {
         this.question = question;
     }
 
+    /**
+     * @return qidKey
+     */
     @Column(name = "qid_key")
     public String getQidKey() {
         return this.qidKey;
     }
 
-    public void setQidKey(String qidKey) {
+    /**
+     * @param qidKey qidKey
+     */
+    public void setQidKey(final String qidKey) {
         this.qidKey = qidKey;
     }
 
-    @OneToMany(mappedBy = "questions")
-    public Set<QuestionsRelations> getQuestionsRelationses() {
-        return this.questionsRelationses;
+    /**
+     * @return the questionColettions
+     */
+    @ManyToMany()
+    @JoinTable(name="question_relations",
+              joinColumns={@JoinColumn(name="question_id")},
+              inverseJoinColumns={@JoinColumn(name="id_q_colection")})
+    public Set<QuestionColettion> getQuestionColettions() {
+        return questionColettions;
     }
 
-    public void setQuestionsRelationses(
-            Set<QuestionsRelations> questionsRelationses) {
-        this.questionsRelationses = questionsRelationses;
+    /**
+     * @param questionColettions the questionColettions to set
+     */
+    public void setQuestionColettions(Set<QuestionColettion> questionColettions) {
+        this.questionColettions = questionColettions;
     }
 
-    @OneToMany(mappedBy = "questions")
-    public Set<SurveyDetail> getSurveyDetails() {
-        return this.surveyDetails;
+    /**
+     * @return the questionPattern
+     */
+    @ManyToOne()
+    @JoinColumn(name = "id_question_pattern", nullable = false)
+    public QuestionPattern getQuestionPattern() {
+        return questionPattern;
     }
 
-    public void setSurveyDetails(Set<SurveyDetail> surveyDetails) {
-        this.surveyDetails = surveyDetails;
+    /**
+     * @param questionPattern the questionPattern to set
+     */
+    public void setQuestionPattern(QuestionPattern questionPattern) {
+        this.questionPattern = questionPattern;
     }
-
-    @OneToMany(mappedBy = "questions")
-    public Set<QuestionsAnswers> getQuestionsAnswerses() {
-        return this.questionsAnswerses;
-    }
-
-    public void setQuestionsAnswerses(Set<QuestionsAnswers> questionsAnswerses) {
-        this.questionsAnswerses = questionsAnswerses;
-    }
-
 }

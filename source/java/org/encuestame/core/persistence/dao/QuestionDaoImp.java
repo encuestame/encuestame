@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.QuestionsPatron;
+import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.hibernate.HibernateException;
 
 /**
@@ -53,11 +53,11 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 
     /**
      * Load All Questions Patron.
-     * @return  List of {@link QuestionsPatron}
+     * @return  List of {@link QuestionPattern}
      * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
-    public List<QuestionsPatron> loadAllQuestionPattern()
+    public List<QuestionPattern> loadAllQuestionPattern()
             throws HibernateException {
         return getHibernateTemplate().find("from QuestionsPatron");
     }
@@ -68,7 +68,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @return QuestionPatron
      * @throws HibernateException exception
      */
-    public QuestionsPatron loadPatternInfo(final Long patronId) throws HibernateException{
-        return (QuestionsPatron) getSession().get(QuestionsPatron.class, patronId);
+    public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException{
+        return (QuestionPattern) getEnMeSession().get(QuestionPattern.class, patronId);
     }
 }

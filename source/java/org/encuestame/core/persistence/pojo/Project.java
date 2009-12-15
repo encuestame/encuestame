@@ -1,35 +1,31 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
-
 package org.encuestame.core.persistence.pojo;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,22 +35,22 @@ import javax.persistence.TemporalType;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version  $Id$
  */
 @Entity
 @Table(name = "project")
 public class Project {
 
     private Long proyectId;
-    private CatState catStateProject;
+    private CatState stateProject;
     private String projectDescription;
     private String projectInfo;
     private Date projectDateStart;
     private Date projectDateFinish;
-    private Set<SurveyGroupProject> surveyGroupProjects = new HashSet(0);
-    private Set<ProjectLocation> projectLocations = new HashSet(0);
-    private Set<ProjectGroup> projectGroups = new HashSet(0);
-    private Set<ProjectUser> projectUsers = new HashSet(0);
-
+    private Set<SurveyGroup> surveyGroups = new HashSet<SurveyGroup>();
+    private Set<CatLocation> locations = new HashSet<CatLocation>();
+    private Set<SecGroups> groups = new HashSet<SecGroups>();
+    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     /**
      * @return proyectId
@@ -71,22 +67,6 @@ public class Project {
      */
     public void setProyectId(Long proyectId) {
         this.proyectId = proyectId;
-    }
-
-    /**
-     * @return catStateProject
-     */
-    @ManyToOne()
-    @JoinColumn(name = "id_state", nullable = false)
-    public CatState getCatStateProject() {
-        return this.catStateProject;
-    }
-
-    /**
-     * @param catStateProject catStateProject
-     */
-    public void setCatStateProject(final CatState catStateProject) {
-        this.catStateProject = catStateProject;
     }
 
     /**
@@ -152,64 +132,92 @@ public class Project {
     }
 
     /**
-     * @return surveyGroupProjects
+     * @return the locations
      */
-    @OneToMany(mappedBy = "project")
-    public Set<SurveyGroupProject> getSurveyGroupProjects() {
-        return this.surveyGroupProjects;
+    @ManyToMany()
+    @JoinTable(name="project_locations",
+              joinColumns={@JoinColumn(name="cat_id_project")},
+              inverseJoinColumns={@JoinColumn(name="cat_id_loc")})
+    public Set<CatLocation> getLocations() {
+        return locations;
     }
 
     /**
-     * @param surveyGroupProjects surveyGroupProjects
+     * @param locations the locations to set
      */
-    public void setSurveyGroupProjects(
-            Set<SurveyGroupProject> surveyGroupProjects) {
-        this.surveyGroupProjects = surveyGroupProjects;
+    public void setLocations(Set<CatLocation> locations) {
+        this.locations = locations;
     }
 
     /**
-     * @return projectLocations
+     * @return the groups
      */
-    @OneToMany(mappedBy = "project")
-    public Set<ProjectLocation> getProjectLocations() {
-        return this.projectLocations;
+    @ManyToMany()
+    @JoinTable(name="sec_project_group",
+              joinColumns={@JoinColumn(name="cat_id_project")},
+              inverseJoinColumns={@JoinColumn(name="sec_id_group")})
+    public Set<SecGroups> getGroups() {
+        return groups;
     }
 
     /**
-     * @param projectLocations projectLocations
+     * @param groups the groups to set
      */
-    public void setProjectLocations(final Set<ProjectLocation> projectLocations) {
-        this.projectLocations = projectLocations;
+    public void setGroups(Set<SecGroups> groups) {
+        this.groups = groups;
     }
 
     /**
-     * @return projectGroups
+     * @return the secUserSecondaries
      */
-    @OneToMany(mappedBy = "project")
-    public Set<ProjectGroup> getProjectGroups() {
-        return this.projectGroups;
+    @ManyToMany()
+    @JoinTable(name="sec_user_project",
+               joinColumns={@JoinColumn(name="cat_id_project")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
+    public Set<SecUserSecondary> getSecUserSecondaries() {
+        return secUserSecondaries;
     }
 
     /**
-     * @param projectGroups projectGroups
+     * @param secUserSecondaries the secUserSecondaries to set
      */
-    public void setProjectGroups(final Set<ProjectGroup> projectGroups) {
-        this.projectGroups = projectGroups;
+    public void setSecUserSecondaries(Set<SecUserSecondary> secUserSecondaries) {
+        this.secUserSecondaries = secUserSecondaries;
     }
 
     /**
-     * @return projectUsers
+     * @return the stateProject
      */
-    @OneToMany(mappedBy = "project")
-    public Set<ProjectUser> getProjectUsers() {
-        return this.projectUsers;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cat_state_id", nullable = false)
+    public CatState getStateProject() {
+        return stateProject;
     }
 
     /**
-     * @param projectUsers projectUsers
+     * @param stateProject the stateProject to set
      */
-    public void setProjectUsers(Set<ProjectUser> projectUsers) {
-        this.projectUsers = projectUsers;
+    public void setStateProject(CatState stateProject) {
+        this.stateProject = stateProject;
     }
+
+    /**
+     * @return the surveyGroups
+     */
+    @ManyToMany()
+    @JoinTable(name="survey_group_project",
+               joinColumns={@JoinColumn(name="cat_id_project")},
+               inverseJoinColumns={@JoinColumn(name="id_sid_format")})
+    public Set<SurveyGroup> getSurveyGroups() {
+        return surveyGroups;
+    }
+
+    /**
+     * @param surveyGroups the surveyGroups to set
+     */
+    public void setSurveyGroups(Set<SurveyGroup> surveyGroups) {
+        this.surveyGroups = surveyGroups;
+    }
+
 
 }

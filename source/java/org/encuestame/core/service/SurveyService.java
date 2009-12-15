@@ -26,7 +26,7 @@ import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
 import org.encuestame.core.persistence.dao.SurveyDaoImp;
 import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.QuestionsPatron;
+import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 import org.hibernate.HibernateException;
@@ -127,7 +127,7 @@ public class SurveyService extends Service implements ISurveyService {
     public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
             throws EnMeExpcetion {
         if (unitPatternBean != null && unitPatternBean.getId() != null) {
-            final QuestionsPatron questionPatternDomain = getQuestionDaoImp().loadPatternInfo(
+            final QuestionPattern questionPatternDomain = getQuestionDaoImp().loadPatternInfo(
                     unitPatternBean.getId());
             unitPatternBean.setId(questionPatternDomain.getIdPatron());
             unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
@@ -150,10 +150,10 @@ public class SurveyService extends Service implements ISurveyService {
             throws EnMeExpcetion {
         final List<UnitPatternBean> listPatronBean = new LinkedList<UnitPatternBean>();
         try {
-            final List<QuestionsPatron> patronList = getQuestionDaoImp()
+            final List<QuestionPattern> patronList = getQuestionDaoImp()
                     .loadAllQuestionPattern();
             if (patronList.size() > 0) {
-               for (QuestionsPatron patron : patronList) {
+               for (QuestionPattern patron : patronList) {
                     UnitPatternBean p = new UnitPatternBean();
                     p.setId(patron.getIdPatron());
                     p.setPatronType(patron.getTypePatron());

@@ -116,7 +116,7 @@ public class DataSource implements IDataSource {
         if (projectBean != null) {
             try {
                 Project projectDomain = new Project();
-                projectDomain.setCatStateProject(getState(projectBean.getState()));
+                projectDomain.setStateProject(getState(projectBean.getState()));
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 projectDomain.setProjectDescription(projectBean.getName());

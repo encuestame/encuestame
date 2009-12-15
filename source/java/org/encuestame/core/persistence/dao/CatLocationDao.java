@@ -48,7 +48,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @throws HibernateException excetion
      */
     public CatLocation getLocationById(final Long locateId) throws HibernateException {
-        return (CatLocation) getSession().get(CatLocation.class,locateId);
+        return (CatLocation) getEnMeSession().get(CatLocation.class,locateId);
     }
 
     /**
@@ -58,7 +58,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      */
     @SuppressWarnings("unchecked")
     public List<CatLocation> getLocationByTypeLocationId(final Long tidtype) throws HibernateException{
-        return getSession().createQuery("FROM CatLocation WHERE tidtype.id = :typeLocId")
+        return getEnMeSession().createQuery("FROM CatLocation WHERE tidtype.id = :typeLocId")
         .setParameter("typeLocId", tidtype)
         .list();
     }
@@ -70,7 +70,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      */
     @SuppressWarnings("unchecked")
     public List<CatLocation> getLocationbyLevelId(final Long locateId) throws HibernateException{
-        return getSession().createQuery("FROM CatLocation WHERE locationLevel = :locateId")
+        return getEnMeSession().createQuery("FROM CatLocation WHERE locationLevel = :locateId")
         .setParameter("locateId", Integer.valueOf(locateId.intValue()))
         .list();
 

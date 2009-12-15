@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.QuestionsPatron;
+import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -122,7 +122,7 @@ public class ConvertDomainBean {
         projectBean.setDateFinish(project.getProjectDateFinish());
         projectBean.setDateInit(project.getProjectDateStart());
         projectBean.setId(project.getProyectId());
-        projectBean.setState(project.getCatStateProject().getIdState());
+        projectBean.setState(project.getStateProject().getIdState());
         return projectBean;
     }
 
@@ -142,11 +142,11 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert {@link QuestionsPatron} to {@link UnitPatternBean}.
-     * @param pattern  {@link QuestionsPatron}
+     * Convert {@link QuestionPattern} to {@link UnitPatternBean}.
+     * @param pattern  {@link QuestionPattern}
      * @return {@link UnitPatternBean}
      */
-    public static UnitPatternBean convertQuestionPatternToBean(final QuestionsPatron pattern){
+    public static UnitPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
         final UnitPatternBean patterBean = new UnitPatternBean();
         patterBean.setId(pattern.getIdPatron());
         patterBean.setPatronType(pattern.getTypePatron());

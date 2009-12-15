@@ -1,24 +1,16 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +20,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,6 +27,7 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version  $Id$
  */
 @Entity
 @Table(name = "survey_section")
@@ -44,8 +36,10 @@ public class SurveySection implements java.io.Serializable {
     private Long ssid;
     private CatState catState;
     private String descSection;
-    private Set<SurveyDetail> surveyDetails = new HashSet<SurveyDetail>(0);
 
+    /**
+     * @return ssid
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ssid", unique = true, nullable = false)
@@ -53,36 +47,41 @@ public class SurveySection implements java.io.Serializable {
         return this.ssid;
     }
 
+    /**
+     * @param ssid ssid
+     */
     public void setSsid(Long ssid) {
         this.ssid = ssid;
     }
 
+    /**
+     * @return catState
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_state", nullable = false)
     public CatState getCatState() {
         return this.catState;
     }
 
+    /**
+     * @param catState catState
+     */
     public void setCatState(CatState catState) {
         this.catState = catState;
     }
 
+    /**
+     * @return descSection
+     */
     @Column(name = "desc_section")
     public String getDescSection() {
         return this.descSection;
     }
 
+    /**
+     * @param descSection descSection
+     */
     public void setDescSection(String descSection) {
         this.descSection = descSection;
     }
-
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "surveySection")
-    public Set<SurveyDetail> getSurveyDetails() {
-        return this.surveyDetails;
-    }
-
-    public void setSurveyDetails(Set<SurveyDetail> surveyDetails) {
-        this.surveyDetails = surveyDetails;
-    }
-
 }

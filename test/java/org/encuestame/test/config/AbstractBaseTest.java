@@ -29,15 +29,9 @@ import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.QuestionsPatron;
-import org.encuestame.core.persistence.pojo.SecGroupPermission;
-import org.encuestame.core.persistence.pojo.SecGroupPermissionId;
-import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecGroupUserId;
+import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermissionId;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.junit.runner.RunWith;
@@ -323,7 +317,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public Project createProject(final String name) {
           Project project = new Project();
-          project.setCatStateProject(createState("active"));
+          project.setStateProject(createState("active"));
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
           project.setProjectInfo("info");
@@ -433,13 +427,13 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @param permission permission
      */
     public void addPermissionToUser(final SecUsers user, final SecPermission permission){
-        final SecUserPermission userPerId = new SecUserPermission();
-        final SecUserPermissionId id = new SecUserPermissionId();
-        id.setIdPermission(permission.getIdPermission());
-        id.setUid(user.getUid());
-        userPerId.setId(id);
-        userPerId.setState(true);
-        getSecUserDao().saveOrUpdate(userPerId);
+       // final SecUserPermission userPerId = new SecUserPermission();
+       // final SecUserPermissionId id = new SecUserPermissionId();
+       /// id.setIdPermission(permission.getIdPermission());
+       // id.setUid(user.getUid());
+       // userPerId.setId(id);
+        //userPerId.setState(true);
+       // getSecUserDao().saveOrUpdate(userPerId);
     }
 
     /**
@@ -451,14 +445,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
             final SecUserSecondary user,
             final SecGroups group)
     {
-        final SecGroupUserId id = new SecGroupUserId();
+       /* final SecGroupUserId id = new SecGroupUserId();
         id.setGroupId(group.getGroupId());
         id.setUid(user.getUid());
         final SecGroupUser secGroupUser = new SecGroupUser();
         secGroupUser.setSecGroupUserId(id);
          secGroupUser.setSecUsers(user);
-        secGroupUser.setSecGroups(group);
-        getSecUserDao().assingGroupToUser(secGroupUser);
+        secGroupUser.setSecGroups(group);*/
+       // getSecUserDao().assingGroupToUser(secGroupUser);
     }
 
     /**
@@ -470,14 +464,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
             final SecPermission permission,
             final SecGroups group)
     {
-        final SecGroupPermissionId groupPermissionId = new SecGroupPermissionId();
-        groupPermissionId.setGroupId(group.getGroupId());
-        groupPermissionId.setIdPermission(permission.getIdPermission());
-        final SecGroupPermission groupPermission = new SecGroupPermission();
-        groupPermission.setId(groupPermissionId);
-        groupPermission.setSecGroups(group);
-        groupPermission.setSecPermission(permission);
-        getSecGroup().saveOrUpdate(groupPermission);
+      //  final SecGroupPermissionId groupPermissionId = new SecGroupPermissionId();
+       //// groupPermissionId.setGroupId(group.getGroupId());
+     //   groupPermissionId.setIdPermission(permission.getIdPermission());
+       // final SecGroupPermission groupPermission = new SecGroupPermission();
+       // groupPermission.setId(groupPermissionId);
+       // groupPermission.setSecGroups(group);
+       // groupPermission.setSecPermission(permission);
+       // getSecGroup().saveOrUpdate(groupPermission);
     }
 
     /**
@@ -497,10 +491,10 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /**
      * Create Patron Domain.
      * @param typePatron name of patron
-     * @return {@link QuestionsPatron}
+     * @return {@link QuestionPattern}
      */
-    public QuestionsPatron createQuestionPattern(final String typePatron){
-        final QuestionsPatron patron = new QuestionsPatron();
+    public QuestionPattern createQuestionPattern(final String typePatron){
+        final QuestionPattern patron = new QuestionPattern();
         patron.setClass_("class.patron1.class");
         patron.setDesQid("");
         patron.setTemplatePatron("");

@@ -1,33 +1,28 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,6 +30,7 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "sec_permission")
@@ -43,11 +39,9 @@ public class SecPermission {
     private Long idPermission;
     private String permission;
     private String permissionDescription;
-    private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>(
-            0);
-    private Set<SecGroupPermission> secGroupPermissions = new HashSet<SecGroupPermission>(
-            0);
-
+   // private Set<SecUserPermission> secUserPermissions = new HashSet<SecUserPermission>();
+    private Set<SecGroups> secGroups = new HashSet<SecGroups>();
+    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     /**
      * @return idPermission
@@ -97,34 +91,38 @@ public class SecPermission {
     }
 
     /**
-     * @return secUserPermissions
+     * @return the secUserSecondaries
      */
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secPermission")
-    public Set<SecUserPermission> getSecUserPermissions() {
-        return this.secUserPermissions;
+    @ManyToMany()
+    @JoinTable(name="sec_user_permission",
+               joinColumns={@JoinColumn(name="sec_id_permission")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
+    public Set<SecUserSecondary> getSecUserSecondaries() {
+        return secUserSecondaries;
     }
 
     /**
-     * @param secUserPermissions secUserPermissions
+     * @param secUserSecondaries the secUserSecondaries to set
      */
-    public void setSecUserPermissions(Set<SecUserPermission> secUserPermissions) {
-        this.secUserPermissions = secUserPermissions;
+    public void setSecUserSecondaries(Set<SecUserSecondary> secUserSecondaries) {
+        this.secUserSecondaries = secUserSecondaries;
     }
 
     /**
-     * @return secGroupPermissions
+     * @return the secGroups
      */
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "secPermission")
-    public Set<SecGroupPermission> getSecGroupPermissions() {
-        return this.secGroupPermissions;
+    @ManyToMany()
+    @JoinTable(name="sec_group_permission",
+               joinColumns={@JoinColumn(name="sec_id_permission")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_group")})
+    public Set<SecGroups> getSecGroups() {
+        return secGroups;
     }
 
     /**
-     * @param secGroupPermissions secGroupPermissions
+     * @param secGroups the secGroups to set
      */
-    public void setSecGroupPermissions(
-            Set<SecGroupPermission> secGroupPermissions) {
-        this.secGroupPermissions = secGroupPermissions;
+    public void setSecGroups(Set<SecGroups> secGroups) {
+        this.secGroups = secGroups;
     }
-
 }

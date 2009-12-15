@@ -39,7 +39,7 @@ public class TestSurveyFormat extends AbstractBaseTest{
     public void testSurveyFormat(){
     SurveyFormat surveyformat = new SurveyFormat();
     surveyformat.setDateCreated(null);
-    surveyformat.setName("Education");
+    surveyformat.setSurveyFormatName("Education");
     getSurveyFormatDaoImp().saveOrUpdate(surveyformat);
 
     }

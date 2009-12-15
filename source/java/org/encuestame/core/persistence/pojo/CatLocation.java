@@ -1,22 +1,19 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
-
 package org.encuestame.core.persistence.pojo;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +21,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -45,6 +44,8 @@ public class CatLocation {
     private String locationActive;
     private Float locationLatitude;
     private Float locationLongitude;
+    private Set<Project> projects = new HashSet<Project>();
+    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     /**
      * @return locateId
@@ -152,5 +153,55 @@ public class CatLocation {
      */
     public void setLocationLongitude(final Float locationLongitude) {
         this.locationLongitude = locationLongitude;
+    }
+
+    /**
+     * @return the projects
+     */
+    @ManyToMany()
+    @JoinTable(name="project_locations",
+              joinColumns={@JoinColumn(name="cat_id_loc")},
+              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    /**
+     * @param projects the projects to set
+     */
+    public void setProjects(final Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    /**
+     * @return the secUserSecondaries
+     */
+    @ManyToMany()
+    @JoinTable(name="sec_user_locations",
+               joinColumns={@JoinColumn(name=" sec_id_location")},
+               inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
+    public Set<SecUserSecondary> getSecUserSecondaries() {
+        return secUserSecondaries;
+    }
+
+    /**
+     * @param secUserSecondaries the secUserSecondaries to set
+     */
+    public void setSecUserSecondaries(final Set<SecUserSecondary> secUserSecondaries) {
+        this.secUserSecondaries = secUserSecondaries;
+    }
+
+    /**
+     * @param locationDescription the locationDescription to set
+     */
+    public void setLocationDescription(final String locationDescription) {
+        this.locationDescription = locationDescription;
+    }
+
+    /**
+     * @param locationLevel the locationLevel to set
+     */
+    public void setLocationLevel(final Integer locationLevel) {
+        this.locationLevel = locationLevel;
     }
 }

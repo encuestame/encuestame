@@ -20,8 +20,6 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.Collection;
 
 import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
-import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 
  /**
@@ -31,7 +29,7 @@ import org.hibernate.HibernateException;
   */
 public interface ISecPermissionDao extends IBaseDao {
 
-    public Collection<SecUserPermission> loadPermissionByUserId(Integer id) throws HibernateException;
+    //public Collection<SecUserPermission> loadPermissionByUserId(Integer id) throws HibernateException;
     public Collection<SecPermission> loadAllPermissions() throws HibernateException;
     public SecPermission loadPermission(String permission) throws HibernateException;
     public SecPermission getPermissionById(Long idPermission) throws HibernateException;

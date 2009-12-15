@@ -1,31 +1,22 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.persistence.pojo;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,6 +24,7 @@ import javax.persistence.Table;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009
+ * @version $Id$
  */
 @Entity
 @Table(name = "cat_state")
@@ -41,9 +33,8 @@ public class CatState {
     private Long idState;
     private String descState;
     private String stateImage;
-    private Set<SurveySection> surveySections = new HashSet<SurveySection>(0);
-    private Set<Project> catStateProject = new HashSet<Project>(0);
-    private Set<Questions> questionses = new HashSet<Questions>(0);
+    //private Set<SurveySection> surveySections = new HashSet<SurveySection>(0);
+    //private Set<Questions> questionses = new HashSet<Questions>(0);
 
 
     /**
@@ -74,7 +65,7 @@ public class CatState {
     /**
      * @param descState descState
      */
-    public void setDescState(String descState) {
+    public void setDescState(final String descState) {
         this.descState = descState;
     }
 
@@ -92,50 +83,4 @@ public class CatState {
     public void setStateImage(final String stateImage) {
         this.stateImage = stateImage;
     }
-
-    /**
-     * @return surveySections
-     */
-    @OneToMany(mappedBy = "catState")
-    public Set<SurveySection> getSurveySections() {
-        return this.surveySections;
-    }
-
-    /**
-     * @param surveySections surveySections
-     */
-    public void setSurveySections(Set<SurveySection> surveySections) {
-        this.surveySections = surveySections;
-    }
-
-    /**
-     * @return catStateProject
-     */
-    @OneToMany(mappedBy = "catStateProject")
-    public Set<Project> getCatStateProject() {
-        return this.catStateProject;
-    }
-
-    /**
-     * @param catStateProject catStateProject
-     */
-    public void setCatStateProject(final Set<Project> catStateProject) {
-        this.catStateProject = catStateProject;
-    }
-
-    /**
-     * @return questionses
-     */
-    @OneToMany(mappedBy = "catState")
-    public Set<Questions> getQuestionses() {
-        return this.questionses;
-    }
-
-    /**
-     * @param questionses questionses
-     */
-    public void setQuestionses(Set<Questions> questionses) {
-        this.questionses = questionses;
-    }
-
 }

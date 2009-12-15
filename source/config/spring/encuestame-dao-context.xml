@@ -25,17 +25,17 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="catLocationTypeDao" class="org.encuestame.core.persistence.dao.CatLocationTypeDao">
+    <bean id="catLocationTypeDao"  class="org.encuestame.core.persistence.dao.CatLocationTypeDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="projectDaoImp" class="org.encuestame.core.persistence.dao.ProjectDaoImp">
+    <bean id="projectDaoImp"  class="org.encuestame.core.persistence.dao.ProjectDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="catStateDaoImp"  scope="singleton" class="org.encuestame.core.persistence.dao.CatStateDaoImp">
+    <bean id="catStateDaoImp" class="org.encuestame.core.persistence.dao.CatStateDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
@@ -45,7 +45,7 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="secUserDao" class="org.encuestame.core.persistence.dao.SecUserDaoImp">
+    <bean id="secUserDao"  class="org.encuestame.core.persistence.dao.SecUserDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
@@ -60,7 +60,7 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="questionDaoImp" class="org.encuestame.core.persistence.dao.QuestionDaoImp">
+    <bean id="questionDaoImp"  class="org.encuestame.core.persistence.dao.QuestionDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>

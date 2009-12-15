@@ -23,7 +23,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.QuestionsPatron;
+import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.test.config.AbstractBeanBaseTest;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
@@ -49,8 +49,8 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     /** {@link Questions} */
     private Questions question;
 
-    /** {@link QuestionsPatron} **/
-    private QuestionsPatron pattern;
+    /** {@link QuestionPattern} **/
+    private QuestionPattern pattern;
 
     /**
      * Before.
@@ -147,7 +147,7 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     /**
      * @return the pattern
      */
-    public QuestionsPatron getPattern() {
+    public QuestionPattern getPattern() {
         return pattern;
     }
 

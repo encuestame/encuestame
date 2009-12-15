@@ -14,12 +14,8 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecGroupPermission;
-import org.encuestame.core.persistence.pojo.SecGroupUser;
-import org.encuestame.core.persistence.pojo.SecUserPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.service.SecurityService;
 import org.hibernate.HibernateException;
 
 /**
@@ -33,16 +29,16 @@ public interface ISecUserDao extends IBaseDao {
 
     public SecUserSecondary getUserByUsername(final String username)throws HibernateException;
 
-    public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
+    //public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
 
-    public void assingGroupToUser(final SecGroupUser secGroupUser)
-    throws HibernateException;
+    //public void assingGroupToUser(final SecGroupUser secGroupUser)
+   // throws HibernateException;
 
-    public List<SecUserPermission> getUserPermission(SecUsers user);
+   // public List<SecUserPermission> getUserPermission(SecUsers user);
 
-    public List<SecGroupUser> getUserGroups(SecUserSecondary username);
+    //public List<SecGroupUser> getUserGroups(SecUserSecondary username);
 
-    public SecUserSecondary getSecondaryUserById(Long userId) throws HibernateException;
+    //public SecUserSecondary getSecondaryUserById(Long userId) throws HibernateException;
 
     public List<SecUserSecondary> findAll() throws HibernateException;
 
