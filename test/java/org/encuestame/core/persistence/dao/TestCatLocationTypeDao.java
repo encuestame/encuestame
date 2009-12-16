@@ -37,7 +37,7 @@ public class TestCatLocationTypeDao extends AbstractBaseTest{
      */
     @Test
     public void testListLocationType(){
-        super.createCatLocationType("First Location Type");
+       // super.createCatLocationType("First Location Type");
         // final List<CatLocationType> listCatLocationType = getCatLocationType().findAll();
         //    assertNotNull(listCatLocationType);
         //    assertEquals(listCatLocationType.size(),listCatLocationType.size());
@@ -47,7 +47,7 @@ public class TestCatLocationTypeDao extends AbstractBaseTest{
      *
      */
     public void testLocationTypeByID(){
-        CatLocationType locType = super.createCatLocationType("Second Location Type");
+     //   CatLocationType locType = super.createCatLocationType("Second Location Type");
         //final CatLocationType retrieveLocType = getCatLocationType().getLocationTypeById(Long.valueOf(locType.getLocationTypeId().toString()));
         //assertNotNull(retrieveLocType);
 

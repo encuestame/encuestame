@@ -35,7 +35,7 @@ public class TestCatLocation extends AbstractBaseTest{
     catLoc.setLocationLevel(1);
     catLoc.setLocationLatitude(2F);
     catLoc.setLocationLongitude(3F);
-    catLoc.setTidtype(createCatLocationType("managua"));
+    catLoc.setTidtype(createCatLocationType("aldea"));
     getCatLocationDao().saveOrUpdate(catLoc);
 
     }

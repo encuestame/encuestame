@@ -66,7 +66,7 @@ public class TestCatLocationsDaoImp extends AbstractBaseTest{
     {
         final CatLocation catLoc = createCatLocation("Managua","Departamento",1);
         final List<CatLocation> retrieveLocations = getCatLocationDao().getLocationByTypeLocationId(catLoc.getTidtype().getLocationTypeId());
-        assertEquals("Should be equals ", 1 , retrieveLocations.size());
+       assertEquals("Should be equals ", 1 , retrieveLocations.size());
     }
 
     /**
@@ -77,7 +77,7 @@ public class TestCatLocationsDaoImp extends AbstractBaseTest{
         final CatLocation catLocation = createCatLocation("Tipitapa","Municipio",1);
         createCatLocation("Villa el Carme", "Municipio",1);
         final Integer locateId = catLocation.getLocationLevel();
-        final List<CatLocation> retrieveLocLevel = getCatLocationDao().getLocationbyLevelId(Long.valueOf(locateId.intValue()));
+        final List<CatLocation> retrieveLocLevel = getCatLocationDao().getLocationbyLevelId(locateId);
        assertEquals("Should be eq", 2, retrieveLocLevel.size());
 
     }

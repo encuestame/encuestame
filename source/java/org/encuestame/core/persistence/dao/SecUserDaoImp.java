@@ -15,10 +15,13 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.support.DataAccessUtils;
 
 /**
  * SecUsers.
@@ -33,11 +36,11 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * Assing user to group.
      * @param secGroupUser group user
      * @throws HibernateException exception
-
-    public void assingGroupToUser(final SecGroupUser secGroupUser)
+**/
+    public void assingGroupToUser(final SecGroups secGroupUser)
                 throws HibernateException {
         getHibernateTemplate().save(secGroupUser);
-    } */
+    }
 
     /**
      * Find All Users.
@@ -59,9 +62,12 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
             throws HibernateException {
         session = getEnMeSession();
         try {
-            return (SecUserSecondary) session.get(SecUserSecondary.class,
+           /* return (SecUserSecondary) session.get(SecUserSecondary.class,
                     userId);
-        } catch (HibernateException e) {
+            */
+            return (SecUserSecondary) (getHibernateTemplate().get(SecUserSecondary.class, userId));
+
+     } catch (HibernateException e) {
             throw new HibernateException(e);
         } finally {
             //releaseSession(session);
@@ -93,13 +99,15 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param username username
      * @return list of users
      */
+    @SuppressWarnings("unchecked")
     public SecUserSecondary getUserByUsername(final String username)throws HibernateException {
-        session = getEnMeSession();
+
         try {
-            return  (SecUserSecondary) session
-            .createCriteria(SecUserSecondary.class)
-            .add(Restrictions.eq("username", username))
-            .uniqueResult();
+            DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
+            criteria.add(Restrictions.eq("username", username) );
+            return   (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+
+
         } catch (HibernateException e) {
             throw new HibernateException(e);
         } finally {
@@ -150,12 +158,13 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * List of groups for one user.
      * @param user username
      * @return list of user groups
-
+*/
     @SuppressWarnings("unchecked")
-    public List<SecGroupUser> getUserGroups(final SecUserSecondary user) {
+    public List<SecGroups> getUserGroups(final SecUserSecondary user) {
+        System.out.println("----------- User Groups>"+user.getUsername());
+        final String queryGroups = "FROM SecGroups WHERE groupId = ?";
         return getHibernateTemplate()
-                .findByNamedParam("from SecGroupUser "
-                 +" where secUsers = :user ", "user", user);
-    } */
+                .find(queryGroups,  1L );
+    }
 
 }

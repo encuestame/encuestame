@@ -14,6 +14,7 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
@@ -27,7 +28,12 @@ import org.hibernate.HibernateException;
  */
 public interface ISecUserDao extends IBaseDao {
 
-    public SecUserSecondary getUserByUsername(final String username)throws HibernateException;
+    /**
+     * @param username username
+     * @return
+     * @throws HibernateException HibernateException
+     */
+    public SecUserSecondary getUserByUsername(final String username) throws HibernateException;
 
     //public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
 
@@ -40,8 +46,37 @@ public interface ISecUserDao extends IBaseDao {
 
     //public SecUserSecondary getSecondaryUserById(Long userId) throws HibernateException;
 
+    /**
+     * @return findAll
+     * @throws HibernateException HibernateException
+     */
     public List<SecUserSecondary> findAll() throws HibernateException;
 
 
+    /**
+     * @param userId userId
+     * @return userId
+     * @throws HibernateException HibernateException
+     */
     public SecUsers getUserById(final Long userId) throws HibernateException;
+
+    /**
+     * @param userId userId
+     * @return userId
+     * @throws HibernateException HibernateException
+     */
+    public SecUserSecondary getSecondaryUserById(final Long userId)throws HibernateException;
+
+    /**
+     * @param user user
+     * @return user
+     * @throws HibernateException HibernateException
+     */
+    public List<SecGroups> getUserGroups(final SecUserSecondary user) throws HibernateException;
+
+    /**
+     * @param secGroupUser secGroupUser
+     * @throws HibernateException HibernateException
+     */
+    public void assingGroupToUser(final SecGroups secGroupUser) throws HibernateException;
 }

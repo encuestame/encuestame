@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -73,18 +75,19 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testUpdateUser(){
-        final String newPassword = "54321";
+        final String newPassword = "67809";
         final String newEmail = "user2@users.com";
         final SecUserSecondary user = createSecondaryUser("user 1", this.userPrimary);
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
         getSecUserDao().saveOrUpdate(user);
-        //final SecUserSecondary retrieveUser = getSecUserDao().getSecondaryUserById(Long.valueOf(
-        //      user.getUid()));
-       // assertEquals("Password should be",newPassword,
-        //              retrieveUser.getPassword());
-       // assertEquals("Email should be",newEmail,
-       //         retrieveUser.getUserEmail());
+         final SecUserSecondary retrieveUser = getSecUserDao()
+         .getSecondaryUserById(Long.valueOf(
+            user.getUid()));
+     assertEquals("Password should be",newPassword,
+                     retrieveUser.getPassword());
+        assertEquals("Email should be",newEmail,
+               retrieveUser.getUserEmail());
     }
 
     /**
@@ -93,7 +96,8 @@ public class TestUserDao extends AbstractBaseTest {
     @Test
     public void testGetUserByUsername(){
           final SecUserSecondary user = createSecondaryUser("user 3", this.userPrimary);
-          final SecUserSecondary retrieveUser = getSecUserDao()
+
+           final SecUserSecondary retrieveUser = getSecUserDao()
           .getUserByUsername(user.getUsername());
           assertEquals("Username should be",user.getUsername(),
           retrieveUser.getUsername());
@@ -102,14 +106,15 @@ public class TestUserDao extends AbstractBaseTest {
     /**
      * Test Assing Group to User.
      */
-    @Test
-    public void testAssingGroupToUser(){
+  @SuppressWarnings("unchecked")
+@Test
+   public void testAssingGroupToUser(){
         final SecUserSecondary user = createSecondaryUser("user 4", this.userPrimary);
         final SecGroups group = super.createGroups("group 1");
         addGroupUser(user, group);
-        //final List<SecGroupUser> groups = getSecUserDao()
-        //                        .getUserGroups(user);
-       // a//ssertEquals("Should be equals", 1,groups.size());
+       final List<SecGroups> groups = getSecUserDao()
+                                .getUserGroups(user);
+        assertEquals("Should be equals", 1,groups.size());
     }
 
     /**
@@ -124,8 +129,8 @@ public class TestUserDao extends AbstractBaseTest {
         final SecPermission admon = super.createPermission("admon");
         addPermissionToGroup(admon, security);
         addPermissionToGroup(editor, security);
-        //final List<SecGroupPermission> listofPermissions = getSecUserDao()
-       // .getGroupPermission(getSecUserDao().getUserGroups(user));
-       // assertEquals("Should be equals",2, listofPermissions.size());
+       // final List<SecGroups> listofPermissions = getSecUserDao()
+         // .getGroupPermission(getSecUserDao().getUserGroups(user));
+        //assertEquals("Should be equals",2, listofPermissions.size());
     }
 }

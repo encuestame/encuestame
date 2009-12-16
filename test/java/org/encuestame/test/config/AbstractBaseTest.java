@@ -69,8 +69,8 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     private ISurveyFormatDao surveyformatDaoImp;
 
     /** CatLocation  Dao. **/
-    @Autowired
-    private ICatLocation catLocation;
+ //   @Autowired
+  //  private ICatLocation catLocation;
 
     /** State Catalog Dao. **/
     @Autowired
@@ -197,20 +197,6 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
-     * @return the catLocationDao
-     */
-    public ICatLocation getCatLocationDao() {
-        return catLocationDao;
-    }
-
-    /**
-     * @param catLocationDao the catLocationDao to set
-     */
-    public void setCatLocationDao(final ICatLocation catLocationDao) {
-        this.catLocationDao = catLocationDao;
-    }
-
-    /**
      * @return the projectDaoImp
      */
     public IProject getProjectDaoImp() {
@@ -284,17 +270,31 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
 
     /**
+     * @return catLocationDao
+     */
+    public ICatLocation getCatLocationDao() {
+        return catLocationDao;
+    }
+
+    /**
+     * @param catLocationDao catLocationDao
+     */
+    public void setCatLocationDao(ICatLocation catLocationDao) {
+        this.catLocationDao = catLocationDao;
+    }
+
+    /**
      * @return {@link CatLocation}
      */
     public ICatLocation getCatLocation() {
-        return catLocation;
+        return catLocationDao;
     }
 
     /**
      * @param catLocation {@link CatLocation}
      */
     public void setCatLocation(ICatLocation catLocation) {
-        this.catLocation = catLocation;
+        this.catLocationDao = catLocation;
     }
 
     /**
@@ -362,13 +362,13 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     /**
      * Helper to create LocationType.
-     * @param catLocationType cat location type
+     * @param locationTypeName locationTypeName
      * @return locationType
      */
 
-    public CatLocationType createCatLocationType(final String catLocationType){
+    public CatLocationType createCatLocationType(final String locationTypeName){
         final CatLocationType catLocatType = new CatLocationType();
-        catLocatType.setLocationTypeDescription(catLocationType);
+        catLocatType.setLocationTypeDescription(locationTypeName);
         catLocatType.setLocationTypeLevel(1);
         getCatLocationTypeDao().saveOrUpdate(catLocatType);
         return catLocatType;
@@ -376,21 +376,21 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
 
     /** Helper to create CatLocation
-     * @param CatLocation CatLocation
-     * @param LocationType LocationType
+     * @param locDescription locDescription
+     * @param locTypeName locTypeName
      * @param Level Level
      * @return location
      */
-    public CatLocation createCatLocation(final String CatLocation, final String LocationType, Integer Level){
+    public CatLocation createCatLocation(final String locDescription, final String locTypeName, Integer Level){
         final CatLocation location = new CatLocation();
         location.setLocationActive("S");
-        location.setlocationDescription(CatLocation);
+        location.setlocationDescription(locDescription);
         location.setLocationLatitude(2F);
         location.setLocationLevel(Level);
         location.setLocationLongitude(3F);
-        location.setTidtype(createCatLocationType(LocationType));
+        location.setTidtype(createCatLocationType(locTypeName));
         getCatLocationDao().saveOrUpdate(location);
-        return location;
+      return location;
 
     }
 
