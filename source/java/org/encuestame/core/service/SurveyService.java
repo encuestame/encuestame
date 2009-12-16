@@ -115,7 +115,7 @@ public class SurveyService extends Service implements ISurveyService {
         } catch (Exception e) {
             throw new EnMeExpcetion(e);
         }
-        return listQuestionBean;
+        return  listQuestionBean;
     }
 
     /**

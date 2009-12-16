@@ -64,6 +64,7 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
      * @param lng longitud
      * @param lat latitud
      * @param level level
+     * @param desc desc
      * @return {@link LocationBean}
      */
     public LocationBean createLocationBean(
@@ -71,14 +72,15 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
             final String description,
             final Float lng,
             final Float lat,
-            final Integer level){
+            final Integer level,
+            final String desc){
         final LocationBean locationBean = new LocationBean();
         locationBean.setActive(active);
         locationBean.setDescription(description);
         locationBean.setLat(lat);
         locationBean.setLng(lng);
         locationBean.setLevel(level);
-        locationBean.setTidtype(createCatLocationType("managua").getLocationTypeId());
+        locationBean.setTidtype(createCatLocationType(desc).getLocationTypeId());
         return locationBean;
     }
 }

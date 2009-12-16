@@ -225,8 +225,11 @@ public class DataSource implements IDataSource {
                 catLocationDomain.setLocationLatitude(location.getLat());
                 catLocationDomain.setLocationLongitude(location.getLng());
                 catLocationDomain.setLocationLevel(location.getLevel());
+                System.out.println("=============="+getCatLocationTypeDao().getLocationById(location.getTidtype()));
                 catLocationDomain.setTidtype(getCatLocationTypeDao().getLocationById(location.getTidtype()));
+
                 getCatLocationDao().saveOrUpdate(catLocationDomain);
+
                 location.setLocateId(catLocationDomain.getLocateId());
             } catch (HibernateException e) {
                 throw new EnMeExpcetion(e);

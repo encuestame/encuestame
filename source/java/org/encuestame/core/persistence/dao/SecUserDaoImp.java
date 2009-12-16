@@ -32,23 +32,13 @@ import org.springframework.dao.support.DataAccessUtils;
  */
 public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUserDao {
 
-    /**
-     * Assing user to group.
-     * @param secGroupUser group user
-     * @throws HibernateException exception
-**/
-    public void assingGroupToUser(final SecGroups secGroupUser)
-                throws HibernateException {
-        getHibernateTemplate().save(secGroupUser);
-    }
-
-    /**
+   /**
      * Find All Users.
      * @return list of all users
      * @throws HibernateException hibernate
      */
     public List<SecUserSecondary> findAll() throws HibernateException {
-        return super.findAll("from SecUserSecondary");
+        return  findAll("from SecUserSecondary");
     }
 
     /**
@@ -86,7 +76,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     public SecUsers getUserById(final Long userId) throws HibernateException {
         session = getEnMeSession();
         try {
-            return (SecUsers) session.get(SecUsers.class, userId);
+            return (SecUsers) getHibernateTemplate().get(SecUsers.class, userId);
         } catch (HibernateException e) {
             throw new HibernateException(e);
         } finally {
@@ -101,70 +91,10 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      */
     @SuppressWarnings("unchecked")
     public SecUserSecondary getUserByUsername(final String username)throws HibernateException {
-
-        try {
-            DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
+            final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
             criteria.add(Restrictions.eq("username", username) );
             return   (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
-
-
-        } catch (HibernateException e) {
-            throw new HibernateException(e);
-        } finally {
-           // releaseSession(session);
-           // System.out.println("despues de getUserByUsername->"+ session);
-        }
     }
 
-    /**
-     * Retrieve a list of permissions by group.
-     * @param groups list of groups
-     * @return list of permissions.
-
-    @SuppressWarnings("unchecked")
-    public List<SecGroupPermission> getGroupPermission(final List<SecGroupUser> groups) {
-        final List<SecGroupPermission> listGroupPermission = new ArrayList<SecGroupPermission>();
-        final Iterator<SecGroupUser> iList = groups.iterator();
-        while (iList.hasNext()) {
-            final SecGroupUser secGroups = (SecGroupUser) iList.next();
-            List<SecGroupPermission> permission = getHibernateTemplate()
-                    .findByNamedParam("from SecGroupPermission d where d.secGroups = :groupId", "groupId",
-                            secGroups.getSecGroups());
-                final Iterator<SecGroupPermission> ilistPermission = permission
-                        .iterator();
-                while (ilistPermission.hasNext()) {
-                    final SecGroupPermission secPermission = (SecGroupPermission) ilistPermission
-                            .next();
-                    listGroupPermission.add(secPermission);
-                }
-        }
-        return listGroupPermission;
-    }*/
-
-    /**
-     * Get User Permissions.
-     * @param user user
-     * @return list of permissions
-
-    @SuppressWarnings("unchecked")
-    public List<SecUserPermission> getUserPermission(final SecUsers user) {
-        return getHibernateTemplate()
-                .findByNamedParam("from " +
-                        "SecUserPermission  where secUsers.uid "
-                        +"= :user ", "user", user.getUid());
-    }*/
-
-    /**
-     * List of groups for one user.
-     * @param user username
-     * @return list of user groups
-*/
-    @SuppressWarnings("unchecked")
-    public List<SecGroups> getUserGroups(final SecUserSecondary user) {
-        System.out.println("----------- User Groups>"+user.getUsername());
-        final String queryGroups = "FROM SecGroups WHERE groupId = ?";
-        return getHibernateTemplate()
-                .find(queryGroups,  1L );
-    }
 
 }

@@ -67,6 +67,8 @@
       </a4j:form>
 
     </rich:modalPanel>
+
+
     <ui:insert name="optionGroup">
       <h:form id="listGroupsTableForm">
         <h2>#{temp.titleEditGroups}</h2>
@@ -74,8 +76,8 @@
           <a4j:status for="listGroup" startText="Buscando...." stopText=""></a4j:status>
           <rich:dataTable id="dataTableGroups" width="100%"
             style="margin: 5px; margin-top: 12px;"
-            value="#{groupBean.listUnitGroupBeans}" var="unitGroup"
-            rendered="#{groupBean.oneRow}">
+            value="#{groupBean.listUnitGroupBeans}" var="unitGroup">
+
             <f:facet name="header">
               <rich:columnGroup>
                 <rich:column width="30px">
@@ -118,9 +120,7 @@
           </rich:dataTable>
 
         </a4j:region>
-        <ui:fragment rendered="not #{groupBean.oneRow}">
-          <h3>#{temp.notfoundGroups}</h3>
-        </ui:fragment>
+
       </h:form>
       <rich:messages id="infoBox" errorClass="error" infoClass="info"
         warnClass="war"></rich:messages>

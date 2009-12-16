@@ -72,8 +72,8 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Test
     public void testLoadAllListPermission(){
-        super.createPermission("ADMON");
-        super.createPermission("EDITOR");
+         createPermission("ADMON");
+         createPermission("EDITOR");
         assertEquals("Should be equals",2,securityService.loadAllListPermission().size());
     }
 
@@ -280,7 +280,7 @@ public class TestSecurityService extends AbstractBaseTest{
        * @throws EnMeExpcetion EnMeExpcetion
        */
       @Test
-      @ExpectedException(EnMeExpcetion.class)
+
        public void testCreateUserwithUsernameEmail() throws EnMeExpcetion{
         final UnitUserBean userCreateBean = new UnitUserBean();
         userCreateBean.setEmail("paola@jotadeveloper.com");
@@ -298,7 +298,7 @@ public class TestSecurityService extends AbstractBaseTest{
        * @throws EnMeExpcetion EnMeExpcetion
        */
       @Test
-      @ExpectedException(EnMeExpcetion.class)
+
        public void testCreateUserwithoutPassword() throws EnMeExpcetion{
         SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);
@@ -318,7 +318,6 @@ public class TestSecurityService extends AbstractBaseTest{
        * @throws EnMeExpcetion EnMeExpcetion
        */
       @Test
-      @ExpectedException(EnMeExpcetion.class)
        public void testCreateUserwithPassword() throws EnMeExpcetion{
           SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);

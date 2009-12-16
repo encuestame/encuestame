@@ -82,8 +82,7 @@ public class TestUserDao extends AbstractBaseTest {
         user.setUserEmail(newEmail);
         getSecUserDao().saveOrUpdate(user);
          final SecUserSecondary retrieveUser = getSecUserDao()
-         .getSecondaryUserById(Long.valueOf(
-            user.getUid()));
+         .getSecondaryUserById(Long.valueOf(user.getUid()));
      assertEquals("Password should be",newPassword,
                      retrieveUser.getPassword());
         assertEquals("Email should be",newEmail,
@@ -95,42 +94,38 @@ public class TestUserDao extends AbstractBaseTest {
      */
     @Test
     public void testGetUserByUsername(){
-          final SecUserSecondary user = createSecondaryUser("user 3", this.userPrimary);
+        final SecUserSecondary user = createSecondaryUser("user 3", this.userPrimary);
+        final SecUserSecondary retrieveUser = getSecUserDao()
+        .getUserByUsername(user.getUsername());
+        assertEquals("Username should be",user.getUsername(), retrieveUser.getUsername());
+    }
 
-           final SecUserSecondary retrieveUser = getSecUserDao()
-          .getUserByUsername(user.getUsername());
-          assertEquals("Username should be",user.getUsername(),
-          retrieveUser.getUsername());
+        /**
+         * Test Assing Group to User.
+         */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testAssingGroupToUser(){
+         final SecUserSecondary user = createSecondaryUser("user 4", this.userPrimary);
+         final SecGroups group = super.createGroups("group 1");
+         user.getSecGroups().add(group);
+         getSecGroup().saveOrUpdate(user);
+         assertEquals("Should be equals", 1, user.getSecGroups().size());
     }
 
     /**
-     * Test Assing Group to User.
-     */
-  @SuppressWarnings("unchecked")
-@Test
-   public void testAssingGroupToUser(){
-        final SecUserSecondary user = createSecondaryUser("user 4", this.userPrimary);
-        final SecGroups group = super.createGroups("group 1");
-        addGroupUser(user, group);
-       final List<SecGroups> groups = getSecUserDao()
-                                .getUserGroups(user);
-        assertEquals("Should be equals", 1,groups.size());
-    }
-
-    /**
-     * Test Search Group Permission.
+     * Test Add Permission to Group.
      */
     @Test
-    public void testgetGroupPermission(){
-        final SecUserSecondary user = createSecondaryUser("user 5", this.userPrimary);
-        final SecGroups security = super.createGroups("group 1");
-        addGroupUser(user, security);
-        final SecPermission editor = super.createPermission("permission");
-        final SecPermission admon = super.createPermission("admon");
-        addPermissionToGroup(admon, security);
-        addPermissionToGroup(editor, security);
-       // final List<SecGroups> listofPermissions = getSecUserDao()
-         // .getGroupPermission(getSecUserDao().getUserGroups(user));
-        //assertEquals("Should be equals",2, listofPermissions.size());
+    public void testAddPermissionToGroup(){
+        final SecPermission editor = createPermission("editor");
+        final SecPermission admon = createPermission("publisher");
+        final SecPermission permission = createPermission("administrator");
+        final SecGroups group = createGroups("group 1");
+        group.getSecPermissions().add(editor);
+        group.getSecPermissions().add(admon);
+        group.getSecPermissions().add(permission);
+        getSecGroup().saveOrUpdate(group);
+        assertEquals("Should be equals", 3, group.getSecPermissions().size());
     }
 }

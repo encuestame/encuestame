@@ -254,7 +254,7 @@ public class SecurityService extends Service implements ISecurityService {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
         final Collection<SecPermission> listSecPermission = getPermissionDao()
                 .loadAllPermissions();
-      /*  for (Iterator<SecPermission> iterator = listSecPermission.iterator(); iterator
+        for (Iterator<SecPermission> iterator = listSecPermission.iterator(); iterator
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             SecPermission permission = iterator.next();
@@ -262,7 +262,7 @@ public class SecurityService extends Service implements ISecurityService {
             permissionBean.setPermission(permission.getPermission());
             permissionBean.setDescription(permission.getPermissionDescription());
             loadListPermission.add(permissionBean);
-        }*/
+        }
         return loadListPermission;
     }
 

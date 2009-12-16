@@ -55,7 +55,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      *
      */
     public SecGroups getGroupById(Long groupId) throws HibernateException {
-        return (SecGroups) getEnMeSession().get(SecGroups.class,
+        return (SecGroups) getHibernateTemplate().get(SecGroups.class,
                groupId);
     }
 

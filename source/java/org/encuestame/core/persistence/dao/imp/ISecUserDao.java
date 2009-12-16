@@ -30,24 +30,14 @@ public interface ISecUserDao extends IBaseDao {
 
     /**
      * @param username username
-     * @return
+     * @return {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
     public SecUserSecondary getUserByUsername(final String username) throws HibernateException;
 
-    //public List<SecGroupPermission> getGroupPermission(List<SecGroupUser> groups);
-
-    //public void assingGroupToUser(final SecGroupUser secGroupUser)
-   // throws HibernateException;
-
-   // public List<SecUserPermission> getUserPermission(SecUsers user);
-
-    //public List<SecGroupUser> getUserGroups(SecUserSecondary username);
-
-    //public SecUserSecondary getSecondaryUserById(Long userId) throws HibernateException;
 
     /**
-     * @return findAll
+     * @return List {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
     public List<SecUserSecondary> findAll() throws HibernateException;
@@ -55,28 +45,16 @@ public interface ISecUserDao extends IBaseDao {
 
     /**
      * @param userId userId
-     * @return userId
+     * @return {@link SecUsers}
      * @throws HibernateException HibernateException
      */
     public SecUsers getUserById(final Long userId) throws HibernateException;
 
     /**
      * @param userId userId
-     * @return userId
+     * @return {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
     public SecUserSecondary getSecondaryUserById(final Long userId)throws HibernateException;
 
-    /**
-     * @param user user
-     * @return user
-     * @throws HibernateException HibernateException
-     */
-    public List<SecGroups> getUserGroups(final SecUserSecondary user) throws HibernateException;
-
-    /**
-     * @param secGroupUser secGroupUser
-     * @throws HibernateException HibernateException
-     */
-    public void assingGroupToUser(final SecGroups secGroupUser) throws HibernateException;
 }

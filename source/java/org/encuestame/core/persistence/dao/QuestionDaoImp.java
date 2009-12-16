@@ -69,6 +69,6 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @throws HibernateException exception
      */
     public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException{
-        return (QuestionPattern) getEnMeSession().get(QuestionPattern.class, patronId);
+        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patronId);
     }
 }

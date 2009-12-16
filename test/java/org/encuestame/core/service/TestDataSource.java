@@ -174,7 +174,7 @@ public class TestDataSource extends AbstractBeanBaseTest {
      */
     @Test
     public void testcreateCatLocation() throws EnMeExpcetion{
-        final LocationBean locationBean = createLocationBean("S", "managua",1F, 2F, 0);
+        final LocationBean locationBean = createLocationBean("S", "managua",1F, 2F, 0, "aaa");
         final LocationBean locationBeanResponse = dataSource.createCatLocation(locationBean);
         assertNotNull(locationBean);
         assertEquals("Should be equasl",locationBean.getDescription(),

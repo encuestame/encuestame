@@ -90,7 +90,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
    public SecPermission getPermissionById(Long permId) throws HibernateException {
        session = getEnMeSession();
        try {
-           return (SecPermission) session.get(SecPermission.class, permId);
+           return (SecPermission) getHibernateTemplate().get(SecPermission.class, permId);
        } catch (HibernateException e) {
            throw new HibernateException(e);
        }finally{
