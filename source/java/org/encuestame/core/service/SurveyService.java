@@ -102,6 +102,7 @@ public class SurveyService extends Service implements ISurveyService {
             final  List<Questions> questionsList = getQuestionDaoImp()
                     .loadAllQuestions();
             if (questionsList.size() > 0) {
+
                for (Questions questions : questionsList) {
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Integer.valueOf(questions.getQid().toString()));
@@ -127,13 +128,20 @@ public class SurveyService extends Service implements ISurveyService {
     public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
             throws EnMeExpcetion {
         if (unitPatternBean != null && unitPatternBean.getId() != null) {
+            System.out.println("--------- LOAD PATTERN-------->"+unitPatternBean.getId());
             final QuestionPattern questionPatternDomain = getQuestionDaoImp().loadPatternInfo(
                     unitPatternBean.getId());
+
             unitPatternBean.setId(questionPatternDomain.getPatternId());
+
             unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
+            System.out.println("---------QuestionPattern-------->"+unitPatternBean.getDescripcion());
             unitPatternBean.setLabel(questionPatternDomain.getLabelQid());
             unitPatternBean.setPatronType(questionPatternDomain.getPatternType());
             unitPatternBean.setTemplate(questionPatternDomain.getPatternTemplate());
+            unitPatternBean.setClasspattern("classpatthern");
+            unitPatternBean.setLevelpattern("2");
+            unitPatternBean.setFinallity("save");
             //TODO : need more properties.
             return unitPatternBean;
         } else {

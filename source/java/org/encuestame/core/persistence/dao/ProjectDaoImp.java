@@ -39,7 +39,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      */
     @SuppressWarnings("unchecked")
     public List<Project> findAll() throws HibernateException {
-        return getHibernateTemplate().find("from Project");
+        return getHibernateTemplate().find("FROM Project");
     }
 
     /**
@@ -51,4 +51,16 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
     public Project getProjectbyId(Long projectId) throws HibernateException {
         return (Project) getHibernateTemplate().get(Project.class, projectId);
     }
+
+    /**
+     * @return
+     * @throws HibernateException HibernateException
+     */
+    public List<Project> getProjectByLocationId() throws HibernateException{
+        final String queryLocProject = "FROM Projects where"
+        return getHibernateTemplate().fin
+        final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";
+        return   getHibernateTemplate().find(queryLocation,tidtype);
+    }
+
 }

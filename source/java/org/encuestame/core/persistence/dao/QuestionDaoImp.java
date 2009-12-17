@@ -48,7 +48,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     @SuppressWarnings("unchecked")
     public List<Questions> loadAllQuestions() throws HibernateException {
-        return getHibernateTemplate().find("from Questions");
+        return getHibernateTemplate().find("FROM Questions");
     }
 
     /**
@@ -59,7 +59,8 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     @SuppressWarnings("unchecked")
     public List<QuestionPattern> loadAllQuestionPattern()
             throws HibernateException {
-        return getHibernateTemplate().find("from QuestionsPatron");
+        return getHibernateTemplate().find("FROM QuestionPattern");
+
     }
 
     /**

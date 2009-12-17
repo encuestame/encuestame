@@ -29,11 +29,29 @@ import org.encuestame.web.beans.MasterBean;
  */
 public class UnitQuestionBean extends MasterBean {
 
+    /**
+     *
+     */
     public String questionName;
+    /**
+     *
+     */
     public String version;
+    /**
+     *
+     */
     public UnitPatternBean pattern;
+    /**
+     *
+     */
     public Long idState;
+    /**
+     *
+     */
     public Integer id;
+    /**
+     *
+     */
     public Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
 
     /**
@@ -46,12 +64,12 @@ public class UnitQuestionBean extends MasterBean {
 
     /**
      *
-     * @param questionName
-     * @param version
-     * @param pattern
-     * @param idState
-     * @param id
-     * @param listAnswers
+     * @param questionName questionName
+     * @param version version
+     * @param pattern pattern
+     * @param idState idState
+     * @param id id
+     * @param listAnswers listAnswers
      */
     public UnitQuestionBean(String questionName, String version,
             UnitPatternBean pattern, Long idState, Integer id,

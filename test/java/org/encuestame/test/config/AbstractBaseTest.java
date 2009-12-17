@@ -306,23 +306,26 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         final CatState state = new CatState();
         state.setDescState(name);
         state.setStateImage("image.jpg");
-        catStateDaoImp.saveOrUpdate(state);
+        getCatStateDaoImp().saveOrUpdate(state);
         return state;
     }
 
     /**
      * Create project.
-     * @param name name of project.
+     * @param name Project's name
+     * @param descProject Project Description
+     * @param infoProject Informations's Project
+     * @param state Project's state
      * @return {@link Project}
      */
-    public Project createProject(final String name) {
+    public Project createProject(final String name, String descProject, String infoProject, String state) {
           Project project = new Project();
-          project.setStateProject(createState("active"));
+          project.setStateProject(createState(state));
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
-          project.setProjectInfo("info");
-          project.setProjectDescription("description");
-          projectDaoImp.saveOrUpdate(project);
+          project.setProjectInfo(infoProject);
+          project.setProjectDescription(descProject);
+          getProjectDaoImp().saveOrUpdate(project);
           return project;
     }
 
@@ -477,13 +480,15 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /**
      * Create question.
      * @param question question
+     * @param patron patron
      * @return {@link Questions}
      */
-    public Questions createQuestion(final String question){
+    public Questions createQuestion(final String question, String patron){
         final Questions questions = new Questions();
         questions.setCatState(this.createState("active"));
         questions.setQidKey("1");
         questions.setQuestion(question);
+        questions.setQuestionPattern(createQuestionPattern(patron));
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
     }
@@ -496,12 +501,17 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     public QuestionPattern createQuestionPattern(final String typePatron){
         final QuestionPattern patron = new QuestionPattern();
         patron.setClass_("class.patron1.class");
-        patron.setDesQid("");
-        patron.setPatternTemplate("");
-        patron.setLabelQid("");
+        patron.setDesQid("patron Html");
+        patron.setPatternTemplate("1");
+        patron.setLabelQid("1");
         patron.setPatternType(typePatron);
+        patron.setLevel(1);
+        patron.setFinallity("save");
+
+
         //TODO: need patron dao to save this domain.
         getQuestionDaoImp().saveOrUpdate(patron);
+        System.out.println("Question Pattern---->"+patron.getPatternId());
         return patron;
     }
 }

@@ -18,6 +18,8 @@
  */
 package org.encuestame.web.beans.survey;
 
+import java.util.Collection;
+
 import org.encuestame.web.beans.MasterBean;
 
 /**
@@ -33,6 +35,9 @@ public class UnitPatternBean extends MasterBean {
     private String label;
     private String patronType;
     private String template;
+    private String classpattern;
+    private String levelpattern;
+    private String finallity;
 
     /**
      * @return the descripcion
@@ -108,4 +113,82 @@ public class UnitPatternBean extends MasterBean {
     public void setTemplate(String template) {
         this.template = template;
     }
+
+    /**
+     * @return classpattern classpattern
+     */
+    public String getClasspattern() {
+        return classpattern;
+    }
+
+    /**
+     * @param classpattern classpattern
+     */
+    public void setClasspattern(String classpattern) {
+        this.classpattern = classpattern;
+    }
+
+    /**
+     * @return levelpattern
+     */
+    public String getLevelpattern() {
+        return levelpattern;
+    }
+
+    /**
+     * @param levelpattern levelpattern
+     */
+    public void setLevelpattern(String levelpattern) {
+        this.levelpattern = levelpattern;
+    }
+
+    /**
+     * @return finallity
+     */
+    public String getFinallity() {
+        return finallity;
+    }
+
+    /**
+     * @param finallity finallity
+     */
+    public void setFinallity(String finallity) {
+        this.finallity = finallity;
+    }
+
+
+
+
+
+      /**
+     * @param id  id
+     * @param descPattern descPattern
+     * @param label label
+     * @param patronType patronType
+     * @param template template
+     * @param classpattern classpattern
+     * @param levelpattern levelpattern
+     * @param finallity finallity
+     */
+    public UnitPatternBean (Long id, String descPattern, String label,
+            String patronType, String template, String classpattern,
+            String levelpattern, String finallity) {
+        super();
+        this.descripcion = descPattern;
+        this.label = label;
+        this.patronType = patronType;
+        this.template = template;
+        this.id = id;
+        this.classpattern = classpattern;
+        this.levelpattern = levelpattern;
+        this.finallity = finallity;
+    }
+
+    /**
+     *
+     */
+    public UnitPatternBean(){
+
+    }
+
 }
