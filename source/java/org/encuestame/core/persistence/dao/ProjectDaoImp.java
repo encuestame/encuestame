@@ -57,10 +57,10 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @throws HibernateException HibernateException
      */
     public List<Project> getProjectByLocationId() throws HibernateException{
-        final String queryLocProject = "FROM Projects where"
+       /* final String queryLocProject = "FROM Projects where"
         return getHibernateTemplate().fin
-        final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";
-        return   getHibernateTemplate().find(queryLocation,tidtype);
+        final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";*/
+        return   getHibernateTemplate().find("");
     }
 
 }
