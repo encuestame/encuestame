@@ -40,7 +40,7 @@
 
   <bean id="dbUserService" class="org.encuestame.core.security.spring.EnMeUserServiceImp">
     <property name="userDao" ref="secUserDao" />
-    <property name="roleGroupAuth" value="false" />
+    <property name="roleGroupAuth" value="true" />
     <property name="roleUserAuth" value="true" />
   </bean>
 
