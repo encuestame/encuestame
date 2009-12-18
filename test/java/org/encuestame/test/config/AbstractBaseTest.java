@@ -28,12 +28,15 @@ import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SurveyFormat;
+import org.encuestame.core.persistence.pojo.SurveyGroup;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -513,5 +516,49 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         getQuestionDaoImp().saveOrUpdate(patron);
         System.out.println("Question Pattern---->"+patron.getPatternId());
         return patron;
+    }
+
+    /**
+     *Helper to Create Survey Group.
+     * @param surveyGroupName surveyGroupName
+     * @return {@link SurveyGroup}
+     *
+     **/
+    public SurveyGroup createSurveyGroup(String surveyGroupName){
+        final SurveyGroup surveyGroup = new SurveyGroup();
+        surveyGroup.setCatState(createState("editor"));
+        surveyGroup.setDateCreate(new Date());
+        surveyGroup.setGroupName(surveyGroupName);
+        getSurveyDaoImp().saveOrUpdate(surveyGroup);
+        return surveyGroup;
+
+    }
+
+    /**
+     *Helper to Create Question Collection.
+     * @param desCollection Collection Description
+     * @return {@link QuestionColettion}
+     *
+     **/
+    public QuestionColettion createQuestionCollect(String desCollection){
+        final QuestionColettion qCollection = new QuestionColettion();
+        qCollection.setCreationDate(new Date());
+        qCollection.setDesColeccion(desCollection);
+        qCollection.setSecUsers(createUser());
+        getQuestionDaoImp().saveOrUpdate(qCollection);
+        return qCollection;
+    }
+    /**
+     * Helper to Create Surveys Format.
+     * @return {@link SurveyFormat}
+     * */
+    public SurveyFormat createSurveyFormat(){
+        final SurveyFormat sformat = new SurveyFormat();
+        sformat.setDateCreated(new Date());
+        sformat.setSurveyFormatName("Schools");
+        sformat.getSurveyGroups().add(createSurveyGroup("editors"));
+        getSurveyformatDaoImp().saveOrUpdate(sformat);
+        return sformat;
+
     }
 }
