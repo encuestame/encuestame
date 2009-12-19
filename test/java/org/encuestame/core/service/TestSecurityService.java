@@ -1,19 +1,14 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.core.service;
 
@@ -38,10 +33,7 @@ import org.springframework.test.annotation.ExpectedException;
  * Test Security Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 08/11/2009 11:35:01
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public class TestSecurityService extends AbstractBaseTest{
 
@@ -55,7 +47,7 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Before
     public void initService(){
-        securityService.setSuspendedNotification(false);
+        securityService.setSuspendedNotification(getActivateNotifications());
         this.userPrimary = createUser();
     }
 
@@ -191,9 +183,10 @@ public class TestSecurityService extends AbstractBaseTest{
 
     /**
      *Test Update User.
+     * @throws EnMeExpcetion exception
      **/
     @Test
-    public void testUpdateUser(){
+    public void testUpdateUser() throws EnMeExpcetion{
       final SecUserSecondary secUsers = createSecondaryUser("developer",createUser());
       Long idUser = secUsers.getUid();
       UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
@@ -220,9 +213,10 @@ public class TestSecurityService extends AbstractBaseTest{
 
     /**
      * Test Renew Password.
+     * @throws EnMeExpcetion
      */
     @Test
-    public void testRenewPassword(){
+    public void testRenewPassword() throws EnMeExpcetion{
       SecUserSecondary secUser = createSecondaryUser("paola",this.userPrimary);
       Long idUser = secUser.getUid();
       //String passwd = secUser.getPassword();
@@ -283,8 +277,8 @@ public class TestSecurityService extends AbstractBaseTest{
 
        public void testCreateUserwithUsernameEmail() throws EnMeExpcetion{
         final UnitUserBean userCreateBean = new UnitUserBean();
-        userCreateBean.setEmail("paola@jotadeveloper.com");
-        userCreateBean.setUsername("paola");
+        userCreateBean.setEmail("demo@demo.org");
+        userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
         userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
@@ -303,8 +297,8 @@ public class TestSecurityService extends AbstractBaseTest{
         SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);
         userCreateBean.setPassword(null);
-        userCreateBean.setEmail("paola@jotadeveloper.com");
-        userCreateBean.setUsername("paola");
+        userCreateBean.setEmail("demo@demo.org");
+        userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
         userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
@@ -322,8 +316,8 @@ public class TestSecurityService extends AbstractBaseTest{
           SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);
         userCreateBean.setPassword("12345");
-        userCreateBean.setEmail("paola@jotadeveloper.com");
-        userCreateBean.setUsername("paola");
+        userCreateBean.setEmail("demo@demo.org");
+        userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
         userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
@@ -354,7 +348,7 @@ public class TestSecurityService extends AbstractBaseTest{
       @Test
 
       public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
-        final SecUserSecondary secUser = createSecondaryUser("juanpicado",this.userPrimary);
+        final SecUserSecondary secUser = createSecondaryUser("demo",this.userPrimary);
         final SecPermission secPermission = createPermission("redactor");
        /*0secPermission.setIdPermission(1L);
         secPermission.setPermissionDescription("new Permission");
@@ -362,7 +356,7 @@ public class TestSecurityService extends AbstractBaseTest{
         UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
         UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
         userPermissionBean.setId(1);
-        userPermissionBean.setUsername("josefina");
+        userPermissionBean.setUsername("demo");
         securityService.assignPermission(userPermissionBean, permissionBean);
       }
 

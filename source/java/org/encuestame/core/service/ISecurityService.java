@@ -79,8 +79,9 @@ public interface ISecurityService extends IService {
     /**
      * Delete user.
      * @param userBean user to delete
+     * @throws EnMeExpcetion exception
      */
-    public void deleteUser(final UnitUserBean userBean);
+    public void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion;
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
@@ -94,8 +95,9 @@ public interface ISecurityService extends IService {
     /**
      * Update user.
      * @param userBean user bean.
+     * @throws EnMeExpcetion exception
      */
-    public void updateUser(final UnitUserBean userBean);
+    public void updateUser(final UnitUserBean userBean) throws EnMeExpcetion;
     /**
      * Create a new Group.
      * @param groupBean group bean
@@ -110,9 +112,10 @@ public interface ISecurityService extends IService {
      * Create a user, generate password for user and send email to confirmate
      * the account.
      * @param userBean user bean
+     * @return password
      * @throws EnMeExpcetion personalize exception
      */
-    public void createUser(final UnitUserBean userBean) throws EnMeExpcetion;
+    public String createUser(final UnitUserBean userBean) throws EnMeExpcetion;
 
     /**
      * Assign permission to user.

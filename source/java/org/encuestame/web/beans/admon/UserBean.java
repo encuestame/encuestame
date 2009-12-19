@@ -1,19 +1,14 @@
-/**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
  */
 package org.encuestame.web.beans.admon;
 
@@ -61,45 +56,33 @@ public class UserBean extends MasterBean {
     }
 
 
-
     /**
-     * Create user.
+     * Create secondary user, is notificated is desactivated the password is returned and should be,
+     * showed on screen.
      */
     public void createUser() {
         try {
             getNewUnitUserBean().setPrimaryUserId(
                     getSecurityService().findUserByUserName(getUserPrincipalUsername()).getSecUser().getUid());
-            getSecurityService().createUser(getNewUnitUserBean());
-            addInfoMessage("User created", "");
-        } catch (MailSendException e) {
-            addErrorMessage("notification error " + e, e.getMessage());
-        } catch (HibernateException e) {
-            addErrorMessage("" + e, e.getMessage());
+            getNewUnitUserBean().setPassword(getSecurityService().createUser(getNewUnitUserBean()));
+            addInfoMessage("User "+getNewUnitUserBean().getUsername()+" saved", "");
         } catch (EnMeExpcetion e) {
             addErrorMessage(
-                    "error on get user " + e,
-                    e.getMessage());
-        } catch (Exception e) {
-            addErrorMessage("error created user " + e, e
-                    .getMessage());
+                    e.getMessage(), e.getMessage());
         }
     }
 
     /**
-     * Update user.
+     * Update secondary user.
      */
     public void updateUser() {
-        log.info("update user bean");
+        log.debug("update secondary user.");
         try {
             getServicemanager().getApplicationServices().getSecurityService().updateUser(
                     getUnitUserBean());
-        } catch (HibernateException e) {
-            addErrorMessage("error update user "
-                    + e.getMessage(), e.getMessage());
-            log.error("error update user: " + e);
-        } catch (Exception e) {
-            addErrorMessage("error exception update " + e.getMessage(), e
-                    .getMessage());
+            addInfoMessage("User "+getNewUnitUserBean().getUsername()+" updated", "");
+        } catch (EnMeExpcetion e) {
+            addErrorMessage("error update user ", e.getMessage());
             log.error("error update user: " + e);
         }
     }
@@ -117,7 +100,6 @@ public class UserBean extends MasterBean {
                 String str = tokens.nextToken();
                 emails.add(str.trim());
                 i++;
-
             }
             if (emails.size() > 0) {
                 Iterator<String> it = emails.iterator();
@@ -153,14 +135,13 @@ public class UserBean extends MasterBean {
         } else {
             addWarningMessage("sorry, no results", "");
         }
-
     }
 
     /**
      * Search LDAP user.
      */
     public void searchLDAPUser() {
-        //TODO: need implement.
+        //TODO: need implement ldap search.
     }
 
     /**
@@ -185,42 +166,36 @@ public class UserBean extends MasterBean {
                 setOneRow(false);
             return listUnitBeans;
         } catch (Exception e) {
-            addErrorMessage("Error Cargando Datos->" + e.getMessage(), e
+            addErrorMessage("error loading grid " + e.getMessage(), e
                     .getMessage());
             return null;
         }
     }
 
     /**
-     * Assing permissions.
+     * Assing permissions to secondary user.
      */
     public void assingPermissions() {
         try {
-            log.info(selectedUsers());
+            log.info("assing permissions to user");
             if (selectedUsers().size() > 0) {
                 if (getSelectedPermissionId() != null) {
-                    UnitPermission permission = new UnitPermission();
+                    final UnitPermission permission = new UnitPermission();
                     permission.setId(getSelectedPermissionId());
                     for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
                             .hasNext();) {
-                        UnitUserBean user = i.next();
+                        final UnitUserBean user = i.next();
+                        //assing permission
                         assingPermission(user, permission);
-                        addInfoMessage("Usuario " + user.getUsername()
-                                + "se le asigno su rol.", "");
                     }
-
                 } else {
-                    new EnMeExpcetion("Error Seleccionado selectedGroupId");
+                    new EnMeExpcetion("error on selected user");
                 }
             } else {
-                addWarningMessage("Selecciona Usuarios Para Asignar Roles", "");
+                addWarningMessage("Select user first to assing permissions", "");
             }
-        } catch (HibernateException e) {
-            addErrorMessage("Error Carga de Datos->" + e, e.getMessage());
         } catch (EnMeExpcetion e) {
-            addErrorMessage("Error Local ->" + e, e.getMessage());
-        } catch (Exception e) {
-            addErrorMessage("Error Desconocido->" + e, e.getMessage());
+            addErrorMessage(e.getMessage(), e.getMessage());
         }
     }
 
@@ -234,7 +209,7 @@ public class UserBean extends MasterBean {
     private void assingPermission(
             final UnitUserBean user,
             final UnitPermission permission)
-            throws EnMeExpcetion, HibernateException {
+            throws EnMeExpcetion{
         getServicemanager().getApplicationServices().getSecurityService().assignPermission(user,
                 permission);
 
@@ -242,64 +217,53 @@ public class UserBean extends MasterBean {
 
     /**
      * Get list of user select in datatable.
-     * @return
+     * @return list of selected {@link UnitUserBean}
      */
     private List<UnitUserBean> selectedUsers() {
-        List<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
+        final List<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
         try {
             final Integer uiDataUserTableCount = uiDataUserTable.getRowCount();
-            log.info("k getRowCount: "+uiDataUserTableCount);
             for (int i = 0; i < uiDataUserTableCount; i++) {
                 uiDataUserTable.setRowIndex(i);
                 if (checked.isSelected()) {
                     final UnitUserBean userUnit = (UnitUserBean) uiDataUserTable
                             .getRowData();
+                    log.debug("selected "+userUnit.getUsername());
                     listSelectedUsers.add(userUnit);
                 }
+                log.debug("total selected "+listSelectedUsers.size());
             }
-        } catch (Exception e) {
-            addErrorMessage(e.getMessage(), e.getMessage());
-            log.error("ERROR->" + e.getMessage());
-
+        }
+        catch (Exception e) {
+            addErrorMessage("Error on selected operation", "");
+            log.error("error selecting users" + e.getMessage());
         }
         return listSelectedUsers;
     }
 
+
     /**
-     * delete user
-     *
-     * @param user
+     * Delete user.
+     * @param user {@link UnitUserBean}
      */
-    private void deleteUser(UnitUserBean user) {
+    private void deleteUser(final UnitUserBean user) {
         try {
             getServicemanager().getApplicationServices().getSecurityService().deleteUser(user);
-            log.info("Se borro bien->" + user.getUsername());
+            log.debug("user "+user.getUsername()+" deleted correctly.");
             addInfoMessage("Se borro bien->" + user.getUsername(), "");
-        } catch (HibernateException e) {
-            log.info("Error SQL->" + e);
-            addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
-                    + e.getMessage(), "");
-        } catch (MailSendException e) {
-            log.info("No se pudo notificar->" + e);
-            addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
-                    + e.getMessage(), "");
-        } catch (Exception e) {
-            log.info("No borro bien->" + e);
-            addErrorMessage("No Se borro ->" + user.getUsername() + "por->"
-                    + e.getMessage(), "");
+        } catch (EnMeExpcetion e) {
+            log.error("Error on delete user. Trace:"+ e.getMessage());
+            addErrorMessage("Error on delete user","");
         }
     }
 
     /**
-     * renew password
-     *
-     * @param user
+     * Renew password.
+     * @param user {@link UnitUserBean}
      */
-    private void renewPassword(UnitUserBean user) {
+    private void renewPassword(final UnitUserBean user) {
         try {
             getServicemanager().getApplicationServices().getSecurityService().renewPassword(user);
-            addInfoMessage("Se envio la nueva contrase�a a ->"
-                    + user.getUsername(), " a su correo " + user.getEmail());
         } catch (MailSendException e) {
             log.info("No recordo bien la contrase�a a->" + user.getUsername());
             addErrorMessage("No pudo recordar a ->" + user.getUsername()
@@ -311,10 +275,10 @@ public class UserBean extends MasterBean {
     }
 
     /**
-     * init action
+     * Execute Actions for all user selected.
      */
     public void initAction() {
-        log.info("init action->" + getSelectedAction());
+        log.debug("action selected->" + getSelectedAction());
         try {
             if (getSelectedAction() != null) {
                 if (selectedUsers().size() > 0) {
@@ -328,8 +292,7 @@ public class UserBean extends MasterBean {
                         }
                         break;
                     case 2:
-                        log.info("renew password" + selectedUsers());
-                        // Recordar Contrase�a
+                        log.debug("renew passwords");
                         for (Iterator<UnitUserBean> i = selectedUsers()
                                 .iterator(); i.hasNext();) {
                             UnitUserBean user = i.next();
@@ -337,44 +300,32 @@ public class UserBean extends MasterBean {
                                     + user.getUsername());
                             renewPassword(user);
                         }
+                        addInfoMessage("New passwords sended","");
                         break;
                     case 3:
-                        log.info("action 3" + selectedUsers());
-                        // Editor
-
+                        log.info("editor");
+                        // TODO: need implement editor.
                         break;
 
                     default:
-                        addErrorMessage("Acci�n Invalida", "");
-                        log.error("invalid action -" + getSelectedAction());
+                        addErrorMessage("Invalid action", "");
+                        log.error("Invalid action");
                         break;
                     }
-                } else {
-                    addWarningMessage("Seleccione Usuarios Primero", "");
                 }
-            } else {
-                addInfoMessage("Seleccione una Acci�n", "");
-                log.info("init action->" + getSelectedAction());
+                else {
+                    addWarningMessage("You need select users first", "");
+                }
             }
-        } catch (Exception e) {
-            addErrorMessage("Error en la Acci�n", e.getMessage());
-            log.error("Error en la Acci�n -" + e.getMessage());
+            else {
+                addWarningMessage("You need selected action first", "");
+                log.error("iYou need selected action first");
+            }
         }
-    }
-
-    /**
-     * @return the isOneRow
-     */
-    public boolean isOneRow() {
-        return isOneRow;
-    }
-
-    /**
-     * @param isOneRow
-     *            the isOneRow to set
-     */
-    public void setOneRow(boolean isOneRow) {
-        this.isOneRow = isOneRow;
+        catch (Exception e) {
+            addErrorMessage("Error on actions","");
+            log.error("Error on actions " + e.getMessage());
+        }
     }
 
     /**
@@ -395,8 +346,7 @@ public class UserBean extends MasterBean {
     /**
      * @param processedUserId id.
      */
-    public void setProcessedUserId(String processedUserId) {
-        log.info("setProcessedUserId->" + processedUserId);
+    public void setProcessedUserId(final String processedUserId) {
         this.processedUserId = processedUserId;
     }
 
@@ -411,7 +361,7 @@ public class UserBean extends MasterBean {
      * @param selectedAction
      *            the selectedAction to set
      */
-    public void setSelectedAction(String selectedAction) {
+    public void setSelectedAction(final String selectedAction) {
         this.selectedAction = selectedAction;
     }
 
@@ -419,7 +369,6 @@ public class UserBean extends MasterBean {
      * @return the uiDataUserTable
      */
     public UIData getUiDataUserTable() {
-
         return uiDataUserTable;
     }
 
@@ -427,8 +376,7 @@ public class UserBean extends MasterBean {
      * @param uiDataUserTable
      *            the uiDataUserTable to set
      */
-    public void setUiDataUserTable(UIData uiDataUserTable) {
-        log.info("uiDataUserTable: "+uiDataUserTable);
+    public void setUiDataUserTable(final UIData uiDataUserTable) {
         this.uiDataUserTable = uiDataUserTable;
     }
 
@@ -447,7 +395,7 @@ public class UserBean extends MasterBean {
     }
 
     /**
-     * Gettter.
+     * Getter.
      * @return {@link UnitUserBean}
      */
     public UnitUserBean getUnitUserBean() {
@@ -486,7 +434,7 @@ public class UserBean extends MasterBean {
     /**
      * @param newUnitUserBean das
      */
-    public void setNewUnitUserBean(UnitUserBean newUnitUserBean) {
+    public void setNewUnitUserBean(final UnitUserBean newUnitUserBean) {
         this.newUnitUserBean = newUnitUserBean;
     }
 
@@ -500,7 +448,7 @@ public class UserBean extends MasterBean {
     /**
      * @param listUsers das
      */
-    public void setListUsers(String listUsers) {
+    public void setListUsers(final String listUsers) {
         this.listUsers = listUsers;
     }
 
@@ -515,11 +463,9 @@ public class UserBean extends MasterBean {
      * @param selectedPermissionId
      *            the selectedPermissionId to set
      */
-    public void setSelectedPermissionId(Integer selectedPermissionId) {
+    public void setSelectedPermissionId(final Integer selectedPermissionId) {
         this.selectedPermissionId = selectedPermissionId;
     }
-
-
 
     /**
      * @return the dataTable
@@ -528,15 +474,10 @@ public class UserBean extends MasterBean {
         return dataTable;
     }
 
-
-
     /**
      * @param dataTable the dataTable to set
      */
-    public void setDataTable(HtmlDataTable dataTable) {
+    public void setDataTable(final HtmlDataTable dataTable) {
         this.dataTable = dataTable;
     }
-
-
-
 }

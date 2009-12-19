@@ -69,7 +69,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Getter.
-     * @return
+     * @return userName
      */
     public String getUserName() {
         return userName;
@@ -77,7 +77,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Setter.
-     * @param userName
+     * @param userName userName
      */
     public void setUserName(final String userName) {
         this.userName = userName;
@@ -85,7 +85,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Getter.
-     * @return
+     * @return userPassword
      */
     public String getUserPassword() {
         return userPassword;
@@ -93,7 +93,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Setter.
-     * @param userPassword
+     * @param userPassword userPassword
      */
     public void setUserPassword(final String userPassword) {
         this.userPassword = userPassword;
@@ -101,7 +101,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Getter.
-     * @return
+     * @return defaultLocale
      */
     public String getDefaultLocale() {
         return defaultLocale;
@@ -109,7 +109,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Default Locale.
-     * @param defaultLocale
+     * @param defaultLocale defaultLocale
      */
     public void setDefaultLocale(final  String defaultLocale) {
         this.defaultLocale = defaultLocale;
@@ -117,7 +117,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Getter.
-     * @return
+     * @return rememberMe
      */
     public Boolean getRememberMe() {
         return rememberMe;
@@ -125,7 +125,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Setter.
-     * @param rememberMe
+     * @param rememberMe rememberMe
      */
     public void setRememberMe(final  Boolean rememberMe) {
         this.rememberMe = rememberMe;
@@ -133,7 +133,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Getter.
-     * @return
+     * @return authenticationManager
      */
     public AuthenticationManager getAuthenticationManager() {
         return authenticationManager;
@@ -141,7 +141,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
 
     /**
      * Setter.
-     * @param authenticationManager
+     * @param authenticationManager authenticationManager
      */
     public void setAuthenticationManager(
             final AuthenticationManager authenticationManager) {

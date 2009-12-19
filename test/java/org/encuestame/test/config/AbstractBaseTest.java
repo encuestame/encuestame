@@ -63,7 +63,8 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:encuestame-beans-jsf-context.xml",
         "classpath:encuestame-hibernate-context.xml",
         "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-param-test-context.xml"
+        "classpath:encuestame-param-test-context.xml",
+        "classpath:encuestame-security-context.xml"
          })
 public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringContextTests {
 
@@ -72,8 +73,8 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     private ISurveyFormatDao surveyformatDaoImp;
 
     /** CatLocation  Dao. **/
- //   @Autowired
-  //  private ICatLocation catLocation;
+    //   @Autowired
+    //  private ICatLocation catLocation;
 
     /** State Catalog Dao. **/
     @Autowired
@@ -110,6 +111,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     @Autowired
     private ICatLocationTypeDao catLocationTypeDao;
+
+    /** Activate Notifications **/
+    private Boolean activateNotifications = false;
 
 
     /**
@@ -559,6 +563,19 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         sformat.getSurveyGroups().add(createSurveyGroup("editors"));
         getSurveyformatDaoImp().saveOrUpdate(sformat);
         return sformat;
+    }
 
+    /**
+     * @return the activateNotifications
+     */
+    public Boolean getActivateNotifications() {
+        return activateNotifications;
+    }
+
+    /**
+     * @param activateNotifications the activateNotifications to set
+     */
+    public void setActivateNotifications(Boolean activateNotifications) {
+        this.activateNotifications = activateNotifications;
     }
 }

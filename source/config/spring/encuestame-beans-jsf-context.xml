@@ -42,21 +42,19 @@
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-    <!-- Proyect -->
+    <!-- Project -->
     <bean id="proyectUserBean" class="org.encuestame.web.beans.project.ProjectBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
-        <property name="beanUProyect" ref="unitProyectBean" />
+        <property name="beanUProyect" ref="unitProjectBean" />
     </bean>
 
-    <bean id="unitProyectBean" class="org.encuestame.web.beans.project.UnitProjectBean"
+    <bean id="unitProjectBean" class="org.encuestame.web.beans.project.UnitProjectBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
     <!-- Location -->
-
-
     <bean id="locationBean" class="org.encuestame.web.beans.location.LocationBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
@@ -113,13 +111,15 @@
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-
     <bean id="buildEventSurvey" class="org.encuestame.web.utils.DropEventBean"
         scope="session">
         <property name="buildSurvey" ref="surveyControllerBean" />
     </bean>
 
-    <!-- login bean -->
+    <!--
+        Login Bean. Inject authenticationManager to login form and servicesManager.
+        this is a request bean.
+     -->
     <bean id="loginForm" class="org.encuestame.web.beans.login.LoginSecurityBean"
         scope="request">
         <property name="authenticationManager" ref="authenticationManager" />

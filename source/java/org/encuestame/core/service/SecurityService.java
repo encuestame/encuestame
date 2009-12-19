@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dom4j.util.UserDataAttribute;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -292,13 +293,18 @@ public class SecurityService extends Service implements ISecurityService {
      * Delete user.
      * @param userBean user to delete
      */
-    public void deleteUser(final UnitUserBean userBean) {
-        final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
-        if (getSuspendedNotification()) {
-            getServiceMail().sendDeleteNotification(userBean.getEmail(),
-                    getMessageProperties("MessageDeleteNotification"));
+    public void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion {
+        try{
+            final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
+            if (getSuspendedNotification()) {
+                getServiceMail().sendDeleteNotification(userBean.getEmail(),
+                        getMessageProperties("MessageDeleteNotification"));
+            }
+            getUserDao().delete(userDomain);
         }
-        getUserDao().delete(userDomain);
+        catch (Exception e) {
+            throw new EnMeExpcetion(e);
+        }
     }
 
     /**
@@ -342,19 +348,25 @@ public class SecurityService extends Service implements ISecurityService {
     /**
      * Update user.
      * @param userBean user bean.
+     * @throws EnMeExpcetion exception
      */
-    public void updateUser(final UnitUserBean userBean) {
+    public void updateUser(final UnitUserBean userBean) throws EnMeExpcetion {
         log.info("service update user method");
-        final SecUserSecondary updateUser = getUserDao().getUserByUsername(userBean.getUsername());
-        log.info("update user, user found: "+updateUser.getUid());
-        if (updateUser != null) {
-            updateUser.setUserEmail(userBean.getEmail());
-            updateUser.setCompleteName(userBean.getName());
-            updateUser.setUserStatus(userBean.getStatus());
-            updateUser.setPublisher(userBean.getPublisher());
-            log.info("updateing user, user "+updateUser.getUid());
-            getUserDao().saveOrUpdate(updateUser);
-        }
+       try{
+            final SecUserSecondary updateUser = getUserDao().getUserByUsername(userBean.getUsername());
+            log.info("update user, user found: "+updateUser.getUid());
+            if (updateUser != null) {
+                updateUser.setUserEmail(userBean.getEmail());
+                updateUser.setCompleteName(userBean.getName());
+                updateUser.setUserStatus(userBean.getStatus());
+                updateUser.setPublisher(userBean.getPublisher());
+                log.info("updateing user, user "+updateUser.getUid());
+                getUserDao().saveOrUpdate(updateUser);
+            }
+       }
+       catch (Exception e) {
+           throw new EnMeExpcetion(e);
+       }
     }
 
     /**
@@ -391,50 +403,55 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     * Create a user, generate password for user and send email to confirmate
+     * Create a secondary user, generate password for user and send email to confirmate
      * the account.
-     * @param userBean user bean
+     * @param userBean {@link UnitUserBean}
      * @throws EnMeExpcetion personalize exception
+     * @return if password is not notified  is returned
      */
-    public void createUser(final UnitUserBean userBean) throws EnMeExpcetion {
-        final SecUserSecondary userDomain = new SecUserSecondary();
+    public String createUser(final UnitUserBean userBean) throws EnMeExpcetion {
+        final SecUserSecondary secondaryUser = new SecUserSecondary();
+        //validate email and password
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
-            userDomain.setUserEmail(userBean.getEmail());
-            userDomain.setUsername(userBean.getUsername());
-            log.info("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
-            userDomain.setSecUser(getUserDao().getUserById(userBean.getPrimaryUserId()));
+            secondaryUser.setUserEmail(userBean.getEmail());
+            secondaryUser.setUsername(userBean.getUsername());
+            log.debug("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
+            secondaryUser.setSecUser(getUserDao().getUserById(userBean.getPrimaryUserId()));
         } else {
-            throw new EnMeExpcetion("we need email and username to create user");
+            throw new EnMeExpcetion("needed email and username to create user");
         }
         String password = null;
-        if(userBean.getPassword()!=null){
+        if(userBean.getPassword()!=null || userBean.getPassword().isEmpty()){
              password = userBean.getPassword();
-             userDomain.setPassword(encryptPassworD(password));
+             secondaryUser.setPassword(encryptPassworD(password));
         }else{
             password = generatePassword();
-            userDomain.setPassword(encryptPassworD(password));
+            secondaryUser.setPassword(encryptPassworD(password));
         }
-        userDomain.setPublisher(userBean.getPublisher());
-        userDomain.setCompleteName(userBean.getName());
-        userDomain.setUserStatus(userBean.getStatus());
-        userDomain.setEnjoyDate(new Date());
+        secondaryUser.setPublisher(userBean.getPublisher());
+        secondaryUser.setCompleteName(userBean.getName());
+        secondaryUser.setUserStatus(userBean.getStatus());
+        secondaryUser.setEnjoyDate(new Date());
         try {
             // send to user the password to her emails
             if((getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), password);
             }
             // save user
-            getUserDao().saveOrUpdate(userDomain);
+            getUserDao().saveOrUpdate(secondaryUser);
             // assing firs default group to user
             //TODO: we need assing defaul group to user.
         } catch (MailSendException ex) {
-            log.error("user could not be notified :"+ex.getMessage());
+            log.error("error on notifications, you need desactivate notifications or configure "
+                    +"correctly your access on mail server. trace: "+ ex.getMessage());
             throw new EnMeExpcetion(
-                    "user could not be notified");
+                    "error on notifications, you need desactivate notifications or configure "
+                    +"correctly your access on mail server ");
         } catch (HibernateException ex) {
-            log.error("user could not be saved :"+ex.getMessage());
-            throw new EnMeExpcetion("user could not be saved");
+            log.error("data access ERROR on save user trace:"+ex.getMessage());
+            throw new EnMeExpcetion("data access ERROR on save user");
         }
+        return password;
     }
 
     /**
@@ -470,24 +487,21 @@ public class SecurityService extends Service implements ISecurityService {
             final UnitPermission permissionBean)
             throws EnMeExpcetion
    {
+        SecUserSecondary userDomain = null;
+        SecPermission permissionDomain = null;
         if (userBean.getId() == null && userBean.getUsername() != null) {
-            final SecUserSecondary userDomain = getUser(userBean.getUsername());
+            userDomain = getUser(userBean.getUsername());
             userBean.setId(Integer.valueOf(userDomain.getUid().toString()));
         }
         if (permissionBean.getId() == null && permissionBean.getPermission() != null) {
-            final SecPermission permissionDomain = loadPermission(permissionBean.getPermission());
+            permissionDomain = loadPermission(permissionBean.getPermission());
             permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
         }
         if (userBean.getId() != null && permissionBean.getId() != null) {
-           // final SecUserPermission userPerId = new SecUserPermission();
-            //SecUserPermissionId userPermissionId = new SecUserPermissionId();
-            //userPermissionId.setIdPermission(Long.valueOf(permissionBean.getId().toString()));
-           // userPermissionId.setUid(Long.valueOf(userBean.getId().toString()));
-           // userPerId.setId(userPermissionId);
-          //  userPerId.setState(true);
-            //getUserDao().saveOrUpdate(userPerId);
+           userDomain.getSecUserPermissions().add(permissionDomain);
+           getUserDao().saveOrUpdate(userDomain);
         } else {
-            throw new EnMeExpcetion("id user or permission was null");
+            throw new EnMeExpcetion("error adding permission");
         }
     }
 
