@@ -15,7 +15,6 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
-import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
@@ -50,18 +49,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      */
     public SecUserSecondary getSecondaryUserById(final Long userId)
             throws HibernateException {
-        session = getEnMeSession();
-        try {
-           /* return (SecUserSecondary) session.get(SecUserSecondary.class,
-                    userId);
-            */
             return (SecUserSecondary) (getHibernateTemplate().get(SecUserSecondary.class, userId));
-
-     } catch (HibernateException e) {
-            throw new HibernateException(e);
-        } finally {
-            //releaseSession(session);
-        }
     }
 
     /**
@@ -74,14 +62,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      *             exception
      */
     public SecUsers getUserById(final Long userId) throws HibernateException {
-        session = getEnMeSession();
-        try {
             return (SecUsers) getHibernateTemplate().get(SecUsers.class, userId);
-        } catch (HibernateException e) {
-            throw new HibernateException(e);
-        } finally {
-            //releaseSession(session);
-        }
     }
 
     /**
@@ -95,6 +76,4 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
             criteria.add(Restrictions.eq("username", username) );
             return   (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
-
-
 }

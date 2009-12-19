@@ -209,16 +209,21 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
     /**
      * Login Action
      * http://www.jroller.com/fairTrade/entry/integrating_acegi_and_jsf_revisited
+     * @return login
      */
     public String login() {
         HttpServletRequest request = getRequest();
-
         try {
             final String userName = getUserName();
+            log.info("username "+userName);
             final String password = getUserPassword();
+            log.info("password "+password);
             //create spring token
             final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     userName, password);
+            log.info("token "+token);
+            log.info("tCredentials "+token.getCredentials());
+            log.info("tCredentials "+token.getDetails());
             // add to token de servlet request
             token.setDetails(new WebAuthenticationDetails(request));
             // create a http session
@@ -230,7 +235,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
             // get authentication manager and setter token
             final Authentication authenticationManager = getAuthenticationManager().authenticate(
                     token);
-
+            log.info("authenticationManager "+authenticationManager);
             //TODO: need investigate this.
             // it is not used - so, commented
             // SecurityContext sessionSecCtx = (SecurityContext) session
@@ -266,12 +271,14 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
             // get request key
             final String urlKey = AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY;
             // save request key
+            log.info("urlKey "+urlKey);
             final SavedRequest savedRequest = (SavedRequest) session
                     .getAttribute(urlKey);
             // remove key to session
             session.removeAttribute(urlKey);
             String targetUrl = null;
             // if diferent of null get url
+            log.info("savedRequest "+savedRequest);
             if (savedRequest != null) {
                 targetUrl = savedRequest.getFullRequestUrl();
                 log.info("save request "+targetUrl);
@@ -279,9 +286,9 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
                 getFacesContext().getExternalContext().redirect(targetUrl);
             }
              log.info("authentication successful, forwarding to ["+TARGET+"] obtained from [{"+targetUrl+"}]");
-            //forward(TARGET);
+             forward(TARGET);
         } catch (BadCredentialsException e) {
-            log.error("Error Security "+e);
+            log.error("BadCredentialsException "+e);
             addErrorMessage((getMessageProperties("error_credentials")), e
                     .getMessage());
             if (rememberMeServices != null) {
@@ -290,13 +297,16 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
         } catch (AuthenticationException e) {
             addErrorMessage(getMessageProperties("auth_credentials"), e
                     .getMessage());
+            log.error("AuthenticationException "+e);
             if (rememberMeServices != null) {
                 rememberMeServices.loginFail(request, getResponse());
             }
         } catch (IOException ioException) {
+            log.error("IOException "+ioException);
             addErrorMessage(ioException.getMessage(), ioException.getMessage());
             return null;
         } catch (Exception e) {
+            log.error("Exception "+e);
             addErrorMessage(getMessageProperties("indefined_error"), e
                     .getMessage());
         }

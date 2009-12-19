@@ -35,16 +35,27 @@ import org.springframework.security.vote.RoleVoter;
  */
 public class EnMeRoleVoter extends RoleVoter {
 
+    /**
+     * ROLE ALWAYS.
+     */
     public static final String ROLE_ALWAYS = "ENCUESTAME_ALWAYS";
+    /**
+     * ROLE_ANONYMOUS.
+     */
     public static final String ROLE_ANONYMOUS = "ENCUESTAME_ANONYMOUS";
+    /**
+     * anonymous Access Allowerd.
+     */
     private boolean anonymousAccessAllowed = false;
+
+    /**
+     * Log.
+     */
     private Log log = LogFactory.getLog(this.getClass());
 
-    public EnMeRoleVoter() {
-        //log.info("ROLE VOTER PERSONALIZADO");
-
-    }
-
+    /**
+     * @param i_anonymousAccessAllowed i_anonymousAccessAllowed
+     */
     public void setAnonymousAccessAllowed(boolean i_anonymousAccessAllowed) {
         anonymousAccessAllowed = i_anonymousAccessAllowed;
     }
@@ -54,9 +65,8 @@ public class EnMeRoleVoter extends RoleVoter {
             ConfigAttributeDefinition config) {
         int result = ACCESS_ABSTAIN;
 
-        Iterator iter = config.getConfigAttributes().iterator();
+        final Iterator iter = config.getConfigAttributes().iterator();
         GrantedAuthority[] authorities = authentication.getAuthorities();
-
         while (iter.hasNext()) {
             ConfigAttribute attribute = (ConfigAttribute) iter.next();
             //log.info("ConfigAttribute->"+attribute.getAttribute());

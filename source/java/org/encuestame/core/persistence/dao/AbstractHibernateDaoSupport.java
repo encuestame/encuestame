@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -38,7 +39,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @throws HibernateException hibernate
       */
      public void saveOrUpdate(final Object obj) throws HibernateException {
-         closeEnMeSessionisOpen();
+         getSession().setFlushMode(FlushMode.AUTO);
          getHibernateTemplate().saveOrUpdate(obj);
      }
 
@@ -46,6 +47,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * Close EnMeSession is open.
       */
      protected void closeEnMeSessionisOpen() {
+         log.info("closing session");
          if (getEnMeSession().isOpen()) {
              getEnMeSession().close();
          }
@@ -56,6 +58,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @return {@link Session}
      */
     public Session getEnMeSession(){
+        log.info("getEnMeSession session");
          if (this.session == null || !this.session.isOpen()) {
              this.session = getSessionFactory().openSession();
          }
@@ -67,6 +70,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param session {@link Session}
      */
     public void releaseEnMeSession(final Session session) {
+        log.info("releaseEnMeSession session");
          releaseSession(session);
      }
 
@@ -76,6 +80,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @throws HibernateException exception
       */
      public void delete(Object obj) throws HibernateException {
+          getSession().setFlushMode(FlushMode.AUTO);
           getHibernateTemplate().delete(obj);
      }
 
