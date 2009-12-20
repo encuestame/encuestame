@@ -28,6 +28,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
@@ -190,7 +191,7 @@ public class SecurityService extends Service implements ISecurityService {
             user.setInviteCode(domainUser.getInviteCode());
             user.setPublisher(domainUser.getPublisher());
         } catch (Exception e) {
-            log.error("Error convirtiendo a User BEan -" + e.getMessage());
+            log.error("Error convirtiendo a User Bean -" + e.getMessage());
         }
         return user;
     }
@@ -310,15 +311,27 @@ public class SecurityService extends Service implements ISecurityService {
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
+     * @param newPassword new password
      */
-    public void renewPassword(final UnitUserBean userBean) {
-        final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
-        if (userDomain.getPassword() != null) {
-            final String newPassowrd = generatePassword();
-            userDomain.setPassword(encryptPassworD(newPassowrd));
-                sendUserPassword(userDomain.getUserEmail().trim(), newPassowrd);
-                getUserDao().saveOrUpdate(userDomain);
+    public String renewPassword(final UnitUserBean userBean, String newPassword) {
+        // search user
+        final SecUserSecondary userDomain = getUser(userBean.getUsername());
+        // validate user and password
+        if (userDomain != null && newPassword != null) {
+            //set new password
+            userDomain.setPassword(EnMePasswordUtils.encryptPassworD(newPassword));
+            //if notification is suspended we need retrieve password
+            if (getSuspendedNotification()) {
+                sendUserPassword(userDomain.getUserEmail().trim(), newPassword);
+            }
+            //saving user.
+            getUserDao().saveOrUpdate(userDomain);
         }
+        else {
+            //if we have a problem with user, we retrieve null value
+            newPassword = null;
+        }
+        return newPassword;
     }
 
     /**
@@ -417,14 +430,17 @@ public class SecurityService extends Service implements ISecurityService {
             secondaryUser.setUsername(userBean.getUsername());
             log.debug("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
             secondaryUser.setSecUser(getUserDao().getUserById(userBean.getPrimaryUserId()));
-        } else {
+        }
+        else {
             throw new EnMeExpcetion("needed email and username to create user");
         }
         String password = null;
-        if(userBean.getPassword()!=null || userBean.getPassword().isEmpty()){
+        System.out.println(userBean.getPassword());
+        if (userBean.getPassword()!=null) {
              password = userBean.getPassword();
              secondaryUser.setPassword(encryptPassworD(password));
-        }else{
+        }
+        else{
             password = generatePassword();
             secondaryUser.setPassword(encryptPassworD(password));
         }
@@ -441,13 +457,15 @@ public class SecurityService extends Service implements ISecurityService {
             getUserDao().saveOrUpdate(secondaryUser);
             // assing firs default group to user
             //TODO: we need assing defaul group to user.
-        } catch (MailSendException ex) {
+        }
+        catch (MailSendException ex) {
             log.error("error on notifications, you need desactivate notifications or configure "
                     +"correctly your access on mail server. trace: "+ ex.getMessage());
             throw new EnMeExpcetion(
                     "error on notifications, you need desactivate notifications or configure "
                     +"correctly your access on mail server ");
-        } catch (HibernateException ex) {
+        }
+        catch (HibernateException ex) {
             log.error("data access ERROR on save user trace:"+ex.getMessage());
             throw new EnMeExpcetion("data access ERROR on save user");
         }
@@ -622,6 +640,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param password password
      * @return encrypt password
      */
+    @Deprecated //Use EnMePasswordUtils
     private String encryptPassworD(final String password) {
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return passwordEncryptor.encryptPassword(password);

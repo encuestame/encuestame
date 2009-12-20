@@ -85,8 +85,10 @@ public interface ISecurityService extends IService {
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
+     * @param newPassword new password
+     * @return new password
      */
-    public void renewPassword(final UnitUserBean userBean);
+    public String renewPassword(final UnitUserBean userBean, final String newPassword);
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}

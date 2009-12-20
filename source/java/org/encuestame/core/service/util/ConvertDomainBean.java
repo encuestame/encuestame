@@ -58,11 +58,12 @@ public class ConvertDomainBean {
             user.setEmail(domainUser.getUserEmail());
             user.setId(domainUser.getUid());
             user.setStatus(domainUser.isUserStatus());
+            user.setPassword(domainUser.getPassword());
             user.setDateNew(domainUser.getEnjoyDate());
             user.setInviteCode(domainUser.getInviteCode());
             user.setPublisher(domainUser.getPublisher());
         } catch (Exception e) {
-            log.error("Error convirtiendo a User BEan -" + e.getMessage());
+            log.error("error user bean converter -" + e.getMessage());
         }
         return user;
     }

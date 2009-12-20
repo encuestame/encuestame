@@ -331,6 +331,7 @@
              <path refid="tests.classpath"/>
              <path refid="config.classpath" />
             </classpath>
+             <sysproperty key="log4j.configuration" value="file:${src.properties}log4j.properties"/>
              <sysproperty
               key="net.sourceforge.cobertura.datafile"
               file="${cobertura.data.dir}${cobertura.ser.file}"/>

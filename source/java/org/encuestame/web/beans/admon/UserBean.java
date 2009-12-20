@@ -264,7 +264,7 @@ public class UserBean extends MasterBean {
      */
     private void renewPassword(final UnitUserBean user) {
         try {
-            getServicemanager().getApplicationServices().getSecurityService().renewPassword(user);
+            getServicemanager().getApplicationServices().getSecurityService().renewPassword(user, user.getPassword());
         } catch (MailSendException e) {
             log.info("No recordo bien la contrase�a a->" + user.getUsername());
             addErrorMessage("No pudo recordar a ->" + user.getUsername()

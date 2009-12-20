@@ -20,8 +20,6 @@ package org.encuestame.core.persistence.dao;
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.hibernate.HibernateException;

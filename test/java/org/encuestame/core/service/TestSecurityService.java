@@ -85,11 +85,10 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Test
     public void testSearchUserByUsername() throws EnMeExpcetion{
-      // final SecUsers userDomain = super.createUsers("user 1",this.userPrimary);
-      //  super.createSecondaryUser("user 2",this.userPrimary);
-       // UnitUserBean userBean = securityService.searchUserByUsername(userDomain.getUsername());
-        //assertEquals("Should be equals",userDomain.getUsername(),userBean.getUsername()
-         //       );
+      final SecUserSecondary userDomain = createSecondaryUser("user 1",this.userPrimary);
+      createSecondaryUser("user 2",this.userPrimary);
+      final UnitUserBean userBean = securityService.searchUserByUsername(userDomain.getUsername());
+      assertEquals("Should be equals",userDomain.getUsername(),userBean.getUsername());
     }
 
     /**
@@ -106,10 +105,10 @@ public class TestSecurityService extends AbstractBaseTest{
     @Test
     public void testDefaulUserPermission(){
         final String defaultPermission = securityService.getDefaultUserPermission();
-        //assertEquals("Should be","ENCUESTAME_USER",defaultPermission.toString());
+        //assertEquals("Should be","ENCUESTAME_USER".toString(), defaultPermission.toString());
         securityService.setDefaultUserPermission("ENCUESTAME_EDITOR");
         final String newDefaultPermission =  securityService.getDefaultUserPermission();
-        assertEquals("Should be","ENCUESTAME_EDITOR",newDefaultPermission.toString());
+        assertEquals("Should be","ENCUESTAME_EDITOR".toString(), newDefaultPermission.toString());
     }
 
 
@@ -118,11 +117,11 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Test
     public void testDeleteGroup(){
-        SecGroups groupDomain = createGroups("admin");
-        Long idGroup = groupDomain.getGroupId();
-        UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
+        final SecGroups groupDomain = createGroups("admin");
+        final Long idGroup = groupDomain.getGroupId();
+        final UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
         securityService.deleteGroup(group);
-        SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
+        final SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
         assertNull(groupRetrieve);
     }
 
@@ -141,27 +140,28 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Test
     public void testdeleteGroup(){
-      SecGroups groupDomain = createGroups("admin");
-      Long idGroup = groupDomain.getGroupId();
-      UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
+      final SecGroups groupDomain = createGroups("admin");
+      final Long idGroup = groupDomain.getGroupId();
+      final UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
       securityService.deleteGroup(group);
-      SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
+      final SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
       assertNull(groupRetrieve);
 
     }
 
     /**
     *Test delete User.
+     * @throws EnMeExpcetion exception
      */
     @Test
-    public void testDeleteUser(){
-      //SecUsers secUsers = createUsers("administrator");
-     // Long idUser = secUsers.getUid();
-      //String username = secUsers.getUsername();
-      //UnitUserBean user = securityService.convertUserDaoToUserBean(secUsers);
-      //securityService.deleteUser(user);
-      //SecUsers userRetrieve = getSecUserDao().getUserById(idUser);
-     // assertNull(userRetrieve);
+    public void testDeleteUser() throws EnMeExpcetion{
+     final SecUserSecondary secUsers = createSecondaryUser("administrator",this.userPrimary);
+     final Long idUser = secUsers.getUid();
+     final String username = secUsers.getUsername();
+     final UnitUserBean user = securityService.convertUserDaoToUserBean(secUsers);
+     securityService.deleteUser(user);
+     final SecUsers userRetrieve = getSecUserDao().getUserById(idUser);
+     assertNull(userRetrieve);
     }
 
 
@@ -187,13 +187,13 @@ public class TestSecurityService extends AbstractBaseTest{
      **/
     @Test
     public void testUpdateUser() throws EnMeExpcetion{
-      final SecUserSecondary secUsers = createSecondaryUser("developer",createUser());
-      Long idUser = secUsers.getUid();
-      UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
+      final SecUserSecondary secUsers = createSecondaryUser("developer",this.userPrimary);
+      final Long idUser = secUsers.getUid();
+      final UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
       userBean.setName("editor");
       securityService.updateUser(userBean);
-      //SecUserSecondary userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);
-     // assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
+      final SecUserSecondary userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);
+      assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
     }
 
     /**
@@ -201,10 +201,10 @@ public class TestSecurityService extends AbstractBaseTest{
      */
     @Test
     public void testCreatePermission(){
-      SecPermission secPerm = createPermission("writer");
-      UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPerm);
+      final SecPermission secPerm = createPermission("writer");
+      final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPerm);
       securityService.createPermission(permissionBean);
-      SecPermission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
+      final SecPermission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
       assertNotNull(permissionRetrieve);
       assertEquals("should be","writer", permissionRetrieve.getPermissionDescription());
 
@@ -213,18 +213,15 @@ public class TestSecurityService extends AbstractBaseTest{
 
     /**
      * Test Renew Password.
-     * @throws EnMeExpcetion
+     * @throws EnMeExpcetion exception
      */
     @Test
     public void testRenewPassword() throws EnMeExpcetion{
-      SecUserSecondary secUser = createSecondaryUser("paola",this.userPrimary);
-      Long idUser = secUser.getUid();
-      //String passwd = secUser.getPassword();
-      UnitUserBean userPass = ConvertDomainBean.convertUserDaoToUserBean(secUser);
-      userPass.setPassword("newPass");
-      securityService.updateUser(userPass);
-     // SecUsers userPassRetrieve = getSecUserDao().getUserById(idUser);
-      //assertEquals("should be", "newPass",userPass.getPassword());
+      final SecUserSecondary secUser = createSecondaryUser("paola",this.userPrimary);
+      final String passwd = secUser.getPassword();
+      final UnitUserBean userPass = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+      final String retrievePassword = securityService.renewPassword(userPass, passwd);
+      assertEquals("should be equals", passwd, retrievePassword);
 
 
     }
@@ -233,16 +230,14 @@ public class TestSecurityService extends AbstractBaseTest{
      * Test Renew Password without Pass.
      * @throws EnMeExpcetion  EnMeExpcetion
      */
-    /*   @Test
-
+   @Test
    public void testRenewPasswordwithoutPass()throws EnMeExpcetion{
-      SecUsers secUser = createUsers("diana");
-
+      final SecUserSecondary secUser = createSecondaryUser("diana",this.userPrimary);
       UnitUserBean userPassBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
-      securityService.renewPassword(userPassBean);
-
+      final String retrievePassword = securityService.renewPassword(userPassBean,null);
+      assertEquals("should be equals", null, retrievePassword);
     }
-*/
+
     /**
      * Test Create User without Email.
      * @throws EnMeExpcetion EnMeExpcetion
@@ -253,7 +248,7 @@ public class TestSecurityService extends AbstractBaseTest{
         final UnitUserBean userCreateBean = new UnitUserBean();
         userCreateBean.setEmail(null);
         userCreateBean.setUsername("diana");
-          securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean);
        }
 
       /**
@@ -263,10 +258,10 @@ public class TestSecurityService extends AbstractBaseTest{
       @Test
       @ExpectedException(EnMeExpcetion.class)
        public void testCreateUserwithoutUsername() throws EnMeExpcetion{
-        UnitUserBean userCreateBean = new UnitUserBean();
+        final UnitUserBean userCreateBean = new UnitUserBean();
         userCreateBean.setEmail("paola@jotadeveloper.com");
         userCreateBean.setUsername(null);
-          securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean);
        }
 
       /**
@@ -274,17 +269,18 @@ public class TestSecurityService extends AbstractBaseTest{
        * @throws EnMeExpcetion EnMeExpcetion
        */
       @Test
-
        public void testCreateUserwithUsernameEmail() throws EnMeExpcetion{
         final UnitUserBean userCreateBean = new UnitUserBean();
         userCreateBean.setEmail("demo@demo.org");
         userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
         userCreateBean.setPublisher(Boolean.TRUE);
-        userCreateBean.setName("Diana Paola");
+        userCreateBean.setName("demo");
+        userCreateBean.setPassword(null);
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean);
+        //TODO: need assert
        }
 
       /**
@@ -292,7 +288,6 @@ public class TestSecurityService extends AbstractBaseTest{
        * @throws EnMeExpcetion EnMeExpcetion
        */
       @Test
-
        public void testCreateUserwithoutPassword() throws EnMeExpcetion{
         SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertUserDaoToUserBean(secCreateUser);
@@ -305,6 +300,7 @@ public class TestSecurityService extends AbstractBaseTest{
         userCreateBean.setPrimaryUserId(createUser().getUid());
         userCreateBean.setDateNew(new Date());
         securityService.createUser(userCreateBean);
+        //TODO: need assert
        }
 
       /**
@@ -324,6 +320,7 @@ public class TestSecurityService extends AbstractBaseTest{
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean);
+        //TODO: need assert
        }
 
 
@@ -337,8 +334,9 @@ public class TestSecurityService extends AbstractBaseTest{
         secCreateGroup.setGroupDescriptionInfo("1111");
         secCreateGroup.setGroupName("vvvv");
         secCreateGroup.setIdState(1L);
-        UnitGroupBean createGroupBean = ConvertDomainBean.convertGroupDomainToBean(secCreateGroup);
+        final UnitGroupBean createGroupBean = ConvertDomainBean.convertGroupDomainToBean(secCreateGroup);
         securityService.createGroup(createGroupBean);
+        //TODO: need assert
       }
 
       /**
@@ -346,18 +344,18 @@ public class TestSecurityService extends AbstractBaseTest{
        * @throws EnMeExpcetion  EnMeExpcetion
        */
       @Test
-
       public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
         final SecUserSecondary secUser = createSecondaryUser("demo",this.userPrimary);
-        final SecPermission secPermission = createPermission("redactor");
-       /*0secPermission.setIdPermission(1L);
-        secPermission.setPermissionDescription("new Permission");
-        secPermission.setPermission("permission");*/
-        UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
-        UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-        userPermissionBean.setId(1L);
+        final SecPermission secPermission = createPermission("admin");
+        final SecPermission secPermission2 = createPermission("editor");
+        final UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+        final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
+        final UnitPermission permissionBean2 = ConvertDomainBean.convertPermissionToBean(secPermission2);
+        userPermissionBean.setId(userPermissionBean.getId());
         userPermissionBean.setUsername("demo");
         securityService.assignPermission(userPermissionBean, permissionBean);
+        securityService.assignPermission(userPermissionBean, permissionBean2);
+        assertEquals("should be equals", 2, secUser.getSecUserPermissions().size());
       }
 
         /**
@@ -365,18 +363,14 @@ public class TestSecurityService extends AbstractBaseTest{
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
+        @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion{
-          final SecUserSecondary secUser = createSecondaryUser("juanpicado",this.userPrimary);
-          final SecPermission secPermission = createPermission("redactor");
-         /*0secPermission.setIdPermission(1L);
-          secPermission.setPermissionDescription("new Permission");
-          secPermission.setPermission("permission");*/
-          UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
-          UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-          permissionBean.setId(1L);
-          permissionBean.setPermission("auditor");
+          final SecPermission permission = createPermission("editor");
+          final UnitUserBean userPermissionBean = new UnitUserBean();
+          final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(permission);
+          //modify id user id.
+          userPermissionBean.setId(1L);
           securityService.assignPermission(userPermissionBean, permissionBean);
-
       }
 
 
@@ -385,20 +379,15 @@ public class TestSecurityService extends AbstractBaseTest{
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
+        @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermission() throws EnMeExpcetion{
-          final SecUserSecondary secUser = createSecondaryUser("juanpicado",this.userPrimary);
-          final SecPermission secPermission = createPermission("redactor");
-         /*0secPermission.setIdPermission(1L);
-          secPermission.setPermissionDescription("new Permission");
-          secPermission.setPermission("permission");*/
-          UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
-          UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-          userPermissionBean.setId(1L);
-          userPermissionBean.setUsername(null);
-          permissionBean.setId(1L);
-          permissionBean.setPermission("analista");
-          securityService.assignPermission(userPermissionBean, permissionBean);
-
+            final SecUserSecondary secUser = createSecondaryUser("juanpicado",this.userPrimary);
+            final UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
+            final UnitPermission permissionBean = new UnitPermission();
+            //modify id permission.
+            permissionBean.setId(1L);
+            permissionBean.setPermission("auditor");
+            securityService.assignPermission(userPermissionBean, permissionBean);
       }
 
 
@@ -407,16 +396,10 @@ public class TestSecurityService extends AbstractBaseTest{
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
+        @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermissionIdandUserId() throws EnMeExpcetion{
-          final SecUserSecondary secUser = createSecondaryUser("juanpicado",this.userPrimary);
-          final SecPermission secPermission = createPermission("redactor");
-         /*0secPermission.setIdPermission(1L);
-          secPermission.setPermissionDescription("new Permission");
-          secPermission.setPermission("permission");*/
-          UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
-          UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-          //userPermissionBean.setId(1);
-          //userPermissionBean.setUsername(null);
+          UnitUserBean userPermissionBean = new UnitUserBean();
+          UnitPermission permissionBean = new UnitPermission();
           securityService.assignPermission(userPermissionBean, permissionBean);
 
       }
@@ -432,7 +415,6 @@ public class TestSecurityService extends AbstractBaseTest{
           UnitUserBean userBean = ConvertDomainBean.convertUserDaoToUserBean(users);
           UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
           securityService.assingGroup(userBean, groupBean);
-
         }
 
         /**
@@ -442,8 +424,5 @@ public class TestSecurityService extends AbstractBaseTest{
         @Test
         public void testloadBeanPermission() throws EnMeExpcetion{
           securityService.loadBeanPermission("permission");
-
         }
-
 }
-
