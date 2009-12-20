@@ -36,6 +36,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @return list of all users
      * @throws HibernateException hibernate
      */
+    @SuppressWarnings("unchecked")
     public List<SecUserSecondary> findAll() throws HibernateException {
         return  findAll("from SecUserSecondary");
     }

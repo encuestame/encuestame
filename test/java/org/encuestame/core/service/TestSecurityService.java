@@ -355,7 +355,7 @@ public class TestSecurityService extends AbstractBaseTest{
         secPermission.setPermission("permission");*/
         UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
         UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-        userPermissionBean.setId(1);
+        userPermissionBean.setId(1L);
         userPermissionBean.setUsername("demo");
         securityService.assignPermission(userPermissionBean, permissionBean);
       }
@@ -373,7 +373,7 @@ public class TestSecurityService extends AbstractBaseTest{
           secPermission.setPermission("permission");*/
           UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
           UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-          permissionBean.setId(1);
+          permissionBean.setId(1L);
           permissionBean.setPermission("auditor");
           securityService.assignPermission(userPermissionBean, permissionBean);
 
@@ -393,9 +393,9 @@ public class TestSecurityService extends AbstractBaseTest{
           secPermission.setPermission("permission");*/
           UnitUserBean userPermissionBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);
           UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-          userPermissionBean.setId(1);
+          userPermissionBean.setId(1L);
           userPermissionBean.setUsername(null);
-          permissionBean.setId(1);
+          permissionBean.setId(1L);
           permissionBean.setPermission("analista");
           securityService.assignPermission(userPermissionBean, permissionBean);
 

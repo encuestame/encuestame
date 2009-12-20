@@ -128,7 +128,7 @@ public class SecurityService extends Service implements ISecurityService {
                     for (Iterator<SecUserSecondary> i = listUsers.iterator(); i.hasNext();) {
                         final UnitUserBean userBean = new UnitUserBean();
                         final  SecUserSecondary user = i.next();
-                        userBean.setId(Integer.valueOf(user.getUid().toString()));
+                        userBean.setId(user.getUid());
                         userBean.setName(user.getCompleteName());
                         userBean.setEmail(user.getUserEmail());
                         userBean.setUsername(user.getUsername());
@@ -184,7 +184,7 @@ public class SecurityService extends Service implements ISecurityService {
             user.setName(domainUser.getCompleteName());
             user.setUsername(domainUser.getUsername());
             user.setEmail(domainUser.getUserEmail());
-            user.setId(Integer.valueOf(domainUser.getUid().toString()));
+            user.setId(domainUser.getUid());
             user.setStatus(domainUser.isUserStatus());
             user.setDateNew(domainUser.getEnjoyDate());
             user.setInviteCode(domainUser.getInviteCode());
@@ -259,7 +259,7 @@ public class SecurityService extends Service implements ISecurityService {
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             SecPermission permission = iterator.next();
-            permissionBean.setId(Integer.valueOf(permission.getIdPermission().toString()));
+            permissionBean.setId(permission.getIdPermission());
             permissionBean.setPermission(permission.getPermission());
             permissionBean.setDescription(permission.getPermissionDescription());
             loadListPermission.add(permissionBean);
@@ -469,7 +469,7 @@ public class SecurityService extends Service implements ISecurityService {
             final UnitPermission permissionBean = new UnitPermission();
             permissionBean.setDescription(permissionDomain.getPermissionDescription());
             permissionBean.setPermission(permissionDomain.getPermission());
-            permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
+            permissionBean.setId(permissionDomain.getIdPermission());
             return permissionBean;
         } else {
             throw new EnMeExpcetion("default permission not found.");
@@ -489,17 +489,23 @@ public class SecurityService extends Service implements ISecurityService {
    {
         SecUserSecondary userDomain = null;
         SecPermission permissionDomain = null;
-        if (userBean.getId() == null && userBean.getUsername() != null) {
-            userDomain = getUser(userBean.getUsername());
-            userBean.setId(Integer.valueOf(userDomain.getUid().toString()));
+        log.info("userBean found "+userBean.getId());
+        log.info("permissionBean found "+permissionBean.getId());
+        if (userBean.getId() != null) {
+            userDomain = getUserDao().getSecondaryUserById(userBean.getId());
+            log.info("user found "+userDomain);
         }
-        if (permissionBean.getId() == null && permissionBean.getPermission() != null) {
-            permissionDomain = loadPermission(permissionBean.getPermission());
-            permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
+        if (permissionBean.getId() != null) {
+            permissionDomain = getPermissionDao().getPermissionById(permissionBean.getId());
+            log.info("permission found "+permissionDomain);
         }
-        if (userBean.getId() != null && permissionBean.getId() != null) {
+        if (userDomain != null && permissionDomain != null) {
+           log.info("saving permissions");
+           log.info("permission selected "+permissionDomain.getPermission());
+           log.info("user selected "+userDomain.getUid());
            userDomain.getSecUserPermissions().add(permissionDomain);
            getUserDao().saveOrUpdate(userDomain);
+           log.info("saved permission "+userDomain.getSecUserPermissions().size());
         } else {
             throw new EnMeExpcetion("error adding permission");
         }
@@ -551,7 +557,7 @@ public class SecurityService extends Service implements ISecurityService {
         try{
             final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
                 if (permissionDomain != null) {
-                    permissionBean.setId(Integer.valueOf(permissionDomain.getIdPermission().toString()));
+                    permissionBean.setId(permissionDomain.getIdPermission());
                     permissionBean.setPermission(permissionDomain.getPermission());
                     permissionBean.setDescription(permissionDomain.getPermissionDescription());
                 }

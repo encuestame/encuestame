@@ -20,6 +20,8 @@ package org.encuestame.core.persistence.dao;
 import java.util.Collection;
 import java.util.List;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.hibernate.HibernateException;
@@ -84,18 +86,13 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
         return super.findAll("from SecPermission");
     }
 
-    /**
-    *
+   /**
+    * Get Permission.
+    * @param permId permission Id
+    * return {@link SecPermission}
     */
-   public SecPermission getPermissionById(Long permId) throws HibernateException {
-       session = getEnMeSession();
-       try {
+   public SecPermission getPermissionById(final Long permId) throws HibernateException {
            return (SecPermission) getHibernateTemplate().get(SecPermission.class, permId);
-       } catch (HibernateException e) {
-           throw new HibernateException(e);
-       }finally{
-           //releaseEnMeSession(session);
-       }
    }
 
 }

@@ -40,7 +40,7 @@ public class UserBean extends MasterBean {
     private UnitUserBean newUnitUserBean = new UnitUserBean();
     private List<UnitUserBean> listUnitBeans;
     private String processedUserId;
-    private Integer selectedPermissionId;
+    private Long selectedPermissionId;
     private String selectedAction;
     private UIData uiDataUserTable;
     private HtmlDataTable dataTable;
@@ -188,6 +188,7 @@ public class UserBean extends MasterBean {
                         //assing permission
                         assingPermission(user, permission);
                     }
+                     addInfoMessage("Permissions added ","P");
                 } else {
                     new EnMeExpcetion("error on selected user");
                 }
@@ -455,7 +456,7 @@ public class UserBean extends MasterBean {
     /**
      * @return the selectedPermissionId
      */
-    public Integer getSelectedPermissionId() {
+    public Long getSelectedPermissionId() {
         return selectedPermissionId;
     }
 
@@ -463,7 +464,7 @@ public class UserBean extends MasterBean {
      * @param selectedPermissionId
      *            the selectedPermissionId to set
      */
-    public void setSelectedPermissionId(final Integer selectedPermissionId) {
+    public void setSelectedPermissionId(final Long selectedPermissionId) {
         this.selectedPermissionId = selectedPermissionId;
     }
 

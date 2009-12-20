@@ -27,7 +27,7 @@ import org.encuestame.web.beans.MasterBean;
 public class UnitUserBean extends MasterBean implements Serializable {
 
     private static final long serialVersionUID = -6690522000664394521L;
-    private Integer id;
+    private Long id;
     private String email;
     private String name;
     private String username;
@@ -42,13 +42,13 @@ public class UnitUserBean extends MasterBean implements Serializable {
     /**
      * @return the id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     /**

@@ -56,7 +56,7 @@ public class ConvertDomainBean {
             user.setName(domainUser.getCompleteName());
             user.setUsername(domainUser.getUsername());
             user.setEmail(domainUser.getUserEmail());
-            user.setId(Integer.valueOf(domainUser.getUid().toString()));
+            user.setId(domainUser.getUid());
             user.setStatus(domainUser.isUserStatus());
             user.setDateNew(domainUser.getEnjoyDate());
             user.setInviteCode(domainUser.getInviteCode());
@@ -134,7 +134,7 @@ public class ConvertDomainBean {
      */
     public static UnitPermission convertPermissionToBean(final SecPermission permission){
       final UnitPermission permBean = new UnitPermission();
-      permBean.setId(Integer.valueOf(permission.getIdPermission().toString()));
+      permBean.setId(permission.getIdPermission());
       permBean.setDescription(permission.getPermissionDescription());
       permBean.setPermission(permission.getPermission());
       return permBean;
