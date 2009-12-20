@@ -438,11 +438,11 @@ public class SecurityService extends Service implements ISecurityService {
         System.out.println(userBean.getPassword());
         if (userBean.getPassword()!=null) {
              password = userBean.getPassword();
-             secondaryUser.setPassword(encryptPassworD(password));
+             secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         else{
             password = generatePassword();
-            secondaryUser.setPassword(encryptPassworD(password));
+            secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         secondaryUser.setPublisher(userBean.getPublisher());
         secondaryUser.setCompleteName(userBean.getName());
@@ -457,17 +457,24 @@ public class SecurityService extends Service implements ISecurityService {
             getUserDao().saveOrUpdate(secondaryUser);
             // assing firs default group to user
             //TODO: we need assing defaul group to user.
+            final SecPermission permission = getPermissionDao().loadPermission(getDefaultUserPermission());
+            secondaryUser.getSecUserPermissions().add(permission);
+            getUserDao().saveOrUpdate(permission);
         }
         catch (MailSendException ex) {
             log.error("error on notifications, you need desactivate notifications or configure "
                     +"correctly your access on mail server. trace: "+ ex.getMessage());
             throw new EnMeExpcetion(
                     "error on notifications, you need desactivate notifications or configure "
-                    +"correctly your access on mail server ");
+                    +"correctly your access on mail server ["+ex.getMessage()+"]");
         }
         catch (HibernateException ex) {
             log.error("data access ERROR on save user trace:"+ex.getMessage());
-            throw new EnMeExpcetion("data access ERROR on save user");
+            throw new EnMeExpcetion("data access ERROR on save user  ["+ex.getMessage()+"]");
+        }
+        catch (Exception ex) {
+            log.fatal("fatal error trace:"+ex.getMessage());
+            throw new EnMeExpcetion("error on create user ["+ex.getMessage()+"]");
         }
         return password;
     }
