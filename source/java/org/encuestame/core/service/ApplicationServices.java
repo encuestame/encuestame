@@ -18,10 +18,7 @@ import org.encuestame.web.beans.commons.UrlBean;
  * Application Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 11/05/2009 11:35:01
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public class ApplicationServices extends Service implements IApplicationServices {
 

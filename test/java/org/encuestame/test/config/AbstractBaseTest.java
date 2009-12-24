@@ -48,7 +48,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Base Class to Test Cases.
- *
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
  * @version $Id$
@@ -68,51 +67,51 @@ import org.springframework.transaction.annotation.Transactional;
          })
 public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringContextTests {
 
-     /** SurveyFormat  Dao. **/
+     /** SurveyFormat  Dao.**/
     @Autowired
     private ISurveyFormatDao surveyformatDaoImp;
 
-    /** CatLocation  Dao. **/
+    /** CatLocation  Dao.**/
     //   @Autowired
     //  private ICatLocation catLocation;
 
-    /** State Catalog Dao. **/
+    /** State Catalog Dao.**/
     @Autowired
     private ICatState catStateDaoImp;
 
-    /** User Security Dao. **/
+    /** User Security Dao.**/
     @Autowired
     private ISecUserDao secUserDao;
 
-    /**Group Security Dao*/
+    /**Group Security Dao.**/
     @Autowired
     private ISecGroups secGroupDaoImp;
 
-    /** Security Permissions Dao. **/
+    /** Security Permissions Dao.**/
     @Autowired
     private ISecPermissionDao secPermissionDaoImp;
 
-    /** Catalog Location Dao. **/
+    /** Catalog Location Dao.**/
     @Autowired
     private ICatLocation catLocationDao;
 
-    /** Project Dao Imp **/
+    /** Project Dao Imp.**/
     @Autowired
     private IProject projectDaoImp;
 
-    /** Survey Dao Imp. **/
+    /** Survey Dao Imp.**/
     @Autowired
     private ISurvey surveyDaoImp;
 
-    /** Question Dao Imp. **/
+    /** Question Dao Imp.**/
     @Autowired
     private IQuestionDao questionDaoImp;
-    /** Catalog Location Type Dao. */
+    /** Catalog Location Type Dao.**/
 
     @Autowired
     private ICatLocationTypeDao catLocationTypeDao;
 
-    /** Activate Notifications **/
+    /** Activate Notifications.**/
     private Boolean activateNotifications = false;
 
 
@@ -385,7 +384,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
 
-    /** Helper to create CatLocation
+    /** Helper to create CatLocation.
      * @param locDescription locDescription
      * @param locTypeName locTypeName
      * @param Level Level

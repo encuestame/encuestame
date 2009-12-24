@@ -15,10 +15,7 @@ package org.encuestame.core.service;
  * Interface to Application Bean Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 11/05/2009 14:35:21
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public interface IApplicationServices  extends IService {
 

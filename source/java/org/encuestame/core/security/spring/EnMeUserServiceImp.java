@@ -32,7 +32,6 @@ import org.springframework.security.userdetails.UsernameNotFoundException;
 
 /**
  * Encuestame user service implementation.
- *
  * @author Picado, Juan juan@encuestame.org
  * @since 07/05/2009 14:19:02
  * @version $Id$

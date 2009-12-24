@@ -114,7 +114,7 @@ public class TestSecurityService extends AbstractBaseTest{
 
 
     /**
-     *
+     *Test Delete Group.
      */
     @Test
     public void testDeleteGroup(){

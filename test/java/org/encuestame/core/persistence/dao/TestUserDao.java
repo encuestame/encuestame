@@ -24,7 +24,6 @@ import org.junit.Test;
 
 /**
  * UserDao.
- *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 27, 2009
  * @version $Id$
@@ -35,7 +34,7 @@ public class TestUserDao extends AbstractBaseTest {
 
     /**
      * Before.
-     */
+     **/
     @Before
     public void initService(){
         this.userPrimary = createUser();
@@ -52,7 +51,7 @@ public class TestUserDao extends AbstractBaseTest {
 
     /**
      * Test delete user method.
-     */
+     **/
     @Test
     public void testDeleteUser() {
         final SecUserSecondary user = createSecondaryUser("user 2", this.userPrimary);
@@ -72,7 +71,7 @@ public class TestUserDao extends AbstractBaseTest {
 
     /**
      * Test Update user.
-     */
+     **/
     @Test
     public void testUpdateUser(){
         final String newPassword = "67809";
@@ -91,7 +90,7 @@ public class TestUserDao extends AbstractBaseTest {
 
     /**
      * Test Get User by Username.
-     */
+     **/
     @Test
     public void testGetUserByUsername(){
         final SecUserSecondary user = createSecondaryUser("user 3", this.userPrimary);
@@ -100,9 +99,9 @@ public class TestUserDao extends AbstractBaseTest {
         assertEquals("Username should be",user.getUsername(), retrieveUser.getUsername());
     }
 
-        /**
-         * Test Assing Group to User.
-         */
+    /**
+     * Test Assing Group to User.
+     **/
     @SuppressWarnings("unchecked")
     @Test
     public void testAssingGroupToUser(){

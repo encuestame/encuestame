@@ -18,10 +18,8 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.test.config.AbstractBeanBaseTest;
-import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.UnitLocationBean;
 import org.encuestame.web.beans.location.UnitLocationTypeBean;
@@ -208,7 +206,7 @@ public class TestDataSource extends AbstractBeanBaseTest {
       }
 
     /**
-     * Test Update Location Type
+     * Test Update Location Type.
      * @throws EnMeExpcetion  EnMeExpcetion
      */
     @Test

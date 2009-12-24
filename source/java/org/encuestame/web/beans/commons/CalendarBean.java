@@ -1,109 +1,103 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.web.beans.commons;
 
 import java.util.Date;
 import java.util.Locale;
 
 import javax.faces.event.ValueChangeEvent;
-
 /**
- * encuestame: system online surveys Copyright (C) 2009 encuestame Development
- * Team
- * 
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of version 3 of the GNU General Public License as published by the
- * Free Software Foundation.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
- * Id: CalendarBean.java Date: 11/05/2009 16:39:17
- * 
- * @author juanpicado package: org.encuestame.web.beans.commons
- * @version 1.0
+ * Calendar Bean.
+ * @author Picado, Juan juan@encuestame.org
+ * @since 11/05/2009 16:39:17
+ * @version $Id$
  */
-
 public class CalendarBean {
 
-	private Locale locale;
-	private boolean popup;
-	private String pattern;
-	private Date selectedDate;
-	private boolean showApply=true;
-	private boolean useCustomDayLabels;
+    private Locale locale;
+    private boolean popup;
+    private String pattern;
+    private Date selectedDate;
+    private boolean showApply=true;
+    private boolean useCustomDayLabels;
 
-	private String listaCredenciales;
-	
-	public Locale getLocale() {
-		return locale;
-	}
+    private String listaCredenciales;
 
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+    public Locale getLocale() {
+        return locale;
+    }
 
-	public boolean isPopup() {
-		return popup;
-	}
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
-	public void setPopup(boolean popup) {
-		this.popup = popup;
-	}
+    public boolean isPopup() {
+        return popup;
+    }
 
-	public String getPattern() {
-		return pattern;
-	}
+    public void setPopup(boolean popup) {
+        this.popup = popup;
+    }
 
-	public void setPattern(String pattern) {
-		this.pattern = pattern;
-	}
+    public String getPattern() {
+        return pattern;
+    }
 
-	public CalendarBean() {
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
 
-		locale = Locale.US;
-		popup = true;
-		pattern = "d/M/yy HH:mm";
-	}
-		
-	public void selectLocale(ValueChangeEvent event) {
+    public CalendarBean() {
 
-		String tLocale = (String) event.getNewValue();
-		if (tLocale != null) {
-			String lang = tLocale.substring(0, 2);
-			String country = tLocale.substring(3);
-			locale = new Locale(lang, country, "");
-		}
-	}
+        locale = Locale.US;
+        popup = true;
+        pattern = "d/M/yy HH:mm";
+    }
 
-	public boolean isUseCustomDayLabels() {
-		return useCustomDayLabels;
-	}
+    public void selectLocale(ValueChangeEvent event) {
 
-	public void setUseCustomDayLabels(boolean useCustomDayLabels) {
-		this.useCustomDayLabels = useCustomDayLabels;
-	}
+        String tLocale = (String) event.getNewValue();
+        if (tLocale != null) {
+            String lang = tLocale.substring(0, 2);
+            String country = tLocale.substring(3);
+            locale = new Locale(lang, country, "");
+        }
+    }
 
-	public Date getSelectedDate() {
-		return selectedDate;
-	}
+    public boolean isUseCustomDayLabels() {
+        return useCustomDayLabels;
+    }
 
-	public void setSelectedDate(Date selectedDate) {
-		this.selectedDate = selectedDate;
-	}
+    public void setUseCustomDayLabels(boolean useCustomDayLabels) {
+        this.useCustomDayLabels = useCustomDayLabels;
+    }
 
-	public boolean isShowApply() {
-		return showApply;
-	}
+    public Date getSelectedDate() {
+        return selectedDate;
+    }
 
-	public void setShowApply(boolean showApply) {
-		this.showApply = showApply;
-	}
-	
-	
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
+    }
+
+    public boolean isShowApply() {
+        return showApply;
+    }
+
+    public void setShowApply(boolean showApply) {
+        this.showApply = showApply;
+    }
+
+
 
 }

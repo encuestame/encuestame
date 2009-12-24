@@ -18,10 +18,7 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  * Class Description.
  * @author Picado, Juan juan@encuestame.org
  * @since 29/11/2009 21:47:14
- * File name: $HeadURL$
- * Revision: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
+ * @version $Id$
  */
 public interface IService {
 

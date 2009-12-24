@@ -34,8 +34,9 @@ import org.junit.Test;
 
 /**
  * Hibernate Domains.
- * * @author Morales, Diana Paola paola@encuestame.org
+ * @author Morales, Diana Paola paola@encuestame.org
  * @since 16/12/2009
+ * @version $Id: $
  **/
 public class TestHibernateDomains extends AbstractBaseTest{
 

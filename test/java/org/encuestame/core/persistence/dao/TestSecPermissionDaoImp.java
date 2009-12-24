@@ -21,7 +21,6 @@ import org.junit.Test;
 
 /**
  * Test Security Permission Dao.
- *
  * @author Picado, Juan juan@encuestame.org
  * @since 13:00:55
  * @version $Id$
