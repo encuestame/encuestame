@@ -17,14 +17,16 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 /**
  * Security Permission Dao Implementation.
  * @author Picado, Juan juan@encuestame.org
  * @since May 11, 2009
- * @version $Id:$
+ * @version $Id$
  */
 public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
         ISecPermissionDao {
@@ -57,9 +59,9 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
      */
     public SecPermission loadPermission(final String permission)
            throws HibernateException{
-        return (SecPermission) DataAccessUtils.uniqueResult(
-                getHibernateTemplate().findByNamedParam("FROM SecPermission where permission = :permission",
-                                       "permission", permission));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SecPermission.class);
+        criteria.add(Restrictions.like("permission", permission) );
+        return (SecPermission) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**

@@ -48,7 +48,6 @@ public class TestSecurityService extends AbstractBaseTest{
     @Before
     public void initService(){
         securityService.setSuspendedNotification(getActivateNotifications());
-        securityService.setDefaultUserPermission("ENCUESTAME_USER");
         this.userPrimary = createUser();
     }
 
@@ -107,7 +106,6 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testDefaulUserPermission(){
         final String defaultPermission = securityService.getDefaultUserPermission();
         //assertEquals("Should be","ENCUESTAME_USER".toString(), defaultPermission.toString());
-        securityService.setDefaultUserPermission("ENCUESTAME_EDITOR");
         final String newDefaultPermission =  securityService.getDefaultUserPermission();
         assertEquals("Should be","ENCUESTAME_EDITOR".toString(), newDefaultPermission.toString());
     }
@@ -316,7 +314,7 @@ public class TestSecurityService extends AbstractBaseTest{
         //TODO: need assert
         final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
-        assertEquals("should be equals",1, user.getSecUserPermissions().size());
+        assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
 
       /**
@@ -340,7 +338,7 @@ public class TestSecurityService extends AbstractBaseTest{
         //TODO: need assert
         final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
-        assertEquals("should be equals",1, user.getSecUserPermissions().size());
+        assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
 
 

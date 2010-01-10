@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:security="http://www.springframework.org/schema/security"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
     xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
     xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
@@ -11,8 +10,6 @@
        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-       http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.springframework.org/schema/util
@@ -20,14 +17,6 @@
        http://www.springframework.org/schema/jee
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-    <!--
-        ======= HIBERNATE DEFINITIONS ========
-    -->
-
-    <!--
-        Transaction manager for a single Hibernate SessionFactory
-        (alternative to JTA)
-    -->
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${datasource.classname}" />
@@ -41,23 +30,40 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>org.encuestame.core.persistence.pojo.CatState</value>
-                <value>org.encuestame.core.persistence.pojo.Project</value>
-                <value>org.encuestame.core.persistence.pojo.CatLocation</value>
-                <value>org.encuestame.core.persistence.pojo.CatLocationType</value>
-                <value>org.encuestame.core.persistence.pojo.SecGroups</value>
-                <value>org.encuestame.core.persistence.pojo.SecPermission</value>
-                <value>org.encuestame.core.persistence.pojo.SecUsers</value>
-                <value>org.encuestame.core.persistence.pojo.SecUserSecondary</value>
-                <value>org.encuestame.core.persistence.pojo.QuestionColettion</value>
-                <value>org.encuestame.core.persistence.pojo.Questions</value>
-                <value>org.encuestame.core.persistence.pojo.QuestionsAnswers</value>
-                <value>org.encuestame.core.persistence.pojo.QuestionPattern</value>
-                <value>org.encuestame.core.persistence.pojo.SurveyFormat</value>
-                <value>org.encuestame.core.persistence.pojo.SurveyGroup</value>
-                <value>org.encuestame.core.persistence.pojo.SurveyResult</value>
-                <value>org.encuestame.core.persistence.pojo.Surveys</value>
-                <value>org.encuestame.core.persistence.pojo.SurveySection</value>
+                <value>org.encuestame.core.persistence.pojo.CatState
+                </value>
+                <value>org.encuestame.core.persistence.pojo.Project
+                </value>
+                <value>org.encuestame.core.persistence.pojo.CatLocation
+                </value>
+                <value>org.encuestame.core.persistence.pojo.CatLocationType
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SecGroups
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SecPermission
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SecUsers
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SecUserSecondary
+                </value>
+                <value>org.encuestame.core.persistence.pojo.QuestionColettion
+                </value>
+                <value>org.encuestame.core.persistence.pojo.Questions
+                </value>
+                <value>org.encuestame.core.persistence.pojo.QuestionsAnswers
+                </value>
+                <value>org.encuestame.core.persistence.pojo.QuestionPattern
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SurveyFormat
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SurveyGroup
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SurveyResult
+                </value>
+                <value>org.encuestame.core.persistence.pojo.Surveys
+                </value>
+                <value>org.encuestame.core.persistence.pojo.SurveySection
+                </value>
                 <!--
                     <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
                     <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>
@@ -76,29 +82,32 @@
         </property>
     </bean>
 
-    <bean id="jdbcExceptionTranslator"
-        class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator">
-        <property name="dataSource">
-            <ref bean="dataSource" />
-        </property>
-    </bean>
-
-    <!-- Hibernate Template Defintion -->
-
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
-        <property name="jdbcExceptionTranslator">
-            <ref bean="jdbcExceptionTranslator" />
-        </property>
     </bean>
 
-
+    <!--  Encuestame Transactions Configuration  -->
     <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory">
             <ref local="sessionFactory" />
         </property>
     </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="load*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="*" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:advisor pointcut="execution(* *..org.encuestame.core.persistence.dao.*.*(..))" advice-ref="txAdvice"/>
+    </aop:config>
+
+    <!-- This annotation allow declarative transactions.  -->
+    <tx:annotation-driven  transaction-manager="transactionManager"/>
+
 </beans>

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -239,7 +240,7 @@ public class SecUserSecondary {
     /**
      * @return the secUserPermissions
      */
-    @ManyToMany()
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="sec_user_permission",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
@@ -264,7 +265,7 @@ public class SecUserSecondary {
     /**
      * @return the secGroups
      */
-    @ManyToMany()
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="sec_user_group",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_group")})
@@ -282,7 +283,7 @@ public class SecUserSecondary {
     /**
      * @return the projects
      */
-    @ManyToMany()
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="sec_user_project",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="cat_id_project")})
@@ -300,7 +301,7 @@ public class SecUserSecondary {
     /**
      * @return the cLocations
      */
-    @ManyToMany()
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="cat_locations_user",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="cat_location_id")})

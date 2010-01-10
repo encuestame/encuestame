@@ -72,7 +72,7 @@
     -->
     <filter>
         <filter-name>OpenSessionInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+        <filter-class>org.encuestame.core.persistence.filter.SessionFilter</filter-class>
     </filter>
     <filter>
         <description>Verifica el Código de Invitación enviado por correo electronico</description>

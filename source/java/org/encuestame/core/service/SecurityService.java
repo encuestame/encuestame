@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
-import org.dom4j.util.UserDataAttribute;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -30,6 +30,7 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
@@ -54,7 +55,7 @@ public class SecurityService extends Service implements ISecurityService {
     /** Services Mail **/
     private MailServiceImpl serviceMail;
     /** Default User Permission **/
-    private String defaultUserPermission = "ENCUESTAME_USER";
+    private final  String DEFAULT_PERMISSION = "ENCUESTAME_USER";
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
     /**  {@link SurveyService} **/
@@ -128,15 +129,15 @@ public class SecurityService extends Service implements ISecurityService {
                 if (listUsers.size() > 0) {
                     for (Iterator<SecUserSecondary> i = listUsers.iterator(); i.hasNext();) {
                         final UnitUserBean userBean = new UnitUserBean();
-                        final  SecUserSecondary user = i.next();
-                        userBean.setId(user.getUid());
-                        userBean.setName(user.getCompleteName());
-                        userBean.setEmail(user.getUserEmail());
-                        userBean.setUsername(user.getUsername());
-                       // userBean.setPublisher(user.getPublisher());
-                       // userBean.setStatus(user.isUserStatus());
-                        userBean.setListGroups(convertSetToUnitGroupBean(Integer.valueOf((user.getUid().toString()))));
-                      /*  userBean.setListPermission(convertSetToUnitPermission(Integer.valueOf(user.getUid().toString())));*/
+                        final  SecUserSecondary userDomain = i.next();
+                        userBean.setId(userDomain.getUid());
+                        userBean.setName(userDomain.getCompleteName());
+                        userBean.setEmail(userDomain.getUserEmail());
+                        userBean.setUsername(userDomain.getUsername());
+                        userBean.setPublisher(userDomain.getPublisher());
+                        userBean.setStatus(userDomain.isUserStatus());
+                        userBean.setListGroups(convertSetToUnitGroupBean(userDomain.getSecGroups()));
+                        userBean.setListPermission(convertSetToUnitPermission(userDomain.getSecUserPermissions()));
                         loadListUsers.add(userBean);
                     }
                 }
@@ -202,22 +203,12 @@ public class SecurityService extends Service implements ISecurityService {
      * @return collection of groups beans.
      * @throws Exception
      */
-    private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Integer userId)
+    private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroups> groups)
             throws Exception {
-        final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-      /*  if (userId != null) {
-            final UnitGroupBean group = new UnitGroupBean();
-            Collection<SecGroupUser> listSecGru = getGroupDao()
-                    .loadGroupsByUser(Long.valueOf(userId));
-            for (Iterator<SecGroupUser> i = listSecGru.iterator(); i.hasNext();) {
-                final SecGroupUser userg = i.next();
-                group.setGroupName(userg.getSecGroups().getGroupName());
-                group.setGroupDescription(userg.getSecGroups().getGroupDescriptionInfo());
-                group.setId(Integer.valueOf(userg.getSecGroups().getGroupId().toString()));
-                group.setStateId(userg.getSecGroups().getIdState().toString());
-                loadListGroups.add(group);
+            final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
+            for (SecGroups secGroups : groups) {
+                 loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
             }
-        }*/
         return loadListGroups;
     }
 
@@ -227,23 +218,11 @@ public class SecurityService extends Service implements ISecurityService {
      * @return collection of permission
      * @throws Exception all exceptions.
   */
-    private Collection<UnitPermission> convertSetToUnitPermission(final Integer userId)
+    private Collection<UnitPermission> convertSetToUnitPermission(final Set<SecPermission> permissions)
             throws Exception {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        if (userId != null) {
-            final UnitPermission permissionBean = new UnitPermission();
-
-           /* for (Iterator<SecUserPermission> i = listSecGru.iterator(); i
-                    .hasNext();) {
-                final SecUserPermission permission = i.next();
-                permissionBean.setId(Integer.valueOf(permission.getSecPermission().getIdPermission().toString()));
-                permissionBean
-                        .setPermission(permission.getSecPermission()
-                                .getPermission());
-                permissionBean.setDescription(permission.getSecPermission()
-                        .getPermissionDescription());
-                loadListPermission.add(permissionBean);
-            }*/
+        for (SecPermission secPermission : permissions) {
+            loadListPermission.add(ConvertDomainBean.convertPermissionToBean(secPermission));
         }
         return loadListPermission;
     }
@@ -428,7 +407,7 @@ public class SecurityService extends Service implements ISecurityService {
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
             secondaryUser.setUserEmail(userBean.getEmail());
             secondaryUser.setUsername(userBean.getUsername());
-            log.debug("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
+           // log.debug("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
             secondaryUser.setSecUser(getUserDao().getUserById(userBean.getPrimaryUserId()));
         }
         else {
@@ -457,9 +436,18 @@ public class SecurityService extends Service implements ISecurityService {
             getUserDao().saveOrUpdate(secondaryUser);
             // assing firs default group to user
             //TODO: we need assing defaul group to user.
-            final SecPermission permission = getPermissionDao().loadPermission(getDefaultUserPermission());
-            secondaryUser.getSecUserPermissions().add(permission);
-            getUserDao().saveOrUpdate(permission);
+            final SecUserSecondary retrievedUser = getUserDao().getSecondaryUserById(secondaryUser.getUid());
+            final SecPermission permission = getPermissionDao().loadPermission("ENCUESTAME_USER");
+            final List<SecPermission> all = getPermissionDao().findAllPermissions();
+            log.info("all permission "+all.size());
+            log.info("default permission "+permission);
+            retrievedUser.getSecUserPermissions().add(permission);
+            log.info("saving user");
+            getUserDao().saveOrUpdate(retrievedUser);
+
+            final SecUserSecondary retrievedUser2 = getUserDao().getSecondaryUserById(retrievedUser.getUid());
+            log.info("saved user total permissions "+retrievedUser2.getSecUserPermissions().size());
+
         }
         catch (MailSendException ex) {
             log.error("error on notifications, you need desactivate notifications or configure "
@@ -672,14 +660,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return default user permission.
      */
     public String getDefaultUserPermission() {
-        return defaultUserPermission;
-    }
-    /**
-     * Setter.
-     * @param defaultUserPermission default permission
-     */
-    public void setDefaultUserPermission(final String defaultUserPermission) {
-        this.defaultUserPermission = defaultUserPermission;
+        return  DEFAULT_PERMISSION;
     }
 
     /**

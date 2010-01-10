@@ -39,39 +39,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @throws HibernateException hibernate
       */
      public void saveOrUpdate(final Object obj) throws HibernateException {
-         getSession().setFlushMode(FlushMode.AUTO);
          getHibernateTemplate().saveOrUpdate(obj);
-     }
-
-     /**
-      * Close EnMeSession is open.
-      */
-     protected void closeEnMeSessionisOpen() {
-         log.info("closing session");
-         if (getEnMeSession().isOpen()) {
-             getEnMeSession().close();
-         }
-     }
-
-     /**
-     * Get Session.
-     * @return {@link Session}
-     */
-    public Session getEnMeSession(){
-        log.info("getEnMeSession session");
-         if (this.session == null || !this.session.isOpen()) {
-             this.session = getSessionFactory().openSession();
-         }
-         return this.session;
-     }
-
-     /**
-     * Release session.
-     * @param session {@link Session}
-     */
-    public void releaseEnMeSession(final Session session) {
-        log.info("releaseEnMeSession session");
-         releaseSession(session);
+         //getSession().flush();
      }
 
      /**
@@ -93,5 +62,4 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      public List findAll(String query) throws HibernateException {
          return getHibernateTemplate().find(query);
      }
-
 }

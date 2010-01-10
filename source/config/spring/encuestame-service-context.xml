@@ -95,10 +95,6 @@
         <property name="serviceMail">
             <ref bean="serviceMail"></ref>
         </property>
-        <property name="defaultUserPermission">
-            <value>${sec.defaultUserPermission}
-            </value>
-        </property>
         <property name="suspendedNotification">
             <value>${sec.suspendedNotification}
             </value>

@@ -34,7 +34,7 @@ public class TestSecPermissionDaoImp extends AbstractBaseTest {
      */
     @Before
     public void initData(){
-        permission = createPermission("admin");
+        permission = createPermission("ENCUESTAME_USER");
     }
 
     /**
@@ -42,7 +42,7 @@ public class TestSecPermissionDaoImp extends AbstractBaseTest {
      */
     @Test
     public void testloadPermission(){
-        final SecPermission retrievedPermission = getSecPermissionDaoImp().loadPermission("admin");
+        final SecPermission retrievedPermission = getSecPermissionDaoImp().loadPermission("ENCUESTAME_USER");
         assertEquals("should be equals", permission.getPermission(), retrievedPermission.getPermission());
     }
 
@@ -52,6 +52,9 @@ public class TestSecPermissionDaoImp extends AbstractBaseTest {
     @Test
     public void testloadAllPermissions(){
         final List<SecPermission> allPermissions = getSecPermissionDaoImp().loadAllPermissions();
+        for (SecPermission secPermission : allPermissions) {
+            System.out.println("s "+secPermission.getPermission());
+        }
         assertEquals("should be equals", 1, allPermissions.size());
     }
 }

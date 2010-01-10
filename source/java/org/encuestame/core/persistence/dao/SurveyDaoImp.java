@@ -36,7 +36,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     @SuppressWarnings("unchecked")
     public Collection<SurveyFormat> searchSurveyByName(String searchString)
             throws HibernateException {
-        return getEnMeSession().createCriteria(SurveyFormat.class)
+        return getSession().createCriteria(SurveyFormat.class)
         .add(Restrictions.like("name","%"+searchString+"%"))
         .setMaxResults(10).list();
 

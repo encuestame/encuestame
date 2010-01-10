@@ -35,7 +35,7 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
      * @throws HibernateException hibernate exception
      */
     public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException{
-        return (SurveyFormat) getEnMeSession().get(SurveyFormat.class, idSidFormat);
+        return (SurveyFormat) getSession().get(SurveyFormat.class, idSidFormat);
     }
 
     /**
@@ -45,7 +45,7 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
      * @throws HibernateException hibernate exception
      */
     public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException {
-        return  (SurveyFormat) getEnMeSession()
+        return  (SurveyFormat) getSession()
         .createCriteria(SurveyFormat.class)
         .add(Restrictions.eq("formatname", name))
         .uniqueResult();
@@ -62,7 +62,7 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
     @SuppressWarnings("unchecked")
     public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate){
 
-        return getEnMeSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
+        return getSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
                 .setDate("start", startDate)
                 .setDate("end", endDate)
                 .list();
