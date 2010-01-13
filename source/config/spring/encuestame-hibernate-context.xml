@@ -96,10 +96,12 @@
         </property>
     </bean>
 
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+   <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="load*" read-only="true" propagation="REQUIRED"/>
-            <tx:method name="*" />
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="save*"  propagation="REQUIRED"/>
+            <tx:method name="update*"  propagation="REQUIRED"/>
+            <tx:method name="*"   propagation="SUPPORTS"/>
         </tx:attributes>
     </tx:advice>
 

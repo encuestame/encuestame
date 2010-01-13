@@ -40,7 +40,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       */
      public void saveOrUpdate(final Object obj) throws HibernateException {
          getHibernateTemplate().saveOrUpdate(obj);
-         //getSession().flush();
+         getSession().flush();
      }
 
      /**
