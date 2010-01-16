@@ -47,8 +47,8 @@ public class TestDataSource extends AbstractBeanBaseTest {
      * Before.
      */
     public void initService(){
-        project = createProject("project 1","TIC Project","Project", "active");
-        createProject("project 2","Education Project","Project", "active");
+        project = createProject("project 1","TIC Project","Project", createState("active"));
+        createProject("project 2","Education Project","Project", createState("active"));
     }
 
     /**

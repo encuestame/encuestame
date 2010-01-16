@@ -42,7 +42,7 @@ public class TestProjectDaoImp extends AbstractBaseTest{
      */
     @Before
     public void initService(){
-        project = createProject("project 1","TIC Project","Project", "active");
+        project = createProject("project 1","TIC Project","Project", createState("active"));
 
     }
     /**

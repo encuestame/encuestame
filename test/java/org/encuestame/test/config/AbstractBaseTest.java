@@ -324,9 +324,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @param state Project's state
      * @return {@link Project}
      */
-    public Project createProject(final String name, String descProject, String infoProject, String state) {
+    public Project createProject(final String name, String descProject, String infoProject, CatState state) {
           Project project = new Project();
-          project.setStateProject(createState(state));
+          project.setStateProject(state);
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
           project.setProjectInfo(infoProject);
