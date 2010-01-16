@@ -38,7 +38,7 @@ import org.springframework.test.annotation.ExpectedException;
 public class TestSecurityService extends AbstractBaseTest{
 
     @Autowired
-    private SecurityService securityService;
+    private ISecurityService securityService;
 
     private SecUsers userPrimary;
 
@@ -105,9 +105,7 @@ public class TestSecurityService extends AbstractBaseTest{
     @Test
     public void testDefaulUserPermission(){
         final String defaultPermission = securityService.getDefaultUserPermission();
-        //assertEquals("Should be","ENCUESTAME_USER".toString(), defaultPermission.toString());
-        final String newDefaultPermission =  securityService.getDefaultUserPermission();
-        assertEquals("Should be","ENCUESTAME_EDITOR".toString(), newDefaultPermission.toString());
+        assertEquals("Should be","ENCUESTAME_USER".toString(), defaultPermission.toString());
     }
 
 
@@ -156,8 +154,8 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testDeleteUser() throws EnMeExpcetion{
      final SecUserSecondary secUsers = createSecondaryUser("administrator",this.userPrimary);
      final Long idUser = secUsers.getUid();
-     final String username = secUsers.getUsername();
-     final UnitUserBean user = securityService.convertUserDaoToUserBean(secUsers);
+     //final String username = secUsers.getUsername();
+     final UnitUserBean user = ConvertDomainBean.convertUserDaoToUserBean(secUsers);
      securityService.deleteUser(user);
      final SecUsers userRetrieve = getSecUserDao().getUserById(idUser);
      assertNull(userRetrieve);
@@ -188,7 +186,7 @@ public class TestSecurityService extends AbstractBaseTest{
     public void testUpdateUser() throws EnMeExpcetion{
       final SecUserSecondary secUsers = createSecondaryUser("developer",this.userPrimary);
       final Long idUser = secUsers.getUid();
-      final UnitUserBean userBean = securityService.convertUserDaoToUserBean(secUsers);
+      final UnitUserBean userBean = ConvertDomainBean.convertUserDaoToUserBean(secUsers);
       userBean.setName("editor");
       securityService.updateUser(userBean);
       final SecUserSecondary userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);

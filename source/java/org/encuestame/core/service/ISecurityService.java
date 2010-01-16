@@ -218,4 +218,10 @@ public interface ISecurityService extends IService {
      */
     public SecUserSecondary findUserByUserName(final String username);
 
+    /**
+     * Setter.
+     * @param suspendedNotification suspended notification
+     */
+    public void setSuspendedNotification(final Boolean suspendedNotification);
+
 }

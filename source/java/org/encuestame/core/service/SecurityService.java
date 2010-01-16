@@ -168,7 +168,7 @@ public class SecurityService extends Service implements ISecurityService {
         final SecUserSecondary userD = getUserDao().getUserByUsername(username);
         UnitUserBean user = null;
         if (userD != null) {
-            user = convertUserDaoToUserBean(userD);
+            user = ConvertDomainBean.convertUserDaoToUserBean(userD);
         } else {
             log.error("user not found");
         }
@@ -180,6 +180,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param domainUser Domain User
      * @return Bean User
      */
+    @Deprecated
     public UnitUserBean convertUserDaoToUserBean(SecUserSecondary domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
@@ -675,7 +676,6 @@ public class SecurityService extends Service implements ISecurityService {
      * @return suspendend notification
      */
     public Boolean getSuspendedNotification() {
-        log.info("suspendedNotification->" + suspendedNotification);
         return suspendedNotification;
     }
     /**
