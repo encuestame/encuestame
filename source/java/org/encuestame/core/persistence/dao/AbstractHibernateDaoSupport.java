@@ -49,8 +49,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @throws HibernateException exception
       */
      public void delete(Object obj) throws HibernateException {
-          getSession().setFlushMode(FlushMode.AUTO);
           getHibernateTemplate().delete(obj);
+          getSession().flush();
      }
 
      /**

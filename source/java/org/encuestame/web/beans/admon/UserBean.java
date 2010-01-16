@@ -250,8 +250,7 @@ public class UserBean extends MasterBean {
     private void deleteUser(final UnitUserBean user) {
         try {
             getServicemanager().getApplicationServices().getSecurityService().deleteUser(user);
-            log.debug("user "+user.getUsername()+" deleted correctly.");
-            addInfoMessage("Se borro bien->" + user.getUsername(), "");
+            log.debug("user "+user.getUsername()+" deleted");
         } catch (EnMeExpcetion e) {
             log.error("Error on delete user. Trace:"+ e.getMessage());
             addErrorMessage("Error on delete user","");
@@ -287,19 +286,20 @@ public class UserBean extends MasterBean {
                     case 1:
                         for (Iterator<UnitUserBean> i = selectedUsers()
                                 .iterator(); i.hasNext();) {
-                            UnitUserBean user = i.next();
+                            final UnitUserBean user = i.next();
                             log.info("delete action->" + user.getUsername());
-                            deleteUser(user);
+                            this.deleteUser(user);
                         }
+                        addInfoMessage("User/s deleted.","");
                         break;
                     case 2:
                         log.debug("renew passwords");
                         for (Iterator<UnitUserBean> i = selectedUsers()
                                 .iterator(); i.hasNext();) {
-                            UnitUserBean user = i.next();
+                            final UnitUserBean user = i.next();
                             log.info("recordar password action->"
                                     + user.getUsername());
-                            renewPassword(user);
+                            this.renewPassword(user);
                         }
                         addInfoMessage("New passwords sended","");
                         break;

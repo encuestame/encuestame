@@ -261,8 +261,9 @@ public class SecurityService extends Service implements ISecurityService {
      * @param groupDomain {@link SecGroups}
      * @return {@link UnitGroupBean}
      */
+    @Deprecated
     public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
-        UnitGroupBean groupBean = new UnitGroupBean();
+        final UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
         groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
         groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
@@ -276,11 +277,17 @@ public class SecurityService extends Service implements ISecurityService {
     public void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion {
         try{
             final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
-            if (getSuspendedNotification()) {
-                getServiceMail().sendDeleteNotification(userBean.getEmail(),
-                        getMessageProperties("MessageDeleteNotification"));
+            log.info("user found "+userDomain);
+            if(userDomain == null) {
+               log.warn("user "+userBean.getUsername()+ "not found.");
             }
-            getUserDao().delete(userDomain);
+            else {
+                if (getSuspendedNotification()) {
+                    getServiceMail().sendDeleteNotification(userBean.getEmail(),
+                            getMessageProperties("MessageDeleteNotification"));
+                }
+                getUserDao().delete(userDomain);
+            }
         }
         catch (Exception e) {
             throw new EnMeExpcetion(e);
