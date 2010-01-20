@@ -191,7 +191,7 @@ public class ProjectBean extends MasterBean {
     }
 
     /**
-     * change to edit form
+     * Change view to List of Projects.
      */
     public void changeEdit() {
         log.info("changeEdit");

@@ -24,9 +24,19 @@ import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
  */
 public abstract class Service {
 
+    /**
+     * {@link MessageSourceFactoryBean}.
+     */
     private MessageSourceFactoryBean messageSource;
+
+    /**
+     * {@link IDataSource}.
+     */
     private IDataSource dataEnMeSource;
 
+    /**
+     * Log.
+     */
     protected Log log = LogFactory.getLog(this.getClass());
 
     /**
