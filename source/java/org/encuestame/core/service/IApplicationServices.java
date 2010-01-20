@@ -19,7 +19,17 @@ package org.encuestame.core.service;
  */
 public interface IApplicationServices  extends IService {
 
+
+    /**
+     * Getter.
+     * @return {@link ISecurityService}
+     */
     public ISecurityService getSecurityService();
+
+    /**
+     * Setter.
+     * @param securityService {@link ISecurityService}
+     */
     public void setSecurityService(ISecurityService securityService);
 
 }

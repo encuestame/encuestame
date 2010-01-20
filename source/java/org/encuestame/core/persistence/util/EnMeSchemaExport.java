@@ -61,21 +61,26 @@ public class EnMeSchemaExport {
         final AnnotationSessionFactoryBean annotationSF = (AnnotationSessionFactoryBean) appContext
                 .getBean("&sessionFactory");
         annotationSF.dropDatabaseSchema();
-        final SecurityService securityService = (SecurityService) appContext
-                .getBean("securityService");
-
         annotationSF.createDatabaseSchema();
+
         try {
-            final UnitPermission permissionBean = new UnitPermission();
+            //security service
+            final SecurityService securityService = (SecurityService) appContext
+            .getBean("securityService");
+
+            final UnitPermission defaultUserPermission = new UnitPermission();
             // create encuestame user permission.
-            permissionBean.setPermission("ENCUESTAME_USER");
-            permissionBean.setDescription("ENCUESTAME_USER");
-            securityService.createPermission(permissionBean);
+            defaultUserPermission.setPermission("ENCUESTAME_USER");
+            defaultUserPermission.setDescription("ENCUESTAME_USER");
+            securityService.createPermission(defaultUserPermission);
+
             // create permission admin
             final UnitPermission permissionAdmin = new UnitPermission();
             permissionAdmin.setPermission("ENCUESTAME_ADMIN");
             permissionAdmin.setDescription("ENCUESTAME_ADMIN");
             securityService.createPermission(permissionAdmin);
+
+            //TODO: lazy exception problem with this script.
 
             //create user admin
             final SecUsers userPrimary = new SecUsers();
@@ -84,14 +89,16 @@ public class EnMeSchemaExport {
             final UnitUserBean user = new UnitUserBean();
             user.setDateNew(new Date());
             user.setPrimaryUserId(userPrimary.getUid());
-            user.setEmail("juan@encuestame.org");
+            user.setEmail("admin@encuestame.org");
             user.setPassword("12345");
             user.setUsername("admin");
             user.setName("admin");
             user.setStatus(true);
             securityService.createUser(user);
+
             //admin user permission
-            //securityService.assignPermission(user, permissionAdmin);
+            securityService.assignPermission(user, permissionAdmin);
+            securityService.assignPermission(user, defaultUserPermission);
 
             final SecPermissionDaoImp secPermissionDaoImp = (SecPermissionDaoImp) appContext.getBean("secPermissionDaoImp");
             SecPermission d = secPermissionDaoImp.getPermissionById(1L);
@@ -100,9 +107,6 @@ public class EnMeSchemaExport {
             s.getSecUserPermissions().add(d);
             s.getSecUserPermissions().add(d2);
             secUserDao.saveOrUpdate(s);
-
-
-            System.out.println("permisos total -> "+secUserDao.getSecondaryUserById(1L).getSecUserPermissions().size());
 
             final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
             final CatState activate = new CatState();

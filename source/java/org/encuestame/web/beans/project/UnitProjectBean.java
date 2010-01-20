@@ -43,10 +43,6 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     private Collection<UnitGroupBean> listUsers;
     private Collection<UnitPermission> listGroupsSurveys;
 
-
-
-
-
     /**
      * @return the id
      */
@@ -119,8 +115,4 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
-
-
 }

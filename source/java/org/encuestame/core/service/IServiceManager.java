@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.service;
 
-
 /**
  * Interface to Service Manager.
  * @author Picado, Juan juan@encuestame.org
@@ -21,6 +20,15 @@ package org.encuestame.core.service;
  */
 public interface IServiceManager extends IService {
 
+    /**
+     * Getter {@link IApplicationServices}.
+     * @return {@link IApplicationServices}
+     */
     public IApplicationServices getApplicationServices();
+
+    /**
+     * Setter.
+     * @param applicationServices {@link IApplicationServices}
+     */
     public void setApplicationServices(IApplicationServices applicationServices);
 }

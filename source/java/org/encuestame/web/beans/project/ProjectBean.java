@@ -34,32 +34,41 @@ public class ProjectBean extends MasterBean {
      *
      */
     public Boolean create = true;
+
     /**
      *
      */
     public Boolean edit;
+
     /**
      *
      */
     public Boolean editDetail;
-    private UnitProjectBean beanUProyect;
+    /**
+     * {@link UnitProjectBean}.
+     */
+    private UnitProjectBean unitProjectBean;
+
+    /**
+     * Project Id selected.
+     */
     private Integer projectSelected;
+
+    /**
+     * List of Projects.
+     */
     private Collection<UnitProjectBean> listProjectsBeans;
 
     /**
      * Constructor.
      */
-    public ProjectBean() {
-        log.info("create proyect bean");
-    }
+    public ProjectBean() {}
 
     /**
      * Load List of Projects.
      * @return List of {@link UnitProjectBean}
-     * @throws Exception exception
      */
-    @SuppressWarnings("unchecked")
-    public Collection<UnitProjectBean> loadListProjects() throws Exception {
+    public Collection<UnitProjectBean> loadListProjects(){
         return  getServicemanager().getDataEnMeSource()
                 .loadListProjects();
     }
@@ -242,9 +251,9 @@ public class ProjectBean extends MasterBean {
      * @return the beanUProyect
      */
     public UnitProjectBean getBeanUProyect() {
-        log.info("DDDDDDDget UnitProjectBean->"+beanUProyect.getName());
-        log.info("get UnitProjectBean->"+beanUProyect);
-        return beanUProyect;
+        log.info("DDDDDDDget UnitProjectBean->"+unitProjectBean.getName());
+        log.info("get UnitProjectBean->"+unitProjectBean);
+        return unitProjectBean;
     }
 
     /**
@@ -253,7 +262,7 @@ public class ProjectBean extends MasterBean {
      */
     public void setBeanUProyect(UnitProjectBean beanUProyect) {
         log.info("set UnitProjectBean->"+beanUProyect);
-        this.beanUProyect = beanUProyect;
+        this.unitProjectBean = beanUProyect;
     }
 
     /**

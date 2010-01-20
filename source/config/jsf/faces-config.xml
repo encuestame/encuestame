@@ -40,10 +40,12 @@
   <navigation-case>
    <from-outcome>location</from-outcome>
    <to-view-id>/pages/admon/location.xhtml</to-view-id>
+   <redirect/>
   </navigation-case>
   <navigation-case>
    <from-outcome>project</from-outcome>
    <to-view-id>/pages/admon/project.xhtml</to-view-id>
+   <redirect/>
   </navigation-case>
   <navigation-case>
    <from-outcome>createSurvey</from-outcome>
