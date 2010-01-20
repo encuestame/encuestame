@@ -1,575 +1,575 @@
 /*
-SQLyog Enterprise - MySQL GUI v6.07
-Host - 5.1.33-community-log : Database - encuestame_core
-*********************************************************************
-Server version : 5.1.33-community-log
-*/
+ ************************************************************************************
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 
-/*!40101 SET NAMES utf8 */;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-/*!40101 SET SQL_MODE=''*/;
+--
+-- Database: `encuestame`
+--
+CREATE DATABASE `encuesame` ;
 
-create database if not exists `encuestame_core`;
+-- --------------------------------------------------------
 
-USE `encuestame_core`;
+--
+-- Table structure for table `cat_location`
+--
 
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-/*Table structure for table `cat_location` */
-
-DROP TABLE IF EXISTS `cat_location`;
-
-CREATE TABLE `cat_location` (
-  `locate_id` int(11) NOT NULL,
-  `tidtype` char(10) NOT NULL,
-  `description` varchar(255) NOT NULL DEFAULT '',
-  `level` int(5) NOT NULL,
-  `active` enum('S','N') DEFAULT NULL,
-  `lat` float(10,6) DEFAULT NULL,
-  `lng` float(10,6) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `cat_location` (
+  `locate_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `active` varchar(2) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `lat` float DEFAULT NULL,
+  `level` int(11) NOT NULL,
+  `lng` float DEFAULT NULL,
+  `loc_id_type` bigint(20) NOT NULL,
   PRIMARY KEY (`locate_id`),
-  KEY `Ref5137` (`tidtype`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `locate_id` (`locate_id`),
+  KEY `FK8C56C1FED9C8CC22` (`loc_id_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `cat_location` */
+-- --------------------------------------------------------
 
-/*Table structure for table `cat_location_type` */
+--
+-- Table structure for table `cat_locations_user`
+--
 
-DROP TABLE IF EXISTS `cat_location_type`;
+CREATE TABLE IF NOT EXISTS `cat_locations_user` (
+  `sec_id_secondary` bigint(20) NOT NULL,
+  `cat_location_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_secondary`,`cat_location_id`),
+  KEY `FK4C9FBF95C16FD298` (`sec_id_secondary`),
+  KEY `FK4C9FBF95BDA0EE65` (`cat_location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `cat_location_type` (
-  `loc_id_type` char(10) NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cat_location_type`
+--
+
+CREATE TABLE IF NOT EXISTS `cat_location_type` (
+  `loc_id_type` bigint(20) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
-  `level` int(4) DEFAULT NULL,
-  PRIMARY KEY (`loc_id_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `level` int(11) DEFAULT NULL,
+  PRIMARY KEY (`loc_id_type`),
+  UNIQUE KEY `loc_id_type` (`loc_id_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `cat_location_type` */
+-- --------------------------------------------------------
 
-insert  into `cat_location_type`(`loc_id_type`,`description`,`level`) values ('1','Región',0),('2','Departamento',1),('3','Municipio',2),('4','Distrito',3);
+--
+-- Table structure for table `cat_state`
+--
 
-/*Table structure for table `cat_location_user` */
-
-DROP TABLE IF EXISTS `cat_location_user`;
-
-CREATE TABLE `cat_location_user` (
-  `location_id` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`location_id`,`uid`),
-  KEY `tid` (`location_id`,`uid`),
-  KEY `uid` (`uid`),
-  CONSTRAINT `FK_cat_location_user` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `cat_location_user` */
-
-/*Table structure for table `cat_state` */
-
-DROP TABLE IF EXISTS `cat_state`;
-
-CREATE TABLE `cat_state` (
-  `id_state` int(11) NOT NULL AUTO_INCREMENT,
-  `desc_state` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `cat_state` (
+  `id_state` bigint(20) NOT NULL AUTO_INCREMENT,
+  `desc_state` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_state`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 39936 kB';
+  PRIMARY KEY (`id_state`),
+  UNIQUE KEY `id_state` (`id_state`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Data for the table `cat_state` */
+-- --------------------------------------------------------
 
-insert  into `cat_state`(`id_state`,`desc_state`,`image`) values (1,'Activo','activo'),(2,'Inactivo','inactivo'),(3,'Pendiente','pendiente');
+--
+-- Table structure for table `project`
+--
 
-/*Table structure for table `project` */
-
-DROP TABLE IF EXISTS `project`;
-
-CREATE TABLE `project` (
-  `proyect_id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) NOT NULL DEFAULT '',
-  `info` text NOT NULL,
-  `date_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_state` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `project` (
+  `proyect_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `date_finish` datetime DEFAULT NULL,
+  `date_start` datetime NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `info` varchar(255) NOT NULL,
+  `cat_state_id` bigint(20) NOT NULL,
   PRIMARY KEY (`proyect_id`),
-  KEY `id_estado` (`id_state`),
-  CONSTRAINT `project_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `proyect_id` (`proyect_id`),
+  KEY `FKED904B19A965732F` (`cat_state_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `project` */
+-- --------------------------------------------------------
 
-insert  into `project`(`proyect_id`,`description`,`info`,`date_start`,`id_state`,`date_finish`) values (1,'Encuestame','dsadsad','2009-05-30 01:49:56',2,'2009-05-30 01:49:56'),(2,'Proyecto 2','dsadsad','2009-05-30 02:18:55',2,'2009-05-30 02:18:55'),(3,'Proyecto 3','dsadsa','2009-05-30 02:19:09',2,'2009-05-30 02:19:09'),(4,'dasdasdas','dsadas','2009-05-13 12:00:00',1,'2009-05-13 12:00:00'),(5,'JotaProyect','dadasdasdas','2009-05-05 12:00:00',1,'2009-05-21 12:00:00'),(6,'dsadsa','dasdsad','2009-05-05 12:00:00',1,'2009-05-05 12:00:00'),(7,'dsadsadsa','dsadsadasdsad','2009-05-05 12:00:00',2,'2009-05-12 12:00:00'),(8,'dsadsadsa','dsadsadasdsad','2009-05-05 12:00:00',2,'2009-05-12 12:00:00'),(9,'Proyecto dsadsa','dsadsadsa','2009-05-11 12:00:00',1,'2009-05-11 12:00:00'),(16,'Paola Project','dasdsad','2009-05-05 12:00:00',1,'2009-05-07 12:00:00'),(17,'Proyecto Paola','dasdsadsa','2009-05-04 12:00:00',1,'2009-05-21 12:00:00');
+--
+-- Table structure for table `project_locations`
+--
 
-/*Table structure for table `project_group` */
-
-DROP TABLE IF EXISTS `project_group`;
-
-CREATE TABLE `project_group` (
-  `group_id` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL,
-  `fecha_ingreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`group_id`,`proyect_id`),
-  KEY `group_id` (`group_id`,`proyect_id`),
-  KEY `group_id_2` (`group_id`),
-  KEY `proyect_id` (`proyect_id`),
-  CONSTRAINT `project_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`),
-  CONSTRAINT `project_group_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
+CREATE TABLE IF NOT EXISTS `project_locations` (
+  `cat_id_loc` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`cat_id_loc`),
+  KEY `FK242951B8D3065BD5` (`cat_id_project`),
+  KEY `FK242951B86C2E620E` (`cat_id_loc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `project_group` */
+-- --------------------------------------------------------
 
-/*Table structure for table `project_location` */
+--
+-- Table structure for table `questions`
+--
 
-DROP TABLE IF EXISTS `project_location`;
-
-CREATE TABLE `project_location` (
-  `group_id` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL,
-  `id_state` int(11) NOT NULL,
-  PRIMARY KEY (`group_id`,`proyect_id`),
-  KEY `proyect_id` (`proyect_id`),
-  KEY `group_id` (`group_id`),
-  CONSTRAINT `project_location_fk` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`),
-  CONSTRAINT `project_location_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `project_location` */
-
-/*Table structure for table `project_user` */
-
-DROP TABLE IF EXISTS `project_user`;
-
-CREATE TABLE `project_user` (
-  `uid` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL,
-  `date_new` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`uid`,`proyect_id`),
-  KEY `uid` (`uid`,`proyect_id`),
-  KEY `siteid` (`proyect_id`),
-  CONSTRAINT `project_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`),
-  CONSTRAINT `project_user_ibfk_2` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `project_user` */
-
-/*Table structure for table `projet_cat_location` */
-
-DROP TABLE IF EXISTS `projet_cat_location`;
-
-CREATE TABLE `projet_cat_location` (
-  `project_id` int(11) NOT NULL,
-  `locate_id` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`locate_id`,`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `projet_cat_location` */
-
-/*Table structure for table `question_colettion` */
-
-DROP TABLE IF EXISTS `question_colettion`;
-
-CREATE TABLE `question_colettion` (
-  `id_q_colection` int(11) NOT NULL AUTO_INCREMENT,
-  `des_coleccion` varchar(255) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_q_colection`),
-  KEY `uid` (`uid`),
-  CONSTRAINT `question_colettion_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `question_colettion` */
-
-/*Table structure for table `questions` */
-
-DROP TABLE IF EXISTS `questions`;
-
-CREATE TABLE `questions` (
-  `qid` int(11) NOT NULL AUTO_INCREMENT,
-  `question` longtext,
-  `version` int(11) NOT NULL DEFAULT '1',
-  `id_state` int(11) NOT NULL DEFAULT '2',
+CREATE TABLE IF NOT EXISTS `questions` (
+  `qid` bigint(20) NOT NULL AUTO_INCREMENT,
   `qid_key` varchar(255) DEFAULT NULL,
+  `question` varchar(255) DEFAULT NULL,
+  `id_state` bigint(20) NOT NULL,
+  `id_question_pattern` bigint(20) NOT NULL,
   PRIMARY KEY (`qid`),
-  KEY `version` (`version`),
-  KEY `id_estado` (`id_state`),
-  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `qid` (`qid`),
+  KEY `FK95C5414D2DBDEDCA` (`id_state`),
+  KEY `FK95C5414D2A2E9A63` (`id_question_pattern`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `questions` */
+-- --------------------------------------------------------
 
-insert  into `questions`(`qid`,`question`,`version`,`id_state`,`qid_key`) values (1,'¿Porque la gallina cruzó la calle?',1,2,'sadsadq21321321321dsadsa'),(2,'¿Porqué todo junto se escribe separado y separado todo junto?',1,2,'dsadsa321321dsadsa');
+--
+-- Table structure for table `questions_answers`
+--
 
-/*Table structure for table `questions_answers` */
+CREATE TABLE IF NOT EXISTS `questions_answers` (
+  `q_answer_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `answer` varchar(255) DEFAULT NULL,
+  `id_question_answer` bigint(20) NOT NULL,
+  PRIMARY KEY (`q_answer_id`),
+  UNIQUE KEY `q_answer_id` (`q_answer_id`),
+  KEY `FK539703833DA1719E` (`id_question_answer`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `questions_answers`;
+-- --------------------------------------------------------
 
-CREATE TABLE `questions_answers` (
-  `id_answers` int(11) NOT NULL,
-  `qid` int(11) NOT NULL,
-  `answer` char(20) DEFAULT NULL,
-  PRIMARY KEY (`id_answers`,`qid`),
-  KEY `id_answers` (`id_answers`,`qid`),
-  KEY `qid` (`qid`),
-  CONSTRAINT `FK_questions_answers` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Table structure for table `questions_pattern`
+--
 
-/*Data for the table `questions_answers` */
-
-/*Table structure for table `questions_patron` */
-
-DROP TABLE IF EXISTS `questions_patron`;
-
-CREATE TABLE `questions_patron` (
-  `id_patron` int(11) NOT NULL AUTO_INCREMENT,
-  `type_patron` varchar(25) NOT NULL,
-  `des_qid` varchar(50) NOT NULL,
-  `label_qid` varchar(255) NOT NULL,
-  `finallity` mediumtext,
-  `template_patron` varchar(25) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `questions_pattern` (
+  `pattenr_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `class` varchar(50) NOT NULL,
-  `nivel` int(2) DEFAULT '1',
-  PRIMARY KEY (`id_patron`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `des_qid` varchar(50) NOT NULL,
+  `finallity` longtext,
+  `label_qid` varchar(255) NOT NULL,
+  `level` int(11) DEFAULT NULL,
+  `template_patron` varchar(25) DEFAULT NULL,
+  `type_pattern` varchar(25) NOT NULL,
+  PRIMARY KEY (`pattenr_id`),
+  UNIQUE KEY `pattenr_id` (`pattenr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `questions_patron` */
+-- --------------------------------------------------------
 
-insert  into `questions_patron`(`id_patron`,`type_patron`,`des_qid`,`label_qid`,`finallity`,`template_patron`,`class`,`nivel`) values (1,'email','Text Email','1','dsadas','dasdsa','asdasda',1),(2,'unique_text','Text Unique','1','dsadsa','dsadas','dsa',1),(3,'paragrahp','Text Paragrahp','1',NULL,'dsadsadsadsa','dsadas',1),(4,'select-multi','Selection Multiple','1',NULL,'dsadsa','hkl',1),(5,'select-unique','Selection Unique','1',NULL,'kjlñkjñl','23j',1),(6,'postal-code','Code Postal','1',NULL,'jklj','kljkl',1),(7,'url','URL Pattern','1',NULL,'jkjkl','jkj',1),(8,'html','HTML Question','1',NULL,'dsajkj','jkl',1),(9,'image-multiple','Image Select Multiple','1',NULL,'hjkl','jk',1),(10,'image-single','Image Single','1',NULL,'jjk','jkl',1),(11,'matrix','Matrix','1',NULL,'kjl','sd',1),(12,'geo','Geo Selected','1',NULL,'dsa','jk',1);
+--
+-- Table structure for table `question_collection`
+--
 
-/*Table structure for table `questions_relations` */
+CREATE TABLE IF NOT EXISTS `question_collection` (
+  `id_q_colection` bigint(20) NOT NULL AUTO_INCREMENT,
+  `creation_date` datetime NOT NULL,
+  `des_coleccion` varchar(255) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_q_colection`),
+  UNIQUE KEY `id_q_colection` (`id_q_colection`),
+  KEY `FKB4097C9774931F89` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `questions_relations`;
+-- --------------------------------------------------------
 
-CREATE TABLE `questions_relations` (
-  `id_qid_rel` int(11) NOT NULL AUTO_INCREMENT,
-  `qid` int(11) NOT NULL,
-  `relation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_q_colection` int(11) NOT NULL,
-  PRIMARY KEY (`id_qid_rel`,`qid`),
-  KEY `qid` (`qid`),
-  KEY `id_q_colection` (`id_q_colection`),
-  CONSTRAINT `FK_questions_relations` FOREIGN KEY (`id_q_colection`) REFERENCES `question_colettion` (`id_q_colection`),
-  CONSTRAINT `questions_relations_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`)
+--
+-- Table structure for table `question_relations`
+--
+
+CREATE TABLE IF NOT EXISTS `question_relations` (
+  `question_id` bigint(20) NOT NULL,
+  `id_q_colection` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_id`,`id_q_colection`),
+  KEY `FK217954DE15ECCA7B` (`id_q_colection`),
+  KEY `FK217954DE49AB969F` (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `questions_relations` */
+-- --------------------------------------------------------
 
-/*Table structure for table `sec_group_permission` */
+--
+-- Table structure for table `sec_groups`
+--
 
-DROP TABLE IF EXISTS `sec_group_permission`;
-
-CREATE TABLE `sec_group_permission` (
-  `id_permission` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id_permission`,`group_id`),
-  KEY `FK_group_permission` (`group_id`),
-  CONSTRAINT `sec_group_permission_ibfk_1` FOREIGN KEY (`id_permission`) REFERENCES `sec_permission` (`id_permission`),
-  CONSTRAINT `sec_group_permission_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `sec_group_permission` */
-
-insert  into `sec_group_permission`(`id_permission`,`group_id`,`state`) values (1,1,1),(2,1,1);
-
-/*Table structure for table `sec_group_user` */
-
-DROP TABLE IF EXISTS `sec_group_user`;
-
-CREATE TABLE `sec_group_user` (
-  `group_id` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`group_id`,`uid`),
-  KEY `Ref4521` (`group_id`),
-  KEY `Ref4030` (`uid`),
-  CONSTRAINT `sec_group_user_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `sec_groups` (`group_id`),
-  CONSTRAINT `sec_group_user_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `sec_group_user` */
-
-insert  into `sec_group_user`(`group_id`,`uid`,`state`) values (1,1,1),(1,2,1),(2,2,1);
-
-/*Table structure for table `sec_groups` */
-
-DROP TABLE IF EXISTS `sec_groups`;
-
-CREATE TABLE `sec_groups` (
-  `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `sec_groups` (
+  `group_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `des_info` varchar(255) DEFAULT NULL,
-  `id_state` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `id_state` bigint(20) NOT NULL,
   PRIMARY KEY (`group_id`),
-  KEY `id_estado` (`id_state`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `group_id` (`group_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Data for the table `sec_groups` */
+-- --------------------------------------------------------
 
-insert  into `sec_groups`(`group_id`,`name`,`des_info`,`id_state`) values (1,'Administrador','Administrador',1),(2,'Encuestador','Encuestador',1),(3,'Juan','Juan',2),(4,'newGripos','dsadsadassa dsa a',1),(5,'dsadsa','dsadsa',1);
+--
+-- Table structure for table `sec_group_permission`
+--
 
-/*Table structure for table `sec_invite` */
-
-DROP TABLE IF EXISTS `sec_invite`;
-
-CREATE TABLE `sec_invite` (
-  `code` varchar(36) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `createdOn` datetime NOT NULL,
-  PRIMARY KEY (`code`)
+CREATE TABLE IF NOT EXISTS `sec_group_permission` (
+  `sec_id_permission` bigint(20) NOT NULL,
+  `sec_id_group` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_group`,`sec_id_permission`),
+  KEY `FK5B8E21BDA3C8594C` (`sec_id_group`),
+  KEY `FK5B8E21BD7DBA1B43` (`sec_id_permission`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `sec_invite` */
+-- --------------------------------------------------------
 
-/*Table structure for table `sec_permission` */
+--
+-- Table structure for table `sec_permission`
+--
 
-DROP TABLE IF EXISTS `sec_permission`;
-
-CREATE TABLE `sec_permission` (
-  `id_permission` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `sec_permission` (
+  `id_permission` bigint(20) NOT NULL AUTO_INCREMENT,
   `permission` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_permission`)
+  PRIMARY KEY (`id_permission`),
+  UNIQUE KEY `id_permission` (`id_permission`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sec_project_group`
+--
+
+CREATE TABLE IF NOT EXISTS `sec_project_group` (
+  `sec_id_group` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`sec_id_group`),
+  KEY `FK93685A6BA3C8594C` (`sec_id_group`),
+  KEY `FK93685A6BD3065BD5` (`cat_id_project`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `sec_permission` */
+-- --------------------------------------------------------
 
-insert  into `sec_permission`(`id_permission`,`permission`,`description`) values (1,'ENCUESTAME_ADMIN','Administrador'),(2,'ENCUESTAME_USER','Usuario'),(3,'ENCUESTAME_POLLSTER','Encuestador');
+--
+-- Table structure for table `sec_user`
+--
 
-/*Table structure for table `sec_user_permission` */
-
-DROP TABLE IF EXISTS `sec_user_permission`;
-
-CREATE TABLE `sec_user_permission` (
-  `uid` int(11) NOT NULL,
-  `id_permission` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`uid`,`id_permission`),
-  KEY `uid` (`uid`),
-  KEY `id_permission` (`id_permission`),
-  CONSTRAINT `sec_user_permission_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`),
-  CONSTRAINT `sec_user_permission_ibfk_2` FOREIGN KEY (`id_permission`) REFERENCES `sec_permission` (`id_permission`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
-
-/*Data for the table `sec_user_permission` */
-
-insert  into `sec_user_permission`(`uid`,`id_permission`,`state`) values (1,1,1),(2,1,1),(2,2,1);
-
-/*Table structure for table `sec_users` */
-
-DROP TABLE IF EXISTS `sec_users`;
-
-CREATE TABLE `sec_users` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `invite_code` varchar(255) DEFAULT NULL,
-  `date_new` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `publisher` enum('S','N') NOT NULL DEFAULT 'N',
-  `owner` enum('S','N') DEFAULT 'N',
-  `twitter` enum('S','N') DEFAULT 'N',
+CREATE TABLE IF NOT EXISTS `sec_user` (
+  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`uid`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `sec_users` */
+-- --------------------------------------------------------
 
-insert  into `sec_users`(`uid`,`name`,`email`,`username`,`password`,`status`,`invite_code`,`date_new`,`publisher`,`owner`,`twitter`) values (1,'Juan Carlos Picado Herreraa','juan@local.com','jpicado','ZGnklBN5BzLrL8Y/oW2h1w2azAaiMIGgWYsbLCKzmU6JB0GetUb7fg+6z8RLWqZK',1,NULL,'2009-05-29 12:26:56','S','N','N'),(2,'Pavel Martinezss','minibota@hotmail.com','pavel','u8cSYZmDmbqXpVk0jaBxhuQzeSyrNYBFTGwuFvfClrnusZqP7UOEsL82AFYQl3a/',1,NULL,'2009-05-29 12:26:41','S','N','N');
+--
+-- Table structure for table `sec_user_group`
+--
 
-/*Table structure for table `survey_detail` */
-
-DROP TABLE IF EXISTS `survey_detail`;
-
-CREATE TABLE `survey_detail` (
-  `id_sd` bigint(20) NOT NULL,
-  `qid` int(11) NOT NULL,
-  `position` int(11) DEFAULT NULL,
-  `nopreg` varchar(10) DEFAULT NULL,
-  `id_sid_format` int(11) NOT NULL,
-  `ssid` int(11) NOT NULL,
-  PRIMARY KEY (`id_sd`,`qid`,`id_sid_format`,`ssid`),
-  KEY `FK_survey_detail` (`id_sid_format`),
-  KEY `FK_survey_detail_qid` (`qid`),
-  KEY `FK_survey_detail_ssid` (`ssid`),
-  CONSTRAINT `FK_survey_detail` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
-  CONSTRAINT `FK_survey_detail_qid` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
-  CONSTRAINT `FK_survey_detail_ssid` FOREIGN KEY (`ssid`) REFERENCES `survey_section` (`ssid`)
+CREATE TABLE IF NOT EXISTS `sec_user_group` (
+  `sec_id_secondary` bigint(20) NOT NULL,
+  `sec_id_group` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_group`,`sec_id_secondary`),
+  KEY `FK3D8D6DB9A3C8594C` (`sec_id_group`),
+  KEY `FK3D8D6DB9C16FD298` (`sec_id_secondary`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `survey_detail` */
+-- --------------------------------------------------------
 
-/*Table structure for table `survey_format` */
+--
+-- Table structure for table `sec_user_permission`
+--
 
-DROP TABLE IF EXISTS `survey_format`;
-
-CREATE TABLE `survey_format` (
-  `id_sid_format` int(11) NOT NULL,
-  `name` varchar(60) DEFAULT NULL,
-  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_sid_format`)
+CREATE TABLE IF NOT EXISTS `sec_user_permission` (
+  `sec_id_secondary` bigint(20) NOT NULL,
+  `sec_id_permission` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_permission`,`sec_id_secondary`),
+  KEY `FK8A4C2D57DBA1B43` (`sec_id_permission`),
+  KEY `FK8A4C2D5C16FD298` (`sec_id_secondary`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `survey_format` */
+-- --------------------------------------------------------
 
-insert  into `survey_format`(`id_sid_format`,`name`,`date_created`) values (1,'Encuestame','2008-04-01 15:30:24'),(2,'Proyecto 2','2008-04-01 15:30:24'),(3,'Proyecto 3','2008-04-01 15:30:24'),(4,'Proyecto 4','2009-06-02 10:05:23');
+--
+-- Table structure for table `sec_user_project`
+--
 
-/*Table structure for table `survey_format_group` */
-
-DROP TABLE IF EXISTS `survey_format_group`;
-
-CREATE TABLE `survey_format_group` (
-  `id_sid_format` int(11) NOT NULL,
-  `sg_id` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`sg_id`,`id_sid_format`),
-  KEY `FK_survey_format_group` (`id_sid_format`),
-  KEY `sg_id` (`sg_id`),
-  CONSTRAINT `FK_survey_format_group` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
-  CONSTRAINT `survey_format_group_fk` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`)
+CREATE TABLE IF NOT EXISTS `sec_user_project` (
+  `sec_id_secondary` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`sec_id_secondary`),
+  KEY `FKEBFBDBD3D3065BD5` (`cat_id_project`),
+  KEY `FKEBFBDBD3C16FD298` (`sec_id_secondary`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `survey_format_group` */
+-- --------------------------------------------------------
 
-/*Table structure for table `survey_group` */
+--
+-- Table structure for table `sec_user_secondary`
+--
 
-DROP TABLE IF EXISTS `survey_group`;
+CREATE TABLE IF NOT EXISTS `sec_user_secondary` (
+  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `date_new` datetime DEFAULT NULL,
+  `invite_code` varchar(255) DEFAULT NULL,
+  `owner` bit(1) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `publisher` bit(1) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `status` bit(1) DEFAULT NULL,
+  `twitter` varchar(2) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `secUser_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `uid` (`uid`),
+  UNIQUE KEY `email` (`email`),
+  KEY `FKE10EBBAEFEE13866` (`secUser_uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-CREATE TABLE `survey_group` (
-  `sg_id` int(11) NOT NULL,
-  `group_name` varchar(60) DEFAULT NULL,
-  `date_create` datetime DEFAULT NULL,
-  `id_state` int(11) DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
-  `id_sid_format` int(11) NOT NULL,
-  PRIMARY KEY (`sg_id`),
-  KEY `id_sid_format` (`id_sid_format`),
-  KEY `id_state` (`id_state`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
 
-/*Data for the table `survey_group` */
+--
+-- Table structure for table `surveys`
+--
 
-/*Table structure for table `survey_group_project` */
-
-DROP TABLE IF EXISTS `survey_group_project`;
-
-CREATE TABLE `survey_group_project` (
-  `sg_id` int(11) NOT NULL,
-  `proyect_id` int(11) NOT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`sg_id`,`proyect_id`),
-  KEY `proyect_id` (`proyect_id`),
-  KEY `sg_id` (`sg_id`),
-  CONSTRAINT `survey_group_project_fk` FOREIGN KEY (`proyect_id`) REFERENCES `project` (`proyect_id`),
-  CONSTRAINT `survey_group_project_fk1` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `survey_group_project` */
-
-/*Table structure for table `survey_result` */
-
-DROP TABLE IF EXISTS `survey_result`;
-
-CREATE TABLE `survey_result` (
-  `rid` bigint(35) NOT NULL AUTO_INCREMENT,
-  `qid` int(11) NOT NULL,
-  `sid` bigint(20) NOT NULL,
-  `resp` text NOT NULL,
-  PRIMARY KEY (`rid`),
-  KEY `qid` (`qid`,`sid`),
-  KEY `sid` (`sid`),
-  KEY `rid` (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `survey_result` */
-
-/*Table structure for table `survey_result_mod` */
-
-DROP TABLE IF EXISTS `survey_result_mod`;
-
-CREATE TABLE `survey_result_mod` (
-  `id_mod` int(11) NOT NULL AUTO_INCREMENT,
-  `rid` bigint(35) NOT NULL DEFAULT '0',
-  `previous_response` longtext NOT NULL,
-  `new_response` longtext,
-  `mod_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `uid` int(11) NOT NULL,
-  PRIMARY KEY (`id_mod`),
-  KEY `rid` (`rid`),
-  KEY `uid` (`uid`),
-  CONSTRAINT `survey_result_mod_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`),
-  CONSTRAINT `survey_result_mod_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `survey_result` (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `survey_result_mod` */
-
-/*Table structure for table `survey_section` */
-
-DROP TABLE IF EXISTS `survey_section`;
-
-CREATE TABLE `survey_section` (
-  `ssid` int(11) NOT NULL AUTO_INCREMENT,
-  `desc_section` varchar(255) DEFAULT NULL,
-  `id_state` int(11) NOT NULL DEFAULT '2',
-  PRIMARY KEY (`ssid`),
-  KEY `ssid` (`ssid`),
-  KEY `id_estado` (`id_state`),
-  CONSTRAINT `FK_survey_section` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `survey_section` */
-
-/*Table structure for table `survey_time` */
-
-DROP TABLE IF EXISTS `survey_time`;
-
-CREATE TABLE `survey_time` (
-  `sequence` int(11) NOT NULL DEFAULT '0',
-  `sid` bigint(20) NOT NULL DEFAULT '0',
-  `elapsed_time` int(11) NOT NULL DEFAULT '0',
-  `quitflag` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`sequence`,`sid`),
-  KEY `Ref374` (`sid`),
-  CONSTRAINT `FK_survey_time` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `survey_time` */
-
-/*Table structure for table `surveys` */
-
-DROP TABLE IF EXISTS `surveys`;
-
-CREATE TABLE `surveys` (
-  `sid` bigint(20) NOT NULL,
-  `ticket` int(11) NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+CREATE TABLE IF NOT EXISTS `surveys` (
+  `sid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `complete` varchar(2) DEFAULT NULL,
   `date_interview` date DEFAULT NULL,
-  `uid` int(11) NOT NULL DEFAULT '0',
-  `complete` enum('S','N') DEFAULT 'N',
-  `id_sid_format` int(11) DEFAULT NULL,
+  `end_date` datetime NOT NULL,
+  `start_date` datetime NOT NULL,
+  `ticket` int(11) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  `id_sid_format` bigint(20) NOT NULL,
   PRIMARY KEY (`sid`),
-  KEY `Ref4029` (`uid`),
-  CONSTRAINT `surveys_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `sec_users` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `sid` (`sid`),
+  KEY `FK9191445974931F89` (`uid`),
+  KEY `FK919144593A63AC1F` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `surveys` */
+-- --------------------------------------------------------
 
-/*Table structure for table `versions` */
+--
+-- Table structure for table `survey_format`
+--
 
-DROP TABLE IF EXISTS `versions`;
+CREATE TABLE IF NOT EXISTS `survey_format` (
+  `id_sid_format` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_created` datetime DEFAULT NULL,
+  `name` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id_sid_format`),
+  UNIQUE KEY `id_sid_format` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-CREATE TABLE `versions` (
-  `version` int(11) NOT NULL AUTO_INCREMENT,
-  `data_version` float NOT NULL,
-  `fecha_version` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`version`)
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_group`
+--
+
+CREATE TABLE IF NOT EXISTS `survey_group` (
+  `sg_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_create` datetime DEFAULT NULL,
+  `group_name` varchar(60) DEFAULT NULL,
+  `cat_state_id_survey_group` bigint(20) NOT NULL,
+  PRIMARY KEY (`sg_id`),
+  UNIQUE KEY `sg_id` (`sg_id`),
+  KEY `FK4638955A697F0404` (`cat_state_id_survey_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_group_format`
+--
+
+CREATE TABLE IF NOT EXISTS `survey_group_format` (
+  `sg_id` bigint(20) NOT NULL,
+  `id_sid_format` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_sid_format`,`sg_id`),
+  KEY `FKB4DF867CB998D3E9` (`sg_id`),
+  KEY `FKB4DF867C3A63AC1F` (`id_sid_format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `versions` */
+-- --------------------------------------------------------
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+--
+-- Table structure for table `survey_group_project`
+--
+
+CREATE TABLE IF NOT EXISTS `survey_group_project` (
+  `id_sid_format` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`id_sid_format`),
+  KEY `FKFD028D34D3065BD5` (`cat_id_project`),
+  KEY `FKFD028D343FE96F2F` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_result`
+--
+
+CREATE TABLE IF NOT EXISTS `survey_result` (
+  `rid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resp` varchar(255) NOT NULL,
+  `survey_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`rid`),
+  UNIQUE KEY `rid` (`rid`),
+  KEY `FK92EA04A2DC964137` (`survey_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_section`
+--
+
+CREATE TABLE IF NOT EXISTS `survey_section` (
+  `ssid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `desc_section` varchar(255) DEFAULT NULL,
+  `id_state` bigint(20) NOT NULL,
+  PRIMARY KEY (`ssid`),
+  UNIQUE KEY `ssid` (`ssid`),
+  KEY `FKFE5AD3002DBDEDCA` (`id_state`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `cat_location`
+--
+ALTER TABLE `cat_location`
+  ADD CONSTRAINT `FK8C56C1FED9C8CC22` FOREIGN KEY (`loc_id_type`) REFERENCES `cat_location_type` (`loc_id_type`);
+
+--
+-- Constraints for table `cat_locations_user`
+--
+ALTER TABLE `cat_locations_user`
+  ADD CONSTRAINT `FK4C9FBF95BDA0EE65` FOREIGN KEY (`cat_location_id`) REFERENCES `cat_location` (`locate_id`),
+  ADD CONSTRAINT `FK4C9FBF95C16FD298` FOREIGN KEY (`sec_id_secondary`) REFERENCES `sec_user_secondary` (`uid`);
+
+--
+-- Constraints for table `project`
+--
+ALTER TABLE `project`
+  ADD CONSTRAINT `FKED904B19A965732F` FOREIGN KEY (`cat_state_id`) REFERENCES `cat_state` (`id_state`);
+
+--
+-- Constraints for table `project_locations`
+--
+ALTER TABLE `project_locations`
+  ADD CONSTRAINT `FK242951B86C2E620E` FOREIGN KEY (`cat_id_loc`) REFERENCES `cat_location` (`locate_id`),
+  ADD CONSTRAINT `FK242951B8D3065BD5` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`proyect_id`);
+
+--
+-- Constraints for table `questions`
+--
+ALTER TABLE `questions`
+  ADD CONSTRAINT `FK95C5414D2A2E9A63` FOREIGN KEY (`id_question_pattern`) REFERENCES `questions_pattern` (`pattenr_id`),
+  ADD CONSTRAINT `FK95C5414D2DBDEDCA` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`);
+
+--
+-- Constraints for table `questions_answers`
+--
+ALTER TABLE `questions_answers`
+  ADD CONSTRAINT `FK539703833DA1719E` FOREIGN KEY (`id_question_answer`) REFERENCES `questions` (`qid`);
+
+--
+-- Constraints for table `question_collection`
+--
+ALTER TABLE `question_collection`
+  ADD CONSTRAINT `FKB4097C9774931F89` FOREIGN KEY (`uid`) REFERENCES `sec_user` (`uid`);
+
+--
+-- Constraints for table `question_relations`
+--
+ALTER TABLE `question_relations`
+  ADD CONSTRAINT `FK217954DE49AB969F` FOREIGN KEY (`question_id`) REFERENCES `questions` (`qid`),
+  ADD CONSTRAINT `FK217954DE15ECCA7B` FOREIGN KEY (`id_q_colection`) REFERENCES `question_collection` (`id_q_colection`);
+
+--
+-- Constraints for table `sec_group_permission`
+--
+ALTER TABLE `sec_group_permission`
+  ADD CONSTRAINT `FK5B8E21BD7DBA1B43` FOREIGN KEY (`sec_id_permission`) REFERENCES `sec_permission` (`id_permission`),
+  ADD CONSTRAINT `FK5B8E21BDA3C8594C` FOREIGN KEY (`sec_id_group`) REFERENCES `sec_groups` (`group_id`);
+
+--
+-- Constraints for table `sec_project_group`
+--
+ALTER TABLE `sec_project_group`
+  ADD CONSTRAINT `FK93685A6BD3065BD5` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`proyect_id`),
+  ADD CONSTRAINT `FK93685A6BA3C8594C` FOREIGN KEY (`sec_id_group`) REFERENCES `sec_groups` (`group_id`);
+
+--
+-- Constraints for table `sec_user_group`
+--
+ALTER TABLE `sec_user_group`
+  ADD CONSTRAINT `FK3D8D6DB9C16FD298` FOREIGN KEY (`sec_id_secondary`) REFERENCES `sec_user_secondary` (`uid`),
+  ADD CONSTRAINT `FK3D8D6DB9A3C8594C` FOREIGN KEY (`sec_id_group`) REFERENCES `sec_groups` (`group_id`);
+
+--
+-- Constraints for table `sec_user_permission`
+--
+ALTER TABLE `sec_user_permission`
+  ADD CONSTRAINT `FK8A4C2D5C16FD298` FOREIGN KEY (`sec_id_secondary`) REFERENCES `sec_user_secondary` (`uid`),
+  ADD CONSTRAINT `FK8A4C2D57DBA1B43` FOREIGN KEY (`sec_id_permission`) REFERENCES `sec_permission` (`id_permission`);
+
+--
+-- Constraints for table `sec_user_project`
+--
+ALTER TABLE `sec_user_project`
+  ADD CONSTRAINT `FKEBFBDBD3C16FD298` FOREIGN KEY (`sec_id_secondary`) REFERENCES `sec_user_secondary` (`uid`),
+  ADD CONSTRAINT `FKEBFBDBD3D3065BD5` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`proyect_id`);
+
+--
+-- Constraints for table `sec_user_secondary`
+--
+ALTER TABLE `sec_user_secondary`
+  ADD CONSTRAINT `FKE10EBBAEFEE13866` FOREIGN KEY (`secUser_uid`) REFERENCES `sec_user` (`uid`);
+
+--
+-- Constraints for table `surveys`
+--
+ALTER TABLE `surveys`
+  ADD CONSTRAINT `FK919144593A63AC1F` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
+  ADD CONSTRAINT `FK9191445974931F89` FOREIGN KEY (`uid`) REFERENCES `sec_user` (`uid`);
+
+--
+-- Constraints for table `survey_group`
+--
+ALTER TABLE `survey_group`
+  ADD CONSTRAINT `FK4638955A697F0404` FOREIGN KEY (`cat_state_id_survey_group`) REFERENCES `cat_state` (`id_state`);
+
+--
+-- Constraints for table `survey_group_format`
+--
+ALTER TABLE `survey_group_format`
+  ADD CONSTRAINT `FKB4DF867C3A63AC1F` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
+  ADD CONSTRAINT `FKB4DF867CB998D3E9` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`);
+
+--
+-- Constraints for table `survey_group_project`
+--
+ALTER TABLE `survey_group_project`
+  ADD CONSTRAINT `FKFD028D343FE96F2F` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_group` (`sg_id`),
+  ADD CONSTRAINT `FKFD028D34D3065BD5` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`proyect_id`);
+
+--
+-- Constraints for table `survey_result`
+--
+ALTER TABLE `survey_result`
+  ADD CONSTRAINT `FK92EA04A2DC964137` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`sid`);
+
+--
+-- Constraints for table `survey_section`
+--
+ALTER TABLE `survey_section`
+  ADD CONSTRAINT `FKFE5AD3002DBDEDCA` FOREIGN KEY (`id_state`) REFERENCES `cat_state` (`id_state`);
