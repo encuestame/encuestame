@@ -37,8 +37,9 @@ public interface IDataSource {
     /**
      * Load List of Project.
      * @return {@link Collection} of {@link UnitProjectBean}
+     * @throws EnMeExpcetion exception
      */
-    public Collection<UnitProjectBean> loadListProjects();
+    Collection<UnitProjectBean> loadListProjects() throws EnMeExpcetion ;
 
     /**
      * Load project info.
@@ -46,7 +47,7 @@ public interface IDataSource {
      * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion excepcion
      */
-    public UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion;
+    UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion;
 
     /**
      * create project.
@@ -55,7 +56,7 @@ public interface IDataSource {
      * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitProjectBean createProject(UnitProjectBean projectBean) throws EnMeExpcetion;
+    UnitProjectBean createProject(UnitProjectBean projectBean) throws EnMeExpcetion;
 
     /**
      * create Cat LocationType.
@@ -63,7 +64,7 @@ public interface IDataSource {
      * @return {@link LocationTypeBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitLocationTypeBean createCatLocationType(UnitLocationTypeBean locatType) throws EnMeExpcetion;
+    UnitLocationTypeBean createCatLocationType(UnitLocationTypeBean locatType) throws EnMeExpcetion;
 
     /**
      * create Cat Location.
@@ -71,7 +72,7 @@ public interface IDataSource {
      * @return {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    public LocationBean createCatLocation(LocationBean location) throws EnMeExpcetion;
+    LocationBean createCatLocation(LocationBean location) throws EnMeExpcetion;
 
     /**
      * Load state by id.
@@ -79,32 +80,32 @@ public interface IDataSource {
      * @return {@link CatState}
      * @throws Exception exception
      */
-    public CatState getState(Long stateId) throws Exception;
+    CatState getState(Long stateId) throws Exception;
 
     /**
      * @return the stateDao
      */
-    public ICatState getStateDao();
+    ICatState getStateDao();
 
     /**
      * @return the catLocationDao
      */
-    public ICatLocation getCatLocationDao();
+    ICatLocation getCatLocationDao();
 
     /**
      * @return the projectDaoImp
      */
-    public IProject getProjectDaoImp();
+    IProject getProjectDaoImp();
 
     /**
      * @param locationTypeBean locationTypeBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateCatLocationType(UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion;
+    void updateCatLocationType(UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion;
 
     /**
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateCatLocation(UnitLocationBean locationBean) throws EnMeExpcetion;
+    void updateCatLocation(UnitLocationBean locationBean) throws EnMeExpcetion;
 }

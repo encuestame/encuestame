@@ -1,0 +1,56 @@
+@IMPORT url("menu.css");
+
+/* Templates Admon */
+
+#admonWrapper{
+    clear: left;
+    padding: 1px 0 8px;
+}
+
+
+#bodyAdmon{
+    margin-left : 235px;
+    min-width : 700px;
+    padding: 0 15px 8px 0;
+}
+
+#panelWrapper{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 235px;
+}
+
+/**
+ Proyect CSS
+*/
+
+
+#proyectBox{
+    padding: 5px;
+    min-width: 40%;
+}
+
+#proyectRow{
+    width: 100%;
+    padding:3px;
+    border-bottom: 1px solid #eee;
+    min-height: 15px;
+}
+
+.title{
+    font-weight: bold;
+    padding: 2px;
+    font-size: 14px;
+}
+
+
+#proyectRowWrapper{
+    width: 100%;
+    padding: 5px;
+}
+
+#formProyect p{
+  font-size: 14px;
+}
+

@@ -66,11 +66,13 @@ public class ProjectBean extends MasterBean {
 
     /**
      * Load List of Projects.
-     * @return List of {@link UnitProjectBean}
      */
-    public Collection<UnitProjectBean> loadListProjects(){
-        return  getServicemanager().getDataEnMeSource()
-                .loadListProjects();
+    private void loadListProjects(){
+        try{
+            setListProjectsBeans(getServicemanager().getDataEnMeSource().loadListProjects());
+        }catch (EnMeExpcetion e) {
+            addErrorMessage("", "error loading projects");
+        }
     }
 
     /**
@@ -265,30 +267,23 @@ public class ProjectBean extends MasterBean {
         this.unitProjectBean = beanUProyect;
     }
 
+
+
+
+
     /**
-     * @return the list_unitBeans
+     * @return the listProjectsBeans
      */
-    public Collection<UnitProjectBean> getList_unitBeans() {
-        try {
-            loadListProjects();
-            if (listProjectsBeans.size() > 0)
-                setOneRow(true);
-            else
-                setOneRow(false);
-            return listProjectsBeans;
-        } catch (Exception e) {
-            addErrorMessage("Error Cargando Datos->" + e.getMessage(), e
-                    .getMessage());
-            return null;
-        }
+    public Collection<UnitProjectBean> getListProjectsBeans() {
+        this.loadListProjects();
+        return listProjectsBeans;
     }
 
     /**
-     * @param list_unitBeans
-     *            the list_unitBeans to set
+     * @param listProjectsBeans the listProjectsBeans to set
      */
-    public void setList_unitBeans(Collection<UnitProjectBean> list_unitBeans) {
-        this.listProjectsBeans = list_unitBeans;
+    public void setListProjectsBeans(final Collection<UnitProjectBean> listProjectsBeans) {
+        this.listProjectsBeans = listProjectsBeans;
     }
 
     /**

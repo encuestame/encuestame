@@ -5,133 +5,41 @@
 @IMPORT url("survey.css");
 
 body {
-	background: #fff none repeat scroll 0 0;
-	font-family:Georgia, "Times New Roman", Times, serif;
-	font-size: 12px;
-	margin: 0;
-	padding: 0;
+  background: #fff none repeat scroll 0 0;
+  font-family:Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
 }
 
 
 img {
-	border: 0px;
+  border: 0px;
 }
 
 #header {
-	height: 55px;
-	background-color: #FFF;
-	border: 0px solid #000;
-	margin-bottom: 0px;
-	padding: 10px;
+  height: 55px;
+  background-color: #FFF;
+  border: 0px solid #000;
+  margin-bottom: 0px;
+  padding: 10px;
 }
 
 #mainWrapper {
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-top: 5px;
-	/*background-color: #FFF;
-	width: 98%;
-	min-height: 400px;
-	border: 1px solid #000;*/
-	width: 98%;
-	min-height: 400px;
-}
-
-.menuLabel {
-	color: #FFF;
-	text-decoration: none;
-}
-
-#menu {
-	height: 30px;
-	background-color: #DCD7D7;
-}
-
-#RootMenu {
-	
-}
-
-/*.dr-toolbar-ext{
-	background-color: #vvv;
-	padding: 2px;
-	}
-	*/ /*css for menu table root*/
-#menu td.dr-toolbar-int {
-	padding: 4px;
-}
-
-#menu .rich-toolbar {
-	padding: 4px;
-	height: 30px;
-	background: url("../images/ms1.png");
-	background-repeat: repeat-x;
-	color: #FFFFFF;
-}
-
-/*label item*/
-#menu .rich-menu-item-label {
-	padding: 8px;
-}
-
-#menu a.rich-menu-item-label {
-	color: red;
-}
-
-#menu td.rich-toolbar-item {
-	padding: 2px;
-	cursor: pointer;
-}
-
-/*
- * Menu Items
- */
-#menu .rich-menu-item-label {
-	-x-system-font: none;
-	font-family: verdana;
-	font-size-adjust: none;
-	font-stretch: normal;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: bold;
-	/*line-height: 2.1;*/
-	padding: 1px 10px;
-	font-size: 100%;
-	color: #000;
-}
-
-#menu a.rich-menu-item-label:hover {
-	color: red;
-	font-weight: bold;
-}
-
-/* hide icon menu item image */
-#menu  .iconMenu {
-	display: none;
-}
-
-.dr-menu-item {
-	
-}
-
-.dr-menu-item-enabled {
-	
-}
-
-.rich-menu-item {
-	
-}
-
-.rich-menu-item-enabled {
-	
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 98%;
+  min-height: 400px;
 }
 
 /***
 * Tool Bar
 **/
 .item-toolbar {
-	padding: 5px;
-	background: #EEE;
-	font-size: 110%;
+  padding: 5px;
+  background: #EEE;
+  font-size: 110%;
 }
 
 /*
@@ -145,121 +53,79 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
 /***************************************************
  * commons classes
  ***************************************************/
- 
+
 .padding {
-	padding-left: : 50px;
+  padding-left: : 50px;
 }
 
 /**
  groups css
  */
 .subMenus {
-	background: #eee;
+  background: #eee;
 }
 
 /************************************
- user messages 
+ user messages
  ***********************************/
 .error {
-	padding: 5px;
-	background-color: #FFD0D0;
-	color: #F24B4B;
-	font-size: 14px;
-	border: 1px solid #E58787;
-	padding-left: 30px;
-	background-position: 3px;
-	background-repeat: no-repeat;
+  padding: 5px;
+  background-color: #FFD0D0;
+  color: #F24B4B;
+  font-size: 14px;
+  border: 1px solid #E58787;
+  padding-left: 30px;
+  background-position: 3px;
+  background-repeat: no-repeat;
 }
 
 .war {
-	padding: 5px;
-	background-color: #FCFFC8;
-	color: #2E981F;
-	font-size: 14px;
-	border: 1px solid #F2F122;
-	padding-left: 30px;
-	background-position: 3px;
-	background-repeat: no-repeat;
+  padding: 5px;
+  background-color: #FCFFC8;
+  color: #2E981F;
+  font-size: 14px;
+  border: 1px solid #F2F122;
+  padding-left: 30px;
+  background-position: 3px;
+  background-repeat: no-repeat;
 }
 
 .info {
-	padding: 5px;
-	background-color: #BAEAB3;
-	color: #2E981F;
-	font-size: 14px;
-	border: 1px solid #6AC45D;
-	padding-left: 30px;
-	background-position: 3px;
-	background-repeat: no-repeat;
+  padding: 5px;
+  background-color: #BAEAB3;
+  color: #2E981F;
+  font-size: 14px;
+  border: 1px solid #6AC45D;
+  padding-left: 30px;
+  background-position: 3px;
+  background-repeat: no-repeat;
 }
 
-/**********************************
-Templates Admon
-**********************************/
-
-#bodyOptionsWrapper{
-	margin-left: 10%;
-	margin-right: 10%;
-	}
-
-/************************************
-Proyect CSS	
-**********************************/
-
-#proyectBox{
-	padding: 5px;
-	min-width: 40%;	
-	}
-	
-#proyectRow{
-	width: 100%;
-	padding:3px;
-	border-bottom: 1px solid #eee;
-	min-height: 15px;
-}
-
-.title{
-	font-weight: bold;
-	padding: 2px;
-	font-size: 14px;
-	}
-
-
-#proyectRowWrapper{
-	width: 100%;
-	padding: 5px;
-	}
-
-#formProyect p{
-	font-size: 14px;
-	}
-	
 /*************************************
-	Commons
+  Commons
 **************************************/
 
 p.infoBox{
-	background: transparent url("../images/icons/ip_icon_04_Info.jpg") no-repeat top left;
-	padding-left: 50px;
-	padding-top:6px;
-	min-height: 40px;
-	font-size: 14px;
-	border-bottom:1px solid #bae9fb;
-	/*border-top: 1px solid #bae9fb;*/
-	font-weight:bold;
-	color: #45b9d6;
-	
-	}
+  background: transparent url("../images/icons/ip_icon_04_Info.jpg") no-repeat top left;
+  padding-left: 50px;
+  padding-top:6px;
+  min-height: 40px;
+  font-size: 14px;
+  border-bottom:1px solid #bae9fb;
+  /*border-top: 1px solid #bae9fb;*/
+  font-weight:bold;
+  color: #45b9d6;
 
+  }
 
 p.ideasBox{
-	background: transparent url("../images/icons/1243965762_001_11.gif") no-repeat top left;
-	padding-left: 30px;
-	padding-top:6px;
-	min-height: 25px;
-	font-size: 14px;
-	font-weight:bold;
-	border-bottom:1px solid #fa9a50;
-	color: #b87b4d;
-	}
+  background: transparent url("../images/icons/1243965762_001_11.gif") no-repeat top left;
+  padding-left: 30px;
+  padding-top:6px;
+  min-height: 25px;
+  font-size: 14px;
+  font-weight:bold;
+  border-bottom:1px solid #fa9a50;
+  color: #b87b4d;
+  }
 

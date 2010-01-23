@@ -53,9 +53,10 @@ public class TestDataSource extends AbstractBeanBaseTest {
 
     /**
      * Load List of Projects.
+     * @throws EnMeExpcetion exception
      */
     @Test
-    public void testloadListProjects(){
+    public void testloadListProjects() throws EnMeExpcetion{
         this.initService();
         Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
         assertEquals(2, listProjects.size());
@@ -64,9 +65,10 @@ public class TestDataSource extends AbstractBeanBaseTest {
 
     /**
      * Load List of Projects WithoutResults.
+     * @throws EnMeExpcetion exception
      */
     @Test
-    public void testloadListProjectsWithoutResults(){
+    public void testloadListProjectsWithoutResults() throws EnMeExpcetion{
         Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
         assertEquals(0, listProjects.size());
     }

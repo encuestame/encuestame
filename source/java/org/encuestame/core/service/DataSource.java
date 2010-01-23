@@ -60,26 +60,21 @@ public class DataSource implements IDataSource {
     /**
      * Load List of Project.
      * @return {@link Collection} of {@link UnitProjectBean}
+     * @throws EnMeExpcetion exception
      */
-    public Collection<UnitProjectBean> loadListProjects() {
-        final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-        final Collection<Project> projectList = getProjectDaoImp().findAll();
-        if (projectList.size() > 0) {
-            for (Iterator<Project> i = projectList.iterator(); i.hasNext();) {
-                final UnitProjectBean projectBean = new UnitProjectBean();
-                final Project project = i.next();
-                projectBean.setId(project.getProyectId());
-                projectBean.setName(project.getProjectDescription());
-                projectBean.setDescription(project.getProjectInfo());
-                projectBean.setDateInit(project.getProjectDateStart());
-                projectBean.setDateFinish(project.getProjectDateFinish());
-                // TODO: falta agregar lista de grupos, usuarios y grupos de encuestas
-                log.debug("adding project "+projectBean);
-                listProjects.add(projectBean);
+    public Collection<UnitProjectBean> loadListProjects() throws EnMeExpcetion {
+        try{
+            final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
+            final Collection<Project> projectList = getProjectDaoImp().findAll();
+            for (Project project : projectList) {
+                log.debug("adding project "+project.getProjectDescription());
+                listProjects.add( ConvertDomainBean.convertProjectDomainToBean(project));
             }
+            log.info("projects loaded: "+ listProjects.size());
+            return listProjects;
+        }catch (Exception e) {
+            throw new EnMeExpcetion(e);
         }
-        log.info("projects loaded: "+ listProjects.size());
-        return listProjects;
     }
 
     /**

@@ -100,8 +100,8 @@
  <application>
   <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
   <locale-config>
-   <default-locale>es</default-locale>
-   <supported-locale>en</supported-locale>
+     <default-locale>es</default-locale>
+     <supported-locale>en</supported-locale>
   </locale-config>
   <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
  </application>

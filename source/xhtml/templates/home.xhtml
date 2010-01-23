@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/  xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html">
 <a4j:loadBundle basename="messages" var="temp" />
 <a4j:loadStyle src="/css/default.css" type="text/css"></a4j:loadStyle>
-<link rel="icon"
-	href="${facesContext.externalContext.requestContextPath}/favicon.ico"
-	type="image/x-icon" />
-
+ <ui:insert name="css"></ui:insert>
+<link rel="icon"   href="${facesContext.externalContext.requestContextPath}/favicon.ico" type="image/x-icon" />
 <head>
-<title>#{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert></title>
-<ui:insert name="javascript"></ui:insert>
-<ui:insert name="googleMaps"></ui:insert>
+    <title>
+          #{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
+    </title>
+    <ui:insert name="javascript"></ui:insert>
+    <ui:insert name="googleMaps"></ui:insert>
 </head>
 <body>
-<ui:include src="/templates/includes/header.xhtml" />
-<ui:include src="/templates/includes/menu.xhtml" />
-<div id="mainWrapper"><ui:insert name="main">main</ui:insert></div>
-<ui:include src="/templates/includes/footer.xhtml" />
-<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="200"
-	height="80" width="400" zindex="100">
-	<h2><h:outputText value="#{temp.loading}">
-	</h:outputText></h2>
-</rich:modalPanel>
+    <ui:include src="/templates/includes/header.xhtml" />
+    <ui:include src="/templates/includes/menu.xhtml" />
+    <div id="mainWrapper">
+        <ui:insert name="main">main</ui:insert>
+    </div>
+    <ui:include src="/templates/includes/footer.xhtml" />
+    <rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="200" height="80" width="400" zindex="100">
+        <h2>
+            <h:outputText value="#{temp.loading}">
+            </h:outputText>
+       </h2>
+    </rich:modalPanel>
 </body>
 </html>

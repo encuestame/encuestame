@@ -184,6 +184,9 @@
             <copy todir="${tomcat.path}webapps/encuestame/">
                 <fileset dir="${src.xhtml}"/>
             </copy>
+            <copy todir="${tomcat.path}webapps/encuestame/">
+                      <fileset dir="${src.re}"/>
+            </copy>
     </target>
 
 
