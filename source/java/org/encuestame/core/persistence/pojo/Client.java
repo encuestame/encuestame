@@ -13,18 +13,21 @@
 
 package org.encuestame.core.persistence.pojo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  * Client Domain.
  *
  * @author Picado, Juan juan@encuestame.org
- * @since October 17, 2009
+ * @since January 24, 2010
  * @version $Id:$
  */
 
@@ -41,6 +44,7 @@ public class Client {
     private String clientTwitter;
     private String clientFacebook;
     private String clientDescription;
+    private Project project;
 
     /**
      * @return the clientId
@@ -187,4 +191,22 @@ public class Client {
     public void setClientDescription(String clientDescription) {
         this.clientDescription = clientDescription;
     }
+
+    /**
+     * @return the project
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "project_id", nullable = false)
+    public Project getProject() {
+        return project;
+    }
+
+    /**
+     * @param project the project to set
+     */
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+
 }

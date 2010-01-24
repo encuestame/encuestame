@@ -17,6 +17,7 @@ import java.util.Date;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.IClientDao;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
@@ -27,6 +28,7 @@ import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.Client;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -110,6 +112,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     @Autowired
     private ICatLocationTypeDao catLocationTypeDao;
+
+    @Autowired
+    private IClientDao clientDao;
 
     /** Activate Notifications.**/
     private Boolean activateNotifications = false;
@@ -331,9 +336,31 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
           project.setProjectDateStart(new Date());
           project.setProjectInfo(infoProject);
           project.setProjectDescription(descProject);
+          project.setUsers(createUser());
           getProjectDaoImp().saveOrUpdate(project);
           return project;
     }
+
+    /**
+     * Create {@link Client}.
+     * @param name name
+     * @param project {@link Project}
+     * @return {@link Client}
+     */
+    public Client createClient(final String name, final Project project){
+        final Client client = new Client();
+        client.setClientName(name);
+        client.setProject(project);
+        client.setClientEmail("");
+        client.setClientDescription("");
+        client.setClientFax("");
+        client.setClientTelephone("");
+        client.setClientTwitter("");
+        client.setClientUrl("");
+        getClientDao().saveOrUpdate(client);
+        return client;
+    }
+
 
     /**
      * Helper to create Secondary User.
@@ -576,5 +603,19 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public void setActivateNotifications(Boolean activateNotifications) {
         this.activateNotifications = activateNotifications;
+    }
+
+    /**
+     * @return the clientDao
+     */
+    public IClientDao getClientDao() {
+        return clientDao;
+    }
+
+    /**
+     * @param clientDao the clientDao to set
+     */
+    public void setClientDao(final IClientDao clientDao) {
+        this.clientDao = clientDao;
     }
 }

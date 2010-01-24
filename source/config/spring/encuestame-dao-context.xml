@@ -70,5 +70,9 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-
+    <bean id="clientDao"  class="org.encuestame.core.persistence.dao.ClientDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
 </beans>

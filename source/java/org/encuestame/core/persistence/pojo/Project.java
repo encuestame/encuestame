@@ -44,10 +44,10 @@ public class Project {
     private Long proyectId;
     private CatState stateProject;
     private String projectDescription;
-    private Client client;
     private String projectInfo;
     private Date projectDateStart;
     private Date projectDateFinish;
+    private SecUsers users;
     private Set<SurveyGroup> surveyGroups = new HashSet<SurveyGroup>();
     private Set<CatLocation> locations = new HashSet<CatLocation>();
     private Set<SecGroups> groups = new HashSet<SecGroups>();
@@ -58,7 +58,7 @@ public class Project {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "proyect_id", unique = true, nullable = false)
+    @Column(name = "project_id", unique = true, nullable = false)
     public Long getProyectId() {
         return this.proyectId;
     }
@@ -221,17 +221,17 @@ public class Project {
     }
 
     /**
-     * @return the client
+     * @return the users
      */
     @ManyToOne()
-    public Client getClient() {
-        return client;
+    public SecUsers getUsers() {
+        return users;
     }
 
     /**
-     * @param client the client to set
+     * @param users the users to set
      */
-    public void setClient(Client client) {
-        this.client = client;
+    public void setUsers(SecUsers users) {
+        this.users = users;
     }
 }
