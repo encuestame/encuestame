@@ -15,6 +15,7 @@ package org.encuestame.web.beans.project;
 import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.web.beans.MasterBean;
 import org.hibernate.HibernateException;
 
@@ -41,9 +42,9 @@ public class ProjectBean extends MasterBean {
     public Boolean edit;
 
     /**
-     *
+     * Show the edit view.
      */
-    public Boolean editDetail;
+    public Boolean editDetail = false;
     /**
      * {@link UnitProjectBean}.
      */
@@ -81,10 +82,10 @@ public class ProjectBean extends MasterBean {
     public void saveProyect() {
         try {
             log.info("save proyect");
-            log.info("name->" + getBeanUProyect().getName());
-            if (getBeanUProyect() != null) {
+            log.info("name->" + getUnitProjectBean().getName());
+            if (getUnitProjectBean() != null) {
                 getServicemanager().getDataEnMeSource().createProject(
-                        getBeanUProyect());
+                        getUnitProjectBean());
                 log.info("projecto creado");
                 addInfoMessage("Proyecto Creado", "");
                 cleanProyect();
@@ -109,49 +110,37 @@ public class ProjectBean extends MasterBean {
      *
      */
     public void editProject() {
-        log.info("edit project selected->" + getProjectSelected());
         if (getProjectSelected() != null) {
-            setNoProyects(false);
-            setEditDetail(true);
-            loadProjectInfo(getProjectSelected());
+            log.info("project selected->" + getProjectSelected());
+            //render edit detail view
+            this.setEditDetail(Boolean.TRUE);
+            //charge load project info
+            this.loadProjectInfo(getProjectSelected());
         } else {
             addWarningMessage("Error getProjectSelected", "");
         }
     }
 
     /**
-     * loadProjectInfo
-     *
-     * @param id
+     * Load {@link Project} by  {@link UnitProjectBean} Id.
+     * @param id project id.
      */
-    private void loadProjectInfo(Integer id) {
+    private void loadProjectInfo(final Integer id) {
         try {
-            log.info("loadProjectInfo");
-            cleanProyect();
-            getBeanUProyect().setId(Long.valueOf(getProjectSelected()));
-            setBeanUProyect(getServicemanager().getDataEnMeSource()
-                    .loadProjectInfo(getBeanUProyect()));
-            fullFormEditProject(getBeanUProyect());
-            log.info("projecto Cargado");
-        } catch (Exception e) {
-            addErrorMessage("Error Cargando Datos Proyecto->" + e.getMessage(),
-                    "");
+            this.cleanProyect();
+            //setting id
+            getUnitProjectBean().setId(Long.valueOf(getProjectSelected()));
+            // load project by id.
+            setUnitProjectBean(getServicemanager().getDataEnMeSource()
+                    .loadProjectInfo(getUnitProjectBean()));
+            log.info("project loaded.");
+            log.debug("project id"+getUnitProjectBean().getId());
+            log.info("project name"+getUnitProjectBean().getName());
+            log.info("project init."+getUnitProjectBean().getDateInit());
+            log.info("project dead."+getUnitProjectBean().getDateFinish());
         }
-    }
-
-    /**
-     * full form edit project
-     * @param project
-     */
-    private void fullFormEditProject(UnitProjectBean project) {
-        log.info("fullFormEditProject");
-        try {
-            log.info("INFO EDIT PRO->"+project.getDescription());
-            log.info("INFO EDIT PRO->"+project);
-            setBeanUProyect(project);
-            log.info("BEAN proyect->"+getBeanUProyect());
-        } catch (Exception e) {
-            addErrorMessage("Imposible Llena Formulario->" + e.getMessage(), "");
+        catch (EnMeExpcetion e) {
+               addErrorMessage("Error Cargando Datos Proyecto->" + e.getMessage(),"");
         }
     }
 
@@ -166,14 +155,11 @@ public class ProjectBean extends MasterBean {
     }
 
     /**
-     * clear form project
+     * clear form project.
      */
     private void cleanProyect() {
-        getBeanUProyect().setDateFinish(null);
-        getBeanUProyect().setDateInit(null);
-        getBeanUProyect().setDescription(null);
-        getBeanUProyect().setName(null);
-        getBeanUProyect().setState(null);
+       log.debug("clearing unit bean");
+       setUnitProjectBean(new UnitProjectBean());
     }
 
     /**
@@ -249,27 +235,22 @@ public class ProjectBean extends MasterBean {
         this.edit = edit;
     }
 
+
     /**
-     * @return the beanUProyect
+     * @return the unitProjectBean
      */
-    public UnitProjectBean getBeanUProyect() {
-        log.info("DDDDDDDget UnitProjectBean->"+unitProjectBean.getName());
-        log.info("get UnitProjectBean->"+unitProjectBean);
+    public UnitProjectBean getUnitProjectBean() {
+        log.debug("get "+unitProjectBean);
         return unitProjectBean;
     }
 
     /**
-     * @param beanUProyect
-     *            the beanUProyect to set
+     * @param unitProjectBean the unitProjectBean to set
      */
-    public void setBeanUProyect(UnitProjectBean beanUProyect) {
-        log.info("set UnitProjectBean->"+beanUProyect);
-        this.unitProjectBean = beanUProyect;
+    public void setUnitProjectBean(final UnitProjectBean unitProjectBean) {
+        log.debug("set "+unitProjectBean);
+        this.unitProjectBean = unitProjectBean;
     }
-
-
-
-
 
     /**
      * @return the listProjectsBeans
@@ -313,7 +294,8 @@ public class ProjectBean extends MasterBean {
      * @param editDetail
      *            the editDetail to set
      */
-    public void setEditDetail(Boolean editDetail) {
+    public void setEditDetail(final Boolean editDetail) {
+        log.info("editDetail "+editDetail);
         this.editDetail = editDetail;
     }
 

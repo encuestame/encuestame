@@ -46,12 +46,6 @@
     <bean id="proyectUserBean" class="org.encuestame.web.beans.project.ProjectBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
-        <property name="beanUProyect" ref="unitProjectBean" />
-    </bean>
-
-    <bean id="unitProjectBean" class="org.encuestame.web.beans.project.UnitProjectBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
     <!-- Location -->

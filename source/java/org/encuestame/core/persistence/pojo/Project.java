@@ -44,6 +44,7 @@ public class Project {
     private Long proyectId;
     private CatState stateProject;
     private String projectDescription;
+    private Client client;
     private String projectInfo;
     private Date projectDateStart;
     private Date projectDateFinish;
@@ -217,5 +218,20 @@ public class Project {
      */
     public void setSurveyGroups(final Set<SurveyGroup> surveyGroups) {
         this.surveyGroups = surveyGroups;
+    }
+
+    /**
+     * @return the client
+     */
+    @ManyToOne()
+    public Client getClient() {
+        return client;
+    }
+
+    /**
+     * @param client the client to set
+     */
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

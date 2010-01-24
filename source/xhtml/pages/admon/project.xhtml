@@ -11,11 +11,13 @@
         <div id="panelWrapper">
         <h:panelGrid columns="1" styleClass="panel">
             <div class="module">
-                <a4j:form id="newProjectForm">
-                       <a4j:commandLink value="New Project" rendered="true"
-                          oncomplete="javascript:Richfaces.showModalPanel('newProject')">
-                          </a4j:commandLink>
-                  </a4j:form>
+                <a4j:region id="newProjectRegion" renderRegionOnly="true">
+                    <a4j:form id="newProjectForm">
+                           <a4j:commandLink value="New Project" reRender="newProjectFormPanel"
+                              oncomplete="javascript:Richfaces.showModalPanel('newProject')">
+                              </a4j:commandLink>
+                      </a4j:form>
+                 </a4j:region>
                 <rich:modalPanel id="newProject" autosized="true" width="600" height="200" zindex="2000">
                   <f:facet name="header">
                       <h:panelGroup>
@@ -105,26 +107,112 @@
             </div>
             <div class="module">
              <h4>Proyect View</h4>
-                <div id="proyectRowWrapper">
-                    <a4j:repeat  value="#{proyectUserBean.listProjectsBeans}" var="pro">
-                        <div id="proyectRow">
-                            <div class="title">
-                                <a4j:commandLink value="#{pro.name}" action="#{proyectUserBean.editProject}" reRender="detailPanelGroup,editSelected">
-                                <a4j:actionparam name="proId" value="#{pro.id}" assignTo="#{proyectUserBean.projectSelected}"></a4j:actionparam>
-                                </a4j:commandLink>
-                           </div>
-                           <h:outputText value="#{pro.description}" /></div>
-                   </a4j:repeat>
-               </div>
+                    <div id="proyectRowWrapper">
+                    <a4j:form>
+                        <a4j:repeat  value="#{proyectUserBean.listProjectsBeans}" var="pro">
+                            <div id="proyectRow">
+                                <div class="title">
+                                        <a4j:commandLink value="#{pro.name}" action="#{proyectUserBean.editProject}" reRender="editSelected">
+                                            <a4j:actionparam name="projectId"
+                                                             value="#{pro.id}"
+                                                             assignTo="#{proyectUserBean.projectSelected}">
+                                             </a4j:actionparam>
+                                        </a4j:commandLink>
+                               </div>
+                               <h:outputText value="#{pro.description}" /></div>
+                       </a4j:repeat>
+                     </a4j:form>
+                   </div>
             </div>
         </h:panelGrid>
         </div>
     </ui:define>
     <ui:define name="bodyOptions">
         <div id="projectContent" style="position:relative; display:inline-block;">
-            <h:panelGrid columns="8">
-
-          </h:panelGrid>
+              <a4j:outputPanel id="editSelected" ajaxRendered="true">
+                        <h3>Project Details</h3>
+                        <a4j:form id="editProjectForm" rendered="#{proyectUserBean.editDetail}">
+                            <h:panelGrid columns="4">
+                                    <h:outputLabel value="Name" />
+                                    <h:inputText value="#{proyectUserBean.unitProjectBean.name}" />
+                                    <h:outputLabel value="Client"/>
+                                    <h:selectOneMenu value="">
+                                         <f:selectItem itemValue="1" itemLabel="Client1" />
+                                         <f:selectItem itemValue="0" itemLabel="Client2" />
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Lead"/>
+                                    <h:selectOneMenu value="">
+                                         <f:selectItem itemValue="1" itemLabel="User1" />
+                                         <f:selectItem itemValue="0" itemLabel="User2" />
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Prior"/>
+                                    <h:selectOneMenu value="">
+                                         <f:selectItem itemValue="1" itemLabel="User1" />
+                                         <f:selectItem itemValue="0" itemLabel="User2" />
+                                    </h:selectOneMenu>
+                                   <h:outputLabel value="Start Date" for="editdateInitProyect" />
+                                    <rich:calendar
+                                            id="editdateInitProyect"
+                                            value="#{unitProjectBean.dateInit}"
+                                            datePattern="#{calendarBean.pattern}">
+                                     </rich:calendar>
+                                     <h:outputLabel value="Deadline" for="editdateFinishProyect" />
+                                     <rich:calendar
+                                            id="editdateFinishProyect"
+                                            value="#{unitProjectBean.dateFinish}"
+                                            datePattern="#{calendarBean.pattern}">
+                                     </rich:calendar>
+                            </h:panelGrid>
+                            <h:outputLabel value="Description" />
+                            <rich:editor id="description" width="500" height="100">
+                            </rich:editor>
+                            <a4j:commandButton value="Update"></a4j:commandButton>
+                            <h3>Permissions</h3>
+                            <rich:tabPanel switchType="client">
+                                    <rich:tab label="Collaborators">
+                                    <h:panelGrid columns="3">
+                                    <h:outputLabel value="Add Collaborators"/>
+                                    <h:selectOneMenu value="">
+                                         <f:selectItem itemValue="1" itemLabel="User1" />
+                                         <f:selectItem itemValue="0" itemLabel="User2" />
+                                    </h:selectOneMenu>
+                                    <a4j:commandButton value="Add"></a4j:commandButton>
+                                    <br></br>
+                                   <rich:dataTable>
+                                         <f:facet name="header">
+                                              <rich:columnGroup>
+                                                <rich:column width="20px">
+                                                     <h:selectBooleanCheckbox />
+                                                </rich:column>
+                                                 <rich:column width="20px">
+                                                     <h:outputText value="Name" />
+                                                </rich:column>
+                                                 <rich:column width="20px">
+                                                     <h:outputText value="Options" />
+                                                </rich:column>
+                                             </rich:columnGroup>
+                                        </f:facet>
+                                        <rich:column>
+                                            <h:selectBooleanCheckbox />
+                                        </rich:column>
+                                         <rich:column>
+                                            <h:outputText value="data1" />
+                                        </rich:column>
+                                         <rich:column>
+                                            <h:outputText value="data2" />
+                                        </rich:column>
+                                    </rich:dataTable>
+                                    </h:panelGrid>
+                                    </rich:tab>
+                                    <rich:tab label="Locations">
+                                        Here is tab #2
+                                    </rich:tab>
+                                    <rich:tab label="Surveys">
+                                        Here is tab #3
+                            </rich:tab>
+    </rich:tabPanel>
+                        </a4j:form>
+              </a4j:outputPanel>
         </div>
     </ui:define>
 </ui:composition>

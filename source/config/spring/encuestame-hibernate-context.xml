@@ -30,40 +30,24 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>org.encuestame.core.persistence.pojo.CatState
-                </value>
-                <value>org.encuestame.core.persistence.pojo.Project
-                </value>
-                <value>org.encuestame.core.persistence.pojo.CatLocation
-                </value>
-                <value>org.encuestame.core.persistence.pojo.CatLocationType
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SecGroups
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SecPermission
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SecUsers
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SecUserSecondary
-                </value>
-                <value>org.encuestame.core.persistence.pojo.QuestionColettion
-                </value>
-                <value>org.encuestame.core.persistence.pojo.Questions
-                </value>
-                <value>org.encuestame.core.persistence.pojo.QuestionsAnswers
-                </value>
-                <value>org.encuestame.core.persistence.pojo.QuestionPattern
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SurveyFormat
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SurveyGroup
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SurveyResult
-                </value>
-                <value>org.encuestame.core.persistence.pojo.Surveys
-                </value>
-                <value>org.encuestame.core.persistence.pojo.SurveySection
-                </value>
+                <value>org.encuestame.core.persistence.pojo.CatState</value>
+                <value>org.encuestame.core.persistence.pojo.Project</value>
+                <value>org.encuestame.core.persistence.pojo.CatLocation</value>
+                <value>org.encuestame.core.persistence.pojo.CatLocationType</value>
+                <value>org.encuestame.core.persistence.pojo.Client</value>
+                <value>org.encuestame.core.persistence.pojo.SecGroups</value>
+                <value>org.encuestame.core.persistence.pojo.SecPermission</value>
+                <value>org.encuestame.core.persistence.pojo.SecUsers</value>
+                <value>org.encuestame.core.persistence.pojo.SecUserSecondary</value>
+                <value>org.encuestame.core.persistence.pojo.QuestionColettion</value>
+                <value>org.encuestame.core.persistence.pojo.Questions</value>
+                <value>org.encuestame.core.persistence.pojo.QuestionsAnswers</value>
+                <value>org.encuestame.core.persistence.pojo.QuestionPattern</value>
+                <value>org.encuestame.core.persistence.pojo.SurveyFormat</value>
+                <value>org.encuestame.core.persistence.pojo.SurveyGroup</value>
+                <value>org.encuestame.core.persistence.pojo.SurveyResult</value>
+                <value>org.encuestame.core.persistence.pojo.Surveys</value>
+                <value>org.encuestame.core.persistence.pojo.SurveySection</value>
                 <!--
                     <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
                     <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>
