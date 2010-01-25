@@ -15,21 +15,27 @@ package org.encuestame.core.service;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatLocationTypeDao;
+import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.dao.ProjectDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.IClientDao;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.web.beans.ConvertListDomainSelectBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.location.UnitLocationBean;
@@ -53,6 +59,8 @@ public class DataSource implements IDataSource {
     private ICatLocationTypeDao catLocationTypeDao;
     /** {@link ProjectDaoImp}. */
     private IProject projectDaoImp;
+    /** {@link ClientDao}. **/
+    private IClientDao clientDao;
     /** Log. */
     protected Log log = LogFactory.getLog(this.getClass());
 
@@ -121,9 +129,26 @@ public class DataSource implements IDataSource {
                 throw new EnMeExpcetion(e);
             } catch (Exception e) {
                 throw new EnMeExpcetion(e);
-            }return projectBean;
+            }
+            return projectBean;
         } else {
             throw new EnMeExpcetion("project is null");
+        }
+    }
+
+    /**
+     * Load Clients on {@link SelectItem}.
+     * @param projectId project id
+     * @return select items of clients.
+     * @throws EnMeExpcetion exception
+     */
+    public List<SelectItem> loadSelecItemClientsByProjectId(final Long projectId) throws EnMeExpcetion {
+        try{
+            return ConvertListDomainSelectBean.convertListClientsDomainToSelect(
+                   this.getClientDao().findAllClientByProjectId(projectId));
+        }
+        catch (Exception e) {
+            throw new EnMeExpcetion(e);
         }
     }
 
@@ -286,5 +311,19 @@ public class DataSource implements IDataSource {
      */
     public void setCatLocationTypeDao(final ICatLocationTypeDao catLocationTypeDao) {
         this.catLocationTypeDao = catLocationTypeDao;
+    }
+
+    /**
+     * @return the clientDao
+     */
+    public IClientDao getClientDao() {
+        return clientDao;
+    }
+
+    /**
+     * @param clientDao the clientDao to set
+     */
+    public void setClientDao(final IClientDao clientDao) {
+        this.clientDao = clientDao;
     }
 }

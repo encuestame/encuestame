@@ -17,7 +17,6 @@ import java.util.Collection;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.web.beans.MasterBean;
-import org.hibernate.HibernateException;
 
 /**
  * Project Bean.
@@ -48,7 +47,7 @@ public class ProjectBean extends MasterBean {
     /**
      * {@link UnitProjectBean}.
      */
-    private UnitProjectBean unitProjectBean;
+    private UnitProjectBean unitProjectBean = new UnitProjectBean();
 
     /**
      * Project Id selected.
@@ -79,30 +78,23 @@ public class ProjectBean extends MasterBean {
     /**
      * Save data new proyect
      */
-    public void saveProyect() {
+    public void saveProject() {
         try {
-            log.info("save proyect");
-            log.info("name->" + getUnitProjectBean().getName());
-            if (getUnitProjectBean() != null) {
+            if (this.getUnitProjectBean() != null) {
                 getServicemanager().getDataEnMeSource().createProject(
                         getUnitProjectBean());
-                log.info("projecto creado");
-                addInfoMessage("Proyecto Creado", "");
-                cleanProyect();
-            } else {
-                log.error("error create project");
-                addErrorMessage(
-                        "No se pudo recuperar los datos del formulario", "");
+                addInfoMessage("Project Created", "");
+                log.info("project created");
+                this.cleanProyect();
             }
-        } catch (HibernateException e) {
-            log.error("error create project" + e);
-            addErrorMessage("1Error Creando Proyecto", "");
+            else {
+                log.error("error create project");
+                addErrorMessage("error saving project", "error saving project");
+            }
         } catch (EnMeExpcetion e) {
-            log.error("error create project " + e);
-            addErrorMessage("2Error Creando Proyecto", "");
-        } catch (Exception e) {
-            log.error("error create project " + e);
-            addErrorMessage("3Error Creando Proyecto", "");
+            e.printStackTrace();
+            addErrorMessage(e.getMessage(), e.getMessage());
+            log.error("error create project:" + e);
         }
     }
 
@@ -125,14 +117,16 @@ public class ProjectBean extends MasterBean {
      * Load {@link Project} by  {@link UnitProjectBean} Id.
      * @param id project id.
      */
-    private void loadProjectInfo(final Integer id) {
+    private void loadProjectInfo(final Integer projectId) {
         try {
             this.cleanProyect();
             //setting id
-            getUnitProjectBean().setId(Long.valueOf(getProjectSelected()));
+            getUnitProjectBean().setId(Long.valueOf(projectId));
             // load project by id.
             setUnitProjectBean(getServicemanager().getDataEnMeSource()
                     .loadProjectInfo(getUnitProjectBean()));
+            getUnitProjectBean().setClients(getServicemanager()
+                                .getDataEnMeSource().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
             log.info("project loaded.");
             log.debug("project id"+getUnitProjectBean().getId());
             log.info("project name"+getUnitProjectBean().getName());

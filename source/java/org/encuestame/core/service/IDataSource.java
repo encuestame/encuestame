@@ -13,6 +13,9 @@
 package org.encuestame.core.service;
 
 import java.util.Collection;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
@@ -108,4 +111,12 @@ public interface IDataSource {
      * @throws EnMeExpcetion EnMeExpcetion
      */
     void updateCatLocation(UnitLocationBean locationBean) throws EnMeExpcetion;
+
+    /**
+     * Load Clients on {@link SelectItem}.
+     * @param projectId project id
+     * @return select items of clients.
+     * @throws EnMeExpcetion exception
+     */
+     List<SelectItem> loadSelecItemClientsByProjectId(final Long projectId) throws EnMeExpcetion;
 }

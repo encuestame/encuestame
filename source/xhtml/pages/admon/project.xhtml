@@ -137,8 +137,7 @@
                                     <h:inputText value="#{proyectUserBean.unitProjectBean.name}" />
                                     <h:outputLabel value="Client"/>
                                     <h:selectOneMenu value="">
-                                         <f:selectItem itemValue="1" itemLabel="Client1" />
-                                         <f:selectItem itemValue="0" itemLabel="Client2" />
+                                       <f:selectItems value="#{proyectUserBean.unitProjectBean.clients}"></f:selectItems>
                                     </h:selectOneMenu>
                                     <h:outputLabel value="Lead"/>
                                     <h:selectOneMenu value="">

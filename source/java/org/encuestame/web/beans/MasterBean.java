@@ -20,7 +20,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
-import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.ServiceManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.context.SecurityContext;
@@ -41,7 +40,9 @@ public class MasterBean {
     protected IServiceManager servicemanager;
     /** Log. **/
     protected Log log = LogFactory.getLog(this.getClass());
+    @Deprecated
     protected boolean isOneRow;
+
     /** Obtain {@link SecurityContext}.**/
     private SecurityContext secCtx;
 
@@ -152,6 +153,7 @@ public class MasterBean {
     /**
      * @return
      */
+    @Deprecated
     protected boolean isOneRow() {
         return isOneRow;
     }
@@ -159,6 +161,7 @@ public class MasterBean {
     /**
      * @param isOneRow
      */
+    @Deprecated
     protected void setOneRow(boolean isOneRow) {
         this.isOneRow = isOneRow;
     }
@@ -185,5 +188,4 @@ public class MasterBean {
     protected ISecurityService getSecurityService(){
         return getServicemanager().getApplicationServices().getSecurityService();
     }
-
 }
