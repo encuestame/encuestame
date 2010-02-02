@@ -27,7 +27,7 @@ public interface MailService {
      * @param to email to send
      * @param subject subject
      * @param text text of body
-     *  @throws MailSendException
+     *  @throws MailSendException exception
      */
     public void send(final String to, final String subject, final String text)
     throws MailSendException;
