@@ -35,7 +35,7 @@ public class MailServiceImpl extends Service implements MailService, IService {
 
     /**
      * setter mail sender.
-     * @param mailSender
+     * @param mailSender mail sender
      */
     public void setMailSender(JavaMailSenderImpl mailSender) {
         this.mailSender = mailSender;
@@ -51,7 +51,7 @@ public class MailServiceImpl extends Service implements MailService, IService {
 
     /**
      * setter of template message.
-     * @param templateMessage
+     * @param templateMessage template
      */
     public void setTemplateMessage(SimpleMailMessage templateMessage) {
         this.templateMessage = templateMessage;
@@ -83,7 +83,7 @@ public class MailServiceImpl extends Service implements MailService, IService {
      * Send invitation.
      * @param to email to send
      * @param code code of password
-     * @throws Exception mail exception.
+     * @throws MailSendException mail exception.
      */
     public void sendInvitation(
             final String to,
@@ -104,6 +104,7 @@ public class MailServiceImpl extends Service implements MailService, IService {
      * Delete notification.
      * @param to mail to send
      * @param body body of message
+     * @throws MailSendException exception
      */
     public void sendDeleteNotification(
             final String to,
@@ -132,7 +133,7 @@ public class MailServiceImpl extends Service implements MailService, IService {
 
     /**
      * setter of noEmailResponse
-     * @param noEmailResponse
+     * @param noEmailResponse no response
      */
     public void setNoEmailResponse(final String noEmailResponse) {
         this.noEmailResponse = noEmailResponse;
