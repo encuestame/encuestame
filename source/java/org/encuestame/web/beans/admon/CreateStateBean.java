@@ -19,6 +19,9 @@ package org.encuestame.web.beans.admon;
  */
 public class CreateStateBean {
 
+    /**
+     * Id estado.
+     */
     public Integer idestado;
     public String description;
     public String image;
