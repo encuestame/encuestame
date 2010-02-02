@@ -25,7 +25,7 @@ public class EmailUtils {
 
     /**
      * Validate Email
-     * @param email
+     * @param email email
      * @return boolean
      */
     public static boolean validateEmail(String email) {
