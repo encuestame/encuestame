@@ -16,13 +16,15 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 
  /**
   * Interface to implement Permission Dao.
   * @author Picado, Juan juan@encuestame.org
   * @since  11/05/2009 10:46:01
-  * @version $Id:$
+  * @version $Id$
   */
 public interface ISecPermissionDao extends IBaseDao {
 
@@ -33,19 +35,19 @@ public interface ISecPermissionDao extends IBaseDao {
      * @return List of  {@link SecPermission}
      * @throws HibernateException exception
      */
-    public List<SecPermission> loadAllPermissions() throws HibernateException;
+    List<SecPermission> loadAllPermissions() throws HibernateException;
     /**
      * Load permission.
      * @param permission permission
      * @return {@link SecPermission}
      * @throws HibernateException exception
      */
-    public SecPermission loadPermission(String permission) throws HibernateException;
+    SecPermission loadPermission(String permission) throws HibernateException;
     /**
      * Get Permission.
      * @param permId permission
      * @return {@link SecPermission}
      * @throws HibernateException exception
      */
-    public SecPermission getPermissionById(Long permId) throws HibernateException;
+     SecPermission getPermissionById(Long permId) throws HibernateException;
 }

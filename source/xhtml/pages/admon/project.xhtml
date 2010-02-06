@@ -141,8 +141,7 @@
                                     </h:selectOneMenu>
                                     <h:outputLabel value="Lead"/>
                                     <h:selectOneMenu value="">
-                                         <f:selectItem itemValue="1" itemLabel="User1" />
-                                         <f:selectItem itemValue="0" itemLabel="User2" />
+                                       <f:selectItems value="#{proyectUserBean.unitProjectBean.listUsers}"></f:selectItems>
                                     </h:selectOneMenu>
                                     <h:outputLabel value="Prior"/>
                                     <h:selectOneMenu value="">

@@ -21,6 +21,7 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.UnitCatStateBean;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.location.UnitLocationBean;
@@ -47,8 +48,19 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     private List<SelectItem> clients = new ArrayList<SelectItem>();
     private Collection<UnitGroupBean> listGroups;
     private Collection<UnitLocationBean> listLocations;
-    private Collection<UnitGroupBean> listUsers;
     private Collection<UnitPermission> listGroupsSurveys;
+
+    /**
+     * List of Users.
+     */
+    private List<SelectItem> listUsers;
+
+
+    /**
+     * Cat State Bean List.
+     */
+    private List<SelectItem> catStateBeans;
+
 
     /**
      * @return the id
@@ -154,4 +166,31 @@ public class UnitProjectBean extends MasterBean implements Serializable {
         this.clients = clients;
     }
 
+    /**
+     * @return the catStateBeans
+     */
+    public List<SelectItem> getCatStateBeans() {
+        return catStateBeans;
+    }
+
+    /**
+     * @param catStateBeans the catStateBeans to set
+     */
+    public void setCatStateBeans(final List<SelectItem> catStateBeans) {
+        this.catStateBeans = catStateBeans;
+    }
+
+    /**
+     * @return the listUsers
+     */
+    public List<SelectItem> getListUsers() {
+        return listUsers;
+    }
+
+    /**
+     * @param listUsers the listUsers to set
+     */
+    public void setListUsers(final List<SelectItem> listUsers) {
+        this.listUsers = listUsers;
+    }
 }

@@ -33,14 +33,14 @@ public interface ISecUserDao extends IBaseDao {
      * @return {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
-    public SecUserSecondary getUserByUsername(final String username) throws HibernateException;
+    SecUserSecondary getUserByUsername(final String username) throws HibernateException;
 
 
     /**
      * @return List {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
-    public List<SecUserSecondary> findAll() throws HibernateException;
+    List<SecUserSecondary> findAll() throws HibernateException;
 
 
     /**
@@ -48,13 +48,20 @@ public interface ISecUserDao extends IBaseDao {
      * @return {@link SecUsers}
      * @throws HibernateException HibernateException
      */
-    public SecUsers getUserById(final Long userId) throws HibernateException;
+    SecUsers getUserById(final Long userId) throws HibernateException;
 
     /**
      * @param userId userId
      * @return {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
-    public SecUserSecondary getSecondaryUserById(final Long userId)throws HibernateException;
+    SecUserSecondary getSecondaryUserById(final Long userId)throws HibernateException;
+
+    /**
+     * Get {@link SecUserSecondary} but {@link SecUsers} id.
+     * @param userId user id
+     * @return secondary user list
+     */
+    List<SecUserSecondary> getSecondaryUsersByUserId(final Long userId);
 
 }

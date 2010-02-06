@@ -15,6 +15,8 @@ package org.encuestame.core.service;
 import java.util.Collection;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -26,7 +28,6 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
-import org.springframework.mail.MailSendException;
 
 /**
  * Interface for Security Service.
@@ -223,5 +224,13 @@ public interface ISecurityService extends IService {
      * @param suspendedNotification suspended notification
      */
     public void setSuspendedNotification(final Boolean suspendedNotification);
+
+    /**
+     * Load {@link SecUserSecondary} on {@link SelectItem}.
+     * @param userId user id
+     * @return List of users
+     * @throws EnMeExpcetion exception
+     */
+     List<SelectItem> loadSelectItemSecondaryUser(final Long userId) throws EnMeExpcetion;
 
 }

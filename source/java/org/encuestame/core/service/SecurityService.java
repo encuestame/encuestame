@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.model.SelectItem;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -31,6 +33,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.web.beans.ConvertListDomainSelectBean;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
@@ -647,6 +650,20 @@ public class SecurityService extends Service implements ISecurityService {
     private String encryptPassworD(final String password) {
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return passwordEncryptor.encryptPassword(password);
+    }
+
+    /**
+     * Load {@link SecUserSecondary} on {@link SelectItem}.
+     * @param userId user id
+     * @return List of users
+     * @throws EnMeExpcetion exception
+     */
+    public List<SelectItem> loadSelectItemSecondaryUser(final Long userId) throws EnMeExpcetion{
+        try{
+            return ConvertListDomainSelectBean.convertListSecondaryUsersDomainToSelect(getUserDao().getSecondaryUsersByUserId(userId));
+        }catch (Exception e) {
+           throw new EnMeExpcetion(e);
+        }
     }
 
     /**

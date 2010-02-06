@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ServiceManager;
@@ -88,8 +89,8 @@ public class MasterBean {
      */
     public void showMessage(String forS, String message, String description,
             Severity severity) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        FacesMessage fm = new FacesMessage(message, description);
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final FacesMessage fm = new FacesMessage(message, description);
         fm.setSeverity(severity);
         context.addMessage(forS, fm);
     }
@@ -148,6 +149,22 @@ public class MasterBean {
         return  getServicemanager().getMessageSource() == null ? propertieId
                 : getServicemanager().getMessageSource().getMessage(
                         propertieId, null, null);
+    }
+
+    /**
+     * Get Username.
+     * @return username
+     */
+    public String getUsername(){
+        return getSecCtx().getAuthentication().getName();
+    }
+
+    /**
+     * Get {@link SecUserSecondary} by Name.
+     * @return {@link SecUserSecondary}
+     */
+    public SecUserSecondary getUsernameByName(){
+        return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getUsername());
     }
 
     /**

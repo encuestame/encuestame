@@ -77,4 +77,16 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
             criteria.add(Restrictions.eq("username", username) );
             return   (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
+
+    /**
+     * Get {@link SecUserSecondary} but {@link SecUsers} id.
+     * @param userId user id
+     * @return secondary user list
+     */
+    @SuppressWarnings("unchecked")
+    public List<SecUserSecondary> getSecondaryUsersByUserId(final Long userId){
+            return getHibernateTemplate().findByNamedParam("from SecUserSecondary"
+                                          +" WHERE secUser.id = :userId", "userId", userId);
+    }
 }

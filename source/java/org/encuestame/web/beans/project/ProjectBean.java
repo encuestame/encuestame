@@ -127,6 +127,7 @@ public class ProjectBean extends MasterBean {
                     .loadProjectInfo(getUnitProjectBean()));
             getUnitProjectBean().setClients(getServicemanager()
                                 .getDataEnMeSource().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
+            getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));
             log.info("project loaded.");
             log.debug("project id"+getUnitProjectBean().getId());
             log.info("project name"+getUnitProjectBean().getName());
