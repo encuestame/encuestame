@@ -127,4 +127,14 @@ public class TestUserDao extends AbstractBaseTest {
         getSecGroup().saveOrUpdate(group);
         assertEquals("Should be equals", 3, group.getSecPermissions().size());
     }
+
+    /**
+     * Test getSecondaryUsersByUserId.
+     */
+    public void testGetSecondaryUsersByUserId(){
+         createSecondaryUser("user 1", this.userPrimary);
+         createSecondaryUser("user 2", this.userPrimary);
+         final List<SecUserSecondary> userList = getSecUserDao().getSecondaryUsersByUserId(this.userPrimary.getUid());
+         assertEquals("Should be equals", 2, userList.size());
+    }
 }
