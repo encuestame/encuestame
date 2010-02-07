@@ -18,12 +18,14 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.test.config.AbstractBeanBaseTest;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.UnitLocationBean;
 import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.ExpectedException;
@@ -43,12 +45,17 @@ public class TestDataSource extends AbstractBeanBaseTest {
     /** {@link Project} **/
     Project project;
 
+    /** {@link SecUsers}. **/
+    SecUsers user;
+
     /**
      * Before.
      */
+    @Before
     public void initService(){
-        project = createProject("project 1","TIC Project","Project", createState("active"), createUser());
-        createProject("project 2","Education Project","Project", createState("active"), createUser());
+        this.user = createUser();
+        this.project = createProject("project 1","TIC Project","Project", createState("active"), this.user);
+        createProject("project 2","Education Project","Project", createState("active"), this.user);
     }
 
     /**
@@ -57,8 +64,7 @@ public class TestDataSource extends AbstractBeanBaseTest {
      */
     @Test
     public void testloadListProjects() throws EnMeExpcetion{
-        this.initService();
-        Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
+        Collection<UnitProjectBean> listProjects = dataSource.loadListProjects(this.user.getUid());
         assertEquals(2, listProjects.size());
     }
 
@@ -69,8 +75,8 @@ public class TestDataSource extends AbstractBeanBaseTest {
      */
     @Test
     public void testloadListProjectsWithoutResults() throws EnMeExpcetion{
-        Collection<UnitProjectBean> listProjects = dataSource.loadListProjects();
-        assertEquals(0, listProjects.size());
+        final Collection<UnitProjectBean> listProjects = dataSource.loadListProjects(this.user.getUid());
+        assertEquals(2, listProjects.size());
     }
 
 
@@ -80,7 +86,6 @@ public class TestDataSource extends AbstractBeanBaseTest {
      */
     @Test
     public void testloadProjectInfo() throws EnMeExpcetion{
-          this.initService();
           final UnitProjectBean projectBean = new UnitProjectBean();
           projectBean.setId(project.getProyectId());
           final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);

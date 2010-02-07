@@ -69,7 +69,7 @@ public class ProjectBean extends MasterBean {
      */
     private void loadListProjects(){
         try{
-            setListProjectsBeans(getServicemanager().getDataEnMeSource().loadListProjects());
+            setListProjectsBeans(getServicemanager().getDataEnMeSource().loadListProjects(getUsernameByName().getSecUser().getUid()));
         }catch (EnMeExpcetion e) {
             addErrorMessage("", "error loading projects");
         }

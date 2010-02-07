@@ -66,13 +66,14 @@ public class DataSource implements IDataSource {
 
     /**
      * Load List of Project.
+     * @param userId user id.
      * @return {@link Collection} of {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public Collection<UnitProjectBean> loadListProjects() throws EnMeExpcetion {
+    public Collection<UnitProjectBean> loadListProjects(final Long userId) throws EnMeExpcetion {
         try{
             final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-            final Collection<Project> projectList = getProjectDaoImp().findAll();
+            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
             for (Project project : projectList) {
                 log.debug("adding project "+project.getProjectDescription());
                 listProjects.add( ConvertDomainBean.convertProjectDomainToBean(project));
