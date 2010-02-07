@@ -19,6 +19,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,6 +54,24 @@ public class Project {
     private Set<CatLocation> locations = new HashSet<CatLocation>();
     private Set<SecGroups> groups = new HashSet<SecGroups>();
     private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
+
+    private Priority priority = Priority.MEDIUM;
+
+    /**
+     */
+    public enum Priority {
+    /**
+     *
+     */
+    HIGH,
+    /**
+     *
+     */
+    MEDIUM,
+    /**
+     *
+     */
+    LOW;}
 
     /**
      * @return proyectId
@@ -233,5 +253,21 @@ public class Project {
      */
     public void setUsers(SecUsers users) {
         this.users = users;
+    }
+
+    /**
+     * @return the priority
+     */
+    @Column(name="priority")
+    @Enumerated(EnumType.STRING)
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
+     * @param priority the priority to set
+     */
+    public void setPriority(final Priority priority) {
+        this.priority = priority;
     }
 }
