@@ -52,7 +52,7 @@ public class TestHibernateDomains extends AbstractBaseTest{
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
         catLoc.setTidtype(createCatLocationType("aldea"));
-        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createState("active")));
+        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createState("active"), createUser()));
         getCatLocationDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }
@@ -173,7 +173,7 @@ public class TestHibernateDomains extends AbstractBaseTest{
         groups.setIdState(createState("Active").getIdState());
         groups.getSecUserSecondaries().add(createSecondaryUser("juan", createUser()));
         groups.getSecPermissions().add(createPermission("administrator"));
-        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active")));
+        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active"), createUser()));
         getSecGroup().saveOrUpdate(groups);
         assertNotNull(groups.getGroupId());
     }
@@ -249,7 +249,7 @@ public class TestHibernateDomains extends AbstractBaseTest{
          surveyGroup.setDateCreate(new Date());
          surveyGroup.setCatState(createState("disabled"));
          surveyGroup.getSurveyFormats().add(createSurveyFormat());
-         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active")));
+         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active"), createUser()));
          getSurveyDaoImp().saveOrUpdate(surveyGroup);
          assertNotNull(surveyGroup.getSgId());
      }

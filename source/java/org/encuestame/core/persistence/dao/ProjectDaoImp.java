@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 
 /**
@@ -34,7 +35,16 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      */
     @SuppressWarnings("unchecked")
     public List<Project> findAll() throws HibernateException {
-        return getHibernateTemplate().find("FROM Project");
+        return getHibernateTemplate().find("from Project");
+    }
+
+    /**
+     * Find Projects by {@link SecUsers} id.
+     * @param userId user id.
+     * @return list of projects.
+     */
+    public List<Project> findProjectsByUserID(final Long userId) throws HibernateException{
+        return getHibernateTemplate().findByNamedParam("from Project where users.id = :userId", "userId", userId);
     }
 
     /**
@@ -48,7 +58,8 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
     }
 
     /**
-     * @return
+     * Get Projects By Location Id.
+     * @return list of projects.
      * @throws HibernateException HibernateException
      */
     public List<Project> getProjectByLocationId() throws HibernateException{

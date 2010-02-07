@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,12 +38,16 @@ public class TestProjectDaoImp extends AbstractBaseTest{
     /** {@link Project} **/
     Project project;
 
+    /** {@link SecUserSecondary}.**/
+    SecUserSecondary user;
+
     /**
      * Before.
      */
     @Before
     public void initService(){
-        project = createProject("project 1","TIC Project","Project", createState("active"));
+        user  = createSecondaryUser("user 1", createUser());
+        project = createProject("project 1","TIC Project","Project", createState("active"), user.getSecUser());
 
     }
     /**
@@ -69,16 +74,22 @@ public class TestProjectDaoImp extends AbstractBaseTest{
      * Test Add Locations to Project.
      */
     public void testGetProjectByLocationId(){
-
         final CatLocation loc1 = createCatLocation("managua", "mga", 1);
         final CatLocation loc2 = createCatLocation("diriomo", "drm", 1);
         project.getLocations().add(loc1);
         project.getLocations().add(loc2);
         getProjectDaoImp().saveOrUpdate(project);
         assertEquals("Should be equals", 2, project.getLocations().size());
+    }
 
-
-
+    /**
+     * Test findProjectsByUserID.
+     */
+    @Test
+    public void testFindProjectsByUserID(){
+        createProject("encuestame", "survey system", "the best", createState("active"), user.getSecUser());
+        final List<Project> projectList = getProjectDaoImp().findProjectsByUserID(user.getSecUser().getUid());
+        assertEquals("Should be equals", 2, projectList.size());
     }
 
 }

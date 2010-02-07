@@ -327,16 +327,22 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * @param descProject Project Description
      * @param infoProject Informations's Project
      * @param state Project's state
+     * @param user user
      * @return {@link Project}
      */
-    public Project createProject(final String name, String descProject, String infoProject, CatState state) {
+    public Project createProject(
+            final String name,
+            final String descProject,
+            final String infoProject,
+            final CatState state,
+            final SecUsers user) {
           Project project = new Project();
           project.setStateProject(state);
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
           project.setProjectInfo(infoProject);
           project.setProjectDescription(descProject);
-          project.setUsers(createUser());
+          project.setUsers(user);
           getProjectDaoImp().saveOrUpdate(project);
           return project;
     }

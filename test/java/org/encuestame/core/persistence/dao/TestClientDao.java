@@ -37,7 +37,7 @@ public class TestClientDao  extends AbstractBaseTest{
      */
     @Before
     public void initBefore(){
-        project = createProject("project1", "description", "info", createState("active"));
+        project = createProject("project1", "description", "info", createState("active"), createUser());
     }
 
     /**
