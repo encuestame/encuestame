@@ -49,6 +49,12 @@ public class ProjectBean extends MasterBean {
      */
     private UnitProjectBean unitProjectBean = new UnitProjectBean();
 
+
+    /**
+     * New Project Bean.
+     */
+    private UnitProjectBean newProjectBean = new UnitProjectBean();
+
     /**
      * Project Id selected.
      */
@@ -69,8 +75,10 @@ public class ProjectBean extends MasterBean {
      */
     private void loadListProjects(){
         try{
-            setListProjectsBeans(getServicemanager().getDataEnMeSource().loadListProjects(getUsernameByName().getSecUser().getUid()));
+            setListProjectsBeans(getServicemanager().getDataEnMeSource()
+                                .loadListProjects(getUsernameByName().getSecUser().getUid()));
         }catch (EnMeExpcetion e) {
+            log.error(e);
             addErrorMessage("", "error loading projects");
         }
     }
@@ -80,12 +88,11 @@ public class ProjectBean extends MasterBean {
      */
     public void saveProject() {
         try {
-            if (this.getUnitProjectBean() != null) {
-                getServicemanager().getDataEnMeSource().createProject(
-                        getUnitProjectBean());
-                addInfoMessage("Project Created", "");
+            if (this.getNewProjectBean() != null) {
+                getServicemanager().getDataEnMeSource().createProject(getNewProjectBean());
+                addInfoMessage("project created", "");
                 log.info("project created");
-                this.cleanProyect();
+                setNewProjectBean(new UnitProjectBean());
             }
             else {
                 log.error("error create project");
@@ -103,12 +110,13 @@ public class ProjectBean extends MasterBean {
      */
     public void editProject() {
         if (getProjectSelected() != null) {
-            log.info("project selected->" + getProjectSelected());
+            log.info("project selected " + getProjectSelected());
             //render edit detail view
             this.setEditDetail(Boolean.TRUE);
             //charge load project info
             this.loadProjectInfo(getProjectSelected());
         } else {
+            log.warn("error get project selected");
             addWarningMessage("Error getProjectSelected", "");
         }
     }
@@ -133,8 +141,10 @@ public class ProjectBean extends MasterBean {
             log.info("project name"+getUnitProjectBean().getName());
             log.info("project init."+getUnitProjectBean().getDateInit());
             log.info("project dead."+getUnitProjectBean().getDateFinish());
+            log.info("project grops."+getUnitProjectBean().getGroupList().size());
         }
         catch (EnMeExpcetion e) {
+               log.error("error load project info"+ e);
                addErrorMessage("Error Cargando Datos Proyecto->" + e.getMessage(),"");
         }
     }
@@ -169,6 +179,7 @@ public class ProjectBean extends MasterBean {
             log.info("Create " + getCreate());
             log.info("Edit " + getEdit());
         } catch (Exception e) {
+            log.error("change create form error: "+e);
             addErrorMessage("No se puede cambiar->" + e, e.getMessage());
         }
     }
@@ -292,6 +303,20 @@ public class ProjectBean extends MasterBean {
     public void setEditDetail(final Boolean editDetail) {
         log.info("editDetail "+editDetail);
         this.editDetail = editDetail;
+    }
+
+    /**
+     * @return the newProjectBean
+     */
+    public UnitProjectBean getNewProjectBean() {
+        return newProjectBean;
+    }
+
+    /**
+     * @param newProjectBean the newProjectBean to set
+     */
+    public void setNewProjectBean(final UnitProjectBean newProjectBean) {
+        this.newProjectBean = newProjectBean;
     }
 
 }

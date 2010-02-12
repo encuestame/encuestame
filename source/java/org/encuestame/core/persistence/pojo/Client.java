@@ -196,7 +196,7 @@ public class Client {
      * @return the project
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_id", nullable = false)
+    @JoinColumn(name = "project_id", nullable = true)
     public Project getProject() {
         return project;
     }
@@ -207,6 +207,4 @@ public class Client {
     public void setProject(Project project) {
         this.project = project;
     }
-
-
 }

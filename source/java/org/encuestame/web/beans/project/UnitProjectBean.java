@@ -14,17 +14,12 @@ package org.encuestame.web.beans.project;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 
 import org.encuestame.web.beans.MasterBean;
-import org.encuestame.web.beans.UnitCatStateBean;
-import org.encuestame.web.beans.admon.UnitGroupBean;
-import org.encuestame.web.beans.admon.UnitPermission;
-import org.encuestame.web.beans.location.UnitLocationBean;
 
 /**
  * Unit Project Bean.
@@ -39,16 +34,22 @@ public class UnitProjectBean extends MasterBean implements Serializable {
      *
      */
     private static final long serialVersionUID = -9098305021342831224L;
+
+    private Long id;
     private String name;
     private Date dateInit;
     private Date dateFinish;
     private Long state;
     private String description;
-    private Long id;
     private List<SelectItem> clients = new ArrayList<SelectItem>();
-    private Collection<UnitGroupBean> listGroups;
-    private Collection<UnitLocationBean> listLocations;
-    private Collection<UnitPermission> listGroupsSurveys;
+    private List<SelectItem> groupList = new ArrayList<SelectItem>();
+    private List<SelectItem> locationList = new ArrayList<SelectItem>();
+    private List<SelectItem> projectPermissions = new ArrayList<SelectItem>();
+
+    private String priority;
+    private Long status;
+    private Boolean hide;
+    private Boolean notify;
 
     /**
      * List of Users.
@@ -193,4 +194,103 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     public void setListUsers(final List<SelectItem> listUsers) {
         this.listUsers = listUsers;
     }
+
+    /**
+     * @return the groupList
+     */
+    public List<SelectItem> getGroupList() {
+        return groupList;
+    }
+
+    /**
+     * @param groupList the groupList to set
+     */
+    public void setGroupList(final List<SelectItem> groupList) {
+        this.groupList = groupList;
+    }
+
+    /**
+     * @return the locationList
+     */
+    public List<SelectItem> getLocationList() {
+        return locationList;
+    }
+
+    /**
+     * @param locationList the locationList to set
+     */
+    public void setLocationList(final List<SelectItem> locationList) {
+        this.locationList = locationList;
+    }
+
+    /**
+     * @return the projectPermissions
+     */
+    public List<SelectItem> getProjectPermissions() {
+        return projectPermissions;
+    }
+
+    /**
+     * @param projectPermissions the projectPermissions to set
+     */
+    public void setProjectPermissions(final List<SelectItem> projectPermissions) {
+        this.projectPermissions = projectPermissions;
+    }
+
+    /**
+     * @return the priority
+     */
+    public String getPriority() {
+        return priority;
+    }
+
+    /**
+     * @param priority the priority to set
+     */
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * @return the status
+     */
+    public Long getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the hide
+     */
+    public Boolean getHide() {
+        return hide;
+    }
+
+    /**
+     * @param hide the hide to set
+     */
+    public void setHide(Boolean hide) {
+        this.hide = hide;
+    }
+
+    /**
+     * @return the notify
+     */
+    public Boolean getNotify() {
+        return notify;
+    }
+
+    /**
+     * @param notify the notify to set
+     */
+    public void setNotify(Boolean notify) {
+        this.notify = notify;
+    }
+
 }

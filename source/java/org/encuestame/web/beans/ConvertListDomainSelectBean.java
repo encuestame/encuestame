@@ -15,13 +15,16 @@ package org.encuestame.web.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
+import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 
@@ -43,7 +46,9 @@ public class ConvertListDomainSelectBean {
     public static List<SelectItem> convertListClientsDomainToSelect(final List<Client> clients){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final Client client : clients) {
-            items.add(new SelectItem(client.getClientId(), client.getClientName()));
+            if(client.getClientName() != null){
+                items.add(new SelectItem(client.getClientId(), client.getClientName()));
+            }
         }
         log.debug("clients items loaded: "+items.size());
         return items;
@@ -57,7 +62,9 @@ public class ConvertListDomainSelectBean {
     public static List<SelectItem> convertListCatStateDomainToSelect(final List<CatState> states){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final CatState state : states) {
-            items.add(new SelectItem(state.getIdState(), state.getDescState()));
+            if(state.getDescState()!=null){
+                items.add(new SelectItem(state.getIdState(), state.getDescState()));
+            }
         }
         log.debug("clients items loaded: "+items.size());
         return items;
@@ -71,9 +78,27 @@ public class ConvertListDomainSelectBean {
     public static List<SelectItem> convertListSecondaryUsersDomainToSelect(final List<SecUserSecondary> users){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final SecUserSecondary user : users) {
-            items.add(new SelectItem(user.getUid(), user.getCompleteName()));
+            if(user.getCompleteName()!=null){
+                items.add(new SelectItem(user.getUid(), user.getCompleteName()));
+            }
         }
-        log.debug("clients items loaded: "+items.size());
+        log.debug("sec user items loaded: "+items.size());
+        return items;
+    }
+
+    /**
+     * Convert {@link SecGroups} domains to {@link SelectItem}.
+     * @param groups {@link SecGroups}
+     * @return select items.
+     */
+    public static List<SelectItem> convertListGroupDomainToSelect(final Set<SecGroups> groups){
+        final List<SelectItem> items = new ArrayList<SelectItem>();
+        for (final SecGroups group : groups) {
+            if(group.getGroupName()!=null){
+                items.add(new SelectItem(group.getGroupId(), group.getGroupName()));
+            }
+        }
+        log.debug("group items loaded: "+items.size());
         return items;
     }
 

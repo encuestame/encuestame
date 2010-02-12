@@ -12,10 +12,12 @@
         <h:panelGrid columns="1" styleClass="panel">
             <div class="module">
                 <a4j:region id="newProjectRegion" renderRegionOnly="true">
-                    <a4j:form id="newProjectForm">
-                           <a4j:commandLink value="New Project" reRender="newProjectFormPanel"
-                              oncomplete="javascript:Richfaces.showModalPanel('newProject')">
-                              </a4j:commandLink>
+                    <a4j:form id="linksForm">
+                           <h:panelGrid columns="1">
+                               <a4j:commandLink value="New Project" reRender="newProjectFormPanel"
+                                  oncomplete="javascript:Richfaces.showModalPanel('newProject')">
+                               </a4j:commandLink>
+                           </h:panelGrid>
                       </a4j:form>
                  </a4j:region>
                 <rich:modalPanel id="newProject" autosized="true" width="600" height="200" zindex="2000">
@@ -38,26 +40,17 @@
                   <a4j:form id="newProjectFormPanel">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name"/>
-                            <h:inputText />
-                            <h:outputLabel value="Group"/>
-                            <h:selectOneMenu value="">
-                                 <f:selectItem itemValue="1" itemLabel="Group1" />
-                                 <f:selectItem itemValue="0" itemLabel="Group2" />
-                            </h:selectOneMenu>
-                            <h:outputLabel value="Client"/>
-                            <h:selectOneMenu value="">
-                                 <f:selectItem itemValue="1" itemLabel="Client1" />
-                                 <f:selectItem itemValue="0" itemLabel="Client2" />
-                            </h:selectOneMenu>
+                            <h:inputText value="#{proyectUserBean.newProjectBean.name}" />
                         </h:panelGrid>
                         <h:panelGrid  columns="4">
                             <h:outputLabel value="Priority"/>
-                            <h:selectOneMenu value="">
-                                 <f:selectItem itemValue="1" itemLabel="Normal" />
-                                 <f:selectItem itemValue="0" itemLabel="High" />
+                            <h:selectOneMenu value="#{proyectUserBean.newProjectBean.priority}">
+                                 <f:selectItem itemValue="LOW" itemLabel="Low" />
+                                 <f:selectItem itemValue="MEDIUM" itemLabel="Normal" />
+                                 <f:selectItem itemValue="HIGH" itemLabel="High" />
                             </h:selectOneMenu>
                             <h:outputLabel value="Status"/>
-                            <h:selectOneMenu value="">
+                            <h:selectOneMenu value="#{proyectUserBean.newProjectBean.priority}">
                                  <f:selectItem itemValue="1" itemLabel="Active" />
                                  <f:selectItem itemValue="0" itemLabel="Inactive" />
                             </h:selectOneMenu>
@@ -207,8 +200,11 @@
                                     </rich:tab>
                                     <rich:tab label="Surveys">
                                         Here is tab #3
-                            </rich:tab>
-    </rich:tabPanel>
+                                    </rich:tab>
+                                    <rich:tab label="Groups">
+                                        Here is tab #3
+                                    </rich:tab>
+                                </rich:tabPanel>
                         </a4j:form>
               </a4j:outputPanel>
         </div>

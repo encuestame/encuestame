@@ -74,13 +74,16 @@ public class DataSource implements IDataSource {
         try{
             final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
             final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
+            log.info("project by user id: "+projectList.size());
             for (Project project : projectList) {
-                log.debug("adding project "+project.getProjectDescription());
-                listProjects.add( ConvertDomainBean.convertProjectDomainToBean(project));
+                log.info("adding project "+project.getProjectDescription());
+                log.info("groups available in this project "+project.getGroups().size());
+                listProjects.add(ConvertDomainBean.convertProjectDomainToBean(project));
             }
             log.info("projects loaded: "+ listProjects.size());
             return listProjects;
         }catch (Exception e) {
+            log.error(e);
             throw new EnMeExpcetion(e);
         }
     }
@@ -95,7 +98,9 @@ public class DataSource implements IDataSource {
         if (projectBean.getId()!= null) {
             final Project projectDomain = getProjectDaoImp().getProjectbyId(projectBean.getId());
             if (projectDomain != null) {
-                return ConvertDomainBean.convertProjectDomainToBean(projectDomain);
+                final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
+                projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
+                return projectBeanRetrieved;
             } else {
                 log.info("id project is not found");
                 throw new EnMeExpcetion("id project is not found");
