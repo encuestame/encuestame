@@ -18,6 +18,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.test.config.AbstractBeanBaseTest;
@@ -132,7 +133,8 @@ public class TestDataSource extends AbstractBeanBaseTest {
      */
     @Test
     public void testcreateProject()throws EnMeExpcetion {
-        final UnitProjectBean projectBean = createProjectBean("encuestame");
+        final SecUserSecondary lead = createSecondaryUser("leader", this.user);
+        final UnitProjectBean projectBean = createProjectBean("encuestame", lead.getUid(), this.user.getUid());
         dataSource.createProject(projectBean);
         final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
         assertNotNull(projectRetrieve);

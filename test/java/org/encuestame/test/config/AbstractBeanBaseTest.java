@@ -29,12 +29,16 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
     /**
      * Create Project Bean.
      * @param projectName project bean.
+     * @param leadId user leader id
+     * @param userId user owner id
      * @return {@link UnitProjectBean}
      */
-    public UnitProjectBean createProjectBean(final String projectName){
+    public UnitProjectBean createProjectBean(final String projectName, final Long leadId, final Long userId){
         final UnitProjectBean projectBean = new UnitProjectBean();
         projectBean.setDateFinish(new Date());
         projectBean.setDateInit(new Date());
+        projectBean.setLeader(leadId);
+        projectBean.setUserId(userId);
         projectBean.setDescription("description");
         projectBean.setState(createState("active").getIdState());
         projectBean.setName(projectName);
