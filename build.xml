@@ -185,7 +185,10 @@
                 <fileset dir="${src.xhtml}"/>
             </copy>
             <copy todir="${tomcat.path}webapps/encuestame/">
-                      <fileset dir="${src.re}"/>
+                <fileset dir="${src.re}"/>
+            </copy>
+             <copy todir="${tomcat.path}webapps/encuestame/WEB-INF">
+                 <fileset dir="${src.taglibs}"/>
             </copy>
     </target>
 
