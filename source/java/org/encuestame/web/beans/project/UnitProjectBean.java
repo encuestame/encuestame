@@ -50,6 +50,7 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     private Long status;
     private Boolean hide;
     private Boolean notify;
+    private Long userId;
 
     /**
      * List of Users.
@@ -247,7 +248,7 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     /**
      * @param priority the priority to set
      */
-    public void setPriority(String priority) {
+    public void setPriority(final String priority) {
         this.priority = priority;
     }
 
@@ -261,7 +262,7 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     /**
      * @param status the status to set
      */
-    public void setStatus(Long status) {
+    public void setStatus(final Long status) {
         this.status = status;
     }
 
@@ -275,7 +276,7 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     /**
      * @param hide the hide to set
      */
-    public void setHide(Boolean hide) {
+    public void setHide(final Boolean hide) {
         this.hide = hide;
     }
 
@@ -289,8 +290,21 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     /**
      * @param notify the notify to set
      */
-    public void setNotify(Boolean notify) {
+    public void setNotify(final Boolean notify) {
         this.notify = notify;
     }
 
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(final Long userId) {
+        this.userId = userId;
+    }
 }

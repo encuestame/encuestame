@@ -38,9 +38,12 @@
                     </h:form>
                   </f:facet>
                   <a4j:form id="newProjectFormPanel">
+                        <rich:messages></rich:messages>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name"/>
                             <h:inputText value="#{proyectUserBean.newProjectBean.name}" />
+                            <h:outputLabel value="Description"/>
+                            <h:inputTextarea value="#{proyectUserBean.newProjectBean.description}" />
                         </h:panelGrid>
                         <h:panelGrid  columns="4">
                             <h:outputLabel value="Priority"/>
@@ -50,24 +53,24 @@
                                  <f:selectItem itemValue="HIGH" itemLabel="High" />
                             </h:selectOneMenu>
                             <h:outputLabel value="Status"/>
-                            <h:selectOneMenu value="#{proyectUserBean.newProjectBean.priority}">
+                            <h:selectOneMenu value="#{proyectUserBean.newProjectBean.state}">
                                  <f:selectItem itemValue="1" itemLabel="Active" />
                                  <f:selectItem itemValue="0" itemLabel="Inactive" />
                             </h:selectOneMenu>
                             <h:outputLabel value="Start Date" for="editdateInitProyect" />
                             <rich:calendar
                                     id="editdateInitProyect"
-                                    value="#{unitProjectBean.dateInit}"
+                                    value="#{proyectUserBean.newProjectBean.dateInit}"
                                     datePattern="#{calendarBean.pattern}">
                              </rich:calendar>
                              <h:outputLabel value="Deadline" for="editdateFinishProyect" />
                              <rich:calendar
                                     id="editdateFinishProyect"
-                                    value="#{unitProjectBean.dateFinish}"
+                                    value="#{proyectUserBean.newProjectBean.dateFinish}"
                                     datePattern="#{calendarBean.pattern}">
                              </rich:calendar>
                         </h:panelGrid>
-                         <rich:listShuttle
+                         <!-- <rich:listShuttle
                                 var="items" listsHeight="150"
                                 sourceListWidth="130" targetListWidth="130" sourceCaptionLabel="Available Items"
                                 targetCaptionLabel="Currently Active Items">
@@ -77,17 +80,17 @@
                                 <rich:column>
                                     <h:outputText value="Test"></h:outputText>
                                 </rich:column>
-                                <a4j:support event="onlistchanged" reRender="toolBar" />
-                                <a4j:support event="onorderchanged" reRender="toolBar" />
-                          </rich:listShuttle>
+                          </rich:listShuttle> -->
                           <h:panelGrid columns="2">
                               <h:selectBooleanCheckbox  label="Hide Project"  />
                               <h:outputText value="Hide Project" />
                               <h:selectBooleanCheckbox label="Notify Members"  />
                               <h:outputText value="Notify Members" />
                           </h:panelGrid>
-                          <a4j:commandButton value="OK"></a4j:commandButton>
-                          <a4j:commandButton value="Cancel"></a4j:commandButton>
+                          <a4j:commandButton value="OK" action="#{proyectUserBean.saveProject}"
+                          oncomplete="Richfaces.hideModalPanel('newProject')" reRender="listProjectsForm"></a4j:commandButton>
+                          <a4j:commandButton value="Cancel"
+                          onclick="Richfaces.hideModalPanel('newProject')"></a4j:commandButton>
                     </a4j:form>
                 </rich:modalPanel>
             </div>
@@ -101,7 +104,7 @@
             <div class="module">
              <h4>Proyect View</h4>
                     <div id="proyectRowWrapper">
-                    <a4j:form>
+                    <a4j:form id="listProjectsForm">
                         <a4j:repeat  value="#{proyectUserBean.listProjectsBeans}" var="pro">
                             <div id="proyectRow">
                                 <div class="title">
@@ -144,18 +147,18 @@
                                    <h:outputLabel value="Start Date" for="editdateInitProyect" />
                                     <rich:calendar
                                             id="editdateInitProyect"
-                                            value="#{unitProjectBean.dateInit}"
+                                            value="#{proyectUserBean.unitProjectBean.dateInit}"
                                             datePattern="#{calendarBean.pattern}">
                                      </rich:calendar>
                                      <h:outputLabel value="Deadline" for="editdateFinishProyect" />
                                      <rich:calendar
                                             id="editdateFinishProyect"
-                                            value="#{unitProjectBean.dateFinish}"
+                                            value="#{proyectUserBean.unitProjectBean.dateFinish}"
                                             datePattern="#{calendarBean.pattern}">
                                      </rich:calendar>
                             </h:panelGrid>
                             <h:outputLabel value="Description" />
-                            <rich:editor id="description" width="500" height="100">
+                            <rich:editor id="description" width="500" height="100" value="#{proyectUserBean.unitProjectBean.description}">
                             </rich:editor>
                             <a4j:commandButton value="Update"></a4j:commandButton>
                             <h3>Permissions</h3>

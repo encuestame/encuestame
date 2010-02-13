@@ -88,9 +88,9 @@ public class ProjectBean extends MasterBean {
      */
     public void saveProject() {
         try {
+            getNewProjectBean().setUserId(getUsernameByName().getSecUser().getUid());
             if (this.getNewProjectBean() != null) {
                 getServicemanager().getDataEnMeSource().createProject(getNewProjectBean());
-                addInfoMessage("project created", "");
                 log.info("project created");
                 setNewProjectBean(new UnitProjectBean());
             }

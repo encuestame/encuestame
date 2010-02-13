@@ -117,6 +117,7 @@ public class ConvertDomainBean {
         projectBean.setDateFinish(project.getProjectDateFinish());
         projectBean.setDateInit(project.getProjectDateStart());
         projectBean.setId(project.getProyectId());
+        projectBean.setDescription(project.getProjectInfo());
         projectBean.setState(project.getStateProject().getIdState());
         return projectBean;
     }

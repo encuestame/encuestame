@@ -24,11 +24,13 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatLocationTypeDao;
 import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.dao.ProjectDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IClientDao;
 import org.encuestame.core.persistence.dao.imp.IProject;
+import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
@@ -60,6 +62,8 @@ public class DataSource implements IDataSource {
     private IProject projectDaoImp;
     /** {@link ClientDao}. **/
     private IClientDao clientDao;
+    /** {@link SecUserDaoImp}. **/
+    private ISecUserDao secUserDao;
     /** Log. */
     protected Log log = LogFactory.getLog(this.getClass());
 
@@ -127,6 +131,7 @@ public class DataSource implements IDataSource {
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 projectDomain.setProjectDescription(projectBean.getName());
                 projectDomain.setProjectInfo(projectBean.getDescription());
+                projectDomain.setUsers(getSecUserDao().getUserById(projectBean.getUserId()));
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());
                 log.debug("created domain project");
@@ -331,4 +336,20 @@ public class DataSource implements IDataSource {
     public void setClientDao(final IClientDao clientDao) {
         this.clientDao = clientDao;
     }
+
+    /**
+     * @return the secUserDao
+     */
+    public ISecUserDao getSecUserDao() {
+        return secUserDao;
+    }
+
+    /**
+     * @param secUserDao the secUserDao to set
+     */
+    public void setSecUserDao(final ISecUserDao secUserDao) {
+        this.secUserDao = secUserDao;
+    }
+
+
 }

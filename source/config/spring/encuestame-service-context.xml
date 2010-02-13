@@ -59,6 +59,9 @@
         <property name="clientDao">
             <ref bean="clientDao"></ref>
         </property>
+         <property name="secUserDao">
+            <ref bean="secUserDao"></ref>
+        </property>
     </bean>
 
     <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager"
