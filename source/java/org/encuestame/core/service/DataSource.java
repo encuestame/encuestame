@@ -131,6 +131,11 @@ public class DataSource implements IDataSource {
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 projectDomain.setProjectDescription(projectBean.getName());
                 projectDomain.setProjectInfo(projectBean.getDescription());
+                projectDomain.setHideProject(projectBean.getHide());
+                projectDomain.setNotifyMembers(projectBean.getNotify());
+                if(projectBean.getLeader()!=null){
+                    projectDomain.setLead(getSecUserDao().getSecondaryUserById(projectBean.getLeader()));
+                }
                 projectDomain.setUsers(getSecUserDao().getUserById(projectBean.getUserId()));
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());

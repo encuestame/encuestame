@@ -45,11 +45,11 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     private List<SelectItem> groupList = new ArrayList<SelectItem>();
     private List<SelectItem> locationList = new ArrayList<SelectItem>();
     private List<SelectItem> projectPermissions = new ArrayList<SelectItem>();
-
+    private Long leader;
     private String priority;
     private Long status;
-    private Boolean hide;
-    private Boolean notify;
+    private Boolean hide = false;
+    private Boolean notify = false;
     private Long userId;
 
     /**
@@ -307,4 +307,19 @@ public class UnitProjectBean extends MasterBean implements Serializable {
     public void setUserId(final Long userId) {
         this.userId = userId;
     }
+
+    /**
+     * @return the leader
+     */
+    public Long getLeader() {
+        return leader;
+    }
+
+    /**
+     * @param leader the leader to set
+     */
+    public void setLeader(final Long leader) {
+        this.leader = leader;
+    }
+
 }

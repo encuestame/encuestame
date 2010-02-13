@@ -56,6 +56,10 @@ public class Project {
     private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     private Priority priority = Priority.MEDIUM;
+    private SecUserSecondary lead;
+    private Boolean notifyMembers;
+    private Boolean hideProject;
+
 
     /**
      */
@@ -270,4 +274,50 @@ public class Project {
     public void setPriority(final Priority priority) {
         this.priority = priority;
     }
+
+    /**
+     * @return the lead
+     */
+    @ManyToOne()
+    public SecUserSecondary getLead() {
+        return lead;
+    }
+
+    /**
+     * @param lead the lead to set
+     */
+    public void setLead(SecUserSecondary lead) {
+        this.lead = lead;
+    }
+
+    /**
+     * @return the notifyMembers
+     */
+    @Column(name="notify_members")
+    public Boolean getNotifyMembers() {
+        return notifyMembers;
+    }
+
+    /**
+     * @param notifyMembers the notifyMembers to set
+     */
+    public void setNotifyMembers(Boolean notifyMembers) {
+        this.notifyMembers = notifyMembers;
+    }
+
+    /**
+     * @return the hideProject
+     */
+    @Column(name="hide_project")
+    public Boolean getHideProject() {
+        return hideProject;
+    }
+
+    /**
+     * @param hideProject the hideProject to set
+     */
+    public void setHideProject(Boolean hideProject) {
+        this.hideProject = hideProject;
+    }
+
 }
