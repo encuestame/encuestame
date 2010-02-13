@@ -37,6 +37,7 @@ public class SurveyService extends Service implements ISurveyService {
     private MailServiceImpl serviceMail;
     private SurveyDaoImp surveyDaoImp;
     private QuestionDaoImp questionDaoImp;
+    private ITwitterService twitterService;
 
     /**
      * @return {@link MailServiceImpl}.
@@ -167,4 +168,17 @@ public class SurveyService extends Service implements ISurveyService {
         return listPatronBean;
     }
 
+    /**
+     * @return the twitterService
+     */
+    public ITwitterService getTwitterService() {
+        return twitterService;
+    }
+
+    /**
+     * @param twitterService the twitterService to set
+     */
+    public void setTwitterService(final ITwitterService twitterService) {
+        this.twitterService = twitterService;
+    }
 }

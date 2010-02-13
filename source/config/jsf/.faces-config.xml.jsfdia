@@ -39,6 +39,9 @@
    <PROCESS-ITEM-OUTPUT ID="polls::#pages#polls.xhtml" NAME="output11"
     PATH="/pages/polls.xhtml" TARGET="rules:#pages#polls.xhtml"
     TITLE="polls" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="tweetpoll::#pages#tweetpoll.xhtml"
+    NAME="output12" PATH="/pages/tweetpoll.xhtml"
+    TARGET="rules:#pages#tweetpoll.xhtml" TITLE="tweetpoll" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
@@ -108,4 +111,7 @@
   SHAPE="256,1729,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#polls.xhtml" PATH="/pages/polls.xhtml"
   SHAPE="304,1617,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#tweetpoll.xhtml"
+  PATH="/pages/tweetpoll.xhtml" SHAPE="272,240,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

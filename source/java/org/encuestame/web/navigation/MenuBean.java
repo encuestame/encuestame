@@ -31,6 +31,9 @@ public class MenuBean {
     private String statsCss;
     private static Logger log = Logger.getLogger(CatLocationDao.class);
 
+    /**
+     * Constructor.
+     */
     public MenuBean() {
         setIndexCss(getCurrentSelected());
     }
@@ -157,10 +160,16 @@ public class MenuBean {
         this.statsCss = statsCss;
     }
 
+    /**
+     * @return pollCss.
+     */
     public String getPollCss() {
         return pollCss;
     }
-
+    /**
+     *
+     * @param pollCss pollCss
+     */
     public void setPollCss(String pollCss) {
         this.pollCss = pollCss;
     }

@@ -71,6 +71,11 @@
         </property>
     </bean>
 
+    <bean id="twitterService" class="org.encuestame.core.service.TwitterService"
+        parent="service">
+         <property name="tinyApi" value="http://tinyurl.com/api-create.php"/>
+    </bean>
+
     <bean id="surveyService" class="org.encuestame.core.service.SurveyService"
         parent="service">
         <property name="surveyDaoImp">
@@ -81,6 +86,9 @@
         </property>
         <property name="questionDaoImp">
             <ref bean="questionDaoImp"></ref>
+        </property>
+         <property name="twitterService">
+            <ref bean="twitterService"></ref>
         </property>
     </bean>
 
