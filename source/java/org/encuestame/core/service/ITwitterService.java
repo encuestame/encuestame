@@ -13,12 +13,38 @@
 
 package org.encuestame.core.service;
 
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpException;
+
+import twitter4j.Status;
+import twitter4j.TwitterException;
+
 /**
  * Twitter Service Interface.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 13, 2010 4:07:14 PM
- * @version $Id: change to one dolar simbol
+ * @version $Id: $
  */
 public interface ITwitterService extends IService{
 
+
+    /**
+     * Get Tiny Url.
+     * @param url survey url
+     * @return tiny url
+     * @throws IOException IOException
+     * @throws HttpException HttpExceptio
+     */
+    public String getTinyUrl(final String url) throws HttpException, IOException;
+
+    /**
+     * Public Tweet Poll.
+     * @param username twitter username
+     * @param password twitter password
+     * @param tweet text to tweet
+     * @return {@link Status}
+     * @throws TwitterException twitter exception
+     */
+    public Status publicTweetPoll(final String username, final String password, final String tweet) throws TwitterException;
 }
