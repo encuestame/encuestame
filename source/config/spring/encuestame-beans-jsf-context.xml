@@ -110,6 +110,10 @@
         <property name="buildSurvey" ref="surveyControllerBean" />
     </bean>
 
+    <bean id="createTweetPollBean" class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
+          scope="session">
+    </bean>
+
     <!--
         Login Bean. Inject authenticationManager to login form and servicesManager.
         this is a request bean.

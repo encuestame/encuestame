@@ -55,4 +55,18 @@ public interface IQuestionDao extends IBaseDao {
      * @throws HibernateException exception
      */
     public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException;
+
+    /**
+     * Retrieve Questions by Name.
+     * @param keyword keyword
+     * @return list of questions
+     */
+    public List<Questions> retrieveQuestionsByName(final String keyword);
+
+    /**
+     * Retrieve Question By Id.
+     * @param questionId question id
+     * @return  {@link Questions}
+     */
+    public Questions retrieveQuestionById(final Long questionId);
 }
