@@ -66,6 +66,14 @@
    <to-view-id>/pages/tweetpoll.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>tweetPollCredentials</from-outcome>
+   <to-view-id>/pages/tweetPollCredentials.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>createTweetPoll</from-outcome>
+   <to-view-id>/pages/createTweetPoll.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/pages/admon/index.xhtml</from-view-id>

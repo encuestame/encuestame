@@ -7,9 +7,13 @@
     padding: 1px 0 8px;
 }
 
+#panelAdmon{
+    padding-top:8px;
+    float: left;
+}
 
 #bodyAdmon{
-    margin-left : 235px;
+    margin-left : 260px;
     min-width : 700px;
     padding: 0 15px 8px 0;
 }
@@ -24,7 +28,6 @@
 /**
  Proyect CSS
 */
-
 
 #proyectBox{
     padding: 5px;

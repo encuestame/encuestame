@@ -42,6 +42,15 @@
    <PROCESS-ITEM-OUTPUT ID="tweetpoll::#pages#tweetpoll.xhtml"
     NAME="output12" PATH="/pages/tweetpoll.xhtml"
     TARGET="rules:#pages#tweetpoll.xhtml" TITLE="tweetpoll" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tweetPollCredentials::#pages#tweetPollCredentials.xhtml"
+    NAME="output13" PATH="/pages/tweetPollCredentials.xhtml"
+    TARGET="rules:#pages#tweetPollCredentials.xhtml"
+    TITLE="tweetPollCredentials" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="createTweetPoll::#pages#createTweetPoll.xhtml" NAME="output14"
+    PATH="/pages/createTweetPoll.xhtml"
+    TARGET="rules:#pages#createTweetPoll.xhtml" TITLE="createTweetPoll" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#admon#index.xhtml"
@@ -112,6 +121,12 @@
  <PROCESS-ITEM NAME="rules:#pages#polls.xhtml" PATH="/pages/polls.xhtml"
   SHAPE="304,1617,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#tweetpoll.xhtml"
-  PATH="/pages/tweetpoll.xhtml" SHAPE="272,240,50,25"
+  PATH="/pages/tweetpoll.xhtml" SHAPE="288,208,50,41"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#createTweetPoll.xhtml"
+  PATH="/pages/createTweetPoll.xhtml" SHAPE="536,152,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#tweetPollCredentials.xhtml"
+  PATH="/pages/tweetPollCredentials.xhtml" SHAPE="528,272,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

@@ -1,45 +1,70 @@
 @CHARSET "ISO-8859-1";
 
 @IMPORT url("login.css");
+
 @IMPORT url("menu.css");
+
 @IMPORT url("survey.css");
 
 body {
-  background: #fff none repeat scroll 0 0;
-  font-family:Georgia, "Times New Roman", Times, serif;
-  font-size: 12px;
-  margin: 0;
-  padding: 0;
+    background: #fff none repeat scroll 0 0;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
 }
 
-
 img {
-  border: 0px;
+    border: 0px;
 }
 
 #header {
-  height: 55px;
-  background-color: #FFF;
-  border: 0px solid #000;
-  margin-bottom: 0px;
-  padding: 10px;
+    height: 55px;
+    background-color: #FFF;
+    border: 0px solid #000;
+    margin-bottom: 0px;
+    padding: 10px;
 }
 
 #mainWrapper {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 5px;
-  width: 98%;
-  min-height: 400px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 98%;
+    min-height: 400px;
+}
+
+#defaultWrapper{
+    clear: left;
+    padding: 1px 0 8px;
+}
+
+#bodyDefault{
+    margin-left : 260px;
+    min-width : 700px;
+    padding: 0 15px 8px 0;
+}
+
+#panelDefault{
+    padding-top:8px;
+    float: left;
+}
+
+
+#panelWrapper{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 260px;
 }
 
 /***
 * Tool Bar
 **/
 .item-toolbar {
-  padding: 5px;
-  background: #EEE;
-  font-size: 110%;
+    padding: 5px;
+    background: #EEE;
+    font-size: 110%;
 }
 
 /*
@@ -47,85 +72,80 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
     background-color:#FFFFFF;
     background-image: none;
     border-color: silver;
-} */
-
-
-/***************************************************
+} */ /***************************************************
  * commons classes
  ***************************************************/
-
 .padding {
-  padding-left: : 50px;
+    padding-left: : 50px;
 }
 
 /**
  groups css
  */
 .subMenus {
-  background: #eee;
+    background: #eee;
 }
 
 /************************************
  user messages
  ***********************************/
 .error {
-  padding: 5px;
-  background-color: #FFD0D0;
-  color: #F24B4B;
-  font-size: 14px;
-  border: 1px solid #E58787;
-  padding-left: 30px;
-  background-position: 3px;
-  background-repeat: no-repeat;
+    padding: 5px;
+    background-color: #FFD0D0;
+    color: #F24B4B;
+    font-size: 14px;
+    border: 1px solid #E58787;
+    padding-left: 30px;
+    background-position: 3px;
+    background-repeat: no-repeat;
 }
 
 .war {
-  padding: 5px;
-  background-color: #FCFFC8;
-  color: #2E981F;
-  font-size: 14px;
-  border: 1px solid #F2F122;
-  padding-left: 30px;
-  background-position: 3px;
-  background-repeat: no-repeat;
+    padding: 5px;
+    background-color: #FCFFC8;
+    color: #2E981F;
+    font-size: 14px;
+    border: 1px solid #F2F122;
+    padding-left: 30px;
+    background-position: 3px;
+    background-repeat: no-repeat;
 }
 
 .info {
-  padding: 5px;
-  background-color: #BAEAB3;
-  color: #2E981F;
-  font-size: 14px;
-  border: 1px solid #6AC45D;
-  padding-left: 30px;
-  background-position: 3px;
-  background-repeat: no-repeat;
+    padding: 5px;
+    background-color: #BAEAB3;
+    color: #2E981F;
+    font-size: 14px;
+    border: 1px solid #6AC45D;
+    padding-left: 30px;
+    background-position: 3px;
+    background-repeat: no-repeat;
 }
 
 /*************************************
   Commons
 **************************************/
+p.infoBox {
+    background: transparent url("../images/icons/ip_icon_04_Info.jpg")
+        no-repeat top left;
+    padding-left: 50px;
+    padding-top: 6px;
+    min-height: 40px;
+    font-size: 14px;
+    border-bottom: 1px solid #bae9fb;
+    /*border-top: 1px solid #bae9fb;*/
+    font-weight: bold;
+    color: #45b9d6;
+}
 
-p.infoBox{
-  background: transparent url("../images/icons/ip_icon_04_Info.jpg") no-repeat top left;
-  padding-left: 50px;
-  padding-top:6px;
-  min-height: 40px;
-  font-size: 14px;
-  border-bottom:1px solid #bae9fb;
-  /*border-top: 1px solid #bae9fb;*/
-  font-weight:bold;
-  color: #45b9d6;
-
-  }
-
-p.ideasBox{
-  background: transparent url("../images/icons/1243965762_001_11.gif") no-repeat top left;
-  padding-left: 30px;
-  padding-top:6px;
-  min-height: 25px;
-  font-size: 14px;
-  font-weight:bold;
-  border-bottom:1px solid #fa9a50;
-  color: #b87b4d;
-  }
-
+p.ideasBox {
+    background: transparent url("../images/icons/1243965762_001_11.gif")
+        no-repeat top left;
+    padding-left: 30px;
+    padding-top: 6px;
+    min-height: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #fa9a50;
+    color: #b87b4d;
+}
