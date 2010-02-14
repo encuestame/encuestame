@@ -398,6 +398,21 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public SecUsers createUser(){
         SecUsers user = new SecUsers();
+        user.setTwitterAccount("testTWitterAccount");
+        user.setTwitterPassword("testTwitterPwsd");
+        getSecUserDao().saveOrUpdate(user);
+        return user;
+    }
+    /**
+     * Create User.
+     * @param twitterAccount account
+     * @param twitterPassword password
+     * @return {@link SecUsers}
+     */
+    public SecUsers createUser(final String twitterAccount, final String twitterPassword){
+        SecUsers user = new SecUsers();
+        user.setTwitterAccount(twitterAccount);
+        user.setTwitterPassword(twitterPassword);
         getSecUserDao().saveOrUpdate(user);
         return user;
     }

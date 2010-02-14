@@ -71,9 +71,8 @@
         </property>
     </bean>
 
-    <bean id="twitterService" class="org.encuestame.core.service.TwitterService"
-        parent="service">
-         <property name="tinyApi" value="http://tinyurl.com/api-create.php"/>
+    <bean id="twitterService" class="org.encuestame.core.service.TwitterService"  parent="service">
+        <property name="tinyApi" value="${twitter.tinyUrl}"/>
     </bean>
 
     <bean id="surveyService" class="org.encuestame.core.service.SurveyService"
@@ -110,8 +109,7 @@
             <ref bean="serviceMail"></ref>
         </property>
         <property name="suspendedNotification">
-            <value>${sec.suspendedNotification}
-            </value>
+            <value>${sec.suspendedNotification}</value>
         </property>
     </bean>
 

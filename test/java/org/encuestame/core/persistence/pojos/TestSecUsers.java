@@ -30,8 +30,8 @@ public class TestSecUsers extends AbstractBaseTest{
     @Test
     public void testSecUser(){
         final SecUsers user = new SecUsers();
-      //  final Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
-        //user.setProjectUsers(projectUser);
+        user.setTwitterAccount("testTWitterAccount");
+        user.setTwitterPassword("testTwitterPwsd");
         getSecUserDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }

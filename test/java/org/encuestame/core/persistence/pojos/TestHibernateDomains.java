@@ -198,6 +198,8 @@ public class TestHibernateDomains extends AbstractBaseTest{
     @Test
     public void testSecUser(){
         final SecUsers user = new SecUsers();
+        user.setTwitterAccount("");
+        user.setTwitterPassword("");
         getSecUserDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }

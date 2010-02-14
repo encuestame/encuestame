@@ -25,9 +25,6 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-
-
-
 /**
  * Twitter Service.
  * @author Picado, Juan juan@encuestame.org
@@ -53,11 +50,11 @@ public class TwitterService extends Service implements ITwitterService {
      * @throws HttpException HttpExceptio
      */
     public String getTinyUrl(final String url) throws HttpException, IOException{
-        HttpClient httpclient = new HttpClient();
-        HttpMethod method = new GetMethod(tinyApi);
+        final HttpClient httpclient = new HttpClient();
+        final HttpMethod method = new GetMethod(tinyApi);
         method.setQueryString(new NameValuePair[]{new NameValuePair("url",url)});
         httpclient.executeMethod(method);
-        String tinyUrl = method.getResponseBodyAsString();
+        final String tinyUrl = method.getResponseBodyAsString();
         method.releaseConnection();
         return tinyUrl;
     }
@@ -70,7 +67,7 @@ public class TwitterService extends Service implements ITwitterService {
      * @return {@link Status}
      * @throws TwitterException twitter exception
      */
-    public Status publicTweetPoll(final String username, final String password, final String tweet) throws TwitterException{
+    public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException{
         final Twitter twitter = new Twitter(username, password);
         return twitter.updateStatus(tweet);
     }

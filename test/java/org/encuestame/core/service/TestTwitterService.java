@@ -16,9 +16,15 @@ package org.encuestame.core.service;
 import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBeanBaseTest;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import twitter4j.Status;
+import twitter4j.TwitterException;
 
 /**
  * {@link TwitterService} test case.
@@ -32,6 +38,17 @@ public class TestTwitterService extends AbstractBeanBaseTest {
     @Autowired
     public ITwitterService twitterService;
 
+    /** {@link SecUsers}. **/
+    private SecUsers user;
+
+    /**
+     * Before.
+     */
+    @Before
+    public void before(){
+        this.user = createUser("testEncuesta", "testEncuesta123");
+    }
+
     /**
      * Test Tiny Url.
      * @throws IOException io exception
@@ -39,10 +56,22 @@ public class TestTwitterService extends AbstractBeanBaseTest {
      */
     @Test
     public void testTinyUrl() throws HttpException, IOException{
-       String tinyUrl = twitterService.getTinyUrl("http://www.google.es");
-       System.out.println(tinyUrl);
+       final String tinyUrl = twitterService.getTinyUrl("http://www.google.es");
        assertNotNull(tinyUrl);
     }
+
+    /**
+     * Test Public Tweet.
+     * @throws TwitterException exception
+     */
+    @Test
+    public void testPublicTweet() throws TwitterException{
+        final String testTweet = RandomStringUtils.randomAlphabetic(5);
+        final Status tweet = twitterService.publicTweet(this.user.getTwitterAccount(),
+                                                        this.user.getTwitterPassword(), testTweet);
+        assertNotNull(tweet.getId());
+    }
+
     /**
      * @return the twitterService
      */

@@ -36,6 +36,8 @@ public class SecUsers{
 
 
     private Long uid;
+    private String twitterAccount;
+    private String twitterPassword;
 /*
     private Set<CatLocationUser> catLocationUsers = new HashSet<CatLocationUser>(
             0);
@@ -61,5 +63,35 @@ public class SecUsers{
      */
     public void setUid(Long uid) {
         this.uid = uid;
+    }
+
+    /**
+     * @return the twitterAccount
+     */
+    @Column(name = "twitter_account", nullable = false, length = 18)
+    public String getTwitterAccount() {
+        return twitterAccount;
+    }
+
+    /**
+     * @param twitterAccount the twitterAccount to set
+     */
+    public void setTwitterAccount(final String twitterAccount) {
+        this.twitterAccount = twitterAccount;
+    }
+
+    /**
+     * @return the twitterPassword
+     */
+    @Column(name = "twitter_password", nullable = false, length = 18)
+    public String getTwitterPassword() {
+        return twitterPassword;
+    }
+
+    /**
+     * @param twitterPassword the twitterPassword to set
+     */
+    public void setTwitterPassword(final String twitterPassword) {
+        this.twitterPassword = twitterPassword;
     }
 }

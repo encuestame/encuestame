@@ -84,6 +84,9 @@ public class EnMeSchemaExport {
 
             //create user admin
             final SecUsers userPrimary = new SecUsers();
+            userPrimary.setTwitterAccount("testEncuesta");
+            userPrimary.setTwitterPassword("testEncuesta123");
+
             final SecUserDaoImp secUserDao = (SecUserDaoImp) appContext.getBean("secUserDao");
             secUserDao.saveOrUpdate(userPrimary);
             final UnitUserBean user = new UnitUserBean();

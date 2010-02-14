@@ -39,12 +39,12 @@ public interface ITwitterService extends IService{
     public String getTinyUrl(final String url) throws HttpException, IOException;
 
     /**
-     * Public Tweet Poll.
+     * Public Tweet.
      * @param username twitter username
      * @param password twitter password
      * @param tweet text to tweet
      * @return {@link Status}
      * @throws TwitterException twitter exception
      */
-    public Status publicTweetPoll(final String username, final String password, final String tweet) throws TwitterException;
+    public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException;
 }

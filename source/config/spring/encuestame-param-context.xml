@@ -25,7 +25,7 @@
     <property name="locations">
         <list>
             <value>classpath:encuestame-config.properties</value>
-            <value> classpath:hibernate.prod.properties</value>
+            <value>classpath:hibernate.prod.properties</value>
        </list>
         </property>
   </bean>
