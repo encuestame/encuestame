@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.hibernate.HibernateException;
 
  /**
@@ -69,4 +70,12 @@ public interface IQuestionDao extends IBaseDao {
      * @return  {@link Questions}
      */
     public Questions retrieveQuestionById(final Long questionId);
+
+    /**
+     * Get Questions Answer By Question Id.
+     * @param questionId question id
+     * @return list of answers
+     * @throws HibernateException exception
+     */
+    public List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId) throws HibernateException;
 }

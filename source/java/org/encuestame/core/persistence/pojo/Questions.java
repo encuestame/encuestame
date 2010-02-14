@@ -41,7 +41,9 @@ public class Questions {
     private CatState catState;
     private String question;
     private String qidKey;
+    private Boolean sharedQuestion;
     private QuestionPattern questionPattern;
+    private SecUsers secUsersQuestion;
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
     /**
@@ -122,7 +124,7 @@ public class Questions {
     /**
      * @param questionColettions the questionColettions to set
      */
-    public void setQuestionColettions(Set<QuestionColettion> questionColettions) {
+    public void setQuestionColettions(final Set<QuestionColettion> questionColettions) {
         this.questionColettions = questionColettions;
     }
 
@@ -138,7 +140,39 @@ public class Questions {
     /**
      * @param questionPattern the questionPattern to set
      */
-    public void setQuestionPattern(QuestionPattern questionPattern) {
+    public void setQuestionPattern(final QuestionPattern questionPattern) {
         this.questionPattern = questionPattern;
     }
+
+    /**
+     * @return the secUsersQuestion
+     */
+    @ManyToOne()
+    @JoinColumn(name = "uid", nullable = false)
+    public SecUsers getSecUsersQuestion() {
+        return secUsersQuestion;
+    }
+
+    /**
+     * @param secUsersQuestion the secUsersQuestion to set
+     */
+    public void setSecUsersQuestion(final SecUsers secUsersQuestion) {
+        this.secUsersQuestion = secUsersQuestion;
+    }
+
+    /**
+     * @return the sharedQuestion
+     */
+    @Column(name = "shared_question")
+    public Boolean getSharedQuestion() {
+        return sharedQuestion;
+    }
+
+    /**
+     * @param sharedQuestion the sharedQuestion to set
+     */
+    public void setSharedQuestion(final Boolean sharedQuestion) {
+        this.sharedQuestion = sharedQuestion;
+    }
+
 }

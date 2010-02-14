@@ -12,19 +12,29 @@
  */
 package org.encuestame.core.service;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.httpclient.HttpException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.SurveyDaoImp;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
 import org.hibernate.HibernateException;
+
+import twitter4j.Status;
+import twitter4j.TwitterException;
 
 /**
  * Survey Service.
@@ -37,7 +47,10 @@ public class SurveyService extends Service implements ISurveyService {
     private MailServiceImpl serviceMail;
     private SurveyDaoImp surveyDaoImp;
     private QuestionDaoImp questionDaoImp;
+    private SecUserDaoImp userDaoImp;
     private ITwitterService twitterService;
+    private String answerPollPath;
+    private String tweetPollResultsPath;
 
     /**
      * @return {@link MailServiceImpl}.
@@ -84,6 +97,70 @@ public class SurveyService extends Service implements ISurveyService {
     }
 
     /**
+     * Create Tweet Poll.
+     * @param tweetPollBean tweet poll bean.
+     * @throws EnMeExpcetion exception
+     */
+    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
+        try{
+            final TweetPoll tweetPollDomain = new TweetPoll();
+            System.out.println("1question id "+tweetPollBean.getTweetPoll().getId());
+            //TODO: save tweet poll
+            final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getTweetPoll().getId());
+            if(question == null){
+                throw new EnMeExpcetion("question not found");
+            }
+            System.out.println("2question id "+question.getQid());
+            final List<QuestionsAnswers> answers = getQuestionDaoImp().getAnswersByQuestionId(question.getQid());
+            System.out.println("answers id "+answers.size());
+            String tweetQuestionText = question.getQuestion();
+            if(answers.size()==2){
+                for (QuestionsAnswers questionsAnswers : answers) {
+                    tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+createUrlAnswer(questionsAnswers);
+                    System.out.println("url answwerr "+tweetQuestionText);
+                }
+            }
+            if(tweetPollBean.getPublishTweet()){
+                System.out.println("Public Tweet Poll witter Account Data "+tweetPollBean.getUserId() );
+                System.out.println("Public Tweet Text "+tweetQuestionText );
+                this.publicTweetPoll(tweetQuestionText, getUserDaoImp().getUserById(tweetPollBean.getUserId()));
+            }
+        }catch (Exception e) {
+           throw new EnMeExpcetion(e);
+        }
+    }
+
+    /**
+     *
+     * @param anwer
+     * @throws IOException
+     * @throws HttpException
+     */
+    private String createUrlAnswer(final QuestionsAnswers answer) throws HttpException, IOException{
+        final String urlAnswer = "http://"+getDomainUrl() + "/"+getAnswerPollPath()+answer.getUniqueAnserHash();
+        return getTwitterService().getTinyUrl(urlAnswer);
+    }
+
+    /**
+     * Public Tweet Poll.
+     * @param tweetText tweet text
+     * @param user user
+     * @return status of tweet
+     * @throws EnMeExpcetion exception
+     */
+    public Status publicTweetPoll(final String tweetText, final SecUsers user) throws EnMeExpcetion {
+        try {
+          System.out.println("Twitter Account Data");
+          System.out.println(user.getTwitterAccount());
+          System.out.println(user.getTwitterPassword());
+          return getTwitterService().publicTweet(
+                    user.getTwitterAccount(), user.getTwitterPassword(), tweetText);
+        } catch (TwitterException e) {
+            throw new EnMeExpcetion(e);
+        }
+    }
+
+    /**
      * Load all questions.
      * @return List of {@link UnitQuestionBean}
      * @throws EnMeExpcetion exception
@@ -97,7 +174,7 @@ public class SurveyService extends Service implements ISurveyService {
 
                for (Questions questions : questionsList) {
                     final UnitQuestionBean q = new UnitQuestionBean();
-                    q.setId(Integer.valueOf(questions.getQid().toString()));
+                    q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
                     q.setIdState(questions.getCatState().getIdState());
                     listQuestionBean.add(q);
@@ -127,7 +204,6 @@ public class SurveyService extends Service implements ISurveyService {
             unitPatternBean.setId(questionPatternDomain.getPatternId());
 
             unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
-            System.out.println("---------QuestionPattern-------->"+unitPatternBean.getDescripcion());
             unitPatternBean.setLabel(questionPatternDomain.getLabelQid());
             unitPatternBean.setPatronType(questionPatternDomain.getPatternType());
             unitPatternBean.setTemplate(questionPatternDomain.getPatternTemplate());
@@ -181,4 +257,47 @@ public class SurveyService extends Service implements ISurveyService {
     public void setTwitterService(final ITwitterService twitterService) {
         this.twitterService = twitterService;
     }
+
+    /**
+     * @return the answerPollPath
+     */
+    public String getAnswerPollPath() {
+        return answerPollPath;
+    }
+
+    /**
+     * @param answerPollPath the answerPollPath to set
+     */
+    public void setAnswerPollPath(final String answerPollPath) {
+        this.answerPollPath = answerPollPath;
+    }
+
+    /**
+     * @return the tweetPollResultsPath
+     */
+    public String getTweetPollResultsPath() {
+        return tweetPollResultsPath;
+    }
+
+    /**
+     * @param tweetPollResultsPath the tweetPollResultsPath to set
+     */
+    public void setTweetPollResultsPath(final String tweetPollResultsPath) {
+        this.tweetPollResultsPath = tweetPollResultsPath;
+    }
+
+    /**
+     * @return the userDaoImp
+     */
+    public SecUserDaoImp getUserDaoImp() {
+        return userDaoImp;
+    }
+
+    /**
+     * @param userDaoImp the userDaoImp to set
+     */
+    public void setUserDaoImp(final SecUserDaoImp userDaoImp) {
+        this.userDaoImp = userDaoImp;
+    }
+
 }

@@ -149,4 +149,7 @@ public class ConvertDomainBean {
         patterBean.setLabel(pattern.getLabelQid());
         return patterBean;
     }
+
+
+
 }

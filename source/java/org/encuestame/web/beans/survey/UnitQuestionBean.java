@@ -25,27 +25,27 @@ import org.encuestame.web.beans.MasterBean;
 public class UnitQuestionBean extends MasterBean {
 
 
-    public String questionName;
+    private String questionName;
     /**
      *
      */
-    public String version;
+    private String version;
     /**
      *
      */
-    public UnitPatternBean pattern;
+    private UnitPatternBean pattern;
     /**
      *
      */
-    public Long idState;
+    private Long idState;
     /**
      *
      */
-    public Integer id;
+    private Long id;
     /**
      *
      */
-    public Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
+    private Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
 
     /**
      *
@@ -55,26 +55,23 @@ public class UnitQuestionBean extends MasterBean {
         pattern = new UnitPatternBean();
     }
 
+
+
     /**
-     *
-     * @param questionName questionName
-     * @param version version
-     * @param pattern pattern
-     * @param idState idState
-     * @param id id
-     * @param listAnswers listAnswers
+     * @return the id
      */
-    public UnitQuestionBean(String questionName, String version,
-            UnitPatternBean pattern, Long idState, Integer id,
-            Collection<UnitAnswersBean> listAnswers) {
-        super();
-        this.questionName = questionName;
-        this.version = version;
-        this.pattern = pattern;
-        this.idState = idState;
-        this.id = id;
-        this.listAnswers = listAnswers;
+    public Long getId() {
+        return id;
     }
+
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     /**
      * @return the questionName
@@ -106,8 +103,6 @@ public class UnitQuestionBean extends MasterBean {
         this.version = version;
     }
 
-
-
     public UnitPatternBean getPattern() {
         return pattern;
     }
@@ -129,21 +124,6 @@ public class UnitQuestionBean extends MasterBean {
      */
     public void setIdState(Long idState) {
         this.idState = idState;
-    }
-
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     /**

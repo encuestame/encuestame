@@ -15,9 +15,9 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
-import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
@@ -59,6 +59,18 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     public Questions retrieveQuestionById(final Long questionId){
         return (Questions) getHibernateTemplate().get(Questions.class, questionId);
+    }
+
+    /**
+     * Get Questions Answer By Question Id.
+     * @param questionId question id
+     * @return list of answers
+     * @throws HibernateException exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId) throws HibernateException {
+        return getHibernateTemplate().findByNamedParam("from QuestionsAnswers where questions.id =:questionId ",
+                                                       "questionId", questionId);
     }
 
     /**

@@ -13,6 +13,8 @@
 
 package org.encuestame.web.beans.survey.tweetpoll;
 
+import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.service.ISurveyService;
 import org.encuestame.web.beans.MasterBean;
 
 /**
@@ -25,11 +27,41 @@ public class CreateTweetPollBean extends MasterBean {
 
 
     private String tweetQuestion;
+    private UnitTweetPoll unitTweetPoll;
 
     /**
      * Constructor.
      */
     public CreateTweetPollBean() {
+    }
+
+    /**
+     * Create Tweet Poll.
+     */
+    public void createTweetPoll(){
+        final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
+        try{
+            survey.createTweetPoll(getUnitTweetPoll());
+            addInfoMessage("tweet poll message", "");
+            log.debug("tweet poll created");
+        }catch (EnMeExpcetion e) {
+            addErrorMessage("error "+e, "");
+            log.error(e);
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String buildTweetQuestion(){
+        //retrieve question
+        final String tweetQuestion = getUnitTweetPoll().getTweetPoll().getQuestionName();
+        //final List<UnitAnswersBean> answers = getUnitTweetPoll().getAnswers();
+        //if(siz)
+
+
+        return tweetQuestion;
     }
 
     /**
@@ -44,5 +76,19 @@ public class CreateTweetPollBean extends MasterBean {
      */
     public void setTweetQuestion(final String tweetQuestion) {
         this.tweetQuestion = tweetQuestion;
+    }
+
+    /**
+     * @return the unitTweetPoll
+     */
+    public UnitTweetPoll getUnitTweetPoll() {
+        return unitTweetPoll;
+    }
+
+    /**
+     * @param unitTweetPoll the unitTweetPoll to set
+     */
+    public void setUnitTweetPoll(UnitTweetPoll unitTweetPoll) {
+        this.unitTweetPoll = unitTweetPoll;
     }
 }

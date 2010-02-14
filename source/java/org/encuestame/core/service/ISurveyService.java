@@ -17,8 +17,12 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
+
+import twitter4j.Status;
 
 /**
  * Interface for Survey Service.
@@ -63,4 +67,20 @@ public interface ISurveyService extends IService {
      * @return serviceMail
      */
     public MailServiceImpl getServiceMail();
+
+    /**
+     * Public Tweet Poll.
+     * @param tweetText tweet text
+     * @param user user
+     * @return status of tweet
+     * @throws EnMeExpcetion exception
+     */
+    public Status publicTweetPoll(final String tweetText, final SecUsers user) throws EnMeExpcetion;
+
+    /**
+     * Create Tweet Poll.
+     * @param tweetPollBean tweet poll bean.
+     * @throws EnMeExpcetion exception
+     */
+    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
 }

@@ -96,7 +96,7 @@ public class BuildSurveyControllerBean extends MasterBean {
             try {
                 int d = getNewIdCounter(2);
                 question = new UnitQuestionBean();
-                question.setId(d);
+                question.setId(Long.valueOf(d));
                 if (getPatternSelected() != null) {
                     // getUnitPatterBean().setId(getPatternSelected());
                     UnitPatternBean patternN = new UnitPatternBean();

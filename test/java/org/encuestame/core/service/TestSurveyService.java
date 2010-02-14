@@ -19,9 +19,11 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBeanBaseTest;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +51,14 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     /** {@link QuestionPattern} **/
     private QuestionPattern pattern;
 
+    private SecUsers user;
     /**
      * Before.
      */
     @Before
     public void setterBeans(){
         surveyService.setServiceMail(mailServiceImpl);
+        this.user = createUser("testEncuesta", "testEncuesta123");
     }
     /**
      *
@@ -104,13 +108,8 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
       //  this.serviceInit();
         UnitPatternBean patternBean = new UnitPatternBean(this.pattern.getPatternId(),"descPattern","label",
                 "patronType", "template","classpattern","levelpattern","finallity");
-
     //    patternBean.setId(createQuestionPattern("html").getPatternId());
-        System.out.println("Pattern---->"+patternBean.getId());
-
         patternBean = surveyService.loadPatternInfo(patternBean);
-        System.out.println("Pattern PRIMERO---->"+patternBean.getPatronType());
-        System.out.println("Pattern SEGUNDO---->"+getPattern().getPatternType());
        // assertNotNull(patternBean);
        assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
     }
@@ -136,6 +135,24 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
         final Collection<UnitPatternBean> patternList = surveyService.loadAllPatrons();
         assertNotNull(patternList);
         assertEquals("Should be equals",0, patternList.size());
+    }
+
+    /**
+     * Test Create Tweet Poll.
+     * @throws EnMeExpcetion exception
+     */
+    @Test
+    public void testCreateTweetPoll() throws EnMeExpcetion{
+       final Questions question = createQuestion("why the sky is blue?", "yes/no", this.user);
+       createQuestionAnswer("yes", question);
+       createQuestionAnswer("no", question);
+       final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
+       final UnitQuestionBean questionBean = new UnitQuestionBean();
+       questionBean.setId(question.getQid());
+       tweetPollBean.setTweetPoll(questionBean);
+       tweetPollBean.setPublishTweet(true);
+       tweetPollBean.setUserId(this.user.getUid());
+       this.surveyService.createTweetPoll(tweetPollBean);
     }
 
     /**

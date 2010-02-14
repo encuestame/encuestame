@@ -55,12 +55,9 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
 
     /**
      * Get Primary User By Id.
-     *
-     * @param userId
-     *            user id
+     * @param userId user id
      * @return {@link SecUsers}
-     * @throws HibernateException
-     *             exception
+     * @throws HibernateException exception
      */
     public SecUsers getUserById(final Long userId) throws HibernateException {
             return (SecUsers) getHibernateTemplate().get(SecUsers.class, userId);

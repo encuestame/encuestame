@@ -35,6 +35,9 @@
         <property name="dataEnMeSource">
             <ref bean="dataEnMeSource"></ref>
         </property>
+        <property name="domainUrl">
+            <value>${application.domain}</value>
+        </property>
     </bean>
 
     <bean id="messageSource"
@@ -88,6 +91,15 @@
         </property>
          <property name="twitterService">
             <ref bean="twitterService"></ref>
+        </property>
+         <property name="answerPollPath">
+            <value>${answers.answerPoll}</value>
+        </property>
+        <property name="tweetPollResultsPath">
+            <value>${answers.tweetPollResults}</value>
+        </property>
+         <property name="userDaoImp">
+            <ref bean="secUserDao"></ref>
         </property>
     </bean>
 

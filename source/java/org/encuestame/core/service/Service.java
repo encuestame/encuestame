@@ -34,6 +34,9 @@ public abstract class Service {
      */
     private IDataSource dataEnMeSource;
 
+
+    private String domainUrl;
+
     /**
      * Log.
      */
@@ -83,5 +86,19 @@ public abstract class Service {
      */
     public void setDataEnMeSource(final IDataSource dataSource) {
         this.dataEnMeSource = dataSource;
+    }
+
+    /**
+     * @return the domainUrl
+     */
+    public String getDomainUrl() {
+        return domainUrl;
+    }
+
+    /**
+     * @param domainUrl the domainUrl to set
+     */
+    public void setDomainUrl(final String domainUrl) {
+        this.domainUrl = domainUrl;
     }
 }

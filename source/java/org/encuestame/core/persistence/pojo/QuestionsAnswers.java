@@ -35,6 +35,7 @@ public class QuestionsAnswers {
     private Long questionAnswerId;
     private Questions questions;
     private String answer;
+    private String uniqueAnserHash;
 
     /**
      * @return the questionAnswerId
@@ -77,4 +78,17 @@ public class QuestionsAnswers {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+    /**
+     * @return the uniqueAnserHash
+     */
+    public String getUniqueAnserHash() {
+        return uniqueAnserHash;
+    }
+    /**
+     * @param uniqueAnserHash the uniqueAnserHash to set
+     */
+    public void setUniqueAnserHash(final String uniqueAnserHash) {
+        this.uniqueAnserHash = uniqueAnserHash;
+    }
+
 }

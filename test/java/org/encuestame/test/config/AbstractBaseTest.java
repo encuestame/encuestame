@@ -33,6 +33,7 @@ import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -543,8 +544,42 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         questions.setQidKey("1");
         questions.setQuestion(question);
         questions.setQuestionPattern(createQuestionPattern(patron));
+        questions.setSecUsersQuestion(createUser());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
+    }
+
+    /**
+     * Create question.
+     * @param question question
+     * @param patron patron
+     * @param user user
+     * @return {@link Questions}
+     */
+    public Questions createQuestion(final String question, final String patron, final SecUsers user){
+        final Questions questions = new Questions();
+        questions.setCatState(this.createState("active"));
+        questions.setQidKey("1");
+        questions.setSecUsersQuestion(user);
+        questions.setQuestion(question);
+        questions.setQuestionPattern(createQuestionPattern(patron));
+        getQuestionDaoImp().saveOrUpdate(questions);
+        return questions;
+    }
+
+    /**
+     * Create Question Answer.
+     * @param answer answer
+     * @param question question
+     * @return {@link QuestionsAnswers}
+     */
+    public QuestionsAnswers createQuestionAnswer(final String answer, final Questions question){
+        final QuestionsAnswers questionsAnswers = new QuestionsAnswers();
+        questionsAnswers.setAnswer(answer);
+        questionsAnswers.setQuestions(question);
+        questionsAnswers.setUniqueAnserHash("12345");
+        getQuestionDaoImp().saveOrUpdate(questionsAnswers);
+        return questionsAnswers;
     }
 
     /**
