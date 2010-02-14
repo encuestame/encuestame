@@ -49,6 +49,7 @@
                 <value>org.encuestame.core.persistence.pojo.Surveys</value>
                 <value>org.encuestame.core.persistence.pojo.SurveySection</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPoll</value>
+                <value>org.encuestame.core.persistence.pojo.TweetPollResult</value>
                 <!--
                     <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
                     <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>
