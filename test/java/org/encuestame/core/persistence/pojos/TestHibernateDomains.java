@@ -145,6 +145,7 @@ public class TestHibernateDomains extends AbstractBaseTest{
         questions.setCatState(createState("Inactive"));
         questions.setQuestionPattern(createQuestionPattern("options"));
         questions.getQuestionColettions().add(createQuestionCollect("options"));
+        questions.setSecUsersQuestion(createUser());
         getQuestionDaoImp().saveOrUpdate(questions);
         assertNotNull(questions.getQid());
 
