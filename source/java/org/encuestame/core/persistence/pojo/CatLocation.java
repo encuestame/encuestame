@@ -46,6 +46,7 @@ public class CatLocation {
     private Float locationLongitude;
     private Set<Project> projects = new HashSet<Project>();
 
+
     /**
      * @return locateId
      */
