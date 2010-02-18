@@ -13,6 +13,7 @@
 package org.encuestame.core.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
@@ -28,6 +29,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.ExpectedException;
+
+import twitter4j.Status;
 
 /**
  * Test of {@link SurveyService}
@@ -147,12 +150,16 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
        createQuestionAnswer("yes", question);
        createQuestionAnswer("no", question);
        final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
-       final UnitQuestionBean questionBean = new UnitQuestionBean();
-       questionBean.setId(question.getQid());
-       tweetPollBean.setTweetPoll(questionBean);
-       tweetPollBean.setPublishTweet(true);
+       tweetPollBean.setQuestionId(question.getQid());
+       tweetPollBean.setPublishPoll(true);
+       tweetPollBean.setStartDateTweet(new Date());
+       tweetPollBean.setEndDateTweet(new Date());
+       tweetPollBean.setCompleted(false);
        tweetPollBean.setUserId(this.user.getUid());
-       this.surveyService.createTweetPoll(tweetPollBean);
+       final UnitTweetPoll d = this.surveyService.createTweetPoll(tweetPollBean);
+       final String s = this.surveyService.generateTweetPollText(d);
+       final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
+       assertNotNull(status.getId());
     }
 
     /**

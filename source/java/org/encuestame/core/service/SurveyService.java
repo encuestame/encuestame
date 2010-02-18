@@ -23,6 +23,7 @@ import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.SurveyDaoImp;
+import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
@@ -51,7 +52,7 @@ public class SurveyService extends Service implements ISurveyService {
     private ITwitterService twitterService;
     private String answerPollPath;
     private String tweetPollResultsPath;
-
+    private ITweetPoll tweetPollDao;
     /**
      * @return {@link MailServiceImpl}.
      */
@@ -101,33 +102,51 @@ public class SurveyService extends Service implements ISurveyService {
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
+    public UnitTweetPoll createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
-            System.out.println("1question id "+tweetPollBean.getTweetPoll().getId());
-            //TODO: save tweet poll
-            final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getTweetPoll().getId());
+            final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getQuestionId());
             if(question == null){
                 throw new EnMeExpcetion("question not found");
             }
-            System.out.println("2question id "+question.getQid());
-            final List<QuestionsAnswers> answers = getQuestionDaoImp().getAnswersByQuestionId(question.getQid());
-            System.out.println("answers id "+answers.size());
-            String tweetQuestionText = question.getQuestion();
-            if(answers.size()==2){
-                for (QuestionsAnswers questionsAnswers : answers) {
-                    tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+createUrlAnswer(questionsAnswers);
-                    System.out.println("url answwerr "+tweetQuestionText);
-                }
-            }
-            if(tweetPollBean.getPublishTweet()){
-                System.out.println("Public Tweet Poll witter Account Data "+tweetPollBean.getUserId() );
-                System.out.println("Public Tweet Text "+tweetQuestionText );
-                this.publicTweetPoll(tweetQuestionText, getUserDaoImp().getUserById(tweetPollBean.getUserId()));
-            }
+            tweetPollDomain.setQuestion(question);
+            tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
+            tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
+            tweetPollDomain.setEndDateTweet(tweetPollBean.getEndDateTweet());
+            tweetPollDomain.setCompleted(tweetPollBean.getCompleted());
+            tweetPollDomain.setTweetOwner(getUserDaoImp().getUserById(tweetPollBean.getUserId()));
+            tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
+            tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
+            tweetPollDomain.setStartDateTweet(tweetPollBean.getStartDateTweet());
+            getTweetPollDao().saveOrUpdate(tweetPollDomain);
+            tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }catch (Exception e) {
            throw new EnMeExpcetion(e);
         }
+        return tweetPollBean;
+    }
+
+    /**
+     * Generate TweetPoll Text.
+     * @param tweetPoll tweetPoll
+     * @return tweet text
+     * @throws EnMeExpcetion exception
+     */
+    public String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion{
+        String tweetQuestionText = "";
+        try{
+            final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
+            tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
+            final List<QuestionsAnswers> answers = getQuestionDaoImp().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
+            if(answers.size()==2){
+                for (QuestionsAnswers questionsAnswers : answers) {
+                    tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+createUrlAnswer(questionsAnswers);
+             }
+        }
+        }catch (Exception e) {
+            throw new EnMeExpcetion(e);
+        }
+        return tweetQuestionText;
     }
 
     /**
@@ -144,17 +163,14 @@ public class SurveyService extends Service implements ISurveyService {
     /**
      * Public Tweet Poll.
      * @param tweetText tweet text
-     * @param user user
+     * @param username username
+     * @param password  password
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final SecUsers user) throws EnMeExpcetion {
+    public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion {
         try {
-          System.out.println("Twitter Account Data");
-          System.out.println(user.getTwitterAccount());
-          System.out.println(user.getTwitterPassword());
-          return getTwitterService().publicTweet(
-                    user.getTwitterAccount(), user.getTwitterPassword(), tweetText);
+          return getTwitterService().publicTweet(username, password, tweetText);
         } catch (TwitterException e) {
             throw new EnMeExpcetion(e);
         }
@@ -300,4 +316,17 @@ public class SurveyService extends Service implements ISurveyService {
         this.userDaoImp = userDaoImp;
     }
 
+    /**
+     * @return the tweetPollDao
+     */
+    public ITweetPoll getTweetPollDao() {
+        return tweetPollDao;
+    }
+
+    /**
+     * @param tweetPollDao the tweetPollDao to set
+     */
+    public void setTweetPollDao(final ITweetPoll tweetPollDao) {
+        this.tweetPollDao = tweetPollDao;
+    }
 }

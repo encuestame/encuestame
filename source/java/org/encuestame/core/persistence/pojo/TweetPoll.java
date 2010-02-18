@@ -42,12 +42,12 @@ public class TweetPoll {
     private Long tweetId;
     private Boolean closeNotification;
     private Boolean resultNotification;
-    private Boolean privacityResults;
+    private Boolean publishTweetPoll;
     private Date startDateTweet;
     private Date endDateTweet;
     private Date publicationDateTweet;
     private Boolean completed;
-    private SecUserSecondary tweetOwner;
+    private SecUsers tweetOwner;
     private Questions question;
 
     /**
@@ -68,7 +68,7 @@ public class TweetPoll {
     /**
      * @return the tweetId
      */
-    @Column(name = "tweet_id", unique = true, nullable = false)
+    @Column(name = "tweet_id", unique = true, nullable = true)
     public Long getTweetId() {
         return tweetId;
     }
@@ -104,19 +104,6 @@ public class TweetPoll {
      */
     public void setResultNotification(Boolean resultNotification) {
         this.resultNotification = resultNotification;
-    }
-    /**
-     * @return the privacityResults
-     */
-    @Column(name = "privacity_results", nullable = true)
-    public Boolean getPrivacityResults() {
-        return privacityResults;
-    }
-    /**
-     * @param privacityResults the privacityResults to set
-     */
-    public void setPrivacityResults(Boolean privacityResults) {
-        this.privacityResults = privacityResults;
     }
 
     /**
@@ -155,7 +142,7 @@ public class TweetPoll {
      * @return the publicationDateTweet
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "publication_date_tweet", nullable = false)
+    @Column(name = "publication_date_tweet", nullable = true)
     public Date getPublicationDateTweet() {
         return publicationDateTweet;
     }
@@ -186,14 +173,14 @@ public class TweetPoll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUserSecondary getTweetOwner() {
+    public SecUsers getTweetOwner() {
         return tweetOwner;
     }
 
     /**
      * @param tweetOwner the tweetOwner to set
      */
-    public void setTweetOwner(SecUserSecondary tweetOwner) {
+    public void setTweetOwner(final SecUsers tweetOwner) {
         this.tweetOwner = tweetOwner;
     }
 
@@ -209,7 +196,23 @@ public class TweetPoll {
     /**
      * @param question the question to set
      */
-    public void setQuestion(Questions question) {
+    public void setQuestion(final Questions question) {
         this.question = question;
     }
+
+    /**
+     * @return the publishTweetPoll
+     */
+    @Column(name = "publish", nullable = true)
+    public Boolean getPublishTweetPoll() {
+        return publishTweetPoll;
+    }
+    /**
+     * @param publishTweetPoll the publishTweetPoll to set
+     */
+    public void setPublishTweetPoll(final Boolean publishTweetPoll) {
+        this.publishTweetPoll = publishTweetPoll;
+    }
+
+
 }

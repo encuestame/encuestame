@@ -13,9 +13,9 @@
 
 package org.encuestame.web.beans.survey.tweetpoll;
 
-import java.util.List;
+import java.util.Date;
 
-import org.encuestame.web.beans.survey.UnitAnswersBean;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 
 /**
@@ -28,9 +28,16 @@ import org.encuestame.web.beans.survey.UnitQuestionBean;
 public class UnitTweetPoll {
 
     private Long id;
-    private UnitQuestionBean tweetPoll;
-    private Boolean publishTweet;
+    private Long questionId;
     private Boolean reportResults;
+    private Boolean closeNotification;
+    private Long tweetId;
+    private Boolean resultNotification;
+    private Boolean publishPoll;
+    private Date startDateTweet;
+    private Date endDateTweet;
+    private Date publicationDateTweet;
+    private Boolean completed;
     private Long userId;
 
     /**
@@ -46,36 +53,6 @@ public class UnitTweetPoll {
      */
     public void setId(final Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return the tweetPoll
-     */
-    public UnitQuestionBean getTweetPoll() {
-        return tweetPoll;
-    }
-
-    /**
-     * @param tweetPoll
-     *            the tweetPoll to set
-     */
-    public void setTweetPoll(final UnitQuestionBean tweetPoll) {
-        this.tweetPoll = tweetPoll;
-    }
-
-    /**
-     * @return the publishTweet
-     */
-    public Boolean getPublishTweet() {
-        return publishTweet;
-    }
-
-    /**
-     * @param publishTweet
-     *            the publishTweet to set
-     */
-    public void setPublishTweet(final Boolean publishTweet) {
-        this.publishTweet = publishTweet;
     }
 
     /**
@@ -101,9 +78,146 @@ public class UnitTweetPoll {
     }
 
     /**
-     * @param userId the userId to set
+     * @param userId
+     *            the userId to set
      */
     public void setUserId(final Long userId) {
         this.userId = userId;
     }
+
+    /**
+     * @return the closeNotification
+     */
+    public Boolean getCloseNotification() {
+        return closeNotification;
+    }
+
+    /**
+     * @param closeNotification
+     *            the closeNotification to set
+     */
+    public void setCloseNotification(final Boolean closeNotification) {
+        this.closeNotification = closeNotification;
+    }
+
+    /**
+     * @return the tweetId
+     */
+    public Long getTweetId() {
+        return tweetId;
+    }
+
+    /**
+     * @param tweetId
+     *            the tweetId to set
+     */
+    public void setTweetId(final Long tweetId) {
+        this.tweetId = tweetId;
+    }
+
+    /**
+     * @return the resultNotification
+     */
+    public Boolean getResultNotification() {
+        return resultNotification;
+    }
+
+    /**
+     * @param resultNotification
+     *            the resultNotification to set
+     */
+    public void setResultNotification(final Boolean resultNotification) {
+        this.resultNotification = resultNotification;
+    }
+
+    /**
+     * @return the publishPoll
+     */
+    public Boolean getPublishPoll() {
+        return publishPoll;
+    }
+
+    /**
+     * @param publishPoll
+     *            the publishPoll to set
+     */
+    public void setPublishPoll(final Boolean publishPoll) {
+        this.publishPoll = publishPoll;
+    }
+
+    /**
+     * @return the startDateTweet
+     */
+    public Date getStartDateTweet() {
+        return startDateTweet;
+    }
+
+    /**
+     * @param startDateTweet
+     *            the startDateTweet to set
+     */
+    public void setStartDateTweet(final Date startDateTweet) {
+        this.startDateTweet = startDateTweet;
+    }
+
+    /**
+     * @return the endDateTweet
+     */
+    public Date getEndDateTweet() {
+        return endDateTweet;
+    }
+
+    /**
+     * @param endDateTweet
+     *            the endDateTweet to set
+     */
+    public void setEndDateTweet(final Date endDateTweet) {
+        this.endDateTweet = endDateTweet;
+    }
+
+    /**
+     * @return the publicationDateTweet
+     */
+    public Date getPublicationDateTweet() {
+        return publicationDateTweet;
+    }
+
+    /**
+     * @param publicationDateTweet
+     *            the publicationDateTweet to set
+     */
+    public void setPublicationDateTweet(final Date publicationDateTweet) {
+        this.publicationDateTweet = publicationDateTweet;
+    }
+
+    /**
+     * @return the completed
+     */
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    /**
+     * @param completed
+     *            the completed to set
+     */
+    public void setCompleted(final Boolean completed) {
+        this.completed = completed;
+    }
+
+    /**
+     * @return the questionId
+     */
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    /**
+     * @param questionId
+     *            the questionId to set
+     */
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
 }

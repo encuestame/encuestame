@@ -14,8 +14,11 @@
 package org.encuestame.web.beans.survey.tweetpoll;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.web.beans.MasterBean;
+
+import twitter4j.Status;
 
 /**
  * Create Tweet Poll.
@@ -41,7 +44,16 @@ public class CreateTweetPollBean extends MasterBean {
     public void createTweetPoll(){
         final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
         try{
-            survey.createTweetPoll(getUnitTweetPoll());
+           final UnitTweetPoll savedTweetPoll =  survey.createTweetPoll(getUnitTweetPoll());
+           if(savedTweetPoll.getPublishPoll()){
+               final String tweet = survey.generateTweetPollText(savedTweetPoll);
+               final SecUsers sessionUser = getUsernameByName().getSecUser();
+               final Status status = survey.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
+               final Long tweetId = status.getId();
+               if(tweetId != null){
+                   //TODO: update tweet id.
+               }
+           }
             addInfoMessage("tweet poll message", "");
             log.debug("tweet poll created");
         }catch (EnMeExpcetion e) {
@@ -56,7 +68,7 @@ public class CreateTweetPollBean extends MasterBean {
      */
     private String buildTweetQuestion(){
         //retrieve question
-        final String tweetQuestion = getUnitTweetPoll().getTweetPoll().getQuestionName();
+        //final String tweetQuestion = getUnitTweetPoll().getTweetPoll().getQuestionName();
         //final List<UnitAnswersBean> answers = getUnitTweetPoll().getAnswers();
         //if(siz)
 

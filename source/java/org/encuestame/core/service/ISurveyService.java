@@ -71,16 +71,26 @@ public interface ISurveyService extends IService {
     /**
      * Public Tweet Poll.
      * @param tweetText tweet text
-     * @param user user
+     * @param username username
+     * @param password  password
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final SecUsers user) throws EnMeExpcetion;
+    public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion;
 
     /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
+     * @return {@link UnitTweetPoll}
      * @throws EnMeExpcetion exception
      */
-    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
+    public UnitTweetPoll createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
+
+    /**
+     * Generate TweetPoll Text.
+     * @param tweetPoll tweetPoll
+     * @return tweet text
+     * @throws EnMeExpcetion exception
+     */
+    public String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion;
 }

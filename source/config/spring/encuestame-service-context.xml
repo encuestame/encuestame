@@ -98,8 +98,11 @@
         <property name="tweetPollResultsPath">
             <value>${answers.tweetPollResults}</value>
         </property>
-         <property name="userDaoImp">
+        <property name="userDaoImp">
             <ref bean="secUserDao"></ref>
+        </property>
+         <property name="tweetPollDao">
+            <ref bean="tweetPollDao"></ref>
         </property>
     </bean>
 

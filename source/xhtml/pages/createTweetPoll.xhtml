@@ -22,8 +22,12 @@
     </a4j:form>
    </ui:define>
    <ui:define name="bodyOptions">
-       <div>
-            <h:inputTextarea value="#{createTweetPollBean.tweetQuestion}" />
+       <div class="bodyTweet">
+            <h:inputTextarea value="#{createTweetPollBean.tweetQuestion}" rows="3" style="width:80%; font-size:16px;font-weight:bold:" />
        </div>
+       <h:panelGrid columns="2">
+            <h:outputLabel value="Pregunta" />
+            <h:inputText value="" size="50" />
+       </h:panelGrid>
    </ui:define>
 </ui:composition>

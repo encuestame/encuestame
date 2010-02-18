@@ -75,4 +75,9 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
+    <bean id="tweetPollDao" class="org.encuestame.core.persistence.dao.TweetPollDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
 </beans>
