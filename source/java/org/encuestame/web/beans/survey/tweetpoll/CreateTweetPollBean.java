@@ -24,7 +24,7 @@ import twitter4j.Status;
  * Create Tweet Poll.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 13, 2010 11:36:48 PM
- * @version $Id: $
+ * @version $Id$
  */
 public class CreateTweetPollBean extends MasterBean {
 

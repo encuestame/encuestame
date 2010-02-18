@@ -23,7 +23,7 @@ import org.encuestame.web.beans.survey.UnitQuestionBean;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 14, 2010 10:00:58 AM
- * @version $Id: $
+ * @version $Id$
  */
 public class UnitTweetPoll {
 

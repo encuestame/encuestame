@@ -17,7 +17,7 @@ package org.encuestame.web.beans.login;
  * Register Bean
  * @author Picado, Juan juan@encuestame.org
  * @since 18/12/2009 23:58:53
- * @version $Id: $
+ * @version $Id$
  */
 public class RegisterSecurityBean {
 

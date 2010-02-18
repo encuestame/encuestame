@@ -25,7 +25,7 @@ import org.hibernate.criterion.Restrictions;
  * {@link Client} Dao.
  * @author Picado, Juan juan@encuestame.org
  * @since January 24, 2010
- * @version $Id: CatStateDaoImp.java 329 2009-12-24 05:34:41Z dianmorales $
+ * @version $Id$
  */
 public class ClientDao extends AbstractHibernateDaoSupport implements IClientDao {
 

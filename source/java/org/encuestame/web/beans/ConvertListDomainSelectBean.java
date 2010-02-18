@@ -32,7 +32,7 @@ import org.encuestame.core.service.util.ConvertDomainBean;
  * Convert List of Domains to {@link SelectItem} List.
  * @author Picado, Juan juan@encuestame.org
  * @since Jan 25, 2010 1:14:11 AM
- * @version $Id: $
+ * @version $Id$
  */
 public class ConvertListDomainSelectBean {
 

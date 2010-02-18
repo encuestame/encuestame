@@ -24,7 +24,7 @@ import org.junit.Test;
  * Test {@link QuestionDaoImp}.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 14, 2010 12:18:42 AM
- * @version $Id: $
+ * @version $Id$
  */
 public class TestQuestionDao extends AbstractBaseTest{
 

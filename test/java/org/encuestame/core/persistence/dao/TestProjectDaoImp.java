@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * ProjectDaoImp.
  * @author Morales, Diana Paola paola@encuestame.org
  * @since 16/12/2009
- * @version $Id: $
+ * @version $Id$
  **/
 public class TestProjectDaoImp extends AbstractBaseTest{
 

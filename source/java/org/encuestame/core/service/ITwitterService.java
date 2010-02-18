@@ -24,7 +24,7 @@ import twitter4j.TwitterException;
  * Twitter Service Interface.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 13, 2010 4:07:14 PM
- * @version $Id: $
+ * @version $Id$
  */
 public interface ITwitterService extends IService{
 

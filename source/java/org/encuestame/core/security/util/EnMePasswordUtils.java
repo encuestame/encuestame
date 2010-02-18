@@ -19,7 +19,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
  * Password Utils.
  * @author Picado, Juan juan@encuestame.org
  * @since 19/12/2009 22:37:32
- * @version $Id: $
+ * @version $Id$
  */
 public class EnMePasswordUtils {
 

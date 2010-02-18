@@ -22,7 +22,7 @@ import org.hibernate.HibernateException;
  * Clien Interfaces.
  * @author Picado, Juan juan@encuestame.org
  * @since Jan 24, 2010 4:27:52 PM
- * @version $Id: $
+ * @version $Id$
  */
 public interface IClientDao extends IBaseDao {
 

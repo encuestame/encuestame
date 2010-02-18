@@ -23,7 +23,7 @@ import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
  * Session Filter in View
  * @author Picado, Juan juan@encuestame.org
  * @since 20/12/2009 15:20:19
- * @version $Id: $
+ * @version $Id$
  */
 public class SessionFilter extends OpenSessionInViewFilter {
 
