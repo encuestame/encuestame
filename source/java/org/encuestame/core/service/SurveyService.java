@@ -105,7 +105,7 @@ public class SurveyService extends Service implements ISurveyService {
     public UnitTweetPoll createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
-            final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getQuestionId());
+            final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
             if(question == null){
                 throw new EnMeExpcetion("question not found");
             }
@@ -120,7 +120,8 @@ public class SurveyService extends Service implements ISurveyService {
             tweetPollDomain.setStartDateTweet(tweetPollBean.getStartDateTweet());
             getTweetPollDao().saveOrUpdate(tweetPollDomain);
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
-        }catch (Exception e) {
+        }
+        catch (Exception e) {
            throw new EnMeExpcetion(e);
         }
         return tweetPollBean;
@@ -192,7 +193,7 @@ public class SurveyService extends Service implements ISurveyService {
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
-                    q.setIdState(questions.getCatState().getIdState());
+                    q.setStateId(questions.getCatState().getIdState());
                     listQuestionBean.add(q);
                 }
             }

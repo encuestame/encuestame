@@ -12,8 +12,8 @@
  */
 package org.encuestame.web.beans.survey;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.encuestame.web.beans.MasterBean;
 /**
@@ -26,36 +26,72 @@ public class UnitQuestionBean extends MasterBean {
 
 
     private String questionName;
+
     /**
      *
      */
     private String version;
+
     /**
      *
      */
-    private UnitPatternBean pattern;
+    private UnitPatternBean pattern = new UnitPatternBean();
+
     /**
      *
      */
-    private Long idState;
+    private Long stateId;
+
     /**
      *
      */
     private Long id;
-    /**
-     *
-     */
-    private Collection<UnitAnswersBean> listAnswers = new LinkedList<UnitAnswersBean>();
 
     /**
      *
      */
+    private List<UnitAnswersBean> listAnswers = new ArrayList<UnitAnswersBean>();
 
-    public UnitQuestionBean() {
-        pattern = new UnitPatternBean();
+    /**
+     * Constructor.
+     */
+    public UnitQuestionBean() {  }
+    /**
+     * @return the questionName
+     */
+    public String getQuestionName() {
+        return questionName;
     }
-
-
+    /**
+     * @param questionName the questionName to set
+     */
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName;
+    }
+    /**
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
+    }
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(String version) {
+        this.version = version;
+    }
+    /**
+     * @return the pattern
+     */
+    public UnitPatternBean getPattern() {
+        return pattern;
+    }
+    /**
+     * @param pattern the pattern to set
+     */
+    public void setPattern(UnitPatternBean pattern) {
+        this.pattern = pattern;
+    }
 
     /**
      * @return the id
@@ -63,82 +99,34 @@ public class UnitQuestionBean extends MasterBean {
     public Long getId() {
         return id;
     }
-
-
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
-
-
-    /**
-     * @return the questionName
-     */
-    public String getQuestionName() {
-        return questionName;
-    }
-
-    /**
-     * @param questionName
-     *            the questionName to set
-     */
-    public void setQuestionName(String questionName) {
-        this.questionName = questionName;
-    }
-
-    /**
-     * @return the version
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * @param version
-     *            the version to set
-     */
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public UnitPatternBean getPattern() {
-        return pattern;
-    }
-
-    public void setPattern(UnitPatternBean pattern) {
-        this.pattern = pattern;
-    }
-
-    /**
-     * @return the idState
-     */
-    public Long getIdState() {
-        return idState;
-    }
-
-    /**
-     * @param idState
-     *            the idState to set
-     */
-    public void setIdState(Long idState) {
-        this.idState = idState;
-    }
-
     /**
      * @return the listAnswers
      */
-    public Collection<UnitAnswersBean> getListAnswers() {
+    public List<UnitAnswersBean> getListAnswers() {
         return listAnswers;
     }
-
     /**
-     * @param listAnswers
-     *            the listAnswers to set
+     * @param listAnswers the listAnswers to set
      */
-    public void setListAnswers(Collection<UnitAnswersBean> listAnswers) {
+    public void setListAnswers(final List<UnitAnswersBean> listAnswers) {
         this.listAnswers = listAnswers;
     }
-
+    /**
+     * @return the stateId
+     */
+    public Long getStateId() {
+        return stateId;
+    }
+    /**
+     * @param stateId the stateId to set
+     */
+    public void setStateId(Long stateId) {
+        this.stateId = stateId;
+    }
 }

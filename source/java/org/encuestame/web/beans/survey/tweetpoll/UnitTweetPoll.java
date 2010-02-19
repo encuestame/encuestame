@@ -28,7 +28,7 @@ import org.encuestame.web.beans.survey.UnitQuestionBean;
 public class UnitTweetPoll {
 
     private Long id;
-    private Long questionId;
+    private UnitQuestionBean questionBean;
     private Boolean reportResults;
     private Boolean closeNotification;
     private Long tweetId;
@@ -206,18 +206,16 @@ public class UnitTweetPoll {
     }
 
     /**
-     * @return the questionId
+     * @return the questionBean
      */
-    public Long getQuestionId() {
-        return questionId;
+    public UnitQuestionBean getQuestionBean() {
+        return questionBean;
     }
 
     /**
-     * @param questionId
-     *            the questionId to set
+     * @param questionBean the questionBean to set
      */
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
+    public void setQuestionBean(final UnitQuestionBean questionBean) {
+        this.questionBean = questionBean;
     }
-
 }

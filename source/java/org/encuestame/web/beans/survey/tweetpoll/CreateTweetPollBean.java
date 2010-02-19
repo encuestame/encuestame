@@ -13,10 +13,14 @@
 
 package org.encuestame.web.beans.survey.tweetpoll;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.survey.UnitAnswersBean;
 
 import twitter4j.Status;
 
@@ -28,15 +32,19 @@ import twitter4j.Status;
  */
 public class CreateTweetPollBean extends MasterBean {
 
-
+    /** Tweet Question. **/
     private String tweetQuestion;
+
+    /** {@link UnitTweetPoll}. **/
     private UnitTweetPoll unitTweetPoll;
+
 
     /**
      * Constructor.
      */
     public CreateTweetPollBean() {
     }
+
 
     /**
      * Create Tweet Poll.

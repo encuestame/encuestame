@@ -108,7 +108,7 @@ public class BuildSurveyControllerBean extends MasterBean {
                     question.setQuestionName(getUnitQuestionBean()
                             .getQuestionName());
                     question.setVersion("1");
-                    question.setIdState(2L);
+                    question.setStateId(2L);
                     addInfoMessage("Pregunta Creada", "");
                     questionsList.add(question);
                 } else {

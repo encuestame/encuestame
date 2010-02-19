@@ -150,7 +150,9 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
        createQuestionAnswer("yes", question);
        createQuestionAnswer("no", question);
        final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
-       tweetPollBean.setQuestionId(question.getQid());
+       final UnitQuestionBean questionBean = new UnitQuestionBean();
+       questionBean.setId(question.getQid());
+       tweetPollBean.setQuestionBean(questionBean);
        tweetPollBean.setPublishPoll(true);
        tweetPollBean.setStartDateTweet(new Date());
        tweetPollBean.setEndDateTweet(new Date());
