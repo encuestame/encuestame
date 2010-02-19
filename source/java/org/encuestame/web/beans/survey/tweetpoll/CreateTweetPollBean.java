@@ -14,7 +14,6 @@
 package org.encuestame.web.beans.survey.tweetpoll;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -33,17 +32,17 @@ import twitter4j.Status;
  */
 public class CreateTweetPollBean extends MasterBean {
 
-    /** Tweet Question. **/
-    private String tweetQuestion;
-
     /** {@link UnitTweetPoll}. **/
-    private UnitTweetPoll unitTweetPoll;
+    private UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
 
     /** {@link UnitAnswersBean}. **/
     private UnitAnswersBean answersBean = new UnitAnswersBean();
 
     /** {@link UnitQuestionBean}. **/
     private UnitQuestionBean questionBean = new UnitQuestionBean();
+
+    /** Resume Tweet. **/
+    private String resumeTweet;
 
     /**
      * Constructor.
@@ -55,7 +54,14 @@ public class CreateTweetPollBean extends MasterBean {
      * Save Question.
      */
     public void saveQuestion(){
-        getUnitTweetPoll().setQuestionBean(questionBean);
+        try{
+            log.info("Question Name "+questionBean.getQuestionName());
+            getUnitTweetPoll().setQuestionBean(questionBean);
+            addInfoMessage("Question Saved.", "");
+        }catch (Exception e) {
+            addErrorMessage("Error save question", "");
+            log.error(e);
+        }
     }
 
     /**
@@ -73,6 +79,20 @@ public class CreateTweetPollBean extends MasterBean {
             }
         }catch (Exception e) {
             addErrorMessage("error to add answer", "");
+            log.error(e);
+        }
+    }
+
+    /**
+     * Delete All Answers.
+     */
+    public void deleteAllAnswers(){
+        try{
+            getUnitTweetPoll().getQuestionBean().setListAnswers(new ArrayList<UnitAnswersBean>());
+            addInfoMessage("Answer Cleared.", "");
+        }catch (Exception e) {
+            addErrorMessage("error to add answer", "");
+            log.error(e);
         }
     }
 
@@ -111,27 +131,14 @@ public class CreateTweetPollBean extends MasterBean {
         //if(siz)
 
 
-        return tweetQuestion;
-    }
-
-    /**
-     * @return the tweetQuestion
-     */
-    public String getTweetQuestion() {
-        return tweetQuestion;
-    }
-
-    /**
-     * @param tweetQuestion the tweetQuestion to set
-     */
-    public void setTweetQuestion(final String tweetQuestion) {
-        this.tweetQuestion = tweetQuestion;
+        return null;
     }
 
     /**
      * @return the unitTweetPoll
      */
     public UnitTweetPoll getUnitTweetPoll() {
+        log.info("info question "+unitTweetPoll.getQuestionBean().getQuestionName());
         return unitTweetPoll;
     }
 
@@ -168,5 +175,19 @@ public class CreateTweetPollBean extends MasterBean {
      */
     public void setQuestionBean(final UnitQuestionBean questionBean) {
         this.questionBean = questionBean;
+    }
+
+    /**
+     * @return the resumeTweet
+     */
+    public String getResumeTweet() {
+        return resumeTweet;
+    }
+
+    /**
+     * @param resumeTweet the resumeTweet to set
+     */
+    public void setResumeTweet(final String resumeTweet) {
+        this.resumeTweet = resumeTweet;
     }
 }

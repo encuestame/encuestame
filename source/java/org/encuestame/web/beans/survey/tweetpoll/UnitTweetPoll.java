@@ -28,7 +28,7 @@ import org.encuestame.web.beans.survey.UnitQuestionBean;
 public class UnitTweetPoll {
 
     private Long id;
-    private UnitQuestionBean questionBean;
+    private UnitQuestionBean questionBean = new UnitQuestionBean();
     private Boolean reportResults;
     private Boolean closeNotification;
     private Long tweetId;

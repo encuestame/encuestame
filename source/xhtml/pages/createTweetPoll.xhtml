@@ -22,12 +22,43 @@
     </a4j:form>
    </ui:define>
    <ui:define name="bodyOptions">
-       <div class="bodyTweet">
-            <h:inputTextarea value="#{createTweetPollBean.tweetQuestion}" rows="3" style="width:80%; font-size:16px;font-weight:bold:" />
-       </div>
-       <h:panelGrid columns="2">
-            <h:outputLabel value="Pregunta" />
-            <h:inputText value="" size="50" />
-       </h:panelGrid>
-   </ui:define>
+        <a4j:form id="formBody">
+            <rich:messages errorClass="error" infoClass="info"
+                warnClass="war"></rich:messages>
+            <div class="bodyTweet"><h:inputTextarea
+                id="questionResume"
+                value="#{createTweetPollBean.unitTweetPoll.questionBean.questionName}"
+                rows="3"
+                style="width:80%; font-size:16px;font-weight:bold:" />
+            </div>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Pregunta" />
+                <h:inputText
+                    value="#{createTweetPollBean.questionBean.questionName}"
+                    size="50" />
+            </h:panelGrid>
+            <a4j:commandButton
+                action="#{createTweetPollBean.saveQuestion}"
+                value="Save Question" reRender="questionResume"></a4j:commandButton>
+
+            <h2>List Of Answers</h2>
+            <a4j:repeat
+                value="#{createTweetPollBean.unitTweetPoll.questionBean.listAnswers}"
+                var="answer" id="answerList">
+                <ul>
+                    <li><h:outputText value="#{answer.answers}" /></li>
+                </ul>
+            </a4j:repeat>
+            <h:panelGrid columns="2" id="answerFormGrid">
+                <h:outputLabel value="Respuesta" />
+                <h:inputText
+                    value="#{createTweetPollBean.answersBean.answers}"
+                    size="50" />
+            </h:panelGrid>
+            <a4j:commandButton action="#{createTweetPollBean.addAnswer}"
+                value="Add Answer" reRender="formBody"></a4j:commandButton>
+                <a4j:commandButton action="#{createTweetPollBean.deleteAllAnswers}"
+                value="Delete All Answers" reRender="formBody"></a4j:commandButton>
+        </a4j:form>
+    </ui:define>
 </ui:composition>
