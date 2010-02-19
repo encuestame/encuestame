@@ -112,6 +112,10 @@
 
     <bean id="createTweetPollBean" class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
           scope="session">
+         <property name="servicemanagerBean" ref="servicesManager" />
+           <property name="countTweet">
+           <value>140</value>
+        </property>
     </bean>
 
     <!--

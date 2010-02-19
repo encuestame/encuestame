@@ -29,7 +29,7 @@ import twitter4j.TwitterException;
  * Twitter Service.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 13, 2010 4:07:03 PM
- * @version $Id:$
+ * @version $Id$
  */
 public class TwitterService extends Service implements ITwitterService {
 

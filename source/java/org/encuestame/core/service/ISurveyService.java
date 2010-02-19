@@ -93,4 +93,10 @@ public interface ISurveyService extends IService {
      * @throws EnMeExpcetion exception
      */
     public String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion;
+
+    /**
+     * Getter {@link TwitterService}.
+     * @return the twitterService
+     */
+    public ITwitterService getTwitterService();
 }

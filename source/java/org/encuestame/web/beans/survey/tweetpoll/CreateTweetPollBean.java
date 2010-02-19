@@ -44,6 +44,9 @@ public class CreateTweetPollBean extends MasterBean {
     /** Resume Tweet. **/
     private String resumeTweet;
 
+    /** Count Tweet. **/
+    private Integer countTweet;
+
     /**
      * Constructor.
      */
@@ -58,9 +61,37 @@ public class CreateTweetPollBean extends MasterBean {
             log.info("Question Name "+questionBean.getQuestionName());
             getUnitTweetPoll().setQuestionBean(questionBean);
             addInfoMessage("Question Saved.", "");
+            setResumeTweet(this.questionBean.getQuestionName());
+            //TODO: refresh url
         }catch (Exception e) {
             addErrorMessage("Error save question", "");
             log.error(e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create Short Sumilate Url.
+     * @param answer answer
+     */
+    public void createShortSimulateUrl(final UnitAnswersBean answer){
+        try{
+            final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
+            log.info("survey service "+survey);
+            final String url = survey.getTwitterService().getTinyUrl("http://www.google.es");
+            log.info("tiny url "+url);
+            StringBuffer answerString = new StringBuffer(getResumeTweet());
+            answerString.append(" ");
+            answerString.append(answer.getAnswers());
+            answerString.append(" ");
+            answerString.append(url);
+            log.info("answerString "+answerString);
+            setResumeTweet(answerString.toString());
+        }
+        catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            addErrorMessage("Error to create Short Simulate Url", "");
         }
     }
 
@@ -71,6 +102,7 @@ public class CreateTweetPollBean extends MasterBean {
         try{
             if(getUnitTweetPoll().getQuestionBean() !=null){
                 getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
+                createShortSimulateUrl(getAnswersBean());
                 setAnswersBean(new UnitAnswersBean());
                 addInfoMessage("Answer Added", "");
             }
@@ -80,6 +112,7 @@ public class CreateTweetPollBean extends MasterBean {
         }catch (Exception e) {
             addErrorMessage("error to add answer", "");
             log.error(e);
+            e.printStackTrace();
         }
     }
 
@@ -117,6 +150,7 @@ public class CreateTweetPollBean extends MasterBean {
         }catch (EnMeExpcetion e) {
             addErrorMessage("error "+e, "");
             log.error(e);
+            e.printStackTrace();
         }
     }
 
@@ -138,7 +172,6 @@ public class CreateTweetPollBean extends MasterBean {
      * @return the unitTweetPoll
      */
     public UnitTweetPoll getUnitTweetPoll() {
-        log.info("info question "+unitTweetPoll.getQuestionBean().getQuestionName());
         return unitTweetPoll;
     }
 
@@ -188,6 +221,30 @@ public class CreateTweetPollBean extends MasterBean {
      * @param resumeTweet the resumeTweet to set
      */
     public void setResumeTweet(final String resumeTweet) {
+        this.updateCount(resumeTweet);
         this.resumeTweet = resumeTweet;
+    }
+
+    /**
+     * Update Count.
+     * @param resumeTweet
+     */
+    private void updateCount(final String resumeTweet){
+        final Integer tweetLenght = resumeTweet.length();
+        setCountTweet(getCountTweet() - tweetLenght);
+    }
+
+    /**
+     * @return the countTweet
+     */
+    public Integer getCountTweet() {
+        return countTweet;
+    }
+
+    /**
+     * @param countTweet the countTweet to set
+     */
+    public void setCountTweet(Integer countTweet) {
+        this.countTweet = countTweet;
     }
 }

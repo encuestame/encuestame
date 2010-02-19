@@ -25,11 +25,13 @@
         <a4j:form id="formBody">
             <rich:messages errorClass="error" infoClass="info"
                 warnClass="war"></rich:messages>
-            <div class="bodyTweet"><h:inputTextarea
+            <div class="bodyTweet">
+                <h:inputTextarea
                 id="questionResume"
-                value="#{createTweetPollBean.unitTweetPoll.questionBean.questionName}"
+                value="#{createTweetPollBean.resumeTweet}"
                 rows="3"
                 style="width:80%; font-size:16px;font-weight:bold:" />
+                <h:inputText value="#{createTweetPollBean.countTweet}" />
             </div>
             <h:panelGrid columns="2">
                 <h:outputLabel value="Pregunta" />
