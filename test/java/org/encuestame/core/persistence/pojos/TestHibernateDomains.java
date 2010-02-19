@@ -159,6 +159,7 @@ public class TestHibernateDomains extends AbstractBaseTest{
         final QuestionsAnswers questionsAns = new QuestionsAnswers();
         questionsAns.setQuestions(createQuestion("how old are you", "textbox"));
         questionsAns.setAnswer("25");
+        questionsAns.setUniqueAnserHash("");
         getQuestionDaoImp().saveOrUpdate(questionsAns);
         assertNotNull(questionsAns.getQuestionAnswerId());
     }

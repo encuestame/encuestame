@@ -29,6 +29,7 @@ import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
@@ -98,14 +99,43 @@ public class SurveyService extends Service implements ISurveyService {
     }
 
     /**
+     * Create Question.
+     * @param questionBean {@link UnitQuestionBean}.
+     */
+    public void createQuestion(final UnitQuestionBean questionBean){
+            try{
+                final Questions questions = new Questions();
+                questions.setQuestion(questionBean.getQuestionName());
+                questions.setSecUsersQuestion(getUserDaoImp().getUserById(questionBean.getUserId()));
+                questions.setQidKey("12345");
+                questions.setSharedQuestion(false);
+                getQuestionDaoImp().saveOrUpdate(questions);
+                questionBean.setId(questions.getQid());
+                for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
+                     final QuestionsAnswers answer = new QuestionsAnswers();
+                     answer.setQuestions(questions);
+                     answer.setAnswer(answerBean.getAnswers());
+                     answer.setUniqueAnserHash(answerBean.getAnswerHash());
+                     getQuestionDaoImp().saveOrUpdate(answer);
+                     answerBean.setAnswerId(answer.getQuestionAnswerId());
+                }
+            }
+            catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+    }
+
+    /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    public UnitTweetPoll createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
+    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
             final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
+            log.info("question found "+question);
             if(question == null){
                 throw new EnMeExpcetion("question not found");
             }
@@ -113,7 +143,7 @@ public class SurveyService extends Service implements ISurveyService {
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
             tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPollDomain.setEndDateTweet(tweetPollBean.getEndDateTweet());
-            tweetPollDomain.setCompleted(tweetPollBean.getCompleted());
+            tweetPollDomain.setCompleted(false);
             tweetPollDomain.setTweetOwner(getUserDaoImp().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
@@ -124,7 +154,6 @@ public class SurveyService extends Service implements ISurveyService {
         catch (Exception e) {
            throw new EnMeExpcetion(e);
         }
-        return tweetPollBean;
     }
 
     /**

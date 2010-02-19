@@ -59,8 +59,10 @@
             </h:panelGrid>
             <a4j:commandButton action="#{createTweetPollBean.addAnswer}"
                 value="Add Answer" reRender="formBody"></a4j:commandButton>
-                <a4j:commandButton action="#{createTweetPollBean.deleteAllAnswers}"
-                value="Delete All Answers" reRender="formBody"></a4j:commandButton>
+            <a4j:commandButton action="#{createTweetPollBean.deleteAllAnswers}"
+            value="Delete All Answers" reRender="formBody"></a4j:commandButton>
+             <a4j:commandButton action="#{createTweetPollBean.createTweetPoll}"
+                value="Save Tweet Poll" reRender="formBody"></a4j:commandButton>
         </a4j:form>
     </ui:define>
 </ui:composition>

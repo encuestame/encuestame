@@ -46,12 +46,15 @@ public class QuestionsAnswers {
     public Long getQuestionAnswerId() {
         return questionAnswerId;
     }
+
     /**
-     * @param questionAnswerId the questionAnswerId to set
+     * @param questionAnswerId
+     *            the questionAnswerId to set
      */
     public void setQuestionAnswerId(Long questionAnswerId) {
         this.questionAnswerId = questionAnswerId;
     }
+
     /**
      * @return the questions
      */
@@ -60,32 +63,42 @@ public class QuestionsAnswers {
     public Questions getQuestions() {
         return questions;
     }
+
     /**
-     * @param questions the questions to set
+     * @param questions
+     *            the questions to set
      */
     public void setQuestions(Questions questions) {
         this.questions = questions;
     }
+
     /**
      * @return the answer
      */
+    @Column(name = "answer")
     public String getAnswer() {
         return answer;
     }
+
     /**
-     * @param answer the answer to set
+     * @param answer
+     *            the answer to set
      */
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
     /**
      * @return the uniqueAnserHash
      */
+    @Column(name = "answer_hash", nullable = true)
     public String getUniqueAnserHash() {
         return uniqueAnserHash;
     }
+
     /**
-     * @param uniqueAnserHash the uniqueAnserHash to set
+     * @param uniqueAnserHash
+     *            the uniqueAnserHash to set
      */
     public void setUniqueAnserHash(final String uniqueAnserHash) {
         this.uniqueAnserHash = uniqueAnserHash;

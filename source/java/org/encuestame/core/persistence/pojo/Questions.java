@@ -68,7 +68,7 @@ public class Questions {
      * @return catState
      */
     @ManyToOne()
-    @JoinColumn(name = "id_state", nullable = false)
+    @JoinColumn(name = "id_state", nullable = true)
     public CatState getCatState() {
         return this.catState;
     }
@@ -132,7 +132,7 @@ public class Questions {
      * @return the questionPattern
      */
     @ManyToOne()
-    @JoinColumn(name = "id_question_pattern", nullable = false)
+    @JoinColumn(name = "id_question_pattern", nullable = true)
     public QuestionPattern getQuestionPattern() {
         return questionPattern;
     }

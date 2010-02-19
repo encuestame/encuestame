@@ -158,8 +158,8 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
        tweetPollBean.setEndDateTweet(new Date());
        tweetPollBean.setCompleted(false);
        tweetPollBean.setUserId(this.user.getUid());
-       final UnitTweetPoll d = this.surveyService.createTweetPoll(tweetPollBean);
-       final String s = this.surveyService.generateTweetPollText(d);
+       this.surveyService.createTweetPoll(tweetPollBean);
+       final String s = this.surveyService.generateTweetPollText(tweetPollBean);
        final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
        assertNotNull(status.getId());
     }

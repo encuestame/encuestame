@@ -81,10 +81,9 @@ public interface ISurveyService extends IService {
     /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
-     * @return {@link UnitTweetPoll}
      * @throws EnMeExpcetion exception
      */
-    public UnitTweetPoll createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
+    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
 
     /**
      * Generate TweetPoll Text.
@@ -99,4 +98,10 @@ public interface ISurveyService extends IService {
      * @return the twitterService
      */
     public ITwitterService getTwitterService();
+
+    /**
+     * Create Question.
+     * @param questionBean {@link UnitQuestionBean}.
+     */
+    public void createQuestion(final UnitQuestionBean questionBean);
 }

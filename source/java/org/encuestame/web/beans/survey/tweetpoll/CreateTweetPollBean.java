@@ -14,6 +14,7 @@
 package org.encuestame.web.beans.survey.tweetpoll;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -59,6 +60,7 @@ public class CreateTweetPollBean extends MasterBean {
     public void saveQuestion(){
         try{
             log.info("Question Name "+questionBean.getQuestionName());
+            this.questionBean.setUserId(getUsernameByName().getSecUser().getUid());
             getUnitTweetPoll().setQuestionBean(questionBean);
             addInfoMessage("Question Saved.", "");
             setResumeTweet(this.questionBean.getQuestionName());
@@ -135,14 +137,26 @@ public class CreateTweetPollBean extends MasterBean {
     public void createTweetPoll(){
         final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
         try{
-           final UnitTweetPoll savedTweetPoll =  survey.createTweetPoll(getUnitTweetPoll());
-           if(savedTweetPoll.getPublishPoll()){
-               final String tweet = survey.generateTweetPollText(savedTweetPoll);
+          //save question
+           survey.createQuestion(getUnitTweetPoll().getQuestionBean());
+            //save create tweet poll
+           getUnitTweetPoll().setUserId(getUsernameByName().getSecUser().getUid());
+           getUnitTweetPoll().setPublishPoll(true);
+           getUnitTweetPoll().setStartDateTweet(new Date());
+           getUnitTweetPoll().setEndDateTweet(new Date());
+           getUnitTweetPoll().setCloseNotification(false);
+           getUnitTweetPoll().setReportResults(false);
+           getUnitTweetPoll().setResultNotification(false);
+
+           survey.createTweetPoll(getUnitTweetPoll());
+           if(getUnitTweetPoll().getPublishPoll()){
+               final String tweet = survey.generateTweetPollText(getUnitTweetPoll());
                final SecUsers sessionUser = getUsernameByName().getSecUser();
                final Status status = survey.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
                final Long tweetId = status.getId();
                if(tweetId != null){
                    //TODO: update tweet id.
+                   log.info("tweeted :"+tweetId);
                }
            }
             addInfoMessage("tweet poll message", "");

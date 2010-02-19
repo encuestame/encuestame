@@ -16,14 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.web.beans.MasterBean;
+
 /**
  * Unit Question Bean.
+ *
  * @author Picado, Juan juan@encuestame.org
  * @since 01/06/2009 15:22:10
  * @version $Id$
  **/
 public class UnitQuestionBean extends MasterBean {
-
 
     private String questionName;
 
@@ -48,6 +49,11 @@ public class UnitQuestionBean extends MasterBean {
     private Long id;
 
     /**
+     * User Id.
+     */
+    private Long userId;
+
+    /**
      *
      */
     private List<UnitAnswersBean> listAnswers = new ArrayList<UnitAnswersBean>();
@@ -55,39 +61,49 @@ public class UnitQuestionBean extends MasterBean {
     /**
      * Constructor.
      */
-    public UnitQuestionBean() {  }
+    public UnitQuestionBean() {
+    }
+
     /**
      * @return the questionName
      */
     public String getQuestionName() {
         return questionName;
     }
+
     /**
-     * @param questionName the questionName to set
+     * @param questionName
+     *            the questionName to set
      */
     public void setQuestionName(String questionName) {
         this.questionName = questionName;
     }
+
     /**
      * @return the version
      */
     public String getVersion() {
         return version;
     }
+
     /**
-     * @param version the version to set
+     * @param version
+     *            the version to set
      */
     public void setVersion(String version) {
         this.version = version;
     }
+
     /**
      * @return the pattern
      */
     public UnitPatternBean getPattern() {
         return pattern;
     }
+
     /**
-     * @param pattern the pattern to set
+     * @param pattern
+     *            the pattern to set
      */
     public void setPattern(UnitPatternBean pattern) {
         this.pattern = pattern;
@@ -99,34 +115,58 @@ public class UnitQuestionBean extends MasterBean {
     public Long getId() {
         return id;
     }
+
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public void setId(final Long id) {
         this.id = id;
     }
+
     /**
      * @return the listAnswers
      */
     public List<UnitAnswersBean> getListAnswers() {
         return listAnswers;
     }
+
     /**
-     * @param listAnswers the listAnswers to set
+     * @param listAnswers
+     *            the listAnswers to set
      */
     public void setListAnswers(final List<UnitAnswersBean> listAnswers) {
         this.listAnswers = listAnswers;
     }
+
     /**
      * @return the stateId
      */
     public Long getStateId() {
         return stateId;
     }
+
     /**
-     * @param stateId the stateId to set
+     * @param stateId
+     *            the stateId to set
      */
     public void setStateId(Long stateId) {
         this.stateId = stateId;
     }
+
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
 }
