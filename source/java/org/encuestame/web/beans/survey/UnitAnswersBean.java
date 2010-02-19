@@ -12,42 +12,85 @@
  */
 package org.encuestame.web.beans.survey;
 
-import org.encuestame.web.beans.MasterBean;
 /**
  * Unit Answers Bean.
+ *
  * @author Picado, Juan Carlos juan@encuestame.org
  * @since 01/06/2009 15:24:16
  * @version $Id$
  */
-public class UnitAnswersBean extends MasterBean {
 
-    public Integer id;
+public class UnitAnswersBean {
+
+    /** Answer Id. **/
+    public Long answerId;
+
+    /** Answer. **/
     public String answers;
+
+    /** Answer Hash. **/
+    public String answerHash;
+
+    /** Question Id. **/
+    public Long questionId;
+
     /**
-     * @return the id
+     * @return the answerId
      */
-    public Integer getId() {
-        return id;
+    public Long getAnswerId() {
+        return answerId;
     }
+
     /**
-     * @param id the id to set
+     * @param answerId
+     *            the answerId to set
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAnswerId(final Long answerId) {
+        this.answerId = answerId;
     }
+
     /**
      * @return the answers
      */
     public String getAnswers() {
         return answers;
     }
+
     /**
-     * @param answers the answers to set
+     * @param answers
+     *            the answers to set
      */
-    public void setAnswers(String answers) {
+    public void setAnswers(final String answers) {
         this.answers = answers;
     }
 
+    /**
+     * @return the answerHash
+     */
+    public String getAnswerHash() {
+        return answerHash;
+    }
 
+    /**
+     * @param answerHash
+     *            the answerHash to set
+     */
+    public void setAnswerHash(final String answerHash) {
+        this.answerHash = answerHash;
+    }
 
+    /**
+     * @return the questionId
+     */
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    /**
+     * @param questionId
+     *            the questionId to set
+     */
+    public void setQuestionId(final Long questionId) {
+        this.questionId = questionId;
+    }
 }
