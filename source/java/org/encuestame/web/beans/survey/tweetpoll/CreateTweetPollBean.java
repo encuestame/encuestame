@@ -21,6 +21,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.web.beans.MasterBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
+import org.encuestame.web.beans.survey.UnitQuestionBean;
 
 import twitter4j.Status;
 
@@ -38,6 +39,11 @@ public class CreateTweetPollBean extends MasterBean {
     /** {@link UnitTweetPoll}. **/
     private UnitTweetPoll unitTweetPoll;
 
+    /** {@link UnitAnswersBean}. **/
+    private UnitAnswersBean answersBean = new UnitAnswersBean();
+
+    /** {@link UnitQuestionBean}. **/
+    private UnitQuestionBean questionBean = new UnitQuestionBean();
 
     /**
      * Constructor.
@@ -45,6 +51,30 @@ public class CreateTweetPollBean extends MasterBean {
     public CreateTweetPollBean() {
     }
 
+    /**
+     * Save Question.
+     */
+    public void saveQuestion(){
+        getUnitTweetPoll().setQuestionBean(questionBean);
+    }
+
+    /**
+     * Add answer to question.
+     **/
+    public void addAnswer(){
+        try{
+            if(getUnitTweetPoll().getQuestionBean() !=null){
+                getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
+                setAnswersBean(new UnitAnswersBean());
+                addInfoMessage("Answer Added", "");
+            }
+            else{
+                addWarningMessage("You need create question first.", "");
+            }
+        }catch (Exception e) {
+            addErrorMessage("error to add answer", "");
+        }
+    }
 
     /**
      * Create Tweet Poll.
@@ -108,7 +138,35 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * @param unitTweetPoll the unitTweetPoll to set
      */
-    public void setUnitTweetPoll(UnitTweetPoll unitTweetPoll) {
+    public void setUnitTweetPoll(final UnitTweetPoll unitTweetPoll) {
         this.unitTweetPoll = unitTweetPoll;
+    }
+
+    /**
+     * @return the answersBean
+     */
+    public UnitAnswersBean getAnswersBean() {
+        return answersBean;
+    }
+
+    /**
+     * @param answersBean the answersBean to set
+     */
+    public void setAnswersBean(final UnitAnswersBean answersBean) {
+        this.answersBean = answersBean;
+    }
+
+    /**
+     * @return the questionBean
+     */
+    public UnitQuestionBean getQuestionBean() {
+        return questionBean;
+    }
+
+    /**
+     * @param questionBean the questionBean to set
+     */
+    public void setQuestionBean(final UnitQuestionBean questionBean) {
+        this.questionBean = questionBean;
     }
 }
