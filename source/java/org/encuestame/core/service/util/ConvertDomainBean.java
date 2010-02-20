@@ -18,16 +18,22 @@ import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.encuestame.web.beans.location.UnitLocationBean;
 import org.encuestame.web.beans.location.UnitLocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
+import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
+import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
 
 /**
  * Convert Domain to  Beans.
@@ -150,6 +156,51 @@ public class ConvertDomainBean {
         return patterBean;
     }
 
+    /**
+     * Convert {@link Questions} to {@link UnitQuestionBean}.
+     * @param questions {@link Questions}
+     * @return {@link UnitQuestionBean}
+     */
+    public static UnitQuestionBean convertQuestionsToBean(final Questions questions){
+        final UnitQuestionBean questionBean = new UnitQuestionBean();
+        questionBean.setId(questions.getQid());
+        questionBean.setQuestionName(questions.getQuestion());
+        questionBean.setUserId(questions.getSecUsersQuestion().getUid());
+        questionBean.setStateId(questions.getCatState() == null ? null : questions.getCatState().getIdState());
+        return questionBean;
+    }
 
+    /**
+     * Convert {@link QuestionsAnswers} to {@link UnitAnswersBean}.
+     * @param questionsAnswers {@link QuestionsAnswers}
+     * @return {@link UnitAnswersBean}.
+     */
+    public static UnitAnswersBean convertAnswerToBean(final QuestionsAnswers questionsAnswers){
+            final UnitAnswersBean answersBean = new UnitAnswersBean();
+            answersBean.setAnswerId(questionsAnswers.getQuestionAnswerId());
+            answersBean.setAnswers(questionsAnswers.getAnswer());
+            answersBean.setAnswerHash(questionsAnswers.getUniqueAnserHash());
+            return answersBean;
+    }
 
+    /**
+     * Convert {@link TweetPoll} to {@link UnitTweetPoll}.
+     * @param poll tweet poll.
+     * @return {@link UnitTweetPoll}
+     */
+    public static UnitTweetPoll convertTweetPollToBean(final TweetPoll poll){
+        final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+        unitTweetPoll.setId(poll.getTweetPollId());
+        unitTweetPoll.setTweetId(poll.getTweetId());
+        unitTweetPoll.setEndDateTweet(poll.getEndDateTweet());
+        unitTweetPoll.setStartDateTweet(poll.getStartDateTweet());
+        unitTweetPoll.setPublicationDateTweet(poll.getPublicationDateTweet());
+        unitTweetPoll.setPublishPoll(poll.getPublishTweetPoll());
+        unitTweetPoll.setResultNotification(poll.getResultNotification());
+        unitTweetPoll.setUserId(poll.getTweetOwner().getUid());
+        unitTweetPoll.setCloseNotification(poll.getCloseNotification());
+        unitTweetPoll.setCompleted(poll.getCompleted());
+        unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
+        return unitTweetPoll;
+    }
 }

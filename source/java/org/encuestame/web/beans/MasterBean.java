@@ -37,12 +37,18 @@ public class MasterBean {
 
     /** {@link ApplicationContext}. **/
     private ApplicationContext appContext;
+
     /** {@link ServiceManager} **/
     protected IServiceManager servicemanager;
+
     /** Log. **/
     protected Log log = LogFactory.getLog(this.getClass());
+
     @Deprecated
     protected boolean isOneRow;
+
+    /** User Session Id. **/
+    protected Long userSessionId;
 
     /** Obtain {@link SecurityContext}.**/
     private SecurityContext secCtx;
@@ -50,7 +56,16 @@ public class MasterBean {
     /**
      * Constructor.
      */
-    public MasterBean() {}
+    public MasterBean() {
+      // this.userSessionId =  this.getUsernameByName().getSecUser().getUid();
+    }
+
+    /**
+     * Get User Session Id.
+     */
+    protected Long getUserSessionId(){
+        return this.userSessionId;
+    }
 
     /**
      * Description.

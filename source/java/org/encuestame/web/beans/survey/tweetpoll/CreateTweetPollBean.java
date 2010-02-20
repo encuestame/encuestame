@@ -170,20 +170,6 @@ public class CreateTweetPollBean extends MasterBean {
     }
 
     /**
-     *
-     * @return
-     */
-    private String buildTweetQuestion(){
-        //retrieve question
-        //final String tweetQuestion = getUnitTweetPoll().getTweetPoll().getQuestionName();
-        //final List<UnitAnswersBean> answers = getUnitTweetPoll().getAnswers();
-        //if(siz)
-
-
-        return null;
-    }
-
-    /**
      * @return the unitTweetPoll
      */
     public UnitTweetPoll getUnitTweetPoll() {

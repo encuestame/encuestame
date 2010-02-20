@@ -13,6 +13,8 @@
 
 package org.encuestame.core.persistence.dao.imp;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.hibernate.HibernateException;
@@ -32,6 +34,13 @@ public interface ITweetPoll extends IBaseDao{
      * @return {@link TweetPoll}
      * @throws HibernateException exception
      */
-    public TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
+    TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
+
+    /**
+     * Retrieve Tweets Poll by User Id.
+     * @param userId userId
+     * @return list of tweet pools.
+     */
+     List<TweetPoll> retrieveTweetsByUserId(final Long userId);
 
 }

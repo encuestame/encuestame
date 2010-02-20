@@ -24,7 +24,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 01/06/2009 15:22:10
  * @version $Id$
  **/
-public class UnitQuestionBean extends MasterBean {
+public class UnitQuestionBean {
 
     private String questionName;
 

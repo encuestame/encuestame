@@ -22,6 +22,56 @@
     </a4j:form>
    </ui:define>
    <ui:define name="bodyOptions">
-       <rich:editor></rich:editor>
+    <a4j:form>
+        <rich:messages errorClass="error" infoClass="info" warnClass="war"></rich:messages>
+        <rich:dataTable  var="item" value="#{tweetPolls.listTweets}"  binding="#{tweetPolls.tweetDataTable}"  width="100%">
+             <f:facet name="header">
+              <rich:columnGroup>
+                <rich:column width="20px">
+                  <h:selectBooleanCheckbox />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="Id" />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="Question" />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="Publicada" />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="Fecha Publicada" />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="Completada" />
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="TwitterId" />
+                </rich:column>
+              </rich:columnGroup>
+            </f:facet>
+            <rich:column>
+                 <h:selectBooleanCheckbox />
+            </rich:column>
+            <rich:column>
+                <h:outputText  value="#{item.id}"/>
+            </rich:column>
+            <rich:column>
+                <h:outputText  value="#{item.questionBean.questionName}"/>
+            </rich:column>
+            <rich:column>
+                <h:outputText  value="#{item.publishPoll}"/>
+            </rich:column>
+            <rich:column>
+                <h:outputText  value="#{item.publicationDateTweet}"/>
+            </rich:column>
+            <rich:column>
+                <h:outputText  value="#{item.completed}"/>
+            </rich:column>
+            <rich:column>
+                <h:outputText  value="#{item.tweetId}"/>
+            </rich:column>
+        </rich:dataTable>
+    </a4j:form>
    </ui:define>
 </ui:composition>

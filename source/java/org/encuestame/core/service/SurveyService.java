@@ -13,6 +13,7 @@
 package org.encuestame.core.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +29,8 @@ import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.web.beans.ConvertListDomainSelectBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
@@ -123,6 +126,20 @@ public class SurveyService extends Service implements ISurveyService {
                 log.error(e);
                 e.printStackTrace();
             }
+    }
+
+    /**
+     * Get Tweet Polls by User Id.
+     * @param userId user Id.
+     * @return list of Tweet polls bean
+     */
+    public List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId){
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(userId);
+        final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
+        for (TweetPoll tweetPoll : tweetPolls) {
+             tweetPollsBean.add(ConvertDomainBean.convertTweetPollToBean(tweetPoll));
+        }
+        return tweetPollsBean;
     }
 
     /**

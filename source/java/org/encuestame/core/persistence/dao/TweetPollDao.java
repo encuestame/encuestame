@@ -13,6 +13,8 @@
 
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.hibernate.HibernateException;
@@ -21,7 +23,7 @@ import org.hibernate.HibernateException;
  * TweetPoll Dao Implementation.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 17, 2010 8:26:57 PM
- * @version $Id:$
+ * @version $Id$
  */
 public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetPoll{
 
@@ -33,5 +35,15 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     public TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException {
         return (TweetPoll) getHibernateTemplate().get(TweetPoll.class, tweetPollId);
-}
+    }
+
+    /**
+     * Retrieve Tweets Poll by User Id.
+     * @param userId userId
+     * @return list of tweet pools.
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> retrieveTweetsByUserId(final Long userId){
+        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId", "userId", userId);
+    }
 }
