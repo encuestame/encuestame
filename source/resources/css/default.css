@@ -149,3 +149,7 @@ p.ideasBox {
     border-bottom: 1px solid #fa9a50;
     color: #b87b4d;
 }
+
+.yui-dt table{
+    width: 100%;
+}

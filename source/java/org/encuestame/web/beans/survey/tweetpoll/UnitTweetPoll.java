@@ -13,7 +13,9 @@
 
 package org.encuestame.web.beans.survey.tweetpoll;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
@@ -39,6 +41,17 @@ public class UnitTweetPoll {
     private Date publicationDateTweet;
     private Boolean completed;
     private Long userId;
+
+    private List<ResumeResultTweetPoll> results = new ArrayList<ResumeResultTweetPoll>();
+
+    /**
+     * Constructor.
+     */
+    public UnitTweetPoll() {
+        getResults().add(new ResumeResultTweetPoll("A", 50));
+        getResults().add(new ResumeResultTweetPoll("B", 150));
+        getResults().add(new ResumeResultTweetPoll("C", 23));
+    }
 
     /**
      * @return the id
@@ -217,5 +230,19 @@ public class UnitTweetPoll {
      */
     public void setQuestionBean(final UnitQuestionBean questionBean) {
         this.questionBean = questionBean;
+    }
+
+    /**
+     * @return the results
+     */
+    public List<ResumeResultTweetPoll> getResults() {
+        return results;
+    }
+
+    /**
+     * @param results the results to set
+     */
+    public void setResults(List<ResumeResultTweetPoll> results) {
+        this.results = results;
     }
 }

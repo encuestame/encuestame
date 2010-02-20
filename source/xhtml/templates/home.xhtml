@@ -6,7 +6,8 @@
     xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
     xmlns:rich="http://richfaces.ajax4jsf.org/rich"
     xmlns:c="http://java.sun.com/jstl/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.prime.com.tr/ui">
 <a4j:loadBundle basename="messages" var="temp" />
 <a4j:loadStyle src="/css/default.css" type="text/css"></a4j:loadStyle>
  <ui:insert name="css"></ui:insert>
@@ -17,6 +18,7 @@
     </title>
     <ui:insert name="javascript"></ui:insert>
     <ui:insert name="googleMaps"></ui:insert>
+    <p:resources />
 </head>
 <body>
     <ui:include src="/templates/includes/header.xhtml" />

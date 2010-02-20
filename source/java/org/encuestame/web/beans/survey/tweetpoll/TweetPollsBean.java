@@ -38,6 +38,9 @@ public class TweetPollsBean extends MasterBean {
     /** List Tweets. **/
     public List<UnitTweetPoll> listTweets = new ArrayList<UnitTweetPoll>();
 
+    /** Selected {@link UnitTweetPoll}. **/
+    public UnitTweetPoll selectedTweetPoll = new UnitTweetPoll();
+
     /**
      *
      */
@@ -45,7 +48,8 @@ public class TweetPollsBean extends MasterBean {
         try {
             this.listTweets = getServicemanager().getApplicationServices()
                     .getSecurityService().getSurveyService()
-                    .getTweetsPollsByUserId(getUsernameByName().getSecUser().getUid());
+                    .getTweetsPollsByUserId(
+                            getUsernameByName().getSecUser().getUid());
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
@@ -71,9 +75,10 @@ public class TweetPollsBean extends MasterBean {
     /**
      * See Details.
      */
-    public void seeDetails(){
-        final UnitTweetPoll item = (UnitTweetPoll) getTweetDataTable().getRowData();
-     }
+    public void seeDetails() {
+        final UnitTweetPoll item = (UnitTweetPoll) getTweetDataTable()
+                .getRowData();
+    }
 
     /**
      * @return the tweetDataTable
@@ -88,6 +93,21 @@ public class TweetPollsBean extends MasterBean {
      */
     public void setTweetDataTable(final HtmlDataTable tweetDataTable) {
         this.tweetDataTable = tweetDataTable;
+    }
+
+    /**
+     * @return the selectedTweetPoll
+     */
+    public UnitTweetPoll getSelectedTweetPoll() {
+        return selectedTweetPoll;
+    }
+
+    /**
+     * @param selectedTweetPoll
+     *            the selectedTweetPoll to set
+     */
+    public void setSelectedTweetPoll(final UnitTweetPoll selectedTweetPoll) {
+        this.selectedTweetPoll = selectedTweetPoll;
     }
 
 }
