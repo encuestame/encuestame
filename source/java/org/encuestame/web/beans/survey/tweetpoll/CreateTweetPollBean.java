@@ -155,7 +155,8 @@ public class CreateTweetPollBean extends MasterBean {
                final Status status = survey.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
                final Long tweetId = status.getId();
                if(tweetId != null){
-                   //TODO: update tweet id.
+                   getUnitTweetPoll().setTweetId(tweetId);
+                   survey.saveTweetId(getUnitTweetPoll());
                    log.info("tweeted :"+tweetId);
                }
            }

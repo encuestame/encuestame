@@ -39,7 +39,7 @@ public interface ISurveyService extends IService {
      * @return List of {@link UnitQuestionBean}
      * @throws EnMeExpcetion exception
      */
-    public List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion;
+    List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion;
 
     /**
      * Load pattern info.
@@ -47,7 +47,7 @@ public interface ISurveyService extends IService {
      * @return {@link UnitPatternBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
+    UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
     throws EnMeExpcetion;
 
     /**
@@ -55,18 +55,18 @@ public interface ISurveyService extends IService {
      * @return List of {@link UnitPatternBean}
      * @throws EnMeExpcetion exception
      */
-    public Collection<UnitPatternBean> loadAllPatrons()
+    Collection<UnitPatternBean> loadAllPatrons()
     throws EnMeExpcetion;
 
     /**
      * @param serviceMail serviceMail
      */
-    public void setServiceMail(MailServiceImpl serviceMail);
+    void setServiceMail(MailServiceImpl serviceMail);
 
     /**
      * @return serviceMail
      */
-    public MailServiceImpl getServiceMail();
+    MailServiceImpl getServiceMail();
 
     /**
      * Public Tweet Poll.
@@ -76,14 +76,14 @@ public interface ISurveyService extends IService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion;
+    Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion;
 
     /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
+    void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
 
     /**
      * Generate TweetPoll Text.
@@ -91,17 +91,25 @@ public interface ISurveyService extends IService {
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    public String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion;
+    String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion;
 
     /**
      * Getter {@link TwitterService}.
      * @return the twitterService
      */
-    public ITwitterService getTwitterService();
+     ITwitterService getTwitterService();
 
     /**
      * Create Question.
      * @param questionBean {@link UnitQuestionBean}.
      */
-    public void createQuestion(final UnitQuestionBean questionBean);
+     void createQuestion(final UnitQuestionBean questionBean);
+
+
+    /**
+     * Save Tweet Id.
+     * @param tweetPollBean {@link UnitTweetPoll}
+     * @throws EnMeExpcetion exception
+     */
+    void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
 }

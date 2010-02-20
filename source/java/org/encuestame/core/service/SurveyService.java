@@ -24,10 +24,9 @@ import org.encuestame.core.persistence.dao.QuestionDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.SurveyDaoImp;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
@@ -124,6 +123,21 @@ public class SurveyService extends Service implements ISurveyService {
                 log.error(e);
                 e.printStackTrace();
             }
+    }
+
+    /**
+     * Save Tweet Id.
+     * @param tweetPollBean {@link UnitTweetPoll}
+     * @throws EnMeExpcetion exception
+     */
+    public void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
+        if(tweetPoll != null){
+            tweetPoll.setTweetId(tweetPollBean.getTweetId());
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        }else{
+            throw new EnMeExpcetion("tweet poll not found");
+        }
     }
 
     /**
