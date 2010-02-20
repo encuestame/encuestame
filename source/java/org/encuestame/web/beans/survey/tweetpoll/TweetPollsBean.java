@@ -41,6 +41,9 @@ public class TweetPollsBean extends MasterBean {
     /** Selected {@link UnitTweetPoll}. **/
     public UnitTweetPoll selectedTweetPoll = new UnitTweetPoll();
 
+    /** Edit Answer. **/
+    private Boolean editAnswer = false;
+
     /**
      *
      */
@@ -54,6 +57,15 @@ public class TweetPollsBean extends MasterBean {
             log.error(e);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Change Edit.
+     */
+    public void changeEdit(){
+         log.info("edit before "+this.editAnswer);
+         this.editAnswer = !this.editAnswer;
+         log.info("edit after "+this.editAnswer);
     }
 
     /**
@@ -110,4 +122,17 @@ public class TweetPollsBean extends MasterBean {
         this.selectedTweetPoll = selectedTweetPoll;
     }
 
+    /**
+     * @return the editAnswer
+     */
+    public Boolean getEditAnswer() {
+        return editAnswer;
+    }
+
+    /**
+     * @param editAnswer the editAnswer to set
+     */
+    public void setEditAnswer(final Boolean editAnswer) {
+        this.editAnswer = editAnswer;
+    }
 }

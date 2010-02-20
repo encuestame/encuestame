@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 
 /**
@@ -41,6 +40,10 @@ public class UnitTweetPoll {
     private Date publicationDateTweet;
     private Boolean completed;
     private Long userId;
+
+    private String tweetUrl;
+
+    private final String TWITER__STATUS_URL = "http://www.twitter.com/";
 
     private List<ResumeResultTweetPoll> results = new ArrayList<ResumeResultTweetPoll>();
 
@@ -244,5 +247,23 @@ public class UnitTweetPoll {
      */
     public void setResults(List<ResumeResultTweetPoll> results) {
         this.results = results;
+    }
+
+    /**
+     * @return the tweetUrl
+     */
+    public String getTweetUrl() {
+        final StringBuffer tweetUrlString = new StringBuffer(this.TWITER__STATUS_URL);
+        tweetUrlString.append("todo");
+        tweetUrlString.append("/status/");
+        tweetUrlString.append(getTweetId());
+        return tweetUrl = tweetUrlString.toString();
+    }
+
+    /**
+     * @param tweetUrl the tweetUrl to set
+     */
+    public void setTweetUrl(String tweetUrl) {
+        this.tweetUrl = tweetUrl;
     }
 }

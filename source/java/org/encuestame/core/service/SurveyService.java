@@ -137,9 +137,25 @@ public class SurveyService extends Service implements ISurveyService {
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(userId);
         final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
         for (TweetPoll tweetPoll : tweetPolls) {
-             tweetPollsBean.add(ConvertDomainBean.convertTweetPollToBean(tweetPoll));
+            final UnitTweetPoll unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
+             unitTweetPoll.getQuestionBean().setListAnswers(this.retrieveAnswerByQuestionId(unitTweetPoll.getQuestionBean().getId()));
+             tweetPollsBean.add(unitTweetPoll);
         }
         return tweetPollsBean;
+    }
+
+    /**
+     * Retrieve Answer By Question Id.
+     * @param questionId question Id
+     * @return List of Answers
+     */
+    public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
+        final List<QuestionsAnswers> answers = this.getQuestionDaoImp().getAnswersByQuestionId(questionId);
+        final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
+        for (QuestionsAnswers questionsAnswers : answers) {
+            answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
+        }
+        return answersBean;
     }
 
     /**
@@ -151,6 +167,7 @@ public class SurveyService extends Service implements ISurveyService {
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
         if(tweetPoll != null){
             tweetPoll.setTweetId(tweetPollBean.getTweetId());
+            tweetPoll.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }else{
             throw new EnMeExpcetion("tweet poll not found");

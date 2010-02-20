@@ -153,3 +153,10 @@ p.ideasBox {
 .yui-dt table{
     width: 100%;
 }
+
+.twitterButton{
+    background: transparent url("../images/twitter-button.gif");
+    background-repeat: no-repeat;
+    width: 46px;
+    height: 46px;
+}

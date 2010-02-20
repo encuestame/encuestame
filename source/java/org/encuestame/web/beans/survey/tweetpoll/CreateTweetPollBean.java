@@ -156,6 +156,7 @@ public class CreateTweetPollBean extends MasterBean {
                final Long tweetId = status.getId();
                if(tweetId != null){
                    getUnitTweetPoll().setTweetId(tweetId);
+                   getUnitTweetPoll().setPublicationDateTweet(status.getCreatedAt());
                    survey.saveTweetId(getUnitTweetPoll());
                    log.info("tweeted :"+tweetId);
                }
