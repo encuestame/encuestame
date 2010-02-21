@@ -125,6 +125,11 @@
          <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
+    <bean id="tweetPollCredentialsBean" class="org.encuestame.web.beans.survey.tweetpoll.TweetPollCredentialsBean"
+          scope="session">
+         <property name="servicemanagerBean" ref="servicesManager" />
+    </bean>
+
     <!--
         Login Bean. Inject authenticationManager to login form and servicesManager.
         this is a request bean.
