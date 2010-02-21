@@ -33,8 +33,8 @@ INSERT INTO `sec_permission` (`id_permission`, `permission`, `description`) VALU
 (2, 'ENCUESTAME_ADMIN', 'ENCUESTAME_ADMIN');
 
 
-INSERT INTO `sec_user` (`uid`) VALUES
-(1);
+INSERT INTO `sec_user` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`, `twitter_account`, `twitter_password`, `twitter_pin`) VALUES
+(1, 'nFboU4T1Zhv8cqMC4cP0ug', 'GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0', 'testEncuesta', 'testEncuesta123', 4189783);
 
 -- demo pass encrypt: 12345
 INSERT INTO `sec_user_secondary` (`uid`, `name`, `date_new`, `invite_code`, `owner`, `password`, `publisher`, `email`, `status`, `twitter`, `username`, `secUser_uid`) VALUES

@@ -19,6 +19,7 @@ import org.apache.commons.httpclient.HttpException;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.http.RequestToken;
 
 /**
  * Twitter Service Interface.
@@ -36,7 +37,7 @@ public interface ITwitterService extends IService{
      * @throws IOException IOException
      * @throws HttpException HttpExceptio
      */
-    public String getTinyUrl(final String url) throws HttpException, IOException;
+    String getTinyUrl(final String url) throws HttpException, IOException;
 
     /**
      * Public Tweet.
@@ -46,5 +47,16 @@ public interface ITwitterService extends IService{
      * @return {@link Status}
      * @throws TwitterException twitter exception
      */
-    public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException;
+    Status publicTweet(final String username, final String password, final String tweet) throws TwitterException;
+
+
+    /**
+     * Get Twitter Ping.
+     * @param consumerKey consumer key
+     * @param consumerSecret consumer secret
+     * @return {@link RequestToken}
+     * @throws TwitterException exception
+     */
+    RequestToken getTwitterPing(String consumerKey, String consumerSecret)
+            throws TwitterException;
 }

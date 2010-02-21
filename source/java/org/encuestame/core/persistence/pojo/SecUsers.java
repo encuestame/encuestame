@@ -34,10 +34,24 @@ import javax.persistence.Table;
 @Table(name = "sec_user")
 public class SecUsers{
 
-
+    /** User Id. **/
     private Long uid;
+
+    /** Twitter Account. **/
     private String twitterAccount;
+
+    /** Twitter Password .**/
     private String twitterPassword;
+
+    /** Consumer Key. **/
+    private String consumerKey;
+
+    /** Consumer Secret. **/
+    private String consumerSecret;
+
+    /** Twitter Pin. **/
+    private Integer twitterPing;
+
 /*
     private Set<CatLocationUser> catLocationUsers = new HashSet<CatLocationUser>(
             0);
@@ -68,7 +82,7 @@ public class SecUsers{
     /**
      * @return the twitterAccount
      */
-    @Column(name = "twitter_account", nullable = false, length = 18)
+    @Column(name = "twitter_account", nullable = true, length = 18)
     public String getTwitterAccount() {
         return twitterAccount;
     }
@@ -83,7 +97,7 @@ public class SecUsers{
     /**
      * @return the twitterPassword
      */
-    @Column(name = "twitter_password", nullable = false, length = 18)
+    @Column(name = "twitter_password", nullable = true, length = 18)
     public String getTwitterPassword() {
         return twitterPassword;
     }
@@ -93,5 +107,50 @@ public class SecUsers{
      */
     public void setTwitterPassword(final String twitterPassword) {
         this.twitterPassword = twitterPassword;
+    }
+
+    /**
+     * @return the consumerKey
+     */
+    @Column(name = "twitter_consumer_key", nullable = true)
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    /**
+     * @param consumerKey the consumerKey to set
+     */
+    public void setConsumerKey(String consumerKey) {
+        this.consumerKey = consumerKey;
+    }
+
+    /**
+     * @return the consumerSecret
+     */
+    @Column(name = "twitter_consumer_secret", nullable = true)
+    public String getConsumerSecret() {
+        return consumerSecret;
+    }
+
+    /**
+     * @param consumerSecret the consumerSecret to set
+     */
+    public void setConsumerSecret(String consumerSecret) {
+        this.consumerSecret = consumerSecret;
+    }
+
+    /**
+     * @return the twitterPing
+     */
+    @Column(name = "twitter_pin", nullable = true)
+    public Integer getTwitterPing() {
+        return twitterPing;
+    }
+
+    /**
+     * @param twitterPing the twitterPing to set
+     */
+    public void setTwitterPing(Integer twitterPing) {
+        this.twitterPing = twitterPing;
     }
 }

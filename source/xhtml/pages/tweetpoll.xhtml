@@ -22,9 +22,9 @@
         </h:form>
     </ui:define>
     <ui:define name="bodyOptions">
-        <h:form>
+        <h:form id="tweetPollTable">
             <p:messages showDetail="true" />
-            <p:dataTable var="item" id="tweetPollTable" value="#{tweetPolls.listTweets}"
+            <p:dataTable var="item"  value="#{tweetPolls.listTweets}"
                 paginator="true" rows="20" width="100%"
                 selection="#{tweetPolls.selectedTweetPoll}"
                 selectionMode="single" update="tabDialogView"
@@ -69,15 +69,14 @@
                 <p:tabView id="tabDialogView">
                     <p:tab title="Details">
                         <h:form style="padding:20px;" id="detailsForm">
-                            <h:outputText value="#{tweetPolls.selectedTweetPoll.questionBean.questionName}"  style="font-size:16px;font-weight:bold;"/>
-
                             <p:messages showDetail="true" showSummary="true">
                                 <p:effect type="pulsate" event="load">
                                   <f:param name="times" value="2" />
                                 </p:effect>
                             </p:messages>
-
                             <ui:fragment rendered="#{tweetPolls.selectedTweetPoll.publishPoll}">
+                                <h:outputText value="#{tweetPolls.selectedTweetPoll.questionBean.questionName}"
+                                               style="font-size:16px;font-weight:bold;"/>
                                 <h:panelGrid columns="2" cellpadding="2" cellspacing="2">
                                     <h:outputText value="Fecha Publicado" />
                                     <h:outputText value="#{tweetPolls.selectedTweetPoll.publicationDateTweet}" />
@@ -87,13 +86,11 @@
                                     </h:outputLink>
                                 </h:panelGrid>
                             </ui:fragment>
-
                             <ui:fragment rendered="#{!tweetPolls.selectedTweetPoll.publishPoll}">
                             <h:panelGrid columns="2" cellpadding="2" cellspacing="3">
                                 <h:outputLabel value="Question"/>
-                                <h:inputText value="#{tweetPolls.selectedTweetPoll.questionBean.questionName}" />
+                                <h:inputText value="#{tweetPolls.selectedTweetPoll.questionBean.questionName}" size="40" />
                                 <h:outputLabel value="Allow Live Results"/>
-
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="2" cellspacing="2">
                                 <p:commandLink value="Change Answers" action="#{tweetPolls.changeEdit}" update="detailsForm"/>
@@ -104,7 +101,7 @@
                                                 <h:outputLabel value="Answer"/>
                                                 <h:inputText value="#{answer.answers}">
                                                     <a4j:support event="onchange" action="#{tweetPolls.saveAnswer}"
-                                                         reRender="detailsMessages, detailsForm">
+                                                         reRender="detailsForm">
                                                         <a4j:actionparam name="answerId" value="#{answer.answerId}"
                                                          assignTo="#{tweetPolls.answerIdUpdate}"></a4j:actionparam>
                                                     </a4j:support>
@@ -112,15 +109,21 @@
                                              </h:panelGrid>
                                      </a4j:repeat>
                                 </ui:fragment>
-                                <p:commandButton value="Publish TweetPoll" action="#{tweetPolls.saveChanges}"/>
-                                <p:commandButton value="Save Changes" action="#{tweetPolls.publishTweet}"/>
+                                <a4j:commandButton value="Publish TweetPoll" action="#{tweetPolls.publishTweet}"  reRender="detailsForm, tweetPollTable"/>
+                                <a4j:commandButton value="Save Changes" action="#{tweetPolls.saveChanges}"  reRender="detailsForm"/>
+                                <h:panelGrid columns="1" cellpadding="2" cellspacing="2">
+                                     <a4j:status>
+                                        <f:facet name="start">
+                                            <h:graphicImage  value="../images/ajax-loader.gif"/>
+                                        </f:facet>
+                                     </a4j:status>
+                                 </h:panelGrid>
                             </ui:fragment>
-
                          </h:form>
                     </p:tab>
-                    <p:tab title="Results" rendered="#{tweetPolls.selectedTweetPoll.publishPoll}">
-                     <p:pieChart id="display" value="#{tweetPolls.selectedTweetPoll.results}" var="tweet" categoryField=" #{tweet.label}"
-                                  dataField="#{tweet.result}" />
+                    <p:tab title="Results">
+                    <p:pieChart id="display" value="#{tweetPolls.selectedTweetPoll.results}" var="tweet" categoryField=" #{tweet.label}"
+                                dataField="#{tweet.result}" />
                      </p:tab>
                     <p:tab title="Retweets">
                     </p:tab>

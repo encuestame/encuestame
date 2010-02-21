@@ -20,10 +20,12 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.junit.runner.Request;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.http.RequestToken;
 
 /**
  * Twitter Service.
@@ -72,6 +74,25 @@ public class TwitterService extends Service implements ITwitterService {
         return twitter.updateStatus(tweet);
     }
 
+    /**
+     * Get Twitter Ping.
+     * @param consumerKey consumer key
+     * @param consumerSecret consumer secret
+     * @return {@link RequestToken}
+     * @throws TwitterException exception
+     */
+    public RequestToken getTwitterPing(String consumerKey, String consumerSecret)
+            throws TwitterException {
+        if (consumerKey == null) {
+            throw new IllegalArgumentException("Consumer key is missing");
+        }
+        if (consumerSecret == null) {
+            throw new IllegalArgumentException("Consumer secret is missing");
+        }
+        final Twitter twitter = new Twitter();
+        twitter.setOAuthConsumer(consumerKey, consumerSecret);
+        return twitter.getOAuthRequestToken();
+    }
 
     /**
      * @return the tinyApi

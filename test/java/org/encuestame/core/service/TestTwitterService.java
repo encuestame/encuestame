@@ -24,13 +24,15 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import twitter4j.Status;
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.http.RequestToken;
 
 /**
  * {@link TwitterService} test case.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 13, 2010 5:05:12 PM
- * @version $Id:$
+ * @version $Id$
  */
 public class TestTwitterService extends AbstractBeanBaseTest {
 
@@ -73,6 +75,25 @@ public class TestTwitterService extends AbstractBeanBaseTest {
     }
 
     /**
+     * @throws TwitterException ex
+     *
+     */
+    @Test
+    public void test() throws TwitterException{
+        Twitter twitter = new Twitter();
+        twitter.setOAuthConsumer("nFboU4T1Zhv8cqMC4cP0ug", "GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0");
+        RequestToken twitterRequestToken
+                         = twitter.getOAuthRequestToken();
+        String token = twitterRequestToken.getToken();
+        System.out.println(token);
+        String tokenSecret = twitterRequestToken.getTokenSecret();
+       System.out.println(tokenSecret);
+       String authorizationUrl = twitterRequestToken.
+       getAuthorizationURL();
+       System.out.println(authorizationUrl);
+    }
+
+    /**
      * @return the twitterService
      */
     public ITwitterService getTwitterService() {
@@ -85,8 +106,4 @@ public class TestTwitterService extends AbstractBeanBaseTest {
     public void setTwitterService(ITwitterService twitterService) {
         this.twitterService = twitterService;
     }
-
-
-
-
 }

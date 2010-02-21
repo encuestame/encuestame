@@ -23,6 +23,8 @@ import org.encuestame.web.beans.MasterBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.richfaces.component.html.HtmlDataTable;
 
+import twitter4j.Status;
+
 /**
  * Tweet Polls Bean.
  *
@@ -102,11 +104,31 @@ public class TweetPollsBean extends MasterBean {
      */
     public void publishTweet() {
         try {
+            log.info("loggin tweet");
             final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService()
             .getSurveyService();
             final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll());
-            final SecUsers user = getUsernameByName().getSecUser();
-            survey.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
+            log.info("Largo Tweet"+tweetText.length());
+            log.info( "Tweet a postear ->"+tweetText);
+            if(tweetText.length() < 140){
+                final SecUsers user = getUsernameByName().getSecUser();
+                final Status status = survey.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
+                log.info(status.getId());
+                log.info(status.getCreatedAt());
+                log.info(status.getText());
+                log.info(status.getUser());
+                final Long tweetId = status.getId();
+                if(tweetId != null){
+                    getSelectedTweetPoll().setTweetId(tweetId);
+                    getSelectedTweetPoll().setPublicationDateTweet(status.getCreatedAt());
+                    survey.saveTweetId(getSelectedTweetPoll());
+                    log.info("tweeted :"+tweetId);
+                }
+                getSelectedTweetPoll().setPublishPoll(Boolean.TRUE);
+                addInfoMessage("TweetPoll Posted", shortLongString(tweetText));
+            }else{
+                addWarningMessage("Exceded 140 characters", "You need shorten your tweet");
+            }
         } catch (EnMeExpcetion e) {
             addErrorMessage("Error Publishing Tweet Poll", e.getMessage());
             e.printStackTrace();

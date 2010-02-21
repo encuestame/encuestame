@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -54,6 +55,9 @@ public class MasterBean {
 
     /** Obtain {@link SecurityContext}.**/
     private SecurityContext secCtx;
+
+    /** Short Number String. **/
+    private Integer shortNumberString = 30;
 
     /**
      * Constructor.
@@ -179,6 +183,15 @@ public class MasterBean {
     }
 
     /**
+     * Short Long String.
+     * @param string string to abbreviate
+     * @return abrreviate string.
+     */
+    public String shortLongString(final String string){
+        return StringUtils.abbreviate(string, getShortNumberString());
+    }
+
+    /**
      * Get Username.
      * @return username
      */
@@ -232,4 +245,20 @@ public class MasterBean {
     protected ISecurityService getSecurityService(){
         return getServicemanager().getApplicationServices().getSecurityService();
     }
+
+    /**
+     * @return the shortNumberString
+     */
+    public Integer getShortNumberString() {
+        return shortNumberString;
+    }
+
+    /**
+     * @param shortNumberString the shortNumberString to set
+     */
+    public void setShortNumberString(Integer shortNumberString) {
+        this.shortNumberString = shortNumberString;
+    }
+
+
 }

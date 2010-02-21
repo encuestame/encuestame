@@ -168,6 +168,7 @@ public class SurveyService extends Service implements ISurveyService {
         if(tweetPoll != null){
             tweetPoll.setTweetId(tweetPollBean.getTweetId());
             tweetPoll.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
+            tweetPoll.setPublishTweetPoll(Boolean.TRUE);
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }else{
             throw new EnMeExpcetion("tweet poll not found");
@@ -266,6 +267,8 @@ public class SurveyService extends Service implements ISurveyService {
         try {
           return getTwitterService().publicTweet(username, password, tweetText);
         } catch (TwitterException e) {
+            e.printStackTrace();
+            log.error(e);
             throw new EnMeExpcetion(e);
         }
     }
