@@ -152,6 +152,34 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
+     * Update Twitter Account.
+     * @param account account
+     * @param password password
+     * @param secUser {@link SecUsers}
+     */
+    public void updateTwitterAccount(final String account, final String password, final SecUsers secUser){
+        secUser.setTwitterAccount(account);
+        secUser.setTwitterPassword(password);
+        getUserDao().saveOrUpdate(secUser);
+        log.info("update Twitter Account");
+    }
+
+    /**
+     * Update Secret Twitter Credentials.
+     * @param consumerKey consumer key
+     * @param consumerSecret consumer secret
+     * @param pin pin
+     * @param secUser {@link SecUsers}
+     */
+    public void updateSecretTwitterCredentials(final String consumerKey, final String consumerSecret,  final Integer pin, final SecUsers secUser){
+        secUser.setConsumerKey(consumerKey);
+        secUser.setConsumerSecret(consumerSecret);
+        secUser.setTwitterPing(pin);
+        getUserDao().saveOrUpdate(secUser);
+        log.info("update Twitter Account");
+    }
+
+    /**
      * Assing Group to User.
      * @param user user
      * @param group group

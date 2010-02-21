@@ -19,6 +19,7 @@ import org.apache.commons.httpclient.HttpException;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.User;
 import twitter4j.http.RequestToken;
 
 /**
@@ -59,4 +60,13 @@ public interface ITwitterService extends IService{
      */
     RequestToken getTwitterPing(String consumerKey, String consumerSecret)
             throws TwitterException;
+
+    /**
+     * Verify Credentials.
+     * @param username username
+     * @param password password
+     * @return {@link User}
+     * @throws TwitterException exception
+     */
+    User verifyCredentials(final String username, final String password) throws TwitterException;
 }

@@ -24,6 +24,8 @@ import org.encuestame.web.beans.survey.UnitQuestionBean;
 import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
 
 import twitter4j.Status;
+import twitter4j.TwitterException;
+import twitter4j.http.RequestToken;
 
 /**
  * Interface for Survey Service.
@@ -128,4 +130,13 @@ public interface ISurveyService extends IService {
      * @throws EnMeExpcetion exception
      */
     void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion;
+
+    /**
+     * Get Twitter Token.
+     * @param consumerKey consumer key
+     * @param consumerSecret consumer secret
+     * @return {@link RequestToken}
+     * @throws TwitterException exception
+     */
+    RequestToken getTwitterToken(final String consumerKey, final String consumerSecret) throws TwitterException;
 }

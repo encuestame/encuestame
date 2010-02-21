@@ -39,6 +39,7 @@ import org.hibernate.HibernateException;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.http.RequestToken;
 
 /**
  * Survey Service.
@@ -220,6 +221,18 @@ public class SurveyService extends Service implements ISurveyService {
            throw new EnMeExpcetion(e);
         }
     }
+
+    /**
+     * Get Twitter Token.
+     * @param consumerKey consumer key
+     * @param consumerSecret consumer secret
+     * @return {@link RequestToken}
+     * @throws TwitterException exception
+     */
+    public RequestToken getTwitterToken(final String consumerKey,  final String consumerSecret) throws TwitterException{
+            return getTwitterService().getTwitterPing(consumerKey, consumerSecret);
+    }
+
 
     /**
      * Generate TweetPoll Text.

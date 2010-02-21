@@ -24,7 +24,9 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
+import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ServiceManager;
+import org.encuestame.core.service.SurveyService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
@@ -43,6 +45,9 @@ public class MasterBean {
 
     /** {@link ServiceManager} **/
     protected IServiceManager servicemanager;
+
+    /** {@link SurveyService}. **/
+    protected ISurveyService surveyService;
 
     /** Log. **/
     protected Log log = LogFactory.getLog(this.getClass());
@@ -98,22 +103,19 @@ public class MasterBean {
         this.servicemanager = servicemanagerBean;
     }
 
-    protected void init() {
-    }
-
     /**
      * Add message to context.
-     * @param forS forS
+     * @param messageId messageId
      * @param message message
      * @param description description
      * @param severity severity
      */
-    public void showMessage(String forS, String message, String description,
+    public void showMessage(String messageId, String message, String description,
             Severity severity) {
         this.clearMessages();
-        final FacesMessage fm = new FacesMessage(message, description);
-        fm.setSeverity(severity);
-        getFacesContext().addMessage(forS, fm);
+        final FacesMessage facesMessages = new FacesMessage(message, description);
+        facesMessages.setSeverity(severity);
+        getFacesContext().addMessage(messageId, facesMessages);
     }
 
     /**
@@ -196,6 +198,7 @@ public class MasterBean {
      * @return username
      */
     public String getUsername(){
+        log.info("Session Username "+getSecCtx().getAuthentication().getName());
         return getSecCtx().getAuthentication().getName();
     }
 
@@ -256,9 +259,15 @@ public class MasterBean {
     /**
      * @param shortNumberString the shortNumberString to set
      */
-    public void setShortNumberString(Integer shortNumberString) {
+    public void setShortNumberString(final Integer shortNumberString) {
         this.shortNumberString = shortNumberString;
     }
 
-
+    /**
+     * @return the surveyService
+     */
+    public ISurveyService getSurveyService() {
+        surveyService = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
+        return surveyService;
+    }
 }

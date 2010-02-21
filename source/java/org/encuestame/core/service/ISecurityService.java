@@ -25,6 +25,7 @@ import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
 import org.encuestame.web.beans.admon.UnitUserBean;
@@ -43,58 +44,58 @@ public interface ISecurityService extends IService {
      * @return list of users with groups and permission
      * @throws EnMeExpcetion excepcion
      */
-    public List<UnitUserBean> loadListUsers() throws EnMeExpcetion;
+    List<UnitUserBean> loadListUsers() throws EnMeExpcetion;
 
     /**
      * Assing Group to User.
      * @param user user
      * @param group group
      */
-    public void assingGroupToUser(final UnitUserBean user, final UnitGroupBean group);
+    void assingGroupToUser(final UnitUserBean user, final UnitGroupBean group);
 
     /**
      * Search user by username.
      * @param username username
      * @return {@link UnitUserBean}
      */
-    public UnitUserBean searchUserByUsername(final String username);
+    UnitUserBean searchUserByUsername(final String username);
 
     /**
      * Load all list of permisssions and covert to permission bean.
      * @return list of permisssions
      */
-    public Collection<UnitPermission> loadAllListPermission();
+    Collection<UnitPermission> loadAllListPermission();
 
     /**
      * Delete Group Domain.
      * @param group group
      */
-    public void deleteGroup(final UnitGroupBean group);
+    void deleteGroup(final UnitGroupBean group);
 
     /**
      * Convert Group Domain to Group Bean
      * @param groupDomain {@link SecGroups}
      * @return {@link UnitGroupBean}
      */
-    public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain);
+    UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain);
     /**
      * Delete user.
      * @param userBean user to delete
      * @throws EnMeExpcetion exception
      */
-    public void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion;
+     void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion;
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
      * @param newPassword new password
      * @return new password
      */
-    public String renewPassword(final UnitUserBean userBean, final String newPassword);
+    String renewPassword(final UnitUserBean userBean, final String newPassword);
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
      */
-    public void updateGroup(UnitGroupBean groupBean);
+    void updateGroup(UnitGroupBean groupBean);
     /**
      * Update user.
      * @param userBean user bean.
@@ -105,12 +106,12 @@ public interface ISecurityService extends IService {
      * Create a new Group.
      * @param groupBean group bean
      */
-    public void createGroup(final UnitGroupBean groupBean);
+    void createGroup(final UnitGroupBean groupBean);
     /**
      * Create a new Permisssion.
      * @param permissionBean {@link UnitPermission}
      */
-    public void createPermission(final UnitPermission permissionBean);
+    void createPermission(final UnitPermission permissionBean);
     /**
      * Create a user, generate password for user and send email to confirmate
      * the account.
@@ -118,7 +119,7 @@ public interface ISecurityService extends IService {
      * @return password
      * @throws EnMeExpcetion personalize exception
      */
-    public String createUser(final UnitUserBean userBean) throws EnMeExpcetion;
+    String createUser(final UnitUserBean userBean) throws EnMeExpcetion;
 
     /**
      * Assign permission to user.
@@ -126,7 +127,7 @@ public interface ISecurityService extends IService {
      * @param permissionBean {@link UnitPermission}
      * @throws EnMeExpcetion exception
      */
-    public void assignPermission(
+    void assignPermission(
             final UnitUserBean userBean,
             final UnitPermission permissionBean)
             throws EnMeExpcetion;
@@ -148,7 +149,7 @@ public interface ISecurityService extends IService {
      * @return permission bean
      * @throws EnMeExpcetion excepcion
      */
-    public UnitPermission loadBeanPermission(final String permission)
+    UnitPermission loadBeanPermission(final String permission)
     throws EnMeExpcetion;
 
     /**
@@ -156,7 +157,7 @@ public interface ISecurityService extends IService {
      * @param permission permission
      * @return permission domain
      */
-    public SecPermission loadPermission(final String permission);
+    SecPermission loadPermission(final String permission);
 
     /**
      * Invite some users to register in the system.
@@ -164,66 +165,66 @@ public interface ISecurityService extends IService {
      * @param code code
      * @throws Exception excepcion
      */
-    public void inviteUser(String email, String code) throws Exception;
+    void inviteUser(String email, String code) throws Exception;
 
     /**
      * Generate hash code invitation.
      * @return generated code
      */
-    public String generateHashCodeInvitation();
+    String generateHashCodeInvitation();
 
     /**
      * @return {@link MailServiceImpl}.
      */
-    public MailServiceImpl getServiceMail();
+    MailServiceImpl getServiceMail();
 
     /**
      * Getter.
      * @return default user permission.
      */
-    public String getDefaultUserPermission();
+    String getDefaultUserPermission();
 
     /**
      * Getter.
      * @return suspendend notification
      */
-    public Boolean getSuspendedNotification();
+    Boolean getSuspendedNotification();
 
     /**
      * @return the surveyService
      */
-    public SurveyService getSurveyService();
+    SurveyService getSurveyService();
 
     /**
      * Getter.
      * @return {@link SecGroupDaoImp}
      */
-    public SecGroupDaoImp getGroupDao();
+    SecGroupDaoImp getGroupDao();
 
     /**
      * Getter.
      * @return {@link SecPermissionDaoImp}
      */
-    public SecPermissionDaoImp getPermissionDao();
+    SecPermissionDaoImp getPermissionDao();
 
     /**
      * Getter.
      * @return {@link SecUserDaoImp}
      */
-    public SecUserDaoImp getUserDao();
+    SecUserDaoImp getUserDao();
 
     /**
      * Find {@link SecUserSecondary} by UserName
      * @param username user name
      * @return {@link SecUserSecondary}
      */
-    public SecUserSecondary findUserByUserName(final String username);
+    SecUserSecondary findUserByUserName(final String username);
 
     /**
      * Setter.
      * @param suspendedNotification suspended notification
      */
-    public void setSuspendedNotification(final Boolean suspendedNotification);
+    void setSuspendedNotification(final Boolean suspendedNotification);
 
     /**
      * Load {@link SecUserSecondary} on {@link SelectItem}.
@@ -232,5 +233,22 @@ public interface ISecurityService extends IService {
      * @throws EnMeExpcetion exception
      */
      List<SelectItem> loadSelectItemSecondaryUser(final Long userId) throws EnMeExpcetion;
+
+     /**
+      * Update Twitter Account.
+      * @param account account
+      * @param password password
+      * @param secUser {@link SecUsers}
+      */
+     void updateTwitterAccount(final String account, final String password, final SecUsers secUser);
+
+     /**
+      * Update Secret Twitter Credentials.
+      * @param consumerKey consumer key
+      * @param consumerSecret consumer secret
+      * @param pin pin
+      * @param secUser {@link SecUsers}
+      */
+     void updateSecretTwitterCredentials(final String consumerKey, final String consumerSecret, final Integer pin,  final SecUsers secUser);
 
 }

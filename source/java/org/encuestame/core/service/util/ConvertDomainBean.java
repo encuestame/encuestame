@@ -23,9 +23,11 @@ import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.web.beans.admon.UnitGroupBean;
 import org.encuestame.web.beans.admon.UnitPermission;
+import org.encuestame.web.beans.admon.UnitSessionUserBean;
 import org.encuestame.web.beans.admon.UnitUserBean;
 import org.encuestame.web.beans.location.UnitLocationBean;
 import org.encuestame.web.beans.location.UnitLocationTypeBean;
@@ -50,7 +52,7 @@ public class ConvertDomainBean {
      * @param domainUser Domain User
      * @return Bean User
      */
-    public static UnitUserBean convertUserDaoToUserBean(SecUserSecondary domainUser) {
+    public static UnitUserBean convertUserDaoToUserBean(final SecUserSecondary domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
             user.setName(domainUser.getCompleteName());
@@ -66,6 +68,22 @@ public class ConvertDomainBean {
             log.error("error user bean converter -" + e.getMessage());
         }
         return user;
+    }
+
+    /**
+     * Convert {@link SecUsers} to {@link UnitSessionUserBean}.
+     * @param user user
+     * @return {@link UnitSessionUserBean}
+     */
+    public static UnitSessionUserBean convertUserSessionToUserBean(final SecUsers user){
+        final UnitSessionUserBean sessionUserBean =  new UnitSessionUserBean();
+        sessionUserBean.setUserSessionId(user.getUid());
+        sessionUserBean.setConsumerTwitterKey(user.getConsumerKey());
+        sessionUserBean.setConsumerTwitterSecret(user.getConsumerSecret());
+        sessionUserBean.setTwitterPassword(user.getTwitterPassword());
+        sessionUserBean.setTwitterAccount(user.getTwitterAccount());
+        sessionUserBean.setTwitterTwitterPing(user.getTwitterPing());
+        return sessionUserBean;
     }
 
     /**

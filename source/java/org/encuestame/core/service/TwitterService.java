@@ -25,6 +25,7 @@ import org.junit.runner.Request;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.User;
 import twitter4j.http.RequestToken;
 
 /**
@@ -72,6 +73,18 @@ public class TwitterService extends Service implements ITwitterService {
     public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException{
         final Twitter twitter = new Twitter(username, password);
         return twitter.updateStatus(tweet);
+    }
+
+    /**
+     * Verify Credentials.
+     * @param username username
+     * @param password password
+     * @return {@link User}
+     * @throws TwitterException exception
+     */
+    public User verifyCredentials(final String username, final String password) throws TwitterException{
+        final Twitter twitter = new Twitter(username, password);
+        return twitter.verifyCredentials();
     }
 
     /**
