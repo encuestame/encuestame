@@ -120,4 +120,12 @@ public interface ISurveyService extends IService {
      * @return List of Answers
      */
     List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId);
+
+    /**
+     * Update Answer Name by Answer Id.
+     * @param answerId answer Id
+     * @param nameUpdated new name for answer
+     * @throws EnMeExpcetion exception
+     */
+    void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion;
 }

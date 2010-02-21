@@ -175,6 +175,21 @@ public class SurveyService extends Service implements ISurveyService {
     }
 
     /**
+     * Update Answer Name by Answer Id.
+     * @param answerId answer Id
+     * @param nameUpdated new name for answer
+     * @throws EnMeExpcetion exception
+     */
+    public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion{
+            final QuestionsAnswers answer = getQuestionDaoImp().retrieveAnswerById(answerId);
+            if(answer==null){
+                throw new EnMeExpcetion("answer not found");
+            }
+            answer.setAnswer(nameUpdated);
+            getQuestionDaoImp().saveOrUpdate(answer);
+    }
+
+    /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
@@ -190,12 +205,13 @@ public class SurveyService extends Service implements ISurveyService {
             tweetPollDomain.setQuestion(question);
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
             tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
-            tweetPollDomain.setEndDateTweet(tweetPollBean.getEndDateTweet());
             tweetPollDomain.setCompleted(false);
             tweetPollDomain.setTweetOwner(getUserDaoImp().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
-            tweetPollDomain.setStartDateTweet(tweetPollBean.getStartDateTweet());
+            tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
+            tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
+            tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
             getTweetPollDao().saveOrUpdate(tweetPollDomain);
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }

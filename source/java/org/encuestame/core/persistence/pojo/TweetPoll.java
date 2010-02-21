@@ -42,9 +42,10 @@ public class TweetPoll {
     private Long tweetId;
     private Boolean closeNotification;
     private Boolean resultNotification;
+    private Boolean allowLiveResults;
     private Boolean publishTweetPoll;
-    private Date startDateTweet;
-    private Date endDateTweet;
+    private Boolean scheduleTweetPoll;
+    private Date scheduleDate;
     private Date publicationDateTweet;
     private Boolean completed;
     private SecUsers tweetOwner;
@@ -59,12 +60,15 @@ public class TweetPoll {
     public Long getTweetPollId() {
         return tweetPollId;
     }
+
     /**
-     * @param tweetPollId the tweetPollId to set
+     * @param tweetPollId
+     *            the tweetPollId to set
      */
     public void setTweetPollId(Long tweetPollId) {
         this.tweetPollId = tweetPollId;
     }
+
     /**
      * @return the tweetId
      */
@@ -72,12 +76,15 @@ public class TweetPoll {
     public Long getTweetId() {
         return tweetId;
     }
+
     /**
-     * @param tweetId the tweetId to set
+     * @param tweetId
+     *            the tweetId to set
      */
     public void setTweetId(Long tweetId) {
         this.tweetId = tweetId;
     }
+
     /**
      * @return the closeNotification
      */
@@ -85,57 +92,30 @@ public class TweetPoll {
     public Boolean getCloseNotification() {
         return closeNotification;
     }
+
     /**
-     * @param closeNotification the closeNotification to set
+     * @param closeNotification
+     *            the closeNotification to set
      */
     public void setCloseNotification(Boolean closeNotification) {
         this.closeNotification = closeNotification;
     }
+
     /**
      * @return the resultNotification
      */
 
     @Column(name = "result_notification", nullable = true)
-     public Boolean getResultNotification() {
+    public Boolean getResultNotification() {
         return resultNotification;
     }
+
     /**
-     * @param resultNotification the resultNotification to set
+     * @param resultNotification
+     *            the resultNotification to set
      */
     public void setResultNotification(Boolean resultNotification) {
         this.resultNotification = resultNotification;
-    }
-
-    /**
-     * @return the startDateTweet
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date_tweet", nullable = false)
-    public Date getStartDateTweet() {
-        return startDateTweet;
-    }
-
-    /**
-     * @param startDateTweet the startDateTweet to set
-     */
-    public void setStartDateTweet(Date startDateTweet) {
-        this.startDateTweet = startDateTweet;
-    }
-
-    /**
-     * @return the endDateTweet
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date_tweet", nullable = false)
-    public Date getEndDateTweet() {
-        return endDateTweet;
-    }
-
-    /**
-     * @param endDateTweet the endDateTweet to set
-     */
-    public void setEndDateTweet(Date endDateTweet) {
-        this.endDateTweet = endDateTweet;
     }
 
     /**
@@ -148,7 +128,8 @@ public class TweetPoll {
     }
 
     /**
-     * @param publicationDateTweet the publicationDateTweet to set
+     * @param publicationDateTweet
+     *            the publicationDateTweet to set
      */
     public void setPublicationDateTweet(Date publicationDateTweet) {
         this.publicationDateTweet = publicationDateTweet;
@@ -163,11 +144,13 @@ public class TweetPoll {
     }
 
     /**
-     * @param completed the completed to set
+     * @param completed
+     *            the completed to set
      */
     public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
+
     /**
      * @return the tweetOwner
      */
@@ -178,7 +161,8 @@ public class TweetPoll {
     }
 
     /**
-     * @param tweetOwner the tweetOwner to set
+     * @param tweetOwner
+     *            the tweetOwner to set
      */
     public void setTweetOwner(final SecUsers tweetOwner) {
         this.tweetOwner = tweetOwner;
@@ -194,7 +178,8 @@ public class TweetPoll {
     }
 
     /**
-     * @param question the question to set
+     * @param question
+     *            the question to set
      */
     public void setQuestion(final Questions question) {
         this.question = question;
@@ -207,12 +192,61 @@ public class TweetPoll {
     public Boolean getPublishTweetPoll() {
         return publishTweetPoll;
     }
+
     /**
-     * @param publishTweetPoll the publishTweetPoll to set
+     * @param publishTweetPoll
+     *            the publishTweetPoll to set
      */
     public void setPublishTweetPoll(final Boolean publishTweetPoll) {
         this.publishTweetPoll = publishTweetPoll;
     }
 
+    /**
+     * @return the allowLiveResults
+     */
+    @Column(name = "allow_live_results", nullable = true)
+    public Boolean getAllowLiveResults() {
+        return allowLiveResults;
+    }
 
+    /**
+     * @param allowLiveResults
+     *            the allowLiveResults to set
+     */
+    public void setAllowLiveResults(Boolean allowLiveResults) {
+        this.allowLiveResults = allowLiveResults;
+    }
+
+    /**
+     * @return the scheduleTweetPoll
+     */
+    @Column(name = "schedule", nullable = true)
+    public Boolean getScheduleTweetPoll() {
+        return scheduleTweetPoll;
+    }
+
+    /**
+     * @param scheduleTweetPoll
+     *            the scheduleTweetPoll to set
+     */
+    public void setScheduleTweetPoll(Boolean scheduleTweetPoll) {
+        this.scheduleTweetPoll = scheduleTweetPoll;
+    }
+
+    /**
+     * @return the scheduleDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "schedule_date_tweet", nullable = false)
+    public Date getScheduleDate() {
+        return scheduleDate;
+    }
+
+    /**
+     * @param scheduleDate
+     *            the scheduleDate to set
+     */
+    public void setScheduleDate(Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
 }

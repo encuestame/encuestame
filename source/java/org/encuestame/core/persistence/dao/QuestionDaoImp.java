@@ -62,6 +62,15 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     }
 
     /**
+     * Retrieve Answer by Id.
+     * @param answerId answer id
+     * @return {@link QuestionsAnswers}
+     */
+    public QuestionsAnswers retrieveAnswerById(final Long answerId){
+       return (QuestionsAnswers) getHibernateTemplate().get(QuestionsAnswers.class, answerId);
+    }
+
+    /**
      * Get Questions Answer By Question Id.
      * @param questionId question id
      * @return list of answers
@@ -80,7 +89,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     @SuppressWarnings("unchecked")
     public List<Questions> loadAllQuestions() throws HibernateException {
-        return getHibernateTemplate().find("FROM Questions");
+        return getHibernateTemplate().find("from Questions");
     }
 
     /**
@@ -91,7 +100,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     @SuppressWarnings("unchecked")
     public List<QuestionPattern> loadAllQuestionPattern()
             throws HibernateException {
-        return getHibernateTemplate().find("FROM QuestionPattern");
+        return getHibernateTemplate().find("from QuestionPattern");
 
     }
 

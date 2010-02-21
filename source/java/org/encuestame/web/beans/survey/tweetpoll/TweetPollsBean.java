@@ -16,7 +16,11 @@ package org.encuestame.web.beans.survey.tweetpoll;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.service.ISurveyService;
 import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.richfaces.component.html.HtmlDataTable;
 
 /**
@@ -44,6 +48,11 @@ public class TweetPollsBean extends MasterBean {
     /** Edit Answer. **/
     private Boolean editAnswer = false;
 
+    /** Answer Id Update **/
+    private Long answerIdUpdate;
+
+    private String answerName;
+
     /**
      *
      */
@@ -53,6 +62,7 @@ public class TweetPollsBean extends MasterBean {
                     .getSecurityService().getSurveyService()
                     .getTweetsPollsByUserId(
                             getUsernameByName().getSecUser().getUid());
+            log.info("loading tweet polls");
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
@@ -63,9 +73,67 @@ public class TweetPollsBean extends MasterBean {
      * Change Edit.
      */
     public void changeEdit(){
-         log.info("edit before "+this.editAnswer);
          this.editAnswer = !this.editAnswer;
-         log.info("edit after "+this.editAnswer);
+    }
+
+    /**
+     * Save Answer.
+     */
+    public void saveAnswer(){
+        log.info("Answer Id "+getAnswerIdUpdate());
+        getUpdateItem(getAnswerIdUpdate());
+        if(getAnswerIdUpdate() != null && getUpdateItem(getAnswerIdUpdate())!= null){
+            try {
+                getServicemanager().getApplicationServices().getSecurityService().
+                getSurveyService().updateAnswerByAnswerId(getAnswerIdUpdate(), getUpdateItem(getAnswerIdUpdate()));
+                addInfoMessage("Updated Answer", " New name answer update to ["+getUpdateItem(getAnswerIdUpdate())+"]");
+            } catch (EnMeExpcetion e) {
+                log.error(e);
+                e.printStackTrace();
+                addErrorMessage(e.getMessage(), e.getMessage());
+            }
+        }else{
+            addErrorMessage("Can not update Answer", "Can not update Answer");
+        }
+    }
+
+    /**
+     * Publish Tweeter.
+     */
+    public void publishTweet() {
+        try {
+            final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService()
+            .getSurveyService();
+            final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll());
+            final SecUsers user = getUsernameByName().getSecUser();
+            survey.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
+        } catch (EnMeExpcetion e) {
+            addErrorMessage("Error Publishing Tweet Poll", e.getMessage());
+            e.printStackTrace();
+            log.error(e);
+        }
+    }
+
+    /**
+     *
+     */
+    public void saveChanges(){
+
+    }
+
+    /**
+     * Get Update Answer by Id.
+     * @param updateId
+     * @return
+     */
+    private String getUpdateItem(final Long updateId){
+        String updateName = null;
+        for (UnitAnswersBean answer : getSelectedTweetPoll().getQuestionBean().getListAnswers()) {
+            if(answer.getAnswerId().equals(updateId)){
+                 updateName  = answer.getAnswers();
+            }
+        }
+        return updateName;
     }
 
     /**
@@ -135,4 +203,33 @@ public class TweetPollsBean extends MasterBean {
     public void setEditAnswer(final Boolean editAnswer) {
         this.editAnswer = editAnswer;
     }
+
+    /**
+     * @return the answerIdUpdate
+     */
+    public Long getAnswerIdUpdate() {
+        return answerIdUpdate;
+    }
+
+    /**
+     * @param answerIdUpdate the answerIdUpdate to set
+     */
+    public void setAnswerIdUpdate(Long answerIdUpdate) {
+        this.answerIdUpdate = answerIdUpdate;
+    }
+
+    /**
+     * @return the answerName
+     */
+    public String getAnswerName() {
+        return answerName;
+    }
+
+    /**
+     * @param answerName the answerName to set
+     */
+    public void setAnswerName(String answerName) {
+        this.answerName = answerName;
+    }
+
 }

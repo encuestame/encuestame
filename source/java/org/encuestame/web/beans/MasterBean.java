@@ -12,6 +12,8 @@
  */
 package org.encuestame.web.beans;
 
+import java.util.Iterator;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -104,10 +106,20 @@ public class MasterBean {
      */
     public void showMessage(String forS, String message, String description,
             Severity severity) {
-        final FacesContext context = FacesContext.getCurrentInstance();
+        this.clearMessages();
         final FacesMessage fm = new FacesMessage(message, description);
         fm.setSeverity(severity);
-        context.addMessage(forS, fm);
+        getFacesContext().addMessage(forS, fm);
+    }
+
+    /**
+     * Clear Messages.
+     */
+    public void clearMessages(){
+        final Iterator iterator = getFacesContext().getMessages();
+        while (iterator.hasNext()) {
+            iterator.remove();
+        }
     }
 
     /**

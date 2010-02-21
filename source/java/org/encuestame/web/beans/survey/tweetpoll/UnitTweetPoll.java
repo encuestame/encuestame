@@ -30,13 +30,13 @@ public class UnitTweetPoll {
 
     private Long id;
     private UnitQuestionBean questionBean = new UnitQuestionBean();
-    private Boolean reportResults;
     private Boolean closeNotification;
     private Long tweetId;
     private Boolean resultNotification;
     private Boolean publishPoll;
-    private Date startDateTweet;
-    private Date endDateTweet;
+    private Date scheduleDate;
+    private Boolean allowLiveResults;
+    private Boolean schedule;
     private Date publicationDateTweet;
     private Boolean completed;
     private Long userId;
@@ -69,21 +69,6 @@ public class UnitTweetPoll {
      */
     public void setId(final Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return the reportResults
-     */
-    public Boolean getReportResults() {
-        return reportResults;
-    }
-
-    /**
-     * @param reportResults
-     *            the reportResults to set
-     */
-    public void setReportResults(final Boolean reportResults) {
-        this.reportResults = reportResults;
     }
 
     /**
@@ -162,36 +147,6 @@ public class UnitTweetPoll {
     }
 
     /**
-     * @return the startDateTweet
-     */
-    public Date getStartDateTweet() {
-        return startDateTweet;
-    }
-
-    /**
-     * @param startDateTweet
-     *            the startDateTweet to set
-     */
-    public void setStartDateTweet(final Date startDateTweet) {
-        this.startDateTweet = startDateTweet;
-    }
-
-    /**
-     * @return the endDateTweet
-     */
-    public Date getEndDateTweet() {
-        return endDateTweet;
-    }
-
-    /**
-     * @param endDateTweet
-     *            the endDateTweet to set
-     */
-    public void setEndDateTweet(final Date endDateTweet) {
-        this.endDateTweet = endDateTweet;
-    }
-
-    /**
      * @return the publicationDateTweet
      */
     public Date getPublicationDateTweet() {
@@ -229,7 +184,8 @@ public class UnitTweetPoll {
     }
 
     /**
-     * @param questionBean the questionBean to set
+     * @param questionBean
+     *            the questionBean to set
      */
     public void setQuestionBean(final UnitQuestionBean questionBean) {
         this.questionBean = questionBean;
@@ -243,7 +199,8 @@ public class UnitTweetPoll {
     }
 
     /**
-     * @param results the results to set
+     * @param results
+     *            the results to set
      */
     public void setResults(List<ResumeResultTweetPoll> results) {
         this.results = results;
@@ -253,7 +210,8 @@ public class UnitTweetPoll {
      * @return the tweetUrl
      */
     public String getTweetUrl() {
-        final StringBuffer tweetUrlString = new StringBuffer(this.TWITER__STATUS_URL);
+        final StringBuffer tweetUrlString = new StringBuffer(
+                this.TWITER__STATUS_URL);
         tweetUrlString.append("todo");
         tweetUrlString.append("/status/");
         tweetUrlString.append(getTweetId());
@@ -261,9 +219,56 @@ public class UnitTweetPoll {
     }
 
     /**
-     * @param tweetUrl the tweetUrl to set
+     * @param tweetUrl
+     *            the tweetUrl to set
      */
     public void setTweetUrl(String tweetUrl) {
         this.tweetUrl = tweetUrl;
     }
+
+    /**
+     * @return the scheduleDate
+     */
+    public Date getScheduleDate() {
+        return scheduleDate;
+    }
+
+    /**
+     * @param scheduleDate
+     *            the scheduleDate to set
+     */
+    public void setScheduleDate(Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
+
+    /**
+     * @return the allowLiveResults
+     */
+    public Boolean getAllowLiveResults() {
+        return allowLiveResults;
+    }
+
+    /**
+     * @param allowLiveResults
+     *            the allowLiveResults to set
+     */
+    public void setAllowLiveResults(Boolean allowLiveResults) {
+        this.allowLiveResults = allowLiveResults;
+    }
+
+    /**
+     * @return the schedule
+     */
+    public Boolean getSchedule() {
+        return schedule;
+    }
+
+    /**
+     * @param schedule
+     *            the schedule to set
+     */
+    public void setSchedule(Boolean schedule) {
+        this.schedule = schedule;
+    }
+
 }

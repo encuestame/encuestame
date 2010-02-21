@@ -32,7 +32,7 @@ public interface IQuestionDao extends IBaseDao {
      * @param question question
      * @throws HibernateException exception
      */
-    public void createQuestion(final Questions question) throws HibernateException;
+    void createQuestion(final Questions question) throws HibernateException;
 
     /**
      * Load All Questions.
@@ -46,7 +46,7 @@ public interface IQuestionDao extends IBaseDao {
      * @return  List of {@link QuestionPattern}
      * @throws HibernateException exception
      */
-    public List<QuestionPattern> loadAllQuestionPattern()
+    List<QuestionPattern> loadAllQuestionPattern()
     throws HibernateException;
 
     /**
@@ -55,21 +55,21 @@ public interface IQuestionDao extends IBaseDao {
      * @return QuestionPatron
      * @throws HibernateException exception
      */
-    public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException;
+    QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException;
 
     /**
      * Retrieve Questions by Name.
      * @param keyword keyword
      * @return list of questions
      */
-    public List<Questions> retrieveQuestionsByName(final String keyword);
+    List<Questions> retrieveQuestionsByName(final String keyword);
 
     /**
      * Retrieve Question By Id.
      * @param questionId question id
      * @return  {@link Questions}
      */
-    public Questions retrieveQuestionById(final Long questionId);
+    Questions retrieveQuestionById(final Long questionId);
 
     /**
      * Get Questions Answer By Question Id.
@@ -77,5 +77,12 @@ public interface IQuestionDao extends IBaseDao {
      * @return list of answers
      * @throws HibernateException exception
      */
-    public List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId) throws HibernateException;
+    List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId) throws HibernateException;
+
+    /**
+     * Retrieve Answer by Id.
+     * @param answerId answer id
+     * @return {@link QuestionsAnswers}
+     */
+    QuestionsAnswers retrieveAnswerById(final Long answerId);
 }

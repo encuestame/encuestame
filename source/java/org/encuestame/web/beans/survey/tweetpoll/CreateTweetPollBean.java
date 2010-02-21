@@ -142,12 +142,12 @@ public class CreateTweetPollBean extends MasterBean {
             //save create tweet poll
            getUnitTweetPoll().setUserId(getUsernameByName().getSecUser().getUid());
            getUnitTweetPoll().setPublishPoll(true);
-           getUnitTweetPoll().setStartDateTweet(new Date());
-           getUnitTweetPoll().setEndDateTweet(new Date());
+           //TODO: we need implement schedule tweetPoll.
+           getUnitTweetPoll().setScheduleDate(new Date());
            getUnitTweetPoll().setCloseNotification(false);
-           getUnitTweetPoll().setReportResults(false);
+           getUnitTweetPoll().setAllowLiveResults(false);
+           getUnitTweetPoll().setSchedule(false);
            getUnitTweetPoll().setResultNotification(false);
-
            survey.createTweetPoll(getUnitTweetPoll());
            if(getUnitTweetPoll().getPublishPoll()){
                final String tweet = survey.generateTweetPollText(getUnitTweetPoll());

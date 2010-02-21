@@ -192,8 +192,9 @@ public class ConvertDomainBean {
         final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
         unitTweetPoll.setId(poll.getTweetPollId());
         unitTweetPoll.setTweetId(poll.getTweetId());
-        unitTweetPoll.setEndDateTweet(poll.getEndDateTweet());
-        unitTweetPoll.setStartDateTweet(poll.getStartDateTweet());
+        unitTweetPoll.setScheduleDate(poll.getScheduleDate());
+        unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults());
+        unitTweetPoll.setSchedule(poll.getScheduleTweetPoll());
         unitTweetPoll.setPublicationDateTweet(poll.getPublicationDateTweet());
         unitTweetPoll.setPublishPoll(poll.getPublishTweetPoll());
         unitTweetPoll.setResultNotification(poll.getResultNotification());

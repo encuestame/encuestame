@@ -154,8 +154,7 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
        questionBean.setId(question.getQid());
        tweetPollBean.setQuestionBean(questionBean);
        tweetPollBean.setPublishPoll(true);
-       tweetPollBean.setStartDateTweet(new Date());
-       tweetPollBean.setEndDateTweet(new Date());
+       tweetPollBean.setScheduleDate(new Date());
        tweetPollBean.setCompleted(false);
        tweetPollBean.setUserId(this.user.getUid());
        this.surveyService.createTweetPoll(tweetPollBean);
