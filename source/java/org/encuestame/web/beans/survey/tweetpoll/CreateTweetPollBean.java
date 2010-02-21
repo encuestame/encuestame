@@ -146,6 +146,7 @@ public class CreateTweetPollBean extends MasterBean {
            getUnitTweetPoll().setCloseNotification(false);
            getUnitTweetPoll().setAllowLiveResults(false);
            getUnitTweetPoll().setSchedule(false);
+           getUnitTweetPoll().setPublishPoll(false);
            getUnitTweetPoll().setResultNotification(false);
            survey.createTweetPoll(getUnitTweetPoll());
            if(getUnitTweetPoll().getPublishPoll()){
