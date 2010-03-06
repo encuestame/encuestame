@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#tweetpoll.xhtml"
+  PATH="/pages/tweetpoll.xhtml" SHAPE="288,208,50,41"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#createTweetPoll.xhtml"
+  PATH="/pages/createTweetPoll.xhtml" SHAPE="536,152,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#tweetPollCredentials.xhtml"
+  PATH="/pages/tweetPollCredentials.xhtml" SHAPE="528,272,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="index::#pages#index.xhtml" NAME="output"
@@ -114,19 +123,10 @@
   SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#reports.xhtml"
   PATH="/pages/reports.xhtml" SHAPE="304,833,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#pages#organizeSurveys.xhtml"
-  PATH="/pages/organizeSurveys.xhtml" SHAPE="304,1505,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
   SHAPE="256,1729,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#organizeSurveys.xhtml"
+  PATH="/pages/organizeSurveys.xhtml" SHAPE="304,1505,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#polls.xhtml" PATH="/pages/polls.xhtml"
   SHAPE="304,1617,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#pages#tweetpoll.xhtml"
-  PATH="/pages/tweetpoll.xhtml" SHAPE="288,208,50,41"
-  model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:#pages#createTweetPoll.xhtml"
-  PATH="/pages/createTweetPoll.xhtml" SHAPE="536,152,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
- <PROCESS-ITEM NAME="rules:#pages#tweetPollCredentials.xhtml"
-  PATH="/pages/tweetPollCredentials.xhtml" SHAPE="528,272,50,25"
-  model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

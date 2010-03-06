@@ -99,6 +99,8 @@
         <mkdir dir="${web-inf}/config" />
         <mkdir dir="${web-inf}/scripts" />
         <mkdir dir="${web-inf}/taglib" />
+        <mkdir dir="${web-inf}/controllersTemplate" />
+      <mkdir dir="${web-inf}/flows" />
 
         <!-- create manifest -->
         <mkdir dir="${web-inf}/META-INF" />
@@ -139,8 +141,17 @@
         </copy>
 
         <!-- copy  spring xml config-->
+
         <copy todir="${web-inf}/config/">
-            <fileset dir="${src.spring}/" />
+            <fileset dir="${src.spring}/" excludes="c*.*" />
+        </copy>
+
+        <copy todir="${web-inf}/controllersTemplate/">
+             <fileset dir="${src.spring}/controller"/>
+        </copy>
+
+        <copy todir="${web-inf}/flows/">
+            <fileset dir="${src.spring}/webflow"/>
         </copy>
 
         <!-- copy resources -->
