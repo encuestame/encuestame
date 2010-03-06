@@ -167,7 +167,6 @@
         <!-- copy webconfig xml files -->
         <copy file="${src.jsf}/faces-config.xml" todir="${web-inf}" />
         <copy file="${src.jsf}/web.xml" todir="${web-inf}" />
-        <copy file="${src.jsf}/urlrewrite.xml" todir="${web-inf}" />
         <copy file="${src.xhtml}/error404.xhtml" todir="${web-inf}" />
 
         <!-- copy properties files -->
