@@ -61,4 +61,21 @@
         <property name="flowExecutor" ref="flowExecutor" />
     </bean>
 
+        <!--
+        - This bean resolves specific types of exceptions to corresponding logical
+        - view names for error views. The default behaviour of DispatcherServlet
+        - is to propagate all exceptions to the servlet container: this will happen
+        - here with all other types of exceptions.
+    -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">error</prop>
+                <prop key="org.springframework.transaction.TransactionException">error</prop>
+                <prop key="org.springframework.web.util.NestedServletException">error</prop>
+                <prop key="java.lang.Exception">error</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>

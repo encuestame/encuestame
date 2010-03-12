@@ -13,32 +13,12 @@
 
 package org.encuestame.mvc.controller;
 
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 /**
- * Test Annotation Controller.
+ * Class Description.
  * @author Picado, Juan juan@encuestame.org
- * @since Mar 6, 2010 1:18:58 PM
- * @version $Id:$
+ * @since Mar 11, 2010 9:21:37 PM
+ * @version $Id: $
  */
+public class PollController {
 
-
-@Controller
-@RequestMapping("/helloWorld")
-public class MyTest {
-
-    /**
-     * @param model
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String helloWorld(ModelMap model) {
-        System.out.println("Congratulations, Your controller was called.");
-        model.put("message", "Congratulations, Your controller was called.");
-        return "helloWorldTemplate"; // I created this simple facelets file.
-    }
 }

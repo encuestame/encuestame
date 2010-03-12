@@ -16,7 +16,7 @@
             /WEB-INF/config/encuestame-web-flow-context.xml
         </param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
@@ -53,8 +53,7 @@
     </filter>
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy
-        </filter-class>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <!--
         Hibernate's OpenSessionInView still required since we are using
@@ -62,20 +61,72 @@
     -->
     <filter>
         <filter-name>OpenSessionInViewFilter</filter-name>
-        <filter-class>org.encuestame.core.persistence.filter.SessionFilter
-        </filter-class>
+        <filter-class>org.encuestame.core.persistence.filter.SessionFilter</filter-class>
     </filter>
-    
+
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <!--
+            set the amount of seconds the conf file will be checked for
+            reload can be a valid integer (0 denotes check every time,
+            empty/not set denotes no reload check)
+        -->
+        <init-param>
+            <param-name>confReloadCheckInterval</param-name>
+            <param-value>1</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>confPath</param-name>
+            <param-value>/WEB-INF/urlrewrite.xml</param-value>
+        </init-param>
+
+        <!--
+            sets up log level (will be logged to context log) can be:
+            TRACE, DEBUG, INFO (default), WARN, ERROR, FATAL, log4j,
+            commons, sysout:{level} (ie, sysout:DEBUG) if you are having
+            trouble using normal levels use sysout:DEBUG
+        -->
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>DEBUG</param-value>
+        </init-param>
+
+        <!--
+            you can disable status page if desired can be: true, false
+            (default true)
+        -->
+        <init-param>
+            <param-name>statusEnabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
+        <!--
+            you can change status path so that it does not conflict with
+            your installed apps (note, defaults to /rewrite-status)
+            note, must start with /
+        -->
+        <init-param>
+            <param-name>statusPath</param-name>
+            <param-value>/status</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
     <filter-mapping>
         <filter-name>ajax4jsf</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
@@ -83,10 +134,9 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
-    
+
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener
-        </listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
 
@@ -108,32 +158,26 @@
 
     <servlet>
         <servlet-name>Resource Servlet</servlet-name>
-        <servlet-class>org.primefaces.resource.ResourceServlet
-        </servlet-class>
+        <servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Resource Servlet</servlet-name>
         <url-pattern>/primefaces_resource/*</url-pattern>
     </servlet-mapping>
-    
-    <servlet-mapping>  
-        <servlet-name>encuestameMVC</servlet-name>  
-        <url-pattern>/sr/*</url-pattern>  
+
+    <servlet-mapping>
+        <servlet-name>encuestameMVC</servlet-name>
+        <url-pattern>/sr/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.me</url-pattern>
     </servlet-mapping>
-    
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-    
-    <error-page>
-        <error-code>404</error-code>
-        <location>/WEB-INF/error404.xhtml</location>
-    </error-page>
-    
+
 </web-app>
