@@ -19,6 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
@@ -29,8 +32,10 @@ import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.web.beans.ConvertListDomainSelectBean;
+import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.web.beans.survey.QuestionBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
@@ -104,29 +109,39 @@ public class SurveyService extends Service implements ISurveyService {
     /**
      * Create Question.
      * @param questionBean {@link UnitQuestionBean}.
+     * @throws EnMeExpcetion exception
      */
-    public void createQuestion(final UnitQuestionBean questionBean){
+    public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
             try{
-                final Questions questions = new Questions();
-                questions.setQuestion(questionBean.getQuestionName());
-                questions.setSecUsersQuestion(getUserDaoImp().getUserById(questionBean.getUserId()));
-                questions.setQidKey("12345");
-                questions.setSharedQuestion(false);
-                getQuestionDaoImp().saveOrUpdate(questions);
-                questionBean.setId(questions.getQid());
+                final Questions question = new Questions();
+                question.setQuestion(questionBean.getQuestionName());
+                question.setSecUsersQuestion(getUserDaoImp().getUserById(questionBean.getUserId()));
+                question.setQidKey(MD5Utils.MD5(RandomStringUtils.randomAlphanumeric(500)));
+                question.setSharedQuestion(false);
+                getQuestionDaoImp().saveOrUpdate(question);
+                questionBean.setId(question.getQid());
                 for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
-                     final QuestionsAnswers answer = new QuestionsAnswers();
-                     answer.setQuestions(questions);
-                     answer.setAnswer(answerBean.getAnswers());
-                     answer.setUniqueAnserHash(answerBean.getAnswerHash());
-                     getQuestionDaoImp().saveOrUpdate(answer);
-                     answerBean.setAnswerId(answer.getQuestionAnswerId());
+                    this.saveAnswer(answerBean, question);
                 }
             }
             catch (Exception e) {
-                log.error(e);
                 e.printStackTrace();
+                throw new EnMeExpcetion(e);
             }
+    }
+
+    /**
+     * Save Question Answer.
+     * @param answerBean answer
+     * @param question question
+     */
+    public void saveAnswer(final UnitAnswersBean answerBean, final Questions question){
+            final QuestionsAnswers answer = new QuestionsAnswers();
+            answer.setQuestions(question);
+            answer.setAnswer(answerBean.getAnswers());
+            answer.setUniqueAnserHash(answerBean.getAnswerHash());
+            this.getQuestionDaoImp().saveOrUpdate(answer);
+            answerBean.setAnswerId(answer.getQuestionAnswerId());
     }
 
     /**
@@ -200,25 +215,34 @@ public class SurveyService extends Service implements ISurveyService {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
             final Questions question = getQuestionDaoImp().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
-            log.info("question found "+question);
+            log.debug("question found "+question);
             if(question == null){
                 throw new EnMeExpcetion("question not found");
             }
             tweetPollDomain.setQuestion(question);
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
             tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
-            tweetPollDomain.setCompleted(false);
+            tweetPollDomain.setCompleted(Boolean.FALSE);
             tweetPollDomain.setTweetOwner(getUserDaoImp().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
             tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
             tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
             tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
-            getTweetPollDao().saveOrUpdate(tweetPollDomain);
+            this.getTweetPollDao().saveOrUpdate(tweetPollDomain);
+            final List<QuestionsAnswers> answers = this.getQuestionDaoImp().getAnswersByQuestionId(question.getQid());
+            for (QuestionsAnswers questionsAnswers : answers) {
+                final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+                tPollSwitch.setAnswers(questionsAnswers);
+                tPollSwitch.setTweetPoll(tweetPollDomain);
+                tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
+                getTweetPollDao().saveOrUpdate(tPollSwitch);
+            }
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }
         catch (Exception e) {
-           throw new EnMeExpcetion(e);
+            e.printStackTrace();
+            throw new EnMeExpcetion(e);
         }
     }
 

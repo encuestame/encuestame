@@ -17,6 +17,7 @@ import java.util.Iterator;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -59,10 +60,12 @@ public class MasterBean {
     protected Long userSessionId;
 
     /** Obtain {@link SecurityContext}.**/
-    private SecurityContext secCtx;
+    private SecurityContext securityContext;
 
     /** Short Number String. **/
     private Integer shortNumberString = 30;
+
+    private final String URL = "http://";
 
     /**
      * Constructor.
@@ -121,11 +124,56 @@ public class MasterBean {
     /**
      * Clear Messages.
      */
+    @SuppressWarnings("unchecked")
     public void clearMessages(){
         final Iterator iterator = getFacesContext().getMessages();
         while (iterator.hasNext()) {
             iterator.remove();
         }
+    }
+
+    /**
+     * Get Domain.
+     * @return domain
+     */
+    public String getDomain(){
+        final HttpServletRequest request = (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
+        final StringBuffer buffer = new StringBuffer(this.URL);
+        buffer.append(request.getServerName());
+        if(request.getServerPort() != 80){
+            buffer.append(":");
+            buffer.append(request.getServerPort());
+        }
+        //buffer.append("//");
+        buffer.append(request.getContextPath());
+        return buffer.toString();
+    }
+
+    /**
+     * Get Request.
+     * @return {@link HttpServletRequest}.
+     */
+    public HttpServletRequest getRequest()
+    {
+        final HttpServletRequest request =
+            (HttpServletRequest) this.getFacesContext().getExternalContext().getRequest();
+        if (request == null)
+        {
+            throw new RuntimeException("Sorry. Got a null request from faces context");
+        }
+        return request;
+    }
+
+    /**
+     * Get Attribute.
+     * @param name name
+     * @return object
+     */
+    public Object getAttribute(String name)
+    {
+        final HttpServletRequest request = getRequest();
+        return request.getAttribute(name);
+
     }
 
     /**
@@ -230,7 +278,7 @@ public class MasterBean {
      * @return the secCtx
      */
     protected SecurityContext getSecCtx() {
-        return this.secCtx = SecurityContextHolder.getContext();
+        return this.securityContext = SecurityContextHolder.getContext();
     }
 
     /**
@@ -269,5 +317,12 @@ public class MasterBean {
     public ISurveyService getSurveyService() {
         surveyService = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
         return surveyService;
+    }
+
+    /**
+     * @return the securityContext
+     */
+    public SecurityContext getSecurityContext() {
+        return securityContext;
     }
 }

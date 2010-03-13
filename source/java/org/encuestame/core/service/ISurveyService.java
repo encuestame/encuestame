@@ -105,8 +105,9 @@ public interface ISurveyService extends IService {
     /**
      * Create Question.
      * @param questionBean {@link UnitQuestionBean}.
+     * @throws EnMeExpcetion exception
      */
-     void createQuestion(final UnitQuestionBean questionBean);
+     void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion;
 
 
     /**

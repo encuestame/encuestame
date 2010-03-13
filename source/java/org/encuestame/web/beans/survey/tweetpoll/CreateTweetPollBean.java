@@ -19,9 +19,11 @@ import java.util.Date;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
+import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.web.beans.MasterBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.primefaces.component.calendar.Calendar;
 
 import twitter4j.Status;
 
@@ -47,6 +49,9 @@ public class CreateTweetPollBean extends MasterBean {
 
     /** Count Tweet. **/
     private Integer countTweet;
+
+    /** Tweet Path, **/
+    private String tweetPath;
 
     /**
      * Constructor.
@@ -79,8 +84,9 @@ public class CreateTweetPollBean extends MasterBean {
     public void createShortSimulateUrl(final UnitAnswersBean answer){
         try{
             final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
-            log.info("survey service "+survey);
-            final String url = survey.getTwitterService().getTinyUrl("http://www.google.es");
+            answer.setAnswerHash(MD5Utils.MD5(String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())));
+            log.info(getDomain());
+            final String url = survey.getTwitterService().getTinyUrl(buildUrl(answer));
             log.info("tiny url "+url);
             StringBuffer answerString = new StringBuffer(getResumeTweet());
             answerString.append(" ");
@@ -98,13 +104,25 @@ public class CreateTweetPollBean extends MasterBean {
     }
 
     /**
+     * Build Url.
+     * @param answer answer
+     * @return vote url
+     */
+    private String buildUrl(final UnitAnswersBean  answer){
+        final StringBuffer stringBuffer = new StringBuffer(getDomain());
+        stringBuffer.append(getTweetPath());
+        stringBuffer.append(answer.getAnswerHash());
+        return stringBuffer.toString();
+    }
+
+    /**
      * Add answer to question.
      **/
     public void addAnswer(){
         try{
             if(getUnitTweetPoll().getQuestionBean() !=null){
+                this.createShortSimulateUrl(getAnswersBean());
                 getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
-                createShortSimulateUrl(getAnswersBean());
                 setAnswersBean(new UnitAnswersBean());
                 addInfoMessage("Answer Added", "");
             }
@@ -141,7 +159,7 @@ public class CreateTweetPollBean extends MasterBean {
            survey.createQuestion(getUnitTweetPoll().getQuestionBean());
             //save create tweet poll
            getUnitTweetPoll().setUserId(getUsernameByName().getSecUser().getUid());
-           //TODO: we need implement schedule tweetPoll.
+           //TODO: we need implement scheduled tweetPoll.
            getUnitTweetPoll().setScheduleDate(new Date());
            getUnitTweetPoll().setCloseNotification(false);
            getUnitTweetPoll().setAllowLiveResults(false);
@@ -246,7 +264,21 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * @param countTweet the countTweet to set
      */
-    public void setCountTweet(Integer countTweet) {
+    public void setCountTweet(final Integer countTweet) {
         this.countTweet = countTweet;
+    }
+
+    /**
+     * @return the tweetPath
+     */
+    public String getTweetPath() {
+        return tweetPath;
+    }
+
+    /**
+     * @param tweetPath the tweetPath to set
+     */
+    public void setTweetPath(final String tweetPath) {
+        this.tweetPath = tweetPath;
     }
 }

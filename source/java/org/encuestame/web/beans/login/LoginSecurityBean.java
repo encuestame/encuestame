@@ -189,15 +189,6 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
     }
 
     /**
-     * Get Request.
-     * @return http servlet request
-     */
-    protected HttpServletRequest getRequest() {
-        return (HttpServletRequest) getFacesContext().getExternalContext()
-        .getRequest();
-    }
-
-    /**
      * Get Response.
      * @return http servlet response
      */

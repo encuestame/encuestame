@@ -67,11 +67,11 @@
 	<classpathentry kind="lib" path="lib/spring-web.jar"/>
 	<classpathentry kind="lib" path="lib/spring.jar"/>
 	<classpathentry kind="lib" path="lib/standard.jar"/>
-	<classpathentry kind="lib" path="lib/urlrewrite-2.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/xerces.jar"/>
 	<classpathentry kind="lib" path="lib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-2.0.10.jar"/>
 	<classpathentry kind="lib" path="lib/primefaces-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/spring-webmvc.jar"/>
+	<classpathentry kind="lib" path="/home/jpicado/workspace/encuestame/tmp"/>
 	<classpathentry kind="output" path="tmp"/>
 </classpath>

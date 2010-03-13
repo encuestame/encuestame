@@ -4,27 +4,27 @@
     "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
 <urlrewrite>
     <rule>
-        <from>^/tweet/([0-9]+)$</from>
+        <from>^/tweet/(.*)$</from>
         <to>/sr/tweetPollController?id=$1</to>
     </rule>
     <rule>
-        <from>^/results/([0-9]+)$</from>
+        <from>^/results/(.*)$</from>
         <to>/sr/resultsController?id=$1</to>
     </rule>
     <rule>
-        <from>^/poll/([0-9]+)$</from>
+        <from>^/poll/(.*)$</from>
         <to>/sr/pollController?id=$1</to>
     </rule>
     <rule>
-        <from>^/survey/([0-9]+)$</from>
+        <from>^/survey/(.*)$</from>
         <to>/sr/surveyController?id=$1</to>
     </rule>
     <rule>
-        <from>^/report/([0-9]+)$</from>
+        <from>^/report/(.*)$</from>
         <to>/sr/reportController?id=$1</to>
     </rule>
     <rule>
-        <from>^/announce/([0-9]+)$</from>
+        <from>^/announce/(.*)$</from>
         <to>/sr/announceController?id=$1</to>
     </rule>
 </urlrewrite>
