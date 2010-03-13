@@ -20,8 +20,6 @@ import java.util.List;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
@@ -35,7 +33,6 @@ import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
-import org.encuestame.web.beans.survey.QuestionBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
@@ -62,6 +59,10 @@ public class SurveyService extends Service implements ISurveyService {
     private String answerPollPath;
     private String tweetPollResultsPath;
     private ITweetPoll tweetPollDao;
+
+    /** Tweet Path, **/
+    private String tweetPath;
+
     /**
      * @return {@link MailServiceImpl}.
      */
@@ -261,35 +262,39 @@ public class SurveyService extends Service implements ISurveyService {
     /**
      * Generate TweetPoll Text.
      * @param tweetPoll tweetPoll
+     * @param url url
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    public String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion{
+    public String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion{
         String tweetQuestionText = "";
         try{
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             final List<QuestionsAnswers> answers = getQuestionDaoImp().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
             if(answers.size()==2){
-                for (QuestionsAnswers questionsAnswers : answers) {
-                    tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+createUrlAnswer(questionsAnswers);
-             }
+                for (final QuestionsAnswers questionsAnswers : answers) {
+                    tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
+                }
+            }
         }
-        }catch (Exception e) {
+        catch (Exception e) {
             throw new EnMeExpcetion(e);
         }
         return tweetQuestionText;
     }
 
     /**
-     *
-     * @param anwer
-     * @throws IOException
-     * @throws HttpException
+     * Build Url Answer.
+     * @param anwer answer
+     * @throws IOException exception
+     * @throws HttpException exception
      */
-    private String createUrlAnswer(final QuestionsAnswers answer) throws HttpException, IOException{
-        final String urlAnswer = "http://"+getDomainUrl() + "/"+getAnswerPollPath()+answer.getUniqueAnserHash();
-        return getTwitterService().getTinyUrl(urlAnswer);
+    private String buildUrlAnswer(final QuestionsAnswers answer, final String domain) throws HttpException, IOException{
+        StringBuffer stringBuffer = new StringBuffer(domain);
+        stringBuffer.append(getTweetPath());
+        stringBuffer.append(answer.getUniqueAnserHash());
+        return getTwitterService().getTinyUrl(stringBuffer.toString());
     }
 
     /**
@@ -462,5 +467,19 @@ public class SurveyService extends Service implements ISurveyService {
      */
     public void setTweetPollDao(final ITweetPoll tweetPollDao) {
         this.tweetPollDao = tweetPollDao;
+    }
+
+    /**
+     * @return the tweetPath
+     */
+    public String getTweetPath() {
+        return tweetPath;
+    }
+
+    /**
+     * @param tweetPath the tweetPath to set
+     */
+    public void setTweetPath(final String tweetPath) {
+        this.tweetPath = tweetPath;
     }
 }

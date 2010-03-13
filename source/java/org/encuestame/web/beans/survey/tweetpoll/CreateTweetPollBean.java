@@ -49,9 +49,6 @@ public class CreateTweetPollBean extends MasterBean {
     /** Count Tweet. **/
     private Integer countTweet;
 
-    /** Tweet Path, **/
-    private String tweetPath;
-
     /**
      * Constructor.
      */
@@ -109,7 +106,7 @@ public class CreateTweetPollBean extends MasterBean {
      */
     private String buildUrl(final UnitAnswersBean  answer){
         final StringBuffer stringBuffer = new StringBuffer(getDomain());
-        stringBuffer.append(getTweetPath());
+        stringBuffer.append(getSurveyService().getTweetPath());
         stringBuffer.append(answer.getAnswerHash());
         return stringBuffer.toString();
     }
@@ -167,7 +164,7 @@ public class CreateTweetPollBean extends MasterBean {
            getUnitTweetPoll().setResultNotification(false);
            survey.createTweetPoll(getUnitTweetPoll());
            if(getUnitTweetPoll().getPublishPoll()){
-               final String tweet = survey.generateTweetPollText(getUnitTweetPoll());
+               final String tweet = survey.generateTweetPollText(getUnitTweetPoll(), getDomain());
                final SecUsers sessionUser = getUsernameByName().getSecUser();
                final Status status = survey.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
                final Long tweetId = status.getId();
@@ -265,19 +262,5 @@ public class CreateTweetPollBean extends MasterBean {
      */
     public void setCountTweet(final Integer countTweet) {
         this.countTweet = countTweet;
-    }
-
-    /**
-     * @return the tweetPath
-     */
-    public String getTweetPath() {
-        return tweetPath;
-    }
-
-    /**
-     * @param tweetPath the tweetPath to set
-     */
-    public void setTweetPath(final String tweetPath) {
-        this.tweetPath = tweetPath;
     }
 }

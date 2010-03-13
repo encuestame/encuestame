@@ -158,7 +158,7 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
        tweetPollBean.setCompleted(false);
        tweetPollBean.setUserId(this.user.getUid());
        this.surveyService.createTweetPoll(tweetPollBean);
-       final String s = this.surveyService.generateTweetPollText(tweetPollBean);
+       final String s = this.surveyService.generateTweetPollText(tweetPollBean, "http://www.google.es");
        final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
        assertNotNull(status.getId());
     }

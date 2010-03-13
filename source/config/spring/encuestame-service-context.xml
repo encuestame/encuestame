@@ -104,6 +104,9 @@
          <property name="tweetPollDao">
             <ref bean="tweetPollDao"></ref>
         </property>
+         <property name="tweetPath">
+                <value>/tweet/</value>
+         </property>
     </bean>
 
     <bean id="securityService" class="org.encuestame.core.service.SecurityService"

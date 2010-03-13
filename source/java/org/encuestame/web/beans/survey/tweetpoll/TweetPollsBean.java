@@ -53,6 +53,7 @@ public class TweetPollsBean extends MasterBean {
     /** Answer Id Update **/
     private Long answerIdUpdate;
 
+    /** Answer Name. **/
     private String answerName;
 
     /**
@@ -107,7 +108,7 @@ public class TweetPollsBean extends MasterBean {
             log.info("loggin tweet");
             final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService()
             .getSurveyService();
-            final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll());
+            final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll(), getDomain());
             log.info("Largo Tweet"+tweetText.length());
             log.info( "Tweet a postear ->"+tweetText);
             if(tweetText.length() < 140){

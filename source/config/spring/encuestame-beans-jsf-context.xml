@@ -118,9 +118,6 @@
            <property name="countTweet">
                 <value>140</value>
            </property>
-           <property name="tweetPath">
-                <value>/tweet/</value>
-           </property>
     </bean>
 
     <bean id="tweetPolls" class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean"

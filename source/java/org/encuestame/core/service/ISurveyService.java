@@ -91,10 +91,11 @@ public interface ISurveyService extends IService {
     /**
      * Generate TweetPoll Text.
      * @param tweetPoll tweetPoll
+     * @param url url
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    String generateTweetPollText(final UnitTweetPoll tweetPoll) throws EnMeExpcetion;
+    String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion;
 
     /**
      * Getter {@link TwitterService}.
@@ -140,4 +141,10 @@ public interface ISurveyService extends IService {
      * @throws TwitterException exception
      */
     RequestToken getTwitterToken(final String consumerKey, final String consumerSecret) throws TwitterException;
+
+    /**
+     * Get Tweet Path.
+     * @return tweet
+     */
+    String getTweetPath();
 }
