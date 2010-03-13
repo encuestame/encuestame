@@ -23,7 +23,6 @@ import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.web.beans.MasterBean;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
-import org.primefaces.component.calendar.Calendar;
 
 import twitter4j.Status;
 
