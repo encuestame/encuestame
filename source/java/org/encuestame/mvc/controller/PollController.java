@@ -19,6 +19,6 @@ package org.encuestame.mvc.controller;
  * @since Mar 11, 2010 9:21:37 PM
  * @version $Id: $
  */
-public class PollController {
+public class PollController  extends BaseController {
 
 }

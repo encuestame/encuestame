@@ -13,6 +13,7 @@
 
 package org.encuestame.mvc.controller;
 
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,44 +32,36 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-@RequestMapping("/tweetPollController")
-public class TweetPollController {
-
-    /**
-     * {@link ServiceManager}.
-     */
-    @Autowired
-    private IServiceManager serviceManager;
+public class TweetPollController extends BaseController{
 
     /**
      * Tweet Poll Controller.
      * @param model model
      * @param id id tweet
      * @return template
-     * @throws Exception exception
      */
-    @SuppressWarnings("unchecked")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping("/tweetPollController")
     public String tweetPollController(ModelMap model,
-            @RequestParam(value = "id", required = true) int id)
-            throws Exception {
-        System.out.println("test "+getServiceManager().getDataEnMeSource().getState(1L).getDescState());
-        model.put("message", "Tweet Poll Voted.");
+            @RequestParam(value = "id", required = true) String id) {
+        log.info("tweetCode "+id);
+        if (id.isEmpty()) {
+            model.put("message", "Tweet Not Valid.");
+        }
+        else {
+            log.info("search code");
+            final TweetPollSwitch tweetPoll = getSurveyService().getTweetPollDao().retrieveTweetsPollSwitch(id);
+            log.info("tweetPoll "+tweetPoll);
+            if(tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()){
+                model.put("message", "Tweet Not Valid.");
+            }
+            else{
+                model.put("message", "Tweet Poll Voted.");
+            }
+        }
+        log.info("redirect template");
         return "helloWorldTemplate";
     }
 
-    /**
-     * @return the serviceManager
-     */
-    public IServiceManager getServiceManager() {
-        return serviceManager;
-    }
 
-    /**
-     * @param serviceManager
-     *            the serviceManager to set
-     */
-    public void setServiceManager(IServiceManager serviceManager) {
-        this.serviceManager = serviceManager;
-    }
+
 }

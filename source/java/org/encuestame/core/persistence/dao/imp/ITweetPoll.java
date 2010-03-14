@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.hibernate.HibernateException;
 
 /**
@@ -42,5 +43,12 @@ public interface ITweetPoll extends IBaseDao{
      * @return list of tweet pools.
      */
      List<TweetPoll> retrieveTweetsByUserId(final Long userId);
+
+     /**
+      * Retrieve Tweets Poll Switch.
+      * @param tweetCode tweetCode
+      * @return switch
+      */
+     TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode);
 
 }

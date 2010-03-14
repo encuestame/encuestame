@@ -25,6 +25,7 @@ import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
+import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
@@ -40,6 +41,8 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
+import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -116,6 +119,9 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
     @Autowired
     private IClientDao clientDao;
+
+    @Autowired
+    private ITweetPoll iTweetPoll;
 
     /** Activate Notifications.**/
     private Boolean activateNotifications = false;
@@ -571,13 +577,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      * Create Question Answer.
      * @param answer answer
      * @param question question
+     * @param hash hash
      * @return {@link QuestionsAnswers}
      */
-    public QuestionsAnswers createQuestionAnswer(final String answer, final Questions question){
+    public QuestionsAnswers createQuestionAnswer(final String answer, final Questions question, final String hash){
         final QuestionsAnswers questionsAnswers = new QuestionsAnswers();
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
-        questionsAnswers.setUniqueAnserHash("12345");
+        questionsAnswers.setUniqueAnserHash(hash);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         return questionsAnswers;
     }
@@ -644,6 +651,85 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         return sformat;
     }
 
+
+    /**
+     * Create TWeetPoll.
+     * @param tweetId tweetId
+     * @param closeNotification tweetId
+     * @param resultNotification resultNotification
+     * @param allowLiveResults allowLiveResults
+     * @param publishTweetPoll publishTweetPoll
+     * @param scheduleTweetPoll publishTweetPoll
+     * @param scheduleDate scheduleDate
+     * @param publicationDateTweet publicationDateTweet
+     * @param completed completed
+     * @param tweetOwner tweetOwner
+     * @param question question
+     * @return tweetPoll.
+     */
+    public TweetPoll createTweetPoll(
+             Long tweetId,
+             Boolean closeNotification,
+             Boolean resultNotification,
+             Boolean allowLiveResults,
+             Boolean publishTweetPoll,
+             Boolean scheduleTweetPoll,
+             Date scheduleDate,
+             Date publicationDateTweet,
+             Boolean completed,
+             SecUsers tweetOwner,
+             Questions question){
+        final TweetPoll tweetPoll = new TweetPoll();
+        tweetPoll.setCloseNotification(closeNotification);
+        tweetPoll.setResultNotification(resultNotification);
+        tweetPoll.setAllowLiveResults(allowLiveResults);
+        tweetPoll.setCompleted(completed);
+        tweetPoll.setPublicationDateTweet(publicationDateTweet);
+        tweetPoll.setPublishTweetPoll(publishTweetPoll);
+        tweetPoll.setQuestion(question);
+        tweetPoll.setScheduleDate(scheduleDate);
+        tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
+        tweetPoll.setTweetId(tweetId);
+        tweetPoll.setTweetOwner(tweetOwner);
+        getiTweetPoll().saveOrUpdate(tweetPoll);
+        return tweetPoll;
+    }
+
+    /**
+     * Create Published {@link TweetPoll}.
+     * @param tweetOwner tweet owner
+     * @param question question
+     * @return {@link TweetPoll}
+     */
+    public TweetPoll createPublishedTweetPoll(final SecUsers tweetOwner, final Questions question){
+       return createTweetPoll(12345L, false, false, false, true, false, new Date(), new Date(), false, tweetOwner, question);
+    }
+
+    /**
+     * Create Not Published {@link TweetPoll}.
+     * @param tweetOwner tweet owner
+     * @param question question
+     * @return {@link TweetPoll}
+     */
+    public TweetPoll createNotPublishedTweetPoll(final SecUsers tweetOwner, final Questions question){
+       return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question);
+    }
+
+    /**
+     * Create {@link TweetPollSwitch}.
+     * @param questionsAnswers  {@link QuestionsAnswers}.
+     * @param tweetPollDomain {@link TweetPoll}.
+     * @return {@link TweetPollSwitch}.
+     */
+    public TweetPollSwitch createTweetPollSwitch(final QuestionsAnswers questionsAnswers, final TweetPoll tweetPollDomain){
+        final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+        tPollSwitch.setAnswers(questionsAnswers);
+        tPollSwitch.setTweetPoll(tweetPollDomain);
+        tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
+        getiTweetPoll().saveOrUpdate(tPollSwitch);
+        return tPollSwitch;
+    }
+
     /**
      * @return the activateNotifications
      */
@@ -670,5 +756,19 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public void setClientDao(final IClientDao clientDao) {
         this.clientDao = clientDao;
+    }
+
+    /**
+     * @return the iTweetPoll
+     */
+    public ITweetPoll getiTweetPoll() {
+        return iTweetPoll;
+    }
+
+    /**
+     * @param iTweetPoll the iTweetPoll to set
+     */
+    public void setiTweetPoll(final ITweetPoll iTweetPoll) {
+        this.iTweetPoll = iTweetPoll;
     }
 }

@@ -16,8 +16,13 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.support.DataAccessUtils;
 
 /**
  * TweetPoll Dao Implementation.
@@ -44,6 +49,18 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetsByUserId(final Long userId){
-        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId order by publicationDateTweet desc", "userId", userId);
+        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId"
+               +" order by publicationDateTweet desc", "userId", userId);
+    }
+
+    /**
+     * Retrieve Tweets Poll Switch.
+     * @param tweetCode tweetCode
+     * @return switch
+     */
+    public TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
+        criteria.add(Restrictions.eq("codeTweet", tweetCode) );
+        return (TweetPollSwitch) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 }

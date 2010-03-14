@@ -40,7 +40,8 @@ public class TweetPollResult {
 
     private Long tweetPollResultId;
     private TweetPoll tweetPoll;
-    private String tweetResponse;
+    private TweetPollSwitch tweetPollSwitch;
+    private String ipVote;
     private Date tweetResponseDate;
 
     /**
@@ -78,20 +79,6 @@ public class TweetPollResult {
     }
 
     /**
-     * @return the tweetResponse
-     */
-    @Column(name = "tweet_response", nullable = false)
-    public String getTweetResponse() {
-        return tweetResponse;
-    }
-
-    /**
-     * @param tweetResponse the tweetResponse to set
-     */
-    public void setTweetResponse(final String tweetResponse) {
-        this.tweetResponse = tweetResponse;
-    }
-    /**
      * @return the tweetResponseDate
      */
     @Temporal(TemporalType.TIMESTAMP)
@@ -106,5 +93,34 @@ public class TweetPollResult {
         this.tweetResponseDate = tweetResponseDate;
     }
 
+    /**
+     * @return the tweetPollSwitch
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "tweetpoll_switch_id", nullable = false)
+    public TweetPollSwitch getTweetPollSwitch() {
+        return tweetPollSwitch;
+    }
 
+    /**
+     * @param tweetPollSwitch the tweetPollSwitch to set
+     */
+    public void setTweetPollSwitch(TweetPollSwitch tweetPollSwitch) {
+        this.tweetPollSwitch = tweetPollSwitch;
+    }
+
+    /**
+     * @return the ipVote
+     */
+    @Column(name = "ip_vote", nullable = true, length = 18)
+    public String getIpVote() {
+        return ipVote;
+    }
+
+    /**
+     * @param ipVote the ipVote to set
+     */
+    public void setIpVote(String ipVote) {
+        this.ipVote = ipVote;
+    }
 }

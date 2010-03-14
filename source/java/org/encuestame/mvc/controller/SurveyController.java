@@ -19,6 +19,6 @@ package org.encuestame.mvc.controller;
  * @since Mar 11, 2010 9:21:55 PM
  * @version $Id:$
  */
-public class SurveyController {
+public class SurveyController  extends BaseController {
 
 }

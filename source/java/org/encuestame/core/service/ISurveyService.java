@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
@@ -147,4 +148,9 @@ public interface ISurveyService extends IService {
      * @return tweet
      */
     String getTweetPath();
+
+    /**
+     * @return the tweetPollDao
+     */
+    ITweetPoll getTweetPollDao();
 }

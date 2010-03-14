@@ -27,7 +27,7 @@ import org.junit.Test;
  */
 public class TestSecPermissionDaoImp extends AbstractBaseTest {
 
-     SecPermission permission;
+     private SecPermission permission;
 
     /**
      * Before.

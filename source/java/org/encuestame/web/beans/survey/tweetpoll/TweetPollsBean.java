@@ -90,7 +90,8 @@ public class TweetPollsBean extends MasterBean {
                 getServicemanager().getApplicationServices().getSecurityService().
                 getSurveyService().updateAnswerByAnswerId(getAnswerIdUpdate(), getUpdateItem(getAnswerIdUpdate()));
                 addInfoMessage("Updated Answer", " New name answer update to ["+getUpdateItem(getAnswerIdUpdate())+"]");
-            } catch (EnMeExpcetion e) {
+            }
+            catch (EnMeExpcetion e) {
                 log.error(e);
                 e.printStackTrace();
                 addErrorMessage(e.getMessage(), e.getMessage());
@@ -122,6 +123,7 @@ public class TweetPollsBean extends MasterBean {
                 if(tweetId != null){
                     getSelectedTweetPoll().setTweetId(tweetId);
                     getSelectedTweetPoll().setPublicationDateTweet(status.getCreatedAt());
+                    getSelectedTweetPoll().setTwitterUserAccount(getUsernameByName().getSecUser().getTwitterAccount());
                     survey.saveTweetId(getSelectedTweetPoll());
                     log.info("tweeted :"+tweetId);
                 }
@@ -151,7 +153,7 @@ public class TweetPollsBean extends MasterBean {
      */
     private String getUpdateItem(final Long updateId){
         String updateName = null;
-        for (UnitAnswersBean answer : getSelectedTweetPoll().getQuestionBean().getListAnswers()) {
+        for (final UnitAnswersBean answer : getSelectedTweetPoll().getQuestionBean().getListAnswers()) {
             if(answer.getAnswerId().equals(updateId)){
                  updateName  = answer.getAnswers();
             }
@@ -210,6 +212,7 @@ public class TweetPollsBean extends MasterBean {
      *            the selectedTweetPoll to set
      */
     public void setSelectedTweetPoll(final UnitTweetPoll selectedTweetPoll) {
+        selectedTweetPoll.setTwitterUserAccount(getUsernameByName().getSecUser().getTwitterAccount());
         this.selectedTweetPoll = selectedTweetPoll;
     }
 

@@ -147,8 +147,8 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     @Test
     public void testCreateTweetPoll() throws EnMeExpcetion{
        final Questions question = createQuestion("why the sky is blue?", "yes/no", this.user);
-       createQuestionAnswer("yes", question);
-       createQuestionAnswer("no", question);
+       createQuestionAnswer("yes", question, "12345");
+       createQuestionAnswer("no", question, "12346");
        final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
        final UnitQuestionBean questionBean = new UnitQuestionBean();
        questionBean.setId(question.getQid());

@@ -40,8 +40,8 @@ public class UnitTweetPoll {
     private Date publicationDateTweet;
     private Boolean completed;
     private Long userId;
-
     private String tweetUrl;
+    private String twitterUserAcoount;
 
     private final String TWITER__STATUS_URL = "http://www.twitter.com/";
 
@@ -212,7 +212,7 @@ public class UnitTweetPoll {
     public String getTweetUrl() {
         final StringBuffer tweetUrlString = new StringBuffer(
                 this.TWITER__STATUS_URL);
-        tweetUrlString.append("todo");
+        tweetUrlString.append(getTwitterUserAcoount());
         tweetUrlString.append("/status/");
         tweetUrlString.append(getTweetId());
         return tweetUrl = tweetUrlString.toString();
@@ -271,4 +271,17 @@ public class UnitTweetPoll {
         this.schedule = schedule;
     }
 
+    /**
+     * @return the twitterUserAcoount
+     */
+    public String getTwitterUserAcoount() {
+        return twitterUserAcoount;
+    }
+
+    /**
+     * @param twitterUserAcoount the twitterUserAcoount to set
+     */
+    public void setTwitterUserAccount(final String twitterUserAcoount) {
+        this.twitterUserAcoount = twitterUserAcoount;
+    }
 }
