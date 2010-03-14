@@ -13,6 +13,8 @@
 
 package org.encuestame.mvc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.IServiceManager;
@@ -20,6 +22,9 @@ import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ServiceManager;
 import org.encuestame.core.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * Base Controller.
@@ -43,6 +48,23 @@ public class BaseController {
     public IServiceManager getServiceManager() {
         return serviceManager;
     }
+
+    /**
+     * Get Current Request Attributes.
+     * @return {@link RequestAttributes}
+     */
+    public RequestAttributes getContexHolder(){
+         return RequestContextHolder.currentRequestAttributes();
+    }
+
+    /**
+     * Get {@link ServletRequestAttributes}.
+     * @return {@link ServletRequestAttributes}
+     */
+    public HttpServletRequest getServletRequestAttributes(){
+        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+    }
+
 
     /**
      * @param serviceManager

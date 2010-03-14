@@ -15,6 +15,7 @@ package org.encuestame.core.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
@@ -397,6 +399,28 @@ public class SurveyService extends Service implements ISurveyService {
             throw new EnMeExpcetion(e);
         }
         return listPatronBean;
+    }
+
+    /**
+     * Vote on TweetPoll.
+     * @param pollSwitch {@link TweetPollSwitch}
+     * @param ip ip
+     */
+    public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip){
+        final TweetPollResult pollResult = new TweetPollResult();
+        pollResult.setIpVote(ip.trim());
+        pollResult.setTweetPollSwitch(pollSwitch);
+        pollResult.setTweetResponseDate(new Date());
+        getTweetPollDao().saveOrUpdate(pollResult);
+    }
+
+    /**
+     * Validate TweetPoll IP.
+     * @param ipVote  ipVote
+     * @return {@link TweetPollResult}
+     */
+    public TweetPollResult validateTweetPollIP(final String ipVote){
+        return getTweetPollDao().validateVoteIP(ipVote);
     }
 
     /**

@@ -19,6 +19,8 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.TweetPollResult;
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
@@ -153,4 +155,18 @@ public interface ISurveyService extends IService {
      * @return the tweetPollDao
      */
     ITweetPoll getTweetPollDao();
+
+    /**
+     * Vote on TweetPoll.
+     * @param pollSwitch {@link TweetPollSwitch}
+     * @param ip ip
+     */
+    void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip);
+
+    /**
+     * Validate TweetPoll IP.
+     * @param ipVote  ipVote
+     * @return {@link TweetPollResult}
+     */
+    TweetPollResult validateTweetPollIP(final String ipVote);
 }

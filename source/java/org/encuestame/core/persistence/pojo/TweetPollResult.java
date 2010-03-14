@@ -39,7 +39,6 @@ import javax.persistence.TemporalType;
 public class TweetPollResult {
 
     private Long tweetPollResultId;
-    private TweetPoll tweetPoll;
     private TweetPollSwitch tweetPollSwitch;
     private String ipVote;
     private Date tweetResponseDate;
@@ -59,23 +58,6 @@ public class TweetPollResult {
      */
     public void setTweetPollResultId(final Long tweetPollResultId) {
         this.tweetPollResultId = tweetPollResultId;
-    }
-
-    /**
-     * @return the tweetPoll
-     */
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "tweet_poll_id", nullable = false)
-    public TweetPoll getTweetPoll() {
-        return tweetPoll;
-    }
-
-    /**
-     * @param tweetPoll the tweetPoll to set
-     */
-    public void setTweetPoll(final TweetPoll tweetPoll) {
-        this.tweetPoll = tweetPoll;
     }
 
     /**

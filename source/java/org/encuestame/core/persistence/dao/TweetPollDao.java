@@ -16,8 +16,8 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
@@ -59,8 +59,29 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return switch
      */
     public TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode){
+        return searchByParamStringTweetPollSwitch("codeTweet", tweetCode);
+    }
+
+    /**
+     * Search By Param String {@link TweetPollSwitch}.
+     * @param param param
+     * @param value value
+     * @return
+     */
+    private TweetPollSwitch searchByParamStringTweetPollSwitch(final String param, final  String value){
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
-        criteria.add(Restrictions.eq("codeTweet", tweetCode) );
+        criteria.add(Restrictions.eq(param, value) );
         return (TweetPollSwitch) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
+     * Validate Vote IP.
+     * @param ip ip
+     * @return {@link TweetPollSwitch}
+     */
+    public TweetPollResult validateVoteIP(final String ip){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollResult.class);
+        criteria.add(Restrictions.eq("ipVote", ip) );
+        return (TweetPollResult) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 }

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-public class TweetPollController extends BaseController{
+public class TweetPollController extends BaseController {
 
     /**
      * Tweet Poll Controller.
@@ -43,25 +43,31 @@ public class TweetPollController extends BaseController{
     @RequestMapping("/tweetPollController")
     public String tweetPollController(ModelMap model,
             @RequestParam(value = "id", required = true) String id) {
-        log.info("tweetCode "+id);
+        log.info("tweetCode " + id);
         if (id.isEmpty()) {
             model.put("message", "Tweet Not Valid.");
-        }
-        else {
+        } else {
             log.info("search code");
-            final TweetPollSwitch tweetPoll = getSurveyService().getTweetPollDao().retrieveTweetsPollSwitch(id);
-            log.info("tweetPoll "+tweetPoll);
-            if(tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()){
+            final TweetPollSwitch tweetPoll = getSurveyService()
+                    .getTweetPollDao().retrieveTweetsPollSwitch(id);
+            log.info("tweetPoll " + tweetPoll);
+            if (tweetPoll == null
+                    || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                 model.put("message", "Tweet Not Valid.");
-            }
-            else{
-                model.put("message", "Tweet Poll Voted.");
+            } else {
+                log.info("Validate Votting");
+                final String IP = getServletRequestAttributes().getRemoteAddr().toString();
+                log.info("IP" + IP);
+                if (getSurveyService().validateTweetPollIP(IP) == null) {
+                    getSurveyService().tweetPollVote(tweetPoll, IP);
+                    model.put("message", "Tweet Poll Voted.");
+                }
+                else{
+                    model.put("message", "Tweet Vote Repeteaded.");
+                }
             }
         }
         log.info("redirect template");
         return "helloWorldTemplate";
     }
-
-
-
 }

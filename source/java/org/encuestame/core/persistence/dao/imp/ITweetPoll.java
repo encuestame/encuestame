@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.hibernate.HibernateException;
 
@@ -50,5 +51,12 @@ public interface ITweetPoll extends IBaseDao{
       * @return switch
       */
      TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode);
+
+     /**
+      * Validate Vote IP.
+      * @param ip ip
+      * @return {@link TweetPollSwitch}
+      */
+     TweetPollResult validateVoteIP(final String ip);
 
 }
