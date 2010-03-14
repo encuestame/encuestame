@@ -13,10 +13,14 @@
 package org.encuestame.test.config;
 
 import java.util.Date;
+import java.util.List;
 
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
 import org.encuestame.web.beans.project.UnitProjectBean;
+import org.encuestame.web.beans.survey.UnitAnswersBean;
+import org.encuestame.web.beans.survey.UnitPatternBean;
+import org.encuestame.web.beans.survey.UnitQuestionBean;
 
 /**
  * Abstract class for beans.
@@ -86,5 +90,98 @@ public abstract class AbstractBeanBaseTest extends AbstractBaseTest{
         locationBean.setLevel(level);
         locationBean.setTidtype(createCatLocationType(desc).getLocationTypeId());
         return locationBean;
+    }
+
+    /**
+     * Create Unit Answer Bean.
+     * @param answerId answerId
+     * @param answers answers
+     * @param answerHash answerHash
+     * @param questionId questionId
+     * @return {@link UnitAnswersBean}
+     */
+
+    public UnitAnswersBean createUnitAnswerBean(
+            final Long answerId,
+            final String answers,
+            final String answerHash,
+            final Long questionId){
+
+       final UnitAnswersBean unitAnswerBean = new UnitAnswersBean();
+       unitAnswerBean.setAnswerHash(answerHash);
+       unitAnswerBean.setAnswerId(answerId);
+       unitAnswerBean.setAnswers(answers);
+       unitAnswerBean.setQuestionId(questionId);
+       return unitAnswerBean;
+    }
+
+    /**
+     * Create Unit Question Bean.
+     * @param questionId questionId
+     * @param questionName questionName
+     * @param version version
+     * @param unitAnswer unitAnswer
+     * @return {@link UnitQuestionBean}
+     */
+
+
+    public UnitQuestionBean createUnitQuestionBean(
+    final Long questionId,
+    final String questionName,
+    final String version,
+    final List unitAnswer,
+    final UnitPatternBean pattern
+
+    ){
+        final UnitQuestionBean unitQuestionBean = new UnitQuestionBean();
+        unitQuestionBean.setId(questionId);
+
+        unitQuestionBean.setQuestionName(questionName);
+        unitQuestionBean.setVersion(version);
+        unitQuestionBean.setUserId(1L);
+        unitQuestionBean.setStateId(1L);
+        return unitQuestionBean;
+    }
+
+
+    /**
+     * Create Unit Pattern Bean.
+     * @param classpattern classpattern
+     * @param descripcion descripcion
+     * @param finallity finallity
+     * @param patternId patternId
+     * @param label label
+     * @param levelpattern levelpattern
+     * @param patronType patronType
+     * @param shortNumberString shortNumberString
+     * @return {@link UnitPatternBean}
+     */
+
+    public UnitPatternBean createUnitPatternBean(
+    final String classpattern,
+    final String descripcion,
+    final String finallity,
+    final Long patternId,
+    final String label,
+    final String levelpattern,
+    final String patronType,
+    final Integer shortNumberString,
+    final String template
+    )
+    {
+        final UnitPatternBean unitPatternBean = new UnitPatternBean();
+        unitPatternBean.setClasspattern(classpattern);
+        unitPatternBean.setDescripcion(descripcion);
+        unitPatternBean.setFinallity(finallity);
+        unitPatternBean.setId(patternId);
+        unitPatternBean.setLabel(label);
+        unitPatternBean.setLevelpattern(levelpattern);
+        unitPatternBean.setPatronType(patronType);
+       // unitPatternBean.setServicemanagerBean(servicemanagerBean)
+        unitPatternBean.setShortNumberString(shortNumberString);
+        unitPatternBean.setTemplate(template);
+
+        return unitPatternBean;
+
     }
 }
