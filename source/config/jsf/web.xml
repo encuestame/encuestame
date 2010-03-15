@@ -90,7 +90,7 @@
         -->
         <init-param>
             <param-name>logLevel</param-name>
-            <param-value>DEBUG</param-value>
+            <param-value>WARN</param-value>
         </init-param>
 
         <!--
@@ -99,7 +99,7 @@
         -->
         <init-param>
             <param-name>statusEnabled</param-name>
-            <param-value>true</param-value>
+            <param-value>false</param-value>
         </init-param>
 
         <!--

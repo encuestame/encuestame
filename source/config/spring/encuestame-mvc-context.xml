@@ -70,10 +70,10 @@
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
-                <prop key="org.springframework.dao.DataAccessException">error</prop>
-                <prop key="org.springframework.transaction.TransactionException">error</prop>
-                <prop key="org.springframework.web.util.NestedServletException">error</prop>
-                <prop key="java.lang.Exception">error</prop>
+                <prop key="org.springframework.dao.DataAccessException">errorController</prop>
+                <prop key="org.springframework.transaction.TransactionException">errorController</prop>
+                <prop key="org.springframework.web.util.NestedServletException">errorController</prop>
+                <prop key="java.lang.Exception">errorController</prop>
             </props>
         </property>
     </bean>

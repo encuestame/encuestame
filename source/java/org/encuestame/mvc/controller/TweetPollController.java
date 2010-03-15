@@ -14,13 +14,9 @@
 package org.encuestame.mvc.controller;
 
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
-import org.encuestame.core.service.IServiceManager;
-import org.encuestame.core.service.ServiceManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -43,20 +39,20 @@ public class TweetPollController extends BaseController {
     @RequestMapping("/tweetPollController")
     public String tweetPollController(ModelMap model,
             @RequestParam(value = "id", required = true) String id) {
-        log.info("tweetCode " + id);
         if (id.isEmpty()) {
             model.put("message", "Tweet Not Valid.");
         } else {
             log.info("search code");
             final TweetPollSwitch tweetPoll = getSurveyService()
                     .getTweetPollDao().retrieveTweetsPollSwitch(id);
-            log.info("tweetPoll " + tweetPoll);
+            log.info("tweetPoll 2313211-> " + tweetPoll);
             if (tweetPoll == null
                     || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                 model.put("message", "Tweet Not Valid.");
             } else {
                 log.info("Validate Votting");
-                final String IP = getServletRequestAttributes().getRemoteAddr().toString();
+
+                final String IP = getIpClient();
                 log.info("IP" + IP);
                 if (getSurveyService().validateTweetPollIP(IP) == null) {
                     getSurveyService().tweetPollVote(tweetPoll, IP);

@@ -65,6 +65,15 @@ public class BaseController {
         return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 
+    /**
+     * Get Ip Client.
+     * @return ip
+     */
+    public String getIpClient(){
+        //FIXME if your server use ProxyPass you need get IP from x-forwarder-for, we need create
+        // a switch change for ProxyPass to normal get client Id.
+        return getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
+    }
 
     /**
      * @param serviceManager
