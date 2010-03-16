@@ -37,32 +37,29 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "poll")
 public class Poll {
-    private Long poll_id;
+    private Long pollId;
     private Boolean pollCompleted;
     private Date createdAt;
+    private String pollHash;
     private Questions question;
-    private String codeResource;
-    private String sendTweet;
-    private String share;
     private SecUsers pollOwner;
 
 
     /**
      * @return the poll_id
      */
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "poll_id", unique = true, nullable = true)
-    public Long getPoll_id() {
-        return poll_id;
+    public Long getPollId() {
+        return pollId;
     }
 
     /**
-     * @param pollId the poll_id to set
+     * @param pollId the pollId to set
      */
-    public void setPoll_id(Long pollId) {
-        poll_id = pollId;
+    public void setPollId(Long pollId) {
+        this.pollId = pollId;
     }
 
 
@@ -77,7 +74,7 @@ public class Poll {
     /**
      * @param pollCompleted the pollCompleted to set
      */
-    public void setPollCompleted(Boolean pollCompleted) {
+    public void setPollCompleted(final Boolean pollCompleted) {
         this.pollCompleted = pollCompleted;
     }
 
@@ -93,8 +90,23 @@ public class Poll {
     /**
      * @param createdAt the createdAt to set
      */
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(final Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the pollHash
+     */
+    @Column(name = "poll_hash", nullable = false)
+    public String getPollHash() {
+        return pollHash;
+    }
+
+    /**
+     * @param pollHash the pollHash to set
+     */
+    public void setPollHash(String pollHash) {
+        this.pollHash = pollHash;
     }
 
     /**
@@ -109,53 +121,8 @@ public class Poll {
     /**
      * @param question the question to set
      */
-    public void setQuestion(Questions question) {
+    public void setQuestion(final Questions question) {
         this.question = question;
-    }
-
-    /**
-     * @return the codeResource
-     */
-    @Column(name = "code_resource", nullable = false)
-    public String getCodeResource() {
-        return codeResource;
-    }
-
-    /**
-     * @param codeResource the codeResource to set
-     */
-    public void setCodeResource(String codeResource) {
-        this.codeResource = codeResource;
-    }
-
-    /**
-     * @return the sendTweet
-     */
-    @Column(name = "sendTweet", nullable = false)
-    public String getSendTweet() {
-        return sendTweet;
-    }
-
-    /**
-     * @param sendTweet the sendTweet to set
-     */
-    public void setSendTweet(String sendTweet) {
-        this.sendTweet = sendTweet;
-    }
-
-    /**
-     * @return the share
-     */
-    @Column(name = "share", nullable = false)
-    public String getShare() {
-        return share;
-    }
-
-    /**
-     * @param share the share to set
-     */
-    public void setShare(String share) {
-        this.share = share;
     }
 
     /**
@@ -170,7 +137,7 @@ public class Poll {
     /**
      * @param pollOwner the pollOwner to set
      */
-    public void setPollOwner(SecUsers pollOwner) {
+    public void setPollOwner(final SecUsers pollOwner) {
         this.pollOwner = pollOwner;
     }
 

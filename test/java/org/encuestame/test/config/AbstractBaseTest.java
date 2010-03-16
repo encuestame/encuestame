@@ -18,6 +18,7 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IClientDao;
+import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
@@ -30,6 +31,7 @@ import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
+import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -123,7 +125,10 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     @Autowired
     private ITweetPoll iTweetPoll;
 
-    /** Activate Notifications.**/
+    @Autowired
+    private IPoll iPoll;
+
+      /** Activate Notifications.**/
     private Boolean activateNotifications = false;
 
 
@@ -313,6 +318,35 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
      */
     public void setCatLocation(ICatLocation catLocation) {
         this.catLocationDao = catLocation;
+    }
+
+    /**
+     * @return {@link Poll}
+     */
+    public IPoll getiPoll() {
+        return iPoll;
+    }
+
+    /**
+     * @param iPoll the iPoll to set
+     */
+    public void setiPoll(IPoll poll) {
+        this.iPoll = poll;
+    }
+
+    /**
+     * Helper to create poll
+     **/
+    public Poll createPoll(){
+        final Poll poll = new Poll();
+        poll.setCreatedAt(new Date());
+        poll.setQuestion(createQuestion("Do you eat pizza", "yesNo"));
+        poll.setPollHash("HASH");
+        poll.setPollOwner(createUser());
+        poll.setPollCompleted(true);
+        getiPoll().saveOrUpdate(poll);
+        return poll;
+
     }
 
     /**

@@ -38,10 +38,11 @@ import javax.persistence.TemporalType;
 public class PollResult {
 
     private Long pollResultId;
-    private String pollResponse;
+    private QuestionsAnswers answer;
     private Poll poll;
     private Date votationDate;
-    private String ipaddress;
+    private String ipAddress;
+
 
     /**
      * @return the pollResultId
@@ -56,23 +57,26 @@ public class PollResult {
     /**
      * @param pollResultId the pollResultId to set
      */
-    public void setPollResultId(Long pollResultId) {
+
+    public void setPollResultId(final Long pollResultId) {
         this.pollResultId = pollResultId;
     }
 
+
     /**
-     * @return the pollResponse
+     * @return the answer
      */
-    @Column(name = "response",nullable = true)
-    public String getPollResponse() {
-        return pollResponse;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "q_answer_id", nullable = false)
+    public QuestionsAnswers getAnswer() {
+        return answer;
     }
 
     /**
-     * @param pollResponse the pollResponse to set
+     * @param answer the answer to set
      */
-    public void setPollResponse(String pollResponse) {
-        this.pollResponse = pollResponse;
+    public void setAnswer(final QuestionsAnswers answer) {
+        this.answer = answer;
     }
 
     /**
@@ -87,7 +91,7 @@ public class PollResult {
     /**
      * @param poll the poll to set
      */
-    public void setPoll(Poll poll) {
+    public void setPoll(final Poll poll) {
         this.poll = poll;
     }
 
@@ -102,7 +106,7 @@ public class PollResult {
     /**
      * @param votationDate the votationDate to set
      */
-    public void setVotationDate(Date votationDate) {
+    public void setVotationDate(final Date votationDate) {
         this.votationDate = votationDate;
     }
 
@@ -111,13 +115,13 @@ public class PollResult {
      */
     @Column(name = "ip_address", nullable = false)
     public String getIpaddress() {
-        return ipaddress;
+        return ipAddress;
     }
     /**
      * @param ipaddress the ipaddress to set
      */
-    public void setIpaddress(String ipaddress) {
-        this.ipaddress = ipaddress;
+    public void setIpaddress(final String ipaddress) {
+        this.ipAddress = ipaddress;
     }
 
 

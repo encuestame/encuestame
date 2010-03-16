@@ -39,6 +39,8 @@
                 <value>org.encuestame.core.persistence.pojo.SecPermission</value>
                 <value>org.encuestame.core.persistence.pojo.SecUsers</value>
                 <value>org.encuestame.core.persistence.pojo.SecUserSecondary</value>
+                <value>org.encuestame.core.persistence.pojo.Poll</value>
+                <value>org.encuestame.core.persistence.pojo.PollResult</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionColettion</value>
                 <value>org.encuestame.core.persistence.pojo.Questions</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionsAnswers</value>
@@ -51,6 +53,7 @@
                 <value>org.encuestame.core.persistence.pojo.TweetPollSwitch</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPoll</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPollResult</value>
+
                 <!--
                     <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
                     <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>

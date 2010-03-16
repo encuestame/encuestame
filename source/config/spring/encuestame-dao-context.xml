@@ -80,4 +80,9 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
+     <bean id="PollDao" class="org.encuestame.core.persistence.dao.PollDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
 </beans>
