@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IPoll;
@@ -63,8 +64,14 @@ public class PollDao extends  AbstractHibernateDaoSupport implements IPoll{
      * @throws HibernateException hibernate expcetion
      */
     @SuppressWarnings("unchecked")
-    public List<PollResult> retrieveResultPolls(final Long pollId ){
-        return getHibernateTemplate().findByNamedParam("from PollResult where poll.pollId= :userId", "pollId", pollId);
+    public List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId){
+        final String PollResultsCounter = "select answer.answer," +
+                "count(poll.pollId) FROM PollResult "
+            +"where poll.pollId= :polliId and answer.questionAnswerId= :questionId "
+            + "group by answer.answer";
+                return new ArrayList<Object[]>(getSession().createQuery(PollResultsCounter)
+                        .setParameter("polliId", polliId)
+                        .setParameter("questionId", questionId).list());
 
     }
 

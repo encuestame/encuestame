@@ -46,4 +46,11 @@ public interface IPoll extends IBaseDao {
       * @throws HibernateException hibernate
       */
      public Poll GetPollById(final Long pollId) throws HibernateException;
+
+     /**
+      * Count All Poll.
+      * @return list of all poll
+      * @throws HibernateException hibernate
+      */
+     public List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId);
 }

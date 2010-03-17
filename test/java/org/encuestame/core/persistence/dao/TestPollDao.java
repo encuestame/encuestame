@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IPoll;
@@ -19,6 +20,8 @@ import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.test.config.AbstractBaseTest;
@@ -81,9 +84,22 @@ public class TestPollDao extends AbstractBaseTest {
     **/
   @Test
   public void testRetrievePollResultsById(){
-      final PollResult pollResult = createPollResults(createQuestionAnswer("Yes", createQuestion("Do you like futboll", "Yes/No"), "45D3AS"), this.poll);
+      final Questions quest = createQuestion("Do you like futboll", "Yes/No");
 
+      final QuestionsAnswers qansw = createQuestionAnswer("Yes", quest, "2020");
+      final QuestionsAnswers qansw2 = createQuestionAnswer("No", quest, "2020");
+      final PollResult pollResult =createPollResults(qansw, this.poll);
+      final PollResult pollResult2 =createPollResults(qansw, this.poll);
+      final List<Object[]> polli = getiPoll().retrieveResultPolls(this.poll.getPollId(),qansw.getQuestionAnswerId());
+     final Iterator<Object[]> iterator = polli.iterator();
+
+      while (iterator.hasNext()) {
+          final Object[] objects = iterator.next();
+       }
+      assertEquals("Should be equals", 1, polli.size());
 
   }
+
+
 
 }
