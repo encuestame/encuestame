@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.pojo.Poll;
+import org.encuestame.core.persistence.pojo.PollResult;
+import org.encuestame.core.persistence.pojo.Project;
 import org.hibernate.HibernateException;
 
 /**
@@ -34,5 +36,39 @@ public class PollDao extends  AbstractHibernateDaoSupport implements IPoll{
      */
     public List<Poll> findAll() throws HibernateException {
         return findAll("FROM poll");}
+
+
+    /**
+     * Find All Polls by User Id.
+     * @return list of all Poll
+     * @throws HibernateException hibernate
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> findAllPollByUserId(final Long userId) throws HibernateException {
+       return getHibernateTemplate().findByNamedParam("from Poll where pollOwner.uid= :userId", "userId", userId);}
+
+    /**
+     * Retrieve Poll by id.
+     * @param pollId Poll id
+     * @return {@link Poll}
+     * @throws HibernateException hibernate expcetion
+     */
+    public Poll GetPollById(final Long pollId) throws HibernateException{
+        return (Poll) getHibernateTemplate().get(Poll.class, pollId);
+    }
+
+    /**
+     * Retrieve Results Poll by PollId.
+     * @param pollId Poll id
+     * @return {@link PollResult}
+     * @throws HibernateException hibernate expcetion
+     */
+    @SuppressWarnings("unchecked")
+    public List<PollResult> retrieveResultPolls(final Long pollId ){
+        return getHibernateTemplate().findByNamedParam("from PollResult where poll.pollId= :userId", "pollId", pollId);
+
+    }
+
+
 }
 

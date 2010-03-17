@@ -32,10 +32,45 @@ import javax.persistence.Table;
 @Table(name = "questions_answers")
 public class QuestionsAnswers {
 
+    /** questionAnswerId. **/
     private Long questionAnswerId;
+
+    /** questions. **/
     private Questions questions;
+
+    /** answer. **/
     private String answer;
+
+    /** uniqueAnserHash. **/
     private String uniqueAnserHash;
+
+    /** Answer Type. **/
+    private AnswerType answerType = AnswerType.DEFAULT;
+
+    /** Answer Type Enum. **/
+    public enum AnswerType {
+
+    /**
+     * Video
+     */
+    VIDEO,
+
+    /**
+     * Image
+     */
+    IMAGE,
+
+    /**
+     * Sounds
+     */
+    SOUNDS,
+
+    /**
+    * Default
+    */
+    DEFAULT
+    ;}
+
 
     /**
      * @return the questionAnswerId
@@ -102,6 +137,21 @@ public class QuestionsAnswers {
      */
     public void setUniqueAnserHash(final String uniqueAnserHash) {
         this.uniqueAnserHash = uniqueAnserHash;
+    }
+
+    /**
+     * @return the answerType
+     */
+    @Column(name = "answerType", nullable = true)
+    public AnswerType getAnswerType() {
+        return answerType;
+    }
+
+    /**
+     * @param answerType the answerType to set
+     */
+    public void setAnswerType(final AnswerType answerType) {
+        this.answerType = answerType;
     }
 
 }

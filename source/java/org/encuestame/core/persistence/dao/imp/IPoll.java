@@ -33,4 +33,17 @@ public interface IPoll extends IBaseDao {
      */
      public List<Poll> findAll() throws HibernateException;
 
+     /**
+      * Find All Poll.
+      * @return list of all poll
+      * @throws HibernateException hibernate
+      */
+     public List<Poll> findAllPollByUserId(final Long userId) throws HibernateException;
+
+     /**
+      * Find All Poll.
+      * @return list of all poll
+      * @throws HibernateException hibernate
+      */
+     public Poll GetPollById(final Long pollId) throws HibernateException;
 }

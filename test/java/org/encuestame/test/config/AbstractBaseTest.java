@@ -32,6 +32,7 @@ import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
 import org.encuestame.core.persistence.pojo.Poll;
+import org.encuestame.core.persistence.pojo.PollResult;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -346,6 +347,21 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         poll.setPollCompleted(true);
         getiPoll().saveOrUpdate(poll);
         return poll;
+
+    }
+
+     /**
+     * Helper to create Poll Result.
+     * @return state
+     */
+    public PollResult createPollResults(final QuestionsAnswers questionAnswer, final Poll poll){
+        final PollResult pollRes = new PollResult();
+        pollRes.setAnswer(questionAnswer);
+        pollRes.setIpaddress("127.0.0.1");
+        pollRes.setPoll(poll);
+        pollRes.setVotationDate(new Date());
+        getiPoll().saveOrUpdate(pollRes);
+        return pollRes;
 
     }
 
