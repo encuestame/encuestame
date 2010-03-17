@@ -39,6 +39,7 @@ import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPollResult;
 import org.hibernate.HibernateException;
 
 import twitter4j.Status;
@@ -412,6 +413,20 @@ public class SurveyService extends Service implements ISurveyService {
         pollResult.setTweetPollSwitch(pollSwitch);
         pollResult.setTweetResponseDate(new Date());
         getTweetPollDao().saveOrUpdate(pollResult);
+    }
+
+    /**
+     * Get Results By {@link TweetPoll}.
+     * @param tweetPollId tweetPoll Id
+     * @return list of {@link UnitTweetPollResult}
+     */
+    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId){
+        final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+        for (QuestionsAnswers questionsAnswers : tweetPoll.getQuestion().getQuestionsAnswers()) {
+            //final List<TweetPollResult>
+        }
+        return pollResults;
     }
 
     /**

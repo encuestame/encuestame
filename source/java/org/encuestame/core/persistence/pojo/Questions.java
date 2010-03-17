@@ -15,6 +15,7 @@ package org.encuestame.core.persistence.pojo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -45,6 +47,9 @@ public class Questions {
     private QuestionPattern questionPattern;
     private SecUsers secUsersQuestion;
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
+
+    /** {@link QuestionsAnswers}. **/
+    private Set<QuestionsAnswers> questionsAnswers = new HashSet<QuestionsAnswers>();
 
     /**
      * @return qid
@@ -175,4 +180,18 @@ public class Questions {
         this.sharedQuestion = sharedQuestion;
     }
 
+    /**
+     * @return the questionsAnswers
+     */
+    @OneToMany(mappedBy = "questions", cascade = CascadeType.REMOVE)
+    public Set<QuestionsAnswers> getQuestionsAnswers() {
+        return questionsAnswers;
+    }
+
+    /**
+     * @param questionsAnswers the questionsAnswers to set
+     */
+    public void setQuestionsAnswers(final Set<QuestionsAnswers> questionsAnswers) {
+        this.questionsAnswers = questionsAnswers;
+    }
 }
