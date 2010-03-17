@@ -16,6 +16,7 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
@@ -77,11 +78,25 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     /**
      * Validate Vote IP.
      * @param ip ip
+     * @param tweetPoll tweetPoll
      * @return {@link TweetPollSwitch}
      */
-    public TweetPollResult validateVoteIP(final String ip){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollResult.class);
-        criteria.add(Restrictions.eq("ipVote", ip) );
-        return (TweetPollResult) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    public TweetPollResult validateVoteIP(final String ip, final TweetPoll tweetPoll){
+        return (TweetPollResult) DataAccessUtils.uniqueResult(getHibernateTemplate()
+               .findByNamedParam("from TweetPollResult where ipVote = :ipVote and  tweetPollSwitch.tweetPoll = :tweetPoll",
+                new String[]{"ipVote", "tweetPoll"}, new Object[]{ip, tweetPoll}));
+    }
+
+    /**
+     * Get Results By {@link TweetPoll} && {@link QuestionsAnswers}.
+     * @param tweetPoll {@link TweetPoll}
+     * @param answers {@link QuestionsAnswers}
+     * @return List of {@link TweetPollResult}
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollResult> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers){
+        return getHibernateTemplate().findByNamedParam("from TweetPollResults "
+              +"where tweetPollSwitch.tweetPoll = :tweetPoll and tweetPollSwitch.answers = :answer",
+              new String[]{"tweetPoll", "answer"}, new Object[]{tweetPoll, answers});
     }
 }

@@ -19,6 +19,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.web.beans.survey.UnitAnswersBean;
@@ -166,7 +167,8 @@ public interface ISurveyService extends IService {
     /**
      * Validate TweetPoll IP.
      * @param ipVote  ipVote
+     * @param tweetPoll tweetPoll
      * @return {@link TweetPollResult}
      */
-    TweetPollResult validateTweetPollIP(final String ipVote);
+    TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll);
 }

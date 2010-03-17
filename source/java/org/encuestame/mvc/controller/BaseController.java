@@ -72,6 +72,7 @@ public class BaseController {
     public String getIpClient(){
         //FIXME if your server use ProxyPass you need get IP from x-forwarder-for, we need create
         // a switch change for ProxyPass to normal get client Id.
+               //getServletRequestAttributes().getRemoteAddr();
         return getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
     }
 

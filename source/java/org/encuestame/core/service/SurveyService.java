@@ -417,10 +417,11 @@ public class SurveyService extends Service implements ISurveyService {
     /**
      * Validate TweetPoll IP.
      * @param ipVote  ipVote
+     * @param tweetPoll tweetPoll
      * @return {@link TweetPollResult}
      */
-    public TweetPollResult validateTweetPollIP(final String ipVote){
-        return getTweetPollDao().validateVoteIP(ipVote);
+    public TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll){
+        return getTweetPollDao().validateVoteIP(ipVote, tweetPoll);
     }
 
     /**

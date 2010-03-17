@@ -17,7 +17,6 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
-import org.encuestame.core.persistence.pojo.Project;
 import org.hibernate.HibernateException;
 
 /**

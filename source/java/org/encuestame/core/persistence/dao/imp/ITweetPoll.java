@@ -16,6 +16,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.TweetPollDao;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
@@ -55,8 +56,17 @@ public interface ITweetPoll extends IBaseDao{
      /**
       * Validate Vote IP.
       * @param ip ip
+      * @param tweetPoll tweetPoll
       * @return {@link TweetPollSwitch}
       */
-     TweetPollResult validateVoteIP(final String ip);
+     TweetPollResult validateVoteIP(final String ip, final TweetPoll tweetPoll);
+
+     /**
+      * Get Results By {@link TweetPoll} && {@link QuestionsAnswers}.
+      * @param tweetPoll {@link TweetPoll}
+      * @param answers {@link QuestionsAnswers}
+      * @return List of {@link TweetPollResult}
+      */
+     List<TweetPollResult> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers);
 
 }
