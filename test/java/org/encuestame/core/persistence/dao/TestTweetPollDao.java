@@ -13,12 +13,15 @@
 
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBaseTest;
+import org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,6 +48,9 @@ public class TestTweetPollDao  extends AbstractBaseTest{
     /** {@link TweetPollSwitch}. **/
     private TweetPollSwitch pollSwitch2;
 
+    /** {@link TweetPoll}. **/
+    private TweetPoll tweetPoll;
+
     /**
      * Before.
      */
@@ -54,9 +60,13 @@ public class TestTweetPollDao  extends AbstractBaseTest{
       final Questions question = createQuestion("who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
-      final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
+      this.tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
       this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
       this.pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
+      createTweetPollResult(pollSwitch1, "192.168.0.1");
+      createTweetPollResult(pollSwitch1, "192.168.0.2");
+      createTweetPollResult(pollSwitch2, "192.168.0.3");
+      createTweetPollResult(pollSwitch2, "192.168.0.4");
     }
 
     /**
@@ -64,8 +74,19 @@ public class TestTweetPollDao  extends AbstractBaseTest{
      */
     @Test
     public void testRetrieveTweetsPollSwitch(){
-        final TweetPollSwitch pollSwitch = getiTweetPoll().retrieveTweetsPollSwitch(this.pollSwitch1.getCodeTweet());
+        final TweetPollSwitch pollSwitch = getTweetPoll().retrieveTweetsPollSwitch(this.pollSwitch1.getCodeTweet());
         assertNotNull(pollSwitch);
+    }
+
+    /**
+     * Test getResultsByTweetPoll.
+     */
+    @Test
+    public void testgetResultsByTweetPoll(){
+        final List<Object[]> results = getTweetPoll().getResultsByTweetPoll(tweetPoll, this.questionsAnswers1);
+        assertEquals("Should be equals", 1,  results.size());
+        assertEquals("Should be equals", "yes",  results.get(0)[0]);
+        assertEquals("Should be equals", "2", results.get(0)[1].toString());
     }
 
 }

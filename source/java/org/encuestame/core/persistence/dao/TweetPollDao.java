@@ -94,9 +94,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return List of {@link TweetPollResult}
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPollResult> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers){
-        return getHibernateTemplate().findByNamedParam("from TweetPollResults "
-              +"where tweetPollSwitch.tweetPoll = :tweetPoll and tweetPollSwitch.answers = :answer",
+    public List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers){
+        return getHibernateTemplate().findByNamedParam("select tweetPollSwitch.answers.answer, count(tweetPollResultId) from TweetPollResult "
+              +"where tweetPollSwitch.tweetPoll = :tweetPoll and tweetPollSwitch.answers = :answer group by tweetPollSwitch.answers.answer",
               new String[]{"tweetPoll", "answer"}, new Object[]{tweetPoll, answers});
     }
 }

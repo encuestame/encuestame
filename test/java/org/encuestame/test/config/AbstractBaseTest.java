@@ -14,6 +14,8 @@ package org.encuestame.test.config;
 
 import java.util.Date;
 
+import org.encuestame.core.persistence.dao.ClientDao;
+import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
@@ -45,6 +47,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,14 +118,16 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /** Question Dao Imp.**/
     @Autowired
     private IQuestionDao questionDaoImp;
-    /** Catalog Location Type Dao.**/
 
+    /** Catalog Location Type Dao.**/
     @Autowired
     private ICatLocationTypeDao catLocationTypeDao;
 
+    /** {@link ClientDao}. **/
     @Autowired
     private IClientDao clientDao;
 
+    /** {@link TweetPollDao}. **/
     @Autowired
     private ITweetPoll iTweetPoll;
 
@@ -317,7 +322,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /**
      * @param catLocation {@link CatLocation}
      */
-    public void setCatLocation(ICatLocation catLocation) {
+    public void setCatLocation(final ICatLocation catLocation) {
         this.catLocationDao = catLocation;
     }
 
@@ -329,14 +334,15 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     }
 
     /**
-     * @param iPoll the iPoll to set
+     * @param poll the iPoll to set
      */
-    public void setiPoll(IPoll poll) {
+    public void setiPoll(final IPoll poll) {
         this.iPoll = poll;
     }
 
     /**
      * Helper to create poll
+     * @return poll
      **/
     public Poll createPoll(){
         final Poll poll = new Poll();
@@ -352,6 +358,8 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
 
      /**
      * Helper to create Poll Result.
+     * @param questionAnswer {@link QuestionsAnswers}
+     * @param poll {@link Poll}
      * @return state
      */
     public PollResult createPollResults(final QuestionsAnswers questionAnswer, final Poll poll){
@@ -741,7 +749,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
         tweetPoll.setTweetId(tweetId);
         tweetPoll.setTweetOwner(tweetOwner);
-        getiTweetPoll().saveOrUpdate(tweetPoll);
+        getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
     }
 
@@ -776,8 +784,23 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         tPollSwitch.setAnswers(questionsAnswers);
         tPollSwitch.setTweetPoll(tweetPollDomain);
         tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
-        getiTweetPoll().saveOrUpdate(tPollSwitch);
+        getTweetPoll().saveOrUpdate(tPollSwitch);
         return tPollSwitch;
+    }
+
+    /**
+     * Create TweetPoll Result
+     * @param tweetPollSwitch {@link TweetPollResult}
+     * @param Ip ip address
+     * @return {@link TweetPollResult}.
+     */
+    public TweetPollResult createTweetPollResult(final TweetPollSwitch tweetPollSwitch, final String Ip){
+        final TweetPollResult tweetPollResult = new TweetPollResult();
+        tweetPollResult.setIpVote(Ip);
+        tweetPollResult.setTweetPollSwitch(tweetPollSwitch);
+        tweetPollResult.setTweetResponseDate(new Date());
+        getTweetPoll().saveOrUpdate(tweetPollResult);
+        return tweetPollResult;
     }
 
     /**
@@ -811,14 +834,14 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
     /**
      * @return the iTweetPoll
      */
-    public ITweetPoll getiTweetPoll() {
+    public ITweetPoll getTweetPoll() {
         return iTweetPoll;
     }
 
     /**
      * @param iTweetPoll the iTweetPoll to set
      */
-    public void setiTweetPoll(final ITweetPoll iTweetPoll) {
+    public void setTweetPoll(final ITweetPoll iTweetPoll) {
         this.iTweetPoll = iTweetPoll;
     }
 }
