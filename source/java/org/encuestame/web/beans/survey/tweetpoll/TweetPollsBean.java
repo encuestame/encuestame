@@ -56,6 +56,9 @@ public class TweetPollsBean extends MasterBean {
     /** Answer Name. **/
     private String answerName;
 
+    /** Selected Results. **/
+    private List<UnitTweetPollResult> selectedResults = new ArrayList<UnitTweetPollResult>();
+
     /**
      *
      */
@@ -98,6 +101,16 @@ public class TweetPollsBean extends MasterBean {
             }
         }else{
             addErrorMessage("Can not update Answer", "Can not update Answer");
+        }
+    }
+
+    /**
+     * Load Results.
+     */
+    public void loadResults(){
+        if(getSelectedTweetPoll().getId() != null){
+            log.info("loadResults");
+            setSelectedResults(getSurveyService().getResultsByTweetPollId(getSelectedTweetPoll().getId()));
         }
     }
 
@@ -258,4 +271,18 @@ public class TweetPollsBean extends MasterBean {
         this.answerName = answerName;
     }
 
+    /**
+     * @return the selectedResults
+     */
+    public List<UnitTweetPollResult> getSelectedResults() {
+        loadResults();
+        return selectedResults;
+    }
+
+    /**
+     * @param selectedResults the selectedResults to set
+     */
+    public void setSelectedResults(final List<UnitTweetPollResult> selectedResults) {
+        this.selectedResults = selectedResults;
+    }
 }

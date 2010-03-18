@@ -421,12 +421,9 @@ public class SurveyService extends Service implements ISurveyService {
      * @return list of {@link UnitTweetPollResult}
      */
     public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId){
-        System.out.println("tweetPoll "+tweetPollId);
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        System.out.println(tweetPoll);
-        System.out.println("TP S "+ tweetPoll.getQuestion().getQuestionsAnswers().size());
-        for (QuestionsAnswers questionsAnswers : tweetPoll.getQuestion().getQuestionsAnswers()) {
+        for (QuestionsAnswers questionsAnswers : getQuestionDaoImp().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
               final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
               final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
               tweetPollResult.setResults(Long.valueOf(result.get(0)[1].toString()));

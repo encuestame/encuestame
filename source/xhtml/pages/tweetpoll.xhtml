@@ -122,8 +122,10 @@
                          </h:form>
                     </p:tab>
                     <p:tab title="Results">
-                    <p:pieChart id="display" value="#{tweetPolls.selectedTweetPoll.results}" var="tweet" categoryField=" #{tweet.label}"
-                                dataField="#{tweet.result}" />
+                        <p:pieChart id="display" value="#{tweetPolls.selectedResults}" var="tweet"
+                         categoryField=" #{tweet.answersBean.answers}"
+                         live="true" refreshInterval="3000"
+                         dataField="#{tweet.results}" />
                      </p:tab>
                     <p:tab title="Retweets">
                     </p:tab>
