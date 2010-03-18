@@ -21,10 +21,12 @@ import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.test.config.AbstractBeanBaseTest;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPollResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,9 +166,19 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     }
 
     /**
+     * Service to retrieve Results TweetPoll  Id.
+     */
+    @Test
+    public void testGetResultsByTweetPollId(){
+       final TweetPoll tweetPoll = createFastTweetPollVotes();
+       final List<UnitTweetPollResult> results = this.surveyService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
+       assertEquals("Should be equals", 2 , results.size());
+    }
+
+    /**
      * @param surveyService the surveyService to set
      */
-    public void setSurveyService(ISurveyService surveyService) {
+    public void setSurveyService(final ISurveyService surveyService) {
         this.surveyService = surveyService;
     }
     /**
@@ -185,7 +197,7 @@ public class TestSurveyService  extends AbstractBeanBaseTest{
     /**
      * @param mailServiceImpl the mailServiceImpl to set
      */
-    public void setMailServiceImpl(MailServiceImpl mailServiceImpl) {
+    public void setMailServiceImpl(final MailServiceImpl mailServiceImpl) {
         this.mailServiceImpl = mailServiceImpl;
     }
 }

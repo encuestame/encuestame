@@ -26,6 +26,7 @@ import org.encuestame.web.beans.survey.UnitAnswersBean;
 import org.encuestame.web.beans.survey.UnitPatternBean;
 import org.encuestame.web.beans.survey.UnitQuestionBean;
 import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
+import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPollResult;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -171,4 +172,11 @@ public interface ISurveyService extends IService {
      * @return {@link TweetPollResult}
      */
     TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll);
+
+    /**
+     * Get Results By {@link TweetPoll}.
+     * @param tweetPollId tweetPoll Id
+     * @return list of {@link UnitTweetPollResult}
+     */
+    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId);
 }

@@ -21,7 +21,6 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBaseTest;
-import org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean;
 import org.junit.Before;
 import org.junit.Test;
 

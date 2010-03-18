@@ -644,6 +644,7 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
+        System.out.println("Q "+questionsAnswers.getQuestionAnswerId());
         return questionsAnswers;
     }
 
@@ -801,6 +802,26 @@ public class AbstractBaseTest extends AbstractTransactionalDataSourceSpringConte
         tweetPollResult.setTweetResponseDate(new Date());
         getTweetPoll().saveOrUpdate(tweetPollResult);
         return tweetPollResult;
+    }
+
+    /**
+     * Create Fast TweetPoll Votes.
+     * @return tweet poll
+     */
+    public TweetPoll createFastTweetPollVotes(){
+        final SecUserSecondary secondary = createSecondaryUser("jhon", createUser());
+        final Questions question = createQuestion("who I am?", "");
+        final QuestionsAnswers questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
+        final QuestionsAnswers questionsAnswers2 = createQuestionAnswer("no", question, "12346");
+        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
+        final TweetPollSwitch pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
+        final TweetPollSwitch pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
+        createTweetPollResult(pollSwitch1, "192.168.0.1");
+        createTweetPollResult(pollSwitch1, "192.168.0.2");
+        createTweetPollResult(pollSwitch2, "192.168.0.3");
+        createTweetPollResult(pollSwitch2, "192.168.0.4");
+        System.out.println("tw "+tweetPoll);
+        return tweetPoll;
     }
 
     /**
