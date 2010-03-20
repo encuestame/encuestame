@@ -49,12 +49,12 @@
     </bean>
 
     <!-- Location -->
-    <bean id="locationBean" class="org.encuestame.web.beans.location.LocationBean"
+    <bean id="locationBean" class="org.encuestame.utils.web.LocationBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-    <bean id="locationTypeBean" class="org.encuestame.web.beans.location.LocationTypeBean"
+    <bean id="locationTypeBean" class="org.encuestame.utils.web.LocationTypeBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
         <property name="locationTypeBean" ref="unitLocationTypeBean" />

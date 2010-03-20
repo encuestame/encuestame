@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.location;
+package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
@@ -22,9 +22,8 @@ import org.encuestame.web.beans.MasterBean;
  * @since  26/05/2009 12:58:17
  * @version $Id$
  **/
-public class LocationBean extends MasterBean implements Serializable{
+public class LocationBean{
 
-    private static final long serialVersionUID = -9098305021342831224L;
     private Long locateId;
     private Long tidtype;
     private String description;

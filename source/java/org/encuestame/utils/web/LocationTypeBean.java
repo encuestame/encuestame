@@ -10,10 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.location;
+package org.encuestame.utils.web;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.web.beans.MasterBean;
 
 /**
@@ -22,7 +21,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 16/11/2009 21:25:07
  * @version $Id$
  **/
-public class LocationTypeBean extends MasterBean {
+public class LocationTypeBean{
     /**Unit Location Type.*/
     UnitLocationTypeBean locationTypeBean;
 
@@ -30,18 +29,6 @@ public class LocationTypeBean extends MasterBean {
      * Location Type Bean Constructor.
      */
     public LocationTypeBean() {
-
-    }
-
-    /**
-     *Create Location Type.
-     */
-    public void createLocationType(){
-        try {
-            getServicemanager().getDataEnMeSource().createCatLocationType(this.locationTypeBean);
-        } catch (EnMeExpcetion e) {
-            addErrorMessage(e.getMessage(),e.getMessage());
-        }
 
     }
 
