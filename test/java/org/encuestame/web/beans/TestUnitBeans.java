@@ -15,8 +15,8 @@ package org.encuestame.web.beans;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.test.config.AbstractBaseTest;
 import org.encuestame.test.config.AbstractBeanBaseTest;
-import org.encuestame.web.beans.survey.UnitAnswersBean;
-import org.encuestame.web.beans.survey.UnitPatternBean;
+import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitPatternBean;
 import org.junit.Test;
 
 /**

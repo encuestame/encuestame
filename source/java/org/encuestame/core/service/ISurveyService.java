@@ -22,11 +22,11 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
-import org.encuestame.web.beans.survey.UnitAnswersBean;
-import org.encuestame.web.beans.survey.UnitPatternBean;
-import org.encuestame.web.beans.survey.UnitQuestionBean;
-import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
-import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPollResult;
+import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.UnitTweetPollResult;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;

@@ -11,13 +11,13 @@
  ************************************************************************************
  */
 
-package org.encuestame.web.beans.survey.tweetpoll;
+package org.encuestame.utils.web;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.web.beans.survey.UnitQuestionBean;
+import org.encuestame.web.beans.survey.tweetpoll.ResumeResultTweetPoll;
 
 /**
  * TweetPoll Bean.

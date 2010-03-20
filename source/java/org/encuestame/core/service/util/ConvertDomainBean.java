@@ -25,17 +25,17 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.web.beans.admon.UnitGroupBean;
-import org.encuestame.web.beans.admon.UnitPermission;
-import org.encuestame.web.beans.admon.UnitSessionUserBean;
-import org.encuestame.web.beans.admon.UnitUserBean;
-import org.encuestame.web.beans.location.UnitLocationBean;
-import org.encuestame.web.beans.location.UnitLocationTypeBean;
-import org.encuestame.web.beans.project.UnitProjectBean;
-import org.encuestame.web.beans.survey.UnitAnswersBean;
-import org.encuestame.web.beans.survey.UnitPatternBean;
-import org.encuestame.web.beans.survey.UnitQuestionBean;
-import org.encuestame.web.beans.survey.tweetpoll.UnitTweetPoll;
+import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationTypeBean;
+import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitPermission;
+import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitSessionUserBean;
+import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.UnitUserBean;
 
 /**
  * Convert Domain to  Beans.

@@ -23,11 +23,11 @@ import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationTypeBean;
+import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
-import org.encuestame.web.beans.location.UnitLocationBean;
-import org.encuestame.web.beans.location.UnitLocationTypeBean;
-import org.encuestame.web.beans.project.UnitProjectBean;
 
 /**
  * Data Services.

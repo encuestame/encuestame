@@ -32,12 +32,12 @@
         <property name="newGroup" ref="unitGroupBean" />
     </bean>
 
-    <bean id="unitGroupBean" class="org.encuestame.web.beans.admon.UnitGroupBean"
+    <bean id="unitGroupBean" class="org.encuestame.utils.web.UnitGroupBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-    <bean id="unitUserBean" class="org.encuestame.web.beans.admon.UnitUserBean"
+    <bean id="unitUserBean" class="org.encuestame.utils.web.UnitUserBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
@@ -65,7 +65,7 @@
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-     <bean id="unitLocationTypeBean" class="org.encuestame.web.beans.location.UnitLocationTypeBean"
+     <bean id="unitLocationTypeBean" class="org.encuestame.utils.web.UnitLocationTypeBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
@@ -90,17 +90,17 @@
         <property name="unitPatterBean" ref="unitPatterBean" />
     </bean>
 
-    <bean id="unitSurveySection" class="org.encuestame.web.beans.survey.UnitSurveySection"
+    <bean id="unitSurveySection" class="org.encuestame.utils.web.UnitSurveySection"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-    <bean id="unitQuestionBean" class="org.encuestame.web.beans.survey.UnitQuestionBean"
+    <bean id="unitQuestionBean" class="org.encuestame.utils.web.UnitQuestionBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-    <bean id="unitPatterBean" class="org.encuestame.web.beans.survey.UnitPatternBean"
+    <bean id="unitPatterBean" class="org.encuestame.utils.web.UnitPatternBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
@@ -141,7 +141,7 @@
     </bean>
 
     <!-- menu's bean -->
-    <bean id="menuBean" class="org.encuestame.web.navigation.MenuBean" scope="session">
+    <bean id="menuBean" class="org.encuestame.utils.web.MenuBean" scope="session">
     </bean>
 
     <!-- globals -->

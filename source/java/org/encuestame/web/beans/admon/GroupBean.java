@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.web.beans.MasterBean;
 
 /**

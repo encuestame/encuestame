@@ -23,8 +23,8 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.SecurityService;
-import org.encuestame.web.beans.admon.UnitPermission;
-import org.encuestame.web.beans.admon.UnitUserBean;
+import org.encuestame.utils.web.UnitPermission;
+import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 

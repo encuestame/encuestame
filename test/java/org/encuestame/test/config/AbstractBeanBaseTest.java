@@ -15,12 +15,12 @@ package org.encuestame.test.config;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.web.beans.location.LocationBean;
 import org.encuestame.web.beans.location.LocationTypeBean;
-import org.encuestame.web.beans.project.UnitProjectBean;
-import org.encuestame.web.beans.survey.UnitAnswersBean;
-import org.encuestame.web.beans.survey.UnitPatternBean;
-import org.encuestame.web.beans.survey.UnitQuestionBean;
 
 /**
  * Abstract class for beans.

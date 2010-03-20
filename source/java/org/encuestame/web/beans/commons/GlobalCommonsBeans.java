@@ -24,9 +24,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.web.beans.MasterBean;
-import org.encuestame.web.beans.admon.UnitPermission;
-import org.encuestame.web.beans.survey.UnitPatternBean;
 /**
  * Global Commons Beans.
  * @author Picado, Juan juan@encuestame.org

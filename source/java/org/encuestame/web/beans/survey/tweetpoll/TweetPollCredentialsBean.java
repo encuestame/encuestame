@@ -16,8 +16,8 @@ package org.encuestame.web.beans.survey.tweetpoll;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.web.beans.MasterBean;
-import org.encuestame.web.beans.admon.UnitSessionUserBean;
 
 import twitter4j.TwitterException;
 

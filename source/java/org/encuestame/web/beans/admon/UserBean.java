@@ -22,6 +22,8 @@ import javax.faces.component.UISelectBoolean;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.EmailUtils;
+import org.encuestame.utils.web.UnitPermission;
+import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.MasterBean;
 import org.hibernate.HibernateException;
 import org.richfaces.component.html.HtmlDataTable;

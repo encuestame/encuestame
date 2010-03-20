@@ -10,10 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.navigation;
+package org.encuestame.utils.web;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.persistence.dao.CatLocationDao;
 /**
  * Menu Bean.
  * @author Picado, Juan juan@encuestame.org
@@ -29,7 +28,7 @@ public class MenuBean {
     private String indexCss;
     private String surveyCss;
     private String statsCss;
-    private static Logger log = Logger.getLogger(CatLocationDao.class);
+    private static Logger log = Logger.getLogger(MenuBean.class);
 
     /**
      * Constructor.

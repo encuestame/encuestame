@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.project;
+package org.encuestame.utils.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;

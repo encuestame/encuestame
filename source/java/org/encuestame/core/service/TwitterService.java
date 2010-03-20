@@ -20,7 +20,6 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.junit.runner.Request;
 
 import twitter4j.Status;
 import twitter4j.Twitter;

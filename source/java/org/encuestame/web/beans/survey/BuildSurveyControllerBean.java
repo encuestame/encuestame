@@ -20,6 +20,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.web.beans.MasterBean;
 /**
  * Build Survey Controller Bean.

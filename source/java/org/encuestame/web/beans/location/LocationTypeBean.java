@@ -13,6 +13,7 @@
 package org.encuestame.web.beans.location;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.web.beans.MasterBean;
 
 /**

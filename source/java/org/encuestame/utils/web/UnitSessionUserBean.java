@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.web.beans.admon;
+package org.encuestame.utils.web;
 
 /**
  * Class Description.

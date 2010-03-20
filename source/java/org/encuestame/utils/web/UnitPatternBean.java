@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.survey;
+package org.encuestame.utils.web;
 
 import java.util.Collection;
 

@@ -65,7 +65,7 @@
         </h:form>
             <p:dialog header="Tweet Poll Detail" widgetVar="tweetDialog"
                 modal="true" fixedCenter="true" draggable="false"
-                width="650px">
+                width="850px">
                 <p:tabView id="tabDialogView">
                     <p:tab title="Details">
                         <h:form style="padding:20px;" id="detailsForm">
@@ -124,7 +124,7 @@
                     <p:tab title="Results">
                         <p:pieChart id="display" value="#{tweetPolls.selectedResults}" var="tweet"
                          categoryField=" #{tweet.answersBean.answers}"
-                         live="true" refreshInterval="3000"
+                         live="true" refreshInterval="10000"
                          dataField="#{tweet.results}" />
                      </p:tab>
                     <p:tab title="Retweets">

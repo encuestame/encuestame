@@ -20,9 +20,10 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.web.beans.MasterBean;
-import org.encuestame.web.beans.survey.UnitAnswersBean;
-import org.encuestame.web.beans.survey.UnitQuestionBean;
 
 import twitter4j.Status;
 

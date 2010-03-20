@@ -11,50 +11,54 @@
  ************************************************************************************
  */
 
-package org.encuestame.web.beans.survey.tweetpoll;
-
-import org.encuestame.web.beans.survey.UnitAnswersBean;
+package org.encuestame.utils.web;
 
 /**
- * Unit TweetPollResults.
+ * Unit Cat State.
  *
  * @author Picado, Juan juan@encuestame.org
- * @since Mar 16, 2010 8:48:19 PM
- * @version $Id: $
+ * @since Feb 6, 2010 2:35:57 AM
+ * @version $Id: change to one dolar simbol
  */
-public class UnitTweetPollResult {
-
-    private UnitAnswersBean answersBean;
-
-    private Long results;
+public class UnitCatStateBean {
 
     /**
-     * @return the answersBean
+     * Id.
      */
-    public UnitAnswersBean getAnswersBean() {
-        return answersBean;
+    private Long id;
+
+    /**
+     * State.
+     */
+    private String state;
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
     }
 
     /**
-     * @param answersBean
-     *            the answersBean to set
+     * @param id
+     *            the id to set
      */
-    public void setAnswersBean(final UnitAnswersBean answersBean) {
-        this.answersBean = answersBean;
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     /**
-     * @return the results
+     * @return the state
      */
-    public Long getResults() {
-        return results;
+    public String getState() {
+        return state;
     }
 
     /**
-     * @param results
-     *            the results to set
+     * @param state
+     *            the state to set
      */
-    public void setResults(final Long results) {
-        this.results = results;
+    public void setState(final String state) {
+        this.state = state;
     }
 }

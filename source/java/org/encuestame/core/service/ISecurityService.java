@@ -26,9 +26,9 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.web.beans.admon.UnitGroupBean;
-import org.encuestame.web.beans.admon.UnitPermission;
-import org.encuestame.web.beans.admon.UnitUserBean;
+import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitPermission;
+import org.encuestame.utils.web.UnitUserBean;
 
 /**
  * Interface for Security Service.
