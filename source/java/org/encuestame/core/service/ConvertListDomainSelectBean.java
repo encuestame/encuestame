@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.web.beans;
+package org.encuestame.core.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.persistence.dao.SecGroupDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
 import org.encuestame.core.persistence.pojo.SecGroups;

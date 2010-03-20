@@ -41,7 +41,6 @@ import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.web.beans.ConvertListDomainSelectBean;
 import org.hibernate.HibernateException;
 /**
  * Data Services.

@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.service;
 
-import org.encuestame.web.beans.commons.UrlBean;
+import org.encuestame.core.service.util.UrlBean;
 
 /**
  * Application Service.

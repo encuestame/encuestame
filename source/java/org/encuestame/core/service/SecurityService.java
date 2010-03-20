@@ -36,7 +36,6 @@ import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
-import org.encuestame.web.beans.ConvertListDomainSelectBean;
 import org.hibernate.HibernateException;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
