@@ -12,8 +12,6 @@
  */
 package org.encuestame.utils.web;
 
-import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Location Type Bean.

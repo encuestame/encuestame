@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.service;
 
-import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
 
 /**
  * Class Description.

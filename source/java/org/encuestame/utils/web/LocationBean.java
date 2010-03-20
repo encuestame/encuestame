@@ -12,10 +12,6 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
-
-import org.encuestame.web.beans.MasterBean;
-
 /**
  * Location Bean.
  * @author Picado, Juan juan@encuestame.org

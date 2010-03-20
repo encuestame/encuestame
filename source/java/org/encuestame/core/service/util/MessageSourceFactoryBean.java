@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.commons;
+package org.encuestame.core.service.util;
 
 import java.util.Locale;
 

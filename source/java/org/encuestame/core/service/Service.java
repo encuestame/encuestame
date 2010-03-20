@@ -14,7 +14,7 @@ package org.encuestame.core.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.web.beans.commons.MessageSourceFactoryBean;
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
 
 /**
  * Service.
