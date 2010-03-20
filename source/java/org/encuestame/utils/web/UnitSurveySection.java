@@ -12,24 +12,21 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.web.beans.MasterBean;
+
 /**
  * Unit Survey Section.
  * @author Picado, Juan juan@encuestame.org
  * @since 01/06/2009 15:21:31
  * @version $Id$
  **/
-public class UnitSurveySection extends MasterBean  implements Serializable{
+public class UnitSurveySection{
 
 
-
-    private static final long serialVersionUID = 3516611324140033097L;
     private Integer id;
     private String name;
     private Integer stateId;

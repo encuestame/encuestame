@@ -12,14 +12,11 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
-
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Unit Project Bean.
@@ -28,7 +25,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 28/05/2009 11:47:51
  * @version $Id$
  */
-public class UnitProjectBean extends MasterBean implements Serializable {
+public class UnitProjectBean {
 
     /**
      *

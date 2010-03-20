@@ -13,20 +13,14 @@
 package org.encuestame.utils.web;
 
 import java.io.Serializable;
-
-import org.encuestame.web.beans.MasterBean;
 /**
  * Unit Location Bean.
  * @author Picado, Juan juan@encuestame.org
  * @since 26/05/2009 12:40:46
  * @version $Id$
  */
-public class UnitLocationBean extends MasterBean implements Serializable  {
+public class UnitLocationBean{
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -2927179009540176488L;
     private Long tid;
     private Long locationTypeId;
     private String descriptionLocation;

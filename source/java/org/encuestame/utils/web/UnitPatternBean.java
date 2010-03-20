@@ -12,9 +12,6 @@
  */
 package org.encuestame.utils.web;
 
-import java.util.Collection;
-
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Unit Pattern Bean.
@@ -22,7 +19,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 01/06/2009 15:25:459
  * @version $Id$
  */
-public class UnitPatternBean extends MasterBean {
+public class UnitPatternBean {
 
     private Long id;
     private String descripcion;

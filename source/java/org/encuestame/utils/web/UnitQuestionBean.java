@@ -15,8 +15,6 @@ package org.encuestame.utils.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.encuestame.web.beans.MasterBean;
-
 /**
  * Unit Question Bean.
  *

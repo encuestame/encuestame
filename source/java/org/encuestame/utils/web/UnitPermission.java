@@ -13,7 +13,6 @@
 package org.encuestame.utils.web;
 
 
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Unit Permission Bean.
@@ -21,7 +20,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 14/05/2009 12:56:37
  * @version $Id$
  */
-public class UnitPermission extends MasterBean{
+public class UnitPermission{
 
     private Long id;
     private String permission;

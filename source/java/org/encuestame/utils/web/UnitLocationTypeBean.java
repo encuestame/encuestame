@@ -12,7 +12,6 @@
  */
 package org.encuestame.utils.web;
 
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Description.
@@ -20,7 +19,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 10/12/2009 16:15:07
  * @version $Id$
  **/
-public class UnitLocationTypeBean extends MasterBean {
+public class UnitLocationTypeBean {
 
     /** fdsfdsa. */
     private Long idLocType;

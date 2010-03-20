@@ -12,11 +12,8 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Unit Use rBean.
@@ -24,9 +21,8 @@ import org.encuestame.web.beans.MasterBean;
  * @since 27/04/2009
  * @version $Id$
  */
-public class UnitUserBean extends MasterBean implements Serializable {
+public class UnitUserBean {
 
-    private static final long serialVersionUID = -6690522000664394521L;
     private Long id;
     private String email;
     private String name;

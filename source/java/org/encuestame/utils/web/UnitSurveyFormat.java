@@ -12,20 +12,13 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
-
-import org.encuestame.web.beans.MasterBean;
 /**
  * Unit Survey Format.
  * @author Picado, Juan juan@encuestame.org
  * @since 31/05/2009 22:43:26
  * @version $Id$
  **/
-public class UnitSurveyFormat extends MasterBean implements Serializable {
+public class UnitSurveyFormat  {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 7082005646348636365L;
 
 }

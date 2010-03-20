@@ -12,11 +12,8 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Unit Group Bean.
@@ -25,7 +22,7 @@ import org.encuestame.web.beans.MasterBean;
  * @version $Id$
  */
 
-public class UnitGroupBean extends MasterBean implements Serializable {
+public class UnitGroupBean {
 
 
     private static final long serialVersionUID = -3303088512430614308L;
