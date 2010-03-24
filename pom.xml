@@ -36,6 +36,13 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		   <repository>  
+		      <id>prime-repo</id>  
+		      <name>Prime Technology Maven_Repository</name>  
+		       <url>http://repository.prime.com.tr</url>  
+		       <layout>default</layout>  
+		 </repository>  
+		
 		<repository>
 			<releases>
 				<enabled>true</enabled>
@@ -119,6 +126,11 @@
 	</developers>
 
 	<dependencies>
+	    <dependency>  
+	      <groupId>org.primefaces</groupId>  
+	      <artifactId>primefaces</artifactId>  
+	      <version>1.0.0</version>  
+	    </dependency>  
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
