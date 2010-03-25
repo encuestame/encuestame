@@ -7,7 +7,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>encuestame</name>
 	<description>
-        encuestame is a open source webapp java survey system
+		encuestame is a open source webapp java survey system
     </description>
 	<url>http://www.encuestame.org</url>
 	<inceptionYear>2009</inceptionYear>
@@ -36,13 +36,13 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		   <repository>  
-		      <id>prime-repo</id>  
-		      <name>Prime Technology Maven_Repository</name>  
-		       <url>http://repository.prime.com.tr</url>  
-		       <layout>default</layout>  
-		 </repository>  
-		
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Technology Maven_Repository</name>
+			<url>http://repository.prime.com.tr</url>
+			<layout>default</layout>
+		</repository>
+
 		<repository>
 			<releases>
 				<enabled>true</enabled>
@@ -126,11 +126,11 @@
 	</developers>
 
 	<dependencies>
-	    <dependency>  
-	      <groupId>org.primefaces</groupId>  
-	      <artifactId>primefaces</artifactId>  
-	      <version>1.0.0</version>  
-	    </dependency>  
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -195,6 +195,16 @@
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
 			<version>1.1.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xom</artifactId>
+					<groupId>xom</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jdom</artifactId>
+					<groupId>jdom</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>javassist</groupId>
@@ -238,11 +248,6 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.4</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>1.2_02</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
@@ -356,11 +361,6 @@
 			<version>1.2_02</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>1.2-b19</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.4</version>
@@ -398,24 +398,9 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.richfaces.samples</groupId>
-			<artifactId>laguna</artifactId>
-			<version>3.3.3.BETA1</version>
-		</dependency>
-		<dependency>
 			<groupId>com.googlecode.gmaps4jsf</groupId>
 			<artifactId>gmaps4jsf-core</artifactId>
 			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.samples</groupId>
-			<artifactId>glassX</artifactId>
-			<version>3.3.3.BETA1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.samples</groupId>
-			<artifactId>darkX</artifactId>
-			<version>3.3.3.BETA1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.el</groupId>
@@ -431,11 +416,6 @@
 			<groupId>org.tuckey</groupId>
 			<artifactId>urlrewrite</artifactId>
 			<version>2.5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>1.2-b19</version>
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
