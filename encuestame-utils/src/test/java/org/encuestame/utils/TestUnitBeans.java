@@ -43,7 +43,7 @@ import org.junit.Test;
     */
     @Test
     public void testUnitPatternBean() {
-        final UnitPatternBean unitPattern = createUnitPatternBean("a", "", "",
+        final UnitPatternBean unitPattern = createUnitPatternBean("b", "", "",
                 2L, "", "", "", 1, "");
         assertNotNull(unitPattern);
     }
