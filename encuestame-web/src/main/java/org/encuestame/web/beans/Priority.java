@@ -14,7 +14,7 @@
 package org.encuestame.web.beans;
 
 /**
- * Enumeration Priority
+ * Enumeration Priority.
  * @author Picado, Juan juan@encuestame.org
  * @since Jan 25, 2010 2:14:01 AM
  * @version $Id$
