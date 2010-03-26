@@ -4,3 +4,5 @@ Si tu quieres consturir y deployar desde el código fuente sigue las siguientes
 instrucciones.
 
     http://wiki.encuestame.org/index.php/Gu%C3%ADa_de_Construcci%C3%B3n
+
+Modificacion al archivo leeme.txt
