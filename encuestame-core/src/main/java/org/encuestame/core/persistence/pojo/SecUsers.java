@@ -12,9 +12,6 @@
  */
 package org.encuestame.core.persistence.pojo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -60,7 +57,7 @@ public class SecUsers{
     private Set<ProjectUser> projectUsers = new HashSet<ProjectUser>(0);
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>(
             0);*/
-    private Set<Surveys> surveys = new HashSet<Surveys>();
+    //private Set<Surveys> surveys = new HashSet<Surveys>();
 
     /**
      * @return uid
