@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="encuestame-web/src/main/java"/>
+	<classpathentry kind="src" path="encuestame-core/src/main/resources"/>
+	<classpathentry kind="src" path="encuestame-utils/src/test/resources"/>
+	<classpathentry kind="src" path="encuestame-core/src/test/resources"/>
+	<classpathentry kind="src" path="encuestame-war/src/main/resources"/>
 	<classpathentry kind="src" path="encuestame-web/src/test/java"/>
 	<classpathentry kind="src" path="encuestame-core/src/test/java"/>
 	<classpathentry kind="src" path="encuestame-utils/src/test/java"/>

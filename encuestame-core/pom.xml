@@ -31,7 +31,15 @@
 					<compilerArgument>-Xlint:unchecked</compilerArgument>
 				</configuration>
 			</plugin>
-
 		</plugins>
+
+		<testResources>
+			<testResource>
+				<directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/config</directory>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/classes</directory>
+			</testResource>
+		</testResources>
 	</build>
 </project>
