@@ -6,14 +6,15 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/config/encuestame-service-context.xml, /WEB-INF/config/encuestame-hibernate-context.xml,
-            /WEB-INF/config/encuestame-dao-context.xml,
-            /WEB-INF/config/encuestame-email-context.xml,
-            /WEB-INF/config/encuestame-security-context.xml,
-            /WEB-INF/config/encuestame-param-context.xml,
-            /WEB-INF/config/encuestame-beans-jsf-context.xml,
-            /WEB-INF/config/encuestame-mvc-context.xml,
-            /WEB-INF/config/encuestame-web-flow-context.xml
+            classpath:encuestame-service-context.xml,
+            classpath:encuestame-hibernate-context.xml,
+            classpath:encuestame-dao-context.xml,
+            classpath:encuestame-email-context.xml,
+            classpath:encuestame-security-context.xml,
+            classpath:encuestame-param-context.xml,
+            classpath:encuestame-beans-jsf-context.xml,
+            classpath:encuestame-mvc-context.xml,
+            classpath:encuestame-web-flow-context.xml
         </param-value>
     </context-param>
 
@@ -31,7 +32,7 @@
     </context-param>
     <context-param>
         <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/WEB-INF/taglib/encuestame.taglib.xml;/WEB-INF/taglib/gmaps4jsf-facelets-taglib.xml
+        <param-value>/WEB-INF/taglibs/encuestame.taglib.xml;/WEB-INF/taglibs/gmaps4jsf-facelets-taglib.xml
         </param-value>
     </context-param>
     <context-param>

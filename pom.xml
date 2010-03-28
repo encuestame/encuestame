@@ -38,7 +38,7 @@
 	<scm>
 		<connection>scm:svn:http://svn.encuesta.me/trunk/encuestame</connection>
 		<developerConnection>scm:svn:http://svn.encuesta.me/trunk/encuestame</developerConnection>
-		<url>scm:svn:http://svn.encuesta.me/trunk/encuestame</url>
+		<url>http://svn.encuesta.me/trunk/encuestame</url>
 	</scm>
 
 	<distributionManagement>
@@ -414,11 +414,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>1.5.3</version>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
@@ -532,11 +527,6 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-acl</artifactId>
 			<version>2.0.4</version>
-		</dependency>
-		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm-attrs</artifactId>
-			<version>2.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.twitter4j</groupId>
@@ -664,11 +654,6 @@
 			<version>3.3.ga</version>
 		</dependency>
 		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.jboss.el</groupId>
 			<artifactId>jboss-el</artifactId>
 			<version>2.0.1.GA</version>
@@ -738,6 +723,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>2.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2</version>
 		</dependency>
 	</dependencies>
 </project>
