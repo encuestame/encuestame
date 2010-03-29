@@ -28,18 +28,19 @@ import org.encuestame.web.beans.MasterBean;
 
 public class GroupBean extends MasterBean {
 
-    /** New {@link UnitGroupBean} **/
+    /** New {@link UnitGroupBean}. **/
     private UnitGroupBean newGroup;
-    /** List of {@link UnitGroupBean} **/
+
+    /** List of {@link UnitGroupBean}. **/
     private List<UnitGroupBean> listUnitGroupBeans;
-    /** Processed Group Id **/
+
+    /** Processed Group Id. **/
     private Integer processedGroupId;
 
     /**
      * Constructor.
      */
     public GroupBean() {
-        isOneRow = true;
     }
 
     /**
@@ -59,7 +60,8 @@ public class GroupBean extends MasterBean {
                 newGroup.setStateId((group.getIdState().toString()));
                 listUnitGroupBeans.add(newGroup);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             addErrorMessage(getMessageProperties("error_load_groups"), e
                     .getMessage());
             log.error("error load groups "+e.getMessage());
@@ -149,10 +151,12 @@ public class GroupBean extends MasterBean {
                 this.newGroup.setGroupDescription(secGroups.getGroupDescriptionInfo());
                 this.newGroup.setGroupName(secGroups.getGroupName());
                 this.newGroup.setStateId((secGroups.getIdState().toString()));
-            } else {
+            }
+            else {
                 addErrorMessage("group can't be created", "");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             addErrorMessage("error on retrieve list of groups: " + e.getMessage(), e
                     .getMessage());
         }
@@ -216,7 +220,8 @@ public class GroupBean extends MasterBean {
             log.info("setProcessedGroupId " + processedGroupId);
             this.processedGroupId = processedGroupId;
             fill(this.processedGroupId);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             addErrorMessage("Error cargando Grupo" + e.getMessage(), e
                     .getMessage());
             log.error("error ->" + e.getMessage());

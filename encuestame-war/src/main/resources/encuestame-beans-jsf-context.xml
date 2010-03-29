@@ -23,21 +23,9 @@
     <!-- admon bean -->
     <bean id="userBean" class="org.encuestame.web.beans.admon.UserBean" scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
-        <property name="unitUserBean" ref="unitUserBean" />
     </bean>
 
     <bean id="groupBean" class="org.encuestame.web.beans.admon.GroupBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-        <property name="newGroup" ref="unitGroupBean" />
-    </bean>
-
-    <bean id="unitGroupBean" class="org.encuestame.utils.web.UnitGroupBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
-
-    <bean id="unitUserBean" class="org.encuestame.utils.web.UnitUserBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
@@ -48,55 +36,14 @@
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-    <!-- Location -->
-    <bean id="locationBean" class="org.encuestame.utils.web.LocationBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
-
-    <bean id="locationTypeBean" class="org.encuestame.utils.web.LocationTypeBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-        <property name="locationTypeBean" ref="unitLocationTypeBean" />
-    </bean>
-
-    <bean id="treeNodeLocationBean" class="org.encuestame.web.beans.location.TreeNodeTest"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
-
-     <bean id="unitLocationTypeBean" class="org.encuestame.utils.web.UnitLocationTypeBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
-
     <!-- Survey's -->
 
     <bean id="surveyFormatBean" class="org.encuestame.web.beans.survey.SurveyFormatBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
-    
-    
+
     <bean id="surveyControllerBean" class="org.encuestame.web.beans.survey.BuildSurveyControllerBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-        <property name="unitSurveySection" ref="unitSurveySection" />
-        <property name="unitQuestionBean" ref="unitQuestionBean" />
-        <property name="unitPatterBean" ref="unitPatterBean" />
-    </bean>
-
-    <bean id="unitSurveySection" class="org.encuestame.utils.web.UnitSurveySection"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
-
-    <bean id="unitQuestionBean" class="org.encuestame.utils.web.UnitQuestionBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
-
-    <bean id="unitPatterBean" class="org.encuestame.utils.web.UnitPatternBean"
         scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>

@@ -33,7 +33,7 @@
             <a4j:commandLink
               onclick="Richfaces.hideModalPanel('panelnewGroup')"
               ajaxSingle="true">
-              <h:graphicImage value="#{url.img}/icons/close.png" />
+              <h:graphicImage value="/icons/close.png" />
             </a4j:commandLink>
           </h:panelGroup>
         </a4j:form>
@@ -43,14 +43,14 @@
         <h2>#{temp.titleCreateGroups}</h2>
         <h:panelGrid columns="2">
           <h:outputLabel value="#{temp.name}" for="name" />
-          <h:inputText id="name" value="#{unitGroupBean.groupName}" size="40"
+          <h:inputText id="name" value="" size="40"
             required="true" requiredMessage="#{temp.validateNameGroup}" />
           <h:outputLabel value="#{temp.description}" for="desc" />
           <h:inputTextarea id="desc"
-            value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
+            value="" cols="40" rows="3"
             required="true" requiredMessage="#{temp.validateDescrGroup}" />
           <h:outputLabel value="#{temp.state}" for="selectState" />
-          <h:selectOneMenu value="#{unitGroupBean.stateId}" id="selectState"
+          <h:selectOneMenu value="" id="selectState"
             required="true" requiredMessage="#{temp.validateStaterGroup}">
             <f:selectItems value="#{globalBean.loadListState}" />
           </h:selectOneMenu>
@@ -112,7 +112,7 @@
               <a4j:commandLink
                 oncomplete="javascript:Richfaces.showModalPanel('panelDelteGroup')"
                 reRender="formEditGroup, dataTableGroups">
-                <h:graphicImage value="#{url.img}/icons/uncheck.gif" />
+                <h:graphicImage value="/icons/uncheck.gif" />
                 <a4j:actionparam name="processedGroupId" value="#{unitGroup.id}"
                   assignTo="#{groupBean.processedGroupId}" noEscape="true" />
               </a4j:commandLink>
@@ -141,15 +141,15 @@
           <a4j:region id="editGroup">
             <h:panelGrid columns="2">
               <h:outputLabel value="#{temp.name}" for="name" />
-              <h:inputText id="name" value="#{unitGroupBean.groupName}"
+              <h:inputText id="name" value=""
                 size="40" required="true"
                 requiredMessage="#{temp.validateNameGroup}" />
               <h:outputLabel value="#{temp.description}" for="desc" />
               <h:inputTextarea id="desc"
-                value="#{unitGroupBean.groupDescription}" cols="40" rows="3"
+                value="" cols="40" rows="3"
                 required="true" requiredMessage="#{temp.validateDescrGroup}" />
               <h:outputLabel value="#{temp.state}" for="selectState" />
-              <h:selectOneMenu value="#{unitGroupBean.stateId}"
+              <h:selectOneMenu value=""
                 id="selectState" required="true"
                 requiredMessage="#{temp.validateStaterGroup}">
                 <f:selectItems value="#{globalBean.loadListState}" />
