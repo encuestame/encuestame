@@ -28,37 +28,37 @@ public class UnitPermission{
     /**
      * @return the id
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
     /**
      * @param id the id to set
      */
-    public void setId(final Long id) {
+    public final void setId(final Long id) {
         this.id = id;
     }
     /**
      * @return the permission
      */
-    public String getPermission() {
+    public final String getPermission() {
         return permission;
     }
     /**
      * @param permission the permission to set
      */
-    public void setPermission(final String permission) {
+    public final void setPermission(final String permission) {
         this.permission = permission;
     }
     /**
      * @return the description
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
     /**
      * @param description the description to set
      */
-    public void setDescription(final String description) {
+    public final void setDescription(final String description) {
         this.description = description;
     }
 }

@@ -22,23 +22,50 @@ import org.encuestame.core.service.ApplicationServices;
  */
 public class UrlBean {
 
-    ApplicationServices applicationService;
-    public String img;
-    public String googleKey;
+    /**
+     * {@link ApplicationServices}.
+     */
+    private ApplicationServices applicationService;
 
+    /**
+     * Image.
+     */
+    private String img;
+
+    /**
+     * Google Key.
+     */
+    private String googleKey;
+
+    /**
+     * Getter.
+     * @return
+     */
     public ApplicationServices getApplicationService() {
         return applicationService;
     }
 
+    /**
+     * Setter.
+     * @param applicationService {@link ApplicationServices}
+     */
     public void setApplicationService(ApplicationServices applicationService) {
         this.applicationService = applicationService;
     }
 
+    /**
+     * Getter.
+     * @return
+     */
     public String getImg() {
         img = getApplicationService().getUrlImg().trim();
         return img;
     }
 
+    /**
+     * Setter.
+     * @param img
+     */
     public void setImg(String img) {
         this.img = img;
     }

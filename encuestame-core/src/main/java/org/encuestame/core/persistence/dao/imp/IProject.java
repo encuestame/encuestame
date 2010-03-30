@@ -32,7 +32,7 @@ public interface IProject extends IBaseDao {
      * @return {@link Project}
      * @throws HibernateException hibernate expcetion
      */
-    public Project getProjectbyId(Long projectId) throws HibernateException;
+    Project getProjectbyId(Long projectId);
 
 
     /**
@@ -40,7 +40,7 @@ public interface IProject extends IBaseDao {
      * @return List of Project
      * @throws HibernateException hibernate expcetion
      */
-    public List<Project> findAll() throws HibernateException;
+    List<Project> findAll();
 
     /**
      * Find Projects by {@link SecUsers} id.
@@ -48,5 +48,5 @@ public interface IProject extends IBaseDao {
      * @return list of projects.
      * @throws HibernateException exception
      */
-    public List<Project> findProjectsByUserID(final Long userId) throws HibernateException;
+    List<Project> findProjectsByUserID(final Long userId);
 }

@@ -67,5 +67,5 @@ public interface ITweetPoll extends IBaseDao{
       * @param answers {@link QuestionsAnswers}
       * @return List of {@link TweetPollResult}
       */
-     List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers);
+      List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers);
 }

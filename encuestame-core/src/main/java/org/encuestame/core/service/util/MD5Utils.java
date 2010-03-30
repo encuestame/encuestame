@@ -35,14 +35,16 @@ public class MD5Utils {
         final StringBuffer buf = new StringBuffer();
         for (byte aData : data) {
             int halfbyte = (aData >>> 4) & 0x0F;
-            int two_halfs = 0;
+            int twoHalfs = 0;
             do {
-                if ((0 <= halfbyte) && (halfbyte <= 9))
+                if ((0 <= halfbyte) && (halfbyte <= 9)) {
                     buf.append((char) ('0' + halfbyte));
-                else
+                }
+                else {
                     buf.append((char) ('a' + (halfbyte - 10)));
+                }
                 halfbyte = aData & 0x0F;
-            } while (two_halfs++ < 1);
+            } while (twoHalfs++ < 1);
         }
         return buf.toString();
     }
@@ -54,7 +56,7 @@ public class MD5Utils {
      * @throws NoSuchAlgorithmException If md5 isn't available
      * @throws UnsupportedEncodingException If the character encoding isn't available
      */
-    public static String MD5(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+    public static String md5(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
         MessageDigest md;
         md = MessageDigest.getInstance("MD5");
         byte[] md5hash;
@@ -68,13 +70,11 @@ public class MD5Utils {
      * @param text The sum you want shortened
      * @return The shortened md5sum
      */
-    public static String ShortMD5(String text) {
+    public static String shortMD5(String text) {
         try {
-            return MD5(text).substring(0, 6);
+            return md5(text).substring(0, 6);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
         return "";
     }

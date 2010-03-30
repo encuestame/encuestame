@@ -64,7 +64,7 @@ public class DataSource implements IDataSource {
     /** {@link SecUserDaoImp}. **/
     private ISecUserDao secUserDao;
     /** Log. */
-    protected Log log = LogFactory.getLog(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
 
     /**
@@ -73,8 +73,7 @@ public class DataSource implements IDataSource {
      * @return {@link Collection} of {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public Collection<UnitProjectBean> loadListProjects(final Long userId) throws EnMeExpcetion {
-        try{
+    public Collection<UnitProjectBean> loadListProjects(final Long userId) {
             final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
             final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
             log.info("project by user id: "+projectList.size());
@@ -85,10 +84,6 @@ public class DataSource implements IDataSource {
             }
             log.info("projects loaded: "+ listProjects.size());
             return listProjects;
-        }catch (Exception e) {
-            log.error(e);
-            throw new EnMeExpcetion(e);
-        }
     }
 
     /**
@@ -224,7 +219,6 @@ public class DataSource implements IDataSource {
         log.info("update LocationType");
         final CatLocationType catLocationType = getCatLocationTypeDao().getLocationById(locationTypeBean.getIdLocType());
         if (catLocationType!=null){
-            System.out.println("IDLOCATION-->");
             catLocationType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
             catLocationType.setLocationTypeLevel(locationTypeBean.getLevel());
             getCatLocationTypeDao().saveOrUpdate(catLocationType);
@@ -266,7 +260,7 @@ public class DataSource implements IDataSource {
      * @param stateId state id
      * @return {@link CatState}
      */
-    public CatState getState(final Long stateId) throws Exception {
+    public CatState getState(final Long stateId) {
         return getStateDao().getState(stateId);
     }
 

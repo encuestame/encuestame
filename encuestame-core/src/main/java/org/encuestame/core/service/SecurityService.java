@@ -21,6 +21,8 @@ import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.SecGroupDaoImp;
@@ -36,8 +38,6 @@ import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
-import org.hibernate.HibernateException;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 
 /**
@@ -48,6 +48,7 @@ import org.springframework.mail.MailSendException;
  */
 public class SecurityService extends Service implements ISecurityService {
 
+    private Log log = LogFactory.getLog(this.getClass());
     /** SecUserDao. **/
     private SecUserDaoImp secUserDao;
     /** Group Dao. **/
@@ -57,7 +58,7 @@ public class SecurityService extends Service implements ISecurityService {
     /** Services Mail **/
     private MailServiceImpl serviceMail;
     /** Default User Permission **/
-    private final  String DEFAULT_PERMISSION = "ENCUESTAME_USER";
+    private static final String DEFAULT = "ENCUESTAME_USER";
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
     /**  {@link SurveyService} **/
@@ -122,11 +123,11 @@ public class SecurityService extends Service implements ISecurityService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
+     * @throws Exception
      * @throws EnMeExpcetion excepcion
      */
-    public List<UnitUserBean> loadListUsers() throws EnMeExpcetion {
+    public List<UnitUserBean> loadListUsers() {
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        try {
             final Collection<SecUserSecondary> listUsers = getUserDao().findAll();
                 if (listUsers.size() > 0) {
                     for (Iterator<SecUserSecondary> i = listUsers.iterator(); i.hasNext();) {
@@ -143,10 +144,6 @@ public class SecurityService extends Service implements ISecurityService {
                         loadListUsers.add(userBean);
                     }
                 }
-        }
-        catch (Exception e) {
-           throw new EnMeExpcetion(e.getMessage());
-        }
         return loadListUsers;
     }
 
@@ -234,8 +231,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return collection of groups beans.
      * @throws Exception
      */
-    private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroups> groups)
-            throws Exception {
+    private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroups> groups){
             final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
             for (SecGroups secGroups : groups) {
                  loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
@@ -249,8 +245,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return collection of permission
      * @throws Exception all exceptions.
   */
-    private Collection<UnitPermission> convertSetToUnitPermission(final Set<SecPermission> permissions)
-            throws Exception {
+    private Collection<UnitPermission> convertSetToUnitPermission(final Set<SecPermission> permissions) {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
         for (SecPermission secPermission : permissions) {
             loadListPermission.add(ConvertDomainBean.convertPermissionToBean(secPermission));
@@ -305,8 +300,7 @@ public class SecurityService extends Service implements ISecurityService {
      * Delete user.
      * @param userBean user to delete
      */
-    public void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion {
-        try{
+    public void deleteUser(final UnitUserBean userBean){
             final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
             log.info("user found "+userDomain);
             if(userDomain == null) {
@@ -319,18 +313,15 @@ public class SecurityService extends Service implements ISecurityService {
                 }
                 getUserDao().delete(userDomain);
             }
-        }
-        catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
     }
 
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
      * @param newPassword new password
+     * @throws EnMeExpcetion
      */
-    public String renewPassword(final UnitUserBean userBean, String newPassword) {
+    public String renewPassword(final UnitUserBean userBean, String newPassword) throws EnMeExpcetion {
         // search user
         final SecUserSecondary userDomain = getUser(userBean.getUsername());
         // validate user and password
@@ -346,7 +337,7 @@ public class SecurityService extends Service implements ISecurityService {
         }
         else {
             //if we have a problem with user, we retrieve null value
-            newPassword = null;
+           throw new EnMeExpcetion("error on renew password");
         }
         return newPassword;
     }
@@ -380,9 +371,8 @@ public class SecurityService extends Service implements ISecurityService {
      * @param userBean user bean.
      * @throws EnMeExpcetion exception
      */
-    public void updateUser(final UnitUserBean userBean) throws EnMeExpcetion {
+    public void updateUser(final UnitUserBean userBean){
         log.info("service update user method");
-       try{
             final SecUserSecondary updateUser = getUserDao().getUserByUsername(userBean.getUsername());
             log.info("update user, user found: "+updateUser.getUid());
             if (updateUser != null) {
@@ -393,10 +383,6 @@ public class SecurityService extends Service implements ISecurityService {
                 log.info("updateing user, user "+updateUser.getUid());
                 getUserDao().saveOrUpdate(updateUser);
             }
-       }
-       catch (Exception e) {
-           throw new EnMeExpcetion(e);
-       }
     }
 
     /**
@@ -423,16 +409,6 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     *
-     * @return
-     */
-    private SecUsers verifyUserPrimary() {
-        final SecUsers userPrimary = new SecUsers();
-        getUserDao().saveOrUpdate(userPrimary);
-        return userPrimary;
-    }
-
-    /**
      * Create a secondary user, generate password for user and send email to confirmate
      * the account.
      * @param userBean {@link UnitUserBean}
@@ -452,7 +428,6 @@ public class SecurityService extends Service implements ISecurityService {
             throw new EnMeExpcetion("needed email and username to create user");
         }
         String password = null;
-        System.out.println(userBean.getPassword());
         if (userBean.getPassword()!=null) {
              password = userBean.getPassword();
              secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
@@ -465,7 +440,6 @@ public class SecurityService extends Service implements ISecurityService {
         secondaryUser.setCompleteName(userBean.getName());
         secondaryUser.setUserStatus(userBean.getStatus());
         secondaryUser.setEnjoyDate(new Date());
-        try {
             // send to user the password to her emails
             if((getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), password);
@@ -482,49 +456,9 @@ public class SecurityService extends Service implements ISecurityService {
             retrievedUser.getSecUserPermissions().add(permission);
             log.info("saving user");
             getUserDao().saveOrUpdate(retrievedUser);
-
             final SecUserSecondary retrievedUser2 = getUserDao().getSecondaryUserById(retrievedUser.getUid());
             log.info("saved user total permissions "+retrievedUser2.getSecUserPermissions().size());
-
-        }
-        catch (MailSendException ex) {
-            log.error("error on notifications, you need desactivate notifications or configure "
-                    +"correctly your access on mail server. trace: "+ ex.getMessage());
-            throw new EnMeExpcetion(
-                    "error on notifications, you need desactivate notifications or configure "
-                    +"correctly your access on mail server ["+ex.getMessage()+"]");
-        }
-        catch (HibernateException ex) {
-            log.error("data access ERROR on save user trace:"+ex.getMessage());
-            throw new EnMeExpcetion("data access ERROR on save user  ["+ex.getMessage()+"]");
-        }
-        catch (Exception ex) {
-            log.fatal("fatal error trace:"+ex.getMessage());
-            throw new EnMeExpcetion("error on create user ["+ex.getMessage()+"]");
-        }
         return password;
-    }
-
-    /**
-     * Load default permission when create user.
-     * @return
-     * @throws EnMeExpcetion
-     */
-    private UnitPermission loadDefaultPermissionBean()
-            throws EnMeExpcetion {
-        final SecPermission permissionDomain = getPermissionDao().loadPermission(
-                getDefaultUserPermission().trim());
-        log.info("default permission load "+permissionDomain);
-        if (permissionDomain != null) {
-            //convert domain to bean permission
-            final UnitPermission permissionBean = new UnitPermission();
-            permissionBean.setDescription(permissionDomain.getPermissionDescription());
-            permissionBean.setPermission(permissionDomain.getPermission());
-            permissionBean.setId(permissionDomain.getIdPermission());
-            return permissionBean;
-        } else {
-            throw new EnMeExpcetion("default permission not found.");
-        }
     }
 
     /**
@@ -563,17 +497,6 @@ public class SecurityService extends Service implements ISecurityService {
     }
 
     /**
-     * Verify if user have permissions.
-     * @param user
-     * @param permission
-     */
-    private void verifyUserPermission(
-            final UnitUserBean user,
-            final UnitPermission permission) {
-        //TODO: need finihs this.
-    }
-
-    /**
      * Assing group to user.
      * @param userBean userBean
      * @param groupBean groupBean
@@ -583,18 +506,7 @@ public class SecurityService extends Service implements ISecurityService {
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion {
-        try{
-         /*   SecGroupUserId groupUserId = new SecGroupUserId();
-            groupUserId.setGroupId(Long.valueOf(groupBean.getId().toString()));
-            groupUserId.setUid(Long.valueOf(userBean.getId().toString()));
-            SecGroupUser groupUser = new SecGroupUser();
-            groupUser.setSecGroupUserId(groupUserId);
-            groupUser.setState(true);
-            getUserDao().assingGroupToUser(groupUser);*/
-        }
-        catch (Exception e) {
-           throw new EnMeExpcetion(e.getMessage());
-        }
+       //TODO: need be implemented
     }
 
     /**
@@ -602,19 +514,14 @@ public class SecurityService extends Service implements ISecurityService {
      * @param permission permission
      * @return permission bean
      */
-    public UnitPermission loadBeanPermission(final String permission)
-            throws EnMeExpcetion {
+    public UnitPermission loadBeanPermission(final String permission) {
         final UnitPermission permissionBean = new UnitPermission();
-        try{
             final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
                 if (permissionDomain != null) {
                     permissionBean.setId(permissionDomain.getIdPermission());
                     permissionBean.setPermission(permissionDomain.getPermission());
                     permissionBean.setDescription(permissionDomain.getPermissionDescription());
                 }
-            }catch (Exception e) {
-                throw new EnMeExpcetion(e.getMessage());
-            }
         return permissionBean;
     }
 
@@ -633,7 +540,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @param code code
      * @throws Exception excepcion
      */
-    public void inviteUser(String email, String code) throws Exception {
+    public void inviteUser(String email, String code){
         getServiceMail().sendInvitation(email, code);
 
     }
@@ -665,18 +572,7 @@ public class SecurityService extends Service implements ISecurityService {
      */
     private String generatePassword() {
         return PasswordGenerator.getPassword(
-                PasswordGenerator.LOWERCASE + PasswordGenerator.CAPITALS, 10);
-    }
-
-    /**
-     * Encrypt the password.
-     * @param password password
-     * @return encrypt password
-     */
-    @Deprecated //Use EnMePasswordUtils
-    private String encryptPassworD(final String password) {
-        final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-        return passwordEncryptor.encryptPassword(password);
+                PasswordGenerator.lowercase + PasswordGenerator.capitals, 10);
     }
 
     /**
@@ -685,12 +581,8 @@ public class SecurityService extends Service implements ISecurityService {
      * @return List of users
      * @throws EnMeExpcetion exception
      */
-    public List<SelectItem> loadSelectItemSecondaryUser(final Long userId) throws EnMeExpcetion{
-        try{
+    public List<SelectItem> loadSelectItemSecondaryUser(final Long userId){
             return ConvertListDomainSelectBean.convertListSecondaryUsersDomainToSelect(getUserDao().getSecondaryUsersByUserId(userId));
-        }catch (Exception e) {
-           throw new EnMeExpcetion(e);
-        }
     }
 
     /**
@@ -712,7 +604,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return default user permission.
      */
     public String getDefaultUserPermission() {
-        return  DEFAULT_PERMISSION;
+        return  DEFAULT;
     }
 
     /**

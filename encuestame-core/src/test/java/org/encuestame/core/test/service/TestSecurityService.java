@@ -72,10 +72,10 @@ public class TestSecurityService extends AbstractBase{
     }
 
     /**
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws Exception
      */
     @Test
-    public void testLoadListUsers() throws EnMeExpcetion{
+    public void testLoadListUsers() throws Exception{
         addGroupUser(super.createSecondaryUser("user 1",this.userPrimary),super.createGroups("editor"));
         addGroupUser(super.createSecondaryUser("user 2",this.userPrimary),super.createGroups("admon"));
         assertEquals("Should be equals",2,securityService.loadListUsers().size());
@@ -230,6 +230,7 @@ public class TestSecurityService extends AbstractBase{
      * @throws EnMeExpcetion  EnMeExpcetion
      */
    @Test
+   @ExpectedException(EnMeExpcetion.class)
    public void testRenewPasswordwithoutPass()throws EnMeExpcetion{
       final SecUserSecondary secUser = createSecondaryUser("diana",this.userPrimary);
       UnitUserBean userPassBean = ConvertDomainBean.convertUserDaoToUserBean(secUser);

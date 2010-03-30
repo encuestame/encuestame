@@ -65,7 +65,7 @@ public class UnitQuestionBean {
     /**
      * @return the questionName
      */
-    public String getQuestionName() {
+    public final String getQuestionName() {
         return questionName;
     }
 
@@ -73,14 +73,14 @@ public class UnitQuestionBean {
      * @param questionName
      *            the questionName to set
      */
-    public void setQuestionName(String questionName) {
+    public final void setQuestionName(String questionName) {
         this.questionName = questionName;
     }
 
     /**
      * @return the version
      */
-    public String getVersion() {
+    public final String getVersion() {
         return version;
     }
 
@@ -88,14 +88,14 @@ public class UnitQuestionBean {
      * @param version
      *            the version to set
      */
-    public void setVersion(String version) {
+    public final void setVersion(String version) {
         this.version = version;
     }
 
     /**
      * @return the pattern
      */
-    public UnitPatternBean getPattern() {
+    public final UnitPatternBean getPattern() {
         return pattern;
     }
 
@@ -103,14 +103,14 @@ public class UnitQuestionBean {
      * @param pattern
      *            the pattern to set
      */
-    public void setPattern(UnitPatternBean pattern) {
+    public final void setPattern(UnitPatternBean pattern) {
         this.pattern = pattern;
     }
 
     /**
      * @return the id
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -118,14 +118,14 @@ public class UnitQuestionBean {
      * @param id
      *            the id to set
      */
-    public void setId(final Long id) {
+    public final void setId(final Long id) {
         this.id = id;
     }
 
     /**
      * @return the listAnswers
      */
-    public List<UnitAnswersBean> getListAnswers() {
+    public final List<UnitAnswersBean> getListAnswers() {
         return listAnswers;
     }
 
@@ -133,14 +133,14 @@ public class UnitQuestionBean {
      * @param listAnswers
      *            the listAnswers to set
      */
-    public void setListAnswers(final List<UnitAnswersBean> listAnswers) {
+    public final void setListAnswers(final List<UnitAnswersBean> listAnswers) {
         this.listAnswers = listAnswers;
     }
 
     /**
      * @return the stateId
      */
-    public Long getStateId() {
+    public final Long getStateId() {
         return stateId;
     }
 
@@ -148,14 +148,14 @@ public class UnitQuestionBean {
      * @param stateId
      *            the stateId to set
      */
-    public void setStateId(Long stateId) {
+    public final void setStateId(Long stateId) {
         this.stateId = stateId;
     }
 
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public final Long getUserId() {
         return userId;
     }
 
@@ -163,7 +163,7 @@ public class UnitQuestionBean {
      * @param userId
      *            the userId to set
      */
-    public void setUserId(Long userId) {
+    public final void setUserId(Long userId) {
         this.userId = userId;
     }
 

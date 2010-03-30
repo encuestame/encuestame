@@ -19,32 +19,32 @@ package org.encuestame.core.security.util;
  **/
 public class PasswordGenerator {
 
-    public static String NUMBERS = "0123456789";
-    public static String CAPITALS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public static String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
-    public static String ESPECIALES = "��%&@%=[]?�{}#~,.*+$!";
+    public final static String numbers = "0123456789";
+    public final static String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public final static String lowercase = "abcdefghijklmnopqrstuvwxyz";
+    public final static String specials = "��%&@%=[]?�{}#~,.*+$!";
 
-    public static String getPinNumber() {
-        return getPassword(NUMBERS, 4);
+    public final static String getPinNumber() {
+        return getPassword(numbers, 4);
     }
 
-    public static String getEspecialPassword() {
-        return getPassword(NUMBERS + CAPITALS + LOWERCASE + ESPECIALES, 12);
+    public final static String getEspecialPassword() {
+        return getPassword(numbers + capitals + lowercase + specials, 12);
     }
 
-    public static String getEspecialPassword(Integer e) {
-        return getPassword(NUMBERS + CAPITALS + LOWERCASE + ESPECIALES, e);
+    public final static String getEspecialPassword(Integer e) {
+        return getPassword(numbers + capitals + lowercase + specials, e);
     }
 
-    public static String getPassword() {
+    public final static String getPassword() {
         return getPassword(8);
     }
 
-    public static String getPassword(int length) {
-        return getPassword(NUMBERS + CAPITALS + CAPITALS, length);
+    public final static String getPassword(int length) {
+        return getPassword(numbers + capitals + capitals, length);
     }
 
-    public static String getPassword(String key, int length) {
+    public final static String getPassword(String key, int length) {
         String pswd = "";
 
         for (int i = 0; i < length; i++) {
@@ -54,7 +54,7 @@ public class PasswordGenerator {
         return pswd;
     }
 
-    public static String getNumericPassword(int lenght) {
-        return getPassword(NUMBERS, lenght);
+    public final static String getNumericPassword(int lenght) {
+        return getPassword(numbers, lenght);
     }
 }

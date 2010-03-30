@@ -42,9 +42,10 @@ public interface ISecurityService extends IService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
+     * @throws Exception Exception
      * @throws EnMeExpcetion excepcion
      */
-    List<UnitUserBean> loadListUsers() throws EnMeExpcetion;
+    List<UnitUserBean> loadListUsers() throws Exception;
 
     /**
      * Assing Group to User.
@@ -83,14 +84,15 @@ public interface ISecurityService extends IService {
      * @param userBean user to delete
      * @throws EnMeExpcetion exception
      */
-     void deleteUser(final UnitUserBean userBean) throws EnMeExpcetion;
+     void deleteUser(final UnitUserBean userBean);
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
      * @param newPassword new password
      * @return new password
+     * @throws EnMeExpcetion exception
      */
-    String renewPassword(final UnitUserBean userBean, final String newPassword);
+    String renewPassword(final UnitUserBean userBean, final String newPassword) throws EnMeExpcetion;
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
@@ -101,7 +103,7 @@ public interface ISecurityService extends IService {
      * @param userBean user bean.
      * @throws EnMeExpcetion exception
      */
-    public void updateUser(final UnitUserBean userBean) throws EnMeExpcetion;
+    void updateUser(final UnitUserBean userBean);
     /**
      * Create a new Group.
      * @param groupBean group bean
@@ -117,6 +119,7 @@ public interface ISecurityService extends IService {
      * the account.
      * @param userBean user bean
      * @return password
+     * @throws EnMeExpcetion
      * @throws EnMeExpcetion personalize exception
      */
     String createUser(final UnitUserBean userBean) throws EnMeExpcetion;
@@ -138,7 +141,7 @@ public interface ISecurityService extends IService {
      * @param groupBean groupBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void assingGroup(
+    void assingGroup(
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion;
@@ -163,6 +166,7 @@ public interface ISecurityService extends IService {
      * Invite some users to register in the system.
      * @param email list of users
      * @param code code
+     * @throws Exception
      * @throws Exception excepcion
      */
     void inviteUser(String email, String code) throws Exception;
@@ -232,7 +236,7 @@ public interface ISecurityService extends IService {
      * @return List of users
      * @throws EnMeExpcetion exception
      */
-     List<SelectItem> loadSelectItemSecondaryUser(final Long userId) throws EnMeExpcetion;
+     List<SelectItem> loadSelectItemSecondaryUser(final Long userId);
 
      /**
       * Update Twitter Account.

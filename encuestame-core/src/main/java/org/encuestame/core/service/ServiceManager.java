@@ -26,13 +26,13 @@ public class ServiceManager extends Service implements IServiceManager {
     /**
      * {@link ApplicationServices}.
      */
-    public IApplicationServices applicationServices;
+    private IApplicationServices applicationServices;
 
     /**
      * Setter of {@link ApplicationServices}.
      * @param applicationServices the applicationServices to set
      */
-    public void setApplicationServices(IApplicationServices applicationServices) {
+    public void setApplicationServices(final IApplicationServices applicationServices) {
         this.applicationServices = applicationServices;
     }
 

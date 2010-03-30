@@ -33,14 +33,14 @@ public interface ISurveyFormatDao extends IBaseDao {
      * @return SurveyFormat
      * @throws HibernateException hibernate exception
      */
-     public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException;
+     SurveyFormat getSurveyFormatById(final int idSidFormat);
      /**
       * Get User By Name.
       * @param name name
       * @return SurveyFormat
       * @throws HibernateException hibernate exception
       */
-     public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException;
+     SurveyFormat getSurveyFormatbyname(final String name);
 
      /**
       * Get SurveyFormat By Date.
@@ -49,7 +49,7 @@ public interface ISurveyFormatDao extends IBaseDao {
       * @return SurveyFormat
       * @throws HibernateException hibernate exception
       */
-     public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate);
+     List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate);
 
 
 }

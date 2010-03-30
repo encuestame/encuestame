@@ -15,8 +15,6 @@ package org.encuestame.utils.web;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Unit Survey Section.
@@ -31,7 +29,6 @@ public class UnitSurveySection{
     private String name;
     private Integer stateId;
     private Collection<UnitQuestionBean> questions = new ArrayList<UnitQuestionBean>();
-    private Log log = LogFactory.getLog(this.getClass());
     private Boolean showPanel = false;
 
     public UnitSurveySection() {}
@@ -45,7 +42,7 @@ public class UnitSurveySection{
     /**
      * @return the id
      */
-    public Integer getId() {
+    public final Integer getId() {
         return id;
     }
 
@@ -53,7 +50,7 @@ public class UnitSurveySection{
      * @param id the id to set
      */
 
-    public void setId(Integer id) {
+    public final void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,7 +58,7 @@ public class UnitSurveySection{
      * @return the name
      */
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -69,7 +66,7 @@ public class UnitSurveySection{
      * @param name the name to set
      */
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -77,13 +74,13 @@ public class UnitSurveySection{
      * @return the stateId
      */
 
-    public Integer getStateId() {
+    public final Integer getStateId() {
         return stateId;
     }
     /**
      * @param stateId the stateId to set
      */
-    public void setStateId(Integer stateId) {
+    public final void setStateId(Integer stateId) {
         this.stateId = stateId;
     }
 
@@ -91,7 +88,7 @@ public class UnitSurveySection{
      * @return the questions
      */
 
-    public Collection<UnitQuestionBean> getQuestions() {
+    public final Collection<UnitQuestionBean> getQuestions() {
         return questions;
     }
 
@@ -99,7 +96,7 @@ public class UnitSurveySection{
      * @param questions the questions to set
      */
 
-    public void setQuestions(Collection<UnitQuestionBean> questions) {
+    public final void setQuestions(Collection<UnitQuestionBean> questions) {
         this.questions = questions;
     }
 
@@ -107,14 +104,14 @@ public class UnitSurveySection{
      * @return the showPanel
      */
 
-    public Boolean getShowPanel() {
+    public final Boolean getShowPanel() {
         return showPanel;
     }
 
     /**
      * @param showPanel the showPanel to set
      */
-    public void setShowPanel(Boolean showPanel) {
+    public final void setShowPanel(Boolean showPanel) {
         this.showPanel = showPanel;
     }
 

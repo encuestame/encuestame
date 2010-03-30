@@ -32,85 +32,85 @@ public class LocationBean{
     /**
      * @return locateId
      */
-    public Long getLocateId() {
+    public final Long getLocateId() {
         return locateId;
     }
     /**
      * @param locateId locateId
      */
-    public void setLocateId(Long locateId) {
+    public final void setLocateId(Long locateId) {
         this.locateId = locateId;
     }
     /**
      * @return description
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
     /**
      * @param description description
      */
-    public void setDescription(String description) {
+    public final void setDescription(String description) {
         this.description = description;
     }
     /**
      * @return level
      */
-    public Integer getLevel() {
+    public final Integer getLevel() {
         return level;
     }
     /**
      * @param level level
      */
-    public void setLevel(Integer level) {
+    public final void setLevel(Integer level) {
         this.level = level;
     }
     /**
      * @return active
      */
-    public String getActive() {
+    public final String getActive() {
         return active;
     }
     /**
      * @param active active
      */
-    public void setActive(String active) {
+    public final void setActive(String active) {
         this.active = active;
     }
     /**
      * @return lat
      */
-    public Float getLat() {
+    public final Float getLat() {
         return lat;
     }
     /**
      * @param lat lat
      */
-    public void setLat(Float lat) {
+    public final void setLat(Float lat) {
         this.lat = lat;
     }
     /**
      * @return lng
      */
-    public Float getLng() {
+    public final Float getLng() {
         return lng;
     }
     /**
      * @param lng lng
      */
-    public void setLng(Float lng) {
+    public final void setLng(Float lng) {
         this.lng = lng;
     }
     /**
      * @return the tidtype
      */
-    public Long getTidtype() {
+    public final Long getTidtype() {
         return tidtype;
     }
     /**
      * @param tidtype the tidtype to set
      */
-    public void setTidtype(Long tidtype) {
+    public final void setTidtype(Long tidtype) {
         this.tidtype = tidtype;
     }
 

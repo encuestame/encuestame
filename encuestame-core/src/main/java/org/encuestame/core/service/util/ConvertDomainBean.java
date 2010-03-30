@@ -52,7 +52,7 @@ public class ConvertDomainBean {
      * @param domainUser Domain User
      * @return Bean User
      */
-    public static UnitUserBean convertUserDaoToUserBean(final SecUserSecondary domainUser) {
+    public static final UnitUserBean convertUserDaoToUserBean(final SecUserSecondary domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
             user.setName(domainUser.getCompleteName());
@@ -75,7 +75,7 @@ public class ConvertDomainBean {
      * @param user user
      * @return {@link UnitSessionUserBean}
      */
-    public static UnitSessionUserBean convertUserSessionToUserBean(final SecUsers user){
+    public static final UnitSessionUserBean convertUserSessionToUserBean(final SecUsers user){
         final UnitSessionUserBean sessionUserBean =  new UnitSessionUserBean();
         sessionUserBean.setUserSessionId(user.getUid());
         sessionUserBean.setConsumerTwitterKey(user.getConsumerKey());
@@ -91,7 +91,7 @@ public class ConvertDomainBean {
      * @param groupDomain {@link SecGroups}
      * @return {@link UnitGroupBean}
      */
-    public static UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
+    public static final UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
         groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
@@ -104,7 +104,7 @@ public class ConvertDomainBean {
      * @param location {@link CatLocation}
      * @return {@link UnitLocationBean}
      */
-    public static UnitLocationBean convertLocationToBean(final CatLocation location){
+    public static final UnitLocationBean convertLocationToBean(final CatLocation location){
         final UnitLocationBean locationBean = new UnitLocationBean();
         locationBean.setTid(location.getLocateId());
         locationBean.setActive(location.getLocationActive());
@@ -121,7 +121,7 @@ public class ConvertDomainBean {
      * @param locationType {@link CatLocationType}
      * @return {@link UnitLocationTypeBean}
      */
-    public static UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
+    public static final UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
         final UnitLocationTypeBean locationTypeBean = new UnitLocationTypeBean();
         locationTypeBean.setIdLocType(locationType.getLocationTypeId());
         locationTypeBean.setLocTypeDesc(locationType.getLocationTypeDescription());
@@ -135,7 +135,7 @@ public class ConvertDomainBean {
       * @param project {@link UnitProjectBean}
      * @return {@link UnitProjectBean}
      */
-    public static UnitProjectBean convertProjectDomainToBean(final Project project) {
+    public static final UnitProjectBean convertProjectDomainToBean(final Project project) {
         final UnitProjectBean projectBean = new UnitProjectBean();
         projectBean.setName(project.getProjectDescription());
         projectBean.setDateFinish(project.getProjectDateFinish());
@@ -152,7 +152,7 @@ public class ConvertDomainBean {
      * @param permission permission.
      * @return permBean
      */
-    public static UnitPermission convertPermissionToBean(final SecPermission permission){
+    public static final UnitPermission convertPermissionToBean(final SecPermission permission){
       final UnitPermission permBean = new UnitPermission();
       permBean.setId(permission.getIdPermission());
       permBean.setDescription(permission.getPermissionDescription());
@@ -166,7 +166,7 @@ public class ConvertDomainBean {
      * @param pattern  {@link QuestionPattern}
      * @return {@link UnitPatternBean}
      */
-    public static UnitPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
+    public static final UnitPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
         final UnitPatternBean patterBean = new UnitPatternBean();
         patterBean.setId(pattern.getPatternId());
         patterBean.setPatronType(pattern.getPatternType());
@@ -179,7 +179,7 @@ public class ConvertDomainBean {
      * @param questions {@link Questions}
      * @return {@link UnitQuestionBean}
      */
-    public static UnitQuestionBean convertQuestionsToBean(final Questions questions){
+    public static final UnitQuestionBean convertQuestionsToBean(final Questions questions){
         final UnitQuestionBean questionBean = new UnitQuestionBean();
         questionBean.setId(questions.getQid());
         questionBean.setQuestionName(questions.getQuestion());
@@ -193,7 +193,7 @@ public class ConvertDomainBean {
      * @param questionsAnswers {@link QuestionsAnswers}
      * @return {@link UnitAnswersBean}.
      */
-    public static UnitAnswersBean convertAnswerToBean(final QuestionsAnswers questionsAnswers){
+    public static final UnitAnswersBean convertAnswerToBean(final QuestionsAnswers questionsAnswers){
             final UnitAnswersBean answersBean = new UnitAnswersBean();
             answersBean.setAnswerId(questionsAnswers.getQuestionAnswerId());
             answersBean.setAnswers(questionsAnswers.getAnswer());
@@ -206,7 +206,7 @@ public class ConvertDomainBean {
      * @param poll tweet poll.
      * @return {@link UnitTweetPoll}
      */
-    public static UnitTweetPoll convertTweetPollToBean(final TweetPoll poll){
+    public static final UnitTweetPoll convertTweetPollToBean(final TweetPoll poll){
         final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
         unitTweetPoll.setId(poll.getTweetPollId());
         unitTweetPoll.setTweetId(poll.getTweetId());

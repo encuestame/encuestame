@@ -84,7 +84,7 @@ public interface IDataSource {
      * @return {@link CatState}
      * @throws Exception exception
      */
-    CatState getState(Long stateId) throws Exception;
+    CatState getState(Long stateId);
 
     /**
      * @return the stateDao

@@ -12,7 +12,7 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
+
 /**
  * Unit Location Bean.
  * @author Picado, Juan juan@encuestame.org
@@ -33,109 +33,109 @@ public class UnitLocationBean{
     /**
      * @return the tid
      */
-    public Long getTid() {
+    public final Long getTid() {
         return tid;
     }
     /**
      * @param tid the tid to set
      */
-    public void setTid(Long tid) {
+    public final void setTid(Long tid) {
         this.tid = tid;
     }
     /**
      * @return the locationTypeId
      */
-    public Long getLocationTypeId() {
+    public final Long getLocationTypeId() {
         return locationTypeId;
     }
     /**
      * @param locationTypeId the locationTypeId to set
      */
-    public void setLocationTypeId(Long locationTypeId) {
+    public final void setLocationTypeId(Long locationTypeId) {
         this.locationTypeId = locationTypeId;
     }
     /**
      * @return the descriptionLocation
      */
-    public String getDescriptionLocation() {
+    public final String getDescriptionLocation() {
         return descriptionLocation;
     }
     /**
      * @param descriptionLocation the descriptionLocation to set
      */
-    public void setDescriptionLocation(String descriptionLocation) {
+    public final void setDescriptionLocation(String descriptionLocation) {
         this.descriptionLocation = descriptionLocation;
     }
     /**
      * @return the level
      */
-    public Integer getLevel() {
+    public final Integer getLevel() {
         return level;
     }
     /**
      * @param level the level to set
      */
-    public void setLevel(Integer level) {
+    public final void setLevel(Integer level) {
         this.level = level;
     }
     /**
      * @return the state
      */
-    public Integer getState() {
+    public final Integer getState() {
         return state;
     }
     /**
      * @param state the state to set
      */
-    public void setState(Integer state) {
+    public final void setState(Integer state) {
         this.state = state;
     }
     /**
      * @return the latitude
      */
-    public Float getLatitude() {
+    public final Float getLatitude() {
         return latitude;
     }
     /**
      * @param latitude the latitude to set
      */
-    public void setLatitude(Float latitude) {
+    public final void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
     /**
      * @return the longitude
      */
-    public Float getLongitude() {
+    public final Float getLongitude() {
         return longitude;
     }
     /**
      * @param longitude the longitude to set
      */
-    public void setLongitude(Float longitude) {
+    public final void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
     /**
      * @return the isGeo
      */
-    public Boolean getIsGeo() {
+    public final Boolean getIsGeo() {
         return isGeo;
     }
     /**
      * @param isGeo the isGeo to set
      */
-    public void setIsGeo(Boolean isGeo) {
+    public final void setIsGeo(Boolean isGeo) {
         this.isGeo = isGeo;
     }
     /**
      * @return  Active State
      */
-    public String getActive() {
+    public final String getActive() {
         return active;
     }
     /**
      * @param active  Active State
      */
-    public void setActive(String active) {
+    public final void setActive(String active) {
         this.active = active;
     }
 }

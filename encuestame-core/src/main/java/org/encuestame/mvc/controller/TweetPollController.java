@@ -13,6 +13,8 @@
 
 package org.encuestame.mvc.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TweetPollController extends BaseController {
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Tweet Poll Controller.

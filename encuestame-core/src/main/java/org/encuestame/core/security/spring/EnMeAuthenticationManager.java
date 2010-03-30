@@ -44,18 +44,18 @@ public class EnMeAuthenticationManager extends ProviderManager implements
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() throws Exception{
         if (providerString != null) {
             // convierte una candea en una lista de proveedores
-            List<AuthenticationProvider> providers = new LinkedList<AuthenticationProvider>();
-            String[] names = providerString.split(",");
+            final List<AuthenticationProvider> providers = new LinkedList<AuthenticationProvider>();
+            final String[] names = providerString.split(",");
             log.info("providers split string "+names);
             for (String providerUnit : names) {
-                AuthenticationProvider provider = (AuthenticationProvider) applicationContext
+                final AuthenticationProvider provider = (AuthenticationProvider) applicationContext
                         .getBean(providerUnit.trim());
                 if (provider == null) {
                     //si no existe el proveedor, lanza una excepci�n
-                    throw new EnMeExpcetion("AuthenticationProvider "
+                    throw new Exception("AuthenticationProvider "
                             + providerUnit + " don't exist");
                 }
                 log.info("providers add "+provider);

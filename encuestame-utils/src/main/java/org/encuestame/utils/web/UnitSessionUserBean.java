@@ -43,7 +43,7 @@ public class UnitSessionUserBean {
     /**
      * @return the consumerTwitterKey
      */
-    public String getConsumerTwitterKey() {
+    public final String getConsumerTwitterKey() {
         return consumerTwitterKey;
     }
 
@@ -51,14 +51,14 @@ public class UnitSessionUserBean {
      * @param consumerTwitterKey
      *            the consumerTwitterKey to set
      */
-    public void setConsumerTwitterKey(String consumerTwitterKey) {
+    public final void setConsumerTwitterKey(String consumerTwitterKey) {
         this.consumerTwitterKey = consumerTwitterKey;
     }
 
     /**
      * @return the consumerTwitterSecret
      */
-    public String getConsumerTwitterSecret() {
+    public final String getConsumerTwitterSecret() {
         return consumerTwitterSecret;
     }
 
@@ -66,14 +66,14 @@ public class UnitSessionUserBean {
      * @param consumerTwitterSecret
      *            the consumerTwitterSecret to set
      */
-    public void setConsumerTwitterSecret(String consumerTwitterSecret) {
+    public final void setConsumerTwitterSecret(String consumerTwitterSecret) {
         this.consumerTwitterSecret = consumerTwitterSecret;
     }
 
     /**
      * @return the twitterTwitterPing
      */
-    public Integer getTwitterTwitterPing() {
+    public final Integer getTwitterTwitterPing() {
         return twitterTwitterPing;
     }
 
@@ -81,14 +81,14 @@ public class UnitSessionUserBean {
      * @param twitterTwitterPing
      *            the twitterTwitterPing to set
      */
-    public void setTwitterTwitterPing(Integer twitterTwitterPing) {
+    public final void setTwitterTwitterPing(Integer twitterTwitterPing) {
         this.twitterTwitterPing = twitterTwitterPing;
     }
 
     /**
      * @return the twitterAccount
      */
-    public String getTwitterAccount() {
+    public final String getTwitterAccount() {
         return twitterAccount;
     }
 
@@ -96,14 +96,14 @@ public class UnitSessionUserBean {
      * @param twitterAccount
      *            the twitterAccount to set
      */
-    public void setTwitterAccount(String twitterAccount) {
+    public final void setTwitterAccount(String twitterAccount) {
         this.twitterAccount = twitterAccount;
     }
 
     /**
      * @return the twitterPassword
      */
-    public String getTwitterPassword() {
+    public final String getTwitterPassword() {
         return twitterPassword;
     }
 
@@ -111,14 +111,14 @@ public class UnitSessionUserBean {
      * @param twitterPassword
      *            the twitterPassword to set
      */
-    public void setTwitterPassword(String twitterPassword) {
+    public final void setTwitterPassword(String twitterPassword) {
         this.twitterPassword = twitterPassword;
     }
 
     /**
      * @return the userSessionId
      */
-    public Long getUserSessionId() {
+    public final Long getUserSessionId() {
         return userSessionId;
     }
 
@@ -126,7 +126,7 @@ public class UnitSessionUserBean {
      * @param userSessionId
      *            the userSessionId to set
      */
-    public void setUserSessionId(Long userSessionId) {
+    public final void setUserSessionId(Long userSessionId) {
         this.userSessionId = userSessionId;
     }
 

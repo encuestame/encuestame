@@ -12,8 +12,6 @@
  */
 package org.encuestame.utils.web;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Unit Group Bean.
@@ -30,53 +28,52 @@ public class UnitGroupBean {
     private String groupName;
     private String groupDescription;
     private String stateId;
-    private Log log = LogFactory.getLog(this.getClass());
 
 
 
-    public Integer getId() {
+    public final Integer getId() {
         return id;
     }
 
 
-    public void setId(Integer id) {
+    public final void setId(Integer id) {
         this.id = id;
     }
 
     /**
      * @return the groupName
      */
-    public String getGroupName() {
+    public final String getGroupName() {
         return groupName;
     }
     /**
      * @param groupName the groupName to set
      */
-    public void setGroupName(String groupName) {
+    public final void setGroupName(String groupName) {
         this.groupName = groupName;
     }
     /**
      * @return the groupDescription
      */
-    public String getGroupDescription() {
+    public final String getGroupDescription() {
         return groupDescription;
     }
     /**
      * @param groupDescription the groupDescription to set
      */
-    public void setGroupDescription(String groupDescription) {
+    public final void setGroupDescription(String groupDescription) {
         this.groupDescription = groupDescription;
     }
     /**
      * @return the stateId
      */
-    public String getStateId() {
+    public final String getStateId() {
         return stateId;
     }
     /**
      * @param stateId the stateId to set
      */
-    public void setStateId(String stateId) {
+    public final void setStateId(String stateId) {
         this.stateId = stateId;
     }
 

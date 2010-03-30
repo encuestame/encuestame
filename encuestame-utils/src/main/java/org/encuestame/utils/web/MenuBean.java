@@ -13,6 +13,8 @@
 package org.encuestame.utils.web;
 
 import org.apache.log4j.Logger;
+
+
 /**
  * Menu Bean.
  * @author Picado, Juan juan@encuestame.org
@@ -34,13 +36,13 @@ public class MenuBean {
      * Constructor.
      */
     public MenuBean() {
-        setIndexCss(getCurrentSelected());
+        //TODO Remove on delete menu, delete this class
     }
 
     /**
      * @return the currentSelected
      */
-    public String getCurrentSelected() {
+    public final String getCurrentSelected() {
         return currentSelected;
     }
 
@@ -48,7 +50,7 @@ public class MenuBean {
      * @param currentSelected
      *            the currentSelected to set
      */
-    public void setCurrentSelected(String currentSelected) {
+    public final void setCurrentSelected(String currentSelected) {
         this.currentSelected = currentSelected;
     }
 
@@ -84,7 +86,7 @@ public class MenuBean {
     /**
      * @return the menuSelected
      */
-    public String getMenuSelected() {
+    public final String getMenuSelected() {
 
         return menuSelected;
     }
@@ -93,7 +95,7 @@ public class MenuBean {
      * @param menuSelected
      *            the menuSelected to set
      */
-    public void setMenuSelected(String menuSelected) {
+    public final void setMenuSelected(String menuSelected) {
         log.info("menuSelected->"+menuSelected);
         this.menuSelected = menuSelected;
         changeCurrentMenu();
@@ -102,7 +104,7 @@ public class MenuBean {
     /**
      * @return the admonCss
      */
-    public String getAdmonCss() {
+    public final String getAdmonCss() {
         return admonCss;
     }
 
@@ -110,14 +112,14 @@ public class MenuBean {
      * @param admonCss
      *            the admonCss to set
      */
-    public void setAdmonCss(String admonCss) {
+    public final void setAdmonCss(String admonCss) {
         this.admonCss = admonCss;
     }
 
     /**
      * @return the indexCss
      */
-    public String getIndexCss() {
+    public final String getIndexCss() {
         return indexCss;
     }
 
@@ -125,14 +127,14 @@ public class MenuBean {
      * @param indexCss
      *            the indexCss to set
      */
-    public void setIndexCss(String indexCss) {
+    public final void setIndexCss(String indexCss) {
         this.indexCss = indexCss;
     }
 
     /**
      * @return the surveyCss
      */
-    public String getSurveyCss() {
+    public final String getSurveyCss() {
         return surveyCss;
     }
 
@@ -140,14 +142,14 @@ public class MenuBean {
      * @param surveyCss
      *            the surveyCss to set
      */
-    public void setSurveyCss(String surveyCss) {
+    public final void setSurveyCss(String surveyCss) {
         this.surveyCss = surveyCss;
     }
 
     /**
      * @return the statsCss
      */
-    public String getStatsCss() {
+    public final String getStatsCss() {
         return statsCss;
     }
 
@@ -155,21 +157,21 @@ public class MenuBean {
      * @param statsCss
      *            the statsCss to set
      */
-    public void setStatsCss(String statsCss) {
+    public final void setStatsCss(String statsCss) {
         this.statsCss = statsCss;
     }
 
     /**
      * @return pollCss.
      */
-    public String getPollCss() {
+    public final String getPollCss() {
         return pollCss;
     }
     /**
      *
      * @param pollCss pollCss
      */
-    public void setPollCss(String pollCss) {
+    public final void setPollCss(String pollCss) {
         this.pollCss = pollCss;
     }
 

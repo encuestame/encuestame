@@ -29,7 +29,7 @@ public interface ICatLocation extends IBaseDao {
      * @return list of all locations
      * @throws HibernateException hibernate
      */
-    public List<CatLocation> findAll() throws HibernateException;
+    public List<CatLocation> findAll();
 
 
     /**
@@ -38,20 +38,20 @@ public interface ICatLocation extends IBaseDao {
      * @return {@link CatLocation}
      * @throws HibernateException excetion
      */
-    public CatLocation getLocationById(final Long locateId) throws HibernateException;
+    public CatLocation getLocationById(final Long locateId);
 
     /**
      * @param locateId locateId
      * @return aa
       * @throws HibernateException HibernateException
      */
-    public List<CatLocation> getLocationbyLevelId(final Integer locateId) throws HibernateException;
+    public List<CatLocation> getLocationbyLevelId(final Integer locateId);
 
     /**
      * @param tidtype tidtype
      * @return aa
      * @throws HibernateException HibernateException
      */
-    public List<CatLocation> getLocationByTypeLocationId(final Long tidtype) throws HibernateException;
+    public List<CatLocation> getLocationByTypeLocationId(final Long tidtype);
 
 }

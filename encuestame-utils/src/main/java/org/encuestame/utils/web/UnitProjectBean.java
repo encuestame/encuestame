@@ -64,7 +64,7 @@ public class UnitProjectBean {
     /**
      * @return the id
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -72,14 +72,14 @@ public class UnitProjectBean {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public final void setId(Long id) {
         this.id = id;
     }
 
     /**
      * @return the name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -87,14 +87,14 @@ public class UnitProjectBean {
      * @param name
      *            the name to set
      */
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
     /**
      * @return the dateInit
      */
-    public Date getDateInit() {
+    public final Date getDateInit() {
         return dateInit;
     }
 
@@ -102,14 +102,14 @@ public class UnitProjectBean {
      * @param dateInit
      *            the dateInit to set
      */
-    public void setDateInit(Date dateInit) {
+    public final void setDateInit(Date dateInit) {
         this.dateInit = dateInit;
     }
 
     /**
      * @return the dateFinish
      */
-    public Date getDateFinish() {
+    public final Date getDateFinish() {
         return dateFinish;
     }
 
@@ -117,14 +117,14 @@ public class UnitProjectBean {
      * @param dateFinish
      *            the dateFinish to set
      */
-    public void setDateFinish(Date dateFinish) {
+    public final void setDateFinish(Date dateFinish) {
         this.dateFinish = dateFinish;
     }
 
     /**
      * @return the state
      */
-    public Long getState() {
+    public final Long getState() {
         return state;
     }
 
@@ -132,14 +132,14 @@ public class UnitProjectBean {
      * @param state
      *            the state to set
      */
-    public void setState(Long state) {
+    public final void setState(Long state) {
         this.state = state;
     }
 
     /**
      * @return the description
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
@@ -147,175 +147,175 @@ public class UnitProjectBean {
      * @param description
      *            the description to set
      */
-    public void setDescription(String description) {
+    public final void setDescription(String description) {
         this.description = description;
     }
 
     /**
      * @return the clients
      */
-    public List<SelectItem> getClients() {
+    public final List<SelectItem> getClients() {
         return clients;
     }
 
     /**
      * @param clients the clients to set
      */
-    public void setClients(final List<SelectItem> clients) {
+    public final void setClients(final List<SelectItem> clients) {
         this.clients = clients;
     }
 
     /**
      * @return the catStateBeans
      */
-    public List<SelectItem> getCatStateBeans() {
+    public final List<SelectItem> getCatStateBeans() {
         return catStateBeans;
     }
 
     /**
      * @param catStateBeans the catStateBeans to set
      */
-    public void setCatStateBeans(final List<SelectItem> catStateBeans) {
+    public final void setCatStateBeans(final List<SelectItem> catStateBeans) {
         this.catStateBeans = catStateBeans;
     }
 
     /**
      * @return the listUsers
      */
-    public List<SelectItem> getListUsers() {
+    public final List<SelectItem> getListUsers() {
         return listUsers;
     }
 
     /**
      * @param listUsers the listUsers to set
      */
-    public void setListUsers(final List<SelectItem> listUsers) {
+    public final void setListUsers(final List<SelectItem> listUsers) {
         this.listUsers = listUsers;
     }
 
     /**
      * @return the groupList
      */
-    public List<SelectItem> getGroupList() {
+    public final List<SelectItem> getGroupList() {
         return groupList;
     }
 
     /**
      * @param groupList the groupList to set
      */
-    public void setGroupList(final List<SelectItem> groupList) {
+    public final void setGroupList(final List<SelectItem> groupList) {
         this.groupList = groupList;
     }
 
     /**
      * @return the locationList
      */
-    public List<SelectItem> getLocationList() {
+    public final List<SelectItem> getLocationList() {
         return locationList;
     }
 
     /**
      * @param locationList the locationList to set
      */
-    public void setLocationList(final List<SelectItem> locationList) {
+    public final void setLocationList(final List<SelectItem> locationList) {
         this.locationList = locationList;
     }
 
     /**
      * @return the projectPermissions
      */
-    public List<SelectItem> getProjectPermissions() {
+    public final List<SelectItem> getProjectPermissions() {
         return projectPermissions;
     }
 
     /**
      * @param projectPermissions the projectPermissions to set
      */
-    public void setProjectPermissions(final List<SelectItem> projectPermissions) {
+    public final void setProjectPermissions(final List<SelectItem> projectPermissions) {
         this.projectPermissions = projectPermissions;
     }
 
     /**
      * @return the priority
      */
-    public String getPriority() {
+    public final String getPriority() {
         return priority;
     }
 
     /**
      * @param priority the priority to set
      */
-    public void setPriority(final String priority) {
+    public final void setPriority(final String priority) {
         this.priority = priority;
     }
 
     /**
      * @return the status
      */
-    public Long getStatus() {
+    public final Long getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(final Long status) {
+    public final void setStatus(final Long status) {
         this.status = status;
     }
 
     /**
      * @return the hide
      */
-    public Boolean getHide() {
+    public final Boolean getHide() {
         return hide;
     }
 
     /**
      * @param hide the hide to set
      */
-    public void setHide(final Boolean hide) {
+    public final void setHide(final Boolean hide) {
         this.hide = hide;
     }
 
     /**
      * @return the notify
      */
-    public Boolean getNotify() {
+    public final Boolean getNotify() {
         return notify;
     }
 
     /**
      * @param notify the notify to set
      */
-    public void setNotify(final Boolean notify) {
+    public final void setNotify(final Boolean notify) {
         this.notify = notify;
     }
 
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public final Long getUserId() {
         return userId;
     }
 
     /**
      * @param userId the userId to set
      */
-    public void setUserId(final Long userId) {
+    public final void setUserId(final Long userId) {
         this.userId = userId;
     }
 
     /**
      * @return the leader
      */
-    public Long getLeader() {
+    public final Long getLeader() {
         return leader;
     }
 
     /**
      * @param leader the leader to set
      */
-    public void setLeader(final Long leader) {
+    public final void setLeader(final Long leader) {
         this.leader = leader;
     }
 

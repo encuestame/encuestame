@@ -21,7 +21,7 @@ package org.encuestame.utils.web;
  **/
 public class LocationTypeBean{
     /**Unit Location Type.*/
-    UnitLocationTypeBean locationTypeBean;
+   private UnitLocationTypeBean locationTypeBean;
 
     /**
      * Location Type Bean Constructor.
@@ -30,10 +30,14 @@ public class LocationTypeBean{
 
     }
 
+    public final UnitLocationTypeBean getLocationTypeBean() {
+        return locationTypeBean;
+    }
+
     /**
      * @param locationTypeBean the locationTypeBean to set
      */
-    public void setLocationTypeBean(UnitLocationTypeBean locationTypeBean) {
+    public final void setLocationTypeBean(final UnitLocationTypeBean locationTypeBean) {
         this.locationTypeBean = locationTypeBean;
     }
 }

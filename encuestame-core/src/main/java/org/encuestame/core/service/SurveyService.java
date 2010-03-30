@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
@@ -62,6 +64,8 @@ public class SurveyService extends Service implements ISurveyService {
     private String answerPollPath;
     private String tweetPollResultsPath;
     private ITweetPoll tweetPollDao;
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /** Tweet Path, **/
     private String tweetPath;
@@ -120,7 +124,7 @@ public class SurveyService extends Service implements ISurveyService {
                 final Questions question = new Questions();
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getUserDaoImp().getUserById(questionBean.getUserId()));
-                question.setQidKey(MD5Utils.MD5(RandomStringUtils.randomAlphanumeric(500)));
+                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);
                 getQuestionDaoImp().saveOrUpdate(question);
                 questionBean.setId(question.getQid());
@@ -129,7 +133,6 @@ public class SurveyService extends Service implements ISurveyService {
                 }
             }
             catch (Exception e) {
-                e.printStackTrace();
                 throw new EnMeExpcetion(e);
             }
     }
@@ -245,7 +248,6 @@ public class SurveyService extends Service implements ISurveyService {
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }
         catch (Exception e) {
-            e.printStackTrace();
             throw new EnMeExpcetion(e);
         }
     }
@@ -312,7 +314,6 @@ public class SurveyService extends Service implements ISurveyService {
         try {
           return getTwitterService().publicTweet(username, password, tweetText);
         } catch (TwitterException e) {
-            e.printStackTrace();
             log.error(e);
             throw new EnMeExpcetion(e);
         }
@@ -355,7 +356,6 @@ public class SurveyService extends Service implements ISurveyService {
     public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
             throws EnMeExpcetion {
         if (unitPatternBean != null && unitPatternBean.getId() != null) {
-            System.out.println("--------- LOAD PATTERN-------->"+unitPatternBean.getId());
             final QuestionPattern questionPatternDomain = getQuestionDaoImp().loadPatternInfo(
                     unitPatternBean.getId());
 
@@ -370,7 +370,8 @@ public class SurveyService extends Service implements ISurveyService {
             unitPatternBean.setFinallity("save");
             //TODO : need more properties.
             return unitPatternBean;
-        } else {
+        }
+        else {
             throw new EnMeExpcetion("unit patter bean is null");
         }
     }

@@ -29,7 +29,7 @@ public class UnitLocationTypeBean {
     /**
      * @return the idLocType
      */
-    public Long getIdLocType() {
+    public final Long getIdLocType() {
         return idLocType;
     }
 
@@ -37,14 +37,14 @@ public class UnitLocationTypeBean {
      * dfsfds.
      * @param idLocType the idLocType to set
      */
-    public void setIdLocType(final Long idLocType) {
+    public final void setIdLocType(final Long idLocType) {
         this.idLocType = idLocType;
     }
 
     /**
      * @return the locTypeDesc
      */
-    public String getLocTypeDesc() {
+    public final String getLocTypeDesc() {
         return locTypeDesc;
     }
 
@@ -52,14 +52,14 @@ public class UnitLocationTypeBean {
      * @param locTypeDesc
      *            the locTypeDesc to set
      */
-    public void setLocTypeDesc(String locTypeDesc) {
+    public final void setLocTypeDesc(String locTypeDesc) {
         this.locTypeDesc = locTypeDesc;
     }
 
     /**
      * @return the level
      */
-    public Integer getLevel() {
+    public final Integer getLevel() {
         return level;
     }
 
@@ -67,7 +67,7 @@ public class UnitLocationTypeBean {
      * @param level
      *            the level to set
      */
-    public void setLevel(Integer level) {
+    public final void setLevel(Integer level) {
         this.level = level;
     }
 

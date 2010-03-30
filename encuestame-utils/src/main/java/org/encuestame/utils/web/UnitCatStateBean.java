@@ -35,7 +35,7 @@ public class UnitCatStateBean {
     /**
      * @return the id
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -43,14 +43,14 @@ public class UnitCatStateBean {
      * @param id
      *            the id to set
      */
-    public void setId(final Long id) {
+    public final void setId(final Long id) {
         this.id = id;
     }
 
     /**
      * @return the state
      */
-    public String getState() {
+    public final String getState() {
         return state;
     }
 
@@ -58,7 +58,7 @@ public class UnitCatStateBean {
      * @param state
      *            the state to set
      */
-    public void setState(final String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 }

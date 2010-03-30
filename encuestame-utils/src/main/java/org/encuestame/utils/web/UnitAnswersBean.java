@@ -23,21 +23,21 @@ package org.encuestame.utils.web;
 public class UnitAnswersBean {
 
     /** Answer Id. **/
-    public Long answerId;
+    private Long answerId;
 
     /** Answer. **/
-    public String answers;
+    private String answers;
 
     /** Answer Hash. **/
-    public String answerHash;
+    private String answerHash;
 
     /** Question Id. **/
-    public Long questionId;
+    private	 Long questionId;
 
     /**
      * @return the answerId
      */
-    public Long getAnswerId() {
+    public final Long getAnswerId() {
         return answerId;
     }
 
@@ -45,14 +45,14 @@ public class UnitAnswersBean {
      * @param answerId
      *            the answerId to set
      */
-    public void setAnswerId(final Long answerId) {
+    public final void setAnswerId(final Long answerId) {
         this.answerId = answerId;
     }
 
     /**
      * @return the answers
      */
-    public String getAnswers() {
+    public final String getAnswers() {
         return answers;
     }
 
@@ -60,14 +60,14 @@ public class UnitAnswersBean {
      * @param answers
      *            the answers to set
      */
-    public void setAnswers(final String answers) {
+    public final void setAnswers(final String answers) {
         this.answers = answers;
     }
 
     /**
      * @return the answerHash
      */
-    public String getAnswerHash() {
+    public final String getAnswerHash() {
         return answerHash;
     }
 
@@ -75,14 +75,14 @@ public class UnitAnswersBean {
      * @param answerHash
      *            the answerHash to set
      */
-    public void setAnswerHash(final String answerHash) {
+    public final void setAnswerHash(final String answerHash) {
         this.answerHash = answerHash;
     }
 
     /**
      * @return the questionId
      */
-    public Long getQuestionId() {
+    public final Long getQuestionId() {
         return questionId;
     }
 
@@ -90,7 +90,7 @@ public class UnitAnswersBean {
      * @param questionId
      *            the questionId to set
      */
-    public void setQuestionId(final Long questionId) {
+    public final void setQuestionId(final Long questionId) {
         this.questionId = questionId;
     }
 }

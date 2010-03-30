@@ -23,7 +23,7 @@ import org.hibernate.HibernateException;
  * @version $Id$
  */
 public interface ISecGroups extends IBaseDao {
-    public Collection<SecGroups> findAllGroups() throws HibernateException;
-    public SecGroups getGroupById(Long groupId) throws HibernateException;
+    Collection<SecGroups> findAllGroups();
+    SecGroups getGroupById(Long groupId);
 }
 

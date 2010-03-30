@@ -32,14 +32,14 @@ public interface IQuestionDao extends IBaseDao {
      * @param question question
      * @throws HibernateException exception
      */
-    void createQuestion(final Questions question) throws HibernateException;
+    void createQuestion(final Questions question);
 
     /**
      * Load All Questions.
      * @return List of {@link Questions}
      * @throws HibernateException exception
      */
-    public List<Questions> loadAllQuestions() throws HibernateException;
+    public List<Questions> loadAllQuestions();
 
     /**
      * Load All Questions Patron.
@@ -55,7 +55,7 @@ public interface IQuestionDao extends IBaseDao {
      * @return QuestionPatron
      * @throws HibernateException exception
      */
-    QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException;
+    QuestionPattern loadPatternInfo(final Long patronId);
 
     /**
      * Retrieve Questions by Name.
@@ -77,7 +77,7 @@ public interface IQuestionDao extends IBaseDao {
      * @return list of answers
      * @throws HibernateException exception
      */
-    List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId) throws HibernateException;
+    List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId);
 
     /**
      * Retrieve Answer by Id.

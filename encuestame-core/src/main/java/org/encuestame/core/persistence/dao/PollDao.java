@@ -53,7 +53,7 @@ public class PollDao extends  AbstractHibernateDaoSupport implements IPoll{
      * @return {@link Poll}
      * @throws HibernateException hibernate expcetion
      */
-    public Poll GetPollById(final Long pollId) throws HibernateException{
+    public Poll getPollById(final Long pollId) throws HibernateException{
         return (Poll) getHibernateTemplate().get(Poll.class, pollId);
     }
 
@@ -65,11 +65,11 @@ public class PollDao extends  AbstractHibernateDaoSupport implements IPoll{
      */
     @SuppressWarnings("unchecked")
     public List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId){
-        final String PollResultsCounter = "select answer.answer," +
+        final String pollResultsCounter = "select answer.answer," +
                 "count(poll.pollId) FROM PollResult "
             +"where poll.pollId= :polliId and answer.questionAnswerId= :questionId "
             + "group by answer.answer";
-                return new ArrayList<Object[]>(getSession().createQuery(PollResultsCounter)
+                return new ArrayList<Object[]>(getSession().createQuery(pollResultsCounter)
                         .setParameter("polliId", polliId)
                         .setParameter("questionId", questionId).list());
 

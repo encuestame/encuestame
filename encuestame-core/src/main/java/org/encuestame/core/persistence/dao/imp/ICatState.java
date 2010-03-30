@@ -31,7 +31,7 @@ public interface ICatState extends IBaseDao {
      * @return list of states
      * @throws HibernateException  Exception
      */
-     public List<CatState> findAll() throws HibernateException;
+     List<CatState> findAll();
 
      /**
       * Get catalog state by id.
@@ -39,6 +39,6 @@ public interface ICatState extends IBaseDao {
       * @return state {@link CatState}
      * @throws HibernateException  Exception
       */
-     public CatState getState(final Long stateId) throws HibernateException ;
+     CatState getState(final Long stateId);
 
 }

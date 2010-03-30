@@ -15,8 +15,6 @@ package org.encuestame.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ServiceManager;
@@ -33,8 +31,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @version $Id: $
  */
 public class BaseController {
-
-    protected Log log = LogFactory.getLog(this.getClass());
 
     /**
      * {@link ServiceManager}.

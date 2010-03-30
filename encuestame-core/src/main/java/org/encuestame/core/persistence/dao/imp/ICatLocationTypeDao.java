@@ -31,7 +31,7 @@ public interface ICatLocationTypeDao extends IBaseDao {
      * @return list of all locations
      * @throws HibernateException hibernate
      */
-    public List<CatLocationType> findAll() throws HibernateException;
+    List<CatLocationType> findAll() ;
 
     /**
      * Find Locate type by Id.
@@ -39,5 +39,5 @@ public interface ICatLocationTypeDao extends IBaseDao {
      * @return {@link CatLocation}
      * @throws HibernateException excetion
      */
-    public CatLocationType getLocationById(final Long locaTypeId) throws HibernateException ;
+     CatLocationType getLocationById(final Long locaTypeId);
 }

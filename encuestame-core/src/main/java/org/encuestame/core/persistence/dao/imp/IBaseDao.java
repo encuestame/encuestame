@@ -28,14 +28,14 @@ public interface IBaseDao {
      * @param domain domain
      * @throws HibernateException exception
      */
-    public void saveOrUpdate(final Object domain) throws HibernateException;
+    public void saveOrUpdate(final Object domain);
 
     /**
      * Deletes a table row.
      * @param domain domain
      * @throws HibernateException  exception
      */
-    public void delete(final Object domain) throws HibernateException;
+    public void delete(final Object domain);
 
     /**
      * 	Return all the elements of an entity in Table.
@@ -43,7 +43,7 @@ public interface IBaseDao {
      * @return {@link List} of {@link Object}
      * @throws HibernateException  exception
      */
-    public List<Object> findAll(final String query) throws HibernateException;
+    public List<Object> findAll(final String query);
 
 
 }

@@ -81,7 +81,7 @@ public class CreateTweetPollBean extends MasterBean {
     public void createShortSimulateUrl(final UnitAnswersBean answer){
         try{
             final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
-            answer.setAnswerHash(MD5Utils.MD5(String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())));
+            answer.setAnswerHash(MD5Utils.md5(String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())));
             log.info(getDomain());
             final String url = survey.getTwitterService().getTinyUrl(buildUrl(answer));
             log.info("tiny url "+url);

@@ -38,9 +38,9 @@ import org.springframework.security.userdetails.UsernameNotFoundException;
  */
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
-    protected ISecUserDao secUserDao;
-    protected Boolean roleGroupAuth = true;
-    protected Boolean roleUserAuth;
+    private ISecUserDao secUserDao;
+    private Boolean roleGroupAuth = true;
+    private Boolean roleUserAuth;
     private static Logger log = Logger.getLogger(EnMeUserServiceImp.class);
 
     /**
@@ -81,14 +81,11 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      */
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
-        System.out.println("loading by username");
-        System.out.println("username: " + username);
         final SecUserSecondary user = secUserDao.getUserByUsername(username);
         if (user == null) {
             log.error("user not found");
             throw new UsernameNotFoundException("user not found");
         }
-        System.out.println("found..." + user.getUserEmail());
         return convertToUserDetails(user);
     }
 
@@ -110,67 +107,45 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * @return {@link UserDetails}
      */
     protected UserDetails convertToUserDetails(final SecUserSecondary user) {
+        ///FIXME: Cyclomatic Complexity : Cyclomatic Complexity is 11 (max allowed is 10).
         final List<String> listPermissions = new ArrayList<String>();
         if (user == null) {
             return null;
         }
-        System.out.println("user is not null");
         // search if authorities if the group are activated
-        System.out.println("check permission by group");
-        if (this.roleGroupAuth == true) {
+        if (this.roleGroupAuth) {
             // search groups of the user
-            System.out.println("list group permissions");
             // sec groups
             final Set<SecGroups> groups = user.getSecGroups();
             for (SecGroups secGroups : groups) {
                 final Set<SecPermission> groupPermissions = secGroups
                         .getSecPermissions();
-                System.out.println("group permission "+groupPermissions.size());
                 for (SecPermission secPermission : groupPermissions) {
                     if (listPermissions.indexOf(secPermission.getPermission()
-                            .trim()) != -1) {
-                        System.out.println("ignore permission"
-                                + secPermission.getPermission());
-                    } else {
+                            .trim()) == -1) {
                         listPermissions.add(secPermission.getPermission()
                                 .trim());
-                        System.out.println("permission added"
-                                + secPermission.getPermission());
                     }
                 }
             }
         }
         // sec permissions
-        System.out.println("check permission by user");
-        if (this.roleUserAuth == true) {
+        if (this.roleUserAuth) {
             final Set<SecPermission> permissions = user.getSecUserPermissions();
-            System.out.println("group permission size"+permissions.size());
             for (SecPermission secPermission : permissions) {
                 if (listPermissions.indexOf(secPermission.getPermission()
-                        .trim()) != -1) {
-                    System.out.println("permission ignored "
-                            + secPermission.getPermission().trim());
-                } else {
+                        .trim()) == -1) {
                     listPermissions.add(secPermission.getPermission().trim());
-                    System.out.println("permission added "
-                            + secPermission.getPermission().trim());
                 }
             }
         }
-         System.out.println("total permission " + listPermissions.size());
-         final GrantedAuthority[] authorities = new
-         GrantedAuthority[listPermissions
-         .size()];
-         System.out.println("authorities "+authorities);
+         final GrantedAuthority[] authorities = new GrantedAuthority[listPermissions.size()];
          //convert list to array
          int i = 0;
          for (final String permission : listPermissions) {
          authorities[i++] = new GrantedAuthorityImpl(permission.trim());
          }
          //creating user details
-         System.out.println("user detail");
-         // System.out.println("user pass "+user.getPassword());
-         System.out.println("user name "+user.getUsername());
          final User userDetails = new User(user.getUsername(),
          user.getPassword(),
          user.isUserStatus() == null ? false : user.isUserStatus(),
@@ -178,7 +153,6 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
          true, // cridentials not expired
          true, // account not locked
          authorities);
-         System.out.println("userDetails " + userDetails);
          return userDetails;
     }
 }

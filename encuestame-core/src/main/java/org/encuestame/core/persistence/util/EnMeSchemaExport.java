@@ -106,10 +106,10 @@ public class EnMeSchemaExport {
             final SecPermissionDaoImp secPermissionDaoImp = (SecPermissionDaoImp) appContext.getBean("secPermissionDaoImp");
             SecPermission d = secPermissionDaoImp.getPermissionById(1L);
             SecPermission d2 = secPermissionDaoImp.getPermissionById(2L);
-            SecUserSecondary s = secUserDao.getSecondaryUserById(1L);
-            s.getSecUserPermissions().add(d);
-            s.getSecUserPermissions().add(d2);
-            secUserDao.saveOrUpdate(s);
+            SecUserSecondary secondary = secUserDao.getSecondaryUserById(1L);
+            secondary.getSecUserPermissions().add(d);
+            secondary.getSecUserPermissions().add(d2);
+            secUserDao.saveOrUpdate(secondary);
 
             final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
             final CatState activate = new CatState();
@@ -121,7 +121,6 @@ public class EnMeSchemaExport {
             stateDao.saveOrUpdate(inactive);
 
         } catch (EnMeExpcetion e) {
-            System.out.println("Error create data " + e.getMessage());
         }
         //Create test database
 

@@ -30,7 +30,7 @@ public class UnitTweetPollResult {
     /**
      * @return the answersBean
      */
-    public UnitAnswersBean getAnswersBean() {
+    public final UnitAnswersBean getAnswersBean() {
         return answersBean;
     }
 
@@ -38,14 +38,14 @@ public class UnitTweetPollResult {
      * @param answersBean
      *            the answersBean to set
      */
-    public void setAnswersBean(final UnitAnswersBean answersBean) {
+    public final void setAnswersBean(final UnitAnswersBean answersBean) {
         this.answersBean = answersBean;
     }
 
     /**
      * @return the results
      */
-    public Long getResults() {
+    public final Long getResults() {
         return results;
     }
 
@@ -53,7 +53,7 @@ public class UnitTweetPollResult {
      * @param results
      *            the results to set
      */
-    public void setResults(final Long results) {
+    public final void setResults(final Long results) {
         this.results = results;
     }
 }

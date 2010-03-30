@@ -40,7 +40,7 @@ public abstract class Service {
     /**
      * Log.
      */
-    protected Log log = LogFactory.getLog(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Constructor.

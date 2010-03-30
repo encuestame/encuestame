@@ -75,7 +75,7 @@ public class TestPollDao extends AbstractBase {
      **/
    @Test
    public void testGetPollById(){
-       final Poll getpoll = getiPoll().GetPollById(this.poll.getPollId());
+       final Poll getpoll = getiPoll().getPollById(this.poll.getPollId());
        assertNotNull(getpoll);
    }
 

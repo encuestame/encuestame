@@ -33,7 +33,7 @@ public class UnitPatternBean {
     /**
      * @return the descripcion
      */
-    public String getDescripcion() {
+    public final String getDescripcion() {
         return descripcion;
     }
 
@@ -41,14 +41,14 @@ public class UnitPatternBean {
      * @param descripcion
      *            the descripcion to set
      */
-    public void setDescripcion(String descripcion) {
+    public final void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
     /**
      * @return the label
      */
-    public String getLabel() {
+    public final String getLabel() {
         return label;
     }
 
@@ -56,14 +56,14 @@ public class UnitPatternBean {
      * @param label
      *            the label to set
      */
-    public void setLabel(String label) {
+    public final void setLabel(String label) {
         this.label = label;
     }
 
     /**
      * @return the patronType
      */
-    public String getPatronType() {
+    public final String getPatronType() {
         return patronType;
     }
 
@@ -71,14 +71,14 @@ public class UnitPatternBean {
      * @param patronType
      *            the patronType to set
      */
-    public void setPatronType(String patronType) {
+    public final void setPatronType(String patronType) {
         this.patronType = patronType;
     }
 
     /**
      * @return the id
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -86,14 +86,14 @@ public class UnitPatternBean {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public final void setId(Long id) {
         this.id = id;
     }
 
     /**
      * @return template
      */
-    public String getTemplate() {
+    public final String getTemplate() {
         return template;
     }
 
@@ -101,49 +101,49 @@ public class UnitPatternBean {
      * @param template
      *            template
      */
-    public void setTemplate(String template) {
+    public final void setTemplate(String template) {
         this.template = template;
     }
 
     /**
      * @return classpattern classpattern
      */
-    public String getClasspattern() {
+    public final String getClasspattern() {
         return classpattern;
     }
 
     /**
      * @param classpattern classpattern
      */
-    public void setClasspattern(String classpattern) {
+    public final void setClasspattern(String classpattern) {
         this.classpattern = classpattern;
     }
 
     /**
      * @return levelpattern
      */
-    public String getLevelpattern() {
+    public final String getLevelpattern() {
         return levelpattern;
     }
 
     /**
      * @param levelpattern levelpattern
      */
-    public void setLevelpattern(String levelpattern) {
+    public final void setLevelpattern(String levelpattern) {
         this.levelpattern = levelpattern;
     }
 
     /**
      * @return finallity
      */
-    public String getFinallity() {
+    public final String getFinallity() {
         return finallity;
     }
 
     /**
      * @param finallity finallity
      */
-    public void setFinallity(String finallity) {
+    public final void setFinallity(String finallity) {
         this.finallity = finallity;
     }
 
@@ -161,7 +161,7 @@ public class UnitPatternBean {
      * @param levelpattern levelpattern
      * @param finallity finallity
      */
-    public UnitPatternBean (Long id, String descPattern, String label,
+    public  UnitPatternBean (Long id, String descPattern, String label,
             String patronType, String template, String classpattern,
             String levelpattern, String finallity) {
         super();

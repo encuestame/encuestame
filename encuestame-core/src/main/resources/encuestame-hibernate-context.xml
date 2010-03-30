@@ -53,12 +53,6 @@
                 <value>org.encuestame.core.persistence.pojo.TweetPollSwitch</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPoll</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPollResult</value>
-
-                <!--
-                    <value>org.encuestame.core.persistence.pojo.SurveyDetail</value>
-                    <value>org.encuestame.core.persistence.pojo.SurveyDetailId</value>
-                    <value>org.encuestame.core.persistence.pojo.SurveyResultMod</value>
-                -->
             </list>
         </property>
         <property name="hibernateProperties">

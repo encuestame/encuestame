@@ -42,7 +42,7 @@ public class UnitTweetPoll {
     private String tweetUrl;
     private String twitterUserAcoount;
 
-    private final String TWITER__STATUS_URL = "http://www.twitter.com/";
+    private static final  String TWITTER_STATUS_URL = "http://www.twitter.com/";
 
     private List<ResumeResultTweetPoll> results = new ArrayList<ResumeResultTweetPoll>();
 
@@ -50,15 +50,12 @@ public class UnitTweetPoll {
      * Constructor.
      */
     public UnitTweetPoll() {
-        getResults().add(new ResumeResultTweetPoll("A", 50));
-        getResults().add(new ResumeResultTweetPoll("B", 150));
-        getResults().add(new ResumeResultTweetPoll("C", 23));
     }
 
     /**
      * @return the id
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -66,14 +63,14 @@ public class UnitTweetPoll {
      * @param id
      *            the id to set
      */
-    public void setId(final Long id) {
+    public final void setId(final Long id) {
         this.id = id;
     }
 
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public final Long getUserId() {
         return userId;
     }
 
@@ -81,14 +78,14 @@ public class UnitTweetPoll {
      * @param userId
      *            the userId to set
      */
-    public void setUserId(final Long userId) {
+    public final void setUserId(final Long userId) {
         this.userId = userId;
     }
 
     /**
      * @return the closeNotification
      */
-    public Boolean getCloseNotification() {
+    public final Boolean getCloseNotification() {
         return closeNotification;
     }
 
@@ -96,14 +93,14 @@ public class UnitTweetPoll {
      * @param closeNotification
      *            the closeNotification to set
      */
-    public void setCloseNotification(final Boolean closeNotification) {
+    public final void setCloseNotification(final Boolean closeNotification) {
         this.closeNotification = closeNotification;
     }
 
     /**
      * @return the tweetId
      */
-    public Long getTweetId() {
+    public final Long getTweetId() {
         return tweetId;
     }
 
@@ -111,14 +108,14 @@ public class UnitTweetPoll {
      * @param tweetId
      *            the tweetId to set
      */
-    public void setTweetId(final Long tweetId) {
+    public final void setTweetId(final Long tweetId) {
         this.tweetId = tweetId;
     }
 
     /**
      * @return the resultNotification
      */
-    public Boolean getResultNotification() {
+    public final Boolean getResultNotification() {
         return resultNotification;
     }
 
@@ -126,14 +123,14 @@ public class UnitTweetPoll {
      * @param resultNotification
      *            the resultNotification to set
      */
-    public void setResultNotification(final Boolean resultNotification) {
+    public final void setResultNotification(final Boolean resultNotification) {
         this.resultNotification = resultNotification;
     }
 
     /**
      * @return the publishPoll
      */
-    public Boolean getPublishPoll() {
+    public final Boolean getPublishPoll() {
         return publishPoll;
     }
 
@@ -141,14 +138,14 @@ public class UnitTweetPoll {
      * @param publishPoll
      *            the publishPoll to set
      */
-    public void setPublishPoll(final Boolean publishPoll) {
+    public final void setPublishPoll(final Boolean publishPoll) {
         this.publishPoll = publishPoll;
     }
 
     /**
      * @return the publicationDateTweet
      */
-    public Date getPublicationDateTweet() {
+    public final Date getPublicationDateTweet() {
         return publicationDateTweet;
     }
 
@@ -156,14 +153,14 @@ public class UnitTweetPoll {
      * @param publicationDateTweet
      *            the publicationDateTweet to set
      */
-    public void setPublicationDateTweet(final Date publicationDateTweet) {
+    public final void setPublicationDateTweet(final Date publicationDateTweet) {
         this.publicationDateTweet = publicationDateTweet;
     }
 
     /**
      * @return the completed
      */
-    public Boolean getCompleted() {
+    public final Boolean getCompleted() {
         return completed;
     }
 
@@ -171,14 +168,14 @@ public class UnitTweetPoll {
      * @param completed
      *            the completed to set
      */
-    public void setCompleted(final Boolean completed) {
+    public final void setCompleted(final Boolean completed) {
         this.completed = completed;
     }
 
     /**
      * @return the questionBean
      */
-    public UnitQuestionBean getQuestionBean() {
+    public final UnitQuestionBean getQuestionBean() {
         return questionBean;
     }
 
@@ -186,14 +183,14 @@ public class UnitTweetPoll {
      * @param questionBean
      *            the questionBean to set
      */
-    public void setQuestionBean(final UnitQuestionBean questionBean) {
+    public final void setQuestionBean(final UnitQuestionBean questionBean) {
         this.questionBean = questionBean;
     }
 
     /**
      * @return the results
      */
-    public List<ResumeResultTweetPoll> getResults() {
+    public final List<ResumeResultTweetPoll> getResults() {
         return results;
     }
 
@@ -201,34 +198,35 @@ public class UnitTweetPoll {
      * @param results
      *            the results to set
      */
-    public void setResults(List<ResumeResultTweetPoll> results) {
+    public final void setResults(List<ResumeResultTweetPoll> results) {
         this.results = results;
     }
 
     /**
      * @return the tweetUrl
      */
-    public String getTweetUrl() {
+    public final String getTweetUrl() {
         final StringBuffer tweetUrlString = new StringBuffer(
-                this.TWITER__STATUS_URL);
+                this.TWITTER_STATUS_URL);
         tweetUrlString.append(getTwitterUserAcoount());
         tweetUrlString.append("/status/");
         tweetUrlString.append(getTweetId());
-        return tweetUrl = tweetUrlString.toString();
+        this.tweetUrl = tweetUrlString.toString();
+        return this.tweetUrl;
     }
 
     /**
      * @param tweetUrl
      *            the tweetUrl to set
      */
-    public void setTweetUrl(String tweetUrl) {
+    public final void setTweetUrl(String tweetUrl) {
         this.tweetUrl = tweetUrl;
     }
 
     /**
      * @return the scheduleDate
      */
-    public Date getScheduleDate() {
+    public final Date getScheduleDate() {
         return scheduleDate;
     }
 
@@ -236,14 +234,14 @@ public class UnitTweetPoll {
      * @param scheduleDate
      *            the scheduleDate to set
      */
-    public void setScheduleDate(Date scheduleDate) {
+    public final void setScheduleDate(Date scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
     /**
      * @return the allowLiveResults
      */
-    public Boolean getAllowLiveResults() {
+    public final Boolean getAllowLiveResults() {
         return allowLiveResults;
     }
 
@@ -251,14 +249,14 @@ public class UnitTweetPoll {
      * @param allowLiveResults
      *            the allowLiveResults to set
      */
-    public void setAllowLiveResults(Boolean allowLiveResults) {
+    public final void setAllowLiveResults(Boolean allowLiveResults) {
         this.allowLiveResults = allowLiveResults;
     }
 
     /**
      * @return the schedule
      */
-    public Boolean getSchedule() {
+    public final Boolean getSchedule() {
         return schedule;
     }
 
@@ -266,21 +264,21 @@ public class UnitTweetPoll {
      * @param schedule
      *            the schedule to set
      */
-    public void setSchedule(Boolean schedule) {
+    public final void setSchedule(Boolean schedule) {
         this.schedule = schedule;
     }
 
     /**
      * @return the twitterUserAcoount
      */
-    public String getTwitterUserAcoount() {
+    public final String getTwitterUserAcoount() {
         return twitterUserAcoount;
     }
 
     /**
      * @param twitterUserAcoount the twitterUserAcoount to set
      */
-    public void setTwitterUserAccount(final String twitterUserAcoount) {
+    public final void setTwitterUserAccount(final String twitterUserAcoount) {
         this.twitterUserAcoount = twitterUserAcoount;
     }
 }

@@ -83,7 +83,7 @@ public class UserBean extends MasterBean {
             getServicemanager().getApplicationServices().getSecurityService().updateUser(
                     getUnitUserBean());
             addInfoMessage("User "+getNewUnitUserBean().getUsername()+" updated", "");
-        } catch (EnMeExpcetion e) {
+        } catch (Exception e) {
             addErrorMessage("error update user ", e.getMessage());
             log.error("error update user: " + e);
         }
@@ -253,7 +253,7 @@ public class UserBean extends MasterBean {
         try {
             getServicemanager().getApplicationServices().getSecurityService().deleteUser(user);
             log.debug("user "+user.getUsername()+" deleted");
-        } catch (EnMeExpcetion e) {
+        } catch (Exception e) {
             log.error("Error on delete user. Trace:"+ e.getMessage());
             addErrorMessage("Error on delete user","");
         }

@@ -28,7 +28,7 @@ public class EnMePasswordUtils {
      * @param password password
      * @return password encrypt
      */
-    public static String encryptPassworD(final String password) {
+    public final static String encryptPassworD(final String password) {
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return passwordEncryptor.encryptPassword(password);
     }
@@ -40,7 +40,7 @@ public class EnMePasswordUtils {
      * @param encryptedPassword encrypted password
      * @return if correct true and if not false
      */
-    public static Boolean checkPassword(final String inputPassword, final String encryptedPassword ){
+    public final static Boolean checkPassword(final String inputPassword, final String encryptedPassword ){
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         if (passwordEncryptor.checkPassword(inputPassword, encryptedPassword)) {
             // correct

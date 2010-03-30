@@ -31,26 +31,26 @@ public interface IPoll extends IBaseDao {
      * @return list of all poll
      * @throws HibernateException hibernate
      */
-     public List<Poll> findAll() throws HibernateException;
+     List<Poll> findAll();
 
      /**
       * Find All Poll.
       * @return list of all poll
       * @throws HibernateException hibernate
       */
-     public List<Poll> findAllPollByUserId(final Long userId) throws HibernateException;
+     List<Poll> findAllPollByUserId(final Long userId);
 
      /**
       * Find All Poll.
       * @return list of all poll
       * @throws HibernateException hibernate
       */
-     public Poll GetPollById(final Long pollId) throws HibernateException;
+     Poll getPollById(final Long pollId);
 
      /**
       * Count All Poll.
       * @return list of all poll
       * @throws HibernateException hibernate
       */
-     public List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId);
+     List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId);
 }

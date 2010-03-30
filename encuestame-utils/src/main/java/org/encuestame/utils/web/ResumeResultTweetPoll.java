@@ -41,7 +41,7 @@ public class ResumeResultTweetPoll {
     /**
      * @return the label
      */
-    public String getLabel() {
+    public final String getLabel() {
         return label;
     }
 
@@ -49,14 +49,14 @@ public class ResumeResultTweetPoll {
      * @param label
      *            the label to set
      */
-    public void setLabel(String label) {
+    public final void setLabel(String label) {
         this.label = label;
     }
 
     /**
      * @return the result
      */
-    public Integer getResult() {
+    public final Integer getResult() {
         return result;
     }
 
@@ -64,7 +64,7 @@ public class ResumeResultTweetPoll {
      * @param result
      *            the result to set
      */
-    public void setResult(Integer result) {
+    public final void setResult(Integer result) {
         this.result = result;
     }
 }

@@ -35,14 +35,14 @@ import org.encuestame.core.service.util.ConvertDomainBean;
  */
 public class ConvertListDomainSelectBean {
 
-    private static Log log = LogFactory.getLog(ConvertDomainBean.class);
+    private static final Log log = LogFactory.getLog(ConvertDomainBean.class);
 
     /**
      * Convert {@link Client} domains to {@link SelectItem}.
      * @param clients {@link Client}
      * @return select items.
      */
-    public static List<SelectItem> convertListClientsDomainToSelect(final List<Client> clients){
+    public static final  List<SelectItem> convertListClientsDomainToSelect(final List<Client> clients){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final Client client : clients) {
             if(client.getClientName() != null){
@@ -58,7 +58,7 @@ public class ConvertListDomainSelectBean {
      * @param states {@link CatState}
      * @return select items.
      */
-    public static List<SelectItem> convertListCatStateDomainToSelect(final List<CatState> states){
+    public static final List<SelectItem> convertListCatStateDomainToSelect(final List<CatState> states){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final CatState state : states) {
             if(state.getDescState()!=null){
@@ -74,7 +74,7 @@ public class ConvertListDomainSelectBean {
      * @param users {@link SecUserSecondary}
      * @return select items.
      */
-    public static List<SelectItem> convertListSecondaryUsersDomainToSelect(final List<SecUserSecondary> users){
+    public static final List<SelectItem> convertListSecondaryUsersDomainToSelect(final List<SecUserSecondary> users){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final SecUserSecondary user : users) {
             if(user.getCompleteName()!=null){
@@ -90,7 +90,7 @@ public class ConvertListDomainSelectBean {
      * @param groups {@link SecGroups}
      * @return select items.
      */
-    public static List<SelectItem> convertListGroupDomainToSelect(final Set<SecGroups> groups){
+    public static final List<SelectItem> convertListGroupDomainToSelect(final Set<SecGroups> groups){
         final List<SelectItem> items = new ArrayList<SelectItem>();
         for (final SecGroups group : groups) {
             if(group.getGroupName()!=null){

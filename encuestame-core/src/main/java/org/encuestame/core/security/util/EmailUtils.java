@@ -24,21 +24,23 @@ import java.util.regex.Pattern;
 public class EmailUtils {
 
     /**
-     * Validate Email
+     * Validate Email.
      * @param email email
      * @return boolean
      */
-    public static boolean validateEmail(String email) {
+    public final static boolean validateEmail(String email) {
         // Set the email pattern string
-        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        final Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
         // Match the given string with the pattern
-        Matcher m = p.matcher(email);
+        final Matcher m = p.matcher(email);
         // check whether match is found
         boolean matchFound = m.matches();
-        if (matchFound)
+        if (matchFound){
             return true;
-        else
+        }
+        else{
             return false;
+        }
     }
 
 }

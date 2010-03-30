@@ -14,7 +14,6 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
@@ -33,14 +32,14 @@ public interface ISecUserDao extends IBaseDao {
      * @return {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
-    SecUserSecondary getUserByUsername(final String username) throws HibernateException;
+    SecUserSecondary getUserByUsername(final String username);
 
 
     /**
      * @return List {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
-    List<SecUserSecondary> findAll() throws HibernateException;
+     List<SecUserSecondary> findAll();
 
 
     /**
@@ -48,14 +47,14 @@ public interface ISecUserDao extends IBaseDao {
      * @return {@link SecUsers}
      * @throws HibernateException HibernateException
      */
-    SecUsers getUserById(final Long userId) throws HibernateException;
+    SecUsers getUserById(final Long userId);
 
     /**
      * @param userId userId
      * @return {@link SecUserSecondary}
      * @throws HibernateException HibernateException
      */
-    SecUserSecondary getSecondaryUserById(final Long userId)throws HibernateException;
+    SecUserSecondary getSecondaryUserById(final Long userId);
 
     /**
      * Get {@link SecUserSecondary} but {@link SecUsers} id.
