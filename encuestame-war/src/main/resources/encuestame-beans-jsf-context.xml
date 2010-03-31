@@ -1,99 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:security="http://www.springframework.org/schema/security"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-       http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.springframework.org/schema/util
-       http://www.springframework.org/schema/util/spring-util-2.5.xsd
-       http://www.springframework.org/schema/jee
-       http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <!-- admon bean -->
-    <bean id="userBean" class="org.encuestame.web.beans.admon.UserBean" scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <!-- admon bean -->
+  <bean id="userBean" class="org.encuestame.web.beans.admon.UserBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <bean id="groupBean" class="org.encuestame.web.beans.admon.GroupBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <bean id="groupBean" class="org.encuestame.web.beans.admon.GroupBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <!-- Project -->
-    <bean id="proyectUserBean" class="org.encuestame.web.beans.project.ProjectBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <!-- Project -->
+  <bean id="proyectUserBean" class="org.encuestame.web.beans.project.ProjectBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <!-- Survey's -->
+  <!-- Survey's -->
 
-    <bean id="surveyFormatBean" class="org.encuestame.web.beans.survey.SurveyFormatBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <bean id="surveyFormatBean" class="org.encuestame.web.beans.survey.SurveyFormatBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <bean id="surveyControllerBean" class="org.encuestame.web.beans.survey.BuildSurveyControllerBean"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <bean id="surveyControllerBean"
+    class="org.encuestame.web.beans.survey.BuildSurveyControllerBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <bean id="buildEventSurvey" class="org.encuestame.web.utils.DropEventBean"
-        scope="session">
-        <property name="buildSurvey" ref="surveyControllerBean" />
-    </bean>
+  <bean id="buildEventSurvey" class="org.encuestame.web.utils.DropEventBean"
+    scope="session">
+    <property name="buildSurvey" ref="surveyControllerBean" />
+  </bean>
 
-    <!--  Tweet Poll -->
+  <!--  Tweet Poll -->
 
-    <bean id="createTweetPollBean" class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
-          scope="session">
-         <property name="servicemanagerBean" ref="servicesManager" />
-           <property name="countTweet">
-                <value>140</value>
-           </property>
-    </bean>
+  <bean id="createTweetPollBean"
+    class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+    <property name="countTweet">
+      <value>140</value>
+    </property>
+  </bean>
 
-    <bean id="tweetPolls" class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean"
-          scope="session">
-         <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <bean id="tweetPolls"
+    class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <bean id="tweetPollCredentialsBean" class="org.encuestame.web.beans.survey.tweetpoll.TweetPollCredentialsBean"
-          scope="session">
-         <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <bean id="tweetPollCredentialsBean"
+    class="org.encuestame.web.beans.survey.tweetpoll.TweetPollCredentialsBean"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <!--
-        Login Bean. Inject authenticationManager to login form and servicesManager.
-        this is a request bean.
-     -->
-    <bean id="loginForm" class="org.encuestame.web.beans.login.LoginSecurityBean"
-        scope="request">
-        <property name="authenticationManager" ref="authenticationManager" />
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <!--
+    Login Bean. Inject authenticationManager to login form and
+    servicesManager. this is a request bean.
+  -->
+  <bean id="loginForm" class="org.encuestame.web.beans.login.LoginSecurityBean"
+    scope="request">
+    <property name="authenticationManager" ref="authenticationManager" />
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <!-- menu's bean -->
-    <bean id="menuBean" class="org.encuestame.utils.web.MenuBean" scope="session">
-    </bean>
+  <!-- menu's bean -->
+  <bean id="menuBean" class="org.encuestame.utils.web.MenuBean"
+    scope="session">
+  </bean>
 
-    <!-- globals -->
-    <bean id="globalBean" class="org.encuestame.web.beans.commons.GlobalCommonsBeans"
-        scope="session">
-        <property name="servicemanagerBean" ref="servicesManager" />
-    </bean>
+  <!-- globals -->
+  <bean id="globalBean" class="org.encuestame.web.beans.commons.GlobalCommonsBeans"
+    scope="session">
+    <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
 
-    <bean id="calendarBean" class="org.encuestame.web.beans.commons.CalendarBean"
-        scope="request">
-    </bean>
+  <bean id="calendarBean" class="org.encuestame.web.beans.commons.CalendarBean"
+    scope="request">
+  </bean>
 </beans>

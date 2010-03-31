@@ -12,15 +12,16 @@
  */
 package org.encuestame.core.security.spring;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.Authentication;
-import org.springframework.security.ConfigAttribute;
-import org.springframework.security.ConfigAttributeDefinition;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.vote.RoleVoter;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
 
 /**
  * Service Manager Bean.
@@ -55,13 +56,12 @@ public class EnMeRoleVoter extends RoleVoter {
         anonymousAccessAllowed = i_anonymousAccessAllowed;
     }
 
-    @Override
     public int vote(Authentication authentication, Object object,
-            ConfigAttributeDefinition config) {
+            ConfigAttribute config) {
         int result = ACCESS_ABSTAIN;
-
+      /*
         final Iterator iter = config.getConfigAttributes().iterator();
-        GrantedAuthority[] authorities = authentication.getAuthorities();
+        Collection<GrantedAuthority> authorities = authentication.getAuthorities();
         while (iter.hasNext()) {
             ConfigAttribute attribute = (ConfigAttribute) iter.next();
             //log.info("ConfigAttribute->"+attribute.getAttribute());
@@ -89,6 +89,8 @@ public class EnMeRoleVoter extends RoleVoter {
             }
         }
 
+        return result;
+        */
         return result;
     }
 

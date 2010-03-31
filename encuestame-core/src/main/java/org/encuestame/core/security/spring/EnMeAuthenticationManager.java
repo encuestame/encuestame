@@ -20,8 +20,8 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.security.providers.AuthenticationProvider;
-import org.springframework.security.providers.ProviderManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 
 /**
  * Encuestame Authentication Manager extended on {@link ProviderManager}.

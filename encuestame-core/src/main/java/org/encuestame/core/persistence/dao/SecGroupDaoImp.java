@@ -49,7 +49,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     /**
      *
      */
-    public SecGroups getGroupById(Long groupId) throws HibernateException {
+    public SecGroups getGroupById(final Long groupId) throws HibernateException {
         return (SecGroups) getHibernateTemplate().get(SecGroups.class,
                groupId);
     }

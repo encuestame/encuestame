@@ -40,6 +40,7 @@ public class TweetPollController extends BaseController {
      * @param id id tweet
      * @return template
      */
+    @SuppressWarnings("unchecked")
     @RequestMapping("/tweetPollController")
     public String tweetPollController(ModelMap model,
             @RequestParam(value = "id", required = true) String id) {

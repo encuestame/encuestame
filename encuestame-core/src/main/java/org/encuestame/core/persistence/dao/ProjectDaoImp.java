@@ -43,6 +43,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @param userId user id.
      * @return list of projects.
      */
+    @SuppressWarnings("unchecked")
     public List<Project> findProjectsByUserID(final Long userId) throws HibernateException{
         return getHibernateTemplate().findByNamedParam("from Project where users.id = :userId", "userId", userId);
     }
@@ -62,6 +63,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @return list of projects.
      * @throws HibernateException HibernateException
      */
+    @SuppressWarnings("unchecked")
     public List<Project> getProjectByLocationId() throws HibernateException{
        /* final String queryLocProject = "FROM Projects where"
         return getHibernateTemplate().fin
