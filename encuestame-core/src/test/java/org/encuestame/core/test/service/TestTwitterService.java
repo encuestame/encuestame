@@ -13,6 +13,8 @@
 
 package org.encuestame.core.test.service;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;

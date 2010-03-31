@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.test.persistence.dao;
 
+import static org.junit.Assert.*;
+
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;

@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.test.persistence.pojos;
 
+import static org.junit.Assert.*;
+
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;

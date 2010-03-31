@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.test.service;
 
+import static org.junit.Assert.*;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;

@@ -13,6 +13,8 @@
 
 package org.encuestame.core.test.persistence.dao;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
