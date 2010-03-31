@@ -26,19 +26,19 @@ import javax.servlet.http.HttpSession;
 import org.encuestame.web.beans.MasterBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.AuthenticationManager;
-import org.springframework.security.BadCredentialsException;
-import org.springframework.security.context.HttpSessionContextIntegrationFilter;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.ui.AbstractProcessingFilter;
-import org.springframework.security.ui.WebAuthenticationDetails;
-import org.springframework.security.ui.rememberme.RememberMeServices;
-import org.springframework.security.ui.savedrequest.SavedRequest;
-import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.AbstractProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
 /**
  * Login Security Bean.
@@ -260,7 +260,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
             // userSettingsService.setDefaultLocale(defaultLocale);
 
             // get request key
-            final String urlKey = AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY;
+            final String urlKey = AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY;
             // save request key
             log.info("urlKey "+urlKey);
             final SavedRequest savedRequest = (SavedRequest) session
@@ -271,7 +271,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
             // if diferent of null get url
             log.info("savedRequest "+savedRequest);
             if (savedRequest != null) {
-                targetUrl = savedRequest.getFullRequestUrl();
+                //targetUrl = savedRequest.getFullRequestUrl();
                 log.info("save request "+targetUrl);
                 // Redireccionamos a la siguiente URL
                 getFacesContext().getExternalContext().redirect(targetUrl);
