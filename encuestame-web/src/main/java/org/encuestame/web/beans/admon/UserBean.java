@@ -25,7 +25,6 @@ import org.encuestame.core.security.util.EmailUtils;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.MasterBean;
-import org.hibernate.HibernateException;
 import org.richfaces.component.html.HtmlDataTable;
 import org.springframework.mail.MailSendException;
 
@@ -53,7 +52,7 @@ public class UserBean extends MasterBean {
      * @return the listUnitBeans
      * @throws Exception exception
      */
-    public List<UnitUserBean> loadListUsers() throws Exception {
+    public final List<UnitUserBean> loadListUsers() throws Exception {
         return listUnitBeans = getSecurityService().loadListUsers();
     }
 
@@ -62,7 +61,7 @@ public class UserBean extends MasterBean {
      * Create secondary user, is notificated is desactivated the password is returned and should be,
      * showed on screen.
      */
-    public void createUser() {
+    public final void createUser() {
         try {
             getNewUnitUserBean().setPrimaryUserId(
                     getSecurityService().findUserByUserName(getUserPrincipalUsername()).getSecUser().getUid());
@@ -77,7 +76,7 @@ public class UserBean extends MasterBean {
     /**
      * Update secondary user.
      */
-    public void updateUser() {
+    public final void updateUser() {
         log.debug("update secondary user.");
         try {
             getServicemanager().getApplicationServices().getSecurityService().updateUser(
@@ -92,7 +91,7 @@ public class UserBean extends MasterBean {
     /**
      * Invite user.
      */
-    public void inviteUser() {
+    public final void inviteUser() {
         if (!getListUsers().isEmpty()) {
             final List<String> emails = new LinkedList<String>();
             String strDatos = getListUsers().trim();
@@ -142,7 +141,7 @@ public class UserBean extends MasterBean {
     /**
      * Search LDAP user.
      */
-    public void searchLDAPUser() {
+    public final void searchLDAPUser() {
         //TODO: need implement ldap search.
     }
 
@@ -150,7 +149,7 @@ public class UserBean extends MasterBean {
      * @param listUnitBeans
      *            the listUnitBeans to set
      */
-    public void setlistUnitBeans(List<UnitUserBean> listUnitBeans) {
+    public final void setlistUnitBeans(List<UnitUserBean> listUnitBeans) {
         this.listUnitBeans = listUnitBeans;
     }
 
@@ -159,7 +158,7 @@ public class UserBean extends MasterBean {
      *
      * @return dsadsa
      */
-    public List<UnitUserBean> getListUnitBeans() {
+    public final List<UnitUserBean> getListUnitBeans() {
         try {
             loadListUsers();
             return listUnitBeans;
@@ -173,7 +172,7 @@ public class UserBean extends MasterBean {
     /**
      * Assing permissions to secondary user.
      */
-    public void assingPermissions() {
+    public final void assingPermissions() {
         try {
             log.info("assing permissions to user");
             if (selectedUsers().size() > 0) {
@@ -275,7 +274,7 @@ public class UserBean extends MasterBean {
     /**
      * Execute Actions for all user selected.
      */
-    public void initAction() {
+    public final void initAction() {
         log.debug("action selected->" + getSelectedAction());
         try {
             if (getSelectedAction() != null) {
@@ -330,7 +329,7 @@ public class UserBean extends MasterBean {
     /**
      * @param unitUserBean {@link UnitUserBean}
      */
-    public void setUnitUserBean(final UnitUserBean unitUserBean) {
+    public final void setUnitUserBean(final UnitUserBean unitUserBean) {
         log.info("setUnitUserBean->" + unitUserBean);
         this.unitUserBean = unitUserBean;
     }
@@ -338,21 +337,21 @@ public class UserBean extends MasterBean {
     /**
      * @return id
      */
-    public String getProcessedUserId() {
+    public final String getProcessedUserId() {
         return processedUserId;
     }
 
     /**
      * @param processedUserId id.
      */
-    public void setProcessedUserId(final String processedUserId) {
+    public final void setProcessedUserId(final String processedUserId) {
         this.processedUserId = processedUserId;
     }
 
     /**
      * @return the selectedAction
      */
-    public String getSelectedAction() {
+    public final String getSelectedAction() {
         return selectedAction;
     }
 
@@ -360,14 +359,14 @@ public class UserBean extends MasterBean {
      * @param selectedAction
      *            the selectedAction to set
      */
-    public void setSelectedAction(final String selectedAction) {
+    public final void setSelectedAction(final String selectedAction) {
         this.selectedAction = selectedAction;
     }
 
     /**
      * @return the uiDataUserTable
      */
-    public UIData getUiDataUserTable() {
+    public final UIData getUiDataUserTable() {
         return uiDataUserTable;
     }
 
@@ -375,21 +374,21 @@ public class UserBean extends MasterBean {
      * @param uiDataUserTable
      *            the uiDataUserTable to set
      */
-    public void setUiDataUserTable(final UIData uiDataUserTable) {
+    public final void setUiDataUserTable(final UIData uiDataUserTable) {
         this.uiDataUserTable = uiDataUserTable;
     }
 
     /**
      * @return {@link UISelectBoolean}
      */
-    public UISelectBoolean getChecked() {
+    public final UISelectBoolean getChecked() {
         return checked;
     }
 
     /**
      * @param checked {@link UISelectBoolean}
      */
-    public void setChecked(final UISelectBoolean checked) {
+    public final void setChecked(final UISelectBoolean checked) {
         this.checked = checked;
     }
 
@@ -397,14 +396,14 @@ public class UserBean extends MasterBean {
      * Getter.
      * @return {@link UnitUserBean}
      */
-    public UnitUserBean getUnitUserBean() {
+    public final UnitUserBean getUnitUserBean() {
         return unitUserBean;
     }
 
     /**
      * Load user selected in datatable
      */
-    public void loadSelectUser() {
+    public final void loadSelectUser() {
         try {
             if (getProcessedUserId() != null) {
                 unitUserBean = null;
@@ -426,35 +425,35 @@ public class UserBean extends MasterBean {
     /**
      * @return sda
      */
-    public UnitUserBean getNewUnitUserBean() {
+    public final UnitUserBean getNewUnitUserBean() {
         return newUnitUserBean;
     }
 
     /**
      * @param newUnitUserBean das
      */
-    public void setNewUnitUserBean(final UnitUserBean newUnitUserBean) {
+    public final void setNewUnitUserBean(final UnitUserBean newUnitUserBean) {
         this.newUnitUserBean = newUnitUserBean;
     }
 
     /**
      * @return dsa
      */
-    public String getListUsers() {
+    public final String getListUsers() {
         return listUsers;
     }
 
     /**
      * @param listUsers das
      */
-    public void setListUsers(final String listUsers) {
+    public final void setListUsers(final String listUsers) {
         this.listUsers = listUsers;
     }
 
     /**
      * @return the selectedPermissionId
      */
-    public Long getSelectedPermissionId() {
+    public final Long getSelectedPermissionId() {
         return selectedPermissionId;
     }
 
@@ -462,21 +461,21 @@ public class UserBean extends MasterBean {
      * @param selectedPermissionId
      *            the selectedPermissionId to set
      */
-    public void setSelectedPermissionId(final Long selectedPermissionId) {
+    public final void setSelectedPermissionId(final Long selectedPermissionId) {
         this.selectedPermissionId = selectedPermissionId;
     }
 
     /**
      * @return the dataTable
      */
-    public HtmlDataTable getDataTable() {
+    public final HtmlDataTable getDataTable() {
         return dataTable;
     }
 
     /**
      * @param dataTable the dataTable to set
      */
-    public void setDataTable(final HtmlDataTable dataTable) {
+    public final void setDataTable(final HtmlDataTable dataTable) {
         this.dataTable = dataTable;
     }
 }

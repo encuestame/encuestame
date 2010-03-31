@@ -44,7 +44,7 @@ public class TweetPollCredentialsBean extends MasterBean {
     /**
      * Load Credentials.
      */
-    public void loadCredentials() {
+    public final void loadCredentials() {
         try {
             log.info("loading credentials");
             final SecUsers sessionUser = getUsernameByName().getSecUser();
@@ -60,7 +60,7 @@ public class TweetPollCredentialsBean extends MasterBean {
     /**
      * Save Twitter Credentials.
      */
-    public void saveTwitterCredentials() {
+    public final void saveTwitterCredentials() {
         try {
             final ISurveyService survey = getSurveyService();
             survey.getTwitterService().verifyCredentials(getSessionUserBean().getTwitterAccount(),
@@ -80,7 +80,7 @@ public class TweetPollCredentialsBean extends MasterBean {
     /**
      * Save Secret Credentials.
      */
-    public void saveSecretCredentials() {
+    public final void saveSecretCredentials() {
         try {
             getSecurityService().updateSecretTwitterCredentials(
                     getSessionUserBean().getConsumerTwitterKey(), getSessionUserBean().getConsumerTwitterSecret(),
@@ -100,7 +100,7 @@ public class TweetPollCredentialsBean extends MasterBean {
     /**
      * Request Twitter Pin.
      */
-    public void twitterPin() {
+    public final void twitterPin() {
         try {
             setTwitterAuthUrl(getSurveyService().getTwitterToken(
                     getSessionUserBean().getConsumerTwitterKey(), getSessionUserBean().getConsumerTwitterSecret())
@@ -117,7 +117,7 @@ public class TweetPollCredentialsBean extends MasterBean {
     /**
      * @return the twitterAuthUrl
      */
-    public String getTwitterAuthUrl() {
+    public final String getTwitterAuthUrl() {
         return twitterAuthUrl;
     }
 
@@ -125,14 +125,14 @@ public class TweetPollCredentialsBean extends MasterBean {
      * @param twitterAuthUrl
      *            the twitterAuthUrl to set
      */
-    public void setTwitterAuthUrl(final String twitterAuthUrl) {
+    public final void setTwitterAuthUrl(final String twitterAuthUrl) {
         this.twitterAuthUrl = twitterAuthUrl;
     }
 
     /**
      * @return the sessionUserBean
      */
-    public UnitSessionUserBean getSessionUserBean() {
+    public final UnitSessionUserBean getSessionUserBean() {
         if(this.sessionUserBean == null){
            this.loadCredentials();
         }
@@ -143,7 +143,7 @@ public class TweetPollCredentialsBean extends MasterBean {
      * @param sessionUserBean
      *            the sessionUserBean to set
      */
-    public void setSessionUserBean(UnitSessionUserBean sessionUserBean) {
+    public final void setSessionUserBean(UnitSessionUserBean sessionUserBean) {
         this.sessionUserBean = sessionUserBean;
     }
 

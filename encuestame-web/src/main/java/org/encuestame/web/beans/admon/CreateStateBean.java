@@ -34,37 +34,37 @@ public class CreateStateBean {
     /**
      * @return the idestado
      */
-    public Integer getIdestado() {
+    public final Integer getIdestado() {
         return idestado;
     }
     /**
      * @param idestado the idestado to set
      */
-    public void setIdestado(Integer idestado) {
+    public final void setIdestado(final Integer idestado) {
         this.idestado = idestado;
     }
     /**
      * @return the description
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
     /**
      * @param description the description to set
      */
-    public void setDescription(String description) {
+    public final void setDescription(final String description) {
         this.description = description;
     }
     /**
      * @return the image
      */
-    public String getImage() {
+    public final String getImage() {
         return image;
     }
     /**
      * @param image the image to set
      */
-    public void setImage(String image) {
+    public final void setImage(final String image) {
         this.image = image;
     }
 

@@ -15,7 +15,6 @@ package org.encuestame.web.beans.admon.validation;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 
 /**
  * Encuestame Email Validator.
@@ -26,7 +25,7 @@ import javax.faces.validator.ValidatorException;
 public class EnEmailValidator implements Validator {
 
     public void validate(FacesContext arg0, UIComponent arg1, Object arg2)
-            throws ValidatorException {
+              {
         // TODO Auto-generated method stub
 
     }

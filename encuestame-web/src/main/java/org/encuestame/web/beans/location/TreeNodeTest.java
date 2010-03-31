@@ -27,7 +27,7 @@ public class TreeNodeTest extends MasterBean {
     private FileSystemNode[] srcRoots;
     private Log log = LogFactory.getLog(this.getClass());
 
-    public synchronized FileSystemNode[] getSourceRoots() {
+    public final synchronized FileSystemNode[] getSourceRoots() {
         if (srcRoots == null) {
             srcRoots = new FileSystemNode(SRC_PATH).getNodes();
             log.info("srcRoots->"+srcRoots);

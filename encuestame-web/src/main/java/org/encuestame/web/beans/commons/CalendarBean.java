@@ -33,27 +33,27 @@ public class CalendarBean {
 
     private String listaCredenciales;
 
-    public Locale getLocale() {
+    public final Locale getLocale() {
         return locale;
     }
 
-    public void setLocale(Locale locale) {
+    public final void setLocale(final Locale locale) {
         this.locale = locale;
     }
 
-    public boolean isPopup() {
+    public final boolean isPopup() {
         return popup;
     }
 
-    public void setPopup(boolean popup) {
+    public final void setPopup(final boolean popup) {
         this.popup = popup;
     }
 
-    public String getPattern() {
+    public final String getPattern() {
         return pattern;
     }
 
-    public void setPattern(String pattern) {
+    public final void setPattern(final String pattern) {
         this.pattern = pattern;
     }
 
@@ -64,7 +64,7 @@ public class CalendarBean {
         pattern = "d/M/yy HH:mm";
     }
 
-    public void selectLocale(ValueChangeEvent event) {
+    public final void selectLocale(ValueChangeEvent event) {
 
         String tLocale = (String) event.getNewValue();
         if (tLocale != null) {
@@ -74,27 +74,27 @@ public class CalendarBean {
         }
     }
 
-    public boolean isUseCustomDayLabels() {
+    public final boolean isUseCustomDayLabels() {
         return useCustomDayLabels;
     }
 
-    public void setUseCustomDayLabels(boolean useCustomDayLabels) {
+    public final void setUseCustomDayLabels(final boolean useCustomDayLabels) {
         this.useCustomDayLabels = useCustomDayLabels;
     }
 
-    public Date getSelectedDate() {
+    public final Date getSelectedDate() {
         return selectedDate;
     }
 
-    public void setSelectedDate(Date selectedDate) {
+    public final void setSelectedDate(Date selectedDate) {
         this.selectedDate = selectedDate;
     }
 
-    public boolean isShowApply() {
+    public final boolean isShowApply() {
         return showApply;
     }
 
-    public void setShowApply(boolean showApply) {
+    public final void setShowApply(final boolean showApply) {
         this.showApply = showApply;
     }
 

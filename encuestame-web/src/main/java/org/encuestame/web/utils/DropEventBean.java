@@ -30,7 +30,7 @@ public class DropEventBean implements DropListener {
      * Evento de arrastre para mover una pregunta a una sección
      * @author juanpicado
      */
-    public void processDrop(DropEvent dropEvent) {
+    public final void processDrop(DropEvent dropEvent) {
         //Obtiene  la sección a la cual fue movido o la que escuho el movimieto.
         Dropzone dropzone = (Dropzone) dropEvent.getComponent();
         //Mueve pregunta a sección, dropEvent recoge el objeto pregunta
@@ -41,7 +41,7 @@ public class DropEventBean implements DropListener {
     /**
      * @return the buildSurvey
      */
-    public BuildSurveyControllerBean getBuildSurvey() {
+    public final BuildSurveyControllerBean getBuildSurvey() {
         return buildSurvey;
     }
 
@@ -49,7 +49,7 @@ public class DropEventBean implements DropListener {
      * @param buildSurvey
      *            the buildSurvey to set
      */
-    public void setBuildSurvey(BuildSurveyControllerBean buildSurvey) {
+    public final void setBuildSurvey(BuildSurveyControllerBean buildSurvey) {
         this.buildSurvey = buildSurvey;
     }
 

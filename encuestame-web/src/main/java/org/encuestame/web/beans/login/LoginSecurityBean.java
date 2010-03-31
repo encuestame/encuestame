@@ -65,13 +65,13 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
     /** remember services. */
     private RememberMeServices rememberMeServices;
     /** index target */
-    private final String TARGET = "/pages/index.me";
+    private static final String TARGET = "/pages/index.me";
 
     /**
      * Getter.
      * @return userName
      */
-    public String getUserName() {
+    public final String getUserName() {
         return userName;
     }
 
@@ -79,7 +79,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Setter.
      * @param userName userName
      */
-    public void setUserName(final String userName) {
+    public final void setUserName(final String userName) {
         this.userName = userName;
     }
 
@@ -87,7 +87,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Getter.
      * @return userPassword
      */
-    public String getUserPassword() {
+    public final String getUserPassword() {
         return userPassword;
     }
 
@@ -95,7 +95,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Setter.
      * @param userPassword userPassword
      */
-    public void setUserPassword(final String userPassword) {
+    public final void setUserPassword(final String userPassword) {
         this.userPassword = userPassword;
     }
 
@@ -103,7 +103,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Getter.
      * @return defaultLocale
      */
-    public String getDefaultLocale() {
+    public final String getDefaultLocale() {
         return defaultLocale;
     }
 
@@ -111,7 +111,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Default Locale.
      * @param defaultLocale defaultLocale
      */
-    public void setDefaultLocale(final  String defaultLocale) {
+    public final void setDefaultLocale(final  String defaultLocale) {
         this.defaultLocale = defaultLocale;
     }
 
@@ -119,7 +119,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Getter.
      * @return rememberMe
      */
-    public Boolean getRememberMe() {
+    public final Boolean getRememberMe() {
         return rememberMe;
     }
 
@@ -127,7 +127,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Setter.
      * @param rememberMe rememberMe
      */
-    public void setRememberMe(final  Boolean rememberMe) {
+    public final void setRememberMe(final  Boolean rememberMe) {
         this.rememberMe = rememberMe;
     }
 
@@ -135,7 +135,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Getter.
      * @return authenticationManager
      */
-    public AuthenticationManager getAuthenticationManager() {
+    public final AuthenticationManager getAuthenticationManager() {
         return authenticationManager;
     }
 
@@ -143,7 +143,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Setter.
      * @param authenticationManager authenticationManager
      */
-    public void setAuthenticationManager(
+    public final void setAuthenticationManager(
             final AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
@@ -153,7 +153,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Execute in the first phase of life cycle
      * http://java-matias.blogspot.com/2008/12/spring-25-dia-2.html
      */
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         defaultLocale = getFacesContext().getViewRoot().getLocale().toString();
     }
 
@@ -161,7 +161,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Send to url.
      * @param urlPath url to foward
      */
-    protected void forward(final String urlPath) {
+    protected final void forward(final String urlPath) {
         //get face context
         final FacesContext facesCtx = getFacesContext();
         final UIViewRoot view = getApplication().getViewHandler().createView(facesCtx, urlPath);
@@ -172,7 +172,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
     /**
      * Get application context.
      */
-    protected Application getApplication() {
+    protected final Application getApplication() {
         if (applicationFaces == null) {
             ApplicationFactory appFactory = (ApplicationFactory) FactoryFinder
                     .getFactory(FactoryFinder.APPLICATION_FACTORY);
@@ -184,7 +184,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
     /**
      * Get current face context.
      */
-    protected FacesContext getFacesContext() {
+    protected final FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
     }
 
@@ -192,7 +192,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * Get Response.
      * @return http servlet response
      */
-    protected HttpServletResponse getResponse() {
+    protected final HttpServletResponse getResponse() {
         return (HttpServletResponse) getFacesContext().getExternalContext()
         .getResponse();
     }
@@ -202,7 +202,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * http://www.jroller.com/fairTrade/entry/integrating_acegi_and_jsf_revisited
      * @return login
      */
-    public String login() {
+    public final String login() {
         HttpServletRequest request = getRequest();
         try {
             final String userName = getUserName();
@@ -265,7 +265,7 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
             log.info("urlKey "+urlKey);
             final SavedRequest savedRequest = (SavedRequest) session
                     .getAttribute(urlKey);
-            // remove key to session
+            //DropEventBean remove key to session
             session.removeAttribute(urlKey);
             String targetUrl = null;
             // if diferent of null get url

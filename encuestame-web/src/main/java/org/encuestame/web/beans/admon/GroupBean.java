@@ -73,7 +73,7 @@ public class GroupBean extends MasterBean {
     /**
      * Create a Group.
      */
-    public void newGroup() {
+    public final void newGroup() {
         try {
             log.info("new group");
             getServicemanager().getApplicationServices().getSecurityService().createGroup(
@@ -91,7 +91,7 @@ public class GroupBean extends MasterBean {
     /**
      * Update Group.
      */
-    public void updateGroup() {
+    public final void updateGroup() {
         try {
             log.info("new group");
             getServicemanager().getApplicationServices().getSecurityService().updateGroup(
@@ -109,7 +109,7 @@ public class GroupBean extends MasterBean {
     /**
      * Delete Group.
      */
-    public void deleteGroup() {
+    public final void deleteGroup() {
         try {
             if (getProcessedGroupId() != null) {
                 log.info("deleting group..");
@@ -130,7 +130,7 @@ public class GroupBean extends MasterBean {
     /**
      * Reset Bean.
      */
-    public void reset() {
+    public final void reset() {
         newGroup.setId(null);
         newGroup.setGroupDescription(null);
         newGroup.setGroupName(null);
@@ -166,7 +166,7 @@ public class GroupBean extends MasterBean {
      * Getter.
      * @return {@link UnitGroupBean}
      */
-    public UnitGroupBean getNewGroup() {
+    public final UnitGroupBean getNewGroup() {
         return newGroup;
     }
 
@@ -174,7 +174,7 @@ public class GroupBean extends MasterBean {
      * Setter.
      * @param newGroup new group
      */
-    public void setNewGroup(UnitGroupBean newGroup) {
+    public final void setNewGroup(UnitGroupBean newGroup) {
         this.newGroup = newGroup;
     }
 
@@ -182,7 +182,7 @@ public class GroupBean extends MasterBean {
      * Getter.
      * @return list of {@link UnitGroupBean}
      */
-    public List<UnitGroupBean> getListUnitGroupBeans() {
+    public final List<UnitGroupBean> getListUnitGroupBeans() {
         getLoadListGroups();
         if (listUnitGroupBeans.size() > 0) {
             isOneRow = true;
@@ -196,7 +196,7 @@ public class GroupBean extends MasterBean {
      * Setter.
      * @param listUnitBeans list of {@link UnitGroupBean}
      */
-    public void setListUnitGroupBeans(List<UnitGroupBean> listUnitBeans) {
+    public final void setListUnitGroupBeans(List<UnitGroupBean> listUnitBeans) {
         this.listUnitGroupBeans = listUnitBeans;
     }
 
@@ -206,7 +206,7 @@ public class GroupBean extends MasterBean {
      * Setter.
      * @return processed group id
      */
-    public Integer getProcessedGroupId() {
+    public final Integer getProcessedGroupId() {
         log.info("getProcessedGroupId " + processedGroupId);
         return processedGroupId;
     }
@@ -215,7 +215,7 @@ public class GroupBean extends MasterBean {
      * Setter.
      * @param processedGroupId processed group id
      */
-    public void setProcessedGroupId(Integer processedGroupId) {
+    public final void setProcessedGroupId(Integer processedGroupId) {
         try {
             log.info("setProcessedGroupId " + processedGroupId);
             this.processedGroupId = processedGroupId;

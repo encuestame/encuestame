@@ -61,6 +61,8 @@ public class TweetPollsBean extends MasterBean {
     /** Selected Results. **/
     private List<UnitTweetPollResult> selectedResults = new ArrayList<UnitTweetPollResult>();
 
+    private static final Integer TWEET_TEXT_LENGTH = 140;
+
     /**
      *
      */
@@ -80,14 +82,14 @@ public class TweetPollsBean extends MasterBean {
     /**
      * Change Edit.
      */
-    public void changeEdit(){
+    public final void changeEdit(){
          this.editAnswer = !this.editAnswer;
     }
 
     /**
      * Save Answer.
      */
-    public void saveAnswer(){
+    public final void saveAnswer(){
         log.info("Answer Id "+getAnswerIdUpdate());
         getUpdateItem(getAnswerIdUpdate());
         if(getAnswerIdUpdate() != null && getUpdateItem(getAnswerIdUpdate())!= null){
@@ -109,7 +111,7 @@ public class TweetPollsBean extends MasterBean {
     /**
      * Load Results.
      */
-    public void loadResults(){
+    public final void loadResults(){
         if(getSelectedTweetPoll().getId() != null){
             log.info("loadResults");
             setSelectedResults(getSurveyService().getResultsByTweetPollId(getSelectedTweetPoll().getId()));
@@ -119,7 +121,7 @@ public class TweetPollsBean extends MasterBean {
     /**
      * Publish Tweeter.
      */
-    public void publishTweet() {
+    public final void publishTweet() {
         try {
             log.info("loggin tweet");
             final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService()
@@ -127,7 +129,7 @@ public class TweetPollsBean extends MasterBean {
             final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll(), getDomain());
             log.info("Largo Tweet"+tweetText.length());
             log.info( "Tweet a postear ->"+tweetText);
-            if(tweetText.length() < 140){
+            if(tweetText.length() < TWEET_TEXT_LENGTH){
                 final SecUsers user = getUsernameByName().getSecUser();
                 final Status status = survey.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
                 log.info(status.getId());
@@ -179,7 +181,7 @@ public class TweetPollsBean extends MasterBean {
     /**
      * @return the listTweets
      */
-    public List<UnitTweetPoll> getListTweets() {
+    public final List<UnitTweetPoll> getListTweets() {
         loadTweets();
         return listTweets;
     }
@@ -188,14 +190,14 @@ public class TweetPollsBean extends MasterBean {
      * @param listTweets
      *            the listTweets to set
      */
-    public void setListTweets(final List<UnitTweetPoll> listTweets) {
+    public final void setListTweets(final List<UnitTweetPoll> listTweets) {
         this.listTweets = listTweets;
     }
 
     /**
      * See Details.
      */
-    public void seeDetails() {
+    public final void seeDetails() {
         final UnitTweetPoll item = (UnitTweetPoll) getTweetDataTable()
                 .getRowData();
     }
@@ -203,7 +205,7 @@ public class TweetPollsBean extends MasterBean {
     /**
      * @return the tweetDataTable
      */
-    public HtmlDataTable getTweetDataTable() {
+    public final HtmlDataTable getTweetDataTable() {
         return tweetDataTable;
     }
 
@@ -211,14 +213,14 @@ public class TweetPollsBean extends MasterBean {
      * @param tweetDataTable
      *            the tweetDataTable to set
      */
-    public void setTweetDataTable(final HtmlDataTable tweetDataTable) {
+    public final void setTweetDataTable(final HtmlDataTable tweetDataTable) {
         this.tweetDataTable = tweetDataTable;
     }
 
     /**
      * @return the selectedTweetPoll
      */
-    public UnitTweetPoll getSelectedTweetPoll() {
+    public final UnitTweetPoll getSelectedTweetPoll() {
         return selectedTweetPoll;
     }
 
@@ -226,7 +228,7 @@ public class TweetPollsBean extends MasterBean {
      * @param selectedTweetPoll
      *            the selectedTweetPoll to set
      */
-    public void setSelectedTweetPoll(final UnitTweetPoll selectedTweetPoll) {
+    public final void setSelectedTweetPoll(final UnitTweetPoll selectedTweetPoll) {
         selectedTweetPoll.setTwitterUserAccount(getUsernameByName().getSecUser().getTwitterAccount());
         this.selectedTweetPoll = selectedTweetPoll;
     }
@@ -234,49 +236,49 @@ public class TweetPollsBean extends MasterBean {
     /**
      * @return the editAnswer
      */
-    public Boolean getEditAnswer() {
+    public final Boolean getEditAnswer() {
         return editAnswer;
     }
 
     /**
      * @param editAnswer the editAnswer to set
      */
-    public void setEditAnswer(final Boolean editAnswer) {
+    public final void setEditAnswer(final Boolean editAnswer) {
         this.editAnswer = editAnswer;
     }
 
     /**
      * @return the answerIdUpdate
      */
-    public Long getAnswerIdUpdate() {
+    public final Long getAnswerIdUpdate() {
         return answerIdUpdate;
     }
 
     /**
      * @param answerIdUpdate the answerIdUpdate to set
      */
-    public void setAnswerIdUpdate(Long answerIdUpdate) {
+    public final void setAnswerIdUpdate(Long answerIdUpdate) {
         this.answerIdUpdate = answerIdUpdate;
     }
 
     /**
      * @return the answerName
      */
-    public String getAnswerName() {
+    public final String getAnswerName() {
         return answerName;
     }
 
     /**
      * @param answerName the answerName to set
      */
-    public void setAnswerName(String answerName) {
+    public final void setAnswerName(String answerName) {
         this.answerName = answerName;
     }
 
     /**
      * @return the selectedResults
      */
-    public List<UnitTweetPollResult> getSelectedResults() {
+    public final List<UnitTweetPollResult> getSelectedResults() {
         loadResults();
         return selectedResults;
     }
@@ -284,7 +286,7 @@ public class TweetPollsBean extends MasterBean {
     /**
      * @param selectedResults the selectedResults to set
      */
-    public void setSelectedResults(final List<UnitTweetPollResult> selectedResults) {
+    public final void setSelectedResults(final List<UnitTweetPollResult> selectedResults) {
         this.selectedResults = selectedResults;
     }
 }

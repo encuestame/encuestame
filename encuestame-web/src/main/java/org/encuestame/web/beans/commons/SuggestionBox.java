@@ -53,87 +53,87 @@ public class SuggestionBox implements Serializable {
 
     }
 
-    public String getCellpadding() {
+    public final String getCellpadding() {
         return cellpadding;
     }
 
-    public void setCellpadding(String cellpadding) {
+    public final void setCellpadding(final String cellpadding) {
         this.cellpadding = cellpadding;
     }
 
-    public String getCellspacing() {
+    public final String getCellspacing() {
         return cellspacing;
     }
 
-    public void setCellspacing(String cellspacing) {
+    public final void setCellspacing(final String cellspacing) {
         this.cellspacing = cellspacing;
     }
 
-    public boolean isCheck() {
+    public final boolean isCheck() {
         return check;
     }
 
-    public void setCheck(boolean check) {
+    public final void setCheck(final boolean check) {
         this.check = check;
     }
 
-    public String getFirst() {
+    public final String getFirst() {
         return first;
     }
 
-    public int getIntFirst() {
+    public final int getIntFirst() {
         return Integer.parseInt(getFirst());
     }
 
-    public void setFirst(String first) {
+    public final void setFirst(final String first) {
         this.first = first;
     }
 
-    public String getFrequency() {
+    public final String getFrequency() {
         return frequency;
     }
 
-    public double getDoubleFrequency() {
+    public final double getDoubleFrequency() {
         return Double.parseDouble(getFrequency());
     }
 
-    public void setFrequency(String frequency) {
+    public final void setFrequency(final String frequency) {
         this.frequency = frequency;
     }
 
-    public String getMinchars() {
+    public final String getMinchars() {
         return minchars;
     }
 
-    public void setMinchars(String minchars) {
+    public final void setMinchars(String minchars) {
         this.minchars = minchars;
     }
 
-    public String getRows() {
+    public final String getRows() {
         return rows;
     }
 
-    public int getIntRows() {
+    public final int getIntRows() {
         return Integer.parseInt(getRows());
     }
 
-    public void setRows(String rows) {
+    public final void setRows(final String rows) {
         this.rows = rows;
     }
 
-    public String getRules() {
+    public final String getRules() {
         return rules;
     }
 
-    public void setRules(String rules) {
+    public final void setRules(final String rules) {
         this.rules = rules;
     }
 
-    public ArrayList getTokens() {
+    public final ArrayList getTokens() {
         return tokens;
     }
 
-    public void setTokens(ArrayList tokens) {
+    public final void setTokens(final ArrayList tokens) {
         this.tokens = tokens;
     }
 
@@ -141,43 +141,43 @@ public class SuggestionBox implements Serializable {
 
     }
 
-    public String getShadowDepth() {
+    public final String getShadowDepth() {
         return shadowDepth;
     }
 
-    public void setShadowDepth(String shadowDepth) {
+    public final void setShadowDepth(final String shadowDepth) {
         this.shadowDepth = shadowDepth;
     }
 
-    public String getBorder() {
+    public final String getBorder() {
         return border;
     }
 
-    public void setBorder(String border) {
+    public final void setBorder(final String border) {
         this.border = border;
     }
 
-    public String getWidth() {
+    public final String getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public final void setWidth(final String width) {
         this.width = width;
     }
 
-    public String getHeight() {
+    public final String getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public final void setHeight(final String height) {
         this.height = height;
     }
 
-    public String getShadowOpacity() {
+    public final String getShadowOpacity() {
         return shadowOpacity;
     }
 
-    public void setShadowOpacity(String shadowOpacity) {
+    public final void setShadowOpacity(final String shadowOpacity) {
         this.shadowOpacity = shadowOpacity;
     }
 }

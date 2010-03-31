@@ -48,7 +48,7 @@ public class GlobalCommonsBeans extends MasterBean {
      *
      * @return
      */
-    public List<SelectItem> getLoadListState() {
+    public final List<SelectItem> getLoadListState() {
         lista = new LinkedList();
         select = new ArrayList<SelectItem>();
         // log.info("get load list state");
@@ -72,7 +72,7 @@ public class GlobalCommonsBeans extends MasterBean {
      *
      * @return
      */
-    public List<SelectItem> getLoadListPermissions() {
+    public final List<SelectItem> getLoadListPermissions() {
         lista = new LinkedList();
         select = new LinkedList<SelectItem>();
         select.add(new SelectItem(null, ""));
@@ -93,7 +93,7 @@ public class GlobalCommonsBeans extends MasterBean {
      * load list patron
      * @return
      */
-    public List<SelectItem> getLoadListQuestionPattern() {
+    public final List<SelectItem> getLoadListQuestionPattern() {
         lista = new LinkedList();
         select = new LinkedList<SelectItem>();
         select.add(new SelectItem(null, ""));

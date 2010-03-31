@@ -42,7 +42,7 @@ public class FileSystemNode {
         //log.info("this.shortPath->"+shortPath);
     }
 
-    public synchronized FileSystemNode[] getNodes() {
+    public final synchronized FileSystemNode[] getNodes() {
         if (children == null) {
             //log.info("this.path->"+this.path);
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -69,7 +69,7 @@ public class FileSystemNode {
         return children;
     }
 
-    public String toString() {
+    public final String toString() {
         return shortPath;
     }
 }

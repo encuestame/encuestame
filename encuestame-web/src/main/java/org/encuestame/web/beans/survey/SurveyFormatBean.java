@@ -41,7 +41,7 @@ public class SurveyFormatBean extends MasterBean {
      *
      * @return
      */
-    public List<SurveyFormat> suggestSurveysNames() {
+    public final List<SurveyFormat> suggestSurveysNames() {
         ArrayList<SurveyFormat> result = new ArrayList<SurveyFormat>();
         try {
             String pref = getSurveyName();
@@ -91,7 +91,7 @@ public class SurveyFormatBean extends MasterBean {
     /**
      * @return the surveyName
      */
-    public String getSurveyName() {
+    public final String getSurveyName() {
         return surveyName;
     }
 
@@ -99,14 +99,14 @@ public class SurveyFormatBean extends MasterBean {
      * @param surveyName
      *            the surveyName to set
      */
-    public void setSurveyName(String surveyName) {
+    public final void setSurveyName(final String surveyName) {
         this.surveyName = surveyName.trim();
     }
 
     /**
      * @return the lista
      */
-    public Collection<SurveyFormat> getLista() {
+    public final Collection<SurveyFormat> getLista() {
         log.info("lista->" + lista.size());
         return lista;
     }
@@ -115,14 +115,14 @@ public class SurveyFormatBean extends MasterBean {
      * @param lista
      *            the lista to set
      */
-    public void setLista(Collection<SurveyFormat> lista) {
+    public final void setLista(final Collection<SurveyFormat> lista) {
         this.lista = lista;
     }
 
     /**
      * @return the listSuggest
      */
-    public Boolean getListSuggest() {
+    public final Boolean getListSuggest() {
         return listSuggest;
     }
 
@@ -130,7 +130,7 @@ public class SurveyFormatBean extends MasterBean {
      * @param listSuggest
      *            the listSuggest to set
      */
-    public void setListSuggest(Boolean listSuggest) {
+    public final void setListSuggest(final Boolean listSuggest) {
         this.listSuggest = listSuggest;
     }
 

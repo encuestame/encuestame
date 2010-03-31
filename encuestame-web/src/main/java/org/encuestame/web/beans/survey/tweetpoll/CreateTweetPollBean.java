@@ -59,7 +59,7 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * Save Question.
      */
-    public void saveQuestion(){
+    public final void saveQuestion(){
         try{
             log.info("Question Name "+questionBean.getQuestionName());
             this.questionBean.setUserId(getUsernameByName().getSecUser().getUid());
@@ -78,7 +78,7 @@ public class CreateTweetPollBean extends MasterBean {
      * Create Short Sumilate Url.
      * @param answer answer
      */
-    public void createShortSimulateUrl(final UnitAnswersBean answer){
+    public final void createShortSimulateUrl(final UnitAnswersBean answer){
         try{
             final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
             answer.setAnswerHash(MD5Utils.md5(String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())));
@@ -115,7 +115,7 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * Add answer to question.
      **/
-    public void addAnswer(){
+    public final void addAnswer(){
         try{
             if(getUnitTweetPoll().getQuestionBean() !=null){
                 this.createShortSimulateUrl(getAnswersBean());
@@ -136,7 +136,7 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * Delete All Answers.
      */
-    public void deleteAllAnswers(){
+    public final void deleteAllAnswers(){
         try{
             getUnitTweetPoll().getQuestionBean().setListAnswers(new ArrayList<UnitAnswersBean>());
             addInfoMessage("Answer Cleared.", "");
@@ -149,7 +149,7 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * Create Tweet Poll.
      */
-    public void createTweetPoll(){
+    public final void createTweetPoll(){
         final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
         try{
           //save question
@@ -188,56 +188,56 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * @return the unitTweetPoll
      */
-    public UnitTweetPoll getUnitTweetPoll() {
+    public final UnitTweetPoll getUnitTweetPoll() {
         return unitTweetPoll;
     }
 
     /**
      * @param unitTweetPoll the unitTweetPoll to set
      */
-    public void setUnitTweetPoll(final UnitTweetPoll unitTweetPoll) {
+    public final void setUnitTweetPoll(final UnitTweetPoll unitTweetPoll) {
         this.unitTweetPoll = unitTweetPoll;
     }
 
     /**
      * @return the answersBean
      */
-    public UnitAnswersBean getAnswersBean() {
+    public final UnitAnswersBean getAnswersBean() {
         return answersBean;
     }
 
     /**
      * @param answersBean the answersBean to set
      */
-    public void setAnswersBean(final UnitAnswersBean answersBean) {
+    public final void setAnswersBean(final UnitAnswersBean answersBean) {
         this.answersBean = answersBean;
     }
 
     /**
      * @return the questionBean
      */
-    public UnitQuestionBean getQuestionBean() {
+    public final UnitQuestionBean getQuestionBean() {
         return questionBean;
     }
 
     /**
      * @param questionBean the questionBean to set
      */
-    public void setQuestionBean(final UnitQuestionBean questionBean) {
+    public final void setQuestionBean(final UnitQuestionBean questionBean) {
         this.questionBean = questionBean;
     }
 
     /**
      * @return the resumeTweet
      */
-    public String getResumeTweet() {
+    public final String getResumeTweet() {
         return resumeTweet;
     }
 
     /**
      * @param resumeTweet the resumeTweet to set
      */
-    public void setResumeTweet(final String resumeTweet) {
+    public final void setResumeTweet(final String resumeTweet) {
         this.updateCount(resumeTweet);
         this.resumeTweet = resumeTweet;
     }
@@ -254,14 +254,14 @@ public class CreateTweetPollBean extends MasterBean {
     /**
      * @return the countTweet
      */
-    public Integer getCountTweet() {
+    public final Integer getCountTweet() {
         return countTweet;
     }
 
     /**
      * @param countTweet the countTweet to set
      */
-    public void setCountTweet(final Integer countTweet) {
+    public final void setCountTweet(final Integer countTweet) {
         this.countTweet = countTweet;
     }
 }

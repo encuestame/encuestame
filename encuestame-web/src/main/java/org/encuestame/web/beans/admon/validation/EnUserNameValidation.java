@@ -15,7 +15,6 @@ package org.encuestame.web.beans.admon.validation;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 /**
  * Encuestame User Name Validation.
  * @author Picado, Juan juan@encuestame.org
@@ -24,8 +23,7 @@ import javax.faces.validator.ValidatorException;
  */
 public class EnUserNameValidation implements Validator{
 
-    public void validate(FacesContext arg0, UIComponent arg1, Object arg2)
-            throws ValidatorException {
+    public void validate(FacesContext arg0, UIComponent arg1, Object arg2) {
         // TODO Auto-generated method stub
 
     }
