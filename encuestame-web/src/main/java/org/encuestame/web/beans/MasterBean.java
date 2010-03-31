@@ -26,8 +26,6 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
-import org.encuestame.core.service.ServiceManager;
-import org.encuestame.core.service.SurveyService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,8 +64,8 @@ public class MasterBean {
     /** Short Number String. **/
     private Integer shortNumberString = 30;
 
-    private final String URL = "http://";
-
+    private static final String URL = "http://";
+    private static final Integer REQUEST_SERVER_PORT = 80;
     /**
      * Constructor.
      */
@@ -78,7 +76,7 @@ public class MasterBean {
     /**
      * Get User Session Id.
      */
-    protected Long getUserSessionId(){
+    protected final Long getUserSessionId(){
         return this.userSessionId;
     }
 
@@ -87,7 +85,7 @@ public class MasterBean {
      * @param serviceBeanName bean name
      * @return {@link Object}
      */
-    public Object lookupService(String serviceBeanName) {
+    public final Object lookupService(String serviceBeanName) {
         return appContext.getBean(serviceBeanName);
     }
 
@@ -95,7 +93,7 @@ public class MasterBean {
      * Getter {@link ServiceManager}.
      * @return {@link ServiceManager}
      */
-    public IServiceManager getServicemanager() {
+    public final IServiceManager getServicemanager() {
         return servicemanager;
     }
 
@@ -103,7 +101,7 @@ public class MasterBean {
      * Setter {@link ServiceManager}.
      * @param servicemanagerBean {@link ServiceManager}
      */
-    public void setServicemanagerBean(IServiceManager servicemanagerBean) {
+    public final void setServicemanagerBean(IServiceManager servicemanagerBean) {
         this.servicemanager = servicemanagerBean;
     }
 
@@ -114,7 +112,7 @@ public class MasterBean {
      * @param description description
      * @param severity severity
      */
-    public void showMessage(String messageId, String message, String description,
+    public final void showMessage(String messageId, String message, String description,
             Severity severity) {
         this.clearMessages();
         final FacesMessage facesMessages = new FacesMessage(message, description);
@@ -126,7 +124,7 @@ public class MasterBean {
      * Clear Messages.
      */
     @SuppressWarnings("unchecked")
-    public void clearMessages(){
+    public final void clearMessages(){
         final Iterator iterator = getFacesContext().getMessages();
         while (iterator.hasNext()) {
             iterator.remove();
@@ -137,7 +135,7 @@ public class MasterBean {
      * Get Domain.
      * @return domain
      */
-    public String getDomain(){
+    public final String getDomain(){
         final HttpServletRequest request = (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
         final StringBuffer buffer = new StringBuffer(this.URL);
         buffer.append(request.getServerName());
@@ -154,7 +152,7 @@ public class MasterBean {
      * Get Request.
      * @return {@link HttpServletRequest}.
      */
-    public HttpServletRequest getRequest()
+    public final HttpServletRequest getRequest()
     {
         final HttpServletRequest request =
             (HttpServletRequest) this.getFacesContext().getExternalContext().getRequest();
@@ -170,7 +168,7 @@ public class MasterBean {
      * @param name name
      * @return object
      */
-    public Object getAttribute(String name)
+    public final Object getAttribute(String name)
     {
         final HttpServletRequest request = getRequest();
         return request.getAttribute(name);
@@ -184,7 +182,7 @@ public class MasterBean {
      * @param description description
      * @param severity severity
      */
-    public void showMessage(String message, String description, Severity severity) {
+    public final void showMessage(String message, String description, Severity severity) {
         showMessage(null, message, description, severity);
     }
 
@@ -194,7 +192,7 @@ public class MasterBean {
      * @param message message
      * @param description description
      */
-    public void addInfoMessage(String message, String description) {
+    public final void addInfoMessage(String message, String description) {
         showMessage(null, message, description, FacesMessage.SEVERITY_INFO);
     }
 
@@ -203,7 +201,7 @@ public class MasterBean {
      * @param message message
      * @param description  description
      */
-    public void addErrorMessage(String message, String description) {
+    public final void addErrorMessage(String message, String description) {
         showMessage(null, message, description, FacesMessage.SEVERITY_ERROR);
     }
 
@@ -212,7 +210,7 @@ public class MasterBean {
      * @param message message
      * @param description description
      */
-    public void addWarningMessage(String message, String description) {
+    public final void addWarningMessage(String message, String description) {
         showMessage(null, message, description, FacesMessage.SEVERITY_WARN);
     }
     /**
@@ -227,7 +225,7 @@ public class MasterBean {
      * @return the localized message if it is exists, otherwise the specified
      *         property id
      */
-    public String getMessageProperties(String propertieId) {
+    public final String getMessageProperties(String propertieId) {
         return  getServicemanager().getMessageSource() == null ? propertieId
                 : getServicemanager().getMessageSource().getMessage(
                         propertieId, null, null);
@@ -238,7 +236,7 @@ public class MasterBean {
      * @param string string to abbreviate
      * @return abrreviate string.
      */
-    public String shortLongString(final String string){
+    public final String shortLongString(final String string){
         return StringUtils.abbreviate(string, getShortNumberString());
     }
 
@@ -246,7 +244,7 @@ public class MasterBean {
      * Get Username.
      * @return username
      */
-    public String getUsername(){
+    public final String getUsername(){
         log.info("Session Username "+getSecCtx().getAuthentication().getName());
         return getSecCtx().getAuthentication().getName();
     }
@@ -255,7 +253,7 @@ public class MasterBean {
      * Get {@link SecUserSecondary} by Name.
      * @return {@link SecUserSecondary}
      */
-    public SecUserSecondary getUsernameByName(){
+    public final SecUserSecondary getUsernameByName(){
         return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getUsername());
     }
 
@@ -263,7 +261,7 @@ public class MasterBean {
      * @return
      */
     @Deprecated
-    protected boolean isOneRow() {
+    protected final boolean isOneRow() {
         return isOneRow;
     }
 
@@ -271,14 +269,14 @@ public class MasterBean {
      * @param isOneRow
      */
     @Deprecated
-    protected void setOneRow(boolean isOneRow) {
+    protected final void setOneRow(boolean isOneRow) {
         this.isOneRow = isOneRow;
     }
 
     /**
      * @return the secCtx
      */
-    protected SecurityContext getSecCtx() {
+    protected final SecurityContext getSecCtx() {
         return this.securityContext = SecurityContextHolder.getContext();
     }
 
@@ -286,7 +284,7 @@ public class MasterBean {
      * Get Username of user client.
      * @return
      */
-    protected String getUserPrincipalUsername(){
+    protected final String getUserPrincipalUsername(){
        return getSecCtx().getAuthentication().getName();
     }
 
@@ -294,28 +292,28 @@ public class MasterBean {
      *
      * @return
      */
-    protected ISecurityService getSecurityService(){
+    protected final ISecurityService getSecurityService(){
         return getServicemanager().getApplicationServices().getSecurityService();
     }
 
     /**
      * @return the shortNumberString
      */
-    public Integer getShortNumberString() {
+    public final Integer getShortNumberString() {
         return shortNumberString;
     }
 
     /**
      * @param shortNumberString the shortNumberString to set
      */
-    public void setShortNumberString(final Integer shortNumberString) {
+    public final void setShortNumberString(final Integer shortNumberString) {
         this.shortNumberString = shortNumberString;
     }
 
     /**
      * @return the surveyService
      */
-    public ISurveyService getSurveyService() {
+    public final ISurveyService getSurveyService() {
         surveyService = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
         return surveyService;
     }
@@ -323,7 +321,7 @@ public class MasterBean {
     /**
      * @return the securityContext
      */
-    public SecurityContext getSecurityContext() {
+    public final SecurityContext getSecurityContext() {
         return securityContext;
     }
 }

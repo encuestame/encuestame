@@ -15,7 +15,6 @@ package org.encuestame.web.beans.project;
 import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.web.beans.MasterBean;
 
@@ -87,7 +86,7 @@ public class ProjectBean extends MasterBean {
     /**
      * Save data new proyect
      */
-    public void saveProject() {
+    public final void saveProject() {
         try {
             getNewProjectBean().setUserId(getUsernameByName().getSecUser().getUid());
             if (this.getNewProjectBean() != null) {
@@ -109,7 +108,7 @@ public class ProjectBean extends MasterBean {
     /**
      *
      */
-    public void editProject() {
+    public final void editProject() {
         if (getProjectSelected() != null) {
             log.info("project selected " + getProjectSelected());
             //render edit detail view
@@ -153,7 +152,7 @@ public class ProjectBean extends MasterBean {
     /**
      *
      */
-    public void deselectedProject(){
+    public final void deselectedProject(){
         log.info("deselectedProject");
         cleanProyect();
         setEditDetail(false);
@@ -171,7 +170,7 @@ public class ProjectBean extends MasterBean {
     /**
      * change to create form
      */
-    public void changeCreate() {
+    public final void changeCreate() {
         try {
             log.info("changeCreate");
             deselectedProject();
@@ -188,7 +187,7 @@ public class ProjectBean extends MasterBean {
     /**
      * Change view to List of Projects.
      */
-    public void changeEdit() {
+    public final void changeEdit() {
         log.info("changeEdit");
         deselectedProject();
         setCreate(false);
@@ -200,7 +199,7 @@ public class ProjectBean extends MasterBean {
     /**
      * @return the noProyects
      */
-    public Boolean getNoProyects() {
+    public final Boolean getNoProyects() {
         return noProyects;
     }
 
@@ -208,14 +207,14 @@ public class ProjectBean extends MasterBean {
      * @param noProyects
      *            the noProyects to set
      */
-    public void setNoProyects(Boolean noProyects) {
+    public final void setNoProyects(final Boolean noProyects) {
         this.noProyects = noProyects;
     }
 
     /**
      * @return the create
      */
-    public Boolean getCreate() {
+    public final Boolean getCreate() {
         return create;
     }
 
@@ -223,14 +222,14 @@ public class ProjectBean extends MasterBean {
      * @param create
      *            the create to set
      */
-    public void setCreate(Boolean create) {
+    public final void setCreate(final Boolean create) {
         this.create = create;
     }
 
     /**
      * @return the edit
      */
-    public Boolean getEdit() {
+    public final Boolean getEdit() {
         return edit;
     }
 
@@ -238,7 +237,7 @@ public class ProjectBean extends MasterBean {
      * @param edit
      *            the edit to set
      */
-    public void setEdit(Boolean edit) {
+    public final void setEdit(final Boolean edit) {
         this.edit = edit;
     }
 
@@ -246,7 +245,7 @@ public class ProjectBean extends MasterBean {
     /**
      * @return the unitProjectBean
      */
-    public UnitProjectBean getUnitProjectBean() {
+    public final UnitProjectBean getUnitProjectBean() {
         log.debug("get "+unitProjectBean);
         return unitProjectBean;
     }
@@ -254,7 +253,7 @@ public class ProjectBean extends MasterBean {
     /**
      * @param unitProjectBean the unitProjectBean to set
      */
-    public void setUnitProjectBean(final UnitProjectBean unitProjectBean) {
+    public final void setUnitProjectBean(final UnitProjectBean unitProjectBean) {
         log.debug("set "+unitProjectBean);
         this.unitProjectBean = unitProjectBean;
     }
@@ -262,7 +261,7 @@ public class ProjectBean extends MasterBean {
     /**
      * @return the listProjectsBeans
      */
-    public Collection<UnitProjectBean> getListProjectsBeans() {
+    public final Collection<UnitProjectBean> getListProjectsBeans() {
         this.loadListProjects();
         return listProjectsBeans;
     }
@@ -270,14 +269,14 @@ public class ProjectBean extends MasterBean {
     /**
      * @param listProjectsBeans the listProjectsBeans to set
      */
-    public void setListProjectsBeans(final Collection<UnitProjectBean> listProjectsBeans) {
+    public final void setListProjectsBeans(final Collection<UnitProjectBean> listProjectsBeans) {
         this.listProjectsBeans = listProjectsBeans;
     }
 
     /**
      * @return the projectSelected
      */
-    public Integer getProjectSelected() {
+    public final Integer getProjectSelected() {
         log.info("projectSelected->" + projectSelected);
         return projectSelected;
     }
@@ -286,14 +285,14 @@ public class ProjectBean extends MasterBean {
      * @param projectSelected
      *            the projectSelected to set
      */
-    public void setProjectSelected(Integer projectSelected) {
+    public final void setProjectSelected(final Integer projectSelected) {
         this.projectSelected = projectSelected;
     }
 
     /**
      * @return the editDetail
      */
-    public Boolean getEditDetail() {
+    public final Boolean getEditDetail() {
         return editDetail;
     }
 
@@ -301,7 +300,7 @@ public class ProjectBean extends MasterBean {
      * @param editDetail
      *            the editDetail to set
      */
-    public void setEditDetail(final Boolean editDetail) {
+    public final void setEditDetail(final Boolean editDetail) {
         log.info("editDetail "+editDetail);
         this.editDetail = editDetail;
     }
@@ -309,14 +308,14 @@ public class ProjectBean extends MasterBean {
     /**
      * @return the newProjectBean
      */
-    public UnitProjectBean getNewProjectBean() {
+    public final UnitProjectBean getNewProjectBean() {
         return newProjectBean;
     }
 
     /**
      * @param newProjectBean the newProjectBean to set
      */
-    public void setNewProjectBean(final UnitProjectBean newProjectBean) {
+    public final void setNewProjectBean(final UnitProjectBean newProjectBean) {
         this.newProjectBean = newProjectBean;
     }
 

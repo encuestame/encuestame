@@ -66,7 +66,7 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @author juanpicado
      */
 
-    public void createSecction() {
+    public final void createSecction() {
         if (getUnitSurveySection() != null) {
             if (sectionList == null) {
                 sectionList = new ArrayList<UnitSurveySection>();
@@ -90,7 +90,7 @@ public class BuildSurveyControllerBean extends MasterBean {
      * create a question
      * @author juanpicado
      */
-    public void createQuestion() {
+    public final void createQuestion() {
         if (getUnitQuestionBean() != null) {
             if (questionsList == null) {
                 questionsList = new ArrayList<UnitQuestionBean>();
@@ -178,7 +178,7 @@ public class BuildSurveyControllerBean extends MasterBean {
     /**
      * search questions in bd
      */
-    public void searchQuestions() {
+    public final void searchQuestions() {
         try {
             questionsList = getServicemanager().getApplicationServices()
             .getSecurityService()
@@ -200,7 +200,7 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param fm fm
      * @param family family
      */
-    public void moveQuestion(Object fm, Object family) {
+    public final void moveQuestion(Object fm, Object family) {
         ArrayList target = null;
         UnitQuestionBean dd = (UnitQuestionBean) fm;
         dd.getPattern().setTemplate("pattern/url.xhtml");
@@ -220,7 +220,7 @@ public class BuildSurveyControllerBean extends MasterBean {
     /**
      * @return the questionSearch
      */
-    public String getQuestionSearch() {
+    public final String getQuestionSearch() {
         return questionSearch;
     }
 
@@ -228,14 +228,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param questionSearch
      *            the questionSearch to set
      */
-    public void setQuestionSearch(String questionSearch) {
+    public final void setQuestionSearch(final String questionSearch) {
         this.questionSearch = questionSearch;
     }
 
     /**
      * @return the questionsList
      */
-    public List<UnitQuestionBean> getQuestionsList() {
+    public final List<UnitQuestionBean> getQuestionsList() {
         // searchQuestions();
         return questionsList;
     }
@@ -244,14 +244,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param questionsList
      *            the questionsList to set
      */
-    public void setQuestionsList(List<UnitQuestionBean> questionsList) {
+    public final void setQuestionsList(final List<UnitQuestionBean> questionsList) {
         this.questionsList = questionsList;
     }
 
     /**
      * @return the sectionList
      */
-    public List<UnitSurveySection> getSectionList() {
+    public final List<UnitSurveySection> getSectionList() {
         return sectionList;
     }
 
@@ -259,14 +259,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param sectionList
      *            the sectionList to set
      */
-    public void setSectionList(List<UnitSurveySection> sectionList) {
+    public final void setSectionList(final List<UnitSurveySection> sectionList) {
         this.sectionList = sectionList;
     }
 
     /**
      * @return the unitQuestionBean
      */
-    public UnitQuestionBean getUnitQuestionBean() {
+    public final UnitQuestionBean getUnitQuestionBean() {
         return unitQuestionBean;
     }
 
@@ -274,14 +274,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param unitQuestionBean
      *            the unitQuestionBean to set
      */
-    public void setUnitQuestionBean(UnitQuestionBean unitQuestionBean) {
+    public final void setUnitQuestionBean(final UnitQuestionBean unitQuestionBean) {
         this.unitQuestionBean = unitQuestionBean;
     }
 
     /**
      * @return the unitSurveySection
      */
-    public UnitSurveySection getUnitSurveySection() {
+    public final UnitSurveySection getUnitSurveySection() {
         return unitSurveySection;
     }
 
@@ -289,14 +289,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param unitSurveySection
      *            the unitSurveySection to set
      */
-    public void setUnitSurveySection(UnitSurveySection unitSurveySection) {
+    public final void setUnitSurveySection(UnitSurveySection unitSurveySection) {
         this.unitSurveySection = unitSurveySection;
     }
 
     /**
      * @return the showQuestionForm
      */
-    public Boolean getShowQuestionForm() {
+    public final Boolean getShowQuestionForm() {
         return showQuestionForm;
     }
 
@@ -304,14 +304,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param showQuestionForm
      *            the showQuestionForm to set
      */
-    public void setShowQuestionForm(Boolean showQuestionForm) {
+    public final void setShowQuestionForm(final Boolean showQuestionForm) {
         this.showQuestionForm = showQuestionForm;
     }
 
     /**
      * @return the showSectionForm
      */
-    public Boolean getShowSectionForm() {
+    public final Boolean getShowSectionForm() {
         return showSectionForm;
     }
 
@@ -319,14 +319,14 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param showSectionForm
      *            the showSectionForm to set
      */
-    public void setShowSectionForm(Boolean showSectionForm) {
+    public final void setShowSectionForm(final Boolean showSectionForm) {
         this.showSectionForm = showSectionForm;
     }
 
     /**
      * @return the sectionSelected
      */
-    public Integer getSectionSelected() {
+    public final Integer getSectionSelected() {
         return sectionSelected;
     }
 
@@ -335,7 +335,7 @@ public class BuildSurveyControllerBean extends MasterBean {
      *
      * @param selected selected
      */
-    public void changeRenderedSection() {
+    public final void changeRenderedSection() {
         if (getSectionSelected() != null) {
             UnitSurveySection ind = sectionList.get(getSectionSelected()
                     .intValue() - 1);
@@ -373,35 +373,35 @@ public class BuildSurveyControllerBean extends MasterBean {
      * @param sectionSelected
      *            the sectionSelected to set
      */
-    public void setSectionSelected(Integer sectionSelected) {
+    public final void setSectionSelected(final Integer sectionSelected) {
         this.sectionSelected = sectionSelected;
     }
 
     /**
      * @return
      */
-    public UnitPatternBean getUnitPatterBean() {
+    public final UnitPatternBean getUnitPatterBean() {
         return unitPatterBean;
     }
 
     /**
      * @param unitPatterBean
      */
-    public void setUnitPatterBean(UnitPatternBean unitPatterBean) {
+    public final void setUnitPatterBean(final UnitPatternBean unitPatterBean) {
         this.unitPatterBean = unitPatterBean;
     }
 
     /**
      * @return
      */
-    public Integer getPatternSelected() {
+    public final Integer getPatternSelected() {
         return patternSelected;
     }
 
     /**
      * @param patternSelected
      */
-    public void setPatternSelected(Integer patternSelected) {
+    public final void setPatternSelected(final Integer patternSelected) {
         this.patternSelected = patternSelected;
     }
 

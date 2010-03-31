@@ -6,7 +6,7 @@
 
   <!-- admon bean -->
   <bean id="userBean" class="org.encuestame.web.beans.admon.UserBean"
-    scope="session">
+    scope="session"  autowire="byName">
     <property name="servicemanagerBean" ref="servicesManager" />
   </bean>
 
