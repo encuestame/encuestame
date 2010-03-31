@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecGroups;

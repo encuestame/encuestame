@@ -24,6 +24,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.http.RequestToken;
 
@@ -82,7 +83,7 @@ public class TwitterService extends Service implements ITwitterService {
      * @throws TwitterException exception
      */
     public User verifyCredentials(final String username, final String password) throws TwitterException{
-        final Twitter twitter = new Twitter(username, password);
+        final Twitter twitter = new TwitterFactory().getInstance(username, password);
         return twitter.verifyCredentials();
     }
 
@@ -101,7 +102,7 @@ public class TwitterService extends Service implements ITwitterService {
         if (consumerSecret == null) {
             throw new IllegalArgumentException("Consumer secret is missing");
         }
-        final Twitter twitter = new Twitter();
+        final Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(consumerKey, consumerSecret);
         return twitter.getOAuthRequestToken();
     }

@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.mail;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.IService;
 import org.encuestame.core.service.Service;
 import org.springframework.mail.MailSendException;
@@ -25,6 +27,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * @version $Id$
  */
 public class MailServiceImpl extends Service implements MailService, IService {
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /** email to  no-response. **/
     private String noEmailResponse;

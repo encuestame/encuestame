@@ -162,10 +162,6 @@ public class UserBean extends MasterBean {
     public List<UnitUserBean> getListUnitBeans() {
         try {
             loadListUsers();
-            if (listUnitBeans.size() > 0)
-                setOneRow(true);
-            else
-                setOneRow(false);
             return listUnitBeans;
         } catch (Exception e) {
             addErrorMessage("error loading grid " + e.getMessage(), e
