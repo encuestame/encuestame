@@ -22,6 +22,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  * Question Dao.
@@ -29,6 +30,7 @@ import org.hibernate.criterion.Restrictions;
  * @since June 02, 2009
  * @version $Id$
  */
+@Repository
 public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQuestionDao {
 
     /**

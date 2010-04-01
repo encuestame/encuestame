@@ -13,6 +13,7 @@
 package org.encuestame.core.persistence.dao;
 
 import org.encuestame.core.persistence.dao.imp.IGroupPermissionDao;
+import org.springframework.stereotype.Repository;
 
 /**
  * Group Permission Dao.
@@ -20,6 +21,7 @@ import org.encuestame.core.persistence.dao.imp.IGroupPermissionDao;
  * @since February 8, 2009
  * @version $Id$
  */
+@Repository
 public class GroupPermissionDaoImp extends AbstractHibernateDaoSupport implements
         IGroupPermissionDao {
 

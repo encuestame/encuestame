@@ -18,6 +18,7 @@ import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  * Survey Dao.
@@ -25,6 +26,7 @@ import org.hibernate.criterion.Restrictions;
  * @since June 01, 2009
  * @version $Id$
  */
+@Repository
 public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey {
 
     /**

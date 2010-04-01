@@ -21,6 +21,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.stereotype.Repository;
 
 /**
  * SecUsers.
@@ -29,6 +30,7 @@ import org.springframework.dao.support.DataAccessUtils;
  * @since May 05, 2009
  * @version $Id$
  */
+@Repository
 public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUserDao {
 
    /**

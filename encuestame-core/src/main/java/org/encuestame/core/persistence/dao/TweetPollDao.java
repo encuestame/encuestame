@@ -24,6 +24,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.stereotype.Repository;
 
 /**
  * TweetPoll Dao Implementation.
@@ -31,6 +32,7 @@ import org.springframework.dao.support.DataAccessUtils;
  * @since Feb 17, 2010 8:26:57 PM
  * @version $Id$
  */
+@Repository
 public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetPoll{
 
     /**

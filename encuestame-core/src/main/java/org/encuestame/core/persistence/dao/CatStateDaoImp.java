@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Repository;
 
 /**
  * Catalog State Dao.
@@ -24,6 +25,7 @@ import org.hibernate.HibernateException;
  * @since April 26, 2009
  * @version $Id$
  */
+@Repository
 public class CatStateDaoImp extends AbstractHibernateDaoSupport implements ICatState {
 
 

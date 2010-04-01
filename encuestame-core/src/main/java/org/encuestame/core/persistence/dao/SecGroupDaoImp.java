@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Repository;
 
 /**
  * Security Group Dao.
@@ -24,6 +25,7 @@ import org.hibernate.HibernateException;
  * @since May 05, 2009
  * @version $Id$
  */
+@Repository
 public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
         ISecGroups {
 

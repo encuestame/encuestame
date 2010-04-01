@@ -18,6 +18,7 @@ import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Repository;
 
 /**
  * Catalog Location Type Dao.
@@ -25,6 +26,7 @@ import org.hibernate.HibernateException;
  * @since 05/12/2009 12:36:22
  * @version $Id$
  */
+@Repository
 public class CatLocationTypeDao extends AbstractHibernateDaoSupport implements ICatLocationTypeDao {
 
     /**

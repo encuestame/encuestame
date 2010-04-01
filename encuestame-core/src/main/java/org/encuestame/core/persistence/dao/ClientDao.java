@@ -20,6 +20,7 @@ import org.encuestame.core.persistence.pojo.Client;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  * {@link Client} Dao.
@@ -27,6 +28,7 @@ import org.hibernate.criterion.Restrictions;
  * @since January 24, 2010
  * @version $Id$
  */
+@Repository
 public class ClientDao extends AbstractHibernateDaoSupport implements IClientDao {
 
 

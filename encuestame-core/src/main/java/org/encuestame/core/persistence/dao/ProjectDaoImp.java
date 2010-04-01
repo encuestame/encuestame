@@ -18,6 +18,7 @@ import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Repository;
 
 /**
  * Project Dao.
@@ -25,6 +26,7 @@ import org.hibernate.HibernateException;
  * @since May 26, 2009
  * @version $Id$
  */
+@Repository
 public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProject {
 
 

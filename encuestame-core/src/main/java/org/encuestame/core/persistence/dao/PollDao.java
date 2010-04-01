@@ -19,6 +19,7 @@ import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Repository;
 
 /**
  * Poll Dao.
@@ -26,7 +27,7 @@ import org.hibernate.HibernateException;
  * @since  March 15, 2009
  * @version $Id: $
  */
-
+@Repository
 public class PollDao extends  AbstractHibernateDaoSupport implements IPoll{
 
      /**

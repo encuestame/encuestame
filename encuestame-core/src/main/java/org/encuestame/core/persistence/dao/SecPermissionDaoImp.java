@@ -22,12 +22,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.stereotype.Repository;
 /**
  * Security Permission Dao Implementation.
  * @author Picado, Juan juan@encuestame.org
  * @since May 11, 2009
  * @version $Id$
  */
+@Repository
 public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
         ISecPermissionDao {
 
