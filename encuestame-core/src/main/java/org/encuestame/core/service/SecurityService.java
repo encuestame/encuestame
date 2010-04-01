@@ -46,6 +46,7 @@ import org.springframework.mail.MailSendException;
  * @since 27/04/2009 11:35:01
  * @version $Id$
  */
+@org.springframework.stereotype.Service
 public class SecurityService extends Service implements ISecurityService {
 
     private Log log = LogFactory.getLog(this.getClass());

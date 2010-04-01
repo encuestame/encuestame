@@ -49,6 +49,7 @@ import org.hibernate.HibernateException;
  * @since April 27, 2009
  * @version $Id$
  */
+@org.springframework.stereotype.Service
 public class DataSource implements IDataSource {
 
     /** {@link CatState}. */

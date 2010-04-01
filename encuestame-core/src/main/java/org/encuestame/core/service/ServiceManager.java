@@ -20,6 +20,7 @@ package org.encuestame.core.service;
  * @since 26/04/2009
  * @version $Id$
  */
+@org.springframework.stereotype.Service
 public class ServiceManager extends Service implements IServiceManager {
 
 

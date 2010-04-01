@@ -34,6 +34,7 @@ import twitter4j.http.RequestToken;
  * @since Feb 13, 2010 4:07:03 PM
  * @version $Id$
  */
+@org.springframework.stereotype.Service
 public class TwitterService extends Service implements ITwitterService {
 
 

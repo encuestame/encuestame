@@ -20,6 +20,7 @@ import org.encuestame.core.service.util.UrlBean;
  * @since 11/05/2009 11:35:01
  * @version $Id$
  */
+@org.springframework.stereotype.Service
 public class ApplicationServices extends Service implements IApplicationServices {
 
     private String name;

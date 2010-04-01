@@ -54,6 +54,7 @@ import twitter4j.http.RequestToken;
  * @since 27/04/2009
  * @version $Id$
  */
+@org.springframework.stereotype.Service
 public class SurveyService extends Service implements ISurveyService {
 
     private MailServiceImpl serviceMail;
