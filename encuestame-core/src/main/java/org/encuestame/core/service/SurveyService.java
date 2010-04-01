@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
@@ -58,12 +60,16 @@ import twitter4j.http.RequestToken;
 public class SurveyService extends Service implements ISurveyService {
 
     private MailServiceImpl serviceMail;
+    @Resource
     private SurveyDaoImp surveyDaoImp;
+    @Resource
     private QuestionDaoImp questionDaoImp;
+    @Resource
     private SecUserDaoImp userDaoImp;
     private ITwitterService twitterService;
     private String answerPollPath;
     private String tweetPollResultsPath;
+    @Resource
     private ITweetPoll tweetPollDao;
 
     private Log log = LogFactory.getLog(this.getClass());

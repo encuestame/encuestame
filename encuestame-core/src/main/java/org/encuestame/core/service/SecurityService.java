@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
@@ -51,10 +52,13 @@ public class SecurityService extends Service implements ISecurityService {
 
     private Log log = LogFactory.getLog(this.getClass());
     /** SecUserDao. **/
+    @Resource
     private SecUserDaoImp secUserDao;
     /** Group Dao. **/
+    @Resource
     private SecGroupDaoImp groupDao;
     /** Permission Dao **/
+    @Resource
     private SecPermissionDaoImp permissionDao;
     /** Services Mail **/
     private MailServiceImpl serviceMail;

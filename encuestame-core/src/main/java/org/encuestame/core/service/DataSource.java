@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
@@ -53,16 +54,22 @@ import org.hibernate.HibernateException;
 public class DataSource implements IDataSource {
 
     /** {@link CatState}. */
+    @Resource
     private ICatState stateDao;
     /** {@link CatLocation}. */
+    @Resource
     private ICatLocation catLocationDao;
     /** {@link CatLocationTypeDao}. */
+    @Resource
     private ICatLocationTypeDao catLocationTypeDao;
     /** {@link ProjectDaoImp}. */
+    @Resource
     private IProject projectDaoImp;
     /** {@link ClientDao}. **/
+    @Resource
     private IClientDao clientDao;
     /** {@link SecUserDaoImp}. **/
+    @Resource
     private ISecUserDao secUserDao;
     /** Log. */
     private Log log = LogFactory.getLog(this.getClass());
