@@ -86,4 +86,15 @@
   <bean id="calendarBean" class="org.encuestame.web.beans.commons.CalendarBean"
     scope="request">
   </bean>
+
+  <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
+    <property name="privateKey" value="my private key" />
+    <property name="publicKey" value="my public key" />
+    <property name="recaptchaServer" value="http://api.recaptcha.net" />
+    <!--
+      Or, if you want to use SSL, then use this: <property
+      name="recaptchaServer" value="http://secure-api.recaptcha.net" />
+    -->
+    <property name="includeNoscript" value="false" />
+  </bean>
 </beans>

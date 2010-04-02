@@ -84,13 +84,11 @@
       <name>SpringSource Bundle Releases</name>
       <url>http://repository.springsource.com/maven/bundles/release</url>
     </repository>
-
     <repository>
       <id>com.springsource.repository.bundles.external</id>
       <name>SpringSource External Bundle Releases</name>
       <url>http://repository.springsource.com/maven/bundles/external</url>
     </repository>
-
     <repository>
       <id>prime-repo</id>
       <name>Prime Technology Maven_Repository</name>
@@ -121,6 +119,10 @@
       <id>ibiblio</id>
       <url>http://www.ibiblio.org/maven2</url>
     </repository>
+    <repository>
+        <id>taneshanet</id>
+       <url>http://tanesha.net/maven2</url>
+     </repository>
   </repositories>
   <build>
     <defaultGoal>install</defaultGoal>
@@ -763,5 +765,10 @@
       <artifactId>antlr</artifactId>
       <version>3.0.1</version>
     </dependency>
+    <dependency>
+        <groupId>net.tanesha.recaptcha4j</groupId>
+        <artifactId>recaptcha4j</artifactId>
+        <version>0.0.7</version>
+     </dependency>
   </dependencies>
 </project>

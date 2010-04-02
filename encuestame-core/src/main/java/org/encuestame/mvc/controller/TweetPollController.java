@@ -65,6 +65,7 @@ public class TweetPollController extends BaseController {
                 else{
                     model.put("message", "Tweet Vote Repeteaded.");
                 }
+                model.get("message");
             }
         }
         log.info("redirect template");

@@ -54,6 +54,26 @@ public class SecUserSecondary {
     private Boolean userStatus;
     private String userTwitterAccount;
 
+    /**
+     * Account Enabled.
+     */
+    private boolean enabled = true;
+
+    /**
+     * Account Non Expired.
+     */
+    private boolean accountNonExpired = true;
+
+    /**
+     * Account Non Locked.
+     */
+    private boolean accountNonLocked = true;
+
+    /**
+     * Credentials Non Expired.
+     */
+    private boolean credentialsNonExpired = true;
+
     private Set<SecGroups> secGroups = new HashSet<SecGroups>();
     private Set<Project> projects = new HashSet<Project>();
     private Set<SecPermission> secUserPermissions = new HashSet<SecPermission>();

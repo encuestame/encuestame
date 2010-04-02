@@ -11,14 +11,27 @@
            http://www.springframework.org/schema/faces
            http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
 
-    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
-     <webflow:flow-executor id="flowExecutor">
+   <!-- Executes flows: the central entry point into the Spring Web Flow system -->
+    <webflow:flow-executor id="flowExecutor">
+        <webflow:flow-execution-listeners>
+            <webflow:listener ref="hibernateFlowExecutionListener" />
+            <webflow:listener ref="securityFlowExecutionListener" />
+        </webflow:flow-execution-listeners>
     </webflow:flow-executor>
 
-    <!-- The registry of executable flow definitions -->
+        <!-- The registry of executable flow definitions -->
      <webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/config">
         <webflow:flow-location-pattern value="/**/*-flow.xml" />
     </webflow:flow-registry>
+
+    <!-- Installs a listener that manages Hibernate persistence contexts for flows that require them -->
+    <bean id="hibernateFlowExecutionListener" class="org.springframework.webflow.persistence.HibernateFlowExecutionListener">
+            <constructor-arg index="0"><ref bean="sessionFactory"/></constructor-arg>
+            <constructor-arg index="1"><ref bean="transactionManager"/></constructor-arg>
+    </bean>
+
+    <!-- Installs a listener to apply Spring Security authorities -->
+    <bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
 
     <!-- Configures the Spring Web Flow JSF integration -->
     <faces:flow-builder-services id="facesFlowBuilderServices" development="true" />

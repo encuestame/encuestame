@@ -7,6 +7,37 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+
+  <security:authentication-manager alias="authenticationManager">
+    <security:authentication-provider
+      user-service-ref="EnMeAuthenticationDao">
+      <security:password-encoder ref="jamwikiPasswordEncoder" />
+    </security:authentication-provider>
+  </security:authentication-manager>
+
+  <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
+    <property name="passwordEncryptor">
+      <ref bean="jasyptPasswordEncryptor" />
+    </property>
+  </bean>
+
+  <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+
+  <bean id="EnMeAuthenticationDao" class="org.encuestame.core.security.spring.EnMeUserServiceImp">
+    <property name="userDao" ref="secUserDao" />
+    <property name="roleGroupAuth" value="true" />
+    <property name="roleUserAuth" value="true" />
+  </bean>
+
+
+
+
+
+
+
+
+
+
   <bean id="authenticationManager"
     class="org.encuestame.core.security.spring.EnMeAuthenticationManager">
     <property name="providerString" value="userAuth" />
@@ -18,11 +49,6 @@
     <property name="passwordEncoder" ref="passwordEncoder" />
   </bean>
 
-  <bean id="dbUserService" class="org.encuestame.core.security.spring.EnMeUserServiceImp">
-    <property name="userDao" ref="secUserDao" />
-    <property name="roleGroupAuth" value="true" />
-    <property name="roleUserAuth" value="true" />
-  </bean>
 
   <bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
     <security:filter-chain-map path-type="ant">
@@ -76,13 +102,5 @@
     <property name="rolePrefix" value="ENCUESTAME_" />
     <property name="anonymousAccessAllowed" value="true" />
   </bean>
-
-  <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
-    <property name="passwordEncryptor">
-      <ref bean="jasyptPasswordEncryptor" />
-    </property>
-  </bean>
-
-  <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
 
 </beans>

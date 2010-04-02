@@ -86,7 +86,6 @@ public class AbstractBaseWeb extends AbstractTransactionalJUnit4SpringContextTes
      *
      * @param userBean
      */
-    @Autowired
     public final void setUserBean(final UserBean userBean) {
         this.userBean = userBean;
     }

@@ -10,25 +10,20 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.test.beans.admon;
+package org.encuestame.mvc.controller.security;
 
-import org.encuestame.web.beans.admon.UserBean;
-import org.encuestame.web.test.config.AbstractBaseWeb;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 
 /**
- * {@link UserBean} Test Cases.
- * @author Diana, Paola Morales paola@encuestame.org
- * @since March 31, 2010
- * @version $Id: $
+ * Register Form.
+ * @author Picado, Juan juan@encuestame.org
+ * @since 26/04/2009
+ * @version $Id: ServiceManager.java 469 2010-04-01 00:09:12Z juanpicado $
  */
-
-public class TestUserBean extends AbstractBaseWeb {
-
-    @Test
-    public void testUserBean(){
-        assertNull(getUserBean());
-    }
+@Controller
+@Scope("request")
+public class RegisterFormController {
 
 }

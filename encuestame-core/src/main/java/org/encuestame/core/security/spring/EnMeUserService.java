@@ -21,19 +21,4 @@ import org.encuestame.core.persistence.pojo.SecUsers;
  * @version $Id$
  */
 public interface EnMeUserService {
-
-    /**
-     * Returns Survey User by Name
-     * @param username username
-     * @return {@link SecUsers}
-     */
-    public SecUsers getSurveyUser(final String username);
-
-
-    /**
-     * @param username username
-     * @return user password.
-     */
-    public String getSurveyUserPassword(final String username);
-
 }
