@@ -68,7 +68,20 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
      */
     private String completeName;
 
-
+    /**
+     * Default constructor.
+     * @param username
+     * @param password
+     * @param authorities
+     * @param accountNonExpired
+     * @param credentialsNonExpired
+     * @param enabled
+     * @param accountNonLocked
+     * @param twitterAccount
+     * @param isOwner
+     * @param completeName
+     * @param email
+     */
     public EnMeUserDetails(final String username,
             final String password,
             Collection<GrantedAuthority> authorities,

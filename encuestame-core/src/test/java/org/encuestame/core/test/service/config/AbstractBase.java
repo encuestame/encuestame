@@ -73,6 +73,7 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:encuestame-dao-context.xml",
         "classpath:encuestame-hibernate-context.xml",
         "classpath:encuestame-email-context.xml",
+        "classpath:encuestame-security-context.xml",
         "classpath:encuestame-param-test-context.xml"
          })
 public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests {

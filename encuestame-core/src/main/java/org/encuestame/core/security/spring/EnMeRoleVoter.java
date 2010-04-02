@@ -22,9 +22,9 @@ import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-
 /**
- * Service Manager Bean.
+ * Encuestame Role Voter for Spring Security.
+ *
  * @author Picado, Juan juan@encuestame.org
  * @since 08/05/2009 13:17:14
  * @version $Id$
@@ -39,58 +39,36 @@ public class EnMeRoleVoter extends RoleVoter {
      * ROLE_ANONYMOUS.
      */
     public static final String ROLE_ANONYMOUS = "ENCUESTAME_ANONYMOUS";
-    /**
-     * anonymous Access Allowerd.
-     */
-    private boolean anonymousAccessAllowed = false;
 
     /**
      * Log.
      */
     private Log log = LogFactory.getLog(this.getClass());
 
-    /**
-     * @param i_anonymousAccessAllowed i_anonymousAccessAllowed
-     */
-    public void setAnonymousAccessAllowed(boolean i_anonymousAccessAllowed) {
-        anonymousAccessAllowed = i_anonymousAccessAllowed;
-    }
 
     public int vote(Authentication authentication, Object object,
-            ConfigAttribute config) {
+            Collection<ConfigAttribute> attributes) {
+
         int result = ACCESS_ABSTAIN;
-      /*
-        final Iterator iter = config.getConfigAttributes().iterator();
-        Collection<GrantedAuthority> authorities = authentication.getAuthorities();
-        while (iter.hasNext()) {
-            ConfigAttribute attribute = (ConfigAttribute) iter.next();
-            //log.info("ConfigAttribute->"+attribute.getAttribute());
+
+        final Collection<GrantedAuthority> authorities = authentication
+                .getAuthorities();
+
+        for (ConfigAttribute attribute : attributes) {
             if (this.supports(attribute)) {
-                // always grant access to resources, marked with ROLE_ALWAYS
-                if (ROLE_ALWAYS.equals(attribute.getAttribute())) {
-                    return ACCESS_GRANTED;
-                }
                 result = ACCESS_DENIED;
-
                 // Attempt to find a matching granted authority
-                for (int i = 0; i < authorities.length; i++) {
-                    if (!anonymousAccessAllowed
-                            && ROLE_ANONYMOUS.equals(authorities[i]
-                                    .getAuthority())) {
-                        // skip checking for anonymous role
-                        continue;
-                    }
-
+                log.debug("Attribute" +attribute.getAttribute());
+                for (GrantedAuthority authority : authorities) {
+                    log.debug("authority.getAuthority())"+authority.getAuthority());
                     if (attribute.getAttribute().equals(
-                            authorities[i].getAuthority())) {
+                            authority.getAuthority())) {
                         return ACCESS_GRANTED;
                     }
                 }
             }
         }
-
-        return result;
-        */
+        log.debug("Result "+result);
         return result;
     }
 

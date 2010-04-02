@@ -11,7 +11,7 @@
   <security:authentication-manager alias="authenticationManager">
     <security:authentication-provider
       user-service-ref="EnMeAuthenticationDao">
-      <security:password-encoder ref="jamwikiPasswordEncoder" />
+      <security:password-encoder ref="passwordEncoder" />
     </security:authentication-provider>
   </security:authentication-manager>
 
@@ -23,50 +23,49 @@
 
   <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
 
+
   <bean id="EnMeAuthenticationDao" class="org.encuestame.core.security.spring.EnMeUserServiceImp">
     <property name="userDao" ref="secUserDao" />
     <property name="roleGroupAuth" value="true" />
     <property name="roleUserAuth" value="true" />
   </bean>
 
-
-
-
-
-
-
-
-
-
-  <bean id="authenticationManager"
-    class="org.encuestame.core.security.spring.EnMeAuthenticationManager">
-    <property name="providerString" value="userAuth" />
-  </bean>
-
-  <bean id="userAuth"
-    class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-    <property name="userDetailsService" ref="dbUserService" />
-    <property name="passwordEncoder" ref="passwordEncoder" />
-  </bean>
-
-
-  <bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
-    <security:filter-chain-map path-type="ant">
-      <security:filter-chain pattern="/**"
-        filters="basicAuthenticationFilter, anonymousAuthFilter" />
-    </security:filter-chain-map>
-  </bean>
-
-  <bean id="basicAuthenticationFilter"
-    class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
-    <property name="authenticationManager" ref="authenticationManager" />
-    <property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
-  </bean>
   <bean id="authenticationEntryPoint"
-    class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
-    <property name="realmName" value="encuestame" />
+    class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+    <property name="loginFormUrl" value="/login.me" />
+    <property name="forceHttps" value="false" />
   </bean>
 
+  <security:http auto-config="false"
+                 entry-point-ref="authenticationEntryPoint"
+                 access-decision-manager-ref="voteAccessDecisionManager" >
+    <security:intercept-url pattern="/**" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN" />
+    <security:intercept-url pattern="/tweet/" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/**/*.xhtml" filters="none" />
+    <security:intercept-url pattern="/**/*.css"  filters="none" />
+    <security:intercept-url pattern="/images/**" filters="none" />
+    <security:intercept-url pattern="/js/**" filters="none" />
+    <security:access-denied-handler ref="" />
+    <security:remember-me key="12345" services-alias="_rememberMeServices" />
+    <security:anonymous key="12345" />
+    <security:logout logout-success-url="/index.me" />
+    <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
+<!--    <security:custom-filter position="ANONYMOUS_FILTER"  ref="anonymousAuthFilter" />-->
+  </security:http>
+
+
+
+  <!-- This element is used to enable annotation-based security -->
+  <security:global-method-security
+    secured-annotations="enabled" />
+
+  <bean id="authenticationFilter"
+    class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+    <property name="authenticationManager" ref="authenticationManager" />
+    <property name="filterProcessesUrl" value="/j_spring_security_check" />
+  </bean>
 
   <bean id="anonymousAuthFilter"
     class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
@@ -76,14 +75,15 @@
     </property>
     <property name="userAttribute">
       <value>anonymousUser,ENCUESTAME_ANONYMOUS
-      </value>
+        </value>
     </property>
   </bean>
 
-  <bean id="runAsManager"
-    class="org.springframework.security.access.intercept.RunAsManagerImpl">
-    <property name="key" value="12345" />
-  </bean>
+<!--  <bean id="messageSource"-->
+<!--    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+<!--    <property name="basename" value="org/springframework/security/messages" />-->
+<!--  </bean>-->
+
 
 
   <bean id="voteAccessDecisionManager"
@@ -100,7 +100,6 @@
 
   <bean id="roleVoter" class="org.encuestame.core.security.spring.EnMeRoleVoter">
     <property name="rolePrefix" value="ENCUESTAME_" />
-    <property name="anonymousAccessAllowed" value="true" />
   </bean>
 
 </beans>
