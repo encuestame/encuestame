@@ -42,7 +42,7 @@
       <scope>compile</scope>
     </dependency>
 
-    <dependency>
+     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
       <version>1.0.0</version>
@@ -103,6 +103,16 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-commons-annotations</artifactId>
       <version>3.3.0.ga</version>
+      <exclusions>
+        <exclusion>
+            <artifactId>cglib</artifactId>
+            <groupId>cglib</groupId>
+        </exclusion>
+        <exclusion>
+            <artifactId>asm-attrs</artifactId>
+            <groupId>asm</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -263,12 +273,6 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-openid</artifactId>
-      <version>${spring.security.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
       <version>${spring.security.version}</version>
       <exclusions>
@@ -283,6 +287,12 @@
       <artifactId>spring-security-ldap</artifactId>
       <version>${spring.security.version}</version>
     </dependency>
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-openid</artifactId>
+    <version>${spring.security.version}</version>
+    <scope>compile</scope>
+  </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-taglibs</artifactId>
@@ -445,16 +455,6 @@
       <version>1.1.1</version>
     </dependency>
     <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm-commons</artifactId>
-      <version>2.2.3</version>
-    </dependency>
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm</artifactId>
-      <version>2.2.3</version>
-    </dependency>
-    <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib-nodep</artifactId>
       <version>2.2</version>
@@ -469,6 +469,11 @@
       <artifactId>antlr</artifactId>
       <version>3.0.1</version>
     </dependency>
+    <dependency>
+        <groupId>net.tanesha.recaptcha4j</groupId>
+        <artifactId>recaptcha4j</artifactId>
+        <version>0.0.7</version>
+     </dependency>
     <dependency>
         <groupId>net.tanesha.recaptcha4j</groupId>
         <artifactId>recaptcha4j</artifactId>

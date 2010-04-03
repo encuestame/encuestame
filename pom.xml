@@ -399,6 +399,16 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-commons-annotations</artifactId>
       <version>3.3.0.ga</version>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>cglib</artifactId>
+      		<groupId>cglib</groupId>
+      	</exclusion>
+      	<exclusion>
+      		<artifactId>asm-attrs</artifactId>
+      		<groupId>asm</groupId>
+      	</exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -739,16 +749,6 @@
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm-commons</artifactId>
-      <version>2.2.3</version>
-    </dependency>
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm</artifactId>
-      <version>2.2.3</version>
     </dependency>
     <dependency>
       <groupId>cglib</groupId>
