@@ -11,6 +11,12 @@
     <!-- Maps requests to @Controllers based on @RequestMapping("path") annotation values
          If no annotation-based path mapping is found, Spring MVC proceeds to the next HandlerMapping (order=2 below). -->
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    <!--<property name="interceptors">
+            <list>
+                <ref bean="openSessionInViewInterceptor" />
+            </list>
+        </property>
+    -->
     </bean>
 
     <!-- Scans for application @Components to deploy -->
@@ -27,6 +33,14 @@
             <!-- If no flow match, map path to a view to render; e.g. the "/intro" path would map to the view named "intro" -->
             <bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
         </property>
+    </bean>
+
+    <bean name="openSessionInViewInterceptor"
+        class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="singleSession" value="true" />
     </bean>
 
     <!-- Maps logical view names to Facelet templates in /WEB-INF (e.g. 'search' to '/WEB-INF/login.xhtml' -->

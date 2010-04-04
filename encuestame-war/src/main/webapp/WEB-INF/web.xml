@@ -70,17 +70,6 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
   <!--
     Hibernate's OpenSessionInView still required since we are using
     lazy-collection in method to get list of tasks & steps
@@ -156,6 +145,17 @@
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+
+
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
 
   <listener>

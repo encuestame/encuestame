@@ -31,7 +31,7 @@
 
   <bean id="authenticationEntryPoint"
     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <property name="loginFormUrl" value="/spring/login" />
+    <property name="loginFormUrl" value="/login.do" />
     <property name="forceHttps" value="false" />
   </bean>
 

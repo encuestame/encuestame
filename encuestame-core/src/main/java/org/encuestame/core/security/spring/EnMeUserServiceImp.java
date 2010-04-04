@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
@@ -38,16 +39,30 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
+    /**
+     * {@link SecUserDaoImp}.
+     */
     private ISecUserDao secUserDao;
-    private Boolean roleGroupAuth = true;
-    private Boolean roleUserAuth;
+
+    /**
+     * Define if group permissions should be added.
+     */
+    private Boolean roleGroupAuth = false;
+
+    /**
+     * Define if user permissions should be added, by default should be true.
+     */
+    private Boolean roleUserAuth = true;
+
+    /**
+     * Log.
+     */
     private static Logger log = Logger.getLogger(EnMeUserServiceImp.class);
 
     /**
      * Setter.
      *
-     * @param roleGroupAuth
-     *            roleGroupAuth
+     * @param roleGroupAuth roleGroupAuth
      */
     public void setRoleGroupAuth(final Boolean roleGroupAuth) {
         this.roleGroupAuth = roleGroupAuth;
@@ -56,8 +71,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     /**
      * Setter.
      *
-     * @param userDao
-     *            the userDao to set
+     * @param userDao the userDao to set
      */
     public void setUserDao(final ISecUserDao userDao) {
         this.secUserDao = userDao;
@@ -82,7 +96,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
         final SecUserSecondary user = secUserDao.getUserByUsername(username);
-        if (user == null) {
+        if (user == null && user.getUsername() != null && user.getPassword()!= null) {
             log.error("user not found");
             throw new UsernameNotFoundException("user not found");
         }
@@ -96,7 +110,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * @return {@link UserDetails}
      */
     protected UserDetails convertToUserDetails(final SecUserSecondary user) {
-
+        log.debug("convertToUserDetails username "+user.getUsername());
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         // search if authorities if the group are activated
         if (this.roleGroupAuth) {
@@ -112,8 +126,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         }
 
          //creating user details
-         final UserDetails userDetails = new EnMeUserDetails(
-                 user.getUsername(),
+         final EnMeUserDetails userDetails = new EnMeUserDetails(
+         user.getUsername(),
          user.getPassword(),
          authorities,
          user.isUserStatus() == null ? false : user.isUserStatus(),
@@ -125,6 +139,10 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
          user.getCompleteName(), // complete name
          user.getUserEmail() // user email
          );
+         log.debug("user details "+userDetails.getPassword());
+         log.debug("user details "+userDetails.getPassword());
+         log.debug("user details "+userDetails.getAuthorities());
+         log.debug("user details "+userDetails.getUserEmail());
          return userDetails;
     }
 

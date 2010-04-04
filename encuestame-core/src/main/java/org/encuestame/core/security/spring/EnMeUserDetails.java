@@ -94,6 +94,7 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
             final String completeName,
             final String email) {
         this.username = username;
+        this.password = password;
         this.accountNonExpired = accountNonExpired;
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
