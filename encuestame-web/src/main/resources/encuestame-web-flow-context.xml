@@ -15,12 +15,11 @@
     <webflow:flow-executor id="flowExecutor">
         <webflow:flow-execution-listeners>
             <webflow:listener ref="hibernateFlowExecutionListener" />
-            <webflow:listener ref="securityFlowExecutionListener" />
         </webflow:flow-execution-listeners>
     </webflow:flow-executor>
 
         <!-- The registry of executable flow definitions -->
-     <webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/config">
+     <webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/flows">
         <webflow:flow-location-pattern value="/**/*-flow.xml" />
     </webflow:flow-registry>
 
@@ -30,8 +29,12 @@
             <constructor-arg index="1"><ref bean="transactionManager"/></constructor-arg>
     </bean>
 
-    <!-- Installs a listener to apply Spring Security authorities -->
+    <!-- Installs a listener to apply Spring Security authoritie
+    Reported on JIRA
+    https://jira.springsource.org/browse/SWF-1182?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel
+    Should be ready on  Spring Webflow 2.0.9
     <bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+     -->
 
     <!-- Configures the Spring Web Flow JSF integration -->
     <faces:flow-builder-services id="facesFlowBuilderServices" development="true" />

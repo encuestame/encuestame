@@ -29,14 +29,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @version $Id: $
  */
 
-@Controller
+//@Controller
 public class LoginController {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     private ISecurityContext securityContext;
 
-    @RequestMapping("/login")
+    //@RequestMapping("/login")
     public String login(ModelMap model) {
             System.out.println("Juannnnnnnn");
              log.info("1 "+ SecurityContextHolder.getContext().getAuthentication());
@@ -46,7 +46,7 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/accessDenied")
+    //@RequestMapping("/accessDenied")
     public ModelAndView accessDenied() {
         return new ModelAndView("redirect:/index.do");
     }

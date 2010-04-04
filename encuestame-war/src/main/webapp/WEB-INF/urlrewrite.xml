@@ -5,26 +5,26 @@
 <urlrewrite>
     <rule>
         <from>^/tweet/(.*)$</from>
-        <to>/sr/tweetPollController?id=$1</to>
+        <to>/tweetPollController.do?id=$1</to>
     </rule>
     <rule>
         <from>^/results/(.*)$</from>
-        <to>/sr/resultsController?id=$1</to>
+        <to>/resultsController.do?id=$1</to>
     </rule>
     <rule>
         <from>^/poll/(.*)$</from>
-        <to>/sr/pollController?id=$1</to>
+        <to>/pollController.do?id=$1</to>
     </rule>
     <rule>
         <from>^/survey/(.*)$</from>
-        <to>/sr/surveyController?id=$1</to>
+        <to>/surveyController.do?id=$1</to>
     </rule>
     <rule>
         <from>^/report/(.*)$</from>
-        <to>/sr/reportController?id=$1</to>
+        <to>/reportController.do?id=$1</to>
     </rule>
     <rule>
         <from>^/announce/(.*)$</from>
-        <to>/sr/announceController?id=$1</to>
+        <to>/announceController.do?id=$1</to>
     </rule>
 </urlrewrite>

@@ -22,8 +22,8 @@ import org.springframework.stereotype.Controller;
  * @since 26/04/2009
  * @version $Id: ServiceManager.java 469 2010-04-01 00:09:12Z juanpicado $
  */
-@Controller
-@Scope("request")
+//@Controller
+//@Scope("request")
 public class RegisterFormController {
 
 }

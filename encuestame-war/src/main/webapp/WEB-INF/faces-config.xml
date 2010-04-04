@@ -1,18 +1,12 @@
-<?xml version="1.0"?>
-<!DOCTYPE faces-config PUBLIC
-  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
-  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
-<faces-config>
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
     <application>
-        <!-- Enables Facelets -->
         <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
-        <!-- Enables Locale -->
         <locale-config>
-            <default-locale>en</default-locale>
-            <supported-locale>es</supported-locale>
+            <default-locale>es</default-locale>
+            <supported-locale>en</supported-locale>
         </locale-config>
-        <!-- Enables Spring Bean Faces Resolver for JSF
-        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-        -->
     </application>
 </faces-config>

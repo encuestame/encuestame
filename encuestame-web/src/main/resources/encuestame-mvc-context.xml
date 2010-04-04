@@ -11,7 +11,6 @@
     <!-- Maps requests to @Controllers based on @RequestMapping("path") annotation values
          If no annotation-based path mapping is found, Spring MVC proceeds to the next HandlerMapping (order=2 below). -->
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-        <property name="order" value="1" />
     </bean>
 
     <!-- Scans for application @Components to deploy -->

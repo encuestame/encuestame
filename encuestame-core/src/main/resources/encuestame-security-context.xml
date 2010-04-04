@@ -7,7 +7,6 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-
   <security:authentication-manager alias="authenticationManager">
     <security:authentication-provider
       user-service-ref="EnMeAuthenticationDao">
@@ -32,25 +31,24 @@
 
   <bean id="authenticationEntryPoint"
     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <property name="loginFormUrl" value="/login.me" />
+    <property name="loginFormUrl" value="/spring/login" />
     <property name="forceHttps" value="false" />
   </bean>
 
   <security:http auto-config="false"
                  entry-point-ref="authenticationEntryPoint"
                  access-decision-manager-ref="voteAccessDecisionManager" >
-    <security:intercept-url pattern="/**" access="ENCUESTAME_ANONYMOUS" />
+    <!-- <security:intercept-url pattern="/**" access="ENCUESTAME_ANONYMOUS" />
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN" />
     <security:intercept-url pattern="/tweet/" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="/" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/" access="ENCUESTAME_ANONYMOUS" /> -->
     <security:intercept-url pattern="/**/*.xhtml" filters="none" />
     <security:intercept-url pattern="/**/*.css"  filters="none" />
     <security:intercept-url pattern="/images/**" filters="none" />
     <security:intercept-url pattern="/js/**" filters="none" />
-    <security:access-denied-handler ref="" />
     <security:remember-me key="12345" services-alias="_rememberMeServices" />
     <security:anonymous key="12345" />
-    <security:logout logout-success-url="/index.me" />
+    <security:logout logout-success-url="/index.html" logout-url="/logout"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
 <!--    <security:custom-filter position="ANONYMOUS_FILTER"  ref="anonymousAuthFilter" />-->
   </security:http>
@@ -58,8 +56,7 @@
 
 
   <!-- This element is used to enable annotation-based security -->
-  <security:global-method-security
-    secured-annotations="enabled" />
+  <security:global-method-security secured-annotations="enabled" />
 
   <bean id="authenticationFilter"
     class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">

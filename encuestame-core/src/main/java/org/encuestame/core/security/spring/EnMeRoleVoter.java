@@ -13,7 +13,6 @@
 package org.encuestame.core.security.spring;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

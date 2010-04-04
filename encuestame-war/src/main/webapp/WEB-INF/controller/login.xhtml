@@ -1,0 +1,40 @@
+ <?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/  xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>encuestame - survey online system</title>
+    </head>
+    <body>
+       <div class="section">
+        <form name="f" action="${request.contextPath}/spring/loginProcess"
+          method="post">
+        <fieldset>
+        <div class="field">
+        <div class="label">User:</div>
+        <div class="output">
+          <c:if test="${not empty param.login_error}">
+            <c:set var="username"
+              value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}" />
+          </c:if>
+           <input type="text" name="j_username" value="#{username}" /></div>
+        </div>
+        <div class="field">
+        <div class="label">Password:</div>
+        <div class="output"><input type="password" name="j_password" />
+        </div>
+        </div>
+        <div class="field">
+        <div class="label">Don't ask for my password for two weeks:</div>
+        <div class="output"><input type="checkbox"
+          name="_spring_security_remember_me" /></div>
+        </div>
+        </fieldset>
+        <div class="buttonGroup"><input name="submit" type="submit" value="Login" /></div>
+        </form>
+      </div>
+    </body>
+</html>
+

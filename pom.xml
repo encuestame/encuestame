@@ -400,14 +400,14 @@
       <artifactId>hibernate-commons-annotations</artifactId>
       <version>3.3.0.ga</version>
       <exclusions>
-      	<exclusion>
-      		<artifactId>cglib</artifactId>
-      		<groupId>cglib</groupId>
-      	</exclusion>
-      	<exclusion>
-      		<artifactId>asm-attrs</artifactId>
-      		<groupId>asm</groupId>
-      	</exclusion>
+        <exclusion>
+          <artifactId>cglib</artifactId>
+          <groupId>cglib</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>asm-attrs</artifactId>
+          <groupId>asm</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
