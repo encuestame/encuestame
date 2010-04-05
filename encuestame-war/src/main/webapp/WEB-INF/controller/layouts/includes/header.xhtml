@@ -1,25 +1,25 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
-	<div id="header"><h:panelGrid columns="2">
-		<h:panelGroup>
-			<img
-				src="${facesContext.externalContext.requestContextPath}/images/encuestame_header.png"
-				alt="" title="Home" />
-		</h:panelGroup>
-		<h:panelGroup style="margin-left:70%;">
-			<a4j:form>
-				<span> <h:outputLink
-					value="${request.contextPath}/j_spring_security_logout"
-					title="#{temp.close}"
-					onclick="if (! confirm('#{temp.closeMsgBox}')) return false;">
-					<h:outputText value="#{temp.close}" />
-				</h:outputLink> </span>
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich">
+  <div id="header"><h:panelGrid columns="2">
+    <h:panelGroup>
+      <img
+        src="${facesContext.externalContext.requestContextPath}/images/encuestame_header.png"
+        alt="" title="Home" />
+    </h:panelGroup>
+    <h:panelGroup style="margin-left:70%;">
+      <a4j:form>
+        <span> <h:outputLink
+          value="${request.contextPath}/logout"
+          title="#{temp.close}"
+          onclick="if (! confirm('#{temp.closeMsgBox}')) return false;">
+          <h:outputText value="#{temp.close}" />
+        </h:outputLink> </span>
 
-			</a4j:form>
-		</h:panelGroup>
-	</h:panelGrid></div>
+      </a4j:form>
+    </h:panelGroup>
+  </h:panelGrid></div>
 </ui:composition>

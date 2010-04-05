@@ -8,5 +8,6 @@
             <default-locale>es</default-locale>
             <supported-locale>en</supported-locale>
         </locale-config>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
 </faces-config>

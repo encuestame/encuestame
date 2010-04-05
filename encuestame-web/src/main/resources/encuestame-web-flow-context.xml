@@ -12,7 +12,7 @@
            http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
 
    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
-    <webflow:flow-executor id="flowExecutor">
+    <webflow:flow-executor id="flowExecutor" flow-registry="flowRegistry">
         <webflow:flow-execution-listeners>
             <webflow:listener ref="hibernateFlowExecutionListener" />
         </webflow:flow-execution-listeners>

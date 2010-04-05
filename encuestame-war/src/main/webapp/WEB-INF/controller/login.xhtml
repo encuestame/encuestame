@@ -11,29 +11,35 @@
 </head>
 <body>
 
-<div id="mainWrapper"><div class="section">
+<div id="mainWrapper">
+    <div class="section">
         <form name="f" action="${request.contextPath}/j_spring_security_check"
           method="post">
-        <fieldset>
-        <div class="field">
-        <div class="label">User:</div>
-        <div class="output">
-           <input type="text" name="j_username" /></div>
-        </div>
-        <div class="field">
-        <div class="label">Password:</div>
-        <div class="output"><input type="password" name="j_password" />
-        </div>
-        </div>
-        <div class="field">
-        <div class="label">Don't ask for my password for two weeks:</div>
-        <div class="output"><input type="checkbox"
-          name="_spring_security_remember_me" /></div>
-        </div>
-        </fieldset>
-        <div class="buttonGroup"><input name="submit" type="submit" value="Login" /></div>
+            <fieldset>
+              <div class="field">
+              <div class="label">User:</div>
+              <div class="output">
+                 <input type="text" name="j_username" /></div>
+              </div>
+              <div class="field">
+              <div class="label">Password:</div>
+              <div class="output"><input type="password" name="j_password" />
+              </div>
+              </div>
+              <div class="field">
+              <div class="label">Don't ask for my password for two weeks:</div>
+              <div class="output"><input type="checkbox"
+                name="_spring_security_remember_me" /></div>
+              </div>
+            </fieldset>
+            <div class="buttonGroup"><input name="submit" type="submit" value="Login" /></div>
         </form>
-      </div></div>
+      </div>
+      <div>
+        <a href="register.do">Register</a>
+        <a href="forget.do">Forget Your Password?</a>
+      </div>
+</div>
 
 </body>
 </html>

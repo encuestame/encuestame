@@ -12,33 +12,18 @@
  */
 package org.encuestame.web.beans.login;
 
-import java.io.IOException;
-
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.encuestame.web.beans.MasterBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AbstractProcessingFilter;
-import org.springframework.security.web.authentication.AuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
-import org.springframework.security.web.savedrequest.SavedRequest;
 
 /**
  * Login Security Bean.
@@ -203,105 +188,6 @@ public class LoginSecurityBean extends MasterBean implements InitializingBean {
      * @return login
      */
     public final String login() {
-        HttpServletRequest request = getRequest();
-        try {
-            final String userName = getUserName();
-            log.info("username "+userName);
-            final String password = getUserPassword();
-            log.info("password "+password);
-            //create spring token
-            final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    userName, password);
-            log.info("token "+token);
-            log.info("tCredentials "+token.getCredentials());
-            log.info("tCredentials "+token.getDetails());
-            // add to token de servlet request
-            token.setDetails(new WebAuthenticationDetails(request));
-            // create a http session
-            final  HttpSession session = request.getSession();
-            // set username attribute to session
-            session.setAttribute(
-            AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
-            userName);
-            // get authentication manager and setter token
-            final Authentication authenticationManager = getAuthenticationManager().authenticate(
-                    token);
-            log.info("authenticationManager "+authenticationManager);
-            //TODO: need investigate this.
-            // it is not used - so, commented
-            // SecurityContext sessionSecCtx = (SecurityContext) session
-            // .getAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY);
-            // log.debug("SecurityContext from session [{}]"/*, sessionSecCtx !=
-            // null ? sessionSecCtx.toString() : "null");
-
-            // get spring security context
-            final SecurityContext secCtx = SecurityContextHolder.getContext();
-
-            // set to security context the autentication manager
-            secCtx.setAuthentication(authenticationManager);
-            session
-                    .setAttribute(
-                            HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY,
-                            secCtx);
-
-            // set remember me TODO: need implement.
-            /*
-             * if (rememberMe && rememberMeServices != null) {
-             * rememberMeServices.loginSuccess(request, getResponse(), auth); }
-             *
-             * if (defaultLocale != null) { Cookie cookie = new
-             * Cookie(LocaleRequestWrapper.PREFERED_LOCALE, defaultLocale);
-             * cookie.setMaxAge(60 * 60 * 24 * 365);
-             * getResponse().addCookie(cookie); }
-             */
-
-            //set default locale
-            //TODO: need test this.
-            // userSettingsService.setDefaultLocale(defaultLocale);
-
-            // get request key
-            final String urlKey = AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY;
-            // save request key
-            log.info("urlKey "+urlKey);
-            final SavedRequest savedRequest = (SavedRequest) session
-                    .getAttribute(urlKey);
-            //DropEventBean remove key to session
-            session.removeAttribute(urlKey);
-            String targetUrl = null;
-            // if diferent of null get url
-            log.info("savedRequest "+savedRequest);
-            if (savedRequest != null) {
-                //targetUrl = savedRequest.getFullRequestUrl();
-                log.info("save request "+targetUrl);
-                // Redireccionamos a la siguiente URL
-                getFacesContext().getExternalContext().redirect(targetUrl);
-            }
-             log.info("authentication successful, forwarding to ["+TARGET+"] obtained from [{"+targetUrl+"}]");
-             forward(TARGET);
-        } catch (BadCredentialsException e) {
-            log.error("BadCredentialsException "+e);
-            addErrorMessage((getMessageProperties("error_credentials")), e
-                    .getMessage());
-            if (rememberMeServices != null) {
-                rememberMeServices.loginFail(request, getResponse());
-            }
-        } catch (AuthenticationException e) {
-            addErrorMessage(getMessageProperties("auth_credentials"), e
-                    .getMessage());
-            log.error("AuthenticationException "+e);
-            if (rememberMeServices != null) {
-                rememberMeServices.loginFail(request, getResponse());
-            }
-        } catch (IOException ioException) {
-            log.error("IOException "+ioException);
-            addErrorMessage(ioException.getMessage(), ioException.getMessage());
-            return null;
-        } catch (Exception e) {
-            log.error("Exception "+e);
-            addErrorMessage(getMessageProperties("indefined_error"), e
-                    .getMessage());
-        }
-        log.info("index login");
         return "index";
     }
 

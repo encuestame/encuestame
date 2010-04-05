@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.security.spring;
 
-import org.encuestame.core.persistence.pojo.SecUsers;
 
 /**
  * Encuestame User Service.

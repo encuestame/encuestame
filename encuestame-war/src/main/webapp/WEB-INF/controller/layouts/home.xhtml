@@ -7,11 +7,13 @@
     xmlns:rich="http://richfaces.ajax4jsf.org/rich"
     xmlns:c="http://java.sun.com/jstl/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sf="http://www.springframework.org/tags/faces"
     xmlns:p="http://primefaces.prime.com.tr/ui">
+
 <a4j:loadBundle basename="messages" var="temp" />
-<a4j:loadStyle src="/css/default.css" type="text/css"></a4j:loadStyle>
+<sf:resource path="/css/admon.css"/>
  <ui:insert name="css"></ui:insert>
-<link rel="icon"   href="${facesContext.externalContext.requestContextPath}/favicon.ico" type="image/x-icon" />
+
 <head>
     <title>#{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
     </title>
@@ -20,12 +22,12 @@
     <p:resources />
 </head>
 <body>
-    <ui:include src="/templates/includes/header.xhtml" />
-    <ui:include src="/templates/includes/menu.xhtml" />
+    <ui:include src="includes/header.xhtml" />
+    <ui:include src="includes/menu.xhtml" />
     <div id="mainWrapper">
         <ui:insert name="main">main</ui:insert>
     </div>
-    <ui:include src="/templates/includes/footer.xhtml" />
+    <ui:include src="includes/footer.xhtml" />
     <rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="200" height="80" width="400" zindex="100">
         <h2>
             <h:outputText value="#{temp.loading}">

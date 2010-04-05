@@ -1,78 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/context
                         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
-    <!-- Maps requests to @Controllers based on @RequestMapping("path") annotation values
-         If no annotation-based path mapping is found, Spring MVC proceeds to the next HandlerMapping (order=2 below). -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-    <!--<property name="interceptors">
-            <list>
-                <ref bean="openSessionInViewInterceptor" />
-            </list>
-        </property>
+  <!--
+    Maps requests to @Controllers based on @RequestMapping("path")
+    annotation values If no annotation-based path mapping is found, Spring
+    MVC proceeds to the next HandlerMapping (order=2 below).
+  -->
+  <bean
+    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    <!--
+      <property name="interceptors"> <list> <ref
+      bean="openSessionInViewInterceptor" /> </list> </property>
     -->
-    </bean>
+  </bean>
 
-    <!-- Scans for application @Components to deploy -->
-    <context:component-scan base-package="org.encuestame.mvc.controller" />
+  <!-- Scans for application @Components to deploy -->
+  <context:component-scan base-package="org.encuestame.mvc.controller" />
 
-     <!-- Enables annotated @Controllers; responsible for invoking an annotated POJO @Controller when one is mapped. -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
-    </bean>
+  <!--
+    Enables annotated @Controllers; responsible for invoking an annotated
+    POJO @Controller when one is mapped.
+  -->
+  <bean
+    class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+  </bean>
 
-   <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
-    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
-        <property name="flowRegistry" ref="flowRegistry" />
-        <property name="defaultHandler">
-            <!-- If no flow match, map path to a view to render; e.g. the "/intro" path would map to the view named "intro" -->
-            <bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
-        </property>
-    </bean>
+  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+      <value>
+        /main.do=flowController
+        /signup.do=flowController
+        /groups.do=flowController
+       </value>
+    </property>
+    <property name="defaultHandler">
+      <!--
+        Handles requests mapped directly to facelet .xhtml view templates
+      -->
+      <bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+    </property>
+  </bean>
 
-    <bean name="openSessionInViewInterceptor"
-        class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-        <property name="singleSession" value="true" />
-    </bean>
+  <bean name="openSessionInViewInterceptor"
+    class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory" />
+    </property>
+    <property name="singleSession" value="true" />
+  </bean>
 
-    <!-- Maps logical view names to Facelet templates in /WEB-INF (e.g. 'search' to '/WEB-INF/login.xhtml' -->
-    <bean id="faceletsViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <property name="viewClass" value="org.springframework.faces.mvc.JsfView"/>
-        <property name="prefix" value="/WEB-INF/controller/" />
-        <property name="suffix" value=".xhtml" />
-    </bean>
+  <!--
+    Maps logical view names to Facelet templates in /WEB-INF (e.g.
+    'search' to '/WEB-INF/login.xhtml'
+  -->
+  <bean id="faceletsViewResolver"
+    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
+    <property name="prefix" value="/WEB-INF/controller/" />
+    <property name="suffix" value=".xhtml" />
+  </bean>
 
-    <!-- Dispatches requests mapped to org.springframework.web.servlet.mvc.Controller implementations -->
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+  <!--
+    Dispatches requests mapped to
+    org.springframework.web.servlet.mvc.Controller implementations
+  -->
+  <bean
+    class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
-    <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
-    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
-        <property name="flowExecutor" ref="flowExecutor" />
-    </bean>
+  <!--
+    Dispatches requests mapped to flows to FlowHandler implementations
+  -->
+   <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+    <property name="flowExecutor" ref="flowExecutor" />
+  </bean>
 
-        <!--
-        - This bean resolves specific types of exceptions to corresponding logical
-        - view names for error views. The default behaviour of DispatcherServlet
-        - is to propagate all exceptions to the servlet container: this will happen
-        - here with all other types of exceptions.
-    -->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="exceptionMappings">
-            <props>
-                <prop key="org.springframework.dao.DataAccessException">errorController</prop>
-                <prop key="org.springframework.transaction.TransactionException">errorController</prop>
-                <prop key="org.springframework.web.util.NestedServletException">errorController</prop>
-                <prop key="java.lang.Exception">errorController</prop>
-            </props>
-        </property>
-    </bean>
+  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+    <property name="flowExecutor" ref="flowExecutor"/>
+    <property name="ajaxHandler">
+        <bean class="org.springframework.faces.richfaces.RichFacesAjaxHandler" />
+    </property>
+  </bean>
+
+  <!--
+    - This bean resolves specific types of exceptions to corresponding
+    logical - view names for error views. The default behaviour of
+    DispatcherServlet - is to propagate all exceptions to the servlet
+    container: this will happen - here with all other types of exceptions.
+  -->
+  <bean
+    class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    <property name="exceptionMappings">
+      <props>
+        <prop key="org.springframework.dao.DataAccessException">errorController</prop>
+        <prop key="org.springframework.transaction.TransactionException">errorController</prop>
+        <prop key="org.springframework.web.util.NestedServletException">errorController</prop>
+        <prop key="java.lang.Exception">errorController</prop>
+      </props>
+    </property>
+  </bean>
 
 </beans>

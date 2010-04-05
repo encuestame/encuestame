@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:encuestame="http://encuesta.me/encuestame">
+<body>
+    <ui:composition template="../../controller/layouts/anonymousTemplate.xhtml">
+        <ui:define name="title"> encuestame - register</ui:define>
+        <ui:define name="body">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Full Name"/>
+                <h:inputText value="" />
+                <h:outputLabel value="Username" />
+                <h:inputText value="" />
+                <h:outputLabel value="Password"/>
+                <h:inputSecret value="" />
+                <h:outputLabel value="Email" />
+                <h:inputText value="" />
+            </h:panelGrid>
+            <a4j:commandButton value="Create My Account" action="save"></a4j:commandButton>
+        </h:form>
+       </ui:define>
+    </ui:composition>
+</body>
+</html>

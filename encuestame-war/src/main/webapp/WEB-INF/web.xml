@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4"
-  xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-  <display-name>encuestame</display-name>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-            classpath:encuestame-service-context.xml,
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>encuestame</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:encuestame-service-context.xml,
             classpath:encuestame-hibernate-context.xml,
             classpath:encuestame-dao-context.xml,
             classpath:encuestame-security-context.xml,
@@ -14,215 +13,202 @@
             classpath:encuestame-param-context.xml,
             classpath:encuestame-beans-jsf-context.xml,
             classpath:encuestame-mvc-context.xml,
-            classpath:encuestame-web-flow-context.xml
-        </param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-    <param-value>.xhtml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>facelets.REFRESH_PERIOD</param-name>
-    <param-value>1</param-value>
-  </context-param>
-  <context-param>
-    <param-name>facelets.DEVELOPMENT</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  <context-param>
-    <param-name>facelets.LIBRARIES</param-name>
-    <param-value>/WEB-INF/taglibs/encuestame.taglib.xml;/WEB-INF/taglibs/gmaps4jsf-facelets-taglib.xml
-        </param-value>
-  </context-param>
-  <context-param>
-    <param-name>org.richfaces.CONTROL_SKINNING</param-name>
-    <param-value>enable</param-value>
-  </context-param>
-  <context-param>
-    <param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
-    <param-value>enable</param-value>
-  </context-param>
-
-  <filter>
-    <display-name>Ajax4jsf Filter</display-name>
-    <filter-name>ajax4jsf</filter-name>
-    <filter-class>org.ajax4jsf.Filter</filter-class>
-  </filter>
-
-  <!--
+            classpath:encuestame-web-flow-context.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.REFRESH_PERIOD</param-name>
+		<param-value>1</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.ajax4jsf.COMPRESS_SCRIPT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/WEB-INF/taglibs/encuestame.taglib.xml;/WEB-INF/taglibs/gmaps4jsf-facelets-taglib.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
+		<param-value>enable</param-value>
+	</context-param>
+	<filter>
+		<display-name>Ajax4jsf Filter</display-name>
+		<filter-name>ajax4jsf</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+		<init-param>
+			<param-name>createTempFiles</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>maxRequestSize</param-name>
+			<param-value>1000000</param-value>
+		</init-param>
+	</filter>
+	<!--
     Enforce UTF-8 Character Encoding -->
-
-  <filter>
-    <filter-name>charEncodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>charEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <!--
-    Hibernate's OpenSessionInView still required since we are using
-    lazy-collection in method to get list of tasks & steps
-  -->
-  <filter>
-    <filter-name>OpenSessionInViewFilter</filter-name>
-    <filter-class>org.encuestame.core.persistence.filter.SessionFilter</filter-class>
-  </filter>
-
-  <filter>
-    <filter-name>UrlRewriteFilter</filter-name>
-    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-    <!--
-      set the amount of seconds the conf file will be checked for reload
-      can be a valid integer (0 denotes check every time, empty/not set
-      denotes no reload check)
-    -->
-    <init-param>
-      <param-name>confReloadCheckInterval</param-name>
-      <param-value>1</param-value>
-    </init-param>
-
-    <init-param>
-      <param-name>confPath</param-name>
-      <param-value>/WEB-INF/urlrewrite.xml</param-value>
-    </init-param>
-
-    <!--
-      sets up log level (will be logged to context log) can be: TRACE,
-      DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons,
-      sysout:{level} (ie, sysout:DEBUG) if you are having trouble using
-      normal levels use sysout:DEBUG
-    -->
-    <init-param>
-      <param-name>logLevel</param-name>
-      <param-value>WARN</param-value>
-    </init-param>
-
-    <!--
-      you can disable status page if desired can be: true, false (default
-      true)
-    -->
-    <init-param>
-      <param-name>statusEnabled</param-name>
-      <param-value>false</param-value>
-    </init-param>
-
-    <!--
-      you can change status path so that it does not conflict with your
-      installed apps (note, defaults to /rewrite-status) note, must start
-      with /
-    -->
-    <init-param>
-      <param-name>statusPath</param-name>
-      <param-value>/status</param-value>
-    </init-param>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>UrlRewriteFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter-mapping>
-    <filter-name>OpenSessionInViewFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-
-  <filter-mapping>
-    <filter-name>ajax4jsf</filter-name>
-    <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-  </filter-mapping>
-
-
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-  <listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-  </listener>
-
-  <servlet>
-    <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value></param-value>
-    </init-param>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-
-  <servlet>
-    <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet>
-    <servlet-name>Resource Servlet</servlet-name>
-    <servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
-  </servlet>
-
-  <!--
-    Serves static resource content from .jar files such as
-    spring-faces.jar
-  -->
-  <servlet>
-    <servlet-name>Resources Spring Servlet</servlet-name>
-    <servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
-    <load-on-startup>0</load-on-startup>
-  </servlet>
-
-  <!--
-    Map all /resources requests to the Resource Servlet for handling
-  -->
-  <servlet-mapping>
-    <servlet-name>Resources Spring Servlet</servlet-name>
-    <url-pattern>/spring-resources/*</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet-mapping>
-    <servlet-name>Resource Servlet</servlet-name>
-    <url-pattern>/primefaces_resource/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-    <url-pattern>*.do</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.faces</url-pattern>
-  </servlet-mapping>
-
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
-
+	<filter>
+		<filter-name>charEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!--
+		Hibernate's OpenSessionInView still required since we are using
+		lazy-collection in method to get list of tasks & steps
+	-->
+	<filter>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<filter-class>org.encuestame.core.persistence.filter.SessionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+		<!--
+			set the amount of seconds the conf file will be checked for reload
+			can be a valid integer (0 denotes check every time, empty/not set
+			denotes no reload check)
+		-->
+		<init-param>
+			<param-name>confReloadCheckInterval</param-name>
+			<param-value>1</param-value>
+		</init-param>
+		<init-param>
+			<param-name>confPath</param-name>
+			<param-value>/WEB-INF/urlrewrite.xml</param-value>
+		</init-param>
+		<!--
+			sets up log level (will be logged to context log) can be: TRACE,
+			DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons,
+			sysout:{level} (ie, sysout:DEBUG) if you are having trouble using
+			normal levels use sysout:DEBUG
+		-->
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>WARN</param-value>
+		</init-param>
+		<!--
+			you can disable status page if desired can be: true, false (default
+			true)
+		-->
+		<init-param>
+			<param-name>statusEnabled</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<!--
+			you can change status path so that it does not conflict with your
+			installed apps (note, defaults to /rewrite-status) note, must start
+			with /
+		-->
+		<init-param>
+			<param-name>statusPath</param-name>
+			<param-value>/status</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>charEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ajax4jsf</filter-name>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ajax4jsf</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value />
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
+	</servlet>
+	<!--
+		Serves static resource content from .jar files such as
+		spring-faces.jar
+	-->
+	<servlet>
+		<servlet-name>Resources Spring Servlet</servlet-name>
+		<servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<!--
+		Map all /resources requests to the Resource Servlet for handling
+	-->
+	<servlet-mapping>
+		<servlet-name>Resources Spring Servlet</servlet-name>
+		<url-pattern>/resources/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/primefaces_resource/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 </web-app>

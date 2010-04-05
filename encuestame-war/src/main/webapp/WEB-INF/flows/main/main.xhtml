@@ -4,7 +4,9 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:c="http://java.sun.com/jstl/core"
-  xmlns:h="http://java.sun.com/jsf/html">
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich">
 <ui:insert name="css"></ui:insert>
 <head>
 <title>dsads</title>
@@ -12,6 +14,18 @@
 <body>
 
 <div id="mainWrapper">main dentro del webflow</div>
-
+     <a4j:outputPanel id="bookingsFragment">
+      <a4j:form id="mainForm">
+        <rich:calendar  id="editdateInitProyect"></rich:calendar>
+        <br></br>
+        <h:outputText value="Propiedad Uno-> #{testJuan.proOne}"></h:outputText>
+        <br></br>
+        <a4j:commandButton id="findHotels" value="Paso 1" action="paso1"  reRender="bookingsFragment" />
+        <br></br>
+        <a4j:commandButton id="findHotels2" value="Paso 2" action="paso2"  reRender="bookingsFragment" />
+        <br></br>
+        <h:outputText value="Propiedad dos-> #{testJuan.proTwo}"></h:outputText>
+         </a4j:form>
+            </a4j:outputPanel>
 </body>
 </html>
