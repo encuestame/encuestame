@@ -76,6 +76,13 @@ public class PollDao extends  AbstractHibernateDaoSupport implements IPoll{
 
     }
 
-
+    /**
+     * Retrieve Results Poll by Question Name
+     * @param questionName Question Name to Find
+     */
+    public  void retrieveResultPollsByQuestion(final String questionId){
+        // Buscar el Id de la Pregunta
+        // Realizar Consulta segun el Id
 }
 
+}

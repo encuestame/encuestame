@@ -80,7 +80,7 @@ public class CreateTweetPollBean extends MasterBean {
      */
     public final void createShortSimulateUrl(final UnitAnswersBean answer){
         try{
-            final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
+            final ISurveyService survey = getServicemanager().getApplicationServices().getSurveyService();
             answer.setAnswerHash(MD5Utils.md5(String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())));
             log.info(getDomain());
             final String url = survey.getTwitterService().getTinyUrl(buildUrl(answer));
@@ -150,7 +150,7 @@ public class CreateTweetPollBean extends MasterBean {
      * Create Tweet Poll.
      */
     public final void createTweetPoll(){
-        final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
+        final ISurveyService survey = getServicemanager().getApplicationServices().getSurveyService();
         try{
           //save question
            survey.createQuestion(getUnitTweetPoll().getQuestionBean());

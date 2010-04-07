@@ -104,7 +104,7 @@ public class BuildSurveyControllerBean extends MasterBean {
                     // getUnitPatterBean().setId(getPatternSelected());
                     UnitPatternBean patternN = new UnitPatternBean();
                     patternN.setId(Long.valueOf(getPatternSelected()));
-                    patternN = getServicemanager().getApplicationServices().getSecurityService().getSurveyService()
+                    patternN = getServicemanager().getApplicationServices().getSurveyService()
                             .loadPatternInfo(patternN);
                     //cleanPatterBean(getUnitPatterBean());
                     question.setPattern(patternN);
@@ -180,9 +180,7 @@ public class BuildSurveyControllerBean extends MasterBean {
      */
     public final void searchQuestions() {
         try {
-            questionsList = getServicemanager().getApplicationServices()
-            .getSecurityService()
-            .getSurveyService()
+            questionsList = getServicemanager().getApplicationServices().getSurveyService()
                     .loadAllQuestions();
         } catch (HibernateException e) {
             addErrorMessage("Error->" + e, "");

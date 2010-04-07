@@ -68,11 +68,9 @@ public class TweetPollsBean extends MasterBean {
      */
     private void loadTweets() {
         try {
-            this.listTweets = getServicemanager().getApplicationServices()
-                    .getSecurityService().getSurveyService()
-                    .getTweetsPollsByUserId(
-                            getUsernameByName().getSecUser().getUid());
-            log.info("loading tweet polls");
+            this.listTweets = getServicemanager().getApplicationServices().getSurveyService()
+            .getTweetsPollsByUserId(getUsernameByName().getSecUser().getUid());
+             log.info("loading tweet polls");
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
@@ -94,7 +92,7 @@ public class TweetPollsBean extends MasterBean {
         getUpdateItem(getAnswerIdUpdate());
         if(getAnswerIdUpdate() != null && getUpdateItem(getAnswerIdUpdate())!= null){
             try {
-                getServicemanager().getApplicationServices().getSecurityService().
+                getServicemanager().getApplicationServices().
                 getSurveyService().updateAnswerByAnswerId(getAnswerIdUpdate(), getUpdateItem(getAnswerIdUpdate()));
                 addInfoMessage("Updated Answer", " New name answer update to ["+getUpdateItem(getAnswerIdUpdate())+"]");
             }
@@ -124,7 +122,7 @@ public class TweetPollsBean extends MasterBean {
     public final void publishTweet() {
         try {
             log.info("loggin tweet");
-            final ISurveyService survey = getServicemanager().getApplicationServices().getSecurityService()
+            final ISurveyService survey = getServicemanager().getApplicationServices()
             .getSurveyService();
             final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll(), getDomain());
             log.info("Largo Tweet"+tweetText.length());

@@ -21,7 +21,7 @@ import org.encuestame.core.service.util.UrlBean;
  * @version $Id$
  */
 @org.springframework.stereotype.Service
-public class ApplicationServices extends Service implements IApplicationServices {
+public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
     private String name;
     private String urlImg;
@@ -30,6 +30,10 @@ public class ApplicationServices extends Service implements IApplicationServices
     private UrlBean url;
 
     private ISecurityService securityService;
+    private ISurveyService surveyService;
+    private IPollService pollService;
+    private ITweetPollService tweetPollService;
+
 
     /**
      * @return name
@@ -118,5 +122,48 @@ public class ApplicationServices extends Service implements IApplicationServices
     public void setUrl(UrlBean url) {
         this.url = url;
     }
+
+    /**
+     * @return the surveyService
+     */
+    public ISurveyService getSurveyService() {
+        return surveyService;
+    }
+
+    /**
+     * @param surveyService the surveyService to set
+     */
+    public void setSurveyService(ISurveyService surveyService) {
+        this.surveyService = surveyService;
+    }
+
+    /**
+     * @return the pollService
+     */
+    public IPollService getPollService() {
+        return pollService;
+    }
+
+    /**
+     * @param pollService the pollService to set
+     */
+    public void setPollService(IPollService pollService) {
+        this.pollService = pollService;
+    }
+
+    /**
+     * @return the tweetPollService
+     */
+    public ITweetPollService getTweetPollService() {
+        return tweetPollService;
+    }
+
+    /**
+     * @param tweetPollService the tweetPollService to set
+     */
+    public void setTweetPollService(ITweetPollService tweetPollService) {
+        this.tweetPollService = tweetPollService;
+    }
+
 
 }

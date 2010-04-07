@@ -15,7 +15,7 @@ package org.encuestame.core.mail;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.IService;
-import org.encuestame.core.service.Service;
+import org.encuestame.core.service.AbstractBaseService;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -26,7 +26,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * @since May 05, 2009
  * @version $Id$
  */
-public class MailServiceImpl extends Service implements MailService, IService {
+public class MailServiceImpl extends AbstractBaseService implements MailService, IService {
 
     private Log log = LogFactory.getLog(this.getClass());
 

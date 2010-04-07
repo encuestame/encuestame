@@ -19,8 +19,17 @@ import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
+import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
+import org.encuestame.core.persistence.dao.imp.IClientDao;
+import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.dao.imp.IProject;
+import org.encuestame.core.persistence.dao.imp.IQuestionDao;
+import org.encuestame.core.persistence.dao.imp.ISecGroups;
+import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
+import org.encuestame.core.persistence.dao.imp.ISecUserDao;
+import org.encuestame.core.persistence.dao.imp.ISurvey;
+import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.utils.web.LocationBean;
@@ -37,7 +46,137 @@ import org.encuestame.utils.web.UnitProjectBean;
  */
 public interface IDataSource {
 
+
+   /**
+     * Load state by id.
+     * @param stateId state id
+     * @return {@link CatState}
+     */
+     CatState getState(final Long stateId);
+
+
     /**
+     * @return the stateDao
+     */
+    public ICatState getStateDao();
+
+    /**
+     * @param stateDao the stateDao to set
+     */
+    public void setStateDao(final ICatState stateDao);
+
+    /**
+     * @return the catLocationDao
+     */
+    public ICatLocation getCatLocationDao();
+
+    /**
+     * @param catLocationDao the catLocationDao to set
+     */
+
+    public void setCatLocationDao(final ICatLocation catLocationDao);
+
+    /**
+     * @return the projectDaoImp
+     */
+    public IProject getProjectDaoImp();
+
+    /**
+     * @param projectDaoImp the projectDaoImp to set
+     */
+    public void setProjectDaoImp(final IProject projectDaoImp);
+
+    /**
+     * @return the catLocationTypeDao
+     */
+    public ICatLocationTypeDao getCatLocationTypeDao();
+
+    /**
+     * @param catLocationTypeDao the catLocationTypeDao to set
+     */
+    public void setCatLocationTypeDao(final ICatLocationTypeDao catLocationTypeDao);
+
+    /**
+     * @return the clientDao
+     */
+    public IClientDao getClientDao();
+
+    /**
+     * @param clientDao the clientDao to set
+     */
+    public void setClientDao(final IClientDao clientDao);
+
+    /**
+     * @return the secUserDao
+     */
+    public ISecUserDao getSecUserDao();
+
+    /**
+     * @param secUserDao the secUserDao to set
+     */
+    public void setSecUserDao(final ISecUserDao secUserDao);
+
+    /**
+     * @return the questionDao
+     */
+    public IQuestionDao getQuestionDao();
+
+    /**
+     * @param questionDao the questionDao to set
+     */
+    public void setQuestionDao(IQuestionDao questionDao);
+
+    /**
+     * @return the pollDao
+     */
+    public IPoll getPollDao();
+
+    /**
+     * @param pollDao the pollDao to set
+     */
+    public void setPollDao(IPoll pollDao);
+
+    /**
+     * @return the surveyDaoImp
+     */
+    public ISurvey getSurveyDaoImp();
+
+    /**
+     * @param surveyDaoImp the surveyDaoImp to set
+     */
+    public void setSurveyDaoImp(ISurvey surveyDaoImp);
+
+    /**
+     * @return the tweetPollDao
+     */
+    public ITweetPoll getTweetPollDao();
+
+    /**
+     * @param tweetPollDao the tweetPollDao to set
+     */
+    public void setTweetPollDao(final ITweetPoll tweetPollDao);
+
+     /**
+     * @return the groupDao
+     */
+    public ISecGroups getGroupDao();
+
+    /**
+     * @param groupDao the groupDao to set
+     */
+    public void setGroupDao(ISecGroups groupDao);
+
+    /**
+     * @return the permissionDao
+     */
+    public ISecPermissionDao getPermissionDao();
+
+    /**
+     * @param permissionDao the permissionDao to set
+     */
+    public void setPermissionDao(ISecPermissionDao permissionDao);
+
+     /**
      * Load List of Project.
      * @param userId user id
      * @return {@link Collection} of {@link UnitProjectBean}
@@ -78,28 +217,7 @@ public interface IDataSource {
      */
     LocationBean createCatLocation(LocationBean location) throws EnMeExpcetion;
 
-    /**
-     * Load state by id.
-     * @param stateId state id
-     * @return {@link CatState}
-     * @throws Exception exception
-     */
-    CatState getState(Long stateId);
 
-    /**
-     * @return the stateDao
-     */
-    ICatState getStateDao();
-
-    /**
-     * @return the catLocationDao
-     */
-    ICatLocation getCatLocationDao();
-
-    /**
-     * @return the projectDaoImp
-     */
-    IProject getProjectDaoImp();
 
     /**
      * @param locationTypeBean locationTypeBean

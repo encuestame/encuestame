@@ -21,7 +21,7 @@ package org.encuestame.core.service;
  * @version $Id$
  */
 @org.springframework.stereotype.Service
-public class ServiceManager extends Service implements IServiceManager {
+public class ServiceManager extends AbstractBaseService implements IServiceManager {
 
 
     /**

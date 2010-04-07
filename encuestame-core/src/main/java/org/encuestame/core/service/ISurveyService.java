@@ -179,4 +179,6 @@ public interface ISurveyService extends IService {
      * @return list of {@link UnitTweetPollResult}
      */
     List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId);
+
+    List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId);
 }

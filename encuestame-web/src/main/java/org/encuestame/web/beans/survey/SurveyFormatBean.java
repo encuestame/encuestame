@@ -72,20 +72,19 @@ public class SurveyFormatBean extends MasterBean {
      */
     private void loadSurveySuggestion() {
         log.info("loadSurveySuggestion-->" + getSurveyName());
-        if (getSurveyName() != null && !getSurveyName().trim().isEmpty()) {
+       /* if (getSurveyName() != null && !getSurveyName().trim().isEmpty()) {
             lista = getServicemanager()
-            .getApplicationServices().getSecurityService()
-            .getSurveyService()
-                    .getSurveyDaoImp().searchSurveyByName(
+            .getApplicationServices().getSurveyService().getDataEnMeSource().getSurveyDaoImp().searchSurveyByName(
                             getSurveyName().trim());
-            if (lista.size() > 0)
+              if (lista.size() > 0)
                 setListSuggest(true);
             else
                 setListSuggest(false);
         } else {
             setListSuggest(false);
             log.info("getSurveyName empty->" + getSurveyName());
-        }
+        }*/
+        // FIXME:Fix Dao Reference.
     }
 
     /**

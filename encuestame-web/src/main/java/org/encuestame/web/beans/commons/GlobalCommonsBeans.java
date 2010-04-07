@@ -50,7 +50,7 @@ public class GlobalCommonsBeans extends MasterBean {
      */
     public final List<SelectItem> getLoadListState() {
         lista = new LinkedList();
-        select = new ArrayList<SelectItem>();
+       /* select = new ArrayList<SelectItem>();
         // log.info("get load list state");
         select.add(new SelectItem(null, ""));
         lista = getServicemanager().getDataEnMeSource().getStateDao()
@@ -63,7 +63,8 @@ public class GlobalCommonsBeans extends MasterBean {
                 select.add(new SelectItem(state.getIdState(), state
                         .getDescState()));
             }
-        }
+        }*/
+        //FIXME: Fix Dao Reference.
         return select;
     }
 
@@ -98,8 +99,7 @@ public class GlobalCommonsBeans extends MasterBean {
         select = new LinkedList<SelectItem>();
         select.add(new SelectItem(null, ""));
         try {
-            lista = getServicemanager().getApplicationServices()
-            .getSecurityService().getSurveyService().loadAllPatrons();
+            lista = getServicemanager().getApplicationServices().getSurveyService().loadAllPatrons();
             if (lista != null && lista.size() != 0) {
                 Iterator iterd = lista.iterator();
                 while (iterd.hasNext()) {

@@ -12,33 +12,12 @@
  */
 package org.encuestame.core.service;
 
-import org.encuestame.core.service.util.MessageSourceFactoryBean;
-
 /**
- * Class Description.
- * @author Picado, Juan juan@encuestame.org
- * @since 29/11/2009 21:47:14
- * @version $Id$
+ * Tweet Poll Service.
+ * @author Morales, Diana Paola paola AT encuestame.org
+ * @since  April 02, 2010
+ * @version $Id: $
  */
-public interface IService {
-
-    /**
-     * Getter.
-     * @return {@link MessageSourceFactoryBean}
-     */
-    public MessageSourceFactoryBean getMessageSource();
-
-    /**
-     * Setter.
-     * @param messageSource {@link MessageSourceFactoryBean}
-     */
-    public void setMessageSource(MessageSourceFactoryBean messageSource);
-
-    /**
-     * Getter by propertie Id.
-     * @param propertieId propertieId
-     * @return value of propertie
-     */
-    public String getMessageProperties(String propertieId);
+public interface ITweetPollService {
 
 }

@@ -12,6 +12,10 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
+import java.util.Collection;
+
+import org.encuestame.core.persistence.pojo.SurveyFormat;
+
 /**
  * Interface to implement Survey Dao.
  * @author Picado, Juan juan@encuestame.org
@@ -19,4 +23,6 @@ package org.encuestame.core.persistence.dao.imp;
  * @version $Id$
  */
 public interface ISurvey extends IBaseDao{
+
+     public Collection<SurveyFormat> searchSurveyByName(String searchString);
 }

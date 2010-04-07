@@ -25,5 +25,6 @@ import org.hibernate.HibernateException;
 public interface ISecGroups extends IBaseDao {
     Collection<SecGroups> findAllGroups();
     SecGroups getGroupById(Long groupId);
+    SecGroups find(final Long groupId);
 }
 

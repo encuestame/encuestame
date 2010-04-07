@@ -19,11 +19,18 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.dao.QuestionDaoImp;
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
+import org.encuestame.core.persistence.dao.SurveyDaoImp;
+import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
@@ -38,7 +45,6 @@ import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
-import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -50,16 +56,21 @@ import twitter4j.http.RequestToken;
  * @since 27/04/2009
  * @version $Id$
  */
-@Service
-public class SurveyService extends AbstractSurveyService implements ISurveyService {
+@org.springframework.stereotype.Service
+public class AbstractSurveyService extends AbstractBaseService {
 
+    private ITwitterService twitterService;
     private String answerPollPath;
     private String tweetPollResultsPath;
+    @Resource
+    private ITweetPoll tweetPollDao;
 
     private Log log = LogFactory.getLog(this.getClass());
 
-    /** Tweet Path. **/
+    /** Tweet Path, **/
     private String tweetPath;
+
+
     /**
      * Create Question.
      * @param questionBean {@link UnitQuestionBean}.
@@ -230,7 +241,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             }
         }
         catch (Exception e) {
-
             throw new EnMeExpcetion(e);
         }
         return tweetQuestionText;
@@ -391,6 +401,19 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         return getTweetPollDao().validateVoteIP(ipVote, tweetPoll);
     }
 
+    /**
+     * @return the twitterService
+     */
+    public ITwitterService getTwitterService() {
+        return twitterService;
+    }
+
+    /**
+     * @param twitterService the twitterService to set
+     */
+    public void setTwitterService(final ITwitterService twitterService) {
+        this.twitterService = twitterService;
+    }
 
     /**
      * @return the answerPollPath
@@ -420,7 +443,19 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         this.tweetPollResultsPath = tweetPollResultsPath;
     }
 
+    /**
+     * @return the tweetPollDao
+     */
+    public ITweetPoll getTweetPollDao() {
+        return tweetPollDao;
+    }
 
+    /**
+     * @param tweetPollDao the tweetPollDao to set
+     */
+    public void setTweetPollDao(final ITweetPoll tweetPollDao) {
+        this.tweetPollDao = tweetPollDao;
+    }
 
     /**
      * @return the tweetPath
@@ -435,4 +470,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public void setTweetPath(final String tweetPath) {
         this.tweetPath = tweetPath;
     }
+
+
 }

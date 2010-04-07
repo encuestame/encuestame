@@ -12,6 +12,7 @@
  */
 package org.encuestame.web.beans.admon;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,8 +51,8 @@ public class GroupBean extends MasterBean {
     private List<UnitGroupBean> getLoadListGroups() {
         listUnitGroupBeans = new LinkedList<UnitGroupBean>();
         try {
-            final List<SecGroups> listGroups = getServicemanager().getApplicationServices()
-                    .getSecurityService().getGroupDao().findAllGroups();
+           /* final Collection<SecGroups> listGroups = getServicemanager().getApplicationServices()
+                    .get.getGroupDao().findAllGroups();
             for (SecGroups group : listGroups) {
                 final UnitGroupBean newGroup = new UnitGroupBean();
                 newGroup.setId(Integer.valueOf(group.getGroupId().toString()));
@@ -59,7 +60,8 @@ public class GroupBean extends MasterBean {
                 newGroup.setGroupDescription(group.getGroupDescriptionInfo());
                 newGroup.setStateId((group.getIdState().toString()));
                 listUnitGroupBeans.add(newGroup);
-            }
+            //FIXME: Fix Dao References
+            }*/
         }
         catch (Exception e) {
             addErrorMessage(getMessageProperties("error_load_groups"), e
@@ -143,9 +145,8 @@ public class GroupBean extends MasterBean {
      */
     private void fill(Integer idGroup) {
         try {
-        final SecGroups secGroups = getServicemanager().getApplicationServices().getSecurityService()
-                .getGroupDao().find(Long.valueOf(idGroup));
-            if (secGroups != null) {
+        /*final SecGroups secGroups = getServicemanager().getApplicationServices().getDataEnMeSource().getGroupDao().find(Long.valueOf(idGroup));
+             if (secGroups != null) {
                 reset();
                 this.newGroup.setId(Integer.valueOf(secGroups.getGroupId().toString()));
                 this.newGroup.setGroupDescription(secGroups.getGroupDescriptionInfo());
@@ -154,7 +155,8 @@ public class GroupBean extends MasterBean {
             }
             else {
                 addErrorMessage("group can't be created", "");
-            }
+            }*/
+            //FIXME: Fix Dao Reference
         }
         catch (Exception e) {
             addErrorMessage("error on retrieve list of groups: " + e.getMessage(), e
@@ -185,9 +187,9 @@ public class GroupBean extends MasterBean {
     public final List<UnitGroupBean> getListUnitGroupBeans() {
         getLoadListGroups();
         if (listUnitGroupBeans.size() > 0) {
-            isOneRow = true;
+    //        isOneRow = true;
         } else {
-            isOneRow = false;
+      //      isOneRow = false;
         }
         return listUnitGroupBeans;
     }

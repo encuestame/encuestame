@@ -11,26 +11,37 @@
     </property>
   </bean>
 
-  <bean id="service" class="org.encuestame.core.service.Service"
-    abstract="true">
-    <property name="messageSource">
-      <ref bean="messageSource" />
-    </property>
-    <property name="dataEnMeSource">
-      <ref bean="dataEnMeSource"></ref>
-    </property>
-    <property name="domainUrl">
-      <value>${application.domain}</value>
-    </property>
+  <bean id="abstractsurvey" class="org.encuestame.core.service.AbstractSurveyService"
+        abstract="true">
+        <property name="twitterService">
+          <ref bean="twitterService" />
+        </property>
+
+        <property name="tweetPollDao">
+          <ref bean="tweetPollDao" />
+        </property>
   </bean>
 
-  <bean id="messageSource"
-    class="org.encuestame.core.service.util.MessageSourceFactoryBean">
-    <property name="messagesource" ref="resourceBundleMessageSource" />
+  <bean id="tweetPollService" class="org.encuestame.core.service.TweetPollService"
+      parent="abstractsurvey">
   </bean>
 
+  <bean id="service" class="org.encuestame.core.service.AbstractBaseService"
+      abstract="true" parent="dataEnMeSource">
+         <property name="messageSource">
+          <ref bean="messageSource" />
+       </property>
 
-  <bean id="dataEnMeSource" class="org.encuestame.core.service.DataSource">
+      <property name="domainUrl">
+        <value>${application.domain}</value>
+      </property>
+
+      <property name="serviceMail">
+        <ref bean="serviceMail"></ref>
+      </property>
+  </bean>
+
+  <bean id="dataEnMeSource" class="org.encuestame.core.service.DataSource" abstract="true">
     <property name="stateDao">
       <ref bean="catStateDaoImp"></ref>
     </property>
@@ -49,6 +60,29 @@
     <property name="secUserDao">
       <ref bean="secUserDao"></ref>
     </property>
+    <property name="questionDao">
+      <ref bean="questionDaoImp"></ref>
+    </property>
+    <property name="pollDao">
+      <ref bean="pollDao"></ref>
+    </property>
+    <property name="tweetPollDao">
+      <ref bean="tweetPollDao"></ref>
+    </property>
+    <property name="surveyDaoImp">
+      <ref bean="surveyDaoImp"></ref>
+    </property>
+  <property name="groupDao">
+      <ref bean="secGroupDaoImp"></ref>
+    </property>
+    <property name="permissionDao">
+      <ref bean="secPermissionDaoImp"></ref>
+    </property>
+  </bean>
+
+  <bean id="messageSource"
+    class="org.encuestame.core.service.util.MessageSourceFactoryBean">
+    <property name="messagesource" ref="resourceBundleMessageSource" />
   </bean>
 
   <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager"
@@ -64,53 +98,20 @@
   </bean>
 
   <bean id="surveyService" class="org.encuestame.core.service.SurveyService"
-    parent="service">
-    <property name="surveyDaoImp">
-      <ref bean="surveyDaoImp"></ref>
-    </property>
-    <property name="serviceMail">
-      <ref bean="serviceMail"></ref>
-    </property>
-    <property name="questionDaoImp">
-      <ref bean="questionDaoImp"></ref>
-    </property>
-    <property name="twitterService">
-      <ref bean="twitterService"></ref>
-    </property>
+    parent="abstractsurvey">
     <property name="answerPollPath">
       <value>${answers.answerPoll}</value>
     </property>
     <property name="tweetPollResultsPath">
       <value>${answers.tweetPollResults}</value>
     </property>
-    <property name="userDaoImp">
-      <ref bean="secUserDao"></ref>
-    </property>
-    <property name="tweetPollDao">
-      <ref bean="tweetPollDao"></ref>
-    </property>
-    <property name="tweetPath">
+     <property name="tweetPath">
       <value>/tweet/</value>
     </property>
   </bean>
 
   <bean id="securityService" class="org.encuestame.core.service.SecurityService"
     parent="service">
-    <property name="surveyService">
-      <ref bean="surveyService"></ref>
-    </property>
-    <property name="userDao">
-      <ref bean="secUserDao"></ref>
-    </property>
-    <property name="groupDao">
-      <ref bean="secGroupDaoImp"></ref>
-    </property>
-    <property name="permissionDao">
-      <ref bean="secPermissionDaoImp"></ref>
-    </property>
-    <property name="serviceMail">
-      <ref bean="serviceMail"></ref>
-    </property>
     <property name="suspendedNotification">
       <value>${sec.suspendedNotification}</value>
     </property>
@@ -121,6 +122,19 @@
     <property name="securityService">
       <ref bean="securityService"></ref>
     </property>
+
+    <property name="surveyService">
+    <ref bean="surveyService"></ref>
+    </property>
+
+    <property name="pollService">
+    <ref bean="pollService"></ref>
+    </property>
+
+    <property name="tweetPollService">
+    <ref bean="tweetPollService"></ref>
+    </property>
+
     <property name="name">
       <value>${application.name}</value>
     </property>
@@ -133,5 +147,8 @@
     <property name="apiKeygoogle">
       <value>${application.apiKeygoogle}</value>
     </property>
+  </bean>
+
+    <bean id="pollService" class="org.encuestame.core.service.PollService" parent="abstractsurvey">
   </bean>
 </beans>

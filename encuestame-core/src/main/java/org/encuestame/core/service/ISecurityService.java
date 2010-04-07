@@ -18,10 +18,6 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.dao.SecGroupDaoImp;
-import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
-import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -38,7 +34,7 @@ import org.encuestame.utils.web.UnitUserBean;
  */
 public interface ISecurityService extends IService {
 
-
+     String getDefaultUserPermission();
     /**
      * Load list of users.
      * @return list of users with groups and permission
@@ -177,45 +173,6 @@ public interface ISecurityService extends IService {
      */
     String generateHashCodeInvitation();
 
-    /**
-     * @return {@link MailServiceImpl}.
-     */
-    MailServiceImpl getServiceMail();
-
-    /**
-     * Getter.
-     * @return default user permission.
-     */
-    String getDefaultUserPermission();
-
-    /**
-     * Getter.
-     * @return suspendend notification
-     */
-    Boolean getSuspendedNotification();
-
-    /**
-     * @return the surveyService
-     */
-    SurveyService getSurveyService();
-
-    /**
-     * Getter.
-     * @return {@link SecGroupDaoImp}
-     */
-    SecGroupDaoImp getGroupDao();
-
-    /**
-     * Getter.
-     * @return {@link SecPermissionDaoImp}
-     */
-    SecPermissionDaoImp getPermissionDao();
-
-    /**
-     * Getter.
-     * @return {@link SecUserDaoImp}
-     */
-    SecUserDaoImp getUserDao();
 
     /**
      * Find {@link SecUserSecondary} by UserName

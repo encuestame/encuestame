@@ -74,34 +74,28 @@ public class ProjectBean extends MasterBean {
      * Load List of Projects.
      */
     private void loadListProjects(){
-        try{
+        /*try{
             setListProjectsBeans(getServicemanager().getDataEnMeSource()
                                 .loadListProjects(getUsernameByName().getSecUser().getUid()));
         }catch (EnMeExpcetion e) {
             log.error(e);
             addErrorMessage("", "error loading projects");
-        }
+        }*/
     }
 
     /**
      * Save data new proyect
      */
     public final void saveProject() {
-        try {
-            getNewProjectBean().setUserId(getUsernameByName().getSecUser().getUid());
-            if (this.getNewProjectBean() != null) {
-                getServicemanager().getDataEnMeSource().createProject(getNewProjectBean());
-                log.info("project created");
-                setNewProjectBean(new UnitProjectBean());
-            }
-            else {
-                log.error("error create project");
-                addErrorMessage("error saving project", "error saving project");
-            }
-        } catch (EnMeExpcetion e) {
-            e.printStackTrace();
-            addErrorMessage(e.getMessage(), e.getMessage());
-            log.error("error create project:" + e);
+        getNewProjectBean().setUserId(getUsernameByName().getSecUser().getUid());
+        if (this.getNewProjectBean() != null) {
+           /* getServicemanager().getDataEnMeSource().createProject(getNewProjectBean());
+            log.info("project created");
+            setNewProjectBean(new UnitProjectBean());*/
+        }
+        else {
+            log.error("error create project");
+            addErrorMessage("error saving project", "error saving project");
         }
     }
 
@@ -126,27 +120,21 @@ public class ProjectBean extends MasterBean {
      * @param id project id.
      */
     private void loadProjectInfo(final Integer projectId) {
-        try {
-            this.cleanProyect();
-            //setting id
-            getUnitProjectBean().setId(Long.valueOf(projectId));
-            // load project by id.
-            setUnitProjectBean(getServicemanager().getDataEnMeSource()
-                    .loadProjectInfo(getUnitProjectBean()));
-            getUnitProjectBean().setClients(getServicemanager()
-                                .getDataEnMeSource().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
-            getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));
-            log.info("project loaded.");
-            log.debug("project id"+getUnitProjectBean().getId());
-            log.info("project name"+getUnitProjectBean().getName());
-            log.info("project init."+getUnitProjectBean().getDateInit());
-            log.info("project dead."+getUnitProjectBean().getDateFinish());
-            log.info("project grops."+getUnitProjectBean().getGroupList().size());
-        }
-        catch (EnMeExpcetion e) {
-               log.error("error load project info"+ e);
-               addErrorMessage("Error Cargando Datos Proyecto->" + e.getMessage(),"");
-        }
+        this.cleanProyect();
+        //setting id
+        getUnitProjectBean().setId(Long.valueOf(projectId));
+        // load project by id.
+         /* setUnitProjectBean(getServicemanager().getDataEnMeSource()
+                .loadProjectInfo(getUnitProjectBean()));
+        getUnitProjectBean().setClients(getServicemanager()
+                            .getDataEnMeSource().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
+        getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));*/
+        log.info("project loaded.");
+        log.debug("project id"+getUnitProjectBean().getId());
+        log.info("project name"+getUnitProjectBean().getName());
+        log.info("project init."+getUnitProjectBean().getDateInit());
+        log.info("project dead."+getUnitProjectBean().getDateFinish());
+        log.info("project grops."+getUnitProjectBean().getGroupList().size());
     }
 
     /**

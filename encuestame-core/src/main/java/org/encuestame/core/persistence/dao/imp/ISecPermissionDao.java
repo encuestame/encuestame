@@ -47,4 +47,10 @@ public interface ISecPermissionDao extends IBaseDao {
      * @throws HibernateException exception
      */
      SecPermission getPermissionById(Long permId);
+
+     /**
+      * Find All Permissions.
+      * @return {@link SecPermission}
+      */
+     List<SecPermission> findAllPermissions();
 }

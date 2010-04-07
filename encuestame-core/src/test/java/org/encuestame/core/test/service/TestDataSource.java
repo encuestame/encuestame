@@ -41,20 +41,21 @@ import org.springframework.test.annotation.ExpectedException;
  * @version $Id$
  */
 public class TestDataSource extends AbstractBase {
+    @Test
+    public void testData(){
 
-    /** {@link IDataSource} **/
-    @Autowired
-    IDataSource  dataSource;
 
-    /** {@link Project} **/
+    }
+
+   /* *//** {@link Project} **//*
     Project project;
 
-    /** {@link SecUsers}. **/
+    *//** {@link SecUsers}. **//*
     SecUsers user;
 
-    /**
+    *//**
      * Before.
-     */
+     *//*
     @Before
     public void initService(){
         this.user = createUser();
@@ -62,10 +63,10 @@ public class TestDataSource extends AbstractBase {
         createProject("project 2","Education Project","Project", createState("active"), this.user);
     }
 
-    /**
+    *//**
      * Load List of Projects.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     public void testloadListProjects() throws EnMeExpcetion{
         Collection<UnitProjectBean> listProjects = dataSource.loadListProjects(this.user.getUid());
@@ -73,10 +74,10 @@ public class TestDataSource extends AbstractBase {
     }
 
 
-    /**
+    *//**
      * Load List of Projects WithoutResults.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     public void testloadListProjectsWithoutResults() throws EnMeExpcetion{
         final Collection<UnitProjectBean> listProjects = dataSource.loadListProjects(this.user.getUid());
@@ -84,10 +85,10 @@ public class TestDataSource extends AbstractBase {
     }
 
 
-    /**
+    *//**
      * Test loadProjectInfo.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     public void testloadProjectInfo() throws EnMeExpcetion{
           final UnitProjectBean projectBean = new UnitProjectBean();
@@ -97,10 +98,10 @@ public class TestDataSource extends AbstractBase {
           assertEquals("Should be",project.getProyectId(),projectRetrieve.getId());
     }
 
-    /**
+    *//**
      * Test loadProjectInfo id null.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     @ExpectedException(EnMeExpcetion.class)
     public void testloadProjectInfoIdNull() throws EnMeExpcetion{
@@ -108,10 +109,10 @@ public class TestDataSource extends AbstractBase {
           final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
     }
 
-    /**
+    *//**
      * Test loadProjectInfo project null.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     @ExpectedException(EnMeExpcetion.class)
     public void testloadProjectInfoProjectNull() throws EnMeExpcetion {
@@ -120,89 +121,89 @@ public class TestDataSource extends AbstractBase {
           final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
     }
 
-    /**
+    *//**
      * Test create project.
      * @throws EnMeExpcetion encuestame exception.
-     */
+     *//*
     @Test
     @ExpectedException(EnMeExpcetion.class)
     public void testcreateProjectNull()throws EnMeExpcetion{
         dataSource.createProject(null);
     }
 
-    /**
+    *//**
      * Test create project.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     public void testcreateProject()throws EnMeExpcetion {
-       /* final SecUserSecondary lead = createSecondaryUser("leader", this.user);
+        final SecUserSecondary lead = createSecondaryUser("leader", this.user);
         final UnitProjectBean projectBean = createProjectBean("encuestame", lead.getUid(), this.user.getUid());
         dataSource.createProject(projectBean);
         final UnitProjectBean projectRetrieve = dataSource.loadProjectInfo(projectBean);
         assertNotNull(projectRetrieve);
-        assertEquals("Should be equals ",projectBean.getName(),projectRetrieve.getName());*/
+        assertEquals("Should be equals ",projectBean.getName(),projectRetrieve.getName());
     }
 
-    /**
+    *//**
      * Test Create Location Type.
      * @throws EnMeExpcetion exception
-     */
-    /* @Test
+     *//*
+     @Test
     public void testcreateCatLocationType()throws EnMeExpcetion {
         LocationTypeBean locationTypeBean = createLocationTypeBean("nicaragua",0);
         locationTypeBean = dataSource.createCatLocationType(locationTypeBean);
         final CatLocationType locationTypeDomain = getCatLocationTypeDao().getLocationById(locationTypeBean.getLocationTypeId());
         assertNotNull(locationTypeDomain);
         assertEquals("Should be equals ",locationTypeDomain.getLocationTypeId(),locationTypeBean.getLocationTypeId());
-    }*/
+    }
 
 
-    /**
+    *//**
      * Test Create Location Type Null.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     @ExpectedException(EnMeExpcetion.class)
     public void testcreateCatLocationTypeNull()throws EnMeExpcetion {
        dataSource.createCatLocationType(null);
     }
 
-    /**
+    *//**
      * Test Create Location Null.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     @ExpectedException(EnMeExpcetion.class)
     public void testcreateCatLocationNull() throws EnMeExpcetion{
         dataSource.createCatLocationType(null);
     }
 
-    /**
+    *//**
      * Test Create Location.
      * @throws EnMeExpcetion exception
-     */
+     *//*
     @Test
     public void testcreateCatLocation() throws EnMeExpcetion{
-     /*   final LocationBean locationBean = createLocationBean("S", "managua",1F, 2F, 0, "aaa");
+        final LocationBean locationBean = createLocationBean("S", "managua",1F, 2F, 0, "aaa");
         final LocationBean locationBeanResponse = dataSource.createCatLocation(locationBean);
         assertNotNull(locationBean);
         assertEquals("Should be equasl",locationBean.getDescription(),
-        locationBeanResponse.getDescription());*/
+        locationBeanResponse.getDescription());
     }
 
 
-    /**
+    *//**
      * @param dataSource the dataSource to set
-     */
+     *//*
     public void setDataSource(IDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    /**
+    *//**
      * Test Update Location.
      * @throws EnMeExpcetion EnMeExpcetion
-     */
+     *//*
     @Test
     public void testUpdateLocation() throws EnMeExpcetion{
         final CatLocation catLoc = createCatLocation("Masaya", "Departamento", 1);
@@ -217,10 +218,10 @@ public class TestDataSource extends AbstractBase {
         assertEquals("Should be", "Granada", locRetrieve.getLocationDescription());
       }
 
-    /**
+    *//**
      * Test Update Location Type.
      * @throws EnMeExpcetion  EnMeExpcetion
-     */
+     *//*
     @Test
     public void testUpdateLocationType() throws EnMeExpcetion{
         final CatLocationType catLocType = createCatLocationType("Comarca");
@@ -233,6 +234,6 @@ public class TestDataSource extends AbstractBase {
         assertEquals("should be","pueblo", locTypeRetrieve.getLocationTypeDescription());
 
 
-    }
+    }*/
 
 }

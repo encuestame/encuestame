@@ -20,6 +20,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -34,8 +35,8 @@ import twitter4j.http.RequestToken;
  * @since Feb 13, 2010 4:07:03 PM
  * @version $Id$
  */
-@org.springframework.stereotype.Service
-public class TwitterService extends Service implements ITwitterService {
+@Service
+public class TwitterService extends AbstractBaseService implements ITwitterService {
 
 
     private String tinyApi;

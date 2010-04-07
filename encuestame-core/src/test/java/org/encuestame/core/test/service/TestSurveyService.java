@@ -25,7 +25,7 @@ import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.ISurveyService;
-import org.encuestame.core.service.SurveyService;
+import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -39,7 +39,7 @@ import org.springframework.test.annotation.ExpectedException;
 import twitter4j.Status;
 
 /**
- * Test of {@link SurveyService}
+ * Test of {@link AbstractSurveyService}
  * @author Picado, Juan juan@encuestame.org
  * @since 05/12/2009 15:04:56
  * @version $Id$
@@ -47,7 +47,7 @@ import twitter4j.Status;
 
 public class TestSurveyService  extends AbstractBase{
 
-    /** {@link SurveyService} */
+    /** {@link AbstractSurveyService} */
     @Autowired
     private ISurveyService surveyService;
 

@@ -32,4 +32,35 @@ public interface IApplicationServices  extends IService {
      */
     public void setSecurityService(ISecurityService securityService);
 
+    /**
+     * @return the surveyService
+     */
+    public ISurveyService getSurveyService();
+
+    /**
+     * @param surveyService the surveyService to set
+     */
+    public void setSurveyService(ISurveyService surveyService);
+
+    /**
+     * @return the pollService
+     */
+    public IPollService getPollService();
+
+    /**
+     * @param pollService the pollService to set
+     */
+    public void setPollService(IPollService pollService);
+
+    /**
+     * @return the tweetPollService
+     */
+    public ITweetPollService getTweetPollService();
+
+    /**
+     * @param tweetPollService the tweetPollService to set
+     */
+    public void setTweetPollService(ITweetPollService tweetPollService);
+
+
 }

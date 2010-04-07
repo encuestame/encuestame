@@ -19,16 +19,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.dao.SecGroupDaoImp;
-import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
-import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
@@ -48,73 +43,16 @@ import org.springframework.mail.MailSendException;
  * @version $Id$
  */
 @org.springframework.stereotype.Service
-public class SecurityService extends Service implements ISecurityService {
+public class SecurityService extends AbstractBaseService implements ISecurityService {
 
     private Log log = LogFactory.getLog(this.getClass());
-    /** SecUserDao. **/
-    @Resource
-    private SecUserDaoImp secUserDao;
-    /** Group Dao. **/
-    @Resource
-    private SecGroupDaoImp groupDao;
-    /** Permission Dao **/
-    @Resource
-    private SecPermissionDaoImp permissionDao;
-    /** Services Mail **/
-    private MailServiceImpl serviceMail;
+
+
     /** Default User Permission **/
     private static final String DEFAULT = "ENCUESTAME_USER";
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
-    /**  {@link SurveyService} **/
-    private SurveyService surveyService;
 
-    /**
-     * Getter.
-     * @return {@link SecUserDaoImp}
-     */
-    public SecUserDaoImp getUserDao() {
-        return secUserDao;
-    }
-    /**
-     * Setter.
-     * @param userDao {@link SecUserDaoImp}
-     */
-    public void setUserDao(final SecUserDaoImp userDao) {
-        this.secUserDao = userDao;
-    }
-
-    /**
-     * Getter.
-     * @return {@link SecGroupDaoImp}
-     */
-    public SecGroupDaoImp getGroupDao() {
-        return groupDao;
-    }
-
-    /**
-     * Setter.
-     * @param groupDao {@link SecGroupDaoImp}
-     */
-    public void setGroupDao(final SecGroupDaoImp groupDao) {
-        this.groupDao = groupDao;
-    }
-
-    /**
-     * Getter.
-     * @return {@link SecPermissionDaoImp}
-     */
-    public SecPermissionDaoImp getPermissionDao() {
-        return permissionDao;
-    }
-
-    /**
-     * Setter.
-     * @param permissionDao {@link SecPermissionDaoImp}
-     */
-    public void setPermissionDao(final SecPermissionDaoImp permissionDao) {
-        this.permissionDao = permissionDao;
-    }
 
     /**
      * Find {@link SecUserSecondary} by UserName
@@ -122,7 +60,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return {@link SecUserSecondary}
      */
     public SecUserSecondary findUserByUserName(final String username) {
-        return getUserDao().getUserByUsername(username);
+        return getSecUserDao().getUserByUsername(username);
     }
 
     /**
@@ -133,7 +71,7 @@ public class SecurityService extends Service implements ISecurityService {
      */
     public List<UnitUserBean> loadListUsers() {
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-            final Collection<SecUserSecondary> listUsers = getUserDao().findAll();
+            final Collection<SecUserSecondary> listUsers = getSecUserDao().findAll();
                 if (listUsers.size() > 0) {
                     for (Iterator<SecUserSecondary> i = listUsers.iterator(); i.hasNext();) {
                         final UnitUserBean userBean = new UnitUserBean();
@@ -161,7 +99,7 @@ public class SecurityService extends Service implements ISecurityService {
     public void updateTwitterAccount(final String account, final String password, final SecUsers secUser){
         secUser.setTwitterAccount(account);
         secUser.setTwitterPassword(password);
-        getUserDao().saveOrUpdate(secUser);
+        getSecUserDao().saveOrUpdate(secUser);
         log.info("update Twitter Account");
     }
 
@@ -176,7 +114,7 @@ public class SecurityService extends Service implements ISecurityService {
         secUser.setConsumerKey(consumerKey);
         secUser.setConsumerSecret(consumerSecret);
         secUser.setTwitterPing(pin);
-        getUserDao().saveOrUpdate(secUser);
+        getSecUserDao().saveOrUpdate(secUser);
         log.info("update Twitter Account");
     }
 
@@ -197,7 +135,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @return {@link UnitUserBean}
      */
     public UnitUserBean searchUserByUsername(final String username) {
-        final SecUserSecondary userD = getUserDao().getUserByUsername(username);
+        final SecUserSecondary userD = getSecUserDao().getUserByUsername(username);
         UnitUserBean user = null;
         if (userD != null) {
             user = ConvertDomainBean.convertUserDaoToUserBean(userD);
@@ -316,7 +254,7 @@ public class SecurityService extends Service implements ISecurityService {
                     getServiceMail().sendDeleteNotification(userBean.getEmail(),
                             getMessageProperties("MessageDeleteNotification"));
                 }
-                getUserDao().delete(userDomain);
+                getSecUserDao().delete(userDomain);
             }
     }
 
@@ -338,7 +276,7 @@ public class SecurityService extends Service implements ISecurityService {
                 sendUserPassword(userDomain.getUserEmail().trim(), newPassword);
             }
             //saving user.
-            getUserDao().saveOrUpdate(userDomain);
+            getSecUserDao().saveOrUpdate(userDomain);
         }
         else {
             //if we have a problem with user, we retrieve null value
@@ -354,7 +292,7 @@ public class SecurityService extends Service implements ISecurityService {
      */
     // TODO: maybe should be move to parent beans.
     private SecUserSecondary getUser(final String username) {
-        return getUserDao().getUserByUsername(username.trim());
+        return getSecUserDao().getUserByUsername(username.trim());
     }
 
     /**
@@ -378,7 +316,7 @@ public class SecurityService extends Service implements ISecurityService {
      */
     public void updateUser(final UnitUserBean userBean){
         log.info("service update user method");
-            final SecUserSecondary updateUser = getUserDao().getUserByUsername(userBean.getUsername());
+            final SecUserSecondary updateUser = getSecUserDao().getUserByUsername(userBean.getUsername());
             log.info("update user, user found: "+updateUser.getUid());
             if (updateUser != null) {
                 updateUser.setUserEmail(userBean.getEmail());
@@ -386,7 +324,7 @@ public class SecurityService extends Service implements ISecurityService {
                 updateUser.setUserStatus(userBean.getStatus());
                 updateUser.setPublisher(userBean.getPublisher());
                 log.info("updateing user, user "+updateUser.getUid());
-                getUserDao().saveOrUpdate(updateUser);
+                getSecUserDao().saveOrUpdate(updateUser);
             }
     }
 
@@ -427,7 +365,7 @@ public class SecurityService extends Service implements ISecurityService {
             secondaryUser.setUserEmail(userBean.getEmail());
             secondaryUser.setUsername(userBean.getUsername());
            // log.debug("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
-            secondaryUser.setSecUser(getUserDao().getUserById(userBean.getPrimaryUserId()));
+            secondaryUser.setSecUser(getSecUserDao().getUserById(userBean.getPrimaryUserId()));
         }
         else {
             throw new EnMeExpcetion("needed email and username to create user");
@@ -450,18 +388,18 @@ public class SecurityService extends Service implements ISecurityService {
             sendUserPassword(userBean.getEmail(), password);
             }
             // save user
-            getUserDao().saveOrUpdate(secondaryUser);
+            getSecUserDao().saveOrUpdate(secondaryUser);
             // assing firs default group to user
             //TODO: we need assing defaul group to user.
-            final SecUserSecondary retrievedUser = getUserDao().getSecondaryUserById(secondaryUser.getUid());
+            final SecUserSecondary retrievedUser = getSecUserDao().getSecondaryUserById(secondaryUser.getUid());
             final SecPermission permission = getPermissionDao().loadPermission("ENCUESTAME_USER");
             final List<SecPermission> all = getPermissionDao().findAllPermissions();
             log.info("all permission "+all.size());
             log.info("default permission "+permission);
             retrievedUser.getSecUserPermissions().add(permission);
             log.info("saving user");
-            getUserDao().saveOrUpdate(retrievedUser);
-            final SecUserSecondary retrievedUser2 = getUserDao().getSecondaryUserById(retrievedUser.getUid());
+            getSecUserDao().saveOrUpdate(retrievedUser);
+            final SecUserSecondary retrievedUser2 = getSecUserDao().getSecondaryUserById(retrievedUser.getUid());
             log.info("saved user total permissions "+retrievedUser2.getSecUserPermissions().size());
         return password;
     }
@@ -482,7 +420,7 @@ public class SecurityService extends Service implements ISecurityService {
         log.info("userBean found "+userBean.getId());
         log.info("permissionBean found "+permissionBean.getId());
         if (userBean.getId() != null) {
-            userDomain = getUserDao().getSecondaryUserById(userBean.getId());
+            userDomain = getSecUserDao().getSecondaryUserById(userBean.getId());
             log.info("user found "+userDomain);
         }
         if (permissionBean.getId() != null) {
@@ -494,7 +432,7 @@ public class SecurityService extends Service implements ISecurityService {
            log.info("permission selected "+permissionDomain.getPermission());
            log.info("user selected "+userDomain.getUid());
            userDomain.getSecUserPermissions().add(permissionDomain);
-           getUserDao().saveOrUpdate(userDomain);
+           getSecUserDao().saveOrUpdate(userDomain);
            log.info("saved permission "+userDomain.getSecUserPermissions().size());
         } else {
             throw new EnMeExpcetion("error adding permission");
@@ -587,21 +525,7 @@ public class SecurityService extends Service implements ISecurityService {
      * @throws EnMeExpcetion exception
      */
     public List<SelectItem> loadSelectItemSecondaryUser(final Long userId){
-            return ConvertListDomainSelectBean.convertListSecondaryUsersDomainToSelect(getUserDao().getSecondaryUsersByUserId(userId));
-    }
-
-    /**
-     * {@link MailServiceImpl}.
-     */
-    public MailServiceImpl getServiceMail() {
-        return serviceMail;
-    }
-    /**
-     * Setter.
-     * @param serviceMail {@link MailServiceImpl}
-     */
-    public void setServiceMail(final MailServiceImpl serviceMail) {
-        this.serviceMail = serviceMail;
+            return ConvertListDomainSelectBean.convertListSecondaryUsersDomainToSelect(getSecUserDao().getSecondaryUsersByUserId(userId));
     }
 
     /**
@@ -625,18 +549,5 @@ public class SecurityService extends Service implements ISecurityService {
      */
     public void setSuspendedNotification(final Boolean suspendedNotification) {
         this.suspendedNotification = suspendedNotification;
-    }
-
-    /**
-     * @return the surveyService
-     */
-    public SurveyService getSurveyService() {
-        return surveyService;
-    }
-    /**
-     * @param surveyService the surveyService to set
-     */
-    public void setSurveyService(SurveyService surveyService) {
-        this.surveyService = surveyService;
     }
 }

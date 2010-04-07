@@ -30,8 +30,14 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IClientDao;
+import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.dao.imp.IProject;
+import org.encuestame.core.persistence.dao.imp.IQuestionDao;
+import org.encuestame.core.persistence.dao.imp.ISecGroups;
+import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
+import org.encuestame.core.persistence.dao.imp.ISurvey;
+import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
@@ -51,7 +57,7 @@ import org.hibernate.HibernateException;
  * @version $Id$
  */
 @org.springframework.stereotype.Service
-public class DataSource implements IDataSource {
+public abstract class DataSource{
 
     /** {@link CatState}. */
     @Resource
@@ -73,6 +79,31 @@ public class DataSource implements IDataSource {
     private ISecUserDao secUserDao;
     /** Log. */
     private Log log = LogFactory.getLog(this.getClass());
+
+    /** {@link IQuestionDao}**/
+    @Resource
+    private IQuestionDao questionDao;
+
+    /**{@link IPoll}**/
+    @Resource
+    private IPoll pollDao;
+
+    @Resource
+    private ISurvey surveyDaoImp;
+
+    /**{@link ITweetPoll}**/
+    @Resource
+    private ITweetPoll tweetPollDao;
+
+
+    /** {@link ISecGroups}. **/
+    @Resource
+    private ISecGroups groupDao;
+
+    /** {@link ISecPermissionDao} **/
+    @Resource
+    private ISecPermissionDao permissionDao;
+
 
 
     /**
@@ -357,5 +388,87 @@ public class DataSource implements IDataSource {
         this.secUserDao = secUserDao;
     }
 
+    /**
+     * @return the questionDao
+     */
+    public IQuestionDao getQuestionDao() {
+        return questionDao;
+    }
 
+    /**
+     * @param questionDao the questionDao to set
+     */
+    public void setQuestionDao(IQuestionDao questionDao) {
+        this.questionDao = questionDao;
+    }
+
+    /**
+     * @return the pollDao
+     */
+    public IPoll getPollDao() {
+        return pollDao;
+    }
+
+    /**
+     * @param pollDao the pollDao to set
+     */
+    public void setPollDao(IPoll pollDao) {
+        this.pollDao = pollDao;
+    }
+
+    /**
+     * @return the surveyDaoImp
+     */
+    public ISurvey getSurveyDaoImp() {
+        return surveyDaoImp;
+    }
+
+    /**
+     * @param surveyDaoImp the surveyDaoImp to set
+     */
+    public void setSurveyDaoImp(ISurvey surveyDaoImp) {
+        this.surveyDaoImp = surveyDaoImp;
+    }
+
+    /**
+     * @return the tweetPollDao
+     */
+    public ITweetPoll getTweetPollDao() {
+        return tweetPollDao;
+    }
+
+    /**
+     * @param tweetPollDao the tweetPollDao to set
+     */
+    public void setTweetPollDao(final ITweetPoll tweetPollDao) {
+        this.tweetPollDao = tweetPollDao;
+    }
+
+    /**
+     * @return the groupDao
+     */
+    public ISecGroups getGroupDao() {
+        return groupDao;
+    }
+
+    /**
+     * @param groupDao the groupDao to set
+     */
+    public void setGroupDao(ISecGroups groupDao) {
+        this.groupDao = groupDao;
+    }
+
+    /**
+     * @return the permissionDao
+     */
+    public ISecPermissionDao getPermissionDao() {
+        return permissionDao;
+    }
+
+    /**
+     * @param permissionDao the permissionDao to set
+     */
+    public void setPermissionDao(ISecPermissionDao permissionDao) {
+        this.permissionDao = permissionDao;
+    }
 }

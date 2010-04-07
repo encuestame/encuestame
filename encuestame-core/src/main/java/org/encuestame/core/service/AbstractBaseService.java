@@ -12,8 +12,7 @@
  */
 package org.encuestame.core.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.service.util.MessageSourceFactoryBean;
 
 /**
@@ -22,30 +21,26 @@ import org.encuestame.core.service.util.MessageSourceFactoryBean;
  * @since 22/05/2009 1:02:45
  * @version $Id$
  */
-public abstract class Service {
+public abstract class AbstractBaseService extends DataSource {
 
     /**
      * {@link MessageSourceFactoryBean}.
      */
     private MessageSourceFactoryBean messageSource;
 
-    /**
-     * {@link IDataSource}.
-     */
-    private IDataSource dataEnMeSource;
-
 
     private String domainUrl;
 
     /**
-     * Log.
+     *  {@link MailServiceImpl}.
      */
-    private Log log = LogFactory.getLog(this.getClass());
+    private MailServiceImpl serviceMail;
+
 
     /**
      * Constructor.
      */
-    public Service() {}
+    public AbstractBaseService() {}
 
     /**
      * Getter.
@@ -75,20 +70,6 @@ public abstract class Service {
     }
 
     /**
-     * @return the dataSource
-     */
-    public IDataSource getDataEnMeSource() {
-        return dataEnMeSource;
-    }
-
-    /**
-     * @param dataSource the dataSource to set
-     */
-    public void setDataEnMeSource(final IDataSource dataSource) {
-        this.dataEnMeSource = dataSource;
-    }
-
-    /**
      * @return the domainUrl
      */
     public String getDomainUrl() {
@@ -101,4 +82,18 @@ public abstract class Service {
     public void setDomainUrl(final String domainUrl) {
         this.domainUrl = domainUrl;
     }
+
+    /**
+     * @return {@link MailServiceImpl}.
+     */
+    public MailServiceImpl getServiceMail() {
+        return serviceMail;
+    }
+    /**
+     * @param serviceMail {@link MailServiceImpl}.
+     */
+    public void setServiceMail(MailServiceImpl serviceMail) {
+        this.serviceMail = serviceMail;
+    }
+
 }

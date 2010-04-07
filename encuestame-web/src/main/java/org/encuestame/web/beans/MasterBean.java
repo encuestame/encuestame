@@ -23,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.service.ApplicationServices;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
@@ -46,14 +47,11 @@ public class MasterBean {
     /** {@link ServiceManager} **/
     protected IServiceManager servicemanager;
 
-    /** {@link SurveyService}. **/
-    protected ISurveyService surveyService;
 
     /** Log. **/
     protected Log log = LogFactory.getLog(this.getClass());
 
-    @Deprecated
-    protected boolean isOneRow;
+
 
     /** User Session Id. **/
     protected Long userSessionId;
@@ -257,21 +255,6 @@ public class MasterBean {
         return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getUsername());
     }
 
-    /**
-     * @return
-     */
-    @Deprecated
-    protected final boolean isOneRow() {
-        return isOneRow;
-    }
-
-    /**
-     * @param isOneRow
-     */
-    @Deprecated
-    protected final void setOneRow(boolean isOneRow) {
-        this.isOneRow = isOneRow;
-    }
 
     /**
      * @return the secCtx
@@ -310,12 +293,13 @@ public class MasterBean {
         this.shortNumberString = shortNumberString;
     }
 
+
+
     /**
      * @return the surveyService
      */
-    public final ISurveyService getSurveyService() {
-        surveyService = getServicemanager().getApplicationServices().getSecurityService().getSurveyService();
-        return surveyService;
+    public ISurveyService getSurveyService() {
+         return getServicemanager().getApplicationServices().getSurveyService();
     }
 
     /**

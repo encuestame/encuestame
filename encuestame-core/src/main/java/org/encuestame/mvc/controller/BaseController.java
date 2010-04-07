@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ServiceManager;
-import org.encuestame.core.service.SurveyService;
+import org.encuestame.core.service.AbstractSurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -81,10 +81,10 @@ public class BaseController {
     }
 
     /**
-     * Get {@link SurveyService}.
+     * Get {@link AbstractSurveyService}.
      * @return survey service
      */
     public ISurveyService getSurveyService(){
-        return getServiceManager().getApplicationServices().getSecurityService().getSurveyService();
+        return getServiceManager().getApplicationServices().getSurveyService();
     }
 }
