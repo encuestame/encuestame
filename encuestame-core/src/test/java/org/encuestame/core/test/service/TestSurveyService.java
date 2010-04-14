@@ -17,7 +17,11 @@ import static org.junit.Assert.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -164,7 +168,7 @@ public class TestSurveyService  extends AbstractBase{
        tweetPollBean.setCompleted(false);
        tweetPollBean.setUserId(this.user.getUid());
        this.surveyService.createTweetPoll(tweetPollBean);
-       final String s = this.surveyService.generateTweetPollText(tweetPollBean, "http://www.google.es");
+       final String s = this.surveyService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
        final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
        assertNotNull(status.getId());
     }

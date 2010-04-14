@@ -62,16 +62,6 @@
     <property name="servicemanagerBean" ref="servicesManager" />
   </bean>
 
-  <!--
-    Login Bean. Inject authenticationManager to login form and
-    servicesManager. this is a request bean.
-  -->
-  <bean id="loginForm" class="org.encuestame.web.beans.login.LoginSecurityBean"
-    scope="request">
-    <property name="authenticationManager" ref="authenticationManager" />
-    <property name="servicemanagerBean" ref="servicesManager" />
-  </bean>
-
   <!-- menu's bean -->
   <bean id="menuBean" class="org.encuestame.utils.web.MenuBean"
     scope="session">
