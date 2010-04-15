@@ -54,10 +54,10 @@ import org.hibernate.HibernateException;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since April 27, 2009
- * @version $Id$
+ * @version $Id: DataSource.java 478 2010-04-07 03:39:10Z dianmorales $
  */
 @org.springframework.stereotype.Service
-public abstract class DataSource{
+public abstract class AbstractDataSource{
 
     /** {@link CatState}. */
     @Resource

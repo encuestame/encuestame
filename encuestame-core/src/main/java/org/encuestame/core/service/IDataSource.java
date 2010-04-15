@@ -44,6 +44,7 @@ import org.encuestame.utils.web.UnitProjectBean;
  * @since 27/04/2009
  * @version $Id$
  */
+@Deprecated
 public interface IDataSource {
 
 
@@ -175,31 +176,6 @@ public interface IDataSource {
      * @param permissionDao the permissionDao to set
      */
     public void setPermissionDao(ISecPermissionDao permissionDao);
-
-     /**
-     * Load List of Project.
-     * @param userId user id
-     * @return {@link Collection} of {@link UnitProjectBean}
-     * @throws EnMeExpcetion exception
-     */
-    Collection<UnitProjectBean> loadListProjects(final Long userId) throws EnMeExpcetion ;
-
-    /**
-     * Load project info.
-     * @param project {@link Project}
-     * @return {@link UnitProjectBean}
-     * @throws EnMeExpcetion excepcion
-     */
-    UnitProjectBean loadProjectInfo(UnitProjectBean project) throws EnMeExpcetion;
-
-    /**
-     * create project.
-     *
-     * @param projectBean {@link UnitProjectBean}
-     * @return {@link UnitProjectBean}
-     * @throws EnMeExpcetion exception
-     */
-    UnitProjectBean createProject(UnitProjectBean projectBean) throws EnMeExpcetion;
 
     /**
      * create Cat LocationType.

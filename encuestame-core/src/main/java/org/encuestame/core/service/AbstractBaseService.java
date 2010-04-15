@@ -21,7 +21,7 @@ import org.encuestame.core.service.util.MessageSourceFactoryBean;
  * @since 22/05/2009 1:02:45
  * @version $Id$
  */
-public abstract class AbstractBaseService extends DataSource {
+public abstract class AbstractBaseService extends AbstractDataSource {
 
     /**
      * {@link MessageSourceFactoryBean}.
