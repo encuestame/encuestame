@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.IProjectService;
 import org.encuestame.core.test.service.config.AbstractBase;
@@ -26,6 +27,7 @@ import org.encuestame.utils.web.UnitProjectBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Project Service Test.
@@ -80,6 +82,54 @@ public class TestProjectService extends AbstractBase {
              assertNotNull(projectRetrieve);
              assertEquals("Should be",project.getProyectId(),projectRetrieve.getId());
        }
+
+
+       /**
+       * Load List of Projects WithoutResults.
+       * @throws EnMeExpcetion exception
+       */
+      @Test
+      public void testloadListProjectsWithoutResults() throws EnMeExpcetion{
+          final Collection<UnitProjectBean> listProjects = projectService.loadListProjects(this.user.getUid());
+          assertEquals(2, listProjects.size());
+      }
+
+
+
+      /**
+       * Test loadProjectInfo id null.
+       * @throws EnMeExpcetion exception
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+      public void testloadProjectInfoIdNull() throws EnMeExpcetion{
+            final UnitProjectBean projectBean = new UnitProjectBean();
+            final UnitProjectBean projectRetrieve =projectService.loadProjectInfo(projectBean);
+      }
+
+      /**
+       * Test loadProjectInfo project null.
+       * @throws EnMeExpcetion exception
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+      public void testloadProjectInfoProjectNull() throws EnMeExpcetion {
+            final UnitProjectBean projectBean = new UnitProjectBean();
+            projectBean.setId(444L);
+            final UnitProjectBean projectRetrieve = projectService.loadProjectInfo(projectBean);
+      }
+
+      /**
+       * Test Create project Null.
+       * @throws EnMeExpcetion encuestame exception.
+       */
+      @Test
+      @ExpectedException(EnMeExpcetion.class)
+      public void testcreateProjectNull()throws EnMeExpcetion{
+          projectService.createProject(null);
+      }
+
+
 
         public IProjectService getProjectService() {
             return projectService;
