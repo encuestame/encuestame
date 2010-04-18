@@ -22,7 +22,6 @@ import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecGroups;
@@ -36,6 +35,7 @@ import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.mail.MailSendException;
+import org.springframework.stereotype.Service;
 
 /**
  * Security Bean Service.
@@ -43,7 +43,7 @@ import org.springframework.mail.MailSendException;
  * @since 27/04/2009 11:35:01
  * @version $Id$
  */
-@org.springframework.stereotype.Service
+@Service
 public class SecurityService extends AbstractBaseService implements ISecurityService {
 
     private Logger log = Logger.getLogger(this.getClass());

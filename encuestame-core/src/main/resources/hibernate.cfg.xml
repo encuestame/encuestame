@@ -8,7 +8,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.default_catalog">encuestame_core</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <mapping class="org.encuestame.core.persistence.pojo.CatState"/>
@@ -35,6 +35,4 @@
         <mapping class="org.encuestame.core.persistence.pojo.TweetPoll"/>
         <mapping class="org.encuestame.core.persistence.pojo.TweetPollResult"/>
     </session-factory>
-
-
 </hibernate-configuration>

@@ -40,6 +40,7 @@
                         <phase>compile</phase>
                         <goals>
                             <goal>hbm2ddl</goal>
+                            <goal>hbm2doc</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -67,7 +68,6 @@
                 </dependencies>
             </plugin>
         </plugins>
-
         <testResources>
             <testResource>
                 <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/config</directory>
