@@ -14,7 +14,7 @@
   <properties>
     <encuestame.version>1.0-SNAPSHOT</encuestame.version>
     <spring.version>3.0.1.RELEASE</spring.version>
-    <spring.webflow.version>2.0.8.RELEASE</spring.webflow.version>
+    <spring.webflow.version>2.0.9.RELEASE</spring.webflow.version>
     <spring.security.version>3.0.2.RELEASE</spring.security.version>
     <hibernate.version>3.3.1.GA</hibernate.version>
   </properties>
