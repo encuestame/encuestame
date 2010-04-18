@@ -23,10 +23,6 @@ INSERT INTO `sec_groups` (`group_id`, `des_info`, `name`, `id_state`) VALUES
 (1, 'Demo', 'Demo Group', 1),
 (2, 'Favourites', 'Favourites', 1);
 
-INSERT INTO `sec_user_permission` (`sec_id_secondary`, `sec_id_permission`) VALUES
-(1, 1),
-(1, 2);
-
 
 INSERT INTO `sec_permission` (`id_permission`, `permission`, `description`) VALUES
 (1, 'ENCUESTAME_USER', 'ENCUESTAME_USER'),
@@ -36,7 +32,11 @@ INSERT INTO `sec_permission` (`id_permission`, `permission`, `description`) VALU
 INSERT INTO `sec_user` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`, `twitter_account`, `twitter_password`, `twitter_pin`) VALUES
 (1, 'nFboU4T1Zhv8cqMC4cP0ug', 'GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0', 'testEncuesta', 'testEncuesta123', 4189783);
 
--- demo pass encrypt: 12345
 INSERT INTO `sec_user_secondary` (`uid`, `name`, `date_new`, `invite_code`, `owner`, `password`, `publisher`, `email`, `status`, `twitter`, `username`, `secUser_uid`) VALUES
-(1, 'admin', '2010-01-20 12:47:40', NULL, NULL, '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', NULL, 'admin@encuestame.org', '', NULL, 'admin', 1)
+(1, 'admin', '2010-01-20 12:47:40', NULL, NULL, '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', NULL, 'admin@encuestame.org', '', NULL, 'admin', 1);
+
+
+INSERT INTO `sec_user_permission` (`sec_id_secondary`, `sec_id_permission`) VALUES
+(1, 1),
+(1, 2);
 
