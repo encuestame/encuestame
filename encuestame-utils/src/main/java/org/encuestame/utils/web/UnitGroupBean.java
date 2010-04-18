@@ -12,6 +12,8 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
+
 
 /**
  * Unit Group Bean.
@@ -20,23 +22,23 @@ package org.encuestame.utils.web;
  * @version $Id$
  */
 
-public class UnitGroupBean {
+public class UnitGroupBean implements Serializable {
 
 
     private static final long serialVersionUID = -3303088512430614308L;
-    private Integer id;
+    private Long id;
     private String groupName;
     private String groupDescription;
     private String stateId;
 
 
 
-    public final Integer getId() {
+    public final Long getId() {
         return id;
     }
 
 
-    public final void setId(Integer id) {
+    public final void setId(Long id) {
         this.id = id;
     }
 

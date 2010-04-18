@@ -12,10 +12,9 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.encuestame.core.persistence.pojo.SecGroups;
-import org.hibernate.HibernateException;
 /**
  * Interface to implement Sec Group Dao.
  * @author Picado, Juan juan@encuestame.org
@@ -23,8 +22,25 @@ import org.hibernate.HibernateException;
  * @version $Id$
  */
 public interface ISecGroups extends IBaseDao {
-    Collection<SecGroups> findAllGroups();
+
+    /**
+     * Find All Groups.
+     * @return
+     */
+    List<SecGroups> findAllGroups();
+
+    /**
+     * Group By Id.
+     * @param groupId
+     * @return
+     */
     SecGroups getGroupById(Long groupId);
+
+    /**
+     * Find.
+     * @param groupId
+     * @return
+     */
     SecGroups find(final Long groupId);
 }
 

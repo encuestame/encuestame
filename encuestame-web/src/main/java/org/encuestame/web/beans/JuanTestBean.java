@@ -1,6 +1,8 @@
 package org.encuestame.web.beans;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.Calendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,6 +15,7 @@ public class JuanTestBean implements Serializable {
     private static final long serialVersionUID = 6858794663328935054L;
     private String proOne = "Juan2";
     private String proTwo = "Parte 2";
+    private java.util.Date calendarDate = new java.util.Date();
 
     protected Log log = LogFactory.getLog(this.getClass());
 
@@ -39,7 +42,11 @@ public class JuanTestBean implements Serializable {
     public void copyProp(){
         log.debug("COPY");
         System.out.println("JUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANNNNNNNNNNNNNNNNNNNNN");
-        setProTwo("Prop1");
+        setProTwo(getCalendarDate().toGMTString());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getCalendarDate());
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        setCalendarDate(calendar.getTime());
     }
 
 
@@ -48,5 +55,14 @@ public class JuanTestBean implements Serializable {
         System.out.println("JUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANNNNNNNNNNNNNNNNNNNNN");
         setProOne("PropOne");
     }
+
+    public java.util.Date getCalendarDate() {
+        return calendarDate;
+    }
+
+    public void setCalendarDate(java.util.Date calendarDate) {
+        this.calendarDate = calendarDate;
+    }
+
 
 }

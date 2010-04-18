@@ -3,18 +3,19 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <var name="singUpBean" class="org.encuestame.web.beans.login.SingUpBean" />
+
     <view-state id="signup">
         <transition on="save" to="succesfull" >
-
+            <set name="requestScope.singup" value="singUpBean"/>
         </transition>
     </view-state>
 
     <view-state id="succesfull">
         <transition on="confirm" to="succesfullEnd" >
-
         </transition>
     </view-state>
 
-    <end-state id="succesfullEnd"></end-state>
+    <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
 
 </flow>

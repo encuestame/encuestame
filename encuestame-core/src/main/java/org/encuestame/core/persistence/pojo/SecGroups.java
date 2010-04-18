@@ -94,7 +94,7 @@ public class SecGroups {
     /**
      * @return idState
      */
-    @Column(name = "id_state", nullable = false)
+    @Column(name = "id_state", nullable = true)
     public Long getIdState() {
         return this.idState;
     }

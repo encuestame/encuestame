@@ -15,7 +15,7 @@ package org.encuestame.web.beans.login;
 import java.io.Serializable;
 
 /**
- * Login Security Bean.
+ * Sing Up Bean.
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 08/05/2009 14:40:44

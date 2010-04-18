@@ -16,15 +16,16 @@
 <div id="mainWrapper">main dentro del webflow</div>
      <a4j:outputPanel id="bookingsFragment">
       <a4j:form id="mainForm">
-        <rich:calendar  id="editdateInitProyect"></rich:calendar>
+        <rich:calendar  id="editdateInitProyect" value="#{testJuan.calendarDate}"></rich:calendar>
         <br></br>
         <h:outputText value="Propiedad Uno-> #{testJuan.proOne}"></h:outputText>
         <br></br>
-        <a4j:commandButton id="findHotels" value="Paso 1" action="paso1"  reRender="bookingsFragment" />
+        <a4j:commandButton id="findHotels" value="Paso 1" action="paso1"  reRender="#{flowRenderFragments}" />
         <br></br>
-        <a4j:commandButton id="findHotels2" value="Paso 2" action="paso2"  reRender="bookingsFragment" />
+        <a4j:commandButton id="findHotels2" value="Paso 2" action="paso2"  reRender="#{flowRenderFragments}" />
         <br></br>
         <h:outputText value="Propiedad dos-> #{testJuan.proTwo}"></h:outputText>
+        <rich:fileUpload maxFilesQuantity="3" />
          </a4j:form>
             </a4j:outputPanel>
 </body>

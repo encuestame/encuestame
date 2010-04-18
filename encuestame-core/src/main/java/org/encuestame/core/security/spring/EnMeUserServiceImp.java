@@ -96,7 +96,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
         final SecUserSecondary user = secUserDao.getUserByUsername(username);
-        if (user == null && user.getUsername() != null && user.getPassword()!= null) {
+        if (user == null) {
             log.error("user not found");
             throw new UsernameNotFoundException("user not found");
         }

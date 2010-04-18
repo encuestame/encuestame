@@ -120,7 +120,7 @@ public class TestSecurityService extends AbstractBase{
     public void testDeleteGroup(){
         final SecGroups groupDomain = createGroups("admin");
         final Long idGroup = groupDomain.getGroupId();
-        final UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
+        final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
         securityService.deleteGroup(group);
         final SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
         assertNull(groupRetrieve);
@@ -143,7 +143,7 @@ public class TestSecurityService extends AbstractBase{
     public void testdeleteGroup(){
       final SecGroups groupDomain = createGroups("admin");
       final Long idGroup = groupDomain.getGroupId();
-      final UnitGroupBean group = securityService.convertGroupDomainToBean(groupDomain);
+      final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
       securityService.deleteGroup(group);
       final SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
       assertNull(groupRetrieve);
@@ -174,7 +174,7 @@ public class TestSecurityService extends AbstractBase{
     public void testUpdateGroup(){
       SecGroups secgroups = createGroups("guests");
       Long idGroupUpdate = secgroups.getGroupId();
-      UnitGroupBean groupBean = securityService.convertGroupDomainToBean(secgroups);
+      UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(secgroups);
       groupBean.setGroupName("editors");
       securityService.updateGroup(groupBean);
       SecGroups groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);

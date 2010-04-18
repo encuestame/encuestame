@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="encuestame">
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/encuestame_core</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.default_catalog">encuestame_core</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <mapping class="org.encuestame.core.persistence.pojo.CatState"/>
+        <mapping class="org.encuestame.core.persistence.pojo.Project"/>
+        <mapping class="org.encuestame.core.persistence.pojo.CatLocation"/>
+        <mapping class="org.encuestame.core.persistence.pojo.CatLocationType"/>
+        <mapping class="org.encuestame.core.persistence.pojo.Client"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SecGroups"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SecPermission"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SecUsers"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SecUserSecondary"/>
+        <mapping class="org.encuestame.core.persistence.pojo.Poll"/>
+        <mapping class="org.encuestame.core.persistence.pojo.PollResult"/>
+        <mapping class="org.encuestame.core.persistence.pojo.QuestionColettion"/>
+        <mapping class="org.encuestame.core.persistence.pojo.Questions"/>
+        <mapping class="org.encuestame.core.persistence.pojo.QuestionsAnswers"/>
+        <mapping class="org.encuestame.core.persistence.pojo.QuestionPattern"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SurveyFormat"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SurveyGroup"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SurveyResult"/>
+        <mapping class="org.encuestame.core.persistence.pojo.Surveys"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SurveySection"/>
+        <mapping class="org.encuestame.core.persistence.pojo.TweetPollSwitch"/>
+        <mapping class="org.encuestame.core.persistence.pojo.TweetPoll"/>
+        <mapping class="org.encuestame.core.persistence.pojo.TweetPollResult"/>
+    </session-factory>
+
+
+</hibernate-configuration>

@@ -1,0 +1,107 @@
+<ui:composition template="../../controller/layouts/admonTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <ui:define name="title"> #{temp.admonTitle} - #{temp.titleGroups}</ui:define>
+    <ui:define name="bodyOptions">
+        <a4j:form ajaxSubmit="true">
+            <h:panelGrid columns="8">
+                <a4j:commandLink value="#{temp.newGroup}"
+                    rendered="true"
+                    oncomplete="javascript:Richfaces.showModalPanel('panelnewGroup')">
+                </a4j:commandLink>
+            </h:panelGrid>
+        </a4j:form>
+        <rich:modalPanel id="panelnewGroup" autosized="true" width="600"
+            height="200" zindex="2000">
+            <f:facet name="header">
+                <a4j:form id="formHeaderNewtUser">
+                    <h:panelGroup>
+                        <h:outputText id="headerEditUser"
+                            value="Nuevo Grupo"></h:outputText>
+                    </h:panelGroup>
+                </a4j:form>
+            </f:facet>
+            <f:facet name="controls">
+                <a4j:form ajaxSubmit="true">
+                    <h:panelGroup>
+                        <a4j:commandLink
+                            onclick="Richfaces.hideModalPanel('panelnewGroup')"
+                            ajaxSingle="true">
+                            <h:graphicImage value="/icons/close.png" />
+                        </a4j:commandLink>
+                    </h:panelGroup>
+                </a4j:form>
+            </f:facet>
+            <a4j:form id="groupForm" ajaxSubmit="true">
+                <h2>#{temp.titleCreateGroups}</h2>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{temp.name}" for="name" />
+                    <h:inputText id="name" value="" size="40"
+                        required="true"
+                        requiredMessage="#{temp.validateNameGroup}" />
+                    <h:outputLabel value="#{temp.description}"
+                        for="desc" />
+                    <h:inputTextarea id="desc" value="" cols="40"
+                        rows="3" required="true"
+                        requiredMessage="#{temp.validateDescrGroup}" />
+                    <h:outputLabel value="#{temp.state}"
+                        for="selectState" />
+                    <h:selectOneMenu value="" id="selectState"
+                        required="true"
+                        requiredMessage="#{temp.validateStaterGroup}">
+                    </h:selectOneMenu>
+                    <a4j:commandButton value="#{temp.save}"
+                        action="saveGroup"
+                        oncomplete="Richfaces.hideModalPanel('panelnewGroup')"
+                        reRender="#{flowRenderFragments}"></a4j:commandButton>
+                    <rich:messages id="groupMessage">
+                    </rich:messages>
+                    <rich:effect for="groupMessage" event="onload"
+                        type="Appear"
+                        params="targetId:'contentDiv',duration:0.8,from:0.3,to:1.0" />
+                </h:panelGrid>
+            </a4j:form>
+        </rich:modalPanel>
+        <h:outputText id="noHotelsText" value="No Groups Found" rendered="#{groups.rowCount == 0}"/>
+        <rich:dataTable id="dataTableGroups" value="#{groups}" var="unitGroup" style="width:100%;" rendered="#{groups.rowCount > 0}">
+            <f:facet name="header">
+                <rich:columnGroup>
+                    <rich:column width="30px">
+                        <h:outputText value="#{temp.id}" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="#{temp.description}" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="#{temp.state}" />
+                    </rich:column>
+                    <rich:column>
+                    </rich:column>
+                </rich:columnGroup>
+            </f:facet>
+            <rich:column>
+            </rich:column>
+            <rich:column>
+                <h:outputText value="#{unitGroup.groupDescription}" />
+            </rich:column>
+            <rich:column>
+                <h:outputText value="#{unitGroup.stateId}" />
+            </rich:column>
+            <rich:column>
+
+            </rich:column>
+        </rich:dataTable>
+    </ui:define>
+    <ui:define name="panel">
+        <rich:panelBar height="400">
+            <rich:panelBarItem label="My Tweets">
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Personalizacion">
+            </rich:panelBarItem>
+        </rich:panelBar>
+    </ui:define>
+</ui:composition>

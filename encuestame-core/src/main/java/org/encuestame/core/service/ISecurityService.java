@@ -70,12 +70,6 @@ public interface ISecurityService extends IService {
     void deleteGroup(final UnitGroupBean group);
 
     /**
-     * Convert Group Domain to Group Bean
-     * @param groupDomain {@link SecGroups}
-     * @return {@link UnitGroupBean}
-     */
-    UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain);
-    /**
      * Delete user.
      * @param userBean user to delete
      * @throws EnMeExpcetion exception
@@ -211,5 +205,12 @@ public interface ISecurityService extends IService {
       * @param secUser {@link SecUsers}
       */
      void updateSecretTwitterCredentials(final String consumerKey, final String consumerSecret, final Integer pin,  final SecUsers secUser);
+
+
+    /**
+     * Load Groups by Client.
+     * @return
+     */
+    List<UnitGroupBean> loadGroups();
 
 }

@@ -12,11 +12,10 @@
  */
 package org.encuestame.web.beans.admon;
 
-import java.util.Collection;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.web.beans.MasterBean;
 
@@ -27,10 +26,15 @@ import org.encuestame.web.beans.MasterBean;
   * @version $Id$
  */
 
-public class GroupBean extends MasterBean {
+public class GroupBean extends MasterBean implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7084928777413961605L;
 
     /** New {@link UnitGroupBean}. **/
-    private UnitGroupBean newGroup;
+    private UnitGroupBean newGroup = new UnitGroupBean();
 
     /** List of {@link UnitGroupBean}. **/
     private List<UnitGroupBean> listUnitGroupBeans;
@@ -48,20 +52,11 @@ public class GroupBean extends MasterBean {
      * Load list of Groups.
      * @return List of {@link UnitGroupBean}
      */
-    private List<UnitGroupBean> getLoadListGroups() {
-        listUnitGroupBeans = new LinkedList<UnitGroupBean>();
+    public List<UnitGroupBean> loadListGroups() {
         try {
-           /* final Collection<SecGroups> listGroups = getServicemanager().getApplicationServices()
-                    .get.getGroupDao().findAllGroups();
-            for (SecGroups group : listGroups) {
-                final UnitGroupBean newGroup = new UnitGroupBean();
-                newGroup.setId(Integer.valueOf(group.getGroupId().toString()));
-                newGroup.setGroupName(group.getGroupName());
-                newGroup.setGroupDescription(group.getGroupDescriptionInfo());
-                newGroup.setStateId((group.getIdState().toString()));
-                listUnitGroupBeans.add(newGroup);
-            //FIXME: Fix Dao References
-            }*/
+            log.info("Loading Groups");
+            this.listUnitGroupBeans = getServicemanager().getApplicationServices().getSecurityService().loadGroups();
+            System.out.println("listUnitGroupBeans "+listUnitGroupBeans.size());
         }
         catch (Exception e) {
             addErrorMessage(getMessageProperties("error_load_groups"), e
@@ -185,12 +180,6 @@ public class GroupBean extends MasterBean {
      * @return list of {@link UnitGroupBean}
      */
     public final List<UnitGroupBean> getListUnitGroupBeans() {
-        getLoadListGroups();
-        if (listUnitGroupBeans.size() > 0) {
-    //        isOneRow = true;
-        } else {
-      //      isOneRow = false;
-        }
         return listUnitGroupBeans;
     }
 

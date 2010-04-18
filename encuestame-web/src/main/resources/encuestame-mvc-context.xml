@@ -35,8 +35,9 @@
     <property name="mappings">
       <value>
         /main.do=flowController
-        /signup.do=flowController
-        /groups.do=flowController
+        /account/signup.do=flowController
+        /admon/groups.do=flowController
+        /admon/users.do=flowController
        </value>
     </property>
     <property name="defaultHandler">

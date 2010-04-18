@@ -22,11 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.service.ApplicationServices;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,11 +46,12 @@ public class MasterBean {
     private ApplicationContext appContext;
 
     /** {@link ServiceManager} **/
+    @Autowired
     protected IServiceManager servicemanager;
 
 
     /** Log. **/
-    protected Log log = LogFactory.getLog(this.getClass());
+    protected Logger log = Logger.getLogger(this.getClass());
 
 
 
@@ -99,7 +101,7 @@ public class MasterBean {
      * Setter {@link ServiceManager}.
      * @param servicemanagerBean {@link ServiceManager}
      */
-    public final void setServicemanagerBean(IServiceManager servicemanagerBean) {
+    public final void setServicemanagerBean(final IServiceManager servicemanagerBean) {
         this.servicemanager = servicemanagerBean;
     }
 

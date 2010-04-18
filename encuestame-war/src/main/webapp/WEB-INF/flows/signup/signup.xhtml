@@ -1,29 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:rich="http://richfaces.org/rich"
-  xmlns:encuestame="http://encuesta.me/encuestame">
-<body>
-    <ui:composition template="../../controller/layouts/anonymousTemplate.xhtml">
-        <ui:define name="title"> encuestame - register</ui:define>
-        <ui:define name="body">
+<ui:composition
+    template="../../controller/layouts/anonymousTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:sf="http://www.springframework.org/tags/faces">
+    <ui:define name="title"> encuestame - register</ui:define>
+    <ui:define name="body">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="Full Name"/>
-                <h:inputText value="" />
+                <h:outputLabel value="Full Name" />
+                <sf:clientTextValidator required="true">
+                    <h:inputText value="#{singUpBean.fullName}" />
+                </sf:clientTextValidator>
                 <h:outputLabel value="Username" />
-                <h:inputText value="" />
-                <h:outputLabel value="Password"/>
-                <h:inputSecret value="" />
+                <h:inputText value="#{singUpBean.username}" />
+                <h:outputLabel value="Password" />
+                <h:inputSecret value="#{singUpBean.password}" />
                 <h:outputLabel value="Email" />
-                <h:inputText value="" />
+                <h:inputText value="#{singUpBean.email}" />
             </h:panelGrid>
-            <a4j:commandButton value="Create My Account" action="save"></a4j:commandButton>
+            <sf:validateAllOnClick>
+                <sf:commandButton id="save" action="save" processIds="*" value="Proceed"/>&#160;
+            </sf:validateAllOnClick>
+            <sf:commandButton id="cancel" value="Cancel" action="cancel"/>
         </h:form>
-       </ui:define>
-    </ui:composition>
-</body>
-</html>
+    </ui:define>
+</ui:composition>

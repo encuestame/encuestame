@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -21,8 +22,8 @@ import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
@@ -45,7 +46,7 @@ import org.springframework.mail.MailSendException;
 @org.springframework.stereotype.Service
 public class SecurityService extends AbstractBaseService implements ISecurityService {
 
-    private Log log = LogFactory.getLog(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
 
     /** Default User Permission **/
@@ -89,6 +90,21 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 }
         return loadListUsers;
     }
+
+    /**
+     * Load Groups by Client
+     * @return
+     */
+    public List<UnitGroupBean> loadGroups(){
+        //FIXME: filter by user
+        final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
+        final List<SecGroups> groups = getGroupDao().findAllGroups();
+        for (SecGroups secGroups : groups) {
+            groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
+        }
+        return groupBeans;
+    }
+
 
     /**
      * Update Twitter Account.
@@ -226,20 +242,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Convert Group Domain to Group Bean
-     * @param groupDomain {@link SecGroups}
-     * @return {@link UnitGroupBean}
-     */
-    @Deprecated
-    public UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
-        final UnitGroupBean groupBean = new UnitGroupBean();
-        groupBean.setId(Integer.valueOf(groupDomain.getGroupId().toString()));
-        groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
-        groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
-        return groupBean;
-    }
-
-    /**
      * Delete user.
      * @param userBean user to delete
      */
@@ -333,11 +335,13 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param groupBean group bean
      */
     public void createGroup(final UnitGroupBean groupBean) {
+        log.info("Create Group");
         final SecGroups groupDomain = new SecGroups();
         groupDomain.setGroupDescriptionInfo(groupBean.getGroupDescription());
         groupDomain.setGroupName(groupBean.getGroupName());
-        groupDomain.setIdState(Long.valueOf((groupBean.getStateId())));
+        groupDomain.setIdState(null);
         getGroupDao().saveOrUpdate(groupDomain);
+        groupBean.setId(groupDomain.getGroupId());
     }
 
     /**

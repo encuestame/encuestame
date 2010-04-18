@@ -12,6 +12,7 @@
  */
 package org.encuestame.web.beans.admon;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +36,12 @@ import org.springframework.mail.MailSendException;
  * @version $Id$
  */
 
-public class UserBean extends MasterBean {
+public class UserBean  extends MasterBean implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -391208809931131195L;
 
     private UnitUserBean unitUserBean;
     private UnitUserBean newUnitUserBean = new UnitUserBean();
