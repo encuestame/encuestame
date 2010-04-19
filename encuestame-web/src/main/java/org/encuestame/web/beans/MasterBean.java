@@ -12,6 +12,7 @@
  */
 package org.encuestame.web.beans;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
@@ -40,7 +41,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @since 26/04/2009
  * @version $Id$
  */
-public class MasterBean {
+public class MasterBean{
 
     /** {@link ApplicationContext}. **/
     private ApplicationContext appContext;

@@ -18,15 +18,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.faces.component.UIData;
-import javax.faces.component.UISelectBoolean;
-
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.EmailUtils;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.MasterBean;
-import org.richfaces.component.html.HtmlDataTable;
+import org.hibernate.HibernateException;
 import org.springframework.mail.MailSendException;
 
 /**
@@ -38,20 +35,13 @@ import org.springframework.mail.MailSendException;
 
 public class UserBean  extends MasterBean implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -391208809931131195L;
-
-    private UnitUserBean unitUserBean;
+    private UnitUserBean unitUserBean = new UnitUserBean();
     private UnitUserBean newUnitUserBean = new UnitUserBean();
-    private List<UnitUserBean> listUnitBeans;
+    private List<UnitUserBean> listUnitBeans ;
     private String processedUserId;
     private Long selectedPermissionId;
     private String selectedAction;
-    private UIData uiDataUserTable;
-    private HtmlDataTable dataTable;
-    private UISelectBoolean checked = new UISelectBoolean();
     private String listUsers;
 
     /**
@@ -179,28 +169,7 @@ public class UserBean  extends MasterBean implements Serializable {
      * Assing permissions to secondary user.
      */
     public final void assingPermissions() {
-        try {
-            log.info("assing permissions to user");
-            if (selectedUsers().size() > 0) {
-                if (getSelectedPermissionId() != null) {
-                    final UnitPermission permission = new UnitPermission();
-                    permission.setId(getSelectedPermissionId());
-                    for (Iterator<UnitUserBean> i = selectedUsers().iterator(); i
-                            .hasNext();) {
-                        final UnitUserBean user = i.next();
-                        //assing permission
-                        assingPermission(user, permission);
-                    }
-                     addInfoMessage("Permissions added ","P");
-                } else {
-                    new EnMeExpcetion("error on selected user");
-                }
-            } else {
-                addWarningMessage("Select user first to assing permissions", "");
-            }
-        } catch (EnMeExpcetion e) {
-            addErrorMessage(e.getMessage(), e.getMessage());
-        }
+
     }
 
     /**
@@ -217,32 +186,6 @@ public class UserBean  extends MasterBean implements Serializable {
         getServicemanager().getApplicationServices().getSecurityService().assignPermission(user,
                 permission);
 
-    }
-
-    /**
-     * Get list of user select in datatable.
-     * @return list of selected {@link UnitUserBean}
-     */
-    private List<UnitUserBean> selectedUsers() {
-        final List<UnitUserBean> listSelectedUsers = new LinkedList<UnitUserBean>();
-        try {
-            final Integer uiDataUserTableCount = uiDataUserTable.getRowCount();
-            for (int i = 0; i < uiDataUserTableCount; i++) {
-                uiDataUserTable.setRowIndex(i);
-                if (checked.isSelected()) {
-                    final UnitUserBean userUnit = (UnitUserBean) uiDataUserTable
-                            .getRowData();
-                    log.debug("selected "+userUnit.getUsername());
-                    listSelectedUsers.add(userUnit);
-                }
-                log.debug("total selected "+listSelectedUsers.size());
-            }
-        }
-        catch (Exception e) {
-            addErrorMessage("Error on selected operation", "");
-            log.error("error selecting users" + e.getMessage());
-        }
-        return listSelectedUsers;
     }
 
 
@@ -282,54 +225,7 @@ public class UserBean  extends MasterBean implements Serializable {
      */
     public final void initAction() {
         log.debug("action selected->" + getSelectedAction());
-        try {
-            if (getSelectedAction() != null) {
-                if (selectedUsers().size() > 0) {
-                    switch (new Integer(getSelectedAction())) {
-                    case 1:
-                        for (Iterator<UnitUserBean> i = selectedUsers()
-                                .iterator(); i.hasNext();) {
-                            final UnitUserBean user = i.next();
-                            log.info("delete action->" + user.getUsername());
-                            this.deleteUser(user);
-                        }
-                        addInfoMessage("User/s deleted.","");
-                        break;
-                    case 2:
-                        log.debug("renew passwords");
-                        for (Iterator<UnitUserBean> i = selectedUsers()
-                                .iterator(); i.hasNext();) {
-                            final UnitUserBean user = i.next();
-                            log.info("recordar password action->"
-                                    + user.getUsername());
-                            this.renewPassword(user);
-                        }
-                        addInfoMessage("New passwords sended","");
-                        break;
-                    case 3:
-                        log.info("editor");
-                        // TODO: need implement editor.
-                        break;
 
-                    default:
-                        addErrorMessage("Invalid action", "");
-                        log.error("Invalid action");
-                        break;
-                    }
-                }
-                else {
-                    addWarningMessage("You need select users first", "");
-                }
-            }
-            else {
-                addWarningMessage("You need selected action first", "");
-                log.error("iYou need selected action first");
-            }
-        }
-        catch (Exception e) {
-            addErrorMessage("Error on actions","");
-            log.error("Error on actions " + e.getMessage());
-        }
     }
 
     /**
@@ -367,35 +263,6 @@ public class UserBean  extends MasterBean implements Serializable {
      */
     public final void setSelectedAction(final String selectedAction) {
         this.selectedAction = selectedAction;
-    }
-
-    /**
-     * @return the uiDataUserTable
-     */
-    public final UIData getUiDataUserTable() {
-        return uiDataUserTable;
-    }
-
-    /**
-     * @param uiDataUserTable
-     *            the uiDataUserTable to set
-     */
-    public final void setUiDataUserTable(final UIData uiDataUserTable) {
-        this.uiDataUserTable = uiDataUserTable;
-    }
-
-    /**
-     * @return {@link UISelectBoolean}
-     */
-    public final UISelectBoolean getChecked() {
-        return checked;
-    }
-
-    /**
-     * @param checked {@link UISelectBoolean}
-     */
-    public final void setChecked(final UISelectBoolean checked) {
-        this.checked = checked;
     }
 
     /**
@@ -469,19 +336,5 @@ public class UserBean  extends MasterBean implements Serializable {
      */
     public final void setSelectedPermissionId(final Long selectedPermissionId) {
         this.selectedPermissionId = selectedPermissionId;
-    }
-
-    /**
-     * @return the dataTable
-     */
-    public final HtmlDataTable getDataTable() {
-        return dataTable;
-    }
-
-    /**
-     * @param dataTable the dataTable to set
-     */
-    public final void setDataTable(final HtmlDataTable dataTable) {
-        this.dataTable = dataTable;
     }
 }

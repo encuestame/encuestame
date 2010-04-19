@@ -13,7 +13,6 @@
 package org.encuestame.web.beans.admon;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.encuestame.utils.web.UnitGroupBean;
