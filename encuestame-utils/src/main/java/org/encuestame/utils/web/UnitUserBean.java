@@ -12,6 +12,7 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -21,8 +22,12 @@ import java.util.Date;
  * @since 27/04/2009
  * @version $Id$
  */
-public class UnitUserBean {
+public class UnitUserBean implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4738463192806706221L;
     private Long id;
     private String email;
     private String name;

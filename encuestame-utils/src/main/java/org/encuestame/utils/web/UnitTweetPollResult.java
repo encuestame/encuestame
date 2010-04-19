@@ -13,6 +13,8 @@
 
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
+
 
 /**
  * Unit TweetPollResults.
@@ -21,7 +23,12 @@ package org.encuestame.utils.web;
  * @since Mar 16, 2010 8:48:19 PM
  * @version $Id: $
  */
-public class UnitTweetPollResult {
+public class UnitTweetPollResult implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5592511215675708669L;
 
     private UnitAnswersBean answersBean;
 

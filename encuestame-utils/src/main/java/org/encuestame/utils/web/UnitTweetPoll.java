@@ -13,6 +13,7 @@
 
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +26,12 @@ import java.util.List;
  * @since Feb 14, 2010 10:00:58 AM
  * @version $Id$
  */
-public class UnitTweetPoll {
+public class UnitTweetPoll implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5248987840986024954L;
     private Long id;
     private UnitQuestionBean questionBean = new UnitQuestionBean();
     private Boolean closeNotification;
