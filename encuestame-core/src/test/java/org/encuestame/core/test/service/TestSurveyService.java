@@ -12,25 +12,26 @@
  */
 package org.encuestame.core.test.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
+import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.AbstractSurveyService;
+import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
+import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -49,7 +50,7 @@ import twitter4j.Status;
  * @version $Id$
  */
 
-public class TestSurveyService  extends AbstractBase{
+public class TestSurveyService  extends AbstractBaseUnitBeans{
 
     /** {@link AbstractSurveyService} */
     @Autowired
@@ -207,5 +208,21 @@ public class TestSurveyService  extends AbstractBase{
      */
     public void setMailServiceImpl(final MailServiceImpl mailServiceImpl) {
         this.mailServiceImpl = mailServiceImpl;
+    }
+
+    /**
+     * Test Create Question.
+     **/
+	    @Test
+	    public void testCreateQuestion(){
+    	// Crear Listado de Preguntas
+    	List<UnitAnswersBean> answers = new ArrayList<UnitAnswersBean>();
+    	answers.add(createAnswersBean("2DFAAS", "Yes", 1L));
+    	answers.add(createAnswersBean("4DSWGK", "No", 1L));
+    	// Crear Patron Unit
+    	UnitPatternBean pattern = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.php");
+        UnitQuestionBean uqb =createUnitQuestionBean("questionName",1L,2L,answers,pattern);
+
+        assertNotNull(uqb);
     }
 }
