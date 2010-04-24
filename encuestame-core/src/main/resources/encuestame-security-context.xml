@@ -31,7 +31,7 @@
 
   <bean id="authenticationEntryPoint"
     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <property name="loginFormUrl" value="/login.do" />
+    <property name="loginFormUrl" value="/account/login.do" />
     <property name="forceHttps" value="false" />
   </bean>
 
@@ -48,7 +48,7 @@
     <security:intercept-url pattern="/js/**" filters="none" />
     <security:remember-me key="12345" services-alias="_rememberMeServices" />
     <security:anonymous key="12345" />
-    <security:logout logout-success-url="/index.html" logout-url="/logout"/>
+    <security:logout logout-success-url="/index.html" logout-url="/account/logout.do"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
 <!--    <security:custom-filter position="ANONYMOUS_FILTER"  ref="anonymousAuthFilter" />-->
   </security:http>
