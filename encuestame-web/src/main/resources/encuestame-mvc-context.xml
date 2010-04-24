@@ -36,8 +36,14 @@
       <value>
         /main.do=flowController
         /account/signup.do=flowController
+        /account/forget.do=flowController
         /admon/groups.do=flowController
         /admon/users.do=flowController
+        /admon/location.do=flowController
+        /admon/project.do=flowController
+        /tweetPoll.do=flowController
+        /poll.do=flowController
+        /survey.do=flowController
        </value>
     </property>
     <property name="defaultHandler">
