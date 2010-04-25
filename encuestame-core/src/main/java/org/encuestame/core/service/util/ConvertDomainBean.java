@@ -94,6 +94,7 @@ public class ConvertDomainBean {
     public static final UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(groupDomain.getGroupId());
+        groupBean.setGroupName(groupDomain.getGroupName());
         groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
         groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
         return groupBean;

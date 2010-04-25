@@ -300,14 +300,18 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
+     * @throws EnMeExpcetion exception
      */
-    public void updateGroup(UnitGroupBean groupBean) {
+    public void updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion {
         final SecGroups group = getGroupDao().find(Long.valueOf(groupBean.getId()));
+        log.info("group found "+group);
         if (group != null) {
             group.setGroupName(groupBean.getGroupName());
             group.setGroupDescriptionInfo(groupBean.getGroupDescription());
             group.setIdState(Long.valueOf((groupBean.getStateId())));
             getGroupDao().saveOrUpdate(group);
+        } else {
+            throw new EnMeExpcetion("group not found");
         }
     }
 

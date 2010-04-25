@@ -87,7 +87,7 @@ public interface ISecurityService extends IService {
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
      */
-    void updateGroup(UnitGroupBean groupBean);
+    void updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion;
     /**
      * Update user.
      * @param userBean user bean.
