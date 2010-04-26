@@ -12,14 +12,17 @@
  */
 package org.encuestame.core.test.service.config;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitTweetPoll;
 
 
 /**
@@ -31,67 +34,99 @@ import org.encuestame.utils.web.UnitQuestionBean;
 
 public abstract class AbstractBaseUnitBeans extends AbstractBase{
 
-	/**
-	 * Create Unit Question Helper.
-	 * @param questionName
-	 * @param stateId
-	 * @param userId
-	 * @param listAnswers
-	 * @param pattern
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public UnitQuestionBean createUnitQuestionBean(
-			final String questionName,
-			final Long stateId,
-			final Long userId,
-			final List listAnswers,
-			final UnitPatternBean pattern){
-	     final UnitQuestionBean question = new UnitQuestionBean();
-	     question.setQuestionName(questionName);
-	     question.setStateId(stateId);
-	     question.setUserId(userId);
-	     question.setListAnswers(listAnswers);
-	     question.setPattern(pattern);
-	     return question;
-	}
+    /**
+     * Create Unit Question Helper.
+     * @param questionName
+     * @param stateId
+     * @param userId
+     * @param listAnswers
+     * @param pattern
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public UnitQuestionBean createUnitQuestionBean(
+            final String questionName,
+            final Long stateId,
+            final Long userId,
+            final List listAnswers,
+            final UnitPatternBean pattern){
+         final UnitQuestionBean question = new UnitQuestionBean();
+         question.setQuestionName(questionName);
+         question.setStateId(stateId);
+         question.setUserId(userId);
+         question.setListAnswers(listAnswers);
+         question.setPattern(pattern);
+         return question;
+    }
 
-	/**
-	 * Create Pattern Bean Helper.
-	 * @param classpattern
-	 * @param descripcionPattern
-	 * @param levelpattern
-	 * @param patronType
-	 * @param template
-	 * @return
-	 */
-	 public UnitPatternBean createPatternBean(
-			 final String classpattern,
-			 final String descripcionPattern,
-			 final String levelpattern,
-			 final String patronType,
-			 final String template){
-		 final UnitPatternBean unitPatternBean = new UnitPatternBean();
-		 unitPatternBean.setClasspattern(classpattern);
-		 unitPatternBean.setDescripcion(descripcionPattern);
-		 unitPatternBean.setLevelpattern(levelpattern);
-		 unitPatternBean.setPatronType(patronType);
-		 unitPatternBean.setTemplate(template);
-		return unitPatternBean;
-	 }
+    /**
+     * Create Pattern Bean Helper.
+     * @param classpattern
+     * @param descripcionPattern
+     * @param levelpattern
+     * @param patronType
+     * @param template
+     * @return
+     */
+     public UnitPatternBean createPatternBean(
+             final String classpattern,
+             final String descripcionPattern,
+             final String levelpattern,
+             final String patronType,
+             final String template){
+         final UnitPatternBean unitPatternBean = new UnitPatternBean();
+         unitPatternBean.setClasspattern(classpattern);
+         unitPatternBean.setDescripcion(descripcionPattern);
+         unitPatternBean.setLevelpattern(levelpattern);
+         unitPatternBean.setPatronType(patronType);
+         unitPatternBean.setTemplate(template);
+        return unitPatternBean;
+     }
 
-	 public UnitAnswersBean createAnswersBean(
-			 final String answerHash,
-			 final String answers,
-			 final Long questionId){
-		 final UnitAnswersBean answerBean = new UnitAnswersBean();
-		 answerBean.setAnswerHash(answerHash);
-		 answerBean.setAnswers(answers);
-		 answerBean.setQuestionId(questionId);
+     public UnitAnswersBean createAnswersBean(
+             final String answerHash,
+             final String answers,
+             final Long questionId){
+         final UnitAnswersBean answerBean = new UnitAnswersBean();
+         answerBean.setAnswerHash(answerHash);
+         answerBean.setAnswers(answers);
+         answerBean.setQuestionId(questionId);
+        return answerBean;
 
-		return null;
 
+     }
 
-	 }
+     public UnitTweetPoll createTweetPoll(
+             final Boolean allowLiveResults,
+             final Boolean closeNotification,
+             final Boolean completed,
+             final Date publicationDateTweet,
+             final Boolean publishPoll,
+             final Boolean resultNotification,
+             final Boolean schedule,
+             final Date scheduleDate,
+             final String tweetUrl,
+             final Long userId,
+             final UnitQuestionBean questionBean,
+             final String userTwitterAccount
+
+             ){
+         UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+         unitTweetPoll.setUserId(userId);
+         unitTweetPoll.setAllowLiveResults(allowLiveResults);
+         unitTweetPoll.setCloseNotification(closeNotification);
+         unitTweetPoll.setCompleted(completed);
+         unitTweetPoll.setPublicationDateTweet(publicationDateTweet);
+         unitTweetPoll.setPublishPoll(publishPoll);
+         unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
+         unitTweetPoll.setResultNotification(resultNotification);
+         unitTweetPoll.setResults(null);
+         unitTweetPoll.setSchedule(schedule);
+         unitTweetPoll.setScheduleDate(scheduleDate);
+         unitTweetPoll.setTweetId(null);
+         unitTweetPoll.setTweetUrl(tweetUrl);
+         unitTweetPoll.setTwitterUserAccount(null);
+        return unitTweetPoll;
+     }
 
 }

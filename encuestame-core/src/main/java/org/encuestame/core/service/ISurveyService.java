@@ -18,6 +18,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
@@ -181,4 +182,6 @@ public interface ISurveyService extends IService {
     List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId);
 
     List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId);
+
+    void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion;
 }

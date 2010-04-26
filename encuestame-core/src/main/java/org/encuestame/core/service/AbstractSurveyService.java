@@ -82,7 +82,7 @@ public class AbstractSurveyService extends AbstractBaseService {
                 getQuestionDao().saveOrUpdate(question);
                 questionBean.setId(question.getQid());
                 for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
-                    this.saveAnswer(answerBean, question);
+                    this.saveAnswer(answerBean);
                 }
             }
             catch (Exception e) {
@@ -93,15 +93,21 @@ public class AbstractSurveyService extends AbstractBaseService {
     /**
      * Save Question Answer.
      * @param answerBean answer
-     * @param question question
+     * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void saveAnswer(final UnitAnswersBean answerBean, final Questions question){
+    public void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion{
             final QuestionsAnswers answer = new QuestionsAnswers();
-            answer.setQuestions(question);
-            answer.setAnswer(answerBean.getAnswers());
-            answer.setUniqueAnserHash(answerBean.getAnswerHash());
-            this.getQuestionDao().saveOrUpdate(answer);
-            answerBean.setAnswerId(answer.getQuestionAnswerId());
+            if(answerBean.getQuestionId()!= null){
+                final Questions question = getQuestionDao().retrieveQuestionById(answerBean.getQuestionId());
+                answer.setQuestions(question);
+                answer.setAnswer(answerBean.getAnswers());
+                answer.setUniqueAnserHash(answerBean.getAnswerHash());
+                this.getQuestionDao().saveOrUpdate(answer);
+                answerBean.setAnswerId(answer.getQuestionAnswerId());
+            }
+            else{
+                  throw new EnMeExpcetion("questionId not found");
+            }
     }
 
     /**
@@ -127,6 +133,9 @@ public class AbstractSurveyService extends AbstractBaseService {
      */
     public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
+        System.out.println("Entro en ASS");
+        System.out.println(this.getQuestionDao().getAnswersByQuestionId(questionId));
+
         final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
         for (QuestionsAnswers questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));

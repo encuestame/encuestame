@@ -65,31 +65,39 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     /** {@link QuestionPattern} **/
     private QuestionPattern pattern;
 
+    /** {@link SecUsers} **/
     private SecUsers user;
-    /**
-     * Before.
-     */
-    @Before
-    public void setterBeans(){
-        surveyService.setServiceMail(mailServiceImpl);
-        this.user = createUser("testEncuesta", "testEncuesta123");
-    }
-    /**
+
+    private List<UnitAnswersBean> answers;
+
+    private UnitAnswersBean answersBean;
+
+    /** {@link UnitQuestionBean} **/
+    private UnitQuestionBean questionBean;
+
+    /** {@link UnitPatternBean}**/
+    private UnitPatternBean patternBean;
+     /**
      *
      */
     @Before
     public void serviceInit(){
-            this.question = createQuestion("Why the sky is blue?","html");
-            this.pattern = createQuestionPattern("html");
-    }
-    /**
-     * Test Load All Questions without questions.
-     * @throws EnMeExpcetion exception
-     */
-    @Test
-    public void testloadAllQuestionsSizeZero() throws EnMeExpcetion{
-        final List<UnitQuestionBean> alist = surveyService.loadAllQuestions();
-        assertEquals("Should be equals",1, alist.size());
+
+         surveyService.setServiceMail(mailServiceImpl);
+         this.user = createUser("testEncuesta", "testEncuesta123");
+         this.question = createQuestion("Why the sky is blue?","html");
+         this.pattern = createQuestionPattern("html");
+         createQuestionAnswer("Yes", this.question,"SSSA");
+         //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
+         answers = new ArrayList<UnitAnswersBean>();
+         answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
+         answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
+
+         patternBean = createPatternBean("radio.class",
+                    "radio buttons", "2", "Yes/No", "template.php");
+
+            questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
+                    this.answers, patternBean);
     }
 
     /**
@@ -98,9 +106,8 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testloadAllQuestions() throws EnMeExpcetion{
-      //  this.serviceInit();
         final List<UnitQuestionBean> alist = surveyService.loadAllQuestions();
-        assertEquals("Should be equals",1, alist.size());
+        assertEquals("Should be equals", 1, alist.size());
     }
 
     /**
@@ -119,13 +126,13 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testloadPatternInfo() throws EnMeExpcetion {
-      //  this.serviceInit();
+    //  this.serviceInit();
         UnitPatternBean patternBean = new UnitPatternBean(this.pattern.getPatternId(),"descPattern","label",
                 "patronType", "template","classpattern","levelpattern","finallity");
     //    patternBean.setId(createQuestionPattern("html").getPatternId());
         patternBean = surveyService.loadPatternInfo(patternBean);
-       // assertNotNull(patternBean);
-       assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
+    // assertNotNull(patternBean);
+    assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
     }
 
     /**
@@ -134,9 +141,9 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testloadAllPatrons() throws EnMeExpcetion {
-       // this.serviceInit();
+    // this.serviceInit();
         final Collection<UnitPatternBean> patternList = surveyService.loadAllPatrons();
-       // assertNotNull(patternList);
+    // assertNotNull(patternList);
         assertEquals("Should be equals",2, patternList.size());
     }
 
@@ -144,7 +151,7 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      * Load All Patterns Zero Results.
      * @throws EnMeExpcetion exception
      */
-  //  @Test
+//  @Test
     public void testloadAllPatronsZeroResults() throws EnMeExpcetion {
         final Collection<UnitPatternBean> patternList = surveyService.loadAllPatrons();
         assertNotNull(patternList);
@@ -157,21 +164,22 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testCreateTweetPoll() throws EnMeExpcetion{
-       final Questions question = createQuestion("why the sky is blue?", "yes/no", this.user);
-       createQuestionAnswer("yes", question, "12345");
-       createQuestionAnswer("no", question, "12346");
-       final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
-       final UnitQuestionBean questionBean = new UnitQuestionBean();
-       questionBean.setId(question.getQid());
-       tweetPollBean.setQuestionBean(questionBean);
-       tweetPollBean.setPublishPoll(true);
-       tweetPollBean.setScheduleDate(new Date());
-       tweetPollBean.setCompleted(false);
-       tweetPollBean.setUserId(this.user.getUid());
-       this.surveyService.createTweetPoll(tweetPollBean);
-       final String s = this.surveyService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
-       final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
-       assertNotNull(status.getId());
+    final Questions question = createQuestion("why the sky is blue?", "yes/no", this.user);
+
+    createQuestionAnswer("yes", question, "12345");
+    createQuestionAnswer("no", question, "12346");
+    final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
+    final UnitQuestionBean questionBean = new UnitQuestionBean();
+    questionBean.setId(question.getQid());
+    tweetPollBean.setQuestionBean(questionBean);
+    tweetPollBean.setPublishPoll(true);
+    tweetPollBean.setScheduleDate(new Date());
+    tweetPollBean.setCompleted(false);
+    tweetPollBean.setUserId(this.user.getUid());
+    this.surveyService.createTweetPoll(tweetPollBean);
+    final String s = this.surveyService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
+    final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
+    assertNotNull(status.getId());
     }
 
     /**
@@ -179,10 +187,47 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testGetResultsByTweetPollId(){
-       final TweetPoll tweetPoll = createFastTweetPollVotes();
-       final List<UnitTweetPollResult> results = this.surveyService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
-       assertEquals("Should be equals", 2 , results.size());
+    final TweetPoll tweetPoll = createFastTweetPollVotes();
+    final List<UnitTweetPollResult> results = this.surveyService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
+    assertEquals("Should be equals", 2 , results.size());
     }
+
+
+    /**
+     * Test Create Question.
+     * @throws EnMeExpcetion
+     **/
+    @Test
+    public void testCreateQuestion() throws EnMeExpcetion {
+
+        surveyService.createQuestion(this.questionBean);
+        assertNotNull(questionBean);
+    }
+
+    /**
+    * Test Save Answers.
+     * @throws EnMeExpcetion
+    **/
+    @Test
+    public void testSaveAnswers() throws EnMeExpcetion{
+        final UnitAnswersBean answersBean = createAnswersBean("ASJKE", "Yes", this.question.getQid());
+        surveyService.saveAnswer(answersBean);
+        assertNotNull(answersBean.getAnswerId());
+    }
+
+    /**
+     * Test Retrieve Answer By Question Id.
+     **/
+    @Test
+    public void testRetrieveAnswerByQuestionId(){
+
+           final List<UnitAnswersBean> listUnitAnswerBean = surveyService.retrieveAnswerByQuestionId(this.question.getQid());
+           System.out.println(this.question.getQid());
+           System.out.println("Question ID");
+           assertEquals("Should be equals",1, listUnitAnswerBean.size());
+
+    }
+
 
     /**
      * @param surveyService the surveyService to set
@@ -210,19 +255,4 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
         this.mailServiceImpl = mailServiceImpl;
     }
 
-    /**
-     * Test Create Question.
-     **/
-	    @Test
-	    public void testCreateQuestion(){
-    	// Crear Listado de Preguntas
-    	List<UnitAnswersBean> answers = new ArrayList<UnitAnswersBean>();
-    	answers.add(createAnswersBean("2DFAAS", "Yes", 1L));
-    	answers.add(createAnswersBean("4DSWGK", "No", 1L));
-    	// Crear Patron Unit
-    	UnitPatternBean pattern = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.php");
-        UnitQuestionBean uqb =createUnitQuestionBean("questionName",1L,2L,answers,pattern);
-
-        assertNotNull(uqb);
-    }
 }
