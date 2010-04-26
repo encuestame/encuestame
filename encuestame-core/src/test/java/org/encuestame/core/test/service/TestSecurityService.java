@@ -169,9 +169,10 @@ public class TestSecurityService extends AbstractBase{
 
     /**
      * Test Update Group.
+     * @throws EnMeExpcetion
      */
     @Test
-    public void testUpdateGroup(){
+    public void testUpdateGroup() throws EnMeExpcetion{
       SecGroups secgroups = createGroups("guests");
       Long idGroupUpdate = secgroups.getGroupId();
       UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(secgroups);

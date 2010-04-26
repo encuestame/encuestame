@@ -78,8 +78,4 @@ public class UnitGroupBean implements Serializable {
     public final void setStateId(String stateId) {
         this.stateId = stateId;
     }
-
-
-
-
 }
