@@ -83,6 +83,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         return unitPatternBean;
      }
 
+     /**
+      *
+      * @param answerHash
+      * @param answers
+      * @param questionId
+      * @return
+      */
      public UnitAnswersBean createAnswersBean(
              final String answerHash,
              final String answers,
@@ -95,6 +102,24 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
 
 
      }
+
+
+    /**
+     *
+     * @param allowLiveResults
+     * @param closeNotification
+     * @param completed
+     * @param publicationDateTweet
+     * @param publishPoll
+     * @param resultNotification
+     * @param schedule
+     * @param scheduleDate
+     * @param tweetUrl
+     * @param userId
+     * @param questionBean
+     * @param userTwitterAccount
+     * @return
+     */
 
      public UnitTweetPoll createTweetPoll(
              final Boolean allowLiveResults,

@@ -25,6 +25,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.AbstractSurveyService;
@@ -228,7 +229,58 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
 
     }
 
+    /**
+     * Test Get Tweets
+     */
 
+    @Test
+    public void testGetTweetsPollByUserId(){
+         TweetPoll tweetPollnew = createTweetPoll(2L,
+                                                  false,
+                                                  false,
+                                                  false,
+                                                  false,
+                                                  false,
+                                                  new Date(),
+                                                  new Date(),
+                                                  false,
+                                                  this.user,
+                                                  this.question);
+
+         createQuestionAnswer("Yes", this.question,"BBB");
+         createQuestionAnswer("No", this.question,"CCC");
+         final List<UnitTweetPoll> unitTweetPollList = surveyService.getTweetsPollsByUserId(this.user.getUid());
+         assertEquals("Should be equals", 1, unitTweetPollList.size());
+    }
+
+    /**
+     * Test Save Tweet Id.
+     */
+    public void testSaveTweetId(){
+
+    }
+
+    /**
+     * Test Tweet Poll Vote
+     */
+    public void testTweetPollVote(){
+
+    }
+
+    /**
+     * Test Update Answer By Answer Id.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testUpdateAnswersByAnswerId() throws EnMeExpcetion{
+        QuestionsAnswers qanswers = createQuestionAnswer("Nop", this.question, "HASH");
+        surveyService.updateAnswerByAnswerId(qanswers.getQuestionAnswerId(), "Quizas");
+
+        //surveyService.saveAnswer(answersBean);
+        assertEquals(qanswers.getAnswer(), "Quizas");
+
+
+    }
     /**
      * @param surveyService the surveyService to set
      */
