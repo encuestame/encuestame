@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -152,6 +154,65 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          unitTweetPoll.setTweetUrl(tweetUrl);
          unitTweetPoll.setTwitterUserAccount(null);
         return unitTweetPoll;
+     }
+
+     /**
+      * Helper
+      * Create Unit Tweet Poll Publicated
+      * @param publicationDateTweet
+      * @param publishPoll
+      * @param tweetUrl
+      * @param userId
+      * @param questionBean
+      * @param userTwitterAccount
+      * @return
+      */
+      public UnitTweetPoll createUnitTweetPollPublicated(
+             final Date publicationDateTweet,
+             final Boolean publishPoll,
+             final String tweetUrl,
+             final Long userId,
+             final UnitQuestionBean questionBean,
+             final String userTwitterAccount
+
+             ){
+     UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+     unitTweetPoll.setUserId(userId);
+     unitTweetPoll.setPublicationDateTweet(publicationDateTweet);
+     unitTweetPoll.setPublishPoll(publishPoll);
+     unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
+     unitTweetPoll.setResults(null);
+     unitTweetPoll.setTweetId(null);
+     unitTweetPoll.setTweetUrl(tweetUrl);
+     unitTweetPoll.setTwitterUserAccount(null);
+     return unitTweetPoll;
+     }
+
+    /**
+     * Helper
+     * Create Tweet Poll Publicated
+     * @param publishTweetPoll
+     * @param completed
+     * @param scheduleDate
+     * @param tweetOwner
+     * @param question
+     * @return
+     */
+
+     public TweetPoll createTweetPollPublicated(
+              Boolean publishTweetPoll,
+              Boolean completed,
+              Date scheduleDate,
+              SecUsers tweetOwner,
+              Questions question){
+         final TweetPoll tweetPoll = new TweetPoll();
+         tweetPoll.setPublishTweetPoll(publishTweetPoll);
+         tweetPoll.setCompleted(completed);
+         tweetPoll.setScheduleDate(scheduleDate);
+         tweetPoll.setQuestion(question);
+         tweetPoll.setTweetOwner(tweetOwner);
+         getTweetPoll().saveOrUpdate(tweetPoll);
+         return tweetPoll;
      }
 
 }
