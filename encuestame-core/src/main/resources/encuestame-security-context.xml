@@ -40,13 +40,19 @@
                  access-decision-manager-ref="voteAccessDecisionManager">
     <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS"
      key="MU7kyU0he1MvXEDZ9Mdj7MVvkXOXJ8uRgtg/Xb/3eJyW0HZa3csBoyvinGEC4vmi" />
-    <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER" />
-    <security:intercept-url pattern="/login.do" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="/account/*" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="index.html" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="index.html" filters="none" />
+    <!-- Admon Paths -->
+    <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
+    <!-- Account Paths -->
+    <security:intercept-url pattern="/account/login.do" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/account/forget.do" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/account/signup.do" access="ENCUESTAME_ANONYMOUS"/>
+    <!-- User Paths -->
+    <security:intercept-url pattern="/tweetPoll.do" access="ENCUESTAME_USER"   />
+    <security:intercept-url pattern="/poll.do" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/survey.do" access="ENCUESTAME_USER"/>
+    <!-- Vote Paths -->
     <security:intercept-url pattern="/tweet/*" access="ENCUESTAME_ANONYMOUS" />
-    <!-- <security:intercept-url pattern="/**" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="/" access="ENCUESTAME_ANONYMOUS" /> -->
     <security:intercept-url pattern="/**/*.xhtml" filters="none" />
     <security:intercept-url pattern="/**/*.css"  filters="none" />
     <security:intercept-url pattern="/images/**" filters="none" />
