@@ -12,6 +12,10 @@
  */
 package org.encuestame.core.service.util;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatLocation;
@@ -84,6 +88,52 @@ public class ConvertDomainBean {
         sessionUserBean.setTwitterAccount(user.getTwitterAccount());
         sessionUserBean.setTwitterTwitterPing(user.getTwitterPing());
         return sessionUserBean;
+    }
+
+    /**
+     * Convert {@link SecUserSecondary} to {@link UnitUserBean}.
+     * @param secUserSecondary {@link SecUserSecondary}.
+     * @return {@link UnitUserBean}
+     */
+    public static final UnitUserBean convertSecondaryUserToUserBean(final SecUserSecondary secUserSecondary){
+        final UnitUserBean unitUserBean = new UnitUserBean();
+        unitUserBean.setId(secUserSecondary.getUid());
+        unitUserBean.setName(secUserSecondary.getCompleteName());
+        unitUserBean.setEmail(secUserSecondary.getUserEmail());
+        unitUserBean.setUsername(secUserSecondary.getUsername());
+        unitUserBean.setPublisher(secUserSecondary.getPublisher());
+        unitUserBean.setStatus(secUserSecondary.isUserStatus());
+        unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
+        unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
+        return unitUserBean;
+    }
+
+    /**
+     * Convert Domain Permission to Bean Permission.
+     * @param userId user id
+     * @return collection of permission
+     * @throws Exception all exceptions.
+  */
+    public static final Collection<UnitPermission> convertSetToUnitPermission(final Set<SecPermission> permissions) {
+        final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
+        for (SecPermission secPermission : permissions) {
+            loadListPermission.add(ConvertDomainBean.convertPermissionToBean(secPermission));
+        }
+        return loadListPermission;
+    }
+
+    /**
+     * Convert set to unit group bean
+     * @param userId user id
+     * @return collection of groups beans.
+     * @throws Exception
+     */
+    public static final Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroups> groups){
+            final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
+            for (SecGroups secGroups : groups) {
+                 loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
+            }
+        return loadListGroups;
     }
 
     /**

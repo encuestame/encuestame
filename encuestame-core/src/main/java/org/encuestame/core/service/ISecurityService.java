@@ -41,7 +41,7 @@ public interface ISecurityService extends IService {
      * @throws Exception Exception
      * @throws EnMeExpcetion excepcion
      */
-    List<UnitUserBean> loadListUsers() throws Exception;
+    List<UnitUserBean> loadListUsers(final String currentUsername) throws Exception;
 
     /**
      * Assing Group to User.

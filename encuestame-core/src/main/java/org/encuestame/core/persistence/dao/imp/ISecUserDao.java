@@ -41,6 +41,13 @@ public interface ISecUserDao extends IBaseDao {
      */
      List<SecUserSecondary> findAll();
 
+     /**
+      * Retrieve List of Secondary users without owner account.
+      * @param secUsers {@link SecUsers}.
+      * @return List of {@link SecUserSecondary}
+      */
+     List<SecUserSecondary> retrieveListOwnerUsers(final SecUsers	secUsers);
+
 
     /**
      * @param userId userId

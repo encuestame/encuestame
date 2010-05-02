@@ -44,6 +44,17 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     }
 
     /**
+     * Retrieve List of Secondary users without owner account.
+     * @param secUsers {@link SecUsers}.
+     * @return List of {@link SecUserSecondary}
+     */
+    @SuppressWarnings("unchecked")
+    public List<SecUserSecondary> retrieveListOwnerUsers(final SecUsers	secUsers){
+        return getHibernateTemplate().findByNamedParam("from SecUserSecondary where secUser = :secUsers "
+            +" ", "secUsers", secUsers);
+    }
+
+    /**
      * Get User By Id.
      *
      * @param userId userId

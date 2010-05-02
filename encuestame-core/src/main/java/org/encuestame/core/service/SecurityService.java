@@ -70,23 +70,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws Exception
      * @throws EnMeExpcetion excepcion
      */
-    public List<UnitUserBean> loadListUsers() {
+    public List<UnitUserBean> loadListUsers(final String currentUsername) {
+        log.info("currentUsername "+currentUsername);
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-            final Collection<SecUserSecondary> listUsers = getSecUserDao().findAll();
-                if (listUsers.size() > 0) {
-                    for (Iterator<SecUserSecondary> i = listUsers.iterator(); i.hasNext();) {
-                        final UnitUserBean userBean = new UnitUserBean();
-                        final  SecUserSecondary userDomain = i.next();
-                        userBean.setId(userDomain.getUid());
-                        userBean.setName(userDomain.getCompleteName());
-                        userBean.setEmail(userDomain.getUserEmail());
-                        userBean.setUsername(userDomain.getUsername());
-                        userBean.setPublisher(userDomain.getPublisher());
-                        userBean.setStatus(userDomain.isUserStatus());
-                        userBean.setListGroups(convertSetToUnitGroupBean(userDomain.getSecGroups()));
-                        userBean.setListPermission(convertSetToUnitPermission(userDomain.getSecUserPermissions()));
-                        loadListUsers.add(userBean);
-                    }
+        final SecUserSecondary secUserSecondary = getSecUserDao().getUserByUsername(currentUsername);
+        log.info("secUserSecondary "+secUserSecondary);
+            final Collection<SecUserSecondary> listUsers = getSecUserDao().retrieveListOwnerUsers(secUserSecondary.getSecUser());
+            log.info("list users "+listUsers.size());
+                for (SecUserSecondary secUserSecondary2 : listUsers) {
+                    loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary2));
                 }
         return loadListUsers;
     }
@@ -159,34 +151,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             log.error("user not found");
         }
         return user;
-    }
-
-    /**
-     * Convert set to unit group bean
-     * @param userId user id
-     * @return collection of groups beans.
-     * @throws Exception
-     */
-    private Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroups> groups){
-            final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-            for (SecGroups secGroups : groups) {
-                 loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
-            }
-        return loadListGroups;
-    }
-
-    /**
-     * Convert Domain Permission to Bean Permission.
-     * @param userId user id
-     * @return collection of permission
-     * @throws Exception all exceptions.
-  */
-    private Collection<UnitPermission> convertSetToUnitPermission(final Set<SecPermission> permissions) {
-        final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        for (SecPermission secPermission : permissions) {
-            loadListPermission.add(ConvertDomainBean.convertPermissionToBean(secPermission));
-        }
-        return loadListPermission;
     }
 
     /**
