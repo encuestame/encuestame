@@ -190,4 +190,89 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     public boolean isOwnerAccount() {
         return this.isOwner;
     }
+
+    /**
+     * @return the isOwner
+     */
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    /**
+     * @param isOwner the isOwner to set
+     */
+    public void setOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+    }
+
+    /**
+     * @param authorities the authorities to set
+     */
+    public void setAuthorities(Collection<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * @param accountNonExpired the accountNonExpired to set
+     */
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    /**
+     * @param accountNonLocked the accountNonLocked to set
+     */
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    /**
+     * @param credentialsNonExpired the credentialsNonExpired to set
+     */
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    /**
+     * @param twitterAccount the twitterAccount to set
+     */
+    public void setTwitterAccount(String twitterAccount) {
+        this.twitterAccount = twitterAccount;
+    }
+
+    /**
+     * @param userEmail the userEmail to set
+     */
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    /**
+     * @param completeName the completeName to set
+     */
+    public void setCompleteName(String completeName) {
+        this.completeName = completeName;
+    }
+
 }

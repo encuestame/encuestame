@@ -139,6 +139,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
          user.getCompleteName(), // complete name
          user.getUserEmail() // user email
          );
+         userDetails.setAccountNonExpired(true);
+         userDetails.setAccountNonLocked(true);
          log.debug("user details "+userDetails.getPassword());
          log.debug("user details "+userDetails.getPassword());
          log.debug("user details "+userDetails.getAuthorities());
