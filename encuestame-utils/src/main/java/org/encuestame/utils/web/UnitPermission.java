@@ -12,6 +12,8 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
+
 
 
 /**
@@ -20,8 +22,12 @@ package org.encuestame.utils.web;
  * @since 14/05/2009 12:56:37
  * @version $Id$
  */
-public class UnitPermission{
+public class UnitPermission implements Serializable {
 
+    /**
+     * Generated Serial.
+     */
+    private static final long serialVersionUID = -7564766009573183488L;
     private Long id;
     private String permission;
     private String description;
