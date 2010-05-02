@@ -7,14 +7,15 @@
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces">
     <ui:define name="title"> #{temp.admonTitle} - #{temp.titleGroups}</ui:define>
+    <ui:debug hotkey="l" rendered="true"/>
     <ui:define name="bodyOptions">
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel value="Name" />
-                <h:inputText value="#{group.groupName}" />
+                <h:inputText value="#{groupSelected.groupName}" />
                 <h:outputLabel value="Description" />
-                <h:inputTextarea value="#{group.groupDescription}" />
-                <sf:commandButton action="update" value="Update" />
+                <h:inputTextarea value="#{groupSelected.groupDescription}" />
+                <a4j:commandButton action="update" value="Update"></a4j:commandButton>
                 <sf:commandButton action="cancel" value="Cancel" />
             </h:panelGrid>
         </h:form>

@@ -41,29 +41,18 @@
                 <h2>#{temp.titleCreateGroups}</h2>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{temp.name}" for="name" />
-                    <h:inputText id="name" value="" size="40"
+                    <h:inputText id="name" value="#{groupBean.newGroup.groupName}" size="40"
                         required="true"
                         requiredMessage="#{temp.validateNameGroup}" />
                     <h:outputLabel value="#{temp.description}"
                         for="desc" />
-                    <h:inputTextarea id="desc" value="" cols="40"
+                    <h:inputTextarea id="desc" value="#{groupBean.newGroup.groupDescription}" cols="40"
                         rows="3" required="true"
                         requiredMessage="#{temp.validateDescrGroup}" />
-                    <h:outputLabel value="#{temp.state}"
-                        for="selectState" />
-                    <h:selectOneMenu value="" id="selectState"
-                        required="true"
-                        requiredMessage="#{temp.validateStaterGroup}">
-                    </h:selectOneMenu>
                     <a4j:commandButton value="#{temp.save}"
-                        action="saveGroup"
+                        action="create"
                         oncomplete="Richfaces.hideModalPanel('panelnewGroup')"
                         reRender="#{flowRenderFragments}"></a4j:commandButton>
-                    <rich:messages id="groupMessage">
-                    </rich:messages>
-                    <rich:effect for="groupMessage" event="onload"
-                        type="Appear"
-                        params="targetId:'contentDiv',duration:0.8,from:0.3,to:1.0" />
                 </h:panelGrid>
             </a4j:form>
         </rich:modalPanel>

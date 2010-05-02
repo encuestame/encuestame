@@ -14,14 +14,17 @@
 
         </transition>
         <transition on="select" to="editGroup">
-            <set name="flowScope.group" value="groups.selectedRow" />
+            <set name="flowScope.groupSelected" value="groups.selectedRow" />
+        </transition>
+        <transition on="create">
+              <evaluate expression="securityService.createGroup(groupBean.newGroup)" result="flowScope.newGroup" />
+              <render fragments="groupsForm" />
         </transition>
     </view-state>
 
     <view-state id="editGroup" view="editGroup.xhtml">
-        <transition on="update">
-            <evaluate expression="securityService.updateGroup(group)"
-                result="flowScope.group" />
+        <transition on="update" to="groups">
+            <evaluate expression="securityService.updateGroup(flowScope.groupSelected)" result="flowScope.groupSelected" />
         </transition>
         <transition on="cancel" to="groups">
         </transition>
