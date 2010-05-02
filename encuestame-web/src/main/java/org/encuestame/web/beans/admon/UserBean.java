@@ -45,15 +45,6 @@ public class UserBean  extends MasterBean implements Serializable {
     private String listUsers;
 
     /**
-     * @return the listUnitBeans
-     * @throws Exception exception
-     */
-    public final List<UnitUserBean> loadListUsers() throws Exception {
-        return listUnitBeans = getSecurityService().loadListUsers();
-    }
-
-
-    /**
      * Create secondary user, is notificated is desactivated the password is returned and should be,
      * showed on screen.
      */
@@ -156,7 +147,6 @@ public class UserBean  extends MasterBean implements Serializable {
      */
     public final List<UnitUserBean> getListUnitBeans() {
         try {
-            loadListUsers();
             return listUnitBeans;
         } catch (Exception e) {
             addErrorMessage("error loading grid " + e.getMessage(), e
