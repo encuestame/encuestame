@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
@@ -73,7 +72,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public List<UnitUserBean> loadListUsers(final String currentUsername) {
         log.info("currentUsername "+currentUsername);
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        final SecUserSecondary secUserSecondary = getSecUserDao().getUserByUsername(currentUsername);
+        final SecUserSecondary secUserSecondary = getUser(currentUsername);
         log.info("secUserSecondary "+secUserSecondary);
             final Collection<SecUserSecondary> listUsers = getSecUserDao().retrieveListOwnerUsers(secUserSecondary.getSecUser());
             log.info("list users "+listUsers.size());
@@ -87,10 +86,10 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Load Groups by Client
      * @return
      */
-    public List<UnitGroupBean> loadGroups(){
-        //FIXME: filter by user
+    public List<UnitGroupBean> loadGroups(final String currentUsername){
+        final SecUserSecondary secUserSecondary = getUser(currentUsername);
         final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
-        final List<SecGroups> groups = getGroupDao().findAllGroups();
+        final List<SecGroups> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
         for (SecGroups secGroups : groups) {
             groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
         }
@@ -287,12 +286,14 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Create a new Group.
      * @param groupBean group bean
      */
-    public UnitGroupBean createGroup(final UnitGroupBean groupBean) {
+    public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) {
         log.info("Create Group");
         final SecGroups groupDomain = new SecGroups();
+        final SecUsers secUsers = getUser(username).getSecUser();
         groupDomain.setGroupDescriptionInfo(groupBean.getGroupDescription());
         groupDomain.setGroupName(groupBean.getGroupName());
         groupDomain.setIdState(null);
+        groupDomain.setSecUsers(secUsers);
         getGroupDao().saveOrUpdate(groupDomain);
         groupBean.setId(groupDomain.getGroupId());
         return ConvertDomainBean.convertGroupDomainToBean(groupDomain);

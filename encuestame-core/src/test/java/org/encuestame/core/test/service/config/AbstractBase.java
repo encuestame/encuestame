@@ -522,9 +522,10 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public SecGroups createGroups(final String groupname){
         final SecGroups group = new SecGroups();
+        group.setSecUsers(createUser());
         group.setGroupName(groupname);
         group.setIdState(1L);
-        group.setGroupDescriptionInfo("Primer Grupo");
+        group.setGroupDescriptionInfo("First Group");
         getSecGroup().saveOrUpdate(group);
         return group;
     }

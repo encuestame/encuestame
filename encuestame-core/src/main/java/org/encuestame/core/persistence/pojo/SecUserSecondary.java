@@ -115,7 +115,7 @@ public class SecUserSecondary {
     /**
      * @return userEmail userEmail
      */
-    @Column(name = "email", unique = true, nullable = false, length = 100)
+    @Column(name = "email", unique = true, nullable = false, length = 150)
     public String getUserEmail() {
         return this.userEmail;
     }
@@ -192,7 +192,7 @@ public class SecUserSecondary {
      * @return enjoyDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_new", nullable = true, length = 0)
+    @Column(name = "date_new", nullable = true)
     public Date getEnjoyDate() {
         return this.enjoyDate;
     }
@@ -207,7 +207,7 @@ public class SecUserSecondary {
     /**
      * @return isPublisher
      */
-    @Column(name = "publisher", nullable = true, length = 2)
+    @Column(name = "publisher", nullable = true)
     public Boolean getPublisher() {
         return this.isPublisher;
     }
@@ -222,7 +222,7 @@ public class SecUserSecondary {
     /**
      * @return isOwner
      */
-    @Column(name = "owner", length = 2)
+    @Column(name = "owner")
     public Boolean getOwner() {
         return this.isOwner;
     }
@@ -252,7 +252,7 @@ public class SecUserSecondary {
     /**
      * @return userTwitterAccount
      */
-    @Column(name = "twitter", length = 2)
+    @Column(name = "twitter", nullable = true)
     public String getUserTwitterAccount() {
         return this.userTwitterAccount;
     }

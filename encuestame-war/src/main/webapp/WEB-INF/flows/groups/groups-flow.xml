@@ -7,7 +7,7 @@
 
     <view-state id="groups">
         <on-render>
-            <evaluate expression="groupBean.loadListGroups()" result="flowScope.groups"
+            <evaluate expression="securityService.loadGroups(currentUser.name)" result="flowScope.groups"
                 result-type="dataModel" />
         </on-render>
         <transition on="createGroup">
@@ -17,7 +17,7 @@
             <set name="flowScope.groupSelected" value="groups.selectedRow" />
         </transition>
         <transition on="create">
-              <evaluate expression="securityService.createGroup(groupBean.newGroup)" result="flowScope.newGroup" />
+              <evaluate expression="securityService.createGroup(groupBean.newGroup, currentUser.name)" result="flowScope.newGroup" />
               <render fragments="groupsForm" />
         </transition>
     </view-state>

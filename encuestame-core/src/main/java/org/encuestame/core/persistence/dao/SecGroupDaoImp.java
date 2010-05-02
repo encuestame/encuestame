@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
@@ -39,14 +40,13 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
 
     /**
      * Load Groups By User.
-     * @param userId user id
+     * @param secUsers {@link SecUsers}.
      * @return list of groups.
-
+     */
     @SuppressWarnings("unchecked")
-    public Collection<SecGroupUser> loadGroupsByUser(Long userId) {
-        return getHibernateTemplate().findByNamedParam("from SecGroupUser  "
-         +"where secUsers.uid = :uid", "uid", userId);
-    }*/
+    public List<SecGroups> loadGroupsByUser(final SecUsers secUsers) {
+        return getHibernateTemplate().findByNamedParam("from SecGroups where secUsers = :secUsers ", "secUsers", secUsers);
+    }
 
     /**
      *

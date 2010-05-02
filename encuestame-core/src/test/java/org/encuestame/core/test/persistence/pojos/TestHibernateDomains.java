@@ -175,7 +175,7 @@ public class TestHibernateDomains extends AbstractBase{
         groups.setGroupName("writers");
         groups.setGroupDescriptionInfo("writers");
         groups.setIdState(createState("Active").getIdState());
-        groups.getSecUserSecondaries().add(createSecondaryUser("juan", createUser()));
+        groups.setSecUsers(createUser());
         groups.getSecPermissions().add(createPermission("administrator"));
         groups.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active"), createUser()));
         getSecGroup().saveOrUpdate(groups);

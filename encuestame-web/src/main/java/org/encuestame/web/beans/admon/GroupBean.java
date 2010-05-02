@@ -42,67 +42,6 @@ public class GroupBean extends MasterBean implements Serializable {
     private Integer processedGroupId;
 
     /**
-     * Constructor.
-     */
-    public GroupBean() {
-    }
-
-    /**
-     * Load list of Groups.
-     * @return List of {@link UnitGroupBean}
-     */
-    public List<UnitGroupBean> loadListGroups() {
-        try {
-            log.info("Loading Groups");
-            this.listUnitGroupBeans = getServicemanager().getApplicationServices().getSecurityService().loadGroups();
-            System.out.println("listUnitGroupBeans "+listUnitGroupBeans.size());
-        }
-        catch (Exception e) {
-            addErrorMessage(getMessageProperties("error_load_groups"), e
-                    .getMessage());
-            log.error("error load groups "+e.getMessage());
-        }
-        return listUnitGroupBeans;
-    }
-
-
-    /**
-     * Create a Group.
-     */
-    public final void newGroup() {
-        try {
-            log.info("new group");
-            getServicemanager().getApplicationServices().getSecurityService().createGroup(
-                    getNewGroup());
-            addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
-            reset();
-        } catch (Exception e) {
-            addErrorMessage(getMessageProperties("errorCreateNewGroup"), e
-                    .getMessage());
-            log.error("error new group: "
-                    + getMessageProperties("errorCreateNewGroup"));
-        }
-    }
-
-    /**
-     * Update Group.
-     */
-    public final void updateGroup() {
-        try {
-            log.info("new group");
-            getServicemanager().getApplicationServices().getSecurityService().updateGroup(
-                    getNewGroup());
-            addInfoMessage(getMessageProperties("susCreateNewGroup"), null);
-            reset();
-        } catch (Exception e) {
-            addErrorMessage(getMessageProperties("errorCreateNewGroup"), e
-                    .getMessage());
-            log.error("error new group: "
-                    + getMessageProperties("errorCreateNewGroup"));
-        }
-    }
-
-    /**
      * Delete Group.
      */
     public final void deleteGroup() {
@@ -131,31 +70,6 @@ public class GroupBean extends MasterBean implements Serializable {
         newGroup.setGroupDescription(null);
         newGroup.setGroupName(null);
         newGroup.setStateId(null);
-    }
-
-    /**
-     * Fill Table.
-     * @param idGroup groupd id
-     */
-    private void fill(Integer idGroup) {
-        try {
-        /*final SecGroups secGroups = getServicemanager().getApplicationServices().getDataEnMeSource().getGroupDao().find(Long.valueOf(idGroup));
-             if (secGroups != null) {
-                reset();
-                this.newGroup.setId(Integer.valueOf(secGroups.getGroupId().toString()));
-                this.newGroup.setGroupDescription(secGroups.getGroupDescriptionInfo());
-                this.newGroup.setGroupName(secGroups.getGroupName());
-                this.newGroup.setStateId((secGroups.getIdState().toString()));
-            }
-            else {
-                addErrorMessage("group can't be created", "");
-            }*/
-            //FIXME: Fix Dao Reference
-        }
-        catch (Exception e) {
-            addErrorMessage("error on retrieve list of groups: " + e.getMessage(), e
-                    .getMessage());
-        }
     }
 
     /**
@@ -206,16 +120,7 @@ public class GroupBean extends MasterBean implements Serializable {
      * @param processedGroupId processed group id
      */
     public final void setProcessedGroupId(Integer processedGroupId) {
-        try {
-            log.info("setProcessedGroupId " + processedGroupId);
-            this.processedGroupId = processedGroupId;
-            fill(this.processedGroupId);
-        }
-        catch (Exception e) {
-            addErrorMessage("Error cargando Grupo" + e.getMessage(), e
-                    .getMessage());
-            log.error("error ->" + e.getMessage());
-        }
+          this.processedGroupId = processedGroupId;
     }
 
 }

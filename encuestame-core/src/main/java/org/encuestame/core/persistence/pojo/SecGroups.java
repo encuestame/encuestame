@@ -23,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,13 +37,40 @@ import javax.persistence.Table;
 @Table(name = "sec_groups")
 public class SecGroups {
 
+    /**
+     * Group Id.
+     */
     private Long groupId;
+
+    /**
+     * Name.
+     */
     private String groupName;
+
+    /**
+     * Description.
+     */
     private String groupDescriptionInfo;
+
+    /**
+     * State Id.
+     */
     private Long idState;
-    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
+
+    /**
+     * Projects by Group.
+     */
     private Set<Project> projects = new HashSet<Project>();
+
+    /**
+     * Permissions by Group.
+     */
     private Set<SecPermission> secPermissions = new HashSet<SecPermission>();
+
+    /**
+     * {@link SecUsers}.
+     */
+    private SecUsers secUsers = new SecUsers();
 
     /**
      * @return groupId
@@ -125,24 +153,6 @@ public class SecGroups {
     }
 
     /**
-     * @return the secUserSecondaries
-     */
-    @ManyToMany()
-    @JoinTable(name="sec_user_group",
-               joinColumns={@JoinColumn(name="sec_id_group")},
-               inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
-    public Set<SecUserSecondary> getSecUserSecondaries() {
-        return secUserSecondaries;
-    }
-
-    /**
-     * @param secUserSecondaries the secUserSecondaries to set
-     */
-    public void setSecUserSecondaries(Set<SecUserSecondary> secUserSecondaries) {
-        this.secUserSecondaries = secUserSecondaries;
-    }
-
-    /**
      * @return the projects
      */
     @ManyToMany()
@@ -156,7 +166,22 @@ public class SecGroups {
     /**
      * @param projects the projects to set
      */
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(final Set<Project> projects) {
         this.projects = projects;
+    }
+
+    /**
+     * @return the secUsers
+     */
+    @ManyToOne()
+    public SecUsers getSecUsers() {
+        return secUsers;
+    }
+
+    /**
+     * @param secUsers the secUsers to set
+     */
+    public void setSecUsers(final SecUsers secUsers) {
+        this.secUsers = secUsers;
     }
 }

@@ -98,7 +98,7 @@ public interface ISecurityService extends IService {
      * Create a new Group.
      * @param groupBean group bean
      */
-    UnitGroupBean createGroup(final UnitGroupBean groupBean);
+    UnitGroupBean createGroup(final UnitGroupBean groupBean , final String username);
     /**
      * Create a new Permisssion.
      * @param permissionBean {@link UnitPermission}
@@ -211,6 +211,6 @@ public interface ISecurityService extends IService {
      * Load Groups by Client.
      * @return
      */
-    List<UnitGroupBean> loadGroups();
+    List<UnitGroupBean> loadGroups(final String currentUsername);
 
 }

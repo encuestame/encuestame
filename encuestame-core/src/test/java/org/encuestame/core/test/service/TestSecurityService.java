@@ -46,6 +46,8 @@ public class TestSecurityService extends AbstractBase{
 
     private SecUsers userPrimary;
 
+    private SecUserSecondary secUserSecondary;
+
     /**
      * Before.
      */
@@ -53,6 +55,8 @@ public class TestSecurityService extends AbstractBase{
     public void initService(){
         securityService.setSuspendedNotification(getActivateNotifications());
         this.userPrimary = createUser();
+        this.secUserSecondary = createSecondaryUser("default", this.userPrimary);
+
     }
 
     /**
@@ -80,7 +84,7 @@ public class TestSecurityService extends AbstractBase{
     public void testLoadListUsers() throws Exception{
         addGroupUser(super.createSecondaryUser("user 1",this.userPrimary),super.createGroups("editor"));
         addGroupUser(super.createSecondaryUser("user 2",this.userPrimary),super.createGroups("admon"));
-        assertEquals("Should be equals",2,securityService.loadListUsers("user 1").size());
+        assertEquals("Should be equals", 3, securityService.loadListUsers("user 1").size());
     }
 
     /**
@@ -357,7 +361,7 @@ public class TestSecurityService extends AbstractBase{
         secCreateGroup.setGroupName("vvvv");
         secCreateGroup.setIdState(1L);
         final UnitGroupBean createGroupBean = ConvertDomainBean.convertGroupDomainToBean(secCreateGroup);
-        securityService.createGroup(createGroupBean);
+        securityService.createGroup(createGroupBean, this.secUserSecondary.getUsername());
         //TODO: need assert
       }
 
