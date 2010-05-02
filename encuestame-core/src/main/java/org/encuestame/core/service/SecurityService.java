@@ -162,29 +162,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Convert Domain user to Bean User.
-     * @param domainUser Domain User
-     * @return Bean User
-     */
-    @Deprecated
-    public UnitUserBean convertUserDaoToUserBean(SecUserSecondary domainUser) {
-        final UnitUserBean user = new UnitUserBean();
-        try {
-            user.setName(domainUser.getCompleteName());
-            user.setUsername(domainUser.getUsername());
-            user.setEmail(domainUser.getUserEmail());
-            user.setId(domainUser.getUid());
-            user.setStatus(domainUser.isUserStatus());
-            user.setDateNew(domainUser.getEnjoyDate());
-            user.setInviteCode(domainUser.getInviteCode());
-            user.setPublisher(domainUser.getPublisher());
-        } catch (Exception e) {
-            log.error("Error convirtiendo a User Bean -" + e.getMessage());
-        }
-        return user;
-    }
-
-    /**
      * Convert set to unit group bean
      * @param userId user id
      * @return collection of groups beans.
@@ -302,17 +279,25 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion exception
      */
-    public void updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion {
+    public UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion {
+        log.info("group to search "+groupBean.getId());
         final SecGroups group = getGroupDao().find(Long.valueOf(groupBean.getId()));
         log.info("group found "+group);
         if (group != null) {
+            log.info("group updated name "+groupBean.getGroupName());
             group.setGroupName(groupBean.getGroupName());
+            log.info("group updated description "+groupBean.getGroupDescription());
             group.setGroupDescriptionInfo(groupBean.getGroupDescription());
-            group.setIdState(Long.valueOf((groupBean.getStateId())));
+            log.info("group updated state id "+groupBean.getStateId());
+            // group.setIdState(Long.valueOf((groupBean.getStateId())));
             getGroupDao().saveOrUpdate(group);
+            log.info("group new name "+group.getGroupName());
+            log.info("group new description "+group.getGroupDescriptionInfo());
+            groupBean = ConvertDomainBean.convertGroupDomainToBean(group);
         } else {
             throw new EnMeExpcetion("group not found");
         }
+        return groupBean;
     }
 
     /**
@@ -338,7 +323,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Create a new Group.
      * @param groupBean group bean
      */
-    public void createGroup(final UnitGroupBean groupBean) {
+    public UnitGroupBean createGroup(final UnitGroupBean groupBean) {
         log.info("Create Group");
         final SecGroups groupDomain = new SecGroups();
         groupDomain.setGroupDescriptionInfo(groupBean.getGroupDescription());
@@ -346,6 +331,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         groupDomain.setIdState(null);
         getGroupDao().saveOrUpdate(groupDomain);
         groupBean.setId(groupDomain.getGroupId());
+        return ConvertDomainBean.convertGroupDomainToBean(groupDomain);
     }
 
     /**

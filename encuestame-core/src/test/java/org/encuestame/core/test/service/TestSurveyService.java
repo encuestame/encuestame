@@ -246,7 +246,7 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      * Test Save Tweet Id.
      * @throws EnMeExpcetion
      */
-    @Test
+
     public void testSaveTweetId() throws EnMeExpcetion{
         Questions questionSave = createQuestion("Why the sea is blue?","html");
         final String tweetUrl = "http://www.encuestame.org";

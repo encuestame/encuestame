@@ -87,7 +87,7 @@ public interface ISecurityService extends IService {
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
      */
-    void updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion;
+    UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion;
     /**
      * Update user.
      * @param userBean user bean.
@@ -98,7 +98,7 @@ public interface ISecurityService extends IService {
      * Create a new Group.
      * @param groupBean group bean
      */
-    void createGroup(final UnitGroupBean groupBean);
+    UnitGroupBean createGroup(final UnitGroupBean groupBean);
     /**
      * Create a new Permisssion.
      * @param permissionBean {@link UnitPermission}
