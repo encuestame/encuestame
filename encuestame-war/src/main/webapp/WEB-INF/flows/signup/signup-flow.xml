@@ -3,11 +3,12 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="singUpBean" class="org.encuestame.web.beans.login.SingUpBean" />
+    <var name="singUpBean" class="org.encuestame.utils.security.SingUpBean" />
 
     <view-state id="signup">
-        <transition on="save" to="succesfull" >
-            <set name="requestScope.singup" value="singUpBean"/>
+        <transition on="singup" to="succesfull" >
+             <evaluate expression="securityService.singupUser(singUpBean)" result="flowScope.userInfo"
+                result-type="org.encuestame.utils.web.UnitUserBean" />
         </transition>
     </view-state>
 

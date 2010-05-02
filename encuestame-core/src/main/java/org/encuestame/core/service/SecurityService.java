@@ -30,10 +30,16 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.utils.security.SingUpBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -425,6 +431,57 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                     permissionBean.setDescription(permissionDomain.getPermissionDescription());
                 }
         return permissionBean;
+    }
+
+    /**
+     * SingUp User
+     * @param singUpBean {@link SingUpBean}.
+     * @return {@link UnitUserBean}.
+     */
+    public UnitUserBean singupUser(final SingUpBean singUpBean){
+        final SecUsers secUsers = new SecUsers();
+        getSecUserDao().saveOrUpdate(secUsers);
+        final SecUserSecondary secUserSecondary = new SecUserSecondary();
+        secUserSecondary.setUsername(singUpBean.getUsername());
+        secUserSecondary.setPassword(encodingPassword(singUpBean.getPassword()));
+        secUserSecondary.setEnjoyDate(new Date());
+        secUserSecondary.setOwner(Boolean.TRUE);
+        secUserSecondary.setSecUser(secUsers);
+        secUserSecondary.setUserStatus(Boolean.TRUE);
+        secUserSecondary.setUserEmail(singUpBean.getEmail());
+        secUserSecondary.setCompleteName("");
+        secUserSecondary.setInviteCode(""); //TODO: invite code?
+        secUserSecondary.setPublisher(Boolean.TRUE);
+        getSecUserDao().saveOrUpdate(secUserSecondary);
+        //Create login.
+        setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword());
+        log.info("new user "+secUserSecondary.getUsername());
+        return ConvertDomainBean.convertUserDaoToUserBean(secUserSecondary);
+    }
+
+    /**
+     * Ecrypt Password with Jasypt.
+     * @param password password
+     * @return
+     */
+    private String encodingPassword(final String password){
+        final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        passwordEncryptor.encryptPassword(password);
+        log.info("password encrypted "+passwordEncryptor.toString());
+        return passwordEncryptor.toString();
+    }
+
+    /**
+     * Set Spring Authentication
+     * @param username
+     * @param password
+     */
+    private void setSpringSecurityAuthentication(final String username, final String password){
+         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
+         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+         authorities.add(new GrantedAuthorityImpl(this.DEFAULT));
+         SecurityContextHolder.getContext().setAuthentication(
+                 new UsernamePasswordAuthenticationToken(username, String.valueOf(password), authorities));
     }
 
     /**

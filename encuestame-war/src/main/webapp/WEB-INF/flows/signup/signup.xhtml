@@ -1,5 +1,5 @@
 <ui:composition
-    template="../../controller/layouts/anonymousTemplate.xhtml"
+    template="../../layouts/anonymousTemplate.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -22,10 +22,8 @@
                 <h:outputLabel value="Email" />
                 <h:inputText value="#{singUpBean.email}" />
             </h:panelGrid>
-            <sf:validateAllOnClick>
-                <sf:commandButton id="save" action="save" processIds="*" value="Proceed"/>&#160;
-            </sf:validateAllOnClick>
-            <sf:commandButton id="cancel" value="Cancel" action="cancel"/>
+            <h:commandButton value="SingUp" action="singup" />
+            <h:commandButton id="cancel" value="Cancel" action="cancel"/>
         </h:form>
     </ui:define>
 </ui:composition>

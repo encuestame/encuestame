@@ -22,6 +22,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.utils.security.SingUpBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
@@ -212,5 +213,12 @@ public interface ISecurityService extends IService {
      * @return
      */
     List<UnitGroupBean> loadGroups(final String currentUsername);
+
+    /**
+     * SingUp User
+     * @param singUpBean {@link SingUpBean}.
+     * @return {@link UnitUserBean}.
+     */
+    UnitUserBean singupUser(final SingUpBean singUpBean);
 
 }
