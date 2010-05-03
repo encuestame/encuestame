@@ -15,9 +15,11 @@ package org.encuestame.core.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
@@ -30,6 +32,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.encuestame.utils.security.SingUpBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
@@ -56,6 +59,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /** Default User Permission **/
     private static final String DEFAULT = "ENCUESTAME_USER";
+
+    /** Default User Permission **/
+    private static final String ADMIN = "ENCUESTAME_ADMIN";
+
+    /** Anonnymous User. **/
+    private static final String ANONYMOUS = "ENCUESTAME_ANONYMOUS";
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
 
@@ -370,6 +379,27 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * Get Permission By Name
+     * @param permission permission
+     * @return {@link SecPermission}
+     */
+    public SecPermission getPermissionByName(final String permission){
+        return getPermissionDao().loadPermission(permission);
+    }
+
+    /**
+     * Assign Permissions to {@link SecUserSecondary}.
+     * @param secUserSecondary {@link SecUserSecondary}.
+     * @param secPermissions List of {@link SecPermission}.
+     */
+    public void assingPermission(final SecUserSecondary secUserSecondary , final Set<SecPermission> secPermissions){
+        for (SecPermission secPermission : secPermissions) {
+            secUserSecondary.getSecUserPermissions().add(secPermission);
+        }
+        getSecUserDao().saveOrUpdate(secUserSecondary);
+    }
+
+    /**
      * Assign permission to user.
      * @param userBean {@link UnitUserBean}
      * @param permissionBean {@link UnitPermission}
@@ -453,9 +483,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         secUserSecondary.setInviteCode(""); //TODO: invite code?
         secUserSecondary.setPublisher(Boolean.TRUE);
         getSecUserDao().saveOrUpdate(secUserSecondary);
+        //Add default permissions, if user is signup we should add admin access
+        final Set<SecPermission> permissions = new HashSet<SecPermission>();
+        permissions.add(getPermissionByName(this.DEFAULT));
+        permissions.add(getPermissionByName(this.ADMIN));
+        this.assingPermission(secUserSecondary, permissions);
         //Create login.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword());
+        setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
         log.info("new user "+secUserSecondary.getUsername());
+        log.info("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return ConvertDomainBean.convertUserDaoToUserBean(secUserSecondary);
     }
 
@@ -466,9 +502,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     private String encodingPassword(final String password){
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-        passwordEncryptor.encryptPassword(password);
-        log.info("password encrypted "+passwordEncryptor.toString());
-        return passwordEncryptor.toString();
+        return  passwordEncryptor.encryptPassword(password);
     }
 
     /**
@@ -476,10 +510,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param username
      * @param password
      */
-    private void setSpringSecurityAuthentication(final String username, final String password){
+    private void setSpringSecurityAuthentication(
+            final String username,
+            final String password,
+            final Set<SecPermission> secPermissions){
          SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
-         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-         authorities.add(new GrantedAuthorityImpl(this.DEFAULT));
+         Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(secPermissions);
          SecurityContextHolder.getContext().setAuthentication(
                  new UsernamePasswordAuthenticationToken(username, String.valueOf(password), authorities));
     }

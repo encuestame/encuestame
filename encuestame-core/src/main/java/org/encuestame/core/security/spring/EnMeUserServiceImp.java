@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -117,12 +118,12 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             // search groups of the user
             final Set<SecGroups> groups = user.getSecGroups();
             for (final SecGroups secGroups : groups) {
-                authorities.addAll(convertEnMePermission(secGroups.getSecPermissions()));
+                authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(secGroups.getSecPermissions()));
             }
         }
         // sec permissions
         if (this.roleUserAuth) {
-            authorities.addAll(convertEnMePermission(user.getSecUserPermissions()));
+            authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
         }
 
          //creating user details
@@ -146,18 +147,5 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
          log.debug("user details "+userDetails.getAuthorities());
          log.debug("user details "+userDetails.getUserEmail());
          return userDetails;
-    }
-
-    /**
-     * Convert {@link SecPermission} to {@link GrantedAuthority}.
-     * @param permissions {@link SecPermission}
-     * @return
-     */
-    private List<GrantedAuthority> convertEnMePermission(final Set<SecPermission> permissions){
-        final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (SecPermission secPermission : permissions) {
-            authorities.add(new GrantedAuthorityImpl(secPermission.getPermission()));
-        }
-        return authorities;
     }
 }

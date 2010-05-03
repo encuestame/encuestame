@@ -515,12 +515,6 @@
             <port>8080</port>
           </connector>
           <scanIntervalSeconds>5</scanIntervalSeconds>
-          <systemProperties>
-            <systemProperty>
-              <name>org.apache.commons.logging.Log</name>
-               <value>org.apache.commons.logging.impl.SimpleLog</value>
-            </systemProperty>
-         </systemProperties>
           <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
             <filename>target/encuestame.log</filename>
             <retainDays>90</retainDays>
