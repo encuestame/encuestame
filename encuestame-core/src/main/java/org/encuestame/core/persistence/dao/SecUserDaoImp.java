@@ -30,6 +30,7 @@ import org.springframework.stereotype.Repository;
  * @since May 05, 2009
  * @version $Id$
  */
+@SuppressWarnings("unchecked")
 @Repository
 public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUserDao {
 
@@ -107,8 +108,9 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      */
     @SuppressWarnings("unchecked")
     public List<SecUserSecondary> searchUsersByEmail(final String email){
-        return getHibernateTemplate().findByNamedParam("from SecUserSecondary"
-                                          +" WHERE userEmail like '%:email%'", "email", email);
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
+        criteria.add(Restrictions.like("userEmail", email) );
+        return   getHibernateTemplate().findByCriteria(criteria);
     }
 
 

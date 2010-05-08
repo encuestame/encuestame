@@ -219,14 +219,19 @@
       <rich:panelBar>
         <rich:panelBarItem label="Agregar Usuario Directamente">
           <h:form id="newFormUserUnit">
+          <a4j:region id="saveUserRe">
+          <a4j:status startText="Buscando Usuario espere...."
+                                    startStyleClass="buscandoText" stopText="" for="saveUserRe">
+                                </a4j:status>
             <h:panelGrid columns="2" cellpadding="1" width="400px">
               <h:outputLabel value="Nombre de Usuario" for="username" />
               <h:inputText id="username"
-                value="#{userBean.newUnitUserBean.username}" size="20" />
-              <h:outputLabel value="Nombre Real" for="realName" >
-                <a4j:support event="onblur"
+                value="#{userBean.newUnitUserBean.username}" size="20" >
+                    <a4j:support event="onblur"
                                         action="#{userBean.validateUserName}"
                                         reRender="newFormUserUnit" ajaxSingle="true"></a4j:support>
+                </h:inputText>
+              <h:outputLabel value="Nombre Real" for="realName" >
               </h:outputLabel>
               <h:inputText id="realName"
                 value="#{userBean.newUnitUserBean.name}" required="true"
@@ -272,6 +277,7 @@
                  oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
                 reRender="#{flowRenderFragments}"></h:commandButton>
             </h:panelGrid>
+            </a4j:region>
           </h:form>
         </rich:panelBarItem>
         <rich:panelBarItem label="Invitar Usuario por Correo">

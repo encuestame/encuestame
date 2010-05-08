@@ -73,7 +73,7 @@ public class UserBean  extends MasterBean implements Serializable {
      * Validate Username.
      */
     public final void validateUserName(){
-        if(getSecurityService().searchUsersByEmail(getNewUnitUserBean().getUsername()).size() > 0){
+        if(getSecurityService().searchUsersByUsesrname(getNewUnitUserBean().getUsername()).size() > 0){
             log.info("username valid");
         }
         else{

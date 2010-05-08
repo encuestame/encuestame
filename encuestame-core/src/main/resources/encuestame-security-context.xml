@@ -74,12 +74,6 @@
     <property name="filterProcessesUrl" value="/j_spring_security_check" />
   </bean>
 
-<!--  <bean id="messageSource"-->
-<!--    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
-<!--    <property name="basename" value="org/springframework/security/messages" />-->
-<!--  </bean>-->
-
-
   <bean id="voteAccessDecisionManager"
     class="org.springframework.security.access.vote.AffirmativeBased">
     <property name="allowIfAllAbstainDecisions">
