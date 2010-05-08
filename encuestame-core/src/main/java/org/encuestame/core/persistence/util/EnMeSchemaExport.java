@@ -97,7 +97,7 @@ public class EnMeSchemaExport {
             user.setUsername("admin");
             user.setName("admin");
             user.setStatus(true);
-            securityService.createUser(user);
+            //securityService.createUser(user);
 
             //admin user permission
             securityService.assignPermission(user, permissionAdmin);

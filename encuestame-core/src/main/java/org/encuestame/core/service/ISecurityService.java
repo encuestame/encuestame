@@ -109,11 +109,10 @@ public interface ISecurityService extends IService {
      * Create a user, generate password for user and send email to confirmate
      * the account.
      * @param userBean user bean
-     * @return password
      * @throws EnMeExpcetion
      * @throws EnMeExpcetion personalize exception
      */
-    String createUser(final UnitUserBean userBean) throws EnMeExpcetion;
+    void createUser(final UnitUserBean userBean,  final String username) throws EnMeExpcetion;
 
     /**
      * Assign permission to user.
@@ -220,5 +219,19 @@ public interface ISecurityService extends IService {
      * @return {@link UnitUserBean}.
      */
     UnitUserBean singupUser(final SingUpBean singUpBean);
+
+    /**
+     * Search {@link SecUserSecondary} by email.
+     * @param email email
+     * @return
+     */
+    List<SecUserSecondary> searchUsersByEmail(final String email);
+
+    /**
+     * Search List of User By Username
+     * @param username username
+     * @return
+     */
+    List<SecUserSecondary> searchUsersByUsesrname(final String username);
 
 }

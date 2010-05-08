@@ -4,22 +4,6 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <!-- admon bean -->
-  <bean id="userBean" class="org.encuestame.web.beans.admon.UserBean"
-    scope="session">
-    <property name="servicemanagerBean" ref="servicesManager" />
-  </bean>
-
-  <bean id="groupBean" class="org.encuestame.web.beans.admon.GroupBean"
-    scope="session">
-    <property name="servicemanagerBean" ref="servicesManager" />
-  </bean>
-
-  <!-- Project -->
-  <bean id="proyectUserBean" class="org.encuestame.web.beans.project.ProjectBean"
-    scope="session">
-    <property name="servicemanagerBean" ref="servicesManager" />
-  </bean>
 
   <!-- Survey's -->
 

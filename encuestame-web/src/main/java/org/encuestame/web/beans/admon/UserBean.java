@@ -38,7 +38,6 @@ public class UserBean  extends MasterBean implements Serializable {
     private static final long serialVersionUID = -391208809931131195L;
     private UnitUserBean unitUserBean = new UnitUserBean();
     private UnitUserBean newUnitUserBean = new UnitUserBean();
-    private List<UnitUserBean> listUnitBeans ;
     private String processedUserId;
     private Long selectedPermissionId;
     private String selectedAction;
@@ -48,15 +47,37 @@ public class UserBean  extends MasterBean implements Serializable {
      * Create secondary user, is notificated is desactivated the password is returned and should be,
      * showed on screen.
      */
-    public final void createUser() {
+    public final void createUser(final String username) {
         try {
-            getNewUnitUserBean().setPrimaryUserId(
-                    getSecurityService().findUserByUserName(getUserPrincipalUsername()).getSecUser().getUid());
-            getNewUnitUserBean().setPassword(getSecurityService().createUser(getNewUnitUserBean()));
+            log.info("username logged "+username);
+            getSecurityService().createUser(getNewUnitUserBean(), username);
             addInfoMessage("User "+getNewUnitUserBean().getUsername()+" saved", "");
         } catch (EnMeExpcetion e) {
-            addErrorMessage(
-                    e.getMessage(), e.getMessage());
+            addErrorMessage(e.getMessage(), e.getMessage());
+        }
+    }
+
+    /**
+     * Validate Email.
+     */
+    public final void validateEmail(){
+        if(getSecurityService().searchUsersByEmail(getNewUnitUserBean().getEmail()).size() > 0){
+            log.info("email valid");
+        }
+        else{
+            log.info("email not valid");
+        }
+    }
+
+    /**
+     * Validate Username.
+     */
+    public final void validateUserName(){
+        if(getSecurityService().searchUsersByEmail(getNewUnitUserBean().getUsername()).size() > 0){
+            log.info("username valid");
+        }
+        else{
+            log.info("username not valid");
         }
     }
 
@@ -130,29 +151,6 @@ public class UserBean  extends MasterBean implements Serializable {
      */
     public final void searchLDAPUser() {
         //TODO: need implement ldap search.
-    }
-
-    /**
-     * @param listUnitBeans
-     *            the listUnitBeans to set
-     */
-    public final void setlistUnitBeans(List<UnitUserBean> listUnitBeans) {
-        this.listUnitBeans = listUnitBeans;
-    }
-
-    /**
-     * get list_unit_beans
-     *
-     * @return dsadsa
-     */
-    public final List<UnitUserBean> getListUnitBeans() {
-        try {
-            return listUnitBeans;
-        } catch (Exception e) {
-            addErrorMessage("error loading grid " + e.getMessage(), e
-                    .getMessage());
-            return null;
-        }
     }
 
     /**

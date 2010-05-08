@@ -45,7 +45,7 @@
 
       <rich:dataTable id="dataTableUsers" width="100%"
         style="margin: 5px; margin-top: 12px;"
-        value="#{users}" var="unitUser">
+        value="#{users}" var="unitUser" rendered="#{users.rowCount > 0}">
         <f:facet name="header">
           <rich:columnGroup>
             <rich:column width="20px">
@@ -58,7 +58,7 @@
               <h:outputText value="#{temp.name}" />
             </rich:column>
             <rich:column>
-              <h:outputText value="#{temp.gruops}" />
+              <h:outputText value="#{temp.groups}" />
             </rich:column>
             <rich:column>
               <h:outputText value="#{temp.roles}" />
@@ -129,7 +129,6 @@
             <p style="font-weight: bold;"><h:outputText
               value="Usuario desde #{userBean.unitUserBean.dateNew}" /></p>
             <h:panelGrid columns="2" width="400px">
-
               <h:outputLabel value="Nombre de Usuario" for="username" />
               <h:inputText id="username"
                 value="#{userBean.unitUserBean.username}" disabled="true"
@@ -224,13 +223,21 @@
               <h:outputLabel value="Nombre de Usuario" for="username" />
               <h:inputText id="username"
                 value="#{userBean.newUnitUserBean.username}" size="20" />
-              <h:outputLabel value="Nombre Real" for="realName" />
+              <h:outputLabel value="Nombre Real" for="realName" >
+                <a4j:support event="onblur"
+                                        action="#{userBean.validateUserName}"
+                                        reRender="newFormUserUnit" ajaxSingle="true"></a4j:support>
+              </h:outputLabel>
               <h:inputText id="realName"
                 value="#{userBean.newUnitUserBean.name}" required="true"
                 requiredMessage="test" size="40" />
               <h:outputLabel value="Correo" for="email" />
               <h:inputText id="email" value="#{userBean.newUnitUserBean.email}"
-                required="true" size="40" />
+                required="true" size="40">
+                <a4j:support event="onblur"
+                                        action="#{userBean.validateEmail}"
+                                        reRender="newFormUserUnit" ajaxSingle="true"></a4j:support>
+                </h:inputText>
               <h:outputLabel value="Estado" for="status" />
               <h:panelGroup>
                 <h:panelGrid columns="2">
@@ -261,9 +268,9 @@
                   </h:selectOneRadio>
                 </h:panelGrid>
               </h:panelGroup>
-              <a4j:commandButton value="Crear" action="#{userBean.createUser}"
-                oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
-                reRender="dataTableUsers"></a4j:commandButton>
+              <h:commandButton value="Create" action="createUser"
+                 oncomplete="Richfaces.hideModalPanel('panelnewUserGroup')"
+                reRender="#{flowRenderFragments}"></h:commandButton>
             </h:panelGrid>
           </h:form>
         </rich:panelBarItem>

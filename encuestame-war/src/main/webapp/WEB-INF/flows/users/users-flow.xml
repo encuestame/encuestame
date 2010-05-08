@@ -8,11 +8,22 @@
     <view-state id="users">
         <on-render>
             <evaluate expression="securityService.loadListUsers(currentUser.name)" result="flowScope.users"
-                result-type="dataModel" />
+                      result-type="dataModel" />
         </on-render>
-        <transition on="createUser" >
+
+        <transition on="createUser">
+             <evaluate expression="userBean.createUser(currentUser.name)"/>
+             <render fragments="dataTableUsers" />
+        </transition>
+
+        <transition on="searchLdap" >
 
         </transition>
+
+        <transition on="sendInvitation" >
+
+        </transition>
+
     </view-state>
 
     <view-state id="succesfull">
@@ -20,6 +31,10 @@
         </transition>
     </view-state>
 
-    <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
+    <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state><!--
 
-</flow>
+    <global-transitions>
+            <transition on-exception="org.encuestame.core.exception.EnMeExpcetion" to="error"/>
+    </global-transitions>
+
+--></flow>

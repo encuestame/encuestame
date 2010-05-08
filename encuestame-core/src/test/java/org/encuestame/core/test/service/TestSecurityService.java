@@ -255,7 +255,7 @@ public class TestSecurityService extends AbstractBase{
         final UnitUserBean userCreateBean = new UnitUserBean();
         userCreateBean.setEmail(null);
         userCreateBean.setUsername("diana");
-        securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
        }
 
       /**
@@ -268,7 +268,7 @@ public class TestSecurityService extends AbstractBase{
         final UnitUserBean userCreateBean = new UnitUserBean();
         userCreateBean.setEmail("paola@jotadeveloper.com");
         userCreateBean.setUsername(null);
-        securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
        }
 
       /**
@@ -294,7 +294,7 @@ public class TestSecurityService extends AbstractBase{
         userCreateBean.setPassword(null);
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createUser().getUid());
-        securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
         final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
@@ -318,7 +318,7 @@ public class TestSecurityService extends AbstractBase{
         userCreateBean.setName("Diana Paola");
         userCreateBean.setPrimaryUserId(createUser().getUid());
         userCreateBean.setDateNew(new Date());
-        securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
         final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
@@ -342,7 +342,7 @@ public class TestSecurityService extends AbstractBase{
         userCreateBean.setName("Diana Paola");
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createUser().getUid());
-        securityService.createUser(userCreateBean);
+        securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
         final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);

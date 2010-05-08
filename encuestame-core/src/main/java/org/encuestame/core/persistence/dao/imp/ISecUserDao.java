@@ -64,10 +64,24 @@ public interface ISecUserDao extends IBaseDao {
     SecUserSecondary getSecondaryUserById(final Long userId);
 
     /**
+     * Get list of users by username.
+     * @param username username
+     * @return list of users
+     */
+    List<SecUserSecondary> getUsersByUsername(final String username);
+
+    /**
      * Get {@link SecUserSecondary} but {@link SecUsers} id.
      * @param userId user id
      * @return secondary user list
      */
     List<SecUserSecondary> getSecondaryUsersByUserId(final Long userId);
+
+    /**
+     * Search user by email
+     * @param email email
+     * @return
+     */
+    List<SecUserSecondary> searchUsersByEmail(final String email);
 
 }

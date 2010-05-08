@@ -29,6 +29,7 @@ import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,11 +51,8 @@ public class MasterBean{
     @Autowired
     protected IServiceManager servicemanager;
 
-
     /** Log. **/
     protected Logger log = Logger.getLogger(this.getClass());
-
-
 
     /** User Session Id. **/
     protected Long userSessionId;
@@ -115,10 +113,11 @@ public class MasterBean{
      */
     public final void showMessage(String messageId, String message, String description,
             Severity severity) {
-        this.clearMessages();
-        final FacesMessage facesMessages = new FacesMessage(message, description);
-        facesMessages.setSeverity(severity);
-        getFacesContext().addMessage(messageId, facesMessages);
+        //this.clearMessages();
+        //final FacesMessage facesMessages = new FacesMessage(message, description);
+        //FIXME: nullPointer, maybe this context is not available on webflow context.
+        //facesMessages.setSeverity(severity);
+        //getFacesContext().addMessage(messageId, facesMessages);
     }
 
     /**
@@ -194,6 +193,8 @@ public class MasterBean{
      * @param description description
      */
     public final void addInfoMessage(String message, String description) {
+        log.info("addInfoMessage "+message);
+        log.info("addInfoMessage description "+description);
         showMessage(null, message, description, FacesMessage.SEVERITY_INFO);
     }
 
@@ -203,6 +204,8 @@ public class MasterBean{
      * @param description  description
      */
     public final void addErrorMessage(String message, String description) {
+        log.info("addErrorMessage "+message);
+        log.info("addErrorMessage description "+description);
         showMessage(null, message, description, FacesMessage.SEVERITY_ERROR);
     }
 

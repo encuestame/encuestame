@@ -41,7 +41,6 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -332,14 +331,14 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeExpcetion personalize exception
      * @return if password is not notified  is returned
      */
-    public String createUser(final UnitUserBean userBean) throws EnMeExpcetion {
+    public void createUser(final UnitUserBean userBean, final String username) throws EnMeExpcetion {
         final SecUserSecondary secondaryUser = new SecUserSecondary();
+        final SecUsers secUsers = getUser(username).getSecUser();
         //validate email and password
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
             secondaryUser.setUserEmail(userBean.getEmail());
             secondaryUser.setUsername(userBean.getUsername());
-           // log.debug("user primary id "+getUserDao().getUserById(userBean.getPrimaryUserId()));
-            secondaryUser.setSecUser(getSecUserDao().getUserById(userBean.getPrimaryUserId()));
+            secondaryUser.setSecUser(secUsers);
         }
         else {
             throw new EnMeExpcetion("needed email and username to create user");
@@ -354,8 +353,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         secondaryUser.setPublisher(userBean.getPublisher());
-        secondaryUser.setCompleteName(userBean.getName());
-        secondaryUser.setUserStatus(userBean.getStatus());
+        secondaryUser.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
+        secondaryUser.setUserStatus(Boolean.TRUE);
         secondaryUser.setEnjoyDate(new Date());
             // send to user the password to her emails
             if((getSuspendedNotification())) {
@@ -375,7 +374,24 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             getSecUserDao().saveOrUpdate(retrievedUser);
             final SecUserSecondary retrievedUser2 = getSecUserDao().getSecondaryUserById(retrievedUser.getUid());
             log.info("saved user total permissions "+retrievedUser2.getSecUserPermissions().size());
-        return password;
+    }
+
+    /**
+     * Search {@link SecUserSecondary} by email.
+     * @param email email
+     * @return
+     */
+    public List<SecUserSecondary> searchUsersByEmail(final String email){
+        return getSecUserDao().searchUsersByEmail(email);
+    }
+
+    /**
+     * Search List of User By Username
+     * @param username username
+     * @return
+     */
+    public List<SecUserSecondary> searchUsersByUsesrname(final String username){
+        return getSecUserDao().getUsersByUsername(username);
     }
 
     /**
