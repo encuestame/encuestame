@@ -37,7 +37,6 @@ public class UnitUserBean implements Serializable {
     private String inviteCode;
     private Date dateNew;
     private Long primaryUserId;
-    private Boolean publisher;
     private Collection<UnitGroupBean> listGroups;
     private Collection<UnitPermission> listPermission;
     /**
@@ -136,18 +135,7 @@ public class UnitUserBean implements Serializable {
     public final void setDateNew(Date dateNew) {
         this.dateNew = dateNew;
     }
-    /**
-     * @return the publisher
-     */
-    public final Boolean getPublisher() {
-        return publisher;
-    }
-    /**
-     * @param publisher the publisher to set
-     */
-    public final void setPublisher(Boolean publisher) {
-        this.publisher = publisher;
-    }
+
     /**
      * @return the listGroups
      */
@@ -184,5 +172,4 @@ public class UnitUserBean implements Serializable {
     public final void setPrimaryUserId(Long primaryUserId) {
         this.primaryUserId = primaryUserId;
     }
-
 }

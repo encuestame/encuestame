@@ -102,25 +102,29 @@ public class UserBean  extends MasterBean implements Serializable {
     public final void inviteUser() {
         if (!getListUsers().isEmpty()) {
             final List<String> emails = new LinkedList<String>();
-            String strDatos = getListUsers().trim();
-            StringTokenizer tokens = new StringTokenizer(strDatos, ",");
+            final String strDatos = getListUsers().trim();
+            //split emails
+            final StringTokenizer tokens = new StringTokenizer(strDatos, ",");
             int i = 0;
             while (tokens.hasMoreTokens()) {
                 String str = tokens.nextToken();
                 emails.add(str.trim());
                 i++;
             }
+            //foreach emails
             if (emails.size() > 0) {
                 Iterator<String> it = emails.iterator();
                 while (it.hasNext()) {
                     String email = (String) it.next();
                     if (EmailUtils.validateEmail(email)) {
                         try {
+                            //TODO: review this
                             String code = getServicemanager()
                                     .getApplicationServices()
                                     .getSecurityService()
                                     .generateHashCodeInvitation();
                             getServicemanager()
+                            //send invitations
                             .getApplicationServices()
                             .getSecurityService()
                                     .inviteUser(email, code);
@@ -128,12 +132,12 @@ public class UserBean  extends MasterBean implements Serializable {
                                     + " Satisfactoriamente", "");
                         } catch (Exception e) {
                             addErrorMessage(
-                                    "Lo siento,ocurrio un error al enviar este correo->"
+                                    "error sending email "
                                             + email + " error->" + e, e
                                             .getMessage());
                         }
                     } else {
-                        log.info("email invalido ->" + email);
+                        log.info("email sent ->" + email);
                         addWarningMessage("invalid email: " + email, "");
                     }
                 }
@@ -151,6 +155,7 @@ public class UserBean  extends MasterBean implements Serializable {
      */
     public final void searchLDAPUser() {
         //TODO: need implement ldap search.
+        log.info("searchLDAPUser");
     }
 
     /**
@@ -181,7 +186,7 @@ public class UserBean  extends MasterBean implements Serializable {
      * Delete user.
      * @param user {@link UnitUserBean}
      */
-    private void deleteUser(final UnitUserBean user) {
+    public void deleteUser(final UnitUserBean user) {
         try {
             getServicemanager().getApplicationServices().getSecurityService().deleteUser(user);
             log.debug("user "+user.getUsername()+" deleted");
@@ -265,13 +270,16 @@ public class UserBean  extends MasterBean implements Serializable {
      * Load user selected in datatable
      */
     public final void loadSelectUser() {
+        log.info("load selecte user");
         try {
             if (getProcessedUserId() != null) {
                 unitUserBean = null;
-                UnitUserBean unitUserBeanLocal = getServicemanager()
+                final UnitUserBean unitUserBeanLocal = getServicemanager()
                         .getApplicationServices().getSecurityService().searchUserByUsername(
                                 getProcessedUserId());
+                log.info("load unitUserBeanLocal "+unitUserBeanLocal);
                 setUnitUserBean(unitUserBeanLocal);
+                log.info("load unitUserBean "+this.unitUserBean);
             } else {
                 addErrorMessage(
                         "Lo siento, no se pudo cargar la info del usuario", "");

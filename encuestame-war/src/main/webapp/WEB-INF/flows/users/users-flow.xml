@@ -17,11 +17,19 @@
         </transition>
 
         <transition on="searchLdap" >
-
+             <evaluate expression="userBean.searchLDAPUser()"/>
+             <render fragments="dataTableUsers" />
         </transition>
 
         <transition on="sendInvitation" >
+            <evaluate expression="userBean.inviteUser()"/>
+             <render fragments="dataTableUsers" />
+        </transition>
 
+        <transition on="delete" >
+             <set name="flowScope.userSelected" value="users.selectedRow" />
+             <evaluate expression="userBean.deleteUser(flowScope.userSelected)"/>
+             <render fragments="dataTableUsers" />
         </transition>
 
     </view-state>

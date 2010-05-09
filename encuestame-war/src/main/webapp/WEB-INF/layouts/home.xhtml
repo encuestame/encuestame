@@ -8,7 +8,7 @@
     xmlns:c="http://java.sun.com/jstl/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:sf="http://www.springframework.org/tags/faces"
-    xmlns:p="http://primefaces.prime.com.tr/ui">
+    xmlns:sec="http://www.springframework.org/security/tags">
 
 <a4j:loadBundle basename="messages" var="temp" />
 <sf:resource path="/css/admon.css"/>
@@ -19,7 +19,6 @@
     </title>
     <ui:insert name="javascript"></ui:insert>
     <ui:insert name="googleMaps"></ui:insert>
-    <p:resources />
 </head>
 <body>
     <ui:include src="includes/header.xhtml" />
