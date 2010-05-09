@@ -376,11 +376,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             getSecUserDao().saveOrUpdate(secondaryUser);
             // assing first default group to user
             final SecUserSecondary retrievedUser = getSecUserDao().getSecondaryUserById(secondaryUser.getUid());
-            final SecPermission permission = getPermissionDao().loadPermission("ENCUESTAME_USER");
-            final List<SecPermission> all = getPermissionDao().findAllPermissions();
-            log.info("all permission "+all.size());
-            log.info("default permission "+permission);
-            retrievedUser.getSecUserPermissions().add(permission);
+            final SecPermission permission = getPermissionByName(SecurityService.DEFAULT);
+            if(permission != null){
+                final List<SecPermission> all = getPermissionDao().findAllPermissions();
+                log.info("all permission "+all.size());
+                log.info("default permission "+permission);
+                retrievedUser.getSecUserPermissions().add(permission);
+            }
+            else{
+                log.warn("error assing default permissions");
+            }
             log.info("saving user");
             getSecUserDao().saveOrUpdate(retrievedUser);
     }
@@ -460,12 +465,33 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Assing group to user.
+     * Assign group to user.
      * @param userBean userBean
      * @param groupBean groupBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void assingGroup(
+    public void assingGroupFromUser(
+            final UnitUserBean userBean,
+            final UnitGroupBean groupBean)
+            throws EnMeExpcetion {
+        final SecUserSecondary secUserSecondary = getUser(userBean.getUsername());
+        //search group by group id and owner user id.
+        final SecGroups secGroup = getGroupDao().getGroupById(groupBean.getId(), secUserSecondary.getSecUser());
+        if(secGroup == null){
+            throw new EnMeExpcetion("group not found");
+        }
+        //add new group.
+        secUserSecondary.getSecGroups().add(secGroup);
+        getSecUserDao().saveOrUpdate(secUserSecondary);
+    }
+
+    /**
+     * Remove {@link SecGroups} from User.
+     * @param userBean {@link UnitUserBean}
+     * @param groupBean {@link UnitGroupBean}
+     * @throws EnMeExpcetion
+     */
+    public void removeGroupFromUser(
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion {

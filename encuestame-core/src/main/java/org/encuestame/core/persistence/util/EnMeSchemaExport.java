@@ -63,66 +63,61 @@ public class EnMeSchemaExport {
         annotationSF.dropDatabaseSchema();
         annotationSF.createDatabaseSchema();
 
-        try {
-            //security service
-            final SecurityService securityService = (SecurityService) appContext
-            .getBean("securityService");
+        //security service
+        final SecurityService securityService = (SecurityService) appContext
+        .getBean("securityService");
 
-            final UnitPermission defaultUserPermission = new UnitPermission();
-            // create encuestame user permission.
-            defaultUserPermission.setPermission("ENCUESTAME_USER");
-            defaultUserPermission.setDescription("ENCUESTAME_USER");
-            securityService.createPermission(defaultUserPermission);
+        final UnitPermission defaultUserPermission = new UnitPermission();
+        // create encuestame user permission.
+        defaultUserPermission.setPermission("ENCUESTAME_USER");
+        defaultUserPermission.setDescription("ENCUESTAME_USER");
+        securityService.createPermission(defaultUserPermission);
 
-            // create permission admin
-            final UnitPermission permissionAdmin = new UnitPermission();
-            permissionAdmin.setPermission("ENCUESTAME_ADMIN");
-            permissionAdmin.setDescription("ENCUESTAME_ADMIN");
-            securityService.createPermission(permissionAdmin);
+        // create permission admin
+        final UnitPermission permissionAdmin = new UnitPermission();
+        permissionAdmin.setPermission("ENCUESTAME_ADMIN");
+        permissionAdmin.setDescription("ENCUESTAME_ADMIN");
+        securityService.createPermission(permissionAdmin);
 
-            //TODO: lazy exception problem with this script.
+        //TODO: lazy exception problem with this script.
 
-            //create user admin
-            final SecUsers userPrimary = new SecUsers();
-            userPrimary.setTwitterAccount("testEncuesta");
-            userPrimary.setTwitterPassword("testEncuesta123");
+        //create user admin
+        final SecUsers userPrimary = new SecUsers();
+        userPrimary.setTwitterAccount("testEncuesta");
+        userPrimary.setTwitterPassword("testEncuesta123");
 
-            final SecUserDaoImp secUserDao = (SecUserDaoImp) appContext.getBean("secUserDao");
-            secUserDao.saveOrUpdate(userPrimary);
-            final UnitUserBean user = new UnitUserBean();
-            user.setDateNew(new Date());
-            user.setPrimaryUserId(userPrimary.getUid());
-            user.setEmail("admin@encuestame.org");
-            user.setPassword("12345");
-            user.setUsername("admin");
-            user.setName("admin");
-            user.setStatus(true);
-            //securityService.createUser(user);
+        final SecUserDaoImp secUserDao = (SecUserDaoImp) appContext.getBean("secUserDao");
+        secUserDao.saveOrUpdate(userPrimary);
+        final UnitUserBean user = new UnitUserBean();
+        user.setDateNew(new Date());
+        user.setPrimaryUserId(userPrimary.getUid());
+        user.setEmail("admin@encuestame.org");
+        user.setPassword("12345");
+        user.setUsername("admin");
+        user.setName("admin");
+        user.setStatus(true);
+        //securityService.createUser(user);
 
-            //admin user permission
-            securityService.assignPermission(user, permissionAdmin);
-            securityService.assignPermission(user, defaultUserPermission);
+        //admin user permission
+        //securityService.assignPermission(user, permissionAdmin);
+        //securityService.assignPermission(user, defaultUserPermission);
 
-            final SecPermissionDaoImp secPermissionDaoImp = (SecPermissionDaoImp) appContext.getBean("secPermissionDaoImp");
-            SecPermission d = secPermissionDaoImp.getPermissionById(1L);
-            SecPermission d2 = secPermissionDaoImp.getPermissionById(2L);
-            SecUserSecondary secondary = secUserDao.getSecondaryUserById(1L);
-            secondary.getSecUserPermissions().add(d);
-            secondary.getSecUserPermissions().add(d2);
-            secUserDao.saveOrUpdate(secondary);
+        final SecPermissionDaoImp secPermissionDaoImp = (SecPermissionDaoImp) appContext.getBean("secPermissionDaoImp");
+        SecPermission d = secPermissionDaoImp.getPermissionById(1L);
+        SecPermission d2 = secPermissionDaoImp.getPermissionById(2L);
+        SecUserSecondary secondary = secUserDao.getSecondaryUserById(1L);
+        secondary.getSecUserPermissions().add(d);
+        secondary.getSecUserPermissions().add(d2);
+        secUserDao.saveOrUpdate(secondary);
 
-            final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
-            final CatState activate = new CatState();
-            activate.setDescState("activate");
-            stateDao.saveOrUpdate(activate);
-            final CatState inactive = new CatState();
-            inactive.setDescState("inactive");
-            stateDao.saveOrUpdate(inactive);
-            stateDao.saveOrUpdate(inactive);
-
-        } catch (EnMeExpcetion e) {
-        }
-        //Create test database
+        final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
+        final CatState activate = new CatState();
+        activate.setDescState("activate");
+        stateDao.saveOrUpdate(activate);
+        final CatState inactive = new CatState();
+        inactive.setDescState("inactive");
+        stateDao.saveOrUpdate(inactive);
+        stateDao.saveOrUpdate(inactive);
 
         final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
                 SPRING_CONFIG_TEST_FILES);

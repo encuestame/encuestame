@@ -14,8 +14,6 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
-
-
 /**
  * Unit Permission Bean.
  * @author Picado, Juan juan@encuestame.org
@@ -31,36 +29,57 @@ public class UnitPermission implements Serializable {
     private Long id;
     private String permission;
     private String description;
+
+    /**
+     * Empty Constructor.
+     */
+    public UnitPermission() {
+    }
+
+    /**
+     * Constructor.
+     * @param id id
+     */
+    public UnitPermission(Long id) {
+        super();
+        this.id = id;
+    }
+
     /**
      * @return the id
      */
     public final Long getId() {
         return id;
     }
+
     /**
      * @param id the id to set
      */
     public final void setId(final Long id) {
         this.id = id;
     }
+
     /**
      * @return the permission
      */
     public final String getPermission() {
         return permission;
     }
+
     /**
      * @param permission the permission to set
      */
     public final void setPermission(final String permission) {
         this.permission = permission;
     }
+
     /**
      * @return the description
      */
     public final String getDescription() {
         return description;
     }
+
     /**
      * @param description the description to set
      */

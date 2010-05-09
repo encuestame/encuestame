@@ -17,7 +17,11 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.hibernate.HibernateException;
+import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -33,6 +37,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     /**
      * Find all groups.
      */
+    //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
     public List<SecGroups> findAllGroups() {
         return super.findAll("from SecGroups");
@@ -54,6 +59,18 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     public SecGroups getGroupById(final Long groupId) throws HibernateException {
         return (SecGroups) getHibernateTemplate().get(SecGroups.class,
                groupId);
+    }
+
+    /**
+     * Get Group by Id and User.
+     * @param groupId group id
+     * @param secUser {@link SecUsers}
+     * @return
+     */
+    public SecGroups getGroupById(final Long groupId, final SecUsers secUser){
+        return (SecGroups) DataAccessUtils.uniqueResult(getHibernateTemplate()
+               .findByNamedParam("from SecGroups where groupId = :groupId and  secUsers = :secUser",
+                new String[]{"groupId", "secUsers"}, new Object[]{groupId, secUser}));
     }
 
     /**

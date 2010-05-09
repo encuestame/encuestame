@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.EmailUtils;
+import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.MasterBean;
@@ -42,6 +43,16 @@ public class UserBean  extends MasterBean implements Serializable {
     private Long selectedPermissionId;
     private String selectedAction;
     private String listUsers;
+
+    /**
+     * Group Added Id.
+     */
+    private Long groupdAddedId;
+
+    /**
+     * Group Removed Id.
+     */
+    private Long groupRemovedId;
 
     /**
      * Create secondary user, is notificated is desactivated the password is returned and should be,
@@ -159,10 +170,44 @@ public class UserBean  extends MasterBean implements Serializable {
     }
 
     /**
-     * Assing permissions to secondary user.
+     * Add permission.
      */
-    public final void assingPermissions() {
+    public final void addPermissions() {
+        final UnitPermission permission = new UnitPermission(getGroupdAddedId());
 
+    }
+
+    /**
+     * Remove permission.
+     */
+    public final void removePermissions() {
+        final UnitPermission permission = new UnitPermission(getGroupdAddedId());
+
+    }
+
+    /**
+     * Add Group.
+     */
+    public final void addGroup(){
+        try{
+            final UnitUserBean userBean = new UnitUserBean();
+            userBean.setUsername(getUsername());
+            final UnitGroupBean groupBean = new UnitGroupBean();
+            groupBean.setId(getGroupdAddedId());
+            getSecurityService().assingGroupFromUser(userBean, groupBean);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
+        }
+
+    }
+
+    /**
+     * Remove Group.
+     */
+    public final void removeGroup(){
+        log.warn("remove group should be added");
     }
 
     /**
@@ -333,4 +378,34 @@ public class UserBean  extends MasterBean implements Serializable {
     public final void setSelectedPermissionId(final Long selectedPermissionId) {
         this.selectedPermissionId = selectedPermissionId;
     }
+
+    /**
+     * @return the groupdAddedId
+     */
+    public Long getGroupdAddedId() {
+        return groupdAddedId;
+    }
+
+    /**
+     * @param groupdAddedId the groupdAddedId to set
+     */
+    public void setGroupdAddedId(final Long groupdAddedId) {
+        this.groupdAddedId = groupdAddedId;
+    }
+
+    /**
+     * @return the groupRemovedId
+     */
+    public Long getGroupRemovedId() {
+        return groupRemovedId;
+    }
+
+    /**
+     * @param groupRemovedId the groupRemovedId to set
+     */
+    public void setGroupRemovedId(final Long groupRemovedId) {
+        this.groupRemovedId = groupRemovedId;
+    }
+
+
 }

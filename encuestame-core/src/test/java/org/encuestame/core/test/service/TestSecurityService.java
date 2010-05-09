@@ -437,7 +437,7 @@ public class TestSecurityService extends AbstractBase{
           final SecGroups groups = createGroups("encuestador");
           UnitUserBean userBean = ConvertDomainBean.convertUserDaoToUserBean(users);
           UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
-          securityService.assingGroup(userBean, groupBean);
+          //securityService.assingGroup(userBean, groupBean);
         }
 
         /**

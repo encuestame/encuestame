@@ -9,6 +9,8 @@
         <on-render>
             <evaluate expression="securityService.loadListUsers(currentUser.name)" result="flowScope.users"
                       result-type="dataModel" />
+            <evaluate expression="securityService.loadGroups(currentUser.name)" result="flowScope.groups"
+                result-type="dataModel" />
         </on-render>
 
         <transition on="createUser">

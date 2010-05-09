@@ -126,12 +126,23 @@ public interface ISecurityService extends IService {
             throws EnMeExpcetion;
 
     /**
-     * Assing group to user.
+     * Assign group to user.
      * @param userBean userBean
      * @param groupBean groupBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    void assingGroup(
+    public void assingGroupFromUser(
+            final UnitUserBean userBean,
+            final UnitGroupBean groupBean)
+            throws EnMeExpcetion;
+
+    /**
+     * Remove {@link SecGroups} from User.
+     * @param userBean {@link UnitUserBean}
+     * @param groupBean {@link UnitGroupBean}
+     * @throws EnMeExpcetion
+     */
+    public void removeGroupFromUser(
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion;

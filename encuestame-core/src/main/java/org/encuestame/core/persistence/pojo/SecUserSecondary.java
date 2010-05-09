@@ -72,8 +72,11 @@ public class SecUserSecondary {
     private boolean credentialsNonExpired = true;
 
     private Set<SecGroups> secGroups = new HashSet<SecGroups>();
+
     private Set<Project> projects = new HashSet<Project>();
+
     private Set<SecPermission> secUserPermissions = new HashSet<SecPermission>();
+
     private Set<CatLocation> cLocations = new HashSet<CatLocation>();
 
     /**

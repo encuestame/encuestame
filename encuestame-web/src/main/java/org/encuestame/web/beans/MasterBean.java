@@ -64,7 +64,9 @@ public class MasterBean{
     private Integer shortNumberString = 30;
 
     private static final String URL = "http://";
+
     private static final Integer REQUEST_SERVER_PORT = 80;
+
     /**
      * Constructor.
      */
