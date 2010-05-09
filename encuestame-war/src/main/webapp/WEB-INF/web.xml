@@ -176,10 +176,6 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet>
-		<servlet-name>Resource Servlet</servlet-name>
-		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
-	</servlet>
 	<!--
 		Serves static resource content from .jar files such as
 		spring-faces.jar
@@ -195,10 +191,6 @@
 	<servlet-mapping>
 		<servlet-name>Resources Spring Servlet</servlet-name>
 		<url-pattern>/resources/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Resource Servlet</servlet-name>
-		<url-pattern>/primefaces_resource/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>

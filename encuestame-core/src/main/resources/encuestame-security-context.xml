@@ -48,11 +48,11 @@
     <security:intercept-url pattern="/account/forget.do" access="ENCUESTAME_ANONYMOUS, ENCUESTAME_USER"/>
     <security:intercept-url pattern="/account/signup.do" access="ENCUESTAME_ANONYMOUS, ENCUESTAME_USER"/>
     <!-- User Paths -->
-    <security:intercept-url pattern="/tweetPoll.do" access="ENCUESTAME_USER"   />
-    <security:intercept-url pattern="/poll.do" access="ENCUESTAME_USER"/>
-    <security:intercept-url pattern="/survey.do" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/tweetPoll.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />
+    <security:intercept-url pattern="/poll.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+    <security:intercept-url pattern="/survey.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
     <!-- Vote Paths -->
-    <security:intercept-url pattern="/tweet/*" access="ENCUESTAME_ANONYMOUS, ENCUESTAME_USER" />
+    <security:intercept-url pattern="/tweet/*" filters="none" />
     <security:intercept-url pattern="/**/*.xhtml" filters="none" />
     <security:intercept-url pattern="/**/*.css"  filters="none" />
     <security:intercept-url pattern="/images/**" filters="none" />

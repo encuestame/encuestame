@@ -289,7 +289,6 @@ public class TestSecurityService extends AbstractBase{
         userCreateBean.setEmail("demo@demo.org");
         userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
-        userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("demo");
         userCreateBean.setPassword(null);
         userCreateBean.setDateNew(new Date());
@@ -314,7 +313,6 @@ public class TestSecurityService extends AbstractBase{
         userCreateBean.setEmail("demo@demo.org");
         userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
-        userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setPrimaryUserId(createUser().getUid());
         userCreateBean.setDateNew(new Date());
@@ -338,7 +336,6 @@ public class TestSecurityService extends AbstractBase{
         userCreateBean.setEmail("demo@demo.org");
         userCreateBean.setUsername("demo");
         userCreateBean.setStatus(true);
-        userCreateBean.setPublisher(Boolean.TRUE);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createUser().getUid());

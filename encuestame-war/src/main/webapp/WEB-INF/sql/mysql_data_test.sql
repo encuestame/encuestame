@@ -26,10 +26,10 @@ INSERT INTO `sec_groups` (`group_id`, `des_info`, `name`, `id_state`) VALUES
 
 INSERT INTO `sec_permission` (`id_permission`, `permission`, `description`) VALUES
 (1, 'ENCUESTAME_USER', 'ENCUESTAME_USER'),
-(2, 'ENCUESTAME_ADMIN', 'ENCUESTAME_ADMIN');
-(3, 'ENCUESTAME_ADMIN', 'ENCUESTAME_OWNER');
-(4, 'ENCUESTAME_ADMIN', 'ENCUESTAME_PUBLISHER');
-(5, 'ENCUESTAME_ADMIN', 'ENCUESTAME_EDITOR');
+(2, 'ENCUESTAME_ADMIN', 'ENCUESTAME_ADMIN'),
+(3, 'ENCUESTAME_ADMIN', 'ENCUESTAME_OWNER'),
+(4, 'ENCUESTAME_PUBLISHER', 'ENCUESTAME_PUBLISHER'),
+(5, 'ENCUESTAME_EDITOR', 'ENCUESTAME_EDITOR');
 
 INSERT INTO `sec_user` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`, `twitter_account`, `twitter_password`, `twitter_pin`) VALUES
 (1, 'nFboU4T1Zhv8cqMC4cP0ug', 'GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0', 'testEncuesta', 'testEncuesta123', 4189783);

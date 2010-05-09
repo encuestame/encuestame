@@ -62,6 +62,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /** Default User Permission **/
     private static final String ADMIN = "ENCUESTAME_ADMIN";
 
+    /** Default User Permission **/
+    private static final String EDITOR = "ENCUESTAME_EDITOR";
+
+    /** Default User Permission **/
+    private static final String OWNER = "ENCUESTAME_OWNER";
+
+    /** Default User Permission **/
+    private static final String PUBLISHER = "ENCUESTAME_PUBLISHER";
+
     /** Anonnymous User. **/
     private static final String ANONYMOUS = "ENCUESTAME_ANONYMOUS";
     /** Suspended Notification. **/
@@ -501,6 +510,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         final Set<SecPermission> permissions = new HashSet<SecPermission>();
         permissions.add(getPermissionByName(this.DEFAULT));
         permissions.add(getPermissionByName(this.ADMIN));
+        permissions.add(getPermissionByName(this.OWNER));
+        permissions.add(getPermissionByName(this.PUBLISHER));
+        permissions.add(getPermissionByName(this.EDITOR));
         this.assingPermission(secUserSecondary, permissions);
         //Create login.
         setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);

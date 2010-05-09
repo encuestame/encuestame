@@ -3,134 +3,19 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.prime.com.tr/ui"
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <ui:define name="title">TweetPoll</ui:define>
     <ui:define name="panel">
         <h:form>
-         <p:accordionPanel width="100%">
-             <p:tab title="Personalization">
-                <h:commandLink value="Create Tweet" action="createTweetPoll" />
-                <br></br>
-                <h:commandLink value="List Tweet" action="tweetpoll" />
-            </p:tab>
-            <p:tab title="Credentials">
-                <h:commandLink value="Credentials" action="tweetPollCredentials" />
-            </p:tab>
-         </p:accordionPanel>
+
         </h:form>
     </ui:define>
     <ui:define name="bodyOptions">
         <h:form id="tweetPollTable">
-            <p:messages showDetail="true" />
-            <p:dataTable var="item"  value="#{tweetPolls.listTweets}"
-                paginator="true" rows="20" width="100%"
-                selection="#{tweetPolls.selectedTweetPoll}"
-                selectionMode="single" update="tabDialogView"
-                onselectComplete="tweetDialog.show()">
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Id" />
-                    </f:facet>
-                    <h:outputText value="#{item.id}" />
-                </p:column>
 
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Question Name" />
-                    </f:facet>
-                    <h:outputText
-                        value="#{item.questionBean.questionName}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Publicada?" />
-                    </f:facet>
-                    <h:outputText value="#{item.publishPoll}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="" />
-                    </f:facet>
-                    <h:outputText value="#{item.publicationDateTweet}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="TwitterId" />
-                    </f:facet>
-                    <h:outputText value="#{item.tweetId}" />
-                </p:column>
-            </p:dataTable>
         </h:form>
-            <p:dialog header="Tweet Poll Detail" widgetVar="tweetDialog"
-                modal="true" fixedCenter="true" draggable="false"
-                width="850px">
-                <p:tabView id="tabDialogView">
-                    <p:tab title="Details">
-                        <h:form style="padding:20px;" id="detailsForm">
-                            <p:messages showDetail="true" showSummary="true">
-                                <p:effect type="pulsate" event="load">
-                                  <f:param name="times" value="2" />
-                                </p:effect>
-                            </p:messages>
-                            <ui:fragment rendered="#{tweetPolls.selectedTweetPoll.publishPoll}">
-                                <h:outputText value="#{tweetPolls.selectedTweetPoll.questionBean.questionName}"
-                                               style="font-size:16px;font-weight:bold;"/>
-                                <h:panelGrid columns="2" cellpadding="2" cellspacing="2">
-                                    <h:outputText value="Fecha Publicado" />
-                                    <h:outputText value="#{tweetPolls.selectedTweetPoll.publicationDateTweet}" />
-                                    <h:outputText value="Url Tweet" />
-                                    <h:outputLink value="#{tweetPolls.selectedTweetPoll.tweetUrl}" target="_blank">
-                                        <h:outputText value="#{tweetPolls.selectedTweetPoll.tweetUrl}"/>
-                                    </h:outputLink>
-                                </h:panelGrid>
-                            </ui:fragment>
-                            <ui:fragment rendered="#{!tweetPolls.selectedTweetPoll.publishPoll}">
-                            <h:panelGrid columns="2" cellpadding="2" cellspacing="3">
-                                <h:outputLabel value="Question"/>
-                                <h:inputText value="#{tweetPolls.selectedTweetPoll.questionBean.questionName}" size="40" />
-                                <h:outputLabel value="Allow Live Results"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="1" cellpadding="2" cellspacing="2">
-                                <p:commandLink value="Change Answers" action="#{tweetPolls.changeEdit}" update="detailsForm"/>
-                            </h:panelGrid>
-                            <ui:fragment rendered="#{tweetPolls.editAnswer}">
-                                    <a4j:repeat value="#{tweetPolls.selectedTweetPoll.questionBean.listAnswers}" var="answer">
-                                             <h:panelGrid columns="2" cellpadding="2" cellspacing="2"  >
-                                                <h:outputLabel value="Answer"/>
-                                                <h:inputText value="#{answer.answers}">
-                                                    <a4j:support event="onchange" action="#{tweetPolls.saveAnswer}"
-                                                         reRender="detailsForm">
-                                                        <a4j:actionparam name="answerId" value="#{answer.answerId}"
-                                                         assignTo="#{tweetPolls.answerIdUpdate}"></a4j:actionparam>
-                                                    </a4j:support>
-                                                </h:inputText>
-                                             </h:panelGrid>
-                                     </a4j:repeat>
-                                </ui:fragment>
-                                <a4j:commandButton value="Publish TweetPoll" action="#{tweetPolls.publishTweet}"  reRender="detailsForm, tweetPollTable"/>
-                                <a4j:commandButton value="Save Changes" action="#{tweetPolls.saveChanges}"  reRender="detailsForm"/>
-                                <h:panelGrid columns="1" cellpadding="2" cellspacing="2">
-                                     <a4j:status>
-                                        <f:facet name="start">
-                                            <h:graphicImage  value="../images/ajax-loader.gif"/>
-                                        </f:facet>
-                                     </a4j:status>
-                                 </h:panelGrid>
-                            </ui:fragment>
-                         </h:form>
-                    </p:tab>
-                    <p:tab title="Results">
-                        <p:pieChart id="display" value="#{tweetPolls.selectedResults}" var="tweet"
-                         categoryField=" #{tweet.answersBean.answers}"
-                         live="true" refreshInterval="10000"
-                         dataField="#{tweet.results}" />
-                     </p:tab>
-                    <p:tab title="Retweets">
-                    </p:tab>
-                </p:tabView>
-            </p:dialog>
+
 
     </ui:define>
 </ui:composition>
