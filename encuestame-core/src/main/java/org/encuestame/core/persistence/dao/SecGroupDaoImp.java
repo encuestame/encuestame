@@ -70,7 +70,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     public SecGroups getGroupById(final Long groupId, final SecUsers secUser){
         return (SecGroups) DataAccessUtils.uniqueResult(getHibernateTemplate()
                .findByNamedParam("from SecGroups where groupId = :groupId and  secUsers = :secUser",
-                new String[]{"groupId", "secUsers"}, new Object[]{groupId, secUser}));
+                new String[]{"groupId", "secUser"}, new Object[]{groupId, secUser}));
     }
 
     /**
