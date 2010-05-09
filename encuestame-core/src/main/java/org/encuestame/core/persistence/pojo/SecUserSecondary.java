@@ -41,7 +41,6 @@ import javax.persistence.TemporalType;
 public class SecUserSecondary {
 
     private Long uid;
-
     private String completeName;
     private String userEmail;
     private String username;
@@ -49,8 +48,6 @@ public class SecUserSecondary {
     private SecUsers secUser;
     private String inviteCode;
     private Date enjoyDate;
-    private Boolean isPublisher;
-    private Boolean isOwner;
     private Boolean userStatus;
     private String userTwitterAccount;
 
@@ -100,7 +97,7 @@ public class SecUserSecondary {
     /**
      * @return completeName
      */
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name", nullable = true, length = 50)
     public String getCompleteName() {
         return this.completeName;
     }
@@ -130,7 +127,7 @@ public class SecUserSecondary {
     /**
      * @return username
      */
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, length = 16)
     public String getUsername() {
         return this.username;
     }
@@ -161,7 +158,6 @@ public class SecUserSecondary {
      * @return the secUser
      */
     @ManyToOne()
-    //@JoinColumn(name = "uid")
     public SecUsers getSecUser() {
         return secUser;
     }
@@ -176,7 +172,7 @@ public class SecUserSecondary {
     /**
      * @return inviteCode
      */
-    @Column(name = "invite_code")
+    @Column(name = "invite_code" , nullable = true )
     public String getInviteCode() {
         return this.inviteCode;
     }
@@ -202,36 +198,6 @@ public class SecUserSecondary {
      */
     public void setEnjoyDate(final Date enjoyDate) {
         this.enjoyDate = enjoyDate;
-    }
-
-    /**
-     * @return isPublisher
-     */
-    @Column(name = "publisher", nullable = true)
-    public Boolean getPublisher() {
-        return this.isPublisher;
-    }
-
-    /**
-     * @param isPublisher isPublisher
-     */
-    public void setPublisher(final Boolean isPublisher) {
-        this.isPublisher = isPublisher;
-    }
-
-    /**
-     * @return isOwner
-     */
-    @Column(name = "owner")
-    public Boolean getOwner() {
-        return this.isOwner;
-    }
-
-    /**
-     * @param isOwner isOwner
-     */
-    public void setOwner(final Boolean isOwner) {
-        this.isOwner = isOwner;
     }
 
     /**

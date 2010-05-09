@@ -135,9 +135,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
          true, // accoun not expired
          true, // cridentials not expired
          true, // account not locked
-         user.getUserTwitterAccount(), //twitter account
-         user.getOwner(), // if user is owner
-         user.getCompleteName(), // complete name
+         user.getUserTwitterAccount() == null ? "" : user.getUserTwitterAccount(), //twitter account
+         user.getCompleteName() == null ? "" : user.getCompleteName(), // complete name
          user.getUserEmail() // user email
          );
          userDetails.setAccountNonExpired(true);

@@ -67,7 +67,6 @@ public class ConvertDomainBean {
             user.setPassword(domainUser.getPassword());
             user.setDateNew(domainUser.getEnjoyDate());
             user.setInviteCode(domainUser.getInviteCode());
-            user.setPublisher(domainUser.getPublisher());
         } catch (Exception e) {
             log.error("error user bean converter -" + e.getMessage());
         }
@@ -101,7 +100,6 @@ public class ConvertDomainBean {
         unitUserBean.setName(secUserSecondary.getCompleteName());
         unitUserBean.setEmail(secUserSecondary.getUserEmail());
         unitUserBean.setUsername(secUserSecondary.getUsername());
-        unitUserBean.setPublisher(secUserSecondary.getPublisher());
         unitUserBean.setStatus(secUserSecondary.isUserStatus());
         unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
         unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));

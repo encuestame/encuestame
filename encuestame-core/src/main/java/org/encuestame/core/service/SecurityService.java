@@ -207,10 +207,13 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             }
             else {
                 if (getSuspendedNotification()) {
+                    log.info("notify delete account");
                     getServiceMail().sendDeleteNotification(userBean.getEmail(),
                             getMessageProperties("MessageDeleteNotification"));
                 }
+                log.info("deleting user");
                 getSecUserDao().delete(userDomain);
+                log.info("user deleted");
             }
     }
 
@@ -290,7 +293,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 updateUser.setUserEmail(userBean.getEmail());
                 updateUser.setCompleteName(userBean.getName());
                 updateUser.setUserStatus(userBean.getStatus());
-                updateUser.setPublisher(userBean.getPublisher());
                 log.info("updateing user, user "+updateUser.getUid());
                 getSecUserDao().saveOrUpdate(updateUser);
             }
@@ -352,7 +354,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             password = generatePassword();
             secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
-        secondaryUser.setPublisher(userBean.getPublisher());
+        //TODO: maybe we need create a table for editor permissions
+        //secondaryUser.setPublisher(userBean.getPublisher());
         secondaryUser.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
         secondaryUser.setUserStatus(Boolean.TRUE);
         secondaryUser.setEnjoyDate(new Date());
@@ -362,8 +365,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             }
             // save user
             getSecUserDao().saveOrUpdate(secondaryUser);
-            // assing firs default group to user
-            //TODO: we need assing defaul group to user.
+            // assing first default group to user
             final SecUserSecondary retrievedUser = getSecUserDao().getSecondaryUserById(secondaryUser.getUid());
             final SecPermission permission = getPermissionDao().loadPermission("ENCUESTAME_USER");
             final List<SecPermission> all = getPermissionDao().findAllPermissions();
@@ -372,8 +374,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             retrievedUser.getSecUserPermissions().add(permission);
             log.info("saving user");
             getSecUserDao().saveOrUpdate(retrievedUser);
-            final SecUserSecondary retrievedUser2 = getSecUserDao().getSecondaryUserById(retrievedUser.getUid());
-            log.info("saved user total permissions "+retrievedUser2.getSecUserPermissions().size());
     }
 
     /**
@@ -491,13 +491,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         secUserSecondary.setUsername(singUpBean.getUsername());
         secUserSecondary.setPassword(encodingPassword(singUpBean.getPassword()));
         secUserSecondary.setEnjoyDate(new Date());
-        secUserSecondary.setOwner(Boolean.TRUE);
         secUserSecondary.setSecUser(secUsers);
         secUserSecondary.setUserStatus(Boolean.TRUE);
         secUserSecondary.setUserEmail(singUpBean.getEmail());
         secUserSecondary.setCompleteName("");
         secUserSecondary.setInviteCode(""); //TODO: invite code?
-        secUserSecondary.setPublisher(Boolean.TRUE);
         getSecUserDao().saveOrUpdate(secUserSecondary);
         //Add default permissions, if user is signup we should add admin access
         final Set<SecPermission> permissions = new HashSet<SecPermission>();

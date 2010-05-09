@@ -8,12 +8,6 @@ public interface EnMeUserDetailsDataAccount {
     String getTwitterAccount();
 
     /**
-     * Is Owner Account.
-     * @return is owner
-     */
-    boolean isOwnerAccount();
-
-    /**
      * Get User Email.
      * @return email
      */

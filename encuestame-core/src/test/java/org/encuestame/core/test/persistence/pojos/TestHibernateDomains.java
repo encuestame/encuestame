@@ -220,8 +220,6 @@ public class TestHibernateDomains extends AbstractBase{
         userSec.setPassword("123456");
         userSec.setInviteCode("S");
         userSec.setEnjoyDate(new Date());
-        userSec.setPublisher(true);
-        userSec.setOwner(false);
         userSec.setUserStatus(true);
         userSec.setUserTwitterAccount("si");
         userSec.setSecUser(createUser());

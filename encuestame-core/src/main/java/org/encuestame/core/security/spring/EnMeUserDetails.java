@@ -59,11 +59,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     private String userEmail;
 
     /**
-     * Is Owner.
-     */
-    private boolean isOwner;
-
-    /**
      * Complete Name.
      */
     private String completeName;
@@ -90,7 +85,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
             final boolean enabled,
             final boolean accountNonLocked,
             final String twitterAccount,
-            final boolean isOwner,
             final String completeName,
             final String email) {
         this.username = username;
@@ -106,7 +100,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
         this.twitterAccount = twitterAccount;
         this.completeName = completeName;
         this.userEmail = email;
-        this.isOwner = isOwner;
     }
 
     /**
@@ -182,27 +175,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
      */
     public String getUserEmail() {
         return this.userEmail;
-    }
-
-    /**
-     * Owner Account.
-     */
-    public boolean isOwnerAccount() {
-        return this.isOwner;
-    }
-
-    /**
-     * @return the isOwner
-     */
-    public boolean isOwner() {
-        return isOwner;
-    }
-
-    /**
-     * @param isOwner the isOwner to set
-     */
-    public void setOwner(boolean isOwner) {
-        this.isOwner = isOwner;
     }
 
     /**

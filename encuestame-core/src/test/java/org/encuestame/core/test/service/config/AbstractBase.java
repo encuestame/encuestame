@@ -448,8 +448,6 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         user.setUserEmail(name+"@users.com");
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
-        user.setOwner(true);
-        user.setPublisher(true);
         user.setSecUser(secUser);
         user.setUserStatus(true);
         getSecUserDao().saveOrUpdate(user);
