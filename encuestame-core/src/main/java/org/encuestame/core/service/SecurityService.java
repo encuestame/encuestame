@@ -582,6 +582,17 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * Load list of {@link SecPermission}.
+     * @return list of permissions.
+     */
+    @SuppressWarnings("unchecked")
+    public List<UnitPermission> loadPermissions(){
+        final Set permissionCollection = new HashSet(getPermissionDao().findAllPermissions());
+        final List arrayPermission = new ArrayList<UnitPermission>(ConvertDomainBean.convertSetToUnitPermission(permissionCollection));
+        return arrayPermission;
+    }
+
+    /**
      * Invite some users to register in the system.
      * @param email list of users
      * @param code code

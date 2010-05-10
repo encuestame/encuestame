@@ -17,11 +17,8 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.hibernate.HibernateException;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 
 /**

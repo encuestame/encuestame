@@ -245,4 +245,10 @@ public interface ISecurityService extends IService {
      */
     List<SecUserSecondary> searchUsersByUsesrname(final String username);
 
+    /**
+     * Load list of {@link SecPermission}.
+     * @return list of permissions.
+     */
+    List<UnitPermission> loadPermissions();
+
 }

@@ -201,9 +201,28 @@
                                 </a4j:repeat>
                             </table>
                         </rich:tab>
-                    <rich:tab label="Bitacora">
-                        <h:panelGrid columns="2" width="400px">
-                        </h:panelGrid>
+                    <rich:tab label="Permissions">
+                         <table width="300px;">
+                                <a4j:repeat value="#{permissions}" var="item">
+                                    <tr>
+                                        <td>
+                                           <span style="float: left; width: 180px;">
+                                                <h:outputText value="#{item.permission}" />
+                                           </span>
+                                           <span style="float: left; width: 50px;">
+                                                <a4j:commandLink value="Add" ajaxSingle="true" action="#{userBean.addGroup}">
+                                                    <a4j:actionparam name="groupAdded" assignTo="#{userBean.groupdAddedId}" value="#{item.id}"></a4j:actionparam>
+                                                </a4j:commandLink>
+                                           </span>
+                                           <span>
+                                                <a4j:commandLink value="Remove" ajaxSingle="true">
+                                                    <a4j:actionparam name="groupRemoved" assignTo="#{userBean.groupRemovedId}" value="#{item.id}"></a4j:actionparam>
+                                                </a4j:commandLink>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </a4j:repeat>
+                            </table>
                     </rich:tab>
                 </rich:tabPanel>
             </h:form>

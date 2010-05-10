@@ -42,6 +42,10 @@ public class UserBean  extends MasterBean implements Serializable {
     private String processedUserId;
     private Long selectedPermissionId;
     private String selectedAction;
+
+    /**
+     * List Users.
+     */
     private String listUsers;
 
     /**
@@ -191,7 +195,7 @@ public class UserBean  extends MasterBean implements Serializable {
     public final void addGroup(){
         try{
             final UnitUserBean userBean = new UnitUserBean();
-            userBean.setUsername(getUsername());
+            userBean.setUsername(getUnitUserBean().getUsername());
             final UnitGroupBean groupBean = new UnitGroupBean();
             groupBean.setId(getGroupdAddedId());
             getSecurityService().assingGroupFromUser(userBean, groupBean);
