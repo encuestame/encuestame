@@ -42,6 +42,7 @@ import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.LocationBean;
 import org.encuestame.utils.web.LocationTypeBean;
@@ -104,7 +105,14 @@ public abstract class AbstractDataSource{
     @Resource
     private ISecPermissionDao permissionDao;
 
-
+    /**
+     * Get User.
+     * @param username
+     * @return user domain
+     */
+    public SecUserSecondary getUser(final String username) {
+        return getSecUserDao().getUserByUsername(username.trim());
+    }
 
     /**
      * Load List of Project.

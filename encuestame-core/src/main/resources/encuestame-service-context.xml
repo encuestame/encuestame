@@ -120,6 +120,13 @@
     </property>
   </bean>
 
+
+    <bean id="pollService" class="org.encuestame.core.service.PollService" parent="abstractsurvey">
+    </bean>
+
+    <bean id="projectService" class="org.encuestame.core.service.ProjectService" parent="service">
+    </bean>
+
   <bean id="applicationServices" class="org.encuestame.core.service.ApplicationServices"
     parent="service">
     <property name="securityService">
@@ -150,11 +157,5 @@
     <property name="apiKeygoogle">
       <value>${application.apiKeygoogle}</value>
     </property>
-  </bean>
-
-    <bean id="pollService" class="org.encuestame.core.service.PollService" parent="abstractsurvey">
-  </bean>
-
-    <bean id="projectService" class="org.encuestame.core.service.ProjectService" parent="service">
   </bean>
 </beans>

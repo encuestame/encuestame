@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
 import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 
@@ -101,4 +102,19 @@ public class ConvertListDomainSelectBean {
         return items;
     }
 
+    /**
+     * Convert {@link SecPermission} to {@link SelectItem}
+     * @param permissions Set of {@link SecPermission}.
+     * @return
+     */
+    public static final List<SelectItem> convertListPermissionsToSelect(final Set<SecPermission> permissions){
+        final List<SelectItem> items = new ArrayList<SelectItem>();
+        for (final SecPermission permission : permissions) {
+            if(permission.getPermission()!=null){
+                items.add(new SelectItem(permission.getIdPermission(), permission.getPermission()));
+            }
+        }
+        log.debug("permissions select items loaded: "+items.size());
+        return items;
+    }
 }

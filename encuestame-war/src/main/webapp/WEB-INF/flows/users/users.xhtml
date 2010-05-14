@@ -179,50 +179,16 @@
                         </h:panelGrid>
                     </rich:tab>
                         <rich:tab label="Groups">
-                            <table width="300px;">
-                                <a4j:repeat value="#{groups}" var="item">
-                                    <tr>
-                                        <td>
-                                           <span style="float: left; width: 100px;">
-                                                <h:outputText value="#{item.groupName}" />
-                                           </span>
-                                           <span style="float: left; width: 50px;">
-                                                <a4j:commandLink value="Add" ajaxSingle="true" action="#{userBean.addGroup}">
-                                                    <a4j:actionparam name="groupAdded" assignTo="#{userBean.groupdAddedId}" value="#{item.id}"></a4j:actionparam>
-                                                </a4j:commandLink>
-                                           </span>
-                                           <span>
-                                                <a4j:commandLink value="Remove" ajaxSingle="true">
-                                                    <a4j:actionparam name="groupRemoved" assignTo="#{userBean.groupRemovedId}" value="#{item.id}"></a4j:actionparam>
-                                                </a4j:commandLink>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </a4j:repeat>
-                            </table>
+                         <rich:pickList value="#{userBean.listGroups}">
+                               <f:selectItems value="#{groups}"></f:selectItems>
+                               <a4j:support event="onlistchanged" ajaxSingle="true" action="#{userBean.updateGroups}"/>
+                        </rich:pickList>
                         </rich:tab>
                     <rich:tab label="Permissions">
-                         <table width="300px;">
-                                <a4j:repeat value="#{permissions}" var="item">
-                                    <tr>
-                                        <td>
-                                           <span style="float: left; width: 180px;">
-                                                <h:outputText value="#{item.permission}" />
-                                           </span>
-                                           <span style="float: left; width: 50px;">
-                                                <a4j:commandLink value="Add" ajaxSingle="true" action="#{userBean.addGroup}">
-                                                    <a4j:actionparam name="groupAdded" assignTo="#{userBean.groupdAddedId}" value="#{item.id}"></a4j:actionparam>
-                                                </a4j:commandLink>
-                                           </span>
-                                           <span>
-                                                <a4j:commandLink value="Remove" ajaxSingle="true">
-                                                    <a4j:actionparam name="groupRemoved" assignTo="#{userBean.groupRemovedId}" value="#{item.id}"></a4j:actionparam>
-                                                </a4j:commandLink>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </a4j:repeat>
-                            </table>
+                         <rich:pickList value="#{userBean.listPermissions}">
+                               <f:selectItems value="#{permissions}"></f:selectItems>
+                               <a4j:support event="onlistchanged" ajaxSingle="true"/>
+                        </rich:pickList>
                     </rich:tab>
                 </rich:tabPanel>
             </h:form>

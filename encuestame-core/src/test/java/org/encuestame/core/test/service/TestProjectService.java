@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
@@ -50,14 +51,18 @@ public class TestProjectService extends AbstractBase {
 
         private Project project;
 
+        /** {@link SecUserSecondary}. **/
+        private SecUserSecondary userPrincipal;
+
         /**
          * Before.
          */
         @Before
         public void initService(){
-            this.user = createUser();
-            createProject("project 1","TIC Project","Project", createState("active"), this.user);
-           project= createProject("project 2","Education Project","Project", createState("active"), this.user);
+           this.user = createUser();
+           this.userPrincipal = createSecondaryUser("jhon", this.user);
+           createProject("project 1","TIC Project","Project", createState("active"), this.user);
+           this.project= createProject("project 2","Education Project","Project", createState("active"), this.user);
         }
 
         /**
@@ -66,7 +71,7 @@ public class TestProjectService extends AbstractBase {
          */
         @Test
         public void testloadListProjects() throws EnMeExpcetion{
-            Collection<UnitProjectBean> listProjects = projectService.loadListProjects(this.user.getUid());
+            List<UnitProjectBean> listProjects = projectService.loadListProjects(this.userPrincipal.getUsername());
             assertEquals(2, listProjects.size());
         }
 
@@ -90,7 +95,7 @@ public class TestProjectService extends AbstractBase {
        */
       @Test
       public void testloadListProjectsWithoutResults() throws EnMeExpcetion{
-          final Collection<UnitProjectBean> listProjects = projectService.loadListProjects(this.user.getUid());
+          final List<UnitProjectBean> listProjects = projectService.loadListProjects(this.userPrincipal.getUsername());
           assertEquals(2, listProjects.size());
       }
 

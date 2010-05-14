@@ -119,6 +119,18 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         return groupBeans;
     }
 
+    /**
+     * Load {@link SecGroups} by Username.
+     * @param currentUsername username
+     * @return
+     */
+    public List<SelectItem> loadSelectItemGroups(final String currentUsername){
+        final SecUserSecondary secUserSecondary = getUser(currentUsername);
+        final List<SecGroups> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
+        final Set groupsCollection = new HashSet(groups);
+        return ConvertListDomainSelectBean.convertListGroupDomainToSelect(groupsCollection);
+    }
+
 
     /**
      * Update Twitter Account.
@@ -165,10 +177,10 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link UnitUserBean}
      */
     public UnitUserBean searchUserByUsername(final String username) {
-        final SecUserSecondary userD = getSecUserDao().getUserByUsername(username);
+        final SecUserSecondary userDomain = getSecUserDao().getUserByUsername(username);
         UnitUserBean user = null;
-        if (userD != null) {
-            user = ConvertDomainBean.convertUserDaoToUserBean(userD);
+        if (userDomain != null) {
+            user = ConvertDomainBean.convertSecondaryUserToUserBean(userDomain);
         } else {
             log.error("user not found");
         }
@@ -179,6 +191,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Load all list of permisssions and covert to permission bean.
      * @return list of permisssions
      */
+    @Deprecated
     public Collection<UnitPermission> loadAllListPermission() {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
         final Collection<SecPermission> listSecPermission = getPermissionDao()
@@ -251,16 +264,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
            throw new EnMeExpcetion("error on renew password");
         }
         return newPassword;
-    }
-
-    /**
-     * Get User.
-     * @param username
-     * @return user domain
-     */
-    // TODO: maybe should be move to parent beans.
-    private SecUserSecondary getUser(final String username) {
-        return getSecUserDao().getUserByUsername(username.trim());
     }
 
     /**
@@ -590,6 +593,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         final Set permissionCollection = new HashSet(getPermissionDao().findAllPermissions());
         final List arrayPermission = new ArrayList<UnitPermission>(ConvertDomainBean.convertSetToUnitPermission(permissionCollection));
         return arrayPermission;
+    }
+
+    /**
+     * Load {@link SelectItem} permissions.
+     */
+    @SuppressWarnings("unchecked")
+    public List<SelectItem> loadSelectItemPermissions(){
+        final Set permissionCollection = new HashSet(getPermissionDao().findAllPermissions());
+        return ConvertListDomainSelectBean.convertListPermissionsToSelect(permissionCollection);
     }
 
     /**

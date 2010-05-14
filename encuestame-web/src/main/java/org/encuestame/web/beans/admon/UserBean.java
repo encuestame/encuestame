@@ -13,6 +13,7 @@
 package org.encuestame.web.beans.admon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +43,10 @@ public class UserBean  extends MasterBean implements Serializable {
     private String processedUserId;
     private Long selectedPermissionId;
     private String selectedAction;
+
+    private String[] listPermissions;
+
+    private String[] listGroups = {"10"};
 
     /**
      * List Users.
@@ -204,7 +209,24 @@ public class UserBean  extends MasterBean implements Serializable {
             e.printStackTrace();
             log.error(e);
         }
+    }
 
+    /**
+     * Update Groups.
+     */
+    public final void updateGroups(){
+            for (String groupSelected : getListGroups()) {
+                log.info(groupSelected);
+            }
+    }
+
+    /**
+     * Update Permissions.
+     */
+    public final void updatePermissions(){
+        for (String permissionSelected : getListPermissions()) {
+            log.info(permissionSelected);
+        }
     }
 
     /**
@@ -411,5 +433,31 @@ public class UserBean  extends MasterBean implements Serializable {
         this.groupRemovedId = groupRemovedId;
     }
 
+    /**
+     * @return the listPermissions
+     */
+    public String[] getListPermissions() {
+        return listPermissions;
+    }
 
+    /**
+     * @param listPermissions the listPermissions to set
+     */
+    public void setListPermissions(String[] listPermissions) {
+        this.listPermissions = listPermissions;
+    }
+
+    /**
+     * @return the listGroups
+     */
+    public String[] getListGroups() {
+        return listGroups;
+    }
+
+    /**
+     * @param listGroups the listGroups to set
+     */
+    public void setListGroups(String[] listGroups) {
+        this.listGroups = listGroups;
+    }
 }

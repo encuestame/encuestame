@@ -56,6 +56,7 @@ public class ConvertDomainBean {
      * @param domainUser Domain User
      * @return Bean User
      */
+    @Deprecated
     public static final UnitUserBean convertUserDaoToUserBean(final SecUserSecondary domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {

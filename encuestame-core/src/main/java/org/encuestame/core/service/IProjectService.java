@@ -13,6 +13,8 @@
 package org.encuestame.core.service;
 
 import java.util.Collection;
+import java.util.List;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -27,11 +29,11 @@ public interface IProjectService {
 
     /**
      * Load List of Project.
-     * @param userId user id
+     * @param userId user id.
      * @return {@link Collection} of {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    Collection<UnitProjectBean> loadListProjects(final Long userId) throws EnMeExpcetion ;
+    List<UnitProjectBean> loadListProjects(final String username);
 
     /**
      * Load project info.

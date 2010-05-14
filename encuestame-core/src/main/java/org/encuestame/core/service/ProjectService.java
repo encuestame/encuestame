@@ -12,16 +12,18 @@
  */
 package org.encuestame.core.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -30,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
  * @since April 13, 2009
  * @version $Id:$
  */
+@Service
 public class ProjectService extends AbstractBaseService implements IProjectService {
 
      /** Log. */
@@ -41,16 +44,16 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
      * @return {@link Collection} of {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public Collection<UnitProjectBean> loadListProjects(final Long userId) {
-            final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
-            log.info("project by user id: "+projectList.size());
-            for (Project project : projectList) {
-                log.info("adding project "+project.getProjectDescription());
-                log.info("groups available in this project "+project.getGroups().size());
+    public List<UnitProjectBean> loadListProjects(final String username) {
+            final List<UnitProjectBean> listProjects = new ArrayList<UnitProjectBean>();
+            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(getUser(username).getSecUser().getUid());
+            log.debug("project by user id: "+projectList.size());
+            for (final Project project : projectList) {
+                log.debug("adding project "+project.getProjectDescription());
+                log.debug("groups available in this project "+project.getGroups().size());
                 listProjects.add(ConvertDomainBean.convertProjectDomainToBean(project));
             }
-            log.info("projects loaded: "+ listProjects.size());
+            log.debug("projects loaded: "+ listProjects.size());
             return listProjects;
     }
 

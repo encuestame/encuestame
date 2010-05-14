@@ -12,9 +12,10 @@
  */
 package org.encuestame.web.beans.project;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.web.beans.MasterBean;
 
@@ -24,8 +25,13 @@ import org.encuestame.web.beans.MasterBean;
  * @since 26/05/2009 10:25:05
  * @version $Id$
  */
-public class ProjectBean extends MasterBean {
+public class ProjectBean extends MasterBean implements Serializable {
 
+
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = 9144429033743526123L;
     /**
      *
      */
