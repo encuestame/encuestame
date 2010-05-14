@@ -12,6 +12,7 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,10 +26,10 @@ import javax.faces.model.SelectItem;
  * @since 28/05/2009 11:47:51
  * @version $Id$
  */
-public class UnitProjectBean {
+public class UnitProjectBean implements Serializable {
 
     /**
-     *
+     * Serial.
      */
     private static final long serialVersionUID = -9098305021342831224L;
 

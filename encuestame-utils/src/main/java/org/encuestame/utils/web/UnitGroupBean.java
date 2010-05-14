@@ -31,12 +31,19 @@ public class UnitGroupBean implements Serializable {
     private String groupDescription;
     private String stateId;
 
+    public UnitGroupBean() {
+    }
 
+    public UnitGroupBean(Long id, String groupName, String groupDescription) {
+        super();
+        this.id = id;
+        this.groupName = groupName;
+        this.groupDescription = groupDescription;
+    }
 
     public final Long getId() {
         return id;
     }
-
 
     public final void setId(Long id) {
         this.id = id;
@@ -48,34 +55,54 @@ public class UnitGroupBean implements Serializable {
     public final String getGroupName() {
         return groupName;
     }
+
     /**
      * @param groupName the groupName to set
      */
     public final void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
     /**
      * @return the groupDescription
      */
     public final String getGroupDescription() {
         return groupDescription;
     }
+
     /**
      * @param groupDescription the groupDescription to set
      */
     public final void setGroupDescription(String groupDescription) {
         this.groupDescription = groupDescription;
     }
+
     /**
      * @return the stateId
      */
     public final String getStateId() {
         return stateId;
     }
+
     /**
      * @param stateId the stateId to set
      */
     public final void setStateId(String stateId) {
         this.stateId = stateId;
+    }
+
+    /**
+     * To String.
+     */
+    @Override
+    public String toString()
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(this.id);
+        stringBuffer.append(":");
+        stringBuffer.append(this.groupName);
+        stringBuffer.append(":");
+        stringBuffer.append(this.groupDescription);
+        return stringBuffer.toString();
     }
 }
