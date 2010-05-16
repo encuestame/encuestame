@@ -13,6 +13,8 @@
 
 package org.encuestame.core.service;
 
+import java.util.Date;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Poll;
@@ -33,20 +35,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class PollService extends AbstractSurveyService implements IPollService{
 
-    public final void createPoll(final UnitPoll pollBean ){
-        final Poll pollDomain = new Poll();
-        final Questions question = getQuestionDao().retrieveQuestionById(pollBean.getQuestionBean().getId());
-        pollDomain.setCreatedAt(pollBean.getCreationDate());
-
-       //  pollDomain.setPollCompleted(pollCompleted);
+    public final void createPoll(final UnitPoll pollBean, final String currentUser) throws EnMeExpcetion{
         try {
+            final Poll pollDomain = new Poll();
+            final Questions question = getQuestionDao().retrieveQuestionById(pollBean.getQuestionBean().getId());
+            pollDomain.setCreatedAt(pollBean.getCreationDate());
+            pollDomain.setPollOwner(getUser(currentUser).getSecUser());
+             pollDomain.setPollCompleted(Boolean.FALSE);
+            pollDomain.setCreatedAt(new Date());
             pollDomain.setPollHash(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-         pollDomain.setQuestion(question);
+            pollDomain.setQuestion(question);
          this.getPollDao().saveOrUpdate(pollDomain);
+        } catch (Exception e) {
+            throw new EnMeExpcetion();
+        }
     }
 
 //FIXME: Reutilize method
