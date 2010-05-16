@@ -40,6 +40,8 @@ public class CatLocationType {
 
     /** Type Level. **/
     private Integer locationTypeLevel;
+
+    /** {@link SecUsers}. **/
     private SecUsers users;
 
     /**

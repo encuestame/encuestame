@@ -12,6 +12,14 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationFolder;
+import org.encuestame.utils.web.LocationTypeBean;
+import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationFolder;
+import org.encuestame.utils.web.UnitLocationTypeBean;
+
 /**
  * Description Class.
  * @author Picado, Juan juan@encuestame.org
@@ -20,4 +28,45 @@ package org.encuestame.core.service;
  */
 public interface ILocationService {
 
+
+    /**
+     * Create Location Folder.
+     * @param locationFolder {@link UnitLocationFolder}
+     * @return {@link UnitLocationFolder}.
+     */
+    UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username);
+
+    /**
+     * Create Cat LocationType.
+     * @param locatTypeBean {@link LocationTypeBean}
+     * @return locatTypeBean
+     * @throws EnMeExpcetion exception
+     */
+    UnitLocationTypeBean createCatLocationType(
+            final UnitLocationTypeBean locatTypeBean, final String username) throws EnMeExpcetion;
+
+    /**
+     * @param locationBean locationBean
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    void updateCatLocation(final UnitLocationBean locationBean) throws EnMeExpcetion;
+
+    /**
+     * @param locationTypeBean locationTypeBean
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion;
+
+    /**
+     * create Cat Location.
+     * @param location {@link LocationBean}
+     * @throws EnMeExpcetion exception
+     */
+    UnitLocationBean createCatLocation(final UnitLocationBean location) throws EnMeExpcetion;
+
+    /**
+     * Assign Location to Location Folder.
+     * @param location {@link CatLocation}.
+     */
+    void assignLocationToLocationFolder(final CatLocation location, final CatLocationFolder catLocationFolder);
 }

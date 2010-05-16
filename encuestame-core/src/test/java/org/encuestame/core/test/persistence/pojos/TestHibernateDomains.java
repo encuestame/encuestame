@@ -17,8 +17,10 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
@@ -273,8 +275,14 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setSurveyFormat(createSurveyFormat());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
-
      }
 
+     @Test
+     public void testLocationFolder(){
+         final CatLocationFolder catLocationFolder = new CatLocationFolder();
+         catLocationFolder.setFolderType(LocationFolderType.GROUPING);
+         catLocationFolder.setLocationFolderName("test folder");
+         catLocationFolder.setSecUsers(createUser());
+         getCatLocationDao().saveOrUpdate(catLocationFolder);
+     }
 }
-

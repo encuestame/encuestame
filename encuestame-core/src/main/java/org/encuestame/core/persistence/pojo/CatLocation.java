@@ -43,6 +43,7 @@ public class CatLocation {
     private Long locateId;
     /** Type **/
     private CatLocationType tidtype;
+
     /** Description. **/
     private String locationDescription;
 
@@ -100,7 +101,7 @@ public class CatLocation {
     /**
      * @return locationDescription
      */
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     public String getLocationDescription() {
         return this.locationDescription;
     }
@@ -158,13 +159,6 @@ public class CatLocation {
      */
     public void setProjects(final Set<Project> projects) {
         this.projects = projects;
-    }
-
-    /**
-     * @param locationDescription the locationDescription to set
-     */
-    public void setLocationDescription(final String locationDescription) {
-        this.locationDescription = locationDescription;
     }
 
     /**

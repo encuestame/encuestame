@@ -31,7 +31,7 @@ public class UnitLocationBean implements Serializable{
     private Long tidtype;
     private String description;
     private Integer level;
-    private String active;
+    private String status;
     private Float lat;
     private Float lng;
 
@@ -86,14 +86,14 @@ public class UnitLocationBean implements Serializable{
     /**
      * @return the active
      */
-    public String getActive() {
-        return active;
+    public String getStatus() {
+        return status;
     }
     /**
      * @param active the active to set
      */
-    public void setActive(String active) {
-        this.active = active;
+    public void setStatus(String status) {
+        this.status = status;
     }
     /**
      * @return the lat
