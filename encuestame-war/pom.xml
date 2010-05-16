@@ -19,7 +19,19 @@
     <hibernate.version>3.3.1.GA</hibernate.version>
   </properties>
 
+   <repositories>
+        <repository>
+            <id>googlecode.com</id>
+            <url>http://gmaps4jsf.googlecode.com/svn/trunk/gmaps4jsf-repo</url>
+        </repository>
+    </repositories>
+
   <dependencies>
+     <dependency>
+        <groupId>com.googlecode.gmaps4jsf</groupId>
+        <artifactId>gmaps4jsf-core</artifactId>
+        <version>1.1.1</version>
+    </dependency>
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>encuestame-core</artifactId>
