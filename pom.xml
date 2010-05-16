@@ -43,6 +43,30 @@
     </license>
   </licenses>
 
+   <mailingLists>
+        <mailingList>
+            <name>Encuestame english mailing list</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-en</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-en</unsubscribe>
+            <post>encuestame-en@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-en</archive>
+        </mailingList>
+        <mailingList>
+            <name>Encuestame Lista de Correo</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-es</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-es</unsubscribe>
+            <post>encuestame-es@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-es</archive>
+        </mailingList>
+        <mailingList>
+            <name>Encuestame commits mailing list</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/svn-encuestame-commits</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/svn-encuestame-commits</unsubscribe>
+            <post>svn-encuestame-commits@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/private/svn-encuestame-commits/</archive>
+        </mailingList>
+    </mailingLists>
+
   <scm>
     <connection>scm:svn:http://svn.encuesta.me/trunk/encuestame</connection>
     <developerConnection>scm:svn:http://svn.encuesta.me/trunk/encuestame</developerConnection>
@@ -52,7 +76,7 @@
   <distributionManagement>
     <site>
       <id>www.encuestame.org</id>
-      <url>file:///home/jpicado/opt/eclipse3.5RC2/site/</url>
+      <url>file:////home/jpicado/htmlSite/</url>
     </site>
     <repository>
       <uniqueVersion>false</uniqueVersion>
@@ -254,7 +278,7 @@
         <artifactId>cobertura-maven-plugin</artifactId>
         <configuration>
           <formats>
-            <format>html</format>
+            <!--<format>html</format>-->
             <format>xml</format>
           </formats>
         </configuration>
