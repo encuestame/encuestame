@@ -126,6 +126,9 @@
     <bean id="projectService" class="org.encuestame.core.service.ProjectService" parent="service">
     </bean>
 
+     <bean id="locationService" class="org.encuestame.core.service.LocationService" parent="service">
+    </bean>
+
   <bean id="applicationServices" class="org.encuestame.core.service.ApplicationServices"
     parent="service">
     <property name="securityService">

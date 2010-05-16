@@ -12,6 +12,8 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
+
 
 /**
  * Unit Location Bean.
@@ -19,123 +21,102 @@ package org.encuestame.utils.web;
  * @since 26/05/2009 12:40:46
  * @version $Id$
  */
-public class UnitLocationBean{
+public class UnitLocationBean implements Serializable{
 
-    private Long tid;
-    private Long locationTypeId;
-    private String descriptionLocation;
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = -5463975566165976808L;
+    private Long locateId;
+    private Long tidtype;
+    private String description;
     private Integer level;
-    private Integer state;
-    private Float latitude;
-    private Float longitude;
-    private Boolean isGeo;
     private String active;
+    private Float lat;
+    private Float lng;
+
     /**
-     * @return the tid
+     * @return the locateId
      */
-    public final Long getTid() {
-        return tid;
+    public Long getLocateId() {
+        return locateId;
     }
     /**
-     * @param tid the tid to set
+     * @param locateId the locateId to set
      */
-    public final void setTid(Long tid) {
-        this.tid = tid;
+    public void setLocateId(Long locateId) {
+        this.locateId = locateId;
     }
     /**
-     * @return the locationTypeId
+     * @return the tidtype
      */
-    public final Long getLocationTypeId() {
-        return locationTypeId;
+    public Long getTidtype() {
+        return tidtype;
     }
     /**
-     * @param locationTypeId the locationTypeId to set
+     * @param tidtype the tidtype to set
      */
-    public final void setLocationTypeId(Long locationTypeId) {
-        this.locationTypeId = locationTypeId;
+    public void setTidtype(Long tidtype) {
+        this.tidtype = tidtype;
     }
     /**
-     * @return the descriptionLocation
+     * @return the description
      */
-    public final String getDescriptionLocation() {
-        return descriptionLocation;
+    public String getDescription() {
+        return description;
     }
     /**
-     * @param descriptionLocation the descriptionLocation to set
+     * @param description the description to set
      */
-    public final void setDescriptionLocation(String descriptionLocation) {
-        this.descriptionLocation = descriptionLocation;
+    public void setDescription(String description) {
+        this.description = description;
     }
     /**
      * @return the level
      */
-    public final Integer getLevel() {
+    public Integer getLevel() {
         return level;
     }
     /**
      * @param level the level to set
      */
-    public final void setLevel(Integer level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
     /**
-     * @return the state
+     * @return the active
      */
-    public final Integer getState() {
-        return state;
-    }
-    /**
-     * @param state the state to set
-     */
-    public final void setState(Integer state) {
-        this.state = state;
-    }
-    /**
-     * @return the latitude
-     */
-    public final Float getLatitude() {
-        return latitude;
-    }
-    /**
-     * @param latitude the latitude to set
-     */
-    public final void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-    /**
-     * @return the longitude
-     */
-    public final Float getLongitude() {
-        return longitude;
-    }
-    /**
-     * @param longitude the longitude to set
-     */
-    public final void setLongitude(Float longitude) {
-        this.longitude = longitude;
-    }
-    /**
-     * @return the isGeo
-     */
-    public final Boolean getIsGeo() {
-        return isGeo;
-    }
-    /**
-     * @param isGeo the isGeo to set
-     */
-    public final void setIsGeo(Boolean isGeo) {
-        this.isGeo = isGeo;
-    }
-    /**
-     * @return  Active State
-     */
-    public final String getActive() {
+    public String getActive() {
         return active;
     }
     /**
-     * @param active  Active State
+     * @param active the active to set
      */
-    public final void setActive(String active) {
+    public void setActive(String active) {
         this.active = active;
+    }
+    /**
+     * @return the lat
+     */
+    public Float getLat() {
+        return lat;
+    }
+    /**
+     * @param lat the lat to set
+     */
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+    /**
+     * @return the lng
+     */
+    public Float getLng() {
+        return lng;
+    }
+    /**
+     * @param lng the lng to set
+     */
+    public void setLng(Float lng) {
+        this.lng = lng;
     }
 }

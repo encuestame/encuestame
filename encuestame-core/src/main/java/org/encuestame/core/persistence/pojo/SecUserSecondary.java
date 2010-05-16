@@ -77,8 +77,6 @@ public class SecUserSecondary {
 
     private Set<SecPermission> secUserPermissions = new HashSet<SecPermission>();
 
-    private Set<CatLocation> cLocations = new HashSet<CatLocation>();
-
     /**
      * @return uid
      */
@@ -285,23 +283,5 @@ public class SecUserSecondary {
      */
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
-    }
-
-    /**
-     * @return the cLocations
-     */
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="cat_locations_user",
-               joinColumns={@JoinColumn(name="sec_id_secondary")},
-               inverseJoinColumns={@JoinColumn(name="cat_location_id")})
-    public Set<CatLocation> getcLocations() {
-        return cLocations;
-    }
-
-    /**
-     * @param cLocations the cLocations to set
-     */
-    public void setcLocations(Set<CatLocation> cLocations) {
-        this.cLocations = cLocations;
     }
 }

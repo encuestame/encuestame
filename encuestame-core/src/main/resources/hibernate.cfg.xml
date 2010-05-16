@@ -14,6 +14,7 @@
         <mapping class="org.encuestame.core.persistence.pojo.CatState"/>
         <mapping class="org.encuestame.core.persistence.pojo.Project"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatLocation"/>
+        <mapping class="org.encuestame.core.persistence.pojo.CatLocationFolder"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatLocationType"/>
         <mapping class="org.encuestame.core.persistence.pojo.Client"/>
         <mapping class="org.encuestame.core.persistence.pojo.SecGroups"/>

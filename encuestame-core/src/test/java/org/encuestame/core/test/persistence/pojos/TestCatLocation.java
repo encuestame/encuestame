@@ -12,7 +12,10 @@
  */
 package org.encuestame.core.test.persistence.pojos;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 
@@ -29,15 +32,15 @@ public class TestCatLocation extends AbstractBase{
      */
     @Test
     public void testCatLocation(){
-    final CatLocation catLoc = new CatLocation();
-    catLoc.setLocationActive("S");
-    catLoc.setlocationDescription("Locate Description");
-    catLoc.setLocationLevel(1);
-    catLoc.setLocationLatitude(2F);
-    catLoc.setLocationLongitude(3F);
-    catLoc.setTidtype(createCatLocationType("aldea"));
-    getCatLocationDao().saveOrUpdate(catLoc);
-
+        final CatLocation catLoc = new CatLocation();
+        catLoc.setLocationStatus(Status.ACTIVE);
+        catLoc.setlocationDescription("Managua");
+        catLoc.setLocationLatitude(2F);
+        catLoc.setLocationLongitude(3F);
+        catLoc.setTidtype(createCatLocationType("aldea"));
+        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createState("active"), createUser()));
+        getCatLocationDao().saveOrUpdate(catLoc);
+        assertNotNull(catLoc.getLocateId());
     }
 
 }

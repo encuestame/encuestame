@@ -44,6 +44,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
 import org.encuestame.core.persistence.pojo.TweetPoll;
@@ -502,10 +503,9 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public CatLocation createCatLocation(final String locDescription, final String locTypeName, Integer Level){
         final CatLocation location = new CatLocation();
-        location.setLocationActive("S");
+        location.setLocationStatus(Status.ACTIVE);
         location.setlocationDescription(locDescription);
         location.setLocationLatitude(2F);
-        location.setLocationLevel(Level);
         location.setLocationLongitude(3F);
         location.setTidtype(createCatLocationType(locTypeName));
         getCatLocationDao().saveOrUpdate(location);

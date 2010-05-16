@@ -55,7 +55,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     private Logger log = Logger.getLogger(this.getClass());
 
-
     /** Default User Permission **/
     private static final String DEFAULT = "ENCUESTAME_USER";
 

@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,15 +39,30 @@ import javax.persistence.Table;
 @Table(name = "cat_location")
 public class CatLocation {
 
+    /** Id. **/
     private Long locateId;
+    /** Type **/
     private CatLocationType tidtype;
+    /** Description. **/
     private String locationDescription;
-    private Integer locationLevel;
-    private String locationActive;
-    private Float locationLatitude;
-    private Float locationLongitude;
-    private Set<Project> projects = new HashSet<Project>();
 
+    /** Status. **/
+    private Status locationStatus;
+
+    /** Latitude **/
+    private Float locationLatitude;
+
+    /** Longitude **/
+    private Float locationLongitude;
+
+    /** User. **/
+    private SecUsers secUsers;
+
+    /** Location Folder. **/
+    private CatLocationFolder catLocationFolder;
+
+    /** Projects. **/
+    private Set<Project> projects = new HashSet<Project>();
 
     /**
      * @return locateId
@@ -93,36 +110,6 @@ public class CatLocation {
      */
     public void setlocationDescription(final String locationDescription) {
         this.locationDescription = locationDescription;
-    }
-
-    /**
-     * @return locationLevel
-     */
-    @Column(name = "level", nullable = false)
-    public int getLocationLevel() {
-        return this.locationLevel;
-    }
-
-    /**
-     * @param locationLevel locationLevel
-     */
-    public void setLocationLevel(final  int locationLevel) {
-        this.locationLevel = locationLevel;
-    }
-
-    /**
-     * @return locationActive
-     */
-    @Column(name = "active", length = 2)
-    public String getLocationActive() {
-        return this.locationActive;
-    }
-
-    /**
-     * @param locationActive locationActive
-     */
-    public void setLocationActive(final String locationActive) {
-        this.locationActive = locationActive;
     }
 
     /**
@@ -181,9 +168,48 @@ public class CatLocation {
     }
 
     /**
-     * @param locationLevel the locationLevel to set
+     * @return the secUsers
      */
-    public void setLocationLevel(final Integer locationLevel) {
-        this.locationLevel = locationLevel;
+    @ManyToOne()
+    public SecUsers getSecUsers() {
+        return secUsers;
+    }
+
+    /**
+     * @param secUsers the secUsers to set
+     */
+    public void setSecUsers(SecUsers secUsers) {
+        this.secUsers = secUsers;
+    }
+
+    /**
+     * @return the locationStatus
+     */
+    @Column(name="location_status")
+    @Enumerated(EnumType.STRING)
+    public Status getLocationStatus() {
+        return locationStatus;
+    }
+
+    /**
+     * @param locationStatus the locationStatus to set
+     */
+    public void setLocationStatus(Status locationStatus) {
+        this.locationStatus = locationStatus;
+    }
+
+    /**
+     * @return the catLocationFolder
+     */
+    @ManyToOne()
+    public CatLocationFolder getCatLocationFolder() {
+        return catLocationFolder;
+    }
+
+    /**
+     * @param catLocationFolder the catLocationFolder to set
+     */
+    public void setCatLocationFolder(CatLocationFolder catLocationFolder) {
+        this.catLocationFolder = catLocationFolder;
     }
 }

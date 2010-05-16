@@ -18,6 +18,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,9 +32,15 @@ import javax.persistence.Table;
 @Table(name = "cat_location_type")
 public class CatLocationType {
 
+    /** Location Type Id. */
     private Long locationTypeId;
+
+    /** Type Description **/
     private String locationTypeDescription;
+
+    /** Type Level. **/
     private Integer locationTypeLevel;
+    private SecUsers users;
 
     /**
      * @return locationTypeId
@@ -48,7 +55,7 @@ public class CatLocationType {
     /**
      * @param locationTypeId locationTypeId
      */
-    public void setLocationTypeId(Long locationTypeId) {
+    public void setLocationTypeId(final Long locationTypeId) {
         this.locationTypeId = locationTypeId;
     }
 
@@ -63,7 +70,7 @@ public class CatLocationType {
     /**
      * @param locationTypeDescription locationTypeDescription
      */
-    public void setLocationTypeDescription(String locationTypeDescription) {
+    public void setLocationTypeDescription(final String locationTypeDescription) {
         this.locationTypeDescription = locationTypeDescription;
     }
 
@@ -78,8 +85,22 @@ public class CatLocationType {
     /**
      * @param locationTypeLevel locationTypeLevel
      */
-    public void setLocationTypeLevel(Integer locationTypeLevel) {
+    public void setLocationTypeLevel(final Integer locationTypeLevel) {
         this.locationTypeLevel = locationTypeLevel;
     }
 
+    /**
+     * @return the users
+     */
+    @ManyToOne()
+    public SecUsers getUsers() {
+        return users;
+    }
+
+    /**
+     * @param users the users to set
+     */
+    public void setUsers(final SecUsers users) {
+        this.users = users;
+    }
 }

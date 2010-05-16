@@ -28,6 +28,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
 import org.encuestame.core.persistence.pojo.Surveys;
@@ -48,9 +49,8 @@ public class TestHibernateDomains extends AbstractBase{
     @Test
     public void testCatLocation(){
         final CatLocation catLoc = new CatLocation();
-        catLoc.setLocationActive("S");
+        catLoc.setLocationStatus(Status.ACTIVE);
         catLoc.setlocationDescription("Managua");
-        catLoc.setLocationLevel(1);
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
         catLoc.setTidtype(createCatLocationType("aldea"));
