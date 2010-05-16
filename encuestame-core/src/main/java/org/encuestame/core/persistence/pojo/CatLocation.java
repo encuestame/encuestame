@@ -85,7 +85,7 @@ public class CatLocation {
      * @return tidtype
      */
     @ManyToOne()
-    @JoinColumn(name = "loc_id_type", nullable = false)
+    @JoinColumn(name = "loc_id_type")
     public CatLocationType getTidtype() {
         return this.tidtype;
     }
