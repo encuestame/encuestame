@@ -44,7 +44,6 @@ import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.utils.web.LocationBean;
 import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -244,17 +243,18 @@ public abstract class AbstractDataSource{
     public void updateCatLocation(final UnitLocationBean locationBean) throws EnMeExpcetion
     {
         log.info("Update Location");
-        final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getTid());
-        if (catLocation!=null){
-            catLocation.setLocationActive(locationBean.getActive());
+        //TODO: update method.
+        //final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getTid());
+        //if (catLocation!=null){
+          /*  catLocation.setLocationActive(locationBean.getActive());
             catLocation.setlocationDescription(locationBean.getDescriptionLocation());
             catLocation.setLocationLatitude(locationBean.getLatitude());
             catLocation.setLocationLevel(locationBean.getLevel());
             catLocation.setLocationLongitude(locationBean.getLongitude());
             final CatLocationType catLocationType = getCatLocationTypeDao().getLocationById(locationBean.getLocationTypeId());
             catLocation.setTidtype(catLocationType);
-            getCatLocationDao().saveOrUpdate(catLocation);
-        }
+            getCatLocationDao().saveOrUpdate(catLocation);*/
+        //}
    }
 
 
@@ -277,7 +277,7 @@ public abstract class AbstractDataSource{
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    public LocationBean createCatLocation(final LocationBean location) throws EnMeExpcetion
+    public UnitLocationBean createCatLocation(final UnitLocationBean location) throws EnMeExpcetion
     {
         if (location!=null){
             try{

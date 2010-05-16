@@ -120,7 +120,6 @@
     </property>
   </bean>
 
-
     <bean id="pollService" class="org.encuestame.core.service.PollService" parent="abstractsurvey">
     </bean>
 

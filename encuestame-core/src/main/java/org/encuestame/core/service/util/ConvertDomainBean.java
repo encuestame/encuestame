@@ -156,13 +156,13 @@ public class ConvertDomainBean {
      */
     public static final UnitLocationBean convertLocationToBean(final CatLocation location){
         final UnitLocationBean locationBean = new UnitLocationBean();
-        locationBean.setTid(location.getLocateId());
+        /*locationBean.setTid(location.getLocateId());
         locationBean.setActive(location.getLocationActive());
         locationBean.setDescriptionLocation(location.getLocationDescription());
         locationBean.setLatitude(location.getLocationLatitude());
         locationBean.setLevel(location.getLocationLevel());
         locationBean.setLongitude(location.getLocationLongitude());
-        locationBean.setLocationTypeId(location.getTidtype().getLocationTypeId());
+        locationBean.setLocationTypeId(location.getTidtype().getLocationTypeId());*/
         return locationBean;
 
     }

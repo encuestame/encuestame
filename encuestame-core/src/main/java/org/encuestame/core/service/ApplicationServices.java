@@ -13,6 +13,7 @@
 package org.encuestame.core.service;
 
 import org.encuestame.core.service.util.UrlBean;
+import org.springframework.stereotype.Service;
 
 /**
  * Application Service.
@@ -20,7 +21,7 @@ import org.encuestame.core.service.util.UrlBean;
  * @since 11/05/2009 11:35:01
  * @version $Id$
  */
-@org.springframework.stereotype.Service
+@Service
 public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
     private String name;

@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.location;
+package org.encuestame.web.beans.admon.location;
 
 import java.util.Set;
 import javax.faces.context.ExternalContext;

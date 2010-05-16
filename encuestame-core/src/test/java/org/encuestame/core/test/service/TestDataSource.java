@@ -25,7 +25,6 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.IDataSource;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBase;
-import org.encuestame.utils.web.LocationBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitProjectBean;

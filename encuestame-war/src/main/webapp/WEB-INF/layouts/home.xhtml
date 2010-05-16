@@ -8,7 +8,8 @@
     xmlns:c="http://java.sun.com/jstl/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:sf="http://www.springframework.org/tags/faces"
-    xmlns:sec="http://www.springframework.org/security/tags">
+    xmlns:sec="http://www.springframework.org/security/tags"
+    xmlns:m="http://code.google.com/p/gmaps4jsf/">
 
 <a4j:loadBundle basename="messages" var="temp" />
 <sf:resource path="/css/admon.css"/>
@@ -18,7 +19,10 @@
     <title>#{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
     </title>
     <ui:insert name="javascript"></ui:insert>
-    <ui:insert name="googleMaps"></ui:insert>
+    <ui:insert name="googleMaps">
+      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{applicationServices.apiKeygoogle}" type="text/javascript">
+      </script>
+    </ui:insert>
 </head>
 <body>
     <ui:include src="includes/header.xhtml" />

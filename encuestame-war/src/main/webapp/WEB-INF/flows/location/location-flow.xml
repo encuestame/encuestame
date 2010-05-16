@@ -3,12 +3,10 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <view-state id="location">
+     <var name="locationBean" class="org.encuestame.web.beans.admon.location.LocationBean" />
 
-        <transition on="end" >
-        </transition>
-
-    </view-state>
+     <view-state id="location">
+     </view-state>
 
     <end-state id="end" view="externalRedirect:contextRelative:/login.do"></end-state>
 

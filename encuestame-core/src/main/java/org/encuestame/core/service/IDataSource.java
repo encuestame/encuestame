@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.service;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -31,13 +30,9 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatState;
-import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.utils.web.LocationBean;
 import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitProjectBean;
-
 /**
  * Data Services.
  * @author Picado, Juan juan@encuestame.org
@@ -191,7 +186,7 @@ public interface IDataSource {
      * @return {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    LocationBean createCatLocation(LocationBean location) throws EnMeExpcetion;
+    UnitLocationBean createCatLocation(UnitLocationBean location) throws EnMeExpcetion;
 
 
 
