@@ -65,7 +65,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         final Integer level,
         final String desc){
         final UnitLocationBean locationBean = new UnitLocationBean();
-        locationBean.setActive(active);
+        //locationBean.se
        // locationBean.setDescription(description);
        // locationBean.setLat(lat);
        // locationBean.setLng(lng);

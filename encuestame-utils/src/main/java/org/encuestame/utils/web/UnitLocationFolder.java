@@ -27,6 +27,7 @@ public class UnitLocationFolder implements Serializable {
      */
     private static final long serialVersionUID = -8070322441826004390L;
 
+    /** Location Folder Id. **/
     private Long locationFolderId;
 
     private String name;

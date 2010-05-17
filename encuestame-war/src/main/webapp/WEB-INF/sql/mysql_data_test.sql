@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -34,8 +34,8 @@ INSERT INTO `sec_permission` (`id_permission`, `permission`, `description`) VALU
 INSERT INTO `sec_user` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`, `twitter_account`, `twitter_password`, `twitter_pin`) VALUES
 (1, 'nFboU4T1Zhv8cqMC4cP0ug', 'GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0', 'testEncuesta', 'testEncuesta123', 4189783);
 
-INSERT INTO `sec_user_secondary` (`uid`, `name`, `date_new`, `invite_code`, `owner`, `password`, `publisher`, `email`, `status`, `twitter`, `username`, `secUser_uid`) VALUES
-(1, 'admin', '2010-01-20 12:47:40', NULL, NULL, '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', NULL, 'admin@encuestame.org', '', NULL, 'admin', 1);
+INSERT INTO `sec_user_secondary` (`uid`, `name`, `date_new`, `invite_code`,  `password`, `email`, `status`, `twitter`, `username`, `secUser_uid`) VALUES
+(1, 'admin', '2010-01-20 12:47:40', NULL, '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', 'admin@encuestame.org', '', NULL, 'admin', 1);
 
 
 INSERT INTO `sec_user_permission` (`sec_id_secondary`, `sec_id_permission`) VALUES
@@ -43,5 +43,20 @@ INSERT INTO `sec_user_permission` (`sec_id_secondary`, `sec_id_permission`) VALU
 (1, 2),
 (1, 3),
 (1, 4);
+
+-- Location Data
+
+INSERT INTO `cat_location_folder` (`locate_folder_id`, `type`, `name`, `secUsers_uid`) VALUES
+(1, 'GROUPING', 'Managua', 1),
+(2, 'GROUPING', 'Esteli', NULL),
+(3, 'GROUPING', 'Matagalpa', 1),
+(4, 'GROUPING', 'Leon', 1);
+
+INSERT INTO `cat_location` (`locate_id`, `description`, `lat`, `lng`, `location_status`, `catLocationFolder_locate_folder_id`, `secUsers_uid`, `loc_id_type`) VALUES
+(1, 'Managua', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
+(2, 'Tipitapa', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
+(3, 'Ciudad Sandino', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
+(4, 'Batahola', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
+(5, 'Lindavista', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL);
 
 

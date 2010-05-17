@@ -13,8 +13,20 @@
 package org.encuestame.web.beans.admon.location;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationFolder;
+import org.encuestame.web.beans.MasterBean;
+import org.richfaces.component.html.HtmlTree;
+import org.richfaces.event.NodeSelectedEvent;
+import org.richfaces.model.TreeNode;
+import org.richfaces.model.TreeNodeImpl;
+
+import com.sun.facelets.FaceletException;
 
 /**
  * Location Bean.
@@ -23,7 +35,7 @@ import org.encuestame.utils.web.UnitLocationBean;
  * @since 26/05/2009 12:58:17
  * @version $Id$
  **/
-public class LocationBean implements Serializable {
+public class LocationBean extends MasterBean implements Serializable {
 
     /**
      * Serial.
@@ -36,6 +48,9 @@ public class LocationBean implements Serializable {
     private String active;
     private Float lat;
     private Float lng;
+    private TreeNode rootNode = null;
+    private String nodeTitle;
+    private List<String> selectedNodeChildren = new ArrayList<String>();
 
     private UnitLocationBean[] locations = new UnitLocationBean[10];
 
@@ -165,5 +180,95 @@ public class LocationBean implements Serializable {
      */
     public final void setTidtype(Long tidtype) {
         this.tidtype = tidtype;
+    }
+
+    /**
+     * Load Tree Items.
+     */
+    private void loadTree() {
+        try {
+            rootNode = new TreeNodeImpl();
+            addNodes(rootNode);
+        } catch (Exception e) {
+            throw new FaceletException(e.getMessage(), e);
+        }
+    }
+
+    //http://livedemo.exadel.com/richfaces-demo/richfaces/tree.jsf?tab=model&cid=418299
+    private void addNodes(TreeNode node) {
+         TreeNodeImpl nodeImpl = new TreeNodeImpl();
+         nodeImpl.setData("folder");
+         node.addChild(new Integer(1), nodeImpl);
+         TreeNodeImpl nodeImpl2 = new TreeNodeImpl();
+         nodeImpl2.setData("folder 2");
+         node.addChild(new Integer(2), nodeImpl2);
+
+         TreeNodeImpl nodeImpl3 = new TreeNodeImpl();
+         nodeImpl3.setData("folder 3");
+         nodeImpl2.addChild(new Integer(1), nodeImpl3);
+        //addNodes(key, nodeImpl, properties);
+    }
+
+    /**
+     * Load Tree Node.
+     * @return
+     */
+    public TreeNode getTreeNode() {
+        if (rootNode == null) {
+            loadTree();
+        }
+
+        return rootNode;
+    }
+
+    /**
+     * Process Selection.
+     * @param event event
+     */
+    public void processSelection(NodeSelectedEvent event) {
+       log.info("event "+event);
+       HtmlTree tree = (HtmlTree) event.getComponent();
+       log.info("tree "+tree);
+       nodeTitle = (String) tree.getRowData();
+       log.info("nodeTitle "+nodeTitle);
+       selectedNodeChildren.clear();
+       TreeNode currentNode = tree.getModelTreeNode(tree.getRowKey());
+       log.info("currentNode "+currentNode);
+       if (currentNode.isLeaf()){
+           selectedNodeChildren.add((String)currentNode.getData());
+       }else
+       {
+           Iterator<Map.Entry<Object, TreeNode>> it = currentNode.getChildren();
+           log.info("it "+it);
+           while (it!=null &&it.hasNext()) {
+               Map.Entry<Object, TreeNode> entry = it.next();
+               selectedNodeChildren.add(entry.getValue().getData().toString());
+           }
+       }
+    }
+
+    public TreeNodeImpl<UnitLocationFolder> getTreeNodes() {
+        TreeNodeImpl<UnitLocationFolder> rootNode = new TreeNodeImpl<UnitLocationFolder>();
+
+        TreeNode node = new TreeNodeImpl<UnitLocationFolder>();
+        final UnitLocationFolder item = new UnitLocationFolder();
+        node.setData(item);
+        node.setParent(rootNode);
+        rootNode.addChild("someIdentifier", node);
+        return rootNode;
+    }
+
+    /**
+     * @return the nodeTitle
+     */
+    public String getNodeTitle() {
+        return nodeTitle;
+    }
+
+    /**
+     * @param nodeTitle the nodeTitle to set
+     */
+    public void setNodeTitle(String nodeTitle) {
+        this.nodeTitle = nodeTitle;
     }
 }

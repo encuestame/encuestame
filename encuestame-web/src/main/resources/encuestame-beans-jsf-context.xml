@@ -4,7 +4,6 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-
   <!-- Survey's -->
 
   <bean id="surveyFormatBean" class="org.encuestame.web.beans.survey.SurveyFormatBean"
