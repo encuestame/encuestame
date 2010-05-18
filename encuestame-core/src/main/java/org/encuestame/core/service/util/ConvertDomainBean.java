@@ -14,12 +14,13 @@ package org.encuestame.core.service.util;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationType;
+import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -35,6 +36,7 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
+import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
@@ -171,7 +173,7 @@ public class ConvertDomainBean {
      * @param locationType {@link CatLocationType}
      * @return {@link UnitLocationTypeBean}
      */
-    public static final UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
+ /*   public static final UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
         final UnitLocationTypeBean locationTypeBean = new UnitLocationTypeBean();
         locationTypeBean.setIdLocType(locationType.getLocationTypeId());
         locationTypeBean.setLocTypeDesc(locationType.getLocationTypeDescription());
@@ -179,7 +181,7 @@ public class ConvertDomainBean {
         return locationTypeBean;
 
     }
-
+*/
     /**
      * Convert {@link Project} to {@link UnitProjectBean}
       * @param project {@link UnitProjectBean}
@@ -272,4 +274,38 @@ public class ConvertDomainBean {
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
         return unitTweetPoll;
     }
+
+    /**
+     * Convert {@link Poll} to {@link UnitPoll}
+     * @param poll
+     * @return unitPoll unitPoll
+     */
+    public static final UnitPoll convertPollDomainToBean(final Poll poll){
+        final UnitPoll unitPoll = new UnitPoll();
+        unitPoll.setId(poll.getPollId());
+        unitPoll.setCompletedPoll(poll.getPollCompleted());
+        unitPoll.setCreationDate(poll.getCreatedAt());
+        unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
+       return unitPoll;
+
+    }
+
+
+    /**
+     * Convert Set to Unit Poll bean
+     * @param userId user id
+     * @return collection of groups beans.
+     * @throws Exception
+     */
+    public static final List<UnitPoll> convertSetToUnitPollBean(final List<Poll> polls){
+            final List<UnitPoll> loadListPolls = new LinkedList<UnitPoll>();
+            for (Poll poll : polls) {
+                loadListPolls.add(ConvertDomainBean.convertPollDomainToBean(poll));
+            }
+        return loadListPolls;
+    }
+
+
 }
+
+
