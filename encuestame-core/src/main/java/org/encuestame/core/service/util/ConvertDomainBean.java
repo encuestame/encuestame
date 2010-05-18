@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.service.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
@@ -33,6 +35,7 @@ import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
@@ -276,7 +279,7 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link Poll} to {@link UnitPoll}
+     * Convert {@link Poll} to {@link UnitPoll}.
      * @param poll
      * @return unitPoll unitPoll
      */
@@ -292,19 +295,44 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert Set to Unit Poll bean
+     * Convert Set to Unit Poll bean.
      * @param userId user id
      * @return collection of groups beans.
      * @throws Exception
      */
     public static final List<UnitPoll> convertSetToUnitPollBean(final List<Poll> polls){
-            final List<UnitPoll> loadListPolls = new LinkedList<UnitPoll>();
+        final List<UnitPoll> loadListPolls = new LinkedList<UnitPoll>();
             for (Poll poll : polls) {
                 loadListPolls.add(ConvertDomainBean.convertPollDomainToBean(poll));
             }
         return loadListPolls;
     }
 
+    /**
+     * Convert List of {@link CatLocationFolder}. to List of {@link UnitLocationFolder}.
+     * @param catLocationFolders {@link CatLocationFolder}.
+     * @return
+     */
+    public static final List<UnitLocationFolder> convertListToUnitLocationFolderBean(final List<CatLocationFolder> catLocationFolders){
+        final List<UnitLocationFolder> listFolders = new ArrayList<UnitLocationFolder>();
+        for (CatLocationFolder locationFolder : catLocationFolders) {
+            listFolders.add(ConvertDomainBean.convertCatLocationFolderDomainToBean(locationFolder));
+        }
+    return listFolders;
+    }
+
+    /**
+     * Convert {@link CatLocationFolder}. to {@link UnitLocationFolder}.
+     * @param catLocationFolder {@link CatLocationFolder}.
+     * @return {@link UnitLocationFolder}.
+     */
+    public static UnitLocationFolder convertCatLocationFolderDomainToBean(final CatLocationFolder catLocationFolder){
+        final UnitLocationFolder locationFolder = new UnitLocationFolder();
+        locationFolder.setLocationFolderId(catLocationFolder.getLocationFolderId());
+        locationFolder.setName(catLocationFolder.getLocationFolderName());
+        locationFolder.setType(catLocationFolder.getFolderType().GROUPING.name());
+        return locationFolder;
+    }
 
 }
 
