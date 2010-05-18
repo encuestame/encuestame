@@ -15,6 +15,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.hibernate.HibernateException;
 /**
  * Interface to implement Catalog Location Dao.
@@ -29,7 +30,7 @@ public interface ICatLocation extends IBaseDao {
      * @return list of all locations
      * @throws HibernateException hibernate
      */
-    public List<CatLocation> findAll();
+    List<CatLocation> findAll();
 
 
     /**
@@ -38,20 +39,34 @@ public interface ICatLocation extends IBaseDao {
      * @return {@link CatLocation}
      * @throws HibernateException excetion
      */
-    public CatLocation getLocationById(final Long locateId);
+    CatLocation getLocationById(final Long locateId);
 
     /**
      * @param locateId locateId
      * @return aa
       * @throws HibernateException HibernateException
      */
-    public List<CatLocation> getLocationbyLevelId(final Integer locateId);
+    List<CatLocation> getLocationbyLevelId(final Integer locateId);
 
     /**
      * @param tidtype tidtype
      * @return aa
      * @throws HibernateException HibernateException
      */
-    public List<CatLocation> getLocationByTypeLocationId(final Long tidtype);
+    List<CatLocation> getLocationByTypeLocationId(final Long tidtype);
+
+    /**
+     * Get Location Folders.
+     * @param userId userId.
+     * @return
+     */
+    List<CatLocationFolder> getLocationFolders(final Long userId);
+
+    /**
+     * Get Items by Location by Folder Id.
+     * @param locationFolderId
+     * @return
+     */
+    List<CatLocation> getLocationByFolder(final Long locationFolderId);
 
 }

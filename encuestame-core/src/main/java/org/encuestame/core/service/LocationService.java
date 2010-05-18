@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.CatLocation;
@@ -19,6 +21,7 @@ import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Status;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -150,5 +153,14 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     public void assignLocationToLocationFolder(final CatLocation location, final CatLocationFolder catLocationFolder){
             location.setCatLocationFolder(catLocationFolder);
             getCatLocationDao().saveOrUpdate(location);
+    }
+
+    /**
+     * Retrieve Location Folders by User.
+     * @param currentName
+     */
+    public List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName){
+        return ConvertDomainBean.convertListToUnitLocationFolderBean(getCatLocationDao()
+               .getLocationFolders(getPrimaryUser(currentUserName)));
     }
 }

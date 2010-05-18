@@ -16,8 +16,10 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -71,4 +73,28 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
         return getHibernateTemplate().find(queryLocationType, locateId);
     }
 
+    /**
+     * Get Location Folders.
+     * @param userId userId.
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatLocationFolder> getLocationFolders(final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
+         criteria.add(Restrictions.eq("secUsers.id", userId));
+         return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    /**
+     * Get Items by Location by Folder Id.
+     * @param locationFolderId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatLocation> getLocationByFolder(final Long locationFolderId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
+         criteria.add(Restrictions.eq("catLocationFolder.id", locationFolderId));
+         return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+}
