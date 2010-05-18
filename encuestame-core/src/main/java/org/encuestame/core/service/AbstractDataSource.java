@@ -114,6 +114,15 @@ public abstract class AbstractDataSource{
     }
 
     /**
+     * Get Primary User Id.
+     * @param username
+     * @return
+     */
+    public Long getPrimaryUser(final String username){
+        return getUser(username).getSecUser().getUid();
+     }
+
+    /**
      * Load List of Project.
      * @param userId user id.
      * @return {@link Collection} of {@link UnitProjectBean}
