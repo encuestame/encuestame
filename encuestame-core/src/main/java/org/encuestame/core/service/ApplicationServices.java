@@ -34,6 +34,8 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private ISurveyService surveyService;
     private IPollService pollService;
     private ITweetPollService tweetPollService;
+    private ILocationService locationService;
+    private IProjectService projectService;
 
 
     /**
@@ -134,7 +136,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param surveyService the surveyService to set
      */
-    public void setSurveyService(ISurveyService surveyService) {
+    public void setSurveyService(final ISurveyService surveyService) {
         this.surveyService = surveyService;
     }
 
@@ -148,7 +150,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param pollService the pollService to set
      */
-    public void setPollService(IPollService pollService) {
+    public void setPollService(final IPollService pollService) {
         this.pollService = pollService;
     }
 
@@ -162,9 +164,35 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param tweetPollService the tweetPollService to set
      */
-    public void setTweetPollService(ITweetPollService tweetPollService) {
+    public void setTweetPollService(final ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
     }
 
+    /**
+     * @return the locationService
+     */
+    public ILocationService getLocationService() {
+        return locationService;
+    }
 
+    /**
+     * @param locationService the locationService to set
+     */
+    public void setLocationService(final ILocationService locationService) {
+        this.locationService = locationService;
+    }
+
+    /**
+     * @return the projectService
+     */
+    public IProjectService getProjectService() {
+        return projectService;
+    }
+
+    /**
+     * @param projectService the projectService to set
+     */
+    public void setProjectService(final IProjectService projectService) {
+        this.projectService = projectService;
+    }
 }

@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.encuestame.core.service.ILocationService;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.web.beans.MasterBean;
@@ -188,24 +189,56 @@ public class LocationBean extends MasterBean implements Serializable {
     private void loadTree() {
         try {
             rootNode = new TreeNodeImpl();
-            addNodes(rootNode);
+            final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
+            final List<UnitLocationFolder> locationFolders = locationService.retrieveLocationFolderByUser(getUsername());
+            log.debug("location folders size "+locationFolders.size());
+            addFolders(rootNode, locationFolders);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new FaceletException(e.getMessage(), e);
         }
     }
 
+    /**
+     * Add Items.
+     * @param node node
+     * @param items list of items
+     */
+    private void addItems(final TreeNode node, final List<UnitLocationBean> items){
+        int i = 1;
+        for (UnitLocationBean unitLocationBean : items) {
+            final TreeNodeImpl<String> item = new TreeNodeImpl<String>();
+            item.setData(unitLocationBean.getDescription());
+            node.addChild(i, item);
+            i++;
+        }
+    }
+
+
     //http://livedemo.exadel.com/richfaces-demo/richfaces/tree.jsf?tab=model&cid=418299
-    private void addNodes(TreeNode node) {
-         TreeNodeImpl nodeImpl = new TreeNodeImpl();
-         nodeImpl.setData("folder");
-         node.addChild(new Integer(1), nodeImpl);
-         TreeNodeImpl nodeImpl2 = new TreeNodeImpl();
+    private void addFolders(final TreeNode node, final List<UnitLocationFolder> locationFolders) {
+        int i = 1;
+        final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
+        for (UnitLocationFolder unitLocationFolder : locationFolders) {
+                final TreeNodeImpl<String> nodeImpl = new TreeNodeImpl<String>();
+                log.debug("folder "+unitLocationFolder.getName());
+                nodeImpl.setData(unitLocationFolder.getName());
+                //adding to principal node
+                node.addChild(i, nodeImpl);
+                i++;
+                //add items if folder have.
+                final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
+                        unitLocationFolder.getLocationFolderId(), getUsername());
+                log.debug("items on folder "+locationBeans.size());
+                this.addItems(nodeImpl, locationBeans);
+        }
+         /*TreeNodeImpl nodeImpl2 = new TreeNodeImpl();
          nodeImpl2.setData("folder 2");
          node.addChild(new Integer(2), nodeImpl2);
 
          TreeNodeImpl nodeImpl3 = new TreeNodeImpl();
          nodeImpl3.setData("folder 3");
-         nodeImpl2.addChild(new Integer(1), nodeImpl3);
+         nodeImpl2.addChild(new Integer(1), nodeImpl3);*/
         //addNodes(key, nodeImpl, properties);
     }
 

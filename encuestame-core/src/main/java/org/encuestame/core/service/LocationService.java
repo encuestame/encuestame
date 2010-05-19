@@ -161,7 +161,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      */
     public List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName){
         return ConvertDomainBean.convertListToUnitLocationFolderBean(getCatLocationDao()
-               .getLocationFolders(getPrimaryUser(currentUserName)));
+                                .getLocationFolders(getPrimaryUser(currentUserName)));
     }
 
     /**
@@ -172,6 +172,6 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      */
     public List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username){
         return ConvertDomainBean.convertListToUnitLocationBean(getCatLocationDao()
-                                 .getLocationByFolder(locationFolderId, getPrimaryUser(username)));
+                                .getLocationByFolder(locationFolderId, getPrimaryUser(username)));
     }
 }

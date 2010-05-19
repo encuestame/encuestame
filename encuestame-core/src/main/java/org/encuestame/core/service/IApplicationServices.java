@@ -60,7 +60,25 @@ public interface IApplicationServices  extends IService {
     /**
      * @param tweetPollService the tweetPollService to set
      */
-    public void setTweetPollService(ITweetPollService tweetPollService);
+    void setTweetPollService(ITweetPollService tweetPollService);
 
+    /**
+     * @param projectService the projectService to set
+     */
+    void setProjectService(final IProjectService projectService);
 
+    /**
+     * @return the projectService
+     */
+    IProjectService getProjectService();
+
+    /**
+     * @param locationService the locationService to set
+     */
+    void setLocationService(final ILocationService locationService);
+
+    /**
+     * @return the locationService
+     */
+    ILocationService getLocationService();
 }

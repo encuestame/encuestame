@@ -167,7 +167,9 @@ public class ConvertDomainBean {
         locationBean.setDescription(location.getLocationDescription());
         locationBean.setLat(location.getLocationLatitude());
         locationBean.setLng(location.getLocationLongitude());
-        locationBean.setTidtype(location.getTidtype().getLocationTypeId());
+        if(location.getTidtype() != null){
+            locationBean.setTidtype(location.getTidtype().getLocationTypeId());
+        }
         return locationBean;
     }
 
