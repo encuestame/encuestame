@@ -53,11 +53,11 @@ INSERT INTO `cat_location_folder` (`locate_folder_id`, `type`, `name`, `secUsers
 (4, 'GROUPING', 'Leon', 1);
 
 INSERT INTO `cat_location` (`locate_id`, `description`, `lat`, `lng`, `location_status`, `catLocationFolder_locate_folder_id`, `secUsers_uid`, `loc_id_type`) VALUES
-(1, 'Managua', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
-(2, 'Tipitapa', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
-(3, 'Ciudad Sandino', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
+(1, 'Managua', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
+(2, 'Tipitapa', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
+(3, 'Ciudad Sandino', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
 (4, 'Batahola', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
-(5, 'Lindavista', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL);
+(5, 'Lindaivsta', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL);
 
 -- Question Pattern
 INSERT INTO `encuestame_core`.`questions_pattern` (`pattenr_id`, `class`, `des_qid`, `finallity`, `label_qid`, `level`, `template_patron`, `type_pattern`)
