@@ -82,8 +82,24 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
     public List<CatLocationFolder> getLocationFolders(final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
          criteria.add(Restrictions.eq("secUsers.id", userId));
+         criteria.add(Restrictions.isNull("subLocationFolder"));
          return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    /**
+     * Get Locations Folders Childrens by Location Folder Id.
+     * @param locationFolderId id
+     * @param userId userId.
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatLocationFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
+        criteria.add(Restrictions.eq("secUsers.id", userId));
+        criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
+        criteria.add(Restrictions.isNotNull("subLocationFolder"));
+        return getHibernateTemplate().findByCriteria(criteria);
+   }
 
     /**
      * Get Items by Location by Folder Id.

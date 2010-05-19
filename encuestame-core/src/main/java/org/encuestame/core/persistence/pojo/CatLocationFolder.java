@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.persistence.pojo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,13 +36,30 @@ import javax.persistence.Table;
 @Table(name = "cat_location_folder")
 public class CatLocationFolder {
 
+    /**
+     * Id.
+     */
     private Long locationFolderId;
 
+    /**
+     * Name.
+     */
     private String locationFolderName;
 
+    /**
+     * {@link LocationFolderType}.
+     */
     private LocationFolderType folderType;
 
+    /**
+     * {@link SecUsers}.
+     */
     private SecUsers secUsers;
+
+    /**
+     * SubLocation Folder.
+     */
+    private CatLocationFolder subLocationFolder;
 
     /**
      * @return the locationFolderId
@@ -100,7 +120,22 @@ public class CatLocationFolder {
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(SecUsers secUsers) {
+    public void setSecUsers(final SecUsers secUsers) {
         this.secUsers = secUsers;
+    }
+
+    /**
+     * @return the subLocationFolder
+     */
+    @ManyToOne()
+    public CatLocationFolder getSubLocationFolder() {
+        return subLocationFolder;
+    }
+
+    /**
+     * @param subLocationFolder the subLocationFolder to set
+     */
+    public void setSubLocationFolder(final CatLocationFolder subLocationFolder) {
+        this.subLocationFolder = subLocationFolder;
     }
 }

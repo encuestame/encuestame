@@ -85,4 +85,10 @@ public interface ILocationService {
      * @param currentName username
      */
     List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName);
+
+    /**
+     * Retrieve Location Sub Folders by User.
+     * @param currentName
+     */
+    List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName);
 }

@@ -204,6 +204,7 @@ public class LocationBean extends MasterBean implements Serializable {
      * @param node node
      * @param items list of items
      */
+    @SuppressWarnings("unchecked")
     private void addItems(final TreeNode node, final List<UnitLocationBean> items){
         int i = 1;
         for (UnitLocationBean unitLocationBean : items) {
@@ -216,7 +217,10 @@ public class LocationBean extends MasterBean implements Serializable {
 
 
     //http://livedemo.exadel.com/richfaces-demo/richfaces/tree.jsf?tab=model&cid=418299
+    @SuppressWarnings("unchecked")
     private void addFolders(final TreeNode node, final List<UnitLocationFolder> locationFolders) {
+        log.debug("Add FOLDERS "+locationFolders.size());
+        log.debug("Parent Node Name "+node.getData());
         int i = 1;
         final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
         for (UnitLocationFolder unitLocationFolder : locationFolders) {
@@ -226,20 +230,22 @@ public class LocationBean extends MasterBean implements Serializable {
                 //adding to principal node
                 node.addChild(i, nodeImpl);
                 i++;
-                //add items if folder have.
+
+              //add items if folder have.
                 final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
                         unitLocationFolder.getLocationFolderId(), getUsername());
                 log.debug("items on folder "+locationBeans.size());
                 this.addItems(nodeImpl, locationBeans);
-        }
-         /*TreeNodeImpl nodeImpl2 = new TreeNodeImpl();
-         nodeImpl2.setData("folder 2");
-         node.addChild(new Integer(2), nodeImpl2);
 
-         TreeNodeImpl nodeImpl3 = new TreeNodeImpl();
-         nodeImpl3.setData("folder 3");
-         nodeImpl2.addChild(new Integer(1), nodeImpl3);*/
-        //addNodes(key, nodeImpl, properties);
+                //adding subfolders
+                final List<UnitLocationFolder> unitLocationSubFolder = locationService
+                      .retrieveLocationSubFolderByUser(unitLocationFolder.getLocationFolderId(), getUsername());
+                log.debug("subfolders found "+unitLocationSubFolder.size());
+                if(unitLocationSubFolder.size() > 0){
+                    this.addFolders(nodeImpl, unitLocationSubFolder);
+                }
+
+        }
     }
 
     /**

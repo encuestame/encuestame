@@ -246,7 +246,7 @@ public class MasterBean{
      * @return username
      */
     public final String getUsername(){
-        log.info("Session Username "+getSecCtx().getAuthentication().getName());
+        //log.info("Session Username "+getSecCtx().getAuthentication().getName());
         return getSecCtx().getAuthentication().getName();
     }
 
