@@ -59,4 +59,14 @@ INSERT INTO `cat_location` (`locate_id`, `description`, `lat`, `lng`, `location_
 (4, 'Batahola', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
 (5, 'Lindavista', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL);
 
+-- Question Pattern
+INSERT INTO `encuestame_core`.`questions_pattern` (`pattenr_id`, `class`, `des_qid`, `finallity`, `label_qid`, `level`, `template_patron`, `type_pattern`)
+VALUES (NULL, '', '', 'Example', 'What do you do?', '1', 'radio', 'Yes/No');
 
+-- Questions
+INSERT INTO `encuestame_core`.`questions` (`qid`, `qid_key`, `question`, `shared_question`, `id_state`, `id_question_pattern`, `uid`)
+VALUES (NULL, '12345', 'What do you do at home?', NULL, '1', '1', '1');
+
+-- Poll
+INSERT INTO `encuestame_core`.`poll` (`poll_id`, `created_at`, `completed`, `poll_hash`, `uid`, `qid`)
+VALUES (NULL, '2010-05-17 22:23:57', '', '123ABC', '1', '1');
