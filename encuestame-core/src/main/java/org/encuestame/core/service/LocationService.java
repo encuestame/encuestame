@@ -163,4 +163,15 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         return ConvertDomainBean.convertListToUnitLocationFolderBean(getCatLocationDao()
                .getLocationFolders(getPrimaryUser(currentUserName)));
     }
+
+    /**
+     * Retrieve Locations Folder Items by Folder Id and User Id.
+     * @param locationFolderId location folder id
+     * @param username username
+     * @return
+     */
+    public List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username){
+        return ConvertDomainBean.convertListToUnitLocationBean(getCatLocationDao()
+                                 .getLocationByFolder(locationFolderId, getPrimaryUser(username)));
+    }
 }

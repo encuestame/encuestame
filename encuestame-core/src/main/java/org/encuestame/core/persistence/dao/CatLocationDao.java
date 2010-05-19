@@ -91,9 +91,10 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> getLocationByFolder(final Long locationFolderId){
+    public List<CatLocation> getLocationByFolder(final Long locationFolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
          criteria.add(Restrictions.eq("catLocationFolder.id", locationFolderId));
+         criteria.add(Restrictions.eq("secUsers.uid", userId));
          return getHibernateTemplate().findByCriteria(criteria);
     }
 

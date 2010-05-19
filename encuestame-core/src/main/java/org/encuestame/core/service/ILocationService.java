@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service;
 
+import java.util.List;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
@@ -69,4 +71,18 @@ public interface ILocationService {
      * @param location {@link CatLocation}.
      */
     void assignLocationToLocationFolder(final CatLocation location, final CatLocationFolder catLocationFolder);
+
+    /**
+     * Retrieve Locations Folder Items by Folder Id and User Id.
+     * @param locationFolderId location folder id
+     * @param username username
+     * @return
+     */
+    List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username);
+
+    /**
+     * Retrieve Location Folders by User.
+     * @param currentName username
+     */
+    List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName);
 }
