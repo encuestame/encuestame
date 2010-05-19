@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
+import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
@@ -155,36 +156,46 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link CatLocation} to {@link UnitLocationBean}
+     * Convert {@link CatLocation} to {@link UnitLocationBean}.
      * @param location {@link CatLocation}
      * @return {@link UnitLocationBean}
      */
     public static final UnitLocationBean convertLocationToBean(final CatLocation location){
         final UnitLocationBean locationBean = new UnitLocationBean();
-        /*locationBean.setTid(location.getLocateId());
-        locationBean.setActive(location.getLocationActive());
-        locationBean.setDescriptionLocation(location.getLocationDescription());
-        locationBean.setLatitude(location.getLocationLatitude());
-        locationBean.setLevel(location.getLocationLevel());
-        locationBean.setLongitude(location.getLocationLongitude());
-        locationBean.setLocationTypeId(location.getTidtype().getLocationTypeId());*/
+        locationBean.setLocateId(location.getLocateId());
+        locationBean.setStatus(location.getLocationStatus().name());
+        locationBean.setDescription(location.getLocationDescription());
+        locationBean.setLat(location.getLocationLatitude());
+        locationBean.setLng(location.getLocationLongitude());
+        locationBean.setTidtype(location.getTidtype().getLocationTypeId());
         return locationBean;
-
     }
 
     /**
-     * @param locationType {@link CatLocationType}
+     * Convert List of Locations.
+     * @param catLocations List {@link CatLocation}
+     * @return List of {@link UnitLocationBean}
+     */
+    public static final List<UnitLocationBean> convertListToUnitLocationBean(final List<CatLocation> catLocations){
+        final List<UnitLocationBean> listLocations = new ArrayList<UnitLocationBean>();
+        for (CatLocation location : catLocations) {
+            listLocations.add(ConvertDomainBean.convertLocationToBean(location));
+        }
+    return listLocations;
+    }
+
+    /**
+     * @param locationType {@link CatLocationType}.
      * @return {@link UnitLocationTypeBean}
      */
- /*   public static final UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
+   public static final UnitLocationTypeBean convertLocationTypeToBean(final CatLocationType locationType){
         final UnitLocationTypeBean locationTypeBean = new UnitLocationTypeBean();
         locationTypeBean.setIdLocType(locationType.getLocationTypeId());
         locationTypeBean.setLocTypeDesc(locationType.getLocationTypeDescription());
         locationTypeBean.setLevel(locationType.getLocationTypeLevel());
         return locationTypeBean;
-
     }
-*/
+
     /**
      * Convert {@link Project} to {@link UnitProjectBean}
       * @param project {@link UnitProjectBean}
