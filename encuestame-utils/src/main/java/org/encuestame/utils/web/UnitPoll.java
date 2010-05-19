@@ -13,6 +13,7 @@
 
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -22,7 +23,12 @@ import java.util.Date;
  * @since  March 15, 2009
  * @version $Id: $
  */
-public class UnitPoll {
+public class UnitPoll implements Serializable{
+
+    /**
+     * Serial
+     */
+    private static final long serialVersionUID = 7022698996782621900L;
 
     /***/
     private Long id;
@@ -36,6 +42,7 @@ public class UnitPoll {
     /***/
     private UnitQuestionBean questionBean = new UnitQuestionBean();
 
+    @Deprecated
     private String pollUser;
 
 

@@ -14,6 +14,7 @@ package org.encuestame.core.test.persistence.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 

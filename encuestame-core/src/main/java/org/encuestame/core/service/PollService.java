@@ -13,13 +13,19 @@
 
 package org.encuestame.core.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -90,4 +96,34 @@ public class PollService extends AbstractSurveyService implements IPollService{
             }
     }
 
+    /**
+     * List Poll By User.
+     * @param currentUser currentUser
+     * @return unitPoll
+     */
+
+    @SuppressWarnings("unchecked")
+    public List<UnitPoll> listPollByUser(final String currentUser){
+        final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
+        final List<Poll> polls = getPollDao().findAllPollByUserId(getPrimaryUser(currentUser));
+         for (Poll poll : polls) {
+             unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
+        }
+        return unitPoll;
+    }
+
+    /**
+     * List Poll by Question Keyword.
+     * @param currentUser currentUser
+     * @param keyword QuestionKeyword
+     * @return {@link UnitPoll}
+     */
+    public List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword){
+        final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
+        final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword);
+               for (Poll poll : polls) {
+                   unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
+               }
+               return unitPoll;
+           }
 }

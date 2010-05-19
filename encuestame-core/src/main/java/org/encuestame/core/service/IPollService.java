@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service;
 
+import java.util.List;
+
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -42,10 +44,24 @@ public interface IPollService {
   void saveAnswer(final UnitAnswersBean answerBean, final Questions question);
 
   /**
-   * Create Answers in Poll
+   * Create Answers in Poll.
    * @param questionBean
    * @throws EnMeExpcetion
    */
   void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion;
 
+  /**
+   * List Poll by Question.
+   * @param currentUser currentUser
+   * @param keyword Question keyword
+   * @return
+   */
+  List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword);
+
+  /**
+   * List Poll By User.
+   * @param currentUser currentUser
+   * @return
+   */
+  List<UnitPoll> listPollByUser(final String currentUser);
 }

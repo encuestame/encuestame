@@ -53,4 +53,11 @@ public interface IPoll extends IBaseDao {
       * @throws HibernateException hibernate
       */
      List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId);
+
+     /**
+      * Get Polls By Question Keyword
+      * @param keywordQuestion
+      * @return list Polls
+      */
+     List<Poll> getPollsByQuestionKeyword(final String keywordQuestion);
 }

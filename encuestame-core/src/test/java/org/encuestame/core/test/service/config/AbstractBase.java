@@ -343,7 +343,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     /**
      * Helper to create poll
      * @return poll
-     **/
+     */
     public Poll createPoll(){
         final Poll poll = new Poll();
         poll.setCreatedAt(new Date());
@@ -351,6 +351,31 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         poll.setPollHash("HASH");
         poll.setPollOwner(createUser());
         poll.setPollCompleted(true);
+        getiPoll().saveOrUpdate(poll);
+        return poll;
+
+    }
+    /**
+      * Helper to create poll
+      * @param createdDate
+      * @param question
+      * @param hash
+      * @param currentUser
+      * @param pollCompleted
+      * @return
+      */
+    public Poll createPoll(
+            final Date createdDate,
+            final Questions question,
+            final String hash,
+            final SecUsers secUsers,
+            final Boolean pollCompleted){
+        final Poll poll = new Poll();
+        poll.setCreatedAt(createdDate);
+        poll.setQuestion(question);
+        poll.setPollHash(hash);
+        poll.setPollOwner(secUsers);
+        poll.setPollCompleted(pollCompleted);
         getiPoll().saveOrUpdate(poll);
         return poll;
 

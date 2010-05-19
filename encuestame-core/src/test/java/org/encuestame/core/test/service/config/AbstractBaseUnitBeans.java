@@ -15,12 +15,11 @@ package org.encuestame.core.test.service.config;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.core.service.util.MD5Utils;
-import org.encuestame.utils.web.ResumeResultTweetPoll;
+import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -213,6 +212,18 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          tweetPoll.setTweetOwner(tweetOwner);
          getTweetPoll().saveOrUpdate(tweetPoll);
          return tweetPoll;
+     }
+
+     public TweetPollSwitch createTweetPollSwitch(
+             final TweetPoll tweetPoll,
+             final QuestionsAnswers answers,
+             final String codeTweet) {
+         final TweetPollSwitch tweetPollSwitch = new TweetPollSwitch();
+         tweetPollSwitch.setAnswers(answers);
+         tweetPollSwitch.setCodeTweet(codeTweet);
+         tweetPollSwitch.setTweetPoll(tweetPoll);
+        return tweetPollSwitch;
+
      }
 
 }

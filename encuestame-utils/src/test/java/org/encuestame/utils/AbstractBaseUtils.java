@@ -6,6 +6,7 @@ import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 
@@ -160,6 +161,29 @@ public abstract class AbstractBaseUtils extends TestCase{
         unitPatternBean.setTemplate(template);
 
         return unitPatternBean;
+
+    }
+
+    /**
+     * Create Unit Poll.
+     * @param completedPoll completedPoll
+     * @param creationDate creationDate
+     * @param id idUnitPoll
+     * @param questionBean UnitQuestionBean
+     * @return
+     */
+    public UnitPoll createUnitPoll(
+            final Boolean completedPoll,
+            final Date creationDate,
+            final Long id,
+            final UnitQuestionBean questionBean){
+        final UnitPoll unitPoll = new UnitPoll();
+        unitPoll.setCompletedPoll(completedPoll);
+        unitPoll.setCreationDate(creationDate);
+        unitPoll.setId(id);
+        unitPoll.setQuestionBean(questionBean);
+        return unitPoll;
+
 
     }
 }
