@@ -21,6 +21,7 @@ import org.encuestame.core.persistence.pojo.PollResult;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.junit.Test;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -100,7 +101,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     public List<Poll> getPollsByQuestionKeyword(final String keywordQuestion){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.add(Restrictions.like("question.question", "%"+keywordQuestion+"%"));
+        criteria.createAlias("question", "questionAlias");
+        criteria.add(Restrictions.like("questionAlias.question", "%"+keywordQuestion+"%"));
         return getHibernateTemplate().findByCriteria(criteria);
     }
 

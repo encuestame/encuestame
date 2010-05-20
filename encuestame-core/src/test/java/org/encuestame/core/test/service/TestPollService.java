@@ -79,7 +79,8 @@ public class TestPollService extends AbstractBaseUnitBeans{
      * Test List Polls by Question Keyword.
      **/
     //FIXME:
-    public void listPollbyQuestionKeyword(){
+    @Test
+    public void testListPollbyQuestionKeyword(){
         List<UnitPoll> unitPollList = new ArrayList<UnitPoll>();
         final String keyword = "Why";
         unitPollList = pollService.listPollbyQuestionKeyword(this.secUserSecondary.getUsername(), keyword);
