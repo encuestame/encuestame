@@ -14,6 +14,8 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
+import org.encuestame.utils.dnd.ItemFolderDrag;
+
 
 /**
  * Unit Location Bean.
@@ -21,32 +23,18 @@ import java.io.Serializable;
  * @since 26/05/2009 12:40:46
  * @version $Id$
  */
-public class UnitLocationBean implements Serializable{
+public class UnitLocationBean extends AbstractUnitLocation implements Serializable, ItemFolderDrag{
 
     /**
      * Serial.
      */
     private static final long serialVersionUID = -5463975566165976808L;
-    private Long locateId;
     private Long tidtype;
-    private String description;
     private Integer level;
     private String status;
     private Float lat;
     private Float lng;
 
-    /**
-     * @return the locateId
-     */
-    public Long getLocateId() {
-        return locateId;
-    }
-    /**
-     * @param locateId the locateId to set
-     */
-    public void setLocateId(Long locateId) {
-        this.locateId = locateId;
-    }
     /**
      * @return the tidtype
      */
@@ -59,18 +47,7 @@ public class UnitLocationBean implements Serializable{
     public void setTidtype(Long tidtype) {
         this.tidtype = tidtype;
     }
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
     /**
      * @return the level
      */

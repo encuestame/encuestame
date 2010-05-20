@@ -57,6 +57,10 @@
                  <rich:tree style="width:300px" nodeSelectListener="#{locationBean.processSelection}"
                     reRender="selectedNode" ajaxSubmitSelection="true"  switchType="client"
                     value="#{locationBean.treeNode}" var="item" ajaxKeys="#{null}">
+                        <rich:treeNode ajaxSingle="true" dragListener="#{item.processDrag}"
+                            dropListener="#{item.processDrop}" dragType="all" acceptedTypes="all">
+                            <h:outputText value="#{item}" />
+                        </rich:treeNode>
                 </rich:tree>
 
                 </h:form>

@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.encuestame.core.service.ILocationService;
+import org.encuestame.utils.dnd.ItemFolderDrag;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.web.beans.MasterBean;
@@ -49,9 +51,9 @@ public class LocationBean extends MasterBean implements Serializable {
     private String active;
     private Float lat;
     private Float lng;
-    private TreeNode rootNode = null;
-    private String nodeTitle;
-    private List<String> selectedNodeChildren = new ArrayList<String>();
+    private TreeNode<ItemFolderDrag> rootNode = null;
+    private ItemDragable nodeTitle;
+    private List<ItemDragable> selectedNodeChildren = new ArrayList<ItemDragable>();
 
     private UnitLocationBean[] locations = new UnitLocationBean[10];
 
@@ -188,7 +190,7 @@ public class LocationBean extends MasterBean implements Serializable {
      */
     private void loadTree() {
         try {
-            rootNode = new TreeNodeImpl();
+            rootNode = new TreeNodeImpl<ItemFolderDrag>();
             final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
             final List<UnitLocationFolder> locationFolders = locationService.retrieveLocationFolderByUser(getUsername());
             log.debug("location folders size "+locationFolders.size());
@@ -205,11 +207,11 @@ public class LocationBean extends MasterBean implements Serializable {
      * @param items list of items
      */
     @SuppressWarnings("unchecked")
-    private void addItems(final TreeNode node, final List<UnitLocationBean> items){
+    private void addItems(final TreeNode node, final List<ItemDragable> items){
         int i = 1;
-        for (UnitLocationBean unitLocationBean : items) {
+        for (ItemDragable unitLocationBean : items) {
             final TreeNodeImpl<String> item = new TreeNodeImpl<String>();
-            item.setData(unitLocationBean.getDescription());
+            item.setData(unitLocationBean.getName());
             node.addChild(i, item);
             i++;
         }
@@ -217,29 +219,28 @@ public class LocationBean extends MasterBean implements Serializable {
 
 
     //http://livedemo.exadel.com/richfaces-demo/richfaces/tree.jsf?tab=model&cid=418299
-    @SuppressWarnings("unchecked")
-    private void addFolders(final TreeNode node, final List<UnitLocationFolder> locationFolders) {
+    private void addFolders(final TreeNode<ItemFolderDrag> node, final List<UnitLocationFolder> locationFolders) {
         log.debug("Add FOLDERS "+locationFolders.size());
         log.debug("Parent Node Name "+node.getData());
         int i = 1;
         final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
         for (UnitLocationFolder unitLocationFolder : locationFolders) {
-                final TreeNodeImpl<String> nodeImpl = new TreeNodeImpl<String>();
+                final TreeNodeImpl<ItemFolderDrag> nodeImpl = new TreeNodeImpl<ItemFolderDrag>();
                 log.debug("folder "+unitLocationFolder.getName());
-                nodeImpl.setData(unitLocationFolder.getName());
+                nodeImpl.setData(unitLocationFolder);
                 //adding to principal node
                 node.addChild(i, nodeImpl);
                 i++;
 
               //add items if folder have.
                 final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
-                        unitLocationFolder.getLocationFolderId(), getUsername());
+                        unitLocationFolder.getId(), getUsername());
                 log.debug("items on folder "+locationBeans.size());
-                this.addItems(nodeImpl, locationBeans);
+                this.addItems(nodeImpl, convertItemToDragrable(locationBeans));
 
                 //adding subfolders
                 final List<UnitLocationFolder> unitLocationSubFolder = locationService
-                      .retrieveLocationSubFolderByUser(unitLocationFolder.getLocationFolderId(), getUsername());
+                      .retrieveLocationSubFolderByUser(unitLocationFolder.getId(), getUsername());
                 log.debug("subfolders found "+unitLocationSubFolder.size());
                 if(unitLocationSubFolder.size() > 0){
                     this.addFolders(nodeImpl, unitLocationSubFolder);
@@ -249,10 +250,29 @@ public class LocationBean extends MasterBean implements Serializable {
     }
 
     /**
+     *
+     * @param unitLocationSubFolder
+     * @return
+     */
+    private List<ItemDragable> convertItemToDragrable(final List<UnitLocationBean> unitLocationBeans){
+        final List<ItemDragable> itemDragables = new ArrayList<ItemDragable>();
+        for (UnitLocationBean unitLocation : unitLocationBeans) {
+            final ItemDragable dragable = new ItemDragable();
+            dragable.setId(unitLocation.getId());
+            dragable.setLat(unitLocation.getLat());
+            dragable.setLng(unitLocation.getLng());
+            dragable.setStatus(unitLocation.getStatus());
+            dragable.setName(unitLocation.getName());
+            itemDragables.add(dragable);
+        }
+        return itemDragables;
+    }
+
+    /**
      * Load Tree Node.
      * @return
      */
-    public TreeNode getTreeNode() {
+    public TreeNode<ItemFolderDrag> getTreeNode() {
         if (rootNode == null) {
             loadTree();
         }
@@ -268,20 +288,20 @@ public class LocationBean extends MasterBean implements Serializable {
        log.info("event "+event);
        HtmlTree tree = (HtmlTree) event.getComponent();
        log.info("tree "+tree);
-       nodeTitle = (String) tree.getRowData();
+       nodeTitle = (ItemDragable) tree.getRowData();
        log.info("nodeTitle "+nodeTitle);
        selectedNodeChildren.clear();
-       TreeNode currentNode = tree.getModelTreeNode(tree.getRowKey());
+       TreeNode<ItemDragable> currentNode = tree.getModelTreeNode(tree.getRowKey());
        log.info("currentNode "+currentNode);
        if (currentNode.isLeaf()){
-           selectedNodeChildren.add((String)currentNode.getData());
+           selectedNodeChildren.add((ItemDragable)currentNode.getData());
        }else
        {
-           Iterator<Map.Entry<Object, TreeNode>> it = currentNode.getChildren();
+           Iterator<Entry<Object, TreeNode<ItemDragable>>> it = currentNode.getChildren();
            log.info("it "+it);
            while (it!=null &&it.hasNext()) {
-               Map.Entry<Object, TreeNode> entry = it.next();
-               selectedNodeChildren.add(entry.getValue().getData().toString());
+               Map.Entry<Object, TreeNode<ItemDragable>> entry = it.next();
+               selectedNodeChildren.add(entry.getValue().getData());
            }
        }
     }
@@ -289,25 +309,25 @@ public class LocationBean extends MasterBean implements Serializable {
     public TreeNodeImpl<UnitLocationFolder> getTreeNodes() {
         TreeNodeImpl<UnitLocationFolder> rootNode = new TreeNodeImpl<UnitLocationFolder>();
 
-        TreeNode node = new TreeNodeImpl<UnitLocationFolder>();
-        final UnitLocationFolder item = new UnitLocationFolder();
+        TreeNode<ItemFolderDrag> node = new TreeNodeImpl<ItemFolderDrag>();
+        final ItemFolderDrag item = new UnitLocationFolder();
         node.setData(item);
-        node.setParent(rootNode);
-        rootNode.addChild("someIdentifier", node);
+        //node.setParent(rootNode);
+       // rootNode.addChild("someIdentifier", node);
         return rootNode;
     }
 
     /**
      * @return the nodeTitle
      */
-    public String getNodeTitle() {
+    public ItemDragable getNodeTitle() {
         return nodeTitle;
     }
 
     /**
      * @param nodeTitle the nodeTitle to set
      */
-    public void setNodeTitle(String nodeTitle) {
+    public void setNodeTitle(ItemDragable nodeTitle) {
         this.nodeTitle = nodeTitle;
     }
 }

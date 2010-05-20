@@ -74,10 +74,10 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     public void updateCatLocation(final UnitLocationBean locationBean) throws EnMeExpcetion
     {
        log.info("Update Location");
-       final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getLocateId());
+       final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getId());
         if (catLocation!=null){
             catLocation.setLocationStatus(Status.valueOf(locationBean.getStatus()));
-            catLocation.setlocationDescription(locationBean.getDescription());
+            catLocation.setlocationDescription(locationBean.getName());
             catLocation.setLocationLatitude(locationBean.getLat());
             catLocation.setLocationLongitude(locationBean.getLng());
             getCatLocationDao().saveOrUpdate(catLocation);
@@ -114,7 +114,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         if (location != null){
             try{
                 final CatLocation catLocationDomain = new CatLocation();
-                catLocationDomain.setlocationDescription(location.getDescription());
+                catLocationDomain.setlocationDescription(location.getName());
                 catLocationDomain.setLocationStatus(Status.ACTIVE);
                 catLocationDomain.setLocationLatitude(location.getLat());
                 catLocationDomain.setLocationLongitude(location.getLng());
@@ -123,7 +123,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                 }
                 getCatLocationDao().saveOrUpdate(catLocationDomain);
                 log.debug("create location domain");
-                location.setLocateId(catLocationDomain.getLocateId());
+                location.setId(catLocationDomain.getLocateId());
             } catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }

@@ -46,17 +46,18 @@ INSERT INTO `sec_user_permission` (`sec_id_secondary`, `sec_id_permission`) VALU
 
 -- Location Data
 
-INSERT INTO `cat_location_folder` (`locate_folder_id`, `type`, `name`, `secUsers_uid`) VALUES
-(1, 'GROUPING', 'Managua', 1),
-(2, 'GROUPING', 'Esteli', NULL),
-(3, 'GROUPING', 'Matagalpa', 1),
-(4, 'GROUPING', 'Leon', 1);
+INSERT INTO `cat_location_folder` (`locate_folder_id`, `type`, `name`, `secUsers_uid`, `subLocationFolder_locate_folder_id`) VALUES
+(1, 'GROUPING', 'Managua', 1, NULL),
+(2, 'GROUPING', 'Esteli', 1, NULL),
+(3, 'GROUPING', 'Matagalpa', 1, NULL),
+(4, 'GROUPING', 'Leon', 1, NULL),
+(5, 'GROUPING', 'Las Brisas', 1, 1);
 
 INSERT INTO `cat_location` (`locate_id`, `description`, `lat`, `lng`, `location_status`, `catLocationFolder_locate_folder_id`, `secUsers_uid`, `loc_id_type`) VALUES
 (1, 'Managua', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
 (2, 'Tipitapa', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
 (3, 'Ciudad Sandino', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
-(4, 'Batahola', 12.1333, -86.25, 'ACTIVE', 1, NULL, NULL),
+(4, 'Batahola', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
 (5, 'Lindaivsta', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL);
 
 -- Question Pattern

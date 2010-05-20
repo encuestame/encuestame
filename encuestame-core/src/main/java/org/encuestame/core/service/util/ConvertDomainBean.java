@@ -162,9 +162,9 @@ public class ConvertDomainBean {
      */
     public static final UnitLocationBean convertLocationToBean(final CatLocation location){
         final UnitLocationBean locationBean = new UnitLocationBean();
-        locationBean.setLocateId(location.getLocateId());
+        locationBean.setId(location.getLocateId());
         locationBean.setStatus(location.getLocationStatus().name());
-        locationBean.setDescription(location.getLocationDescription());
+        locationBean.setName(location.getLocationDescription());
         locationBean.setLat(location.getLocationLatitude());
         locationBean.setLng(location.getLocationLongitude());
         if(location.getTidtype() != null){
@@ -341,7 +341,7 @@ public class ConvertDomainBean {
      */
     public static UnitLocationFolder convertCatLocationFolderDomainToBean(final CatLocationFolder catLocationFolder){
         final UnitLocationFolder locationFolder = new UnitLocationFolder();
-        locationFolder.setLocationFolderId(catLocationFolder.getLocationFolderId());
+        locationFolder.setId(catLocationFolder.getLocationFolderId());
         locationFolder.setName(catLocationFolder.getLocationFolderName());
         locationFolder.setType(catLocationFolder.getFolderType().GROUPING.name());
         return locationFolder;

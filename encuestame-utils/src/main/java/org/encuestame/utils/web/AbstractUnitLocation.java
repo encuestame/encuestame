@@ -12,52 +12,43 @@
  */
 package org.encuestame.utils.web;
 
-import java.io.Serializable;
-
-import org.encuestame.utils.dnd.ItemFolderDrag;
-
 /**
- * Location Folder Bean.
+ * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since May 16, 2010 1:54:45 PM
+ * @since May 19, 2010 8:38:47 PM
  * @version Id:
  */
-public class UnitLocationFolder extends AbstractUnitLocation implements Serializable, ItemFolderDrag {
+public abstract class AbstractUnitLocation {
+
+     private String name;
+
+     private Long id;
+
+     /**
+      * @return the name
+      */
+     public String getName() {
+         return name;
+     }
+
+     /**
+      * @param name the name to set
+      */
+     public void setName(final String name) {
+         this.name = name;
+     }
 
     /**
-     * Serial.
+     * @return the id
      */
-    private static final long serialVersionUID = -8070322441826004390L;
-
-    private UnitUserBean unitUserBean;
-
-    private String type;
-
-    /**
-     * @return the unitUserBean
-     */
-    public UnitUserBean getUnitUserBean() {
-        return unitUserBean;
+    public Long getId() {
+        return id;
     }
 
     /**
-     * @param unitUserBean the unitUserBean to set
+     * @param id the id to set
      */
-    public void setUnitUserBean(final UnitUserBean unitUserBean) {
-        this.unitUserBean = unitUserBean;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(final String type) {
-        this.type = type;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
