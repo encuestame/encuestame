@@ -33,6 +33,7 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLocationBean;
@@ -46,6 +47,7 @@ import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UtilTreeNode;
 
 /**
  * Convert Domain to  Beans.
@@ -347,4 +349,42 @@ public class ConvertDomainBean {
         return locationFolder;
     }
 
+
+    /**
+     * Convert {@link UnitLocationFolder} to {@link UtilTreeNode}.
+     * @param unitLocationSubFolder List {@link UnitLocationFolder}.
+     * @return List {@link UtilTreeNode}.
+     */
+    public static List<UtilTreeNode> convertFolderToDragrable(
+            final List<UnitLocationFolder> unitFolderLocationBeans,
+            final TypeTreeNode typeTreeNode){
+        final List<UtilTreeNode> itemDragables = new ArrayList<UtilTreeNode>();
+        for (UnitLocationFolder unitLocation : unitFolderLocationBeans) {
+            final UtilTreeNode dragable = new UtilTreeNode();
+            dragable.setId(unitLocation.getId());
+            dragable.setName(unitLocation.getName());
+            dragable.setNode(typeTreeNode);
+            itemDragables.add(dragable);
+        }
+        return itemDragables;
+    }
+
+     /**
+      * Convert {@link UnitLocationBean} to {@link UtilTreeNode}.
+      * @param unitLocationSubFolder List of {@link UnitLocationBean}.
+      * @return
+      */
+    public static List<UtilTreeNode> convertItemToDragrable(
+             final List<UnitLocationBean> unitLocationBeans,
+             final TypeTreeNode typeTreeNode){
+         final List<UtilTreeNode> itemDragables = new ArrayList<UtilTreeNode>();
+         for (UnitLocationBean unitLocation : unitLocationBeans) {
+             final UtilTreeNode dragable = new UtilTreeNode();
+             dragable.setId(unitLocation.getId());
+             dragable.setName(unitLocation.getName());
+             dragable.setNode(typeTreeNode);
+             itemDragables.add(dragable);
+         }
+         return itemDragables;
+     }
 }

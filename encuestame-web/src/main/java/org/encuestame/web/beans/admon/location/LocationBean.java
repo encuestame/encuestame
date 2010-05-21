@@ -20,9 +20,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.encuestame.core.service.ILocationService;
-import org.encuestame.utils.dnd.ItemFolderDrag;
+import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
+import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.web.beans.MasterBean;
 import org.richfaces.component.html.HtmlTree;
 import org.richfaces.event.NodeSelectedEvent;
@@ -34,11 +36,11 @@ import com.sun.facelets.FaceletException;
 /**
  * Location Bean.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 26/05/2009 12:58:17
  * @version $Id$
  **/
-public class LocationBean extends MasterBean implements Serializable {
+public final class LocationBean extends MasterBean implements Serializable {
 
     /**
      * Serial.
@@ -51,18 +53,16 @@ public class LocationBean extends MasterBean implements Serializable {
     private String active;
     private Float lat;
     private Float lng;
-    private TreeNode<ItemFolderDrag> rootNode = null;
-    private ItemDragable nodeTitle;
-    private List<ItemDragable> selectedNodeChildren = new ArrayList<ItemDragable>();
+    private TreeNode<UtilTreeNode> rootNode = null;
+    private UtilTreeNode nodeTitle;
+    private List<UtilTreeNode> selectedNodeChildren = new ArrayList<UtilTreeNode>();
 
     private UnitLocationBean[] locations = new UnitLocationBean[10];
 
+    /**
+     * Constructor.
+     */
     public LocationBean() {
-        final UnitLocationBean a = new UnitLocationBean();
-        final UnitLocationBean b = new UnitLocationBean();
-        locations[0] = a;
-        locations[1] = b;
-
     }
 
     /**
@@ -190,11 +190,11 @@ public class LocationBean extends MasterBean implements Serializable {
      */
     private void loadTree() {
         try {
-            rootNode = new TreeNodeImpl<ItemFolderDrag>();
+            rootNode = new TreeNodeImpl<UtilTreeNode>();
             final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
             final List<UnitLocationFolder> locationFolders = locationService.retrieveLocationFolderByUser(getUsername());
             log.debug("location folders size "+locationFolders.size());
-            addFolders(rootNode, locationFolders);
+            addFolders(rootNode, ConvertDomainBean.convertFolderToDragrable(locationFolders, TypeTreeNode.FOLDER));
         } catch (Exception e) {
             e.printStackTrace();
             throw new FaceletException(e.getMessage(), e);
@@ -206,12 +206,11 @@ public class LocationBean extends MasterBean implements Serializable {
      * @param node node
      * @param items list of items
      */
-    @SuppressWarnings("unchecked")
-    private void addItems(final TreeNode node, final List<ItemDragable> items){
+    private void addItems(final TreeNode<UtilTreeNode> node, final List<UtilTreeNode> items){
         int i = 1;
-        for (ItemDragable unitLocationBean : items) {
-            final TreeNodeImpl<String> item = new TreeNodeImpl<String>();
-            item.setData(unitLocationBean.getName());
+        for (UtilTreeNode utilTreeNode : items) {
+            final TreeNodeImpl<UtilTreeNode> item = new TreeNodeImpl<UtilTreeNode>();
+            item.setData(utilTreeNode);
             node.addChild(i, item);
             i++;
         }
@@ -219,60 +218,41 @@ public class LocationBean extends MasterBean implements Serializable {
 
 
     //http://livedemo.exadel.com/richfaces-demo/richfaces/tree.jsf?tab=model&cid=418299
-    private void addFolders(final TreeNode<ItemFolderDrag> node, final List<UnitLocationFolder> locationFolders) {
-        log.debug("Add FOLDERS "+locationFolders.size());
+    private void addFolders(final TreeNode<UtilTreeNode> node, final List<UtilTreeNode> itemsFolders) {
+        log.debug("Add FOLDERS "+itemsFolders.size());
         log.debug("Parent Node Name "+node.getData());
         int i = 1;
         final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
-        for (UnitLocationFolder unitLocationFolder : locationFolders) {
-                final TreeNodeImpl<ItemFolderDrag> nodeImpl = new TreeNodeImpl<ItemFolderDrag>();
-                log.debug("folder "+unitLocationFolder.getName());
-                nodeImpl.setData(unitLocationFolder);
+        for (UtilTreeNode itemNode : itemsFolders) {
+                final TreeNodeImpl<UtilTreeNode> nodeImpl = new TreeNodeImpl<UtilTreeNode>();
+                log.debug("folder "+itemNode.getName());
+                nodeImpl.setData(itemNode);
                 //adding to principal node
                 node.addChild(i, nodeImpl);
                 i++;
 
               //add items if folder have.
                 final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
-                        unitLocationFolder.getId(), getUsername());
+                        itemNode.getId(), getUsername());
                 log.debug("items on folder "+locationBeans.size());
-                this.addItems(nodeImpl, convertItemToDragrable(locationBeans));
+                this.addItems(nodeImpl, ConvertDomainBean.convertItemToDragrable(locationBeans, TypeTreeNode.ITEM));
 
                 //adding subfolders
                 final List<UnitLocationFolder> unitLocationSubFolder = locationService
-                      .retrieveLocationSubFolderByUser(unitLocationFolder.getId(), getUsername());
+                      .retrieveLocationSubFolderByUser(itemNode.getId(), getUsername());
                 log.debug("subfolders found "+unitLocationSubFolder.size());
                 if(unitLocationSubFolder.size() > 0){
-                    this.addFolders(nodeImpl, unitLocationSubFolder);
+                    this.addFolders(nodeImpl, ConvertDomainBean.convertFolderToDragrable(unitLocationSubFolder, TypeTreeNode.FOLDER));
                 }
 
         }
     }
 
     /**
-     *
-     * @param unitLocationSubFolder
-     * @return
-     */
-    private List<ItemDragable> convertItemToDragrable(final List<UnitLocationBean> unitLocationBeans){
-        final List<ItemDragable> itemDragables = new ArrayList<ItemDragable>();
-        for (UnitLocationBean unitLocation : unitLocationBeans) {
-            final ItemDragable dragable = new ItemDragable();
-            dragable.setId(unitLocation.getId());
-            dragable.setLat(unitLocation.getLat());
-            dragable.setLng(unitLocation.getLng());
-            dragable.setStatus(unitLocation.getStatus());
-            dragable.setName(unitLocation.getName());
-            itemDragables.add(dragable);
-        }
-        return itemDragables;
-    }
-
-    /**
      * Load Tree Node.
      * @return
      */
-    public TreeNode<ItemFolderDrag> getTreeNode() {
+    public TreeNode<UtilTreeNode> getTreeNode() {
         if (rootNode == null) {
             loadTree();
         }
@@ -284,50 +264,49 @@ public class LocationBean extends MasterBean implements Serializable {
      * Process Selection.
      * @param event event
      */
+    @SuppressWarnings("unchecked")
     public void processSelection(NodeSelectedEvent event) {
        log.info("event "+event);
        HtmlTree tree = (HtmlTree) event.getComponent();
        log.info("tree "+tree);
-       nodeTitle = (ItemDragable) tree.getRowData();
+       nodeTitle = (UtilTreeNode) tree.getRowData();
        log.info("nodeTitle "+nodeTitle);
        selectedNodeChildren.clear();
-       TreeNode<ItemDragable> currentNode = tree.getModelTreeNode(tree.getRowKey());
+       TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
        log.info("currentNode "+currentNode);
        if (currentNode.isLeaf()){
-           selectedNodeChildren.add((ItemDragable)currentNode.getData());
+           selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
        }else
        {
-           Iterator<Entry<Object, TreeNode<ItemDragable>>> it = currentNode.getChildren();
+           Iterator<Entry<Object, TreeNode<UtilTreeNode>>> it = currentNode.getChildren();
            log.info("it "+it);
            while (it!=null &&it.hasNext()) {
-               Map.Entry<Object, TreeNode<ItemDragable>> entry = it.next();
+               Map.Entry<Object, TreeNode<UtilTreeNode>> entry = it.next();
                selectedNodeChildren.add(entry.getValue().getData());
            }
        }
     }
 
+    @Deprecated
     public TreeNodeImpl<UnitLocationFolder> getTreeNodes() {
-        TreeNodeImpl<UnitLocationFolder> rootNode = new TreeNodeImpl<UnitLocationFolder>();
-
-        TreeNode<ItemFolderDrag> node = new TreeNodeImpl<ItemFolderDrag>();
-        final ItemFolderDrag item = new UnitLocationFolder();
+        final TreeNodeImpl<UnitLocationFolder> rootNode = new TreeNodeImpl<UnitLocationFolder>();
+        final TreeNode<UtilTreeNode> node = new TreeNodeImpl<UtilTreeNode>();
+        final UtilTreeNode item = new UtilTreeNode();
         node.setData(item);
-        //node.setParent(rootNode);
-       // rootNode.addChild("someIdentifier", node);
         return rootNode;
     }
 
     /**
      * @return the nodeTitle
      */
-    public ItemDragable getNodeTitle() {
+    public UtilTreeNode getNodeTitle() {
         return nodeTitle;
     }
 
     /**
      * @param nodeTitle the nodeTitle to set
      */
-    public void setNodeTitle(ItemDragable nodeTitle) {
+    public void setNodeTitle(final UtilTreeNode nodeTitle) {
         this.nodeTitle = nodeTitle;
     }
 }
