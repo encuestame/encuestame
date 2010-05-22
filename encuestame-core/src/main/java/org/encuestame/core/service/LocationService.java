@@ -71,10 +71,10 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateCatLocation(final UnitLocationBean locationBean) throws EnMeExpcetion
+    public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion
     {
        log.info("Update Location");
-       final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getId());
+       final CatLocation catLocation = getCatLocationDao().getLocationById(locationBean.getId(), getPrimaryUser(username));
         if (catLocation!=null){
             catLocation.setLocationStatus(Status.valueOf(locationBean.getStatus()));
             catLocation.setlocationDescription(locationBean.getName());
@@ -182,5 +182,16 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     public List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username){
         return ConvertDomainBean.convertListToUnitLocationBean(getCatLocationDao()
                                 .getLocationByFolder(locationFolderId, getPrimaryUser(username)));
+    }
+
+    /**
+     * Get Location Item.
+     * @param locationId location id
+     * @param username username
+     * @return
+     */
+    public UnitLocationBean getLocationItem(final Long locationId, final String username){
+        return ConvertDomainBean.convertLocationToBean(getCatLocationDao()
+                                .getLocationById(locationId, getPrimaryUser(username)));
     }
 }

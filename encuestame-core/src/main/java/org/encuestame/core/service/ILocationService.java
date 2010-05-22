@@ -51,7 +51,7 @@ public interface ILocationService {
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    void updateCatLocation(final UnitLocationBean locationBean) throws EnMeExpcetion;
+    void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion;
 
     /**
      * @param locationTypeBean locationTypeBean
@@ -91,4 +91,12 @@ public interface ILocationService {
      * @param currentName
      */
     List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName);
+
+    /**
+     * Get Location Item.
+     * @param locationId location id
+     * @param username username
+     * @return
+     */
+    UnitLocationBean getLocationItem(final Long locationId, final String username);
 }

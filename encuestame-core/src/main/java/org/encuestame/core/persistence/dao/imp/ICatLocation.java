@@ -39,7 +39,7 @@ public interface ICatLocation extends IBaseDao {
      * @return {@link CatLocation}
      * @throws HibernateException excetion
      */
-    CatLocation getLocationById(final Long locateId);
+    CatLocation getLocationById(final Long locateId, final Long userId);
 
     /**
      * @param locateId locateId

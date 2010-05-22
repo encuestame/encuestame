@@ -17,9 +17,11 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -47,8 +49,12 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return {@link CatLocation}
      * @throws HibernateException excetion
      */
-    public CatLocation getLocationById(final Long locateId) throws HibernateException {
-        return (CatLocation) getHibernateTemplate().get(CatLocation.class,locateId);
+    @SuppressWarnings("unchecked")
+    public CatLocation getLocationById(final Long locateId, final Long userId) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
+        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        criteria.add(Restrictions.eq("locateId", locateId));
+        return   (CatLocation) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**

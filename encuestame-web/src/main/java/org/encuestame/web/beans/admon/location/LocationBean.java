@@ -57,27 +57,12 @@ public final class LocationBean extends MasterBean implements Serializable {
     private UtilTreeNode nodeTitle;
     private List<UtilTreeNode> selectedNodeChildren = new ArrayList<UtilTreeNode>();
 
-    private UnitLocationBean[] locations = new UnitLocationBean[10];
+    private UnitLocationBean detailLocation;
 
     /**
      * Constructor.
      */
     public LocationBean() {
-    }
-
-    /**
-     * @return the locations
-     */
-    public UnitLocationBean[] getLocations() {
-        return locations;
-    }
-
-    /**
-     * @param locations
-     *            the locations to set
-     */
-    public void setLocations(UnitLocationBean[] locations) {
-        this.locations = locations;
     }
 
     /**
@@ -266,12 +251,15 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public void processSelection(NodeSelectedEvent event) {
-       log.info("event "+event);
+       //reset bean
+       log.info("before detailLocation 1 "+detailLocation);
+       //log.info("before detailLocation 2 "+detailLocation.getName());
+       setDetailLocation(null);
        HtmlTree tree = (HtmlTree) event.getComponent();
        log.info("tree "+tree);
        nodeTitle = (UtilTreeNode) tree.getRowData();
-       log.info("nodeTitle "+nodeTitle);
        selectedNodeChildren.clear();
+       //get tree selected.
        TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
        log.info("currentNode "+currentNode);
        if (currentNode.isLeaf()){
@@ -285,15 +273,27 @@ public final class LocationBean extends MasterBean implements Serializable {
                selectedNodeChildren.add(entry.getValue().getData());
            }
        }
+       if(nodeTitle.getNode() == TypeTreeNode.ITEM){
+           this.detailLocation = searchLocationDetail(nodeTitle);
+       }
+       else{
+           log.info("SEARCHING FOLDER INFO");
+       }
+       log.info("detailLocation 1 "+detailLocation);
+       log.info("detailLocation 2"+detailLocation.getName());
     }
 
-    @Deprecated
-    public TreeNodeImpl<UnitLocationFolder> getTreeNodes() {
-        final TreeNodeImpl<UnitLocationFolder> rootNode = new TreeNodeImpl<UnitLocationFolder>();
-        final TreeNode<UtilTreeNode> node = new TreeNodeImpl<UtilTreeNode>();
-        final UtilTreeNode item = new UtilTreeNode();
-        node.setData(item);
-        return rootNode;
+    /**
+     * Search Location Detail.
+     * @param treeNode Selected Tree Node.
+     * @return
+     */
+    private UnitLocationBean searchLocationDetail(final UtilTreeNode treeNode){
+         log.info("searchLocationDetail "+treeNode);
+         final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
+         final UnitLocationBean retrievedLocation = locationService.getLocationItem(treeNode.getId(), getUsername());
+         log.info("retrievedLocation "+retrievedLocation);
+         return retrievedLocation;
     }
 
     /**
@@ -308,5 +308,21 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     public void setNodeTitle(final UtilTreeNode nodeTitle) {
         this.nodeTitle = nodeTitle;
+    }
+
+    /**
+     * @return the detailLocation
+     */
+    public UnitLocationBean getDetailLocation() {
+        log.info("getDetailLocation  "+detailLocation);
+        return detailLocation;
+    }
+
+    /**
+     * @param detailLocation the detailLocation to set
+     */
+    public void setDetailLocation(final UnitLocationBean detailLocation) {
+        log.info("setDetailLocation  "+detailLocation);
+        this.detailLocation = detailLocation;
     }
 }

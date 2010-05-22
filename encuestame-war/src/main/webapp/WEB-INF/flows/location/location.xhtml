@@ -10,15 +10,20 @@
     xmlns:m="http://code.google.com/p/gmaps4jsf/">
     <ui:define name="title"> #{temp.locTitle} - #{temp.titleLoc}></ui:define>
     <ui:define name="bodyOptions">
+
+        <!-- Menu -->
+
         <a4j:form ajaxSubmit="true">
             <h:panelGrid columns="4">
-                <a4j:commandLink value="#{temp.newLocalization}"
+                <a4j:commandLink value="New Folder"
                     rendered="true"
                     oncomplete="javascript:Richfaces.showModalPanel('panelnewLocType')"
                     reRender="formHeaderNewLoc"></a4j:commandLink>
-                <a4j:commandLink value="#{temp.NewLocType}"></a4j:commandLink>
             </h:panelGrid>
         </a4j:form>
+
+        <!-- New Location -->
+
         <rich:modalPanel id="panelnewLocType" autosized="true"
             width="600" height="500" zindex="2000">
             <f:facet name="header">
@@ -52,21 +57,33 @@
             </a4j:form>
         </rich:modalPanel>
         <div class="locationContentWrapper">
-            <div style="float: left; width: 200px;">
+            <div style="float: left; width: 300px; margin-right: 10px;">
                 <h:form>
                  <rich:tree style="width:300px" nodeSelectListener="#{locationBean.processSelection}"
-                    reRender="selectedNode" ajaxSubmitSelection="true"  switchType="client"
-                    value="#{locationBean.treeNode}" var="item" ajaxKeys="#{null}">
+                    reRender="selectedNode, map" ajaxSubmitSelection="true"  switchType="client"
+                    value="#{locationBean.treeNode}" var="item" ajaxKeys="#{null}" >
                         <rich:treeNode ajaxSingle="true" dragListener="#{item.processDrag}"
-                            dropListener="#{item.processDrop}" dragType="all" acceptedTypes="all">
-                            <h:outputText value="#{item}" />
+                            dropListener="#{item.processDrop}" dragType="#{item.node}"  acceptedTypes="test">
+                            <h:outputText value="#{item.name}" />
                         </rich:treeNode>
                 </rich:tree>
 
                 </h:form>
             </div>
-            <div style="float: left;">
-
+            <div style="float: left; background-color: #EEEEEE; width: 75%">
+                    <h:form id="selectedNode">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Name" />
+                            <h:inputText value="#{locationBean.detailLocation.name}"/>
+                            <h:outputLabel value="Position" />
+                             <f:view contentType="text/html">
+                                 <m:map  width="500px" height="500px" latitude="#{locationBean.detailLocation.lat}"
+                                         longitude="#{locationBean.detailLocation.lng}"  renderOnWindowLoad="false" >
+                                    <m:marker/>
+                                 </m:map>
+                             </f:view>
+                        </h:panelGrid>
+                    </h:form>
            </div>
        </div>
     </ui:define>
