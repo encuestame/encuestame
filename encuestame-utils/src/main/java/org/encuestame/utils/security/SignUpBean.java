@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @since 08/05/2009 14:40:44
  * @version $Id$
  */
-public class SingUpBean implements Serializable {
+public class SignUpBean implements Serializable {
 
     /**
      * Serial.
