@@ -25,6 +25,7 @@ import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLocationFolder;
+import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitPoll;
@@ -355,5 +356,61 @@ import org.junit.Test;
         stateBean.setState("ACTIVE");
         assertNotNull(stateBean.getState());
         assertNotNull(stateBean.getId());
+    }
+
+    /**
+     * Test {@link UnitLocationTypeBean}.
+     */
+    @Test
+    public void testUnitLocationTypeBean(){
+        final UnitLocationTypeBean typeBean = new UnitLocationTypeBean();
+        typeBean.setIdLocType(1L);
+        typeBean.setLevel(1);
+        typeBean.setLocTypeDesc("test");
+        assertNotNull(typeBean.getLocTypeDesc());
+        assertNotNull(typeBean.getLevel());
+        assertNotNull(typeBean.getIdLocType());
+    }
+
+    /**
+     * Test {@link UnitQuestionBean}.
+     */
+    @Test
+    public void testUnitQuestionBean(){
+        final UnitQuestionBean questionBean = new UnitQuestionBean();
+        questionBean.setId(1L);
+        questionBean.setListAnswers(new ArrayList<UnitAnswersBean>());
+        questionBean.setPattern(new UnitPatternBean());
+        questionBean.setQuestionName("Why sky is blue?");
+        questionBean.setStateId(1L);
+        questionBean.setUserId(1L);
+        questionBean.setVersion("1.0");
+        assertNotNull(questionBean.getId());
+        assertEquals(questionBean.getListAnswers(), 0);
+        assertNotNull(questionBean.getPattern());
+        assertNotNull(questionBean.getQuestionName());
+        assertNotNull(questionBean.getStateId());
+        assertNotNull(questionBean.getUserId());
+        assertNotNull(questionBean.getVersion());
+    }
+
+    /**
+     * Test {@link UnitPatternBean}.
+     */
+    @Test
+    public void testUnitPatterBean(){
+        final UnitPatternBean patternBean = new UnitPatternBean();
+        patternBean.setId(1L);
+        patternBean.setClasspattern("class.class");
+        patternBean.setDescripcion("description");
+        patternBean.setFinallity("final");
+        patternBean.setLabel("yes/no");
+        patternBean.setLevelpattern("level");
+        patternBean.setPatronType("option");
+        patternBean.setTemplate("template");
+        assertNotNull(patternBean.getId());
+        assertNotNull(patternBean.getClasspattern());
+        assertNotNull(patternBean.getDescripcion());
+        assertNotNull(patternBean.getFinallity());
     }
 }
