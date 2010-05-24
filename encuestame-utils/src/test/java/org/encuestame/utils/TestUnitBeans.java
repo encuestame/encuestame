@@ -22,13 +22,16 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitPollResult;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UnitUserBean;
@@ -193,6 +196,9 @@ import org.junit.Test;
         assertNotNull(groupBean.getStateId());
         assertNotNull(groupBean.getGroupDescription());
         assertNotNull(groupBean.getGroupName());
+        final UnitGroupBean groupBean2 = new UnitGroupBean(1L, "group", "description");
+        assertNotNull(groupBean2);
+        assertNotNull(groupBean2.toString());
     }
 
     /**
@@ -200,7 +206,7 @@ import org.junit.Test;
      */
     @Test
     public void testUnitPermission(){
-        final UnitPermission permission = new UnitPermission();
+        final UnitPermission permission = new UnitPermission(1L);
         permission.setId(1L);
         permission.setDescription("description");
         permission.setPermission("admin");
@@ -241,7 +247,11 @@ import org.junit.Test;
         assertNotNull(pollResult.getVotedDate());
     }
 
-    public void UnitProjectBean(){
+    /**
+     * Test {@link UnitProjectBean}.
+     */
+    @Test
+    public void testUnitProjectBean(){
         final UnitProjectBean projectBean = new UnitProjectBean();
         projectBean.setId(1L);
         projectBean.setDateFinish(new Date());
@@ -254,6 +264,96 @@ import org.junit.Test;
         projectBean.setState(1L);
         projectBean.setStatus(1L);
         projectBean.setUserId(1L);
-        
+        assertNotNull(projectBean.getId());
+        assertNotNull(projectBean.getDateFinish());
+        assertNotNull(projectBean.getDateInit());
+        assertNotNull(projectBean.getHide());
+        assertNotNull(projectBean.getLeader());
+        assertNotNull(projectBean.getName());
+        assertNotNull(projectBean.getNotify());
+        assertNotNull(projectBean.getPriority());
+        assertNotNull(projectBean.getState());
+        assertNotNull(projectBean.getStatus());
+        assertNotNull(projectBean.getUserId());
+    }
+    /**
+     * Test {@link org.encuestame.utils.web.UnitLocationBean}.
+     */
+    @Test
+    public void testUnitLocationBean(){
+        final org.encuestame.utils.web.UnitLocationBean locationBean = new org.encuestame.utils.web.UnitLocationBean();
+        locationBean.setId(1L);
+        locationBean.setLat(12.54F);
+        locationBean.setLng(84.23F);
+        locationBean.setLevel(1);
+        locationBean.setName("location");
+        locationBean.setStatus("ACTIVE");
+        locationBean.setTidtype(2L);
+        assertNotNull(locationBean.getId());
+        assertNotNull(locationBean.getLat());
+        assertNotNull(locationBean.getLevel());
+        assertNotNull(locationBean.getLng());
+        assertNotNull(locationBean.getStatus());
+        assertNotNull(locationBean.getName());
+        assertNotNull(locationBean.getTidtype());
+    }
+
+    /**
+     * Test {@link UnitLocationFolder}.
+     */
+    @Test
+    public void testUnitLocationFormatBean(){
+        final UnitLocationFolder locationFolder = new UnitLocationFolder();
+        locationFolder.setId(1L);
+        locationFolder.setName("folder");
+        locationFolder.setType("type");
+        locationFolder.setUnitUserBean(new UnitUserBean());
+        assertNotNull(locationFolder.getId());
+        assertNotNull(locationFolder.getName());
+        assertNotNull(locationFolder.getUnitUserBean());
+        assertNotNull(locationFolder.getType());
+    }
+    /**
+     * Test {@link UnitSessionUserBean}.
+     */
+    @Test
+    public void testUnitSessionUserBean(){
+        final UnitSessionUserBean sessionUserBean = new UnitSessionUserBean();
+        sessionUserBean.setConsumerTwitterKey("12345");
+        sessionUserBean.setConsumerTwitterSecret("secret");
+        sessionUserBean.setTwitterAccount("twitter");
+        sessionUserBean.setTwitterPassword("password");
+        sessionUserBean.setTwitterTwitterPing(12345);
+        sessionUserBean.setUserSessionId(1L);
+        assertNotNull(sessionUserBean.getConsumerTwitterKey());
+        assertNotNull(sessionUserBean.getConsumerTwitterSecret());
+        assertNotNull(sessionUserBean.getTwitterAccount());
+        assertNotNull(sessionUserBean.getTwitterPassword());
+        assertNotNull(sessionUserBean.getTwitterTwitterPing());
+        assertNotNull(sessionUserBean.getUserSessionId());
+    }
+
+    /**
+     * Test {@link ResumeResultTweetPoll}.
+     */
+    @Test
+    public void testResumeResultTweetPoll(){
+        final ResumeResultTweetPoll resultTweetPoll = new ResumeResultTweetPoll("label", 12345);
+        resultTweetPoll.setLabel("label");
+        resultTweetPoll.setResult(12345);
+        assertNotNull(resultTweetPoll.getLabel());
+        assertNotNull(resultTweetPoll.getResult());
+    }
+
+    /**
+     * Test {@link UnitCatStateBean}.
+     */
+    @Test
+    public void testUnitCatStateBean(){
+        final UnitCatStateBean stateBean = new UnitCatStateBean();
+        stateBean.setId(1L);
+        stateBean.setState("ACTIVE");
+        assertNotNull(stateBean.getState());
+        assertNotNull(stateBean.getId());
     }
 }

@@ -30,7 +30,6 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatState;
-import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 /**
@@ -174,8 +173,8 @@ public interface IDataSource {
 
     /**
      * create Cat LocationType.
-     * @param locatType {@link LocationTypeBean}
-     * @return {@link LocationTypeBean}
+     * @param locatType {@link UnitLocationTypeBean}
+     * @return {@link UnitLocationTypeBean}
      * @throws EnMeExpcetion exception
      */
     UnitLocationTypeBean createCatLocationType(UnitLocationTypeBean locatType) throws EnMeExpcetion;

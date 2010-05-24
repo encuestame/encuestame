@@ -19,31 +19,63 @@ package org.encuestame.core.security.util;
  **/
 public class PasswordGenerator {
 
+    /** Numbers. **/
     public final static String numbers = "0123456789";
+    /** Capitals. **/
     public final static String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    /** LowerCase. **/
     public final static String lowercase = "abcdefghijklmnopqrstuvwxyz";
+    /** Symbols. **/
     public final static String specials = "��%&@%=[]?�{}#~,.*+$!";
 
+    /**
+     * Pin Number.
+     * @return
+     */
     public final static String getPinNumber() {
         return getPassword(numbers, 4);
     }
 
+    /**
+     * Especial Password.
+     * @return
+     */
     public final static String getEspecialPassword() {
         return getPassword(numbers + capitals + lowercase + specials, 12);
     }
 
+    /**
+     * Especial Password by Integer.
+     * @param e password lenght.
+     * @return
+     */
     public final static String getEspecialPassword(Integer e) {
         return getPassword(numbers + capitals + lowercase + specials, e);
     }
 
+    /**
+     * Get Default Password. 8 Characters
+     * @return
+     */
     public final static String getPassword() {
         return getPassword(8);
     }
 
+    /**
+     * Get Password by length.
+     * @param length length
+     * @return
+     */
     public final static String getPassword(int length) {
         return getPassword(numbers + capitals + capitals, length);
     }
 
+    /**
+     * Get Password by key and length.
+     * @param key special key
+     * @param length length.
+     * @return
+     */
     public final static String getPassword(String key, int length) {
         String pswd = "";
 
@@ -54,6 +86,11 @@ public class PasswordGenerator {
         return pswd;
     }
 
+    /**
+     * Get Numeric Password.
+     * @param lenght lenght
+     * @return
+     */
     public final static String getNumericPassword(int lenght) {
         return getPassword(numbers, lenght);
     }

@@ -39,14 +39,10 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.utils.web.LocationTypeBean;
-import org.encuestame.utils.web.UnitLocationBean;
-import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
 /**

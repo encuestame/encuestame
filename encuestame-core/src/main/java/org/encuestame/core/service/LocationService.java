@@ -22,7 +22,6 @@ import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -41,7 +40,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
 
     /**
      * Create Cat LocationType.
-     * @param locatTypeBean {@link LocationTypeBean}
+     * @param locatTypeBean {@link UnitLocationTypeBean}
      * @return locatTypeBean
      * @throws EnMeExpcetion exception
      */

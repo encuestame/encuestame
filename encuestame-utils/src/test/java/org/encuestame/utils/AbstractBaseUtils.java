@@ -2,9 +2,9 @@ package org.encuestame.utils;
 
 import java.util.Date;
 import java.util.List;
-import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -36,14 +36,15 @@ public abstract class AbstractBaseUtils extends TestCase{
     * Create Location Type Bean.
      * @param locationName name
      * @param level level
-     * @return {@link LocationTypeBean}
+     * @return {@link UnitLocationTypeBean}
      */
-    public LocationTypeBean createLocationTypeBean(
+    public UnitLocationTypeBean createLocationTypeBean(
             final String locationName,
             final Integer level){
-        final LocationTypeBean locationTypeBean = new  LocationTypeBean();
-      //  locationTypeBean.setDescription(locationName);
-       // locationTypeBean.setLevel(level);
+        final UnitLocationTypeBean locationTypeBean = new  UnitLocationTypeBean();
+        locationTypeBean.setIdLocType(null);
+        locationTypeBean.setLevel(level);
+        locationTypeBean.setLocTypeDesc(locationName);
         return locationTypeBean;
     }
 

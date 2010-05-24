@@ -17,7 +17,6 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
-import org.encuestame.utils.web.LocationTypeBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -40,7 +39,7 @@ public interface ILocationService {
 
     /**
      * Create Cat LocationType.
-     * @param locatTypeBean {@link LocationTypeBean}
+     * @param locatTypeBean {@link UnitLocationTypeBean}
      * @return locatTypeBean
      * @throws EnMeExpcetion exception
      */
