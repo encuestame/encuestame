@@ -33,7 +33,7 @@ import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
-import org.encuestame.utils.security.SingUpBean;
+import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
@@ -518,10 +518,10 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * SingUp User
-     * @param singUpBean {@link SingUpBean}.
+     * @param singUpBean {@link SignUpBean}.
      * @return {@link UnitUserBean}.
      */
-    public UnitUserBean singupUser(final SingUpBean singUpBean){
+    public UnitUserBean singupUser(final SignUpBean singUpBean){
         final SecUsers secUsers = new SecUsers();
         getSecUserDao().saveOrUpdate(secUsers);
         final SecUserSecondary secUserSecondary = new SecUserSecondary();
