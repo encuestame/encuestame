@@ -82,7 +82,6 @@ public class TestTwitterService extends AbstractBase {
      * @throws TwitterException ex
      *
      */
-    @Test
     public void test() throws TwitterException{
         Twitter twitter = new Twitter();
         twitter.setOAuthConsumer("nFboU4T1Zhv8cqMC4cP0ug", "GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0");
