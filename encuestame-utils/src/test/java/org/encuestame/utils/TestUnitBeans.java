@@ -386,7 +386,7 @@ import org.junit.Test;
         questionBean.setUserId(1L);
         questionBean.setVersion("1.0");
         assertNotNull(questionBean.getId());
-        assertEquals(questionBean.getListAnswers(), 0);
+        assertEquals(questionBean.getListAnswers().size(), 0);
         assertNotNull(questionBean.getPattern());
         assertNotNull(questionBean.getQuestionName());
         assertNotNull(questionBean.getStateId());
@@ -412,5 +412,9 @@ import org.junit.Test;
         assertNotNull(patternBean.getClasspattern());
         assertNotNull(patternBean.getDescripcion());
         assertNotNull(patternBean.getFinallity());
+        assertNotNull(patternBean.getLabel());
+        assertNotNull(patternBean.getLevelpattern());
+        assertNotNull(patternBean.getPatronType());
+        assertNotNull(patternBean.getTemplate());
     }
 }
