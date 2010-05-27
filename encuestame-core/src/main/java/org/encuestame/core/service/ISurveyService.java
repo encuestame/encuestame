@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.dao.IMasterSurveyService;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -40,7 +41,7 @@ import twitter4j.http.RequestToken;
  * @since 27/04/2009
  * @version $Id$
  */
-public interface ISurveyService extends IService {
+public interface ISurveyService extends IMasterSurveyService {
 
 
     /**

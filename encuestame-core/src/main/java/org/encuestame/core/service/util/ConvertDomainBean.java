@@ -387,4 +387,19 @@ public class ConvertDomainBean {
          }
          return itemDragables;
      }
+
+    /**
+     * Convert List to Unit Question bean.
+     * @param question question id
+     * @return collection of question beans.
+     * @throws Exception
+     */
+    public static final List<UnitQuestionBean> convertListToUnitQuestionBean(final List<Questions> questions){
+        final List<UnitQuestionBean> loadListQuestions = new LinkedList<UnitQuestionBean>();
+            for (Questions question : questions) {
+                loadListQuestions.add(ConvertDomainBean.convertQuestionsToBean(question));
+            }
+        return loadListQuestions;
+    }
+
 }

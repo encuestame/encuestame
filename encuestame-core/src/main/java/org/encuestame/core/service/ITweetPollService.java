@@ -12,12 +12,14 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.persistence.dao.IMasterSurveyService;
+
 /**
  * Tweet Poll Service.
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since  April 02, 2010
  * @version $Id: $
  */
-public interface ITweetPollService {
+public interface ITweetPollService extends IMasterSurveyService{
 
 }

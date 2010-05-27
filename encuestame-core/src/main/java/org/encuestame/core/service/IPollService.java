@@ -15,6 +15,7 @@ package org.encuestame.core.service;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.dao.IMasterSurveyService;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -26,7 +27,7 @@ import org.encuestame.utils.web.UnitQuestionBean;
  * @since May 16, 2010
  * @version $Id: $
  */
-public interface IPollService {
+public interface IPollService extends IMasterSurveyService{
 
     /**
      *	Create Poll

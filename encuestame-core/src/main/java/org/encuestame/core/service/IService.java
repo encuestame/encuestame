@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.persistence.dao.IMasterSurveyService;
 import org.encuestame.core.service.util.MessageSourceFactoryBean;
 
 /**
@@ -20,7 +21,7 @@ import org.encuestame.core.service.util.MessageSourceFactoryBean;
  * @since 29/11/2009 21:47:14
  * @version $Id$
  */
-public interface IService {
+public interface IService{
 
     /**
      * Getter.

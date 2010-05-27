@@ -33,6 +33,7 @@ import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -71,12 +72,14 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     private List<UnitAnswersBean> answers;
 
     private UnitAnswersBean answersBean;
+    private List<UnitAnswersBean> answersSaveTweet;
 
     /** {@link UnitQuestionBean} **/
     private UnitQuestionBean questionBean;
 
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
+
      /**
      *
      */
@@ -248,19 +251,35 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
 
     public void testSaveTweetId() throws EnMeExpcetion{
-        Questions questionSave = createQuestion("Why the sea is blue?","html");
+        Questions questionSave = createQuestion("how much or How Many?","html");
+        SecUsers userpao= createUser("dianmora", "gemazo26.");
         final String tweetUrl = "http://www.encuestame.org";
-        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, questionSave);
+        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), userpao, questionSave);
 
-        final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, this.user.getUid(),
-                                            this.questionBean, this.user.getTwitterAccount());
+        answersSaveTweet = new ArrayList<UnitAnswersBean>();
+        answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
+        answersSaveTweet.add(createAnswersBean("GTJU", "Yes", questionSave.getQid()));
+
+        patternBean = createPatternBean("radio.class",
+                   "radio buttons", "2", "Yes/No", "template.php");
+
+           questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, userpao.getUid(),
+                   answersSaveTweet, patternBean);
+
+
+
+        final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,userpao.getUid(),
+                                            this.questionBean, userpao.getTwitterAccount());
 
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
-        final String s = this.surveyService.generateTweetPollText(unitTweetPoll,  RandomStringUtils.randomAlphabetic(15));
+        System.out.println(tweetPoll.getTweetPollId());
+        final String s = this.surveyService.generateTweetPollText(unitTweetPoll, tweetUrl);
         System.out.println(s);
-        System.out.println(this.user.getTwitterAccount());
-        System.out.println(this.user.getTwitterPassword());
-        final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
+        System.out.println( userpao.getUid());
+        System.out.println(userpao.getTwitterAccount());
+        System.out.println(userpao.getTwitterPassword());
+        final Status status = this.surveyService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());
+        System.out.println(status.getId());
         assertNotNull(status.getId());
         unitTweetPoll.setTweetId(status.getId());
          surveyService.saveTweetId(unitTweetPoll);
@@ -305,6 +324,18 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
         final QuestionsAnswers questionAnswers = createQuestionAnswer("No", this.question, "HASH");
         surveyService.updateAnswerByAnswerId(questionAnswers.getQuestionAnswerId(), expectedResponse);
         assertEquals(questionAnswers.getAnswer(), expectedResponse);
+    }
+
+    /**
+     * Test Suggestion Question List.
+     */
+    @Test
+    public void testSuggestionQuestionList(){
+         List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
+        final String keyword = "sky";
+        unitQuestionBean = surveyService.listSuggestQuestion(keyword);
+         assertEquals("should be equals",1, unitQuestionBean.size());
+
     }
 
     /**

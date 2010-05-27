@@ -397,6 +397,20 @@ public class AbstractSurveyService extends AbstractBaseService {
     }
 
     /**
+     * Get List Suggestion Question.
+     * @param questionKeyword question keyword
+     * @return unitQuestionBean
+     */
+    public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword){
+        final List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
+        final List<Questions> questionsList = getQuestionDao().getQuestionbyKeyword(questionKeyword);
+        for (Questions question : questionsList) {
+            unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
+        }
+        return unitQuestionBean;
+    }
+
+    /**
      * Validate TweetPoll IP.
      * @param ipVote  ipVote
      * @param tweetPoll tweetPoll

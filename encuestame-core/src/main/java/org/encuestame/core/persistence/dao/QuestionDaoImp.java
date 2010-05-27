@@ -15,6 +15,7 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
+import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
@@ -115,4 +116,19 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException{
         return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patronId);
     }
+
+
+    /**
+     * Retrieve Polls by Question Keyword.
+     * @param keywordQuestion keywordQuestion
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Questions> getQuestionbyKeyword(final String keywordQuestion){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Questions.class);
+       // criteria.createAlias("question", "questionAlias");
+        criteria.add(Restrictions.like("question", "%"+keywordQuestion+"%"));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
 }
