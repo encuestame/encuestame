@@ -127,6 +127,21 @@ public class PollService extends AbstractSurveyService implements IPollService{
                return unitPoll;
            }
 
+   /**
+    * Update Question.
+    * @param unitQuestionPoll
+ * @throws EnMeExpcetion  Exception
+    */
+    public void updateQuestionPoll(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion{
+        final Questions question = getQuestionDao().retrieveQuestionById(unitQuestionPoll.getId());
+        if (question == null){
+            throw new EnMeExpcetion("question not found");
+        }
+        else{
+            question.setQuestion(unitQuestionPoll.getQuestionName());
+            getQuestionDao().saveOrUpdate(question);
+        }
+    }
 
 
 }

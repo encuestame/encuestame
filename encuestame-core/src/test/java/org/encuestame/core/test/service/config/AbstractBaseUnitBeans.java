@@ -226,4 +226,22 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
 
      }
 
+     @SuppressWarnings("unchecked")
+     public UnitQuestionBean createUnitQuestion(
+             final Long questionId,
+             final String questionName,
+             final Long stateId,
+             final Long userId,
+             final List listAnswers,
+             final UnitPatternBean pattern){
+          final UnitQuestionBean question = new UnitQuestionBean();
+          question.setId(questionId);
+          question.setQuestionName(questionName);
+          question.setStateId(stateId);
+          question.setUserId(userId);
+          question.setListAnswers(listAnswers);
+          question.setPattern(pattern);
+          return question;
+     }
+
 }

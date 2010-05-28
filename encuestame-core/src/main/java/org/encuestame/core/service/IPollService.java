@@ -65,4 +65,12 @@ public interface IPollService extends IMasterSurveyService{
    * @return
    */
   List<UnitPoll> listPollByUser(final String currentUser);
+
+      /**
+       * Update Question Poll.
+       * @param unitQuestionPoll
+       * @throws EnMeExpcetion exception
+       */
+  void updateQuestionPoll(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion;
+
 }

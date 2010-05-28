@@ -225,9 +225,7 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     public void testRetrieveAnswerByQuestionId(){
 
            final List<UnitAnswersBean> listUnitAnswerBean = surveyService.retrieveAnswerByQuestionId(this.question.getQid());
-           System.out.println(this.question.getQid());
-           System.out.println("Question ID");
-           assertEquals("Should be equals",1, listUnitAnswerBean.size());
+            assertEquals("Should be equals",1, listUnitAnswerBean.size());
 
     }
 
