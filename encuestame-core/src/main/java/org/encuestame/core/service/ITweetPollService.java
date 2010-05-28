@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.service;
 
-import org.encuestame.core.persistence.dao.IMasterSurveyService;
 
 /**
  * Tweet Poll Service.

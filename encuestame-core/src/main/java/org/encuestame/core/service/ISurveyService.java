@@ -17,10 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.dao.IMasterSurveyService;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;

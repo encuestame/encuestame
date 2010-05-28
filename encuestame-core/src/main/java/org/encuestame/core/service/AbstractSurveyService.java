@@ -421,6 +421,22 @@ public class AbstractSurveyService extends AbstractBaseService {
     }
 
     /**
+     * Update Question.
+     * @param unitQuestionPoll
+     * @throws EnMeExpcetion  Exception
+     */
+     public void updateQuestion(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion{
+         final Questions question = getQuestionDao().retrieveQuestionById(unitQuestionPoll.getId());
+         if (question == null){
+             throw new EnMeExpcetion("question not found");
+         }
+         else{
+             question.setQuestion(unitQuestionPoll.getQuestionName());
+             getQuestionDao().saveOrUpdate(question);
+         }
+     }
+
+    /**
      * @return the twitterService
      */
     public ITwitterService getTwitterService() {
