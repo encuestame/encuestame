@@ -26,6 +26,7 @@
         <spring.webflow.version>2.0.8.RELEASE</spring.webflow.version>
         <spring.security.version>3.0.2.RELEASE</spring.security.version>
         <hibernate.version>3.3.1.GA</hibernate.version>
+        <apache>file:////var/www/encuestame</apache>
     </properties>
 
     <modules>
@@ -76,7 +77,7 @@
     <distributionManagement>
         <site>
             <id>www.encuestame.org</id>
-            <url>${settings.deployPath}</url>
+            <url>${apache}</url>
         </site>
         <repository>
             <uniqueVersion>false</uniqueVersion>
