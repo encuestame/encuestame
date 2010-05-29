@@ -34,6 +34,19 @@
 
         </script>
             <!-- Google Analytics - End -->
+
+        <!-- SEO -->
+        <title>Encuestame Java Open Source Survey System, Twitter, Poll, Surveys.</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Open Source Java Survey System, Twitter, Poll, Surveys." />
+        <meta name="keywords" content="survey, java, open source, poll, twitter, spring framework" />
+        <meta http-equiv="Expires" content="never"/>
+        <meta name="Revisit-After" content="2"/>
+        <meta name="distribution" content="Global"/>
+        <meta name="Robots" content="INDEX,FOLLOW"/>
+        <meta name="author" content="encuestame.org"/>
+        <!-- SEO - End -->
+
         </head>
         <!-- more stuff -->
 
