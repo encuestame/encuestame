@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="encuestame">
     <bannerLeft>
-        <name>Maven</name>
-        <src>images/encuestame_header.png</src>
+        <name>Encuestame</name>
+        <src>http://www.encuestame.org/images/encuestame_header.png</src>
         <href>http://www.encuestame.org/</href>
     </bannerLeft>
     <bannerRight>
-        <src>images/twitter.jpg</src>
+         <src>http://www.encuestame.org/images/twitter.jpg</src>
         <href>http://www.twitter.com/encuestame</href>
     </bannerRight>
 
