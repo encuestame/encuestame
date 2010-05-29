@@ -1,0 +1,44 @@
+  -------
+  Main
+  -------
+
+  <<Encuestame 1.0!>> is in development [{{{changelog.html}ChangeLog}} ]
+
+   We are working actively on own free time for  first release  this project.
+
+ What's offer
+
+    * Twitter polls based on url response.
+
+    * Poll embebed on html, many form to publications.
+
+    * Surveys with question patterns, sections.
+
+
+Project Status
+
+    * Status: <<Alfa>>
+
+Links
+
+    * {{{http://www.encuestame.org/} Official Website}}
+
+    * {{{http://www.encuesta.me/} Blog}}
+
+    * {{{http://sourceforge.net/projects/encuestame/files/} Downloads}}
+
+    * {{{http://www.encuesta.me/cgi-bin/mailman/listinfo/encuestame-es} Email List}}
+
+    * {{{http://trac.encuesta.me/} Trac && Bugs}}
+
+    * {{{http://metrics.encuestame.org/} Metrics}}
+
+    * {{{http://demo.encuestame.org/} Demo}}
+
+    * {{{http://stats.encuestame.org/} SVN Stats}}
+
+    * {{{http://wiki.encuestame.org/en/Build_Guide} Build Guide}}
+
+    * {{{http://svn.encuesta.me/trunk/encuestame} Subversion Source Code}}
+
+    * {{{http://webalizer.encuestame.org/} Webalizer}}
