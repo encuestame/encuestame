@@ -190,6 +190,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
                     <version>2.4.3</version>
                 </plugin>
 
@@ -275,8 +278,7 @@
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <!--<report>dependencies</report>
-              -->
+                            <!--<report>dependencies</report>-->
                             <report>project-team</report>
                             <report>mailing-list</report>
                             <report>cim</report>
