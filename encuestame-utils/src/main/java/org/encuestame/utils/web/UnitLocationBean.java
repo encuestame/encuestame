@@ -34,6 +34,16 @@ public class UnitLocationBean extends AbstractUnitLocation implements Serializab
     private String status;
     private Float lat;
     private Float lng;
+    /** Address. **/
+    private String address;
+    /** Country Code. **/
+    private String countryCode;
+
+    /** Country Name. **/
+    private String countryName;
+
+    /** Accurancy. **/
+    private Integer accuracy;
 
     /**
      * @return the tidtype
@@ -44,7 +54,7 @@ public class UnitLocationBean extends AbstractUnitLocation implements Serializab
     /**
      * @param tidtype the tidtype to set
      */
-    public void setTidtype(Long tidtype) {
+    public void setTidtype(final Long tidtype) {
         this.tidtype = tidtype;
     }
 
@@ -57,7 +67,7 @@ public class UnitLocationBean extends AbstractUnitLocation implements Serializab
     /**
      * @param level the level to set
      */
-    public void setLevel(Integer level) {
+    public void setLevel(final Integer level) {
         this.level = level;
     }
     /**
@@ -69,7 +79,7 @@ public class UnitLocationBean extends AbstractUnitLocation implements Serializab
     /**
      * @param active the active to set
      */
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
     /**
@@ -81,7 +91,7 @@ public class UnitLocationBean extends AbstractUnitLocation implements Serializab
     /**
      * @param lat the lat to set
      */
-    public void setLat(Float lat) {
+    public void setLat(final Float lat) {
         this.lat = lat;
     }
     /**
@@ -93,7 +103,55 @@ public class UnitLocationBean extends AbstractUnitLocation implements Serializab
     /**
      * @param lng the lng to set
      */
-    public void setLng(Float lng) {
+    public void setLng(final Float lng) {
         this.lng = lng;
+    }
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(final String address) {
+        this.address = address;
+    }
+    /**
+     * @return the countryCode
+     */
+    public String getCountryCode() {
+        return countryCode;
+    }
+    /**
+     * @param countryCode the countryCode to set
+     */
+    public void setCountryCode(final String countryCode) {
+        this.countryCode = countryCode;
+    }
+    /**
+     * @return the countryName
+     */
+    public String getCountryName() {
+        return countryName;
+    }
+    /**
+     * @param countryName the countryName to set
+     */
+    public void setCountryName(final String countryName) {
+        this.countryName = countryName;
+    }
+    /**
+     * @return the accuracy
+     */
+    public Integer getAccuracy() {
+        return accuracy;
+    }
+    /**
+     * @param accuracy the accuracy to set
+     */
+    public void setAccuracy(final Integer accuracy) {
+        this.accuracy = accuracy;
     }
 }

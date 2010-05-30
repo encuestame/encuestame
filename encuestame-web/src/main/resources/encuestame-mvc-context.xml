@@ -41,7 +41,7 @@
         /admon/users.do=flowController
         /admon/location.do=flowController
         /admon/project.do=flowController
-        /tweetPoll.do=flowController
+        /tweetpoll.do=flowController
         /poll.do=flowController
         /survey.do=flowController
        </value>

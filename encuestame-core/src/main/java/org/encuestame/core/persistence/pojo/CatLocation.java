@@ -31,7 +31,7 @@ import javax.persistence.Table;
 /**
  * CatLocation.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since October 17, 2009
  * @version $Id$
  */
@@ -55,6 +55,18 @@ public class CatLocation {
 
     /** Longitude **/
     private Float locationLongitude;
+
+    /** Address. **/
+    private String locationAddress;
+
+    /** Country Code. **/
+    private String locationCountryCode;
+
+    /** Country Name. **/
+    private String locationCountryName;
+
+    /** Accurancy. **/
+    private Integer locationAccuracy;
 
     /** User. **/
     private SecUsers secUsers;
@@ -205,5 +217,72 @@ public class CatLocation {
      */
     public void setCatLocationFolder(CatLocationFolder catLocationFolder) {
         this.catLocationFolder = catLocationFolder;
+    }
+
+    /**
+     * @return the locationAddress
+     */
+    @Column(name = "address")
+    public String getLocationAddress() {
+        return locationAddress;
+    }
+
+    /**
+     * @param locationAddress the locationAddress to set
+     */
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
+    }
+
+    /**
+     * @return the locationCountryCode
+     */
+    @Column(name = "country_code")
+    public String getLocationCountryCode() {
+        return locationCountryCode;
+    }
+
+    /**
+     * @param locationCountryCode the locationCountryCode to set
+     */
+    public void setLocationCountryCode(String locationCountryCode) {
+        this.locationCountryCode = locationCountryCode;
+    }
+
+    /**
+     * @return the locationCountryName
+     */
+    @Column(name = "country_name")
+    public String getLocationCountryName() {
+        return locationCountryName;
+    }
+
+    /**
+     * @param locationCountryName the locationCountryName to set
+     */
+    public void setLocationCountryName(String locationCountryName) {
+        this.locationCountryName = locationCountryName;
+    }
+
+    /**
+     * @return the locationAccuracy
+     */
+    @Column(name = "accuracy")
+    public Integer getLocationAccuracy() {
+        return locationAccuracy;
+    }
+
+    /**
+     * @param locationAccuracy the locationAccuracy to set
+     */
+    public void setLocationAccuracy(Integer locationAccuracy) {
+        this.locationAccuracy = locationAccuracy;
+    }
+
+    /**
+     * @param locationDescription the locationDescription to set
+     */
+    public void setLocationDescription(String locationDescription) {
+        this.locationDescription = locationDescription;
     }
 }

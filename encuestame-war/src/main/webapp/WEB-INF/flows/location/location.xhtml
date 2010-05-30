@@ -8,6 +8,10 @@
     xmlns:sf="http://www.springframework.org/tags/faces"
     xmlns:sec="http://www.springframework.org/security/tags"
     xmlns:m="http://code.google.com/p/gmaps4jsf/">
+    <ui:define name="googleMaps">
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{applicationServices.apiKeygoogle}" type="text/javascript">
+    </script>
+    </ui:define>
     <ui:define name="title"> #{temp.locTitle} - #{temp.titleLoc}></ui:define>
     <ui:define name="bodyOptions">
 
@@ -82,7 +86,8 @@
                                          longitude="#{locationBean.detailLocation.lng}"  renderOnWindowLoad="false" >
                                     <m:marker latitude="#{locationBean.detailLocation.lat}"
                                          longitude="#{locationBean.detailLocation.lng}" draggable="true"
-                                          submitOnValueChange="true" valueChangeListener="#{locationBean.processValueChangeForFirstMarker}"/>
+                                          submitOnValueChange="true"
+                                          valueChangeListener="#{locationBean.processValueMarkeChange}"/>
                                  </m:map>
                              </f:view>
                         </h:panelGrid>

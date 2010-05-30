@@ -204,4 +204,30 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         return ConvertDomainBean.convertCatLocationFolderDomainToBean(getCatLocationDao()
                                 .getLocationFolderByIdAndUserId(folderLocationId, getPrimaryUser(username)));
     }
+
+    /**
+     * Update Location Map.
+     * @param Latitude
+     * @param Longitude
+     * @param locationId
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    public void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeExpcetion{
+        final CatLocation location = getCatLocationDao().getLocationById(locationId, getPrimaryUser(username));
+        log.info("location map location "+location);
+        if(location == null){
+            throw new EnMeExpcetion("location not found");
+        }
+        else{
+            location.setLocationAccuracy(locationBean.getAccuracy());
+            location.setLocationLatitude(locationBean.getLat());
+            location.setLocationAddress(locationBean.getAddress());
+            location.setLocationCountryCode(locationBean.getCountryCode());
+            location.setLocationCountryName(locationBean.getCountryName());
+            location.setLocationLongitude(locationBean.getLng());
+            getCatLocationDao().saveOrUpdate(location);
+            log.info("location map updated");
+        }
+    }
 }

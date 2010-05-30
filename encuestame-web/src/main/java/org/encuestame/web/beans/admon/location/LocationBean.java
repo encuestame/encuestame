@@ -271,8 +271,8 @@ public final class LocationBean extends MasterBean implements Serializable {
        final TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
        if (currentNode.isLeaf()){
            selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
-       }else
-       {
+       }
+       else{
            Iterator<Entry<Object, TreeNode<UtilTreeNode>>> it = currentNode.getChildren();
            while (it!=null &&it.hasNext()) {
                Map.Entry<Object, TreeNode<UtilTreeNode>> entry = it.next();
@@ -289,19 +289,26 @@ public final class LocationBean extends MasterBean implements Serializable {
        }
     }
 
-    public void processValueChangeForFirstMarker(ValueChangeEvent event) throws AbortProcessingException {
-        final String firstMarkerStatus  = event.getNewValue().toString();
+    /**
+     *
+     * @param event
+     * @throws AbortProcessingException
+     */
+    public void processValueMarkeChange(ValueChangeEvent event) throws AbortProcessingException {
         final MarkerValue markerValue = (MarkerValue) event.getNewValue();
         try {
            final PlaceMark placeMark = GMaps4JSFServiceFactory.getReverseGeocoderService().getPlaceMark(markerValue.getLatitude(), markerValue.getLongitude());
-           final String firstLocationInformation = "Selected Latitude, Longitude: " + markerValue.getLatitude() + ", " + markerValue.getLongitude()
-                                     + "<br>Address: " + ignoreNull(placeMark.getAddress())
-                                     + "<br>Country code: " + ignoreNull(placeMark.getCountryCode())
-                                     + "<br>Country name: "+ ignoreNull(placeMark.getCountryName())
-                                     + "<br>Accuracy: "+ placeMark.getAccuracy();
-           log.info(firstLocationInformation);
+           log.info("Longitude "+ markerValue.getLongitude());
+           log.info("Latitude "+ markerValue.getLatitude());
+           getDetailLocation().setAccuracy(placeMark.getAccuracy());
+           getDetailLocation().setCountryName(ignoreNull(placeMark.getCountryName()));
+           getDetailLocation().setCountryCode(ignoreNull(placeMark.getCountryCode()));
+           getDetailLocation().setAddress(ignoreNull(placeMark.getAddress()));
+           getDetailLocation().setLat(Float.valueOf(markerValue.getLatitude()));
+           getDetailLocation().setLng(Float.valueOf(markerValue.getLongitude()));
+           getLocationService().updateLocationMap(getDetailLocation(), getDetailLocation().getId(), getUsername());
         } catch (Exception ex) {
-            log.error("firstLocationInformation null");
+            log.error("error location map update");
         }
     }
 
@@ -349,7 +356,6 @@ public final class LocationBean extends MasterBean implements Serializable {
      * @return the detailLocation
      */
     public UnitLocationBean getDetailLocation() {
-        log.info("getDetailLocation  "+detailLocation);
         return detailLocation;
     }
 

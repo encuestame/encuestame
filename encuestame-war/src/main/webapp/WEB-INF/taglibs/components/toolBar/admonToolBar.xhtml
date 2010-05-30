@@ -15,8 +15,8 @@
                     <a class="space" href="${request.contextPath}/admon/groups.do">#{temp.groups}</a>
                     <a class="space" href="${request.contextPath}/admon/users.do">#{temp.users}</a>
                     <a class="space" href="${request.contextPath}/admon/project.do">#{temp.proyects}</a>
+                    <a class="space" href="${request.contextPath}/admon/location.do">#{temp.location}</a>
                 </sec:authorize>
-                <a4j:commandLink value="#{temp.territory}" action="location"></a4j:commandLink>
                 <a4j:commandLink value="#{temp.geo}" action="geo"></a4j:commandLink>
                 <a4j:commandLink value="#{temp.permission}" action="locationPer"></a4j:commandLink>
             </h:panelGrid>

@@ -106,4 +106,14 @@ public interface ILocationService {
      * @return
      */
     UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username);
+
+    /**
+     * Update Location Map.
+     * @param Latitude
+     * @param Longitude
+     * @param locationId
+     * @param username
+     * @throws EnMeExpcetion
+     */
+     void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeExpcetion;
 }

@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
@@ -320,5 +321,13 @@ public class MasterBean{
      */
     public final SecurityContext getSecurityContext() {
         return securityContext;
+    }
+
+    /**
+     * Get Location Service.
+     * @return
+     */
+    public ILocationService getLocationService(){
+        return getServicemanager().getApplicationServices().getLocationService();
     }
 }
