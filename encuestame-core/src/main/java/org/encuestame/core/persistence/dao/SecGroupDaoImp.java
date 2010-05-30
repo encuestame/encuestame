@@ -37,7 +37,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
     public List<SecGroups> findAllGroups() {
-        return super.findAll("from SecGroups");
+        return getHibernateTemplate().find("from SecGroups");
     }
 
     /**
@@ -64,6 +64,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      * @param secUser {@link SecUsers}
      * @return
      */
+    @SuppressWarnings("unchecked")
     public SecGroups getGroupById(final Long groupId, final SecUsers secUser){
         return (SecGroups) DataAccessUtils.uniqueResult(getHibernateTemplate()
                .findByNamedParam("from SecGroups where groupId = :groupId and  secUsers = :secUser",

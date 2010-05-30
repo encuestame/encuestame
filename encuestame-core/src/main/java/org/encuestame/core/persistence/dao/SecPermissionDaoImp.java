@@ -12,12 +12,10 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -59,6 +57,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
      * @param permission permission
      * @return {@link SecPermission}
      */
+    @SuppressWarnings("unchecked")
     public SecPermission loadPermission(final String permission)
            throws HibernateException{
         final DetachedCriteria criteria = DetachedCriteria.forClass(SecPermission.class);
@@ -73,7 +72,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<SecPermission> findAllPermissions() throws HibernateException {
-        return super.findAll("from SecPermission");
+        return getHibernateTemplate().find("from SecPermission");
     }
 
    /**

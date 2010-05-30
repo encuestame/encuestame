@@ -17,7 +17,6 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -26,7 +25,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Catalog Location Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since  6/05/2009 14:45:54
  * @version $Id$
  */
@@ -40,7 +39,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      */
     @SuppressWarnings("unchecked")
     public List<CatLocation> findAll() throws HibernateException {
-        return super.findAll("from CatLocation");
+          return getHibernateTemplate().find("from CatLocation");
     }
 
     /**
@@ -54,7 +53,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
         final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
         criteria.add(Restrictions.eq("secUsers.uid", userId));
         criteria.add(Restrictions.eq("locateId", locateId));
-        return   (CatLocation) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        return (CatLocation) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**
@@ -119,5 +118,19 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
          criteria.add(Restrictions.eq("secUsers.uid", userId));
          return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    /**
+     * Get LocationFolder by Id and User Id
+     * @param locationFolderId folder id
+     * @param userId userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public CatLocationFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
+        criteria.add(Restrictions.eq("locationFolderId", locationFolderId));
+        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        return (CatLocationFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+   }
 
 }

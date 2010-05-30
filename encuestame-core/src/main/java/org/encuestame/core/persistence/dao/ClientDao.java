@@ -18,8 +18,6 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.IClientDao;
 import org.encuestame.core.persistence.pojo.Client;
 import org.hibernate.HibernateException;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -39,7 +37,7 @@ public class ClientDao extends AbstractHibernateDaoSupport implements IClientDao
      */
     @SuppressWarnings("unchecked")
     public List<Client> findAll() throws HibernateException {
-        return super.findAll("from Client");
+        return getHibernateTemplate().find("from Client");
     }
 
     /**

@@ -39,9 +39,8 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @return list of all users
      * @throws HibernateException hibernate
      */
-    @SuppressWarnings("unchecked")
     public List<SecUserSecondary> findAll() throws HibernateException {
-        return  findAll("from SecUserSecondary");
+        return getHibernateTemplate().find("from SecUserSecondary");
     }
 
     /**
@@ -49,7 +48,6 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param secUsers {@link SecUsers}.
      * @return List of {@link SecUserSecondary}
      */
-    @SuppressWarnings("unchecked")
     public List<SecUserSecondary> retrieveListOwnerUsers(final SecUsers	secUsers){
         return getHibernateTemplate().findByNamedParam("from SecUserSecondary where secUser = :secUsers "
             +" ", "secUsers", secUsers);
@@ -82,11 +80,10 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param username username
      * @return list of users
      */
-    @SuppressWarnings("unchecked")
     public SecUserSecondary getUserByUsername(final String username)throws HibernateException {
             final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
             criteria.add(Restrictions.eq("username", username) );
-            return   (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+            return (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**
@@ -94,7 +91,6 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param username username
      * @return list of users
      */
-    @SuppressWarnings("unchecked")
     public List<SecUserSecondary> getUsersByUsername(final String username) {
             final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
             criteria.add(Restrictions.like("username", username) );
@@ -106,7 +102,6 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param email email
      * @return
      */
-    @SuppressWarnings("unchecked")
     public List<SecUserSecondary> searchUsersByEmail(final String email){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
         criteria.add(Restrictions.like("userEmail", email) );
@@ -119,7 +114,6 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param userId user id
      * @return secondary user list
      */
-    @SuppressWarnings("unchecked")
     public List<SecUserSecondary> getSecondaryUsersByUserId(final Long userId){
             return getHibernateTemplate().findByNamedParam("from SecUserSecondary"
                                           +" WHERE secUser.id = :userId", "userId", userId);

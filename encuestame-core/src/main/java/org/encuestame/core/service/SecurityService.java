@@ -126,7 +126,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public List<SelectItem> loadSelectItemGroups(final String currentUsername){
         final SecUserSecondary secUserSecondary = getUser(currentUsername);
         final List<SecGroups> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
-        final Set groupsCollection = new HashSet(groups);
+        final Set<SecGroups> groupsCollection = new HashSet<SecGroups>(groups);
         return ConvertListDomainSelectBean.convertListGroupDomainToSelect(groupsCollection);
     }
 
@@ -536,17 +536,17 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         getSecUserDao().saveOrUpdate(secUserSecondary);
         //Add default permissions, if user is signup we should add admin access
         final Set<SecPermission> permissions = new HashSet<SecPermission>();
-        permissions.add(getPermissionByName(this.DEFAULT));
-        permissions.add(getPermissionByName(this.ADMIN));
-        permissions.add(getPermissionByName(this.OWNER));
-        permissions.add(getPermissionByName(this.PUBLISHER));
-        permissions.add(getPermissionByName(this.EDITOR));
+        permissions.add(getPermissionByName(SecurityService.DEFAULT));
+        permissions.add(getPermissionByName(SecurityService.ADMIN));
+        permissions.add(getPermissionByName(SecurityService.OWNER));
+        permissions.add(getPermissionByName(SecurityService.PUBLISHER));
+        permissions.add(getPermissionByName(SecurityService.EDITOR));
         this.assingPermission(secUserSecondary, permissions);
         //Create login.
         setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
         log.info("new user "+secUserSecondary.getUsername());
         log.info("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
-        return ConvertDomainBean.convertUserDaoToUserBean(secUserSecondary);
+        return ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary);
     }
 
     /**

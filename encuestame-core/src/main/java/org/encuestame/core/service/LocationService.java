@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Location Service.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since May 15, 2010 8:17:15 PM
  * @version $Id: $
  */
@@ -192,5 +192,16 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     public UnitLocationBean getLocationItem(final Long locationId, final String username){
         return ConvertDomainBean.convertLocationToBean(getCatLocationDao()
                                 .getLocationById(locationId, getPrimaryUser(username)));
+    }
+
+    /**
+     * Get Folder Location Detail.
+     * @param folderLocationId folder location  Id.
+     * @param username username
+     * @return
+     */
+    public UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username){
+        return ConvertDomainBean.convertCatLocationFolderDomainToBean(getCatLocationDao()
+                                .getLocationFolderByIdAndUserId(folderLocationId, getPrimaryUser(username)));
     }
 }

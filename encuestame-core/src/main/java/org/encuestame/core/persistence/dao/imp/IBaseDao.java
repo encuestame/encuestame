@@ -12,8 +12,6 @@
  */
 package org.encuestame.core.persistence.dao.imp;
 
-import java.util.List;
-
 import org.hibernate.HibernateException;
 /**
  * Interface Base Dao.
@@ -36,14 +34,5 @@ public interface IBaseDao {
      * @throws HibernateException  exception
      */
     public void delete(final Object domain);
-
-    /**
-     * 	Return all the elements of an entity in Table.
-     * @param query hql query
-     * @return {@link List} of {@link Object}
-     * @throws HibernateException  exception
-     */
-    public List<Object> findAll(final String query);
-
 
 }

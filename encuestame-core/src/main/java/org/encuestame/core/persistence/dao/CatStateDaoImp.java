@@ -35,7 +35,7 @@ public class CatStateDaoImp extends AbstractHibernateDaoSupport implements ICatS
      */
     @SuppressWarnings("unchecked")
     public List<CatState> findAll() throws HibernateException {
-        return super.findAll("from CatState");
+        return getHibernateTemplate().find("from CatState");
     }
 
     /**

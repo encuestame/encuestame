@@ -36,7 +36,7 @@ public class CatLocationTypeDao extends AbstractHibernateDaoSupport implements I
      */
     @SuppressWarnings("unchecked")
     public List<CatLocationType> findAll() throws HibernateException {
-        return super.findAll("from CatLocationType");
+        return getHibernateTemplate().find("from CatLocationType");
     }
 
     /**

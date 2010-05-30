@@ -71,6 +71,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @param value value
      * @return
      */
+    @SuppressWarnings("unchecked")
     private TweetPollSwitch searchByParamStringTweetPollSwitch(final String param, final  String value){
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
         criteria.add(Restrictions.eq(param, value) );
@@ -83,6 +84,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @param tweetPoll tweetPoll
      * @return {@link TweetPollSwitch}
      */
+    @SuppressWarnings("unchecked")
     public TweetPollResult validateVoteIP(final String ip, final TweetPoll tweetPoll){
         return (TweetPollResult) DataAccessUtils.uniqueResult(getHibernateTemplate()
                .findByNamedParam("from TweetPollResult where ipVote = :ipVote and  tweetPollSwitch.tweetPoll = :tweetPoll",

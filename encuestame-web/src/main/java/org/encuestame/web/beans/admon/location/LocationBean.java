@@ -59,6 +59,8 @@ public final class LocationBean extends MasterBean implements Serializable {
 
     private UnitLocationBean detailLocation;
 
+    private UnitLocationFolder detailFolderLocation;
+
     /**
      * Constructor.
      */
@@ -252,35 +254,32 @@ public final class LocationBean extends MasterBean implements Serializable {
     @SuppressWarnings("unchecked")
     public void processSelection(NodeSelectedEvent event) {
        //reset bean
-       log.info("before detailLocation 1 "+detailLocation);
-       //log.info("before detailLocation 2 "+detailLocation.getName());
        setDetailLocation(null);
+       setDetailFolderLocation(null);
        HtmlTree tree = (HtmlTree) event.getComponent();
        log.info("tree "+tree);
        nodeTitle = (UtilTreeNode) tree.getRowData();
        selectedNodeChildren.clear();
        //get tree selected.
-       TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
-       log.info("currentNode "+currentNode);
+       final TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
        if (currentNode.isLeaf()){
            selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
        }else
        {
            Iterator<Entry<Object, TreeNode<UtilTreeNode>>> it = currentNode.getChildren();
-           log.info("it "+it);
            while (it!=null &&it.hasNext()) {
                Map.Entry<Object, TreeNode<UtilTreeNode>> entry = it.next();
                selectedNodeChildren.add(entry.getValue().getData());
            }
        }
        if(nodeTitle.getNode() == TypeTreeNode.ITEM){
-           this.detailLocation = searchLocationDetail(nodeTitle);
+           this.detailLocation = searchItemLocationDetail(nodeTitle);
+           log.info("detailLocation "+detailLocation);
        }
        else{
-           log.info("SEARCHING FOLDER INFO");
+           this.detailFolderLocation = searchFolderLocationDetail(nodeTitle);
+           log.info("detailFolderLocation "+detailFolderLocation);
        }
-       log.info("detailLocation 1 "+detailLocation);
-       log.info("detailLocation 2"+detailLocation.getName());
     }
 
     /**
@@ -288,12 +287,25 @@ public final class LocationBean extends MasterBean implements Serializable {
      * @param treeNode Selected Tree Node.
      * @return
      */
-    private UnitLocationBean searchLocationDetail(final UtilTreeNode treeNode){
+    private UnitLocationBean searchItemLocationDetail(final UtilTreeNode treeNode){
          log.info("searchLocationDetail "+treeNode);
          final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
          final UnitLocationBean retrievedLocation = locationService.getLocationItem(treeNode.getId(), getUsername());
          log.info("retrievedLocation "+retrievedLocation);
          return retrievedLocation;
+    }
+
+    /**
+     * Search Folder Location Detail.
+     * @param treeNode folder treeNode.
+     * @return {@link UnitLocationFolder}.
+     */
+    private UnitLocationFolder searchFolderLocationDetail(final UtilTreeNode treeNode){
+        final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
+        final UnitLocationFolder retrievedLocation = locationService.getFolderLocation(treeNode.getId(), getUsername());
+        log.info("retrievedLocation "+retrievedLocation);
+        return retrievedLocation;
+
     }
 
     /**
@@ -324,5 +336,19 @@ public final class LocationBean extends MasterBean implements Serializable {
     public void setDetailLocation(final UnitLocationBean detailLocation) {
         log.info("setDetailLocation  "+detailLocation);
         this.detailLocation = detailLocation;
+    }
+
+    /**
+     * @return the detailFolderLocation
+     */
+    public UnitLocationFolder getDetailFolderLocation() {
+        return detailFolderLocation;
+    }
+
+    /**
+     * @param detailFolderLocation the detailFolderLocation to set
+     */
+    public void setDetailFolderLocation(final UnitLocationFolder detailFolderLocation) {
+        this.detailFolderLocation = detailFolderLocation;
     }
 }

@@ -98,4 +98,12 @@ public interface ILocationService {
      * @return
      */
     UnitLocationBean getLocationItem(final Long locationId, final String username);
+
+    /**
+     * Get Folder Location Detail.
+     * @param folderLocationId folder location  Id.
+     * @param username username
+     * @return
+     */
+    UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username);
 }

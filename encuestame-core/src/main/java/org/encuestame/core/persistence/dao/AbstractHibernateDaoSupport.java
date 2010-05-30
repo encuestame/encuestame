@@ -52,14 +52,4 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
           getHibernateTemplate().delete(obj);
           getSession().flush();
      }
-
-     /**
-      * Find All Users.
-     *  @param query query
-      * @return list of all users
-      * @throws HibernateException hibernate
-      */
-     public List findAll(String query) throws HibernateException {
-         return getHibernateTemplate().find(query);
-     }
 }

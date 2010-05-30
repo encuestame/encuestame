@@ -72,6 +72,7 @@
             </div>
             <div style="float: left; background-color: #EEEEEE; width: 75%">
                     <h:form id="selectedNode">
+                       <ui:fragment rendered="${locationBean.detailLocation ne null}">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name" />
                             <h:inputText value="#{locationBean.detailLocation.name}"/>
@@ -83,6 +84,10 @@
                                  </m:map>
                              </f:view>
                         </h:panelGrid>
+                        </ui:fragment>
+                        <ui:fragment rendered="${locationBean.detailFolderLocation ne null}">
+                                folder
+                        </ui:fragment>
                     </h:form>
            </div>
        </div>
