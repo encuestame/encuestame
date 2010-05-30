@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
@@ -78,6 +80,8 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
 
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
+
+    private Log log = LogFactory.getLog(this.getClass());
 
      /**
      *
@@ -269,14 +273,14 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
                                             this.questionBean, userpao.getTwitterAccount());
 
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
-        System.out.println(tweetPoll.getTweetPollId());
+        log.info(tweetPoll.getTweetPollId());
         final String s = this.surveyService.generateTweetPollText(unitTweetPoll, tweetUrl);
-        System.out.println(s);
-        System.out.println( userpao.getUid());
-        System.out.println(userpao.getTwitterAccount());
-        System.out.println(userpao.getTwitterPassword());
+        log.info(s);
+        log.info( userpao.getUid());
+        log.info(userpao.getTwitterAccount());
+        log.info(userpao.getTwitterPassword());
         final Status status = this.surveyService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());
-        System.out.println(status.getId());
+        log.info(status.getId());
         assertNotNull(status.getId());
         unitTweetPoll.setTweetId(status.getId());
          surveyService.saveTweetId(unitTweetPoll);

@@ -62,7 +62,7 @@
         </rich:modalPanel>
         <div class="locationContentWrapper">
             <div style="float: left; width: 300px; margin-right: 10px;">
-                <h:form>
+                <h:form id="treeLocationForm">
                  <rich:tree style="width:300px" nodeSelectListener="#{locationBean.processSelection}"
                     reRender="selectedNode, map" ajaxSubmitSelection="true"  switchType="client"
                     value="#{locationBean.treeNode}" var="item" ajaxKeys="#{null}" >
@@ -79,17 +79,33 @@
                        <ui:fragment rendered="${locationBean.detailLocation ne null}">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name" />
-                            <h:inputText value="#{locationBean.detailLocation.name}"/>
+                            <h:inputText value="#{locationBean.detailLocation.name}">
+                                 <a4j:support event="onchange" action="#{locationBean.updateTreeNodeName}" reRender="treeLocationForm" />
+                            </h:inputText>
                             <h:outputLabel value="Position" />
                              <f:view contentType="text/html">
-                                 <m:map  width="500px" height="500px" latitude="#{locationBean.detailLocation.lat}"
+                                 <m:map  width="800px" height="300px" latitude="#{locationBean.detailLocation.lat}"
                                          longitude="#{locationBean.detailLocation.lng}"  renderOnWindowLoad="false" >
                                     <m:marker latitude="#{locationBean.detailLocation.lat}"
                                          longitude="#{locationBean.detailLocation.lng}" draggable="true"
                                           submitOnValueChange="true"
                                           valueChangeListener="#{locationBean.processValueMarkeChange}"/>
+                                     <m:mapControl name="GLargeMapControl" position="G_ANCHOR_BOTTOM_RIGHT"/>
+                                     <m:mapControl name="GMapTypeControl"/>
                                  </m:map>
                              </f:view>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Latitude" />
+                            <h:outputText value="#{locationBean.detailLocation.lat}" />
+                            <h:outputLabel value="Longitude" />
+                            <h:outputText value="#{locationBean.detailLocation.lng}" />
+                            <h:outputLabel value="Address" />
+                            <h:outputText value="#{locationBean.detailLocation.address}" />
+                            <h:outputLabel value="Country Name" />
+                            <h:outputText value="#{locationBean.detailLocation.countryName}" />
+                            <h:outputLabel value="Country Code" />
+                            <h:outputText value="#{locationBean.detailLocation.countryCode}" />
                         </h:panelGrid>
                         </ui:fragment>
                         <ui:fragment rendered="${locationBean.detailFolderLocation ne null}">

@@ -202,16 +202,21 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     private void addItems(final TreeNode<UtilTreeNode> node, final List<UtilTreeNode> items){
         int i = 1;
+        log.info("Add Items size "+items.size());
         for (UtilTreeNode utilTreeNode : items) {
             final TreeNodeImpl<UtilTreeNode> item = new TreeNodeImpl<UtilTreeNode>();
+            log.info("Adding Item "+utilTreeNode.getId());
             item.setData(utilTreeNode);
             node.addChild(i, item);
             i++;
         }
     }
 
-
-    //http://livedemo.exadel.com/richfaces-demo/richfaces/tree.jsf?tab=model&cid=418299
+    /**
+     * Add Folders.
+     * @param node node to attach
+     * @param items Folders items folder
+     */
     private void addFolders(final TreeNode<UtilTreeNode> node, final List<UtilTreeNode> itemsFolders) {
         log.debug("Add FOLDERS "+itemsFolders.size());
         log.debug("Parent Node Name "+node.getData());
@@ -248,10 +253,23 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     public TreeNode<UtilTreeNode> getTreeNode() {
         if (rootNode == null) {
-            loadTree();
+            this.loadTree();
         }
-
         return rootNode;
+    }
+
+    /**
+     * Update Item Name.
+     */
+    public void updateTreeNodeName(){
+        try{
+            log.info("update name");
+            getLocationService().updateLocationName(getDetailLocation(), getUsername());
+            this.loadTree();
+        }
+        catch (Exception e) {
+            log.error("error on update name "+e.getMessage());
+        }
     }
 
     /**
@@ -266,9 +284,12 @@ public final class LocationBean extends MasterBean implements Serializable {
        HtmlTree tree = (HtmlTree) event.getComponent();
        log.info("tree "+tree);
        nodeTitle = (UtilTreeNode) tree.getRowData();
+       log.info("nodeTitle "+nodeTitle.getId());
+       log.info("nodeTitle "+nodeTitle.getName());
        selectedNodeChildren.clear();
        //get tree selected.
        final TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
+       log.info("currentNode "+currentNode.getData());
        if (currentNode.isLeaf()){
            selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
        }
@@ -296,6 +317,7 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     public void processValueMarkeChange(ValueChangeEvent event) throws AbortProcessingException {
         final MarkerValue markerValue = (MarkerValue) event.getNewValue();
+        log.info("this.detailLocation "+ this.detailLocation.getId());
         try {
            final PlaceMark placeMark = GMaps4JSFServiceFactory.getReverseGeocoderService().getPlaceMark(markerValue.getLatitude(), markerValue.getLongitude());
            log.info("Longitude "+ markerValue.getLongitude());
@@ -306,6 +328,7 @@ public final class LocationBean extends MasterBean implements Serializable {
            getDetailLocation().setAddress(ignoreNull(placeMark.getAddress()));
            getDetailLocation().setLat(Float.valueOf(markerValue.getLatitude()));
            getDetailLocation().setLng(Float.valueOf(markerValue.getLongitude()));
+           log.info("item id moved "+getDetailLocation().getId());
            getLocationService().updateLocationMap(getDetailLocation(), getDetailLocation().getId(), getUsername());
         } catch (Exception ex) {
             log.error("error location map update");
@@ -318,7 +341,7 @@ public final class LocationBean extends MasterBean implements Serializable {
      * @return
      */
     private UnitLocationBean searchItemLocationDetail(final UtilTreeNode treeNode){
-         log.info("searchLocationDetail "+treeNode);
+         log.info("searchLocationDetail "+treeNode.getId());
          final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
          final UnitLocationBean retrievedLocation = locationService.getLocationItem(treeNode.getId(), getUsername());
          log.info("retrievedLocation "+retrievedLocation);
@@ -331,11 +354,11 @@ public final class LocationBean extends MasterBean implements Serializable {
      * @return {@link UnitLocationFolder}.
      */
     private UnitLocationFolder searchFolderLocationDetail(final UtilTreeNode treeNode){
+        log.info("searchLocationDetail "+treeNode.getId());
         final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
         final UnitLocationFolder retrievedLocation = locationService.getFolderLocation(treeNode.getId(), getUsername());
         log.info("retrievedLocation "+retrievedLocation);
         return retrievedLocation;
-
     }
 
     /**

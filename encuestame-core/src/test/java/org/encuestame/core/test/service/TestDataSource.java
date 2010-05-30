@@ -207,12 +207,12 @@ public class TestDataSource extends AbstractBase {
     public void testUpdateLocation() throws EnMeExpcetion{
         final CatLocation catLoc = createCatLocation("Masaya", "Departamento", 1);
         Long idLocation = catLoc.getLocateId();
-        System.out.println("**********************");
+        log.info("**********************");
         UnitLocationBean locationBean = ConvertDomainBean.convertLocationToBean(catLoc);
         locationBean.setDescriptionLocation("Granada");
-        System.out.println(locationBean.getTid());
+        log.info(locationBean.getTid());
         dataSource.updateCatLocation(locationBean);
-        System.out.println(idLocation);
+        log.info(idLocation);
         CatLocation locRetrieve = getCatLocation().getLocationById(idLocation);
         assertEquals("Should be", "Granada", locRetrieve.getLocationDescription());
       }
@@ -225,7 +225,7 @@ public class TestDataSource extends AbstractBase {
     public void testUpdateLocationType() throws EnMeExpcetion{
         final CatLocationType catLocType = createCatLocationType("Comarca");
         Long idLocationType = catLocType.getLocationTypeId();
-        System.out.println("IDLOCATION-->"+idLocationType);
+        log.info("IDLOCATION-->"+idLocationType);
         UnitLocationTypeBean locationTypeBean = ConvertDomainBean.convertLocationTypeToBean(catLocType);
         locationTypeBean.setLocTypeDesc("pueblo");
         dataSource.updateCatLocationType(locationTypeBean);

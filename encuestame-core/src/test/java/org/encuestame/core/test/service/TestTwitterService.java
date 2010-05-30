@@ -87,8 +87,8 @@ public class TestTwitterService extends AbstractBase {
         twitter.setOAuthConsumer("nFboU4T1Zhv8cqMC4cP0ug", "GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0");
         RequestToken twitterRequestToken
                          = twitter.getOAuthRequestToken();
-        String token = twitterRequestToken.getToken();
-        String tokenSecret = twitterRequestToken.getTokenSecret();
+       String token = twitterRequestToken.getToken();
+       String tokenSecret = twitterRequestToken.getTokenSecret();
        String authorizationUrl = twitterRequestToken.
        getAuthorizationURL();
     }

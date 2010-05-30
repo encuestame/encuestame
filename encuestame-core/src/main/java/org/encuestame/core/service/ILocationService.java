@@ -115,5 +115,14 @@ public interface ILocationService {
      * @param username
      * @throws EnMeExpcetion
      */
-     void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeExpcetion;
+     void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username)
+           throws EnMeExpcetion;
+
+     /**
+      * Update Location Name.
+      * @param locationBean {@link UnitLocationBean}.
+      * @param username username logged
+      * @throws EnMeExpcetion exception
+      */
+      void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion;
 }

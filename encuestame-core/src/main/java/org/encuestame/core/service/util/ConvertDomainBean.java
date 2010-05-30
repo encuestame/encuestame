@@ -169,6 +169,10 @@ public class ConvertDomainBean {
         locationBean.setName(location.getLocationDescription());
         locationBean.setLat(location.getLocationLatitude());
         locationBean.setLng(location.getLocationLongitude());
+        locationBean.setAccuracy(location.getLocationAccuracy());
+        locationBean.setAddress(location.getLocationAddress());
+        locationBean.setCountryName(location.getLocationCountryName());
+        locationBean.setCountryCode(location.getLocationCountryCode());
         if(location.getTidtype() != null){
             locationBean.setTidtype(location.getTidtype().getLocationTypeId());
         }
@@ -380,11 +384,13 @@ public class ConvertDomainBean {
          final List<UtilTreeNode> itemDragables = new ArrayList<UtilTreeNode>();
          for (UnitLocationBean unitLocation : unitLocationBeans) {
              final UtilTreeNode dragable = new UtilTreeNode();
+             log.info("convertItemToDragrable "+unitLocation.getId() +" "+unitLocation.getName());
              dragable.setId(unitLocation.getId());
              dragable.setName(unitLocation.getName());
              dragable.setNode(typeTreeNode);
              itemDragables.add(dragable);
          }
+         log.info("itemDragables "+itemDragables.size());
          return itemDragables;
      }
 

@@ -12,20 +12,17 @@
  */
 package org.encuestame.core.test.persistence.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IPoll;
-import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
-import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
@@ -68,7 +65,7 @@ public class TestPollDao extends AbstractBase {
     public void testFindAllPollByUserId(){
         final SecUsers user = createUser();
         final Poll pollnew = createPoll();
-        System.out.println("UID-->"+user.getUid());
+        log.info("UID-->"+user.getUid());
         final List<Poll> pollList = getiPoll().findAllPollByUserId(pollnew.getPollOwner().getUid());
         assertEquals("Should be equals", 1, pollList.size());
     }

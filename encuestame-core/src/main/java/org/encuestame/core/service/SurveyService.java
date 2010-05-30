@@ -221,8 +221,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         String tweetQuestionText = "";
         try{
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
-            System.out.println("/**//**//**////");
-            System.out.println(tweetPollDomain.getTweetPollId());
+            log.info("/**//**//**////");
+            log.info(tweetPollDomain.getTweetPollId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             final List<QuestionsAnswers> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
             if(answers.size()==2){

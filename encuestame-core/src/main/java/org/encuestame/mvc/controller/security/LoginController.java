@@ -38,7 +38,6 @@ public class LoginController {
 
     //@RequestMapping("/login")
     public String login(ModelMap model) {
-            System.out.println("Juannnnnnnn");
              log.info("1 "+ SecurityContextHolder.getContext().getAuthentication());
             //log.info("1 "+ securityContext.getContext());
             //log.info("2 "+ securityContext.getContext().getAuthentication());

@@ -119,13 +119,6 @@ public class CatLocation {
     }
 
     /**
-     * @param locationDescription locationDescription
-     */
-    public void setlocationDescription(final String locationDescription) {
-        this.locationDescription = locationDescription;
-    }
-
-    /**
      * @return locationLatitude
      */
     @Column(name = "lat", precision = 10, scale = 6)

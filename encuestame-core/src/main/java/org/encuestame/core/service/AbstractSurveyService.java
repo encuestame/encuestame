@@ -133,8 +133,8 @@ public class AbstractSurveyService extends AbstractBaseService {
      */
     public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
-        System.out.println("Entro en ASS");
-        System.out.println(this.getQuestionDao().getAnswersByQuestionId(questionId));
+        log.info("Entro en ASS");
+        log.info(this.getQuestionDao().getAnswersByQuestionId(questionId));
 
         final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
         for (QuestionsAnswers questionsAnswers : answers) {

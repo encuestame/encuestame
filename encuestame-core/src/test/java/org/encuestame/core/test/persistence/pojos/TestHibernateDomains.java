@@ -39,7 +39,7 @@ import org.junit.Test;
 
 /**
  * Hibernate Domains.
- * @author Morales, Diana Paola paola@encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since 16/12/2009
  * @version $Id$
  **/
@@ -52,7 +52,7 @@ public class TestHibernateDomains extends AbstractBase{
     public void testCatLocation(){
         final CatLocation catLoc = new CatLocation();
         catLoc.setLocationStatus(Status.ACTIVE);
-        catLoc.setlocationDescription("Managua");
+        catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
         catLoc.setTidtype(createCatLocationType("aldea"));

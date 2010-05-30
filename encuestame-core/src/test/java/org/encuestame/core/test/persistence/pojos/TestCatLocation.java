@@ -22,7 +22,7 @@ import org.junit.Test;
 /**
  * Test Catalog Location.
  *
- * @author Morales Urbina, Diana paola@encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since 02/11/2009 16:18:49
  * @version $Id$
  */
@@ -34,7 +34,7 @@ public class TestCatLocation extends AbstractBase{
     public void testCatLocation(){
         final CatLocation catLoc = new CatLocation();
         catLoc.setLocationStatus(Status.ACTIVE);
-        catLoc.setlocationDescription("Managua");
+        catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
         catLoc.setTidtype(createCatLocationType("aldea"));

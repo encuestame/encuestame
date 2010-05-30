@@ -12,6 +12,8 @@
  */
 package org.encuestame.web.beans.admon.location;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.utils.dnd.ItemFolderDrag;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.richfaces.event.DragEvent;
@@ -29,6 +31,13 @@ import org.richfaces.event.DropListener;
 public class ItemDragable extends UnitLocationBean implements DragListener,
         DropListener, ItemFolderDrag {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3232432432432L;
+
+    private Log log = LogFactory.getLog(this.getClass());
+
     private String value;
 
     public ItemDragable(final String value) {
@@ -40,12 +49,12 @@ public class ItemDragable extends UnitLocationBean implements DragListener,
     }
 
     public void processDrag(DragEvent arg0) {
-        System.out.println("***>>> drop " + this.value);
+        log.info("***>>> drop " + this.value);
 
     }
 
     public void processDrop(DropEvent arg0) {
-        System.out.println("***>>> drop " + this.value);
+        log.info("***>>> drop " + this.value);
 
     }
 

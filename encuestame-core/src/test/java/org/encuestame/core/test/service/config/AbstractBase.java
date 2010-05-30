@@ -14,6 +14,8 @@ package org.encuestame.core.test.service.config;
 
 import java.util.Date;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
@@ -133,6 +135,8 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
 
     @Autowired
     private IPoll iPoll;
+
+    protected Log log = LogFactory.getLog(this.getClass());
 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
@@ -529,7 +533,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     public CatLocation createCatLocation(final String locDescription, final String locTypeName, Integer Level){
         final CatLocation location = new CatLocation();
         location.setLocationStatus(Status.ACTIVE);
-        location.setlocationDescription(locDescription);
+        location.setLocationDescription(locDescription);
         location.setLocationLatitude(2F);
         location.setLocationLongitude(3F);
         location.setTidtype(createCatLocationType(locTypeName));
@@ -667,7 +671,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
-        System.out.println("Q "+questionsAnswers.getQuestionAnswerId());
+        log.info("Q "+questionsAnswers.getQuestionAnswerId());
         return questionsAnswers;
     }
 
@@ -844,7 +848,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         createTweetPollResult(pollSwitch1, "192.168.0.2");
         createTweetPollResult(pollSwitch2, "192.168.0.3");
         createTweetPollResult(pollSwitch2, "192.168.0.4");
-        System.out.println("tw "+tweetPoll);
+        log.info("tw "+tweetPoll);
         return tweetPoll;
     }
 
