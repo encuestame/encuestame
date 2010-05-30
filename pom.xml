@@ -26,6 +26,7 @@
         <spring.webflow.version>2.0.8.RELEASE</spring.webflow.version>
         <spring.security.version>3.0.2.RELEASE</spring.security.version>
         <hibernate.version>3.3.1.GA</hibernate.version>
+        <gmap.version>1.1.3</gmap.version>
         <apache>file:////var/www/encuestame</apache>
     </properties>
 
@@ -694,7 +695,7 @@
         <dependency>
             <groupId>com.googlecode.gmaps4jsf</groupId>
             <artifactId>gmaps4jsf-core</artifactId>
-            <version>1.1.1</version>
+            <version>${gmap.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-fileupload</artifactId>
