@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ValueChangeEvent;
+
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -31,6 +34,10 @@ import org.richfaces.event.NodeSelectedEvent;
 import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
 
+
+import com.googlecode.gmaps4jsf.component.marker.MarkerValue;
+import com.googlecode.gmaps4jsf.services.GMaps4JSFServiceFactory;
+import com.googlecode.gmaps4jsf.services.data.PlaceMark;
 import com.sun.facelets.FaceletException;
 
 /**
@@ -280,6 +287,22 @@ public final class LocationBean extends MasterBean implements Serializable {
            this.detailFolderLocation = searchFolderLocationDetail(nodeTitle);
            log.info("detailFolderLocation "+detailFolderLocation);
        }
+    }
+
+    public void processValueChangeForFirstMarker(ValueChangeEvent event) throws AbortProcessingException {
+        final String firstMarkerStatus  = event.getNewValue().toString();
+        final MarkerValue markerValue = (MarkerValue) event.getNewValue();
+        try {
+           final PlaceMark placeMark = GMaps4JSFServiceFactory.getReverseGeocoderService().getPlaceMark(markerValue.getLatitude(), markerValue.getLongitude());
+           final String firstLocationInformation = "Selected Latitude, Longitude: " + markerValue.getLatitude() + ", " + markerValue.getLongitude()
+                                     + "<br>Address: " + ignoreNull(placeMark.getAddress())
+                                     + "<br>Country code: " + ignoreNull(placeMark.getCountryCode())
+                                     + "<br>Country name: "+ ignoreNull(placeMark.getCountryName())
+                                     + "<br>Accuracy: "+ placeMark.getAccuracy();
+           log.info(firstLocationInformation);
+        } catch (Exception ex) {
+            log.error("firstLocationInformation null");
+        }
     }
 
     /**

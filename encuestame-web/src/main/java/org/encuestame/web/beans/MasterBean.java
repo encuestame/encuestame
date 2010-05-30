@@ -258,6 +258,18 @@ public class MasterBean{
         return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getUsername());
     }
 
+    /**
+     * Ignored Null.
+     * @param attributeValue
+     * @return
+     */
+    protected final String ignoreNull(String attributeValue) {
+        if (attributeValue == null) {
+            return "";
+        }
+        return attributeValue;
+    }
+
 
     /**
      * @return the secCtx
@@ -295,8 +307,6 @@ public class MasterBean{
     public final void setShortNumberString(final Integer shortNumberString) {
         this.shortNumberString = shortNumberString;
     }
-
-
 
     /**
      * @return the surveyService

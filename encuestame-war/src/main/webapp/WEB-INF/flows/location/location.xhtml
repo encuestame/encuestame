@@ -80,7 +80,9 @@
                              <f:view contentType="text/html">
                                  <m:map  width="500px" height="500px" latitude="#{locationBean.detailLocation.lat}"
                                          longitude="#{locationBean.detailLocation.lng}"  renderOnWindowLoad="false" >
-                                    <m:marker/>
+                                    <m:marker latitude="#{locationBean.detailLocation.lat}"
+                                         longitude="#{locationBean.detailLocation.lng}" draggable="true"
+                                          submitOnValueChange="true" valueChangeListener="#{locationBean.processValueChangeForFirstMarker}"/>
                                  </m:map>
                              </f:view>
                         </h:panelGrid>
