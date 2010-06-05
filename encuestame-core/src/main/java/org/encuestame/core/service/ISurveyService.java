@@ -17,18 +17,10 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.dao.IMasterSurveyService;
-import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.core.persistence.pojo.TweetPollResult;
-import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
-import org.encuestame.utils.web.UnitTweetPoll;
-import org.encuestame.utils.web.UnitTweetPollResult;
 
-import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
 
