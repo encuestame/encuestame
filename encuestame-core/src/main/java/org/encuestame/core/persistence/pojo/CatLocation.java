@@ -27,6 +27,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 
 /**
  * CatLocation.
@@ -200,7 +201,7 @@ public class CatLocation {
     /**
      * @return the catLocationFolder
      */
-    @ManyToOne()
+    @ManyToOne(cascade=CascadeType.MERGE)
     public CatLocationFolder getCatLocationFolder() {
         return catLocationFolder;
     }

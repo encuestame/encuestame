@@ -53,12 +53,22 @@ INSERT INTO `cat_location_folder` (`locate_folder_id`, `type`, `name`, `secUsers
 (4, 'GROUPING', 'Leon', 1, NULL),
 (5, 'GROUPING', 'Las Brisas', 1, 1);
 
-INSERT INTO `cat_location` (`locate_id`, `description`, `lat`, `lng`, `location_status`, `catLocationFolder_locate_folder_id`, `secUsers_uid`, `loc_id_type`) VALUES
-(1, 'Managua', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
-(2, 'Tipitapa', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
-(3, 'Ciudad Sandino', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
-(4, 'Batahola', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
-(5, 'Lindaivsta', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL);
+
+INSERT INTO `cat_location` (`locate_id`, `accuracy`, `address`, `country_code`, `country_name`, `description`, `lat`, `lng`, `location_status`, `catLocationFolder_locate_folder_id`, `secUsers_uid`, `loc_id_type`) VALUES
+(1, NULL, NULL, NULL, NULL, 'Managua', 12.1333, -86.25, 'ACTIVE', 1, 1, NULL),
+(2, 6, 'NIC 1, Tipitapa, Nicaragua', 'NI', 'Nicaragua', 'Tipitapa', 12.1984, -86.1019, 'ACTIVE', 1, 1, NULL),
+(3, 4, 'Ciudad Sandino, Nicaragua', 'NI', 'Nicaragua', 'Ciudad Sandino', 12.1622, -86.358, 'ACTIVE', 1, 1, NULL),
+(4, 6, 'NIC 2, Managua, Nicaragua', 'NI', 'Nicaragua', 'Batahola', 12.1326, -86.3079, 'ACTIVE', 1, 1, NULL),
+(5, 6, '36a Avenida S.O, Managua, Nicaragua', 'NI', 'Nicaragua', 'Lindaivsta', 12.1494, -86.3058, 'ACTIVE', 1, 1, NULL),
+(6, NULL, NULL, NULL, NULL, 'Default Item Name', NULL, NULL, NULL, 5, NULL, NULL),
+(7, 6, '12a Avenida S.E, Managua, Nicaragua', 'NI', 'Nicaragua', 'Managua Centro', 12.1394, -86.2667, 'ACTIVE', 5, 1, NULL),
+(8, 4, 'Los Laureles Norte, Managua, Nicaragua', 'NI', 'Nicaragua', 'Laureles Norte', 12.1306, -86.1946, NULL, 5, 1, NULL),
+(9, 9, 'Aeropuerto Internacional Managua, C 1, Managua, Nicaragua', 'NI', 'Nicaragua', 'Aeropuerto', 12.1434, -86.174, 'ACTIVE', 5, 1, NULL),
+(10, 6, 'NIC 1, Estelí, Nicaragua', 'NI', 'Nicaragua', 'Esteli Centro', 13.0848, -86.3553, 'ACTIVE', 2, 1, NULL),
+(11, 2, 'Esteli, Nicaragua', 'NI', 'Nicaragua', 'La Trinidad', 12.9617, -86.2427, 'ACTIVE', 2, 1, NULL),
+(12, 4, 'San Sebastián de Yalí­, Nicaragua', 'NI', 'Nicaragua', 'San Sebastian de Yalí', 13.3028, -86.1836, 'ACTIVE', 2, 1, NULL),
+(13, 6, 'NIC 12, León, Nicaragua', 'NI', 'Nicaragua', 'Leon', 12.4393, -86.8744, 'ACTIVE', 4, 1, NULL),
+(14, 6, 'NIC 26, Ciudad Sandino, Nicaragua', 'NI', 'Nicaragua', 'La Paz Centro', 12.3346, -86.6711, 'ACTIVE', 4, 1, NULL);
 
 -- Question Pattern
 INSERT INTO `encuestame_core`.`questions_pattern` (`pattenr_id`, `class`, `des_qid`, `finallity`, `label_qid`, `level`, `template_patron`, `type_pattern`)

@@ -32,6 +32,7 @@ import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -165,7 +166,7 @@ public class ConvertDomainBean {
     public static final UnitLocationBean convertLocationToBean(final CatLocation location){
         final UnitLocationBean locationBean = new UnitLocationBean();
         locationBean.setId(location.getLocateId());
-        locationBean.setStatus(location.getLocationStatus().name());
+        locationBean.setStatus(location.getLocationStatus()  == null ? Status.INACTIVE.name() : location.getLocationStatus().name());
         locationBean.setName(location.getLocationDescription());
         locationBean.setLat(location.getLocationLatitude());
         locationBean.setLng(location.getLocationLongitude());

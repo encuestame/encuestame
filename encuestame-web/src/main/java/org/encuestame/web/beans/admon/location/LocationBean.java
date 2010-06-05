@@ -65,10 +65,11 @@ public final class LocationBean extends MasterBean implements Serializable {
     private UtilTreeNode nodeTitle;
     private String folderNewName = new String();
     private List<UtilTreeNode> selectedNodeChildren = new ArrayList<UtilTreeNode>();
-
+    private List<UnitLocationBean> itemsBySelectedFolder = new ArrayList<UnitLocationBean>();
     private UnitLocationBean detailLocation;
-
     private UnitLocationFolder detailFolderLocation;
+    private static final Float DEFAULT_LATITUDE = 12.1494F;
+    private static final Float DEFAULT_LONGITUDE = -86.3058F;
 
     /**
      * Constructor.
@@ -245,7 +246,6 @@ public final class LocationBean extends MasterBean implements Serializable {
                 if(unitLocationSubFolder.size() > 0){
                     this.addFolders(nodeImpl, ConvertDomainBean.convertFolderToDragrable(unitLocationSubFolder, TypeTreeNode.FOLDER));
                 }
-
         }
     }
 
@@ -288,6 +288,30 @@ public final class LocationBean extends MasterBean implements Serializable {
     }
 
     /**
+     * Add New Item.
+     */
+    public void addNewItem(){
+        try{
+            log.info("Add New Item for "+getDetailFolderLocation().getId());
+            getLocationService().createDefaultILocationItem(getDetailFolderLocation(), getUsername());
+            this.loadTree();
+            this.getItemsByLocationFolder();
+        }
+        catch (Exception e) {
+             e.printStackTrace();
+             log.error("error on update name "+e.getMessage());
+        }
+    }
+
+    /**
+     * Get Items by Location Folder.
+     */
+    private void getItemsByLocationFolder(){
+            setItemsBySelectedFolder(getLocationService()
+            .retrieveLocationFolderItemsById(getDetailFolderLocation().getId(), getUsername()));
+    }
+
+    /**
      * Create Folder.
      */
     public void createFolder(){
@@ -303,7 +327,39 @@ public final class LocationBean extends MasterBean implements Serializable {
         }
         catch (Exception e) {
            e.printStackTrace();
-           log.error("Create Folder "+e);
+           log.error("error "+e);
+        }
+    }
+
+    /**
+     * Delete Location Folder.
+     */
+    public void deleteLocationFolder(){
+        try{
+            log.info("deleting location folder");
+            getLocationService().deleteLocationFolder(getDetailFolderLocation(), getUsername());
+            setDetailFolderLocation(null);
+            this.loadTree();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            log.error("error "+e);
+        }
+    }
+
+    /**
+     * Delete Location Folder.
+     */
+    public void deleteLocationItem(){
+        try{
+            log.info("deleting location item");
+            getLocationService().deleteLocationItem(getDetailLocation(), getUsername());
+            setDetailLocation(null);
+            this.loadTree();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            log.error("error "+e);
         }
     }
 
@@ -341,6 +397,7 @@ public final class LocationBean extends MasterBean implements Serializable {
        }
        else{
            this.detailFolderLocation = searchFolderLocationDetail(nodeTitle);
+           this.getItemsByLocationFolder();
            log.info("detailFolderLocation "+detailFolderLocation);
        }
     }
@@ -379,6 +436,12 @@ public final class LocationBean extends MasterBean implements Serializable {
          log.info("searchLocationDetail "+treeNode.getId());
          final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
          final UnitLocationBean retrievedLocation = locationService.getLocationItem(treeNode.getId(), getUsername());
+         if(retrievedLocation.getLat() == null){
+             retrievedLocation.setLat(DEFAULT_LATITUDE);
+         }
+         if(retrievedLocation.getLng() == null){
+             retrievedLocation.setLng(DEFAULT_LONGITUDE);
+         }
          log.info("retrievedLocation "+retrievedLocation);
          return retrievedLocation;
     }
@@ -451,5 +514,20 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     public void setFolderNewName(final String folderNewName) {
         this.folderNewName = folderNewName;
+    }
+
+    /**
+     * @return the itemsBySelectedFolder
+     */
+    public List<UnitLocationBean> getItemsBySelectedFolder() {
+        return itemsBySelectedFolder;
+    }
+
+    /**
+     * @param itemsBySelectedFolder the itemsBySelectedFolder to set
+     */
+    public void setItemsBySelectedFolder(
+            final List<UnitLocationBean> itemsBySelectedFolder) {
+        this.itemsBySelectedFolder = itemsBySelectedFolder;
     }
 }

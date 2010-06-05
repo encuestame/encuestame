@@ -293,4 +293,71 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             getCatLocationDao().saveOrUpdate(locationFolder);
         }
     }
+
+    /**
+     * Create Default Location Item.
+     * @param locationFolder
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    public void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username) throws EnMeExpcetion{
+        log.info("createDefaultILocationItem");
+        final CatLocationFolder locationFolder = getLocationFolder(locationFolderBean
+                .getId(), username);
+        log.info("createDefaultILocationItem locationFolder "+locationFolder);
+        if (locationFolder == null) {
+            throw new EnMeExpcetion("location folder not found");
+        }
+        else {
+            final CatLocation catLocation = new CatLocation();
+            catLocation.setCatLocationFolder(locationFolder);
+            catLocation.setSecUsers(getUser(username).getSecUser());
+            catLocation.setLocationStatus(Status.ACTIVE);
+            catLocation.setLocationDescription("Default Item Name");
+            getCatLocationDao().saveOrUpdate(catLocation);
+            log.info("Default Location Item Created");
+        }
+    }
+
+    /**
+     * Delete Location Folder.
+     * @param unitLocationFolder
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    public void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeExpcetion{
+        final CatLocationFolder locationFolder = getLocationFolder(unitLocationFolder.getId(), username);
+        log.info("deleteLocationFolder locationFolder "+locationFolder);
+        if (locationFolder == null) {
+            throw new EnMeExpcetion("location folder not found");
+        }
+        else {
+            //TODO: we need remove items on CASCADE.
+            final List<CatLocation> itemsToDelete = getCatLocationDao()
+                                    .getLocationByFolder(locationFolder.getLocationFolderId(), getPrimaryUser(username));
+            for (CatLocation catLocation : itemsToDelete) {
+                 getCatLocationDao().delete(catLocation);
+            }
+            getCatLocationDao().delete(locationFolder);
+            log.info("delete location folder");
+        }
+    }
+
+    /**
+     * Delete Location Item.
+     * @param unitLocationBean
+     * @param username
+     */
+    public void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeExpcetion{
+        final CatLocation location = getLocation(unitLocationBean.getId(), username);
+        if(location == null){
+            throw new EnMeExpcetion("location not found");
+        }
+        else{
+           //TODO: Maybe we have conflict in the future if this location was used on other tables, delete on cascade
+           // will not a good option, we need think how to resolve this problem.
+           // A possible solution is change status to INACTIVE, and it not show on tree.
+           getCatLocationDao().delete(location);
+        }
+    }
 }

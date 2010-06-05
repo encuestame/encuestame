@@ -130,6 +130,14 @@
                     <h:outputText
                         value="#{locationBean.detailLocation.countryCode}" />
                 </h:panelGrid>
+                <rich:panel>
+                    <h:panelGrid columns="1">
+                        <h:outputText
+                            value="Delete this item" />
+                        <a4j:commandButton value="Delete" action="#{locationBean.deleteLocationItem}"
+                            reRender="treeLocationForm,selectedNode"></a4j:commandButton>
+                    </h:panelGrid>
+                </rich:panel>
             </ui:fragment>
             <ui:fragment
                 rendered="${locationBean.detailFolderLocation ne null}">
@@ -137,17 +145,71 @@
                     <rich:tab label="Update Data">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name" />
-                            <h:inputText value="#{locationBean.detailFolderLocation.name}" />
-                            <a4j:commandButton value="Update Name" reRender="treeLocationForm"
-                              action="#{locationBean.updateFolderName}">
+                            <h:inputText
+                                value="#{locationBean.detailFolderLocation.name}" />
+                            <a4j:commandButton value="Update Name"
+                                reRender="treeLocationForm"
+                                action="#{locationBean.updateFolderName}">
                             </a4j:commandButton>
                         </h:panelGrid>
                     </rich:tab>
                     <rich:tab label="Position">
                     </rich:tab>
                     <rich:tab label="Items">
+                        <rich:dataTable id="itemsByFolderTable"
+                            value="#{locationBean.itemsBySelectedFolder}"
+                            var="itemFolder" style="width:100%;">
+                            <f:facet name="header">
+                                <rich:columnGroup>
+                                    <rich:column >
+                                        <h:outputText value="Name" />
+                                    </rich:column>
+                                    <rich:column>
+                                        <h:outputText value="Address" />
+                                    </rich:column>
+                                    <rich:column>
+                                        <h:outputText value="Country" />
+                                    </rich:column>
+                                    <rich:column>
+                                        <h:outputText value="Code" />
+                                    </rich:column>
+                                </rich:columnGroup>
+                            </f:facet>
+                            <rich:column>
+                                <h:outputText value="#{itemFolder.name}" />
+                            </rich:column>
+                            <rich:column>
+                                <h:outputText
+                                    value="#{itemFolder.address}" />
+                            </rich:column>
+                            <rich:column>
+                                <h:outputText
+                                    value="#{itemFolder.countryName}" />
+                            </rich:column>
+                            <rich:column>
+                                <h:outputText
+                                    value="#{itemFolder.countryCode}" />
+                            </rich:column>
+                        </rich:dataTable>
+                        <rich:panel>
+                            <h:panelGrid columns="1">
+                                <h:outputText
+                                    value="New Item" />
+                                <a4j:commandButton value="Add"
+                                    reRender="treeLocationForm, itemsByFolderTable"
+                                    action="#{locationBean.addNewItem}"></a4j:commandButton>
+                            </h:panelGrid>
+                        </rich:panel>
                     </rich:tab>
                 </rich:tabPanel>
+                <rich:panel>
+                    <h:panelGrid columns="1">
+                        <h:outputText
+                            value="Delete this item and their childrens" />
+                        <a4j:commandButton value="Delete" action="#{locationBean.deleteLocationFolder}"
+                            reRender="treeLocationForm,selectedNode"></a4j:commandButton>
+                    </h:panelGrid>
+                </rich:panel>
             </ui:fragment>
         </h:form></div>
         </div>

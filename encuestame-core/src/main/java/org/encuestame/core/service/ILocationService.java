@@ -136,4 +136,28 @@ public interface ILocationService {
       void updateLocationFolder(final UnitLocationFolder locationFolderBean,
               final String username, final String typeUpdate)
               throws EnMeExpcetion;
+
+      /**
+       * Create Default Location Item.
+       * @param locationFolder
+       * @param username
+       * @throws EnMeExpcetion
+       */
+      void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username)
+             throws EnMeExpcetion;
+
+      /**
+       * Delete Location Folder.
+       * @param unitLocationFolder
+       * @param username
+       * @throws EnMeExpcetion
+       */
+      void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeExpcetion;
+
+      /**
+       * Delete Location Item.
+       * @param unitLocationBean
+       * @param username
+       */
+      void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeExpcetion;
 }
