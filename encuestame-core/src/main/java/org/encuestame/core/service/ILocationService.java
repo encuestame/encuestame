@@ -125,4 +125,15 @@ public interface ILocationService {
       * @throws EnMeExpcetion exception
       */
       void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion;
+
+      /**
+       * Update Location Folder.
+       * @param locationBean
+       * @param username
+       * @param typeUpdate
+       * @throws EnMeExpcetion
+       */
+      void updateLocationFolder(final UnitLocationFolder locationFolderBean,
+              final String username, final String typeUpdate)
+              throws EnMeExpcetion;
 }

@@ -142,6 +142,8 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         catLocationFolder.setFolderType(LocationFolderType.valueOf(locationFolder.getType()));
         catLocationFolder.setLocationFolderName(locationFolder.getName());
         catLocationFolder.setSecUsers(getUser(username).getSecUser());
+        getCatLocationDao().saveOrUpdate(catLocationFolder);
+        locationFolder.setId(catLocationFolder.getLocationFolderId());
         return locationFolder;
     }
 
@@ -241,6 +243,16 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     }
 
     /**
+     *
+     * @param locationFolderId
+     * @param username
+     * @return
+     */
+    private CatLocationFolder getLocationFolder(final Long locationFolderId, final String username){
+        return getCatLocationDao().getLocationFolderByIdAndUserId(locationFolderId, getPrimaryUser(username));
+    }
+
+    /**
      * Update Location Name.
      * @param locationBean {@link UnitLocationBean}.
      * @param username username logged
@@ -255,6 +267,30 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             location.setLocationDescription(locationBean.getName());
             getCatLocationDao().saveOrUpdate(location);
             log.info("location name updated");
+        }
+    }
+
+    /**
+     * Update Location Folder.
+     * @param locationBean
+     * @param username
+     * @param typeUpdate
+     * @throws EnMeExpcetion
+     */
+    public void updateLocationFolder(final UnitLocationFolder locationFolderBean,
+            final String username, final String typeUpdate)
+            throws EnMeExpcetion {
+        final CatLocationFolder locationFolder = getLocationFolder(locationFolderBean
+                .getId(), username);
+        if (locationFolder == null) {
+            throw new EnMeExpcetion("location folder not found");
+        }
+        else {
+            if (typeUpdate.equals("name")) {
+                log.debug("updating folder name");
+                locationFolder.setLocationFolderName(locationFolderBean.getName());
+            }
+            getCatLocationDao().saveOrUpdate(locationFolder);
         }
     }
 }

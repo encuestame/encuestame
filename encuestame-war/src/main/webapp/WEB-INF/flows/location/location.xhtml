@@ -9,27 +9,24 @@
     xmlns:sec="http://www.springframework.org/security/tags"
     xmlns:m="http://code.google.com/p/gmaps4jsf/">
     <ui:define name="googleMaps">
-        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{applicationServices.apiKeygoogle}" type="text/javascript">
+        <script
+            src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{applicationServices.apiKeygoogle}"
+            type="text/javascript">
     </script>
     </ui:define>
     <ui:define name="title"> #{temp.locTitle} - #{temp.titleLoc}></ui:define>
     <ui:define name="bodyOptions">
-
         <!-- Menu -->
-
         <a4j:form ajaxSubmit="true">
             <h:panelGrid columns="4">
-                <a4j:commandLink value="New Folder"
-                    rendered="true"
+                <a4j:commandLink value="New Folder" rendered="true"
                     oncomplete="javascript:Richfaces.showModalPanel('panelnewLocType')"
                     reRender="formHeaderNewLoc"></a4j:commandLink>
             </h:panelGrid>
         </a4j:form>
-
-        <!-- New Location -->
-
+        <!-- New Folder -->
         <rich:modalPanel id="panelnewLocType" autosized="true"
-            width="600" height="500" zindex="2000">
+            width="600" zindex="2000">
             <f:facet name="header">
                 <a4j:form id="formHeaderNewLoc">
                     <h:panelGroup>
@@ -39,80 +36,120 @@
                     </h:panelGroup>
                 </a4j:form>
             </f:facet>
+            <f:facet name="controls">
+                <a4j:form ajaxSubmit="true">
+                    <h:panelGroup>
+                        <a4j:commandLink
+                            onclick="Richfaces.hideModalPanel('panelnewLocType')"
+                            ajaxSingle="true">
+                            <h:graphicImage value="/icons/close.png" />
+                        </a4j:commandLink>
+                    </h:panelGroup>
+                </a4j:form>
+            </f:facet>
             <a4j:form id="LocForm" ajaxSubmit="true">
                 <h2>#{temp.titleCreateGroups}</h2>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{temp.NewLocType}" for="name" />
-                    <h:inputText id="name" value="" size="40"
+                    <h:outputLabel value="Name" for="name" />
+                    <h:inputText id="name"
+                        value="#{locationBean.folderNewName}" size="40"
                         required="true"
                         requiredMessage="#{temp.validateNameLocType}" />
-                    <h:outputLabel value="#{temp.description}"
-                        for="desc" />
-                    <h:inputTextarea id="level" value="" cols="40"
-                        rows="3" required="true"
-                        requiredMessage="#{temp.validateDescrGroup}" />
-                    <a4j:commandButton value="#{temp.save}"
-                        action="#{locationTypeBean.createLocationType}" />
-                    <a4j:commandButton value="#{temp.close}"
-                        oncomplete="Richfaces.hideModalPanel('panelnewLocType')"></a4j:commandButton>
+                    <a4j:commandButton value="Create"
+                        action="#{locationBean.createFolder}"
+                        oncomplete="Richfaces.hideModalPanel('panelnewLocType')"
+                        reRender="treeLocationForm" />
+                    <a4j:commandButton value="Cancel"
+                        oncomplete="Richfaces.hideModalPanel('panelnewLocType')">
+                    </a4j:commandButton>
                 </h:panelGrid>
                 <rich:messages errorClass="error" infoClass="info"
                     warnClass="war"></rich:messages>
             </a4j:form>
         </rich:modalPanel>
         <div class="locationContentWrapper">
-            <div style="float: left; width: 300px; margin-right: 10px;">
-                <h:form id="treeLocationForm">
-                 <rich:tree style="width:300px" nodeSelectListener="#{locationBean.processSelection}"
-                    reRender="selectedNode, map" ajaxSubmitSelection="true"  switchType="client"
-                    value="#{locationBean.treeNode}" var="item" ajaxKeys="#{null}" >
-                        <rich:treeNode ajaxSingle="true" dragListener="#{item.processDrag}"
-                            dropListener="#{item.processDrop}" dragType="#{item.node}"  acceptedTypes="test">
-                            <h:outputText value="#{item.name}" />
-                        </rich:treeNode>
-                </rich:tree>
-
-                </h:form>
-            </div>
-            <div style="float: left; background-color: #EEEEEE; width: 75%">
-                    <h:form id="selectedNode">
-                       <ui:fragment rendered="${locationBean.detailLocation ne null}">
+        <div style="float: left; width: 300px; margin-right: 10px;">
+        <h:form id="treeLocationForm">
+            <rich:tree style="width:300px"
+                nodeSelectListener="#{locationBean.processSelection}"
+                reRender="selectedNode, map" ajaxSubmitSelection="true"
+                switchType="client" value="#{locationBean.treeNode}"
+                var="item" ajaxKeys="#{null}" dragIndicator="indicator2">
+                <rich:treeNode ajaxSingle="true"
+                    dragListener="#{item.processDrag}"
+                    dropListener="#{item.processDrop}"
+                    dragType="#{item.node}" acceptedTypes="item">
+                    <h:outputText value="#{item.name}" />
+                </rich:treeNode>
+            </rich:tree>
+        </h:form></div>
+        <div style="float: left; background-color: #EEEEEE; width: 75%">
+        <h:form id="selectedNode">
+            <ui:fragment
+                rendered="${locationBean.detailLocation ne null}">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Name" />
+                    <h:inputText
+                        value="#{locationBean.detailLocation.name}">
+                        <a4j:support event="onchange"
+                            action="#{locationBean.updateTreeNodeName}"
+                            reRender="treeLocationForm" />
+                    </h:inputText>
+                    <h:outputLabel value="Position" />
+                    <f:view contentType="text/html">
+                        <m:map width="800px" height="300px"
+                            latitude="#{locationBean.detailLocation.lat}"
+                            longitude="#{locationBean.detailLocation.lng}"
+                            renderOnWindowLoad="false">
+                            <m:marker
+                                latitude="#{locationBean.detailLocation.lat}"
+                                longitude="#{locationBean.detailLocation.lng}"
+                                draggable="true"
+                                submitOnValueChange="true"
+                                valueChangeListener="#{locationBean.processValueMarkeChange}" />
+                            <m:mapControl name="GLargeMapControl"
+                                position="G_ANCHOR_BOTTOM_RIGHT" />
+                            <m:mapControl name="GMapTypeControl" />
+                        </m:map>
+                    </f:view>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Latitude" />
+                    <h:outputText
+                        value="#{locationBean.detailLocation.lat}" />
+                    <h:outputLabel value="Longitude" />
+                    <h:outputText
+                        value="#{locationBean.detailLocation.lng}" />
+                    <h:outputLabel value="Address" />
+                    <h:outputText
+                        value="#{locationBean.detailLocation.address}" />
+                    <h:outputLabel value="Country Name" />
+                    <h:outputText
+                        value="#{locationBean.detailLocation.countryName}" />
+                    <h:outputLabel value="Country Code" />
+                    <h:outputText
+                        value="#{locationBean.detailLocation.countryCode}" />
+                </h:panelGrid>
+            </ui:fragment>
+            <ui:fragment
+                rendered="${locationBean.detailFolderLocation ne null}">
+                <rich:tabPanel switchType="client">
+                    <rich:tab label="Update Data">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name" />
-                            <h:inputText value="#{locationBean.detailLocation.name}">
-                                 <a4j:support event="onchange" action="#{locationBean.updateTreeNodeName}" reRender="treeLocationForm" />
-                            </h:inputText>
-                            <h:outputLabel value="Position" />
-                             <f:view contentType="text/html">
-                                 <m:map  width="800px" height="300px" latitude="#{locationBean.detailLocation.lat}"
-                                         longitude="#{locationBean.detailLocation.lng}"  renderOnWindowLoad="false" >
-                                    <m:marker latitude="#{locationBean.detailLocation.lat}"
-                                         longitude="#{locationBean.detailLocation.lng}" draggable="true"
-                                          submitOnValueChange="true"
-                                          valueChangeListener="#{locationBean.processValueMarkeChange}"/>
-                                     <m:mapControl name="GLargeMapControl" position="G_ANCHOR_BOTTOM_RIGHT"/>
-                                     <m:mapControl name="GMapTypeControl"/>
-                                 </m:map>
-                             </f:view>
+                            <h:inputText value="#{locationBean.detailFolderLocation.name}" />
+                            <a4j:commandButton value="Update Name" reRender="treeLocationForm"
+                              action="#{locationBean.updateFolderName}">
+                            </a4j:commandButton>
                         </h:panelGrid>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="Latitude" />
-                            <h:outputText value="#{locationBean.detailLocation.lat}" />
-                            <h:outputLabel value="Longitude" />
-                            <h:outputText value="#{locationBean.detailLocation.lng}" />
-                            <h:outputLabel value="Address" />
-                            <h:outputText value="#{locationBean.detailLocation.address}" />
-                            <h:outputLabel value="Country Name" />
-                            <h:outputText value="#{locationBean.detailLocation.countryName}" />
-                            <h:outputLabel value="Country Code" />
-                            <h:outputText value="#{locationBean.detailLocation.countryCode}" />
-                        </h:panelGrid>
-                        </ui:fragment>
-                        <ui:fragment rendered="${locationBean.detailFolderLocation ne null}">
-                                folder
-                        </ui:fragment>
-                    </h:form>
-           </div>
-       </div>
+                    </rich:tab>
+                    <rich:tab label="Position">
+                    </rich:tab>
+                    <rich:tab label="Items">
+                    </rich:tab>
+                </rich:tabPanel>
+            </ui:fragment>
+        </h:form></div>
+        </div>
     </ui:define>
 </ui:composition>

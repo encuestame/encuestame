@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 
+import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -62,6 +63,7 @@ public final class LocationBean extends MasterBean implements Serializable {
     private Float lng;
     private TreeNode<UtilTreeNode> rootNode = null;
     private UtilTreeNode nodeTitle;
+    private String folderNewName = new String();
     private List<UtilTreeNode> selectedNodeChildren = new ArrayList<UtilTreeNode>();
 
     private UnitLocationBean detailLocation;
@@ -272,6 +274,39 @@ public final class LocationBean extends MasterBean implements Serializable {
         }
     }
 
+    public void updateFolderName(){
+        try{
+            log.debug("Update folder Name to "+getDetailFolderLocation().getName());
+            getLocationService().updateLocationFolder(getDetailFolderLocation(), getUsername(), "name");
+            log.info("folder name updated");
+            this.loadTree();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            log.error("error on update name "+e.getMessage());
+        }
+    }
+
+    /**
+     * Create Folder.
+     */
+    public void createFolder(){
+        final UnitLocationFolder newFolder = new UnitLocationFolder();
+        try{
+            //default name
+            log.info("newFolder "+newFolder);
+            log.info("getFolderNewName "+getFolderNewName());
+            newFolder.setName(getFolderNewName().isEmpty() ? "Update this name" : getFolderNewName());
+            newFolder.setType(LocationFolderType.GROUPING.name());
+            getLocationService().createLocationFolder(newFolder, getUsername());
+            this.loadTree();
+        }
+        catch (Exception e) {
+           e.printStackTrace();
+           log.error("Create Folder "+e);
+        }
+    }
+
     /**
      * Process Selection.
      * @param event event
@@ -402,5 +437,19 @@ public final class LocationBean extends MasterBean implements Serializable {
      */
     public void setDetailFolderLocation(final UnitLocationFolder detailFolderLocation) {
         this.detailFolderLocation = detailFolderLocation;
+    }
+
+    /**
+     * @return the folderNewName
+     */
+    public String getFolderNewName() {
+        return folderNewName;
+    }
+
+    /**
+     * @param folderNewName the folderNewName to set
+     */
+    public void setFolderNewName(final String folderNewName) {
+        this.folderNewName = folderNewName;
     }
 }

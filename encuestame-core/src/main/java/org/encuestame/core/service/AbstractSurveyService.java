@@ -505,6 +505,4 @@ public class AbstractSurveyService extends AbstractBaseService {
     public void setTweetPath(final String tweetPath) {
         this.tweetPath = tweetPath;
     }
-
-
 }
