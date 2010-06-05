@@ -72,23 +72,17 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
 
     private List<UnitAnswersBean> answers;
 
-    private UnitAnswersBean answersBean;
-    private List<UnitAnswersBean> answersSaveTweet;
-
     /** {@link UnitQuestionBean} **/
     private UnitQuestionBean questionBean;
 
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
 
-    private Log log = LogFactory.getLog(this.getClass());
-
      /**
      *
      */
     @Before
     public void serviceInit(){
-
          surveyService.setServiceMail(mailServiceImpl);
          this.user = createUser("testEncuesta", "testEncuesta123");
          this.question = createQuestion("Why the sky is blue?","html");
@@ -98,11 +92,9 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
          answers = new ArrayList<UnitAnswersBean>();
          answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
          answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
-
          patternBean = createPatternBean("radio.class",
                     "radio buttons", "2", "Yes/No", "template.php");
-
-            questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
+         questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                     this.answers, patternBean);
     }
 
@@ -165,47 +157,11 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     }
 
     /**
-     * Test Create Tweet Poll.
-     * @throws EnMeExpcetion exception
-     */
-    @Test
-    public void testCreateTweetPoll() throws EnMeExpcetion{
-    final Questions question = createQuestion("why the sky is blue?", "yes/no", this.user);
-
-    createQuestionAnswer("yes", question, "12345");
-    createQuestionAnswer("no", question, "12346");
-    final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
-    final UnitQuestionBean questionBean = new UnitQuestionBean();
-    questionBean.setId(question.getQid());
-    tweetPollBean.setQuestionBean(questionBean);
-    tweetPollBean.setPublishPoll(true);
-    tweetPollBean.setScheduleDate(new Date());
-    tweetPollBean.setCompleted(false);
-    tweetPollBean.setUserId(this.user.getUid());
-    this.surveyService.createTweetPoll(tweetPollBean);
-    final String s = this.surveyService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
-    final Status status = this.surveyService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
-    assertNotNull(status.getId());
-    }
-
-    /**
-     * Service to retrieve Results TweetPoll  Id.
-     */
-    @Test
-    public void testGetResultsByTweetPollId(){
-    final TweetPoll tweetPoll = createFastTweetPollVotes();
-    final List<UnitTweetPollResult> results = this.surveyService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
-    assertEquals("Should be equals", 2 , results.size());
-    }
-
-
-    /**
      * Test Create Question.
      * @throws EnMeExpcetion
      **/
     @Test
     public void testCreateQuestion() throws EnMeExpcetion {
-
         surveyService.createQuestion(this.questionBean);
         assertNotNull(questionBean);
     }
@@ -226,94 +182,9 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      **/
     @Test
     public void testRetrieveAnswerByQuestionId(){
-
            final List<UnitAnswersBean> listUnitAnswerBean = surveyService.retrieveAnswerByQuestionId(this.question.getQid());
             assertEquals("Should be equals",1, listUnitAnswerBean.size());
-
     }
-
-    /**
-     * Test Get Tweets
-     */
-
-    @Test
-    public void testGetTweetsPollByUserId(){
-         final TweetPoll tweetPollnew = createTweetPoll(2L, false, false, false, false, false, new Date(), new Date(), false,
-                                                   this.user, this.question);
-         createQuestionAnswer("Yes", this.question, "BBB");
-         createQuestionAnswer("No", this.question, "CCC");
-         final List<UnitTweetPoll> unitTweetPollList = surveyService.getTweetsPollsByUserId(this.user.getUid());
-         assertEquals("Should be equals", 1, unitTweetPollList.size());
-    }
-
-    /**
-     * Test Save Tweet Id.
-     * @throws EnMeExpcetion
-     */
-
-    public void testSaveTweetId() throws EnMeExpcetion{
-        Questions questionSave = createQuestion("how much or How Many?","html");
-        SecUsers userpao= createUser("dianmora", "gemazo26.");
-        final String tweetUrl = "http://www.encuestame.org";
-        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), userpao, questionSave);
-
-        answersSaveTweet = new ArrayList<UnitAnswersBean>();
-        answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
-        answersSaveTweet.add(createAnswersBean("GTJU", "Yes", questionSave.getQid()));
-
-        patternBean = createPatternBean("radio.class",
-                   "radio buttons", "2", "Yes/No", "template.php");
-
-           questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, userpao.getUid(),
-                   answersSaveTweet, patternBean);
-
-
-
-        final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,userpao.getUid(),
-                                            this.questionBean, userpao.getTwitterAccount());
-
-        unitTweetPoll.setId(tweetPoll.getTweetPollId());
-        log.info(tweetPoll.getTweetPollId());
-        final String s = this.surveyService.generateTweetPollText(unitTweetPoll, tweetUrl);
-        log.info(s);
-        log.info( userpao.getUid());
-        log.info(userpao.getTwitterAccount());
-        log.info(userpao.getTwitterPassword());
-        final Status status = this.surveyService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());
-        log.info(status.getId());
-        assertNotNull(status.getId());
-        unitTweetPoll.setTweetId(status.getId());
-         surveyService.saveTweetId(unitTweetPoll);
-        assertNotNull(unitTweetPoll.getTweetId());
-
-
-    }
-
-    /**
-     * Test Tweet Poll Vote
-     */
-    public void testTweetPollVote(){
-
-    }
-
-    /**
-     * Test Generate Tweet Poll Text.
-     * @throws EnMeExpcetion EnMeExpcetion
-     */
-    @Test
-    public void testGenerateTweetPollText() throws EnMeExpcetion{
-        final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.user, this.question);
-        createQuestionAnswer("Yes", this.question, "EEEE");
-        createQuestionAnswer("No", this.question, "FFFF");
-        final String tweetUrl = "http://www.encuestame.org";
-        final UnitTweetPoll uniTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, this.user.getUid(), this.questionBean, "testtweetuser");
-        uniTweetPoll.setId(tweetPollPublicate.getTweetPollId());
-        final String twettQuestionText = surveyService.generateTweetPollText(uniTweetPoll, tweetUrl);
-        assertNotNull(twettQuestionText);
-        final Integer textLength = twettQuestionText.length();
-        assertEquals(true, (textLength < 140 ? true: false));
-        }
-
 
     /**
      * Test Update Answer By Answer Id.
@@ -336,7 +207,6 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
         final String keyword = "sky";
         unitQuestionBean = surveyService.listSuggestQuestion(keyword);
          assertEquals("should be equals",1, unitQuestionBean.size());
-
     }
 
     /**

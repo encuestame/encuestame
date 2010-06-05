@@ -25,6 +25,7 @@ import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
+import org.encuestame.core.service.ITweetPollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
@@ -314,6 +315,13 @@ public class MasterBean{
      */
     public ISurveyService getSurveyService() {
          return getServicemanager().getApplicationServices().getSurveyService();
+    }
+
+    /**
+     * @return the surveyService
+     */
+    public ITweetPollService getTweetPollService() {
+         return getServicemanager().getApplicationServices().getTweetPollService();
     }
 
     /**

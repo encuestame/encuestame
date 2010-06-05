@@ -19,6 +19,7 @@ import java.util.Date;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
+import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -107,7 +108,7 @@ public class CreateTweetPollBean extends MasterBean {
      */
     private String buildUrl(final UnitAnswersBean  answer){
         final StringBuffer stringBuffer = new StringBuffer(getDomain());
-        stringBuffer.append(getSurveyService().getTweetPath());
+        stringBuffer.append(getTweetPollService().getTweetPath());
         stringBuffer.append(answer.getAnswerHash());
         return stringBuffer.toString();
     }
@@ -150,10 +151,10 @@ public class CreateTweetPollBean extends MasterBean {
      * Create Tweet Poll.
      */
     public final void createTweetPoll(){
-        final ISurveyService survey = getServicemanager().getApplicationServices().getSurveyService();
+        final ITweetPollService tweetPollService = getTweetPollService();
         try{
           //save question
-           survey.createQuestion(getUnitTweetPoll().getQuestionBean());
+           getSurveyService().createQuestion(getUnitTweetPoll().getQuestionBean());
             //save create tweet poll
            getUnitTweetPoll().setUserId(getUsernameByName().getSecUser().getUid());
            //TODO: we need implement scheduled tweetPoll.
@@ -163,16 +164,16 @@ public class CreateTweetPollBean extends MasterBean {
            getUnitTweetPoll().setSchedule(false);
            getUnitTweetPoll().setPublishPoll(false);
            getUnitTweetPoll().setResultNotification(false);
-           survey.createTweetPoll(getUnitTweetPoll());
+           tweetPollService.createTweetPoll(getUnitTweetPoll());
            if(getUnitTweetPoll().getPublishPoll()){
-               final String tweet = survey.generateTweetPollText(getUnitTweetPoll(), getDomain());
+               final String tweet = tweetPollService.generateTweetPollText(getUnitTweetPoll(), getDomain());
                final SecUsers sessionUser = getUsernameByName().getSecUser();
-               final Status status = survey.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
+               final Status status = tweetPollService.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
                final Long tweetId = status.getId();
                if(tweetId != null){
                    getUnitTweetPoll().setTweetId(tweetId);
                    getUnitTweetPoll().setPublicationDateTweet(status.getCreatedAt());
-                   survey.saveTweetId(getUnitTweetPoll());
+                   tweetPollService.saveTweetId(getUnitTweetPoll());
                    log.info("tweeted :"+tweetId);
                }
            }

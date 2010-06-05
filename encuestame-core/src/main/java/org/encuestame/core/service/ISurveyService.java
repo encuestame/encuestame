@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.dao.IMasterSurveyService;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
@@ -75,31 +76,6 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     MailServiceImpl getServiceMail();
 
-    /**
-     * Public Tweet Poll.
-     * @param tweetText tweet text
-     * @param username username
-     * @param password  password
-     * @return status of tweet
-     * @throws EnMeExpcetion exception
-     */
-    Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion;
-
-    /**
-     * Create Tweet Poll.
-     * @param tweetPollBean tweet poll bean.
-     * @throws EnMeExpcetion exception
-     */
-    void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
-
-    /**
-     * Generate TweetPoll Text.
-     * @param tweetPoll tweetPoll
-     * @param url url
-     * @return tweet text
-     * @throws EnMeExpcetion exception
-     */
-    String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion;
 
     /**
      * Getter {@link TwitterService}.
@@ -113,14 +89,6 @@ public interface ISurveyService extends IMasterSurveyService {
      * @throws EnMeExpcetion exception
      */
      void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion;
-
-
-    /**
-     * Save Tweet Id.
-     * @param tweetPollBean {@link UnitTweetPoll}
-     * @throws EnMeExpcetion exception
-     */
-    void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
 
     /**
      * Retrieve Answer By Question Id.
@@ -146,40 +114,6 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     RequestToken getTwitterToken(final String consumerKey, final String consumerSecret) throws TwitterException;
 
-    /**
-     * Get Tweet Path.
-     * @return tweet
-     */
-    String getTweetPath();
-
-    /**
-     * @return the tweetPollDao
-     */
-    ITweetPoll getTweetPollDao();
-
-    /**
-     * Vote on TweetPoll.
-     * @param pollSwitch {@link TweetPollSwitch}
-     * @param ip ip
-     */
-    void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip);
-
-    /**
-     * Validate TweetPoll IP.
-     * @param ipVote  ipVote
-     * @param tweetPoll tweetPoll
-     * @return {@link TweetPollResult}
-     */
-    TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll);
-
-    /**
-     * Get Results By {@link TweetPoll}.
-     * @param tweetPollId tweetPoll Id
-     * @return list of {@link UnitTweetPollResult}
-     */
-    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId);
-
-    List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId);
 
     void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion;
 }

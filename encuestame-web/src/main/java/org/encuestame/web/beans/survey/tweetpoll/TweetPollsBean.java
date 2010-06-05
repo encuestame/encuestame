@@ -19,6 +19,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
+import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -68,7 +69,7 @@ public class TweetPollsBean extends MasterBean {
      */
     private void loadTweets() {
         try {
-            this.listTweets = getServicemanager().getApplicationServices().getSurveyService()
+            this.listTweets = getServicemanager().getApplicationServices().getTweetPollService()
             .getTweetsPollsByUserId(getUsernameByName().getSecUser().getUid());
              log.info("loading tweet polls");
         } catch (Exception e) {
@@ -112,7 +113,7 @@ public class TweetPollsBean extends MasterBean {
     public final void loadResults(){
         if(getSelectedTweetPoll().getId() != null){
             log.info("loadResults");
-            setSelectedResults(getSurveyService().getResultsByTweetPollId(getSelectedTweetPoll().getId()));
+            setSelectedResults(getTweetPollService().getResultsByTweetPollId(getSelectedTweetPoll().getId()));
         }
     }
 
@@ -122,14 +123,13 @@ public class TweetPollsBean extends MasterBean {
     public final void publishTweet() {
         try {
             log.info("loggin tweet");
-            final ISurveyService survey = getServicemanager().getApplicationServices()
-            .getSurveyService();
-            final String tweetText = survey.generateTweetPollText(getSelectedTweetPoll(), getDomain());
+            final ITweetPollService tweetPollService = getTweetPollService();
+            final String tweetText = tweetPollService.generateTweetPollText(getSelectedTweetPoll(), getDomain());
             log.info("Largo Tweet"+tweetText.length());
             log.info( "Tweet a postear ->"+tweetText);
             if(tweetText.length() < TWEET_TEXT_LENGTH){
                 final SecUsers user = getUsernameByName().getSecUser();
-                final Status status = survey.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
+                final Status status = tweetPollService.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
                 log.info(status.getId());
                 log.info(status.getCreatedAt());
                 log.info(status.getText());
@@ -139,7 +139,7 @@ public class TweetPollsBean extends MasterBean {
                     getSelectedTweetPoll().setTweetId(tweetId);
                     getSelectedTweetPoll().setPublicationDateTweet(status.getCreatedAt());
                     getSelectedTweetPoll().setTwitterUserAccount(getUsernameByName().getSecUser().getTwitterAccount());
-                    survey.saveTweetId(getSelectedTweetPoll());
+                    tweetPollService.saveTweetId(getSelectedTweetPoll());
                     log.info("tweeted :"+tweetId);
                 }
                 getSelectedTweetPoll().setPublishPoll(Boolean.TRUE);

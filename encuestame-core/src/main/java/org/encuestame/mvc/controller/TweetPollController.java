@@ -48,7 +48,7 @@ public class TweetPollController extends BaseController {
             model.put("message", "Tweet Not Valid..");
         } else {
             log.info("search code");
-            final TweetPollSwitch tweetPoll = getSurveyService()
+            final TweetPollSwitch tweetPoll = getTweetPollService()
                     .getTweetPollDao().retrieveTweetsPollSwitch(id);
             if (tweetPoll == null
                     || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
@@ -58,8 +58,8 @@ public class TweetPollController extends BaseController {
 
                 final String IP = getIpClient();
                 log.info("IP" + IP);
-                if (getSurveyService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
-                    getSurveyService().tweetPollVote(tweetPoll, IP);
+                if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
+                    getTweetPollService().tweetPollVote(tweetPoll, IP);
                     model.put("message", "Tweet Poll Voted.");
                 }
                 else{
