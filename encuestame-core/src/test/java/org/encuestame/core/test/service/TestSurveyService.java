@@ -28,6 +28,7 @@ import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.AbstractSurveyService;
@@ -70,6 +71,8 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     /** {@link SecUsers} **/
     private SecUsers user;
 
+    private SecUserSecondary userSecondary;
+
     private List<UnitAnswersBean> answers;
 
     /** {@link UnitQuestionBean} **/
@@ -85,6 +88,7 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     public void serviceInit(){
          surveyService.setServiceMail(mailServiceImpl);
          this.user = createUser("testEncuesta", "testEncuesta123");
+         this.userSecondary = createSecondaryUser("user", this.user);
          this.question = createQuestion("Why the sky is blue?","html");
          this.pattern = createQuestionPattern("html");
          createQuestionAnswer("Yes", this.question,"SSSA");
@@ -205,8 +209,8 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     public void testSuggestionQuestionList(){
          List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
         final String keyword = "sky";
-        unitQuestionBean = surveyService.listSuggestQuestion(keyword);
-         assertEquals("should be equals",1, unitQuestionBean.size());
+        unitQuestionBean = surveyService.listSuggestQuestion(keyword, this.userSecondary.getUsername());
+        assertEquals("should be equals",1, unitQuestionBean.size());
     }
 
     /**

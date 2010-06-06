@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
 import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +33,18 @@ import org.junit.Test;
  */
 public class TestQuestionDao extends AbstractBase{
 
+    /** {@link SecUsers} **/
+    private SecUsers user;
+
+    private SecUserSecondary userSecondary;
+
     /**
      * Before.
      */
     @Before
     public void before(){
+        this.user = createUser("testEncuesta", "testEncuesta123");
+        this.userSecondary = createSecondaryUser("user", this.user);
         createQuestion("Do you like soccer?",  "yes/no");
         createQuestion("Do you like apple's?",  "yes/no");
         createQuestion("Do you like iPods?",  "yes/no");
@@ -57,7 +66,7 @@ public class TestQuestionDao extends AbstractBase{
      */
     @Test
     public void testRetrieveQuestionsByName(){
-        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods");
+        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods", this.userSecondary.getSecUser().getUid());
         assertEquals("Results should be equals", 1,  listOfQuestions.size());
     }
 }

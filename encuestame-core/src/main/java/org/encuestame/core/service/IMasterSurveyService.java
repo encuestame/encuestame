@@ -28,5 +28,5 @@ public interface IMasterSurveyService {
      * @param questionKeyword
      * @return
      */
-    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword);
+    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username);
 }

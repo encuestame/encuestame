@@ -48,7 +48,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @return list of questions
      */
     @SuppressWarnings("unchecked")
-    public List<Questions> retrieveQuestionsByName(final String keyword){
+    public List<Questions> retrieveQuestionsByName(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Questions.class);
         criteria.add(Restrictions.like("question", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
@@ -123,6 +123,8 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @return
      */
     @SuppressWarnings("unchecked")
+    @Deprecated
+    //We have similar method on the top of the class.
     public List<Questions> getQuestionbyKeyword(final String keywordQuestion){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Questions.class);
         criteria.add(Restrictions.like("question", "%"+keywordQuestion+"%"));

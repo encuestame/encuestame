@@ -12,17 +12,25 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Unit Question Bean.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 01/06/2009 15:22:10
  * @version $Id$
  **/
-public class UnitQuestionBean {
+public class UnitQuestionBean implements Serializable {
+
+
+
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = -3106607865655197340L;
 
     private String questionName;
 

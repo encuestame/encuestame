@@ -19,7 +19,7 @@ import java.io.Serializable;
 /**
  * Unit TweetPollResults.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Mar 16, 2010 8:48:19 PM
  * @version $Id: $
  */

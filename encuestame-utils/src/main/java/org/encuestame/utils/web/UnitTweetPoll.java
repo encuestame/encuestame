@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * TweetPoll Bean.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Feb 14, 2010 10:00:58 AM
  * @version $Id$
  */

@@ -12,6 +12,8 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
+
 
 /**
  * Unit Pattern Bean.
@@ -19,8 +21,12 @@ package org.encuestame.utils.web;
  * @since 01/06/2009 15:25:459
  * @version $Id$
  */
-public class UnitPatternBean {
+public class UnitPatternBean implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 504237606410573311L;
     private Long id;
     private String descripcion;
     private String label;

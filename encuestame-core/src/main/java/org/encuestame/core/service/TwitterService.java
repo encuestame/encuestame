@@ -73,7 +73,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @throws TwitterException twitter exception
      */
     public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException{
-        final Twitter twitter = new Twitter(username, password);
+        final Twitter twitter = new TwitterFactory().getInstance(username, password);
         return twitter.updateStatus(tweet);
     }
 

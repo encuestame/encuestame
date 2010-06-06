@@ -62,7 +62,7 @@ public interface IQuestionDao extends IBaseDao {
      * @param keyword keyword
      * @return list of questions
      */
-    List<Questions> retrieveQuestionsByName(final String keyword);
+    List<Questions> retrieveQuestionsByName(final String keyword, final Long userId);
 
     /**
      * Retrieve Question By Id.

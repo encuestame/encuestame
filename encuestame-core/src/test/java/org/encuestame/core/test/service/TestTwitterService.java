@@ -13,7 +13,7 @@
 
 package org.encuestame.core.test.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ITwitterService;
 import org.encuestame.core.service.TwitterService;
-import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
 import twitter4j.http.RequestToken;
 
 /**
@@ -38,7 +40,7 @@ import twitter4j.http.RequestToken;
  * @since Feb 13, 2010 5:05:12 PM
  * @version $Id$
  */
-public class TestTwitterService extends AbstractBase {
+public class TestTwitterService extends AbstractBaseUnitBeans {
 
     /** {@link TwitterService}.  */
     @Autowired
@@ -83,7 +85,7 @@ public class TestTwitterService extends AbstractBase {
      *
      */
     public void test() throws TwitterException{
-        Twitter twitter = new Twitter();
+        final Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer("nFboU4T1Zhv8cqMC4cP0ug", "GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0");
         RequestToken twitterRequestToken
                          = twitter.getOAuthRequestToken();
@@ -91,6 +93,16 @@ public class TestTwitterService extends AbstractBase {
        String tokenSecret = twitterRequestToken.getTokenSecret();
        String authorizationUrl = twitterRequestToken.
        getAuthorizationURL();
+    }
+
+    /**
+     * @throws TwitterException
+     *
+     */
+    @Test
+    public void testVerifyCredentials() throws TwitterException{
+        final User user = getTwitterService().verifyCredentials("testEncuesta", "testEncuesta123");
+        assertNotNull(user);
     }
 
     /**

@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
@@ -32,6 +33,7 @@ import org.encuestame.utils.web.UnitTweetPollResult;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.User;
 
 /**
  * Tweet Poll Service Interface.
@@ -233,6 +235,30 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return getTweetPollDao().validateVoteIP(ipVote, tweetPoll);
     }
 
+    /**
+     * Validate User Twitter Account.
+     * @param username username logged.
+     * @return if user have twitter account
+     * @throws TwitterException
+     */
+    public Boolean validateUserTwitterAccount(final String username){
+        final SecUsers users = getUser(username).getSecUser();
+        Boolean validate = false;
+        log.info(users.getTwitterAccount());
+        log.info(users.getTwitterPassword());
+        if(!users.getTwitterAccount().isEmpty() && !users.getTwitterPassword().isEmpty()){
+            try{
+                final User user = getTwitterService().verifyCredentials(users.getTwitterAccount(), users.getTwitterPassword());
+                log.info(user);
+                validate = Integer.valueOf(user.getId()) != null ? true : false;
+            }
+            catch (Exception e) {
+                log.error("Error Validate Twitter Account "+e.getMessage());
+            }
+        }
+        log.info(validate);
+        return validate;
+    }
 
     /**
      * @return the answerPollPath

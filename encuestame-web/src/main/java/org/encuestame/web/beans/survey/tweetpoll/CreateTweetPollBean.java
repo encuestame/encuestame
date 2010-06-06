@@ -15,6 +15,7 @@ package org.encuestame.web.beans.survey.tweetpoll;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -50,6 +51,8 @@ public class CreateTweetPollBean extends MasterBean {
 
     /** Count Tweet. **/
     private Integer countTweet;
+
+    final List<String> lista = new ArrayList<String>();
 
     /**
      * Constructor.
@@ -127,11 +130,31 @@ public class CreateTweetPollBean extends MasterBean {
             else{
                 addWarningMessage("You need create question first.", "");
             }
-        }catch (Exception e) {
+        }
+        catch (Exception e) {
             addErrorMessage("error to add answer", "");
             log.error(e);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Suggest.
+     * @param suggest keyword.
+     * @return
+     */
+    public List<UnitQuestionBean> suggest(final Object suggest){
+        String pref = (String) suggest;
+        final ArrayList<UnitQuestionBean> result = new ArrayList<UnitQuestionBean>();
+        final List<UnitQuestionBean> suggested = getTweetPollService().listSuggestQuestion(pref, getUsername());
+        log.info("suggested "+suggested.size());
+        for(UnitQuestionBean elem: suggested){
+            if ((elem.getQuestionName().toLowerCase().indexOf(pref.toLowerCase()) == 0)) {
+            log.info("question suggested "+elem.getQuestionName());
+            result.add(elem);
+            }
+        }
+        return result;
     }
 
     /**

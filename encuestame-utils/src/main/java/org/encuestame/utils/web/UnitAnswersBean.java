@@ -12,15 +12,22 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
+
 /**
  * Unit Answers Bean.
  *
- * @author Picado, Juan Carlos juan@encuestame.org
+ * @author Picado, Juan Carlos juanATencuestame.org
  * @since 01/06/2009 15:24:16
  * @version $Id$
  */
 
-public class UnitAnswersBean {
+public class UnitAnswersBean implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1914430351701434773L;
 
     /** Answer Id. **/
     private Long answerId;
