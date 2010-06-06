@@ -12,7 +12,7 @@
 
     <skin>
         <groupId>org.apache.maven.skins</groupId>
-        <artifactId>maven-classic-skin</artifactId>
+        <artifactId>maven-default-skin</artifactId>
         <version>1.0</version>
     </skin>
 
