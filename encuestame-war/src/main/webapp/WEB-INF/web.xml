@@ -180,6 +180,7 @@
 		Serves static resource content from .jar files such as
 		spring-faces.jar
 	-->
+
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<url-pattern>*.do</url-pattern>

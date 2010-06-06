@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="encuestame">
     <bannerLeft>
         <name>Encuestame</name>
@@ -6,9 +6,15 @@
         <href>http://www.encuestame.org/</href>
     </bannerLeft>
     <bannerRight>
-         <src>http://www.encuestame.org/images/twitter.jpg</src>
-        <href>http://www.twitter.com/encuestame</href>
+    <src>http://www.encuestame.org/images/twitter.jpg</src>
+    <href>http://www.twitter.com/encuestame</href>
     </bannerRight>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-classic-skin</artifactId>
+        <version>1.0</version>
+    </skin>
 
     <publishDate format="dd MMM yyyy" position="left" />
     <version position="left" />
@@ -40,6 +46,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="description" content="Open Source Java Survey System, Twitter, Poll, Surveys." />
         <meta name="keywords" content="survey, java, open source, poll, twitter, spring framework" />
+        <meta name="google-site-verification" content="Cp-ow0L1hAqhoCF_7-og3NgKqUk01S-Ln_JQkZV5Bx0" />
         <meta http-equiv="Expires" content="never"/>
         <meta name="Revisit-After" content="2"/>
         <meta name="distribution" content="Global"/>
