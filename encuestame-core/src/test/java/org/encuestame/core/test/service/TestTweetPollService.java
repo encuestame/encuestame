@@ -23,6 +23,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.ITweetPollService;
@@ -61,6 +62,9 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
     /** {@link SecUsers} **/
     private SecUsers user;
 
+    /** {@link SecUserSecondary}. **/
+    private SecUserSecondary secUserSecondary;
+
     private List<UnitAnswersBean> answers;
 
     /** {@link UnitPatternBean}**/
@@ -78,6 +82,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
    @Before
    public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
+        this.secUserSecondary = createSecondaryUser("jhon", user);
         this.question = createQuestion("Why the sky is blue?","html");
         this.pattern = createQuestionPattern("html");
         createQuestionAnswer("Yes", this.question,"SSSA");
@@ -101,7 +106,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
                                                   this.user, this.question);
         createQuestionAnswer("Yes", this.question, "BBB");
         createQuestionAnswer("No", this.question, "CCC");
-        final List<UnitTweetPoll> unitTweetPollList = tweetPollService.getTweetsPollsByUserId(this.user.getUid());
+        final List<UnitTweetPoll> unitTweetPollList = tweetPollService.getTweetsPollsByUserName(this.secUserSecondary.getUsername());
         assertEquals("Should be equals", 1, unitTweetPollList.size());
    }
 

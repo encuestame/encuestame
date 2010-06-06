@@ -10,11 +10,12 @@
     xmlns:sf="http://www.springframework.org/tags/faces"
     xmlns:sec="http://www.springframework.org/security/tags"
     xmlns:m="http://code.google.com/p/gmaps4jsf/">
-
 <a4j:loadBundle basename="messages" var="temp" />
-<sf:resource path="/css/admon.css"/>
+<a4j:loadStyle src="/resources/css/default.css" type="text/css"></a4j:loadStyle>
+<a4j:loadStyle src="/resources/css/admon.css" type="text/css"></a4j:loadStyle>
+<a4j:loadStyle src="/resources/css/menu.css" type="text/css"></a4j:loadStyle>
+<a4j:loadStyle src="/resources/css/survey.css" type="text/css"></a4j:loadStyle>
 <ui:insert name="css"></ui:insert>
-
 <head>
     <title>#{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
     </title>

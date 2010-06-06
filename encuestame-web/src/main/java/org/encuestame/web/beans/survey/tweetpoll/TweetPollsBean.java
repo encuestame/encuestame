@@ -65,12 +65,12 @@ public class TweetPollsBean extends MasterBean {
     private static final Integer TWEET_TEXT_LENGTH = 140;
 
     /**
-     *
+     * Load Tweets.
      */
     private void loadTweets() {
         try {
             this.listTweets = getServicemanager().getApplicationServices().getTweetPollService()
-            .getTweetsPollsByUserId(getUsernameByName().getSecUser().getUid());
+            .getTweetsPollsByUserName(getUsername());
              log.info("loading tweet polls");
         } catch (Exception e) {
             log.error(e);

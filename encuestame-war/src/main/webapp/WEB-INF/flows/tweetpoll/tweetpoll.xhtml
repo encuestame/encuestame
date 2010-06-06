@@ -6,12 +6,44 @@
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <ui:define name="title">TweetPoll</ui:define>
-    <ui:define name="panel">
-        <h:form>
-        </h:form>
-    </ui:define>
+
     <ui:define name="bodyOptions">
         <h:form id="tweetPollTable">
+            <rich:dataTable id="dataTableGroups" value="#{tweetsPolls}"
+                var="unitTweetPoll" style="width:100%;"
+                rendered="#{tweetsPolls.rowCount > 0}">
+                <f:facet name="header">
+                    <rich:columnGroup>
+                        <rich:column width="30px">
+                            <h:outputText value="#{temp.id}" />
+                        </rich:column>
+                        <rich:column>
+                            <h:outputText value="#{temp.description}" />
+                        </rich:column>
+                        <rich:column>
+                            <h:outputText value="#{temp.state}" />
+                        </rich:column>
+                        <rich:column>
+                        </rich:column>
+                    </rich:columnGroup>
+                </f:facet>
+                <rich:column>
+                </rich:column>
+                <rich:column>
+                    <h:outputText
+                        value="#{unitTweetPoll.questionBean.questionName}" />
+                </rich:column>
+                <rich:column>
+                    <h:outputText value="#{unitTweetPoll.tweetUrl}" />
+                </rich:column>
+                <rich:column>
+                </rich:column>
+            </rich:dataTable>
+            <rich:panel rendered="#{tweetsPolls.rowCount == 0}">
+                Holaaaaaaaaaaaa
+
+
+            </rich:panel>
         </h:form>
     </ui:define>
 </ui:composition>

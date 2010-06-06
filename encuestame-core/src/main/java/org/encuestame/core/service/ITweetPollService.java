@@ -100,10 +100,10 @@ public interface ITweetPollService extends IMasterSurveyService{
 
     /**
      *
-     * @param userId
+     * @param username username
      * @return
      */
-    List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId);
+    List<UnitTweetPoll> getTweetsPollsByUserName(final String username);
 
 
 }

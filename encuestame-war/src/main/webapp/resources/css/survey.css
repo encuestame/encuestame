@@ -1,0 +1,27 @@
+@import url("question.css");
+@import url("section.css");
+
+/* Templates Survey  */
+
+#surveyWrapper{
+    clear: left;
+    padding: 1px 0 8px;
+}
+
+#panelSurvey{
+    padding-top:8px;
+    float: left;
+}
+
+#bodySurvey{
+    margin-left : 260px;
+    min-width : 700px;
+    padding: 0 15px 8px 0;
+}
+
+#panelSurveyWrapper{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 235px;
+}

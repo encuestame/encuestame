@@ -61,11 +61,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
     /**
      * Get Tweet Polls by User Id.
-     * @param userId user Id.
+     * @param username username.
      * @return list of Tweet polls bean
      */
-    public List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId){
-        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(userId);
+    public List<UnitTweetPoll> getTweetsPollsByUserName(final String username){
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
+        log.info("tweetPoll size "+tweetPolls.size());
         final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
         for (TweetPoll tweetPoll : tweetPolls) {
             final UnitTweetPoll unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);

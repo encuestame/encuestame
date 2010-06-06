@@ -180,18 +180,6 @@
 		Serves static resource content from .jar files such as
 		spring-faces.jar
 	-->
-	<servlet>
-		<servlet-name>Resources Spring Servlet</servlet-name>
-		<servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
-	<!--
-		Map all /resources requests to the Resource Servlet for handling
-	-->
-	<servlet-mapping>
-		<servlet-name>Resources Spring Servlet</servlet-name>
-		<url-pattern>/resources/*</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<url-pattern>*.do</url-pattern>

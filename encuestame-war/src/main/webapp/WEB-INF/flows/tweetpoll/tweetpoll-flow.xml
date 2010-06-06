@@ -4,7 +4,10 @@
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="tweetpoll">
-
+        <on-render>
+            <evaluate expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)" result="flowScope.tweetsPolls"
+                      result-type="dataModel" />
+        </on-render>
     </view-state>
 
     <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
