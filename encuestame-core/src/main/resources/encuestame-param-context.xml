@@ -4,8 +4,10 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+  <!--
   <bean id="propertyConfigurer"
     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="ignoreResourceNotFound" value="false"/>
     <property name="locations">
       <list>
         <value>classpath:encuestame-config.properties</value>
@@ -13,17 +15,29 @@
       </list>
     </property>
   </bean>
+   -->
 
-  <bean id="log4jInitializer"
-    class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-    <property name="staticMethod"
-      value="org.springframework.util.Log4jConfigurer.initLogging" />
-    <property name="arguments">
-      <list>
-        <value>classpath:log4j.properties</value>
-      </list>
-    </property>
-  </bean>
+   <bean id="propertyConfigurer" class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+        <constructor-arg ref="configurationEncryptor" />
+        <property name="locations">
+            <list>
+                <value>${encuestame.properties.path}</value>
+                <value>${hibernate.properties.path}</value>
+            </list>
+        </property>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
+     <bean id="log4jInitializer"
+        class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod"
+          value="org.springframework.util.Log4jConfigurer.initLogging" />
+        <property name="arguments">
+          <list>
+            <value>${log4j.properties.path}</value>
+          </list>
+        </property>
+      </bean>
 
 
 </beans>

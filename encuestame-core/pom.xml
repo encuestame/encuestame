@@ -76,5 +76,14 @@
                 <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/classes</directory>
             </testResource>
         </testResources>
+        <resources>
+            <resource>
+              <directory>src/main/resources/</directory>
+              <includes>
+                <include>*.*</include>
+              </includes>
+              <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

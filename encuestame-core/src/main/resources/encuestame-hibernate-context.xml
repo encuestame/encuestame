@@ -90,4 +90,20 @@
     <!-- This annotation allow declarative transactions.  -->
     <tx:annotation-driven  transaction-manager="transactionManager"/>
 
+    <!-- configuration encryptor used by the property configurer -->
+    <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+        <property name="config" ref="environmentVariablesConfiguration" />
+    </bean>
+
+     <!-- env variables used by configurationEncryptor -->
+    <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+        <property name="algorithm" value="PBEWithMD5AndDES" />
+        <property name="passwordEnvName" value="12345" />
+    </bean>
+
+    <bean id="hibernateStringEncryptor" class="org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor">
+        <property name="encryptor" ref="configurationEncryptor"/>
+        <property name="registeredName" value="hibernateStringEncryptor"/>
+    </bean>
+
 </beans>
