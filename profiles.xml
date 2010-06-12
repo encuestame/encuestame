@@ -23,7 +23,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
-                <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
+                <lucene.index.provider>org.hibernate.search.store.RAMDirectoryProvider</lucene.index.provider>
             </properties>
         </profile>
         <profile>

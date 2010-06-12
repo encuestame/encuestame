@@ -22,10 +22,12 @@ import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -71,20 +73,24 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     @SuppressWarnings("unchecked")
     public List<Questions> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
+        log.info("keyword "+keyword);
+        log.info("userId "+userId);
         List<Questions> searchResult = (List) getHibernateTemplate().execute(
                 new HibernateCallback() {
                     public Object doInHibernate(org.hibernate.Session session) {
                         try {
-                            FullTextSession fullTextSession = Search.getFullTextSession(session);
-                           // Transaction tx = fullTextSession.beginTransaction();
-                            MultiFieldQueryParser parser = new MultiFieldQueryParser(
+                            final FullTextSession fullTextSession = Search.getFullTextSession(session);
+                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(
                                                   new String[]{"question"},
                                                   new SimpleAnalyzer());
-                            Query query = parser.parse(keyword);
-                            org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, Questions.class);
-                            final List<Questions> result = hibQuery.list();
+                            final org.apache.lucene.search.Query query = parser.parse(keyword);
+                            final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Questions.class);
+                            final Criteria criteria = session.createCriteria(Questions.class);
+                            criteria.createAlias("secUsersQuestion", "secUsersQuestion");
+                            criteria.add(Restrictions.eq("secUsersQuestion.uid", userId));
+                            hibernateQuery.setCriteriaQuery(criteria);
+                            final List<Questions> result = hibernateQuery.list();
                             log.info("result "+result.size());
-                            //tx.commit();
                             return result;
                         } catch (ParseException ex) {
                             ex.printStackTrace();

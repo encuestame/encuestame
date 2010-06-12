@@ -476,7 +476,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
-        user.setUserEmail(name+RandomStringUtils.random(6)+"@users.com");
+        user.setUserEmail(name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com");
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
         user.setSecUser(secUser);
@@ -639,6 +639,20 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         questions.setSecUsersQuestion(createUser());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
+    }
+
+    /**
+     * Create Question.
+     * @param questionName
+     * @param user
+     * @return
+     */
+    public Questions createQuestion(final String questionName, final SecUsers user){
+        final Questions question =  createQuestion(questionName, "patter");
+        question.setSecUsersQuestion(user);
+        getQuestionDaoImp().saveOrUpdate(question);
+        log.info("user assigned "+question.getSecUsersQuestion().getUid());
+        return question;
     }
 
     /**
