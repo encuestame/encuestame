@@ -27,14 +27,20 @@
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <mail.host>smtp.gmail.com</mail.host>
                 <mail.port>465</mail.port>
+                <mail.protocol>smtps</mail.protocol>
                 <mail.username>encuestamettest@gmail.com</mail.username>
                 <mail.password>encuestamettest123</mail.password>
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
-                <mail.ttls>true</mail.ttls>
                 <mail.encoding>UTF-8</mail.encoding>
-                <mail.smtp.auth>true</mail.smtp.auth>
-                <mail.smtp.starttls.enable>true</mail.smtp.starttls.enable>
-                <mail.smtp.starttls.required>true</mail.smtp.starttls.required>
+                <!-- SMTP -->
+                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
+                <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
+                <!-- SMTPS -->
+                <mail.smtps.debug>true</mail.smtps.debug>
+                <mail.smtps.auth>true</mail.smtps.auth>
+                <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
+                <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
             </properties>
         </profile>
         <profile>
@@ -59,16 +65,22 @@
                 <lucene.index.path>PRODUCTION_INDEX_PATH</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
-                <mail.host>PRODUCTION_MAIL_HOST</mail.host>
-                <mail.port>PRODUCTION_MAIL_PORT</mail.port>
-                <mail.username>PRODUCTION_MAIL_USERNAME</mail.username>
-                <mail.password>PRODUCTION_MAIL_PASSWORD</mail.password>
-                <mail.noresponse>PRODUCTION_MAIL_NO_RESPONSE</mail.noresponse>
-                <mail.ttls>PRODUCTION_MAIL_TTLS</mail.ttls>
-                <mail.encoding>PRODUCTION_MAIL_ENCODING</mail.encoding>
-                <mail.smtp.auth>PRODUCTION_MAIL_SMTP_AUTH</mail.smtp.auth>
-                <mail.smtp.starttls.enable>PRODUCTION_MAIL_SMTP_TTLS_ENABLE</mail.smtp.starttls.enable>
-                <mail.smtp.starttls.required>PRODUCTION_MAIL_SMTP_TTLS_REQUIRED</mail.smtp.starttls.required>
+                <mail.host>smtp.gmail.com</mail.host>
+                <mail.port>465</mail.port>
+                <mail.protocol>smtps</mail.protocol>
+                <mail.username>encuestamettest@gmail.com</mail.username>
+                <mail.password>encuestamettest123</mail.password>
+                <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
+                <mail.encoding>UTF-8</mail.encoding>
+                <!-- SMTP -->
+                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
+                <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
+                <!-- SMTPS -->
+                <mail.smtps.debug>true</mail.smtps.debug>
+                <mail.smtps.auth>true</mail.smtps.auth>
+                <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
+                <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
             </properties>
         </profile>
         <profile>
@@ -93,16 +105,22 @@
                 <lucene.index.path>/home/tomcat/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.RAMDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
-                <mail.host>localhost</mail.host>
-                <mail.port>25</mail.port>
-                <mail.username></mail.username>
-                <mail.password></mail.password>
-                <mail.noresponse>noresponse@encuestame.org</mail.noresponse>
-                <mail.ttls>true</mail.ttls>
+                <mail.host>smtp.gmail.com</mail.host>
+                <mail.port>465</mail.port>
+                <mail.protocol>smtps</mail.protocol>
+                <mail.username>encuestamettest@gmail.com</mail.username>
+                <mail.password>encuestamettest123</mail.password>
+                <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
+                <!-- SMTP -->
                 <mail.smtp.auth>false</mail.smtp.auth>
-                <mail.smtp.starttls.enable>true</mail.smtp.starttls.enable>
-                <mail.smtp.starttls.required>true</mail.smtp.starttls.required>
+                <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
+                <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
+                <!-- SMTPS -->
+                <mail.smtps.debug>true</mail.smtps.debug>
+                <mail.smtps.auth>true</mail.smtps.auth>
+                <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
+                <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
             </properties>
         </profile>
     </profiles>

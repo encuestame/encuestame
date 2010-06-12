@@ -12,14 +12,42 @@
  */
 package org.encuestame.core.test.service;
 
+import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Description Class.
+ * Email Services Test.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 12, 2010 10:02:41 AM
  * @version Id:
  */
 public class TestEmailService extends AbstractBaseUnitBeans {
 
+    @Autowired
+    private MailServiceImpl serviceMail;
+
+
+    /**
+     * Test Send Email.
+     */
+    @Test(timeout=30000)
+    public void testSendEmail(){
+        this.serviceMail.sendInvitation("juan@jotadeveloper.com", "12355");
+    }
+
+    /**
+     * @return the serviceMail
+     */
+    public MailServiceImpl getServiceMail() {
+        return serviceMail;
+    }
+
+    /**
+     * @param serviceMail the serviceMail to set
+     */
+    public void setServiceMail(final MailServiceImpl serviceMail) {
+        this.serviceMail = serviceMail;
+    }
 }

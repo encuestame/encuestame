@@ -36,7 +36,6 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      */
     private MailServiceImpl serviceMail;
 
-
     /**
      * Constructor.
      */

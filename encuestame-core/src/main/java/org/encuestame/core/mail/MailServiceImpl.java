@@ -93,15 +93,31 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
             final String to,
             final String code) throws MailSendException
     {
-        SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
+        final SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
         msg
                 .setText("<h1>Invitation to Encuestame</h1><p>Please confirm"
                         +" this invitation <a>http://www.encuesta.me/cod/"
                         + code + "</a>");
-        msg.setSubject(getMessageProperties("SubjectInvitation"));
-        mailSender.send(msg);
+        msg.setSubject("test");
+        try{
+            log.info("Sending email");
+            log.debug("Sending host "+mailSender.getHost());
+            log.debug("Sending password "+mailSender.getPassword());
+            log.debug("Sending username "+mailSender.getUsername());
+            log.debug("Sending enconding "+mailSender.getDefaultEncoding());
+            log.debug("Sending protocol "+mailSender.getProtocol());
+            log.debug("Sending port "+mailSender.getPort());
+            log.debug("Sending port auth "+mailSender.getJavaMailProperties().getProperty("mail.smtp.auth"));
+            log.debug("Sending port starttls "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.enable"));
+            log.debug("Sending port required "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.required"));
+            mailSender.send(msg);
+            log.info("Sended email");
+        }
+        catch (Exception e) {
+            log.error("Error on send email "+e.getMessage());
+        }
     }
 
     /**
