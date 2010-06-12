@@ -22,7 +22,8 @@
                 <encuestame.recaptcha.privatekey>6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd</encuestame.recaptcha.privatekey>
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
-                <lucene.index.path>/home/jpicado/opt/encuestameIndex2</lucene.index.path>
+                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
             </properties>
         </profile>
         <profile>
@@ -44,7 +45,8 @@
                 <encuestame.recaptcha.privatekey>6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd</encuestame.recaptcha.privatekey>
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
-                <lucene.index.path>/home/jpicado/opt/encuestameIndex3</lucene.index.path>
+                <lucene.index.path>PRODUCTION_INDEX_PATH</lucene.index.path>
+                <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
             </properties>
         </profile>
         <profile>
@@ -67,6 +69,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <lucene.index.path>/home/tomcat/encuestameIndex</lucene.index.path>
+                <lucene.index.provider>org.hibernate.search.store.RAMDirectoryProvider</lucene.index.provider>
             </properties>
         </profile>
     </profiles>

@@ -1,0 +1,5 @@
+## Default Profile
+mvn clean install
+
+## With Profile
+mvn -PprofileName clean install
