@@ -29,6 +29,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Security User Secondary.
@@ -37,7 +38,9 @@ import javax.persistence.TemporalType;
  * @version $Id$
  */
 @Entity
-@Table(name = "sec_user_secondary")
+@Table(name = "sec_user_secondary",
+       uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
+  )
 public class SecUserSecondary {
 
     private Long uid;

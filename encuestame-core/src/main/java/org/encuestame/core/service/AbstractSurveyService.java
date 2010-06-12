@@ -403,7 +403,8 @@ public class AbstractSurveyService extends AbstractBaseService {
      */
     public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username){
         final List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
-        final List<Questions> questionsList = getQuestionDao().retrieveQuestionsByName(questionKeyword, getPrimaryUser(username));
+        final List<Questions> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
+        log.info("listSuggestQuestion "+questionsList.size());
         for (Questions question : questionsList) {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
         }

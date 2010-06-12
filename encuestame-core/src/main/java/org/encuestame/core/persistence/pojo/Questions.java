@@ -30,7 +30,9 @@ import javax.persistence.Table;
 
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Questions.
@@ -94,7 +96,7 @@ public class Questions {
     /**
      * @return question
      */
-    @Field
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column(name = "question")
     public String getQuestion() {
         return this.question;
@@ -110,7 +112,7 @@ public class Questions {
     /**
      * @return qidKey
      */
-    @Field
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column(name = "qid_key")
     public String getQidKey() {
         return this.qidKey;

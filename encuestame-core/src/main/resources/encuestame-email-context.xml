@@ -4,15 +4,17 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+  <bean id="mailSender" scope="singleton" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     <property name="host" value="${mail.host}" />
     <property name="port" value="${mail.port}" />
     <property name="username" value="${mail.username}" />
     <property name="password" value="${mail.password}" />
-    <property name="defaultEncoding" value="UTF-8" />
+    <property name="defaultEncoding" value="${mail.encoding}" />
     <property name="javaMailProperties">
       <props>
-        <prop key="mail.smtp.starttls.enable">false</prop>
+        <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+        <prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+        <prop key="mail.smtp.starttls.required"> ${mail.smtp.starttls.required}</prop>
       </props>
     </property>
   </bean>
