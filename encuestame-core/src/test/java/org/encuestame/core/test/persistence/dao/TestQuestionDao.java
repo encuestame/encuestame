@@ -44,7 +44,7 @@ public class TestQuestionDao extends AbstractBase{
     @Before
     public void before(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.userSecondary = createSecondaryUser("user", this.user);
+        this.userSecondary = createSecondaryUser("user_question", this.user);
         createQuestion("Do you like soccer?",  "yes/no");
         createQuestion("Do you like apple's?",  "yes/no");
         createQuestion("Do you like iPods?",  "yes/no");
@@ -67,6 +67,15 @@ public class TestQuestionDao extends AbstractBase{
     @Test
     public void testRetrieveQuestionsByName(){
         final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods", this.userSecondary.getSecUser().getUid());
-        assertEquals("Results should be equals", 1,  listOfQuestions.size());
+        assertEquals("Results should be equals", 2,  listOfQuestions.size());
+    }
+
+    /**
+     * Test Retrieve Indexed QuestionsByName.
+     */
+    @Test
+    public void testRetrieveIndexedQuestionsByName(){
+        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("Do", this.userSecondary.getSecUser().getUid());
+        assertEquals("Results should be equals", 3,  listOfQuestions.size());
     }
 }

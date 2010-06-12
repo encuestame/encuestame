@@ -14,6 +14,10 @@ package org.encuestame.core.persistence.dao;
 
 import java.util.List;
 
+import org.apache.lucene.analysis.SimpleAnalyzer;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.search.Query;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -22,7 +26,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Repository;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springmodules.cache.annotations.CacheFlush;
+import org.springmodules.cache.annotations.Cacheable;
 
 /**
  * Question Dao.
@@ -30,7 +38,6 @@ import org.springframework.stereotype.Repository;
  * @since June 02, 2009
  * @version $Id$
  */
-@Repository
 public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQuestionDao {
 
     /**
@@ -38,6 +45,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @param question question
      * @throws HibernateException exception
      */
+    @CacheFlush(modelId="createQuestion")
     public void createQuestion(final Questions question) throws HibernateException {
         saveOrUpdate(question);
     }
@@ -47,11 +55,45 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @param keyword keyword
      * @return list of questions
      */
+    @Cacheable(modelId="retrieveQuestionsByName")
     @SuppressWarnings("unchecked")
     public List<Questions> retrieveQuestionsByName(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Questions.class);
         criteria.add(Restrictions.like("question", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
+     * Retrieve Indexes Question By Keyword
+     * @param keyword
+     * @param userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Questions> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
+        List<Questions> searchResult = (List) getHibernateTemplate().execute(
+                new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        try {
+                            FullTextSession fullTextSession = Search.getFullTextSession(session);
+                           // Transaction tx = fullTextSession.beginTransaction();
+                            MultiFieldQueryParser parser = new MultiFieldQueryParser(
+                                                  new String[]{"question"},
+                                                  new SimpleAnalyzer());
+                            Query query = parser.parse(keyword);
+                            org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, Questions.class);
+                            final List<Questions> result = hibQuery.list();
+                            log.info("result "+result.size());
+                            //tx.commit();
+                            return result;
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                            log.error("Index Search Erro "+ex.getMessage());
+                            return null;
+                        }
+                    }
+                });
+        return searchResult;
     }
 
     /**

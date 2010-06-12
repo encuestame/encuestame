@@ -28,6 +28,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 /**
  * Questions.
  *
@@ -36,6 +40,7 @@ import javax.persistence.Table;
  * @version $Id$
  */
 @Entity
+@Indexed
 @Table(name = "questions")
 public class Questions {
 
@@ -55,6 +60,7 @@ public class Questions {
      * @return qid
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "qid", unique = true, nullable = false)
     public Long getQid() {
@@ -88,6 +94,7 @@ public class Questions {
     /**
      * @return question
      */
+    @Field
     @Column(name = "question")
     public String getQuestion() {
         return this.question;
@@ -103,6 +110,7 @@ public class Questions {
     /**
      * @return qidKey
      */
+    @Field
     @Column(name = "qid_key")
     public String getQidKey() {
         return this.qidKey;

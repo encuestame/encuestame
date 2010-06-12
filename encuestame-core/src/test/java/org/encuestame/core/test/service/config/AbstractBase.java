@@ -14,6 +14,7 @@ package org.encuestame.core.test.service.config;
 
 import java.util.Date;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.dao.ClientDao;
@@ -475,7 +476,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
-        user.setUserEmail(name+"@users.com");
+        user.setUserEmail(name+RandomStringUtils.random(6)+"@users.com");
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
         user.setSecUser(secUser);

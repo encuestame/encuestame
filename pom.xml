@@ -25,7 +25,9 @@
         <spring.version>3.0.1.RELEASE</spring.version>
         <spring.webflow.version>2.0.8.RELEASE</spring.webflow.version>
         <spring.security.version>3.0.2.RELEASE</spring.security.version>
-        <hibernate.version>3.3.1.GA</hibernate.version>
+        <hibernate.version>3.5.1-Final</hibernate.version>
+        <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
+        <hibernate.search.version>3.2.0.CR1</hibernate.search.version>
         <gmap.version>1.1.3</gmap.version>
         <apache>file:///var/www/encuestame</apache>
     </properties>
@@ -164,7 +166,6 @@
             <url>http://tanesha.net/maven2</url>
         </repository>
     </repositories>
-
     <profiles>
       <profile>
         <id>dev</id>
@@ -468,6 +469,11 @@
             </exclusions>
         </dependency>
         <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
@@ -481,7 +487,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>
+            <version>${hibernate.commons.annotations.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>cglib</artifactId>
@@ -497,6 +503,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>3.1.0.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search</artifactId>
+            <version>${hibernate.search.version}</version>
         </dependency>
         <dependency>
             <groupId>jaxen</groupId>
@@ -853,5 +864,117 @@
             <artifactId>recaptcha4j</artifactId>
             <version>0.0.7</version>
         </dependency>
+        <dependency>
+           <groupId>net.sf.ehcache</groupId>
+           <artifactId>ehcache</artifactId>
+           <version>1.6.2</version>
+         </dependency>
+         <dependency>
+            <groupId>org.springmodules</groupId>
+            <artifactId>spring-modules-cache</artifactId>
+            <version>0.8a</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>gigaspaces</groupId>
+                        <artifactId>gigaspaces-ce</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>jsk-lib</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>jsk-platform</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>mahalo</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>reggie</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>start</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>boot</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jini</groupId>
+                        <artifactId>webster</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-attributes</groupId>
+                        <artifactId>commons-attributes-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-attributes</groupId>
+                        <artifactId>commons-attributes-compiler</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib-nodep</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jboss</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jboss</groupId>
+                        <artifactId>jboss-cache</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jboss</groupId>
+                        <artifactId>jboss-common</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jboss</groupId>
+                        <artifactId>jboss-jmx</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jboss</groupId>
+                        <artifactId>jboss-minimal</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jboss</groupId>
+                        <artifactId>jboss-system</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jcs</groupId>
+                        <artifactId>jcs</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jgroups</groupId>
+                        <artifactId>jgroups-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>geronimo-spec</groupId>
+                        <artifactId>geronimo-spec-jta</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xpp3</groupId>
+                        <artifactId>xpp3_min</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xjavadoc</groupId>
+                        <artifactId>xjavadoc</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>opensymphony</groupId>
+                        <artifactId>oscache</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ehcache</groupId>
+                        <artifactId>ehcache</artifactId>
+                    </exclusion>
+                </exclusions>
+         </dependency>
     </dependencies>
 </project>
