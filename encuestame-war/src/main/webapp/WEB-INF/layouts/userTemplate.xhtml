@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/  xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sf="http://www.springframework.org/tags/faces"
+    xmlns:sec="http://www.springframework.org/security/tags"
+    xmlns:m="http://code.google.com/p/gmaps4jsf/">
+<a4j:loadBundle basename="messages" var="temp" />
+<a4j:loadStyle src="/resources/css/default.css" type="text/css"></a4j:loadStyle>
+<a4j:loadStyle src="/resources/css/user.css" type="text/css"></a4j:loadStyle>
+<ui:insert name="css"></ui:insert>
+<head>
+    <title>encuestame</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <ui:insert name="javascript"></ui:insert>
+    <style type="css">
+        img{ border:0px;}
+    </style>
+</head>
+<body>
+    <ui:include src="includes/userHeader.xhtml" />
+    <div id="mainUserWrapper">
+        <ui:insert name="main">main</ui:insert>
+    </div>
+    <ui:include src="includes/footer.xhtml" />
+</body>
+</html>

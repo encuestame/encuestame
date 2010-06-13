@@ -44,41 +44,63 @@
         /tweetpoll.do=flowController
         /poll.do=flowController
         /survey.do=flowController
+        /user/resister.do=urlFilenameViewController
        </value>
     </property>
-    <property name="defaultHandler">
-      <!--
-        Handles requests mapped directly to facelet .xhtml view templates
-      -->
-      <bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
-    </property>
+    <property name="defaultHandler" ref="urlFilenameViewController"/>
   </bean>
 
   <bean name="openSessionInViewInterceptor"
-    class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory" />
-    </property>
-    <property name="singleSession" value="true" />
-  </bean>
+            class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="singleSession" value="true" />
+   </bean>
 
-  <!--
+    <!--
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+         <property name="order" value="0"/>
+    </bean>
+     -->
+
+    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+       <property name="order" value="0"/>
+       <property name="basename" value="views"/>
+       <property name="defaultParentView" value="parent-view"/>
+    </bean>
+
+    <!--
     Maps logical view names to Facelet templates in /WEB-INF (e.g.
     'search' to '/WEB-INF/login.xhtml'
   -->
   <bean id="faceletsViewResolver"
     class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <property name="order" value="1"/>
+
     <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
     <property name="prefix" value="/WEB-INF/controller/" />
     <property name="suffix" value=".xhtml" />
+
+   </bean>
+
+  <!--
+  This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver
+  <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="order" value="2"/>
+      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+      <property name="prefix" value="/WEB-INF/jsp/"/>
+      <property name="suffix" value=".jsp"/>
   </bean>
+  -->
+
+  <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
   <!--
     Dispatches requests mapped to
     org.springframework.web.servlet.mvc.Controller implementations
   -->
-  <bean
-    class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+  <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
   <!--
     Dispatches requests mapped to flows to FlowHandler implementations
@@ -95,7 +117,6 @@
   </bean>
 
   <!-- Message Source
-
    <bean id="messageSource"
         class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages" />
@@ -103,7 +124,7 @@
 
      -->
 
-    <!-- Create Cookie Default Locale -->
+    <!-- Create Cookie Default Locale   -->
 
     <bean id="localeResolver"
            class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
@@ -111,6 +132,8 @@
            <property name="cookieMaxAge" value="30" />
            <property name="defaultLocale" value="en" />
     </bean>
+
+
 
   <!--
     - This bean resolves specific types of exceptions to corresponding

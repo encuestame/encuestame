@@ -27,4 +27,8 @@
         <from>^/announce/(.*)$</from>
         <to>/announceController.do?id=$1</to>
     </rule>
+    <rule>
+        <from>^/signup</from>
+        <to>/register.do</to>
+    </rule>
 </urlrewrite>

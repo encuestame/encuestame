@@ -92,9 +92,9 @@
 
   <!--  reCaptcha -->
 
-   <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
+   <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl" scope="singleton">
         <property name="privateKey" value="${encuestame.recaptcha.publickey}" />
-        <property name="publicKey" value="${encuestame.recaptcha.publickey}" />
+        <property name="publicKey" value="${encuestame.recaptcha.privatekey}" />
         <property name="recaptchaServer" value="${encuestame.recaptcha.recaptchaserver}" />
         <property name="includeNoscript" value="${encuestame.recaptcha.includenoscript}" />
    </bean>

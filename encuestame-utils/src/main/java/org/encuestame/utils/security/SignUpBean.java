@@ -36,6 +36,8 @@ public class SignUpBean implements Serializable {
 
     private String email;
 
+    private String captcha;
+
     public String getFullName() {
         return fullName;
     }
@@ -66,5 +68,19 @@ public class SignUpBean implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the captcha
+     */
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    /**
+     * @param captcha the captcha to set
+     */
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 }

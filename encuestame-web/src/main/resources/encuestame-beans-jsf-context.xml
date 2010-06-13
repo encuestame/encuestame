@@ -5,14 +5,11 @@
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
   <!-- Location -->
-
     <bean id="locationBean" class="org.encuestame.web.beans.admon.location.LocationBean" scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
     </bean>
 
-
   <!-- Survey's -->
-
   <bean id="surveyFormatBean" class="org.encuestame.web.beans.survey.SurveyFormatBean"
     scope="session">
     <property name="servicemanagerBean" ref="servicesManager" />
@@ -30,7 +27,6 @@
   </bean>
 
   <!--  Tweet Poll -->
-
   <bean id="createTweetPollBean"
     class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
     scope="session">
@@ -67,14 +63,4 @@
     scope="request">
   </bean>
 
-  <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
-    <property name="privateKey" value="my private key" />
-    <property name="publicKey" value="my public key" />
-    <property name="recaptchaServer" value="http://api.recaptcha.net" />
-    <!--
-      Or, if you want to use SSL, then use this: <property
-      name="recaptchaServer" value="http://secure-api.recaptcha.net" />
-    -->
-    <property name="includeNoscript" value="false" />
-  </bean>
 </beans>
