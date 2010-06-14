@@ -26,6 +26,7 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
+import org.springframework.mail.MailSendException;
 
 /**
  * Interface for Security Service.
@@ -251,4 +252,13 @@ public interface ISecurityService extends IService {
      */
     List<UnitPermission> loadPermissions();
 
+    /**
+     * Send password to user.
+     * @param email email
+     * @param password password
+     * @throws MailSendException
+     */
+    public void sendUserPassword(final String email,
+            final String password)
+            throws MailSendException;
 }

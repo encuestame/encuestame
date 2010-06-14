@@ -23,10 +23,19 @@
 
   <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage" />
 
-  <bean id="serviceMail" class="org.encuestame.core.mail.MailServiceImpl"
-    parent="service">
+  <bean id="serviceMail" class="org.encuestame.core.mail.MailServiceImpl"  parent="service">
     <property name="mailSender" ref="mailSender" />
     <property name="templateMessage" ref="templateMessage" />
     <property name="noEmailResponse" value="${mail.noresponse}" />
+    <property name="velocityEngine" ref="velocityEngine"/>
   </bean>
+
+  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
 </beans>

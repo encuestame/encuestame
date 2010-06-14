@@ -12,13 +12,23 @@
  */
 package org.encuestame.core.mail;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.IService;
+import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.core.service.IService;
+import org.encuestame.utils.security.SignUpBean;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**
  * Class Implements a Mail Service.
@@ -36,6 +46,8 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
     private JavaMailSenderImpl mailSender;
     /** template of message. **/
     private SimpleMailMessage templateMessage;
+    /** VelocityEngine. **/
+    private VelocityEngine velocityEngine;
 
     /**
      * setter mail sender.
@@ -144,6 +156,37 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
     }
 
     /**
+     * Send Password Confirmation Email.
+     * @param user
+     */
+    public void sendPasswordConfirmationEmail(final SignUpBean user) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(user.getEmail());
+              message.setFrom("webmaster@csonth.gov.uk"); // could be parameterized...
+              Map model = new HashMap();
+              model.put("user", user);
+              String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, "password-confirmation.vm", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
+
+    /**
+     * Send Mime Message.
+     * @param preparator
+     * @throws MailSendException
+     */
+    public void send(final MimeMessagePreparator preparator) throws MailSendException {
+        this.mailSender.send(preparator);
+        log.debug("mail.succesful");
+    }
+
+
+    /**
      *getter of no email response.
      * @return noEmailResponse
      */
@@ -157,5 +200,19 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
      */
     public void setNoEmailResponse(final String noEmailResponse) {
         this.noEmailResponse = noEmailResponse;
+    }
+
+    /**
+     * @return the velocityEngine
+     */
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
+
+    /**
+     * @param velocityEngine the velocityEngine to set
+     */
+    public void setVelocityEngine(final VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
     }
 }

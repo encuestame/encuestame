@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.mail;
 
+import org.encuestame.utils.security.SignUpBean;
 import org.springframework.mail.MailSendException;
 
 /**
@@ -31,5 +32,11 @@ public interface MailService {
      */
     public void send(final String to, final String subject, final String text)
     throws MailSendException;
+
+    /**
+     * Send Password Confirmation Email.
+     * @param user
+     */
+    public void sendPasswordConfirmationEmail(final SignUpBean user);
 
 }

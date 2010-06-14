@@ -545,6 +545,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         this.assingPermission(secUserSecondary, permissions);
         //Create login.
         setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
+        if(this.suspendedNotification){
+            getServiceMail().sendPasswordConfirmationEmail(singUpBean);
+        }
         log.info("new user "+secUserSecondary.getUsername());
         log.info("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary);
@@ -612,7 +615,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public void inviteUser(String email, String code){
         getServiceMail().sendInvitation(email, code);
-
     }
 
     /**
@@ -629,7 +631,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param password password
      * @throws MailSendException
      */
-    private void sendUserPassword(final String email,
+    public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
         getServiceMail().send(email, getMessageProperties("NewPassWordMail"),

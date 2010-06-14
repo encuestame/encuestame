@@ -410,7 +410,7 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.1</version>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>
@@ -940,6 +940,11 @@
                         <artifactId>ehcache</artifactId>
                     </exclusion>
                 </exclusions>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.6.2</version>
          </dependency>
     </dependencies>
 </project>
