@@ -186,6 +186,10 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <url-pattern>/user/*</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
 	</servlet-mapping>

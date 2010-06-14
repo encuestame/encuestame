@@ -12,6 +12,8 @@
  */
 package org.encuestame.mvc.controller.security;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptcha;
@@ -20,9 +22,13 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.ISecurityService;
+import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,50 +49,79 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 @Controller
 @SessionAttributes(types = SignUpBean.class)
-public class RegisterFormController extends BaseController {
+public class SignUpAccountFormController extends BaseController {
 
-     private Log log = LogFactory.getLog(this.getClass());
 
+    private Log log = LogFactory.getLog(this.getClass());
+
+     /**
+      * {@link ReCaptcha}.
+      */
     private ReCaptcha reCaptcha;
 
+    /**
+     * {@link ISecurityService}.
+     */
     private ISecurityService securityService;
 
-    @RequestMapping(value = "/register" , method = RequestMethod.GET)
+    @RequestMapping(value = "/signup" , method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
         final SignUpBean user = new SignUpBean();
-        this.reCaptcha = ReCaptchaFactory.newReCaptcha("6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU", "6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd", false);
-        String captcha = this.reCaptcha.createRecaptchaHtml(null, null);
-        log.info("reCaptcha "+reCaptcha.createRecaptchaHtml(null, null));
+        final String captcha = this.reCaptcha.createRecaptchaHtml(null, null);
         user.setCaptcha(captcha);
+        log.info("username "+user.getCaptcha());
         model.addAttribute(user);
         return "registerJSP";
     }
 
+    /**
+     * Process Submit.
+     * @param req
+     * @param challenge
+     * @param response
+     * @param user
+     * @param result
+     * @param status
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(
         HttpServletRequest req,
         @RequestParam("recaptcha_challenge_field") String challenge,
         @RequestParam("recaptcha_response_field") String response,
         @ModelAttribute SignUpBean user, BindingResult result, SessionStatus status) {
-             ReCaptchaResponse reCaptchaResponse
-                 = reCaptcha.checkAnswer(req.getRemoteAddr(), challenge, response);
-            //UserValidator userValidator = new UserValidator(userDao);
-             log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
-             log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
-
-            //userValidator.validate(user, result, reCaptchaResponse);
+             log.info("recaptcha_challenge_field "+challenge);
+             log.info("recaptcha_response_field "+response);
+             final String email = user.getEmail();
+             final String username = user.getUsername();
+             log.info("username "+username);
+             log.info("password "+email);
+             final ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(req.getRemoteAddr(), challenge, response);
+             final ControllerValidation validation = new ControllerValidation(getSecurityService());
+             if(!validation.validateUsername(username)){
+                 log.warn("Username NOT VALID");
+                 result.rejectValue("username", "Username Exits", new Object[]{user.getUsername()}, "");
+             }
+             if(!reCaptchaResponse.isValid()){
+                 log.warn("Captcha NOT VALID");
+                 result.rejectValue("captcha", "Captcha Not Valid");
+             }
+            log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
+            log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
             log.info("result.hasErrors() "+result.hasErrors());
             if (result.hasErrors()) {
                 return "registerJSP";
             }
             else {
-                final String username = user.getUsername();
-                final String password = user.getPassword();
-                //user = this.securityService.
-                //status.setComplete();
-                //log.info("New User with userId: " + user.getId() + " added at " + new Date());
-                //authenticate(req, username, password);
+                final String password = PasswordGenerator.getPassword(6);
+                user.setPassword(password);
+                //create
+                final UnitUserBean unitUserBean = getSecurityService().singupUser(user);
+                status.setComplete();
+                log.info("password generated "+password);
+                log.info("New User with userId: " + unitUserBean.getId() + " added at " + new Date());
+                authenticate(req, username, password);
                 return "redirect:/index.html";
             }
     }

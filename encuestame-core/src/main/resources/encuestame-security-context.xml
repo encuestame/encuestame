@@ -93,8 +93,8 @@
   <!--  reCaptcha -->
 
    <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl" scope="singleton">
-        <property name="privateKey" value="${encuestame.recaptcha.publickey}" />
-        <property name="publicKey" value="${encuestame.recaptcha.privatekey}" />
+        <property name="privateKey" value="6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd" />
+        <property name="publicKey" value="6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU" />
         <property name="recaptchaServer" value="${encuestame.recaptcha.recaptchaserver}" />
         <property name="includeNoscript" value="${encuestame.recaptcha.includenoscript}" />
    </bean>

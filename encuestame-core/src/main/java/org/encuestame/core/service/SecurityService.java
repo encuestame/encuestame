@@ -72,6 +72,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /** Anonnymous User. **/
     private static final String ANONYMOUS = "ENCUESTAME_ANONYMOUS";
+
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
 

@@ -14,7 +14,10 @@
 package org.encuestame.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.aspectj.apache.bcel.verifier.statics.Pass1Verifier;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
@@ -22,6 +25,14 @@ import org.encuestame.core.service.ServiceManager;
 import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.TweetPollService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.AuthenticationProcessingFilter;
+import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -34,11 +45,17 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 public class BaseController {
 
+     private Logger log = Logger.getLogger(this.getClass());
+
     /**
      * {@link ServiceManager}.
      */
     @Autowired
     private IServiceManager serviceManager;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 
     /**
      * @return the serviceManager
@@ -75,6 +92,33 @@ public class BaseController {
     }
 
     /**
+     * Authenticate.
+     * @param request {@link HttpServletRequest}
+     * @param username username
+     * @param password password
+     */
+    protected void authenticate(HttpServletRequest request, final String username, final String password) {
+        try{
+            final UsernamePasswordAuthenticationToken usernameAndPassword = new UsernamePasswordAuthenticationToken(username, password);
+            final HttpSession session = request.getSession();
+            session.setAttribute(
+                    AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
+                    username);
+
+            final Authentication auth = getAuthenticationManager().authenticate(usernameAndPassword);
+
+            final SecurityContext securityContext = SecurityContextHolder.getContext();
+            securityContext.setAuthentication(auth);
+            session.setAttribute( HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY, securityContext);
+
+        }
+        catch (AuthenticationException e) {
+            SecurityContextHolder.getContext().setAuthentication(null);
+            log.error("Authenticate", e);
+        }
+    }
+
+    /**
      * @param serviceManager
      *            the serviceManager to set
      */
@@ -96,5 +140,19 @@ public class BaseController {
      */
     public ITweetPollService getTweetPollService(){
         return getServiceManager().getApplicationServices().getTweetPollService();
+    }
+
+    /**
+     * @return the authenticationManager
+     */
+    public AuthenticationManager getAuthenticationManager() {
+        return authenticationManager;
+    }
+
+    /**
+     * @param authenticationManager the authenticationManager to set
+     */
+    public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 }

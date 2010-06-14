@@ -27,7 +27,7 @@ INSERT INTO `sec_groups` (`group_id`, `des_info`, `name`, `id_state`) VALUES
 INSERT INTO `sec_permission` (`id_permission`, `permission`, `description`) VALUES
 (1, 'ENCUESTAME_USER', 'ENCUESTAME_USER'),
 (2, 'ENCUESTAME_ADMIN', 'ENCUESTAME_ADMIN'),
-(3, 'ENCUESTAME_ADMIN', 'ENCUESTAME_OWNER'),
+(3, 'ENCUESTAME_OWNER', 'ENCUESTAME_OWNER'),
 (4, 'ENCUESTAME_PUBLISHER', 'ENCUESTAME_PUBLISHER'),
 (5, 'ENCUESTAME_EDITOR', 'ENCUESTAME_EDITOR');
 
