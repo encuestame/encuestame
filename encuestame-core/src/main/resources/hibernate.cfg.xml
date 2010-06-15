@@ -3,14 +3,12 @@
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory name="encuestame">
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/encuestame_core</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.default_catalog">encuestame_core</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-        <property name="show_sql">true</property>
-        <property name="format_sql">true</property>
+        <property name="hibernate.connection.driver_class">${hibernate.datasource.classname}</property>
+        <property name="hibernate.connection.url">${hibernate.datasource.core.urldb}</property>
+        <property name="hibernate.connection.username">${hibernate.datasource.user}</property>
+        <property name="hibernate.connection.password">${hibernate.datasource.password}</property>
+        <property name="hibernate.dialect">${hibernate.datasource.dialect}</property>
+        <property name="show_sql">${hibernate.datasource.showsql}</property>
         <mapping class="org.encuestame.core.persistence.pojo.CatState"/>
         <mapping class="org.encuestame.core.persistence.pojo.Project"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatLocation"/>
