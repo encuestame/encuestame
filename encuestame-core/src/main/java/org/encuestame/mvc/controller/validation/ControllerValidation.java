@@ -12,9 +12,18 @@
  */
 package org.encuestame.mvc.controller.validation;
 
+import java.util.regex.Pattern;
+
+import net.tanesha.recaptcha.ReCaptchaResponse;
+
+import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.ISecurityService;
+import org.encuestame.core.service.util.ValidationUtils;
+import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.Errors;
 
 /**
  * Controller Validation.
@@ -23,6 +32,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version $Id:$
  */
 public class ControllerValidation {
+
+    private static final Pattern emailPattern = Pattern.compile(ValidationUtils.EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
+
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      *
@@ -46,6 +59,43 @@ public class ControllerValidation {
             valid = true;
         }
         return valid;
+    }
+
+    /**
+     * Validate User By Email.
+     * @param email email
+     * @return
+     */
+    public UnitUserBean validateUserByEmail(final String email){
+        UnitUserBean unitUserBean = null;
+        if(this.validateEmail(email)) {
+            unitUserBean = getSecurityService().findUserByEmail(email);
+        }
+        return unitUserBean;
+    }
+
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public Boolean validateEmail(final String email){
+        Boolean valid = false;
+        if(emailPattern.matcher(email).matches() && StringUtils.hasLength(email)) {
+            log.warn("Captcha NOT VALID");
+            valid = !valid;
+        }
+        return valid;
+    }
+
+    /**
+     *
+     */
+    public void validateCaptcha(final ReCaptchaResponse reCaptchaResponse, final Errors errors){
+        if(!reCaptchaResponse.isValid()){
+            log.warn("Captcha NOT VALID");
+            errors.rejectValue("captcha", "Captcha Not Valid");
+        }
     }
 
     /**

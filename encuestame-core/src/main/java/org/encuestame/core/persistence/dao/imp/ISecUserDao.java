@@ -84,4 +84,11 @@ public interface ISecUserDao extends IBaseDao {
      */
     List<SecUserSecondary> searchUsersByEmail(final String email);
 
+    /**
+     * Get one user by email.
+     * @param email
+     * @return
+     */
+    SecUserSecondary getUserByEmail(final String email);
+
 }

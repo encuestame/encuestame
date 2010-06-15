@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.security.SignUpBean;
@@ -49,7 +50,6 @@ public class ForgetPasswordController extends AbstractSecurityController{
             final UnitForgotPassword forgot = new UnitForgotPassword();
             final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
             forgot.setCaptcha(captcha);
-            log.info("username "+forgot.getCaptcha());
             model.addAttribute(forgot);
             return "forgot";
         }
@@ -73,13 +73,14 @@ public class ForgetPasswordController extends AbstractSecurityController{
                  log.info("recaptcha_challenge_field "+challenge);
                  log.info("recaptcha_response_field "+response);
                  final String email = user.getEmail();
-
-                 log.info("password "+email);
+                 log.debug("email "+email);
                  final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
                  final ControllerValidation validation = new ControllerValidation(getSecurityService());
-
-                 //TODO: validate password.
-
+                 final UnitUserBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
+                 if(unitUserBean == null){
+                     result.rejectValue("email", "Email Not Valid", new Object[]{user.getEmail()}, "");
+                 }
+                 validation.validateCaptcha(reCaptchaResponse, result);
                 log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
                 log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
                 log.info("result.hasErrors() "+result.hasErrors());
@@ -88,13 +89,16 @@ public class ForgetPasswordController extends AbstractSecurityController{
                 }
                 else {
                     final String password = PasswordGenerator.getPassword(6);
-                    //TODO: send new password
-                    //create
-                    //final UnitUserBean unitUserBean = getSecurityService().singupUser(user);
-                    status.setComplete();
+                    try {
+                        getSecurityService().renewPassword(unitUserBean, password);
+                    } catch (EnMeExpcetion e) {
+                        e.printStackTrace();
+                        log.error("Error Renewd password "+e.getMessage());
+                        return "forgot";
+                    }
+                     status.setComplete();
                     log.info("password generated "+password);
-                    return "redirect:/singup";
+                    return "redirect:/user/signup";
                 }
         }
-
 }

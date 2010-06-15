@@ -87,6 +87,17 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     }
 
     /**
+     * Get one user by email.
+     * @param email
+     * @return
+     */
+    public SecUserSecondary getUserByEmail(final String email){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
+        criteria.add(Restrictions.eq("userEmail", email) );
+        return (SecUserSecondary) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
      * Get list of users by username.
      * @param username username
      * @return list of users

@@ -258,7 +258,14 @@ public interface ISecurityService extends IService {
      * @param password password
      * @throws MailSendException
      */
-    public void sendUserPassword(final String email,
+    void sendUserPassword(final String email,
             final String password)
             throws MailSendException;
+
+    /**
+     * Find {@link SecUserSecondary} by UserName
+     * @param username user name
+     * @return {@link SecUserSecondary}
+     */
+    UnitUserBean findUserByEmail(final String email);
 }

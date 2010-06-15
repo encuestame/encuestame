@@ -23,6 +23,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.IService;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -164,7 +165,8 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(user.getEmail());
-              message.setFrom("webmaster@csonth.gov.uk"); // could be parameterized...
+              message.setSubject("New Password Confirmation");
+              message.setFrom(noEmailResponse);
               Map model = new HashMap();
               model.put("user", user);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
@@ -173,6 +175,46 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            }
         };
         send(preparator);
+     }
+
+    /**
+     * Send Renew Password Email.
+     * @param unitUserBean {@link UnitUserBean}.
+     */
+    public void sendRenewPasswordEmail(final UnitUserBean unitUserBean){
+        final Map<String, UnitUserBean> model = new HashMap<String, UnitUserBean>();
+        model.put("user", unitUserBean);
+        this.sendMimeEmail(model, unitUserBean.getEmail(), "Your New Password", this.noEmailResponse,
+                           "renew-password.vm");
+    }
+
+    /**
+     * Send Mime Email.
+     * @param model
+     * @param email
+     * @param subject
+     * @param from
+     * @param template
+     */
+    @SuppressWarnings("unchecked")
+    public void sendMimeEmail(
+            final Map model,
+            final String email,
+            final String subject,
+            final String from,
+            final String template) {
+        final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              final MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(email);
+              message.setSubject(subject);
+              message.setFrom(from);
+              final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, template, model);
+              message.setText(text, true);
+           }
+        };
+        this.send(preparator);
      }
 
     /**

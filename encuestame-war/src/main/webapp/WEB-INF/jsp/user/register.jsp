@@ -1,21 +1,5 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>encuestame</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/default.css" />" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/user.css" />" />
-    <style type="css">
-        img{ border:0px;}
-    </style>
-</head>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
 <body>
     <div id="mainUserWrapper">
         <div class="form">
@@ -46,7 +30,7 @@
                         <input type="submit" class="input-submit" name="submit" value="Submit" />
                     </div>
             </form:form>
+            <a href="forgot">Forgot Password?</a>
         </div>
     </div>
-</body>
-</html>
+<%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

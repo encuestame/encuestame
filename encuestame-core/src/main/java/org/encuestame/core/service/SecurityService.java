@@ -87,6 +87,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * Find {@link SecUserSecondary} by UserName
+     * @param username user name
+     * @return {@link SecUserSecondary}
+     */
+    public UnitUserBean findUserByEmail(final String email) {
+        return ConvertDomainBean.convertSecondaryUserToUserBean(getSecUserDao().getUserByEmail(email));
+    }
+
+
+    /**
      * Load list of users.
      * @return list of users with groups and permission
      * @throws Exception
@@ -252,9 +262,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         if (userDomain != null && newPassword != null) {
             //set new password
             userDomain.setPassword(EnMePasswordUtils.encryptPassworD(newPassword));
+            //TODO: security risk?
+            userBean.setPassword(newPassword);
             //if notification is suspended we need retrieve password
             if (getSuspendedNotification()) {
-                sendUserPassword(userDomain.getUserEmail().trim(), newPassword);
+                getServiceMail().sendRenewPasswordEmail(userBean);
             }
             //saving user.
             getSecUserDao().saveOrUpdate(userDomain);

@@ -18,15 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.core.service.ISecurityService;
-import org.encuestame.mvc.controller.BaseController;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitUserBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -83,14 +78,17 @@ public class SignUpAccountFormController extends AbstractSecurityController {
              log.info("password "+email);
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ControllerValidation validation = new ControllerValidation(getSecurityService());
+
+             if(!validation.validateEmail(email)){
+                   log.warn("Email NOT VALID");
+                   result.rejectValue("email", "Email not valid", new Object[]{user.getEmail()}, "");
+             }
              if(!validation.validateUsername(username)){
                  log.warn("Username NOT VALID");
                  result.rejectValue("username", "Username Exits", new Object[]{user.getUsername()}, "");
              }
-             if(!reCaptchaResponse.isValid()){
-                 log.warn("Captcha NOT VALID");
-                 result.rejectValue("captcha", "Captcha Not Valid");
-             }
+            //validate captcha
+            validation.validateCaptcha(reCaptchaResponse, result);
             log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
             log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
             log.info("result.hasErrors() "+result.hasErrors());
