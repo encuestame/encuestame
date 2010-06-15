@@ -16,6 +16,8 @@ package org.encuestame.mvc.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.tanesha.recaptcha.ReCaptcha;
+
 import org.apache.log4j.Logger;
 import org.aspectj.apache.bcel.verifier.statics.Pass1Verifier;
 import org.encuestame.core.service.IServiceManager;
@@ -45,7 +47,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 public class BaseController {
 
-     private Logger log = Logger.getLogger(this.getClass());
+     protected Logger log = Logger.getLogger(this.getClass());
+
+     /**
+      * {@link ReCaptcha}.
+      */
+     private ReCaptcha reCaptcha;
+
 
     /**
      * {@link ServiceManager}.
@@ -154,5 +162,22 @@ public class BaseController {
      */
     public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
+    }
+
+
+    /**
+     * @return the reCaptcha
+     */
+    public ReCaptcha getReCaptcha() {
+        return reCaptcha;
+    }
+
+    /**
+     * @param reCaptcha
+     *            the reCaptcha to set
+     */
+    @Autowired
+    public void setReCaptcha(final ReCaptcha reCaptcha) {
+        this.reCaptcha = reCaptcha;
     }
 }

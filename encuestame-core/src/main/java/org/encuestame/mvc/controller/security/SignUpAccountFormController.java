@@ -16,15 +16,12 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.tanesha.recaptcha.ReCaptcha;
-import net.tanesha.recaptcha.ReCaptchaFactory;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.ISecurityService;
-import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.mvc.controller.BaseController;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.security.SignUpBean;
@@ -49,26 +46,13 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 @Controller
 @SessionAttributes(types = SignUpBean.class)
-public class SignUpAccountFormController extends BaseController {
-
-
-    private Log log = LogFactory.getLog(this.getClass());
-
-     /**
-      * {@link ReCaptcha}.
-      */
-    private ReCaptcha reCaptcha;
-
-    /**
-     * {@link ISecurityService}.
-     */
-    private ISecurityService securityService;
+public class SignUpAccountFormController extends AbstractSecurityController {
 
     @RequestMapping(value = "/signup" , method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
         final SignUpBean user = new SignUpBean();
-        final String captcha = this.reCaptcha.createRecaptchaHtml(null, null);
+        final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
         user.setCaptcha(captcha);
         log.info("username "+user.getCaptcha());
         model.addAttribute(user);
@@ -97,7 +81,7 @@ public class SignUpAccountFormController extends BaseController {
              final String username = user.getUsername();
              log.info("username "+username);
              log.info("password "+email);
-             final ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(req.getRemoteAddr(), challenge, response);
+             final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ControllerValidation validation = new ControllerValidation(getSecurityService());
              if(!validation.validateUsername(username)){
                  log.warn("Username NOT VALID");
@@ -125,36 +109,4 @@ public class SignUpAccountFormController extends BaseController {
                 return "redirect:/index.html";
             }
     }
-
-    /**
-     * @return the reCaptcha
-     */
-    public ReCaptcha getReCaptcha() {
-        return reCaptcha;
-    }
-
-    /**
-     * @param reCaptcha
-     *            the reCaptcha to set
-     */
-    @Autowired
-    public void setReCaptcha(final ReCaptcha reCaptcha) {
-        this.reCaptcha = reCaptcha;
-    }
-
-    /**
-     * @return the securityService
-     */
-    public ISecurityService getSecurityService() {
-        return securityService;
-    }
-
-    /**
-     * @param securityService the securityService to set
-     */
-    @Autowired
-    public void setSecurityService(final ISecurityService securityService) {
-        this.securityService = securityService;
-    }
-
 }
