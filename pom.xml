@@ -109,7 +109,7 @@
                 <updatePolicy>never</updatePolicy>
             </snapshots>
         </repository>
-        <repository>
+        <!--<repository>
             <id>twitter4j.org</id>
             <name>twitter4j.org Repository</name>
             <url>http://twitter4j.org/maven2</url>
@@ -119,8 +119,7 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-
+        </repository>-->
         <repository>
             <id>com.springsource.repository.bundles.release</id>
             <name>SpringSource Bundle Releases</name>
@@ -130,12 +129,6 @@
             <id>com.springsource.repository.bundles.external</id>
             <name>SpringSource External Bundle Releases</name>
             <url>http://repository.springsource.com/maven/bundles/external</url>
-        </repository>
-        <repository>
-            <id>prime-repo</id>
-            <name>Prime Technology Maven_Repository</name>
-            <url>http://repository.prime.com.tr</url>
-            <layout>default</layout>
         </repository>
         <repository>
             <releases>

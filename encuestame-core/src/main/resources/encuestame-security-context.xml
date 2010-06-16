@@ -42,9 +42,10 @@
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
     <!-- Account Paths -->
-    <security:intercept-url pattern="/account/login.do" access="ENCUESTAME_ANONYMOUS, ENCUESTAME_USER"/>
-    <security:intercept-url pattern="/account/forget.do" access="ENCUESTAME_ANONYMOUS, ENCUESTAME_USER"/>
-    <security:intercept-url pattern="/account/signup.do" access="ENCUESTAME_ANONYMOUS, ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/user/signin" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/forgot" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/signup" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER"/>
     <!-- User Paths -->
     <security:intercept-url pattern="/tweetPoll.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />
     <security:intercept-url pattern="/poll.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
