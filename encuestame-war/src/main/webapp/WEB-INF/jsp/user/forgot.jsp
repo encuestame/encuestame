@@ -22,6 +22,7 @@
                         <input type="submit" class="input-submit" name="submit" value="Submit" />
                     </div>
             </form:form>
+             <a href="<%=request.getContextPath()%>/user/signin">Sign In</a>
         </div>
     </div>
 <%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

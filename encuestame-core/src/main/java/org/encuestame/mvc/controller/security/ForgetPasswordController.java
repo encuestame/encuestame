@@ -12,8 +12,6 @@
  */
 package org.encuestame.mvc.controller.security;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -21,7 +19,6 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
-import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitForgotPassword;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.stereotype.Controller;
@@ -44,7 +41,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(types = UnitForgotPassword.class)
 public class ForgetPasswordController extends AbstractSecurityController{
 
-        @RequestMapping(value = "/forgot" , method = RequestMethod.GET)
+        @RequestMapping(value = "/user/forgot.html" , method = RequestMethod.GET)
         public String addHandler(Model model) {
             log.info("/forgot");
             final UnitForgotPassword forgot = new UnitForgotPassword();

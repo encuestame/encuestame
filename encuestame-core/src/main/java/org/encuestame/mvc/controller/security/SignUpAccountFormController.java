@@ -43,7 +43,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(types = SignUpBean.class)
 public class SignUpAccountFormController extends AbstractSecurityController {
 
-    @RequestMapping(value = "/signup" , method = RequestMethod.GET)
+    @RequestMapping(value = "/user/signup.html" , method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
         final SignUpBean user = new SignUpBean();

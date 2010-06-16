@@ -28,7 +28,19 @@
         <to>/announceController.do?id=$1</to>
     </rule>
     <rule>
-        <from>^/signup</from>
-        <to>/register.do</to>
+        <from>^/user/signin</from>
+        <to>/signin.html</to>
+    </rule>
+    <rule>
+      <from>^/signin.html</from>
+      <to type="redirect">user/signin</to>
+    </rule>
+    <rule>
+        <from>^/user/signup</from>
+        <to>/user/signup.html</to>
+    </rule>
+    <rule>
+        <from>^/user/forgot</from>
+        <to>/user/forgot.html</to>
     </rule>
 </urlrewrite>

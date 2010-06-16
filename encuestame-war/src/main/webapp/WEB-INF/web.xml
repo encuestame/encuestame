@@ -183,17 +183,13 @@
 
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-        <url-pattern>/user/*</url-pattern>
-    </servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.faces</url-pattern>
-	</servlet-mapping>
+<!--	<servlet-mapping>-->
+<!--		<servlet-name>Faces Servlet</servlet-name>-->
+<!--		<url-pattern>*.faces</url-pattern>-->
+<!--	</servlet-mapping>-->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

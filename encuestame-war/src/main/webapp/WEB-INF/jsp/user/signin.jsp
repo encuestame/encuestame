@@ -25,8 +25,8 @@
         </form>
       </div>
       <div>
-        <a href="signup">Register</a>
-        <a href="forgot">Forget Your Password?</a>
+        <a href="<%=request.getContextPath()%>/user/signup">Register</a>
+        <a href="<%=request.getContextPath()%>/user/forgot">Forget Your Password?</a>
       </div>
     </div>
 <%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

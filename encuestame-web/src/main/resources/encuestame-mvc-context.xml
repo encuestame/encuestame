@@ -34,17 +34,15 @@
   <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
     <property name="mappings">
       <value>
-        /main.do=flowController
-        /account/signup.do=flowController
-        /account/forget.do=flowController
-        /admon/groups.do=flowController
-        /admon/users.do=flowController
-        /admon/location.do=flowController
-        /admon/project.do=flowController
-        /tweetpoll.do=flowController
-        /poll.do=flowController
-        /survey.do=flowController
-        /user/resister.do=urlFilenameViewController
+        /main.html=flowController
+        /admon/groups.html=flowController
+        /admon/users.html=flowController
+        /admon/location.html=flowController
+        /admon/project.html=flowController
+        /tweetpoll.html=flowController
+        /poll.html=flowController
+        /survey.html=flowController
+        /user/resister.html=urlFilenameViewController
        </value>
     </property>
     <property name="defaultHandler" ref="urlFilenameViewController"/>

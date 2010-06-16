@@ -30,7 +30,7 @@
                         <input type="submit" class="input-submit" name="submit" value="Submit" />
                     </div>
             </form:form>
-            <a href="forgot">Forgot Password?</a>
+            <a href="<%=request.getContextPath()%>/user/forgot">Forgot Password?</a>
         </div>
     </div>
 <%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

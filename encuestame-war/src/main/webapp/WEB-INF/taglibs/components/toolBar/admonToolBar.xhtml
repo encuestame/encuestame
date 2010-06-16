@@ -12,10 +12,10 @@
         <a4j:form ajaxSubmit="true" ignoreDupResponses="true">
             <h:panelGrid columns="6">
                 <sec:authorize access="hasRole('ENCUESTAME_ADMIN')">
-                    <a class="space" href="${request.contextPath}/admon/groups.do">#{temp.groups}</a>
-                    <a class="space" href="${request.contextPath}/admon/users.do">#{temp.users}</a>
-                    <a class="space" href="${request.contextPath}/admon/project.do">#{temp.proyects}</a>
-                    <a class="space" href="${request.contextPath}/admon/location.do">#{temp.location}</a>
+                    <a class="space" href="${request.contextPath}/admon/groups.html">#{temp.groups}</a>
+                    <a class="space" href="${request.contextPath}/admon/users.html">#{temp.users}</a>
+                    <a class="space" href="${request.contextPath}/admon/project.html">#{temp.proyects}</a>
+                    <a class="space" href="${request.contextPath}/admon/location.html">#{temp.location}</a>
                 </sec:authorize>
                 <a4j:commandLink value="#{temp.geo}" action="geo"></a4j:commandLink>
                 <a4j:commandLink value="#{temp.permission}" action="locationPer"></a4j:commandLink>

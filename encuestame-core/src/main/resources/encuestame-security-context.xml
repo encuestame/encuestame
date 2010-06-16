@@ -32,39 +32,34 @@
   <bean id="authenticationEntryPoint"
     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
     <property name="loginFormUrl" value="${spring.sec.loginPath}" />
-    <property name="forceHttps" value="${spring.sec.forceAllSSL}" />
+    <property name="forceHttps" value="${spring.sec.forceLoginSSL}" />
   </bean>
 
   <security:http auto-config="false"
                  entry-point-ref="authenticationEntryPoint"
                  access-decision-manager-ref="voteAccessDecisionManager">
-    <security:intercept-url pattern="index.html" filters="none" />
+    <security:intercept-url pattern="index.jsp" filters="none" />
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
     <!-- Account Paths -->
-    <security:intercept-url pattern="/user/signin" access="ENCUESTAME_ANONYMOUS"/>
-    <security:intercept-url pattern="/user/forgot" access="ENCUESTAME_ANONYMOUS"/>
-    <security:intercept-url pattern="/user/signup" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/signin.html" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/forgot.html" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/signup.html" access="ENCUESTAME_ANONYMOUS"/>
     <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER"/>
     <!-- User Paths -->
-    <security:intercept-url pattern="/tweetPoll.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />
-    <security:intercept-url pattern="/poll.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
-    <security:intercept-url pattern="/survey.do" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+    <security:intercept-url pattern="/dashboard.html" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/tweetPoll.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />
+    <security:intercept-url pattern="/poll.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+    <security:intercept-url pattern="/survey.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
     <!-- Vote Paths -->
-    <security:intercept-url pattern="/tweet/*" filters="none" />
-    <security:intercept-url pattern="/**/*.xhtml" filters="none" />
-    <security:intercept-url pattern="/**/*.css"  filters="none" />
-    <security:intercept-url pattern="/images/**" filters="none" />
-    <security:intercept-url pattern="/js/**" filters="none" />
+    <security:intercept-url pattern="/tweet/*" access="ENCUESTAME_USER" />
+    <security:intercept-url pattern="/resources/*"  filters="none" />
     <security:remember-me key="${spring.sec.rememberMe.key}" services-alias="_rememberMeServices" />
-    <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS"
-     key="${spring.sec.anonymous.key}" />
+    <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
     <security:logout logout-success-url="${spring.sec.login.sucess}" invalidate-session="true"
                      logout-url="${spring.sec.logout.url}"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
   </security:http>
-
-
 
   <!-- This element is used to enable annotation-based security -->
   <security:global-method-security secured-annotations="enabled" />
