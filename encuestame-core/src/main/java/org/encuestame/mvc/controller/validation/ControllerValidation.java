@@ -94,7 +94,7 @@ public class ControllerValidation {
     public void validateCaptcha(final ReCaptchaResponse reCaptchaResponse, final Errors errors){
         if(!reCaptchaResponse.isValid()){
             log.warn("Captcha NOT VALID");
-            errors.rejectValue("captcha", "Captcha Not Valid");
+            errors.rejectValue("captcha", "secure.captcha.invalid");
         }
     }
 

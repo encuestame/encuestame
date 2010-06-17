@@ -81,11 +81,11 @@ public class SignUpAccountFormController extends AbstractSecurityController {
 
              if(!validation.validateEmail(email)){
                    log.warn("Email NOT VALID");
-                   result.rejectValue("email", "Email not valid", new Object[]{user.getEmail()}, "");
+                   result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
              }
              if(!validation.validateUsername(username)){
                  log.warn("Username NOT VALID");
-                 result.rejectValue("username", "Username Exits", new Object[]{user.getUsername()}, "");
+                 result.rejectValue("username", "secure.user.notvalid", new Object[]{user.getUsername()}, "");
              }
             //validate captcha
             validation.validateCaptcha(reCaptchaResponse, result);

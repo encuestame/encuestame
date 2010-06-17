@@ -37,7 +37,7 @@
 
   <security:http auto-config="false"
                  entry-point-ref="authenticationEntryPoint"
-                 access-decision-manager-ref="voteAccessDecisionManager">
+                 access-decision-manager-ref="voteAccessDecisionManager" access-denied-page="${spring.sec.login.denied}">
     <security:intercept-url pattern="index.jsp" filters="none" />
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
@@ -58,17 +58,26 @@
     <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
     <security:logout logout-success-url="${spring.sec.login.sucess}" invalidate-session="true"
                      logout-url="${spring.sec.logout.url}"/>
-    <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
+    <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
   </security:http>
 
   <!-- This element is used to enable annotation-based security -->
   <security:global-method-security secured-annotations="enabled" />
 
-  <bean id="authenticationFilter"
-    class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
-    <property name="authenticationManager" ref="authenticationManager" />
-    <property name="filterProcessesUrl" value="/j_spring_security_check" />
+  <bean id="authenticationProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+      <property name="authenticationManager" ref="authenticationManager"/>
+      <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+      <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+      <property name="filterProcessesUrl" value="/j_spring_security_check"/>
   </bean>
+
+   <bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+       <property name="defaultTargetUrl" value="/dashboard.html"/>
+   </bean>
+
+   <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+       <property name="defaultFailureUrl" value="${spring.sec.login.error}"/>
+   </bean>
 
   <bean id="voteAccessDecisionManager"
     class="org.springframework.security.access.vote.AffirmativeBased">

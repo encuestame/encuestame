@@ -75,7 +75,7 @@ public class ForgetPasswordController extends AbstractSecurityController{
                  final ControllerValidation validation = new ControllerValidation(getSecurityService());
                  final UnitUserBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
                  if(unitUserBean == null){
-                     result.rejectValue("email", "Email Not Valid", new Object[]{user.getEmail()}, "");
+                     result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
                  }
                  validation.validateCaptcha(reCaptchaResponse, result);
                 log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
