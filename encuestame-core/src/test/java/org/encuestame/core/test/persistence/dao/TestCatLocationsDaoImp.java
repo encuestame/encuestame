@@ -52,7 +52,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     }
 */
     /**
-     * Test LocationByTypeLocationId.
+     * Test LocationByTypeLocationId..
      **/
     @Test
     public void getLocationByTypeLocationId()
