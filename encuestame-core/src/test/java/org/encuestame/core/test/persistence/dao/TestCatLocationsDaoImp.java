@@ -33,7 +33,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     private SecUsers userPrimary;
 
     /**
-     * Before.
+     * Before..
      */
     @Before
     public void initService(){
