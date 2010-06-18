@@ -22,7 +22,14 @@ padding-top: 130px;
 
 #loginWrapper div.forgotPassword a{
     color: #000;
+    text-decoration: none;
 }
+
+#loginWrapper div.forgotPassword a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
 
 #loginWrapper div.field div.label{
     float: left;
@@ -32,9 +39,20 @@ padding-top: 130px;
     width: 90px;
 }
 
-#loginWrapper div.field div.output input{
+#loginWrapper div.field div.output input[type="text"]{
     height: 20px;
-    width: 243px;
+    width: 275px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+#loginWrapper div.field div.output label{
+    margin-left: 90px;
+}
+
+#loginWrapper div.field div.output input[type="password"]{
+    height: 20px;
+    width: 275px;
     font-size: 16px;
     font-weight: normal;
 }
@@ -46,6 +64,10 @@ padding-top: 130px;
 #loginWrapper div.buttonGroup{
     margin-left: 95px;
     margin-top: 25px;
+}
+
+#loginWrapper div.formWrapper{
+
 }
 
 div.formWrapper div.options{
@@ -94,4 +116,8 @@ div.formWrapper a.button:active {
 div.formWrapper a.button:active span {
     background-position: bottom left;
     padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+#loginWrapper .error{
+    color: #DC2929;
 }

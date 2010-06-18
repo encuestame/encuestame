@@ -80,7 +80,7 @@ textarea, textarea[type="textarea"], input[type="text"], input[type="password"],
 /************************************
  user messages
  ***********************************/
-.error {
+.errorBox {
     padding: 5px;
     background-color: #FFD0D0;
     color: #F24B4B;
