@@ -1,11 +1,97 @@
-@CHARSET "utf-8";
+#loginWrapper{
+font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
+padding-top: 130px;
+}
 
-#wrapper_login{
-margin-top:9%;
-margin-left:25%;
-background: url("../images/login_encuestame.png");
-background-repeat: no-repeat;
-height: 300px;
-padding-top: 120px;
-padding-left: 130px;
+#loginWrapper .form{
+    margin-left:20%;
+    padding-left: 90px;
+    float: left;
+    width: 400px;
+}
+
+#loginWrapper div.field{
+    padding: 4px;
+}
+
+#loginWrapper div.forgotPassword{
+    font-size: 10px;
+    float: left;
+    margin-left: 100px;
+}
+
+#loginWrapper div.forgotPassword a{
+    color: #000;
+}
+
+#loginWrapper div.field div.label{
+    float: left;
+    font-weight: bold;
+    color: #564F4F;
+    padding-top: 6px;
+    width: 90px;
+}
+
+#loginWrapper div.field div.output input{
+    height: 20px;
+    width: 243px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+#loginWrapper div.field div.output span{
+    font-size: 10px;
+}
+
+#loginWrapper div.buttonGroup{
+    margin-left: 95px;
+    margin-top: 25px;
+}
+
+div.formWrapper div.options{
+    padding: 5px;
+    font-size: 14px;
+}
+
+div.formWrapper div.options a{
+    text-decoration: none;
+    color: black;
+}
+
+div.formWrapper div.options div.createAccount{
+
+}
+
+div.formWrapper div.options div.forgotPassword{
+
+}
+
+div.formWrapper a.button {
+    background: transparent url('../images/bg_button_a.gif') no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+}
+
+div.formWrapper a.button span {
+    background: transparent url('../images/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+div.formWrapper a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+div.formWrapper a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
 }

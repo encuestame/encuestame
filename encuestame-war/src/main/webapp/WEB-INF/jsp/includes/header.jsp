@@ -4,8 +4,8 @@
 <head>
     <title>encuestame</title>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/default.css" />" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/user.css" />" />
+    <%@ include file="/WEB-INF/jsp/includes/css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <style type="css">
         img{ border:0px;}
     </style>
