@@ -42,6 +42,19 @@ public class UnitPoll implements Serializable{
     /***/
     private UnitQuestionBean questionBean = new UnitQuestionBean();
 
+    /***/
+    private Date finishDate;
+
+    /***/
+    private Boolean publishPoll;
+
+    /***/
+    private Boolean closeNotification;
+
+    /***/
+    private Boolean showResultsPoll;
+
+
     @Deprecated
     private String pollUser;
 
@@ -95,6 +108,59 @@ public class UnitPoll implements Serializable{
         this.questionBean = questionBean;
     }
 
+	/**
+	 * @return the finishDate
+	 */
+	public Date getFinishDate() {
+		return finishDate;
+	}
 
+	/**
+	 * @param finishDate the finishDate to set
+	 */
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
 
+	/**
+	 * @return the publishPoll
+	 */
+	public Boolean getPublishPoll() {
+		return publishPoll;
+	}
+
+	/**
+	 * @param publishPoll the publishPoll to set
+	 */
+	public void setPublishPoll(Boolean publishPoll) {
+		this.publishPoll = publishPoll;
+	}
+
+	/**
+	 * @return the closeNotification
+	 */
+	public Boolean getCloseNotification() {
+		return closeNotification;
+	}
+
+	/**
+	 * @param closeNotification the closeNotification to set
+	 */
+	public void setCloseNotification(Boolean closeNotification) {
+		this.closeNotification = closeNotification;
+	}
+
+	/**
+	 * @return the showResultsPoll
+	 */
+	public Boolean getShowResultsPoll() {
+		return showResultsPoll;
+	}
+
+	/**
+	 * @param showResultsPoll the showResultsPoll to set
+	 */
+	public void setShowResultsPoll(Boolean showResultsPoll) {
+		this.showResultsPoll = showResultsPoll;
+	}
 }

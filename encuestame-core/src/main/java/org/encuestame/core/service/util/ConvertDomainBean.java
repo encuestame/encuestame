@@ -309,6 +309,10 @@ public class ConvertDomainBean {
         unitPoll.setCompletedPoll(poll.getPollCompleted());
         unitPoll.setCreationDate(poll.getCreatedAt());
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
+        unitPoll.setCloseNotification(poll.getCloseNotification());
+        unitPoll.setPublishPoll(poll.getPublish());
+        unitPoll.setShowResultsPoll(poll.getShowVotes());
+        unitPoll.setFinishDate(poll.getEndDate());
        return unitPoll;
 
     }

@@ -45,15 +45,23 @@ public class PollService extends AbstractSurveyService implements IPollService{
         try {
             final Poll pollDomain = new Poll();
             final Questions question = getQuestionDao().retrieveQuestionById(pollBean.getQuestionBean().getId());
+            if (question == null){
+            	 throw new EnMeExpcetion("question not found");
+            }
             pollDomain.setCreatedAt(pollBean.getCreationDate());
             pollDomain.setPollOwner(getUser(currentUser).getSecUser());
-             pollDomain.setPollCompleted(Boolean.FALSE);
+            pollDomain.setPollCompleted(Boolean.FALSE);
             pollDomain.setCreatedAt(new Date());
             pollDomain.setPollHash(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
             pollDomain.setQuestion(question);
-         this.getPollDao().saveOrUpdate(pollDomain);
+            pollDomain.setCloseNotification(pollBean.getCloseNotification());
+            pollDomain.setEndDate(pollBean.getFinishDate());
+            pollDomain.setPublish(pollBean.getPublishPoll());
+            pollDomain.setShowVotes(pollBean.getShowResultsPoll());
+            this.getPollDao().saveOrUpdate(pollDomain);
+
         } catch (Exception e) {
-            throw new EnMeExpcetion();
+            throw new EnMeExpcetion(e);
         }
     }
 

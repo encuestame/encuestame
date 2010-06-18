@@ -25,6 +25,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Poll Domain.
@@ -35,7 +36,8 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name = "poll")
+@Table(name = "poll",
+	uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
 public class Poll {
     private Long pollId;
     private Boolean pollCompleted;
@@ -43,7 +45,10 @@ public class Poll {
     private String pollHash;
     private Questions question;
     private SecUsers pollOwner;
-
+    private Date endDate;
+    private Boolean publish;
+    private Boolean closeNotification;
+    private Boolean showVotes;
 
     /**
      * @return the poll_id
@@ -141,5 +146,74 @@ public class Poll {
         this.pollOwner = pollOwner;
     }
 
+    /**
+     *
+     * @return endDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = true)
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 *
+	 * @param endDate Finish Date
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 *
+	 * @return publish Publish Poll Indicator
+	 */
+
+    @Column(name = "publish_poll", nullable = true)
+	public Boolean getPublish() {
+		return publish;
+	}
+
+	/**
+	 *
+	 * @param publish publish Indicator to set
+	 */
+	public void setPublish(Boolean publish) {
+		this.publish = publish;
+	}
+
+	/**
+	 *
+	 * @return closeNotification
+	 */
+    @Column(name = "close_notification", nullable = false)
+	public Boolean getCloseNotification() {
+		return closeNotification;
+	}
+
+	/**
+	 *
+	 * @param closeNotification closeNotification Indicator to set
+	 */
+	public void setCloseNotification(Boolean closeNotification) {
+		this.closeNotification = closeNotification;
+	}
+
+	/**
+	 *
+	 * @return showVotes Show Results Indicator
+	 */
+    @Column(name = "show_results", nullable = false)
+	public Boolean getShowVotes() {
+		return showVotes;
+	}
+
+	/**
+	 *
+	 * @param showVotes the showVotes option to set
+	 */
+	public void setShowVotes(Boolean showVotes) {
+		this.showVotes = showVotes;
+	}
 
 }
