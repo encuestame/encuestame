@@ -34,7 +34,7 @@ public class TestEmailService extends AbstractBaseUnitBeans {
      */
     @Test(timeout=30000)
     public void testSendEmail(){
-        this.serviceMail.sendInvitation("juan@jotadeveloper.com", "12355");
+        this.serviceMail.sendInvitation(getProperty("mail.test.email"), "12355");
     }
 
     /**

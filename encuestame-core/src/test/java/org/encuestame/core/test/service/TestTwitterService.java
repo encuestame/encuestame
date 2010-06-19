@@ -54,7 +54,7 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
      */
     @Before
     public void before(){
-        this.user = createUser("testEncuesta", "testEncuesta123");
+        this.user = createUser(getProperty("twitter.test.account"), getProperty("twitter.test.password"));
     }
 
     /**

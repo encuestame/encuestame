@@ -28,7 +28,7 @@
                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
-                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>
@@ -86,7 +86,7 @@
                  <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
-                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>
@@ -129,7 +129,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
-                <surefire.failures.ignore>false</surefire.failures.ignore>
+                <surefire.failures.ignore>true</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -144,7 +144,7 @@
                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
-                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>
@@ -202,7 +202,7 @@
                 <hibernate.datasource.core.urldb>jdbc:hsqldb:mem:encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:hsqldb:mem:encuestame_core</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
-                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>
@@ -260,7 +260,7 @@
                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
-                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>
@@ -303,7 +303,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
-                <surefire.failures.ignore>true</surefire.failures.ignore>
+                <surefire.failures.ignore>false</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -314,11 +314,11 @@
                 <hibernate.datasource.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.datasource.dialect>
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
-                <hibernate.datasource.hbm2ddl.auto>none</hibernate.datasource.hbm2ddl.auto>
+                <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
-                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>

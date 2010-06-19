@@ -145,9 +145,9 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testSearchUsersByEmail(){
-        createSecondaryUser("jhon", this.userPrimary);
+        final SecUserSecondary secondary = createSecondaryUser("jhon", this.userPrimary);
         createSecondaryUser("paola", this.userPrimary);
-        final List<SecUserSecondary> users = getSecUserDao().searchUsersByEmail("jhon@users.com");
+        final List<SecUserSecondary> users = getSecUserDao().searchUsersByEmail(secondary.getUserEmail());
         assertEquals("Should be equals", 1, users.size());
     }
 }

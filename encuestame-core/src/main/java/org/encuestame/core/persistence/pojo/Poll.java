@@ -37,7 +37,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "poll",
-	uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
+    uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
 public class Poll {
     private Long pollId;
     private Boolean pollCompleted;
@@ -152,68 +152,68 @@ public class Poll {
      */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_date", nullable = true)
-	public Date getEndDate() {
-		return endDate;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	/**
-	 *
-	 * @param endDate Finish Date
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    /**
+     *
+     * @param endDate Finish Date
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	/**
-	 *
-	 * @return publish Publish Poll Indicator
-	 */
+    /**
+     *
+     * @return publish Publish Poll Indicator
+     */
 
     @Column(name = "publish_poll", nullable = true)
-	public Boolean getPublish() {
-		return publish;
-	}
+    public Boolean getPublish() {
+        return publish;
+    }
 
-	/**
-	 *
-	 * @param publish publish Indicator to set
-	 */
-	public void setPublish(Boolean publish) {
-		this.publish = publish;
-	}
+    /**
+     *
+     * @param publish publish Indicator to set
+     */
+    public void setPublish(Boolean publish) {
+        this.publish = publish;
+    }
 
-	/**
-	 *
-	 * @return closeNotification
-	 */
-    @Column(name = "close_notification", nullable = false)
-	public Boolean getCloseNotification() {
-		return closeNotification;
-	}
+    /**
+     *
+     * @return closeNotification
+     */
+    @Column(name = "close_notification", nullable = true)
+    public Boolean getCloseNotification() {
+        return closeNotification;
+    }
 
-	/**
-	 *
-	 * @param closeNotification closeNotification Indicator to set
-	 */
-	public void setCloseNotification(Boolean closeNotification) {
-		this.closeNotification = closeNotification;
-	}
+    /**
+     *
+     * @param closeNotification closeNotification Indicator to set
+     */
+    public void setCloseNotification(Boolean closeNotification) {
+        this.closeNotification = closeNotification;
+    }
 
-	/**
-	 *
-	 * @return showVotes Show Results Indicator
-	 */
-    @Column(name = "show_results", nullable = false)
-	public Boolean getShowVotes() {
-		return showVotes;
-	}
+    /**
+     *
+     * @return showVotes Show Results Indicator
+     */
+    @Column(name = "show_results", nullable = true)
+    public Boolean getShowVotes() {
+        return showVotes;
+    }
 
-	/**
-	 *
-	 * @param showVotes the showVotes option to set
-	 */
-	public void setShowVotes(Boolean showVotes) {
-		this.showVotes = showVotes;
-	}
+    /**
+     *
+     * @param showVotes the showVotes option to set
+     */
+    public void setShowVotes(Boolean showVotes) {
+        this.showVotes = showVotes;
+    }
 
 }

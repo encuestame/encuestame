@@ -12,7 +12,9 @@
  */
 package org.encuestame.core.test.service.config;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.Properties;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
@@ -55,7 +57,12 @@ import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -141,6 +148,24 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
+
+
+    /**
+     * Get Property.
+     * @param property
+     * @return
+     */
+    public String getProperty(final String property){
+        Resource resource = new FileSystemResource("src/main/resources/test-config.properties");
+        Properties props = null;
+        try {
+            props = PropertiesLoaderUtils.loadProperties(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
+        return props.getProperty(property);
+    }
 
 
     /**
@@ -353,9 +378,11 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         final Poll poll = new Poll();
         poll.setCreatedAt(new Date());
         poll.setQuestion(createQuestion("Do you eat pizza", "yesNo"));
-        poll.setPollHash("HASH");
+        //should be unique
+        poll.setPollHash(RandomStringUtils.randomAlphabetic(18));
         poll.setPollOwner(createUser());
         poll.setPollCompleted(true);
+        poll.setCreatedAt(new Date());
         getiPoll().saveOrUpdate(poll);
         return poll;
 
