@@ -140,7 +140,7 @@
                 <hibernate.datasource.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.datasource.dialect>
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
-                <hibernate.datasource.hbm2ddl.auto>none</hibernate.datasource.hbm2ddl.auto>
+                <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
