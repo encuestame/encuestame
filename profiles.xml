@@ -13,6 +13,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
+                <surefire.failures.ignore>true</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -23,7 +24,7 @@
                 <hibernate.datasource.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.datasource.dialect>
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
-                <hibernate.datasource.hbm2ddl.auto>none</hibernate.datasource.hbm2ddl.auto>
+                <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
@@ -70,6 +71,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
+                <surefire.failures.ignore>false</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -127,6 +129,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
+                <surefire.failures.ignore>false</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -184,6 +187,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
+                <surefire.failures.ignore>false</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -241,6 +245,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
+                <surefire.failures.ignore>true</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -265,6 +270,64 @@
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
                 <lucene.index.path>/home/dmorales/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
+                <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
+                <!-- Google Maps -->
+                <google.maps.key>ABQIAAAAZf9tmUBWs70LNEs037RG0RTwM0brOpm-All5BF6PoaKBxRWWERTrwDQRedgAhFT4DDMSCMctxb4CWg</google.maps.key>
+                <!-- Mail Properties -->
+                <mail.host>smtp.gmail.com</mail.host>
+                <mail.port>465</mail.port>
+                <mail.protocol>smtps</mail.protocol>
+                <mail.username>encuestamettest@gmail.com</mail.username>
+                <mail.password>encuestamettest123</mail.password>
+                <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
+                <mail.encoding>UTF-8</mail.encoding>
+                <!-- SMTP -->
+                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
+                <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
+                <!-- SMTPS -->
+                <mail.smtps.debug>true</mail.smtps.debug>
+                <mail.smtps.auth>true</mail.smtps.auth>
+                <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
+                <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+            </properties>
+        </profile>
+        <profile>
+            <id>juanpicado</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>juanpicado</value>
+                </property>
+            </activation>
+            <properties>
+                <encuestame.logs.path>logs</encuestame.logs.path>
+                <surefire.failures.ignore>true</surefire.failures.ignore>
+                <!-- Encuestame Properties -->
+                <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
+                <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
+               <!-- Hibernate Properties -->
+                <hibernate.datasource.user>root</hibernate.datasource.user>
+                <hibernate.datasource.password>root</hibernate.datasource.password>
+                <hibernate.datasource.classname>com.mysql.jdbc.Driver</hibernate.datasource.classname>
+                <hibernate.datasource.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.datasource.dialect>
+                <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
+                <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
+                <hibernate.datasource.hbm2ddl.auto>none</hibernate.datasource.hbm2ddl.auto>
+                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
+                <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
+                <hibernate.test.properties.path>classpath:hibernate.prod.properties</hibernate.test.properties.path>
+                <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
+                <!-- reCaptcha -->
+                <encuestame.recaptcha>true</encuestame.recaptcha>
+                <encuestame.recaptcha.publickey>6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU</encuestame.recaptcha.publickey>
+                <encuestame.recaptcha.privatekey>6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd</encuestame.recaptcha.privatekey>
+                <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
+                <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
+                <!-- Lucene Properties -->
+                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
