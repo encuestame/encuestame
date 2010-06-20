@@ -9,6 +9,14 @@ img {
     border: 0px;
 }
 
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
 #header {
     background-color: #FFF;
     border: 0px solid #000;
@@ -25,7 +33,6 @@ img {
 }
 
 #mainWrapper {
-    margin-left: 10px;
     margin-right: 10px;
     margin-top: 5px;
     width: 98%;
@@ -53,5 +60,5 @@ img {
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 260px;
+    width: 245px;
 }

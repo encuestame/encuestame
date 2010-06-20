@@ -34,8 +34,15 @@
       <version>${encuestame.version}</version>
       <type>jar</type>
       <scope>compile</scope>
-    </dependency>
+    </dependency><!--
     <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>encuestameSkin</artifactId>
+      <version>${encuestame.version}</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    --><dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>encuestame-utils</artifactId>
       <version>${encuestame.version}</version>

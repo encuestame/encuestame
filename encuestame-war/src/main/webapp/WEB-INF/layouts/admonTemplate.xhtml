@@ -13,7 +13,14 @@
                 <div>
                     <div style="position: relative; overflow: visible; width: 235px;">
                         <ui:insert name="panel">
-                            <div id="panelWrapper">Panel should be here.</div>
+                            <div id="panelWrapper">
+                                <rich:panelBar height="400">
+                                <rich:panelBarItem label="Notifications">
+                                </rich:panelBarItem>
+                                <rich:panelBarItem label="My Messages">
+                                </rich:panelBarItem>
+                            </rich:panelBar>
+                            </div>
                         </ui:insert>
                     </div>
                 </div>

@@ -41,15 +41,15 @@
 }
 
 /**
- Proyect CSS
+ Project
 */
 
-#proyectBox{
+#projectBox{
     padding: 5px;
     min-width: 40%;
 }
 
-#proyectRow{
+#projectRow{
     width: 100%;
     padding:3px;
     border-bottom: 1px solid #eee;
@@ -63,12 +63,20 @@
 }
 
 
-#proyectRowWrapper{
+#projectRowWrapper{
     width: 100%;
     padding: 5px;
 }
 
-#formProyect p{
-  font-size: 14px;
+/** Users **/
+
+
+.admonUserHeader{
+    display: inline-block;
+    background-image: url(../images/icons/enme_admon_user.png);
+    background-repeat: no-repeat;
+    width: 100px;
+    padding-left : 61px;
+    margin-left: 6px;
 }
 

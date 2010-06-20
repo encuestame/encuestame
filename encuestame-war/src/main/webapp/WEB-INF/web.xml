@@ -40,6 +40,10 @@
 		<param-value>enable</param-value>
 	</context-param>
 	<context-param>
+        <param-name>org.richfaces.SKIN</param-name>
+	    <param-value>encuestameSkin</param-value>
+	</context-param>
+	<context-param>
 		<param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
 		<param-value>enable</param-value>
 	</context-param>

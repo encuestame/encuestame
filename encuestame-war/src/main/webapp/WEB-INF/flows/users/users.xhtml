@@ -10,19 +10,17 @@
     <ui:define name="title"> #{msg.admonTitle} - #{msg.titleUser}</ui:define>
     <ui:define name="bodyOptions">
         <a4j:form id="formUsers" ajaxSubmit="true">
-
+            <!-- Options Table -->
+            <span class="admonUserHeader">
+                <h2>#{msg.titleUserGroups}</h2>
+            </span>
             <!-- Option Menu -->
-
             <h:panelGrid columns="8">
                 <a4j:commandLink value="#{msg.newUser}" rendered="true"
                     oncomplete="javascript:Richfaces.showModalPanel('panelnewUserGroup')"
                     reRender="newFormUserUnit,formHeaderNewtUser">
                 </a4j:commandLink>
             </h:panelGrid>
-
-            <!-- Options Table -->
-
-            <h2>#{msg.titleUserGroups}</h2>
             <rich:messages id="infoBox" errorClass="error"
                 infoClass="info" warnClass="war"></rich:messages>
             <h:panelGrid columns="9" cellpadding="3">
@@ -296,13 +294,5 @@
                 </rich:panelBarItem>
             </rich:panelBar>
         </rich:modalPanel>
-    </ui:define>
-    <ui:define name="panel">
-        <rich:panelBar height="400">
-            <rich:panelBarItem label="My Tweets">
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Personalizacion">
-            </rich:panelBarItem>
-        </rich:panelBar>
     </ui:define>
 </ui:composition>
