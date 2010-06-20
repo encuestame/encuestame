@@ -1,20 +1,159 @@
-@CHARSET "ISO-8859-1";
-#time4bed-nav{position:relative;height:43px;font-size:14px;text-transform:uppercase;background:#fff url("../images/time4bed_bg.gif") repeat-x bottom left;font-family:Georgia, "Times New Roman", Times, serif;}
-#time4bed-nav ul{margin:0;padding:0;list-style-type:none;width:auto;float:left;}
-#time4bed-nav ul li{display:block;float:left;margin:0 2px;}
-#time4bed-nav ul li a{display:block;float:left;color:#ffdab6;text-decoration:none;padding:0 0 0 25px;height:43px;line-height:50px;}
-#time4bed-nav ul li a span{display:block;float:left;padding:0 25px 0 0;height:31px;width:auto;}
-#time4bed-nav ul li a:hover{color:#fff;}
-#time4bed-nav ul li a:hover span{display:block;cursor:pointer;}
-#time4bed-nav ul li a.current,#time4bed-nav ul li a.current:hover{color:#894d12;background:transparent url("../images/time2bed_left-ON.gif") no-repeat top left;}
-#time4bed-nav ul li a.current span{background:transparent url("../images/time2bed_right-ON.gif") no-repeat top right;height:43px;}
-
-
-#menuSecondLevel{
-padding: 10px;
+div.menuWrapper {
+    clear: both;
+    min-height: 40px;
 }
-#menuSecondLevel a{margin-left: 15px;margin-right: 15px;color:#000;text-decoration: none;font-size: 14px; text-transform: uppercase;}
-#menuSecondLevel a:link{ font-size: 14px; text-transform: uppercase;  }
-#menuSecondLevel a:active{ font-size: 14px; text-transform: uppercase;  }
-#menuSecondLevel a:hover{ color: #EEER;}
-.space{}
+
+ul#topnav {
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 100%;
+    list-style: none;
+    position: relative;
+    font-size: 12px;
+    background: url(../images/topnav_stretch.gif) repeat-x;
+    z-index: 100;
+}
+
+ul#topnav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid #555;
+}
+
+ul#topnav li a {
+    padding: 10px 15px;
+    display: block;
+    color: #f0f0f0;
+    text-decoration: none;
+}
+
+ul#topnav li:hover {
+    background: #1376c9 url(../images/topnav_active.gif) repeat-x;
+}
+
+ul#topnav li span {
+    float: left;
+    padding: 10px 0;
+    position: absolute;
+    left: 0;
+    display: none;
+    width: 970px;
+    background: #1376c9;
+    color: #fff;
+    -moz-border-radius-bottomright: 5px;
+    -khtml-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -khtml-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}
+
+ul#topnav li:hover span {
+    display: block;
+}
+
+ul#topnav li span a {
+    display: inline;
+}
+
+ul#topnav li span a:hover {
+    text-decoration: underline;
+}
+
+/** Login Nav Bar **/
+#navbar {
+    background: url(pic/bg.png) repeat-x;
+    height: 29px;
+    line-height: 29px;
+}
+
+#navbar ul,#navbar li,#navbar form,#navbar button {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#navbar li a {
+    margin: 0 6px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    border-bottom: dotted 1px #000000;
+}
+
+#login_menu {
+    background: #aaaaaa;
+    border: solid 1px #666666;
+    width: 340px;
+    padding: 10px;
+    color: #FFFFFF;
+    position: absolute;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    z-index: 500;
+}
+
+#login_menu li {
+    padding-bottom: 6px;
+    text-align: right;
+}
+
+#new-user-col {
+    padding-right: 10px;
+    border-right: 1px #DEDEDE solid;
+    height: 120px;
+    width: 100px;
+    float: left;
+    line-height: 12px;
+}
+
+#signup-user-col {
+    padding-left: 20px;
+    height: 120px;
+    width: 200px;
+    float: left;
+    line-height: 12px;
+    text-align: right;
+}
+
+#login_menu label {
+    font-size: 11px;
+    font-weight: normal;
+}
+
+#login_menu input {
+    font-size: 11px;
+    color: #333333;
+    margin-left: 10px;
+}
+
+#login_menu button {
+    line-height: 24px;
+    float: right;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.green-button {
+    background: url(pic/button.png);
+    display: block;
+    color: #FFFFFF;
+    font-size: 11px;
+    text-decoration: none;
+    width: 81px;
+    height: 26px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.spacer {
+    clear: both;
+    height: 1px;
+}

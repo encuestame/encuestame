@@ -35,6 +35,7 @@
                 <value>org.encuestame.core.persistence.pojo.SecGroups</value>
                 <value>org.encuestame.core.persistence.pojo.SecPermission</value>
                 <value>org.encuestame.core.persistence.pojo.SecUsers</value>
+                <value>org.encuestame.core.persistence.pojo.SecUserTwitterAccounts</value>
                 <value>org.encuestame.core.persistence.pojo.SecUserSecondary</value>
                 <value>org.encuestame.core.persistence.pojo.Poll</value>
                 <value>org.encuestame.core.persistence.pojo.PollResult</value>
@@ -101,13 +102,20 @@
 
      <!-- env variables used by configurationEncryptor -->
     <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
-        <property name="algorithm" value="PBEWithMD5AndDES" />
-        <property name="passwordEnvName" value="12345" />
+        <property name="algorithm" value="spring.sec.encrypt.algorithm.key" />
+        <property name="passwordEnvName" value="${spring.sec.encrypt.password.key}" />
     </bean>
 
     <bean id="hibernateStringEncryptor" class="org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor">
-        <property name="encryptor" ref="configurationEncryptor"/>
-        <property name="registeredName" value="hibernateStringEncryptor"/>
+        <property name="registeredName">
+        <value>strongHibernateStringEncryptor</value>
+        </property>
+        <property name="algorithm">
+            <value>${spring.sec.encrypt.algorithm.key}</value>
+        </property>
+        <property name="password">
+            <value>${spring.sec.encrypt.password.key}</value>
+        </property>
     </bean>
 
     <!-- ehcache configuration  -->

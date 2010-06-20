@@ -4,46 +4,24 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:a4j="http://richfaces.org/a4j"
-    xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
     xmlns:rich="http://richfaces.org/rich">
-    <a4j:form ajaxSubmit="true" id="menuForm" ignoreDupResponses="true">
-        <div id="time4bed-nav">
-        <ul>
-            <li>
-                <a href="${request.contextPath}/dashboard.html">#{temp.home}</a>
-            </li>
-            <li>
-                <a href="${request.contextPath}/admon/dashboard.html">#{temp.admon}</a>
-            </li>
-            <li><a4j:commandLink
-                styleClass="css menus #{menuBean.surveyCss}"
-                action="surveys" reRender="menuForm">
-                <span>#{temp.surveys}</span>
-                <a4j:actionparam name="indexSelected" value="survey"
-                    assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
-            </a4j:commandLink></li>
-            <li><a4j:commandLink
-                styleClass="css menus #{menuBean.pollCss}"
-                action="polls" reRender="menuForm">
-                <span>#{temp.poll}</span>
-                <a4j:actionparam name="indexSelected" value="poll"
-                    assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
-            </a4j:commandLink></li>
-            <li><a4j:commandLink
-                styleClass="css menus #{menuBean.statsCss}"
-                action="stats" reRender="menuForm">
-                <span>#{temp.stats}</span>
-                <a4j:actionparam name="indexSelected" value="stats"
-                    assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
-            </a4j:commandLink></li>
-            <li><a4j:commandLink
-                styleClass="css menus #{menuBean.statsCss}"
-                action="stats" reRender="menuForm">
-                <span>#{temp.stats}</span>
-                <a4j:actionparam name="indexSelected" value="stats"
-                    assignTo="#{menuBean.menuSelected}"></a4j:actionparam>
-            </a4j:commandLink></li>
+    <div class="menuWrapper">
+        <ul id="topnav">
+            <li><a href="${request.contextPath}/dashboard.html">#{msg.menuDashboard}</a></li>
+            <li><a href="#">#{msg.menuAdmon}</a> <span> <a
+                href="${request.contextPath}/admon/users.html">#{msg.menuUsers}</a>
+            | <a href="${request.contextPath}/admon/groups.html">#{msg.menuGroups}</a>
+            | <a href="${request.contextPath}/admon/location.html">#{msg.menuTerritory}</a>
+            | <a href="${request.contextPath}/admon/project.html">#{msg.menuProjects}</a>
+            </span></li>
+            <li><a href="#">#{msg.menuSurveys}</a>
+                 <span>
+                     <a href="${request.contextPath}/tweetpoll.html">#{msg.menuTweetpoll}</a> |
+                     <a href="${request.contextPath}/poll.html">#{msg.menuPoll}</a> |
+                     <a href="${request.contextPath}/survey.html">#{msg.menuSurvey}</a>
+                 </span>
+           </li>
+            <li><a href="#">Stats</a></li>
         </ul>
-        </div>
-    </a4j:form>
+    </div>
 </ui:composition>

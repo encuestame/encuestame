@@ -4,24 +4,36 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:a4j="http://richfaces.org/a4j"
   xmlns:rich="http://richfaces.org/rich">
-  <div id="header">
-  <h:panelGrid columns="2">
-    <h:panelGroup>
-      <a href="${facesContext.externalContext.requestContextPath}/index.html">
-      <img
-        src="${facesContext.externalContext.requestContextPath}/resources/images/encuestame_header.png"
-        alt="" title="Home" style="border: 0px;" />
-      </a>
-    </h:panelGroup>
-    <h:panelGroup style="margin-left:70%;">
-      <a4j:form>
-        <span> <h:outputLink
-          value="${request.contextPath}/user/logout"
-          title="#{temp.close}"
-          onclick="if (! confirm('#{temp.closeMsgBox}')) return false;">
-          <h:outputText value="#{temp.close}" />
-        </h:outputLink> </span>
-      </a4j:form>
-    </h:panelGroup>
-  </h:panelGrid></div>
+    <div id="header">
+       <span class="logo"></span>
+         <div style="float: right;">
+            <div id="navbar">
+               <ul>
+                  <li>
+                      <a href="#" onclick="showlayer('login_menu')">User Preferences</a>
+                  </li>
+               </ul>
+               <div id="login_menu" style="display:none; right: 0px;">
+               <div id="new-user-col">New User:<br /><br />
+                  <a href="register.html" class="green-button">Register</a>
+               </div>
+               <div id="signup-user-col">
+                    Existing User log in below:<br /><br />
+                    <form action="login.html" method="post">
+                        <ul>
+                            <li>
+                                <label for="email">Email:</label><input type="text" id="email" size="18"/>
+                            </li>
+                            <li>
+                                <label for="psw">Password:</label><input type="text" id="psw" size="18"/>
+                            </li>
+                            <button type="submit" class="green-button">Log-in</button>
+                        </ul>
+                     </form>
+                 </div>
+                 <div class="spacer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </ui:composition>

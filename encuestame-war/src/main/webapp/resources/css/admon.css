@@ -7,22 +7,37 @@
     padding: 1px 0 8px;
 }
 
-#panelAdmon{
+#admonWrapper div.panelAdmon{
     padding-top:8px;
     float: left;
 }
 
-#bodyAdmon{
-    margin-left : 260px;
-    min-width : 700px;
+#admonWrapper div.bodyAdmon{
+    margin-left: 260px;
+    min-width:700px;
     padding: 0 15px 8px 0;
 }
 
-#panelWrapper{
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 235px;
+/** Users **/
+
+#admonWrapper div.bodyAdmon .rich-table-header{
+    background-image: url(../images/topnav_stretch.gif) repeat-x !important;
+}
+.rich-table{
+
+}
+
+.rich-table-thead{
+   margin: 10px;
+   background-image: url(../images/topnav_stretch.gif) repeat-x !important;
+}
+
+#admonWrapper div.bodyAdmo .userAdmonHeader{
+    background-color: #blue !important;
+}
+
+.rowClass{
+    background-color: #blue !important;
 }
 
 /**

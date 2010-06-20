@@ -7,14 +7,14 @@
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces"
     xmlns:sec="http://www.springframework.org/security/tags">
-    <ui:define name="title"> #{temp.admonTitle} - #{temp.titleUser}</ui:define>
+    <ui:define name="title"> #{msg.admonTitle} - #{msg.titleUser}</ui:define>
     <ui:define name="bodyOptions">
         <a4j:form id="formUsers" ajaxSubmit="true">
 
             <!-- Option Menu -->
 
             <h:panelGrid columns="8">
-                <a4j:commandLink value="#{temp.newUser}" rendered="true"
+                <a4j:commandLink value="#{msg.newUser}" rendered="true"
                     oncomplete="javascript:Richfaces.showModalPanel('panelnewUserGroup')"
                     reRender="newFormUserUnit,formHeaderNewtUser">
                 </a4j:commandLink>
@@ -22,7 +22,7 @@
 
             <!-- Options Table -->
 
-            <h2>#{temp.titleUserGroups}</h2>
+            <h2>#{msg.titleUserGroups}</h2>
             <rich:messages id="infoBox" errorClass="error"
                 infoClass="info" warnClass="war"></rich:messages>
             <h:panelGrid columns="9" cellpadding="3">
@@ -57,21 +57,21 @@
             <!-- Users Table -->
 
             <rich:dataTable id="dataTableUsers" width="100%"
-                style="margin: 5px; margin-top: 12px;" value="#{users}"
+                style="margin: 5px; margin-top: 12px;" headerClass="userAdmonHeader" rowClasses="rowClass" value="#{users}"
                 var="unitUser" rendered="#{users.rowCount > 0}">
                 <f:facet name="header">
-                    <rich:columnGroup>
+                    <rich:columnGroup columnClasses="classColumnd">
                         <rich:column width="20px">
                             <h:selectBooleanCheckbox />
                         </rich:column>
                         <rich:column>
-                            <h:outputText value="#{temp.username}" />
+                            <h:outputText value="#{msg.username}" />
                         </rich:column>
                         <rich:column>
-                            <h:outputText value="#{temp.name}" />
+                            <h:outputText value="#{msg.name}" />
                         </rich:column>
                         <rich:column>
-                            <h:outputText value="#{temp.groups}" />
+                            <h:outputText value="#{msg.groups}" />
                         </rich:column>
                          <rich:column>
                             <h:outputText value="Operations" />
@@ -113,7 +113,7 @@
         <!-- Panels -->
 
         <ui:fragment rendered="not false">
-            <h3>#{temp.notfoundGroups}</h3>
+            <h3>#{msg.notfoundGroups}</h3>
         </ui:fragment>
         <!-- MODAL PANELS -->
         <rich:modalPanel id="panelUserGroup" autosized="true"

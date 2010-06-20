@@ -7,7 +7,7 @@
                   <div class="field">
                   <div class="label">Username</div>
                   <div class="output">
-                     <input type="text" name="j_username" class="required" id="j_username" /></div>
+                     <input type="text" name="j_username" class="required" class="titleHintBox" id="j_username" title="Username should be unique"/></div>
                   </div>
                   <div class="field">
                   <div class="label">Password</div>

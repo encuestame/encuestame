@@ -14,7 +14,7 @@
             type="text/javascript">
     </script>
     </ui:define>
-    <ui:define name="title"> #{temp.locTitle} - #{temp.titleLoc}></ui:define>
+    <ui:define name="title"> #{msg.locTitle} - #{msg.titleLoc}></ui:define>
     <ui:define name="bodyOptions">
         <!-- Menu -->
         <a4j:form ajaxSubmit="true">
@@ -48,13 +48,13 @@
                 </a4j:form>
             </f:facet>
             <a4j:form id="LocForm" ajaxSubmit="true">
-                <h2>#{temp.titleCreateGroups}</h2>
+                <h2>#{msg.titleCreateGroups}</h2>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Name" for="name" />
                     <h:inputText id="name"
                         value="#{locationBean.folderNewName}" size="40"
                         required="true"
-                        requiredMessage="#{temp.validateNameLocType}" />
+                        requiredMessage="#{msg.validateNameLocType}" />
                     <a4j:commandButton value="Create"
                         action="#{locationBean.createFolder}"
                         oncomplete="Richfaces.hideModalPanel('panelnewLocType')"

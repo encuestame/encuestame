@@ -45,3 +45,7 @@ $(document).ready(function(){
        }
     });
 });
+
+$().ready(function(){
+    $('.titleHintBox').inputHintBox({div:$('#shiny_box'),div_sub:'.shiny_box_body',source:'attr',attr:'title',incrementLeft:5});
+});

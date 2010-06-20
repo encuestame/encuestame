@@ -1,5 +1,4 @@
 #loginWrapper{
-font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
 padding-top: 130px;
 }
 
@@ -120,4 +119,36 @@ div.formWrapper a.button:active span {
 
 #loginWrapper .error{
     color: #DC2929;
+}
+
+.shiny_box {
+    background: #0066FF;
+    color: #FFF;
+    width: 210px;
+    overflow: hidden;
+}
+.shiny_box p {
+    margin:10px;
+}
+
+.shiny_box .tl {
+    background-position: -340px 0px;
+}
+.shiny_box .tr {
+    background-position: -350px 0px;
+}
+.shiny_box .bl {
+    background-position: -340px 10px;
+}
+.shiny_box .br {
+    background-position: -350px 10px;
+}
+
+.shiny_box_body {
+    clear: both;
+    padding: 0 10px;
+    overflow: hidden;
+}
+* html .shiny_box_body {
+    height: 1%;
 }

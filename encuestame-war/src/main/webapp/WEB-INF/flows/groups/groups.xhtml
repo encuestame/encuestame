@@ -6,11 +6,11 @@
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces">
-    <ui:define name="title"> #{temp.admonTitle} - #{temp.titleGroups}</ui:define>
+    <ui:define name="title"> #{msg.admonTitle} - #{msg.titleGroups}</ui:define>
     <ui:define name="bodyOptions">
         <a4j:form ajaxSubmit="true">
             <h:panelGrid columns="8">
-                <a4j:commandLink value="#{temp.newGroup}"
+                <a4j:commandLink value="#{msg.newGroup}"
                     rendered="true"
                     oncomplete="javascript:Richfaces.showModalPanel('panelnewGroup')">
                 </a4j:commandLink>
@@ -38,18 +38,18 @@
                 </a4j:form>
             </f:facet>
             <a4j:form id="groupForm" ajaxSubmit="true">
-                <h2>#{temp.titleCreateGroups}</h2>
+                <h2>#{msg.titleCreateGroups}</h2>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{temp.name}" for="name" />
+                    <h:outputLabel value="#{msg.name}" for="name" />
                     <h:inputText id="name" value="#{groupBean.newGroup.groupName}" size="40"
                         required="true"
-                        requiredMessage="#{temp.validateNameGroup}" />
-                    <h:outputLabel value="#{temp.description}"
+                        requiredMessage="#{msg.validateNameGroup}" />
+                    <h:outputLabel value="#{msg.description}"
                         for="desc" />
                     <h:inputTextarea id="desc" value="#{groupBean.newGroup.groupDescription}" cols="40"
                         rows="3" required="true"
-                        requiredMessage="#{temp.validateDescrGroup}" />
-                    <a4j:commandButton value="#{temp.save}"
+                        requiredMessage="#{msg.validateDescrGroup}" />
+                    <a4j:commandButton value="#{msg.save}"
                         action="create"
                         oncomplete="Richfaces.hideModalPanel('panelnewGroup')"
                         reRender="#{flowRenderFragments}"></a4j:commandButton>
@@ -62,13 +62,13 @@
                 <f:facet name="header">
                     <rich:columnGroup>
                         <rich:column width="30px">
-                            <h:outputText value="#{temp.id}" />
+                            <h:outputText value="#{msg.id}" />
                         </rich:column>
                         <rich:column>
-                            <h:outputText value="#{temp.description}" />
+                            <h:outputText value="#{msg.description}" />
                         </rich:column>
                         <rich:column>
-                            <h:outputText value="#{temp.state}" />
+                            <h:outputText value="#{msg.state}" />
                         </rich:column>
                         <rich:column>
                         </rich:column>

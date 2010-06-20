@@ -13,12 +13,11 @@
     MVC proceeds to the next HandlerMapping (order=2 below).
   -->
   <bean
-    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-    <!--
-      <property name="interceptors"> <list> <ref
-      bean="openSessionInViewInterceptor" /> </list> </property>
-    -->
-  </bean>
+    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"><!--
+      <property name="interceptors"> <list>
+        <ref bean="openSessionInViewInterceptor"/> </list>
+      </property>
+  --></bean>
 
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.mvc.controller" />
@@ -53,7 +52,7 @@
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
-        <property name="singleSession" value="true" />
+        <property name="singleSession" value="false" />
    </bean>
 
     <!--

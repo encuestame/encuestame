@@ -8,9 +8,8 @@
   <ui:define name="css">
   </ui:define>
   <ui:define name="main">
-    <encuestame:adminToolBar/>
     <div id="admonWrapper">
-            <div id="panelAdmon" style="padding-top:8px;">
+            <div class="panelAdmon">
                 <div>
                     <div style="position: relative; overflow: visible; width: 235px;">
                         <ui:insert name="panel">
@@ -19,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div id="bodyAdmon">
+            <div class="bodyAdmon">
                 <ui:insert name="bodyOptions"> <div id="projectContent">Content should be here.</div></ui:insert>
             </div>
     </div>

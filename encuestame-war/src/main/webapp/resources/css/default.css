@@ -1,5 +1,5 @@
 body {
-    font-family:Arial;
+    font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
     font-size: 12px;
     margin: 0;
     padding: 0;
@@ -10,11 +10,18 @@ img {
 }
 
 #header {
-    height: 55px;
     background-color: #FFF;
     border: 0px solid #000;
     margin-bottom: 0px;
-    padding: 10px;
+    padding: 8px;
+}
+
+#header span.logo{
+      background-image: url(../images/logos/encuestame_header.gif);
+      background-repeat: no-repeat;
+      min-height : 20px;
+      display: inline-block;
+      width: 125px;
 }
 
 #mainWrapper {
@@ -47,107 +54,4 @@ img {
     left: 0px;
     top: 0px;
     width: 260px;
-}
-
-/***
-* Tool Bar
-**/
-.item-toolbar {
-    padding: 5px;
-    background: #EEE;
-    font-size: 110%;
-}
-
-/*
-textarea, textarea[type="textarea"], input[type="text"], input[type="password"], select {
-    background-color:#FFFFFF;
-    background-image: none;
-    border-color: silver;
-} */ /***************************************************
- * commons classes
- ***************************************************/
-.padding {
-    padding-left: : 50px;
-}
-
-/**
- groups css
- */
-.subMenus {
-    background: #eee;
-}
-
-/************************************
- user messages
- ***********************************/
-.errorBox {
-    padding: 5px;
-    background-color: #FFD0D0;
-    color: #F24B4B;
-    font-size: 14px;
-    border: 1px solid #E58787;
-    padding-left: 30px;
-    background-position: 3px;
-    background-repeat: no-repeat;
-}
-
-.war {
-    padding: 5px;
-    background-color: #FCFFC8;
-    color: #2E981F;
-    font-size: 14px;
-    border: 1px solid #F2F122;
-    padding-left: 30px;
-    background-position: 3px;
-    background-repeat: no-repeat;
-}
-
-.info {
-    padding: 5px;
-    background-color: #BAEAB3;
-    color: #2E981F;
-    font-size: 14px;
-    border: 1px solid #6AC45D;
-    padding-left: 30px;
-    background-position: 3px;
-    background-repeat: no-repeat;
-}
-
-/*************************************
-  Commons
-**************************************/
-p.infoBox {
-    background: transparent url("../images/icons/ip_icon_04_Info.jpg")
-        no-repeat top left;
-    padding-left: 50px;
-    padding-top: 6px;
-    min-height: 40px;
-    font-size: 14px;
-    border-bottom: 1px solid #bae9fb;
-    /*border-top: 1px solid #bae9fb;*/
-    font-weight: bold;
-    color: #45b9d6;
-}
-
-p.ideasBox {
-    background: transparent url("../images/icons/1243965762_001_11.gif")
-        no-repeat top left;
-    padding-left: 30px;
-    padding-top: 6px;
-    min-height: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    border-bottom: 1px solid #fa9a50;
-    color: #b87b4d;
-}
-
-.yui-dt table{
-    width: 100%;
-}
-
-.twitterButton{
-    background: transparent url("../images/twitter-button.gif");
-    background-repeat: no-repeat;
-    width: 46px;
-    height: 46px;
 }

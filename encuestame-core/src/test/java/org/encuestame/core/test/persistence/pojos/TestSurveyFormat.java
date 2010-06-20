@@ -17,24 +17,24 @@ import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 
 /**
-* Test Survey Format Pojo.
-* @author Morales, Diana Paola paola@encuestame.org
-* @since November 14, 2009
-* @version $Id$
-*/
-
-public class TestSurveyFormat extends AbstractBase{
-
-/**
- * Test Survey Format.
+ * Test Survey Format Pojo.
+ *
+ * @author Morales, Diana Paola paola@encuestame.org
+ * @since November 14, 2009
+ * @version $Id$
  */
-@Test
-    public void testSurveyFormat(){
-    SurveyFormat surveyformat = new SurveyFormat();
-    surveyformat.setDateCreated(null);
-    surveyformat.setSurveyFormatName("Education");
-    getSurveyFormatDaoImp().saveOrUpdate(surveyformat);
 
+public class TestSurveyFormat extends AbstractBase {
+
+    /**
+     * Test Survey Format.
+     */
+    @Test
+    public void testSurveyFormat() {
+        SurveyFormat surveyformat = new SurveyFormat();
+        surveyformat.setDateCreated(null);
+        surveyformat.setSurveyFormatName("Education");
+        getSurveyFormatDaoImp().saveOrUpdate(surveyformat);
     }
 
 }

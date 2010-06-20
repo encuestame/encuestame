@@ -103,8 +103,8 @@ public class SignUpAccountFormController extends AbstractSecurityController {
                 status.setComplete();
                 log.info("password generated "+password);
                 log.info("New User with userId: " + unitUserBean.getId() + " added at " + new Date());
-                authenticate(req, username, password);
-                return "redirect:/index.html";
+                //authenticate(req, username, password); //FIXME: lazy exception
+                return "redirect:/user/signin";
             }
     }
 }

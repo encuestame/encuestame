@@ -13,6 +13,7 @@
 
 package org.encuestame.core.persistence.filter;
 
+import org.apache.log4j.Logger;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,6 +28,8 @@ import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
  */
 public class SessionFilter extends OpenSessionInViewFilter {
 
+    private Logger log = Logger.getLogger(this.getClass());
+
     /*
      * The default mode is FlushMode.NEVER
      *
@@ -35,6 +38,7 @@ public class SessionFilter extends OpenSessionInViewFilter {
     protected Session getSession(SessionFactory sessionFactory)
         throws DataAccessResourceFailureException {
         Session session = super.getSession(sessionFactory);
+        log.debug("Session is Open ["+session.isOpen()+"]");
         session.setFlushMode(FlushMode.AUTO);
         return session;
     }

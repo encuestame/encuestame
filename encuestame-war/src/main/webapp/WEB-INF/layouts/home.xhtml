@@ -10,22 +10,18 @@
     xmlns:sf="http://www.springframework.org/tags/faces"
     xmlns:sec="http://www.springframework.org/security/tags"
     xmlns:m="http://code.google.com/p/gmaps4jsf/">
-<a4j:loadBundle basename="messages" var="temp" />
+<a4j:loadBundle basename="messages" var="msg" />
 <a4j:loadStyle src="/resources/css/default.css" type="text/css"></a4j:loadStyle>
-<a4j:loadStyle src="/resources/css/admon.css" type="text/css"></a4j:loadStyle>
 <a4j:loadStyle src="/resources/css/menu.css" type="text/css"></a4j:loadStyle>
-<a4j:loadStyle src="/resources/css/survey.css" type="text/css"></a4j:loadStyle>
+<a4j:loadStyle src="/resources/css/admon.css" type="text/css"></a4j:loadStyle>
+<a4j:loadScript src="/resources/js/encuestame-admon.js"/>
 <ui:insert name="css"></ui:insert>
 <head>
-    <title>#{temp.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
+    <title>#{msg.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <ui:insert name="javascript"></ui:insert>
-    <ui:insert name="googleMaps">
-    </ui:insert>
-    <style type="css">
-        img{ border:0px;}
-    </style>
+    <ui:insert name="googleMaps"></ui:insert>
 </head>
 <body onunload="GUnload()">
     <ui:include src="includes/header.xhtml" />
@@ -34,11 +30,5 @@
         <ui:insert name="main">main</ui:insert>
     </div>
     <ui:include src="includes/footer.xhtml" />
-    <rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="200" height="80" width="400" zindex="100">
-        <h2>
-            <h:outputText value="#{temp.loading}">
-            </h:outputText>
-       </h2>
-    </rich:modalPanel>
 </body>
 </html>
