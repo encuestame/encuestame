@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-colorPicker-cancel {
+		}
+		.rich-colorPicker-color {
+		}
+		.rich-colorPicker-colors-input {
+		}
+		.rich-colorPicker-current-color {
+		}
+		.rich-colorPicker-ext {
+		}
+		.rich-colorPicker-focus {
+		}
+		.rich-colorPicker-hex-wrapper {
+		}
+		.rich-colorPicker-hsb-b {
+		}
+		.rich-colorPicker-hsb-h {
+		}
+		.rich-colorPicker-hsb-s {
+		}
+		.rich-colorPicker-hsb-wrapper {
+		}
+		.rich-colorPicker-icon {
+		}
+		.rich-colorPicker-new-color {
+		}
+		.rich-colorPicker-rainbow {
+		}
+		.rich-colorPicker-rgb-b {
+		}
+		.rich-colorPicker-rgb-g {
+		}
+		.rich-colorPicker-rgb-r {
+		}
+		.rich-colorPicker-rgb-wrapper {
+		}
+		.rich-colorPicker-span {
+		}
+		.rich-colorPicker-submit {
+		}
+		.rich-colorPicker-wrapper {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

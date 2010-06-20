@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-bottom-cell {
+		}
+		.rich-calendar-boundary-dates {
+		}
+		.rich-calendar-btn {
+		}
+		.rich-calendar-button {
+		}
+		.rich-calendar-cell {
+		}
+		.rich-calendar-cell-div {
+		}
+		.rich-calendar-cell-size {
+		}
+		.rich-calendar-date-layout {
+		}
+		.rich-calendar-date-layout-cancel {
+		}
+		.rich-calendar-date-layout-ok {
+		}
+		.rich-calendar-date-layout-split {
+		}
+		.rich-calendar-days {
+		}
+		.rich-calendar-editor-btn {
+		}
+		.rich-calendar-editor-btn-over {
+		}
+		.rich-calendar-editor-btn-selected {
+		}
+		.rich-calendar-editor-container {
+		}
+		.rich-calendar-editor-layout-shadow {
+		}
+		.rich-calendar-editor-shadow {
+		}
+		.rich-calendar-editor-tool-over {
+		}
+		.rich-calendar-editor-tool-press {
+		}
+		.rich-calendar-exterior {
+		}
+		.rich-calendar-footer {
+		}
+		.rich-calendar-footer-optional {
+		}
+		.rich-calendar-header {
+		}
+		.rich-calendar-header-optional {
+		}
+		.rich-calendar-holly {
+		}
+		.rich-calendar-hover {
+		}
+		.rich-calendar-input {
+		}
+		.rich-calendar-month {
+		}
+		.rich-calendar-popup {
+		}
+		.rich-calendar-select {
+		}
+		.rich-calendar-spinner-buttons {
+		}
+		.rich-calendar-spinner-down {
+		}
+		.rich-calendar-spinner-input {
+		}
+		.rich-calendar-spinner-input-container {
+		}
+		.rich-calendar-spinner-pressed {
+		}
+		.rich-calendar-spinner-up {
+		}
+		.rich-calendar-time-btn {
+		}
+		.rich-calendar-time-btn-press {
+		}
+		.rich-calendar-time-layout {
+		}
+		.rich-calendar-time-layout-cancel {
+		}
+		.rich-calendar-time-layout-fields {
+		}
+		.rich-calendar-time-layout-ok {
+		}
+		.rich-calendar-today {
+		}
+		.rich-calendar-tool {
+		}
+		.rich-calendar-tool-btn {
+		}
+		.rich-calendar-tool-btn-disabled {
+		}
+		.rich-calendar-tool-btn-hover {
+		}
+		.rich-calendar-tool-btn-press {
+		}
+		.rich-calendar-tool-close {
+		}
+		.rich-calendar-toolfooter {
+		}
+		.rich-calendar-week {
+		}
+		.rich-calendar-weekends {
+		}
+		.rich-right-cell {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

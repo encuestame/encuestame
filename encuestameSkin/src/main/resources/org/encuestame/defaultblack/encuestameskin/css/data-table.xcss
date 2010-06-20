@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-datalist {
+		}
+		.rich-definition {
+		}
+		.rich-definition-term {
+		}
+		.rich-deflist {
+		}
+		.rich-filter-input {
+		}
+		.rich-inplace-view {
+		}
+		.rich-list-item {
+		}
+		.rich-orderedlist {
+		}
+		.rich-sort-icon {
+		}
+		.rich-subtable- {
+		}
+		.rich-subtable-cell {
+		}
+		.rich-subtable-firstrow {
+		}
+		.rich-subtable-row {
+		}
+		.rich-table {
+		}
+		.rich-table-caption {
+		}
+		.rich-table-cell {
+		}
+		.rich-table-firstrow {
+		}
+		.rich-table-footer {
+		}
+		.rich-table-footer-continue {
+		}
+		.rich-table-footercell {
+		}
+		.rich-table-header {
+		}
+		.rich-table-header-continue {
+		}
+		.rich-table-headercell {
+		}
+		.rich-table-row {
+		}
+		.rich-table-subfooter {
+		}
+		.rich-table-subfootercell {
+		}
+		.rich-table-subheader {
+		}
+		.rich-table-subheadercell {
+		}
+		.rich-tablerow {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

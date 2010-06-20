@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-tree {
+		}
+		.rich-tree-node {
+		}
+		.rich-tree-node-children {
+		}
+		.rich-tree-node-cildren {
+		}
+		.rich-tree-node-handle {
+		}
+		.rich-tree-node-handleicon {
+		}
+		.rich-tree-node-handleicon-collapsed {
+		}
+		.rich-tree-node-handleicon-expanded {
+		}
+		.rich-tree-node-highlighted {
+		}
+		.rich-tree-node-icon {
+		}
+		.rich-tree-node-selected {
+		}
+		.rich-tree-node-text {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+         
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+   xmlns:u='http:/jsf.exadel.com/template/util'
+   xmlns="http://www.w3.org/1999/xhtml">
+
+	<u:selector name=".rich-container input, .rich-input,
+		.rich-container select, .rich-select,
+		.rich-container textarea, .rich-textarea,
+		.rich-container button, .rich-button,
+		.rich-container keygen, .rich-keygen,
+		.rich-container isindex, .rich-isindex">
+	
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		.rich-container *|button, .rich-button {
+		
+		}
+
+		.rich-button,
+		.rich-container button[type="button"], .rich-button-button,
+		.rich-container button[type="reset"], .rich-button-reset,
+		.rich-container button[type="submit"], .rich-button-submit,
+		.rich-container input[type="reset"], .rich-input-reset,
+		.rich-container input[type="submit"], .rich-input-submit,
+		.rich-container input[type="button"], .rich-input-button {
+		
+		}
+		
+		]]>
+	</f:verbatim>
+
+	<u:selector name=".rich-container *|button, .rich-button">
+		
+	</u:selector>
+
+	<u:selector name="
+		.rich-button,
+		.rich-container button[type=&quot;button&quot;], .rich-button-button,
+		.rich-container button[type=&quot;reset&quot;], .rich-button-reset,
+		.rich-container button[type=&quot;submit&quot;], .rich-button-submit,
+		.rich-container input[type=&quot;reset&quot;], .rich-input-reset,
+		.rich-container input[type=&quot;submit&quot;], .rich-input-submit,
+		.rich-container input[type=&quot;button&quot;], .rich-input-button,
+		">
+		
+	</u:selector>
+
+
+
+	<f:verbatim>
+		<![CDATA[
+		.rich-container *|textarea, .rich-textarea {
+		
+		}
+		
+		.rich-textarea,
+		.rich-container textarea[type="textarea"], .rich-textarea-textarea,
+		.rich-container input[type="text"], .rich-input-text,
+		.rich-container input[type="password"], .rich-input-password,
+		.rich-container select, .rich-select {
+		
+		}
+		]]>
+	</f:verbatim>
+
+	<u:selector name=".rich-container *|textarea, .rich-textarea">
+	
+	</u:selector>
+
+	<u:selector name=".rich-textarea,
+		.rich-container textarea[type=&quot;textarea&quot;], .rich-textarea-textarea,
+		.rich-container input[type=&quot;text&quot;], .rich-input-text,
+		.rich-container input[type=&quot;password&quot;], .rich-input-password,
+		.rich-container select, .rich-select">
+		
+	</u:selector>
+</f:template>

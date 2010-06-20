@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+         
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+   xmlns:u='http:/jsf.exadel.com/template/util'
+   xmlns="http://www.w3.org/1999/xhtml">
+
+	<u:selector name="input, select, textarea, button, keygen, isindex">
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		*|button {
+		}
+
+		button[type="button"], button[type="reset"], button[type="submit"], input[type="reset"], input[type="submit"], input[type="button"] {
+		}
+		
+		]]>
+	</f:verbatim>
+
+	<u:selector name="*|button">
+	</u:selector>
+
+	<u:selector name="button[type=&quot;button&quot;], button[type=&quot;reset&quot;], button[type=&quot;submit&quot;], 
+						input[type=&quot;reset&quot;], input[type=&quot;submit&quot;], input[type=&quot;button&quot;]">
+	</u:selector>
+
+
+
+	<f:verbatim>
+		<![CDATA[
+		*|textarea {
+		}
+		
+		textarea[type="textarea"], input[type="text"], input[type="password"], select {
+		}
+		]]>
+	</f:verbatim>
+
+	<u:selector name="*|textarea">
+	</u:selector>
+
+	<u:selector name="textarea[type=&quot;textarea&quot;], input[type=&quot;text&quot;], input[type=&quot;password&quot;], select">
+	</u:selector>
+
+</f:template>

@@ -37,6 +37,7 @@
         <module>encuestame-web</module>
         <module>encuestame-war</module>
         <module>encuestame-utils</module>
+        <module>encuestameSkin</module>
     </modules>
 
     <licenses>

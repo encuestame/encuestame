@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-inplace {
+		}
+		.rich-inplace-changed {
+		}
+		.rich-inplace-control {
+		}
+		.rich-inplace-control-press {
+		}
+		.rich-inplace-edit {
+		}
+		.rich-inplace-field {
+		}
+		.rich-inplace-input- {
+		}
+		.rich-inplace-input-changed-hover {
+		}
+		.rich-inplace-input-controls-set {
+		}
+		.rich-inplace-input-view-hover {
+		}
+		.rich-inplace-shadow {
+		}
+		.rich-inplace-shadow-bl {
+		}
+		.rich-inplace-shadow-br {
+		}
+		.rich-inplace-shadow-size {
+		}
+		.rich-inplace-shadow-tl {
+		}
+		.rich-inplace-shadow-tr {
+		}
+		.rich-inplace-view {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-ddmenu-label-select {
+		}
+		.rich-ddmenu-label-unselect {
+		}
+		.rich-menu-group {
+		}
+		.rich-menu-group-disabled {
+		}
+		.rich-menu-group-enabled {
+		}
+		.rich-menu-group-folder {
+		}
+		.rich-menu-group-hover {
+		}
+		.rich-menu-group-icon {
+		}
+		.rich-menu-group-icon-selected {
+		}
+		.rich-menu-group-label {
+		}
+		.rich-menu-group-label-selected {
+		}
+		.rich-menu-item {
+		}
+		.rich-menu-item-disabled {
+		}
+		.rich-menu-item-enabled {
+		}
+		.rich-menu-item-folder {
+		}
+		.rich-menu-item-folder-disabled {
+		}
+		.rich-menu-item-hover {
+		}
+		.rich-menu-item-icon {
+		}
+		.rich-menu-item-icon-disabled {
+		}
+		.rich-menu-item-icon-enabled {
+		}
+		.rich-menu-item-icon-selected {
+		}
+		.rich-menu-item-label {
+		}
+		.rich-menu-item-label-disabled {
+		}
+		.rich-menu-item-label-selected {
+		}
+		.rich-menu-list-bg {
+		}
+		.rich-menu-list-strut {
+		}
+		.rich-menu-separator {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

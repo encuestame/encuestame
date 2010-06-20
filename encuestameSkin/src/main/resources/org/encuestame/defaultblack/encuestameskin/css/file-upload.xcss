@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-file-upload-button {
+		}
+		.rich-file-upload-font {
+		}
+		.rich-fileupload-anc {
+		}
+		.rich-fileupload-button {
+		}
+		.rich-fileupload-button-border {
+		}
+		.rich-fileupload-button-content {
+		}
+		.rich-fileupload-button-dis {
+		}
+		.rich-fileupload-button-light {
+		}
+		.rich-fileupload-button-press {
+		}
+		.rich-fileupload-del {
+		}
+		.rich-fileupload-font {
+		}
+		.rich-fileupload-hidden {
+		}
+		.rich-fileupload-ico {
+		}
+		.rich-fileupload-ico-add {
+		}
+		.rich-fileupload-ico-add-dis {
+		}
+		.rich-fileupload-ico-clear {
+		}
+		.rich-fileupload-ico-clear-dis {
+		}
+		.rich-fileupload-ico-start {
+		}
+		.rich-fileupload-ico-start-dis {
+		}
+		.rich-fileupload-ico-stop {
+		}
+		.rich-fileupload-ico-stop-dis {
+		}
+		.rich-fileupload-list-decor {
+		}
+		.rich-fileupload-list-overflow {
+		}
+		.rich-fileupload-name {
+		}
+		.rich-fileupload-name-padding {
+		}
+		.rich-fileupload-scroll {
+		}
+		.rich-fileupload-table-td {
+		}
+		.rich-fileupload-toolbar-decor {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

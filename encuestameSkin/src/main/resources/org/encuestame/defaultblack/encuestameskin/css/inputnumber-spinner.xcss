@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-spinner-button {
+		}
+		.rich-spinner-buttons {
+		}
+		.rich-spinner-c {
+		}
+		.rich-spinner-input {
+		}
+		.rich-spinner-input-container {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

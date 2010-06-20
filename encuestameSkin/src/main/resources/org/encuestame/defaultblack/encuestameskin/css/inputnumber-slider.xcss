@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-inslider-field {
+		}
+		.rich-inslider-handler {
+		}
+		.rich-inslider-handler-selected {
+		}
+		.rich-inslider-handler-selected-vertical {
+		}
+		.rich-inslider-handler-vertical {
+		}
+		.rich-inslider-left-num {
+		}
+		.rich-inslider-right-num {
+		}
+		.rich-inslider-tip {
+		}
+		.rich-inslider-track {
+		}
+		.rich-inslider-track-border {
+		}
+		.rich-slider {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

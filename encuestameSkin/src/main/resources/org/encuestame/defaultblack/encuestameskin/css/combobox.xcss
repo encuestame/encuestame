@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-combobox {
+		}
+		.rich-combobox-button {
+		}
+		.rich-combobox-button-background {
+		}
+		.rich-combobox-button-background-disabled {
+		}
+		.rich-combobox-button-background-inactive {
+		}
+		.rich-combobox-button-disabled {
+		}
+		.rich-combobox-button-hovered {
+		}
+		.rich-combobox-button-icon {
+		}
+		.rich-combobox-button-icon-disabled {
+		}
+		.rich-combobox-button-icon-inactive {
+		}
+		.rich-combobox-button-inactive {
+		}
+		.rich-combobox-button-pressed-background {
+		}
+		.rich-combobox-font {
+		}
+		.rich-combobox-font-disabled {
+		}
+		.rich-combobox-font-inactive {
+		}
+		.rich-combobox-input {
+		}
+		.rich-combobox-input-disabled {
+		}
+		.rich-combobox-input-inactive {
+		}
+		.rich-combobox-item {
+		}
+		.rich-combobox-item-normal {
+		}
+		.rich-combobox-item-selected {
+		}
+		.rich-combobox-list-cord {
+		}
+		.rich-combobox-list-decoration {
+		}
+		.rich-combobox-list-position {
+		}
+		.rich-combobox-list-scroll {
+		}
+		.rich-combobox-list-width {
+		}
+		.rich-combobox-shadow {
+		}
+		.rich-combobox-shadow-bl {
+		}
+		.rich-combobox-shadow-br {
+		}
+		.rich-combobox-shadow-tl {
+		}
+		.rich-combobox-shadow-tr {
+		}
+		.rich-combobox-shell {
+		}
+		.rich-combobox-strut {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

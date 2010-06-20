@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-list-picklist {
+		}
+		.rich-list-picklist-button {
+		}
+		.rich-list-picklist-disabled {
+		}
+		.rich-picklist-body {
+		}
+		.rich-picklist-control {
+		}
+		.rich-picklist-control-img {
+		}
+		.rich-picklist-controls {
+		}
+		.rich-picklist-internal-tab {
+		}
+		.rich-picklist-list {
+		}
+		.rich-picklist-list-content {
+		}
+		.rich-picklist-source-cell {
+		}
+		.rich-picklist-source-cell-active {
+		}
+		.rich-picklist-source-cell-disabled {
+		}
+		.rich-picklist-source-cell-first {
+		}
+		.rich-picklist-source-cell-last {
+		}
+		.rich-picklist-source-cell-selected {
+		}
+		.rich-picklist-source-items {
+		}
+		.rich-picklist-source-row {
+		}
+		.rich-picklist-source-row-active {
+		}
+		.rich-picklist-source-row-disabled {
+		}
+		.rich-picklist-source-row-selected {
+		}
+		.rich-picklist-target-cell {
+		}
+		.rich-picklist-target-cell-active {
+		}
+		.rich-picklist-target-cell-disabled {
+		}
+		.rich-picklist-target-cell-first {
+		}
+		.rich-picklist-target-cell-last {
+		}
+		.rich-picklist-target-cell-selected {
+		}
+		.rich-picklist-target-items {
+		}
+		.rich-picklist-target-row {
+		}
+		.rich-picklist-target-row-active {
+		}
+		.rich-picklist-target-row-disabled {
+		}
+		.rich-picklist-target-row-selected {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

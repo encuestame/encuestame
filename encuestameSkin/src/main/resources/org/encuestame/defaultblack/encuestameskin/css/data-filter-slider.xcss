@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-dataFilterSlider-container {
+		}
+		.rich-dataFilterSlider-handle {
+		}
+		.rich-dataFilterSlider-input-field {
+		}
+		.rich-dataFilterSlider-range {
+		}
+		.rich-dataFilterSlider-range-decor {
+		}
+		.rich-dataFilterSlider-track {
+		}
+		.rich-dataFilterSlider-trailer {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-tab-active {
+		}
+		.rich-tab-bottom-line {
+		}
+		.rich-tab-disabled {
+		}
+		.rich-tab-header {
+		}
+		.rich-tab-inactive {
+		}
+		.rich-tabhdr-cell-active {
+		}
+		.rich-tabhdr-cell-disabled {
+		}
+		.rich-tabhdr-cell-inactive {
+		}
+		.rich-tabhdr-side-border {
+		}
+		.rich-tabhdr-side-cell {
+		}
+		.rich-tabpanel {
+		}
+		.rich-tabpanel-content {
+		}
+		.rich-tabpanel-content-position {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

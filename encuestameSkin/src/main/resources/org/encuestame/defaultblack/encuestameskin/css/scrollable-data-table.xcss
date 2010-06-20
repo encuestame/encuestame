@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-sdt {
+		}
+		.rich-sdt-column-cell {
+		}
+		.rich-sdt-column-sort-down {
+		}
+		.rich-sdt-column-sort-up {
+		}
+		.rich-sdt-fake-r {
+		}
+		.rich-sdt-footer-cell {
+		}
+		.rich-sdt-footer-sort-down {
+		}
+		.rich-sdt-footer-sort-up {
+		}
+		.rich-sdt-header-cell {
+		}
+		.rich-sdt-header-sort-down {
+		}
+		.rich-sdt-header-sort-up {
+		}
+		.rich-sdt-hsep {
+		}
+		.rich-sdt-row {
+		}
+		.rich-sdt-row-active {
+		}
+		.rich-sdt-row-selected {
+		}
+		.rich-std-footer-row {
+		}
+		.rich-std-header-row {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

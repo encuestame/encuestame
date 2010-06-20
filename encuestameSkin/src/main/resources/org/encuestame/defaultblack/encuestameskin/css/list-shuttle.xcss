@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-list-shuttle {
+		}
+		.rich-list-shuttle-button {
+		}
+		.rich-list-shuttle-caption {
+		}
+		.rich-shuttle-body {
+		}
+		.rich-shuttle-control {
+		}
+		.rich-shuttle-controls {
+		}
+		.rich-shuttle-header-tab-cell {
+		}
+		.rich-shuttle-internal-header-tab {
+		}
+		.rich-shuttle-internal-tab {
+		}
+		.rich-shuttle-list {
+		}
+		.rich-shuttle-list-content {
+		}
+		.rich-shuttle-list-header {
+		}
+		.rich-shuttle-source-caption {
+		}
+		.rich-shuttle-source-cell {
+		}
+		.rich-shuttle-source-cell-active {
+		}
+		.rich-shuttle-source-cell-disabled {
+		}
+		.rich-shuttle-source-cell-first {
+		}
+		.rich-shuttle-source-cell-last {
+		}
+		.rich-shuttle-source-cell-selected {
+		}
+		.rich-shuttle-source-items {
+		}
+		.rich-shuttle-source-row {
+		}
+		.rich-shuttle-source-row-active {
+		}
+		.rich-shuttle-source-row-disabled {
+		}
+		.rich-shuttle-source-row-selected {
+		}
+		.rich-shuttle-target-caption {
+		}
+		.rich-shuttle-target-cell {
+		}
+		.rich-shuttle-target-cell-active {
+		}
+		.rich-shuttle-target-cell-disabled {
+		}
+		.rich-shuttle-target-cell-first {
+		}
+		.rich-shuttle-target-cell-last {
+		}
+		.rich-shuttle-target-cell-selected {
+		}
+		.rich-shuttle-target-items {
+		}
+		.rich-shuttle-target-row {
+		}
+		.rich-shuttle-target-row-active {
+		}
+		.rich-shuttle-target-row-disabled {
+		}
+		.rich-shuttle-target-row-selected {
+		}
+		.rich-table-header {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

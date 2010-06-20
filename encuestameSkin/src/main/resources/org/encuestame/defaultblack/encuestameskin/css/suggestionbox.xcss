@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-sb-cell-padding {
+		}
+		.rich-sb-common-container {
+		}
+		.rich-sb-ext-decor-1 {
+		}
+		.rich-sb-ext-decor-2 {
+		}
+		.rich-sb-ext-decor-3 {
+		}
+		.rich-sb-int {
+		}
+		.rich-sb-int-decor-table {
+		}
+		.rich-sb-int-sel {
+		}
+		.rich-sb-overflow {
+		}
+		.rich-sb-shadow {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

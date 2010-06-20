@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-progress-bar {
+		}
+		.rich-progress-bar-block {
+		}
+		.rich-progress-bar-completed {
+		}
+		.rich-progress-bar-height {
+		}
+		.rich-progress-bar-height-dig {
+		}
+		.rich-progress-bar-padding {
+		}
+		.rich-progress-bar-remained {
+		}
+		.rich-progress-bar-shell {
+		}
+		.rich-progress-bar-shell-dig {
+		}
+		.rich-progress-bar-uploaded {
+		}
+		.rich-progress-bar-uploaded-dig {
+		}
+		.rich-progress-bar-width {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-ordering-control {
+		}
+		.rich-ordering-control- {
+		}
+		.rich-ordering-control-img {
+		}
+		.rich-ordering-list-active {
+		}
+		.rich-ordering-list-body {
+		}
+		.rich-ordering-list-button {
+		}
+		.rich-ordering-list-button-content {
+		}
+		.rich-ordering-list-button-layout {
+		}
+		.rich-ordering-list-button-valign {
+		}
+		.rich-ordering-list-caption {
+		}
+		.rich-ordering-list-cell {
+		}
+		.rich-ordering-list-cell-active {
+		}
+		.rich-ordering-list-cell-disabled {
+		}
+		.rich-ordering-list-cell-end {
+		}
+		.rich-ordering-list-cell-first {
+		}
+		.rich-ordering-list-cell-last {
+		}
+		.rich-ordering-list-cell-selected {
+		}
+		.rich-ordering-list-content {
+		}
+		.rich-ordering-list-disabled {
+		}
+		.rich-ordering-list-ds {
+		}
+		.rich-ordering-list-header {
+		}
+		.rich-ordering-list-items {
+		}
+		.rich-ordering-list-items-header {
+		}
+		.rich-ordering-list-output {
+		}
+		.rich-ordering-list-row {
+		}
+		.rich-ordering-list-row-active {
+		}
+		.rich-ordering-list-row-disabled {
+		}
+		.rich-ordering-list-row-selected {
+		}
+		.rich-ordering-list-table-header {
+		}
+		.rich-ordering-list-table-header-cell {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

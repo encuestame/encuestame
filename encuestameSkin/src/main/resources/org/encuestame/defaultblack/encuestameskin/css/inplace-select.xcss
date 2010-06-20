@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-inplace-select {
+		}
+		.rich-inplace-select-arrow {
+		}
+		.rich-inplace-select-changed {
+		}
+		.rich-inplace-select-changed-hover {
+		}
+		.rich-inplace-select-control {
+		}
+		.rich-inplace-select-control-press {
+		}
+		.rich-inplace-select-control-set {
+		}
+		.rich-inplace-select-edit {
+		}
+		.rich-inplace-select-field {
+		}
+		.rich-inplace-select-font {
+		}
+		.rich-inplace-select-item {
+		}
+		.rich-inplace-select-list-decoration {
+		}
+		.rich-inplace-select-list-position {
+		}
+		.rich-inplace-select-list-scroll {
+		}
+		.rich-inplace-select-list-shadow {
+		}
+		.rich-inplace-select-selected-item {
+		}
+		.rich-inplace-select-shadow {
+		}
+		.rich-inplace-select-shadow-bl {
+		}
+		.rich-inplace-select-shadow-br {
+		}
+		.rich-inplace-select-shadow-size {
+		}
+		.rich-inplace-select-shadow-tl {
+		}
+		.rich-inplace-select-shadow-tr {
+		}
+		.rich-inplace-select-view {
+		}
+		.rich-inplace-select-view-hover {
+		}
+		.rich-inplace-select-width-list {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

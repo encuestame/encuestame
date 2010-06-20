@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-datascr {
+		}
+		.rich-datascr-act {
+		}
+		.rich-datascr-button {
+		}
+		.rich-datascr-button-dsbld {
+		}
+		.rich-datascr-ctrls-separator {
+		}
+		.rich-datascr-inact {
+		}
+		.rich-dtascroller-table {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

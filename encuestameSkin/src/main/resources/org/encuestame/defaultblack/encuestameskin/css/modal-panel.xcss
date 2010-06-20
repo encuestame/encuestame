@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-modalpanel {
+		}
+		.rich-mp-container {
+		}
+		.rich-mp-content {
+		}
+		.rich-mp-content-table {
+		}
+		.rich-mpnl-body {
+		}
+		.rich-mpnl-controls {
+		}
+		.rich-mpnl-header {
+		}
+		.rich-mpnl-header-cell {
+		}
+		.rich-mpnl-mask-div {
+		}
+		.rich-mpnl-resizer {
+		}
+		.rich-mpnl-shadow {
+		}
+		.rich-mpnl-text {
+		}
+		.rich-mpnl_panel {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

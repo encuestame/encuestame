@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<f:verbatim>
+	<![CDATA[
+		.rich-box-bgcolor-additional {
+		}
+		.rich-box-bgcolor-edit {
+		}
+		.rich-box-bgcolor-editor {
+		}
+		.rich-box-bgcolor-general {
+		}
+		.rich-box-bgcolor-header {
+		}
+		.rich-box-bgcolor-panel {
+		}
+		.rich-box-bgcolor-tab {
+		}
+		.rich-box-bgcolor-table {
+		}
+		.rich-box-bgcolor-table-footer {
+		}
+		.rich-box-bgcolor-table-subfooter {
+		}
+		.rich-box-bgcolor-tip {
+		}
+		.rich-box-bgcolor-trim {
+		}
+		.rich-box-border-additional {
+		}
+		.rich-box-border-color-additional {
+		}
+		.rich-box-border-color-control-select {
+		}
+		.rich-box-border-color-general {
+		}
+		.rich-box-border-color-header {
+		}
+		.rich-box-border-color-panel {
+		}
+		.rich-box-border-color-subborder {
+		}
+		.rich-box-border-color-table {
+		}
+		.rich-box-border-color-tip {
+		}
+		.rich-box-border-control-select {
+		}
+		.rich-box-border-general {
+		}
+		.rich-box-border-header {
+		}
+		.rich-box-border-panel {
+		}
+		.rich-box-border-subborder {
+		}
+		.rich-box-border-table {
+		}
+		.rich-box-border-tip {
+		}
+		.rich-button {
+		}
+		.rich-button-button {
+		}
+		.rich-button-button-disabled {
+		}
+		.rich-button-disabled {
+		}
+		.rich-button-over {
+		}
+		.rich-button-press {
+		}
+		.rich-button-reset {
+		}
+		.rich-button-reset-disabled {
+		}
+		.rich-button-submit {
+		}
+		.rich-button-submit-disabled {
+		}
+		.rich-container {
+		}
+		.rich-field {
+		}
+		.rich-field-edit {
+		}
+		.rich-field-error {
+		}
+		.rich-fieldset {
+		}
+		.rich-font-family-general {
+		}
+		.rich-font-family-header {
+		}
+		.rich-font-size-general {
+		}
+		.rich-font-size-header {
+		}
+		.rich-form {
+		}
+		.rich-gradient-button {
+		}
+		.rich-gradient-button-inverse {
+		}
+		.rich-gradient-header {
+		}
+		.rich-gradient-header-inverse {
+		}
+		.rich-gradient-input {
+		}
+		.rich-gradient-menu {
+		}
+		.rich-gradient-menu-inverse {
+		}
+		.rich-gradient-tab {
+		}
+		.rich-gradient-tab-inverse {
+		}
+		.rich-hr {
+		}
+		.rich-input {
+		}
+		.rich-input-button {
+		}
+		.rich-input-button-disabled {
+		}
+		.rich-input-password {
+		}
+		.rich-input-password-disabled {
+		}
+		.rich-input-reset {
+		}
+		.rich-input-reset-disabled {
+		}
+		.rich-input-submit {
+		}
+		.rich-input-submit-disabled {
+		}
+		.rich-input-text {
+		}
+		.rich-input-text-disabled {
+		}
+		.rich-isindex {
+		}
+		.rich-keygen {
+		}
+		.rich-legend {
+		}
+		.rich-link {
+		}
+		.rich-select {
+		}
+		.rich-select-disabled {
+		}
+		.rich-text-color-general {
+		}
+		.rich-text-color-header {
+		}
+		.rich-text-color-link-general {
+		}
+		.rich-text-color-link-hover {
+		}
+		.rich-text-color-link-visited {
+		}
+		.rich-text-color-select {
+		}
+		.rich-text-color-tab-disabled {
+		}
+		.rich-text-control-select {
+		}
+		.rich-text-general {
+		}
+		.rich-text-header {
+		}
+		.rich-text-tab-disabled {
+		}
+		.rich-textarea {
+		}
+		.rich-textarea-disabled {
+		}
+		.rich-textarea-textarea {
+		}
+		.rich-textarea-textarea-disabled {
+		}
+	]]>
+	</f:verbatim>
+</f:template>

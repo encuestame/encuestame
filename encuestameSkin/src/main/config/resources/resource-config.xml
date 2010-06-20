@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource-config>
+<!-- 
+	===================================
+	Place your custom resources here 
+	Describe them as follows
+	===================================
+	<resource>
+		<name>org/foo/bar/scripts/foo.js</name>
+		<path>org/foo/bar/scripts/foo.js</path>
+		<renderer class="org.ajax4jsf.resource.ScriptRenderer"/>
+	</resource>
+	<resource class="org.foo.renderkit.html.FooImage">
+		<name>org.foo.renderkit.html.FooImage</name>
+	</resource>
+  <resource>
+    <name>org/foo/bar/css/foo.xcss</name>
+    <path>org/foo/bar/css/foo.xcss</path>
+  </resource>
+  ======================================
+  ======================================
+-->
+</resource-config>
