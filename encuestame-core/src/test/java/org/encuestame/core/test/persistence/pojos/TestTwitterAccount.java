@@ -47,7 +47,7 @@ public class TestTwitterAccount extends AbstractBase {
     /**
      * Test.
      */
-    @Test
+    //@Test
     public void testSecTwitterAccounts(){
         final String password = "12345";
         final SecUserTwitterAccounts accounts = new SecUserTwitterAccounts();
