@@ -21,8 +21,6 @@ import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mchange.util.AssertException;
-
 /**
  * {@link SecUserTwitterAccounts} Test.
  * @author Picado, Juan juanATencuestame.org
