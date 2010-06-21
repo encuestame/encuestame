@@ -63,4 +63,9 @@
     scope="request">
   </bean>
 
+  <!-- User Information Bean -->
+  <bean id="userProfile" class="org.encuestame.web.security.UserProfileBean" scope="session">
+        <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
+
 </beans>

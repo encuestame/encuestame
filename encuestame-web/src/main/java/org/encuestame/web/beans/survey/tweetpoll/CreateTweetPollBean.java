@@ -146,7 +146,7 @@ public class CreateTweetPollBean extends MasterBean {
     public List<UnitQuestionBean> suggest(final Object suggest){
         String pref = (String) suggest;
         final ArrayList<UnitQuestionBean> result = new ArrayList<UnitQuestionBean>();
-        final List<UnitQuestionBean> suggested = getTweetPollService().listSuggestQuestion(pref, getUsername());
+        final List<UnitQuestionBean> suggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
         log.info("suggested "+suggested.size());
         for(UnitQuestionBean elem: suggested){
             if ((elem.getQuestionName().toLowerCase().indexOf(pref.toLowerCase()) == 0)) {

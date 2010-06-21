@@ -247,7 +247,7 @@ public class MasterBean{
      * Get Username.
      * @return username
      */
-    public final String getUsername(){
+    public final String getSecurityContextUsername(){
         //log.info("Session Username "+getSecCtx().getAuthentication().getName());
         return getSecCtx().getAuthentication().getName();
     }
@@ -257,7 +257,7 @@ public class MasterBean{
      * @return {@link SecUserSecondary}
      */
     public final SecUserSecondary getUsernameByName(){
-        return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getUsername());
+        return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getSecurityContextUsername());
     }
 
     /**

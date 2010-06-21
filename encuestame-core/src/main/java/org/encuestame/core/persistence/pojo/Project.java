@@ -144,7 +144,7 @@ public class Project {
      * @return projectDateFinish
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_finish", length = 0)
+    @Column(name = "date_finish")
     public Date getProjectDateFinish() {
         return this.projectDateFinish;
     }

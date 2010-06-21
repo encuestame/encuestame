@@ -10,26 +10,36 @@
             <div id="navbar">
                <ul>
                   <li>
-                      <a href="#" onclick="showlayer('login_menu')">User Preferences</a>
+                      <a href="#" onclick="showlayer('profile_menu')">#{msg.menuMyProfile}</a>
                   </li>
                </ul>
-               <div id="login_menu" style="display:none; right: 0px;">
-               <div id="new-user-col">New User:<br /><br />
-                  <a href="register.html" class="green-button">Register</a>
+               <div id="profile_menu" style="display:none; right: 0px;">
+               <div id="detail_profile">Profile Detail<br /><br />
+                <h:panelGrid columns="2">
+                  <h:outputLabel value="Username" />
+                  <h:outputText value="#{userProfile.details.username}" />
+                  <h:outputLabel value="Email" />
+                  <h:outputText value="#{userProfile.details.userEmail}" />
+                  <h:outputLabel value="Name" />
+                  <h:outputText value="#{userProfile.details.completeName}" />
+                  <h:outputLabel value="Permissions" />
+                    <h:panelGroup>
+                        <a4j:repeat  value="#{userProfile.details.authorities}" var="rol">
+                            <h:outputText value="#{rol}" /><br/>
+                        </a4j:repeat>
+                  </h:panelGroup>
+                  </h:panelGrid>
                </div>
-               <div id="signup-user-col">
-                    Existing User log in below:<br /><br />
-                    <form action="login.html" method="post">
+               <div id="options_profile">
+                    Options<br /><br />
                         <ul>
                             <li>
-                                <label for="email">Email:</label><input type="text" id="email" size="18"/>
+                               <a href="${request.contextPath}/user/changePassword.html">Change Password</a>
                             </li>
                             <li>
-                                <label for="psw">Password:</label><input type="text" id="psw" size="18"/>
+                                <a href="${request.contextPath}/user/profile.html">Update Profile</a>
                             </li>
-                            <button type="submit" class="green-button">Log-in</button>
                         </ul>
-                     </form>
                  </div>
                  <div class="spacer"></div>
                 </div>

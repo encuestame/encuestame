@@ -13,20 +13,19 @@
 package org.encuestame.core.security.spring;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -101,7 +100,20 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             log.error("user not found");
             throw new UsernameNotFoundException("user not found");
         }
+        this.updateLoggedInfo(user);
         return convertToUserDetails(user);
+    }
+
+
+    /**
+     * Update Logged Info.
+     * @param secUserSecondary
+     */
+    private void updateLoggedInfo(final SecUserSecondary secUserSecondary){
+        final Calendar calendar = Calendar.getInstance();
+        secUserSecondary.setLastTimeLogged(calendar.getTime());
+        log.debug("Updating logged time "+calendar.getTime());
+        secUserDao.saveOrUpdate(secUserSecondary);
     }
 
     /**

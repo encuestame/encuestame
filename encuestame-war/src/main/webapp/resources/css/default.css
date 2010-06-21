@@ -17,6 +17,11 @@ a:hover{
     text-decoration: underline;
 }
 
+.spaceOptionColumn{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 #header {
     background-color: #FFF;
     border: 0px solid #000;

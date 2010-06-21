@@ -70,7 +70,7 @@ public class TweetPollsBean extends MasterBean {
     private void loadTweets() {
         try {
             this.listTweets = getServicemanager().getApplicationServices().getTweetPollService()
-            .getTweetsPollsByUserName(getUsername());
+            .getTweetsPollsByUserName(getSecurityContextUsername());
              log.info("loading tweet polls");
         } catch (Exception e) {
             log.error(e);

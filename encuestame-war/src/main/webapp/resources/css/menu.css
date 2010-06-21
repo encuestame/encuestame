@@ -84,10 +84,10 @@ ul#topnav li span a:hover {
     border-bottom: dotted 1px #000000;
 }
 
-#login_menu {
+#profile_menu {
     background: #aaaaaa;
     border: solid 1px #666666;
-    width: 340px;
+    width: 400px;
     padding: 10px;
     color: #FFFFFF;
     position: absolute;
@@ -97,41 +97,41 @@ ul#topnav li span a:hover {
     z-index: 500;
 }
 
-#login_menu li {
+#profile_menu li {
     padding-bottom: 6px;
     text-align: right;
 }
 
-#new-user-col {
+#detail_profile {
     padding-right: 10px;
     border-right: 1px #DEDEDE solid;
     height: 120px;
-    width: 100px;
+    width: 230px;
     float: left;
     line-height: 12px;
 }
 
-#signup-user-col {
+#options_profile {
     padding-left: 20px;
     height: 120px;
-    width: 200px;
+    width: 135px;
     float: left;
     line-height: 12px;
     text-align: right;
 }
 
-#login_menu label {
+#profile_menu label {
     font-size: 11px;
     font-weight: normal;
 }
 
-#login_menu input {
+#profile_menu input {
     font-size: 11px;
     color: #333333;
     margin-left: 10px;
 }
 
-#login_menu button {
+#profile_menu button {
     line-height: 24px;
     float: right;
     color: #FFFFFF;

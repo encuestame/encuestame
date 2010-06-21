@@ -53,6 +53,8 @@ public class SecUserSecondary {
     private Date enjoyDate;
     private Boolean userStatus;
     private String userTwitterAccount;
+    private Date lastTimeLogged;
+    private String lastIpLogged;
 
     /**
      * Account Enabled.
@@ -286,5 +288,36 @@ public class SecUserSecondary {
      */
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    /**
+     * @return the lastTimeLogged
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_time_logged")
+    public Date getLastTimeLogged() {
+        return lastTimeLogged;
+    }
+
+    /**
+     * @param lastTimeLogged the lastTimeLogged to set
+     */
+    public void setLastTimeLogged(Date lastTimeLogged) {
+        this.lastTimeLogged = lastTimeLogged;
+    }
+
+    /**
+     * @return the lastIpLogged
+     */
+     @Column(name = "last_ip_logged")
+    public String getLastIpLogged() {
+        return lastIpLogged;
+    }
+
+    /**
+     * @param lastIpLogged the lastIpLogged to set
+     */
+    public void setLastIpLogged(String lastIpLogged) {
+        this.lastIpLogged = lastIpLogged;
     }
 }

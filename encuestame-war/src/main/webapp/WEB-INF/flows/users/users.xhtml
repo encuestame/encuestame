@@ -15,12 +15,12 @@
                 <h2>#{msg.titleUserGroups}</h2>
             </span>
             <!-- Option Menu -->
-            <h:panelGrid columns="8">
+            <div style="float: right;">
                 <a4j:commandLink value="#{msg.newUser}" rendered="true"
                     oncomplete="javascript:Richfaces.showModalPanel('panelnewUserGroup')"
                     reRender="newFormUserUnit,formHeaderNewtUser">
                 </a4j:commandLink>
-            </h:panelGrid>
+             </div>
             <rich:messages id="infoBox" errorClass="error"
                 infoClass="info" warnClass="war"></rich:messages>
             <h:panelGrid columns="9" cellpadding="3">
@@ -71,7 +71,7 @@
                         <rich:column>
                             <h:outputText value="#{msg.groups}" />
                         </rich:column>
-                         <rich:column>
+                         <rich:column width="100px">
                             <h:outputText value="Operations" />
                         </rich:column>
                     </rich:columnGroup>
@@ -91,19 +91,25 @@
                         <h:outputText value="#{group.groupName}" />
                     </a4j:repeat>
                 </rich:column>
-                <rich:column>
-                    <a4j:commandLink value="Edit"
-                        action="#{userBean.loadSelectUser}"
-                        oncomplete="javascript:Richfaces.showModalPanel('panelUserGroup')" reRender="panelUserGroup">
-                        <a4j:actionparam name="userId"
-                            value="#{unitUser.username}"
-                            assignTo="#{userBean.processedUserId}"></a4j:actionparam>
-                    </a4j:commandLink>
-                    <h:outputText value="|" />
-                    <a4j:commandLink value="Delete"
-                        action="delete"
-                        reRender="#{flowRenderFragments}">
-                    </a4j:commandLink>
+                <rich:column width="100px">
+                    <span class="spaceOptionColumn">
+                        <a4j:commandLink value="Edit"
+                            action="#{userBean.loadSelectUser}"
+                            oncomplete="javascript:Richfaces.showModalPanel('panelUserGroup')" reRender="panelUserGroup">
+                            <a4j:actionparam name="userId"
+                                value="#{unitUser.username}"
+                                assignTo="#{userBean.processedUserId}"></a4j:actionparam>
+                        </a4j:commandLink>
+                    </span>
+
+                     <h:outputText value="|" />
+
+                    <span class="spaceOptionColumn">
+                        <a4j:commandLink value="Delete"
+                            action="delete"
+                            reRender="#{flowRenderFragments}">
+                        </a4j:commandLink>
+                    </span>
                 </rich:column>
             </rich:dataTable>
         </a4j:form>

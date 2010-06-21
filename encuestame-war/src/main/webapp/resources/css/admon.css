@@ -13,9 +13,9 @@
 }
 
 #admonWrapper div.bodyAdmon{
-    margin-left: 260px;
+    margin-left: 280px;
     min-width:700px;
-    padding: 0 15px 8px 0;
+    padding: 0 0px 8px 0;
 }
 
 /** Users **/
@@ -74,6 +74,15 @@
 .admonUserHeader{
     display: inline-block;
     background-image: url(../images/icons/enme_admon_user.png);
+    background-repeat: no-repeat;
+    width: 100px;
+    padding-left : 61px;
+    margin-left: 6px;
+}
+
+.admonAddUser{
+    display: inline-block;
+    background-image: url(../images/icons/enme-add-user.png);
     background-repeat: no-repeat;
     width: 100px;
     padding-left : 61px;
