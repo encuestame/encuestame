@@ -130,6 +130,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }
         catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error creating TweetlPoll "+e.getMessage());
             throw new EnMeExpcetion(e);
         }
     }
@@ -145,20 +147,27 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         String tweetQuestionText = "";
         try{
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
-            log.info("/**//**//**////");
-            log.info(tweetPollDomain.getTweetPollId());
+            log.debug("generateTweetPollText");
+            log.debug("TweetPoll ID: "+tweetPollDomain.getTweetPollId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
+            log.debug("Question text: "+tweetQuestionText);
             final List<QuestionsAnswers> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
-            if(answers.size()==2){
+            if(answers.size() == 2){
                 for (final QuestionsAnswers questionsAnswers : answers) {
+                     log.debug("Answer ID: "+questionsAnswers.getQuestionAnswerId());
+                     log.debug("Answer Question: "+questionsAnswers.getAnswer());
                     tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
                 }
             }
+            else{
+                log.warn("Answers should be 2 for TweetPolls");
+            }
         }
         catch (Exception e) {
-
+            e.printStackTrace();
             throw new EnMeExpcetion(e);
         }
+        log.debug("Question Generated: "+tweetQuestionText);
         return tweetQuestionText;
     }
 
@@ -187,6 +196,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion {
         try {
+            log.debug("Publish Tweet Text "+tweetText);
+            log.debug("Publish username "+username);
           return getTwitterService().publicTweet(username, password, tweetText);
         } catch (TwitterException e) {
             log.error(e);

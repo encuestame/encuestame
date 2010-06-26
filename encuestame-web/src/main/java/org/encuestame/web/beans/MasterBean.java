@@ -30,6 +30,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.webflow.context.servlet.ServletExternalContext;
+import org.springframework.webflow.execution.RequestContextHolder;
 
 
 /**
@@ -131,20 +134,35 @@ public class MasterBean{
     }
 
     /**
+     * Get Request.
+     * @return
+     */
+    protected HttpServletRequest getFlowRequest(){
+        ServletRequestAttributes attr = (ServletRequestAttributes) org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes();
+        log.debug("getFlowRequest "+attr.getRequest());
+        log.debug("getFlowRequest Server Name "+attr.getRequest().getServerName());
+        log.debug("getFlowRequest Server Context Path "+attr.getRequest().getContextPath());
+        log.debug("getFlowRequest Server Port "+attr.getRequest().getServerPort());
+        return attr.getRequest();
+    }
+
+    /**
      * Get Domain.
      * @return domain
      */
     public final String getDomain(){
-        final HttpServletRequest request = (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
-        final StringBuffer buffer = new StringBuffer(this.URL);
-        buffer.append(request.getServerName());
-        if(request.getServerPort() != 80){
-            buffer.append(":");
-            buffer.append(request.getServerPort());
+        final HttpServletRequest request = this.getFlowRequest();
+        log.debug("DOMAIN REQUEST "+request);
+        final StringBuffer domain = new StringBuffer(MasterBean.URL);
+        domain.append(request.getServerName());
+        if(request.getServerPort() != MasterBean.REQUEST_SERVER_PORT){
+            domain.append(":");
+            domain.append(request.getServerPort());
         }
         //buffer.append("//");
-        buffer.append(request.getContextPath());
-        return buffer.toString();
+        domain.append(request.getContextPath());
+        log.debug("DOMAIN "+domain);
+        return domain.toString();
     }
 
     /**

@@ -13,6 +13,7 @@
 
 package org.encuestame.web.beans.survey.tweetpoll;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,12 @@ import twitter4j.Status;
  * @since Feb 13, 2010 11:36:48 PM
  * @version $Id$
  */
-public class CreateTweetPollBean extends MasterBean {
+public class CreateTweetPollBean extends MasterBean implements Serializable{
+
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = -191208309931131495L;
 
     /** {@link UnitTweetPoll}. **/
     private UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
@@ -48,6 +54,9 @@ public class CreateTweetPollBean extends MasterBean {
 
     /** Resume Tweet. **/
     private String resumeTweet;
+
+    /** Steps of Wizard. **/
+    private Integer step = 1;
 
     /** Count Tweet. **/
     private Integer countTweet;
@@ -71,6 +80,7 @@ public class CreateTweetPollBean extends MasterBean {
             addInfoMessage("Question Saved.", "");
             setResumeTweet(this.questionBean.getQuestionName());
             //TODO: refresh url
+            //show up next wizard step
         }catch (Exception e) {
             addErrorMessage("Error save question", "");
             log.error(e);
@@ -82,20 +92,24 @@ public class CreateTweetPollBean extends MasterBean {
      * Create Short Sumilate Url.
      * @param answer answer
      */
-    public final void createShortSimulateUrl(final UnitAnswersBean answer){
+    public final void createShortAnswerUrl(final UnitAnswersBean answer){
         try{
             final ISurveyService survey = getServicemanager().getApplicationServices().getSurveyService();
             answer.setAnswerHash(MD5Utils.md5(String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())));
             log.info(getDomain());
-            final String url = survey.getTwitterService().getTinyUrl(buildUrl(answer));
+            //Get Tiny Url.
+            final String url = survey.getTwitterService().getTinyUrl(this.buildUrl(answer));
             log.info("tiny url "+url);
-            StringBuffer answerString = new StringBuffer(getResumeTweet());
+            answer.setUrl(url);
+            log.info("RESUME TWEET" +getResumeTweet());
+            StringBuffer answerString = new StringBuffer("");
             answerString.append(" ");
             answerString.append(answer.getAnswers());
             answerString.append(" ");
             answerString.append(url);
             log.info("answerString "+answerString);
             setResumeTweet(answerString.toString());
+            this.createPreview();
         }
         catch (Exception e) {
             log.error(e);
@@ -122,12 +136,14 @@ public class CreateTweetPollBean extends MasterBean {
     public final void addAnswer(){
         try{
             if(getUnitTweetPoll().getQuestionBean() !=null){
-                this.createShortSimulateUrl(getAnswersBean());
-                getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
+                this.createShortAnswerUrl(getAnswersBean());
+                //Saving Answer to Question Answers List.
+                this.questionBean.getListAnswers().add(getAnswersBean());
                 setAnswersBean(new UnitAnswersBean());
                 addInfoMessage("Answer Added", "");
             }
             else{
+                log.warn("You need create question first.");
                 addWarningMessage("You need create question first.", "");
             }
         }
@@ -136,6 +152,13 @@ public class CreateTweetPollBean extends MasterBean {
             log.error(e);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Create Preview.
+     */
+    public void createPreview(){
+        log.info("Creating Preview");
     }
 
     /**
@@ -171,38 +194,70 @@ public class CreateTweetPollBean extends MasterBean {
     }
 
     /**
+     * Publish TweetPoll.
+     */
+    public final void publishTweetPoll(){
+        this.createTweetPoll(Boolean.TRUE);
+    }
+
+    /**
+     * Save Later To Publish TweetPoll.
+     */
+    public final void saveLaterTweetPoll(){
+        this.createTweetPoll(Boolean.FALSE);
+    }
+
+    /**
      * Create Tweet Poll.
      */
-    public final void createTweetPoll(){
+    public final void createTweetPoll(final Boolean publish){
         final ITweetPollService tweetPollService = getTweetPollService();
-        try{
-          //save question
-           getSurveyService().createQuestion(getUnitTweetPoll().getQuestionBean());
-            //save create tweet poll
-           getUnitTweetPoll().setUserId(getUsernameByName().getSecUser().getUid());
-           //TODO: we need implement scheduled tweetPoll.
-           getUnitTweetPoll().setScheduleDate(new Date());
-           getUnitTweetPoll().setCloseNotification(false);
-           getUnitTweetPoll().setAllowLiveResults(false);
-           getUnitTweetPoll().setSchedule(false);
-           getUnitTweetPoll().setPublishPoll(false);
-           getUnitTweetPoll().setResultNotification(false);
-           tweetPollService.createTweetPoll(getUnitTweetPoll());
-           if(getUnitTweetPoll().getPublishPoll()){
-               final String tweet = tweetPollService.generateTweetPollText(getUnitTweetPoll(), getDomain());
-               final SecUsers sessionUser = getUsernameByName().getSecUser();
-               final Status status = tweetPollService.publicTweetPoll(tweet, sessionUser.getTwitterAccount(), sessionUser.getTwitterPassword());
-               final Long tweetId = status.getId();
-               if(tweetId != null){
-                   getUnitTweetPoll().setTweetId(tweetId);
-                   getUnitTweetPoll().setPublicationDateTweet(status.getCreatedAt());
-                   tweetPollService.saveTweetId(getUnitTweetPoll());
-                   log.info("tweeted :"+tweetId);
-               }
-           }
-            addInfoMessage("tweet poll message", "");
-            log.debug("tweet poll created");
-        }catch (EnMeExpcetion e) {
+        try {
+            //Getting User Logged Id.
+            final Long userId = getUsernameByName().getSecUser().getUid();
+            this.questionBean.setUserId(userId);
+            getUnitTweetPoll().setQuestionBean(this.questionBean);
+            // save question
+            getSurveyService().createQuestion(
+                    getUnitTweetPoll().getQuestionBean());
+            // save create tweet poll
+            if (getUnitTweetPoll().getQuestionBean().getId() != null) {
+                getUnitTweetPoll().setUserId(
+                        getUsernameByName().getSecUser().getUid());
+                //TODO: we need implement scheduled tweetPoll.
+                getUnitTweetPoll().setScheduleDate(new Date());
+                getUnitTweetPoll().setCloseNotification(false);
+                getUnitTweetPoll().setAllowLiveResults(false);
+                getUnitTweetPoll().setSchedule(false);
+                getUnitTweetPoll().setPublishPoll(publish);
+                getUnitTweetPoll().setResultNotification(false);
+                tweetPollService.createTweetPoll(getUnitTweetPoll());
+                if (getUnitTweetPoll().getPublishPoll()) {
+                    final String tweetText = tweetPollService
+                            .generateTweetPollText(getUnitTweetPoll(),
+                                    getDomain());
+                    final SecUsers sessionUser = getUsernameByName()
+                            .getSecUser();
+                    final Status status = tweetPollService.publicTweetPoll(
+                            tweetText, sessionUser.getTwitterAccount(), sessionUser
+                                    .getTwitterPassword());
+                    final Long tweetId = status.getId();
+                    if (tweetId != null) {
+                        getUnitTweetPoll().setTweetId(tweetId);
+                        getUnitTweetPoll().setPublicationDateTweet(
+                                status.getCreatedAt());
+                        tweetPollService.saveTweetId(getUnitTweetPoll());
+                        log.info("tweeted :" + tweetId);
+                    }
+                }
+                addInfoMessage("tweet poll message", "");
+                log.debug("tweet poll created");
+            }
+            else{
+                log.error("Question ID don't exitst");
+            }
+        }
+        catch (EnMeExpcetion e) {
             addErrorMessage("error "+e, "");
             log.error(e);
             e.printStackTrace();
@@ -262,17 +317,7 @@ public class CreateTweetPollBean extends MasterBean {
      * @param resumeTweet the resumeTweet to set
      */
     public final void setResumeTweet(final String resumeTweet) {
-        this.updateCount(resumeTweet);
         this.resumeTweet = resumeTweet;
-    }
-
-    /**
-     * Update Count.
-     * @param resumeTweet
-     */
-    private void updateCount(final String resumeTweet){
-        final Integer tweetLenght = resumeTweet.length();
-        setCountTweet(getCountTweet() - tweetLenght);
     }
 
     /**
@@ -288,4 +333,19 @@ public class CreateTweetPollBean extends MasterBean {
     public final void setCountTweet(final Integer countTweet) {
         this.countTweet = countTweet;
     }
+
+    /**
+     * @return the step
+     */
+    public Integer getStep() {
+        return step;
+    }
+
+    /**
+     * @param step the step to set
+     */
+    public void setStep(final Integer step) {
+        this.step = step;
+    }
+
 }

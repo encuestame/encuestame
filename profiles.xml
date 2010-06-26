@@ -37,7 +37,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
@@ -95,7 +95,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
@@ -211,7 +211,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
@@ -269,7 +269,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>/home/dmorales/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
@@ -327,7 +327,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->

@@ -1,68 +1,33 @@
-<ui:composition template="/templates/surveyTemplate.xhtml"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:rich="http://richfaces.org/rich">
-  <ui:define name="title">Create TweetPoll</ui:define>
-   <ui:define name="panel">
-    <a4j:form>
-        <rich:panelBar height="400">
-            <rich:panelBarItem label="My Tweets">
-            <h:panelGrid columns="1" cellpadding="4" cellspacing="5">
-                <a4j:commandLink value="TweetPolls" action="tweetpoll"></a4j:commandLink>
-                <a4j:commandLink value="Create TweetPoll" action="createTweetPoll"></a4j:commandLink>
-            </h:panelGrid>
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Configuration">
-                <a4j:commandLink value="Credentials" action="tweetPollCredentials"></a4j:commandLink>
-            </rich:panelBarItem>
-        </rich:panelBar>
-    </a4j:form>
-   </ui:define>
-   <ui:define name="bodyOptions">
+<ui:composition template="../../layouts/surveyTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:sf="http://www.springframework.org/tags/faces">
+    <ui:define name="title">Create TweetPoll</ui:define>
+    <ui:define name="bodyOptions">
         <a4j:form id="formBody">
             <rich:messages errorClass="error" infoClass="info"
                 warnClass="war"></rich:messages>
-            <div class="bodyTweet">
-                <h:inputTextarea
-                id="questionResume"
-                value="#{createTweetPollBean.resumeTweet}"
-                rows="3"
-                style="width:80%; font-size:16px;font-weight:bold:" />
-                <h:inputText value="#{createTweetPollBean.countTweet}" />
-            </div>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Pregunta" />
-                <h:inputText
-                    value="#{createTweetPollBean.questionBean.questionName}"
-                    size="50" />
-            </h:panelGrid>
-            <a4j:commandButton
-                action="#{createTweetPollBean.saveQuestion}"
-                value="Save Question" reRender="questionResume"></a4j:commandButton>
-
-            <h2>List Of Answers</h2>
-            <a4j:repeat
-                value="#{createTweetPollBean.unitTweetPoll.questionBean.listAnswers}"
-                var="answer" id="answerList">
-                <ul>
-                    <li><h:outputText value="#{answer.answers}" /></li>
-                </ul>
-            </a4j:repeat>
-            <h:panelGrid columns="2" id="answerFormGrid">
-                <h:outputLabel value="Respuesta" />
-                <h:inputText
-                    value="#{createTweetPollBean.answersBean.answers}"
-                    size="50" />
-            </h:panelGrid>
-            <a4j:commandButton action="#{createTweetPollBean.addAnswer}"
-                value="Add Answer" reRender="formBody"></a4j:commandButton>
-            <a4j:commandButton action="#{createTweetPollBean.deleteAllAnswers}"
-            value="Delete All Answers" reRender="formBody"></a4j:commandButton>
-             <a4j:commandButton action="#{createTweetPollBean.createTweetPoll}"
-                value="Save Tweet Poll" reRender="formBody"></a4j:commandButton>
+            <rich:panel rendered="#{!validate}" styleClass="error">
+                <h:panelGrid columns="1" cellpadding="3" cellspacing="3">
+                    <h:outputText
+                        value="You need valid twitter account." />
+                    <sf:commandLink
+                        value=" Click here to add twitter account."
+                        action="addTwitterAccount" />
+                </h:panelGrid>
+            </rich:panel>
+            <div>Create your TweetPoll.
+            <ul>
+                <li>1. Create your Question</li>
+                <li>2. Create your answers</li>
+                <li>3. Publish or save it for later.</li>
+            </ul>
+            <a4j:commandButton value="Start" action="init"
+                reRender="formBody"></a4j:commandButton></div>
         </a4j:form>
     </ui:define>
 </ui:composition>

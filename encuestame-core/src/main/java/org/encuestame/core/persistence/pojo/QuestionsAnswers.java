@@ -44,6 +44,9 @@ public class QuestionsAnswers {
     /** uniqueAnserHash. **/
     private String uniqueAnserHash;
 
+    /** Url Answer. **/
+    private String urlAnswer;
+
     /** Answer Type. **/
     private AnswerType answerType = AnswerType.DEFAULT;
 
@@ -154,4 +157,18 @@ public class QuestionsAnswers {
         this.answerType = answerType;
     }
 
+    /**
+     * @return the urlAnswer
+     */
+    @Column(name = "answer_url", nullable = true)
+    public String getUrlAnswer() {
+        return urlAnswer;
+    }
+
+    /**
+     * @param urlAnswer the urlAnswer to set
+     */
+    public void setUrlAnswer(String urlAnswer) {
+        this.urlAnswer = urlAnswer;
+    }
 }

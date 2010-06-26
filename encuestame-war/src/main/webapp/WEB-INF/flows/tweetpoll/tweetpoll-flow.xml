@@ -3,17 +3,60 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <var name="createTweetPollBean"
+        class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean" />
+    <var name="questionBean" class="org.encuestame.utils.web.UnitQuestionBean"></var>
+
     <view-state id="tweetpoll">
         <on-render>
-            <evaluate expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)" result="flowScope.tweetsPolls"
-                      result-type="dataModel" />
-            <evaluate expression="tweetPollService.validateUserTwitterAccount(currentUser.name)" result="flowScope.validate"/>
+            <evaluate
+                expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
+                result="flowScope.tweetsPolls" result-type="dataModel" />
+            <evaluate
+                expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
+                result="flowScope.validate" />
         </on-render>
+        <transition on="create" to="createTweetPoll">
+
+        </transition>
+    </view-state>
+
+    <view-state id="createTweetPoll">
+        <transition on="init" to="addQuestion">
+            <evaluate expression="createTweetPollBean.createPreview()" />
+        </transition>
+    </view-state>
+
+    <view-state id="addQuestion">
+        <transition on="saveQuestion" to="addAnswers">
+            <evaluate expression="createTweetPollBean.createPreview()" />
+        </transition>
+    </view-state>
+
+    <view-state id="addAnswers">
+        <transition on="preview" to="preview">
+            <evaluate expression="createTweetPollBean.createPreview()" />
+        </transition>
+    </view-state>
+
+    <view-state id="preview">
+        <transition on="publish" to="publish">
+        </transition>
+        <transition on="later" to="tweetpoll">
+            <evaluate expression="createTweetPollBean.saveLaterTweetPoll()" />
+        </transition>
+    </view-state>
+
+    <view-state id="publish">
+        <transition on="publish" to="tweetpoll">
+            <evaluate expression="createTweetPollBean.publishTweetPoll()" />
+        </transition>
     </view-state>
 
     <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
 
     <global-transitions>
+        <transition on="cancel" to="tweetpoll" />
         <transition on-exception="org.encuestame.core.exception.EnMeExpcetion"
             to="error" />
     </global-transitions>

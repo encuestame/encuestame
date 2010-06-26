@@ -59,7 +59,7 @@ public class EnMeRoleVoter extends RoleVoter {
                 // Attempt to find a matching granted authority
                 log.debug("Attribute" +attribute.getAttribute());
                 for (GrantedAuthority authority : authorities) {
-                    log.debug("authority.getAuthority())"+authority.getAuthority());
+                    //log.debug("authority.getAuthority())"+authority.getAuthority());
                     if (attribute.getAttribute().equals(
                             authority.getAuthority())) {
                         return ACCESS_GRANTED;
@@ -67,7 +67,7 @@ public class EnMeRoleVoter extends RoleVoter {
                 }
             }
         }
-        log.debug("Result "+result);
+        //log.debug("Result "+result);
         return result;
     }
 

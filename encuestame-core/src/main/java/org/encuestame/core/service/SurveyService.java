@@ -56,6 +56,10 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
             try{
+                log.debug("Create Question");
+                log.debug("Question Name "+questionBean.getQuestionName());
+                log.debug("Create Question User Id"+questionBean.getUserId());
+                log.debug("Create Question List Answers "+questionBean.getListAnswers().size());
                 final Questions question = new Questions();
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
@@ -68,6 +72,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
                 }
             }
             catch (Exception e) {
+                log.error("Error Creating Question "+e.getMessage());
+                e.printStackTrace();
                 throw new EnMeExpcetion(e);
             }
     }
@@ -81,6 +87,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             final QuestionsAnswers answer = new QuestionsAnswers();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
+            answer.setUrlAnswer(answerBean.getUrl());
             answer.setUniqueAnserHash(answerBean.getAnswerHash());
             this.getQuestionDao().saveOrUpdate(answer);
             answerBean.setAnswerId(answer.getQuestionAnswerId());

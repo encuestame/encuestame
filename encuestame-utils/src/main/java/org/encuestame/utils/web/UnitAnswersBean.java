@@ -38,6 +38,9 @@ public class UnitAnswersBean implements Serializable{
     /** Answer Hash. **/
     private String answerHash;
 
+    /** Url. **/
+    private String url;
+
     /** Question Id. **/
     private	 Long questionId;
 
@@ -99,5 +102,19 @@ public class UnitAnswersBean implements Serializable{
      */
     public final void setQuestionId(final Long questionId) {
         this.questionId = questionId;
+    }
+
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -26,7 +26,7 @@
     <property name="buildSurvey" ref="surveyControllerBean" />
   </bean>
 
-  <!--  Tweet Poll -->
+  <!--  Tweet Poll
   <bean id="createTweetPollBean"
     class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
     scope="session">
@@ -34,7 +34,7 @@
     <property name="countTweet">
       <value>140</value>
     </property>
-  </bean>
+  </bean>-->
 
   <bean id="tweetPolls"
     class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean"

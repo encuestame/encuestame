@@ -265,14 +265,15 @@ public class ConvertDomainBean {
 
     /**
      * Convert {@link QuestionsAnswers} to {@link UnitAnswersBean}.
-     * @param questionsAnswers {@link QuestionsAnswers}
+     * @param questionsAnswer {@link QuestionsAnswers}
      * @return {@link UnitAnswersBean}.
      */
-    public static final UnitAnswersBean convertAnswerToBean(final QuestionsAnswers questionsAnswers){
+    public static final UnitAnswersBean convertAnswerToBean(final QuestionsAnswers questionsAnswer){
             final UnitAnswersBean answersBean = new UnitAnswersBean();
-            answersBean.setAnswerId(questionsAnswers.getQuestionAnswerId());
-            answersBean.setAnswers(questionsAnswers.getAnswer());
-            answersBean.setAnswerHash(questionsAnswers.getUniqueAnserHash());
+            answersBean.setAnswerId(questionsAnswer.getQuestionAnswerId());
+            answersBean.setAnswers(questionsAnswer.getAnswer());
+            answersBean.setUrl(questionsAnswer.getUrlAnswer());
+            answersBean.setAnswerHash(questionsAnswer.getUniqueAnserHash());
             return answersBean;
     }
 
