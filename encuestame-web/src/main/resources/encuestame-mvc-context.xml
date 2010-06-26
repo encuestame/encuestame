@@ -41,6 +41,7 @@
         /tweetpoll.html=flowController
         /poll.html=flowController
         /survey.html=flowController
+        /user/profile.html=flowController
         /user/resister.html=urlFilenameViewController
        </value>
     </property>

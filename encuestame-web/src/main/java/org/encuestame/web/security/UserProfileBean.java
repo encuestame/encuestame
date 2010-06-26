@@ -20,11 +20,10 @@ import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.web.beans.MasterBean;
 
 /**
- * Description Class.
- *
+ * User Profile Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 20, 2010 2:48:24 PM
- * @version Id:
+ * @version $Id:$
  */
 public class UserProfileBean extends MasterBean {
 
@@ -36,11 +35,12 @@ public class UserProfileBean extends MasterBean {
 
     private EnMeUserDetails details;
 
+    private String gravatarImageUrl;
+
     private Date lastDateLogged;
 
     public UserProfileBean() {
-        log.debug(getSecCtx().getAuthentication().getPrincipal());
-        this.details = (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+        this.details = getSecurityDetails();
     }
 
     /**
@@ -113,7 +113,24 @@ public class UserProfileBean extends MasterBean {
     /**
      * @param details the details to set
      */
-    public void setDetails(EnMeUserDetails details) {
+    public void setDetails(final EnMeUserDetails details) {
         this.details = details;
+    }
+
+    /**
+     * @return the gravatarImageUrl
+     */
+    public String getGravatarImageUrl() {
+        if(gravatarImageUrl == null){
+            this.gravatarImageUrl = getGravatar(getDetails().getUserEmail(), MasterBean.GRAVATAR_SIZE);
+        }
+        return gravatarImageUrl;
+    }
+
+    /**
+     * @param gravatarImageUrl the gravatarImageUrl to set
+     */
+    public void setGravatarImageUrl(final String gravatarImageUrl) {
+        this.gravatarImageUrl = gravatarImageUrl;
     }
 }

@@ -50,6 +50,7 @@ public class TweetPoll {
     private Boolean completed;
     private SecUsers tweetOwner;
     private Questions question;
+    private SecUserTwitterAccounts twitterAccount;
 
     /**
      * @return the tweetPollId
@@ -248,5 +249,20 @@ public class TweetPoll {
      */
     public void setScheduleDate(Date scheduleDate) {
         this.scheduleDate = scheduleDate;
+    }
+
+    /**
+     * @return the twitterAccount
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public SecUserTwitterAccounts getTwitterAccount() {
+        return twitterAccount;
+    }
+
+    /**
+     * @param twitterAccount the twitterAccount to set
+     */
+    public void setTwitterAccount(SecUserTwitterAccounts twitterAccount) {
+        this.twitterAccount = twitterAccount;
     }
 }

@@ -21,18 +21,18 @@ import org.apache.commons.lang.StringUtils;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
+import org.encuestame.core.service.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.webflow.context.servlet.ServletExternalContext;
-import org.springframework.webflow.execution.RequestContextHolder;
 
 
 /**
@@ -67,11 +67,29 @@ public class MasterBean{
 
     private static final Integer REQUEST_SERVER_PORT = 80;
 
+    private static final String GRAVATAR_URL = "http://www.gravatar.com/avatar/";
+
+    public static final Integer GRAVATAR_SIZE = 64;
+
     /**
      * Constructor.
      */
     public MasterBean() {
-      // this.userSessionId =  this.getUsernameByName().getSecUser().getUid();
+    }
+
+    /**
+     * Get Gravatar.
+     * @param email email.
+     * @param size size.
+     */
+    public final String getGravatar(final String email, Integer size){
+        final String hash = MD5Utils.md5Hex(email);
+         StringBuilder gravatarUl = new StringBuilder();
+         gravatarUl.append(MasterBean.GRAVATAR_URL);
+         gravatarUl.append(hash);
+         gravatarUl.append("?s=");
+         gravatarUl.append(size);
+         return gravatarUl.toString();
     }
 
     /**
@@ -266,8 +284,23 @@ public class MasterBean{
      * @return username
      */
     public final String getSecurityContextUsername(){
-        //log.info("Session Username "+getSecCtx().getAuthentication().getName());
         return getSecCtx().getAuthentication().getName();
+    }
+
+    /**
+     * Get Details.
+     */
+    public final EnMeUserDetails getSecurityDetails(){
+        return (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+    }
+
+    /**
+     * Get Email User Detail.
+     * @return
+     */
+    public final String getSecurityContextEmail(){
+        final EnMeUserDetails details = this.getSecurityDetails();
+        return details.getUserEmail();
     }
 
     /**
@@ -275,7 +308,7 @@ public class MasterBean{
      * @return {@link SecUserSecondary}
      */
     public final SecUserSecondary getUsernameByName(){
-        return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(getSecurityContextUsername());
+        return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(this.getSecurityContextUsername());
     }
 
     /**
