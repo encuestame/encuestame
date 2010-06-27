@@ -20,6 +20,8 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
@@ -40,6 +42,8 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
 
 
     private String tinyApi;
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Constructor.
@@ -85,6 +89,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @throws TwitterException exception
      */
     public User verifyCredentials(final String username, final String password) throws TwitterException{
+        log.debug("verifyCredentials");
         final Twitter twitter = new TwitterFactory().getInstance(username, password);
         return twitter.verifyCredentials();
     }

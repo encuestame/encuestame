@@ -133,6 +133,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @throws TwitterException exception
      */
     public RequestToken getTwitterToken(final String consumerKey,  final String consumerSecret) throws TwitterException{
+            log.debug("getTwitterToken");
             return getTwitterService().getTwitterPing(consumerKey, consumerSecret);
     }
 

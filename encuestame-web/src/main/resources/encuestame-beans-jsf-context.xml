@@ -26,24 +26,8 @@
     <property name="buildSurvey" ref="surveyControllerBean" />
   </bean>
 
-  <!--  Tweet Poll
-  <bean id="createTweetPollBean"
-    class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean"
-    scope="session">
-    <property name="servicemanagerBean" ref="servicesManager" />
-    <property name="countTweet">
-      <value>140</value>
-    </property>
-  </bean>-->
-
   <bean id="tweetPolls"
     class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean"
-    scope="session">
-    <property name="servicemanagerBean" ref="servicesManager" />
-  </bean>
-
-  <bean id="tweetPollCredentialsBean"
-    class="org.encuestame.web.beans.survey.tweetpoll.TweetPollCredentialsBean"
     scope="session">
     <property name="servicemanagerBean" ref="servicesManager" />
   </bean>
@@ -67,5 +51,11 @@
   <bean id="userProfile" class="org.encuestame.web.security.UserProfileBean" scope="session">
         <property name="servicemanagerBean" ref="servicesManager" />
   </bean>
+
+  <!-- Social Beans
+  <bean id="twitterAccountBean" class="org.encuestame.web.social.TwitterAccountsBean" scope="session">
+        <property name="servicemanagerBean" ref="servicesManager" />
+  </bean>
+   -->
 
 </beans>

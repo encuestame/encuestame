@@ -35,6 +35,7 @@ import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
@@ -149,26 +150,43 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param password password
      * @param secUser {@link SecUsers}
      */
-    public void updateTwitterAccount(final String account, final String password, final SecUsers secUser){
-        secUser.setTwitterAccount(account);
-        secUser.setTwitterPassword(password);
-        getSecUserDao().saveOrUpdate(secUser);
+    public void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password){
+        if(accountBean.getAccountId() != null){
+            final SecUserTwitterAccounts twitterAccount = getSecUserDao().getTwitterAccount(accountBean.getAccountId());
+            if(twitterAccount != null){
+                twitterAccount.setTwitterPassword(password);
+                log.debug("Updating twitter password account");
+                getSecUserDao().saveOrUpdate(twitterAccount);
+            }
+        }
         log.info("update Twitter Account");
     }
 
     /**
-     * Update Secret Twitter Credentials.
-     * @param consumerKey consumer key
-     * @param consumerSecret consumer secret
-     * @param pin pin
-     * @param secUser {@link SecUsers}
+     * Update OAuth Secret Twitter Credentials.
+     * @param accountBean
+     * @param username
      */
-    public void updateSecretTwitterCredentials(final String consumerKey, final String consumerSecret,  final Integer pin, final SecUsers secUser){
-        secUser.setConsumerKey(consumerKey);
-        secUser.setConsumerSecret(consumerSecret);
-        secUser.setTwitterPing(pin);
-        getSecUserDao().saveOrUpdate(secUser);
-        log.info("update Twitter Account");
+    public void updateSecretTwitterCredentials(final UnitTwitterAccountBean accountBean,
+            final String username){
+         //TODO: we should search twitter account filter by username
+         final SecUserTwitterAccounts twitterAccount = getSecUserDao().getTwitterAccount(accountBean.getAccountId());
+         twitterAccount.setConsumerKey(accountBean.getKey());
+         twitterAccount.setConsumerSecret(accountBean.getSecret());
+         twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
+         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
+         log.debug("Update Secret Twitter Credentials");
+          getSecUserDao().saveOrUpdate(twitterAccount);
+         log.info("update Twitter Account");
+    }
+
+    /**
+     * Get Twitter Account.
+     * @param twitterAccountId
+     * @return
+     */
+    public UnitTwitterAccountBean getTwitterAccount(final Long twitterAccountId){
+        return ConvertDomainBean.convertTwitterAccountToBean(getSecUserDao().getTwitterAccount(twitterAccountId));
     }
 
     /**
@@ -618,6 +636,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public List<SelectItem> loadSelectItemPermissions(){
         final Set permissionCollection = new HashSet(getPermissionDao().findAllPermissions());
         return ConvertListDomainSelectBean.convertListPermissionsToSelect(permissionCollection);
+    }
+
+    /**
+     * Get User Logged Twitter Accounts.
+     * @return
+     */
+    public List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username){
+         return ConvertDomainBean.convertListTwitterAccountsToBean(getSecUserDao()
+                                 .getTwitterAccountByUser(getUser(username).getSecUser()));
     }
 
     /**

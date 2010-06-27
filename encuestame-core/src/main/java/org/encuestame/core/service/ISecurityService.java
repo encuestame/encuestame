@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
@@ -207,16 +208,22 @@ public interface ISecurityService extends IService {
       * @param password password
       * @param secUser {@link SecUsers}
       */
-     void updateTwitterAccount(final String account, final String password, final SecUsers secUser);
+     void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password);
 
      /**
-      * Update Secret Twitter Credentials.
-      * @param consumerKey consumer key
-      * @param consumerSecret consumer secret
-      * @param pin pin
-      * @param secUser {@link SecUsers}
+      * Update OAuth Secret Twitter Credentials.
+      * @param accountBean
+      * @param username
       */
-     void updateSecretTwitterCredentials(final String consumerKey, final String consumerSecret, final Integer pin,  final SecUsers secUser);
+     void updateSecretTwitterCredentials(final UnitTwitterAccountBean accountBean,
+             final String username);
+
+     /**
+      * Get Twitter Account.
+      * @param twitterAccountId
+      * @return
+      */
+     UnitTwitterAccountBean getTwitterAccount(final Long twitterAccountId);
 
 
     /**
@@ -268,4 +275,10 @@ public interface ISecurityService extends IService {
      * @return {@link SecUserSecondary}
      */
     UnitUserBean findUserByEmail(final String email);
+
+    /**
+     * Get User Logged Twitter Accounts.
+     * @return
+     */
+    List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username);
 }

@@ -31,9 +31,12 @@ import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecGroups;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.TweetPoll;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts.TypeAuth;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -81,6 +84,50 @@ public class ConvertDomainBean {
             log.error("error user bean converter -" + e.getMessage());
         }
         return user;
+    }
+
+    /**
+     *
+     * @param type
+     * @return
+     */
+    public static final	 TypeAuth convertStringToEnum(final String type){
+        if(type.equals(TypeAuth.PASSWORD.name())){
+            return TypeAuth.PASSWORD;
+        }
+        else{
+            return TypeAuth.OAUTH;
+        }
+    }
+
+
+    /**
+     * Twitter Account.
+     * @param twitterAccounts
+     * @return
+     */
+    public static final UnitTwitterAccountBean convertTwitterAccountToBean(final SecUserTwitterAccounts twitterAccounts){
+           final UnitTwitterAccountBean twitterAccountBean = new UnitTwitterAccountBean();
+                   twitterAccountBean.setAccount(twitterAccounts.getTwitterAccount());
+                   twitterAccountBean.setSecret(twitterAccounts.getConsumerSecret());
+                   twitterAccountBean.setKey(twitterAccounts.getConsumerKey());
+                   twitterAccountBean.setPin(twitterAccounts.getTwitterPin() == null ? "" : twitterAccounts.getTwitterPin().toString());
+                   twitterAccountBean.setAccountId(twitterAccounts.getId());
+                   twitterAccountBean.setType(twitterAccounts.getType() == null ? SecUserTwitterAccounts.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
+           return twitterAccountBean;
+    }
+
+    /**
+     * Convert List Twitter Accounts.
+     * @param accounts
+     * @return
+     */
+    public static final  List<UnitTwitterAccountBean> convertListTwitterAccountsToBean(final List<SecUserTwitterAccounts> accounts) {
+        final List<UnitTwitterAccountBean> loadListPermission = new ArrayList<UnitTwitterAccountBean>();
+        for (SecUserTwitterAccounts account : accounts) {
+            loadListPermission.add(ConvertDomainBean.convertTwitterAccountToBean(account));
+        }
+        return loadListPermission;
     }
 
     /**

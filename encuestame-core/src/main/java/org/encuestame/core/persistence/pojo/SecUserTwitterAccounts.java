@@ -15,6 +15,8 @@ package org.encuestame.core.persistence.pojo;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,11 +35,11 @@ import org.jasypt.hibernate.type.EncryptedStringType;
  * @version  $Id:$
  */
 
-@TypeDef(name="encryptedString", typeClass= EncryptedStringType.class,
-        parameters= {
-            @Parameter(name="encryptorRegisteredName",  value="strongHibernateStringEncryptor")
-        }
-    )
+//@TypeDef(name="encryptedString", typeClass= EncryptedStringType.class,
+//        parameters= {
+///            @Parameter(name="encryptorRegisteredName",  value="strongHibernateStringEncryptor")
+//        }
+//    )
 
 @Entity
 @Table(name = "sec_user_twitter_account")
@@ -62,6 +64,39 @@ public class SecUserTwitterAccounts {
      * Twitter Password.
      */
     private String twitterPassword;
+
+    /**
+     *  Consumer Key.
+     **/
+    private String consumerKey;
+
+    /**
+     * Consumer Secret.
+     **/
+    private String consumerSecret;
+
+    /** Twitter Pin.
+     *
+     **/
+    private Integer twitterPin;
+
+    /**
+     * Type.
+     */
+    private TypeAuth type = TypeAuth.PASSWORD;
+
+    /**
+     */
+    public enum TypeAuth {
+
+    /**
+     * OAuth.
+     */
+    OAUTH,
+    /**
+     * Password.
+     */
+    PASSWORD}
 
     /**
      * @return the id
@@ -113,7 +148,7 @@ public class SecUserTwitterAccounts {
     /**
      * @return the twitterPassword
      */
-    @Type(type="encryptedString")
+    //@Type(type="encryptedString")
     @Column (name="twitter_password", nullable = false)
     public String getTwitterPassword() {
         return twitterPassword;
@@ -124,5 +159,66 @@ public class SecUserTwitterAccounts {
      */
     public void setTwitterPassword(final String twitterPassword) {
         this.twitterPassword = twitterPassword;
+    }
+
+    /**
+     * @return the type
+     */
+    @Column(name="type_auth")
+    @Enumerated(EnumType.STRING)
+    public TypeAuth getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(final TypeAuth type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the consumerKey
+     */
+    @Column(name = "twitter_consumer_key", nullable = true)
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    /**
+     * @param consumerKey the consumerKey to set
+     */
+    public void setConsumerKey(final String consumerKey) {
+        this.consumerKey = consumerKey;
+    }
+
+    /**
+     * @return the consumerSecret
+     */
+    @Column(name = "twitter_consumer_secret", nullable = true)
+    public String getConsumerSecret() {
+        return consumerSecret;
+    }
+
+    /**
+     * @param consumerSecret the consumerSecret to set
+     */
+    public void setConsumerSecret(final String consumerSecret) {
+        this.consumerSecret = consumerSecret;
+    }
+
+    /**
+     * @return the twitterPin
+     */
+    @Column(name = "twitter_pin", nullable = true)
+    public Integer getTwitterPin() {
+        return twitterPin;
+    }
+
+    /**
+     * @param twitterPin the twitterPin to set
+     */
+    public void setTwitterPin(Integer twitterPin) {
+        this.twitterPin = twitterPin;
     }
 }
