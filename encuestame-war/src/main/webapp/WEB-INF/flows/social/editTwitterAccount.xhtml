@@ -36,7 +36,6 @@
                         <h:outputLabel value="Current Password" />
                         <h:inputSecret
                             value="#{twitterAccountBean.currentPassword}" />
-                        <h:commandButton value="Cancel" action="cancel"></h:commandButton>
                         <h:commandButton value="Save"
                             action="#{twitterAccountBean.saveTwitterCredentials}"></h:commandButton>
                     </h:panelGrid>
@@ -57,7 +56,6 @@
                         <h:outputLabel value="Twitter Pin" />
                         <h:inputText
                             value="#{twitterAccountBean.unitTwitterAccountBean.pin}" />
-                        <h:commandButton value="Cancel" action="cancel"></h:commandButton>
                         <h:commandButton value="Save"
                             action="#{twitterAccountBean.saveSecretCredentials}"></h:commandButton>
                     </h:panelGrid>
@@ -75,6 +73,19 @@
                 <h:outputText
                     value="#{twitterAccountBean.twitterAuthUrl}" />
             </h:outputLink>
-        </ui:fragment></div>
+        </ui:fragment>
+        <rich:panel>
+            <div style="text-align: right;">
+            <h:form>
+                <h:commandButton value="Disabled this Account" />
+            </h:form>
+            </div>
+        </rich:panel>
+        <div style="padding: 10px;">
+            <h:form>
+                <h:commandButton value="Back" action="cancel"></h:commandButton>
+            </h:form>
+        </div>
+        </div>
     </ui:define>
 </ui:composition>

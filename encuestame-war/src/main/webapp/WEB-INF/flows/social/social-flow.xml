@@ -5,6 +5,7 @@
 
 
     <var name="twitterAccountBean" class="org.encuestame.web.social.TwitterAccountsBean" />
+    <var name="addTwitterAccount" class="org.encuestame.web.social.AddTwitterAccount" />
 
     <view-state id="social">
         <on-render>
@@ -14,6 +15,10 @@
         </on-render>
         <transition on="edit" to="editTwitterAccount">
             <set name="flowScope.twitterSelected" value="accounts.selectedRow" />
+        </transition>
+        <transition on="add" to="social">
+              <evaluate
+                expression="securityService.addNewTwitterAccount(addTwitterAccount.username, currentUser.name)" />
         </transition>
     </view-state>
 

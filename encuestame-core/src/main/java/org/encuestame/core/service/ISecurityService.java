@@ -46,6 +46,14 @@ public interface ISecurityService extends IService {
      */
     List<UnitUserBean> loadListUsers(final String currentUsername) throws Exception;
 
+
+    /**
+     * Add new Twitter Account.
+     * @param account account.
+     * @param username
+     */
+     void addNewTwitterAccount(final String account, final String username);
+
     /**
      * Assing Group to User.
      * @param user user

@@ -14,11 +14,13 @@
             <rich:tabPanel switchType="ajax">
                 <rich:tab label="Twitter Accounts">
                     <rich:panel>
+                        <h:form >
                         <h:panelGrid columns="5">
                             <h:outputLabel value="Twitter Username Account" />
-                            <h:inputText size="40" />
-                            <a4j:commandButton value="Quick Add"></a4j:commandButton>
+                            <h:inputText size="40" value="#{addTwitterAccount.username}" />
+                            <h:commandButton value="Add" action="add" />
                         </h:panelGrid>
+                        </h:form>
                     </rich:panel>
                     <rich:dataTable id="accountsTable"
                         value="#{accounts}" var="twitter"

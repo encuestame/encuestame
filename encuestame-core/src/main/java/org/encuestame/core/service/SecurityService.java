@@ -30,6 +30,7 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts.TypeAuth;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
@@ -178,6 +179,21 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
          log.debug("Update Secret Twitter Credentials");
           getSecUserDao().saveOrUpdate(twitterAccount);
          log.info("update Twitter Account");
+    }
+
+    /**
+     * Add new Twitter Account.
+     * @param account account.
+     * @param username
+     */
+    public void addNewTwitterAccount(final String account, final String username){
+        final SecUsers secUsers = getUser(username).getSecUser();
+        final SecUserTwitterAccounts userTwitterAccount = new SecUserTwitterAccounts();
+        userTwitterAccount.setSecUsers(secUsers);
+        userTwitterAccount.setTwitterAccount(account);
+        userTwitterAccount.setTwitterPassword("");
+        userTwitterAccount.setType(TypeAuth.PASSWORD); //By default is PASSWORD.
+        getSecUserDao().saveOrUpdate(userTwitterAccount);
     }
 
     /**
