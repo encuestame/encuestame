@@ -631,9 +631,19 @@
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                     </webAppConfig>
-                    <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                        <port>8080</port>
-                    </connector>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>${jetty.default.port}</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                        <connector implementation="org.mortbay.jetty.security.SslSocketConnector">
+                            <port>${jetty.default.ssl.port}</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                            <keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
+                            <password>jetty6</password>
+                            <keyPassword>jetty6</keyPassword>
+                        </connector>
+                    </connectors>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                         <filename>target/encuestame.log</filename>
@@ -642,6 +652,34 @@
                         <extended>false</extended>
                         <logTimeZone>GMT</logTimeZone>
                     </requestLog>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <id>clean</id>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <id>genkey</id>
+                        <goals>
+                            <goal>genkey</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
+                    <dname>cn=localhost</dname>
+                    <keypass>jetty6</keypass>
+                    <storepass>jetty6</storepass>
+                    <alias>jetty6</alias>
+                    <keyalg>RSA</keyalg>
                 </configuration>
             </plugin>
         </plugins>

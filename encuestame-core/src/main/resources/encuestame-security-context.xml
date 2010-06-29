@@ -8,9 +8,8 @@
        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
   <security:authentication-manager alias="authenticationManager">
-    <security:authentication-provider
-      user-service-ref="EnMeAuthenticationDao">
-      <security:password-encoder ref="passwordEncoder" />
+    <security:authentication-provider  user-service-ref="EnMeAuthenticationDao">
+        <security:password-encoder ref="passwordEncoder" />
     </security:authentication-provider>
   </security:authentication-manager>
 
@@ -42,9 +41,9 @@
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
     <!-- Account Paths -->
-    <security:intercept-url pattern="/user/signin.html" access="ENCUESTAME_ANONYMOUS"/>
-    <security:intercept-url pattern="/user/forgot.html" access="ENCUESTAME_ANONYMOUS"/>
-    <security:intercept-url pattern="/user/signup.html" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/signin.html" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/user/forgot.html" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/user/signup.html" access="ENCUESTAME_ANONYMOUS" />
     <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER"/>
     <!-- User Paths -->
     <security:intercept-url pattern="/dashboard.html" access="ENCUESTAME_USER"/>
@@ -54,12 +53,14 @@
     <!-- Vote Paths -->
     <security:intercept-url pattern="/tweet/*" access="ENCUESTAME_USER" />
     <security:intercept-url pattern="/resources/*"  filters="none" />
-    <security:remember-me key="${spring.sec.rememberMe.key}" services-alias="_rememberMeServices" />
+    <security:remember-me key="${spring.sec.rememberMe.key}" services-alias="_rememberMeServices" token-validity-seconds="10080"/>
     <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
     <security:logout logout-success-url="${spring.sec.login.sucess}" invalidate-session="true"
                      logout-url="${spring.sec.logout.url}"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
   </security:http>
+
+
 
   <!-- This element is used to enable annotation-based security -->
   <security:global-method-security secured-annotations="enabled" />
