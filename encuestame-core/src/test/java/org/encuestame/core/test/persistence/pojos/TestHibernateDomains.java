@@ -99,7 +99,7 @@ public class TestHibernateDomains extends AbstractBase{
          project.getSurveyGroups().add(createSurveyGroup("Education"));
         project.getSecUserSecondaries().add(createSecondaryUser("Diana",createUser()));
         project.getGroups().add(createGroups("editor"));
-        project.getLocations().add(createCatLocation("Matagalpa","Matalgalpa Department",2));
+        project.getLocations().add(createCatLocation("Matagalpa","Matalgalpa Department",2, createUser()));
         getProjectDaoImp().saveOrUpdate(project);
         assertNotNull(project.getProyectId());
     }

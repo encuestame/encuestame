@@ -35,9 +35,11 @@ import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatLocation;
+import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
+import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
 import org.encuestame.core.persistence.pojo.Project;
@@ -92,10 +94,6 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      /** SurveyFormat  Dao.**/
     @Autowired
     private ISurveyFormatDao surveyformatDaoImp;
-
-    /** CatLocation  Dao.**/
-    //   @Autowired
-    //  private ICatLocation catLocation;
 
     /** State Catalog Dao.**/
     @Autowired
@@ -552,23 +550,47 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
 
-    /** Helper to create CatLocation.
+    /**
+     * Helper to create CatLocation.
      * @param locDescription locDescription
      * @param locTypeName locTypeName
      * @param Level Level
-     * @return location
+     * @return location {@link CatLocationFolder}.
      */
-    public CatLocation createCatLocation(final String locDescription, final String locTypeName, Integer Level){
+    public CatLocation createCatLocation(
+                       final String locDescription,
+                       final String locTypeName,
+                       final Integer Level,
+                       final SecUsers secUsers,
+                       final CatLocationFolder catLocationFolder){
         final CatLocation location = new CatLocation();
         location.setLocationStatus(Status.ACTIVE);
         location.setLocationDescription(locDescription);
         location.setLocationLatitude(2F);
+        location.setSecUsers(secUsers);
+        location.setCatLocationFolder(catLocationFolder);
         location.setLocationLongitude(3F);
         location.setTidtype(createCatLocationType(locTypeName));
         getCatLocationDao().saveOrUpdate(location);
       return location;
-
     }
+
+    /**
+     * Create Default Location.
+     * @param locDescription description.
+     * @param locTypeName type
+     * @param Level level
+     * @param secUsers {@link SecUsers}.
+     * @return
+     */
+    public CatLocation createCatLocation(
+            final String locDescription,
+            final String locTypeName,
+            final Integer Level,
+            final SecUsers secUsers){
+    return this.createCatLocation(locDescription, locTypeName, Level, secUsers, null);
+    }
+
 
     /**
      * Helper to create Group.
@@ -892,6 +914,29 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         createTweetPollResult(pollSwitch2, "192.168.0.4");
         log.info("tw "+tweetPoll);
         return tweetPoll;
+    }
+
+    /**
+     * Create {@link CatLocationFolder}.
+     * @param type {@link LocationFolderType}.
+     * @param locationFolderId folder Id
+     * @param secUsers {@link SecUsers}.
+     * @param folderName name
+     * @param locationFolder
+     * @return {@link CatLocationFolder}.
+     */
+    public CatLocationFolder createCatLocationFolder(
+            final LocationFolderType type,
+            final SecUsers secUsers,
+            final String folderName,
+            final CatLocationFolder locationFolder){
+        final CatLocationFolder catLocationFolder = new CatLocationFolder();
+        catLocationFolder.setFolderType(type);
+        catLocationFolder.setLocationFolderName(folderName);
+        catLocationFolder.setSecUsers(secUsers);
+        catLocationFolder.setSubLocationFolder(locationFolder);
+        getCatLocationDao().saveOrUpdate(catLocationFolder);
+        return catLocationFolder;
     }
 
     /**

@@ -76,8 +76,8 @@ public class TestProjectDaoImp extends AbstractBase{
      * Test Add Locations to Project.
      */
     public void testGetProjectByLocationId(){
-        final CatLocation loc1 = createCatLocation("managua", "mga", 1);
-        final CatLocation loc2 = createCatLocation("diriomo", "drm", 1);
+        final CatLocation loc1 = createCatLocation("managua", "mga", 1, this.user.getSecUser());
+        final CatLocation loc2 = createCatLocation("diriomo", "drm", 1, this.user.getSecUser());
         project.getLocations().add(loc1);
         project.getLocations().add(loc2);
         getProjectDaoImp().saveOrUpdate(project);
