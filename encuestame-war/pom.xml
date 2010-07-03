@@ -605,6 +605,31 @@
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.3-603.jdbc3</version>
+         </dependency>
+         <dependency>
+            <groupId>jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome-fetcher</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+            <version>1.0.4.RELEASE</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>encuestame</finalName>
@@ -682,6 +707,33 @@
                     <keyalg>RSA</keyalg>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jasperreports-maven-plugin</artifactId>
+                <configuration>
+                  <sourceDirectory>src/main/webapp/resource/report</sourceDirectory>
+                  <outputDirectory>src/main/webapp/WEB-INF/report</outputDirectory>
+                </configuration>
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>compile-reports</goal>
+                    </goals>
+                  </execution>
+                </executions>
+                <dependencies>
+                  <dependency>
+                    <groupId>jasperreports</groupId>
+                    <artifactId>jasperreports</artifactId>
+                    <version>3.5.3</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.apache.log4j</groupId>
+                    <artifactId>com.springsource.org.apache.log4j</artifactId>
+                    <version>1.2.15</version>
+                  </dependency>
+                 </dependencies>
+              </plugin>
         </plugins>
         <resources>
             <resource>
@@ -693,7 +745,6 @@
             </resource>
         </resources>
     </build>
-
     <pluginRepositories>
         <pluginRepository>
             <id>mortbay-repo</id>

@@ -111,17 +111,6 @@
                 <updatePolicy>never</updatePolicy>
             </snapshots>
         </repository>
-        <!--<repository>
-            <id>twitter4j.org</id>
-            <name>twitter4j.org Repository</name>
-            <url>http://twitter4j.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>-->
         <repository>
             <id>com.springsource.repository.bundles.release</id>
             <name>SpringSource Bundle Releases</name>
@@ -159,6 +148,12 @@
         <repository>
             <id>taneshanet</id>
             <url>http://tanesha.net/maven2</url>
+        </repository>
+        <repository>
+            <id>maven-repo</id>
+            <name>Maven Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 
@@ -948,5 +943,35 @@
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.1</version>
          </dependency>
+          <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.1</version>
+         </dependency>
+         <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.3-603.jdbc3</version>
+         </dependency>
+          <dependency>
+            <groupId>jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>3.5.3</version>
+          </dependency>
+          <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome-fetcher</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+            <version>1.0.4.RELEASE</version>
+        </dependency>
     </dependencies>
 </project>

@@ -11,6 +11,7 @@
             classpath:encuestame-security-context.xml,
             classpath:encuestame-email-context.xml,
             classpath:encuestame-param-context.xml,
+            classpath:encuestame-rss-context.xml,
             classpath:encuestame-beans-jsf-context.xml,
             classpath:encuestame-mvc-context.xml,
             classpath:encuestame-web-flow-context.xml</param-value>
@@ -201,10 +202,18 @@
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
-<!--	<servlet-mapping>-->
-<!--		<servlet-name>Faces Servlet</servlet-name>-->
-<!--		<url-pattern>*.faces</url-pattern>-->
-<!--	</servlet-mapping>-->
+	<servlet-mapping>
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <url-pattern>/report/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <url-pattern>*.atom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <url-pattern>*.rss</url-pattern>
+    </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
