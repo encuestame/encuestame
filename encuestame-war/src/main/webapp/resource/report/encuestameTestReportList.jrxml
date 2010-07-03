@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport name="Simple_Report">
+ <detail>
+    <band height="20">
+      <staticText>
+        <reportElement x="180" y="0" width="200" height="20"/>
+        <text><![CDATA[Hello Encuestame!]]></text>
+      </staticText>
+    </band>
+  </detail>
+</jasperReport>
