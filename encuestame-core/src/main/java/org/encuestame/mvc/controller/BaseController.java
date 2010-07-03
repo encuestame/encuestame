@@ -20,6 +20,7 @@ import net.tanesha.recaptcha.ReCaptcha;
 
 import org.apache.log4j.Logger;
 import org.aspectj.apache.bcel.verifier.statics.Pass1Verifier;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
@@ -54,13 +55,15 @@ public class BaseController {
       */
      private ReCaptcha reCaptcha;
 
-
     /**
      * {@link ServiceManager}.
      */
     @Autowired
     private IServiceManager serviceManager;
 
+    /**
+     * {@link AuthenticationManager}.
+     */
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -86,6 +89,43 @@ public class BaseController {
      */
     public HttpServletRequest getServletRequestAttributes(){
         return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+    }
+
+    /**
+     * Build Domain.
+     * @param request {@link HttpServletRequest}.
+     * @return
+     */
+    public String buildDomainWithRequest(final HttpServletRequest request){
+            final StringBuffer stringBuffer = new StringBuffer(this.isSecure(request) ? "https://" : "http://");
+            stringBuffer.append(request.getServerName());
+            stringBuffer.append(request.getContextPath());
+            return stringBuffer.toString();
+    }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    public Boolean isSecure(final HttpServletRequest request){
+        Boolean secure = false;
+        final String protocol = request.getProtocol();
+        if (protocol.indexOf("HTTPS") > -1) {
+            secure = true;
+        } else {
+            secure = false;
+            }
+        return secure;
+    }
+
+    /**
+     * Get By Username.
+     * @param username username
+     * @return
+     */
+    public SecUserSecondary getByUsername(final String username){
+        return getServiceManager().getApplicationServices().getSecurityService().findUserByUserName(username);
     }
 
     /**
