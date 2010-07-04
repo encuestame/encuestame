@@ -130,13 +130,11 @@
             <name>mortbay-repo</name>
             <url>http://www.mortbay.org/maven2/snapshot</url>
         </pluginRepository>
-
         <pluginRepository>
             <id>Maven Snapshots</id>
             <url>http://snapshots.maven.codehaus.org/maven2/</url>
         </pluginRepository>
     </pluginRepositories>
-
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
@@ -475,6 +473,26 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc-portlet</artifactId>
+        </dependency>
+        <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-support</artifactId>
+        </dependency>
+        <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+            </dependency>
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces.portlet</groupId>
+            <artifactId>jsf-portlet</artifactId>
         </dependency>
     </dependencies>
 </project>
