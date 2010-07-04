@@ -21,23 +21,46 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
-            <version>${encuestame.version}</version>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
-            <version>${encuestame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-mvc</artifactId>
         </dependency>
         <dependency>
             <groupId>com.googlecode.gmaps4jsf</groupId>
             <artifactId>gmaps4jsf-core</artifactId>
-            <version>${gmap.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-fileupload</artifactId>
-                    <groupId>commons-fileupload</groupId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+         <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
         </dependency>
     </dependencies>
     <build>
