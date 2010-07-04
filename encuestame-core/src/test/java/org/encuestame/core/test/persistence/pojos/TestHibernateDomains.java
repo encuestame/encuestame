@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
+import org.encuestame.core.persistence.pojo.CatEmails;
+import org.encuestame.core.persistence.pojo.CatListEmails;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
@@ -277,6 +279,9 @@ public class TestHibernateDomains extends AbstractBase{
          assertNotNull(surveys.getSid());
      }
 
+    /**
+     *
+     */
      @Test
      public void testLocationFolder(){
          final CatLocationFolder catLocationFolder = new CatLocationFolder();
@@ -284,5 +289,27 @@ public class TestHibernateDomains extends AbstractBase{
          catLocationFolder.setLocationFolderName("test folder");
          catLocationFolder.setSecUsers(createUser());
          getCatLocationDao().saveOrUpdate(catLocationFolder);
+     }
+
+     /**
+      * Test Email Catalog.
+      **/
+
+     public void testCatEmail(){
+    	 final CatEmails catEmailList = new CatEmails();
+    	 catEmailList.setEmail("");
+    	 catEmailList.setIdListEmail(null);
+    	 getCatEmailDao().saveOrUpdate(catEmailList);
+     }
+
+     /**
+      * Test Email List Catalog.
+      **/
+
+     public void testCatEmailList(){
+    	 final CatListEmails catListEmails = new CatListEmails();
+    	 catListEmails.setCreatedAt(new Date());
+    	 catListEmails.setListName("");
+    	 catListEmails.setUsuarioEmail(null);
      }
 }

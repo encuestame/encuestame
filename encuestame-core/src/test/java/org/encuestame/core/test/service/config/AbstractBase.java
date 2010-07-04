@@ -19,8 +19,10 @@ import java.util.Properties;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.dao.CatEmailDao;
 import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.dao.TweetPollDao;
+import org.encuestame.core.persistence.dao.imp.ICatEmail;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
@@ -34,6 +36,7 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.CatListEmails;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
@@ -139,6 +142,10 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
 
     @Autowired
     private IPoll iPoll;
+
+    /** {@link CatEmailDao} **/
+    //@Autowired
+    private ICatEmail catEmailDao;
 
     protected Log log = LogFactory.getLog(this.getClass());
 
@@ -366,7 +373,23 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         this.iPoll = poll;
     }
 
-    /**
+	/**
+	 * @return the catEmailDao
+	 */
+	public ICatEmail getCatEmailDao() {
+		return catEmailDao;
+	}
+
+
+	/**
+	 * @param catEmailDao the catEmailDao to set
+	 */
+	public void setCatEmailDao(ICatEmail catEmailDao) {
+		this.catEmailDao = catEmailDao;
+	}
+
+
+	/**
      * Helper to create poll
      * @return poll
      */
@@ -936,6 +959,23 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         getCatLocationDao().saveOrUpdate(catLocationFolder);
         return catLocationFolder;
     }
+
+    /**
+     *
+     * @return
+     */
+    public CatListEmails createListEmails(){
+    		final CatListEmails catListEmails = new CatListEmails();
+    		catListEmails.setCreatedAt(new Date());
+    		catListEmails.setListName("My email List");
+    		catListEmails.setUsuarioEmail(null);
+			return catListEmails;
+
+
+    }
+
+
+
 
     /**
      * @return the activateNotifications

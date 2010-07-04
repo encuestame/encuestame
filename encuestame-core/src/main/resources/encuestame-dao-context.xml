@@ -64,9 +64,16 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-     <bean id="pollDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.PollDao">
+
+    <bean id="pollDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.PollDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
+     <bean id="CatEmailDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.CatEmailDao">
+     	 <property name="hibernateTemplate">
+         <ref bean="hibernateTemplate" />
+         </property>
+    </bean>
+
 </beans>
