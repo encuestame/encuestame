@@ -18,8 +18,9 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Tweet Poll Controller.
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-public class TweetPollController extends BaseController {
+public class TweetPollVoteController extends BaseController {
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -40,35 +41,41 @@ public class TweetPollController extends BaseController {
      * @param id id tweet
      * @return template
      */
-    @SuppressWarnings("unchecked")
-    @RequestMapping("/tweetPollController")
+    @RequestMapping(value = "/tweet/{tweetId}/vote.html", method = RequestMethod.GET)
     public String tweetPollController(ModelMap model,
-            @RequestParam(value = "id", required = true) String id) {
-        if (id.isEmpty()) {
+            @PathVariable String tweetId) {
+        log.debug("tweetId: "+tweetId);
+        String pathVote = "badTweetVote";
+        if (tweetId.isEmpty()) {
+            log.debug("tweet is empty");
             model.put("message", "Tweet Not Valid..");
         } else {
             log.info("search code");
             final TweetPollSwitch tweetPoll = getTweetPollService()
-                    .getTweetPollDao().retrieveTweetsPollSwitch(id);
+                    .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
             if (tweetPoll == null
                     || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
+                log.debug("tweetpoll answer not found");
                 model.put("message", "Tweet Not Valid.");
             } else {
                 log.info("Validate Votting");
-
                 final String IP = getIpClient();
                 log.info("IP" + IP);
                 if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
                     getTweetPollService().tweetPollVote(tweetPoll, IP);
                     model.put("message", "Tweet Poll Voted.");
+                    pathVote = "tweetVoted";
+                    log.debug("VOTED");
                 }
                 else{
+                    log.debug("Tweet Vote Repeteaded.");
                     model.put("message", "Tweet Vote Repeteaded.");
+                    pathVote = "repeatedTweetVote";
                 }
                 model.get("message");
             }
         }
         log.info("redirect template");
-        return "helloWorldTemplate";
+        return pathVote;
     }
 }

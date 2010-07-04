@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${encuestame.version}</version>
         </dependency>
     </dependencies>
     <build>

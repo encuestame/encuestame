@@ -5,7 +5,7 @@
 <urlrewrite>
     <rule>
         <from>^/tweet/(.*)$</from>
-        <to>/tweetPollController.do?id=$1</to>
+        <to>/tweet/$1/vote.html</to>
     </rule>
     <rule>
         <from>^/results/(.*)$</from>

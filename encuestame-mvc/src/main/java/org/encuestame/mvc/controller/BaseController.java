@@ -46,6 +46,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @since Mar 13, 2010 10:41:38 PM
  * @version $Id: $
  */
+@SuppressWarnings("deprecation")
 public class BaseController {
 
      protected Logger log = Logger.getLogger(this.getClass());
@@ -135,8 +136,8 @@ public class BaseController {
     public String getIpClient(){
         //FIXME if your server use ProxyPass you need get IP from x-forwarder-for, we need create
         // a switch change for ProxyPass to normal get client Id.
-               //getServletRequestAttributes().getRemoteAddr();
-        return getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
+        return getServletRequestAttributes().getRemoteAddr();
+        //return getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
     }
 
     /**
