@@ -13,6 +13,7 @@
 package org.encuestame.core.test.persistence.dao;
 
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.junit.Test;
 
 /**
  * Test List Email Catalog.
@@ -21,5 +22,11 @@ import org.encuestame.core.test.service.config.AbstractBase;
  * @version $Id: $
  */
 public class TestCatListEmails extends AbstractBase {
+
+	@Test
+	public void testFindEmailsByListId(){
+		//
+
+	}
 
 }
