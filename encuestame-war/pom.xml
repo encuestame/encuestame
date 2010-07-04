@@ -711,7 +711,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jasperreports-maven-plugin</artifactId>
                 <configuration>
-                  <sourceDirectory>src/main/webapp/resource/report</sourceDirectory>
+                  <sourceDirectory>src/main/resources/report</sourceDirectory>
                   <outputDirectory>src/main/webapp/WEB-INF/report</outputDirectory>
                 </configuration>
                 <executions>

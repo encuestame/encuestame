@@ -149,7 +149,7 @@
     </filter-mapping>
 	<filter-mapping>
 		<filter-name>ajax4jsf</filter-name>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>encuestame-spring-dispacher</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
@@ -172,7 +172,7 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>encuestame-spring-dispacher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -199,19 +199,31 @@
 		spring-faces.jar
 	-->
 	<servlet-mapping>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>encuestame-spring-dispacher</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>*.pdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>/report/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>*.xls</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>*.cvs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.atom</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.rss</url-pattern>
     </servlet-mapping>
 	<welcome-file-list>

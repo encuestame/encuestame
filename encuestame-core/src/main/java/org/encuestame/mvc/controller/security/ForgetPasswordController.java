@@ -32,10 +32,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
- * Description Class.
+ * Forgot Password Controller.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 14, 2010 8:37:05 PM
- * @version Id:
+ * @version $Id:$
  */
 @Controller
 @SessionAttributes(types = UnitForgotPassword.class)

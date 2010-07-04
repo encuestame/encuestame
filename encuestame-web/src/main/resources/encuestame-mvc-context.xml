@@ -38,12 +38,16 @@
         /admon/users.html=flowController
         /admon/location.html=flowController
         /admon/project.html=flowController
+
         /tweetpoll.html=flowController
         /poll.html=flowController
         /survey.html=flowController
+
         /user/profile.html=flowController
         /user/social.html=flowController
         /user/resister.html=urlFilenameViewController
+        /user/signin.html=urlFilenameViewController
+        /user/forgot.html=urlFilenameViewController
        </value>
     </property>
     <property name="defaultHandler" ref="urlFilenameViewController"/>
@@ -57,16 +61,14 @@
         <property name="singleSession" value="false" />
    </bean>
 
-    <!--
+    <!--  -->
     <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
          <property name="order" value="0"/>
     </bean>
-     -->
 
     <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-       <property name="order" value="0"/>
+       <property name="order" value="1"/>
        <property name="basename" value="views"/>
-       <property name="defaultParentView" value="parent-view"/>
     </bean>
 
     <!--
@@ -75,12 +77,10 @@
   -->
   <bean id="faceletsViewResolver"
     class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    <property name="order" value="1"/>
-
+    <property name="order" value="2"/>
     <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
     <property name="prefix" value="/WEB-INF/controller/" />
     <property name="suffix" value=".xhtml" />
-
    </bean>
 
   <!--
@@ -123,7 +123,7 @@
 
      -->
 
-    <!-- Create Cookie Default Locale   -->
+    <!-- Create Cookie Default Locale
 
     <bean id="localeResolver"
            class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
@@ -131,7 +131,7 @@
            <property name="cookieMaxAge" value="30" />
            <property name="defaultLocale" value="en" />
     </bean>
-
+-->
 
 
   <!--
