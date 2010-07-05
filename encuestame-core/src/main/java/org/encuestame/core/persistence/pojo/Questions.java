@@ -42,7 +42,7 @@ import org.hibernate.search.annotations.Store;
  * @version $Id$
  */
 @Entity
-@Indexed
+@Indexed(index="Questions")
 @Table(name = "questions")
 public class Questions {
 
@@ -96,7 +96,7 @@ public class Questions {
     /**
      * @return question
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "question")
     public String getQuestion() {
         return this.question;

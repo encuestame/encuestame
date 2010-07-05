@@ -17,12 +17,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
@@ -30,21 +26,16 @@ import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
-import org.encuestame.utils.web.UnitTweetPoll;
-import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.ExpectedException;
-
-import twitter4j.Status;
 
 /**
  * Test of {@link AbstractSurveyService}
@@ -209,9 +200,9 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     public void testSuggestionQuestionList(){
          List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
         final String keyword = "sky";
+        flushIndexes();
         unitQuestionBean = surveyService.listSuggestQuestion(keyword, this.userSecondary.getUsername());
-        //TODO: 0 ???
-        assertEquals("should be equals",0, unitQuestionBean.size());
+        assertEquals("should be equals", 1, unitQuestionBean.size());
     }
 
     /**

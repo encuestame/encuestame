@@ -80,6 +80,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                     public Object doInHibernate(org.hibernate.Session session) {
                         try {
                             final FullTextSession fullTextSession = Search.getFullTextSession(session);
+                            //fullTextSession.flushToIndexes();
                             final MultiFieldQueryParser parser = new MultiFieldQueryParser(
                                                   new String[]{"question"},
                                                   new SimpleAnalyzer());
@@ -90,7 +91,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                             criteria.add(Restrictions.eq("secUsersQuestion.uid", userId));
                             hibernateQuery.setCriteriaQuery(criteria);
                             final List<Questions> result = hibernateQuery.list();
-                            log.info("result "+result.size());
+                            log.info("result LUCENE "+result.size());
                             return result;
                         } catch (ParseException ex) {
                             ex.printStackTrace();

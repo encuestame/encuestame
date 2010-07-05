@@ -60,12 +60,15 @@ import org.encuestame.core.persistence.pojo.SurveyGroup;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -79,7 +82,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version $Id$
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(transactionManager = "transactionManager" ,defaultRollback = true)
+@TransactionConfiguration(transactionManager = "transactionManager" , defaultRollback = true)
 @Transactional
 @Scope("singleton")
 @ContextConfiguration(locations = {
@@ -91,6 +94,12 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:encuestame-param-test-context.xml"
          })
 public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests {
+
+    /**
+     * Hibernate Template.
+     */
+    @Autowired
+    private HibernateTemplate hibernateTemplate;
 
      /** SurveyFormat  Dao.**/
     @Autowired
@@ -152,7 +161,6 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
 
-
     /**
      * Get Property.
      * @param property
@@ -166,7 +174,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
+        //log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
         return props.getProperty(property);
     }
 
@@ -186,6 +194,13 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         this.surveyformatDaoImp = surveyformatDaoImp;
     }
 
+    /**
+     * Flush Indexes.
+     */
+    public void flushIndexes(){
+        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate().getSessionFactory().getCurrentSession());
+        fullTextSession.flushToIndexes();
+    }
 
     /**
      * Getter.
@@ -373,23 +388,23 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         this.iPoll = poll;
     }
 
-	/**
-	 * @return the catEmailDao
-	 */
-	public ICatEmail getCatEmailDao() {
-		return catEmailDao;
-	}
+    /**
+     * @return the catEmailDao
+     */
+    public ICatEmail getCatEmailDao() {
+        return catEmailDao;
+    }
 
 
-	/**
-	 * @param catEmailDao the catEmailDao to set
-	 */
-	public void setCatEmailDao(ICatEmail catEmailDao) {
-		this.catEmailDao = catEmailDao;
-	}
+    /**
+     * @param catEmailDao the catEmailDao to set
+     */
+    public void setCatEmailDao(ICatEmail catEmailDao) {
+        this.catEmailDao = catEmailDao;
+    }
 
 
-	/**
+    /**
      * Helper to create poll
      * @return poll
      */
@@ -721,7 +736,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         final Questions question =  createQuestion(questionName, "patter");
         question.setSecUsersQuestion(user);
         getQuestionDaoImp().saveOrUpdate(question);
-        log.info("user assigned "+question.getSecUsersQuestion().getUid());
+        //log.info("user assigned "+question.getSecUsersQuestion().getUid());
         return question;
     }
 
@@ -756,7 +771,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
-        log.info("Q "+questionsAnswers.getQuestionAnswerId());
+        //log.info("Q "+questionsAnswers.getQuestionAnswerId());
         return questionsAnswers;
     }
 
@@ -933,7 +948,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         createTweetPollResult(pollSwitch1, "192.168.0.2");
         createTweetPollResult(pollSwitch2, "192.168.0.3");
         createTweetPollResult(pollSwitch2, "192.168.0.4");
-        log.info("tw "+tweetPoll);
+        //log.info("tw "+tweetPoll);
         return tweetPoll;
     }
 
@@ -965,11 +980,11 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatListEmails createListEmails(){
-    		final CatListEmails catListEmails = new CatListEmails();
-    		catListEmails.setCreatedAt(new Date());
-    		catListEmails.setListName("My email List");
-    		catListEmails.setUsuarioEmail(null);
-			return catListEmails;
+            final CatListEmails catListEmails = new CatListEmails();
+            catListEmails.setCreatedAt(new Date());
+            catListEmails.setListName("My email List");
+            catListEmails.setUsuarioEmail(null);
+            return catListEmails;
 
 
     }
@@ -1017,5 +1032,21 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public void setTweetPoll(final ITweetPoll iTweetPoll) {
         this.iTweetPoll = iTweetPoll;
+    }
+
+
+    /**
+     * @return the hibernateTemplate
+     */
+    public HibernateTemplate getHibernateTemplate() {
+        return hibernateTemplate;
+    }
+
+
+    /**
+     * @param hibernateTemplate the hibernateTemplate to set
+     */
+    public void setHibernateTemplate(final HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
     }
 }

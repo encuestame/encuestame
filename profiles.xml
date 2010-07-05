@@ -25,8 +25,8 @@
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
                 <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
-                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
-                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
+                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.core.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
                 <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
@@ -83,8 +83,8 @@
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
                 <hibernate.datasource.hbm2ddl.auto>none</hibernate.datasource.hbm2ddl.auto>
-                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
-                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
+                 <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.core.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
                 <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
@@ -141,8 +141,8 @@
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
                 <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
-                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
-                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
+                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.core.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
                 <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
@@ -200,7 +200,7 @@
                 <hibernate.datasource.delimited></hibernate.datasource.delimited>
                 <hibernate.datasource.hbm2ddl.auto>create</hibernate.datasource.hbm2ddl.auto>
                 <hibernate.datasource.core.urldb>jdbc:hsqldb:mem:encuestame_core</hibernate.datasource.core.urldb>
-                <hibernate.datasource.junit.urldb>jdbc:hsqldb:mem:encuestame_core</hibernate.datasource.junit.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:hsqldb:mem:encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
                 <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
@@ -212,7 +212,7 @@
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
                 <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
-                <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
+                <lucene.index.provider>org.hibernate.search.store.RAMDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
                 <google.maps.key>ABQIAAAAZf9tmUBWs70LNEs037RG0RTwM0brOpm-All5BF6PoaKBxRWWERTrwDQRedgAhFT4DDMSCMctxb4CWg</google.maps.key>
@@ -257,8 +257,8 @@
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
                 <hibernate.datasource.hbm2ddl.auto>none</hibernate.datasource.hbm2ddl.auto>
-                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
-                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
+                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.core.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
                 <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
@@ -270,7 +270,7 @@
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
                 <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
-                <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
+                <lucene.index.provider>org.hibernate.search.store.RAMDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
                 <google.maps.key>ABQIAAAAZf9tmUBWs70LNEs037RG0RTwM0brOpm-All5BF6PoaKBxRWWERTrwDQRedgAhFT4DDMSCMctxb4CWg</google.maps.key>
@@ -303,7 +303,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
-                <surefire.failures.ignore>true</surefire.failures.ignore>
+                <surefire.failures.ignore>false</surefire.failures.ignore>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -315,8 +315,8 @@
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.delimited>type=InnoDB</hibernate.datasource.delimited>
                 <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
-                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core</hibernate.datasource.core.urldb>
-                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test</hibernate.datasource.junit.urldb>
+                <hibernate.datasource.core.urldb>jdbc:mysql://localhost:3306/encuestame_core?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.core.urldb>
+                <hibernate.datasource.junit.urldb>jdbc:mysql://localhost:3306/encuestame_test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
                 <hibernate.test.properties.path>classpath:hibernate.test.properties</hibernate.test.properties.path>
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
@@ -327,7 +327,7 @@
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>/home/jpicado/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->

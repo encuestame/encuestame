@@ -503,7 +503,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>4.0.2.GA</version>
-                <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>com.sun.xml.bind</groupId>

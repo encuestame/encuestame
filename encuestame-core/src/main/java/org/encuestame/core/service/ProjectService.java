@@ -47,13 +47,13 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
     public List<UnitProjectBean> loadListProjects(final String username) {
             final List<UnitProjectBean> listProjects = new ArrayList<UnitProjectBean>();
             final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(getUser(username).getSecUser().getUid());
-            log.debug("project by user id: "+projectList.size());
+            //log.debug("project by user id: "+projectList.size());
             for (final Project project : projectList) {
-                log.debug("adding project "+project.getProjectDescription());
-                log.debug("groups available in this project "+project.getGroups().size());
+                //log.debug("adding project "+project.getProjectDescription());
+                //log.debug("groups available in this project "+project.getGroups().size());
                 listProjects.add(ConvertDomainBean.convertProjectDomainToBean(project));
             }
-            log.debug("projects loaded: "+ listProjects.size());
+            //log.debug("projects loaded: "+ listProjects.size());
             return listProjects;
     }
 
@@ -87,7 +87,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
      * @throws EnMeExpcetion exception
      */
     public UnitProjectBean createProject(final UnitProjectBean projectBean) throws EnMeExpcetion {
-        log.info("create project");
+        //log.info("create project");
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
@@ -104,17 +104,18 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
                 projectDomain.setUsers(getSecUserDao().getUserById(projectBean.getUserId()));
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());
-                log.debug("created domain project");
-            } catch (HibernateException e) {
+                //log.debug("created domain project");
+            }
+            catch (HibernateException e) {
                 throw new EnMeExpcetion(e);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }
             return projectBean;
-        } else {
+        }
+        else {
             throw new EnMeExpcetion("project is null");
         }
     }
-
-
 }

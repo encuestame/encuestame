@@ -21,6 +21,8 @@ import org.encuestame.core.persistence.dao.QuestionDaoImp;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +32,7 @@ import org.junit.Test;
  * @since Feb 14, 2010 12:18:42 AM
  * @version $Id$
  */
+@SuppressWarnings("deprecation")
 public class TestQuestionDao extends AbstractBase{
 
     /** {@link SecUsers} **/
@@ -39,11 +42,12 @@ public class TestQuestionDao extends AbstractBase{
      * Before.
      */
     @Before
-    public void before(){
+    public void beforeQuestion(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        createQuestion("Do you like soccer?",  this.user);
+        createQuestion("Do you want soccer?",  this.user);
         createQuestion("Do you like apple's?",  this.user);
-        createQuestion("Do you like iPods?",  this.user);
+        createQuestion("Do you buy iPods?",  this.user);
+        createQuestion("Do you like sky iPods Touch?",  this.user);
     }
 
 
@@ -63,7 +67,7 @@ public class TestQuestionDao extends AbstractBase{
     @Test
     public void testRetrieveQuestionsByName(){
         final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods",  this.user.getUid());
-        assertEquals("Results should be equals", 1,  listOfQuestions.size());
+        assertEquals("Results should be equals", 2,  listOfQuestions.size());
     }
 
     /**
@@ -71,8 +75,10 @@ public class TestQuestionDao extends AbstractBase{
      */
     @Test
     public void testRetrieveIndexedQuestionsByName(){
-        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("Do",  this.user.getUid());
+        flushIndexes();
+        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods", this.user.getUid());
         //TODO: need check this search
-        assertEquals("Results should be equals", 0,  listOfQuestions.size());
+        assertEquals("Results should be equals", 2,  listOfQuestions.size());
+
     }
 }

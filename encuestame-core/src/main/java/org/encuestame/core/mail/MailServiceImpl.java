@@ -93,7 +93,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         msg.setText(text);
         msg.setSubject(subject);
         mailSender.send(msg);
-        log.debug("mail.succesful");
+        //log.debug("mail.succesful");
     }
 
     /**
@@ -115,18 +115,18 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
                         + code + "</a>");
         msg.setSubject("test");
         try{
-            log.info("Sending email");
-            log.debug("Sending host "+mailSender.getHost());
-            log.debug("Sending password "+mailSender.getPassword());
-            log.debug("Sending username "+mailSender.getUsername());
-            log.debug("Sending enconding "+mailSender.getDefaultEncoding());
-            log.debug("Sending protocol "+mailSender.getProtocol());
-            log.debug("Sending port "+mailSender.getPort());
-            log.debug("Sending port auth "+mailSender.getJavaMailProperties().getProperty("mail.smtp.auth"));
-            log.debug("Sending port starttls "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.enable"));
-            log.debug("Sending port required "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.required"));
+            //log.info("Sending email");
+            //log.debug("Sending host "+mailSender.getHost());
+            //log.debug("Sending password "+mailSender.getPassword());
+            //log.debug("Sending username "+mailSender.getUsername());
+            //log.debug("Sending enconding "+mailSender.getDefaultEncoding());
+            //log.debug("Sending protocol "+mailSender.getProtocol());
+            //log.debug("Sending port "+mailSender.getPort());
+            //log.debug("Sending port auth "+mailSender.getJavaMailProperties().getProperty("mail.smtp.auth"));
+            //log.debug("Sending port starttls "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.enable"));
+            //log.debug("Sending port required "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.required"));
             mailSender.send(msg);
-            log.info("Sended email");
+            //log.info("Sended email");
         }
         catch (Exception e) {
             log.error("Error on send email "+e.getMessage());
@@ -143,17 +143,17 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
             final String to,
             final String body)throws MailSendException
    {
-        log.debug("sendDeleteNotification ->"+body);
-        log.debug("sendDeleteNotification to->"+to);
+        //log.debug("sendDeleteNotification ->"+body);
+        //log.debug("sendDeleteNotification to->"+to);
         SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
-        log.debug("sendDeleteNotification setFrom..");
+        //log.debug("sendDeleteNotification setFrom..");
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
         msg.setText(body);
         msg.setSubject(getMessageProperties("DeleteSubjectInvitation"));
-        log.debug("sendDeleteNotification sending..");
+        //log.debug("sendDeleteNotification sending..");
         mailSender.send(msg);
-        log.debug("sendDeleteNotification sendend..");
+        //log.debug("sendDeleteNotification sendend..");
     }
 
     /**
@@ -224,7 +224,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
      */
     public void send(final MimeMessagePreparator preparator) throws MailSendException {
         this.mailSender.send(preparator);
-        log.debug("mail.succesful");
+        //log.debug("mail.succesful");
     }
 
 

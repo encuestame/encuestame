@@ -362,7 +362,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param groupBean group bean
      */
     public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) {
-        log.info("Create Group");
+        //log.info("Create Group");
         final SecGroups groupDomain = new SecGroups();
         final SecUsers secUsers = getUser(username).getSecUser();
         groupDomain.setGroupDescriptionInfo(groupBean.getGroupDescription());
