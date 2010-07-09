@@ -44,7 +44,8 @@
     <security:intercept-url pattern="/user/signin.html" access="ENCUESTAME_ANONYMOUS" />
     <security:intercept-url pattern="/user/forgot.html" access="ENCUESTAME_ANONYMOUS" />
     <security:intercept-url pattern="/user/signup.html" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+    <security:intercept-url pattern="/user/lists.html" access="ENCUESTAME_USER"/>
     <!-- User Paths -->
     <security:intercept-url pattern="/dashboard.html" access="ENCUESTAME_USER"/>
     <security:intercept-url pattern="/tweetpoll.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />

@@ -48,6 +48,7 @@
         /user/resister.html=urlFilenameViewController
         /user/signin.html=urlFilenameViewController
         /user/forgot.html=urlFilenameViewController
+        /user/lists.html=flowController
        </value>
     </property>
     <property name="defaultHandler" ref="urlFilenameViewController"/>

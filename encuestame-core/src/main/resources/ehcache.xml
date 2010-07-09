@@ -12,4 +12,10 @@
         eternal="true"
         overflowToDisk="false"
         memoryStoreEvictionPolicy="LFU" />
+    <cache
+        name="permissionCache"
+        maxElementsInMemory="10"
+        eternal="true"
+        overflowToDisk="false"
+        memoryStoreEvictionPolicy="LFU" />
 </ehcache>
