@@ -14,11 +14,9 @@ package org.encuestame.core.cron;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.pojo.Questions;
 import org.hibernate.CacheMode;
 import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
@@ -26,11 +24,8 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.encuestame.core.persistence.pojo.*;
 
 /**
  * Index Rebuilder.

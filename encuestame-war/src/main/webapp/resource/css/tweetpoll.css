@@ -7,3 +7,62 @@
     padding-top: 10px;
     margin: 10px;
 }
+
+
+/** Question Review **/
+
+#reviewContentBox{
+
+}
+
+#reviewContentBox .bodyTweet{
+
+}
+
+div.tweetResume{
+     min-width: 80%;
+     font-size: 26px;
+     font-weight: bold;
+     padding: 10px;
+}
+
+div.bodyTweet div.tweetResume .resumeText{
+    min-width:80%;
+    padding:10px;
+    color:  #575555;
+    font-size: 1.5em;
+}
+
+div.bodyTweet div.tweetResume span.countTweet{
+    padding: 10px;
+    color:  #E2DEDE;
+    font-size: 1.5em;
+}
+
+/** Add Question **/
+
+div.questionItemResult{
+    padding: 10px;
+    background-color: #E2DEDE;
+    margin: 2px;
+    border-top: 1px solid #C1BBBB;
+}
+
+
+div.questionItemResult div.itemNameWrapper{
+    float: left;
+    min-width: 500px;
+    background-image: url(../images/icons/enme_question.gif);
+    padding-left: 30px;
+    background-repeat: no-repeat;
+}
+
+div.questionItemResult div.itemNameWrapper .itemName{
+    font-size: 14px;
+    color: #7C7979;
+    font-weight: bold;
+}
+
+div.questionItemResult .itemNameWrapper div.itemLink{
+
+}

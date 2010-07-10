@@ -39,7 +39,6 @@ public class ReIndexJob {
      * Reindex.
      */
     public void reindex(){
-        System.out.println("Reindex");
         this.reindexData();
     }
 

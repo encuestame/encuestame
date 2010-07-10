@@ -1,4 +1,4 @@
-<ui:composition template="../../layouts/surveyTemplate.xhtml"
+<ui:composition template="createTweetPollTemplate.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -6,8 +6,7 @@
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces">
-    <ui:define name="title">Create TweetPoll</ui:define>
-    <ui:define name="bodyOptions">
+    <ui:define name="body">
         <a4j:form id="formBody">
             <rich:messages errorClass="error" infoClass="info"
                 warnClass="war"></rich:messages>
@@ -22,6 +21,7 @@
                     <li><h:outputText value="#{answer.answers}" /></li>
                 </ul>
             </a4j:repeat>
+
             <h:panelGrid columns="2" id="answerFormGrid">
                 <h:outputLabel value="Respuesta" />
                 <h:inputText

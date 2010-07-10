@@ -1,0 +1,23 @@
+<ui:composition template="../../layouts/surveyTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:encuestame="http://encuesta.me/encuestame">
+    <ui:define name="title">Create TweetPoll</ui:define>
+    <ui:define name="bodyOptions">
+        <a4j:outputPanel id="reviewContentBox" ajaxRendered="true">
+            <div class="bodyTweet">
+                <div class="tweetResume">
+                     <span class="countTweet">
+                        <h:outputText value="#{createTweetPollBean.countTweet}" />
+                    </span>
+                    <h:outputText id="questionResume" value="#{createTweetPollBean.resumeTweet}" styleClass="resumeText"/>
+                </div>
+            </div>
+        </a4j:outputPanel>
+        <ui:insert name="body"></ui:insert>
+    </ui:define>
+</ui:composition>

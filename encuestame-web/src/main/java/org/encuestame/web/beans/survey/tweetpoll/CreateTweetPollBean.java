@@ -53,15 +53,20 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     private UnitQuestionBean questionBean = new UnitQuestionBean();
 
     /** Resume Tweet. **/
-    private String resumeTweet;
+    private String resumeTweet = new String();
 
     /** Steps of Wizard. **/
     private Integer step = 1;
 
     /** Count Tweet. **/
-    private Integer countTweet;
+    private Integer countTweet = CreateTweetPollBean.MAXIMUM_TWEET;
 
-    final List<String> lista = new ArrayList<String>();
+    private static final Integer MAXIMUM_TWEET = 140;
+
+    /**
+     * Questions Suggested.
+     */
+    private List<UnitQuestionBean> questionsSuggested = new ArrayList<UnitQuestionBean>();
 
     /**
      * Constructor.
@@ -81,7 +86,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             setResumeTweet(this.questionBean.getQuestionName());
             //TODO: refresh url
             //show up next wizard step
-        }catch (Exception e) {
+        }
+        catch (Exception e) {
             addErrorMessage("Error save question", "");
             log.error(e);
             e.printStackTrace();
@@ -166,18 +172,13 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @param suggest keyword.
      * @return
      */
-    public List<UnitQuestionBean> suggest(final Object suggest){
-        String pref = (String) suggest;
-        final ArrayList<UnitQuestionBean> result = new ArrayList<UnitQuestionBean>();
-        final List<UnitQuestionBean> suggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
-        log.info("suggested "+suggested.size());
-        for(UnitQuestionBean elem: suggested){
-            if ((elem.getQuestionName().toLowerCase().indexOf(pref.toLowerCase()) == 0)) {
-            log.info("question suggested "+elem.getQuestionName());
-            result.add(elem);
-            }
+    public void suggest(){
+        final String pref = this.questionBean.getQuestionName();
+        if(pref.length() > 1){
+            log.debug("Suggestion Search with "+pref);
+            this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
+            log.info("suggested "+ this.questionsSuggested.size());
         }
-        return result;
     }
 
     /**
@@ -298,7 +299,21 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @return the questionBean
      */
     public final UnitQuestionBean getQuestionBean() {
+        if(questionBean.getQuestionName() != null){
+           this.updateQuestionCountTweet();
+        }
         return questionBean;
+    }
+
+    /**
+     * Update Question Count Tweet.
+     */
+    public void updateQuestionCountTweet(){
+        if(questionBean.getQuestionName() != null){
+            this.resumeTweet = questionBean.getQuestionName();
+            final Integer lenght = this.resumeTweet.length();
+            this.countTweet = CreateTweetPollBean.MAXIMUM_TWEET - lenght;
+        }
     }
 
     /**
@@ -350,4 +365,17 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         this.step = step;
     }
 
+    /**
+     * @return the questionsSuggested
+     */
+    public List<UnitQuestionBean> getQuestionsSuggested() {
+        return questionsSuggested;
+    }
+
+    /**
+     * @param questionsSuggested the questionsSuggested to set
+     */
+    public void setQuestionsSuggested(List<UnitQuestionBean> questionsSuggested) {
+        this.questionsSuggested = questionsSuggested;
+    }
 }

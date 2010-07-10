@@ -1,5 +1,6 @@
 @import url("question.css");
 @import url("section.css");
+@import url("tweetpoll.css");
 
 /* Templates Survey  */
 
@@ -32,3 +33,5 @@
     top: 0px;
     width: 235px;
 }
+
+

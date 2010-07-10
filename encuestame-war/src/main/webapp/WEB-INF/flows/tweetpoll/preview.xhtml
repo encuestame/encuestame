@@ -1,4 +1,4 @@
-<ui:composition template="../../layouts/surveyTemplate.xhtml"
+<ui:composition template="createTweetPollTemplate.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -7,7 +7,7 @@
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces">
     <ui:define name="title">Create TweetPoll</ui:define>
-    <ui:define name="bodyOptions">
+    <ui:define name="body">
         <a4j:form id="formBody">
              <h:outputText value="PREVIEW : #{createTweetPollBean.resumeTweet}" />
              <a4j:commandButton action="later" value="Publish Later"></a4j:commandButton>
