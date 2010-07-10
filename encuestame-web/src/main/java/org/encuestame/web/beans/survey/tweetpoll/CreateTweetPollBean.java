@@ -215,22 +215,24 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         try {
             //Getting User Logged Id.
             final Long userId = getUsernameByName().getSecUser().getUid();
+            //set user id to question bean.
             this.questionBean.setUserId(userId);
             getUnitTweetPoll().setQuestionBean(this.questionBean);
             // save question
-            getSurveyService().createQuestion(
-                    getUnitTweetPoll().getQuestionBean());
+            getSurveyService().createQuestion(getUnitTweetPoll().getQuestionBean());
             // save create tweet poll
             if (getUnitTweetPoll().getQuestionBean().getId() != null) {
-                getUnitTweetPoll().setUserId(
-                        getUsernameByName().getSecUser().getUid());
+                getUnitTweetPoll().setUserId(userId);
                 //TODO: we need implement scheduled tweetPoll.
                 getUnitTweetPoll().setScheduleDate(new Date());
+                getUnitTweetPoll().setSchedule(false);
                 getUnitTweetPoll().setCloseNotification(false);
                 getUnitTweetPoll().setAllowLiveResults(false);
-                getUnitTweetPoll().setSchedule(false);
+                getUnitTweetPoll().setSchedule(false); //TODO: false by default.
                 getUnitTweetPoll().setPublishPoll(publish);
                 getUnitTweetPoll().setResultNotification(false);
+                getUnitTweetPoll().setAllowLiveResults(true);
+                getUnitTweetPoll().setCloseNotification(false);
                 tweetPollService.createTweetPoll(getUnitTweetPoll());
                 if (getUnitTweetPoll().getPublishPoll()) {
                     final String tweetText = tweetPollService

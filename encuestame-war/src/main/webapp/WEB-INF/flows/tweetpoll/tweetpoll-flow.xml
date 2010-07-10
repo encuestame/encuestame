@@ -16,14 +16,8 @@
                 expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
                 result="flowScope.validate" />
         </on-render>
-        <transition on="create" to="createTweetPoll">
+        <transition on="create" to="addQuestion">
 
-        </transition>
-    </view-state>
-
-    <view-state id="createTweetPoll">
-        <transition on="init" to="addQuestion">
-            <evaluate expression="createTweetPollBean.createPreview()" />
         </transition>
     </view-state>
 

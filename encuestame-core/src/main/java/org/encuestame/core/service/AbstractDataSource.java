@@ -45,14 +45,14 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Service;
 /**
- * Data Services.
- *
+ * Abstract Data Services.
  * @author Picado, Juan juan@encuestame.org
  * @since April 27, 2009
  * @version $Id: DataSource.java 478 2010-04-07 03:39:10Z dianmorales $
  */
-@org.springframework.stereotype.Service
+@Service
 public abstract class AbstractDataSource{
 
     /** {@link CatState}. */

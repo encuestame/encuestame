@@ -1081,6 +1081,11 @@
             <artifactId>jsf-portlet</artifactId>
             <version>1.2.1</version>
         </dependency>
-        </dependencies>
+        <dependency>
+          <groupId>org.opensymphony.quartz</groupId>
+          <artifactId>quartz</artifactId>
+          <version>1.6.1</version>
+        </dependency>
+      </dependencies>
     </dependencyManagement>
 </project>

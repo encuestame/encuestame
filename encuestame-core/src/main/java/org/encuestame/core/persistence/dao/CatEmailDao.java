@@ -33,65 +33,65 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmail{
 
-	/**
-	 * Find Emails by User
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<CatListEmails> findListbyUser(final Long userId){
-		return getHibernateTemplate().findByNamedParam(
+    /**
+     * Find Emails by User
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatListEmails> findListbyUser(final Long userId){
+        return getHibernateTemplate().findByNamedParam(
                 "from cat_list_emails where usuarioEmail.uid= :userId", "userId", userId);
- 	}
+     }
 
-	/**
-	 *
-	 * @param emailList
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<CatEmails> findEmailsByListId(final Long emailListId){
-		return getHibernateTemplate().findByNamedParam("FROM cat_emails WHERE idListEmail.idList", "idList", emailListId);
- 	}
+    /**
+     *
+     * @param emailList
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatEmails> findEmailsByListId(final Long emailListId){
+        return getHibernateTemplate().findByNamedParam("FROM cat_emails WHERE idListEmail.idList", "idList", emailListId);
+     }
 
-	/**
-	 *
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<CatListEmails> findAllEmailList(){
-		return getHibernateTemplate().find("FROM cat_list_emails");
-	}
+    /**
+     *
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatListEmails> findAllEmailList(){
+        return getHibernateTemplate().find("FROM cat_list_emails");
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public CatListEmails getListEmailById(final Long listEmailId){
-		return (CatListEmails) getHibernateTemplate().get(CatListEmails.class,listEmailId);
+    /**
+     *
+     * @return
+     */
+    public CatListEmails getListEmailById(final Long listEmailId){
+        return (CatListEmails) getHibernateTemplate().get(CatListEmails.class,listEmailId);
 
-	}
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<CatListEmails> getListEmailsByKeyword(final String keyword, final Long userId){
-		final DetachedCriteria criteria = DetachedCriteria.forClass(CatListEmails.class);
+    /**
+     *
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatListEmails> getListEmailsByKeyword(final String keyword, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CatListEmails.class);
         criteria.add(Restrictions.like("ListName", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
-	}
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<CatEmails> getEmailsByKeyword(final String keyword){
-		final DetachedCriteria criteria = DetachedCriteria.forClass(CatEmails.class);
+    /**
+     *
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatEmails> getEmailsByKeyword(final String keyword){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CatEmails.class);
         criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
 
-	}
+    }
 
 }

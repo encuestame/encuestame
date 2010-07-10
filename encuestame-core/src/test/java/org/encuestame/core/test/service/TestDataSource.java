@@ -12,26 +12,8 @@
  */
 package org.encuestame.core.test.service;
 
-import static org.junit.Assert.*;
-
-import java.util.Collection;
-
-import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationType;
-import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.service.IDataSource;
-import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBase;
-import org.encuestame.utils.web.UnitLocationBean;
-import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitProjectBean;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Class Description.

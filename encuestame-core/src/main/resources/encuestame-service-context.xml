@@ -19,37 +19,50 @@
         <property name="twitterService">
           <ref bean="twitterService" />
         </property>
-
         <property name="tweetPollDao">
           <ref bean="tweetPollDao" />
         </property>
   </bean>
 
-    <bean id="tweetPollService" class="org.encuestame.core.service.TweetPollService"
-        parent="abstractsurvey">
-        <property name="answerPollPath">
-            <value>${answers.answerPoll}</value>
-        </property>
-        <property name="tweetPollResultsPath">
-            <value>${answers.tweetPollResults}</value>
-        </property>
-        <property name="tweetPath">
-            <value>/tweet/</value>
-        </property>
-    </bean>
+   <bean id="tweetPollService" class="org.encuestame.core.service.TweetPollService"
+       parent="abstractsurvey">
+       <property name="answerPollPath">
+           <value>${answers.answerPoll}</value>
+       </property>
+       <property name="tweetPollResultsPath">
+           <value>${answers.tweetPollResults}</value>
+       </property>
+       <property name="tweetPath">
+           <value>/tweet/</value>
+       </property>
+   </bean>
+
+    <bean id="abstractConfig" class="org.encuestame.core.service.AbstractBaseService"
+     abstract="true" parent="dataEnMeSource">
+       <property name="domainUrl">
+           <value>${application.domain}</value>
+       </property>
+       <property name="proxyPass">
+           <value>${application.proxyPass}</value>
+       </property>
+       <property name="name">
+            <value>${application.name}</value>
+       </property>
+       <property name="encoding">
+            <value>${application.encoding}</value>
+       </property>
+       <property name="apiKeygoogle">
+            <value>${application.apiKeygoogle}</value>
+       </property>
+     </bean>
 
   <bean id="service" class="org.encuestame.core.service.AbstractBaseService"
-      abstract="true" parent="dataEnMeSource">
-         <property name="messageSource">
+      abstract="true" parent="abstractConfig">
+      <property name="messageSource">
           <ref bean="messageSource" />
-       </property>
-
-      <property name="domainUrl">
-        <value>${application.domain}</value>
       </property>
-
       <property name="serviceMail">
-        <ref bean="serviceMail"></ref>
+           <ref bean="serviceMail"></ref>
       </property>
   </bean>
 
@@ -153,22 +166,6 @@
 
      <property name="projectService">
          <ref bean="projectService"></ref>
-    </property>
-
-    <property name="name">
-         <value>${application.name}</value>
-    </property>
-
-    <property name="urlImg">
-         <value>${application.urlImg}</value>
-    </property>
-
-    <property name="encoding">
-         <value>${application.encoding}</value>
-    </property>
-
-    <property name="apiKeygoogle">
-         <value>${application.apiKeygoogle}</value>
     </property>
   </bean>
 </beans>

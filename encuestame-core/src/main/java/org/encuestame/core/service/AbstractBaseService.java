@@ -21,15 +21,12 @@ import org.encuestame.core.service.util.MessageSourceFactoryBean;
  * @since 22/05/2009 1:02:45
  * @version $Id$
  */
-public abstract class AbstractBaseService extends AbstractDataSource {
+public abstract class AbstractBaseService extends AbstractConfigurationService {
 
     /**
      * {@link MessageSourceFactoryBean}.
      */
     private MessageSourceFactoryBean messageSource;
-
-
-    private String domainUrl;
 
     /**
      *  {@link MailServiceImpl}.
@@ -66,20 +63,6 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     public String getMessageProperties(String propertieId) {
         return getMessageSource() == null ? propertieId : getMessageSource()
                 .getMessage(propertieId, null, null);
-    }
-
-    /**
-     * @return the domainUrl
-     */
-    public String getDomainUrl() {
-        return domainUrl;
-    }
-
-    /**
-     * @param domainUrl the domainUrl to set
-     */
-    public void setDomainUrl(final String domainUrl) {
-        this.domainUrl = domainUrl;
     }
 
     /**

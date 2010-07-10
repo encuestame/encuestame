@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.service;
 
-import org.encuestame.core.service.util.UrlBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,11 +23,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
-    private String name;
-    private String urlImg;
-    private String encoding;
-    private String apiKeygoogle;
-    private UrlBean url;
 
     private ISecurityService securityService;
     private ISurveyService surveyService;
@@ -36,67 +30,6 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private ITweetPollService tweetPollService;
     private ILocationService locationService;
     private IProjectService projectService;
-
-
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Getter.
-     * @return url image
-     */
-    public String getUrlImg() {
-        return urlImg;
-    }
-
-    /**
-     * Setter.
-     * @param urlImg url image
-     */
-    public void setUrlImg(String urlImg) {
-        this.urlImg = urlImg;
-    }
-
-    /**
-     * Getter.
-     * @return  encoding
-     */
-    public String getEncoding() {
-        return encoding;
-    }
-
-    /**
-     * Setter.
-     * @param encoding encoding
-     */
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
-
-    /**
-     * @return the apiKeygoogle
-     */
-    public String getApiKeygoogle() {
-        return apiKeygoogle;
-    }
-
-    /**
-     * @param apiKeygoogle the apiKeygoogle to set
-     */
-    public void setApiKeygoogle(String apiKeygoogle) {
-        this.apiKeygoogle = apiKeygoogle;
-    }
 
     /**
      * @return the securityService
@@ -110,20 +43,6 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      */
     public void setSecurityService(ISecurityService securityService) {
         this.securityService = securityService;
-    }
-
-    /**
-     * @return the url
-     */
-    public UrlBean getUrl() {
-        return url;
-    }
-
-    /**
-     * @param url the url to set
-     */
-    public void setUrl(UrlBean url) {
-        this.url = url;
     }
 
     /**
