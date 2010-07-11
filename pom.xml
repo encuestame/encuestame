@@ -261,6 +261,10 @@
     </build>
     <reporting>
         <plugins>
+             <plugin>
+                     <groupId>net.sf</groupId>
+                     <artifactId>stat-scm</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -292,7 +296,8 @@
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>dependencies</report>
+                            <!--<report>dependencies</report>
+                            -->
                             <report>project-team</report>
                             <report>mailing-list</report>
                             <report>cim</report>
@@ -304,8 +309,21 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
+            </plugin><!--
             <plugin>
+                <groupId>net.objectlab</groupId>
+                <artifactId>mvn-qalab-plugin</artifactId>
+                <version>2.2</version>
+                <reportSets>
+                  <reportSet>
+                    <reports>
+                      <report>report-merge-chart</report>
+                      <report>report-movers-all</report>
+                   </reports>
+                 </reportSet>
+               </reportSets>
+             </plugin>
+            --><plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
