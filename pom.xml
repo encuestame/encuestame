@@ -247,6 +247,7 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                 </plugin>
+
             </plugins>
         </pluginManagement>
         <resources>
@@ -260,10 +261,15 @@
         </resources>
     </build>
     <reporting>
-        <plugins>
+        <plugins><!--
              <plugin>
                      <groupId>net.sf</groupId>
                      <artifactId>stat-scm</artifactId>
+            </plugin>
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dashboard-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
