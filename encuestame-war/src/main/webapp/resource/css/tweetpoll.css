@@ -16,7 +16,7 @@
 }
 
 #reviewContentBox .bodyTweet{
-
+    border-bottom: 5px solid #EDEDED;
 }
 
 div.tweetResume{
@@ -26,30 +26,71 @@ div.tweetResume{
      padding: 10px;
 }
 
-div.bodyTweet div.tweetResume .resumeText{
+div.bodyTweet div.tweetResume div.resumeText{
     min-width:80%;
-    padding:10px;
+    padding: 10px 10px 10px 60px;
     color:  #575555;
-    font-size: 1.5em;
+    font-size: 1.1em;
+    min-height : 50px;
+
 }
 
-div.bodyTweet div.tweetResume span.countTweet{
+div.bodyTweet div.tweetResume div.countTweet{
     padding: 10px;
     color:  #E2DEDE;
-    font-size: 1.5em;
+    font-size: 1.1em;
+    float: left;
 }
 
 /** Add Question **/
 
-div.questionItemResult{
-    padding: 10px;
+div.addQuestionBody{
+
+}
+
+div.addQuestionBody .label{
+    padding: 7px;
+    background-color: #6E6E6E;
+    color: #FFFFFF;
+    font-size: 14px;
+    display: inline-block;
+    width: 18%;
+}
+
+div.addQuestionBody .textBox{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 16px;
+     width: 70%;
+}
+
+div.addQuestionBody  .saveButton{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 16px;
+    width: 125px;
+    color: #FFF;
+}
+
+div.addQuestionBody .suggestTitle{
+    background-color: #1277C9;
+    padding: 5px;
+    font-size: 16px;
+    color: #FFF;
+    margin: 0px 2px 0px 2px;
+}
+
+div.addQuestionBody div.questionItemResult{
+    padding: 5px;
+    min-height: 18px;
     background-color: #E2DEDE;
     margin: 2px;
     border-top: 1px solid #C1BBBB;
 }
 
-
-div.questionItemResult div.itemNameWrapper{
+div.addQuestionBody div.questionItemResult div.itemNameWrapper{
     float: left;
     min-width: 500px;
     background-image: url(../images/icons/enme_question.gif);
@@ -57,12 +98,214 @@ div.questionItemResult div.itemNameWrapper{
     background-repeat: no-repeat;
 }
 
-div.questionItemResult div.itemNameWrapper .itemName{
+div.addQuestionBody div.questionItemResult .itemLink{
+    float: right;
+}
+
+div.addQuestionBody div.questionItemResult div.itemNameWrapper .itemName{
     font-size: 14px;
     color: #7C7979;
     font-weight: bold;
 }
 
-div.questionItemResult .itemNameWrapper div.itemLink{
+div.addQuestionBody div.questionItemResult .itemNameWrapper div.itemLink{
 
 }
+
+/** Add Answers **/
+
+div.addAnswers{
+
+}
+
+div.options{
+    margin: 4px;
+    text-align: right;
+}
+
+ div.options .saveButton{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 16px;
+    width: 135px;
+    color: #FFF;
+}
+
+div.addAnswers div.addNewAnswer .inputClass{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 16px;
+    width: 76%;
+}
+
+div.addAnswers div.addNewAnswer{
+    margin-bottom: 3px;
+}
+
+div.addAnswers div.answerItem{
+    background-color: #1277C9;
+    padding: 5px;
+    font-size: 16px;
+    color: #FFF;
+    margin: 0px 2px 0px 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+div.addAnswers div.answerItem .answer{
+    background-image: url(../images/icons/emne-comment-question.png);
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    display: inline-block;
+    min-width: 200px;
+}
+
+div.addAnswers div.answerItem  .url{
+    display: inline-block;
+    min-width: 100px;
+}
+
+div.addAnswers div.answerItem  .url a{
+    font-size: 14px;
+    color: #FFF;
+}
+
+div.addAnswers div.answerItem .url a:hover{
+    font-size: 14px;
+    color: #FFF;
+}
+
+div.addAnswers div.answerItem .remove{
+    float: right;
+}
+
+div.addAnswers div.answerItem .remove a{
+    color: #840000;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div.addAnswers div.answerItem .remove a:hover{
+    text-decoration: underline;
+}
+
+div.addAnswers div.addNewAnswer{
+    background-color: #6E6E6E;
+    font-size: 16px;
+    color: #FFF;
+}
+
+div.addAnswers div.addNewAnswer .label{
+    min-width: 100px;
+    margin: 10px;
+}
+
+div.addAnswers div.addNewAnswer .inputClass{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 16px;
+    width: 76%;
+}
+
+div.addAnswers div.addNewAnswer .saveButton{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 16px;
+    width: 135px;
+    color: #FFF;
+}
+
+/** Publish Tweet Poll **/
+
+div.publishContent{
+    margin: 35px;
+}
+
+div.publishWrapper{
+   float: left;
+   width: 460px;
+   margin-right: 23px;
+   padding: 10px;
+   background-color: #BCBCBC;
+}
+
+div.publishWrapper div.publishTwitterTitle{
+    padding: 10px;
+    font-size: 12px;
+    color: #FFF;
+    font-weight: bold;
+}
+
+div.publishWrapper div.itemPublish{
+    padding: 5px 4px 0px;
+    background-color:  #1277C9;
+    color: #FFF;
+    font-size: 12px;
+    width: 450px;
+    font-weight : bold;
+}
+
+div.publishWrapper div.itemPublish .check{
+    display: inline-block;
+    width: 50px;
+    padding-top : 3px;
+    float: left;
+}
+
+div.publishWrapper div.itemPublish .account{
+    display: inline-block;
+    width: 200px;
+    background-image: url(../images/icons/twitter-logo-small.png);
+    background-repeat: no-repeat;
+    padding-left: 44px;
+    width: 200px;
+    font-size: 12px;
+    height: 30px;
+    padding-top: 5px;
+}
+
+div.publishOptions{
+    background-color : #BCBCBC;
+    float: left;
+    padding: 19px;
+    width: 54%;
+}
+div.optionTitle{
+    padding: 7px;
+    font-size: 12px;
+    color: #FFF;
+    font-weight: bold;
+}
+
+div.publishOptions table{
+    width: 100%;
+    background-color: #D7D2D2;
+    color: #777777;
+}
+
+div.publishOptions tr{
+    font-weight: bold;
+}
+div.publishOptions tr:hover{
+   background-color: #000;
+   color: #FFF;
+}
+
+div.publishOptions tr .label{
+    padding-left: 10px;
+}
+div.publishOptions div.publishTableOptionWrapper{
+
+}
+
+div.publishContent div.publishButtons{
+    float: right;
+    margin-right: 15px;
+    margin-top: 30px;
+}
+

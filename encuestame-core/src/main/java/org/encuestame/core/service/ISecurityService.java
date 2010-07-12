@@ -289,4 +289,11 @@ public interface ISecurityService extends IService {
      * @return
      */
     List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username);
+
+    /**
+     * Get User Logged Verified Twitter Accounts.
+     * @param username username
+     * @return
+     */
+    List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username);
 }

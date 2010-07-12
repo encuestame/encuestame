@@ -14,6 +14,7 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
+import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.SecUsers;
@@ -106,5 +107,12 @@ public interface ISecUserDao extends IBaseDao {
      * @return
      */
     SecUserTwitterAccounts getTwitterAccount(final Long twitterAccountId);
+
+    /**
+     * Get Twitter Verified Accounts.
+     * @param secUsers {@link SecUserDaoImp}
+     * @return List {@link SecUserTwitterAccounts}.
+     */
+   List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUsers secUsers);
 
 }

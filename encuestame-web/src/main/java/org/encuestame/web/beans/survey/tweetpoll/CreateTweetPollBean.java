@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -55,8 +56,18 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** Resume Tweet. **/
     private String resumeTweet = new String();
 
-    /** Steps of Wizard. **/
-    private Integer step = 1;
+    /** Twitter Account Selected. **/
+    private String twitterAccountSelected;
+
+    /**
+     * List of Twitter Accounts
+     */
+    private List<TwitterAccountsPublicationBean>  accounts = new ArrayList<TwitterAccountsPublicationBean>();
+
+    /**
+     * Show or Hide Add Answers.
+     */
+    private Boolean showHideAddAnswers = true;
 
     /** Count Tweet. **/
     private Integer countTweet = CreateTweetPollBean.MAXIMUM_TWEET;
@@ -107,15 +118,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             final String url = survey.getTwitterService().getTinyUrl(this.buildUrl(answer));
             log.info("tiny url "+url);
             answer.setUrl(url);
-            log.info("RESUME TWEET" +getResumeTweet());
-            StringBuffer answerString = new StringBuffer("");
-            answerString.append(" ");
-            answerString.append(answer.getAnswers());
-            answerString.append(" ");
-            answerString.append(url);
-            log.info("answerString "+answerString);
-            setResumeTweet(answerString.toString());
-            this.createPreview();
         }
         catch (Exception e) {
             log.error(e);
@@ -141,17 +143,21 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      **/
     public final void addAnswer(){
         try{
-            if(getUnitTweetPoll().getQuestionBean() !=null){
-                this.createShortAnswerUrl(getAnswersBean());
-                //Saving Answer to Question Answers List.
-                this.questionBean.getListAnswers().add(getAnswersBean());
-                setAnswersBean(new UnitAnswersBean());
-                addInfoMessage("Answer Added", "");
-            }
-            else{
-                log.warn("You need create question first.");
-                addWarningMessage("You need create question first.", "");
-            }
+                if(getUnitTweetPoll().getQuestionBean() !=null){
+                    this.createShortAnswerUrl(getAnswersBean());
+                    //Saving Answer to Question Answers List.
+                    this.questionBean.getListAnswers().add(getAnswersBean());
+                    setAnswersBean(new UnitAnswersBean());
+                    addInfoMessage("Answer Added", "");
+                    if(this.questionBean.getListAnswers().size() == 2){
+                        this.showHideAddAnswers = !this.showHideAddAnswers;
+                    }
+                    this.updateQuestionCountTweet();
+                }
+                else{
+                    log.warn("You need create question first.");
+                    addWarningMessage("You need create question first.", "");
+                }
         }
         catch (Exception e) {
             addErrorMessage("error to add answer", "");
@@ -159,6 +165,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             e.printStackTrace();
         }
     }
+
 
     /**
      * Create Preview.
@@ -306,14 +313,67 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     }
 
     /**
+     * Load Twitter Accounts.
+     */
+    public void loadTwitterAccounts(){
+        try{
+            log.debug("Loading Twitter Accounts");
+            setAccounts(new ArrayList<TwitterAccountsPublicationBean>());
+            final List<UnitTwitterAccountBean> accounts = getSecurityService().getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername());
+            for (UnitTwitterAccountBean unitTwitterAccountBean : accounts) {
+                final TwitterAccountsPublicationBean accountsPublicationBean = new  TwitterAccountsPublicationBean();
+                accountsPublicationBean.setAccountBean(unitTwitterAccountBean);
+                accountsPublicationBean.setActive(Boolean.FALSE);
+                this.accounts.add(accountsPublicationBean);
+            }
+            log.debug("Twitter Accounts Loaded");
+        }
+        catch (Exception e) {
+            log.error("Error Loading Twitter Accounts "+e.getMessage());
+        }
+    }
+
+    /**
+     * Select Twitter Account Selected.
+     */
+    public void selectTwitterAccount(){
+            for (TwitterAccountsPublicationBean account : this.accounts) {
+                log.debug("Twitter Account Selected "+getTwitterAccountSelected());
+                if(account.getAccountBean().getAccount().equals(getTwitterAccountSelected())){
+                    account.setActive(!account.getActive());
+                }
+                log.debug("Twitter Account Selected "+account.getAccountBean().getAccount() +" Status "+account.getActive());
+            }
+    }
+
+    /**
      * Update Question Count Tweet.
      */
     public void updateQuestionCountTweet(){
         if(questionBean.getQuestionName() != null){
             this.resumeTweet = questionBean.getQuestionName();
-            final Integer lenght = this.resumeTweet.length();
-            this.countTweet = CreateTweetPollBean.MAXIMUM_TWEET - lenght;
         }
+        if(this.questionBean.getListAnswers().size() >= 1){
+            for (UnitAnswersBean answer : this.questionBean.getListAnswers()) {
+                final StringBuffer answerString = new StringBuffer("");
+                answerString.append(" ");
+                answerString.append(answer.getAnswers());
+                answerString.append(" ");
+                answerString.append(answer.getUrl());
+                log.info("answerString "+answerString);
+                this.resumeTweet = this.resumeTweet + " "+answerString.toString();
+                this.createPreview();
+            }
+        }
+        this.updateCount();
+    }
+
+    /**
+     * Update Count.
+     */
+    private void updateCount(){
+        final Integer lenght = this.resumeTweet.length();
+        this.countTweet = CreateTweetPollBean.MAXIMUM_TWEET - lenght;
     }
 
     /**
@@ -352,20 +412,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     }
 
     /**
-     * @return the step
-     */
-    public Integer getStep() {
-        return step;
-    }
-
-    /**
-     * @param step the step to set
-     */
-    public void setStep(final Integer step) {
-        this.step = step;
-    }
-
-    /**
      * @return the questionsSuggested
      */
     public List<UnitQuestionBean> getQuestionsSuggested() {
@@ -378,4 +424,47 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     public void setQuestionsSuggested(List<UnitQuestionBean> questionsSuggested) {
         this.questionsSuggested = questionsSuggested;
     }
+
+    /**
+     * @return the showHideAddAnswers
+     */
+    public Boolean getShowHideAddAnswers() {
+        return showHideAddAnswers;
+    }
+
+    /**
+     * @param showHideAddAnswers the showHideAddAnswers to set
+     */
+    public void setShowHideAddAnswers(final Boolean showHideAddAnswers) {
+        this.showHideAddAnswers = showHideAddAnswers;
+    }
+
+    /**
+     * @return the accounts
+     */
+    public List<TwitterAccountsPublicationBean> getAccounts() {
+        return accounts;
+    }
+
+    /**
+     * @param accounts the accounts to set
+     */
+    public void setAccounts(final List<TwitterAccountsPublicationBean> accounts) {
+        this.accounts = accounts;
+    }
+
+    /**
+     * @return the twitterAccountSelected
+     */
+    public String getTwitterAccountSelected() {
+        return twitterAccountSelected;
+    }
+
+    /**
+     * @param twitterAccountSelected the twitterAccountSelected to set
+     */
+    public void setTwitterAccountSelected(String twitterAccountSelected) {
+        this.twitterAccountSelected = twitterAccountSelected;
+    }
+
 }

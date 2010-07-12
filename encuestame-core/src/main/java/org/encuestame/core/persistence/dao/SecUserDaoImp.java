@@ -130,6 +130,18 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     }
 
     /**
+     * Get Twitter Verified Accounts.
+     * @param secUsers {@link SecUserDaoImp}
+     * @return List {@link SecUserTwitterAccounts}.
+     */
+    public List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUsers secUsers){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserTwitterAccounts.class);
+        criteria.add(Restrictions.like("secUsers", secUsers) );
+        criteria.add(Restrictions.eq("verfied", true) );
+        return   getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
      * Search user by email
      * @param email email
      * @return

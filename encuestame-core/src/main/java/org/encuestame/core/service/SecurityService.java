@@ -664,6 +664,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * Get User Logged Verified Twitter Accounts.
+     * @param username username
+     * @return
+     */
+    public List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username){
+        return ConvertDomainBean.convertListTwitterAccountsToBean(getSecUserDao()
+                                .getTwitterVerifiedAccountByUser(getUser(username).getSecUser()));
+   }
+
+    /**
      * Invite some users to register in the system.
      * @param email list of users
      * @param code code

@@ -85,6 +85,9 @@ public class SecUserTwitterAccounts {
      */
     private TypeAuth type = TypeAuth.PASSWORD;
 
+    /** Verfied. **/
+    private Boolean verfied = false;
+
     /**
      */
     public enum TypeAuth {
@@ -96,7 +99,7 @@ public class SecUserTwitterAccounts {
     /**
      * Password.
      */
-    PASSWORD}
+    PASSWORD};
 
     /**
      * @return the id
@@ -220,5 +223,20 @@ public class SecUserTwitterAccounts {
      */
     public void setTwitterPin(Integer twitterPin) {
         this.twitterPin = twitterPin;
+    }
+
+    /**
+     * @return the verfied
+     */
+    @Column (name="twitter_verified", nullable = true)
+    public Boolean getVerfied() {
+        return verfied;
+    }
+
+    /**
+     * @param verfied the verfied to set
+     */
+    public void setVerfied(Boolean verfied) {
+        this.verfied = verfied;
     }
 }

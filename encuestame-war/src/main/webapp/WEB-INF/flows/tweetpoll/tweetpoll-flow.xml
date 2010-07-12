@@ -28,29 +28,26 @@
     </view-state>
 
     <view-state id="addAnswers">
-        <transition on="preview" to="preview">
-            <evaluate expression="createTweetPollBean.createPreview()" />
-        </transition>
-    </view-state>
-
-    <view-state id="preview">
         <transition on="publish" to="publish">
         </transition>
-        <transition on="later" to="tweetpoll">
+        <transition on="later" to="succesfullEnd">
             <evaluate expression="createTweetPollBean.saveLaterTweetPoll()" />
         </transition>
     </view-state>
 
     <view-state id="publish">
+         <on-render>
+                <evaluate expression="createTweetPollBean.loadTwitterAccounts()" />
+         </on-render>
         <transition on="publish" to="tweetpoll">
             <evaluate expression="createTweetPollBean.publishTweetPoll()" />
         </transition>
     </view-state>
 
-    <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
+    <end-state id="succesfullEnd"></end-state>
 
     <global-transitions>
-        <transition on="cancel" to="tweetpoll" />
+        <transition on="cancel" to="succesfullEnd" />
         <transition on-exception="org.encuestame.core.exception.EnMeExpcetion"
             to="error" />
     </global-transitions>

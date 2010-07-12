@@ -8,16 +8,20 @@
     xmlns:encuestame="http://encuesta.me/encuestame">
     <ui:define name="title">Create TweetPoll</ui:define>
     <ui:define name="bodyOptions">
-        <a4j:outputPanel id="reviewContentBox" ajaxRendered="true">
-            <div class="bodyTweet">
-                <div class="tweetResume">
-                     <span class="countTweet">
-                        <h:outputText value="#{createTweetPollBean.countTweet}" />
-                    </span>
-                    <h:outputText id="questionResume" value="#{createTweetPollBean.resumeTweet}" styleClass="resumeText"/>
+        <div>
+            <a4j:outputPanel id="reviewContentBox" ajaxRendered="true">
+                <div class="bodyTweet">
+                    <div class="tweetResume">
+                         <div class="countTweet">
+                            <h:outputText value="#{createTweetPollBean.countTweet}" />
+                        </div>
+                        <div class="resumeText">
+                            <h:outputText id="questionResume" value="#{createTweetPollBean.resumeTweet}"/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </a4j:outputPanel>
+            </a4j:outputPanel>
+        </div>
         <ui:insert name="body"></ui:insert>
     </ui:define>
 </ui:composition>
