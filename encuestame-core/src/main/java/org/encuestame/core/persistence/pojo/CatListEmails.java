@@ -42,7 +42,7 @@ public class CatListEmails {
 	private Long idList;
 	private SecUsers usuarioEmail;
 	private Date createdAt;
-	private String ListName;
+	private String listName;
 
 	/**
 	 * @return the idList
@@ -98,13 +98,13 @@ public class CatListEmails {
 	 */
 	@Column(name = "list_name", nullable = true)
 	public String getListName() {
-		return ListName;
+		return listName;
 	}
 
 	/**
 	 * @param listName the listName to set
 	 */
 	public void setListName(String listName) {
-		ListName = listName;
+		this.listName = listName;
 	}
 }

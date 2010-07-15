@@ -65,7 +65,8 @@ public interface ICatEmail extends IBaseDao {
 	/**
 	 * Find Emails by Keyword.
 	 * @param keyword
+	 * @param userId
 	 * @return
 	 */
-	public List<CatEmails> getEmailsByKeyword(final String keyword);
+	public List<CatEmails> getEmailsByKeyword(final String keyword, final Long userId);
 }

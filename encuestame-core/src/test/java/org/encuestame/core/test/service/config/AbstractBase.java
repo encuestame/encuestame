@@ -36,6 +36,7 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatListEmails;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
@@ -153,7 +154,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     private IPoll iPoll;
 
     /** {@link CatEmailDao} **/
-    //@Autowired
+    @Autowired
     private ICatEmail catEmailDao;
 
     protected Log log = LogFactory.getLog(this.getClass());
@@ -977,19 +978,80 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
 
     /**
      *
+     * @param user
+     * @param list
      * @return
      */
-    public CatListEmails createListEmails(){
+    public CatListEmails createDefaultListEmail(final SecUsers user,final String list){
+    	return this.createListEmails(user, list, new Date());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public CatListEmails createDefaultListEmail(){
+    	return this.createListEmails(createUser(), "default", new Date());
+    }
+
+    /**
+     *
+     * @param list
+     * @return
+     */
+
+    public CatListEmails createDefaultListEmail(final String list){
+    	return this.createListEmails(createUser(), list, new Date());
+    }
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    public CatListEmails createDefaultListEmail(final SecUsers user){
+    	return this.createListEmails(user, "default", new Date());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public CatListEmails createListEmails(
+    			final SecUsers users,
+    			final String listName,
+    			final Date createDate){
             final CatListEmails catListEmails = new CatListEmails();
-            catListEmails.setCreatedAt(new Date());
-            catListEmails.setListName("My email List");
-            catListEmails.setUsuarioEmail(null);
+            catListEmails.setCreatedAt(createDate);
+            catListEmails.setListName(listName);
+            catListEmails.setUsuarioEmail(users);
+            getCatEmailDao().saveOrUpdate(catListEmails);
             return catListEmails;
-
-
     }
 
 
+    public CatEmails createDefaultEmails(final String email){
+    	return this.createEmails(email, createDefaultListEmail());
+    }
+
+    public CatEmails createDefaultEmails(final String email, final CatListEmails listEmail){
+    	return this.createEmails(email, listEmail);
+    }
+    /**
+     *
+     * @param email
+     * @param list
+     * @return
+     */
+    public CatEmails createEmails(
+    			final String email,
+    			final CatListEmails list){
+    		final CatEmails emails = new CatEmails();
+    		emails.setEmail(email);
+    		emails.setIdListEmail(list);
+    		getCatEmailDao().saveOrUpdate(emails);
+     	return emails;
+    }
 
 
     /**

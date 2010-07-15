@@ -84,4 +84,9 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
            return (SecPermission) getHibernateTemplate().get(SecPermission.class, permId);
    }
 
+public void createPermission(SecPermission permission) {
+	// TODO Auto-generated method stub
+
+}
+
 }

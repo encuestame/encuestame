@@ -70,7 +70,7 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-     <bean id="CatEmailDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.CatEmailDao">
+     <bean id="catEmailDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.CatEmailDao">
      	 <property name="hibernateTemplate">
          <ref bean="hibernateTemplate" />
          </property>

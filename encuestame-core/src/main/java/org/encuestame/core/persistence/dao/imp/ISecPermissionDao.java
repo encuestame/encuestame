@@ -53,4 +53,10 @@ public interface ISecPermissionDao extends IBaseDao {
       * @return {@link SecPermission}
       */
      List<SecPermission> findAllPermissions();
+
+ 	/**
+ 	 * Create {@link SecPermission}.
+ 	 * @param permission {@link SecPermission}.
+ 	 */
+     public void createPermission(final SecPermission permission);
 }

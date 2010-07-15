@@ -294,22 +294,25 @@ public class TestHibernateDomains extends AbstractBase{
      /**
       * Test Email Catalog.
       **/
-
+     @Test
      public void testCatEmail(){
     	 final CatEmails catEmailList = new CatEmails();
-    	 catEmailList.setEmail("");
-    	 catEmailList.setIdListEmail(null);
+    	 catEmailList.setEmail("paola@jotadeveloper.com");
+    	 catEmailList.setIdListEmail(createDefaultListEmail());
     	 getCatEmailDao().saveOrUpdate(catEmailList);
+    	 assertNotNull(catEmailList.getIdEmail());
      }
 
      /**
       * Test Email List Catalog.
       **/
-
+     @Test
      public void testCatEmailList(){
     	 final CatListEmails catListEmails = new CatListEmails();
     	 catListEmails.setCreatedAt(new Date());
-    	 catListEmails.setListName("");
-    	 catListEmails.setUsuarioEmail(null);
+    	 catListEmails.setListName("default encuestame list");
+    	 catListEmails.setUsuarioEmail(createUser());
+    	 getCatEmailDao().saveOrUpdate(catListEmails);
+    	 assertNotNull(catListEmails.getIdList());
      }
 }

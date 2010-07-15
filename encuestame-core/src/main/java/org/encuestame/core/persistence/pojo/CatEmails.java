@@ -40,6 +40,7 @@ public class CatEmails {
  	private String email;
  	private CatListEmails idListEmail;
 
+
  	/**
 	 * @return the idEmail
 	 */
@@ -47,7 +48,7 @@ public class CatEmails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "email_id", unique = true, nullable = false)
 	public Long getIdEmail() {
-		return idEmail;
+		return this.idEmail;
 	}
 
 	/**
@@ -62,7 +63,7 @@ public class CatEmails {
 	 */
  	@Column(name = "email", unique = true, nullable = false)
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	/**
@@ -75,10 +76,10 @@ public class CatEmails {
 	/**
 	 * @return the idListEmail
 	 */
-	 @ManyToOne(cascade = CascadeType.MERGE)
-     @JoinColumn(name = "id_list", nullable = false)
+	   @ManyToOne(cascade = CascadeType.MERGE)
+       @JoinColumn(name = "id_list", nullable = true)
 	public CatListEmails getIdListEmail() {
-		return idListEmail;
+		return this.idListEmail;
 	}
 
 	/**
@@ -87,7 +88,4 @@ public class CatEmails {
 	public void setIdListEmail(CatListEmails idListEmail) {
 		this.idListEmail = idListEmail;
 	}
-
-
-
 }

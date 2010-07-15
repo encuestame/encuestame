@@ -12,21 +12,104 @@
  */
 package org.encuestame.core.test.persistence.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
+import org.encuestame.core.persistence.pojo.CatEmails;
+import org.encuestame.core.persistence.pojo.CatListEmails;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Test List Email Catalog.
+ *
  * @author Morales, Diana Paola paola AT encuestame.org
- * @since  June 24, 2010
+ * @since June 24, 2010
  * @version $Id: $
  */
 public class TestCatListEmails extends AbstractBase {
 
-	@Test
-	public void testFindEmailsByListId(){
-		//
+	private CatListEmails emailList;
+	private CatEmails emails;
+	private SecUsers user;
+	private SecUserSecondary secondary;
 
+	@Before
+	public void before() {
+		this.user = createUser();
+		this.secondary = createSecondaryUser("paola", this.user);
+		this.emailList = createDefaultListEmail(this.secondary.getSecUser());
+		createDefaultListEmail(this.user, "default");
+		this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testFindEmailByListId() {
+		final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
+				this.emailList.getIdList());
+		assertNotNull(catEmails);
+		assertEquals("Should be equals", 1, catEmails.size());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testFindAllEmailList() {
+		final List<CatListEmails> catLists = getCatEmailDao()
+				.findAllEmailList();
+		assertEquals("Should be equals", 2, catLists.size());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testFindListByUser() {
+		final List<CatListEmails> listByUser = getCatEmailDao().findListbyUser(
+				this.user.getUid());
+		assertNotNull(listByUser);
+		assertEquals("Should be equals", 2, listByUser.size());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testListEmailsByKeyword() {
+		final String keyword = "default";
+		final List<CatListEmails> catLists = getCatEmailDao()
+				.findAllEmailList();
+		for (CatListEmails catListEmails : catLists) {
+			assertNotNull(catListEmails.getListName());
+		}
+		assertEquals("Should be", 2 ,catLists.size());
+		final List<CatListEmails> listEmails = getCatEmailDao()
+					.getListEmailsByKeyword(keyword, this.user.getUid());
+		System.out.println(listEmails.size());
+		assertNotNull(listEmails);
+		assertEquals("Should be equals", 2, listEmails.size());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testEmailsByKeyword() {
+		final String keywordEmail = "encuestame";
+		final List<CatEmails> emails = getCatEmailDao().getEmailsByKeyword(
+				keywordEmail, this.user.getUid());
+
+		assertEquals("Should be equals", 1, emails.size());
 	}
 
 }
