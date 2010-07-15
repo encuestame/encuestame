@@ -977,7 +977,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
     /**
-     *
+     * Create Default List Email.
      * @param user
      * @param list
      * @return
@@ -987,7 +987,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
     /**
-     *
+     * Create Default List Email.
      * @return
      */
     public CatListEmails createDefaultListEmail(){
@@ -995,8 +995,8 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
     /**
-     *
-     * @param list
+     * Create Default Email List.
+     * @param list list Name
      * @return
      */
 
@@ -1005,7 +1005,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
     /**
-     *
+     *Create Default Email List.
      * @param user
      * @return
      */
@@ -1014,7 +1014,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
     /**
-     *
+     * Create Email List.
      * @return
      */
     public CatListEmails createListEmails(
@@ -1029,16 +1029,26 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
             return catListEmails;
     }
 
-
+    /**
+     * Create Default Emails.
+     * @param email
+     * @return
+     */
     public CatEmails createDefaultEmails(final String email){
     	return this.createEmails(email, createDefaultListEmail());
     }
 
+    /**
+     * Create Default Emails.
+     * @param email
+     * @param listEmail
+     * @return
+     */
     public CatEmails createDefaultEmails(final String email, final CatListEmails listEmail){
     	return this.createEmails(email, listEmail);
     }
     /**
-     *
+     * Create Emails.
      * @param email
      * @param list
      * @return

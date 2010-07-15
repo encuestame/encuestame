@@ -50,7 +50,7 @@ public class TestCatListEmails extends AbstractBase {
 	}
 
 	/**
-	 *
+	 * Test Find Emails By List Id.
 	 */
 	@Test
 	public void testFindEmailByListId() {
@@ -61,7 +61,7 @@ public class TestCatListEmails extends AbstractBase {
 	}
 
 	/**
-	 *
+	 * Test Find All Email Lists.
 	 */
 	@Test
 	public void testFindAllEmailList() {
@@ -71,7 +71,7 @@ public class TestCatListEmails extends AbstractBase {
 	}
 
 	/**
-	 *
+	 * Test Find Email Lists by User.
 	 */
 	@Test
 	public void testFindListByUser() {
@@ -82,7 +82,7 @@ public class TestCatListEmails extends AbstractBase {
 	}
 
 	/**
-	 *
+	 * Test List Emails by Keyword.
 	 */
 	@Test
 	public void testListEmailsByKeyword() {
@@ -101,11 +101,11 @@ public class TestCatListEmails extends AbstractBase {
 	}
 
 	/**
-	 *
+	 * Test Emails by Keyword.
 	 */
 	@Test
 	public void testEmailsByKeyword() {
-		final String keywordEmail = "encuestame";
+		final String keywordEmail = "jotadeveloper.com";
 		final List<CatEmails> emails = getCatEmailDao().getEmailsByKeyword(
 				keywordEmail, this.user.getUid());
 

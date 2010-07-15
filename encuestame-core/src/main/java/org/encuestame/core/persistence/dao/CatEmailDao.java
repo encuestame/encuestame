@@ -21,6 +21,7 @@ import org.encuestame.core.persistence.dao.imp.ICatEmail;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatListEmails;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +36,7 @@ import org.springframework.stereotype.Repository;
 public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmail{
 
     /**
-     * Find Emails by User
+     * Find Emails by User.
      * @return
      */
     @SuppressWarnings("unchecked")
@@ -45,7 +46,7 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      }
 
     /**
-     *
+     * Find Emails By List Id.
      * @param emailList
      * @return
      */
@@ -55,7 +56,7 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      }
 
     /**
-     *
+     * Find All Email List.
      * @return
      */
     @SuppressWarnings("unchecked")
@@ -64,7 +65,7 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
     }
 
     /**
-     *
+     * List Email by Id.
      * @return
      */
     public CatListEmails getListEmailById(final Long listEmailId){
@@ -73,29 +74,25 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
     }
 
     /**
-     *
+     * Get List Emails by Keyword.
      * @return
      */
     @SuppressWarnings("unchecked")
     public List<CatListEmails> getListEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(CatListEmails.class);
-      //  criteria.add(Restrictions.like("listName", keyword, MatchMode.ANYWHERE));
-        criteria.add(Restrictions.like("listName","%"+keyword));
+        criteria.add(Restrictions.like("listName", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
-     *
+     * Get Emails by Keyword.
      * @return
      */
     @SuppressWarnings("unchecked")
     public List<CatEmails> getEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(CatEmails.class);
-       // criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
-        criteria.add(Restrictions.like("email", "%"+ keyword));
+        criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
 
     }
-
-
 }
