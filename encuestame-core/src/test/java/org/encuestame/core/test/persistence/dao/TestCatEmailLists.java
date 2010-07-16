@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.CatListEmails;
+import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.SecurityService;
@@ -33,9 +33,9 @@ import org.junit.Test;
  * @since June 24, 2010
  * @version $Id: $
  */
-public class TestCatListEmails extends AbstractBase {
+public class TestCatEmailLists extends AbstractBase {
 
-	private CatListEmails emailList;
+	private CatEmailLists emailList;
 	private CatEmails emails;
 	private SecUsers user;
 	private SecUserSecondary secondary;
@@ -65,7 +65,7 @@ public class TestCatListEmails extends AbstractBase {
 	 */
 	@Test
 	public void testFindAllEmailList() {
-		final List<CatListEmails> catLists = getCatEmailDao()
+		final List<CatEmailLists> catLists = getCatEmailDao()
 				.findAllEmailList();
 		assertEquals("Should be equals", 2, catLists.size());
 	}
@@ -75,7 +75,7 @@ public class TestCatListEmails extends AbstractBase {
 	 */
 	@Test
 	public void testFindListByUser() {
-		final List<CatListEmails> listByUser = getCatEmailDao().findListbyUser(
+		final List<CatEmailLists> listByUser = getCatEmailDao().findListbyUser(
 				this.user.getUid());
 		assertNotNull(listByUser);
 		assertEquals("Should be equals", 2, listByUser.size());
@@ -87,13 +87,13 @@ public class TestCatListEmails extends AbstractBase {
 	@Test
 	public void testListEmailsByKeyword() {
 		final String keyword = "default";
-		final List<CatListEmails> catLists = getCatEmailDao()
+		final List<CatEmailLists> catLists = getCatEmailDao()
 				.findAllEmailList();
-		for (CatListEmails catListEmails : catLists) {
+		for (CatEmailLists catListEmails : catLists) {
 			assertNotNull(catListEmails.getListName());
 		}
 		assertEquals("Should be", 2 ,catLists.size());
-		final List<CatListEmails> listEmails = getCatEmailDao()
+		final List<CatEmailLists> listEmails = getCatEmailDao()
 					.getListEmailsByKeyword(keyword, this.user.getUid());
 		System.out.println(listEmails.size());
 		assertNotNull(listEmails);

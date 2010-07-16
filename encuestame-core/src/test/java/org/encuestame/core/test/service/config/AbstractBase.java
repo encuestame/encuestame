@@ -37,7 +37,7 @@ import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.CatListEmails;
+import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
@@ -982,7 +982,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param list
      * @return
      */
-    public CatListEmails createDefaultListEmail(final SecUsers user,final String list){
+    public CatEmailLists createDefaultListEmail(final SecUsers user,final String list){
     	return this.createListEmails(user, list, new Date());
     }
 
@@ -990,7 +990,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * Create Default List Email.
      * @return
      */
-    public CatListEmails createDefaultListEmail(){
+    public CatEmailLists createDefaultListEmail(){
     	return this.createListEmails(createUser(), "default", new Date());
     }
 
@@ -1000,7 +1000,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
 
-    public CatListEmails createDefaultListEmail(final String list){
+    public CatEmailLists createDefaultListEmail(final String list){
     	return this.createListEmails(createUser(), list, new Date());
     }
 
@@ -1009,7 +1009,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param user
      * @return
      */
-    public CatListEmails createDefaultListEmail(final SecUsers user){
+    public CatEmailLists createDefaultListEmail(final SecUsers user){
     	return this.createListEmails(user, "default", new Date());
     }
 
@@ -1017,11 +1017,11 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * Create Email List.
      * @return
      */
-    public CatListEmails createListEmails(
+    public CatEmailLists createListEmails(
     			final SecUsers users,
     			final String listName,
     			final Date createDate){
-            final CatListEmails catListEmails = new CatListEmails();
+            final CatEmailLists catListEmails = new CatEmailLists();
             catListEmails.setCreatedAt(createDate);
             catListEmails.setListName(listName);
             catListEmails.setUsuarioEmail(users);
@@ -1044,7 +1044,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param listEmail
      * @return
      */
-    public CatEmails createDefaultEmails(final String email, final CatListEmails listEmail){
+    public CatEmails createDefaultEmails(final String email, final CatEmailLists listEmail){
     	return this.createEmails(email, listEmail);
     }
     /**
@@ -1055,7 +1055,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public CatEmails createEmails(
     			final String email,
-    			final CatListEmails list){
+    			final CatEmailLists list){
     		final CatEmails emails = new CatEmails();
     		emails.setEmail(email);
     		emails.setIdListEmail(list);

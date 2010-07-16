@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.CatListEmails;
+import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
@@ -308,7 +308,7 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmailList(){
-    	 final CatListEmails catListEmails = new CatListEmails();
+    	 final CatEmailLists catListEmails = new CatEmailLists();
     	 catListEmails.setCreatedAt(new Date());
     	 catListEmails.setListName("default encuestame list");
     	 catListEmails.setUsuarioEmail(createUser());

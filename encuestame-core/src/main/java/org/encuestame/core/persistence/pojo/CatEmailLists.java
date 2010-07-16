@@ -37,7 +37,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "cat_list_emails")
-public class CatListEmails {
+public class CatEmailLists {
 
 	private Long idList;
 	private SecUsers usuarioEmail;

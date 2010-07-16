@@ -38,7 +38,7 @@ public class CatEmails {
 
 	private Long idEmail;
  	private String email;
- 	private CatListEmails idListEmail;
+ 	private CatEmailLists idListEmail;
 
 
  	/**
@@ -78,14 +78,14 @@ public class CatEmails {
 	 */
 	   @ManyToOne(cascade = CascadeType.MERGE)
        @JoinColumn(name = "id_list", nullable = true)
-	public CatListEmails getIdListEmail() {
+	public CatEmailLists getIdListEmail() {
 		return this.idListEmail;
 	}
 
 	/**
 	 * @param idListEmail the idListEmail to set
 	 */
-	public void setIdListEmail(CatListEmails idListEmail) {
+	public void setIdListEmail(CatEmailLists idListEmail) {
 		this.idListEmail = idListEmail;
 	}
 }

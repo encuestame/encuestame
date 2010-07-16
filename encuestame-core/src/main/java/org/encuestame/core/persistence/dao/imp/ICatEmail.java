@@ -16,7 +16,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.CatListEmails;
+import org.encuestame.core.persistence.pojo.CatEmailLists;
 
 /**
  * Email Catalog Interface.
@@ -31,7 +31,7 @@ public interface ICatEmail extends IBaseDao {
 	  * @param userId
 	  * @return
 	  */
-	public List<CatListEmails> findListbyUser(final Long userId);
+	public List<CatEmailLists> findListbyUser(final Long userId);
 
 
 	 /**
@@ -45,14 +45,14 @@ public interface ICatEmail extends IBaseDao {
 	  * Find All Email List.
 	  * @return
 	  */
-	public List<CatListEmails> findAllEmailList();
+	public List<CatEmailLists> findAllEmailList();
 
 	 /**
 	  * Find List Email by Id.
 	  * @param listEmailId
 	  * @return
 	  */
-	public CatListEmails getListEmailById(final Long listEmailId);
+	public CatEmailLists getListEmailById(final Long listEmailId);
 
 	 /**
 	  * Find Email List by Keyword.
@@ -60,7 +60,7 @@ public interface ICatEmail extends IBaseDao {
 	  * @param userId
 	  * @return
 	  */
-	public List<CatListEmails> getListEmailsByKeyword(final String keyword, final Long userId);
+	public List<CatEmailLists> getListEmailsByKeyword(final String keyword, final Long userId);
 
 	/**
 	 * Find Emails by Keyword.
