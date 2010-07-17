@@ -14,25 +14,29 @@
                 <div class="publishTwitterTitle">
                     Select your twitter Accounts to Publish.
                 </div>
-                <a4j:repeat
-                    value="#{createTweetPollBean.accounts}" var="twitter">
-                    <h:panelGrid columns="1">
-                        <h:panelGroup>
-                            <div class="itemPublish"><span
-                                class="check"> <h:selectBooleanCheckbox
-                                value="#{twitter.active}" >
-                                     <a4j:support event="onchange" action="#{createTweetPollBean.selectTwitterAccount}" ajaxSingle="true">
-                                          <a4j:actionparam name="twitterAccount" value="#{twitter.accountBean.account}"
-                                               assignTo="#{createTweetPollBean.twitterAccountSelected}"></a4j:actionparam>
-                                    </a4j:support>
-                                </h:selectBooleanCheckbox>
-                                </span> <span
-                                class="account"> <h:outputText
-                                value="#{twitter.accountBean.account}" /> </span>
-                            </div>
-                        </h:panelGroup>
-                    </h:panelGrid>
-                 </a4j:repeat>
+                <a4j:region>
+                        <h:selectBooleanCheckbox value="true"/>
+                    <ui:repeat
+                        value="#{createTweetPollBean.accounts}" var="twitter">
+                        <h:panelGrid columns="1">
+                            <h:panelGroup>
+                                <div class="itemPublish">
+                                <span class="check">
+                                     <h:selectBooleanCheckbox value="true">
+                                         <a4j:support event="onchange" action="#{createTweetPollBean.selectTwitterAccount}" ajaxSingle="true">
+                                              <a4j:actionparam name="twitterAccount" value="#{twitter.accountBean.account}"
+                                                   assignTo="#{createTweetPollBean.twitterAccountSelected}"></a4j:actionparam>
+                                        </a4j:support>
+                                    </h:selectBooleanCheckbox>
+                                 </span>
+                                 <span class="account">
+                                    <h:outputText value="#{twitter.accountBean.account}" />
+                                 </span>
+                                </div>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </ui:repeat>
+                 </a4j:region>
              </div>
              <div class="publishOptions">
                     <div class="publishTableOptionWrapper">

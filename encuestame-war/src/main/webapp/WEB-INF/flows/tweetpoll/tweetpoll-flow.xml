@@ -39,7 +39,7 @@
          <on-render>
                 <evaluate expression="createTweetPollBean.loadTwitterAccounts()" />
          </on-render>
-        <transition on="publish" to="tweetpoll">
+        <transition on="publish" to="succesfullEnd">
             <evaluate expression="createTweetPollBean.publishTweetPoll()" />
         </transition>
     </view-state>

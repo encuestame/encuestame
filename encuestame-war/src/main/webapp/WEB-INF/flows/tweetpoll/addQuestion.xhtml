@@ -9,35 +9,42 @@
     <ui:define name="body">
        <div class="addQuestionBody">
             <a4j:form id="formBody">
+                <a4j:outputPanel id="optionsMenu">
+                    <div>
+                        <sf:commandLink action="cancel" value="Cancel"/>
+                        <sf:commandLink action="saveQuestion" value="Continuar" rendered="#{createTweetPollBean.validTweet}"/>
+                    </div>
+                </a4j:outputPanel>
                     <span class="label">New Question</span>
                     <h:panelGroup>
-                            <h:inputText value="#{createTweetPollBean.questionBean.questionName}" id="name" styleClass="textBox">
-                                    <a4j:support event="onkeyup" reRender="reviewContentBox, suggested" action="#{createTweetPollBean.suggest}"/>
+                            <h:inputText value="#{createTweetPollBean.questionName}" id="name" styleClass="textBox">
+                                    <a4j:support event="onkeyup" reRender="reviewContentBox, suggested, optionsMenu, saveButton" action="#{createTweetPollBean.suggest}"/>
                             </h:inputText>
                     </h:panelGroup>
-                <a4j:commandButton action="saveQuestion" value="Add" styleClass="saveButton"></a4j:commandButton>
+                <a4j:commandButton id="saveButton" action="#{createTweetPollBean.saveQuestion}"
+                     value="Add" styleClass="saveButton" reRender="optionsMenu"></a4j:commandButton>
+                </a4j:form>
                 <div>
                     <div class="suggestTitle">Suggested Questions</div>
                     <a4j:outputPanel id="suggested">
-                         <a4j:repeat value="#{createTweetPollBean.questionsSuggested}" var="question">
-                                <div class="questionItemResult">
-
+                        <a4j:repeat  value="#{createTweetPollBean.questionsSuggested}" var="question">
+                                <h:form>
+                                    <div class="questionItemResult">
                                         <div class="itemNameWrapper">
                                             <h:outputText styleClass="itemName" value="#{question.questionName}" />
                                         </div>
                                         <div class="itemLink">
-                                            <a4j:commandLink value="Select This">
-                                                <a4j:actionparam></a4j:actionparam>
+                                            <a4j:commandLink value="Select" reRender="formBody">
+                                                    <a4j:actionparam value="#{question.questionName}" name="questionSelected"
+                                                    assignTo="#{createTweetPollBean.questionName}">
+                                                    </a4j:actionparam>
                                             </a4j:commandLink>
                                         </div>
-                                </div>
-                         </a4j:repeat>
+                                    </div>
+                                 </h:form>
+                            </a4j:repeat>
                      </a4j:outputPanel>
                  </div>
-                 <div class="options">
-                    <a4j:commandButton action="cancel" value="Cancel" styleClass="saveButton"></a4j:commandButton>
-                </div>
-            </a4j:form>
         </div>
     </ui:define>
 </ui:composition>

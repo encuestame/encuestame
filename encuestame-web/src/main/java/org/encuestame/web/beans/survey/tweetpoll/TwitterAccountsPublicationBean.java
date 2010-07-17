@@ -34,6 +34,9 @@ public class TwitterAccountsPublicationBean implements Serializable{
      */
     private UnitTwitterAccountBean accountBean;
 
+
+    private Integer id;
+
     /**
      * Active State.
      */
@@ -65,5 +68,19 @@ public class TwitterAccountsPublicationBean implements Serializable{
      */
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

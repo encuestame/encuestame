@@ -50,14 +50,20 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** {@link UnitAnswersBean}. **/
     private UnitAnswersBean answersBean = new UnitAnswersBean();
 
-    /** {@link UnitQuestionBean}. **/
-    private UnitQuestionBean questionBean = new UnitQuestionBean();
-
     /** Resume Tweet. **/
     private String resumeTweet = new String();
 
+    /** Question Name. **/
+    private String questionName;
+
     /** Twitter Account Selected. **/
     private String twitterAccountSelected;
+
+    /** If Length is exceded. */
+    private Boolean excededTweet = false;
+
+    /** If is Valid Tweet. **/
+    private Boolean validTweet = false;
 
     /**
      * List of Twitter Accounts
@@ -73,6 +79,9 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     private Integer countTweet = CreateTweetPollBean.MAXIMUM_TWEET;
 
     private static final Integer MAXIMUM_TWEET = 140;
+
+    /** Minimum Question Length. **/
+    private static final Integer MINIMUM_QUESTION_NAME = 10;
 
     /**
      * Questions Suggested.
@@ -90,13 +99,11 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      */
     public final void saveQuestion(){
         try{
-            log.info("Question Name "+questionBean.getQuestionName());
-            this.questionBean.setUserId(getUsernameByName().getSecUser().getUid());
-            getUnitTweetPoll().setQuestionBean(questionBean);
+            log.info("Question Name "+getUnitTweetPoll().getQuestionBean().getQuestionName());
+            getUnitTweetPoll().getQuestionBean().setUserId(getUsernameByName().getSecUser().getUid());
+            getUnitTweetPoll().getQuestionBean().setQuestionName(getQuestionName());
             addInfoMessage("Question Saved.", "");
-            setResumeTweet(this.questionBean.getQuestionName());
-            //TODO: refresh url
-            //show up next wizard step
+            this.updateQuestionCountTweet();
         }
         catch (Exception e) {
             addErrorMessage("Error save question", "");
@@ -146,10 +153,10 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 if(getUnitTweetPoll().getQuestionBean() !=null){
                     this.createShortAnswerUrl(getAnswersBean());
                     //Saving Answer to Question Answers List.
-                    this.questionBean.getListAnswers().add(getAnswersBean());
+                    this.getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
                     setAnswersBean(new UnitAnswersBean());
                     addInfoMessage("Answer Added", "");
-                    if(this.questionBean.getListAnswers().size() == 2){
+                    if(this.getUnitTweetPoll().getQuestionBean().getListAnswers().size() == 2){
                         this.showHideAddAnswers = !this.showHideAddAnswers;
                     }
                     this.updateQuestionCountTweet();
@@ -180,7 +187,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @return
      */
     public void suggest(){
-        final String pref = this.questionBean.getQuestionName();
+        final String pref = this.questionName;
         if(pref.length() > 1){
             log.debug("Suggestion Search with "+pref);
             this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
@@ -224,8 +231,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             //Getting User Logged Id.
             final Long userId = getUsernameByName().getSecUser().getUid();
             //set user id to question bean.
-            this.questionBean.setUserId(userId);
-            getUnitTweetPoll().setQuestionBean(this.questionBean);
+            this.getUnitTweetPoll().getQuestionBean().setUserId(userId);
+           // getUnitTweetPoll().setQuestionBean(this.getUnitTweetPoll().getQuestionBean());
             // save question
             getSurveyService().createQuestion(getUnitTweetPoll().getQuestionBean());
             // save create tweet poll
@@ -303,16 +310,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     }
 
     /**
-     * @return the questionBean
-     */
-    public final UnitQuestionBean getQuestionBean() {
-        if(questionBean.getQuestionName() != null){
-           this.updateQuestionCountTweet();
-        }
-        return questionBean;
-    }
-
-    /**
      * Load Twitter Accounts.
      */
     public void loadTwitterAccounts(){
@@ -320,10 +317,13 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             log.debug("Loading Twitter Accounts");
             setAccounts(new ArrayList<TwitterAccountsPublicationBean>());
             final List<UnitTwitterAccountBean> accounts = getSecurityService().getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername());
+            Integer i = 0;
             for (UnitTwitterAccountBean unitTwitterAccountBean : accounts) {
+                i = i+1;
                 final TwitterAccountsPublicationBean accountsPublicationBean = new  TwitterAccountsPublicationBean();
                 accountsPublicationBean.setAccountBean(unitTwitterAccountBean);
                 accountsPublicationBean.setActive(Boolean.FALSE);
+                accountsPublicationBean.setId(i);
                 this.accounts.add(accountsPublicationBean);
             }
             log.debug("Twitter Accounts Loaded");
@@ -340,7 +340,11 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             for (TwitterAccountsPublicationBean account : this.accounts) {
                 log.debug("Twitter Account Selected "+getTwitterAccountSelected());
                 if(account.getAccountBean().getAccount().equals(getTwitterAccountSelected())){
+                    log.debug("Equals");
+                    log.debug("Equals selected "+getTwitterAccountSelected());
+                    log.debug("Equals prevoius active  "+account.getActive());
                     account.setActive(!account.getActive());
+                    log.debug("Equals after active  "+account.getActive());
                 }
                 log.debug("Twitter Account Selected "+account.getAccountBean().getAccount() +" Status "+account.getActive());
             }
@@ -350,11 +354,11 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * Update Question Count Tweet.
      */
     public void updateQuestionCountTweet(){
-        if(questionBean.getQuestionName() != null){
-            this.resumeTweet = questionBean.getQuestionName();
+        if(this.questionName != null){
+            this.resumeTweet = this.questionName;
         }
-        if(this.questionBean.getListAnswers().size() >= 1){
-            for (UnitAnswersBean answer : this.questionBean.getListAnswers()) {
+        if(this.getUnitTweetPoll().getQuestionBean().getListAnswers().size() >= 1){
+            for (UnitAnswersBean answer : this.getUnitTweetPoll().getQuestionBean().getListAnswers()) {
                 final StringBuffer answerString = new StringBuffer("");
                 answerString.append(" ");
                 answerString.append(answer.getAnswers());
@@ -363,6 +367,24 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 log.info("answerString "+answerString);
                 this.resumeTweet = this.resumeTweet + " "+answerString.toString();
                 this.createPreview();
+            }
+        }
+        if(this.resumeTweet.length() > MAXIMUM_TWEET){
+            log.debug("Tweet length is exceded");
+            this.excededTweet = true;
+            setValidTweet(Boolean.FALSE);
+        }
+        else{
+            this.excededTweet = false;
+            log.debug("Length of question "+this.getUnitTweetPoll().getQuestionBean().getQuestionName().length());
+            log.debug("CONDITION 1  "+this.getUnitTweetPoll().getQuestionBean().getQuestionName() != null);
+            log.debug("CONDITION 2  "+(this.getUnitTweetPoll().getQuestionBean().getQuestionName().length() > MINIMUM_QUESTION_NAME));
+            if((this.getUnitTweetPoll().getQuestionBean().getQuestionName() != null
+                   && this.getUnitTweetPoll().getQuestionBean().getQuestionName().length() > MINIMUM_QUESTION_NAME)){
+                setValidTweet(Boolean.TRUE);
+            }
+            else{
+                setValidTweet(Boolean.FALSE);
             }
         }
         this.updateCount();
@@ -374,13 +396,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     private void updateCount(){
         final Integer lenght = this.resumeTweet.length();
         this.countTweet = CreateTweetPollBean.MAXIMUM_TWEET - lenght;
-    }
-
-    /**
-     * @param questionBean the questionBean to set
-     */
-    public final void setQuestionBean(final UnitQuestionBean questionBean) {
-        this.questionBean = questionBean;
     }
 
     /**
@@ -465,6 +480,55 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      */
     public void setTwitterAccountSelected(String twitterAccountSelected) {
         this.twitterAccountSelected = twitterAccountSelected;
+    }
+
+    /**
+     * @return the questionName
+     */
+    public String getQuestionName() {
+        log.debug("GET QUESTION NAME "+this.questionName);
+        return questionName;
+    }
+
+    /**
+     * @param questionName the questionName to set
+     */
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName;
+        if(this.questionName != null){
+            this.updateQuestionCountTweet();
+        }
+    }
+
+    /**
+     * @return the excededTweet
+     */
+    public Boolean getExcededTweet() {
+        return excededTweet;
+    }
+
+    /**
+     * @param excededTweet the excededTweet to set
+     */
+    public void setExcededTweet(Boolean excededTweet) {
+        this.excededTweet = excededTweet;
+    }
+
+    /**
+     * @return the validTweet
+     */
+    public Boolean getValidTweet() {
+        log.debug("GET Valid FLAG "+validTweet);
+        return validTweet;
+    }
+
+    /**
+     * @param validTweet the validTweet to set
+     */
+    public void setValidTweet(Boolean validTweet) {
+        log.debug("BEFORE Valid FLAG "+validTweet);
+        this.validTweet = validTweet;
+        log.debug("AFTER Valid FLAG "+this.validTweet);
     }
 
 }

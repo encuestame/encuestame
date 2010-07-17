@@ -32,7 +32,7 @@ public class UnitQuestionBean implements Serializable {
      */
     private static final long serialVersionUID = -3106607865655197340L;
 
-    private String questionName;
+    private String questionName = new String("");
 
     /**
      *
