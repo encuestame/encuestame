@@ -5,7 +5,6 @@
 
     <var name="createTweetPollBean"
         class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean" />
-    <var name="questionBean" class="org.encuestame.utils.web.UnitQuestionBean"></var>
 
     <view-state id="tweetpoll">
         <on-render>
@@ -23,11 +22,12 @@
 
     <view-state id="addQuestion">
         <transition on="saveQuestion" to="addAnswers">
-            <evaluate expression="createTweetPollBean.createPreview()" />
         </transition>
     </view-state>
 
     <view-state id="addAnswers">
+        <transition on="back" to="addQuestion">
+        </transition>
         <transition on="publish" to="publish">
         </transition>
         <transition on="later" to="succesfullEnd">
@@ -39,6 +39,8 @@
          <on-render>
                 <evaluate expression="createTweetPollBean.loadTwitterAccounts()" />
          </on-render>
+         <transition on="back" to="addAnswers">
+        </transition>
         <transition on="publish" to="succesfullEnd">
             <evaluate expression="createTweetPollBean.publishTweetPoll()" />
         </transition>

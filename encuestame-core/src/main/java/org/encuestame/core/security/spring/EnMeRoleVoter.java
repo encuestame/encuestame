@@ -57,7 +57,7 @@ public class EnMeRoleVoter extends RoleVoter {
             if (this.supports(attribute)) {
                 result = ACCESS_DENIED;
                 // Attempt to find a matching granted authority
-                log.debug("Attribute" +attribute.getAttribute());
+                //log.debug("Attribute" +attribute.getAttribute());
                 for (GrantedAuthority authority : authorities) {
                     //log.debug("authority.getAuthority())"+authority.getAuthority());
                     if (attribute.getAttribute().equals(

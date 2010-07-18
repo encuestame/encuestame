@@ -113,7 +113,6 @@ public class MasterBean{
      * @return {@link ServiceManager}
      */
     public final IServiceManager getServicemanager() {
-        log.debug("Getting  Services Manager "+this.servicemanager);
         return servicemanager;
     }
 
@@ -122,7 +121,6 @@ public class MasterBean{
      * @param servicemanagerBean {@link ServiceManager}
      */
     public final void setServicemanagerBean(final IServiceManager servicemanagerBean) {
-        log.debug("Setting  Services Manager "+servicemanagerBean);
         this.servicemanager = servicemanagerBean;
     }
 

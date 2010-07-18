@@ -16,10 +16,12 @@ package org.encuestame.web.beans.survey.tweetpoll;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.util.MD5Utils;
@@ -39,9 +41,8 @@ import twitter4j.Status;
  */
 public class CreateTweetPollBean extends MasterBean implements Serializable{
 
-    /**
-     * Serial.
-     */
+
+     /** Serial. */
     private static final long serialVersionUID = -191208309931131495L;
 
     /** {@link UnitTweetPoll}. **/
@@ -65,6 +66,12 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** If is Valid Tweet. **/
     private Boolean validTweet = false;
 
+    /** Class Length. **/
+    private String classLength = "normalState";
+
+    /** Selected Answer. **/
+    private UnitAnswersBean selectedAnswer = new UnitAnswersBean();
+
     /**
      * List of Twitter Accounts
      */
@@ -79,6 +86,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     private Integer countTweet = CreateTweetPollBean.MAXIMUM_TWEET;
 
     private static final Integer MAXIMUM_TWEET = 140;
+
+    private static final Integer WARNING_TWEET = 70;
 
     /** Minimum Question Length. **/
     private static final Integer MINIMUM_QUESTION_NAME = 10;
@@ -99,9 +108,11 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      */
     public final void saveQuestion(){
         try{
-            log.info("Question Name "+getUnitTweetPoll().getQuestionBean().getQuestionName());
+            log.info("Question Save Question");
             getUnitTweetPoll().getQuestionBean().setUserId(getUsernameByName().getSecUser().getUid());
+            log.info("Question Save Saved User Id");
             getUnitTweetPoll().getQuestionBean().setQuestionName(getQuestionName());
+            log.info("Question Save Saved Question Name");
             addInfoMessage("Question Saved.", "");
             this.updateQuestionCountTweet();
         }
@@ -173,14 +184,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         }
     }
 
-
-    /**
-     * Create Preview.
-     */
-    public void createPreview(){
-        log.info("Creating Preview");
-    }
-
     /**
      * Suggest.
      * @param suggest keyword.
@@ -189,9 +192,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     public void suggest(){
         final String pref = this.questionName;
         if(pref.length() > 1){
-            log.debug("Suggestion Search with "+pref);
             this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
-            log.info("suggested "+ this.questionsSuggested.size());
+            setValidTweet(Boolean.FALSE);
         }
     }
 
@@ -334,6 +336,15 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     }
 
     /**
+     * Reset Question Name.
+     */
+    public void resetQuestionName(){
+        log.debug("Reset Question");
+        getUnitTweetPoll().getQuestionBean().setQuestionName("");
+        setValidTweet(Boolean.FALSE);
+    }
+
+    /**
      * Select Twitter Account Selected.
      */
     public void selectTwitterAccount(){
@@ -366,7 +377,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 answerString.append(answer.getUrl());
                 log.info("answerString "+answerString);
                 this.resumeTweet = this.resumeTweet + " "+answerString.toString();
-                this.createPreview();
             }
         }
         if(this.resumeTweet.length() > MAXIMUM_TWEET){
@@ -388,6 +398,31 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             }
         }
         this.updateCount();
+        this.updateColorState();
+    }
+
+    /**
+     * Color State.
+     */
+    public void updateColorState(){
+        log.debug("Update Class Length");
+        final Integer messageLenght = this.resumeTweet.length();
+        if(messageLenght > MAXIMUM_TWEET){
+            setClassLength("errorState");
+        }
+        else if(messageLenght < MINIMUM_QUESTION_NAME){
+            setClassLength("questionErrorState");
+        }
+        else if(messageLenght > WARNING_TWEET && messageLenght < MAXIMUM_TWEET){
+            setClassLength("warningState");
+        }
+        else if(messageLenght > MINIMUM_QUESTION_NAME && messageLenght < WARNING_TWEET){
+            setClassLength("normalState");
+        }
+        else{
+            setClassLength("normalState");
+        }
+        log.debug("Update Class Length set->"+this.getClassLength());
     }
 
     /**
@@ -494,7 +529,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @param questionName the questionName to set
      */
     public void setQuestionName(String questionName) {
-        this.questionName = questionName;
+        //Add xss filter.
+        this.questionName = new HTMLInputFilter().filter(questionName);
         if(this.questionName != null){
             this.updateQuestionCountTweet();
         }
@@ -518,7 +554,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @return the validTweet
      */
     public Boolean getValidTweet() {
-        log.debug("GET Valid FLAG "+validTweet);
         return validTweet;
     }
 
@@ -526,9 +561,63 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @param validTweet the validTweet to set
      */
     public void setValidTweet(Boolean validTweet) {
-        log.debug("BEFORE Valid FLAG "+validTweet);
         this.validTweet = validTweet;
-        log.debug("AFTER Valid FLAG "+this.validTweet);
     }
 
+    /**
+     * @return the classLength
+     */
+    public String getClassLength() {
+        return classLength;
+    }
+
+    /**
+     * @param classLength the classLength to set
+     */
+    public void setClassLength(String classLength) {
+        this.classLength = classLength;
+    }
+
+    /**
+     * @return the selectedAnswer
+     */
+    public UnitAnswersBean getSelectedAnswer() {
+        log.debug("GET selectedAnswer"+selectedAnswer.getAnswers());
+        return selectedAnswer;
+    }
+
+    /**
+     * @param selectedAnswer the selectedAnswer to set
+     */
+    public void setSelectedAnswer(UnitAnswersBean selectedAnswer) {
+        log.debug("SET selectedAnswer"+selectedAnswer.getAnswers());
+        this.selectedAnswer = selectedAnswer;
+    }
+
+    /**
+     * Remove Answer.
+     */
+    public void removeAnswer(){
+        if(getSelectedAnswer() != null){
+            final Iterator<UnitAnswersBean> iterator = getUnitTweetPoll().getQuestionBean().getListAnswers().iterator();
+            log.debug("Iterator size"+getUnitTweetPoll().getQuestionBean().getListAnswers().size());
+                while (iterator.hasNext()) {
+                    UnitAnswersBean unitAnswersBean = (UnitAnswersBean) iterator.next();
+                    log.debug("Answer Response "+unitAnswersBean.getAnswers());
+                    log.debug("Answer Selected "+getSelectedAnswer().getAnswers());
+                    if(unitAnswersBean.equals(getSelectedAnswer())){
+                        log.debug("ANSWER FOUND, REMOVE");
+                        iterator.remove();
+                        this.updateQuestionCountTweet();
+                        if(getUnitTweetPoll().getQuestionBean().getListAnswers().size() < 2){
+                            setShowHideAddAnswers(Boolean.TRUE);
+                        }
+                    }
+                }
+                log.debug("Finishd Remove");
+            }
+        else{
+            log.warn("Impossible remove, selected answer is null");
+        }
+    }
 }

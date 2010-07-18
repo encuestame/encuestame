@@ -15,6 +15,22 @@
 
 }
 
+div.bodySurvey .normalState{
+    background-color: #E2DEDE;
+}
+
+div.bodySurvey .warningState{
+    background-color: #EDED85;
+}
+
+div.bodySurvey .questionErrorState{
+    background-color: #EA6262;
+}
+
+div.bodySurvey .errorState{
+    background-color: #EA6262;
+}
+
 #reviewContentBox .bodyTweet{
     border-bottom: 5px solid #EDEDED;
 }
@@ -30,14 +46,37 @@ div.bodyTweet div.tweetResume div.resumeText{
     min-width:80%;
     padding: 10px 10px 10px 60px;
     color:  #575555;
-    font-size: 1.1em;
+    font-size: 0.8em;
     min-height : 50px;
+}
 
+div.optionTopMenu{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    text-align: right;
+}
+
+div.optionTopMenu a{
+    padding: 3px;
+    color: #1277C9;
+    text-decoration:  underline;
+    margin-left: 15px;
+}
+
+div.optionTopMenu a:hover{
+    padding: 3px;
+    background-color:#6E6E6E;
+    color: #FFF;
+    text-decoration: none;
+}
+
+div.optionTopMenu a:visited{
 }
 
 div.bodyTweet div.tweetResume div.countTweet{
     padding: 10px;
-    color:  #E2DEDE;
+    color:  #8A8A8A;
     font-size: 1.1em;
     float: left;
 }
@@ -62,16 +101,21 @@ div.addQuestionBody .textBox{
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-     width: 70%;
+    width: 70%;
 }
 
-div.addQuestionBody  .saveButton{
+div.addQuestionBody .saveButton{
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
     width: 125px;
     color: #FFF;
+    background: none repeat scroll 0 0 #6E6E6E;
+}
+
+div.addQuestionBody .saveButton:hover{
+    background: none repeat scroll 0 0 #4D4D4D;
 }
 
 div.addQuestionBody .suggestTitle{
@@ -79,14 +123,13 @@ div.addQuestionBody .suggestTitle{
     padding: 5px;
     font-size: 12px;
     color: #FFF;
-    margin: 0px 2px 0px 2px;
 }
 
 div.addQuestionBody div.questionItemResult{
     padding: 5px;
     min-height: 18px;
     background-color: #E2DEDE;
-    margin: 2px;
+    margin-top: 2px;
     border-top: 1px solid #C1BBBB;
 }
 
@@ -144,14 +187,21 @@ div.addAnswers div.addNewAnswer{
     margin-bottom: 3px;
 }
 
+div.addAnswers  div.listAnswerWrapper{
+    margin: 0px;
+}
+
 div.addAnswers div.answerItem{
-    background-color: #1277C9;
-    padding: 5px;
+    background-color: #698DA9;
+    padding: 25px;
     font-size: 12px;
     color: #FFF;
-    margin: 0px 2px 0px 2px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top : 2px;
+    cursor: pointer;
+}
+
+div.addAnswers div.answerItem:hover{
+    background-color: #4C718D;
 }
 
 div.addAnswers div.answerItem .answer{
@@ -160,6 +210,11 @@ div.addAnswers div.answerItem .answer{
     padding-left: 30px;
     display: inline-block;
     min-width: 200px;
+    height: 25px;
+    float: left;
+    padding-top: 3px;
+    max-width : 200px;
+    font-size: 12px;
 }
 
 div.addAnswers div.answerItem  .url{
@@ -208,7 +263,7 @@ div.addAnswers div.addNewAnswer .inputClass{
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    width: 76%;
+    width: 25%;
 }
 
 div.addAnswers div.addNewAnswer .saveButton{
