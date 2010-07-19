@@ -158,9 +158,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
         final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
         final Status status = this.tweetPollService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());
         assertNotNull(status.getId());
-        unitTweetPoll.setTweetId(status.getId());
         this.tweetPollService.saveTweetId(unitTweetPoll);
-        assertNotNull(unitTweetPoll.getTweetId());
     }
 
     /**

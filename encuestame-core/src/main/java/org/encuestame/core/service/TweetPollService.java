@@ -97,7 +97,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
             tweetPollDomain.setQuestion(question);
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
-            tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPollDomain.setCompleted(Boolean.FALSE);
             tweetPollDomain.setCaptcha(tweetPollBean.getCaptcha());
             tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());

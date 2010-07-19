@@ -872,7 +872,6 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         tweetPoll.setResultNotification(resultNotification);
         tweetPoll.setAllowLiveResults(allowLiveResults);
         tweetPoll.setCompleted(completed);
-        tweetPoll.setPublicationDateTweet(publicationDateTweet);
         tweetPoll.setPublishTweetPoll(publishTweetPoll);
         tweetPoll.setQuestion(question);
         tweetPoll.setScheduleDate(scheduleDate);

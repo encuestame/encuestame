@@ -58,10 +58,6 @@ public class TweetPoll {
     /** Scheduled Date. **/
     private Date scheduleDate;
 
-    /** Publication Date Tweet. This date is from twitter after publish. **/
-    @Deprecated
-    private Date publicationDateTweet;
-
     /** True to close poll. **/
     private Boolean completed = false;
 
@@ -128,23 +124,6 @@ public class TweetPoll {
      */
     public void setResultNotification(Boolean resultNotification) {
         this.resultNotification = resultNotification;
-    }
-
-    /**
-     * @return the publicationDateTweet
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "publication_date_tweet", nullable = true)
-    public Date getPublicationDateTweet() {
-        return publicationDateTweet;
-    }
-
-    /**
-     * @param publicationDateTweet
-     *            the publicationDateTweet to set
-     */
-    public void setPublicationDateTweet(Date publicationDateTweet) {
-        this.publicationDateTweet = publicationDateTweet;
     }
 
     /**
@@ -249,7 +228,7 @@ public class TweetPoll {
      * @return the scheduleDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "schedule_date_tweet", nullable = false)
+    @Column(name = "schedule_date_tweet", nullable = true)
     public Date getScheduleDate() {
         return scheduleDate;
     }

@@ -56,9 +56,9 @@ public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
         List<Item> entries = new ArrayList<Item>(contentList.size());
         for (UnitTweetPoll content : contentList) {
             final Item item = new Item();
-            String date = String.format("%1$tY-%1$tm-%1$td", content.getPublicationDateTweet());
+            String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             item.setTitle(String.format("On %s, %s publish", date, content.getQuestionBean().getQuestionName()));
-            item.setPubDate(content.getPublicationDateTweet());
+            item.setPubDate( new Date());
             item.setLink("http://www.encuestame.org");
             entries.add(item);
         }

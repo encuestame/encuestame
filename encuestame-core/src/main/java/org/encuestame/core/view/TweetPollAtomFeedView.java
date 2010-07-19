@@ -13,6 +13,7 @@
 package org.encuestame.core.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,10 +57,10 @@ public final class TweetPollAtomFeedView extends AbstractEnMeAtomFeedView {
         List<Entry> entries = new ArrayList<Entry>(contentList.size());
         for (UnitTweetPoll content : contentList) {
             final Entry entry = new Entry();
-            String date = String.format("%1$tY-%1$tm-%1$td", content.getPublicationDateTweet());
+            String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             entry.setId(content.getQuestionBean().getQuestionName());
             entry.setTitle(String.format("On %s, %s publish", date, content.getQuestionBean().getQuestionName()));
-            entry.setUpdated(content.getPublicationDateTweet());
+            entry.setUpdated(new Date());
             final List<Link> links = new ArrayList<Link>();
             //TODO: need work in this details.
             links.add(FeedUtils.createLink("http://www.encuestame.org","title"));

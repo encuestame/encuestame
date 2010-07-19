@@ -15,12 +15,10 @@ package org.encuestame.web.beans.survey.tweetpoll;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
@@ -31,8 +29,6 @@ import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.web.beans.MasterBean;
 
-import twitter4j.Status;
-
 /**
  * Create Tweet Poll.
  * @author Picado, Juan juan@encuestame.org
@@ -40,7 +36,6 @@ import twitter4j.Status;
  * @version $Id$
  */
 public class CreateTweetPollBean extends MasterBean implements Serializable{
-
 
      /** Serial. */
     private static final long serialVersionUID = -191208309931131495L;
@@ -66,6 +61,9 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** If is Valid Tweet. **/
     private Boolean validTweet = false;
 
+    /** If valid, user can publish tweetpoll. **/
+    private Boolean validPublish = false;
+
     /** Class Length. **/
     private String classLength = "normalState";
 
@@ -75,7 +73,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /**
      * List of Twitter Accounts
      */
-    private List<TwitterAccountsPublicationBean>  accounts = new ArrayList<TwitterAccountsPublicationBean>();
+    private List<TwitterAccountsPublicationBean>  accounts = null;
 
     /**
      * Show or Hide Add Answers.
@@ -91,6 +89,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
 
     /** Minimum Question Length. **/
     private static final Integer MINIMUM_QUESTION_NAME = 10;
+
+    private Boolean limitVotes = false;
 
     /**
      * Questions Suggested.
@@ -237,20 +237,18 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             final Long userId = getUsernameByName().getSecUser().getUid();
             //set user id to question bean.
             this.getUnitTweetPoll().getQuestionBean().setUserId(userId);
-           // getUnitTweetPoll().setQuestionBean(this.getUnitTweetPoll().getQuestionBean());
             // save question
             getSurveyService().createQuestion(getUnitTweetPoll().getQuestionBean());
             // save create tweet poll
             if (getUnitTweetPoll().getQuestionBean().getId() != null) {
                 getUnitTweetPoll().setUserId(userId);
-                //TODO: we need implement scheduled tweetPoll.
-                getUnitTweetPoll().setScheduleDate(new Date());
                 getUnitTweetPoll().setCloseNotification(Boolean.FALSE);
-                getUnitTweetPoll().setPublishPoll(publish);
                 getUnitTweetPoll().setResultNotification(Boolean.FALSE);
-                getUnitTweetPoll().setLimitVotes(5000);
+                getUnitTweetPoll().setPublishPoll(publish);
                 tweetPollService.createTweetPoll(getUnitTweetPoll());
-                if (getUnitTweetPoll().getPublishPoll()) {
+                //If publish is true and Scheduled is false, because if is scheduled we want
+                //send later.
+                if (getUnitTweetPoll().getPublishPoll() && !getUnitTweetPoll().getSchedule()) {
                     final String tweetText = tweetPollService
                             .generateTweetPollText(getUnitTweetPoll(),
                                     getDomain());
@@ -272,7 +270,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         catch (EnMeExpcetion e) {
             addErrorMessage("error "+e, "");
             log.error(e);
-            e.printStackTrace();
         }
     }
 
@@ -309,30 +306,57 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      */
     public void loadTwitterAccounts(){
         try{
-            log.debug("Loading Twitter Accounts");
-            setAccounts(new ArrayList<TwitterAccountsPublicationBean>());
-            final List<UnitTwitterAccountBean> accounts = getSecurityService().getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername());
-            Integer i = 0;
-            for (UnitTwitterAccountBean unitTwitterAccountBean : accounts) {
-                i = i+1;
-                final TwitterAccountsPublicationBean accountsPublicationBean = new  TwitterAccountsPublicationBean();
-                accountsPublicationBean.setAccountBean(unitTwitterAccountBean);
-                accountsPublicationBean.setActive(Boolean.FALSE);
-                accountsPublicationBean.setId(i);
-                this.accounts.add(accountsPublicationBean);
+            if(this.accounts == null){
+                setAccounts(new ArrayList<TwitterAccountsPublicationBean>());
+                log.debug("Loading Twitter Accounts");
+                final List<UnitTwitterAccountBean> accounts = getSecurityService().getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername());
+                Integer i = 0;
+                for (UnitTwitterAccountBean unitTwitterAccountBean : accounts) {
+                    i = i+1;
+                    final TwitterAccountsPublicationBean accountsPublicationBean = new  TwitterAccountsPublicationBean();
+                    accountsPublicationBean.setAccountBean(unitTwitterAccountBean);
+                    accountsPublicationBean.setActive(Boolean.FALSE);
+                    accountsPublicationBean.setId(i);
+                    this.accounts.add(accountsPublicationBean);
+                }
+                setValidPublish(Boolean.FALSE);
+                this.validatePublish();
+                log.debug("Twitter Accounts Loaded");
             }
-            log.debug("Twitter Accounts Loaded");
+            else{
+                log.warn("Twitter Accounts are loaded.");
+            }
         }
         catch (Exception e) {
             log.error("Error Loading Twitter Accounts "+e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    /**
+     * Validate Publish.
+     */
+    private void validatePublish(){
+        log.debug("validatePublish");
+        Boolean somethingTrue = false;
+        for (TwitterAccountsPublicationBean accounts : getAccounts()) {
+            log.debug("validatePublish accounts.getActive() "+accounts.getActive());
+            if(accounts.getActive()){
+                somethingTrue = true;
+                setValidPublish(Boolean.TRUE);
+            }
+        }
+        //if any accounts is activated, we change flag to false.
+        if(!somethingTrue){
+            setValidPublish(Boolean.FALSE);
+        }
+        log.debug("validatePublish Publish "+this.validPublish);
     }
 
     /**
      * Reset Question Name.
      */
     public void resetQuestionName(){
-        log.debug("Reset Question");
         getUnitTweetPoll().getQuestionBean().setQuestionName("");
         setValidTweet(Boolean.FALSE);
     }
@@ -342,16 +366,11 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      */
     public void selectTwitterAccount(){
             for (TwitterAccountsPublicationBean account : this.accounts) {
-                log.debug("Twitter Account Selected "+getTwitterAccountSelected());
                 if(account.getAccountBean().getAccount().equals(getTwitterAccountSelected())){
-                    log.debug("Equals");
-                    log.debug("Equals selected "+getTwitterAccountSelected());
-                    log.debug("Equals prevoius active  "+account.getActive());
                     account.setActive(!account.getActive());
-                    log.debug("Equals after active  "+account.getActive());
                 }
-                log.debug("Twitter Account Selected "+account.getAccountBean().getAccount() +" Status "+account.getActive());
             }
+            this.validatePublish();
     }
 
     /**
@@ -608,5 +627,33 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         else{
             log.warn("Impossible remove, selected answer is null");
         }
+    }
+
+    /**
+     * @return the validPublish
+     */
+    public final Boolean getValidPublish() {
+        return validPublish;
+    }
+
+    /**
+     * @param validPublish the validPublish to set
+     */
+    public final void setValidPublish(Boolean validPublish) {
+        this.validPublish = validPublish;
+    }
+
+    /**
+     * @return the limitVotes
+     */
+    public final Boolean getLimitVotes() {
+        return limitVotes;
+    }
+
+    /**
+     * @param limitVotes the limitVotes to set
+     */
+    public final void setLimitVotes(Boolean limitVotes) {
+        this.limitVotes = limitVotes;
     }
 }

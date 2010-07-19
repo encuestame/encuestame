@@ -35,13 +35,11 @@ public class UnitTweetPoll implements Serializable {
     private Long id;
     private UnitQuestionBean questionBean = new UnitQuestionBean();
     private Boolean closeNotification;
-    private Long tweetId;
     private Boolean resultNotification;
     private Boolean publishPoll;
     private Date scheduleDate;
     private Boolean allowLiveResults;
     private Boolean schedule;
-    private Date publicationDateTweet;
     private Boolean completed;
     private Long userId;
     private String tweetUrl;
@@ -51,7 +49,7 @@ public class UnitTweetPoll implements Serializable {
     private Boolean captcha = false;
 
     /** Limit Votes. **/
-    private Integer limitVotes;
+    private Integer limitVotes = 100;
 
     /** If true, system display in left nav live results. **/
     private Boolean resumeLiveResults = false;
@@ -112,21 +110,6 @@ public class UnitTweetPoll implements Serializable {
     }
 
     /**
-     * @return the tweetId
-     */
-    public final Long getTweetId() {
-        return tweetId;
-    }
-
-    /**
-     * @param tweetId
-     *            the tweetId to set
-     */
-    public final void setTweetId(final Long tweetId) {
-        this.tweetId = tweetId;
-    }
-
-    /**
      * @return the resultNotification
      */
     public final Boolean getResultNotification() {
@@ -154,21 +137,6 @@ public class UnitTweetPoll implements Serializable {
      */
     public final void setPublishPoll(final Boolean publishPoll) {
         this.publishPoll = publishPoll;
-    }
-
-    /**
-     * @return the publicationDateTweet
-     */
-    public final Date getPublicationDateTweet() {
-        return publicationDateTweet;
-    }
-
-    /**
-     * @param publicationDateTweet
-     *            the publicationDateTweet to set
-     */
-    public final void setPublicationDateTweet(final Date publicationDateTweet) {
-        this.publicationDateTweet = publicationDateTweet;
     }
 
     /**
@@ -224,7 +192,6 @@ public class UnitTweetPoll implements Serializable {
                 this.TWITTER_STATUS_URL);
         tweetUrlString.append(getTwitterUserAcoount());
         tweetUrlString.append("/status/");
-        tweetUrlString.append(getTweetId());
         this.tweetUrl = tweetUrlString.toString();
         return this.tweetUrl;
     }

@@ -335,7 +335,6 @@ public class ConvertDomainBean {
         unitTweetPoll.setScheduleDate(poll.getScheduleDate());
         unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults());
         unitTweetPoll.setSchedule(poll.getScheduleTweetPoll());
-        unitTweetPoll.setPublicationDateTweet(poll.getPublicationDateTweet());
         unitTweetPoll.setPublishPoll(poll.getPublishTweetPoll());
         unitTweetPoll.setResultNotification(poll.getResultNotification());
         unitTweetPoll.setUserId(poll.getTweetOwner().getUid());

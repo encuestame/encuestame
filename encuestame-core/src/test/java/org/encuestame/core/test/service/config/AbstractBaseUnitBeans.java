@@ -142,14 +142,12 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          unitTweetPoll.setAllowLiveResults(allowLiveResults);
          unitTweetPoll.setCloseNotification(closeNotification);
          unitTweetPoll.setCompleted(completed);
-         unitTweetPoll.setPublicationDateTweet(publicationDateTweet);
          unitTweetPoll.setPublishPoll(publishPoll);
          unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
          unitTweetPoll.setResultNotification(resultNotification);
          unitTweetPoll.setResults(null);
          unitTweetPoll.setSchedule(schedule);
          unitTweetPoll.setScheduleDate(scheduleDate);
-         unitTweetPoll.setTweetId(null);
          unitTweetPoll.setTweetUrl(tweetUrl);
          unitTweetPoll.setTwitterUserAccount(null);
         return unitTweetPoll;
@@ -177,11 +175,9 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              ){
      UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
      unitTweetPoll.setUserId(userId);
-     unitTweetPoll.setPublicationDateTweet(publicationDateTweet);
      unitTweetPoll.setPublishPoll(publishPoll);
      unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
      unitTweetPoll.setResults(null);
-     unitTweetPoll.setTweetId(null);
      unitTweetPoll.setTweetUrl(tweetUrl);
      unitTweetPoll.setTwitterUserAccount(null);
      return unitTweetPoll;

@@ -58,14 +58,16 @@ public class CalendarBean {
     }
 
     public CalendarBean() {
-
         locale = Locale.US;
         popup = true;
         pattern = "d/M/yy HH:mm";
     }
 
+    /**
+     *
+     * @param event
+     */
     public final void selectLocale(ValueChangeEvent event) {
-
         String tLocale = (String) event.getNewValue();
         if (tLocale != null) {
             String lang = tLocale.substring(0, 2);

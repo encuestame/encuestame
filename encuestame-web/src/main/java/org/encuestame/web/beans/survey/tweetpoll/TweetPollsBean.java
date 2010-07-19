@@ -118,43 +118,6 @@ public class TweetPollsBean extends MasterBean {
     }
 
     /**
-     * Publish Tweeter.
-     */
-    public final void publishTweet() {
-        try {
-            log.info("loggin tweet");
-            final ITweetPollService tweetPollService = getTweetPollService();
-            final String tweetText = tweetPollService.generateTweetPollText(getSelectedTweetPoll(), getDomain());
-            log.info("Largo Tweet"+tweetText.length());
-            log.info( "Tweet a postear ->"+tweetText);
-            if(tweetText.length() < TWEET_TEXT_LENGTH){
-                final SecUsers user = getUsernameByName().getSecUser();
-                final Status status = tweetPollService.publicTweetPoll(tweetText, user.getTwitterAccount(), user.getTwitterPassword());
-                log.info(status.getId());
-                log.info(status.getCreatedAt());
-                log.info(status.getText());
-                log.info(status.getUser());
-                final Long tweetId = status.getId();
-                if(tweetId != null){
-                    getSelectedTweetPoll().setTweetId(tweetId);
-                    getSelectedTweetPoll().setPublicationDateTweet(status.getCreatedAt());
-                    getSelectedTweetPoll().setTwitterUserAccount(getUsernameByName().getSecUser().getTwitterAccount());
-                    tweetPollService.saveTweetId(getSelectedTweetPoll());
-                    log.info("tweeted :"+tweetId);
-                }
-                getSelectedTweetPoll().setPublishPoll(Boolean.TRUE);
-                addInfoMessage("TweetPoll Posted", shortLongString(tweetText));
-            }else{
-                addWarningMessage("Exceded 140 characters", "You need shorten your tweet");
-            }
-        } catch (EnMeExpcetion e) {
-            addErrorMessage("Error Publishing Tweet Poll", e.getMessage());
-            e.printStackTrace();
-            log.error(e);
-        }
-    }
-
-    /**
      *
      */
     public void saveChanges(){

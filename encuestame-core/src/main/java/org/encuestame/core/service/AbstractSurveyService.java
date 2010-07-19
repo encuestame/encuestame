@@ -152,7 +152,7 @@ public class AbstractSurveyService extends AbstractBaseService {
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
         if(tweetPoll != null){
             //tweetPoll.setTweetId(tweetPollBean.getTweetId());
-            tweetPoll.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
+            //tweetPoll.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPoll.setPublishTweetPoll(Boolean.TRUE);
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }else{
@@ -190,7 +190,7 @@ public class AbstractSurveyService extends AbstractBaseService {
             }
             tweetPollDomain.setQuestion(question);
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
-            tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
+            //tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPollDomain.setCompleted(Boolean.FALSE);
             tweetPollDomain.setTweetOwner(getSecUserDao().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());

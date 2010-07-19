@@ -44,7 +44,10 @@
     </context-param>
     <context-param>
         <param-name>org.richfaces.SKIN</param-name>
-        <param-value>plain</param-value>
+        <param-value>encuestameSkin</param-value>
+        <!-- plain = without css -->
+        <!-- DEFAULT = default css -->
+        <!-- encuestameSkin = encuestame css -->
     </context-param>
     <context-param>
         <param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>

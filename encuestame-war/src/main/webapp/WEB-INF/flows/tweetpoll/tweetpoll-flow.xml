@@ -44,6 +44,9 @@
         <transition on="publish" to="succesfullEnd">
             <evaluate expression="createTweetPollBean.publishTweetPoll()" />
         </transition>
+         <transition on="later" to="succesfullEnd">
+            <evaluate expression="createTweetPollBean.saveLaterTweetPoll()" />
+        </transition>
     </view-state>
 
     <end-state id="succesfullEnd"></end-state>

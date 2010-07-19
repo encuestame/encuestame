@@ -346,10 +346,11 @@ div.publishOptions table{
 div.publishOptions tr{
     font-weight: bold;
 }
-div.publishOptions tr:hover{
+
+/**div.publishOptions tr:hover{
    background-color: #000;
    color: #FFF;
-}
+}**/
 
 div.publishOptions tr .label{
     padding-left: 10px;
