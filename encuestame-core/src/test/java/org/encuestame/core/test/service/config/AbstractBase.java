@@ -877,7 +877,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         tweetPoll.setQuestion(question);
         tweetPoll.setScheduleDate(scheduleDate);
         tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
-        tweetPoll.setTweetId(tweetId);
+        //tweetPoll.setTweetId(tweetId);
         tweetPoll.setTweetOwner(tweetOwner);
         getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
@@ -983,7 +983,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmailLists createDefaultListEmail(final SecUsers user,final String list){
-    	return this.createListEmails(user, list, new Date());
+        return this.createListEmails(user, list, new Date());
     }
 
     /**
@@ -991,7 +991,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmailLists createDefaultListEmail(){
-    	return this.createListEmails(createUser(), "default", new Date());
+        return this.createListEmails(createUser(), "default", new Date());
     }
 
     /**
@@ -1001,7 +1001,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
 
     public CatEmailLists createDefaultListEmail(final String list){
-    	return this.createListEmails(createUser(), list, new Date());
+        return this.createListEmails(createUser(), list, new Date());
     }
 
     /**
@@ -1010,7 +1010,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmailLists createDefaultListEmail(final SecUsers user){
-    	return this.createListEmails(user, "default", new Date());
+        return this.createListEmails(user, "default", new Date());
     }
 
     /**
@@ -1018,9 +1018,9 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmailLists createListEmails(
-    			final SecUsers users,
-    			final String listName,
-    			final Date createDate){
+                final SecUsers users,
+                final String listName,
+                final Date createDate){
             final CatEmailLists catListEmails = new CatEmailLists();
             catListEmails.setCreatedAt(createDate);
             catListEmails.setListName(listName);
@@ -1035,7 +1035,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmails createDefaultEmails(final String email){
-    	return this.createEmails(email, createDefaultListEmail());
+        return this.createEmails(email, createDefaultListEmail());
     }
 
     /**
@@ -1045,7 +1045,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmails createDefaultEmails(final String email, final CatEmailLists listEmail){
-    	return this.createEmails(email, listEmail);
+        return this.createEmails(email, listEmail);
     }
     /**
      * Create Emails.
@@ -1054,13 +1054,13 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmails createEmails(
-    			final String email,
-    			final CatEmailLists list){
-    		final CatEmails emails = new CatEmails();
-    		emails.setEmail(email);
-    		emails.setIdListEmail(list);
-    		getCatEmailDao().saveOrUpdate(emails);
-     	return emails;
+                final String email,
+                final CatEmailLists list){
+            final CatEmails emails = new CatEmails();
+            emails.setEmail(email);
+            emails.setIdListEmail(list);
+            getCatEmailDao().saveOrUpdate(emails);
+         return emails;
     }
 
 

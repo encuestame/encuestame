@@ -8,55 +8,48 @@
     xmlns:sf="http://www.springframework.org/tags/faces">
     <ui:define name="title">Create TweetPoll</ui:define>
     <ui:define name="body">
-        <a4j:form id="formBody">
-         <div class="publishContent">
+        <a4j:form>
+            <div class="publishContent">
             <div class="publishWrapper">
-                <div class="publishTwitterTitle">
-                    Select your twitter Accounts to Publish.
+            <div class="publishTwitterTitle">Select your twitter
+            Accounts to Publish.</div>
+                <div>
+                    <rich:dataTable id="dataTableUsers"
+                        value="#{createTweetPollBean.accounts}" var="twitter" rendered="#{not empty createTweetPollBean.accounts}">
+                        <rich:column width="20px">
+                            <h:selectBooleanCheckbox value="#{twitter.active}" >
+                                 <a4j:support event="onchange"  action="#{createTweetPollBean.selectTwitterAccount}">
+                                         <f:setPropertyActionListener value="#{twitter}" target="#{createTweetPollBean.twitterAccountSelected}"/>
+                                 </a4j:support>
+                            </h:selectBooleanCheckbox>
+                        </rich:column>
+                        <rich:column>
+                            <h:outputText value="#{twitter.accountBean.account}" />
+                        </rich:column>
+                    </rich:dataTable>
                 </div>
-                <a4j:region>
-                        <h:selectBooleanCheckbox value="true"/>
-                    <ui:repeat
-                        value="#{createTweetPollBean.accounts}" var="twitter">
-                        <h:panelGrid columns="1">
-                            <h:panelGroup>
-                                <div class="itemPublish">
-                                <span class="check">
-                                     <h:selectBooleanCheckbox value="true">
-                                         <a4j:support event="onchange" action="#{createTweetPollBean.selectTwitterAccount}" ajaxSingle="true">
-                                              <a4j:actionparam name="twitterAccount" value="#{twitter.accountBean.account}"
-                                                   assignTo="#{createTweetPollBean.twitterAccountSelected}"></a4j:actionparam>
-                                        </a4j:support>
-                                    </h:selectBooleanCheckbox>
-                                 </span>
-                                 <span class="account">
-                                    <h:outputText value="#{twitter.accountBean.account}" />
-                                 </span>
-                                </div>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </ui:repeat>
-                 </a4j:region>
-             </div>
-             <div class="publishOptions">
-                    <div class="publishTableOptionWrapper">
-                        <div class="optionTitle">Customize your TweetPoll</div>
-                        <h:panelGrid columns="2" cellpadding="0" cellspacing="0">
-                             <h:outputLabel value="Protect with Captcha" styleClass="label" />
-                             <h:selectBooleanCheckbox value="true" />
-                             <h:outputLabel value="Show Live Result" styleClass="label" />
-                             <h:selectBooleanCheckbox value="true" />
-                             <h:outputLabel value="Scheduled" styleClass="label"/>
-                             <h:selectBooleanCheckbox value="true" />
-                             <h:outputLabel value="Show Live Resume" styleClass="label"/>
-                             <h:selectBooleanCheckbox value="true" />
-                        </h:panelGrid>
-                    </div>
-             </div>
-            <div class="publishButtons">
-                <a4j:commandButton action="publish" value="Publish Now"></a4j:commandButton>
             </div>
-          </div>
+            <div class="publishOptions">
+            <div class="publishTableOptionWrapper">
+            <div class="optionTitle">Customize your TweetPoll</div>
+            <h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+                <h:outputLabel value="Protect with Captcha"
+                    styleClass="label" />
+                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.captcha}" />
+                <h:outputLabel value="Show Live Result"
+                    styleClass="label" />
+                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.allowLiveResults}" />
+                <h:outputLabel value="Scheduled" styleClass="label" />
+                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.schedule}" />
+                <h:outputLabel value="Show Live Resume"
+                    styleClass="label" />
+                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.resumeLiveResults}" />
+            </h:panelGrid></div>
+            </div>
+            <div class="publishButtons"><a4j:commandButton
+                action="publish" value="Publish Now"></a4j:commandButton>
+            </div>
+            </div>
         </a4j:form>
     </ui:define>
 </ui:composition>

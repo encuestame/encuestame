@@ -28,7 +28,6 @@ public class TestEmailService extends AbstractBaseUnitBeans {
     @Autowired
     private MailServiceImpl serviceMail;
 
-
     /**
      * Test Send Email.
      */

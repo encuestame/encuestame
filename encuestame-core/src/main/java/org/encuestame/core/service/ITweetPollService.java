@@ -16,9 +16,11 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
@@ -104,6 +106,17 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      */
     List<UnitTweetPoll> getTweetsPollsByUserName(final String username);
+
+    /**
+     * Public Multiples Tweet Accounts.
+     * @param twitterAccounts List of {@link SecUserTwitterAccounts}.
+     * @param tweetPoll {@link TweetPoll}.
+     * @param tweetText tweet text.
+     */
+    void publicMultiplesTweetAccounts(
+            final List<UnitTwitterAccountBean> twitterAccounts,
+            final Long tweetPollId,
+            final String tweetText);
 
 
 }

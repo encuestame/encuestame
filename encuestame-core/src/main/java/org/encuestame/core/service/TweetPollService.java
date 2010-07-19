@@ -23,11 +23,14 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
+import org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
@@ -79,23 +82,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
-     * Save Tweet Id.
-     * @param tweetPollBean {@link UnitTweetPoll}
-     * @throws EnMeExpcetion exception
-     */
-    public void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion{
-        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
-        if(tweetPoll != null){
-            tweetPoll.setTweetId(tweetPollBean.getTweetId());
-            tweetPoll.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
-            tweetPoll.setPublishTweetPoll(Boolean.TRUE);
-            getTweetPollDao().saveOrUpdate(tweetPoll);
-        }else{
-            throw new EnMeExpcetion("tweet poll not found");
-        }
-    }
-
-    /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
@@ -112,6 +98,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
             tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPollDomain.setCompleted(Boolean.FALSE);
+            tweetPollDomain.setCaptcha(tweetPollBean.getCaptcha());
+            tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
+            tweetPollDomain.setLimitVotes(tweetPollBean.getLimitVotes());
             tweetPollDomain.setTweetOwner(getSecUserDao().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
@@ -203,6 +192,42 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             log.error(e);
             throw new EnMeExpcetion(e);
         }
+    }
+
+    /**
+     * Public Multiples Tweet Accounts.
+     * @param twitterAccounts List of {@link SecUserTwitterAccounts}.
+     * @param tweetPoll {@link TweetPoll}.
+     * @param tweetText tweet text.
+     */
+    public void publicMultiplesTweetAccounts(
+            final List<UnitTwitterAccountBean> twitterAccounts,
+            final Long tweetPollId,
+            final String tweetText){
+            for (UnitTwitterAccountBean unitTwitterAccountBean : twitterAccounts) {
+                final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
+                final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+                final SecUserTwitterAccounts secUserTwitterAccounts = getSecUserDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
+                if(secUserTwitterAccounts != null && tweetPoll != null){
+                    publishedStatus.setTweetPoll(tweetPoll);
+                    publishedStatus.setTwitterAccount(secUserTwitterAccounts);
+                    try {
+                        final Status status = this.publicTweetPoll(
+                                tweetText, secUserTwitterAccounts.getTwitterAccount(), secUserTwitterAccounts
+                                        .getTwitterPassword());
+                        publishedStatus.setTweetId(status.getId());
+                        publishedStatus.setPublicationDateTweet(status.getCreatedAt());
+                        publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.SUCCESS);
+                    } catch (Exception e) {
+                        publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.FAILED);
+                        publishedStatus.setDescriptionStatus(e.getMessage());
+                    }
+                    getTweetPollDao().saveOrUpdate(publishedStatus);
+                }
+                else{
+                    log.warn("Twitter Account Not Found [Id:"+unitTwitterAccountBean.getAccountId()+"]");
+                }
+            }
     }
 
     /**

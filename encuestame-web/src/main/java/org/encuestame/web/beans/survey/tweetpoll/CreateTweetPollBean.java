@@ -167,10 +167,13 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                     this.getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
                     setAnswersBean(new UnitAnswersBean());
                     addInfoMessage("Answer Added", "");
-                    if(this.getUnitTweetPoll().getQuestionBean().getListAnswers().size() == 2){
-                        this.showHideAddAnswers = !this.showHideAddAnswers;
-                    }
                     this.updateQuestionCountTweet();
+                    if(this.excededTweet){
+                        this.showHideAddAnswers = false;
+                    }
+                    else{
+                        this.showHideAddAnswers = true;
+                    }
                 }
                 else{
                     log.warn("You need create question first.");
@@ -242,32 +245,22 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 getUnitTweetPoll().setUserId(userId);
                 //TODO: we need implement scheduled tweetPoll.
                 getUnitTweetPoll().setScheduleDate(new Date());
-                getUnitTweetPoll().setSchedule(false);
-                getUnitTweetPoll().setCloseNotification(false);
-                getUnitTweetPoll().setAllowLiveResults(false);
-                getUnitTweetPoll().setSchedule(false); //TODO: false by default.
+                getUnitTweetPoll().setCloseNotification(Boolean.FALSE);
                 getUnitTweetPoll().setPublishPoll(publish);
-                getUnitTweetPoll().setResultNotification(false);
-                getUnitTweetPoll().setAllowLiveResults(true);
-                getUnitTweetPoll().setCloseNotification(false);
+                getUnitTweetPoll().setResultNotification(Boolean.FALSE);
+                getUnitTweetPoll().setLimitVotes(5000);
                 tweetPollService.createTweetPoll(getUnitTweetPoll());
                 if (getUnitTweetPoll().getPublishPoll()) {
                     final String tweetText = tweetPollService
                             .generateTweetPollText(getUnitTweetPoll(),
                                     getDomain());
-                    final SecUsers sessionUser = getUsernameByName()
-                            .getSecUser();
-                    final Status status = tweetPollService.publicTweetPoll(
-                            tweetText, sessionUser.getTwitterAccount(), sessionUser
-                                    .getTwitterPassword());
-                    final Long tweetId = status.getId();
-                    if (tweetId != null) {
-                        getUnitTweetPoll().setTweetId(tweetId);
-                        getUnitTweetPoll().setPublicationDateTweet(
-                                status.getCreatedAt());
-                        tweetPollService.saveTweetId(getUnitTweetPoll());
-                        log.info("tweeted :" + tweetId);
-                    }
+                   final List<UnitTwitterAccountBean> accountBeans = new ArrayList<UnitTwitterAccountBean>();
+                   for (TwitterAccountsPublicationBean twitterAccountsPublicationBean : getAccounts()) {
+                           if(twitterAccountsPublicationBean.getActive()){
+                               accountBeans.add(twitterAccountsPublicationBean.getAccountBean());
+                           }
+                   }
+                 tweetPollService.publicMultiplesTweetAccounts(accountBeans, getUnitTweetPoll().getId(), tweetText);
                 }
                 addInfoMessage("tweet poll message", "");
                 log.debug("tweet poll created");
@@ -375,7 +368,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 answerString.append(answer.getAnswers());
                 answerString.append(" ");
                 answerString.append(answer.getUrl());
-                log.info("answerString "+answerString);
                 this.resumeTweet = this.resumeTweet + " "+answerString.toString();
             }
         }
@@ -386,9 +378,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         }
         else{
             this.excededTweet = false;
-            log.debug("Length of question "+this.getUnitTweetPoll().getQuestionBean().getQuestionName().length());
-            log.debug("CONDITION 1  "+this.getUnitTweetPoll().getQuestionBean().getQuestionName() != null);
-            log.debug("CONDITION 2  "+(this.getUnitTweetPoll().getQuestionBean().getQuestionName().length() > MINIMUM_QUESTION_NAME));
             if((this.getUnitTweetPoll().getQuestionBean().getQuestionName() != null
                    && this.getUnitTweetPoll().getQuestionBean().getQuestionName().length() > MINIMUM_QUESTION_NAME)){
                 setValidTweet(Boolean.TRUE);
@@ -405,7 +394,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * Color State.
      */
     public void updateColorState(){
-        log.debug("Update Class Length");
         final Integer messageLenght = this.resumeTweet.length();
         if(messageLenght > MAXIMUM_TWEET){
             setClassLength("errorState");
@@ -422,7 +410,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         else{
             setClassLength("normalState");
         }
-        log.debug("Update Class Length set->"+this.getClassLength());
     }
 
     /**
@@ -521,7 +508,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * @return the questionName
      */
     public String getQuestionName() {
-        log.debug("GET QUESTION NAME "+this.questionName);
         return questionName;
     }
 
@@ -609,7 +595,10 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                         log.debug("ANSWER FOUND, REMOVE");
                         iterator.remove();
                         this.updateQuestionCountTweet();
-                        if(getUnitTweetPoll().getQuestionBean().getListAnswers().size() < 2){
+                        if(this.excededTweet){
+                            setShowHideAddAnswers(Boolean.FALSE);
+                        }
+                        else{
                             setShowHideAddAnswers(Boolean.TRUE);
                         }
                     }

@@ -16,12 +16,10 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.encuestame.core.security.util.HTMLInputFilter;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
- * {@link HTMLInputFilter} Test Case.
+ * {@link HTMLInputFilter} XSS Test Case.
  * http://josephoconnell.com/java/xss-html-filter/
  * @author Joseph O'Connell <joe.oconnell at gmail dot com>
  * @author Picado, Juan juanATencuestame.org

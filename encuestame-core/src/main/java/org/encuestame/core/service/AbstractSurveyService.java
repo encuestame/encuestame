@@ -151,7 +151,7 @@ public class AbstractSurveyService extends AbstractBaseService {
     public void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
         if(tweetPoll != null){
-            tweetPoll.setTweetId(tweetPollBean.getTweetId());
+            //tweetPoll.setTweetId(tweetPollBean.getTweetId());
             tweetPoll.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPoll.setPublishTweetPoll(Boolean.TRUE);
             getTweetPollDao().saveOrUpdate(tweetPoll);

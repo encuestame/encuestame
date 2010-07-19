@@ -47,6 +47,15 @@ public class UnitTweetPoll implements Serializable {
     private String tweetUrl;
     private String twitterUserAcoount;
 
+    /** Required Captcha to Vote. **/
+    private Boolean captcha = false;
+
+    /** Limit Votes. **/
+    private Integer limitVotes;
+
+    /** If true, system display in left nav live results. **/
+    private Boolean resumeLiveResults = false;
+
     private static final  String TWITTER_STATUS_URL = "http://www.twitter.com/";
 
     private List<ResumeResultTweetPoll> results = new ArrayList<ResumeResultTweetPoll>();
@@ -286,4 +295,49 @@ public class UnitTweetPoll implements Serializable {
     public final void setTwitterUserAccount(final String twitterUserAcoount) {
         this.twitterUserAcoount = twitterUserAcoount;
     }
+
+    /**
+     * @return the captcha
+     */
+    public final Boolean getCaptcha() {
+        return captcha;
+    }
+
+    /**
+     * @param captcha the captcha to set
+     */
+    public final void setCaptcha(Boolean captcha) {
+        this.captcha = captcha;
+    }
+
+    /**
+     * @return the limitVotes
+     */
+    public final Integer getLimitVotes() {
+        return limitVotes;
+    }
+
+    /**
+     * @param limitVotes the limitVotes to set
+     */
+    public final void setLimitVotes(Integer limitVotes) {
+        this.limitVotes = limitVotes;
+    }
+
+    /**
+     * @return the resumeLiveResults
+     */
+    public final Boolean getResumeLiveResults() {
+        return resumeLiveResults;
+    }
+
+    /**
+     * @param resumeLiveResults the resumeLiveResults to set
+     */
+    public final void setResumeLiveResults(Boolean resumeLiveResults) {
+        this.resumeLiveResults = resumeLiveResults;
+    }
+
+
+
 }

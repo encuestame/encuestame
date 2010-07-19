@@ -51,6 +51,7 @@
                 <value>org.encuestame.core.persistence.pojo.TweetPollSwitch</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPoll</value>
                 <value>org.encuestame.core.persistence.pojo.TweetPollResult</value>
+                <value>org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus</value>
                 <value>org.encuestame.core.persistence.pojo.CatEmails</value>
                 <value>org.encuestame.core.persistence.pojo.CatEmailLists</value>
             </list>
@@ -125,19 +126,19 @@
     <ehcache:config configLocation="classpath:ehcache.xml" />
 
     <ehcache:annotations>
-    	<!-- Question Dao -->
+        <!-- Question Dao -->
         <ehcache:caching id="retrieveQuestionsByName" cacheName="questionCache" />
         <ehcache:caching id="retrieveQuestionById" cacheName="questionCache" />
         <ehcache:caching id="retrieveAnswerById" cacheName="questionCache" />
         <ehcache:flushing id="createQuestion" cacheNames="questionCache" />
     </ehcache:annotations>
 
-	<ehcache:annotations>
-		<!-- Permission Dao -->
+    <ehcache:annotations>
+        <!-- Permission Dao -->
         <ehcache:caching id="loadAllPermissions" cacheName="permissionCache" />
         <ehcache:caching id="loadPermission" cacheName="permissionCache" />
         <ehcache:caching id="getPermissionById" cacheName="permissionCache" />
         <ehcache:flushing id="createPermission" cacheNames="permissionCache" />
-	</ehcache:annotations>
+    </ehcache:annotations>
 
 </beans>

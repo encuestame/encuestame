@@ -39,18 +39,45 @@ import javax.persistence.TemporalType;
 public class TweetPoll {
 
     private Long tweetPollId;
-    private Long tweetId;
+
+    /** Close Notification. **/
     private Boolean closeNotification;
+
+    /** Result Notification after close. **/
     private Boolean resultNotification;
+
+    /** Allow Live Results. **/
     private Boolean allowLiveResults;
+
+    /** Published TweetPoll.**/
     private Boolean publishTweetPoll;
+
+    /** Scheduled TweetPoll. **/
     private Boolean scheduleTweetPoll;
+
+    /** Scheduled Date. **/
     private Date scheduleDate;
+
+    /** Publication Date Tweet. This date is from twitter after publish. **/
+    @Deprecated
     private Date publicationDateTweet;
-    private Boolean completed;
+
+    /** True to close poll. **/
+    private Boolean completed = false;
+
+    /** Required Captcha to Vote. **/
+    private Boolean captcha = false;
+    /** Limit Votes. **/
+    private Integer limitVotes;
+
+    /** If true, system display in left nav live results. **/
+    private Boolean resumeLiveResults = false;
+
     private SecUsers tweetOwner;
+
+    /** {@link Questions}. **/
     private Questions question;
-    private SecUserTwitterAccounts twitterAccount;
+
 
     /**
      * @return the tweetPollId
@@ -68,22 +95,6 @@ public class TweetPoll {
      */
     public void setTweetPollId(Long tweetPollId) {
         this.tweetPollId = tweetPollId;
-    }
-
-    /**
-     * @return the tweetId
-     */
-    @Column(name = "tweet_id", unique = true, nullable = true)
-    public Long getTweetId() {
-        return tweetId;
-    }
-
-    /**
-     * @param tweetId
-     *            the tweetId to set
-     */
-    public void setTweetId(Long tweetId) {
-        this.tweetId = tweetId;
     }
 
     /**
@@ -252,17 +263,47 @@ public class TweetPoll {
     }
 
     /**
-     * @return the twitterAccount
+     * @return the captcha
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    public SecUserTwitterAccounts getTwitterAccount() {
-        return twitterAccount;
+    @Column(name = "captcha", nullable = true)
+    public Boolean getCaptcha() {
+        return captcha;
     }
 
     /**
-     * @param twitterAccount the twitterAccount to set
+     * @param captcha the captcha to set
      */
-    public void setTwitterAccount(SecUserTwitterAccounts twitterAccount) {
-        this.twitterAccount = twitterAccount;
+    public void setCaptcha(Boolean captcha) {
+        this.captcha = captcha;
+    }
+
+    /**
+     * @return the limitVotes
+     */
+    @Column(name = "limit_votes", nullable = true)
+    public Integer getLimitVotes() {
+        return limitVotes;
+    }
+
+    /**
+     * @param limitVotes the limitVotes to set
+     */
+    public void setLimitVotes(Integer limitVotes) {
+        this.limitVotes = limitVotes;
+    }
+
+    /**
+     * @return the resumeLiveResults
+     */
+    @Column(name = "resume_live_results", nullable = true)
+    public Boolean getResumeLiveResults() {
+        return resumeLiveResults;
+    }
+
+    /**
+     * @param resumeLiveResults the resumeLiveResults to set
+     */
+    public void setResumeLiveResults(Boolean resumeLiveResults) {
+        this.resumeLiveResults = resumeLiveResults;
     }
 }

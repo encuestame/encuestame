@@ -332,7 +332,6 @@ public class ConvertDomainBean {
     public static final UnitTweetPoll convertTweetPollToBean(final TweetPoll poll){
         final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
         unitTweetPoll.setId(poll.getTweetPollId());
-        unitTweetPoll.setTweetId(poll.getTweetId());
         unitTweetPoll.setScheduleDate(poll.getScheduleDate());
         unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults());
         unitTweetPoll.setSchedule(poll.getScheduleTweetPoll());
