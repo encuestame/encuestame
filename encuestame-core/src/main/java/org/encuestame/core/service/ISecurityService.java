@@ -216,7 +216,8 @@ public interface ISecurityService extends IService {
       * @param password password
       * @param secUser {@link SecUsers}
       */
-     void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password);
+     void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password,
+                               final Boolean verify);
 
      /**
       * Update OAuth Secret Twitter Credentials.

@@ -134,10 +134,17 @@ public class MasterBean{
     public final void showMessage(String messageId, String message, String description,
             Severity severity) {
         //this.clearMessages();
-        //final FacesMessage facesMessages = new FacesMessage(message, description);
+        final FacesMessage facesMessages = new FacesMessage(message, description);
+        log.debug("FACES MESSAGES "+facesMessages);
         //FIXME: nullPointer, maybe this context is not available on webflow context.
-        //facesMessages.setSeverity(severity);
-        //getFacesContext().addMessage(messageId, facesMessages);
+        facesMessages.setSeverity(severity);
+        if(getFacesContext() != null){
+            log.info("Message Context Added");
+            getFacesContext().addMessage(messageId, facesMessages);
+        }
+        else{
+            log.error("Faces Context not found");
+        }
     }
 
     /**

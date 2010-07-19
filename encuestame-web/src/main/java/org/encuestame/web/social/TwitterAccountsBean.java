@@ -103,7 +103,7 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
                             getCurrentPassword()).getId()) != null) {
                 // after verify credentials
                 getSecurityService().updateTwitterAccount(
-                        getUnitTwitterAccountBean(), getCurrentPassword());
+                        getUnitTwitterAccountBean(), getCurrentPassword(), Boolean.TRUE);
                 addInfoMessage("Credentials Updated",
                         "Twitter Credentials Updated");
             } else {

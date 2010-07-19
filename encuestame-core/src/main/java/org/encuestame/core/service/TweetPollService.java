@@ -29,6 +29,7 @@ import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
+import org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Type;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -216,6 +217,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                                 tweetText, secUserTwitterAccounts.getTwitterAccount(), secUserTwitterAccounts
                                         .getTwitterPassword());
                         publishedStatus.setTweetId(status.getId());
+                        publishedStatus.setApiType(Type.TWITTER);
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.SUCCESS);
                     } catch (Exception e) {

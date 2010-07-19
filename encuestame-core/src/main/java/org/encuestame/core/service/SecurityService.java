@@ -151,11 +151,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param password password
      * @param secUser {@link SecUsers}
      */
-    public void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password){
+    public void updateTwitterAccount(
+            final UnitTwitterAccountBean accountBean,
+            final String password,
+            final Boolean verify){
         if(accountBean.getAccountId() != null){
             final SecUserTwitterAccounts twitterAccount = getSecUserDao().getTwitterAccount(accountBean.getAccountId());
             if(twitterAccount != null){
                 twitterAccount.setTwitterPassword(password);
+                twitterAccount.setVerfied(verify);
                 log.debug("Updating twitter password account");
                 getSecUserDao().saveOrUpdate(twitterAccount);
             }
