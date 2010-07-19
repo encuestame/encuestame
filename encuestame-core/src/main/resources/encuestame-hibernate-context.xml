@@ -54,6 +54,7 @@
                 <value>org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus</value>
                 <value>org.encuestame.core.persistence.pojo.CatEmails</value>
                 <value>org.encuestame.core.persistence.pojo.CatEmailLists</value>
+                <value>org.encuestame.core.persistence.pojo.CatSubscribeEmails</value>
             </list>
         </property>
         <property name="hibernateProperties">

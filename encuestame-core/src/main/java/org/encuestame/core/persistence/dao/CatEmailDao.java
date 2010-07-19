@@ -20,9 +20,11 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ICatEmail;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
+import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -95,4 +97,14 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
         return getHibernateTemplate().findByCriteria(criteria);
 
     }
+
+    /**
+     *
+     * @param code
+     * @return
+     */
+    public CatSubscribeEmails getSubscribeAccount(final String code){
+           return (CatSubscribeEmails) getHibernateTemplate().findByNamedParam("FROM CatSubscribeEmails WHERE hashCode= :code", "code", code);
+    }
+
 }

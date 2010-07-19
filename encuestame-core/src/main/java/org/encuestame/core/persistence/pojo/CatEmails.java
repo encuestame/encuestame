@@ -39,6 +39,7 @@ public class CatEmails {
 	private Long idEmail;
  	private String email;
  	private CatEmailLists idListEmail;
+ 	private Boolean subscribed = false;
 
 
  	/**
@@ -61,7 +62,7 @@ public class CatEmails {
 	/**
 	 * @return the email
 	 */
- 	@Column(name = "email", unique = true, nullable = false)
+ 	@Column(name = "email", nullable = false)
 	public String getEmail() {
 		return this.email;
 	}
@@ -88,4 +89,20 @@ public class CatEmails {
 	public void setIdListEmail(CatEmailLists idListEmail) {
 		this.idListEmail = idListEmail;
 	}
+
+	/**
+	 * @return the subscribed
+	 */
+	@Column(name = "subscribed", nullable = false)
+	public Boolean getSubscribed() {
+		return subscribed;
+	}
+
+	/**
+	 * @param subscribed the subscribed to set
+	 */
+	public void setSubscribed(Boolean subscribed) {
+		this.subscribed = subscribed;
+	}
+
 }

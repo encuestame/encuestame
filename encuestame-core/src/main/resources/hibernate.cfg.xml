@@ -39,5 +39,6 @@
         <mapping class="org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatEmails"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatEmailLists"/>
+        <mapping class="org.encuestame.core.persistence.pojo.CatSubscribeEmails"/>
     </session-factory>
 </hibernate-configuration>

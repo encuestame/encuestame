@@ -46,6 +46,7 @@ import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -219,59 +220,6 @@ public abstract class AbstractDataSource{
         }
         catch (Exception e) {
             throw new EnMeExpcetion(e);
-        }
-    }
-
-    /**
-     * Create Email List.
-     * @param unitLists
-     * @return
-     * @throws EnMeExpcetion
-     */
-    public UnitLists createEmailLists(final UnitLists unitLists) throws EnMeExpcetion{
-    	if (unitLists!=null){
-    		try {
-    			final CatEmailLists listsDomain = new CatEmailLists();
-    			listsDomain.setCreatedAt(unitLists.getCreatedAt());
-    			listsDomain.setListName(unitLists.getListName());
-    			listsDomain.setUsuarioEmail(getSecUserDao().getUserById(unitLists.getUserId()));
-    			getEmailListsDao().saveOrUpdate(listsDomain);
-    			unitLists.setId(listsDomain.getIdList());
-                  log.debug("created domain List");
-              } catch (HibernateException e) {
-                  throw new EnMeExpcetion(e);
-              } catch (Exception e) {
-                  throw new EnMeExpcetion(e);
-              }
-              return unitLists;
-          } else {
-              throw new EnMeExpcetion("Email List is null");
-          }
-      }
-
-    /**
-     * Create Emails.
-     * @param unitEmails
-     * @return
-     * @throws EnMeExpcetion
-     */
-    public UnitEmails createEmail(final UnitEmails unitEmails) throws EnMeExpcetion{
-    	if(unitEmails!=null){
-    		try {
-    			final CatEmails emailsDomain = new CatEmails();
-    			emailsDomain.setEmail(unitEmails.getEmailName());
-    			emailsDomain.setIdListEmail(getEmailListsDao().getListEmailById(unitEmails.getListsId()));
-    			getEmailListsDao().saveOrUpdate(emailsDomain);
-    			unitEmails.setIdEmail(emailsDomain.getIdEmail());
-			} catch (HibernateException e) {
-				// TODO: handle exception
-				  throw new EnMeExpcetion(e);
-            } catch (Exception e) {
-                throw new EnMeExpcetion(e);
-            }
-            return unitEmails;
-        } else {
-            throw new EnMeExpcetion("Email is null");
         }
     }
 
@@ -453,17 +401,17 @@ public abstract class AbstractDataSource{
         this.permissionDao = permissionDao;
     }
 
-	/**
-	 * @return the emailListsDao
-	 */
-	public ICatEmail getEmailListsDao() {
-		return emailListsDao;
-	}
+    /**
+     * @return the emailListsDao
+     */
+    public ICatEmail getEmailListsDao() {
+        return emailListsDao;
+    }
 
-	/**
-	 * @param emailListsDao the emailListsDao to set
-	 */
-	public void setEmailListsDao(ICatEmail emailListsDao) {
-		this.emailListsDao = emailListsDao;
-	}
+    /**
+     * @param emailListsDao the emailListsDao to set
+     */
+    public void setEmailListsDao(ICatEmail emailListsDao) {
+        this.emailListsDao = emailListsDao;
+    }
 }

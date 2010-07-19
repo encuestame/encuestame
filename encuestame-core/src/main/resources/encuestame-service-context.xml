@@ -103,6 +103,9 @@
     <property name="permissionDao">
       <ref bean="secPermissionDaoImp"></ref>
     </property>
+     <property name="emailListsDao">
+      <ref bean="catEmailDao"></ref>
+    </property>
   </bean>
 
   <bean id="messageSource"

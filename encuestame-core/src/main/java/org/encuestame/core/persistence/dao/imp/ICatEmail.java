@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
+import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
 
 /**
  * Email Catalog Interface.
@@ -26,47 +27,54 @@ import org.encuestame.core.persistence.pojo.CatEmailLists;
  */
 public interface ICatEmail extends IBaseDao {
 
-	 /**
-	  * Find Email List By User Id.
-	  * @param userId
-	  * @return
-	  */
-	public List<CatEmailLists> findListbyUser(final Long userId);
+     /**
+      * Find Email List By User Id.
+      * @param userId
+      * @return
+      */
+    public List<CatEmailLists> findListbyUser(final Long userId);
 
 
-	 /**
-	  * Find Emails by Email ListId.
-	  * @param emailListId
-	  * @return
-	  */
-	public List<CatEmails> findEmailsByListId(final Long emailListId);
+     /**
+      * Find Emails by Email ListId.
+      * @param emailListId
+      * @return
+      */
+    public List<CatEmails> findEmailsByListId(final Long emailListId);
 
-	 /**
-	  * Find All Email List.
-	  * @return
-	  */
-	public List<CatEmailLists> findAllEmailList();
+     /**
+      * Find All Email List.
+      * @return
+      */
+    public List<CatEmailLists> findAllEmailList();
 
-	 /**
-	  * Find List Email by Id.
-	  * @param listEmailId
-	  * @return
-	  */
-	public CatEmailLists getListEmailById(final Long listEmailId);
+     /**
+      * Find List Email by Id.
+      * @param listEmailId
+      * @return
+      */
+    public CatEmailLists getListEmailById(final Long listEmailId);
 
-	 /**
-	  * Find Email List by Keyword.
-	  * @param keyword
-	  * @param userId
-	  * @return
-	  */
-	public List<CatEmailLists> getListEmailsByKeyword(final String keyword, final Long userId);
+     /**
+      * Find Email List by Keyword.
+      * @param keyword
+      * @param userId
+      * @return
+      */
+    public List<CatEmailLists> getListEmailsByKeyword(final String keyword, final Long userId);
 
-	/**
-	 * Find Emails by Keyword.
-	 * @param keyword
-	 * @param userId
-	 * @return
-	 */
-	public List<CatEmails> getEmailsByKeyword(final String keyword, final Long userId);
+    /**
+     * Find Emails by Keyword.
+     * @param keyword
+     * @param userId
+     * @return
+     */
+    public List<CatEmails> getEmailsByKeyword(final String keyword, final Long userId);
+
+    /**
+     *
+     * @param code
+     * @return
+     */
+    public CatSubscribeEmails getSubscribeAccount(final String code);
 }
