@@ -38,6 +38,7 @@ import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -748,5 +749,14 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public void setSuspendedNotification(final Boolean suspendedNotification) {
         this.suspendedNotification = suspendedNotification;
+    }
+
+    /**
+     * Get Email List by Username.
+     * @param username
+     * @return
+     */
+    public List<UnitLists> getListbyUsername(final String username){
+            return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
     }
 }

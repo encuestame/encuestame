@@ -25,6 +25,7 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.mail.MailSendException;
@@ -297,4 +298,11 @@ public interface ISecurityService extends IService {
      * @return
      */
     List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username);
+
+    /**
+     * Get Email List by Username.
+     * @param username
+     * @return
+     */
+    List<UnitLists> getListbyUsername(final String username);
 }

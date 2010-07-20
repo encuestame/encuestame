@@ -3,10 +3,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-	<!--<var name="groupBean" class="org.encuestame.web.beans.admon.GroupBean"/> -->
+    <!--<var name="groupBean" class="org.encuestame.web.beans.admon.GroupBean"/> -->
 
     <view-state id="lists">
+    <on-render>
+        <evaluate expression="securityService.getListbyUsername(currentUser.name)"
+                  result="flowScope.emailList" result-type="dataModel"></evaluate>
+     </on-render>
+         <transition on="create" to="addLists">
+        </transition>
+    </view-state>
 
+    <view-state id="addLists">
+    <transition on="saveList" to="addEmails">
+        </transition>
+    </view-state>
+
+    <view-state id="addEmails">
     </view-state>
 
     <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>

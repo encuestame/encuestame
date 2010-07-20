@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
@@ -40,6 +41,7 @@ import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -129,6 +131,36 @@ public class ConvertDomainBean {
         }
         return loadListPermission;
     }
+
+    /**
+     * Email Lists.
+     * @param twitterAccounts
+     * @return
+     */
+    public static final UnitLists convertEmailListtoToBean(final CatEmailLists emailLists){
+           final UnitLists emailListsBean = new UnitLists();
+                  emailListsBean.setCreatedAt(emailLists.getCreatedAt());
+                  emailListsBean.setId(emailLists.getIdList());
+                  emailListsBean.setListName(emailLists.getListName());
+                  emailListsBean.setUserId(emailLists.getUsuarioEmail().getUid());
+           return emailListsBean;
+    }
+
+    /**
+     * Convert List Twitter Accounts.
+     * @param accounts
+     * @return
+     */
+    public static final  List<UnitLists> convertEmailListToBean(final List<CatEmailLists> lists) {
+        final List<UnitLists> loadEmailLists = new ArrayList<UnitLists>();
+        for (CatEmailLists emailList : lists) {
+            loadEmailLists.add(ConvertDomainBean.convertEmailListtoToBean(emailList));
+        }
+        return loadEmailLists;
+    }
+
+
+
 
     /**
      * Convert {@link SecUsers} to {@link UnitSessionUserBean}.
