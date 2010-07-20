@@ -95,14 +95,14 @@ public class TweetPollSavedPublishedStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "status_save_poll_id", unique = true, nullable = false)
-    public final Long getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public final void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -111,14 +111,14 @@ public class TweetPollSavedPublishedStatus {
      */
     @Column(name="type")
     @Enumerated(EnumType.STRING)
-    public final Type getApiType() {
+    public Type getApiType() {
         return apiType;
     }
 
     /**
      * @param apiType the apiType to set
      */
-    public final void setApiType(Type apiType) {
+    public void setApiType(Type apiType) {
         this.apiType = apiType;
     }
 
@@ -126,14 +126,14 @@ public class TweetPollSavedPublishedStatus {
      * @return the tweetPoll
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public final TweetPoll getTweetPoll() {
+    public TweetPoll getTweetPoll() {
         return tweetPoll;
     }
 
     /**
      * @param tweetPoll the tweetPoll to set
      */
-    public final void setTweetPoll(TweetPoll tweetPoll) {
+    public void setTweetPoll(TweetPoll tweetPoll) {
         this.tweetPoll = tweetPoll;
     }
 
@@ -190,14 +190,14 @@ public class TweetPollSavedPublishedStatus {
      */
     @Column(name="status")
     @Enumerated(EnumType.STRING)
-    public final Status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public final void setStatus(Status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -205,14 +205,14 @@ public class TweetPollSavedPublishedStatus {
      * @return the descriptionStatus
      */
     @Column(name = "status_description", nullable = true)
-    public final String getDescriptionStatus() {
+    public String getDescriptionStatus() {
         return descriptionStatus;
     }
 
     /**
      * @param descriptionStatus the descriptionStatus to set
      */
-    public final void setDescriptionStatus(String descriptionStatus) {
+    public void setDescriptionStatus(String descriptionStatus) {
         this.descriptionStatus = descriptionStatus;
     }
 }
