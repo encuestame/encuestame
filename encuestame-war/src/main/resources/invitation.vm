@@ -1,0 +1,9 @@
+<html>
+<body>
+    <h3>Hi, You received this message because you are subscribed to ${invitation.listName} in "Encuestame"</h3>
+    <div>
+       To subscribe to this Email List, follow this link ${invitation.urlInvitation}
+    </div>
+</body>
+</html>
+

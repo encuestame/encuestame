@@ -13,6 +13,8 @@
 package org.encuestame.core.mail;
 
 import org.encuestame.core.service.IService;
+import org.encuestame.utils.mail.InvitationBean;
+import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.mail.MailSendException;
@@ -46,5 +48,9 @@ public interface MailService extends IService {
      * @param unitUserBean {@link UnitUserBean}.
      */
     void sendRenewPasswordEmail(final UnitUserBean unitUserBean);
+
+    void sendEmailInvitation(final InvitationBean invitation);
+
+    void sendEmailNotification(final NotificationBean notification);
 
 }

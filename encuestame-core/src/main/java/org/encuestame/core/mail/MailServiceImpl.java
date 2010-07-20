@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.IService;
+import org.encuestame.utils.mail.InvitationBean;
+import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.mail.MailSendException;
@@ -155,6 +157,48 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         mailSender.send(msg);
         //log.debug("sendDeleteNotification sendend..");
     }
+
+    /**
+     * Send Email Invitation.
+     * @param user
+     */
+    public void sendEmailInvitation(final InvitationBean invitation) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(invitation.getEmail());
+              message.setSubject("New Password Confirmation");
+              message.setFrom(noEmailResponse);
+              Map model = new HashMap();
+              model.put("invitation", invitation);
+              String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, "invitation.vm", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
+
+    /**
+     * Send Email Invitation.
+     * @param user
+     */
+    public void sendEmailNotification(final NotificationBean notification) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(notification.getEmail());
+              message.setSubject("New Password Confirmation");
+              message.setFrom(noEmailResponse);
+              Map model = new HashMap();
+              model.put("notification", notification);
+              String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, "notification.vm", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
 
     /**
      * Send Password Confirmation Email.

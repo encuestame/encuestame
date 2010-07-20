@@ -176,14 +176,4 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         }
      }
 
-
-    public Boolean UnsubscribeEmails(){
-        Boolean sucessSubscribe = false;
-
-        return sucessSubscribe;
-
-   }
-
-
-
 }

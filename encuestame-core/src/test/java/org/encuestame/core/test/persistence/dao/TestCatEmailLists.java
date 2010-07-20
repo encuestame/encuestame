@@ -25,6 +25,8 @@ import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.utils.mail.InvitationBean;
+import org.encuestame.utils.mail.NotificationBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,102 +40,116 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestCatEmailLists extends AbstractBase {
 
-	private CatEmailLists emailList;
-	private CatEmails emails;
-	private SecUsers user;
-	private SecUserSecondary secondary;
+    private CatEmailLists emailList;
+    private CatEmails emails;
+    private SecUsers user;
+    private SecUserSecondary secondary;
 
-	 /** {@link IProject} **/
+     /** {@link IProject} **/
     @Autowired
     MailService  mailService;
 
-	@Before
-	public void before() {
-		this.user = createUser();
-		this.secondary = createSecondaryUser("paola", this.user);
-		this.emailList = createDefaultListEmail(this.secondary.getSecUser());
-		createDefaultListEmail(this.user, "default");
-		this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
-	}
+    @Before
+    public void before() {
+        this.user = createUser();
+        this.secondary = createSecondaryUser("paola", this.user);
+        this.emailList = createDefaultListEmail(this.secondary.getSecUser());
+        createDefaultListEmail(this.user, "default");
+        this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
+    }
 
 
-	@Test
-	public void testSendEmail(){
-		createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
-		createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
-		final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
-				this.emailList.getIdList());
-		for (CatEmails catemails : catEmails) {
-			  assertNotNull(catemails.getEmail());
-			  mailService.send(catemails.getEmail().toString(), "Welcome Encuestame List", "Welcome Encuestame List");
-		    }
-	}
+    @Test
+    public void testSendEmail(){
+        createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
+        createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
+        final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
+                this.emailList.getIdList());
+        for (CatEmails catemails : catEmails) {
+              assertNotNull(catemails.getEmail());
+              mailService.send(catemails.getEmail().toString(), "Welcome Encuestame List", "Welcome Encuestame List");
+            }
+    }
+
+
+    public void testSendInvitation(){
+          createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
+          final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
+                  this.emailList.getIdList());
+          for (CatEmails catemails : catEmails) {
+                assertNotNull(catemails.getEmail());
+                final InvitationBean invitation = new InvitationBean();
+                invitation.setCode("1253");
+                invitation.setEmail((catemails.getEmail().toString()));
+                invitation.setListName(this.emailList.getListName());
+                invitation.setUrlInvitation("http://www.encuestame.org");
+                mailService.sendEmailInvitation(invitation);
+              }
+      }
 
 
 
+    /**
+     * Test Find Emails By List Id.
+     */
+    @Test
+    public void testFindEmailByListId() {
+        final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
+                this.emailList.getIdList());
+        assertNotNull(catEmails);
+        assertEquals("Should be equals", 1, catEmails.size());
+    }
 
+    /**
+     * Test Find All Email Lists.
+     */
+    @Test
+    public void testFindAllEmailList() {
+        final List<CatEmailLists> catLists = getCatEmailDao()
+                .findAllEmailList();
+        assertEquals("Should be equals", 2, catLists.size());
+    }
 
-	/**
-	 * Test Find Emails By List Id.
-	 */
-	@Test
-	public void testFindEmailByListId() {
-		final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
-				this.emailList.getIdList());
-		assertNotNull(catEmails);
-		assertEquals("Should be equals", 1, catEmails.size());
-	}
+    /**
+     * Test Find Email Lists by User.
+     */
+    @Test
+    public void testFindListByUser() {
+        final List<CatEmailLists> listByUser = getCatEmailDao().findListbyUser(
+                this.user.getUid());
+        assertNotNull(listByUser);
+        assertEquals("Should be equals", 2, listByUser.size());
+    }
 
-	/**
-	 * Test Find All Email Lists.
-	 */
-	@Test
-	public void testFindAllEmailList() {
-		final List<CatEmailLists> catLists = getCatEmailDao()
-				.findAllEmailList();
-		assertEquals("Should be equals", 2, catLists.size());
-	}
+    /**
+     * Test List Emails by Keyword.
+     */
+    @Test
+    public void testListEmailsByKeyword() {
+        final String keyword = "default";
+        final List<CatEmailLists> catLists = getCatEmailDao()
+                .findAllEmailList();
+        for (CatEmailLists catListEmails : catLists) {
+            assertNotNull(catListEmails.getListName());
+        }
+        assertEquals("Should be", 2 ,catLists.size());
+        final List<CatEmailLists> listEmails = getCatEmailDao()
+                    .getListEmailsByKeyword(keyword, this.user.getUid());
+        System.out.println(listEmails.size());
+        assertNotNull(listEmails);
+        assertEquals("Should be equals", 2, listEmails.size());
+    }
 
-	/**
-	 * Test Find Email Lists by User.
-	 */
-	@Test
-	public void testFindListByUser() {
-		final List<CatEmailLists> listByUser = getCatEmailDao().findListbyUser(
-				this.user.getUid());
-		assertNotNull(listByUser);
-		assertEquals("Should be equals", 2, listByUser.size());
-	}
+    /**
+     * Test Emails by Keyword.
+     */
+    @Test
+    public void testEmailsByKeyword() {
+        final String keywordEmail = "jotadeveloper.com";
+        final List<CatEmails> emails = getCatEmailDao().getEmailsByKeyword(
+                keywordEmail, this.user.getUid());
 
-	/**
-	 * Test List Emails by Keyword.
-	 */
-	@Test
-	public void testListEmailsByKeyword() {
-		final String keyword = "default";
-		final List<CatEmailLists> catLists = getCatEmailDao()
-				.findAllEmailList();
-		for (CatEmailLists catListEmails : catLists) {
-			assertNotNull(catListEmails.getListName());
-		}
-		assertEquals("Should be", 2 ,catLists.size());
-		final List<CatEmailLists> listEmails = getCatEmailDao()
-					.getListEmailsByKeyword(keyword, this.user.getUid());
-		System.out.println(listEmails.size());
-		assertNotNull(listEmails);
-		assertEquals("Should be equals", 2, listEmails.size());
-	}
-
-	/**
-	 * Test Emails by Keyword.
-	 */
-	@Test
-	public void testEmailsByKeyword() {
-		final String keywordEmail = "jotadeveloper.com";
-		final List<CatEmails> emails = getCatEmailDao().getEmailsByKeyword(
-				keywordEmail, this.user.getUid());
-
-		assertEquals("Should be equals", 1, emails.size());
-	}
+        assertEquals("Should be equals", 1, emails.size());
+    }
 
 }

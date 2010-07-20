@@ -1,0 +1,14 @@
+<html>
+<body>
+    <h3>Hi, This notification has sended to you from Encuestame </h3>
+    <div>
+     ${notification.message}
+    </div>
+
+    <div>
+       To Unsubscribe to this Email List, follow this link ${notification.urlUnsuscribe}
+    </div>
+</body>
+</html>
+
+ml>
