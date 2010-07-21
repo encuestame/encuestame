@@ -325,12 +325,12 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-        </dependency>
+        </dependency><!--
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>ejb3-persistence</artifactId>
         </dependency>
-        <dependency>
+        --><dependency>
             <groupId>jboss</groupId>
             <artifactId>javassist</artifactId>
         </dependency>
