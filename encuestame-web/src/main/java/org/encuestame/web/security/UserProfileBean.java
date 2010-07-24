@@ -12,6 +12,7 @@
  */
 package org.encuestame.web.security;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,12 @@ import org.encuestame.web.beans.MasterBean;
  * @since Jun 20, 2010 2:48:24 PM
  * @version $Id:$
  */
-public class UserProfileBean extends MasterBean {
+public class UserProfileBean extends MasterBean implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 131208303331121161L;
 
     private List<String> groups = new ArrayList<String>();
 

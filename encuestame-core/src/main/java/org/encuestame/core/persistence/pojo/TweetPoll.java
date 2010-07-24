@@ -13,6 +13,8 @@
 package org.encuestame.core.persistence.pojo;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +23,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -74,6 +78,10 @@ public class TweetPoll {
     /** {@link Questions}. **/
     private Questions question;
 
+    /** Repeated Votes. **/
+    private Boolean allowRepatedVotes;
+
+    private Set<HashTag> hashTags = new HashSet<HashTag>();
 
     /**
      * @return the tweetPollId
@@ -284,5 +292,35 @@ public class TweetPoll {
      */
     public void setResumeLiveResults(Boolean resumeLiveResults) {
         this.resumeLiveResults = resumeLiveResults;
+    }
+
+    /**
+     * @return the allowRepatedVotes
+     */
+    @Column(name = "allow_repeated_votes", nullable = true)
+    public final Boolean getAllowRepatedVotes() {
+        return allowRepatedVotes;
+    }
+
+    /**
+     * @param allowRepatedVotes the allowRepatedVotes to set
+     */
+    public final void setAllowRepatedVotes(Boolean allowRepatedVotes) {
+        this.allowRepatedVotes = allowRepatedVotes;
+    }
+
+    /**
+     * @return the hashTags
+     */
+    @ManyToMany(cascade=CascadeType.ALL)
+    public final Set<HashTag> getHashTags() {
+        return hashTags;
+    }
+
+    /**
+     * @param hashTags the hashTags to set
+     */
+    public final void setHashTags(Set<HashTag> hashTags) {
+        this.hashTags = hashTags;
     }
 }

@@ -32,6 +32,7 @@
                 <value>org.encuestame.core.persistence.pojo.CatLocationType</value>
                 <value>org.encuestame.core.persistence.pojo.CatLocationFolder</value>
                 <value>org.encuestame.core.persistence.pojo.Client</value>
+                <value>org.encuestame.core.persistence.pojo.HashTag</value>
                 <value>org.encuestame.core.persistence.pojo.SecGroups</value>
                 <value>org.encuestame.core.persistence.pojo.SecPermission</value>
                 <value>org.encuestame.core.persistence.pojo.SecUsers</value>

@@ -17,6 +17,7 @@
         <mapping class="org.encuestame.core.persistence.pojo.CatLocationFolder"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatLocationType"/>
         <mapping class="org.encuestame.core.persistence.pojo.Client"/>
+        <mapping class="org.encuestame.core.persistence.pojo.HashTag"/>
         <mapping class="org.encuestame.core.persistence.pojo.SecGroups"/>
         <mapping class="org.encuestame.core.persistence.pojo.SecPermission"/>
         <mapping class="org.encuestame.core.persistence.pojo.SecUsers"/>
