@@ -14,6 +14,7 @@
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>true</surefire.failures.ignore>
+                <app.proxypass>false</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -72,6 +73,7 @@
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>false</surefire.failures.ignore>
+                <app.proxypass>true</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -90,16 +92,16 @@
                 <log4j.properties.path>classpath:log4j.properties</log4j.properties.path>
                 <!-- reCaptcha -->
                 <encuestame.recaptcha>true</encuestame.recaptcha>
-                <encuestame.recaptcha.publickey>6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU</encuestame.recaptcha.publickey>
-                <encuestame.recaptcha.privatekey>6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd</encuestame.recaptcha.privatekey>
+                <encuestame.recaptcha.publickey>6LdYtLsSAAAAAP98Llz3_aXPcdGxTwm9kZyLIWPo</encuestame.recaptcha.publickey>
+                <encuestame.recaptcha.privatekey>6LdYtLsSAAAAAH6xwPkpkB5FjngnkLxGqiH-hNYb</encuestame.recaptcha.privatekey>
                 <encuestame.recaptcha.recaptchaserver>http://api.recaptcha.net</encuestame.recaptcha.recaptchaserver>
                 <encuestame.recaptcha.includenoscript>false</encuestame.recaptcha.includenoscript>
                 <!-- Lucene Properties -->
-                <lucene.index.path>${user.home}/opt/encuestameIndex</lucene.index.path>
+                <lucene.index.path>/home/tomcat/opt/encuestameIndex</lucene.index.path>
                 <lucene.index.provider>org.hibernate.search.store.FSDirectoryProvider</lucene.index.provider>
                 <lucene.properties.path>classpath:lucene.index.properties</lucene.properties.path>
                 <!-- Google Maps -->
-                <google.maps.key>ABQIAAAAZf9tmUBWs70LNEs037RG0RTwM0brOpm-All5BF6PoaKBxRWWERTrwDQRedgAhFT4DDMSCMctxb4CWg</google.maps.key>
+                <google.maps.key>ABQIAAAAZf9tmUBWs70LNEs037RG0RSgbdwE2aUlyCI3uCjWvtWqU5aeGhQ0tRKJIZXI0jtqNYSqVInXwiMfFA</google.maps.key>
                 <!-- Mail Properties -->
                 <mail.host>smtp.gmail.com</mail.host>
                 <mail.port>465</mail.port>
@@ -130,6 +132,7 @@
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>true</surefire.failures.ignore>
+                <app.proxypass>false</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -188,6 +191,7 @@
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>false</surefire.failures.ignore>
+                <app.proxypass>false</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -246,6 +250,7 @@
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>true</surefire.failures.ignore>
+                <app.proxypass>false</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
@@ -304,6 +309,7 @@
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>false</surefire.failures.ignore>
+                <app.proxypass>true</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
                 <encuestame.url>http://localhost:8080/encuestame/</encuestame.url>
