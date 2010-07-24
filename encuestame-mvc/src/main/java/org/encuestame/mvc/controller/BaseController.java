@@ -19,15 +19,15 @@ import javax.servlet.http.HttpSession;
 import net.tanesha.recaptcha.ReCaptcha;
 
 import org.apache.log4j.Logger;
-import org.aspectj.apache.bcel.verifier.statics.Pass1Verifier;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.ServiceManager;
-import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.TweetPollService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -61,6 +61,9 @@ public class BaseController {
      */
     @Autowired
     private IServiceManager serviceManager;
+
+    /** Force Proxy Pass Enabled. **/
+    @Value("${application.proxyPass}") private Boolean proxyPass;
 
     /**
      * {@link AuthenticationManager}.
@@ -134,10 +137,13 @@ public class BaseController {
      * @return ip
      */
     public String getIpClient(){
+        String ip = getServletRequestAttributes().getRemoteAddr();
         //FIXME if your server use ProxyPass you need get IP from x-forwarder-for, we need create
         // a switch change for ProxyPass to normal get client Id.
-        return getServletRequestAttributes().getRemoteAddr();
-        //return getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
+        if(this.proxyPass){
+            ip = getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
+        }
+        return ip;
     }
 
     /**

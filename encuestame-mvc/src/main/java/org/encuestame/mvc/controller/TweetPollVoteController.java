@@ -132,7 +132,7 @@ public class TweetPollVoteController extends BaseController {
              log.info("result.hasErrors() "+result.hasErrors());
              if (result.hasErrors()) {
                 log.debug("bad captcha");
-                return "voteCaptcha";
+                return "redirect:/tweet/"+code;
              }
              else {
                  //Find Answer To Vote.
