@@ -94,7 +94,7 @@ public class TweetPollResult {
     /**
      * @return the ipVote
      */
-    @Column(name = "ip_vote", nullable = true, length = 18)
+    @Column(name = "ip_vote", nullable = true, length = 100)
     public String getIpVote() {
         return ipVote;
     }
