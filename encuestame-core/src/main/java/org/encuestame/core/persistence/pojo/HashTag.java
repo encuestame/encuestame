@@ -50,14 +50,14 @@ public class HashTag {
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "hash_tag_id", unique = true, nullable = false)
-    public final Long getHashTagId() {
+    public  Long getHashTagId() {
         return hashTagId;
     }
 
     /**
      * @param hashTagId the hashTagId to set
      */
-    public final void setHashTagId(final Long hashTagId) {
+    public  void setHashTagId( Long hashTagId) {
         this.hashTagId = hashTagId;
     }
 
@@ -66,14 +66,14 @@ public class HashTag {
      */
     @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "tag")
-    public final String getHashTag() {
+    public  String getHashTag() {
         return hashTag;
     }
 
     /**
      * @param hashTag the hashTag to set
      */
-    public final void setHashTag(final String hashTag) {
+    public  void setHashTag( String hashTag) {
         this.hashTag = hashTag;
     }
 }

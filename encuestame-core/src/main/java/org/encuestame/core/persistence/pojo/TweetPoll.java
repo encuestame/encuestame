@@ -313,14 +313,14 @@ public class TweetPoll {
      * @return the hashTags
      */
     @ManyToMany(cascade=CascadeType.ALL)
-    public final Set<HashTag> getHashTags() {
+    public Set<HashTag> getHashTags() {
         return hashTags;
     }
 
     /**
      * @param hashTags the hashTags to set
      */
-    public final void setHashTags(Set<HashTag> hashTags) {
+    public void setHashTags(Set<HashTag> hashTags) {
         this.hashTags = hashTags;
     }
 }
