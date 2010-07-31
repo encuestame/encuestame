@@ -1,4 +1,3 @@
-
 INSERT INTO `sec_user` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`, `twitter_account`, `twitter_password`, `twitter_pin`) VALUES
 (1, 'nFboU4T1Zhv8cqMC4cP0ug', 'GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0', 'testEncuesta', 'testEncuesta123', 4189783),
 (2, NULL, NULL, NULL, NULL, NULL),
@@ -12,7 +11,6 @@ INSERT INTO `sec_user` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`
 (10, NULL, NULL, NULL, NULL, NULL),
 (11, NULL, NULL, NULL, NULL, NULL),
 (12, NULL, NULL, NULL, NULL, NULL);
-
 
 INSERT INTO `sec_user_secondary` (`uid`, `name`, `date_new`, `invite_code`, `password`, `email`, `status`, `twitter`, `username`, `secUser_uid`, `last_ip_logged`, `last_time_logged`) VALUES
 (1, 'Juan Carlos Picado', '2010-01-20 12:47:40', '', '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', 'juanpicado19@gmail.com', '', NULL, 'admin', 1, NULL, '2010-07-19 10:55:27'),
@@ -112,14 +110,9 @@ INSERT INTO `questions` (`qid`, `qid_key`, `question`, `shared_question`, `id_st
 (24, '3116698b4cc6b7b6a7075f9fb648002f', ' fda fda fdafdfa', '\0', NULL, NULL, 1),
 (25, '4b47642f226bc296472398b577707415', 'da ssds fsfd faf sdas ddsa', '\0', NULL, NULL, 1);
 
---
--- Dumping data for table `questions_pattern`
---
-
 INSERT INTO `questions_pattern` (`pattenr_id`, `class`, `des_qid`, `finallity`, `label_qid`, `level`, `template_patron`, `type_pattern`) VALUES
 (59, '', '', 'Example', 'What do you do?', 1, 'radio', 'Yes/No');
 
 INSERT INTO `cat_state` (`id_state`, `desc_state`, `image`) VALUES
 (1, 'Enabled', NULL),
 (2, 'Disabled', NULL);
-

@@ -64,15 +64,19 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-
     <bean id="pollDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.PollDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
      <bean id="catEmailDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.CatEmailDao">
-     	 <property name="hibernateTemplate">
-         <ref bean="hibernateTemplate" />
+          <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
+         </property>
+    </bean>
+    <bean id="hashTagDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.HashTagDao">
+         <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
          </property>
     </bean>
 

@@ -26,6 +26,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * TweetPollResult Domain.
  *
@@ -35,6 +41,7 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
+@Indexed(index="tweetPollResult")
 @Table(name = "tweetpoll_result")
 public class TweetPollResult {
 
@@ -47,6 +54,7 @@ public class TweetPollResult {
      * @return the tweetPollResultId
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tweetpoll_resultId", unique = true, nullable = false)
     public Long getTweetPollResultId() {
@@ -94,7 +102,8 @@ public class TweetPollResult {
     /**
      * @return the ipVote
      */
-    @Column(name = "ip_vote", nullable = true, length = 100)
+    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Column(name = "ip_vote", nullable = false, length = 100)
     public String getIpVote() {
         return ipVote;
     }

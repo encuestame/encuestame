@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatLocationTypeDao;
 import org.encuestame.core.persistence.dao.ClientDao;
+import org.encuestame.core.persistence.dao.HashTagDao;
 import org.encuestame.core.persistence.dao.ProjectDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatEmail;
@@ -31,6 +32,7 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IClientDao;
+import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
@@ -43,6 +45,7 @@ import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
@@ -79,6 +82,9 @@ public abstract class AbstractDataSource{
     /** {@link SecUserDaoImp}. **/
     @Resource
     private ISecUserDao secUserDao;
+    /** {@link HashTagDao}. **/
+    @Resource
+    private IHashTagDao hashTagDao;
     /** Log. */
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -205,6 +211,18 @@ public abstract class AbstractDataSource{
         } else {
             throw new EnMeExpcetion("project is null");
         }
+    }
+
+    /**
+     * Create HashTag.
+     * @param name tag name
+     * @return {@link HashTag}.
+     */
+    public HashTag createHashTag(final String name){
+        final HashTag hashTag = new HashTag();
+        hashTag.setHashTag(name);
+        getHashTagDao().saveOrUpdate(hashTag);
+        return hashTag;
     }
 
     /**
@@ -413,5 +431,19 @@ public abstract class AbstractDataSource{
      */
     public void setEmailListsDao(ICatEmail emailListsDao) {
         this.emailListsDao = emailListsDao;
+    }
+
+    /**
+     * @return the hashTagDao
+     */
+    public final IHashTagDao getHashTagDao() {
+        return hashTagDao;
+    }
+
+    /**
+     * @param hashTagDao the hashTagDao to set
+     */
+    public final void setHashTagDao(IHashTagDao hashTagDao) {
+        this.hashTagDao = hashTagDao;
     }
 }

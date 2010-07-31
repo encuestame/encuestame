@@ -3,6 +3,7 @@
     xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <display-name>Encuestame</display-name>
+    <description>online survey system</description>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:encuestame-service-context.xml,
