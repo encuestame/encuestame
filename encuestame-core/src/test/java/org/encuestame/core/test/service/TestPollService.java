@@ -12,6 +12,7 @@
 package org.encuestame.core.test.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +27,6 @@ import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.IPollService;
-import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitLists;
@@ -36,7 +36,6 @@ import org.encuestame.utils.web.UnitQuestionBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
  /**
  * Description Class.
@@ -145,17 +144,15 @@ public class TestPollService extends AbstractBaseUnitBeans{
 
     @Test
     public void testCreateUrlPoll(){
-           final String hashUrl="LOPS";
-           final String pollUrl = "http://www.encuestame.org";
-           final String testUrl= pollService.createUrlPoll(pollUrl, hashUrl, this.secUserSecondary.getCompleteName());
-           System.out.println(testUrl);
-           assertEquals("Should be", "http://www.encuestame.org/diana/LOPS", testUrl);
+           final String hashUrl="3456DS";
+           final String testUrl= pollService.createUrlPoll(URLPOLL, hashUrl, this.secUserSecondary.getCompleteName());
+           assertNotNull(testUrl);
     }
 
-    @Test
+    @Test(timeout=20000)
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(), new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
-            final String urlPoll = pollService.createUrlPoll("http://www.encuestame.org", "HASHPOLL", this.secUserSecondary.getCompleteName());
+            final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.secUserSecondary.getCompleteName());
             pollService.publicPollByList(urlPoll, emailUnitList);
             assertEquals(1, 1); //Decoration.
 

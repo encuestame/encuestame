@@ -59,7 +59,7 @@ public class TestCatEmailLists extends AbstractBase {
     }
 
 
-    @Test
+    @Test(timeout=20000)
     public void testSendEmail(){
         createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
         createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
@@ -71,7 +71,7 @@ public class TestCatEmailLists extends AbstractBase {
             }
     }
 
-
+    @Test(timeout=20000)
     public void testSendInvitation(){
           createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
           final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(
@@ -82,7 +82,7 @@ public class TestCatEmailLists extends AbstractBase {
                 invitation.setCode("1253");
                 invitation.setEmail((catemails.getEmail().toString()));
                 invitation.setListName(this.emailList.getListName());
-                invitation.setUrlInvitation("http://www.encuestame.org");
+                invitation.setUrlInvitation(URLPOLL);
                 mailService.sendEmailInvitation(invitation);
               }
       }
@@ -135,7 +135,6 @@ public class TestCatEmailLists extends AbstractBase {
         assertEquals("Should be", 2 ,catLists.size());
         final List<CatEmailLists> listEmails = getCatEmailDao()
                     .getListEmailsByKeyword(keyword, this.user.getUid());
-        System.out.println(listEmails.size());
         assertNotNull(listEmails);
         assertEquals("Should be equals", 2, listEmails.size());
     }
