@@ -26,7 +26,9 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
@@ -36,11 +38,13 @@ import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -52,20 +56,30 @@ import twitter4j.http.RequestToken;
  * @since 27/04/2009
  * @version $Id$
  */
-@org.springframework.stereotype.Service
+@Service
 public class AbstractSurveyService extends AbstractBaseService {
 
+    /** Twitter Service. **/
     private ITwitterService twitterService;
+
+    /** AnswerPoll Path. **/
     private String answerPollPath;
+
+    /** TweetPoll Results Path. **/
     private String tweetPollResultsPath;
+
+    /** TweetPoll Dao. **/
     @Resource
     private ITweetPoll tweetPollDao;
+
+    /** Hash Tag Dao. **/
+    @Resource
+    private IHashTagDao hashTagDao;
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /** Tweet Path, **/
     private String tweetPath;
-
 
     /**
      * Create Question.
@@ -88,6 +102,25 @@ public class AbstractSurveyService extends AbstractBaseService {
             catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }
+    }
+
+    /**
+     * Create Hash Tag.
+     * @param unitHashTag new tag
+     * @return
+     * @throws EnMeExpcetion exception.
+     */
+    public HashTag createHashTag(final UnitHashTag unitHashTag) throws EnMeExpcetion{
+        try{
+            final HashTag tag = new HashTag();
+            tag.setHashTag(unitHashTag.getHashTagName());
+            getHashTagDao().saveOrUpdate(tag);
+            log.debug("Hash Tag Saved");
+            return tag;
+        }
+        catch (Exception e) {
+            throw new EnMeExpcetion(e);
+        }
     }
 
     /**
@@ -506,4 +539,20 @@ public class AbstractSurveyService extends AbstractBaseService {
     public void setTweetPath(final String tweetPath) {
         this.tweetPath = tweetPath;
     }
+
+    /**
+     * @return the hashTagDao
+     */
+    public final IHashTagDao getHashTagDao() {
+        return hashTagDao;
+    }
+
+    /**
+     * @param hashTagDao the hashTagDao to set
+     */
+    public final void setHashTagDao(IHashTagDao hashTagDao) {
+        this.hashTagDao = hashTagDao;
+    }
+
+
 }

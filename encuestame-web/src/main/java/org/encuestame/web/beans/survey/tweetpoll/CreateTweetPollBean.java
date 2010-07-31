@@ -25,6 +25,7 @@ import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.web.beans.MasterBean;
@@ -52,10 +53,13 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** Question Name. **/
     private String questionName;
 
+    /** HashTag Name. **/
+    private String hashTag;
+
     /** Twitter Account Selected. **/
     private String twitterAccountSelected;
 
-    /** If Length is exceded. */
+    /** If Length is exceeded. */
     private Boolean excededTweet = false;
 
     /** If is Valid Tweet. **/
@@ -83,18 +87,19 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** Count Tweet. **/
     private Integer countTweet = CreateTweetPollBean.MAXIMUM_TWEET;
 
+    /** Max Tweet Length. **/
     private static final Integer MAXIMUM_TWEET = 140;
 
+    /** Warning Tweet Length. **/
     private static final Integer WARNING_TWEET = 70;
 
     /** Minimum Question Length. **/
     private static final Integer MINIMUM_QUESTION_NAME = 10;
 
+    /** Default Limit Votes. **/
     private Boolean limitVotes = false;
 
-    /**
-     * Questions Suggested.
-     */
+    /** Questions Suggested. **/
     private List<UnitQuestionBean> questionsSuggested = new ArrayList<UnitQuestionBean>();
 
     /**
@@ -124,7 +129,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     }
 
     /**
-     * Create Short Sumilate Url.
+     * Create Short Simulate URL.
      * @param answer answer
      */
     public final void createShortAnswerUrl(final UnitAnswersBean answer){
@@ -142,6 +147,29 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             e.printStackTrace();
             addErrorMessage("Error to create Short Simulate Url", "");
         }
+    }
+
+    /**
+     * Remove Hash Tag.
+     */
+    public final void removeHashTag(){
+        getUnitTweetPoll().getHashTags().indexOf(setTempHashTag(getHashTag()));
+        log.debug("Before remove size "+getUnitTweetPoll().getHashTags().size());
+        for (UnitHashTag unitHashTag : getUnitTweetPoll().getHashTags()) {
+              if (unitHashTag.equals(setTempHashTag(getHashTag())))
+                  log.debug("Removing .. "+unitHashTag.toString());
+                  getUnitTweetPoll().getHashTags().remove(unitHashTag);
+            }
+        log.debug("After remove size "+getUnitTweetPoll().getHashTags().size());
+    }
+
+    /**
+     * Create Hash Tag.
+     */
+    public final void createHashTag(){
+        getUnitTweetPoll().getHashTags().add(setTempHashTag(getHashTag()));
+        //reset hash tag name.
+        setHashTag(new String());
     }
 
     /**
@@ -245,6 +273,9 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 getUnitTweetPoll().setCloseNotification(Boolean.FALSE);
                 getUnitTweetPoll().setResultNotification(Boolean.FALSE);
                 getUnitTweetPoll().setPublishPoll(publish);
+                getUnitTweetPoll().getHashTags().add(setTempHashTag("tag 1"));
+                getUnitTweetPoll().getHashTags().add(setTempHashTag("tag 2"));
+                getUnitTweetPoll().getHashTags().add(setTempHashTag("tag 3"));
                 tweetPollService.createTweetPoll(getUnitTweetPoll());
                 //If publish is true and Scheduled is false, because if is scheduled we want
                 //send later.
@@ -653,7 +684,21 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /**
      * @param limitVotes the limitVotes to set
      */
-    public final void setLimitVotes(Boolean limitVotes) {
+    public final void setLimitVotes(final Boolean limitVotes) {
         this.limitVotes = limitVotes;
+    }
+
+    /**
+     * @return the hashTag
+     */
+    public final String getHashTag() {
+        return hashTag;
+    }
+
+    /**
+     * @param hashTag the hashTag to set
+     */
+    public final void setHashTag(final String hashTag) {
+        this.hashTag = hashTag;
     }
 }

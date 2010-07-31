@@ -28,6 +28,7 @@ import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.utils.web.UnitHashTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
@@ -395,5 +396,15 @@ public class MasterBean{
      */
     public ILocationService getLocationService(){
         return getServicemanager().getApplicationServices().getLocationService();
+    }
+
+    /**
+     * Create Temp Hash Tag.
+     * @param name
+     * @return
+     */
+    protected UnitHashTag setTempHashTag(final String name){
+        //Always hash tag should be lower case.
+        return new UnitHashTag(name.toLowerCase());
     }
 }

@@ -26,10 +26,10 @@ import java.util.List;
  * @since Feb 14, 2010 10:00:58 AM
  * @version $Id$
  */
-public class UnitTweetPoll implements Serializable {
+public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
 
     /**
-     *
+     * Serial.
      */
     private static final long serialVersionUID = 5248987840986024954L;
     private Long id;
@@ -56,6 +56,7 @@ public class UnitTweetPoll implements Serializable {
 
     private static final  String TWITTER_STATUS_URL = "http://www.twitter.com/";
 
+    /** Results. **/
     private List<ResumeResultTweetPoll> results = new ArrayList<ResumeResultTweetPoll>();
 
     /**
@@ -189,7 +190,7 @@ public class UnitTweetPoll implements Serializable {
      */
     public final String getTweetUrl() {
         final StringBuffer tweetUrlString = new StringBuffer(
-                this.TWITTER_STATUS_URL);
+                UnitTweetPoll.TWITTER_STATUS_URL);
         tweetUrlString.append(getTwitterUserAcoount());
         tweetUrlString.append("/status/");
         this.tweetUrl = tweetUrlString.toString();
@@ -304,7 +305,4 @@ public class UnitTweetPoll implements Serializable {
     public final void setResumeLiveResults(Boolean resumeLiveResults) {
         this.resumeLiveResults = resumeLiveResults;
     }
-
-
-
 }

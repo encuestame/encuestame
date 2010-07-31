@@ -20,7 +20,9 @@ import java.util.List;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.solr.common.util.Hash;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
@@ -32,6 +34,7 @@ import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Type;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
@@ -115,6 +118,22 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tPollSwitch.setTweetPoll(tweetPollDomain);
                 tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
                 getTweetPollDao().saveOrUpdate(tPollSwitch);
+            }
+            //Save Hash Tags for this tweetPoll.
+            log.debug("HashTag Size"+tweetPollBean.getHashTags().size());
+            for (UnitHashTag unitHashTag : tweetPollBean.getHashTags()) {
+                HashTag hashTag = getHashTagDao().getHashTagByName(unitHashTag.getHashTagName().toLowerCase());
+                //If is null, create new hashTag.
+                if(hashTag == null){
+                    log.debug("Create HashTag "+unitHashTag.getHashTagName().toLowerCase());
+                    hashTag = createHashTag(unitHashTag.getHashTagName().toLowerCase());
+                }
+                tweetPollDomain.getHashTags().add(hashTag);
+            }
+            //Update TweetPoll.
+            if( tweetPollBean.getHashTags().size() > 0){
+                log.debug("Update Hash Tag");
+                getTweetPollDao().saveOrUpdate(tweetPollDomain);
             }
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }

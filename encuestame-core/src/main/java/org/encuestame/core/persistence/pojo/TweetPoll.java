@@ -23,7 +23,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -67,12 +66,14 @@ public class TweetPoll {
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
+
     /** Limit Votes. **/
     private Integer limitVotes;
 
     /** If true, system display in left nav live results. **/
     private Boolean resumeLiveResults = false;
 
+    /** {@link SecUsers}. **/
     private SecUsers tweetOwner;
 
     /** {@link Questions}. **/

@@ -23,7 +23,7 @@ import java.util.Date;
  * @since  March 15, 2009
  * @version $Id: $
  */
-public class UnitPoll implements Serializable{
+public class UnitPoll extends AbstractUnitSurvey implements Serializable{
 
     /**
      * Serial
@@ -108,59 +108,59 @@ public class UnitPoll implements Serializable{
         this.questionBean = questionBean;
     }
 
-	/**
-	 * @return the finishDate
-	 */
-	public Date getFinishDate() {
-		return finishDate;
-	}
+    /**
+     * @return the finishDate
+     */
+    public Date getFinishDate() {
+        return finishDate;
+    }
 
-	/**
-	 * @param finishDate the finishDate to set
-	 */
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
-	}
+    /**
+     * @param finishDate the finishDate to set
+     */
+    public void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
+    }
 
-	/**
-	 * @return the publishPoll
-	 */
-	public Boolean getPublishPoll() {
-		return publishPoll;
-	}
+    /**
+     * @return the publishPoll
+     */
+    public Boolean getPublishPoll() {
+        return publishPoll;
+    }
 
-	/**
-	 * @param publishPoll the publishPoll to set
-	 */
-	public void setPublishPoll(Boolean publishPoll) {
-		this.publishPoll = publishPoll;
-	}
+    /**
+     * @param publishPoll the publishPoll to set
+     */
+    public void setPublishPoll(Boolean publishPoll) {
+        this.publishPoll = publishPoll;
+    }
 
-	/**
-	 * @return the closeNotification
-	 */
-	public Boolean getCloseNotification() {
-		return closeNotification;
-	}
+    /**
+     * @return the closeNotification
+     */
+    public Boolean getCloseNotification() {
+        return closeNotification;
+    }
 
-	/**
-	 * @param closeNotification the closeNotification to set
-	 */
-	public void setCloseNotification(Boolean closeNotification) {
-		this.closeNotification = closeNotification;
-	}
+    /**
+     * @param closeNotification the closeNotification to set
+     */
+    public void setCloseNotification(Boolean closeNotification) {
+        this.closeNotification = closeNotification;
+    }
 
-	/**
-	 * @return the showResultsPoll
-	 */
-	public Boolean getShowResultsPoll() {
-		return showResultsPoll;
-	}
+    /**
+     * @return the showResultsPoll
+     */
+    public Boolean getShowResultsPoll() {
+        return showResultsPoll;
+    }
 
-	/**
-	 * @param showResultsPoll the showResultsPoll to set
-	 */
-	public void setShowResultsPoll(Boolean showResultsPoll) {
-		this.showResultsPoll = showResultsPoll;
-	}
+    /**
+     * @param showResultsPoll the showResultsPoll to set
+     */
+    public void setShowResultsPoll(Boolean showResultsPoll) {
+        this.showResultsPoll = showResultsPoll;
+    }
 }

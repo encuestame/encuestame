@@ -22,6 +22,9 @@
         <property name="tweetPollDao">
           <ref bean="tweetPollDao" />
         </property>
+         <property name="hashTagDao">
+          <ref bean="hashTagDao" />
+        </property>
   </bean>
 
    <bean id="tweetPollService" class="org.encuestame.core.service.TweetPollService"

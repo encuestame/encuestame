@@ -116,7 +116,6 @@ public abstract class AbstractDataSource{
     @Resource
     private ICatEmail emailListsDao;
 
-
     /**
      * Get User.
      * @param username
@@ -436,14 +435,14 @@ public abstract class AbstractDataSource{
     /**
      * @return the hashTagDao
      */
-    public final IHashTagDao getHashTagDao() {
+    public IHashTagDao getHashTagDao() {
         return hashTagDao;
     }
 
     /**
      * @param hashTagDao the hashTagDao to set
      */
-    public final void setHashTagDao(IHashTagDao hashTagDao) {
+    public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
     }
 }
