@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
 
@@ -72,4 +73,19 @@ public interface IPollService extends IMasterSurveyService{
        */
   void updateQuestionPoll(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion;
 
+  /**
+   * Create Url Poll.
+   * @param domain
+   * @param hashUrl
+   * @param currentUser
+   * @return
+   */
+  String createUrlPoll(final String domain, final String hashUrl, final String currentUser);
+
+  /**
+   * Public Poll by List.
+   * @param urlPoll
+   * @param emailList
+   */
+  void publicPollByList(final String urlPoll , final UnitLists emailList);
 }

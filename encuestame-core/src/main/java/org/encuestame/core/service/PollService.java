@@ -15,19 +15,21 @@ package org.encuestame.core.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Questions;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PollService extends AbstractSurveyService implements IPollService{
 
+
+    private Log log = LogFactory.getLog(this.getClass());
+
+    /**
+     *
+     */
     public final void createPoll(final UnitPoll pollBean, final String currentUser) throws EnMeExpcetion{
         try {
             final Poll pollDomain = new Poll();
@@ -110,7 +118,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return unitPoll
      */
 
-    @SuppressWarnings("unchecked")
     public List<UnitPoll> listPollByUser(final String currentUser){
         final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
         final List<Poll> polls = getPollDao().findAllPollByUserId(getPrimaryUser(currentUser));
@@ -143,6 +150,31 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public void updateQuestionPoll(UnitQuestionBean unitQuestionPoll)
             throws EnMeExpcetion {
         // TODO Auto-generated method stub
+
+    }
+
+    public String createUrlPoll(String domain, String hashUrl,
+            String currentUser) {
+        StringBuffer urlBuffer = new StringBuffer(domain);
+        urlBuffer.append("/".concat(currentUser));
+        urlBuffer.append("/".concat(hashUrl));
+        return urlBuffer.toString();
+    }
+
+    public void publicPollByList(String urlPoll, UnitLists emailList) {
+        final List<CatEmails> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
+        if(emailList !=null){
+                 for (CatEmails emails : emailsList) {
+                   getServiceMail().send(emails.getEmail(),"New Poll", urlPoll);
+
+                  }
+
+
+         }
+         else{
+             System.out.println("EN ELSE PUBLIC POLL");
+             log.warn("Not Found Emails in your EmailList");
+        }
 
     }
 

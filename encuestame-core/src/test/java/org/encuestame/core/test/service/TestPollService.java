@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.pojo.CatEmailLists;
+import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Questions;
@@ -27,6 +29,7 @@ import org.encuestame.core.service.IPollService;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -60,6 +63,12 @@ public class TestPollService extends AbstractBaseUnitBeans{
 
     private SecUserSecondary secUserSecondary;
 
+    /** {@link CatEmailLists} **/
+    private CatEmailLists emailList;
+
+    /** {@link CatEmails} **/
+    private CatEmails emails;
+
     @Before
     public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
@@ -67,6 +76,11 @@ public class TestPollService extends AbstractBaseUnitBeans{
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
         poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE);
+
+        this.emailList = createDefaultListEmail(this.secUserSecondary.getSecUser());
+        createDefaultListEmail(this.user, "default");
+        this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
+        createDefaultEmails("dianmorales@gmail.com", this.emailList);
      }
 
     /**
@@ -128,4 +142,22 @@ public class TestPollService extends AbstractBaseUnitBeans{
          final UnitQuestionBean unitQuestion = createUnitQuestion(1L,"Why the sea is blue", 1L, this.user.getUid(), answers, patternBean);
          pollService.updateQuestionPoll(unitQuestion);
      }
+
+    @Test
+    public void testCreateUrlPoll(){
+           final String hashUrl="LOPS";
+           final String pollUrl = "http://www.encuestame.org";
+           final String testUrl= pollService.createUrlPoll(pollUrl, hashUrl, this.secUserSecondary.getCompleteName());
+           System.out.println(testUrl);
+           assertEquals("Should be", "http://www.encuestame.org/diana/LOPS", testUrl);
+    }
+
+    @Test
+    public void testPublicPollByEmailList(){
+        final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(), new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
+            final String urlPoll = pollService.createUrlPoll("http://www.encuestame.org", "HASHPOLL", this.secUserSecondary.getCompleteName());
+            pollService.publicPollByList(urlPoll, emailUnitList);
+            assertEquals(1, 1); //Decoration.
+
+    }
 }

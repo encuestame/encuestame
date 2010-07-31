@@ -77,7 +77,7 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Before
     public void serviceInit(){
-         surveyService.setServiceMail(mailServiceImpl);
+        // surveyService.setServiceMail(mailServiceImpl);
          this.user = createUser("testEncuesta", "testEncuesta123");
          this.userSecondary = createSecondaryUser("user", this.user);
          this.question = createQuestion("Why the sky is blue?","html");

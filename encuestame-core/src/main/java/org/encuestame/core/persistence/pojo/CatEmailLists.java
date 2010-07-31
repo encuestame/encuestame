@@ -39,72 +39,103 @@ import javax.persistence.TemporalType;
 @Table(name = "cat_list_emails")
 public class CatEmailLists {
 
-	private Long idList;
-	private SecUsers usuarioEmail;
-	private Date createdAt;
-	private String listName;
+    private Long idList;
+    private SecUsers usuarioEmail;
+    private Date createdAt;
+    private String listName;
+    private String descripcionList;
+    private String listState;
 
-	/**
-	 * @return the idList
-	 */
- 	@Id
+    /**
+     * @return the idList
+     */
+     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_list", unique = true, nullable = false)
- 	public Long getIdList() {
-		return idList;
-	}
+     public Long getIdList() {
+        return idList;
+    }
 
-	/**
-	 * @param idList the idList to set
-	 */
-	public void setIdList(Long idList) {
-		this.idList = idList;
-	}
+    /**
+     * @param idList the idList to set
+     */
+    public void setIdList(Long idList) {
+        this.idList = idList;
+    }
 
-	/**
-	 * @return the usuarioEmail
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "uid", nullable = false)
-	public SecUsers getUsuarioEmail() {
-		return usuarioEmail;
-	}
+    /**
+     * @return the usuarioEmail
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "uid", nullable = false)
+    public SecUsers getUsuarioEmail() {
+        return usuarioEmail;
+    }
 
-	/**
-	 * @param usuarioEmail the usuarioEmail to set
-	 */
-	public void setUsuarioEmail(SecUsers usuarioEmail) {
-		this.usuarioEmail = usuarioEmail;
-	}
+    /**
+     * @param usuarioEmail the usuarioEmail to set
+     */
+    public void setUsuarioEmail(SecUsers usuarioEmail) {
+        this.usuarioEmail = usuarioEmail;
+    }
 
-	/**
-	 * @return the createdAt
-	 */
-	 @Temporal(TemporalType.TIMESTAMP)
-	 @Column(name = "createdAt", nullable = true)
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    /**
+     * @return the createdAt
+     */
+     @Temporal(TemporalType.TIMESTAMP)
+     @Column(name = "createdAt", nullable = true)
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	/**
-	 * @return the listName
-	 */
-	@Column(name = "list_name", nullable = true)
-	public String getListName() {
-		return listName;
-	}
+    /**
+     * @return the listName
+     */
+    @Column(name = "list_name", nullable = true)
+    public String getListName() {
+        return listName;
+    }
 
-	/**
-	 * @param listName the listName to set
-	 */
-	public void setListName(String listName) {
-		this.listName = listName;
-	}
+    /**
+     * @param listName the listName to set
+     */
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
+    /**
+     * @return the descripcionList
+     */
+    public String getDescripcionList() {
+        return descripcionList;
+    }
+
+    /**
+     * @param descripcionList the descripcionList to set
+     */
+    public void setDescripcionList(String descripcionList) {
+        this.descripcionList = descripcionList;
+    }
+
+    /**
+     * @return the listState
+     */
+    public String getListState() {
+        return listState;
+    }
+
+    /**
+     * @param listState the listState to set
+     */
+    public void setListState(String listState) {
+        this.listState = listState;
+    }
+
 }

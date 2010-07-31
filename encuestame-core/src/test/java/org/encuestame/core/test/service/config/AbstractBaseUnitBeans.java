@@ -21,6 +21,8 @@ import org.encuestame.core.persistence.pojo.SecUsers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitEmails;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -210,6 +212,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          return tweetPoll;
      }
 
+     /**
+      *
+      * @param tweetPoll
+      * @param answers
+      * @param codeTweet
+      * @return
+      */
      public TweetPollSwitch createTweetPollSwitch(
              final TweetPoll tweetPoll,
              final QuestionsAnswers answers,
@@ -222,6 +231,16 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
 
      }
 
+     /**
+      *
+      * @param questionId
+      * @param questionName
+      * @param stateId
+      * @param userId
+      * @param listAnswers
+      * @param pattern
+      * @return
+      */
      @SuppressWarnings("unchecked")
      public UnitQuestionBean createUnitQuestion(
              final Long questionId,
@@ -240,4 +259,48 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
           return question;
      }
 
+     /**
+      * Helper
+      * Create Unit Email List.
+      * @param emailListId
+      * @param createdAt
+      * @param listName
+      * @param userId
+      * @return
+      */
+     public UnitLists createUnitEmailList(
+            final Long emailListId,
+            final Date createdAt,
+            final String listName,
+            final Long userId)
+     {
+         final UnitLists emailList = new UnitLists();
+         emailList.setId(emailListId);
+         emailList.setCreatedAt(createdAt);
+         emailList.setListName(listName);
+         emailList.setUserId(userId);
+
+         return emailList;
+     }
+
+     /**
+      * Helper
+      * Create Unit Emails.
+      * @param idEmail Email Id
+      * @param emailName Email
+      * @param listsId Email List Id
+      * @return
+      */
+     public UnitEmails createUnitEmails(
+             final Long idEmail,
+             final String emailName,
+             final Long listsId)
+     {
+         final UnitEmails unitEmails = new UnitEmails();
+         unitEmails.setIdEmail(idEmail);
+         unitEmails.setEmailName(emailName);
+         unitEmails.setListsId(listsId);
+         return unitEmails;
+
+     }
 }

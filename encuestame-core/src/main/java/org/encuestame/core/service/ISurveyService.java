@@ -59,17 +59,6 @@ public interface ISurveyService extends IMasterSurveyService {
     throws EnMeExpcetion;
 
     /**
-     * @param serviceMail serviceMail
-     */
-    void setServiceMail(MailServiceImpl serviceMail);
-
-    /**
-     * @return serviceMail
-     */
-    MailServiceImpl getServiceMail();
-
-
-    /**
      * Getter {@link TwitterService}.
      * @return the twitterService
      */

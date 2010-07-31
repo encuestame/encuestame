@@ -21,7 +21,7 @@ import org.encuestame.utils.web.UnitQuestionBean;
  * @since 27/05/2010 20:36:29
  * @version $Id:$
  */
-public interface IMasterSurveyService {
+public interface IMasterSurveyService extends IService{
 
     /**
      * Suggestion Question List.
