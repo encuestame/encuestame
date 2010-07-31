@@ -24,6 +24,7 @@ import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
+import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
@@ -41,6 +42,7 @@ import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -117,6 +119,31 @@ public class ConvertDomainBean {
                    twitterAccountBean.setAccountId(twitterAccounts.getId());
                    twitterAccountBean.setType(twitterAccounts.getType() == null ? SecUserTwitterAccounts.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
            return twitterAccountBean;
+    }
+
+    /**
+     * Convert {@link HashTag} to {@link UnitHashTag}.
+     * @param hashTag name
+     * @return
+     */
+    public static final UnitHashTag convertHashTagDomain(final HashTag hashTag){
+        final UnitHashTag unitHashTag = new UnitHashTag();
+        unitHashTag.setHashTagName(hashTag.getHashTag());
+        unitHashTag.setId(hashTag.getHashTagId());
+        return unitHashTag;
+    }
+
+    /**
+     * Convert List of {@link HashTag} to List of {@link UnitHashTag}.
+     * @param tags list of tags
+     * @return
+     */
+    public static final  List<UnitHashTag> convertListHashTagsToBean(final List<HashTag> tags) {
+        final List<UnitHashTag> listTags = new ArrayList<UnitHashTag>();
+        for (HashTag account : tags) {
+            listTags.add(ConvertDomainBean.convertHashTagDomain(account));
+        }
+        return listTags;
     }
 
     /**

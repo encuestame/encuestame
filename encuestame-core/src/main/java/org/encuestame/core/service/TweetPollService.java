@@ -141,15 +141,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             log.debug("Question text: "+tweetQuestionText);
             final List<QuestionsAnswers> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
-            if(answers.size() == 2){
-                for (final QuestionsAnswers questionsAnswers : answers) {
-                     log.debug("Answer ID: "+questionsAnswers.getQuestionAnswerId());
-                     log.debug("Answer Question: "+questionsAnswers.getAnswer());
-                    tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
-                }
-            }
-            else{
-                log.warn("Answers should be 2 for TweetPolls");
+            for (final QuestionsAnswers questionsAnswers : answers) {
+                 log.debug("Answer ID: "+questionsAnswers.getQuestionAnswerId());
+                 log.debug("Answer Question: "+questionsAnswers.getAnswer());
+                 tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
             }
         }
         catch (Exception e) {

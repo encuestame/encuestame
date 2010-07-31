@@ -10,41 +10,54 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.dao.imp;
+package org.encuestame.utils.web;
 
-import java.util.List;
-
-import org.encuestame.core.persistence.dao.HashTagDao;
-import org.encuestame.core.persistence.pojo.HashTag;
-import org.hibernate.HibernateException;
+import java.io.Serializable;
 
 /**
- * Iterface for {@link HashTagDao}.
+ * Unit Hash Tag.
  * @author Picado, Juan juanATencuestame.org
- * @since Jul 25, 2010 5:32:28 PM
- * @version Id:
+ * @since Jul 31, 2010 7:49:45 AM
+ * @version $Id:$
  */
-public interface IHashTagDao extends IBaseDao	{
+public class UnitHashTag implements Serializable {
 
     /**
-     * Create Hash TAg.
-     * @param hashTag
-     * @throws HibernateException
+     * Serial
      */
-    void createHashTag(final HashTag hashTag) throws HibernateException;
+    private static final long serialVersionUID = -56061660495067820L;
+
+    /** Name. **/
+    private String hashTagName;
+
+    /** Id. **/
+    private Long id;
 
     /**
-     * Get List of HashTags by Keyword.
-     * @param keyword keyword
-     * @return
+     * @return the hashTagName
      */
-    List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults);
+    public final String getHashTagName() {
+        return hashTagName;
+    }
 
     /**
-     * Get HashTag By Name.
-     * @param hashTag
-     * @return
-     * @throws HibernateException
+     * @param hashTagName the hashTagName to set
      */
-    HashTag getHashTagByName(final String hashTag)throws HibernateException;
+    public final void setHashTagName(String hashTagName) {
+        this.hashTagName = hashTagName;
+    }
+
+    /**
+     * @return the id
+     */
+    public final Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public final void setId(Long id) {
+        this.id = id;
+    }
 }
