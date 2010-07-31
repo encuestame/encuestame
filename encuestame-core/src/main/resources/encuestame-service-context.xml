@@ -15,7 +15,7 @@
   </bean>
 
   <bean id="abstractsurvey" class="org.encuestame.core.service.AbstractSurveyService"
-        abstract="true">
+        abstract="true" parent="service">
         <property name="twitterService">
           <ref bean="twitterService" />
         </property>
