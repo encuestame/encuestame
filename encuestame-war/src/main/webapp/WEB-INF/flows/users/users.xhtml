@@ -53,7 +53,7 @@
             </h:panelGrid>
 
             <!-- Users Table -->
-
+            <div class="defaultTable">
             <rich:dataTable id="dataTableUsers" width="100%"
                 style="margin: 5px; margin-top: 12px;" headerClass="userAdmonHeader" rowClasses="rowClass" value="#{users}"
                 var="unitUser" rendered="#{users.rowCount > 0}">
@@ -112,6 +112,7 @@
                     </span>
                 </rich:column>
             </rich:dataTable>
+            </div>
         </a4j:form>
 
         <!-- Panels -->

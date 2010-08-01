@@ -316,7 +316,7 @@ div.addAnswers div.addNewAnswer .addButton{
 }
 
 div.header{
-    font-size: 2em;
+    font-size: 1.6em;
     padding: 4px;
     margin: 1px;
     color: #FFF;
@@ -560,3 +560,106 @@ div.publishContent div.publishButtons{
     margin-top: 30px;
 }
 
+/** List of TweetPoll. **/
+
+div.listTweetPolls{
+    margin: 15px;
+}
+
+div.listTweetPolls div.header{
+    padding: 12px;
+    margin: 0px;
+    background-color: #BCBCBC;
+    -webkit-border-radius: 4px 4px 0px 0px;
+    -moz-border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
+    text-shadow : 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+div.listTweetPolls div.header div.headerTitle{
+    margin: 5px 0px 5px 0px;
+}
+
+div.listTweetPolls div.header div.option{
+    font-size: 12px;
+}
+
+div.listTweetPolls div.header div.option a{
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+div.listTweetPolls div.header div.option a:hover{
+    text-decoration: underline;
+}
+
+div.listTweetPolls .fixed{
+    table-layout: fixed;
+}
+
+div.listTweetPolls .wide{
+
+}
+
+div.listTweetPolls .rich-table{
+    -webkit-border-radius: 0px 4px 4px 0px;
+    -moz-border-radius: 0px 4px 4px 0px;
+    border-radius: 0px 4px 4px 0px;
+    border-bottom:1px solid #BCBCBC;
+    border-left:1px solid #BCBCBC;
+    border-right:1px solid #BCBCBC;
+    margin: 0px;
+    font-size : 11px;
+    width: 100%;
+    background-color: #BCBCBC;
+}
+
+div.listTweetPolls .rich-table-thead{
+    background-color: #EEE;
+    text-shadow : 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+div.listTweetPolls .rich-table-headercell{
+    background-color: #EEE;
+    text-align: left;
+}
+
+div.listTweetPolls th.question{
+    min-width: 200px;
+}
+
+div.listTweetPolls .rich-table-row{
+   background-color: #BCBCBC;
+   font-size : 1.1em;
+}
+
+div.listTweetPolls .rich-table-row:hover{
+    background-color: #C9C9C9;
+}
+
+div.listTweetPolls td.question{
+   color: #FFF;
+   font-weight: bold;
+}
+
+div.listTweetPolls td.question .options a{
+    color: #000;
+    font-size: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+div.listTweetPolls .rich-table-row .author{
+   min-width: 50px;
+   font-weight: bold;
+   color: #000;
+}
+
+div.listTweetPolls .rich-table-cell{
+   border-bottom-style : solid;
+   border-bottom-width : 1px;
+   border-color: #DFDFDF;
+   padding: 4px;
+
+}

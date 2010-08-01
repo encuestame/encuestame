@@ -12,6 +12,7 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,13 @@ import java.util.List;
  * @since Jul 31, 2010 8:19:51 AM
  * @version $Id:$
  */
-public abstract class AbstractUnitSurvey {
+public abstract class AbstractUnitSurvey implements Serializable{
+
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = -2162917977567543044L;
+
 
     /** List of HashTags. **/
     private List<UnitHashTag> hashTags = new ArrayList<UnitHashTag>();

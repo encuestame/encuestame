@@ -57,7 +57,8 @@
             </a4j:form>
         </rich:modalPanel>
         <h:outputText id="noHotelsText" value="No Groups Found" rendered="#{groups.rowCount == 0}"/>
-        <h:form id="groupsForm">
+        <h:form id="groupsForm" >
+            <div class="defaultTable">
             <rich:dataTable id="dataTableGroups" value="#{groups}" var="unitGroup" style="width:100%;" rendered="#{groups.rowCount > 0}">
                 <f:facet name="header">
                     <rich:columnGroup>
@@ -86,6 +87,7 @@
                     <sf:commandLink id="viewGroupDetail" value="Edit" action="select"/>
                 </rich:column>
             </rich:dataTable>
+            </div>
         </h:form>
     </ui:define>
     <ui:define name="panel">
