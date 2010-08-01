@@ -140,10 +140,10 @@ public class BaseController {
         log.debug("Force Proxy Pass ["+this.proxyPass+"]");
         String ip = getServletRequestAttributes().getRemoteAddr();
         log.debug("Force Proxy Pass ["+ip+"]");
-        //FIXME if your server use ProxyPass you need get IP from x-forwarder-for, we need create
+        //FIXME: if your server use ProxyPass you need get IP from x-forwarder-for, we need create
         // a switch change for ProxyPass to normal get client Id.
+        // Solution should be TOMCAT configuration.
         log.debug("X-getHeaderNames ["+ getServletRequestAttributes().getHeaderNames()+"]");
-        //log.debug("X-getHeaderNames ["+ getServletRequestAttributes().getH()+"]");
         if(this.proxyPass){
             ip = getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
             log.debug("X-FORWARDED-FOR ["+ip+"]");

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Id$
  **/
 
+@SuppressWarnings("deprecation")
 public class FacesUtils {
     /**
      * Get servlet context.

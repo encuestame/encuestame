@@ -28,6 +28,15 @@
         <hibernate.version>3.5.1-Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.2.0.CR1</hibernate.search.version>
+        <!--
+        <jsf-api>2.0.0-RC</jsf-api>
+        <jsf-impl>2.0.0-RC</jsf-impl>
+        -->
+        <jsf-api>1.2_02</jsf-api>
+        <jsf-impl>1.2_02</jsf-impl>
+        <richfaces.version>3.3.2.GA</richfaces.version>
+        <validation-api>1.0.0.GA</validation-api>
+        <servlet-api>2.4</servlet-api>
         <pluto-version>1.1.4</pluto-version>
         <portlet.version>2.0</portlet.version>
         <gmap.version>1.1.3</gmap.version>
@@ -147,7 +156,7 @@
         <repository>
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
+            <url>http://download.java.net/maven/2</url>
         </repository>
         <repository>
             <id>maven2-repository.dev.java.net</id>
@@ -167,6 +176,17 @@
             <name>Maven Repository</name>
             <url>http://repo1.maven.org/maven2</url>
             <layout>default</layout>
+        </repository>
+        <repository>
+            <id>repository.jboss.org</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -460,6 +480,9 @@
                 <artifactId>encuestame-mvc</artifactId>
                 <version>${encuestame.version}</version>
             </dependency>
+            <!--
+            This dependency will not necesary with JSF2.0
+            -->
             <dependency>
                 <groupId>com.sun.facelets</groupId>
                 <artifactId>jsf-facelets</artifactId>
@@ -612,13 +635,18 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
-                <version>2.4</version>
+                <version>${servlet-api}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javax.faces</groupId>
                 <artifactId>jsf-impl</artifactId>
-                <version>1.2-b19</version>
+                <version>${jsf-impl}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.faces</groupId>
+                <artifactId>jsf-api</artifactId>
+                <version>${jsf-api}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -789,11 +817,6 @@
                 <version>2.1.0</version>
             </dependency>
             <dependency>
-                <groupId>javax.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>1.2_02</version>
-            </dependency>
-            <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.14</version>
@@ -801,13 +824,18 @@
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-ui</artifactId>
-                <version>3.3.2.GA</version>
+                <version>${richfaces.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+              <groupId>org.richfaces.framework</groupId>
+              <artifactId>richfaces-impl-jsf2</artifactId>
+              <version>${richfaces.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.googlecode.gmaps4jsf</groupId>
@@ -819,11 +847,6 @@
                         <groupId>commons-fileupload</groupId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>javax.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>1.2_02</version>
             </dependency>
             <dependency>
                 <groupId>org.tuckey</groupId>
@@ -1123,6 +1146,11 @@
           <groupId>org.opensymphony.quartz</groupId>
           <artifactId>quartz</artifactId>
           <version>1.6.1</version>
+        </dependency>
+        <dependency>
+          <groupId>javax.validation</groupId>
+          <artifactId>validation-api</artifactId>
+          <version>1.0.0.GA</version>
         </dependency>
       </dependencies>
     </dependencyManagement>

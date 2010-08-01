@@ -39,7 +39,6 @@ import org.richfaces.model.TreeNodeImpl;
 import com.googlecode.gmaps4jsf.component.marker.MarkerValue;
 import com.googlecode.gmaps4jsf.services.GMaps4JSFServiceFactory;
 import com.googlecode.gmaps4jsf.services.data.PlaceMark;
-import com.sun.facelets.FaceletException;
 
 /**
  * Location Bean.
@@ -194,7 +193,7 @@ public final class LocationBean extends MasterBean implements Serializable {
             addFolders(rootNode, ConvertDomainBean.convertFolderToDragrable(locationFolders, TypeTreeNode.FOLDER));
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FaceletException(e.getMessage(), e);
+            log.error(e);
         }
     }
 

@@ -404,7 +404,8 @@ public class MasterBean{
      * @return
      */
     protected UnitHashTag setTempHashTag(final String name){
+        log.debug("createHashTag "+name);
         //Always hash tag should be lower case.
-        return new UnitHashTag(name.toLowerCase());
+        return new UnitHashTag(StringUtils.deleteWhitespace(name.toLowerCase()));
     }
 }

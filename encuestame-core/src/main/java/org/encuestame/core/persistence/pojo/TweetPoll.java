@@ -299,14 +299,14 @@ public class TweetPoll {
      * @return the allowRepatedVotes
      */
     @Column(name = "allow_repeated_votes", nullable = true)
-    public final Boolean getAllowRepatedVotes() {
+    public Boolean getAllowRepatedVotes() {
         return allowRepatedVotes;
     }
 
     /**
      * @param allowRepatedVotes the allowRepatedVotes to set
      */
-    public final void setAllowRepatedVotes(Boolean allowRepatedVotes) {
+    public void setAllowRepatedVotes(Boolean allowRepatedVotes) {
         this.allowRepatedVotes = allowRepatedVotes;
     }
 

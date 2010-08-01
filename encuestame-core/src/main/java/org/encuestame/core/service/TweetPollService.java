@@ -158,11 +158,22 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             log.debug("TweetPoll ID: "+tweetPollDomain.getTweetPollId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             log.debug("Question text: "+tweetQuestionText);
+            //Build Answers.
             final List<QuestionsAnswers> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
             for (final QuestionsAnswers questionsAnswers : answers) {
                  log.debug("Answer ID: "+questionsAnswers.getQuestionAnswerId());
                  log.debug("Answer Question: "+questionsAnswers.getAnswer());
                  tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
+            }
+            //Build Hash Tag.
+            for (final HashTag tag : tweetPollDomain.getHashTags()) {
+                 log.debug("Hash Tag ID: "+tag.getHashTagId());
+                 log.debug("Tag Name "+tag.getHashTag());
+                 final StringBuffer buffer = new StringBuffer(tweetQuestionText);
+                 buffer.append(" ");
+                 buffer.append("#");
+                 buffer.append(tag.getHashTag());
+                 tweetQuestionText = buffer.toString();
             }
         }
         catch (Exception e) {

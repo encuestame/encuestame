@@ -96,6 +96,9 @@ ul#topnav li span a:hover {
     line-height: 18px;
     min-height: 160px;
     z-index: 500;
+   -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
 }
 
 #profile_menu li {

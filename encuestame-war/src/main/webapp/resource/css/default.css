@@ -1,5 +1,6 @@
 @import url("profile.css");
 @import url("social.css");
+@import url("suggest.css");
 
 body {
     font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
@@ -105,3 +106,16 @@ a:hover{
     padding-left: 13px;
     font-size: 12px;
 }
+
+.roundTable{
+    -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px;
+}
+
+.defaultButton{
+   margin-left : 8px;
+   border: 1px solid #BCBCBC;
+   min-width: 100px;
+   padding: 4px;
+ }

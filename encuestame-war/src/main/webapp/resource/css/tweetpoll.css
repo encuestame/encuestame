@@ -220,9 +220,9 @@ div.addAnswers div.answerItem{
     margin-top : 8px;
     cursor: pointer;
     border-radius: 10px;
-    box-shadow: 2px 2px 3px #000000;
-    -webkit-box-shadow: 2px 2px 3px #000000;
-    -moz-box-shadow: 2px 2px 3px #000000;
+    box-shadow: 1px 1px 1x #000000;
+    -webkit-box-shadow: 1px 1px 1px #000000;
+    -moz-box-shadow: 1px 1px 1px #000000;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
 }
@@ -319,6 +319,14 @@ div.header{
     font-size: 2em;
     padding: 4px;
     margin: 1px;
+    color: #FFF;
+}
+
+div.subHeader{
+    font-size: 1em;
+    padding: 4px;
+    margin: 1px;
+    color: #FFF;
 }
 
 /** Hash Tags **/
@@ -359,10 +367,50 @@ div.addAnswers div.addNewHashTag .addButton{
    padding: 4px;
 }
 
+div.addAnswers div.addNewHashTag div.wrapperHashTag{
+    padding: 20px;
+}
+
+div.addAnswers div.addNewHashTag .hashTagItem{
+    column-count: 2;
+    column-gap: 30px;
+    background-color: #878A8E;
+    padding: 5px;
+    font-size: 12px;
+    color: #FFF;
+    margin-top : 8px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #000000;
+    -webkit-box-shadow: 1px 1px 1px #000000;
+    -moz-box-shadow: 1px 1px 1px #000000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    margin-left: 5px;
+    display: inline-block;
+    text-align: center;
+    min-width: 50px;
+}
+
+div.addAnswers div.addNewHashTag .hashTagItem a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+div.addAnswers div.addNewHashTag .hashTagItem a:visited{
+    color: #FFF;
+    text-decoration: none;
+}
+
+div.addAnswers div.addNewHashTag .hashTagItem a:hover{
+    color: #FFF;
+    text-decoration: none;
+}
+
 /** Publish Tweet Poll **/
 
 div.publishContent{
-    margin: 35px;
+    margin: 35px 35px 35px 0px;
 }
 
 div.publishWrapper{
@@ -371,6 +419,46 @@ div.publishWrapper{
    margin-right: 23px;
    padding: 10px;
    background-color: #BCBCBC;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+}
+
+div.publishWrapper .rich-table{
+    background-color: #EEEEE;
+    width: 100%;
+}
+
+div.publishWrapper table{
+    background-color: #EEEEE;
+}
+
+/*
+div.publishWrapper tr:hover{
+    padding: 10px;
+    background-color: #CACACA;
+}
+*/
+
+div.publishWrapper td{
+    padding: 10px;
+}
+
+div.publishWrapper  div.socialItem{
+    font-size: 1.1em;
+    color: #777777;
+    font-weight: bold;
+}
+
+
+div.publishWrapper .rich-table-row{
+    padding: 10px;
+    background-color: #EEEEEE;
+    margin: 2px;
+}
+
+div.publishWrapper .rich-table-firstrow{
+
 }
 
 div.publishWrapper div.publishTwitterTitle{
@@ -413,6 +501,9 @@ div.publishOptions{
     float: left;
     padding: 19px;
     width: 54%;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
 div.optionTitle{
     padding: 7px;
@@ -441,6 +532,26 @@ div.publishOptions tr .label{
 }
 div.publishOptions div.publishTableOptionWrapper{
 
+}
+
+div.publishOptions div.publishTableOptionWrapper .itemOption{
+    padding: 6px;
+}
+
+div.publishOptions div.publishTableOptionWrapper .itemOption .left{
+    float: left;
+    margin-right: 20px;
+}
+
+div.publishOptions div.publishTableOptionWrapper .itemOption .label{
+    font-size: 1.1em;
+    color: #777777;
+    font-weight: bold;
+}
+
+div.publishOptions div.publishTableOptionWrapper  .extra{
+    padding-left: 10px;
+    background-color: #EEEEEE;
 }
 
 div.publishContent div.publishButtons{

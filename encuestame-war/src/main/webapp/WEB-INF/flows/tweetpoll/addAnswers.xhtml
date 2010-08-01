@@ -11,27 +11,25 @@
             <a4j:form id="formBody">
              <a4j:outputPanel id="optionsMenu">
                 <div class="optionTopMenu">
-                     <sf:commandLink  action="publish" value="Publish Now" styleClass="saveButton" rendered="#{createTweetPollBean.validTweet}" />
-                     <sf:commandLink  action="later" value="Save To Later" styleClass="saveButton" rendered="#{createTweetPollBean.validTweet}"/>
                      <sf:commandLink  action="cancel" value="Cancel" styleClass="saveButton"/>
-                     <sf:commandLink  action="back" value="Change Question" styleClass="saveButton"/>
+                     <sf:commandLink  action="back" value="Change Question" styleClass="saveButton"  rendered="#{createTweetPollBean.validTweet}"/>
+                     <sf:commandLink  action="later" value="Save To Later" styleClass="saveButton" rendered="#{createTweetPollBean.validTweet}"/>
+                     <sf:commandLink  action="publish" value="Publish Now" styleClass="saveButton" rendered="#{createTweetPollBean.validTweet}" />
                 </div>
-                 <a4j:outputPanel id="message-panel">
-                    <rich:messages errorClass="error" infoClass="success" warnClass="warning" styleClass="message"></rich:messages>
-                </a4j:outputPanel>
-                <rich:effect name="hideMessages" for="message-panel" type="Fade" />
                 </a4j:outputPanel>
                  <div class="addNewAnswer">
                     <div class="header">
                         Answers
                     </div>
                     <div> Add answer for your tweet </div>
+                    <a4j:outputPanel id="answerAddForm">
                     <ui:fragment rendered="#{createTweetPollBean.showHideAddAnswers}">
-                            <h:outputLabel value="Write your answer" styleClass="label" />
-                            <h:inputText value="#{createTweetPollBean.answersBean.answers}" styleClass="inputClass"/>
-                            <a4j:commandButton action="#{createTweetPollBean.addAnswer}"
-                                value="Add Answer"  reRender="formBody, answerList" ignoreDupResponses="true" styleClass="addButton"></a4j:commandButton>
+                        <h:outputLabel value="Write your answer" styleClass="label" />
+                        <h:inputText value="#{createTweetPollBean.answersBean.answers}" styleClass="inputClass"/>
+                        <a4j:commandButton action="#{createTweetPollBean.addAnswer}"
+                            value="Add Answer"  reRender="formBody, answerList" ignoreDupResponses="true" styleClass="addButton"></a4j:commandButton>
                     </ui:fragment>
+                   </a4j:outputPanel>
                     <div class="listAnswerWrapper">
                         <a4j:outputPanel id="answerList">
                                 <a4j:repeat value="#{createTweetPollBean.unitTweetPoll.questionBean.listAnswers}"  var="answer">
@@ -77,21 +75,36 @@
                         HashTags
                        </div>
                        <div> Add Tags for your tweet </div>
-                        <ui:fragment rendered="true">
+                             <ui:fragment rendered="#{createTweetPollBean.showHideAddAnswers}">
                             <h:outputLabel value="Select Tag" styleClass="label" />
                             <h:inputText id="tag" value="#{createTweetPollBean.hashTag}" styleClass="inputClass"/>
                             <rich:suggestionbox id="suggestionBoxId" for="tag"
                                         suggestionAction="#{createTweetPollBean.getHashTags}" var="result"
-                                        tokens="," height="150" width="160" cellpadding="2"
+                                        tokens=","  height="170" width="385" cellpadding="2"
                                         cellspacing="2" shadowOpacity="4" shadowDepth="4"
-                                        minChars="1" rules="none" nothingLabel="No results found.">
-                                        <h:column>
+                                        minChars="1" rules="none" nothingLabel="No results found." styleClass="suggestBox">
+                                        <h:column styleClass="suggestBoxColumn">
                                             <h:outputText value="#{result}" style="font-style:bold" />
                                         </h:column>
                              </rich:suggestionbox>
-                            <a4j:commandButton action="#{createTweetPollBean.createHashTag}"
-                                value="Add Tag" reRender="formBody, answerList" ignoreDupResponses="true" styleClass="addButton"></a4j:commandButton>
-                    </ui:fragment>
+                             <a4j:commandButton action="#{createTweetPollBean.createHashTag}"
+                                value="Add Tag" reRender="hashTagList,tag, formBody" ignoreDupResponses="true" styleClass="addButton"></a4j:commandButton>
+                              </ui:fragment>
+                                <div class="wrapperHashTag">
+                                    <a4j:outputPanel id="hashTagList">
+                                          <a4j:repeat value="#{createTweetPollBean.unitTweetPoll.hashTags}"  var="hashtag">
+                                                <span class="hashTagItem">
+                                                     <a4j:commandLink value="Remove" reRender="reviewContentBox, hashTagList, optionTopMenu, answerAddForm, formBody"
+                                                     action="#{createTweetPollBean.removeHashTag}">
+                                                      <h:outputText value="#{hashtag}" style="font-style:bold">
+                                                         <rich:toolTip id="tooltipId" attached="false" value="This is a tooltip."/>
+                                                      </h:outputText>
+                                                     <f:setPropertyActionListener value="#{hashtag}" target="#{createTweetPollBean.hashTag}"/>
+                                                     </a4j:commandLink>
+                                                </span>
+                                          </a4j:repeat>
+                                    </a4j:outputPanel>
+                          </div>
                    </div>
             </a4j:form>
         </div>

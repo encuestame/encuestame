@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
@@ -158,23 +159,60 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * Remove Hash Tag.
      */
     public final void removeHashTag(){
-        getUnitTweetPoll().getHashTags().indexOf(setTempHashTag(getHashTag()));
-        log.debug("Before remove size "+getUnitTweetPoll().getHashTags().size());
-        for (UnitHashTag unitHashTag : getUnitTweetPoll().getHashTags()) {
-              if (unitHashTag.equals(setTempHashTag(getHashTag())))
-                  log.debug("Removing .. "+unitHashTag.toString());
-                  getUnitTweetPoll().getHashTags().remove(unitHashTag);
+        try{
+            log.debug("removeHashTag");
+            getUnitTweetPoll().getHashTags().indexOf(setTempHashTag(getHashTag()));
+            log.debug("Before remove size "+getUnitTweetPoll().getHashTags().size());
+            final Iterator<UnitHashTag> iterator = getUnitTweetPoll().getHashTags().iterator();
+            while (iterator.hasNext()) {
+                UnitHashTag hash = (UnitHashTag) iterator.next();
+                  if (hash.equals(setTempHashTag(getHashTag()))){
+                      log.debug("Removing .. "+hash.toString());
+                      iterator.remove();
+                }
             }
-        log.debug("After remove size "+getUnitTweetPoll().getHashTags().size());
+            this.updateQuestionCountTweet();
+            if(this.excededTweet){
+                setShowHideAddAnswers(Boolean.FALSE);
+            }
+            else{
+                setShowHideAddAnswers(Boolean.TRUE);
+            }
+            log.debug("After remove size "+getUnitTweetPoll().getHashTags().size());
+        }
+        catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            addErrorMessage("Error removing hash tags", "");
+        }
     }
 
     /**
      * Create Hash Tag.
      */
     public final void createHashTag(){
-        getUnitTweetPoll().getHashTags().add(setTempHashTag(getHashTag()));
-        //reset hash tag name.
-        setHashTag(new String());
+        try{
+            log.debug("getUnitTweetPoll().getHashTags() "+ getUnitTweetPoll().getHashTags());
+            if(getUnitTweetPoll().getHashTags() != null){
+                log.debug("createHashTag size "+getUnitTweetPoll().getHashTags().size());
+                this.getUnitTweetPoll().getHashTags().add(setTempHashTag(getHashTag()));
+                //reset hash tag name.
+                setHashTag(new String());
+                addInfoMessage("Hash Tag Added", "");
+                this.updateQuestionCountTweet();
+                if(this.excededTweet){
+                    this.showHideAddAnswers = false;
+                }
+                else{
+                    this.showHideAddAnswers = true;
+                }
+            }
+        }
+        catch (Exception e) {
+             addErrorMessage("Error adding Hash Tag", "");
+             log.error(e);
+             e.printStackTrace();
+        }
     }
 
     /**
@@ -217,7 +255,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      **/
     public final void addAnswer(){
         try{
-                if(getUnitTweetPoll().getQuestionBean() !=null){
+                if(getUnitTweetPoll().getQuestionBean() != null){
                     this.createShortAnswerUrl(getAnswersBean());
                     //Saving Answer to Question Answers List.
                     this.getUnitTweetPoll().getQuestionBean().getListAnswers().add(getAnswersBean());
@@ -301,9 +339,6 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 getUnitTweetPoll().setCloseNotification(Boolean.FALSE);
                 getUnitTweetPoll().setResultNotification(Boolean.FALSE);
                 getUnitTweetPoll().setPublishPoll(publish);
-                getUnitTweetPoll().getHashTags().add(setTempHashTag("tag 1"));
-                getUnitTweetPoll().getHashTags().add(setTempHashTag("tag 2"));
-                getUnitTweetPoll().getHashTags().add(setTempHashTag("tag 3"));
                 tweetPollService.createTweetPoll(getUnitTweetPoll());
                 //If publish is true and Scheduled is false, because if is scheduled we want
                 //send later.
@@ -447,6 +482,13 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
                 answerString.append(" ");
                 answerString.append(answer.getUrl());
                 this.resumeTweet = this.resumeTweet + " "+answerString.toString();
+            }
+            //Add Hash Tag String.
+            for (UnitHashTag tag : this.getUnitTweetPoll().getHashTags()) {
+                final StringBuffer tagString = new StringBuffer("");
+                tagString.append("#");
+                tagString.append(tag.getHashTagName());
+                this.resumeTweet = this.resumeTweet + " "+tagString.toString();
             }
         }
         if(this.resumeTweet.length() > MAXIMUM_TWEET){
