@@ -45,7 +45,7 @@
     </context-param>
     <context-param>
         <param-name>org.richfaces.SKIN</param-name>
-        <param-value>encuestameSkin</param-value>
+        <param-value>plain</param-value>
         <!-- plain = without css -->
         <!-- DEFAULT = default css -->
         <!-- encuestameSkin = encuestame css -->
@@ -148,10 +148,6 @@
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>OpenSessionInViewFilter</filter-name>
-        <url-pattern>/user/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>ajax4jsf</filter-name>

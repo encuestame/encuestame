@@ -445,6 +445,18 @@ public class AbstractSurveyService extends AbstractBaseService {
     }
 
     /**
+     * List Suggested Hash Tags.
+     * @param hashTagKeyWord
+     * @param maxResults
+     * @return
+     */
+    public List<UnitHashTag> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults){
+        final List<HashTag> tags = getHashTagDao().getListHashTagsByKeyword(hashTagKeyWord, maxResults);
+        log.debug("Hash Tag Suggested size "+tags.size());
+        return ConvertDomainBean.convertListHashTagsToBean(tags);
+    }
+
+    /**
      * Validate TweetPoll IP.
      * @param ipVote  ipVote
      * @param tweetPoll tweetPoll

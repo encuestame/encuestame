@@ -96,11 +96,16 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** Minimum Question Length. **/
     private static final Integer MINIMUM_QUESTION_NAME = 10;
 
+    private static final Integer MAX_HASHTAGS = 50;
+
     /** Default Limit Votes. **/
     private Boolean limitVotes = false;
 
     /** Questions Suggested. **/
     private List<UnitQuestionBean> questionsSuggested = new ArrayList<UnitQuestionBean>();
+
+    /** HashTag Suggested. **/
+    private List<UnitHashTag> listHashTags = new ArrayList<UnitHashTag>();
 
     /**
      * Constructor.
@@ -170,6 +175,29 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
         getUnitTweetPoll().getHashTags().add(setTempHashTag(getHashTag()));
         //reset hash tag name.
         setHashTag(new String());
+    }
+
+    /**
+     * Get Hash Tag.
+     * @param suggest
+     * @return
+     */
+    public ArrayList<UnitHashTag> getHashTags(final Object suggest) {
+        final String pref = (String) suggest;
+        final ArrayList<UnitHashTag> result = new ArrayList<UnitHashTag>();
+        try{
+            this.listHashTags = getTweetPollService().listSuggestHashTags(pref, CreateTweetPollBean.MAX_HASHTAGS);
+            for (UnitHashTag elem : this.listHashTags) {
+                if ((elem.getHashTagName().toLowerCase().indexOf(pref.toLowerCase()) == 0)) {
+                    result.add(elem);
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            addErrorMessage("Error retrieving Hash Tahgs", "Error retrieving Hash Tahgs");
+        }
+        return result;
     }
 
     /**
@@ -634,9 +662,10 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      * Remove Answer.
      */
     public void removeAnswer(){
+        log.debug("removeAnswer "+getSelectedAnswer());
         if(getSelectedAnswer() != null){
+            log.debug("list answers size "+getUnitTweetPoll().getQuestionBean().getListAnswers().size());
             final Iterator<UnitAnswersBean> iterator = getUnitTweetPoll().getQuestionBean().getListAnswers().iterator();
-            log.debug("Iterator size"+getUnitTweetPoll().getQuestionBean().getListAnswers().size());
                 while (iterator.hasNext()) {
                     UnitAnswersBean unitAnswersBean = (UnitAnswersBean) iterator.next();
                     log.debug("Answer Response "+unitAnswersBean.getAnswers());
@@ -700,5 +729,19 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
      */
     public final void setHashTag(final String hashTag) {
         this.hashTag = hashTag;
+    }
+
+    /**
+     * @return the listHashTags
+     */
+    public List<UnitHashTag> getListHashTags() {
+        return listHashTags;
+    }
+
+    /**
+     * @param listHashTags the listHashTags to set
+     */
+    public void setListHashTags(List<UnitHashTag> listHashTags) {
+        this.listHashTags = listHashTags;
     }
 }

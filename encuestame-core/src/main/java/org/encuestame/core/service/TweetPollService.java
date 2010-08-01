@@ -20,7 +20,6 @@ import java.util.List;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.solr.common.util.Hash;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.Questions;

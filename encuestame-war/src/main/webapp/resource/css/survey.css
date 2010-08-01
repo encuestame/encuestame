@@ -25,6 +25,9 @@
      background-repeat: no-repeat;
      padding-left: 68px;
      background-color: #6E6E6E;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+     border-radius: 10px;
 }
 
 

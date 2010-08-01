@@ -13,6 +13,7 @@ package org.encuestame.core.service;
 
 import java.util.List;
 
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 
  /**
@@ -29,4 +30,12 @@ public interface IMasterSurveyService extends IService{
      * @return
      */
     List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username);
+
+    /**
+     * List Suggested Hash Tags.
+     * @param hashTagKeyWord
+     * @param maxResults
+     * @return
+     */
+    List<UnitHashTag> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults);
 }

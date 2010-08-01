@@ -32,7 +32,6 @@ div.bodySurvey .errorState{
 }
 
 #reviewContentBox .bodyTweet{
-    border-bottom: 5px solid #EDEDED;
 }
 
 div.tweetResume{
@@ -69,6 +68,9 @@ div.optionTopMenu a:hover{
     background-color:#6E6E6E;
     color: #FFF;
     text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 div.optionTopMenu a:visited{
@@ -106,6 +108,7 @@ div.addQuestionBody .textBox{
 
 div.addQuestionBody .saveButton{
     padding: 5px;
+     background-image: url(../images/icons/add.png);
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
@@ -158,15 +161,17 @@ div.addQuestionBody div.questionItemResult .itemNameWrapper div.itemLink{
 /** Add Answers **/
 
 div.addAnswers{
-
 }
+
+input { -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 
 div.options{
     margin: 4px;
     text-align: right;
 }
 
- div.options .saveButton{
+div.options .saveButton{
+  background-image: url(../images/icons/add.png);
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
@@ -181,9 +186,23 @@ div.addAnswers div.addNewAnswer .inputClass{
     color: #808080;
     font-size: 12px;
     width: 76%;
+    border-bottom-right-radius : 5px 5px;
+    border-bottom-left-radius : 5px 5px;
+    border-top-left-radius : 5px 5px;
+    border-top-right-radius : 5px 5px;
 }
 
+
 div.addAnswers div.addNewAnswer{
+    font-size: 12px;
+    color: #FFF;
+    float: left;
+    width: 49%;
+    min-height: 262px;
+    background-color : #BCBCBC;
+    -moz-border-radius : 5px;
+    border-radius: 5px;
+    padding: 10px;
     margin-bottom: 3px;
 }
 
@@ -192,12 +211,20 @@ div.addAnswers  div.listAnswerWrapper{
 }
 
 div.addAnswers div.answerItem{
-    background-color: #698DA9;
-    padding: 25px;
+    column-count: 2;
+    column-gap: 30px;
+    background-color: #878A8E;
+    padding: 7px 2px 2px;
     font-size: 12px;
     color: #FFF;
-    margin-top : 2px;
+    margin-top : 8px;
     cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #000000;
+    -webkit-box-shadow: 2px 2px 3px #000000;
+    -moz-box-shadow: 2px 2px 3px #000000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
 div.addAnswers div.answerItem:hover{
@@ -205,21 +232,29 @@ div.addAnswers div.answerItem:hover{
 }
 
 div.addAnswers div.answerItem .answer{
-    background-image: url(../images/icons/emne-comment-question.png);
     background-repeat: no-repeat;
-    padding-left: 30px;
+    padding-left: 15px;
     display: inline-block;
-    min-width: 200px;
+    min-width: 150px;
+    max-width : 150px;
     height: 25px;
-    float: left;
     padding-top: 3px;
-    max-width : 200px;
-    font-size: 12px;
+    font-size: 1.1em;
+    color: #3D4361;
+    font-weight : bold;
 }
 
 div.addAnswers div.answerItem  .url{
     display: inline-block;
-    min-width: 100px;
+    min-width: 140px;
+    margin: 3px;
+}
+
+div.addAnswers div.answerItem  .changeUrl{
+    display: inline-block;
+    min-width: 225px;
+    margin: 3px;
+
 }
 
 div.addAnswers div.answerItem  .url a{
@@ -233,7 +268,6 @@ div.addAnswers div.answerItem .url a:hover{
 }
 
 div.addAnswers div.answerItem .remove{
-    float: right;
 }
 
 div.addAnswers div.answerItem .remove a{
@@ -247,15 +281,23 @@ div.addAnswers div.answerItem .remove a:hover{
     text-decoration: underline;
 }
 
-div.addAnswers div.addNewAnswer{
-    background-color: #6E6E6E;
+.buttonclass {
+    background-image: url(../images/icons/add.png);
+}
+
+div.addAnswers div.addNewHashTag{
+
     font-size: 12px;
     color: #FFF;
+    float: right;
+    width: 50%;
 }
 
 div.addAnswers div.addNewAnswer .label{
     min-width: 100px;
     margin: 10px;
+    color: #000;
+    font-weight: bold;
 }
 
 div.addAnswers div.addNewAnswer .inputClass{
@@ -263,16 +305,58 @@ div.addAnswers div.addNewAnswer .inputClass{
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    width: 25%;
+    width: 378px;
 }
 
-div.addAnswers div.addNewAnswer .saveButton{
+div.addAnswers div.addNewAnswer .addButton{
+   margin-left : 8px;
+   border: 1px solid #BCBCBC;
+   min-width: 100px;
+   padding: 4px;
+}
+
+div.header{
+    font-size: 2em;
+    padding: 4px;
+    margin: 1px;
+}
+
+/** Hash Tags **/
+
+div.addAnswers div.addNewHashTag{
+    font-size: 12px;
+    color: #FFF;
+    float: left;
+    width: 600px;
+    margin-left: 8px;
+    min-height: 262px;
+    background-color : #BCBCBC;
+    -moz-border-radius : 5px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 3px;
+}
+
+div.addAnswers div.addNewHashTag .label{
+    min-width: 100px;
+    margin: 10px;
+    color: #000;
+    font-weight: bold;
+}
+
+div.addAnswers div.addNewHashTag .inputClass{
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    width: 135px;
-    color: #FFF;
+    width: 378px;
+}
+
+div.addAnswers div.addNewHashTag .addButton{
+   margin-left : 8px;
+   border: 1px solid #BCBCBC;
+   min-width: 100px;
+   padding: 4px;
 }
 
 /** Publish Tweet Poll **/
