@@ -61,6 +61,9 @@ public class TweetPoll {
     /** Scheduled Date. **/
     private Date scheduleDate;
 
+    /** Create Date. **/
+    private Date createDate;
+
     /** True to close poll. **/
     private Boolean completed = false;
 
@@ -324,4 +327,22 @@ public class TweetPoll {
     public void setHashTags(Set<HashTag> hashTags) {
         this.hashTags = hashTags;
     }
+
+    /**
+     * @return the createDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date", nullable = true)
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * @param createDate the createDate to set
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+
 }

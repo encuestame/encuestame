@@ -16,19 +16,8 @@
     margin-top: 6px;
 }
 
-
-#surveyWrapper div.panelSurvey div.livePanel{
-    background-color: #F6F6F6;
-   -webkit-border-radius: 0px 4px 4px 0px;
-   -moz-border-radius: 0px 4px 4px 0px;
-   border-radius: 0px 4px 4px 0px;
-    min-height: 595px;
-    border: 1px solid #DFDFDF;
-   border-collapse: separate;
-}
-
 #surveyWrapper div.bodySurvey{
-    margin-left: 244px;
+    margin-left: 250px;
     margin-top: 15px;
     min-width:700px;
     padding: 0 0px 8px 0;

@@ -106,6 +106,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollDomain.setTweetOwner(getSecUserDao().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
+            tweetPollDomain.setCreateDate(new Date());
             tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
             tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
             tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());

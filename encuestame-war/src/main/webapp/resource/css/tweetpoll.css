@@ -563,7 +563,7 @@ div.publishContent div.publishButtons{
 /** List of TweetPoll. **/
 
 div.listTweetPolls{
-    margin: 15px;
+    margin: 2px;
 }
 
 div.listTweetPolls div.header{
@@ -579,9 +579,33 @@ div.listTweetPolls div.header{
 div.listTweetPolls div.header div.headerTitle{
     margin: 5px 0px 5px 0px;
 }
+div.listTweetPolls div.header div.search{
+    position: absolute;
+    right: 35px;
+    top: 105px;
+    font-size: 12px;
+    color: #FFF;
+}
+
+div.listTweetPolls div.header div.search label{
+    font-size: 12px;
+}
+
+div.listTweetPolls div.header div.search input{
+    width: 100px;
+    padding: 2px;
+    margin-right: 3px;
+    font-size: 10px;
+}
+
+div.listTweetPolls div.header div.search a{
+    text-decoration: none;
+    color: #FFF;
+}
 
 div.listTweetPolls div.header div.option{
     font-size: 12px;
+    padding-left: 5px;
 }
 
 div.listTweetPolls div.header div.option a{

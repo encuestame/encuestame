@@ -18,11 +18,15 @@
                 <div class="option">
                     <sf:commandLink id="viewGroupDetail" value="New TweetPoll" action="create"/>
                 </div>
+                <div class="search">
+                     <input type="text"/>
+                     <a4j:commandLink id="searchButton" value="Search" action="search"/>
+                </div>
             </div>
             <rich:dataTable
                 id="dataTableGroups" value="#{tweetsPolls}"
                 var="unitTweetPoll" styleClass="roundTable fixed wide"
-                rendered="#{tweetsPolls.rowCount > 0}" rows="10">
+                rendered="#{tweetsPolls.rowCount > 0}" rows="8">
                 <f:facet name="header">
                     <rich:columnGroup>
                         <rich:column width="20px">

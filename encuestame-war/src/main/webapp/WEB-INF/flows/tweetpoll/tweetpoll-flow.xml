@@ -18,6 +18,11 @@
         <transition on="create" to="addQuestion">
 
         </transition>
+        <transition on="search">
+            <evaluate
+                expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
+                result="flowScope.tweetsPolls" result-type="dataModel" />
+        </transition>
     </view-state>
 
     <view-state id="addQuestion">
