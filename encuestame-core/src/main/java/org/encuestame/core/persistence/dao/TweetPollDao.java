@@ -57,6 +57,19 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     }
 
     /**
+     * Get TweetPoll by Question Name.
+     * @param keyWord keyword
+     * @param userId user Id.
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId){
+        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId"
+                +" AND question.name like '%:keyword%' order by createDate desc",
+                new String[]{"keyword", "userId"}, new Object[]{keyWord, userId});
+    }
+
+    /**
      * Retrieve Tweets Poll Switch.
      * @param tweetCode tweetCode
      * @return switch

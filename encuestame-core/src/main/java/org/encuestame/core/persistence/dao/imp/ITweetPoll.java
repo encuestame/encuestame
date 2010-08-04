@@ -69,5 +69,13 @@ public interface ITweetPoll extends IBaseDao{
       */
       List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers);
 
+      /**
+       * Get TweetPoll by Question Name.
+       * @param keyWord keyword
+       * @param userId user Id.
+       * @return
+       */
+      List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId);
+
 
 }
