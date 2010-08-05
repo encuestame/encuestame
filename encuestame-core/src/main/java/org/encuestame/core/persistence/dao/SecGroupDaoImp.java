@@ -37,7 +37,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
     public List<SecGroup> findAllGroups() {
-        return getHibernateTemplate().find("from SecGroups");
+        return getHibernateTemplate().find("from SecGroup");
     }
 
     /**
