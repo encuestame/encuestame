@@ -26,12 +26,6 @@
     <property name="buildSurvey" ref="surveyControllerBean" />
   </bean>
 
-  <bean id="tweetPolls"
-    class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean"
-    scope="session">
-    <property name="servicemanagerBean" ref="servicesManager" />
-  </bean>
-
   <!-- menu's bean -->
   <bean id="menuBean" class="org.encuestame.utils.web.MenuBean"
     scope="session">

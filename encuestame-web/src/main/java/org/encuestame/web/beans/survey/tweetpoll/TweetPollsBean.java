@@ -13,20 +13,16 @@
 
 package org.encuestame.web.beans.survey.tweetpoll;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecUsers;
-import org.encuestame.core.service.ISurveyService;
-import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.web.beans.MasterBean;
 import org.richfaces.component.html.HtmlDataTable;
-
-import twitter4j.Status;
 
 /**
  * Tweet Polls Bean.
@@ -35,7 +31,12 @@ import twitter4j.Status;
  * @since Feb 19, 2010 6:31:47 PM
  * @version $Id:$
  */
-public class TweetPollsBean extends MasterBean {
+public class TweetPollsBean extends MasterBean implements Serializable {
+
+    /**
+     * Serial.tweetPollsBean
+     */
+    private static final long serialVersionUID = -491202309932131596L;
 
     /** DataTable. **/
     private HtmlDataTable tweetDataTable;
@@ -63,6 +64,11 @@ public class TweetPollsBean extends MasterBean {
     private List<UnitTweetPollResult> selectedResults = new ArrayList<UnitTweetPollResult>();
 
     private static final Integer TWEET_TEXT_LENGTH = 140;
+
+    /**
+     * Keyword.
+     */
+    private String searchKeyword;
 
     /**
      * Load Tweets.
@@ -156,14 +162,6 @@ public class TweetPollsBean extends MasterBean {
     }
 
     /**
-     * See Details.
-     */
-    public final void seeDetails() {
-        final UnitTweetPoll item = (UnitTweetPoll) getTweetDataTable()
-                .getRowData();
-    }
-
-    /**
      * @return the tweetDataTable
      */
     public final HtmlDataTable getTweetDataTable() {
@@ -249,5 +247,20 @@ public class TweetPollsBean extends MasterBean {
      */
     public final void setSelectedResults(final List<UnitTweetPollResult> selectedResults) {
         this.selectedResults = selectedResults;
+    }
+
+    /**
+     * @return the searchKeyword
+     */
+    public String getSearchKeyword() {
+        return searchKeyword;
+    }
+
+    /**
+     * @param searchKeyword the searchKeyword to set
+     */
+    public void setSearchKeyword(String searchKeyword) {
+        log.debug("SET searchKeyword "+searchKeyword);
+        this.searchKeyword = searchKeyword;
     }
 }
