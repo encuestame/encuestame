@@ -166,9 +166,7 @@ public class AbstractSurveyService extends AbstractBaseService {
      */
     public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
-        log.info("Entro en ASS");
-        log.info(this.getQuestionDao().getAnswersByQuestionId(questionId));
-
+        log.debug("answers by question id ["+questionId+"] answers size "+answers.size());
         final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
         for (QuestionsAnswers questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));

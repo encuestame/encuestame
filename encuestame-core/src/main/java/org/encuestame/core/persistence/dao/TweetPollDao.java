@@ -22,6 +22,7 @@ import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -64,9 +65,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId){
-        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId"
-                +" AND question.name like '%:keyword%' order by createDate desc",
-                new String[]{"keyword", "userId"}, new Object[]{keyWord, userId});
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.createAlias("question","question");
+        criteria.createAlias("tweetOwner","tweetOwner");
+        criteria.add(Restrictions.like("question.question", keyWord, MatchMode.ANYWHERE));
+        criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**

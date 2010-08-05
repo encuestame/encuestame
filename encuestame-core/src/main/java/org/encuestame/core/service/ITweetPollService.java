@@ -61,6 +61,14 @@ public interface ITweetPollService extends IMasterSurveyService{
     String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion;
 
     /**
+     * Search {@link TweetPoll} by Keyword.
+     * @param username username session
+     * @param keyword keyword.
+     * @return
+     */
+    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword);
+
+    /**
      * Save Tweet Id.
      * @param tweetPollBean {@link UnitTweetPoll}
      * @throws EnMeExpcetion exception

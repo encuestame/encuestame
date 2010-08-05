@@ -47,7 +47,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<SecGroup> loadGroupsByUser(final SecUser secUsers) {
-        return getHibernateTemplate().findByNamedParam("from SecGroups where secUsers = :secUsers ", "secUsers", secUsers);
+        return getHibernateTemplate().findByNamedParam("from SecGroup where secUsers = :secUsers ", "secUsers", secUsers);
     }
 
     /**
@@ -67,7 +67,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public SecGroup getGroupById(final Long groupId, final SecUser secUser){
         return (SecGroup) DataAccessUtils.uniqueResult(getHibernateTemplate()
-               .findByNamedParam("from SecGroups where groupId = :groupId and  secUsers = :secUser",
+               .findByNamedParam("from SecGroup where groupId = :groupId and  secUsers = :secUser",
                 new String[]{"groupId", "secUser"}, new Object[]{groupId, secUser}));
     }
 

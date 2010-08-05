@@ -75,13 +75,35 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<UnitTweetPoll> getTweetsPollsByUserName(final String username){
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
         log.info("tweetPoll size "+tweetPolls.size());
+        return this.setListAnswers(tweetPolls);
+    }
+
+    /**
+     * Set List Answer.
+     * @param listTweetPolls List of {@link TweetPoll}
+     * @return
+     */
+    private List<UnitTweetPoll> setListAnswers(final List<TweetPoll> listTweetPolls){
         final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
-        for (TweetPoll tweetPoll : tweetPolls) {
+        for (TweetPoll tweetPoll : listTweetPolls) {
             final UnitTweetPoll unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
              unitTweetPoll.getQuestionBean().setListAnswers(this.retrieveAnswerByQuestionId(unitTweetPoll.getQuestionBean().getId()));
              tweetPollsBean.add(unitTweetPoll);
         }
         return tweetPollsBean;
+    }
+
+    /**
+     * Search {@link TweetPoll} by Keyword.
+     * @param username username session
+     * @param keyword keyword.
+     * @return
+     */
+    public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword){
+        log.info("search keyword tweetPoll  "+keyword);
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username));
+        log.info("search keyword tweetPoll size "+tweetPolls.size());
+        return this.setListAnswers(tweetPolls);
     }
 
     /**
