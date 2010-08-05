@@ -22,10 +22,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.HashTag;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus;
@@ -92,7 +92,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
-            final Questions question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
+            final Question question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
             log.debug("question found "+question);
             if(question == null){
                 throw new EnMeExpcetion("question not found");
@@ -304,7 +304,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws TwitterException
      */
     public Boolean validateUserTwitterAccount(final String username){
-        final SecUsers users = getUser(username).getSecUser();
+        final SecUser users = getUser(username).getSecUser();
         Boolean validate = false;
         log.info(users.getTwitterAccount());
         log.info(users.getTwitterPassword());

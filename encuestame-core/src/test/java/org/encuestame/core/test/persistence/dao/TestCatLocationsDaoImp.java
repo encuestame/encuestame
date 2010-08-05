@@ -19,7 +19,7 @@ import java.util.List;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.LocationFolderType;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ import org.junit.Test;
  */
 public class TestCatLocationsDaoImp extends AbstractBase{
 
-    private SecUsers userPrimary;
+    private SecUser userPrimary;
 
     /**
      * {@link CatLocation}.

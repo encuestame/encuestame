@@ -17,7 +17,7 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -46,10 +46,10 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
 
     /**
      * Retrieve List of Secondary users without owner account.
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @return List of {@link SecUserSecondary}
      */
-    public List<SecUserSecondary> retrieveListOwnerUsers(final SecUsers	secUsers){
+    public List<SecUserSecondary> retrieveListOwnerUsers(final SecUser	secUsers){
         return getHibernateTemplate().findByNamedParam("from SecUserSecondary where secUser = :secUsers "
             +" ", "secUsers", secUsers);
     }
@@ -77,11 +77,11 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
     /**
      * Get Primary User By Id.
      * @param userId user id
-     * @return {@link SecUsers}
+     * @return {@link SecUser}
      * @throws HibernateException exception
      */
-    public SecUsers getUserById(final Long userId) throws HibernateException {
-            return (SecUsers) getHibernateTemplate().get(SecUsers.class, userId);
+    public SecUser getUserById(final Long userId) throws HibernateException {
+            return (SecUser) getHibernateTemplate().get(SecUser.class, userId);
     }
 
     /**
@@ -119,11 +119,11 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
 
     /**
      * Get Twitter Accounts.
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @return List {@link SecUserTwitterAccounts}.
      *
      */
-    public List<SecUserTwitterAccounts> getTwitterAccountByUser(final SecUsers secUsers){
+    public List<SecUserTwitterAccounts> getTwitterAccountByUser(final SecUser secUsers){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserTwitterAccounts.class);
         criteria.add(Restrictions.like("secUsers", secUsers) );
         return   getHibernateTemplate().findByCriteria(criteria);
@@ -134,7 +134,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param secUsers {@link SecUserDaoImp}
      * @return List {@link SecUserTwitterAccounts}.
      */
-    public List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUsers secUsers){
+    public List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUser secUsers){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserTwitterAccounts.class);
         criteria.add(Restrictions.like("secUsers", secUsers) );
         criteria.add(Restrictions.eq("verfied", true) );
@@ -154,7 +154,7 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
 
 
     /**
-     * Get {@link SecUserSecondary} but {@link SecUsers} id.
+     * Get {@link SecUserSecondary} but {@link SecUser} id.
      * @param userId user id
      * @return secondary user list
      */

@@ -70,7 +70,7 @@ public class CatLocation {
     private Integer locationAccuracy;
 
     /** User. **/
-    private SecUsers secUsers;
+    private SecUser secUsers;
 
     /** Location Folder. **/
     private CatLocationFolder catLocationFolder;
@@ -171,14 +171,14 @@ public class CatLocation {
      * @return the secUsers
      */
     @ManyToOne()
-    public SecUsers getSecUsers() {
+    public SecUser getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(SecUsers secUsers) {
+    public void setSecUsers(SecUser secUsers) {
         this.secUsers = secUsers;
     }
 

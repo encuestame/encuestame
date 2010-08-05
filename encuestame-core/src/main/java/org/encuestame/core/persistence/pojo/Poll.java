@@ -43,8 +43,8 @@ public class Poll {
     private Boolean pollCompleted;
     private Date createdAt;
     private String pollHash;
-    private Questions question;
-    private SecUsers pollOwner;
+    private Question question;
+    private SecUser pollOwner;
     private Date endDate;
     private Boolean publish;
     private Boolean closeNotification;
@@ -119,14 +119,14 @@ public class Poll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "qid", nullable = false)
-    public Questions getQuestion() {
+    public Question getQuestion() {
         return question;
     }
 
     /**
      * @param question the question to set
      */
-    public void setQuestion(final Questions question) {
+    public void setQuestion(final Question question) {
         this.question = question;
     }
 
@@ -135,14 +135,14 @@ public class Poll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUsers getPollOwner() {
+    public SecUser getPollOwner() {
         return pollOwner;
     }
 
     /**
      * @param pollOwner the pollOwner to set
      */
-    public void setPollOwner(final SecUsers pollOwner) {
+    public void setPollOwner(final SecUser pollOwner) {
         this.pollOwner = pollOwner;
     }
 

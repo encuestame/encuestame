@@ -14,7 +14,7 @@ package org.encuestame.core.test.persistence.pojos;
 
 import static org.junit.Assert.*;
 
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class TestSecUsers extends AbstractBase{
      */
     @Test
     public void testSecUser(){
-        final SecUsers user = new SecUsers();
+        final SecUser user = new SecUser();
         user.setTwitterAccount("testTWitterAccount");
         user.setTwitterPassword("testTwitterPwsd");
         getSecUserDao().saveOrUpdate(user);

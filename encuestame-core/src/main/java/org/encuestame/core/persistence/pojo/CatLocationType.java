@@ -41,8 +41,8 @@ public class CatLocationType {
     /** Type Level. **/
     private Integer locationTypeLevel;
 
-    /** {@link SecUsers}. **/
-    private SecUsers users;
+    /** {@link SecUser}. **/
+    private SecUser users;
 
     /**
      * @return locationTypeId
@@ -95,14 +95,14 @@ public class CatLocationType {
      * @return the users
      */
     @ManyToOne()
-    public SecUsers getUsers() {
+    public SecUser getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(final SecUsers users) {
+    public void setUsers(final SecUser users) {
         this.users = users;
     }
 }

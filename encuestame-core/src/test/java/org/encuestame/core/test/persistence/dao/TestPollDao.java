@@ -21,9 +21,9 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +45,8 @@ public class TestPollDao extends AbstractBase {
     /** {@link Poll} **/
     Poll poll;
 
-    /** {@link SecUsers}.**/
-    SecUsers user;
+    /** {@link SecUser}.**/
+    SecUser user;
 
     /**
      * Before.
@@ -63,7 +63,7 @@ public class TestPollDao extends AbstractBase {
       **/
     @Test
     public void testFindAllPollByUserId(){
-        final SecUsers user = createUser();
+        final SecUser user = createUser();
         final Poll pollnew = createPoll();
         log.info("UID-->"+user.getUid());
         final List<Poll> pollList = getiPoll().findAllPollByUserId(pollnew.getPollOwner().getUid());
@@ -84,7 +84,7 @@ public class TestPollDao extends AbstractBase {
     **/
   @Test
   public void testRetrievePollResultsById(){
-      final Questions quest = createQuestion("Do you like futboll", "Yes/No");
+      final Question quest = createQuestion("Do you like futboll", "Yes/No");
 
       final QuestionsAnswers qansw = createQuestionAnswer("Yes", quest, "2020");
       final QuestionsAnswers qansw2 = createQuestionAnswer("No", quest, "2020");

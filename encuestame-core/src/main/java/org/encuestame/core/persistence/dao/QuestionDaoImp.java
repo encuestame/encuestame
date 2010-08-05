@@ -19,7 +19,7 @@ import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.core.persistence.dao.imp.IQuestionDao;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -47,7 +47,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @throws HibernateException exception
      */
     @CacheFlush(modelId="createQuestion")
-    public void createQuestion(final Questions question) throws HibernateException {
+    public void createQuestion(final Question question) throws HibernateException {
         saveOrUpdate(question);
     }
 
@@ -58,8 +58,8 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     @Cacheable(modelId="retrieveQuestionsByName")
     @SuppressWarnings("unchecked")
-    public List<Questions> retrieveQuestionsByName(final String keyword, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(Questions.class);
+    public List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
         criteria.add(Restrictions.like("question", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -71,10 +71,10 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Questions> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
+    public List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
         log.info("keyword "+keyword);
         log.info("userId "+userId);
-        List<Questions> searchResult = (List) getHibernateTemplate().execute(
+        List<Question> searchResult = (List) getHibernateTemplate().execute(
                 new HibernateCallback() {
                     public Object doInHibernate(org.hibernate.Session session) {
                         try {
@@ -84,12 +84,12 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                                                   new String[]{"question"},
                                                   new SimpleAnalyzer());
                             final org.apache.lucene.search.Query query = parser.parse(keyword);
-                            final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Questions.class);
-                            final Criteria criteria = session.createCriteria(Questions.class);
+                            final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Question.class);
+                            final Criteria criteria = session.createCriteria(Question.class);
                             criteria.createAlias("secUsersQuestion", "secUsersQuestion");
                             criteria.add(Restrictions.eq("secUsersQuestion.uid", userId));
                             hibernateQuery.setCriteriaQuery(criteria);
-                            final List<Questions> result = hibernateQuery.list();
+                            final List<Question> result = hibernateQuery.list();
                             log.info("result LUCENE "+result.size());
                             return result;
                         } catch (ParseException ex) {
@@ -105,10 +105,10 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     /**
      * Retrieve Question By Id.
      * @param questionId question id
-     * @return  {@link Questions}
+     * @return  {@link Question}
      */
-    public Questions retrieveQuestionById(final Long questionId){
-        return (Questions) getHibernateTemplate().get(Questions.class, questionId);
+    public Question retrieveQuestionById(final Long questionId){
+        return (Question) getHibernateTemplate().get(Question.class, questionId);
     }
 
     /**
@@ -134,11 +134,11 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 
     /**
      * Load All Questions.
-     * @return List of {@link Questions}
+     * @return List of {@link Question}
      * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
-    public List<Questions> loadAllQuestions() throws HibernateException {
+    public List<Question> loadAllQuestions() throws HibernateException {
         return getHibernateTemplate().find("from Questions");
     }
 
@@ -173,8 +173,8 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     @SuppressWarnings("unchecked")
     @Deprecated
     //We have similar method on the top of the class.
-    public List<Questions> getQuestionbyKeyword(final String keywordQuestion){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(Questions.class);
+    public List<Question> getQuestionbyKeyword(final String keywordQuestion){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
         criteria.add(Restrictions.like("question", "%"+keywordQuestion+"%"));
         return getHibernateTemplate().findByCriteria(criteria);
     }

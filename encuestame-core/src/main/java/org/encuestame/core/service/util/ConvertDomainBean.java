@@ -28,13 +28,13 @@ import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts.TypeAuth;
@@ -190,11 +190,11 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert {@link SecUsers} to {@link UnitSessionUserBean}.
+     * Convert {@link SecUser} to {@link UnitSessionUserBean}.
      * @param user user
      * @return {@link UnitSessionUserBean}
      */
-    public static final UnitSessionUserBean convertUserSessionToUserBean(final SecUsers user){
+    public static final UnitSessionUserBean convertUserSessionToUserBean(final SecUser user){
         final UnitSessionUserBean sessionUserBean =  new UnitSessionUserBean();
         sessionUserBean.setUserSessionId(user.getUid());
         sessionUserBean.setConsumerTwitterKey(user.getConsumerKey());
@@ -242,20 +242,20 @@ public class ConvertDomainBean {
      * @return collection of groups beans.
      * @throws Exception
      */
-    public static final Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroups> groups){
+    public static final Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroup> groups){
             final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-            for (SecGroups secGroups : groups) {
+            for (SecGroup secGroups : groups) {
                  loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
             }
         return loadListGroups;
     }
 
     /**
-     * Convert {@link SecGroups} to {@link UnitGroupBean}
-     * @param groupDomain {@link SecGroups}
+     * Convert {@link SecGroup} to {@link UnitGroupBean}
+     * @param groupDomain {@link SecGroup}
      * @return {@link UnitGroupBean}
      */
-    public static final UnitGroupBean convertGroupDomainToBean(final SecGroups groupDomain) {
+    public static final UnitGroupBean convertGroupDomainToBean(final SecGroup groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
         groupBean.setId(groupDomain.getGroupId());
         groupBean.setGroupName(groupDomain.getGroupName());
@@ -356,11 +356,11 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link Questions} to {@link UnitQuestionBean}.
-     * @param questions {@link Questions}
+     * Convert {@link Question} to {@link UnitQuestionBean}.
+     * @param questions {@link Question}
      * @return {@link UnitQuestionBean}
      */
-    public static final UnitQuestionBean convertQuestionsToBean(final Questions questions){
+    public static final UnitQuestionBean convertQuestionsToBean(final Question questions){
         final UnitQuestionBean questionBean = new UnitQuestionBean();
         questionBean.setId(questions.getQid());
         questionBean.setQuestionName(questions.getQuestion());
@@ -510,9 +510,9 @@ public class ConvertDomainBean {
      * @return collection of question beans.
      * @throws Exception
      */
-    public static final List<UnitQuestionBean> convertListToUnitQuestionBean(final List<Questions> questions){
+    public static final List<UnitQuestionBean> convertListToUnitQuestionBean(final List<Question> questions){
         final List<UnitQuestionBean> loadListQuestions = new LinkedList<UnitQuestionBean>();
-            for (Questions question : questions) {
+            for (Question question : questions) {
                 loadListQuestions.add(ConvertDomainBean.convertQuestionsToBean(question));
             }
         return loadListQuestions;

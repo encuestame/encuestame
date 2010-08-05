@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
@@ -87,13 +87,13 @@ public class ConvertListDomainSelectBean {
     }
 
     /**
-     * Convert {@link SecGroups} domains to {@link SelectItem}.
-     * @param groups {@link SecGroups}
+     * Convert {@link SecGroup} domains to {@link SelectItem}.
+     * @param groups {@link SecGroup}
      * @return select items.
      */
-    public static final List<SelectItem> convertListGroupDomainToSelect(final Set<SecGroups> groups){
+    public static final List<SelectItem> convertListGroupDomainToSelect(final Set<SecGroup> groups){
         final List<SelectItem> items = new ArrayList<SelectItem>();
-        for (final SecGroups group : groups) {
+        for (final SecGroup group : groups) {
             if(group.getGroupName()!=null){
                 items.add(new SelectItem(group.getGroupId(), group.getGroupName()));
             }

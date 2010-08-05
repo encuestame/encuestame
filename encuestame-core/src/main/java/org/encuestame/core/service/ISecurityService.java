@@ -18,10 +18,10 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -148,7 +148,7 @@ public interface ISecurityService extends IService {
             throws EnMeExpcetion;
 
     /**
-     * Remove {@link SecGroups} from User.
+     * Remove {@link SecGroup} from User.
      * @param userBean {@link UnitUserBean}
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion
@@ -215,7 +215,7 @@ public interface ISecurityService extends IService {
       * Update Twitter Account.
       * @param account account
       * @param password password
-      * @param secUser {@link SecUsers}
+      * @param secUser {@link SecUser}
       */
      void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password,
                                final Boolean verify);

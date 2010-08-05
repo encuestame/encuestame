@@ -26,12 +26,12 @@ import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
@@ -145,7 +145,7 @@ public class TestHibernateDomains extends AbstractBase{
     **/
     @Test
     public void testQuestions(){
-        final Questions questions = new Questions();
+        final Question questions = new Question();
         questions.setQuestion("What is your Name");
         questions.setQidKey("2");
         questions.setCatState(createState("Inactive"));
@@ -175,7 +175,7 @@ public class TestHibernateDomains extends AbstractBase{
      **/
     @Test
     public void testSecGroups(){
-        final SecGroups groups = new SecGroups();
+        final SecGroup groups = new SecGroup();
         groups.setGroupName("writers");
         groups.setGroupDescriptionInfo("writers");
         groups.setIdState(createState("Active").getIdState());
@@ -205,7 +205,7 @@ public class TestHibernateDomains extends AbstractBase{
     */
     @Test
     public void testSecUser(){
-        final SecUsers user = new SecUsers();
+        final SecUser user = new SecUser();
         user.setTwitterAccount("");
         user.setTwitterPassword("");
         getSecUserDao().saveOrUpdate(user);

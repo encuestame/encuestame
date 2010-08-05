@@ -14,8 +14,8 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecGroup;
+import org.encuestame.core.persistence.pojo.SecUser;
 /**
  * Interface to implement Sec Group Dao.
  * @author Picado, Juan juan@encuestame.org
@@ -28,35 +28,35 @@ public interface ISecGroups extends IBaseDao {
      * Find All Groups.
      * @return
      */
-    List<SecGroups> findAllGroups();
+    List<SecGroup> findAllGroups();
 
     /**
      * Group By Id.
      * @param groupId
      * @return
      */
-    SecGroups getGroupById(Long groupId);
+    SecGroup getGroupById(Long groupId);
 
     /**
      * Get Group by Id and User.
      * @param groupId group id
-     * @param secUser {@link SecUsers}
+     * @param secUser {@link SecUser}
      * @return
      */
-    SecGroups getGroupById(final Long groupId, final SecUsers secUser);
+    SecGroup getGroupById(final Long groupId, final SecUser secUser);
 
     /**
      * Find.
      * @param groupId
      * @return
      */
-    SecGroups find(final Long groupId);
+    SecGroup find(final Long groupId);
 
     /**
      * Load Groups By User.
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @return list of groups.
      */
-    List<SecGroups> loadGroupsByUser(final SecUsers secUsers);
+    List<SecGroup> loadGroupsByUser(final SecUser secUsers);
 }
 

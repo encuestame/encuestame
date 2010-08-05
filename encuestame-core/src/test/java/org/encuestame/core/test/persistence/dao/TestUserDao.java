@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ import org.junit.Test;
  */
 public class TestUserDao extends AbstractBase {
 
-    private SecUsers userPrimary;
+    private SecUser userPrimary;
 
     /**
      * Before.
@@ -108,7 +108,7 @@ public class TestUserDao extends AbstractBase {
     @Test
     public void testAssingGroupToUser(){
          final SecUserSecondary user = createSecondaryUser("user 4", this.userPrimary);
-         final SecGroups group = super.createGroups("group 1");
+         final SecGroup group = super.createGroups("group 1");
          user.getSecGroups().add(group);
          getSecGroup().saveOrUpdate(user);
          assertEquals("Should be equals", 1, user.getSecGroups().size());
@@ -122,7 +122,7 @@ public class TestUserDao extends AbstractBase {
         final SecPermission editor = createPermission("editor");
         final SecPermission admon = createPermission("publisher");
         final SecPermission permission = createPermission("administrator");
-        final SecGroups group = createGroups("group 1");
+        final SecGroup group = createGroups("group 1");
         group.getSecPermissions().add(editor);
         group.getSecPermissions().add(admon);
         group.getSecPermissions().add(permission);

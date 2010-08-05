@@ -22,7 +22,7 @@ import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.mail.InvitationBean;
@@ -42,7 +42,7 @@ public class TestCatEmailLists extends AbstractBase {
 
     private CatEmailLists emailList;
     private CatEmails emails;
-    private SecUsers user;
+    private SecUser user;
     private SecUserSecondary secondary;
 
      /** {@link IProject} **/

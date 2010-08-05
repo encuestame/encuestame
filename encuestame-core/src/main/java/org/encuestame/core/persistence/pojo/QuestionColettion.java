@@ -37,7 +37,7 @@ import javax.persistence.TemporalType;
 public class QuestionColettion {
 
     private Long idQColection;
-    private SecUsers secUsers;
+    private SecUser secUsers;
     private String desColeccion;
     private Date creationDate;
 
@@ -59,18 +59,18 @@ public class QuestionColettion {
     }
 
     /**
-     * @return {@link SecUsers}
+     * @return {@link SecUser}
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
-    public SecUsers getSecUsers() {
+    public SecUser getSecUsers() {
         return this.secUsers;
     }
 
     /**
-     * @param secUsers {@link SecUsers}
+     * @param secUsers {@link SecUser}
      */
-    public void setSecUsers(final SecUsers secUsers) {
+    public void setSecUsers(final SecUser secUsers) {
         this.secUsers = secUsers;
     }
 

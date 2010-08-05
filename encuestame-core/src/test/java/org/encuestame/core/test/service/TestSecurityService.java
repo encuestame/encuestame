@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.util.ConvertDomainBean;
@@ -44,7 +44,7 @@ public class TestSecurityService extends AbstractBase{
     @Autowired
     private ISecurityService securityService;
 
-    private SecUsers userPrimary;
+    private SecUser userPrimary;
 
     private SecUserSecondary secUserSecondary;
 
@@ -122,11 +122,11 @@ public class TestSecurityService extends AbstractBase{
      */
     @Test
     public void testDeleteGroup(){
-        final SecGroups groupDomain = createGroups("admin");
+        final SecGroup groupDomain = createGroups("admin");
         final Long idGroup = groupDomain.getGroupId();
         final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
         securityService.deleteGroup(group);
-        final SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
+        final SecGroup groupRetrieve = getSecGroup().getGroupById(idGroup);
         assertNull(groupRetrieve);
     }
 
@@ -145,11 +145,11 @@ public class TestSecurityService extends AbstractBase{
      */
     @Test
     public void testdeleteGroup(){
-      final SecGroups groupDomain = createGroups("admin");
+      final SecGroup groupDomain = createGroups("admin");
       final Long idGroup = groupDomain.getGroupId();
       final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
       securityService.deleteGroup(group);
-      final SecGroups groupRetrieve = getSecGroup().getGroupById(idGroup);
+      final SecGroup groupRetrieve = getSecGroup().getGroupById(idGroup);
       assertNull(groupRetrieve);
 
     }
@@ -165,7 +165,7 @@ public class TestSecurityService extends AbstractBase{
      //final String username = secUsers.getUsername();
      final UnitUserBean user = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
      securityService.deleteUser(user);
-     final SecUsers userRetrieve = getSecUserDao().getUserById(idUser);
+     final SecUser userRetrieve = getSecUserDao().getUserById(idUser);
      assertNull(userRetrieve);
     }
 
@@ -177,12 +177,12 @@ public class TestSecurityService extends AbstractBase{
      */
     @Test
     public void testUpdateGroup() throws EnMeExpcetion{
-      SecGroups secgroups = createGroups("guests");
+      SecGroup secgroups = createGroups("guests");
       Long idGroupUpdate = secgroups.getGroupId();
       UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(secgroups);
       groupBean.setGroupName("editors");
       securityService.updateGroup(groupBean);
-      SecGroups groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
+      SecGroup groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
       assertEquals("Should be","editors",groupUpdateRetrieve.getGroupName());
 
     }
@@ -352,7 +352,7 @@ public class TestSecurityService extends AbstractBase{
        */
       @Test
       public void testCreateGroup(){
-        SecGroups secCreateGroup = new SecGroups();
+        SecGroup secCreateGroup = new SecGroup();
         secCreateGroup.setGroupId(12L);
         secCreateGroup.setGroupDescriptionInfo("1111");
         secCreateGroup.setGroupName("vvvv");
@@ -434,7 +434,7 @@ public class TestSecurityService extends AbstractBase{
         @Test
         public void testAssignGroup() throws EnMeExpcetion{
           final SecUserSecondary users=  createSecondaryUser("juanpicado",this.userPrimary);
-          final SecGroups groups = createGroups("encuestador");
+          final SecGroup groups = createGroups("encuestador");
           UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(users);
           UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
           //securityService.assingGroup(userBean, groupBean);

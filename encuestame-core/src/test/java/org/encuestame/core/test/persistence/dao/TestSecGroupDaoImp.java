@@ -14,7 +14,7 @@ package org.encuestame.core.test.persistence.dao;
 
 import static org.junit.Assert.*;
 
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 /**
@@ -30,7 +30,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
  */
     @Test
     public void TestCreateGroup(){
-        final SecGroups group = super.createGroups("first group");
+        final SecGroup group = super.createGroups("first group");
         assertNotNull(group);
     }
 
@@ -39,7 +39,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
      */
     @Test
    public void TestDeleteGroup(){
-        final SecGroups group = super.createGroups("second group");
+        final SecGroup group = super.createGroups("second group");
         getSecGroup().delete(group);
         assertEquals("Should be equals",0, getSecGroup().findAllGroups().size());
     }
@@ -58,11 +58,11 @@ public class TestSecGroupDaoImp extends AbstractBase{
     public void TestUpdateGroup(){
     final String newname="Administrator";
     final String newdescription="System Admin";
-    final SecGroups group = super.createGroups("fifth group");
+    final SecGroup group = super.createGroups("fifth group");
     group.setGroupName(newname);
     group.setGroupDescriptionInfo(newdescription);
     getSecGroup().saveOrUpdate(group);
-    final SecGroups retrieveGroup =getSecGroupDaoImp().getGroupById(Long.valueOf(group.getGroupId()));
+    final SecGroup retrieveGroup =getSecGroupDaoImp().getGroupById(Long.valueOf(group.getGroupId()));
     /*sertEquals("New Name should be",newname,
             retrieveGroup.getName());
     assertEquals("New Description should be",newdescription,

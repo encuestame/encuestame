@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.TweetPollDao;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.TweetPoll;
@@ -59,7 +59,7 @@ public class TestTweetPollDao  extends AbstractBase{
     @Before
     public void initData(){
       this.secondary = createSecondaryUser("jhon", createUser());
-      final Questions question = createQuestion("who I am?", "");
+      final Question question = createQuestion("who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
       this.tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);

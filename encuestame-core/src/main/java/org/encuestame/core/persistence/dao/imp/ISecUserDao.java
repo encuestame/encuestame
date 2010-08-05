@@ -17,7 +17,7 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.hibernate.HibernateException;
 
 /**
@@ -45,18 +45,18 @@ public interface ISecUserDao extends IBaseDao {
 
      /**
       * Retrieve List of Secondary users without owner account.
-      * @param secUsers {@link SecUsers}.
+      * @param secUsers {@link SecUser}.
       * @return List of {@link SecUserSecondary}
       */
-     List<SecUserSecondary> retrieveListOwnerUsers(final SecUsers	secUsers);
+     List<SecUserSecondary> retrieveListOwnerUsers(final SecUser	secUsers);
 
 
     /**
      * @param userId userId
-     * @return {@link SecUsers}
+     * @return {@link SecUser}
      * @throws HibernateException HibernateException
      */
-    SecUsers getUserById(final Long userId);
+    SecUser getUserById(final Long userId);
 
     /**
      * @param userId userId
@@ -73,7 +73,7 @@ public interface ISecUserDao extends IBaseDao {
     List<SecUserSecondary> getUsersByUsername(final String username);
 
     /**
-     * Get {@link SecUserSecondary} but {@link SecUsers} id.
+     * Get {@link SecUserSecondary} but {@link SecUser} id.
      * @param userId user id
      * @return secondary user list
      */
@@ -95,11 +95,11 @@ public interface ISecUserDao extends IBaseDao {
 
     /**
      * Get Twitter Accounts.
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @return List {@link SecUserTwitterAccounts}.
      *
      */
-    List<SecUserTwitterAccounts> getTwitterAccountByUser(final SecUsers secUsers);
+    List<SecUserTwitterAccounts> getTwitterAccountByUser(final SecUser secUsers);
 
     /**
      * Get Twitter Account.
@@ -113,6 +113,6 @@ public interface ISecUserDao extends IBaseDao {
      * @param secUsers {@link SecUserDaoImp}
      * @return List {@link SecUserTwitterAccounts}.
      */
-   List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUsers secUsers);
+   List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUser secUsers);
 
 }

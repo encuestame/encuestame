@@ -40,7 +40,7 @@ import javax.persistence.TemporalType;
 public class CatEmailLists {
 
     private Long idList;
-    private SecUsers usuarioEmail;
+    private SecUser usuarioEmail;
     private Date createdAt;
     private String listName;
     private String descripcionList;
@@ -68,14 +68,14 @@ public class CatEmailLists {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUsers getUsuarioEmail() {
+    public SecUser getUsuarioEmail() {
         return usuarioEmail;
     }
 
     /**
      * @param usuarioEmail the usuarioEmail to set
      */
-    public void setUsuarioEmail(SecUsers usuarioEmail) {
+    public void setUsuarioEmail(SecUser usuarioEmail) {
         this.usuarioEmail = usuarioEmail;
     }
 

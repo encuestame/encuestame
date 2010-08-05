@@ -22,10 +22,10 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
@@ -53,14 +53,14 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     @Autowired
     private MailServiceImpl mailServiceImpl;
 
-    /** {@link Questions} */
-    private Questions question;
+    /** {@link Question} */
+    private Question question;
 
     /** {@link QuestionPattern} **/
     private QuestionPattern pattern;
 
-    /** {@link SecUsers} **/
-    private SecUsers user;
+    /** {@link SecUser} **/
+    private SecUser user;
 
     private SecUserSecondary userSecondary;
 
@@ -214,7 +214,7 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
     /**
      * @return the question
      */
-    public Questions getQuestion() {
+    public Question getQuestion() {
         return question;
     }
     /**

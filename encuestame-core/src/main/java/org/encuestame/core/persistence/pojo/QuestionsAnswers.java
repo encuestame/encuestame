@@ -36,7 +36,7 @@ public class QuestionsAnswers {
     private Long questionAnswerId;
 
     /** questions. **/
-    private Questions questions;
+    private Question questions;
 
     /** answer. **/
     private String answer;
@@ -98,7 +98,7 @@ public class QuestionsAnswers {
      */
     @ManyToOne()
     @JoinColumn(name = "id_question_answer", nullable = false)
-    public Questions getQuestions() {
+    public Question getQuestions() {
         return questions;
     }
 
@@ -106,7 +106,7 @@ public class QuestionsAnswers {
      * @param questions
      *            the questions to set
      */
-    public void setQuestions(Questions questions) {
+    public void setQuestions(Question questions) {
         this.questions = questions;
     }
 

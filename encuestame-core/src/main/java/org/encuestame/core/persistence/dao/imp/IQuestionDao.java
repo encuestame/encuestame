@@ -14,7 +14,7 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.hibernate.HibernateException;
@@ -32,14 +32,14 @@ public interface IQuestionDao extends IBaseDao {
      * @param question question
      * @throws HibernateException exception
      */
-    void createQuestion(final Questions question);
+    void createQuestion(final Question question);
 
     /**
      * Load All Questions.
-     * @return List of {@link Questions}
+     * @return List of {@link Question}
      * @throws HibernateException exception
      */
-    public List<Questions> loadAllQuestions();
+    public List<Question> loadAllQuestions();
 
     /**
      * Load All Questions Patron.
@@ -62,14 +62,14 @@ public interface IQuestionDao extends IBaseDao {
      * @param keyword keyword
      * @return list of questions
      */
-    List<Questions> retrieveQuestionsByName(final String keyword, final Long userId);
+    List<Question> retrieveQuestionsByName(final String keyword, final Long userId);
 
     /**
      * Retrieve Question By Id.
      * @param questionId question id
-     * @return  {@link Questions}
+     * @return  {@link Question}
      */
-    Questions retrieveQuestionById(final Long questionId);
+    Question retrieveQuestionById(final Long questionId);
 
     /**
      * Get Questions Answer By Question Id.
@@ -91,7 +91,7 @@ public interface IQuestionDao extends IBaseDao {
      * @param keywordQuestion
      * @return
      */
-    List<Questions> getQuestionbyKeyword(final String keywordQuestion);
+    List<Question> getQuestionbyKeyword(final String keywordQuestion);
 
     /**
      * Retrieve Indexes Question By Keyword
@@ -99,5 +99,5 @@ public interface IQuestionDao extends IBaseDao {
      * @param userId
      * @return
      */
-    List<Questions> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId);
+    List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId);
 }

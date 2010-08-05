@@ -76,11 +76,11 @@ public class TweetPoll {
     /** If true, system display in left nav live results. **/
     private Boolean resumeLiveResults = false;
 
-    /** {@link SecUsers}. **/
-    private SecUsers tweetOwner;
+    /** {@link SecUser}. **/
+    private SecUser tweetOwner;
 
-    /** {@link Questions}. **/
-    private Questions question;
+    /** {@link Question}. **/
+    private Question question;
 
     /** Repeated Votes. **/
     private Boolean allowRepatedVotes;
@@ -159,7 +159,7 @@ public class TweetPoll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUsers getTweetOwner() {
+    public SecUser getTweetOwner() {
         return tweetOwner;
     }
 
@@ -167,7 +167,7 @@ public class TweetPoll {
      * @param tweetOwner
      *            the tweetOwner to set
      */
-    public void setTweetOwner(final SecUsers tweetOwner) {
+    public void setTweetOwner(final SecUser tweetOwner) {
         this.tweetOwner = tweetOwner;
     }
 
@@ -176,7 +176,7 @@ public class TweetPoll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "qid", nullable = false)
-    public Questions getQuestion() {
+    public Question getQuestion() {
         return question;
     }
 
@@ -184,7 +184,7 @@ public class TweetPoll {
      * @param question
      *            the question to set
      */
-    public void setQuestion(final Questions question) {
+    public void setQuestion(final Question question) {
         this.question = question;
     }
 

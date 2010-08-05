@@ -15,7 +15,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.hibernate.HibernateException;
 
  /**
@@ -43,7 +43,7 @@ public interface IProject extends IBaseDao {
     List<Project> findAll();
 
     /**
-     * Find Projects by {@link SecUsers} id.
+     * Find Projects by {@link SecUser} id.
      * @param userId user id.
      * @return list of projects.
      * @throws HibernateException exception

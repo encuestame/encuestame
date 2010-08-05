@@ -21,7 +21,7 @@ import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
@@ -82,7 +82,7 @@ public class EnMeSchemaExport {
         //TODO: lazy exception problem with this script.
 
         //create user admin
-        final SecUsers userPrimary = new SecUsers();
+        final SecUser userPrimary = new SecUser();
         userPrimary.setTwitterAccount("testEncuesta");
         userPrimary.setTwitterPassword("testEncuesta123");
 

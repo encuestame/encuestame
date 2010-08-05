@@ -15,8 +15,8 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
-import org.encuestame.core.persistence.pojo.SecGroups;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecGroup;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.hibernate.HibernateException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -36,37 +36,37 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      */
     //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
-    public List<SecGroups> findAllGroups() {
+    public List<SecGroup> findAllGroups() {
         return getHibernateTemplate().find("from SecGroups");
     }
 
     /**
      * Load Groups By User.
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @return list of groups.
      */
     @SuppressWarnings("unchecked")
-    public List<SecGroups> loadGroupsByUser(final SecUsers secUsers) {
+    public List<SecGroup> loadGroupsByUser(final SecUser secUsers) {
         return getHibernateTemplate().findByNamedParam("from SecGroups where secUsers = :secUsers ", "secUsers", secUsers);
     }
 
     /**
      *
      */
-    public SecGroups getGroupById(final Long groupId) throws HibernateException {
-        return (SecGroups) getHibernateTemplate().get(SecGroups.class,
+    public SecGroup getGroupById(final Long groupId) throws HibernateException {
+        return (SecGroup) getHibernateTemplate().get(SecGroup.class,
                groupId);
     }
 
     /**
      * Get Group by Id and User.
      * @param groupId group id
-     * @param secUser {@link SecUsers}
+     * @param secUser {@link SecUser}
      * @return
      */
     @SuppressWarnings("unchecked")
-    public SecGroups getGroupById(final Long groupId, final SecUsers secUser){
-        return (SecGroups) DataAccessUtils.uniqueResult(getHibernateTemplate()
+    public SecGroup getGroupById(final Long groupId, final SecUser secUser){
+        return (SecGroup) DataAccessUtils.uniqueResult(getHibernateTemplate()
                .findByNamedParam("from SecGroups where groupId = :groupId and  secUsers = :secUser",
                 new String[]{"groupId", "secUser"}, new Object[]{groupId, secUser}));
     }
@@ -76,7 +76,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
      * @param groupId group id.
      * @return group
      */
-    public SecGroups find(final Long groupId) {
-        return (SecGroups) getHibernateTemplate().get(SecGroups.class, groupId);
+    public SecGroup find(final Long groupId) {
+        return (SecGroup) getHibernateTemplate().get(SecGroup.class, groupId);
     }
 }

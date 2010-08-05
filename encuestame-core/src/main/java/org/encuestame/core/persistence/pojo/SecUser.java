@@ -29,7 +29,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sec_user")
-public class SecUsers{
+public class SecUser{
 
     /** User Id. **/
     private Long uid;

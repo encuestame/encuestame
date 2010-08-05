@@ -21,7 +21,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.springframework.dao.DataAccessException;
@@ -129,8 +129,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         // search if authorities if the group are activated
         if (this.roleGroupAuth) {
             // search groups of the user
-            final Set<SecGroups> groups = user.getSecGroups();
-            for (final SecGroups secGroups : groups) {
+            final Set<SecGroup> groups = user.getSecGroups();
+            for (final SecGroup secGroups : groups) {
                 authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(secGroups.getSecPermissions()));
             }
         }

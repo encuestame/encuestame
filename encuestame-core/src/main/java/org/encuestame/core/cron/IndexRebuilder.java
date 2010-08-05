@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.hibernate.CacheMode;
 import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
@@ -74,7 +74,7 @@ public class IndexRebuilder {
     public void reindexEntities() throws Exception {
         log.debug("reindexEntities");
         FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(getHibernateTemplate().getSessionFactory().openSession());
-        reindex(fullTextSession, Questions.class);
+        reindex(fullTextSession, Question.class);
         fullTextSession.close();
     }
 

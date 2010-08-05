@@ -51,9 +51,9 @@ public class SecUserTwitterAccounts {
     private Long id;
 
     /**
-     * {@link SecUsers}.
+     * {@link SecUser}.
      */
-    private SecUsers secUsers;
+    private SecUser secUsers;
 
     /**
      * Twitter Account.
@@ -122,14 +122,14 @@ public class SecUserTwitterAccounts {
      * @return the secUsers
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public SecUsers getSecUsers() {
+    public SecUser getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final SecUsers secUsers) {
+    public void setSecUsers(final SecUser secUsers) {
         this.secUsers = secUsers;
     }
 

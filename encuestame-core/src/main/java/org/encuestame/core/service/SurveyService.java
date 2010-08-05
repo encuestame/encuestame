@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
@@ -60,7 +60,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
                 log.debug("Question Name "+questionBean.getQuestionName());
                 log.debug("Create Question User Id"+questionBean.getUserId());
                 log.debug("Create Question List Answers "+questionBean.getListAnswers().size());
-                final Questions question = new Questions();
+                final Question question = new Question();
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
@@ -83,7 +83,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param answerBean answer
      * @param question question
      */
-    public void saveAnswer(final UnitAnswersBean answerBean, final Questions question){
+    public void saveAnswer(final UnitAnswersBean answerBean, final Question question){
             final QuestionsAnswers answer = new QuestionsAnswers();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
@@ -146,11 +146,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion {
         final List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
         try {
-            final  List<Questions> questionsList = getQuestionDao()
+            final  List<Question> questionsList = getQuestionDao()
                     .loadAllQuestions();
             if (questionsList.size() > 0) {
 
-               for (Questions questions : questionsList) {
+               for (Question questions : questionsList) {
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());

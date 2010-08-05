@@ -21,7 +21,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.service.IProjectService;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -39,9 +39,9 @@ import org.springframework.test.annotation.ExpectedException;
 public class TestProjectService extends AbstractBase {
 
 
-       /** {@link SecUsers}. **/
+       /** {@link SecUser}. **/
 
-         SecUsers user;
+         SecUser user;
 
         /** {@link IProjectService} **/
         @Autowired

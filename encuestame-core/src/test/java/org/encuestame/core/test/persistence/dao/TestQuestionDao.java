@@ -18,8 +18,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
-import org.encuestame.core.persistence.pojo.Questions;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.Question;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -35,8 +35,8 @@ import org.junit.Test;
 @SuppressWarnings("deprecation")
 public class TestQuestionDao extends AbstractBase{
 
-    /** {@link SecUsers} **/
-    private SecUsers user;
+    /** {@link SecUser} **/
+    private SecUser user;
 
     /**
      * Before.
@@ -56,8 +56,8 @@ public class TestQuestionDao extends AbstractBase{
      */
     @Test
     public void testCreateQuestion(){
-        final Questions question = createQuestion("Why encuestame is better than polldady?", this.user);
-        final Questions retrieveQuestion = getQuestionDaoImp().retrieveQuestionById(question.getQid());
+        final Question question = createQuestion("Why encuestame is better than polldady?", this.user);
+        final Question retrieveQuestion = getQuestionDaoImp().retrieveQuestionById(question.getQid());
         assertEquals("Questions should be equals",question.getQid() , retrieveQuestion.getQid());
     }
 
@@ -66,7 +66,7 @@ public class TestQuestionDao extends AbstractBase{
      */
     @Test
     public void testRetrieveQuestionsByName(){
-        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods",  this.user.getUid());
+        final List<Question> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods",  this.user.getUid());
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
     }
 
@@ -76,7 +76,7 @@ public class TestQuestionDao extends AbstractBase{
     @Test
     public void testRetrieveIndexedQuestionsByName(){
         flushIndexes();
-        final List<Questions> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods", this.user.getUid());
+        final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods", this.user.getUid());
         //TODO: need check this search
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
 

@@ -22,9 +22,9 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.TweetPollService;
@@ -53,14 +53,14 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
     @Autowired
     private ITweetPollService tweetPollService;
 
-    /** {@link Questions} */
-    private Questions question;
+    /** {@link Question} */
+    private Question question;
 
     /** {@link QuestionPattern} **/
     private QuestionPattern pattern;
 
-    /** {@link SecUsers} **/
-    private SecUsers user;
+    /** {@link SecUser} **/
+    private SecUser user;
 
     /** {@link SecUserSecondary}. **/
     private SecUserSecondary secUserSecondary;
@@ -117,7 +117,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testCreateTweetPoll() throws EnMeExpcetion{
-    final Questions question = createQuestion("why the sky is blue?", "yes/no", this.user);
+    final Question question = createQuestion("why the sky is blue?", "yes/no", this.user);
     createQuestionAnswer("yes", question, "12345");
     createQuestionAnswer("no", question, "12346");
     final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
@@ -139,8 +139,8 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
      * @throws EnMeExpcetion
      */
     public void testSaveTweetId() throws EnMeExpcetion{
-        Questions questionSave = createQuestion("how much or How Many?","html");
-        SecUsers userpao= createUser("dianmora", "gemazo26.");
+        Question questionSave = createQuestion("how much or How Many?","html");
+        SecUser userpao= createUser("dianmora", "gemazo26.");
         final String tweetUrl = "http://www.encuestame.org";
         final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), userpao, questionSave);
 

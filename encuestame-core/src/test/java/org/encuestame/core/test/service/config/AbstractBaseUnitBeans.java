@@ -15,9 +15,9 @@ package org.encuestame.core.test.service.config;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -200,8 +200,8 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
               Boolean publishTweetPoll,
               Boolean completed,
               Date scheduleDate,
-              SecUsers tweetOwner,
-              Questions question){
+              SecUser tweetOwner,
+              Question question){
          final TweetPoll tweetPoll = new TweetPoll();
          tweetPoll.setPublishTweetPoll(publishTweetPoll);
          tweetPoll.setCompleted(completed);

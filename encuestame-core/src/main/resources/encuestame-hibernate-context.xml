@@ -33,15 +33,15 @@
                 <value>org.encuestame.core.persistence.pojo.CatLocationFolder</value>
                 <value>org.encuestame.core.persistence.pojo.Client</value>
                 <value>org.encuestame.core.persistence.pojo.HashTag</value>
-                <value>org.encuestame.core.persistence.pojo.SecGroups</value>
+                <value>org.encuestame.core.persistence.pojo.SecGroup</value>
                 <value>org.encuestame.core.persistence.pojo.SecPermission</value>
-                <value>org.encuestame.core.persistence.pojo.SecUsers</value>
+                <value>org.encuestame.core.persistence.pojo.SecUser</value>
                 <value>org.encuestame.core.persistence.pojo.SecUserTwitterAccounts</value>
                 <value>org.encuestame.core.persistence.pojo.SecUserSecondary</value>
                 <value>org.encuestame.core.persistence.pojo.Poll</value>
                 <value>org.encuestame.core.persistence.pojo.PollResult</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionColettion</value>
-                <value>org.encuestame.core.persistence.pojo.Questions</value>
+                <value>org.encuestame.core.persistence.pojo.Question</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionsAnswers</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionPattern</value>
                 <value>org.encuestame.core.persistence.pojo.SurveyFormat</value>

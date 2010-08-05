@@ -48,7 +48,7 @@ public class SecUserSecondary {
     private String userEmail;
     private String username;
     private String password;
-    private SecUsers secUser;
+    private SecUser secUser;
     private String inviteCode;
     private Date enjoyDate;
     private Boolean userStatus;
@@ -76,7 +76,7 @@ public class SecUserSecondary {
      */
     private boolean credentialsNonExpired = true;
 
-    private Set<SecGroups> secGroups = new HashSet<SecGroups>();
+    private Set<SecGroup> secGroups = new HashSet<SecGroup>();
 
     private Set<Project> projects = new HashSet<Project>();
 
@@ -164,14 +164,14 @@ public class SecUserSecondary {
      * @return the secUser
      */
     @ManyToOne()
-    public SecUsers getSecUser() {
+    public SecUser getSecUser() {
         return secUser;
     }
 
     /**
      * @param secUser the secUser to set
      */
-    public void setSecUser(SecUsers secUser) {
+    public void setSecUser(SecUser secUser) {
         this.secUser = secUser;
     }
 
@@ -261,14 +261,14 @@ public class SecUserSecondary {
     @JoinTable(name="sec_user_group",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_group")})
-    public Set<SecGroups> getSecGroups() {
+    public Set<SecGroup> getSecGroups() {
         return secGroups;
     }
 
     /**
      * @param secGroups the secGroups to set
      */
-    public void setSecGroups(Set<SecGroups> secGroups) {
+    public void setSecGroups(Set<SecGroup> secGroups) {
         this.secGroups = secGroups;
     }
 

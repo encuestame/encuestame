@@ -24,7 +24,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.Poll;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
@@ -52,7 +52,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public final void createPoll(final UnitPoll pollBean, final String currentUser) throws EnMeExpcetion{
         try {
             final Poll pollDomain = new Poll();
-            final Questions question = getQuestionDao().retrieveQuestionById(pollBean.getQuestionBean().getId());
+            final Question question = getQuestionDao().retrieveQuestionById(pollBean.getQuestionBean().getId());
             if (question == null){
                  throw new EnMeExpcetion("question not found");
             }
@@ -79,7 +79,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param answerBean answer
      * @param question question
      */
-    public void saveAnswer(final UnitAnswersBean answerBean, final Questions question){
+    public void saveAnswer(final UnitAnswersBean answerBean, final Question question){
             final QuestionsAnswers answer = new QuestionsAnswers();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
@@ -96,7 +96,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
             try{
-                final Questions question = new Questions();
+                final Question question = new Question();
                 question.setQuestion(questionBean.getQuestionName());
                // question.setSecUsersQuestion(getClientDao().getClientById((questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));

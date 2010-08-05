@@ -38,7 +38,7 @@ import javax.persistence.TemporalType;
 public class Surveys {
 
     private Long sid;
-    private SecUsers secUsers;
+    private SecUser secUsers;
     private Integer ticket;
     private Date startDate;
     private Date endDate;
@@ -69,14 +69,14 @@ public class Surveys {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUsers getSecUsers() {
+    public SecUser getSecUsers() {
         return this.secUsers;
     }
 
     /**
      * @param secUsers secUsers
      */
-    public void setSecUsers(SecUsers secUsers) {
+    public void setSecUsers(SecUser secUsers) {
         this.secUsers = secUsers;
     }
 

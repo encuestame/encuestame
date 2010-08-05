@@ -25,11 +25,11 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts.TypeAuth;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
@@ -126,22 +126,22 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public List<UnitGroupBean> loadGroups(final String currentUsername){
         final SecUserSecondary secUserSecondary = getUser(currentUsername);
         final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
-        final List<SecGroups> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
-        for (SecGroups secGroups : groups) {
+        final List<SecGroup> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
+        for (SecGroup secGroups : groups) {
             groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
         }
         return groupBeans;
     }
 
     /**
-     * Load {@link SecGroups} by Username.
+     * Load {@link SecGroup} by Username.
      * @param currentUsername username
      * @return
      */
     public List<SelectItem> loadSelectItemGroups(final String currentUsername){
         final SecUserSecondary secUserSecondary = getUser(currentUsername);
-        final List<SecGroups> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
-        final Set<SecGroups> groupsCollection = new HashSet<SecGroups>(groups);
+        final List<SecGroup> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
+        final Set<SecGroup> groupsCollection = new HashSet<SecGroup>(groups);
         return ConvertListDomainSelectBean.convertListGroupDomainToSelect(groupsCollection);
     }
 
@@ -150,7 +150,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Update Twitter Account.
      * @param account account
      * @param password password
-     * @param secUser {@link SecUsers}
+     * @param secUser {@link SecUser}
      */
     public void updateTwitterAccount(
             final UnitTwitterAccountBean accountBean,
@@ -192,7 +192,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param username
      */
     public void addNewTwitterAccount(final String account, final String username){
-        final SecUsers secUsers = getUser(username).getSecUser();
+        final SecUser secUsers = getUser(username).getSecUser();
         final SecUserTwitterAccounts userTwitterAccount = new SecUserTwitterAccounts();
         userTwitterAccount.setSecUsers(secUsers);
         userTwitterAccount.setTwitterAccount(account);
@@ -263,7 +263,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param group group
      */
     public void deleteGroup(final UnitGroupBean group) {
-        final SecGroups g = getGroupDao().find(Long.valueOf(group.getId()));
+        final SecGroup g = getGroupDao().find(Long.valueOf(group.getId()));
         getGroupDao().delete(g);
     }
 
@@ -325,7 +325,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion {
         log.info("group to search "+groupBean.getId());
-        final SecGroups group = getGroupDao().find(Long.valueOf(groupBean.getId()));
+        final SecGroup group = getGroupDao().find(Long.valueOf(groupBean.getId()));
         log.info("group found "+group);
         if (group != null) {
             log.info("group updated name "+groupBean.getGroupName());
@@ -368,8 +368,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) {
         //log.info("Create Group");
-        final SecGroups groupDomain = new SecGroups();
-        final SecUsers secUsers = getUser(username).getSecUser();
+        final SecGroup groupDomain = new SecGroup();
+        final SecUser secUsers = getUser(username).getSecUser();
         groupDomain.setGroupDescriptionInfo(groupBean.getGroupDescription());
         groupDomain.setGroupName(groupBean.getGroupName());
         groupDomain.setIdState(null);
@@ -399,7 +399,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public void createUser(final UnitUserBean userBean, final String username) throws EnMeExpcetion {
         final SecUserSecondary secondaryUser = new SecUserSecondary();
-        final SecUsers secUsers = getUser(username).getSecUser();
+        final SecUser secUsers = getUser(username).getSecUser();
         //validate email and password
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
             secondaryUser.setUserEmail(userBean.getEmail());
@@ -531,7 +531,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             throws EnMeExpcetion {
         final SecUserSecondary secUserSecondary = getUser(userBean.getUsername());
         //search group by group id and owner user id.
-        final SecGroups secGroup = getGroupDao().getGroupById(groupBean.getId(), secUserSecondary.getSecUser());
+        final SecGroup secGroup = getGroupDao().getGroupById(groupBean.getId(), secUserSecondary.getSecUser());
         if(secGroup == null){
             throw new EnMeExpcetion("group not found");
         }
@@ -541,7 +541,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Remove {@link SecGroups} from User.
+     * Remove {@link SecGroup} from User.
      * @param userBean {@link UnitUserBean}
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion
@@ -575,7 +575,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link UnitUserBean}.
      */
     public UnitUserBean singupUser(final SignUpBean singUpBean){
-        final SecUsers secUsers = new SecUsers();
+        final SecUser secUsers = new SecUser();
         getSecUserDao().saveOrUpdate(secUsers);
         final SecUserSecondary secUserSecondary = new SecUserSecondary();
         secUserSecondary.setUsername(singUpBean.getUsername());

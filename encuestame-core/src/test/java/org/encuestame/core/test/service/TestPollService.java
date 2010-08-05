@@ -23,9 +23,9 @@ import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.service.IPollService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -44,11 +44,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version Id:
  */
 public class TestPollService extends AbstractBaseUnitBeans{
-     /** {@link SecUsers} **/
-    private SecUsers user;
+     /** {@link SecUser} **/
+    private SecUser user;
 
-    /** {@link Questions} **/
-    private Questions question;
+    /** {@link Question} **/
+    private Question question;
 
     /** {@link QuestionPattern} **/
     private QuestionPattern questionPattern;

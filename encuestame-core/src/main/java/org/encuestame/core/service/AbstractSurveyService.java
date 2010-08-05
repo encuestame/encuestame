@@ -30,7 +30,7 @@ import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
@@ -88,7 +88,7 @@ public class AbstractSurveyService extends AbstractBaseService {
      */
     public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
             try{
-                final Questions question = new Questions();
+                final Question question = new Question();
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
@@ -131,7 +131,7 @@ public class AbstractSurveyService extends AbstractBaseService {
     public void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion{
             final QuestionsAnswers answer = new QuestionsAnswers();
             if(answerBean.getQuestionId()!= null){
-                final Questions question = getQuestionDao().retrieveQuestionById(answerBean.getQuestionId());
+                final Question question = getQuestionDao().retrieveQuestionById(answerBean.getQuestionId());
                 answer.setQuestions(question);
                 answer.setAnswer(answerBean.getAnswers());
                 answer.setUniqueAnserHash(answerBean.getAnswerHash());
@@ -216,7 +216,7 @@ public class AbstractSurveyService extends AbstractBaseService {
     public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
-            final Questions question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
+            final Question question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
             log.debug("question found "+question);
             if(question == null){
                 throw new EnMeExpcetion("question not found");
@@ -322,11 +322,11 @@ public class AbstractSurveyService extends AbstractBaseService {
     public List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion {
         final List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
         try {
-            final  List<Questions> questionsList = getQuestionDao()
+            final  List<Question> questionsList = getQuestionDao()
                     .loadAllQuestions();
             if (questionsList.size() > 0) {
 
-               for (Questions questions : questionsList) {
+               for (Question questions : questionsList) {
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
@@ -436,9 +436,9 @@ public class AbstractSurveyService extends AbstractBaseService {
      */
     public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username){
         final List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
-        final List<Questions> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
+        final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
         log.info("listSuggestQuestion "+questionsList.size());
-        for (Questions question : questionsList) {
+        for (Question question : questionsList) {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
         }
         return unitQuestionBean;
@@ -472,7 +472,7 @@ public class AbstractSurveyService extends AbstractBaseService {
      * @throws EnMeExpcetion  Exception
      */
      public void updateQuestion(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion{
-         final Questions question = getQuestionDao().retrieveQuestionById(unitQuestionPoll.getId());
+         final Question question = getQuestionDao().retrieveQuestionById(unitQuestionPoll.getId());
          if (question == null){
              throw new EnMeExpcetion("question not found");
          }

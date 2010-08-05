@@ -35,7 +35,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sec_groups")
-public class SecGroups {
+public class SecGroup {
 
     /**
      * Group Id.
@@ -68,9 +68,9 @@ public class SecGroups {
     private Set<SecPermission> secPermissions = new HashSet<SecPermission>();
 
     /**
-     * {@link SecUsers}.
+     * {@link SecUser}.
      */
-    private SecUsers secUsers = new SecUsers();
+    private SecUser secUsers = new SecUser();
 
     /**
      * @return groupId
@@ -174,14 +174,14 @@ public class SecGroups {
      * @return the secUsers
      */
     @ManyToOne()
-    public SecUsers getSecUsers() {
+    public SecUser getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final SecUsers secUsers) {
+    public void setSecUsers(final SecUser secUsers) {
         this.secUsers = secUsers;
     }
 }

@@ -49,9 +49,9 @@ public class CatLocationFolder {
     private LocationFolderType folderType;
 
     /**
-     * {@link SecUsers}.
+     * {@link SecUser}.
      */
-    private SecUsers secUsers;
+    private SecUser secUsers;
 
     /**
      * SubLocation Folder.
@@ -110,14 +110,14 @@ public class CatLocationFolder {
      * @return the secUsers
      */
     @ManyToOne()
-    public SecUsers getSecUsers() {
+    public SecUser getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final SecUsers secUsers) {
+    public void setSecUsers(final SecUser secUsers) {
         this.secUsers = secUsers;
     }
 

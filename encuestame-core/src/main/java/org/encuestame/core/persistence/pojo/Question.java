@@ -44,7 +44,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="Questions")
 @Table(name = "questions")
-public class Questions {
+public class Question {
 
     private Long qid;
     private CatState catState;
@@ -52,7 +52,7 @@ public class Questions {
     private String qidKey;
     private Boolean sharedQuestion;
     private QuestionPattern questionPattern;
-    private SecUsers secUsersQuestion;
+    private SecUser secUsersQuestion;
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
     /** {@link QuestionsAnswers}. **/
@@ -164,14 +164,14 @@ public class Questions {
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
-    public SecUsers getSecUsersQuestion() {
+    public SecUser getSecUsersQuestion() {
         return secUsersQuestion;
     }
 
     /**
      * @param secUsersQuestion the secUsersQuestion to set
      */
-    public void setSecUsersQuestion(final SecUsers secUsersQuestion) {
+    public void setSecUsersQuestion(final SecUser secUsersQuestion) {
         this.secUsersQuestion = secUsersQuestion;
     }
 

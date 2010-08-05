@@ -49,10 +49,10 @@ public class Project {
     private String projectInfo;
     private Date projectDateStart;
     private Date projectDateFinish;
-    private SecUsers users;
+    private SecUser users;
     private Set<SurveyGroup> surveyGroups = new HashSet<SurveyGroup>();
     private Set<CatLocation> locations = new HashSet<CatLocation>();
-    private Set<SecGroups> groups = new HashSet<SecGroups>();
+    private Set<SecGroup> groups = new HashSet<SecGroup>();
     private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     private Priority priority = Priority.MEDIUM;
@@ -181,14 +181,14 @@ public class Project {
     @JoinTable(name="sec_project_group",
               joinColumns={@JoinColumn(name="cat_id_project")},
               inverseJoinColumns={@JoinColumn(name="sec_id_group")})
-    public Set<SecGroups> getGroups() {
+    public Set<SecGroup> getGroups() {
         return groups;
     }
 
     /**
      * @param groups the groups to set
      */
-    public void setGroups(final Set<SecGroups> groups) {
+    public void setGroups(final Set<SecGroup> groups) {
         this.groups = groups;
     }
 
@@ -248,14 +248,14 @@ public class Project {
      * @return the users
      */
     @ManyToOne()
-    public SecUsers getUsers() {
+    public SecUser getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(SecUsers users) {
+    public void setUsers(SecUser users) {
         this.users = users;
     }
 

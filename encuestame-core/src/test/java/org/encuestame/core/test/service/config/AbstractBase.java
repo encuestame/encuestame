@@ -49,12 +49,12 @@ import org.encuestame.core.persistence.pojo.PollResult;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Questions;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecGroups;
+import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUsers;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
@@ -435,9 +435,9 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
       */
     public Poll createPoll(
             final Date createdDate,
-            final Questions question,
+            final Question question,
             final String hash,
-            final SecUsers secUsers,
+            final SecUser secUsers,
             final Boolean pollCompleted){
         final Poll poll = new Poll();
         poll.setCreatedAt(createdDate);
@@ -494,7 +494,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
             final String descProject,
             final String infoProject,
             final CatState state,
-            final SecUsers user) {
+            final SecUser user) {
           Project project = new Project();
           project.setStateProject(state);
           project.setProjectDateFinish(new Date());
@@ -530,12 +530,12 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     /**
      * Helper to create Secondary User.
      * @param name user name
-     * @param secUser {@link SecUsers}
+     * @param secUser {@link SecUser}
      * @return state
      */
     public SecUserSecondary createSecondaryUser(
             final String name,
-            final SecUsers secUser){
+            final SecUser secUser){
         final SecUserSecondary user= new SecUserSecondary();
         user.setCompleteName(name);
         user.setUsername(name);
@@ -551,10 +551,10 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
 
     /**
      * Create User.
-     * @return {@link SecUsers}
+     * @return {@link SecUser}
      */
-    public SecUsers createUser(){
-        SecUsers user = new SecUsers();
+    public SecUser createUser(){
+        SecUser user = new SecUser();
         user.setTwitterAccount("testTWitterAccount");
         user.setTwitterPassword("testTwitterPwsd");
         getSecUserDao().saveOrUpdate(user);
@@ -564,10 +564,10 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * Create User.
      * @param twitterAccount account
      * @param twitterPassword password
-     * @return {@link SecUsers}
+     * @return {@link SecUser}
      */
-    public SecUsers createUser(final String twitterAccount, final String twitterPassword){
-        SecUsers user = new SecUsers();
+    public SecUser createUser(final String twitterAccount, final String twitterPassword){
+        SecUser user = new SecUser();
         user.setTwitterAccount(twitterAccount);
         user.setTwitterPassword(twitterPassword);
         getSecUserDao().saveOrUpdate(user);
@@ -600,7 +600,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
                        final String locDescription,
                        final String locTypeName,
                        final Integer Level,
-                       final SecUsers secUsers,
+                       final SecUser secUsers,
                        final CatLocationFolder catLocationFolder){
         final CatLocation location = new CatLocation();
         location.setLocationStatus(Status.ACTIVE);
@@ -619,14 +619,14 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param locDescription description.
      * @param locTypeName type
      * @param Level level
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @return
      */
     public CatLocation createCatLocation(
             final String locDescription,
             final String locTypeName,
             final Integer Level,
-            final SecUsers secUsers){
+            final SecUser secUsers){
     return this.createCatLocation(locDescription, locTypeName, Level, secUsers, null);
     }
 
@@ -636,8 +636,8 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param groupname user name
      * @return state
      */
-    public SecGroups createGroups(final String groupname){
-        final SecGroups group = new SecGroups();
+    public SecGroup createGroups(final String groupname){
+        final SecGroup group = new SecGroup();
         group.setSecUsers(createUser());
         group.setGroupName(groupname);
         group.setIdState(1L);
@@ -664,7 +664,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param user user
      * @param permission permission
      */
-    public void addPermissionToUser(final SecUsers user, final SecPermission permission){
+    public void addPermissionToUser(final SecUser user, final SecPermission permission){
        // final SecUserPermission userPerId = new SecUserPermission();
        // final SecUserPermissionId id = new SecUserPermissionId();
        /// id.setIdPermission(permission.getIdPermission());
@@ -681,7 +681,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public void addGroupUser(
             final SecUserSecondary user,
-            final SecGroups group)
+            final SecGroup group)
     {
        /* final SecGroupUserId id = new SecGroupUserId();
         id.setGroupId(group.getGroupId());
@@ -700,7 +700,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public void addPermissionToGroup(
             final SecPermission permission,
-            final SecGroups group)
+            final SecGroup group)
     {
       //  final SecGroupPermissionId groupPermissionId = new SecGroupPermissionId();
        //// groupPermissionId.setGroupId(group.getGroupId());
@@ -716,10 +716,10 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * Create question.
      * @param question question
      * @param patron patron
-     * @return {@link Questions}
+     * @return {@link Question}
      */
-    public Questions createQuestion(final String question, String patron){
-        final Questions questions = new Questions();
+    public Question createQuestion(final String question, String patron){
+        final Question questions = new Question();
         questions.setCatState(this.createState("active"));
         questions.setQidKey("1");
         questions.setQuestion(question);
@@ -735,8 +735,8 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param user
      * @return
      */
-    public Questions createQuestion(final String questionName, final SecUsers user){
-        final Questions question =  createQuestion(questionName, "patter");
+    public Question createQuestion(final String questionName, final SecUser user){
+        final Question question =  createQuestion(questionName, "patter");
         question.setSecUsersQuestion(user);
         getQuestionDaoImp().saveOrUpdate(question);
         //log.info("user assigned "+question.getSecUsersQuestion().getUid());
@@ -748,10 +748,10 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param question question
      * @param patron patron
      * @param user user
-     * @return {@link Questions}
+     * @return {@link Question}
      */
-    public Questions createQuestion(final String question, final String patron, final SecUsers user){
-        final Questions questions = new Questions();
+    public Question createQuestion(final String question, final String patron, final SecUser user){
+        final Question questions = new Question();
         questions.setCatState(this.createState("active"));
         questions.setQidKey("1");
         questions.setSecUsersQuestion(user);
@@ -768,7 +768,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param hash hash
      * @return {@link QuestionsAnswers}
      */
-    public QuestionsAnswers createQuestionAnswer(final String answer, final Questions question, final String hash){
+    public QuestionsAnswers createQuestionAnswer(final String answer, final Question question, final String hash){
         final QuestionsAnswers questionsAnswers = new QuestionsAnswers();
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
@@ -867,8 +867,8 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
              Date scheduleDate,
              Date publicationDateTweet,
              Boolean completed,
-             SecUsers tweetOwner,
-             Questions question){
+             SecUser tweetOwner,
+             Question question){
         final TweetPoll tweetPoll = new TweetPoll();
         tweetPoll.setCloseNotification(closeNotification);
         tweetPoll.setResultNotification(resultNotification);
@@ -890,7 +890,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createPublishedTweetPoll(final SecUsers tweetOwner, final Questions question){
+    public TweetPoll createPublishedTweetPoll(final SecUser tweetOwner, final Question question){
        return createTweetPoll(12345L, false, false, false, true, false, new Date(), new Date(), false, tweetOwner, question);
     }
 
@@ -900,7 +900,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createNotPublishedTweetPoll(final SecUsers tweetOwner, final Questions question){
+    public TweetPoll createNotPublishedTweetPoll(final SecUser tweetOwner, final Question question){
        return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question);
     }
 
@@ -940,7 +940,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      */
     public TweetPoll createFastTweetPollVotes(){
         final SecUserSecondary secondary = createSecondaryUser("jhon", createUser());
-        final Questions question = createQuestion("who I am?", "");
+        final Question question = createQuestion("who I am?", "");
         final QuestionsAnswers questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionsAnswers questionsAnswers2 = createQuestionAnswer("no", question, "12346");
         final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
@@ -958,14 +958,14 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * Create {@link CatLocationFolder}.
      * @param type {@link LocationFolderType}.
      * @param locationFolderId folder Id
-     * @param secUsers {@link SecUsers}.
+     * @param secUsers {@link SecUser}.
      * @param folderName name
      * @param locationFolder
      * @return {@link CatLocationFolder}.
      */
     public CatLocationFolder createCatLocationFolder(
             final LocationFolderType type,
-            final SecUsers secUsers,
+            final SecUser secUsers,
             final String folderName,
             final CatLocationFolder locationFolder){
         final CatLocationFolder catLocationFolder = new CatLocationFolder();
@@ -983,7 +983,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param list
      * @return
      */
-    public CatEmailLists createDefaultListEmail(final SecUsers user,final String list){
+    public CatEmailLists createDefaultListEmail(final SecUser user,final String list){
         return this.createListEmails(user, list, new Date());
     }
 
@@ -1010,7 +1010,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @param user
      * @return
      */
-    public CatEmailLists createDefaultListEmail(final SecUsers user){
+    public CatEmailLists createDefaultListEmail(final SecUser user){
         return this.createListEmails(user, "default", new Date());
     }
 
@@ -1019,7 +1019,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
      * @return
      */
     public CatEmailLists createListEmails(
-                final SecUsers users,
+                final SecUser users,
                 final String listName,
                 final Date createDate){
             final CatEmailLists catListEmails = new CatEmailLists();
