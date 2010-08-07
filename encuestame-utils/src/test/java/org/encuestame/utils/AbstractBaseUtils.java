@@ -3,6 +3,9 @@ package org.encuestame.utils;
 import java.util.Date;
 import java.util.List;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -184,7 +187,65 @@ public abstract class AbstractBaseUtils extends TestCase{
         unitPoll.setId(id);
         unitPoll.setQuestionBean(questionBean);
         return unitPoll;
-
-
     }
+
+    /**
+     * Create Unit Group Bean
+     * @param groupDescription
+     * @param groupName
+     * @param groupId
+     * @param stateId
+     * @return unitGroupBean
+     */
+     public UnitGroupBean createUnitGroupBean(
+             final String groupDescription,
+             final String groupName,
+             final Long groupId,
+             final String stateId
+     ){
+         final UnitGroupBean unitGroupBean = new UnitGroupBean();
+         unitGroupBean.setGroupDescription(groupDescription);
+         unitGroupBean.setGroupName(groupName);
+         unitGroupBean.setId(groupId);
+         unitGroupBean.setStateId(stateId);
+         return unitGroupBean;
+     }
+
+     /**
+      * Create Unit Hash Tags.
+      * @param hashTagName
+      * @param hashId
+      * @return unitHashTag
+      */
+     public UnitHashTag createUnitHashTag(
+             final String hashTagName,
+             final Long hashId){
+         final UnitHashTag unitHashTag = new UnitHashTag();
+         unitHashTag.setId(hashId);
+         unitHashTag.setHashTagName(hashTagName);
+        return unitHashTag;
+     }
+
+     /**
+      * Create Unit Lists.
+      * @param createdAt
+      * @param listName
+      * @param listId
+      * @param userId
+      * @return unitLists
+      */
+     public UnitLists createUnitLists(
+             final Date createdAt,
+             final String listName,
+             final Long listId,
+             final Long userId){
+         final UnitLists unitLists = new UnitLists();
+         unitLists.setCreatedAt(createdAt);
+         unitLists.setId(listId);
+         unitLists.setListName(listName);
+         unitLists.setUserId(userId);
+         return unitLists;
+     }
+
+
 }
