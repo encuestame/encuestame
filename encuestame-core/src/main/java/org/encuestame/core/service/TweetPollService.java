@@ -101,7 +101,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword){
         log.info("search keyword tweetPoll  "+keyword);
-        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username));
+        List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
+        if(keyword == null || keyword.trim().isEmpty()){
+            tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
+        } else {
+            tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username));
+        }
         log.info("search keyword tweetPoll size "+tweetPolls.size());
         return this.setListAnswers(tweetPolls);
     }

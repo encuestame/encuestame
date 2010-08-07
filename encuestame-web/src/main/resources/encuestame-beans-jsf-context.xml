@@ -51,5 +51,4 @@
         <property name="servicemanagerBean" ref="servicesManager" />
   </bean>
    -->
-
 </beans>

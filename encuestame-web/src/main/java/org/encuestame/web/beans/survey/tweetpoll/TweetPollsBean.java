@@ -253,6 +253,7 @@ public class TweetPollsBean extends MasterBean implements Serializable {
      * @return the searchKeyword
      */
     public String getSearchKeyword() {
+        log.debug("GET searchKeyword "+searchKeyword);
         return searchKeyword;
     }
 

@@ -6,22 +6,27 @@
     <var name="createTweetPollBean"
         class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean" />
 
+    <var name="tweetPollsBean"
+        class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean" />
+
+      <on-start>
+          <evaluate
+              expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
+              result="flowScope.tweetsPolls" result-type="dataModel" />
+          <evaluate
+              expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
+              result="flowScope.validate" />
+      </on-start>
+
     <view-state id="tweetpoll">
-        <on-render>
-            <evaluate
-                expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
-                result="flowScope.tweetsPolls" result-type="dataModel" />
-            <evaluate
-                expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
-                result="flowScope.validate" />
-        </on-render>
         <transition on="create" to="addQuestion">
 
         </transition>
         <transition on="search">
             <evaluate
-                expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
+                expression="tweetPollService.searchTweetsPollsByKeyWord(currentUser.name, tweetPollsBean.searchKeyword)"
                 result="flowScope.tweetsPolls" result-type="dataModel" />
+            <render fragments="tableForm" />
         </transition>
     </view-state>
 

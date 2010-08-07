@@ -11,83 +11,88 @@
     </ui:define>
     <ui:define name="title">TweetPoll</ui:define>
     <ui:define name="bodyOptions">
-        <a4j:form id="formBody">
             <div class="listTweetPolls">
             <div class="header">
                 <div class="headerTitle">TweetPolls</div>
                 <div class="option">
-                    <sf:commandLink id="viewGroupDetail" value="New TweetPoll" action="create"/>
+                   <h:form>
+                        <sf:commandLink id="viewGroupDetail" value="New TweetPoll" action="create"/>
+                    </h:form>
                 </div>
                 <div class="search">
-                     <input type="text"/>
-                     <a4j:commandLink id="searchButton" value="Search" action="search"/>
+               <a4j:form id="groupForm">
+                      <h:inputText id="keyword" value="#{tweetPollsBean.searchKeyword}" size="20" />
+                      <a4j:commandLink value="Search" action="search" reRender="dataTableGroups"></a4j:commandLink>
+               </a4j:form>
                 </div>
             </div>
-            <rich:dataTable
-                id="dataTableGroups" value="#{tweetsPolls}"
-                var="unitTweetPoll" styleClass="roundTable fixed wide"
-                rendered="#{tweetsPolls.rowCount > 0}" rows="8">
-                <f:facet name="header">
-                    <rich:columnGroup>
-                        <rich:column width="20px">
-                            <h:selectBooleanCheckbox  />
-                        </rich:column>
-                        <rich:column styleClass="question" width="300px">
-                            <h:outputText value="Question" />
-                        </rich:column>
-                        <rich:column styleClass="author"  width="150px">
-                            <h:outputText value="Author" />
-                        </rich:column>
-                        <rich:column  width="100px">
-                            <h:outputText value="Anwers" />
-                        </rich:column>
-                        <rich:column  width="50px">
-                            <h:outputText value="HashTags" />
-                        </rich:column>
-                        <rich:column  width="50px">
-                            <h:outputText value="Votes" />
-                        </rich:column>
-                         <rich:column  width="100px">
-                            <h:outputText value="Date Published" />
-                        </rich:column>
-                        <rich:column  width="100px">
-                            <h:outputText value="Live Results" />
-                        </rich:column>
-                    </rich:columnGroup>
-                </f:facet>
-                <rich:column>
-                    <h:selectBooleanCheckbox  />
-                </rich:column>
-                <rich:column styleClass="question" width="300px">
-                    <h:outputText  value="#{unitTweetPoll.questionBean.questionName}" />
-                    <h:panelGrid columns="5" cellpadding="2" cellspacing="2" styleClass="options">
-                                <a>Edit</a>
-                                <a>Remove</a>
-                                <a></a>
-                    </h:panelGrid>
-                </rich:column>
-                <rich:column styleClass="author">
-                    <h:outputText value="#{currentUser.name}" />
-                </rich:column>
-                 <rich:column>
-                    <h:outputText value="test" />
-                </rich:column>
-                 <rich:column>
-                    <h:outputText value="test" />
-                </rich:column>
-                 <rich:column>
-                    <h:outputText value="test" />
-                </rich:column>
-                 <rich:column>
-                    <h:outputText value="test" />
-                </rich:column>
-                 <rich:column>
-                    <h:outputText value="test" />
-                </rich:column>
-            </rich:dataTable>
-            <rich:panel rendered="#{tweetsPolls.rowCount == 0}">
-                List of TweetPolls is empty. Create your first tweetpoll.
-            </rich:panel></div>
-        </a4j:form>
+             <a4j:form id="tableForm">
+                <rich:dataTable
+                    id="dataTableGroups" value="#{tweetsPolls}"
+                    var="unitTweetPoll" styleClass="roundTable fixed wide" rows="8">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column width="20px">
+                                <h:selectBooleanCheckbox  />
+                            </rich:column>
+                            <rich:column styleClass="question" width="300px">
+                                <h:outputText value="Question" />
+                            </rich:column>
+                            <rich:column styleClass="author"  width="150px">
+                                <h:outputText value="Author" />
+                            </rich:column>
+                            <rich:column  width="100px">
+                                <h:outputText value="Anwers" />
+                            </rich:column>
+                            <rich:column  width="50px">
+                                <h:outputText value="HashTags" />
+                            </rich:column>
+                            <rich:column  width="50px">
+                                <h:outputText value="Votes" />
+                            </rich:column>
+                             <rich:column  width="100px">
+                                <h:outputText value="Date Published" />
+                            </rich:column>
+                            <rich:column  width="100px">
+                                <h:outputText value="Live Results" />
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+                    <rich:column>
+                        <h:selectBooleanCheckbox  />
+                    </rich:column>
+                    <rich:column styleClass="question" width="300px">
+                        <h:outputText  value="#{unitTweetPoll.questionBean.questionName}" />
+                        <h:panelGrid columns="5" cellpadding="2" cellspacing="2" styleClass="options">
+                                    <a>Edit</a>
+                                    <a>Remove</a>
+                                    <a></a>
+                        </h:panelGrid>
+                    </rich:column>
+                    <rich:column styleClass="author">
+                        <h:outputText value="#{currentUser.name}" />
+                    </rich:column>
+                     <rich:column>
+                        <h:outputText value="test" />
+                    </rich:column>
+                     <rich:column>
+                        <h:outputText value="test" />
+                    </rich:column>
+                     <rich:column>
+                        <h:outputText value="test" />
+                    </rich:column>
+                     <rich:column>
+                        <h:outputText value="test" />
+                    </rich:column>
+                     <rich:column>
+                        <h:outputText value="test" />
+                    </rich:column>
+                </rich:dataTable>
+
+                <rich:panel rendered="#{tweetsPolls.rowCount == 0}">
+                    List of TweetPolls is empty. Create your first tweetpoll.
+                </rich:panel>
+              </a4j:form>
+            </div>
     </ui:define>
 </ui:composition>
