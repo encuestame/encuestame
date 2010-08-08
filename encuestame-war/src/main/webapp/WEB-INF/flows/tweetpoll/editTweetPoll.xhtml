@@ -13,14 +13,59 @@
     <ui:define name="bodyOptions">
             <div class="editTweetPollWrapper">
              <a4j:form id="formEdit">
-                 <a4j:outputPanel id="editBox">
-                     <h:outputText value="Question:"/>
-                     <rich:inplaceInput defaultLabel="#{editTweetPollBean.editTweetPoll.questionBean.questionName}">
-                            <a4j:support event="onchange" action="#{editTweetPollBean.updateQuestionName}" reRender="table">
-                                <f:setPropertyActionListener value="#{editTweetPollBean.editTweetPoll.questionBean.questionName}" target="#{editTweetPollBean.editTweetPoll.questionBean.questionName}"/>
-                            </a4j:support>
+                 <rich:messages errorClass="error" infoClass="success" warnClass="war"></rich:messages>
+                   <div class="questionUpdate">
+                     <rich:inplaceInput value="#{editTweetPollBean.unitTweetPoll.questionBean.questionName}">
+                           <a4j:support event="onviewactivated" reRender="formEdit" action="#{editTweetPollBean.updateQuestionName}" />
                      </rich:inplaceInput>
-                 </a4j:outputPanel>
+                  </div>
+                  <div class="tweetResume">
+                        <div class="bodyTweet">
+                            <div class="tweetResume normalState">
+                                 <div class="countTweet">
+                                    <h:outputText value="140" />
+                                </div>
+                                <div class="resumeText">
+                                    <h:outputText id="questionResume" value="Text Tweet"/>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="optionTweetPoll">
+                        <div class="answers">
+                             <div class="header" style="color: #000;">Answers</div>
+                             <div>
+                                <ui:fragment rendered="true">
+                                    <h:outputLabel value="Question" styleClass="defaultUabel" />
+                                    <h:inputText value="test" styleClass="defaultInputClass" style="width:60%;"/>
+                                    <a4j:commandButton
+                                        value="Add Answer" reRender="formBody, answerList" ignoreDupResponses="true" styleClass="defaultButton"></a4j:commandButton>
+                                 </ui:fragment>
+                             </div>
+                              <a4j:outputPanel id="answerOutput">
+                                 <a4j:repeat value="#{editTweetPollBean.unitTweetPoll.questionBean.listAnswers}" var="answer">
+                                        <div class="answerItem">
+                                            <span class="answerName">
+                                                <rich:inplaceInput value="#{answer.answers}">
+                                                    <a4j:support event="onviewactivated" reRender="formEdit"/>
+                                                </rich:inplaceInput>
+                                            </span>
+                                            <span class="options">
+                                                <a4j:commandLink value="Remove"
+                                                    action="delete"
+                                                    reRender="answerOutput">
+                                                </a4j:commandLink>
+                                            </span>
+                                        </div>
+                                 </a4j:repeat>
+                             </a4j:outputPanel>
+                        </div>
+                        <div class="hashtags">
+                             <div class="header" style="color: #000;">Hash Tags</div>
+                        </div>
+                  </div>
+                 <sf:commandLink id="update" action="update" value="Update"/>
+                 <sf:commandLink id="cancel" action="cancel" value="Cancel"/>
              </a4j:form>
             </div>
     </ui:define>

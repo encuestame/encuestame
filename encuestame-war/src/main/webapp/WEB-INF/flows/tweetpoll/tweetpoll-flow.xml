@@ -34,13 +34,13 @@
               result="flowScope.tweetsPolls" result-type="dataModel" />
         </transition>
         <transition on="edit" to="editTweetPoll">
-             <set name="editTweetPollBean.editTweetPoll" value="tweetsPolls.selectedRow" />
+             <set name="editTweetPollBean.unitTweetPoll" value="tweetsPolls.selectedRow" />
         </transition>
     </view-state>
 
     <view-state id="editTweetPoll">
-
-
+         <transition on="update" to="succesfullEnd">
+         </transition>
     </view-state>
 
     <view-state id="addQuestion">

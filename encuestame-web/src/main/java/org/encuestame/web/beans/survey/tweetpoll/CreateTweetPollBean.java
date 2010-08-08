@@ -36,7 +36,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since Feb 13, 2010 11:36:48 PM
  * @version $Id$
  */
-public class CreateTweetPollBean extends MasterBean implements Serializable{
+public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements Serializable{
 
      /** Serial. */
     private static final long serialVersionUID = -191208309931131495L;
@@ -85,19 +85,8 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     private Boolean showHideAddAnswers = true;
 
     /** Count Tweet. **/
-    private Integer countTweet = CreateTweetPollBean.MAXIMUM_TWEET;
+    private Integer countTweet = MAXIMUM_TWEET;
 
-    /** Max Tweet Length. **/
-    private static final Integer MAXIMUM_TWEET = 140;
-
-    /** Warning Tweet Length. **/
-    private static final Integer WARNING_TWEET = 70;
-
-    /** Minimum Question Length. **/
-    private static final Integer MINIMUM_QUESTION_NAME = 10;
-
-    /** Max Length Hash Tag Name. **/
-    private static final Integer MAX_HASHTAGS = 50;
 
     /** Default Limit Votes. **/
     private Boolean limitVotes = false;
@@ -536,7 +525,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /**
      * Update Count.
      */
-    private void updateCount(){
+    public void updateCount(){
         final Integer lenght = this.resumeTweet.length();
         this.countTweet = CreateTweetPollBean.MAXIMUM_TWEET - lenght;
     }

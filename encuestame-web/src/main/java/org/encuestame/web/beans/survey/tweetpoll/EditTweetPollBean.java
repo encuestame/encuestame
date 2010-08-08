@@ -15,7 +15,6 @@ package org.encuestame.web.beans.survey.tweetpoll;
 import java.io.Serializable;
 
 import org.encuestame.utils.web.UnitTweetPoll;
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Description Class.
@@ -23,30 +22,75 @@ import org.encuestame.web.beans.MasterBean;
  * @since Aug 7, 2010 5:26:20 PM
  * @version Id:
  */
-public class EditTweetPollBean extends MasterBean implements Serializable{
+public class EditTweetPollBean extends AbstractMasterTweetPollBean implements Serializable{
 
-    /**
-     * Serial.
-     */
+    /** Serial. */
     private static final long serialVersionUID = 171232309932133556L;
 
-    private UnitTweetPoll editTweetPoll;
+    /** Question Name. **/
+    private String newQuestioName;
 
+    /** {@link UnitTweetPoll}. **/
+    private UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+
+    /**
+     * Update Question Name.
+     */
     public void updateQuestionName(){
         log.debug("updating question name");
+        try{
+
+            getServicemanager().getApplicationServices().getTweetPollService().updateQuestionName(
+                                getUnitTweetPoll().getQuestionBean().getId(),
+                                   getUnitTweetPoll().getQuestionBean().getQuestionName());
+            addInfoMessage("Question Updated","Question Updated");
+        }
+        catch (Exception e) {
+            log.debug("Error "+e.getLocalizedMessage());
+            addErrorMessage("Try to update later", "Try to update later");
+        }
     }
 
     /**
-     * @return the editTweetPoll
+     * @return the newQuestioName
      */
-    public UnitTweetPoll getEditTweetPoll() {
-        return editTweetPoll;
+    public String getNewQuestioName() {
+        return newQuestioName;
     }
 
     /**
-     * @param editTweetPoll the editTweetPoll to set
+     * @param newQuestioName the newQuestioName to set
      */
-    public void setEditTweetPoll(final UnitTweetPoll editTweetPoll) {
-        this.editTweetPoll = editTweetPoll;
+    public void setNewQuestioName(String newQuestioName) {
+        this.newQuestioName = newQuestioName;
+    }
+
+    /**
+     * @return the unitTweetPoll
+     */
+    public UnitTweetPoll getUnitTweetPoll() {
+        return unitTweetPoll;
+    }
+
+    /**
+     * @param unitTweetPoll the unitTweetPoll to set
+     */
+    public void setUnitTweetPoll(UnitTweetPoll unitTweetPoll) {
+        this.unitTweetPoll = unitTweetPoll;
+    }
+
+    @Override
+    public void updateQuestionCountTweet() {
+         log.debug("updateQuestionCountTweet");
+    }
+
+    @Override
+    public void updateColorState() {
+        log.debug("updateColorState");
+    }
+
+    @Override
+    public void updateCount() {
+        log.debug("updateCount");
     }
 }

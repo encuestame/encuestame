@@ -133,5 +133,11 @@ public interface ITweetPollService extends IMasterSurveyService{
             final Long tweetPollId,
             final String tweetText);
 
+    /**
+     * Update Question Name.
+     * @param questionId
+     * @param questionName
+     */
+    void updateQuestionName(final Long questionId, final String questionName);
 
 }

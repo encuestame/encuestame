@@ -105,6 +105,19 @@ public class AbstractSurveyService extends AbstractBaseService {
     }
 
     /**
+     * Update Question Name.
+     * @param questionId
+     * @param questionName
+     */
+    public void updateQuestionName(final Long questionId, final String questionName){
+            final Question question = getQuestionDao().retrieveQuestionById(questionId);
+            if(question != null){
+                question.setQuestion(questionName);
+                getQuestionDao().saveOrUpdate(question);
+            }
+    }
+
+    /**
      * Create Hash Tag.
      * @param unitHashTag new tag
      * @return

@@ -696,7 +696,55 @@ div.editTweetPollWrapper{
     -moz-border-radius: 4px;
     border-radius: 4px;
     background-color: #BCBCBC;
-    min-height: 200px;
+    min-height: 490px;
     padding: 10px;
 }
 
+div.editTweetPollWrapper div.questionUpdate{
+    padding: 4px;
+}
+
+div.editTweetPollWrapper div.questionUpdate .rich-inplace{
+    font-size: 1.5em;
+    color: #FFF;
+}
+
+div.editTweetPollWrapper div.questionUpdate .rich-inplace input{
+    width: 300px;
+}
+
+div.editTweetPollWrapper div.optionTweetPoll{
+    padding: 10px;
+    -moz-column-count: 2;
+    -moz-column-width: 13em;
+    -webkit-column-width: 13em;
+    -moz-column-gap: 1em;
+     -webkit-column-gap: 1em;
+     webkit-column-rule: 1px solid black;
+}
+
+div.editTweetPollWrapper div.optionTweetPoll .answers{
+    padding: 10px;
+    margin: 3px;
+    min-width: 40%;
+    -webkit-border-radius: 24px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    min-height: 290px;
+    background-color: #FFF;
+}
+
+div.editTweetPollWrapper div.optionTweetPoll div.answerItem{
+    padding: 5px;
+}
+
+div.editTweetPollWrapper div.optionTweetPoll .hashtags{
+    padding: 10px;
+    margin: 3px;
+    min-width: 40%;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #FFF;
+    min-height: 290px;
+}
