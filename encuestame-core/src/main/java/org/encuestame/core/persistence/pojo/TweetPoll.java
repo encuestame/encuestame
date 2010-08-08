@@ -85,6 +85,10 @@ public class TweetPoll {
     /** Repeated Votes. **/
     private Boolean allowRepatedVotes;
 
+    /** Disabled. **/
+    private Boolean enabled = true;
+
+    /** Hash Tags. **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
     /**
@@ -344,5 +348,18 @@ public class TweetPoll {
         this.createDate = createDate;
     }
 
+    /**
+     * @return the enabled
+     */
+    @Column(name = "enabled", nullable = false)
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 }

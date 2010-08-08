@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
@@ -97,6 +96,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
     /** Minimum Question Length. **/
     private static final Integer MINIMUM_QUESTION_NAME = 10;
 
+    /** Max Length Hash Tag Name. **/
     private static final Integer MAX_HASHTAGS = 50;
 
     /** Default Limit Votes. **/
@@ -195,6 +195,7 @@ public class CreateTweetPollBean extends MasterBean implements Serializable{
             log.debug("getUnitTweetPoll().getHashTags() "+ getUnitTweetPoll().getHashTags());
             if(getUnitTweetPoll().getHashTags() != null){
                 log.debug("createHashTag size "+getUnitTweetPoll().getHashTags().size());
+                log.debug("Adding HashTag "+getHashTag());
                 this.getUnitTweetPoll().getHashTags().add(setTempHashTag(getHashTag()));
                 //reset hash tag name.
                 setHashTag(new String());

@@ -3,20 +3,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="createTweetPollBean"
-        class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean" />
+    <var name="createTweetPollBean" class="org.encuestame.web.beans.survey.tweetpoll.CreateTweetPollBean" />
+    <var name="tweetPollsBean" class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean" />
+    <var name="editTweetPollBean" class="org.encuestame.web.beans.survey.tweetpoll.EditTweetPollBean" />
 
-    <var name="tweetPollsBean"
-        class="org.encuestame.web.beans.survey.tweetpoll.TweetPollsBean" />
-
-      <on-start>
-          <evaluate
-              expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
-              result="flowScope.tweetsPolls" result-type="dataModel" />
-          <evaluate
-              expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
-              result="flowScope.validate" />
-      </on-start>
+     <on-start>
+         <evaluate
+             expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
+             result="flowScope.tweetsPolls" result-type="dataModel" />
+         <evaluate
+             expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
+             result="flowScope.validate" />
+     </on-start>
 
     <view-state id="tweetpoll">
         <transition on="create" to="addQuestion">
@@ -28,6 +26,21 @@
                 result="flowScope.tweetsPolls" result-type="dataModel" />
             <render fragments="tableForm" />
         </transition>
+        <transition on="delete" >
+             <set name="flowScope.tweetPollSelected" value="tweetsPolls.selectedRow" />
+             <evaluate expression="tweetPollsBean.delete(flowScope.tweetPollSelected)"/>
+             <evaluate
+              expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
+              result="flowScope.tweetsPolls" result-type="dataModel" />
+        </transition>
+        <transition on="edit" to="editTweetPoll">
+             <set name="editTweetPollBean.editTweetPoll" value="tweetsPolls.selectedRow" />
+        </transition>
+    </view-state>
+
+    <view-state id="editTweetPoll">
+
+
     </view-state>
 
     <view-state id="addQuestion">

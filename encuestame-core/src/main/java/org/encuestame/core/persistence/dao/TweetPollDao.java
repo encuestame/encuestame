@@ -53,7 +53,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetsByUserId(final Long userId){
-        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId order by createDate desc"
+        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId "
+                +" AND enabled = true order by createDate desc"
                +"", "userId", userId);
     }
 
@@ -70,6 +71,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.createAlias("tweetOwner","tweetOwner");
         criteria.add(Restrictions.like("question.question", keyWord, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        criteria.add(Restrictions.eq("enabled", Boolean.TRUE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
 

@@ -22,11 +22,12 @@
                 <div class="search">
                <a4j:form id="groupForm">
                       <h:inputText id="keyword" value="#{tweetPollsBean.searchKeyword}" size="20" />
-                      <a4j:commandLink value="Search" action="search" reRender="dataTableGroups"></a4j:commandLink>
+                      <a4j:commandLink value="Search" action="search" reRender="tableForm"></a4j:commandLink>
                </a4j:form>
                 </div>
             </div>
              <a4j:form id="tableForm">
+                <rich:messages id="infoBox" errorClass="error" infoClass="success" warnClass="war"></rich:messages>
                 <rich:dataTable
                     id="dataTableGroups" value="#{tweetsPolls}"
                     var="unitTweetPoll" styleClass="roundTable fixed wide" rows="8">
@@ -64,8 +65,13 @@
                     <rich:column styleClass="question" width="300px">
                         <h:outputText  value="#{unitTweetPoll.questionBean.questionName}" />
                         <h:panelGrid columns="5" cellpadding="2" cellspacing="2" styleClass="options">
-                                    <a>Edit</a>
-                                    <a>Remove</a>
+                                    <a4j:commandLink value="Edit"
+                                        action="edit">
+                                    </a4j:commandLink>
+                                    <a4j:commandLink value="Remove"
+                                        action="delete"
+                                        reRender="tableForm">
+                                    </a4j:commandLink>
                                     <a></a>
                         </h:panelGrid>
                     </rich:column>

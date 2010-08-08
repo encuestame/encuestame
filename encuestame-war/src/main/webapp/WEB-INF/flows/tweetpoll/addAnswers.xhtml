@@ -94,7 +94,7 @@
                                     <a4j:outputPanel id="hashTagList">
                                           <a4j:repeat value="#{createTweetPollBean.unitTweetPoll.hashTags}"  var="hashtag">
                                                 <span class="hashTagItem">
-                                                     <a4j:commandLink value="Remove" reRender="reviewContentBox, hashTagList, optionTopMenu, answerAddForm, formBody"
+                                                     <a4j:commandLink reRender="reviewContentBox, hashTagList, optionTopMenu, answerAddForm, formBody"
                                                      action="#{createTweetPollBean.removeHashTag}">
                                                       <h:outputText value="#{hashtag}" style="font-style:bold">
                                                          <rich:toolTip id="tooltipId" attached="false" value="This is a tooltip."/>
@@ -104,9 +104,9 @@
                                                 </span>
                                           </a4j:repeat>
                                     </a4j:outputPanel>
-                          </div>
-                   </div>
-            </a4j:form>
-        </div>
+                               </div>
+                         </div>
+                </a4j:form>
+            </div>
     </ui:define>
 </ui:composition>

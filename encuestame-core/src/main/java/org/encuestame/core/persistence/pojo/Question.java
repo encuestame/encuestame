@@ -42,7 +42,7 @@ import org.hibernate.search.annotations.Store;
  * @version $Id$
  */
 @Entity
-@Indexed(index="Questions")
+@Indexed(index="Question")
 @Table(name = "questions")
 public class Question {
 

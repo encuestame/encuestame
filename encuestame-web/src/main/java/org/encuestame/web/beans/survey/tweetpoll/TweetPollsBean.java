@@ -114,6 +114,26 @@ public class TweetPollsBean extends MasterBean implements Serializable {
     }
 
     /**
+     * Delete TweetPoll.
+     * @param tweetPoll
+     */
+    public final void delete(final UnitTweetPoll tweetPoll){
+         try {
+             if(tweetPoll.getId() == null){
+                 addErrorMessage("TweetPoll not Found", "TweetPoll not Found");
+             }
+             else{
+                 getServicemanager().getApplicationServices().getTweetPollService().disableTweetPoll(tweetPoll.getId());
+                 addInfoMessage("Your TweetPoll has been removed.", "Your TweetPoll has been removed.");
+             }
+             log.debug("tweetpoll "+tweetPoll.getId()+" deleted");
+         } catch (Exception e) {
+             log.error("Error on delete user. Trace:"+ e.getMessage());
+             addErrorMessage("Error on delete user","");
+         }
+    }
+
+    /**
      * Load Results.
      */
     public final void loadResults(){

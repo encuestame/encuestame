@@ -112,6 +112,22 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
+     * Disabled TweetPoll.
+     * @param tweetPollId tweetPoll.
+     * @throws EnMeExpcetion
+     */
+    public void disableTweetPoll(final Long tweetPollId) throws EnMeExpcetion{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+        if(tweetPoll == null){
+            throw new EnMeExpcetion("tweetPoll.notfound");
+        }
+        else{
+            tweetPoll.setEnabled(Boolean.FALSE);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        }
+    }
+
+    /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception

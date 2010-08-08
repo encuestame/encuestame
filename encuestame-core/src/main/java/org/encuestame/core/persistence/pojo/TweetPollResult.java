@@ -41,7 +41,7 @@ import org.hibernate.search.annotations.Store;
  */
 
 @Entity
-@Indexed(index="tweetPollResult")
+@Indexed(index="TweetPollResult")
 @Table(name = "tweetpoll_result")
 public class TweetPollResult {
 

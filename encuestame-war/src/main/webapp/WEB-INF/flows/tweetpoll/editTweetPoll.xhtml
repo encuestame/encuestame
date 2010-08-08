@@ -1,0 +1,27 @@
+<ui:composition template="../../layouts/surveyTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:sf="http://www.springframework.org/tags/faces">
+    <ui:define name="css">
+        <a4j:loadStyle src="/resources/css/tweetpoll.css" type="text/css"></a4j:loadStyle>
+    </ui:define>
+    <ui:define name="title">TweetPoll</ui:define>
+    <ui:define name="bodyOptions">
+            <div class="editTweetPollWrapper">
+             <a4j:form id="formEdit">
+                 <a4j:outputPanel id="editBox">
+                     <h:outputText value="Question:"/>
+                     <rich:inplaceInput defaultLabel="#{editTweetPollBean.editTweetPoll.questionBean.questionName}">
+                            <a4j:support event="onchange" action="#{editTweetPollBean.updateQuestionName}" reRender="table">
+                                <f:setPropertyActionListener value="#{editTweetPollBean.editTweetPoll.questionBean.questionName}" target="#{editTweetPollBean.editTweetPoll.questionBean.questionName}"/>
+                            </a4j:support>
+                     </rich:inplaceInput>
+                 </a4j:outputPanel>
+             </a4j:form>
+            </div>
+    </ui:define>
+</ui:composition>
