@@ -35,6 +35,7 @@
         </transition>
         <transition on="edit" to="editTweetPoll">
              <set name="editTweetPollBean.unitTweetPoll" value="tweetsPolls.selectedRow" />
+              <evaluate expression="editTweetPollBean.evaluateTweetPoll()"/>
         </transition>
     </view-state>
 

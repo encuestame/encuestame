@@ -24,7 +24,7 @@ import org.encuestame.web.beans.MasterBean;
 public abstract class AbstractMasterTweetPollBean extends MasterBean {
 
     /** Count Tweet. **/
-    protected Integer countTweet = this.MAXIMUM_TWEET;
+    protected Integer countTweet = AbstractMasterTweetPollBean.MAXIMUM_TWEET;
 
     /** Max Tweet Length. **/
     protected static final Integer MAXIMUM_TWEET = 140;

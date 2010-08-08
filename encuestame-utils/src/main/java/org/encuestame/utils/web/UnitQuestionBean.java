@@ -76,7 +76,6 @@ public class UnitQuestionBean implements Serializable {
      * @return the questionName
      */
     public final String getQuestionName() {
-        System.out.println("Get question name "+questionName);
         return questionName;
     }
 
@@ -85,7 +84,6 @@ public class UnitQuestionBean implements Serializable {
      *            the questionName to set
      */
     public final void setQuestionName(String questionName) {
-        System.out.println("Set question name "+questionName);
         this.questionName = questionName;
     }
 

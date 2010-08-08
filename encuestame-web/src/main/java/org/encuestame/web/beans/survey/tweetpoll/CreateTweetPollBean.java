@@ -28,7 +28,6 @@ import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
-import org.encuestame.web.beans.MasterBean;
 
 /**
  * Create Tweet Poll.
@@ -526,8 +525,8 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
      * Update Count.
      */
     public void updateCount(){
-        final Integer lenght = this.resumeTweet.length();
-        this.countTweet = CreateTweetPollBean.MAXIMUM_TWEET - lenght;
+        final Integer lenght = getResumeTweet().length();
+        setCountTweet(CreateTweetPollBean.MAXIMUM_TWEET - lenght);
     }
 
     /**

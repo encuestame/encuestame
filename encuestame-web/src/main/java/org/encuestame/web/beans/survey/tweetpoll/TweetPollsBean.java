@@ -22,7 +22,6 @@ import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.web.beans.MasterBean;
-import org.richfaces.component.html.HtmlDataTable;
 
 /**
  * Tweet Polls Bean.
@@ -37,9 +36,6 @@ public class TweetPollsBean extends MasterBean implements Serializable {
      * Serial.tweetPollsBean
      */
     private static final long serialVersionUID = -491202309932131596L;
-
-    /** DataTable. **/
-    private HtmlDataTable tweetDataTable;
 
     /** Constructor. **/
     public TweetPollsBean() {
@@ -179,21 +175,6 @@ public class TweetPollsBean extends MasterBean implements Serializable {
      */
     public final void setListTweets(final List<UnitTweetPoll> listTweets) {
         this.listTweets = listTweets;
-    }
-
-    /**
-     * @return the tweetDataTable
-     */
-    public final HtmlDataTable getTweetDataTable() {
-        return tweetDataTable;
-    }
-
-    /**
-     * @param tweetDataTable
-     *            the tweetDataTable to set
-     */
-    public final void setTweetDataTable(final HtmlDataTable tweetDataTable) {
-        this.tweetDataTable = tweetDataTable;
     }
 
     /**

@@ -16,20 +16,22 @@
                  <rich:messages errorClass="error" infoClass="success" warnClass="war"></rich:messages>
                    <div class="questionUpdate">
                      <rich:inplaceInput value="#{editTweetPollBean.unitTweetPoll.questionBean.questionName}">
-                           <a4j:support event="onviewactivated" reRender="formEdit" action="#{editTweetPollBean.updateQuestionName}" />
+                           <a4j:support event="onviewactivated" reRender="formEdit, tweetBody" action="#{editTweetPollBean.updateQuestionName}" />
                      </rich:inplaceInput>
                   </div>
                   <div class="tweetResume">
+                   <a4j:outputPanel id="tweetBody">
                         <div class="bodyTweet">
-                            <div class="tweetResume normalState">
-                                 <div class="countTweet">
-                                    <h:outputText value="140" />
-                                </div>
-                                <div class="resumeText">
-                                    <h:outputText id="questionResume" value="Text Tweet"/>
-                                </div>
+                             <div class="tweetResume #{editTweetPollBean.classLength}">
+                             <div class="countTweet">
+                                <h:outputText value="#{editTweetPollBean.countTweet}" />
                             </div>
-                        </div>
+                            <div class="resumeText">
+                                <h:outputText id="questionResume" value="#{editTweetPollBean.resumeTweet}"/>
+                            </div>
+                            </div>
+                          </div>
+                   </a4j:outputPanel>
                   </div>
                   <div class="optionTweetPoll">
                         <div class="answers">
@@ -52,7 +54,7 @@
                                             </span>
                                             <span class="options">
                                                 <a4j:commandLink value="Remove"
-                                                    action="delete"
+                                                   action="delete"
                                                     reRender="answerOutput">
                                                 </a4j:commandLink>
                                             </span>
