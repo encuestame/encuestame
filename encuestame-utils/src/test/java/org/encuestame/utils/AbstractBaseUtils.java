@@ -3,6 +3,7 @@ package org.encuestame.utils;
 import java.util.Date;
 import java.util.List;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLists;
@@ -247,5 +248,46 @@ public abstract class AbstractBaseUtils extends TestCase{
          return unitLists;
      }
 
+     /**
+      * Create Unit Emails.
+      * @param emailName
+      * @param idEmail
+      * @param listsId
+      * @return
+      */
+     public UnitEmails createUnitEmails(
+             final String emailName,
+             final Long idEmail,
+             final Long listsId){
+         final UnitEmails unitEmails = new UnitEmails();
+         unitEmails.setEmailName(emailName);
+         unitEmails.setIdEmail(idEmail);
+         unitEmails.setListsId(listsId);
+        return unitEmails;
+     }
+
+     public UnitPoll createUnitPollComplete(
+             final Boolean closeNotification,
+             final Boolean completedPoll,
+             final Date creationDate,
+             final Date finishDate,
+             final List<UnitHashTag> hashTags,
+             final Long idPoll,
+             final Boolean publishPoll,
+             final UnitQuestionBean questionBean,
+             final Boolean showResultsPoll){
+         final UnitPoll unitPollComplete = new UnitPoll();
+         unitPollComplete.setCloseNotification(closeNotification);
+         unitPollComplete.setCompletedPoll(completedPoll);
+         unitPollComplete.setCreationDate(creationDate);
+         unitPollComplete.setFinishDate(finishDate);
+         unitPollComplete.setHashTags(hashTags);
+         unitPollComplete.setId(idPoll);
+         unitPollComplete.setPublishPoll(publishPoll);
+         unitPollComplete.setQuestionBean(questionBean);
+         unitPollComplete.setShowResultsPoll(showResultsPoll);
+         return unitPollComplete;
+
+     }
 
 }

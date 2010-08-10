@@ -149,7 +149,7 @@ public class TestPollService extends AbstractBaseUnitBeans{
            assertNotNull(testUrl);
     }
 
-    @Test(timeout=20000)
+    @Test(timeout=40000)
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(), new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
             final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.secUserSecondary.getCompleteName());
