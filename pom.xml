@@ -129,7 +129,7 @@
             <url>http://repository.springsource.com/maven/bundles/release</url>
         </repository>
         <repository>
-            <id>http://maven.springframework.org/milestone</id>
+            <id>maven.springframework.org.milestone</id>
             <name>http://maven.springframework.org/milestone</name>
             <url>http://maven.springframework.org/milestone</url>
         </repository>
