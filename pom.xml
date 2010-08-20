@@ -850,8 +850,8 @@
             </dependency>
             <dependency>
                 <groupId>org.tuckey</groupId>
-                <artifactId>urlrewrite</artifactId>
-                <version>2.5.2</version>
+                <artifactId>urlrewritefilter</artifactId>
+                <version>3.1.0</version>
             </dependency>
             <dependency>
                 <groupId>jstl</groupId>
