@@ -36,12 +36,28 @@
       <to type="redirect">user/signin</to>
     </rule>
     <rule>
-      <from>^/index.html</from>
+      <from>^/indexz.html</from>
       <to type="redirect">home</to>
     </rule>
     <rule>
         <from>^/home</from>
         <to>/index.html</to>
+    </rule>
+    <rule>
+      <from>^/dashboard.html</from>
+      <to type="redirect">account/dashboard</to>
+    </rule>
+    <rule>
+        <from>^/account/dashboard</from>
+        <to>/dashboard.html</to>
+    </rule>
+    <rule>
+      <from>^/error.html</from>
+      <to type="redirect">user/denied</to>
+    </rule>
+    <rule>
+        <from>^/user/denied</from>
+        <to>/error.html</to>
     </rule>
     <rule>
         <from>^/user/signup</from>

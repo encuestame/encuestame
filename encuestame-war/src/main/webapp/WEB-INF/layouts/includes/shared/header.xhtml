@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:sec="http://www.springframework.org/security/facelets/tags"
+  xmlns:rich="http://richfaces.org/rich">
+    <div id="publicLineHeader">
+        <div class="headerOptions">
+                <form method="get" action="#{request.contextPath}/search.html">
+                    <sec:ifNotGranted roles="ENCUESTAME_USER">
+                        <span class="link">
+                           <a href="#{request.contextPath}/signin.html">Sign In</a>
+                        </span>
+                    </sec:ifNotGranted>
+                     <sec:ifAnyGranted roles="ENCUESTAME_USER">
+                         <span class="link">
+                            <a href="#{request.contextPath}/account/dashboard">My Dashboard</a>
+                         </span>
+                        <span class="link">
+                         <span id="navbar">
+                               <a href="#" onclick="showlayer('profile_menu')">#{msg.menuMyProfile}</a>
+                         </span>
+                        </span>
+                    </sec:ifAnyGranted>
+                    <span class="search">
+                        <input type="text" name="search" id="search" size="20" class="defaultInputClass"
+                         value="SEARCH"
+                         onclick = "if(this.value=='SEARCH') this.value=''"/>
+                    </span>
+                    <sec:ifAnyGranted roles="ENCUESTAME_USER">
+                        <span class="link">
+                               <a href="#{request.contextPath}/user/logout">Log out</a>
+                        </span>
+                    </sec:ifAnyGranted>
+
+                </form>
+        </div>
+        <div style="float: left;">
+            <a href="#{request.contextPath}/home">
+                <span class="logoSmallEncuestame"></span>
+            </a>
+
+        </div>
+    </div>
+</ui:composition>

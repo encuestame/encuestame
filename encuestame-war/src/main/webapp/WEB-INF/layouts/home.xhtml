@@ -8,7 +8,7 @@
     xmlns:c="http://java.sun.com/jstl/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:sf="http://www.springframework.org/tags/faces"
-    xmlns:sec="http://www.springframework.org/security/tags"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
     xmlns:m="http://code.google.com/p/gmaps4jsf/">
 <a4j:loadBundle basename="messages" var="msg" />
 <a4j:loadStyle src="/resource/css/default.css" type="text/css"></a4j:loadStyle>
@@ -26,11 +26,13 @@
 </head>
 <!-- onunload="GUnload()" -->
 <body>
-    <ui:include src="includes/header.xhtml" />
+    <div class="wrapper">
+    <ui:include src="includes/shared/header.xhtml" />
     <ui:include src="includes/menu.xhtml" />
-    <div id="mainWrapper">
-        <ui:insert name="main">main</ui:insert>
+        <div id="mainWrapper">
+            <ui:insert name="main">main</ui:insert>
+        </div>
     </div>
-    <ui:include src="includes/footer.xhtml" />
+    <ui:include src="includes/shared/footer.xhtml" />
 </body>
 </html>

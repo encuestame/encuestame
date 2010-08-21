@@ -1,0 +1,47 @@
+<ui:composition template="../layouts/publicHome.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:sf="http://www.springframework.org/tags/faces">
+    <ui:define name="title">SignIn</ui:define>
+    <ui:define name="main">
+             <div id="loginWrapper">
+       <div class="formWrapper">
+           <form class="form" name="loginForm" id="loginForm" action="#{request.contextPath}/j_spring_security_check"  method="post">
+                  <div class="field">
+                  <div class="label">Username</div>
+                  <div class="output">
+                     <input type="text" name="j_username" id="j_username"/></div>
+                  </div>
+                  <div class="field">
+                  <div class="label">Password</div>
+                  <div class="output">
+                    <span><input type="password" name="j_password" id="j_password" /></span>
+                    <span class="forgot">
+                        <a href="#{request.contextPath}/user/forgot">Forgot?</a>
+                    </span>
+                  </div>
+                  </div>
+                  <div class="field">
+                     <div class="label"></div>
+                      <div class="output">
+                          <input id="remember"  type="checkbox" name="_rememberMeServices" />
+                          <span>Keep me logged in</span>
+                      </div>
+                   </div>
+                    <div class="signIn">
+                        <input class="btn grey" type="submit" value="Sign In" />
+                    </div>
+
+
+            </form>
+            <div class="options">
+                    If you don't have account <a href="#{request.contextPath}/user/signup"><span>Create One !</span></a>
+            </div>
+      </div>
+    </div>
+    </ui:define>
+</ui:composition>

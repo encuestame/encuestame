@@ -11,7 +11,7 @@ div.headerOptions{
 
 div.headerOptions{
     float: right;
-    width: 400px;
+    width: auto;
     text-align: right;
 }
 
@@ -67,7 +67,6 @@ div.logoEncuestame{
 #mainPublicLineWrapper{
     margin: 1em auto;
     width: 65%;
-    min-height: 400px;
     position: relative;
     text-align: left;
     z-index: 1;

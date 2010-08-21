@@ -40,20 +40,24 @@
     <security:intercept-url pattern="index.jsp" filters="none" />
 
     <!-- Public Paths -->
-    <security:intercept-url pattern="/index.html" access="ENCUESTAME_ANONYMOUS"/>
-    <security:intercept-url pattern="/users.html" access="ENCUESTAME_ANONYMOUS"/>
-    <security:intercept-url pattern="/tags.html" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/index.html" filters="none"/>
+    <security:intercept-url pattern="/error.xhtml" filters="none"/>
+    <security:intercept-url pattern="/home" filters="none"/>
+    <security:intercept-url pattern="/users.html" filters="none"/>
+    <security:intercept-url pattern="/tags.html" filters="none"/>
 
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
     <!-- Account Paths -->
-    <security:intercept-url pattern="/user/signin.html" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/user/signin.html" access="ENCUESTAME_ANONYMOUS"/>
     <security:intercept-url pattern="/user/forgot.html" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="/user/signup.html" access="ENCUESTAME_ANONYMOUS" />
-    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
-    <security:intercept-url pattern="/user/lists.html" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/user/signup.html" access="ENCUESTAME_ANONYMOUS"/>
 
-    <security:intercept-url pattern="/dashboard.html" access="ENCUESTAME_USER" />
+    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+
+    <!-- Shared areas -->
+    <security:intercept-url pattern="/account/**/*" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/user/lists.html" access="ENCUESTAME_USER"/>
 
     <!-- Surveys / Poll / TweetPoll Paths -->
     <security:intercept-url pattern="/tweetpoll.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />
@@ -65,9 +69,10 @@
 
     <!-- Resources Path -->
     <security:intercept-url pattern="/resources/*"  filters="none" />
+
     <security:remember-me key="${spring.sec.rememberMe.key}" services-alias="_rememberMeServices" token-validity-seconds="10080"/>
     <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
-    <security:logout logout-success-url="${spring.sec.login.sucess}" invalidate-session="true"
+    <security:logout logout-success-url="${spring.sec.logout.sucess}" invalidate-session="true"
                      logout-url="${spring.sec.logout.url}"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
   </security:http>
@@ -85,7 +90,7 @@
   </bean>
 
    <bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-       <property name="defaultTargetUrl" value="/dashboard.html"/>
+       <property name="defaultTargetUrl" value="${spring.sec.defaultLoginUrl}"/>
    </bean>
 
    <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
