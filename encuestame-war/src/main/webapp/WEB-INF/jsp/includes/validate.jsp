@@ -1,0 +1,1 @@
+<script src="<%=request.getContextPath()%>/resource/js/encuestame-login.js" type="text/javascript"></script>

@@ -267,9 +267,9 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                 </plugin>
-
             </plugins>
         </pluginManagement>
+
         <resources>
             <resource>
                 <directory>src/main/resources/</directory>
@@ -279,6 +279,46 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
+         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <configuration>
+                    <doCheck>true</doCheck>
+                    <doUpdate>true</doUpdate>
+                <useLastCommittedRevision>true</useLastCommittedRevision>
+                <timestampFormat>{0,date,yyyy-MM-dd}</timestampFormat>
+                <items>
+                     <item>timestamp</item>
+                 </items>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+         </plugins>
+
     </build>
     <reporting>
         <plugins><!--

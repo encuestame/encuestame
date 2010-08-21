@@ -1,16 +1,27 @@
+.login{
+    background-color: #F0F2F5;
+    font: 0.75em 'Lucida Grande',sans-serif;
+}
+
 #loginWrapper{
-padding-top: 130px;
+    margin: 5em auto;
+    position: relative;
+    text-align: left;
+    z-index: 1;
 }
 
 #loginWrapper .form{
-    margin-left:20%;
-    padding-left: 90px;
-    float: left;
-    width: 400px;
+}
+
+#loginWrapper div.signIn{
+    margin: auto 8em ;
+    padding: 3px;
+    text-align: right;
+    width: 77px;
 }
 
 #loginWrapper div.field{
-    padding: 4px;
+    padding: 10px;
 }
 
 #loginWrapper div.forgotPassword{
@@ -32,10 +43,10 @@ padding-top: 130px;
 
 #loginWrapper div.field div.label{
     float: left;
-    font-weight: bold;
     color: #564F4F;
     padding-top: 6px;
     width: 90px;
+    font-size: 130%;
 }
 
 #loginWrapper div.field div.output input[type="text"]{
@@ -43,6 +54,11 @@ padding-top: 130px;
     width: 275px;
     font-size: 16px;
     font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
 }
 
 #loginWrapper div.field div.output label{
@@ -54,10 +70,17 @@ padding-top: 130px;
     width: 275px;
     font-size: 16px;
     font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
 }
 
-#loginWrapper div.field div.output span{
+#loginWrapper div.field div.output span a{
     font-size: 10px;
+    text-decoration: none;
+    padding-left: 5px;
 }
 
 #loginWrapper div.buttonGroup{
@@ -70,13 +93,17 @@ padding-top: 130px;
 }
 
 div.formWrapper div.options{
-    padding: 5px;
-    font-size: 14px;
+    padding: 5px 5px 5px 100px;
+    font-size: 10px;
+    width: 300px;
 }
 
 div.formWrapper div.options a{
     text-decoration: none;
-    color: black;
+}
+
+div.formWrapper div.options a:hover{
+    color: #275296;
 }
 
 div.formWrapper div.options div.createAccount{

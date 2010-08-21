@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/  xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sf="http://www.springframework.org/tags/faces"
+    xmlns:sec="http://www.springframework.org/security/tags"
+    xmlns:m="http://code.google.com/p/gmaps4jsf/">
+<head>
+<a4j:loadBundle basename="messages" var="msg" />
+<a4j:loadStyle src="/resource/css/default.css" type="text/css"></a4j:loadStyle>
+<a4j:loadStyle src="/resource/css/public.css" type="text/css"></a4j:loadStyle>
+<ui:insert name="css"></ui:insert>
+<ui:insert name="js"></ui:insert>
+<title>encuestame - public line </title>
+</head>
+<body class="public-body">
+    <ui:include src="includes/public/header.xhtml" />
+    <div id="mainPublicLineWrapper" >
+           <div style="float: right; border: 1px solid rgb(0, 0, 0); width: 20%;">
+                    dasdassd
+          </div>
+          <div class="itemWrapper" style="border: 1px solid #FFF; width: 79%; min-height: 500px;">
+               <ui:insert name="main"></ui:insert>
+          </div>
+    </div>
+    <ui:include src="includes/public/footer.xhtml" />
+</body>
+</html>

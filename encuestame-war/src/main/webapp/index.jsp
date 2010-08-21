@@ -1,5 +1,5 @@
 <%
-    String redirectURL = "dashboard.html";
+    String redirectURL = "index.html";
     response.sendRedirect(redirectURL);
-	
+
 %>

@@ -1,0 +1,189 @@
+@import url("login.css");
+
+body.public-body{
+    margin: 0;
+    padding: 0;
+}
+
+div.headerOptions{
+
+}
+
+div.headerOptions{
+    float: right;
+    width: 400px;
+    text-align: right;
+}
+
+div.headerOptions span.link{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+div.headerOptions span.link a{
+    color: #275296;
+    text-decoration: none;
+    font-size: 110%;
+    font-style: italic;
+    font-weight: bold;
+}
+
+div.headerOptions span.link a:hover{
+    text-decoration: none;
+}
+
+div.headerOptions span.search{
+}
+
+
+#publicLineHeader{
+    background-color: #E8E8E8;
+    min-height: 27px;
+    padding: 5px;
+    box-shadow: 0px 1px 0px #C1C1C1;
+    -webkit-box-shadow: 0px 1px 0px #C1C1C1;
+    -moz-box-shadow: 0px 1px 0px #C1C1C1;
+}
+
+.logoSmallEncuestame{
+     background-image: url(../images/logos/encuestame_header_grey.jpg);
+     background-repeat: no-repeat;
+     height: 24px;
+     margin-left: 20px;
+     width: 128px;
+     display: inline-block;
+}
+
+div.logoEncuestame{
+     background-image: url(../images/logos/encuestame_logoalone.png);
+     background-repeat: no-repeat;
+}
+
+#publicLineFooter{
+
+}
+
+
+#mainPublicLineWrapper{
+    margin: 1em auto;
+    width: 65%;
+    min-height: 400px;
+    position: relative;
+    text-align: left;
+    z-index: 1;
+}
+
+div.itemWrapper{
+
+}
+
+div.itemWrapper .item{
+    border-bottom: 1px solid #DFDFDF;
+    padding: 8px;
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+div.itemWrapper .item .img{
+    float: left;
+    width: 86px;
+    margin-right: 8px;
+
+}
+
+div.itemWrapper .item .content{
+    float: right;
+    width: 700px;
+}
+div.itemWrapper .item .clear{
+    clear: both;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+div.itemWrapper .item .stats{
+    background: none repeat scroll 0 0 #EEEEEE;
+    margin: 0 0 0 7px;
+    padding: 7px;
+    width: 70px;
+    text-align: center;
+}
+
+div.itemWrapper .item .stats .vote{
+}
+
+div.itemWrapper .item .stats .count{
+    font-size: 250%;
+    color: #275296;
+}
+
+div.itemWrapper .item .stats .viewcount{
+    color: #6A6A6A;
+    font-size: 10px;
+}
+
+div.itemWrapper .item .stats .views{
+   color: #B3B3B3;
+   font-size: 10px;
+}
+
+div.itemWrapper .item .content{
+
+}
+
+div.itemWrapper .item .content h3{
+    font-size: 18px;
+    text-transform: capitalize;
+    margin-bottom: 1px;
+}
+
+div.itemWrapper .item .content h3 a{
+    color: #5C8397;
+}
+
+div.itemWrapper .item .content .bottom{
+    position: relative;
+}
+
+div.itemWrapper .item .content .bottom .share{
+    float: right;
+}
+
+div.itemWrapper .item .content .bottom .share .title{
+    font-size: 10px;
+    color: #CACACA;
+}
+
+div.itemWrapper .item .content .bottom .options{
+    float: left;
+    background-color: #F3F3F3;
+    color: #3E6D8E;
+    font-size: 90%;
+    margin: 2px 2px 2px 0;
+    padding: 3px 4px;
+    white-space: nowrap;
+    width: 260px;
+}
+div.itemWrapper .item .content .bottom .image{
+    float: left;
+    margin-right: 6px;
+}
+
+
+
+div.itemWrapper .item .tags{
+    float: left;
+    margin-left: 10px;
+    padding-top: 5px;
+}
+
+div.itemWrapper .item .tags .tag{
+    background-color: #F3F3F3;
+    color: #3E6D8E;
+    font-size: 90%;
+    margin: 2px 2px 2px 0;
+    padding: 3px 4px;
+    white-space: nowrap;
+    border-bottom: 1px solid #447890;
+    border-right: 1px solid #385B6C;
+}

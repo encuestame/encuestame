@@ -11,41 +11,17 @@
  ************************************************************************************
  */
 
-$().ready(function() {
-    $("#loginForm").validate({
-        rules: {
-            j_username: "required",
-            j_password: "required",
-            j_username: {
-                required: true,
-                minlength: 4
-            },
-            j_password: {
-                required: true,
-                minlength: 5
-            }
-        },
-        messages: {
-            j_username: {
-                required: "Please enter a username",
-                minlength: "Your username must consist of at least 4 characters"
-            },
-            j_password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long"
-            }
-       }
-    });
-});
+function formCallback(result, form) {
+         window.status = "valiation callback for form '" + form.id + "': result = " + result;
+};
 
-$(document).ready(function(){
-    $("#submit").click(function(){
-       if($("#loginForm").valid()){;
-          document.loginForm.submit();
-       }
-    });
-});
 
-$().ready(function(){
-    $('.titleHintBox').inputHintBox({div:$('#shiny_box'),div_sub:'.shiny_box_body',source:'attr',attr:'title',incrementLeft:5});
-});
+var valid = new Validation('loginForm', {immediate : true, onFormValidate : formCallback});
+Validation.addAllThese([
+    ['validate-password', 'Your password must be more than 6 characters and not be \'password\' or the same as your name', {
+        minLength : 7,
+        notOneOf : ['password','PASSWORD','1234567','0123456'],
+        notEqualToField : 'field1'
+    }]
+]);
+

@@ -4,16 +4,22 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:a4j="http://richfaces.org/a4j"
   xmlns:rich="http://richfaces.org/rich">
-    <div id="header">
-       <span class="logo"></span>
-         <div style="float: right;">
-            <div id="navbar">
-               <ul>
-                  <li>
-                      <a href="#" onclick="showlayer('profile_menu')">#{msg.menuMyProfile}</a>
-                  </li>
-               </ul>
-               <div id="profile_menu" style="display:none; right: 0px;">
+      <div id="publicLineHeader">
+        <div class="headerOptions">
+                <form method="get" action="#{request.contextPath}/search.html">
+                    <span class="link">
+                       <a href="#{request.contextPath}/signin.html">Sign In</a>
+                    </span>
+                    <span class="link">
+                         <span id="navbar">
+                                  <a href="#" onclick="showlayer('profile_menu')">#{msg.menuMyProfile}</a>
+                         </span>
+                    </span>
+                    <span class="search">
+                        <input type="text" name="search" id="search" size="20" class="defaultInputClass"/>
+                    </span>
+                </form>
+                <div id="profile_menu" style="display:none; right: 0px;">
                <div id="detail_profile">Profile Detail<br /><br />
                 <h:panelGrid columns="2">
                   <h:outputLabel value="Username" />
@@ -30,8 +36,7 @@
                   </h:panelGroup>
                   </h:panelGrid>
                </div>
-               <div id="options_profile">
-                    Options<br /><br />
+               <div id="options_profile">Options<br /><br />
                         <ul>
                             <li>
                                 <img src="#{userProfile.gravatarImageUrl}" alt="#{userProfile.details.completeName}" />
@@ -52,7 +57,11 @@
                  </div>
                  <div class="spacer"></div>
                 </div>
-            </div>
+        </div>
+        <div style="float: left;">
+            <a href="#{request.contextPath}/home">
+                <span class="logoSmallEncuestame"></span>
+            </a>
         </div>
     </div>
 </ui:composition>

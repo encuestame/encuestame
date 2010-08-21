@@ -1,3 +1,5 @@
+@import url("public.css");
+@import url("button.css");
 @import url("profile.css");
 @import url("social.css");
 @import url("suggest.css");
@@ -9,6 +11,20 @@ body {
     font-size: 12px;
     margin: 0;
     padding: 0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+   color: #275296;
+   text-decoration: none;
+}
+
+a:hover{
+   text-decoration: underline;
 }
 
 img {
@@ -144,7 +160,6 @@ a:hover{
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    width: 76%;
     border-bottom-right-radius : 5px 5px;
     border-bottom-left-radius : 5px 5px;
     border-top-left-radius : 5px 5px;

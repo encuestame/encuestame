@@ -113,7 +113,7 @@
         -->
         <init-param>
             <param-name>logLevel</param-name>
-            <param-value>WARN</param-value>
+            <param-value>INFO</param-value>
         </init-param>
         <!--
             you can disable status page if desired can be: true, false (default
