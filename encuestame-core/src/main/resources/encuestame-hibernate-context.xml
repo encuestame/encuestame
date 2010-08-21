@@ -127,24 +127,27 @@
         </property>
     </bean>
 
-    <!-- ehcache configuration  -->
+    <!-- ehcache configuration
 
     <ehcache:config configLocation="classpath:ehcache.xml" />
 
+     -->
+    <!-- Question Dao
     <ehcache:annotations>
-        <!-- Question Dao -->
+
         <ehcache:caching id="retrieveQuestionsByName" cacheName="questionCache" />
         <ehcache:caching id="retrieveQuestionById" cacheName="questionCache" />
         <ehcache:caching id="retrieveAnswerById" cacheName="questionCache" />
         <ehcache:flushing id="createQuestion" cacheNames="questionCache" />
     </ehcache:annotations>
-
+    -->
+    <!-- Permission Dao
     <ehcache:annotations>
-        <!-- Permission Dao -->
+
         <ehcache:caching id="loadAllPermissions" cacheName="permissionCache" />
         <ehcache:caching id="loadPermission" cacheName="permissionCache" />
         <ehcache:caching id="getPermissionById" cacheName="permissionCache" />
         <ehcache:flushing id="createPermission" cacheNames="permissionCache" />
     </ehcache:annotations>
-
+    -->
 </beans>

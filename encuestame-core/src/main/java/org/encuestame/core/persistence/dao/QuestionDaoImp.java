@@ -46,7 +46,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @param question question
      * @throws HibernateException exception
      */
-    @CacheFlush(modelId="createQuestion")
+    //@CacheFlush(modelId="createQuestion")
     public void createQuestion(final Question question) throws HibernateException {
         saveOrUpdate(question);
     }
@@ -56,7 +56,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @param keyword keyword
      * @return list of questions
      */
-    @Cacheable(modelId="retrieveQuestionsByName")
+    //@Cacheable(modelId="retrieveQuestionsByName")
     @SuppressWarnings("unchecked")
     public List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
