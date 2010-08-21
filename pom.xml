@@ -285,7 +285,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
                 <configuration>
-                    <doCheck>true</doCheck>
+                    <doCheck>false</doCheck>
                     <doUpdate>true</doUpdate>
                 <useLastCommittedRevision>true</useLastCommittedRevision>
                 <timestampFormat>{0,date,yyyy-MM-dd}</timestampFormat>
