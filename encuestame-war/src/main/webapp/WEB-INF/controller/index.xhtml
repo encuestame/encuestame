@@ -4,14 +4,23 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces">
     <ui:define name="title"> #{msg.titleDashboard}</ui:define>
     <ui:define name="main">
-            <div style="font-size: 16px;">
-                <span><a href="#">All Surveys</a></span>
-                <span><a href="#">All TweetPoll</a></span>
-                <span><a href="#">All Poll</a></span>
+
+            <div class="categoryMenu">
+                <div style="clear: both;">
+                <div style="float: right;">
+                    filter by date
+                </div>
+                <div style="float: left;">
+                    <span><a href="#">All Surveys</a></span>
+                    <span><a href="#">All TweetPoll</a></span>
+                    <span><a href="#">All Poll</a></span>
+                </div>
+                </div>
             </div>
 
              <div class="item">
@@ -30,7 +39,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Ever take silverware, glasses or other serving ware from a restaurant
+                         <a href="#{request.contextPath}/survey/12345">Ever take silverware, glasses or other serving ware from a restaurant
                             becouse Nicaragua is the country more poor of the region?</a>
                     </h3>
                     <div style="padding: 2px;">
@@ -48,7 +57,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
@@ -80,7 +89,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Should schools sharing $10 billion in emergency aid to rehire teachers this fall be allowed to hold onto that money for next year's budget?</a>
+                         <a href="#{request.contextPath}/survey/12345">Should schools sharing $10 billion in emergency aid to rehire teachers this fall be allowed to hold onto that money for next year's budget?</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -97,7 +106,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
@@ -129,7 +138,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Freedom of Speech Does NOT give us the right to lie.</a>
+                         <a href="#{request.contextPath}/survey/12345">Freedom of Speech Does NOT give us the right to lie.</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -146,7 +155,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
@@ -178,7 +187,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Freedom of Speech Does NOT give us the right to lie.</a>
+                         <a href="#{request.contextPath}/survey/12345">Freedom of Speech Does NOT give us the right to lie.</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -195,7 +204,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
@@ -227,7 +236,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Freedom of Speech Does NOT give us the right to lie.</a>
+                         <a href="#{request.contextPath}/survey/12345">Freedom of Speech Does NOT give us the right to lie.</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -244,7 +253,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
@@ -276,7 +285,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Freedom of Speech Does NOT give us the right to lie.</a>
+                         <a href="#{request.contextPath}/survey/12345">Freedom of Speech Does NOT give us the right to lie.</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -293,7 +302,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
@@ -325,7 +334,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/poll/3633661/">Freedom of Speech Does NOT give us the right to lie.</a>
+                         <a href="#{request.contextPath}/survey/12345">Freedom of Speech Does NOT give us the right to lie.</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -342,7 +351,7 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="http://static5.bitacoras.com/images/icons/comentarios.png"/> 25 Comments</div>
+                            <div><img src="#{request.contextPath}/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">

@@ -64,9 +64,7 @@ a:hover{
 }
 
 #mainWrapper {
-    margin-right: 5px;
-    width: 99%;
-    min-height: 515px;
+    margin: 0em 10em auto;
 }
 
 .wrapper {

@@ -1,163 +1,37 @@
-div.menuWrapper {
-    clear: both;
-    min-height: 40px;
-}
-
-ul#topnav {
+.menuWrapper ul {
     margin: 0;
     padding: 0;
     float: left;
-    width: 100%;
-    list-style: none;
-    position: relative;
-    font-size: 12px;
-    background: url(../images/topnav_stretch.gif) repeat-x;
-    z-index: 100;
 }
 
-ul#topnav li {
-    float: left;
-    margin: 0;
-    padding: 0;
-    border-right: 1px solid #555;
-}
-
-ul#topnav li a {
-    padding: 10px 15px;
-    display: block;
-    color: #f0f0f0;
-    text-decoration: none;
-}
-
-ul#topnav li:hover {
-    background: #1376c9 url(../images/topnav_active.gif) repeat-x;
-}
-
-ul#topnav li span {
-    float: left;
-    padding: 10px 0;
-    position: absolute;
-    left: 0;
-    display: none;
-    width: 970px;
-    background: #1376c9;
-    color: #fff;
-    -moz-border-radius-bottomright: 5px;
-    -khtml-border-radius-bottomright: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    -khtml-border-radius-bottomleft: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-}
-
-ul#topnav li:hover span {
-    display: block;
-}
-
-ul#topnav li span a {
+.menuWrapper ul li {
     display: inline;
+        border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 
-ul#topnav li span a:hover {
-    text-decoration: underline;
-}
-
-/** Login Nav Bar **/
-#navbar {
-    background: url(pic/bg.png) repeat-x;
-    height: 29px;
-    line-height: 29px;
-}
-
-#navbar ul,#navbar li,#navbar form,#navbar button {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#navbar li a {
-    margin: 0 6px;
-    text-decoration: none;
-    color: #000000;
-    font-weight: bold;
-    border-bottom: dotted 1px #000000;
-}
-
-#profile_menu {
-    background: #aaaaaa;
-    border: solid 1px #666666;
-    width: 400px;
-    padding: 10px;
-    color: #FFFFFF;
-    position: absolute;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 18px;
-    min-height: 160px;
-    z-index: 500;
-   -webkit-border-radius: 0px 0px 10px 10px;
-    -moz-border-radius: 0px 0px 10px 10px;
-    border-radius: 0px 0px 10px 10px;
-}
-
-#profile_menu li {
-    padding-bottom: 6px;
-    text-align: right;
-}
-
-#detail_profile {
-    padding-right: 10px;
-    border-right: 1px #DEDEDE solid;
-    height: 120px;
-    width: 230px;
+.menuWrapper ul li a {
     float: left;
-    line-height: 12px;
-}
-
-#options_profile {
-    padding-left: 20px;
-    height: 120px;
-    width: 135px;
-    float: left;
-    line-height: 12px;
-    text-align: right;
-}
-
-#profile_menu label {
-    font-size: 11px;
-    font-weight: normal;
-}
-
-#profile_menu input {
-    font-size: 11px;
-    color: #333333;
-    margin-left: 10px;
-}
-
-#profile_menu button {
-    line-height: 24px;
-    float: right;
-    color: #FFFFFF;
-    font-size: 11px;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-}
-
-.green-button {
-    background: url(pic/button.png);
-    display: block;
-    color: #FFFFFF;
-    font-size: 11px;
     text-decoration: none;
-    width: 81px;
-    height: 26px;
-    line-height: 24px;
-    text-align: center;
+    color: white;
+    padding: 10.5px 11px;
+    background-color: #444444;
 }
 
-.spacer {
-    clear: both;
-    height: 1px;
+.menuWrapper ul li a:visited {
+    color: white;
 }
+
+.menuWrapper ul li.item a:hover,.menuWrapper ul li .current {
+    color: #444444;
+    background-color: #E8E8E8;
+}
+
+.menuWrapper {
+    width: 100%;
+    background-color: #444444;
+    border-radius: 0px 0px 2px 2px;
+    -moz-border-radius: 0px 0px 2px 2px;
+    -webkit-border-radius: 0px 0px 2px 2px;
+}s

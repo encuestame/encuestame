@@ -220,11 +220,11 @@ div.addAnswers div.answerItem{
     margin-top : 8px;
     cursor: pointer;
     border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     box-shadow: 1px 1px 1x #000000;
     -webkit-box-shadow: 1px 1px 1px #000000;
     -moz-box-shadow: 1px 1px 1px #000000;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
 }
 
 div.addAnswers div.answerItem:hover{
