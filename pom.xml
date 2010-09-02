@@ -29,7 +29,7 @@
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.2.0.CR1</hibernate.search.version>
         <!--
-        <jsf-api>2.0.0-RC</jsf-api>
+        <jsf-api>2.0.0-RC</jsf-api><sec:ifAllGranted roles="ENCUESTAME_ADMIN">
         <jsf-impl>2.0.0-RC</jsf-impl>
         -->
         <jsf-api>1.2_02</jsf-api>
@@ -286,12 +286,12 @@
         </resources>
 
          <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
                 <configuration>
                     <doCheck>false</doCheck>
-                    <doUpdate>true</doUpdate>
+                    <doUpdate>false</doUpdate>
                 <useLastCommittedRevision>true</useLastCommittedRevision>
                 <timestampFormat>{0,date,yyyy-MM-dd}</timestampFormat>
                 <items>
@@ -307,7 +307,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            --><plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.0.2</version>
