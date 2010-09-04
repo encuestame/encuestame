@@ -124,17 +124,6 @@
             </resource>
         </resources>
     </build>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>mortbay-repo</id>
-            <name>mortbay-repo</name>
-            <url>http://www.mortbay.org/maven2/snapshot</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>Maven Snapshots</id>
-            <url>http://snapshots.maven.codehaus.org/maven2/</url>
-        </pluginRepository>
-    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
