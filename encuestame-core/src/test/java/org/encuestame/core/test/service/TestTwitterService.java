@@ -72,7 +72,7 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
      * Test Public Tweet.
      * @throws TwitterException exception
      */
-    @Test
+    //@Test
     public void testPublicTweet() throws TwitterException{
         final String testTweet = RandomStringUtils.randomAlphabetic(5);
         final Status tweet = twitterService.publicTweet(this.user.getTwitterAccount(),
@@ -99,7 +99,7 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
      * @throws TwitterException
      *
      */
-    @Test
+    //@Test
     public void testVerifyCredentials() throws TwitterException{
         final User user = getTwitterService().verifyCredentials("testEncuesta", "testEncuesta123");
         assertNotNull(user);
