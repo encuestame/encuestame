@@ -484,13 +484,6 @@
         </plugins>
     </reporting>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Codehaus repository</id>
-            <url>http://repository.codehaus.org/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <developers>
         <developer>
             <id>juanpicado</id>
