@@ -28,7 +28,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <version>2.2</version>
-                <executions>
+                <!--<executions>
                     <execution>
                         <phase>test</phase>
                         <goals>
@@ -37,7 +37,7 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
+                --><configuration>
                     <hibernate>
                         <configurationFile>
                             /src/main/resources/hibernate.cfg.xml
