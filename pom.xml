@@ -295,6 +295,23 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                 </plugin>
+                <plugin>
+                  <groupId>net.sf</groupId>
+                  <artifactId>stat-scm</artifactId>
+                  <version>1.2.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.2</version>
+                 </plugin>
+
+                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.1</version>
+                 </plugin>
             </plugins>
         </pluginManagement>
 
@@ -362,8 +379,17 @@
             </plugin>
             -->
              <plugin>
-                    <groupId>net.sf</groupId>
-                    <artifactId>stat-scm</artifactId>
+                 <groupId>net.sf</groupId>
+                 <artifactId>stat-scm</artifactId>
+                 <configuration>
+                     <includes>
+                             <include>**/*.java</include>
+                     </includes>
+                     <excludes>
+                             <exclude>**/test/**/*.java</exclude>
+                     </excludes>
+                 </configuration>
+                 <version>1.2.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -393,6 +419,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.2</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -409,7 +436,8 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin><!--
+            </plugin>
+            <!--
             <plugin>
                 <groupId>net.objectlab</groupId>
                 <artifactId>mvn-qalab-plugin</artifactId>
