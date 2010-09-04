@@ -1166,11 +1166,11 @@
                 <artifactId>hsqldb</artifactId>
                 <version>1.8.0.1</version>
             </dependency>
-            <!--
-                <dependency> <groupId>postgresql</groupId>
-                <artifactId>postgresql</artifactId> <version>8.3-603.jdbc3</version>
-                </dependency>
-            -->
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>8.3-603.jdbc3</version>
+            </dependency>
             <dependency>
                 <groupId>jasperreports</groupId>
                 <artifactId>jasperreports</artifactId>

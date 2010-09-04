@@ -496,5 +496,9 @@
                <groupId>org.springframework.security</groupId>
                <artifactId>facelets-taglib-jsf12-spring-3</artifactId>
             </dependency>
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+            </dependency>
     </dependencies>
 </project>
