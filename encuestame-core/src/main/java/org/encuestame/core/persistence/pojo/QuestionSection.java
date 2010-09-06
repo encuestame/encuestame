@@ -12,74 +12,55 @@
  */
 package org.encuestame.core.persistence.pojo;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
- * Survey Pagination.
+ * Questions Dependencies.
+ *
  * @author Morales Urbina, Diana paola@encuestame.org
- * @since August 10, 2010
+ * @since August 19, 2010
  * @version $Id: $
  */
-
-@Entity
-@Table(name = "survey_pagination")
-public class SurveyPagination {
+public class QuestionSection {
 
     /****/
-    private Long paginationId;
+    private Long questionSectionId;
 
     /****/
-    private Long pageNumber;
+    private Question question;
 
     /****/
     private SurveySection surveySection;
 
     /**
-     * @return the paginationId
+     * @return the questionSectionId
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pagination_id", unique = true, nullable = false)
-    public Long getPaginationId() {
-        return paginationId;
+    public Long getQuestionSectionId() {
+        return questionSectionId;
     }
 
     /**
-     * @param paginationId the paginationId to set
+     * @param questionSectionId the questionSectionId to set
      */
-    public void setPaginationId(Long paginationId) {
-        this.paginationId = paginationId;
-    }
-
-
-    /**
-     * @return the pageNumber
-     */
-    @Column(name = "created_at")
-    public Long getPageNumber() {
-        return pageNumber;
+    public void setQuestionSectionId(Long questionSectionId) {
+        this.questionSectionId = questionSectionId;
     }
 
     /**
-     * @param pageNumber the pageNumber to set
+     * @return the question
      */
-    public void setPageNumber(Long pageNumber) {
-        this.pageNumber = pageNumber;
+    public Question getQuestion() {
+        return question;
+    }
+
+    /**
+     * @param question the question to set
+     */
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     /**
      * @return the surveySection
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "sid", nullable = false)
     public SurveySection getSurveySection() {
         return surveySection;
     }
@@ -90,5 +71,4 @@ public class SurveyPagination {
     public void setSurveySection(SurveySection surveySection) {
         this.surveySection = surveySection;
     }
-
- }
+}

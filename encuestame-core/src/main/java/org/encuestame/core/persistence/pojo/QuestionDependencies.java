@@ -48,7 +48,7 @@ public class QuestionDependencies {
     private QuestionsAnswers answers;
 
     /****/
-    private Long descriptionDependence;
+    private String descriptionDependence;
 
 
     /**
@@ -118,15 +118,15 @@ public class QuestionDependencies {
     /**
      * @return the descriptionDependence
      */
-    @Column(name = "questionDependence", unique = true, nullable = false)
-     public Long getDescriptionDependence() {
+    @Column(name = "descriptionDependence", unique = true, nullable = false)
+     public String getDescriptionDependence() {
         return descriptionDependence;
     }
 
     /**
      * @param descriptionDependence the descriptionDependence to set
      */
-    public void setDescriptionDependence(Long descriptionDependence) {
+    public void setDescriptionDependence(String descriptionDependence) {
         this.descriptionDependence = descriptionDependence;
     }
 

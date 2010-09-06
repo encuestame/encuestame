@@ -57,9 +57,10 @@
                 <value>org.encuestame.core.persistence.pojo.CatEmailLists</value>
                 <value>org.encuestame.core.persistence.pojo.CatSubscribeEmails</value>
                 <value>org.encuestame.core.persistence.pojo.SurveyPagination</value>
-                <value>org.encuestame.core.persistence.pojo.SurveyFolders</value>
+                <value>org.encuestame.core.persistence.pojo.SurveyFolder</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionDependencies</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionDependenceSurvey</value>
+                <value>org.encuestame.core.persistence.pojo.QuestionSection</value>
             </list>
         </property>
         <property name="hibernateProperties">

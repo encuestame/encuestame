@@ -42,8 +42,9 @@
         <mapping class="org.encuestame.core.persistence.pojo.CatEmailLists"/>
         <mapping class="org.encuestame.core.persistence.pojo.CatSubscribeEmails"/>
         <mapping class="org.encuestame.core.persistence.pojo.SurveyPagination"/>
-        <mapping class="org.encuestame.core.persistence.pojo.SurveyFolders"/>
+        <mapping class="org.encuestame.core.persistence.pojo.SurveyFolder"/>
         <mapping class="org.encuestame.core.persistence.pojo.QuestionDependencies"/>
         <mapping class="org.encuestame.core.persistence.pojo.QuestionDependenceSurvey"/>
+        <mapping class="org.encuestame.core.persistence.pojo.QuestionSection"/>
     </session-factory>
 </hibernate-configuration>

@@ -35,8 +35,8 @@ import javax.persistence.TemporalType;
  * @version $Id: $
  */
 @Entity
-@Table(name = "survey_folders")
-public class SurveyFolders {
+@Table(name = "survey_folder")
+public class SurveyFolder {
 
     /****/
     private Long surveyFolderId;

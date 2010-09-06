@@ -19,14 +19,12 @@ import java.util.List;
 
 import org.encuestame.core.mail.MailService;
 import org.encuestame.core.persistence.dao.imp.IProject;
-import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.SecUser;
-import org.encuestame.core.service.SecurityService;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.mail.InvitationBean;
-import org.encuestame.utils.mail.NotificationBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +57,7 @@ public class TestCatEmailLists extends AbstractBase {
     }
 
 
-    @Test(timeout=20000)
+    @Test(timeout=60000)
     public void testSendEmail(){
         createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
         createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
@@ -71,7 +69,7 @@ public class TestCatEmailLists extends AbstractBase {
             }
     }
 
-    @Test(timeout=20000)
+    @Test(timeout=60000)
     public void testSendInvitation(){
           createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
           final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(

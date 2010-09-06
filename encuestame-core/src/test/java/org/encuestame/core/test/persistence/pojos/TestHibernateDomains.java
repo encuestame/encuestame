@@ -25,6 +25,8 @@ import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
+import org.encuestame.core.persistence.pojo.QuestionDependenceSurvey;
+import org.encuestame.core.persistence.pojo.QuestionDependencies;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
@@ -33,8 +35,10 @@ import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.Status;
+import org.encuestame.core.persistence.pojo.SurveyFolder;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
+import org.encuestame.core.persistence.pojo.SurveyPagination;
 import org.encuestame.core.persistence.pojo.Surveys;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
@@ -296,11 +300,11 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmail(){
-    	 final CatEmails catEmailList = new CatEmails();
-    	 catEmailList.setEmail("paola@jotadeveloper.com");
-    	 catEmailList.setIdListEmail(createDefaultListEmail());
-    	 getCatEmailDao().saveOrUpdate(catEmailList);
-    	 assertNotNull(catEmailList.getIdEmail());
+         final CatEmails catEmailList = new CatEmails();
+         catEmailList.setEmail("paola@jotadeveloper.com");
+         catEmailList.setIdListEmail(createDefaultListEmail());
+         getCatEmailDao().saveOrUpdate(catEmailList);
+         assertNotNull(catEmailList.getIdEmail());
      }
 
      /**
@@ -308,11 +312,64 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmailList(){
-    	 final CatEmailLists catListEmails = new CatEmailLists();
-    	 catListEmails.setCreatedAt(new Date());
-    	 catListEmails.setListName("default encuestame list");
-    	 catListEmails.setUsuarioEmail(createUser());
-    	 getCatEmailDao().saveOrUpdate(catListEmails);
-    	 assertNotNull(catListEmails.getIdList());
+         final CatEmailLists catListEmails = new CatEmailLists();
+         catListEmails.setCreatedAt(new Date());
+         catListEmails.setListName("default encuestame list");
+         catListEmails.setUsuarioEmail(createUser());
+         getCatEmailDao().saveOrUpdate(catListEmails);
+         assertNotNull(catListEmails.getIdList());
+     }
+
+     /**
+      * Test Survey Folders
+      */
+    // @Test
+     public void testSurveyFolders(){
+         final SurveyFolder surveyFolders = new SurveyFolder();
+         surveyFolders.setCreatedAt(new Date());
+         surveyFolders.setFolderName("My Surveys");
+         surveyFolders.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
+         surveyFolders.setUsers(createUser());
+         getSurveyDaoImp().saveOrUpdate(surveyFolders);
+         assertNotNull(surveyFolders.getSurveyFolderId());
+     }
+
+     /**
+      * Test Survey Pagination
+      */
+     //@Test
+     public void testSurveyPagination(){
+         final SurveyPagination surveyPagination = new SurveyPagination();
+         //surveyPagination.setAnswers(createQuestionAnswer("Yes", createQuestion("DD", createUser()), "DD"));
+         surveyPagination.setPageNumber(2L);
+         //surveyPagination.setQuestions(createQuestion("DD", createUser()));
+         //surveyPagination.setSurveys(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
+         getSurveyDaoImp().saveOrUpdate(surveyPagination);
+         assertNotNull(surveyPagination.getPaginationId());
+
+     }
+
+     /**
+      * Test Question Dependence Survey
+      */
+     //@Test
+     public void testQuestionDependenceSurvey(){
+         final QuestionDependenceSurvey questionDepSurvey = new QuestionDependenceSurvey();
+         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
+         getQuestionDaoImp().saveOrUpdate(questionDepSurvey);
+         assertNotNull(questionDepSurvey.getQuestionDependenceId());
+     }
+
+     /**
+      * Test Question Dependencies
+      */
+     //@Test
+     public void testQuestionDependencies(){
+         final QuestionDependencies questionDep = new QuestionDependencies();
+         questionDep.setAnswers((createQuestionAnswer("Yes", createQuestion("DD", createUser()), "DD")));
+         questionDep.setDescriptionDependence("My question dependencies");
+         questionDep.setQuestionId_from(5L);
+         questionDep.setQuestionId_to(3L);
+
      }
 }

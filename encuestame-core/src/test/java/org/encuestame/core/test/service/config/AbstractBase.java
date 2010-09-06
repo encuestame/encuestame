@@ -59,6 +59,7 @@ import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
+import org.encuestame.core.persistence.pojo.Surveys;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
@@ -158,6 +159,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     /** {@link CatEmailDao}. **/
     @Autowired
     private ICatEmail catEmailDao;
+
 
     protected Log log = LogFactory.getLog(this.getClass());
 
@@ -977,6 +979,36 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         catLocationFolder.setSubLocationFolder(locationFolder);
         getCatLocationDao().saveOrUpdate(catLocationFolder);
         return catLocationFolder;
+    }
+
+     /**
+      * Create {@link Surveys}
+      * @param complete
+      * @param dateInterview
+      * @param endDate
+      * @param secUsers
+      * @param startDate
+      * @param surveyFormat
+      * @return
+      */
+    public Surveys createSurvey(
+            final String complete,
+            final Date dateInterview,
+            final Date endDate,
+            final SecUser secUsers,
+            final Date startDate,
+            final SurveyFormat surveyFormat
+            ){
+        final Surveys survey = new Surveys();
+        survey.setComplete(complete);
+        survey.setDateInterview(dateInterview);
+        survey.setEndDate(endDate);
+        survey.setSecUsers(secUsers);
+        survey.setStartDate(startDate);
+        survey.setSurveyFormat(surveyFormat);
+        survey.setTicket(3);
+        getSurveyDaoImp().saveOrUpdate(survey);
+        return survey;
     }
 
     /**
