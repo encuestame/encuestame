@@ -22,6 +22,7 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
@@ -80,6 +81,21 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
     @Deprecated
     public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException{
         final Twitter twitter = new TwitterFactory().getInstance(username, password);
+        return twitter.updateStatus(tweet);
+    }
+
+    /**
+     * OAuth Public Tweet.
+     * @param secUserTwitterAccount
+     * @param tweet
+     * @return
+     * @throws TwitterException
+     */
+    public Status publicTweet(final SecUserTwitterAccounts secUserTwitterAccount, final String tweet) throws TwitterException{
+        //Twitter twitter = new TwitterFactory().getInstance();
+        final AccessToken accessToken = new AccessToken(secUserTwitterAccount.getToken(), secUserTwitterAccount.getSecretToken());
+        log.debug("Created Token "+accessToken);
+        final Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(secUserTwitterAccount.getConsumerKey(), secUserTwitterAccount.getConsumerSecret(), accessToken);
         return twitter.updateStatus(tweet);
     }
 

@@ -16,6 +16,7 @@ package org.encuestame.core.service;
 import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -69,4 +70,13 @@ public interface ITwitterService extends IService{
      * @throws TwitterException exception
      */
     User verifyCredentials(final String username, final String password) throws TwitterException;
+
+    /**
+     * OAuth Public Tweet.
+     * @param secUserTwitterAccount
+     * @param tweet
+     * @return
+     * @throws TwitterException
+     */
+    Status publicTweet(final SecUserTwitterAccounts secUserTwitterAccount, final String tweet) throws TwitterException;
 }

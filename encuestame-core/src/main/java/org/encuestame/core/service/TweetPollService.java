@@ -244,18 +244,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
-     * Public Tweet Poll.
+     * Public Tweet Poll (OAuth method).
      * @param tweetText tweet text
-     * @param username username
-     * @param password  password
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion {
+    public Status publicTweetPoll(final String tweetText, final SecUserTwitterAccounts account) throws EnMeExpcetion {
         try {
-            log.debug("Publish Tweet Text "+tweetText);
-            log.debug("Publish username "+username);
-          return getTwitterService().publicTweet(username, password, tweetText);
+          return getTwitterService().publicTweet(account, tweetText);
         } catch (TwitterException e) {
             log.error(e);
             throw new EnMeExpcetion(e);
@@ -346,6 +342,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return if user have twitter account
      * @throws TwitterException
      */
+    @Deprecated
     public Boolean validateUserTwitterAccount(final String username){
         final SecUser users = getUser(username).getSecUser();
         Boolean validate = false;
