@@ -29,6 +29,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 
 /**
@@ -76,6 +77,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @return {@link Status}
      * @throws TwitterException twitter exception
      */
+    @Deprecated
     public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException{
         final Twitter twitter = new TwitterFactory().getInstance(username, password);
         return twitter.updateStatus(tweet);

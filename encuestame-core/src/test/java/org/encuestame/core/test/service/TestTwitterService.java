@@ -32,6 +32,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 
 /**
@@ -48,6 +49,10 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
 
     /** {@link SecUser}. **/
     private SecUser user;
+
+    private String twitterUser;
+
+    private String twitter;
 
     /**
      * Before.
@@ -84,11 +89,13 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
      * @throws TwitterException ex
      *
      */
-    public void test() throws TwitterException{
+    public void testPublicTweetOAuth() throws TwitterException{
         final Twitter twitter = new TwitterFactory().getInstance();
-        twitter.setOAuthConsumer("nFboU4T1Zhv8cqMC4cP0ug", "GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0");
-        RequestToken twitterRequestToken
-                         = twitter.getOAuthRequestToken();
+        twitter.setOAuthConsumer(getProperty("twitter.test.consumerKey"), getProperty("twitter.test.consumerSecret"));
+        //Request Token.
+       final RequestToken twitterRequestToken = twitter.getOAuthRequestToken();
+       //Access Tocken.
+       //final AccessToken accessToken = twitter.getOAuthAccessToken(token, tokenSecret, pin);
        String token = twitterRequestToken.getToken();
        String tokenSecret = twitterRequestToken.getTokenSecret();
        String authorizationUrl = twitterRequestToken.

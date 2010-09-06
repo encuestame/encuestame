@@ -16,13 +16,17 @@ import java.io.Serializable;
 
 import javax.faces.event.ActionEvent;
 
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts.TypeAuth;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.web.beans.MasterBean;
-import org.hibernate.cfg.ConfigurationArtefactType;
 
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.http.AccessToken;
+import twitter4j.http.RequestToken;
 
 /**
  * Twitter Account Bean.
@@ -52,12 +56,29 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
     private TypeAuth OAUTH = TypeAuth.OAUTH;
 
     /**
+     * Access Token.
+     */
+    private AccessToken accessToken = null;
+
+    /**
+     * Request Token.
+     */
+    private RequestToken requestToken = null;
+
+    /**
+     * Twitter Instance.
+     */
+    private Twitter twitter = null;
+
+    /**
      * Password.
      */
     private String currentPassword;
 
-    public TwitterAccountsBean() {
-    }
+    /**
+     * Constructor.
+     */
+    public TwitterAccountsBean() {}
 
     /**
      * Load Twitter Account Info.
@@ -86,7 +107,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
         if(this.typeAuth == null){
             this.typeAuth = ConvertDomainBean.convertStringToEnum(unitTwitterAccountBean.getType());
         }
-        this.getTwitterPinUrl();
         this.unitTwitterAccountBean = unitTwitterAccountBean;
     }
 
@@ -123,56 +143,127 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
      */
     public final void saveSecretCredentials() {
         try {
-            getSecurityService().updateSecretTwitterCredentials(
-                    getUnitTwitterAccountBean(), getUserPrincipalUsername());
-            addInfoMessage("Saved Twitter Secret Credentials",
-                    "You can request your Ping Now.");
+            this.updateSecreTwitterCredentials();
             //reset auth url.
             this.setTwitterAuthUrl(null);
-            //getter auth url.
-            this.getTwitterAuthUrl();
+            addInfoMessage("Saved Twitter Secret Credentials",
+            "You can request your Pin Now.");
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e);
             addErrorMessage("Error on Update OAuth Twitter Credentials", e
                     .getMessage());
+            this.getTwitterAuthUrl();
         }
+    }
+
+    /**
+     * Update Secret Twitter Credentials.
+     * @throws EnMeExpcetion
+     */
+    private void updateSecreTwitterCredentials() throws EnMeExpcetion{
+        if(this.typeAuth.equals(OAUTH)){
+            log.debug("Is OAth, confirm pin");
+            if(getUnitTwitterAccountBean().getPin() == null || getUnitTwitterAccountBean().getPin().isEmpty()){
+                log.debug("Pin not found");
+                this.getTwitterPinUrl();
+            } else {
+                log.debug("Confirm Pin");
+                this.confirmOAuthPin();
+            }
+        }
+        log.debug("Saving credentials.");
+        getSecurityService().updateSecretTwitterCredentials(
+                getUnitTwitterAccountBean(), getUserPrincipalUsername());
     }
 
     /**
      * Update Authentication.
      */
     public final void updateAuth(ActionEvent actionEvent){
-        getSecurityService().updateSecretTwitterCredentials(
-                getUnitTwitterAccountBean(), getUserPrincipalUsername());
+        try {
+            this.updateSecreTwitterCredentials();
+        } catch (EnMeExpcetion e) {
+            log.error(e);
+            e.printStackTrace();
+             addErrorMessage("Error on Update OAuth Twitter Credentials", e
+                        .getMessage());
+        }
     }
 
     /**
      * Request Twitter Pin.
      */
     public final void getTwitterPinUrl() {
+        log.debug("Get getTwitterPinUrl");
         try {
             //pin should be null
-            if (getUnitTwitterAccountBean().getPin()  == null || getUnitTwitterAccountBean().getPin().isEmpty()) {
-                //secrey and key should be different null
-                if (getUnitTwitterAccountBean().getKey() != null
-                        && getUnitTwitterAccountBean().getSecret() != null) {
-                    setTwitterAuthUrl(getServicemanager()
-                            .getApplicationServices().getSurveyService()
-                            .getTwitterToken(
-                                    getUnitTwitterAccountBean().getKey(),
-                                    getUnitTwitterAccountBean().getSecret())
-                            .getAuthorizationURL());
+            if (getUnitTwitterAccountBean().getPin() == null || getUnitTwitterAccountBean().getPin().isEmpty()) {
+                //reset request and access token.
+                this.requestToken = null;
+                this.twitter = null;
+                //secret key and key should be different null
+                if (getUnitTwitterAccountBean().getKey() != null  && getUnitTwitterAccountBean().getSecret() != null) {
+                    //new twitter instance
+                    this.twitter = new TwitterFactory().getInstance();
+                    //set twitter consumer keys
+                    this.twitter.setOAuthConsumer(getUnitTwitterAccountBean().getKey(),  getUnitTwitterAccountBean().getSecret());
+                    this.requestToken = twitter.getOAuthRequestToken();
+                    log.debug("Setting Request Token "+this.requestToken);
+                    final String url = this.requestToken.getAuthorizationURL();
+                    log.debug("Request Token {"+requestToken.getToken());
+                    log.debug("Request Secret Token {"+requestToken.getTokenSecret());
+                    log.debug("OAuth url {"+url);
+                    setTwitterAuthUrl(url);
                     log.debug("TwitterPin Url Generated");
                 }
-                log.debug("TwitterPin Url " + getTwitterAuthUrl());
+            } else {
+                log.info("Pin found, reset to get new OAuth Url");
             }
-        } catch (TwitterException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
-            log.error(e);
+            log.error("Error Getting URL Twitter Authentication "+e.getMessage());
             setTwitterAuthUrl("");
-            addErrorMessage("Error Getting URL Twitter Authentication", e
-                    .getMessage());
+            addErrorMessage("Error Getting URL Twitter Authentication", e.getMessage());
+        }
+    }
+
+    /**
+     * Confirm Pin and Save Token/Secret Token.
+     */
+    public void confirmOAuthPin(){
+        log.debug("confirmOAuthPin");
+        if (getUnitTwitterAccountBean().getPin() != null || !getUnitTwitterAccountBean().getPin().isEmpty()) {
+            try{
+                if(this.requestToken == null){
+                    log.error("Request Token is null");
+                }
+                else{
+                    log.debug("confirmOAuthPin PIN: "+getUnitTwitterAccountBean().getPin());
+                    this.accessToken = this.twitter.getOAuthAccessToken(this.requestToken, getUnitTwitterAccountBean().getPin());
+                    //Testing send twitter, WORKS !!
+                    //this.twitter.setOAuthAccessToken(accessToken);
+                    //this.twitter.updateStatus("test accessToken");
+
+                    //set new access token and secret token.
+                    getUnitTwitterAccountBean().setToken(this.accessToken.getToken());
+                    getUnitTwitterAccountBean().setSecretToken(this.accessToken.getTokenSecret());
+                     log.debug("New Token {"+this.accessToken.getToken());
+                     log.debug("New Secret Token {"+this.accessToken.getTokenSecret());
+                     getSecurityService().updateOAuthTokenSocialAccount(getUnitTwitterAccountBean().getAccountId(),
+                             this.accessToken.getToken(),
+                             this.accessToken.getTokenSecret(),
+                             getUserPrincipalUsername());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error(e);
+                addErrorMessage("Error Getting URL Twitter Authentication", e
+                        .getMessage());
+                //If this process fail, reset pin.
+                getUnitTwitterAccountBean().setPin(null);
+            }
         }
     }
 

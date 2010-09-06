@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
@@ -23,6 +25,12 @@ import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.hibernate.HibernateException;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
+import twitter4j.http.AccessToken;
+
 /**
  * Service.
  * @author Picado, Juan juan@encuestame.org
@@ -30,6 +38,8 @@ import org.hibernate.HibernateException;
  * @version $Id$
  */
 public abstract class AbstractBaseService extends AbstractConfigurationService {
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * {@link MessageSourceFactoryBean}.
@@ -40,6 +50,11 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      *  {@link MailServiceImpl}.
      */
     private MailServiceImpl serviceMail;
+
+    /**
+     *
+     */
+    public static int TWITTER_AUTH_ERROR = 401;
 
     /**
      * Constructor.
@@ -175,5 +190,83 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             throw new EnMeExpcetion("Email Not Found in Subscribe List");
         }
      }
+
+    /**
+     * Verify OAuth Credentials
+     * @param token token stored
+     * @param secretToken secret Token
+     * @param pin pin
+     * @return
+     * @throws TwitterException
+     */
+    public Boolean verifyCredentials(final String token,
+                                     final String tokenSecret,
+                                     final String consumerKey,
+                                     final String consumerSecret,
+                final String pin) throws TwitterException{
+        Boolean verified = false;
+        log.debug("verifyCredentials OAuth");
+        log.debug("Token {"+token);
+        log.debug("secretToken {"+tokenSecret);
+        log.debug("pin {"+pin);
+        log.debug("consumerKey {"+consumerKey);
+        log.debug("consumerSecret {"+consumerSecret);
+        Twitter twitter = null;
+        try {
+             twitter = new TwitterFactory().getInstance();
+             twitter.setOAuthConsumer(consumerKey, consumerSecret);
+            if(token == null || token.isEmpty()){
+                final AccessToken accessToken = this.getAccessToken(twitter, token, tokenSecret);
+                if(accessToken != null){
+                    log.debug("New AccessToken Token {"+accessToken.getToken());
+                    log.debug("New AccessToken secretToken {"+accessToken.getTokenSecret());
+                }
+            }
+            else{
+                log.debug("Exist Previous Token");
+                final AccessToken accessToken = this.getAccessToken(twitter, token, tokenSecret);
+                twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
+            }
+            log.debug("Verifying Credentials");
+            final User user = twitter.verifyCredentials();
+            log.debug("Verifying Credentials User "+user);
+            if (user != null) {
+                log.debug("Verify OAuth User " + user.getId());
+                verified = true;
+            }
+        } catch (TwitterException te) {
+            log.error("Twitter Error "+te.getMessage());
+            if (AbstractBaseService.TWITTER_AUTH_ERROR == te.getStatusCode()) {
+                log.error("Twitter Error "+te.getStatusCode());
+                verified = false;
+            } else {
+                te.printStackTrace();
+            }
+            log.error("Verify OAuth Error " + te.getLocalizedMessage());
+        }
+        log.debug("verified "+verified);
+        return verified;
+    }
+
+    /**
+     *
+     * @param token
+     * @param tokenSecret
+     * @param pin
+     * @return
+     * @throws TwitterException
+     */
+    private AccessToken getAccessToken(
+            final Twitter twitter,
+            final String token,
+            final String tokenSecret) throws TwitterException {
+
+            final AccessToken accessToken =  twitter.getOAuthAccessToken(token, tokenSecret);
+            log.info(String.format("Auth Token {%s Token Secret {%s ", accessToken.getToken(), accessToken.getTokenSecret()));
+            twitter.setOAuthAccessToken(accessToken);
+            if (accessToken != null)
+                    log.info(String.format("Got access token for user %s", accessToken.getScreenName()));
+            return accessToken;
+    }
 
 }

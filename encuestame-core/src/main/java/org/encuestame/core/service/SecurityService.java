@@ -48,6 +48,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import twitter4j.TwitterException;
+import twitter4j.User;
+
 /**
  * Security Bean Service.
  * @author Picado, Juan juan@encuestame.org
@@ -169,21 +172,86 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     *
+     * @param accountId
+     * @return
+     */
+    private SecUserTwitterAccounts getSocialAccount(final Long accountId){
+         return  getSecUserDao().getTwitterAccount(accountId); //TODO: filter by Username Too
+    }
+
+    /**
      * Update OAuth Secret Twitter Credentials.
-     * @param accountBean
-     * @param username
+     * @param accountBean {@link UnitTwitterAccountBean}
+     * @param username username logged
+     * @throws EnMeExpcetion exception
      */
     public void updateSecretTwitterCredentials(final UnitTwitterAccountBean accountBean,
-            final String username){
+            final String username) throws EnMeExpcetion{
          //TODO: we should search twitter account filter by username
-         final SecUserTwitterAccounts twitterAccount = getSecUserDao().getTwitterAccount(accountBean.getAccountId());
+         final SecUserTwitterAccounts twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
          twitterAccount.setConsumerKey(accountBean.getKey());
          twitterAccount.setConsumerSecret(accountBean.getSecret());
-         twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
          twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
-         log.debug("Update Secret Twitter Credentials");
-          getSecUserDao().saveOrUpdate(twitterAccount);
-         log.info("update Twitter Account");
+         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
+             log.debug("PIN Exists {"+accountBean.getPin());
+             twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
+            //If exist pin, we can verify credentials
+            log.debug("Verify OAuth Credentials");
+            try {
+                if(verifyCredentials(
+                        //Token and Secret token should be always from database
+                        twitterAccount.getToken(),
+                        twitterAccount.getSecretToken(),
+                        //consumer key's
+                        accountBean.getKey(),
+                        accountBean.getSecret(),
+                        //pin, update by the user.
+                        accountBean.getPin())){
+                    twitterAccount.setVerfied(Boolean.TRUE);
+                }
+                else{
+                    twitterAccount.setVerfied(Boolean.FALSE);
+                }
+            } catch (TwitterException e) {
+                twitterAccount.setVerfied(Boolean.FALSE);
+                e.printStackTrace();
+                throw new EnMeExpcetion(e);
+            }
+         }
+         else{
+             log.info("Account not verified, pin not found");
+             twitterAccount.setTwitterPin(null);
+             twitterAccount.setVerfied(Boolean.FALSE);
+         }
+        log.debug("Update Secret Twitter Credentials");
+        getSecUserDao().saveOrUpdate(twitterAccount);
+        log.info("update Twitter Account");
+    }
+
+
+    /**
+     * Update OAuth Token/Secret Social Account.
+     * @param accountId
+     * @param token
+     * @param tokenSecret
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    public void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
+            final String username) throws EnMeExpcetion{
+        final SecUserTwitterAccounts twitterAccount = this.getSocialAccount(accountId); //TODO: filter by Username Too
+        if(twitterAccount == null){
+            throw new EnMeExpcetion("Social Account not found");
+        }
+        else{
+            log.debug("Updating  Token to {"+token);
+            log.debug("Updating Secret Token to {"+tokenSecret);
+            twitterAccount.setToken(token);
+            twitterAccount.setSecretToken(tokenSecret);
+            getSecUserDao().saveOrUpdate(twitterAccount);
+            log.debug("Updated Token");
+        }
     }
 
     /**

@@ -117,6 +117,8 @@ public class ConvertDomainBean {
                    twitterAccountBean.setKey(twitterAccounts.getConsumerKey());
                    twitterAccountBean.setPin(twitterAccounts.getTwitterPin() == null ? "" : twitterAccounts.getTwitterPin().toString());
                    twitterAccountBean.setAccountId(twitterAccounts.getId());
+                   twitterAccountBean.setToken(twitterAccounts.getToken());
+                   twitterAccountBean.setSecretToken(twitterAccounts.getSecretToken());
                    twitterAccountBean.setType(twitterAccounts.getType() == null ? SecUserTwitterAccounts.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
            return twitterAccountBean;
     }

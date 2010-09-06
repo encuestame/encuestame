@@ -38,6 +38,10 @@ public class UnitTwitterAccountBean implements Serializable {
 
     private String key;
 
+    private String token;
+
+    private String secretToken;
+
     private String pin;
 
     /**
@@ -125,5 +129,23 @@ public class UnitTwitterAccountBean implements Serializable {
      */
     public void setPin(String pin) {
         this.pin = pin;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        System.out.println("token "+token);
+        this.token = token;
+    }
+
+    public String getSecretToken() {
+        return secretToken;
+    }
+
+    public void setSecretToken(String secretToken) {
+        System.out.println("secretToken "+secretToken);
+        this.secretToken = secretToken;
     }
 }

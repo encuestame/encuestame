@@ -226,7 +226,7 @@ public interface ISecurityService extends IService {
       * @param username
       */
      void updateSecretTwitterCredentials(final UnitTwitterAccountBean accountBean,
-             final String username);
+             final String username) throws EnMeExpcetion;
 
      /**
       * Get Twitter Account.
@@ -305,4 +305,15 @@ public interface ISecurityService extends IService {
      * @return
      */
     List<UnitLists> getListbyUsername(final String username);
+
+    /**
+     * Update OAuth Token/Secret Social Account.
+     * @param accountId
+     * @param token
+     * @param tokenSecret
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
+            final String username) throws EnMeExpcetion;
 }

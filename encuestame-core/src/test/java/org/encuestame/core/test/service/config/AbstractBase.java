@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.dao.CatEmailDao;
 import org.encuestame.core.persistence.dao.ClientDao;
+import org.encuestame.core.persistence.dao.PollDao;
 import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.dao.imp.ICatEmail;
 import org.encuestame.core.persistence.dao.imp.ICatLocation;
@@ -150,10 +151,11 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     @Autowired
     private ITweetPoll iTweetPoll;
 
+    /** {@link PollDao}. **/
     @Autowired
     private IPoll iPoll;
 
-    /** {@link CatEmailDao} **/
+    /** {@link CatEmailDao}. **/
     @Autowired
     private ICatEmail catEmailDao;
 
@@ -177,7 +179,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
+        log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
         return props.getProperty(property);
     }
 

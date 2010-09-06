@@ -28,6 +28,7 @@
         <hibernate.version>3.5.1-Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.2.0.CR1</hibernate.search.version>
+        <twitter4j.version>2.1.3</twitter4j.version>
         <!--
         <jsf-api>2.0.0-RC</jsf-api><sec:ifAllGranted roles="ENCUESTAME_ADMIN">
         <jsf-impl>2.0.0-RC</jsf-impl>
@@ -912,7 +913,7 @@
             <dependency>
                 <groupId>org.twitter4j</groupId>
                 <artifactId>twitter4j-core</artifactId>
-                <version>2.1.0</version>
+                <version>${twitter4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>

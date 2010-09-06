@@ -58,6 +58,7 @@
     <!-- Shared areas -->
     <security:intercept-url pattern="/account/**/*" access="ENCUESTAME_USER"/>
     <security:intercept-url pattern="/user/lists.html" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/user/social.html" access="ENCUESTAME_USER"/>
 
     <!-- Surveys / Poll / TweetPoll Paths -->
     <security:intercept-url pattern="/tweetpoll.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />

@@ -75,6 +75,16 @@ public class SecUserTwitterAccounts {
      **/
     private String consumerSecret;
 
+    /**
+     * Tokeb
+     */
+    private String token;
+
+    /**
+     * Secret Token.
+     */
+    private String secretToken;
+
     /** Twitter Pin.
      *
      **/
@@ -83,7 +93,7 @@ public class SecUserTwitterAccounts {
     /**
      * Type.
      */
-    private TypeAuth type = TypeAuth.PASSWORD;
+    private TypeAuth type = TypeAuth.OAUTH; //Twitter only accept OAuth.
 
     /** Verfied. **/
     private Boolean verfied = false;
@@ -239,4 +249,24 @@ public class SecUserTwitterAccounts {
     public void setVerfied(Boolean verfied) {
         this.verfied = verfied;
     }
+
+    @Column (name="twitter_token", nullable = true)
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    @Column (name="twitter_secret_token", nullable = true)
+    public String getSecretToken() {
+        return secretToken;
+    }
+
+    public void setSecretToken(String secretToken) {
+        this.secretToken = secretToken;
+    }
+
+
 }

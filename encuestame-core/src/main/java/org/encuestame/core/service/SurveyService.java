@@ -44,10 +44,7 @@ import twitter4j.http.RequestToken;
 @Service
 public class SurveyService extends AbstractSurveyService implements ISurveyService {
 
-
-
     private Log log = LogFactory.getLog(this.getClass());
-
 
     /**
      * Create Question.
