@@ -209,17 +209,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                         //pin, update by the user.
                         accountBean.getPin())){
                     twitterAccount.setVerfied(Boolean.TRUE);
-                }
-                else{
+                } else {
                     twitterAccount.setVerfied(Boolean.FALSE);
                 }
             } catch (TwitterException e) {
+                log.error("Error on Verify Credentials "+e.getMessage());
                 twitterAccount.setVerfied(Boolean.FALSE);
                 e.printStackTrace();
                 throw new EnMeExpcetion(e);
             }
-         }
-         else{
+         } else {
              log.info("Account not verified, pin not found");
              twitterAccount.setTwitterPin(null);
              twitterAccount.setVerfied(Boolean.FALSE);

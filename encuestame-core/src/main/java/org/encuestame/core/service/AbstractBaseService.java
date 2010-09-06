@@ -214,25 +214,20 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         Twitter twitter = null;
         try {
              twitter = new TwitterFactory().getInstance();
-             twitter.setOAuthConsumer(consumerKey, consumerSecret);
             if(token == null || token.isEmpty()){
-                final AccessToken accessToken = this.getAccessToken(twitter, token, tokenSecret);
-                if(accessToken != null){
-                    log.debug("New AccessToken Token {"+accessToken.getToken());
-                    log.debug("New AccessToken secretToken {"+accessToken.getTokenSecret());
-                }
-            }
-            else{
-                log.debug("Exist Previous Token");
-                final AccessToken accessToken = this.getAccessToken(twitter, token, tokenSecret);
+                verified = false;
+            } else {
+                log.debug("Exist Previous Token.");
+                final AccessToken accessToken = new AccessToken(token, tokenSecret);
+                log.debug("Created Token "+accessToken);
                 twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
-            }
-            log.debug("Verifying Credentials");
-            final User user = twitter.verifyCredentials();
-            log.debug("Verifying Credentials User "+user);
-            if (user != null) {
-                log.debug("Verify OAuth User " + user.getId());
-                verified = true;
+                log.debug("Verifying Credentials");
+                final User user = twitter.verifyCredentials();
+                log.debug("Verifying Credentials User "+user);
+                if (user != null) {
+                    log.debug("Verify OAuth User " + user.getId());
+                    verified = true;
+                }
             }
         } catch (TwitterException te) {
             log.error("Twitter Error "+te.getMessage());

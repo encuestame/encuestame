@@ -249,6 +249,7 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
                     //set new access token and secret token.
                     getUnitTwitterAccountBean().setToken(this.accessToken.getToken());
                     getUnitTwitterAccountBean().setSecretToken(this.accessToken.getTokenSecret());
+                     log.debug("Access Token {"+this.accessToken);
                      log.debug("New Token {"+this.accessToken.getToken());
                      log.debug("New Secret Token {"+this.accessToken.getTokenSecret());
                      getSecurityService().updateOAuthTokenSocialAccount(getUnitTwitterAccountBean().getAccountId(),
