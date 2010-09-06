@@ -32,6 +32,7 @@ import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
 import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.TweetPoll;
 import org.encuestame.core.persistence.pojo.TweetPollResult;
 import org.encuestame.core.persistence.pojo.TweetPollSwitch;
@@ -316,9 +317,26 @@ public class AbstractSurveyService extends AbstractBaseService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
+    @Deprecated
     public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion {
         try {
+          log.debug("publicTweetPoll");
           return getTwitterService().publicTweet(username, password, tweetText);
+        } catch (TwitterException e) {
+            log.error(e);
+            throw new EnMeExpcetion(e);
+        }
+    }
+
+    /**
+     * Public Tweet Poll (OAuth method).
+     * @param tweetText tweet text
+     * @return status of tweet
+     * @throws EnMeExpcetion exception
+     */
+    public Status publicTweetPoll(final String tweetText, final SecUserTwitterAccounts account) throws EnMeExpcetion {
+        try {
+           return getTwitterService().publicTweet(account, tweetText);
         } catch (TwitterException e) {
             log.error(e);
             throw new EnMeExpcetion(e);

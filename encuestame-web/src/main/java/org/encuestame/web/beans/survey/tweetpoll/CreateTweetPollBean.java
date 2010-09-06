@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.aspectj.apache.bcel.generic.ACONST_NULL;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
@@ -279,7 +280,8 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         final String pref = this.questionName;
         if(pref.length() > 1){
             this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
-            setValidTweet(Boolean.FALSE);
+            //setValidTweet(Boolean.FALSE);
+            this.saveQuestion();
         }
     }
 
@@ -341,6 +343,7 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
                                accountBeans.add(twitterAccountsPublicationBean.getAccountBean());
                            }
                    }
+                 log.debug("Accounts "+accountBeans.size());
                  tweetPollService.publicMultiplesTweetAccounts(accountBeans, getUnitTweetPoll().getId(), tweetText);
                 }
                 addInfoMessage("tweet poll message", "");

@@ -244,21 +244,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
-     * Public Tweet Poll (OAuth method).
-     * @param tweetText tweet text
-     * @return status of tweet
-     * @throws EnMeExpcetion exception
-     */
-    public Status publicTweetPoll(final String tweetText, final SecUserTwitterAccounts account) throws EnMeExpcetion {
-        try {
-          return getTwitterService().publicTweet(account, tweetText);
-        } catch (TwitterException e) {
-            log.error(e);
-            throw new EnMeExpcetion(e);
-        }
-    }
-
-    /**
      * Public Multiples Tweet Accounts.
      * @param twitterAccounts List of {@link SecUserTwitterAccounts}.
      * @param tweetPoll {@link TweetPoll}.
@@ -268,22 +253,25 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final List<UnitTwitterAccountBean> twitterAccounts,
             final Long tweetPollId,
             final String tweetText){
+            log.debug("publicMultiplesTweetAccounts "+twitterAccounts.size());
             for (UnitTwitterAccountBean unitTwitterAccountBean : twitterAccounts) {
                 final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
                 final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
                 final SecUserTwitterAccounts secUserTwitterAccounts = getSecUserDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
+                publishedStatus.setApiType(Type.TWITTER);
                 if(secUserTwitterAccounts != null && tweetPoll != null){
+                    log.debug("secUserTwitterAccounts Account"+secUserTwitterAccounts.getTwitterAccount());
                     publishedStatus.setTweetPoll(tweetPoll);
                     publishedStatus.setTwitterAccount(secUserTwitterAccounts);
                     try {
-                        final Status status = this.publicTweetPoll(
-                                tweetText, secUserTwitterAccounts.getTwitterAccount(), secUserTwitterAccounts
-                                        .getTwitterPassword());
+                        log.debug("Publishing...");
+                        final Status status = this.publicTweetPoll(tweetText, secUserTwitterAccounts);
                         publishedStatus.setTweetId(status.getId());
-                        publishedStatus.setApiType(Type.TWITTER);
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.SUCCESS);
                     } catch (Exception e) {
+                        e.printStackTrace();
+                        log.error("Error publish tweet "+e.getMessage());
                         publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.FAILED);
                         publishedStatus.setDescriptionStatus(e.getMessage());
                     }
