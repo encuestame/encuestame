@@ -39,6 +39,13 @@
                  access-decision-manager-ref="voteAccessDecisionManager" access-denied-page="${spring.sec.login.denied}">
     <security:intercept-url pattern="index.jsp" filters="none" />
 
+    <!-- Public Paths -->
+    <security:intercept-url pattern="/index.html" filters="none"/>
+    <security:intercept-url pattern="/error.xhtml" filters="none"/>
+    <security:intercept-url pattern="/home" filters="none"/>
+    <security:intercept-url pattern="/users.html" filters="none"/>
+    <security:intercept-url pattern="/tags.html" filters="none"/>
+
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
     <!-- Account Paths -->
