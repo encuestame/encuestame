@@ -96,14 +96,33 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
         //Twitter twitter = new TwitterFactory().getInstance();
         log.debug("publicTweet Before  Token  {"+secUserTwitterAccount.getToken());
         log.debug("publicTweet Before Secret Token  {"+secUserTwitterAccount.getSecretToken());
-        final AccessToken accessToken = new AccessToken(secUserTwitterAccount.getToken(), secUserTwitterAccount.getSecretToken());
+        final AccessToken accessToken = this.createNewOAuthAccessToken(secUserTwitterAccount);
         log.debug("Access Token "+accessToken);
-        Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(secUserTwitterAccount.getConsumerKey(),
-                                                                  secUserTwitterAccount.getConsumerSecret(),
-                                                                  accessToken);
+        final Twitter twitter = this.getOAuthAuthorizedInstance(secUserTwitterAccount, accessToken);
         log.debug("Verify  "+twitter.verifyCredentials());
         log.debug("Update Status "+tweet);
         return twitter.updateStatus(tweet);
+    }
+
+    /**
+     * Create New OAuth Access Token.
+     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @return {@link AccessToken}.
+     */
+    public AccessToken createNewOAuthAccessToken(final SecUserTwitterAccounts secUserTwitterAccount){
+         final AccessToken accessToken = new AccessToken(secUserTwitterAccount.getToken(), secUserTwitterAccount.getSecretToken());
+         return accessToken;
+    }
+
+    /**
+     * Get OAuthorized Token.
+     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @return {@link Twitter}.
+     */
+    public Twitter getOAuthAuthorizedInstance(final SecUserTwitterAccounts secUserTwitterAccount, final AccessToken accessToken){
+         return new TwitterFactory().getOAuthAuthorizedInstance(secUserTwitterAccount.getConsumerKey(),
+                 secUserTwitterAccount.getConsumerSecret(),
+                 accessToken);
     }
 
     /**
@@ -113,6 +132,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @return {@link User}
      * @throws TwitterException exception
      */
+    @Deprecated
     public User verifyCredentials(final String username, final String password) throws TwitterException{
         log.debug("verifyCredentials");
         final Twitter twitter = new TwitterFactory().getInstance(username, password);

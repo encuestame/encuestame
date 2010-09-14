@@ -62,6 +62,21 @@
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
         </dependency>
+        <!--  Richfaces 4
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+        </dependency>
+         <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-api</artifactId>
+        </dependency>
+        -->
+        <!-- Richfaces 3 with JSF2 -->
+        <dependency>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-ui</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

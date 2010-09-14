@@ -20,6 +20,7 @@ import java.io.IOException;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.service.ITwitterService;
 import org.encuestame.core.service.TwitterService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
@@ -30,10 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import twitter4j.User;
-import twitter4j.http.AccessToken;
-import twitter4j.http.RequestToken;
 
 /**
  * {@link TwitterService} test case.
@@ -50,16 +48,15 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
     /** {@link SecUser}. **/
     private SecUser user;
 
-    private String twitterUser;
-
-    private String twitter;
+    private SecUserTwitterAccounts secUserTwitterAccount;
 
     /**
      * Before.
      */
     @Before
     public void before(){
-        this.user = createUser(getProperty("twitter.test.account"), getProperty("twitter.test.password"));
+        this.user = createUser();
+        this.secUserTwitterAccount = createDefaultSettedTwitterAccount(this.user);
     }
 
     /**
@@ -77,38 +74,21 @@ public class TestTwitterService extends AbstractBaseUnitBeans {
      * Test Public Tweet.
      * @throws TwitterException exception
      */
-    //@Test
+    @Test
     public void testPublicTweet() throws TwitterException{
         final String testTweet = RandomStringUtils.randomAlphabetic(5);
-        final Status tweet = twitterService.publicTweet(this.user.getTwitterAccount(),
-                                                        this.user.getTwitterPassword(), testTweet);
+        final Status tweet = twitterService.publicTweet(this.secUserTwitterAccount, testTweet);
         assertNotNull(tweet.getId());
-    }
-
-    /**
-     * @throws TwitterException ex
-     *
-     */
-    public void testPublicTweetOAuth() throws TwitterException{
-        final Twitter twitter = new TwitterFactory().getInstance();
-        twitter.setOAuthConsumer(getProperty("twitter.test.consumerKey"), getProperty("twitter.test.consumerSecret"));
-        //Request Token.
-       final RequestToken twitterRequestToken = twitter.getOAuthRequestToken();
-       //Access Tocken.
-       //final AccessToken accessToken = twitter.getOAuthAccessToken(token, tokenSecret, pin);
-       String token = twitterRequestToken.getToken();
-       String tokenSecret = twitterRequestToken.getTokenSecret();
-       String authorizationUrl = twitterRequestToken.
-       getAuthorizationURL();
     }
 
     /**
      * @throws TwitterException
      *
      */
-    //@Test
+    @Test
     public void testVerifyCredentials() throws TwitterException{
-        final User user = getTwitterService().verifyCredentials("testEncuesta", "testEncuesta123");
+        final Twitter twitter = getTwitterService().getOAuthAuthorizedInstance(this.secUserTwitterAccount, getTwitterService().createNewOAuthAccessToken(this.secUserTwitterAccount));
+        final User user = twitter.verifyCredentials();
         assertNotNull(user);
     }
 

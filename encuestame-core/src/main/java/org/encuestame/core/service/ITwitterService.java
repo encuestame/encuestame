@@ -19,8 +19,10 @@ import org.apache.commons.httpclient.HttpException;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 
 import twitter4j.Status;
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
+import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 
 /**
@@ -49,6 +51,7 @@ public interface ITwitterService extends IService{
      * @return {@link Status}
      * @throws TwitterException twitter exception
      */
+    @Deprecated
     Status publicTweet(final String username, final String password, final String tweet) throws TwitterException;
 
 
@@ -69,7 +72,22 @@ public interface ITwitterService extends IService{
      * @return {@link User}
      * @throws TwitterException exception
      */
+    @Deprecated
     User verifyCredentials(final String username, final String password) throws TwitterException;
+
+    /**
+     * Get OAuthorized Token.
+     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @return {@link Twitter}.
+     */
+    Twitter getOAuthAuthorizedInstance(final SecUserTwitterAccounts secUserTwitterAccount, final AccessToken accessToken);
+
+    /**
+     * Create New OAuth Access Token.
+     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @return {@link AccessToken}.
+     */
+    AccessToken createNewOAuthAccessToken(final SecUserTwitterAccounts secUserTwitterAccount);
 
     /**
      * OAuth Public Tweet.

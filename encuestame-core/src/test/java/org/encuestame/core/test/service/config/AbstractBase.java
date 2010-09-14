@@ -56,6 +56,7 @@ import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
 import org.encuestame.core.persistence.pojo.SurveyGroup;
@@ -77,6 +78,8 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import twitter4j.Twitter;
 
 /**
  * Base Class to Test Cases.
@@ -1100,6 +1103,48 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
 
 
     /**
+     * Create {@link SecUserTwitterAccounts}.
+     * @param consumerKey
+     * @param consumerSecret
+     * @param secretToken
+     * @param secUsers
+     * @param twitterAccount
+     * @return
+     */
+    public SecUserTwitterAccounts createTwitterAccount(
+            final String consumerKey,
+            final String consumerSecret,
+            final String token,
+            final String secretToken,
+            final SecUser secUsers,
+            final String twitterAccount){
+        final SecUserTwitterAccounts secUserTwitterAccounts = new SecUserTwitterAccounts();
+        secUserTwitterAccounts.setConsumerKey(consumerKey);
+        secUserTwitterAccounts.setConsumerSecret(consumerSecret);
+        secUserTwitterAccounts.setToken(token);
+        secUserTwitterAccounts.setSecretToken(secretToken);
+        secUserTwitterAccounts.setSecUsers(secUsers);
+        secUserTwitterAccounts.setTwitterAccount(twitterAccount);
+        secUserTwitterAccounts.setTwitterPassword("not valid");
+        getSecUserDao().saveOrUpdate(secUserTwitterAccounts);
+        return secUserTwitterAccounts;
+     }
+
+    /**
+     * Create Default Setted User.
+     * @param secUsers {@link SecUser}.
+     * @return {@link SecUserTwitterAccounts}.
+     */
+    public SecUserTwitterAccounts createDefaultSettedTwitterAccount(final SecUser secUsers){
+        return this.createTwitterAccount(getProperty("twitter.test.consumerKey"),
+                getProperty("twitter.test.consumerSecret"),
+                getProperty("twitter.test.token"),
+                getProperty("twitter.test.tokenSecret"),
+                secUsers,
+                getProperty("twitter.test.account"));
+    }
+
+    /**
      * @return the activateNotifications
      */
     public Boolean getActivateNotifications() {
@@ -1107,7 +1152,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     }
 
     /**
-     * @param activateNotifications the activateNotifications to set
+     * @param activateNotifications uthe activateNotifications to set
      */
     public void setActivateNotifications(Boolean activateNotifications) {
         this.activateNotifications = activateNotifications;
