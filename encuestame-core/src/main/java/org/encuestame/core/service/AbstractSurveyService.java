@@ -58,7 +58,7 @@ import twitter4j.http.RequestToken;
  * @version $Id$
  */
 @Service
-public class AbstractSurveyService extends AbstractBaseService {
+public class AbstractSurveyService extends AbstractChartService {
 
     /** Twitter Service. **/
     private ITwitterService twitterService;

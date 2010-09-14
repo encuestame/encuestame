@@ -14,8 +14,14 @@
     </property>
   </bean>
 
-  <bean id="abstractsurvey" class="org.encuestame.core.service.AbstractSurveyService"
+  <bean id="chartService" class="org.encuestame.core.service.ChartService" parent="abstractchart"/>
+
+  <bean id="abstractchart" class="org.encuestame.core.service.AbstractChartService"
         abstract="true" parent="service">
+  </bean>
+
+  <bean id="abstractsurvey" class="org.encuestame.core.service.AbstractSurveyService"
+        abstract="true" parent="abstractchart">
         <property name="twitterService">
           <ref bean="twitterService" />
         </property>
@@ -116,10 +122,12 @@
     <property name="messagesource" ref="resourceBundleMessageSource" />
   </bean>
 
-  <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager"
-    parent="service">
+  <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager">
     <property name="applicationServices">
       <ref bean="applicationServices"></ref>
+    </property>
+    <property name="messageSource">
+          <ref bean="messageSource" />
     </property>
   </bean>
 
@@ -169,9 +177,11 @@
     <property name="locationService">
          <ref bean="locationService"></ref>
     </property>
-
      <property name="projectService">
          <ref bean="projectService"></ref>
+    </property>
+    <property name="chartService">
+         <ref bean="chartService"></ref>
     </property>
   </bean>
 </beans>

@@ -30,6 +30,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private ITweetPollService tweetPollService;
     private ILocationService locationService;
     private IProjectService projectService;
+    private IChartService chartService;
 
     /**
      * @return the securityService
@@ -113,5 +114,19 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      */
     public void setProjectService(final IProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    /**
+     * @return the chartService
+     */
+    public IChartService getChartService() {
+        return chartService;
+    }
+
+    /**
+     * @param chartService the chartService to set
+     */
+    public void setChartService(IChartService chartService) {
+        this.chartService = chartService;
     }
 }

@@ -12,13 +12,15 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
+
 /**
  * Interface to Service Manager.
  * @author Picado, Juan juan@encuestame.org
  * @since 26/04/2009 20:12:31
  * @version $Id$
  */
-public interface IServiceManager extends IService {
+public interface IServiceManager{
 
     /**
      * Getter {@link IApplicationServices}.
@@ -31,4 +33,16 @@ public interface IServiceManager extends IService {
      * @param applicationServices {@link IApplicationServices}
      */
     public void setApplicationServices(IApplicationServices applicationServices);
+
+    /**
+     * Getter.
+     * @return {@link MessageSourceFactoryBean}
+     */
+    public MessageSourceFactoryBean getMessageSource();
+
+    /**
+     * Setter.
+     * @param messageSource {@link MessageSourceFactoryBean}
+     */
+    public void setMessageSource(MessageSourceFactoryBean messageSource);
 }

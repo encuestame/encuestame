@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
+import org.springframework.stereotype.Service;
+
 
 /**
  * Service Manager.
@@ -20,14 +23,15 @@ package org.encuestame.core.service;
  * @since 26/04/2009
  * @version $Id$
  */
-@org.springframework.stereotype.Service
-public class ServiceManager extends AbstractBaseService implements IServiceManager {
-
+@Service
+public class ServiceManager implements IServiceManager {
 
     /**
      * {@link ApplicationServices}.
      */
     private IApplicationServices applicationServices;
+
+    private MessageSourceFactoryBean messageSource;
 
     /**
      * Setter of {@link ApplicationServices}.
@@ -43,5 +47,19 @@ public class ServiceManager extends AbstractBaseService implements IServiceManag
      */
     public IApplicationServices getApplicationServices() {
         return applicationServices;
+    }
+
+    /**
+     * @return the messageSource
+     */
+    public MessageSourceFactoryBean getMessageSource() {
+        return messageSource;
+    }
+
+    /**
+     * @param messageSource the messageSource to set
+     */
+    public void setMessageSource(MessageSourceFactoryBean messageSource) {
+        this.messageSource = messageSource;
     }
 }
