@@ -34,6 +34,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 
 /**
@@ -299,7 +300,12 @@ public class MasterBean{
      * Get Details.
      */
     public final EnMeUserDetails getSecurityDetails(){
-        return (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+        EnMeUserDetails details = null;
+        log.debug("Authentication Object "+getSecCtx().getAuthentication());
+        if(getSecCtx().getAuthentication() != null){
+            details =  (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+        }
+        return details;
     }
 
     /**

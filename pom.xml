@@ -1259,6 +1259,20 @@
           <artifactId>validation-api</artifactId>
           <version>1.0.0.GA</version>
         </dependency>
+       <!-- Json Dependencies -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        <!-- OAuth
+            http://bmocanu.ro/blog/2010/05/oauth-2legged-model-with-spring-security/
+         <dependency>
+            <groupId>org.codehaus.spring-security-oauth</groupId>
+            <artifactId>spring-security-oauth</artifactId>
+            <version>3.17</version>
+         </dependency>
+         -->
       </dependencies>
     </dependencyManagement>
 </project>

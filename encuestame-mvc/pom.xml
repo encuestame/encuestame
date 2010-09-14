@@ -338,6 +338,20 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc-portlet</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.sf.spring-json</groupId>-->
+<!--            <artifactId>spring-json</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-mapper-asl</artifactId>
+         </dependency>
+         <!-- OAuth
+         <dependency>
+            <groupId>org.codehaus.spring-security-oauth</groupId>
+            <artifactId>spring-security-oauth</artifactId>
+         </dependency>
+         -->
     </dependencies>
     <build>
         <plugins>

@@ -410,5 +410,11 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <!-- OAuth
+         <dependency>
+            <groupId>org.codehaus.spring-security-oauth</groupId>
+            <artifactId>spring-security-oauth</artifactId>
+         </dependency>
+         -->
     </dependencies>
 </project>

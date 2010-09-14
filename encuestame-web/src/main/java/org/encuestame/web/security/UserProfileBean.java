@@ -41,7 +41,7 @@ public class UserProfileBean extends MasterBean implements Serializable{
 
     private EnMeUserDetails details;
 
-    private String gravatarImageUrl;
+    private String gravatarImageUrl = "";
 
     private Date lastDateLogged;
 
@@ -127,8 +127,12 @@ public class UserProfileBean extends MasterBean implements Serializable{
      * @return the gravatarImageUrl
      */
     public String getGravatarImageUrl() {
-        if(gravatarImageUrl == null){
-            this.gravatarImageUrl = getGravatar(getDetails().getUserEmail(), MasterBean.GRAVATAR_SIZE);
+        if(gravatarImageUrl.isEmpty()){
+            try{
+                this.gravatarImageUrl = getGravatar(getDetails().getUserEmail(), MasterBean.GRAVATAR_SIZE);
+            }catch (Exception e) {
+                this.gravatarImageUrl = "";
+            }
         }
         return gravatarImageUrl;
     }

@@ -17,6 +17,7 @@
             classpath:encuestame-rss-context.xml,
             classpath:encuestame-beans-jsf-context.xml,
             classpath:encuestame-mvc-context.xml,
+            classpath:encuestame-json-context.xml,
             classpath:encuestame-web-flow-context.xml</param-value>
     </context-param>
     <context-param>
@@ -243,6 +244,10 @@
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.rss</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>*.json</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

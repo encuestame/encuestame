@@ -62,13 +62,13 @@
         <property name="singleSession" value="false" />
    </bean>
 
-    <!--  -->
+    <!-- Resolvers -->
     <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
          <property name="order" value="0"/>
     </bean>
 
     <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-       <property name="order" value="1"/>
+       <property name="order" value="2"/>
        <property name="basename" value="views"/>
     </bean>
 
@@ -78,7 +78,7 @@
   -->
   <bean id="faceletsViewResolver"
     class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    <property name="order" value="2"/>
+    <property name="order" value="3"/>
     <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
     <property name="prefix" value="/WEB-INF/controller/" />
     <property name="suffix" value=".xhtml" />
@@ -94,6 +94,7 @@
   </bean>
   -->
 
+  <!-- UrlFile Name View Controller. -->
   <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
   <!--

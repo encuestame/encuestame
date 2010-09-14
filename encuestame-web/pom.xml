@@ -77,6 +77,14 @@
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-ui</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.sf.spring-json</groupId>-->
+<!--            <artifactId>spring-json</artifactId>-->
+<!--        </dependency>-->
+         <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
