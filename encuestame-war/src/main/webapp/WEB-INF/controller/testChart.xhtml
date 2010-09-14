@@ -1,0 +1,41 @@
+<ui:composition template="../layouts/home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:sf="http://www.springframework.org/tags/faces">
+    <ui:define name="title"> Test Protochart</ui:define>
+    <ui:define name="js">
+        <a4j:loadScript src="/resource/js/protochart/ProtoChart.js"/>
+    </ui:define>
+    <ui:define name="main">
+    <h1>TEST CHART</h1>
+    <div id="piechart" style="width:500px;height:300px"></div>
+    <script type="text/javascript">
+    Event.observe(window, 'load', function() {
+        new Proto.Chart($('piechart'),
+        [
+          { data: [[2, 3], [1, 8], [8, 5], [9, 13]], label: "Diana"},
+          { data: [[5, 3], [4, 2], [8, 5], [9, 13]], label: "Paola"},
+          { data: [[6, 2], [2, 6], [8, 5], [9, 13]], label: "d3"},
+          { data: [[2, 1], [2, 7], [8, 5], [9, 13]], label: "d4"},
+          { data: [[2, 2], [6, 8], [8, 5], [9, 13]], label: "d5"},
+          { data: [[4, 1], [5, 8], [8, 5], [9, 13]], label: "d6"},
+          { data: [[1, 1], [2, 8], [8, 5], [9, 13]], label: "d7"}
+          ],
+          {
+         /*
+        24 This is how we tell the Chart engine that we
+        25 need a pie chart and it ignores all inline options
+        26 that you might have passed with the datasets.
+        27 */
+          pies: {show: true, autoScale: true},
+          legend: {show: true}
+          });
+          });
+     </script>
+    </ui:define>
+</ui:composition>
