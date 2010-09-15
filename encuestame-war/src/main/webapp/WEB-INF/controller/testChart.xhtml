@@ -14,10 +14,28 @@
     <ui:define name="main">
     <h1>TEST CHART</h1>
     <div id="piechart" style="width:500px;height:300px"></div>
+    <div id="barchart" style="width:500px;height:300px"></div>
+    <div id="linechart" style="width:500px;height:300px"></div>
+    <div id="pointchart" style="width:500px;height:300px"></div>
+    <div id="areachart" style="width:500px;height:300px"></div>
     <script type="text/javascript">
 
     function callJsonService(){
-        this.createChart();
+        new Ajax.Request('http://localhost:8080/encuestame/jackson.json', {
+              method:'get',
+              onSuccess: function(transport){
+                 var json = transport.responseText.evalJSON();
+                // alert("Success! \n\n" + json);
+                // alert(json.gender);
+                 this.createChart();
+                 this.createBarChart();
+                 this.createLineChart();
+                 this.createPointChart();
+                 this.createAreaChart();
+               },
+               onFailure: function(){ alert('Something went wrong...') }
+            });
+       // this.createChart();
     };
 
 
@@ -38,7 +56,64 @@
               });
         };
 
-    Event.observe(window, 'load', function() {
+   function createBarChart(){
+       new Proto.Chart($('barchart'),
+              [
+                   {data: [[2, 3], [4, 8], [8, 5], [9, 13]], label: "Data 1"},
+                   {data: [[5, 3], [3, 8], [2, 5], [7, 13]], label: "Data 2"}
+              ],
+              {
+                   bars: {show: true},
+                   xaxis: {min: 0, max: 14, tickSize: 1}
+
+              });
+
+        };
+
+
+    function createLineChart(){
+        new Proto.Chart($('linechart'),
+               [
+                    {data: [[2, 3], [4, 8], [8, 5], [9, 13]], label: "Data 1"},
+                    {data: [[2, 3], [4, 8], [8, 5], [9, 13]], label: "Data 2"}
+               ],
+               {
+                    //since line chart is the default charting view
+                     //we do not need to pass any specific options for it.
+                    xaxis: {min: 0, max: 14, tickSize: 1},
+                });
+            };
+
+    function createPointChart(){
+        new Proto.Chart($('pointchart'),
+               [
+                    {data: [[7, 3], [2, 8], [8, 7], [3, 11]], label: "Data 1"},
+                    {data: [[4, 3], [7, 3], [1, 8], [7, 13]], label: "Data 2"}
+               ],
+               {
+                     points: {show: true},
+                     xaxis: {min: 0, max: 14, tickSize: 1},
+               });
+
+               };
+
+    function createAreaChart(){
+        new Proto.Chart($('areachart'),
+                [
+                    {data: [[2, 3], [1, 8], [8, 5], [9, 13]], label: "Data 1"},
+                    {data: [[1, 1], [2, 8], [8, 5], [9, 13]], label: "Data 2"}
+                ],
+                {
+                    //since line chart is the default charting view
+                    //we do not need to pass any specific options for it.
+                    xaxis: {min: 0, max: 14, tickSize: 1},
+                    lines: {show: true, fill: true}
+                });
+                };
+
+
+
+        Event.observe(window, 'load', function() {
         this.callJsonService();
     });
 
