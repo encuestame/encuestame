@@ -7,7 +7,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/encuestame_core</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.default_catalog">encuestame_core2</property>
+        <property name="hibernate.default_catalog">encuestame_core</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
