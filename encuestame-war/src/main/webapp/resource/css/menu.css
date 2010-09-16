@@ -34,4 +34,86 @@
     border-radius: 0px 0px 2px 2px;
     -moz-border-radius: 0px 0px 2px 2px;
     -webkit-border-radius: 0px 0px 2px 2px;
-}s
+    min-height: 37px;
+}
+
+
+#profile_menu {
+    background: #aaaaaa;
+    border: solid 1px #666666;
+    width: 400px;
+    padding: 10px;
+    color: #FFFFFF;
+    position: absolute;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    min-height: 160px;
+    z-index: 500;
+   -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+    right: 120px;
+    top:37px;
+}
+
+#profile_menu li {
+    padding-bottom: 6px;
+    text-align: right;
+}
+
+#detail_profile {
+    padding-right: 10px;
+    border-right: 1px #DEDEDE solid;
+    height: 120px;
+    width: 230px;
+    float: left;
+    line-height: 12px;
+}
+
+#options_profile {
+    padding-left: 20px;
+    height: 120px;
+    width: 135px;
+    float: left;
+    line-height: 12px;
+    text-align: right;
+}
+
+#profile_menu label {
+    font-size: 11px;
+    font-weight: normal;
+}
+
+#profile_menu input {
+    font-size: 11px;
+    color: #333333;
+    margin-left: 10px;
+}
+
+#profile_menu button {
+    line-height: 24px;
+    float: right;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.green-button {
+    background: url(pic/button.png);
+    display: block;
+    color: #FFFFFF;
+    font-size: 11px;
+    text-decoration: none;
+    width: 81px;
+    height: 26px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.spacer {
+    clear: both;
+    height: 1px;
+}
