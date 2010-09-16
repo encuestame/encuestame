@@ -21,10 +21,13 @@
     <script type="text/javascript">
 
     function callJsonService(){
-        new Ajax.Request('http://localhost:8080/encuestame/jackson.json', {
+        new Ajax.Request('http://localhost:8080/encuestame/jota/tweetPoll/votes.json', {
               method:'get',
+              parameters: {tweetPollId: 6},
               onSuccess: function(transport){
-                 var json = transport.responseText.evalJSON();
+                 //alert("Success! \n\n");
+                 var tran = transport;
+                 var json = tran.responseText.evalJSON(true);
                 // alert("Success! \n\n" + json);
                 // alert(json.gender);
                  this.createChart();
