@@ -49,7 +49,7 @@ public abstract class AbstractJsonController extends BaseController{
          Assert.notNull(this.error);
          response.put("success", this.sucess);
          response.put("error", this.error);
-         return this.jsonMap.addAttribute(response);
+         return this.jsonMap.addAllAttributes(response);
     }
 
     /**
