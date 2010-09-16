@@ -14,14 +14,17 @@
                 <entry key="json" value="application/json" />
             </map>
         </property>
+        <property name="defaultContentType" value="application/json" />
         <property name="defaultViews">
             <list>
                 <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
                     <property name="prefixJson" value="true"/>
+                    <property name="disableCaching" value="true"></property>
                 </bean>
             </list>
         </property>
     </bean>
 
+    <!--<bean id="exceptionResolver" class="org.encuestame.core.exception.EnMeJsonExceptionResolver" />-->
 
 </beans>

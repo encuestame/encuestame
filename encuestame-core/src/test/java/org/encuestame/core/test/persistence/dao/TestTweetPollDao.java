@@ -91,4 +91,10 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", "2", results.get(0)[1].toString());
     }
 
+    @Test
+    public void testgetTotalVotesByTweetPoll(){
+        final List<Object[]>  pollSwitchs = getTweetPoll().getTotalVotesByTweetPoll(this.tweetPoll);
+        assertEquals("Should be equals", 2, pollSwitchs.size());
+    }
+
 }

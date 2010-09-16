@@ -77,5 +77,25 @@ public interface ITweetPoll extends IBaseDao{
        */
       List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId);
 
+      /**
+       * Get List of Switch Answers by TweetPoll.
+       * @param tweetPoll {@link TweetPoll}.
+       * @return List of {@link TweetPollSwitch}
+       */
+      List<TweetPollSwitch> getListAnswesByTweetPoll(final TweetPoll tweetPoll);
 
+      /**
+       * Get Votes By {@link TweetPollSwitch}..
+       * @param pollSwitch {@link TweetPollSwitch}..
+       * @return
+       */
+      List<Object[]> getVotesByAnswer(final TweetPollSwitch pollSwitch);
+
+
+      /**
+       * Get Total Votes By {@link TweetPoll}.
+       * @param tweetPoll {@link TweetPoll}.
+       * @return List of Votes.
+       */
+      List<Object[]> getTotalVotesByTweetPoll(final Long tweetPollId);
 }

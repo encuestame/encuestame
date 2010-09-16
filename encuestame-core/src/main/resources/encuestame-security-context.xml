@@ -7,6 +7,10 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+  <!-- To enable @Pre and @Post Annotations -->
+  <security:global-method-security pre-post-annotations="enabled"/>
+
+  <!-- Authentication Manager -->
   <security:authentication-manager alias="authenticationManager">
     <security:authentication-provider  user-service-ref="EnMeAuthenticationDao">
         <security:password-encoder ref="passwordEncoder" />
@@ -55,6 +59,9 @@
 
     <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
 
+    <!-- Super Admin -->
+    <security:intercept-url pattern="/superAdmin.html" access="ENCUESTAME_SUPER"/>
+
     <!-- Shared areas -->
     <security:intercept-url pattern="/account/**/*" access="ENCUESTAME_USER"/>
     <security:intercept-url pattern="/user/lists.html" access="ENCUESTAME_USER"/>
@@ -77,11 +84,6 @@
                      logout-url="${spring.sec.logout.url}"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
   </security:http>
-
-
-
-  <!-- This element is used to enable annotation-based security -->
-  <security:global-method-security secured-annotations="enabled" />
 
   <bean id="authenticationProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
       <property name="authenticationManager" ref="authenticationManager"/>

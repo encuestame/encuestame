@@ -13,6 +13,7 @@
 
 package org.encuestame.core.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
@@ -121,5 +122,44 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByNamedParam("select tweetPollSwitch.answers.answer, count(tweetPollResultId) from TweetPollResult "
               +"where tweetPollSwitch.tweetPoll = :tweetPoll and tweetPollSwitch.answers = :answer group by tweetPollSwitch.answers.answer",
               new String[]{"tweetPoll", "answer"}, new Object[]{tweetPoll, answers});
+    }
+
+    /**
+     * Get List of Switch Answers by TweetPoll.
+     * @param tweetPoll {@link TweetPoll}.
+     * @return List of {@link TweetPollSwitch}
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollSwitch> getListAnswesByTweetPoll(final TweetPoll tweetPoll){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
+        criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
+     * Get Votes By {@link TweetPollSwitch}..
+     * @param pollSwitch {@link TweetPollSwitch}..
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getVotesByAnswer(final TweetPollSwitch pollSwitch){
+        return getHibernateTemplate().findByNamedParam("select count(tweetPollResultId) "
+               +" from TweetPollResult where tweetPollSwitch = :tweetPollSwitch", "tweetPollSwitch", pollSwitch);
+    }
+
+    /**
+     * Get Total Votes By {@link TweetPoll}.
+     * @param tweetPoll {@link TweetPoll}.
+     * @return List of Votes.
+     */
+    public List<Object[]> getTotalVotesByTweetPoll(final Long tweetPollId){
+            final List<Object[]> result = new ArrayList<Object[]>();
+            final List<TweetPollSwitch> answers = this.getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId));
+            for (TweetPollSwitch tweetPollSwitch : answers) {
+                final List<Object[]> answerResult = this.getVotesByAnswer(tweetPollSwitch);
+                final Object[] objects = {tweetPollSwitch.getAnswers().getAnswer(), answerResult.get(0)};
+                result.add(objects);
+            }
+            return result;
     }
 }

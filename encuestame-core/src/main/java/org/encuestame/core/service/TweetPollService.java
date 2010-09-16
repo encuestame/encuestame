@@ -301,15 +301,23 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
      */
+    //FIXME: this service don' retrieve data if answer never was voted.
     public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId){
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
         for (QuestionsAnswers questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
+              log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
+              log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
               final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
-              final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
-              tweetPollResult.setResults(Long.valueOf(result.get(0)[1].toString()));
-              tweetPollResult.setAnswersBean(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
-              pollResults.add(tweetPollResult);
+              log.debug("result getResultsByTweetPollId- "+result.size());
+              for (Object[] objects : result) {
+                  log.debug("objects 1- "+objects[0]);
+                  log.debug("objects 2- "+objects[1]);
+                  final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
+                  tweetPollResult.setResults(Long.valueOf(objects[1].toString()));
+                  tweetPollResult.setAnswersBean(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
+                  pollResults.add(tweetPollResult);
+              }
         }
         return pollResults;
     }

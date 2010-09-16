@@ -42,6 +42,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
+    @Deprecated
     Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion;
 
     /**
