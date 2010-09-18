@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.aspectj.apache.bcel.generic.ACONST_NULL;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
@@ -73,6 +72,9 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
 
     /** Selected Answer. **/
     private UnitAnswersBean selectedAnswer = new UnitAnswersBean();
+
+    /** If hash tag items is equals to zero. **/
+    private Boolean showHashTagNew = true;
 
     /**
      * List of Twitter Accounts
@@ -777,5 +779,18 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
      */
     public void setListHashTags(List<UnitHashTag> listHashTags) {
         this.listHashTags = listHashTags;
+    }
+
+    /**
+     * @return the showHashTagNew
+     */
+    public Boolean getShowHashTagNew() {
+        if(getUnitTweetPoll().getHashTags().size() <= 0){
+            this.showHashTagNew = true;
+        }
+        else{
+            this.showHashTagNew = false;
+        }
+        return showHashTagNew;
     }
 }

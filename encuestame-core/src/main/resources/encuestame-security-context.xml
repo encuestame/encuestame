@@ -72,8 +72,9 @@
     <security:intercept-url pattern="/poll.html" access="ENCUESTAME_USER"/>
     <security:intercept-url pattern="/survey.html" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
 
-    <!-- Vote Paths -->
+    <!-- Vote Paths
     <security:intercept-url pattern="/tweet/*" access="ENCUESTAME_USER" />
+    -->
 
     <!-- Resources Path -->
     <security:intercept-url pattern="/resources/*"  filters="none" />

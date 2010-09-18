@@ -49,12 +49,17 @@
         /user/signin.html=urlFilenameViewController
         /user/forgot.html=urlFilenameViewController
         /user/lists.html=flowController
+
+        /votes/tweetPoll.html=urlFilenameViewController
+        /votes/poll.html=urlFilenameViewController
+        /votes/survey.html=urlFilenameViewController
+
        </value>
     </property>
     <property name="defaultHandler" ref="urlFilenameViewController"/>
   </bean>
 
-  <bean name="openSessionInViewInterceptor"
+   <bean name="openSessionInViewInterceptor"
             class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/  xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sf="http://www.springframework.org/tags/faces"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:m="http://code.google.com/p/gmaps4jsf/">
+<a4j:loadBundle basename="messages" var="msg" />
+<a4j:loadStyle src="/resource/css/basic.css" type="text/css"></a4j:loadStyle>
+<a4j:loadScript src="/resource/js/prototype.js"/>
+<a4j:loadScript src="/resource/js/chart.js"/>
+<ui:insert name="css"></ui:insert>
+<ui:insert name="js"></ui:insert>
+<head>
+    <title>#{msg.appTitle} - <ui:insert name="title"> encuestame - survey system </ui:insert>
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <ui:insert name="javascript"></ui:insert>
+    <ui:insert name="googleMaps"></ui:insert>
+</head>
+<body>
+    <div class="wrapper">
+    <ui:include src="includes/shared/basicHeader.xhtml" />
+    <div id="mainWrapper">
+            <ui:insert name="main">main</ui:insert>
+        </div>
+    </div>
+    <ui:include src="includes/shared/basicFooter.xhtml" />
+</body>
+</html>

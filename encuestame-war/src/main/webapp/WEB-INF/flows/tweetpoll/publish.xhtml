@@ -9,122 +9,131 @@
     <ui:define name="title">Create TweetPoll</ui:define>
     <ui:define name="body">
         <a4j:form>
-            <div class="publishContent">
-            <div class="publishWrapper">
-            <div class="header">Social Accounts</div>
-            <div class="subHeader">Select your twitter Accounts to Publish.</div>
-                <div>
-                    <rich:dataTable id="dataTableUsers"
-                        value="#{createTweetPollBean.accounts}" var="twitter" rendered="#{not empty createTweetPollBean.accounts}" styleClass="roundTable">
-                        <rich:column width="20px">
-                            <h:selectBooleanCheckbox value="#{twitter.active}" >
-                                 <a4j:support event="onchange"  action="#{createTweetPollBean.selectTwitterAccount}" reRender="optionsPublish">
-                                         <f:setPropertyActionListener value="#{twitter}" target="#{createTweetPollBean.twitterAccountSelected}"/>
-                                 </a4j:support>
-                            </h:selectBooleanCheckbox>
-                        </rich:column>
-                        <rich:column>
-                            <div class="socialItem">
-                                <h:outputText value="#{twitter.accountBean.account}" />
+                <div id="createWrapper">
+                <div class="buildTweetPoll publishOptions">
+                <div class="left">
+                    <div class="paddingLeft">
+                    <div class="header">Social Accounts</div>
+                    <div class="subHeader">Select your twitter Accounts to Publish.</div>
+                        <div>
+                            <rich:dataTable id="dataTableUsers"
+                                value="#{createTweetPollBean.accounts}" var="twitter" rendered="#{not empty createTweetPollBean.accounts}" styleClass="roundTable">
+                                <rich:column width="20px">
+                                    <h:selectBooleanCheckbox value="#{twitter.active}" >
+                                         <a4j:support event="onchange"  action="#{createTweetPollBean.selectTwitterAccount}" reRender="optionsPublish">
+                                                 <f:setPropertyActionListener value="#{twitter}" target="#{createTweetPollBean.twitterAccountSelected}"/>
+                                         </a4j:support>
+                                    </h:selectBooleanCheckbox>
+                                </rich:column>
+                                <rich:column>
+                                    <div class="socialItem">
+                                        <h:outputText value="#{twitter.accountBean.account}" />
+                                    </div>
+                                </rich:column>
+                            </rich:dataTable>
+                        </div>
+                      </div>
+                </div>
+
+                <div class="right">
+                    <a4j:outputPanel id="panelOptions" styleClass="paddingRigth">
+                    <div class="publishTableOptionWrapper">
+                    <div class="header">Advance Options</div>
+                    <div class="subHeader">Customize your TweetPoll</div>
+
+                        <div class="itemOption">
+                            <div class="itemLeft">
+                                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.captcha}" />
                             </div>
-                        </rich:column>
-                    </rich:dataTable>
-                </div>
-            </div>
-            <div class="publishOptions">
-             <a4j:outputPanel id="panelOptions">
-            <div class="publishTableOptionWrapper">
-            <div class="header">Advance Options</div>
-            <div class="subHeader">Customize your TweetPoll</div>
+                            <div>
+                                <h:outputLabel value="Protect with Captcha"  styleClass="label" />
+                            </div>
+                        </div>
+                         <div class="itemOption">
+                            <div class="itemLeft">
+                                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.allowLiveResults}" />
+                            </div>
+                            <div>
+                               <h:outputLabel value="Show Live Result"  styleClass="label" />
+                            </div>
+                            </div>
 
-                <div class="itemOption">
-                    <div class="left">
-                        <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.captcha}" />
+                        <div class="itemOption">
+                            <div class="itemLeft">
+                                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.schedule}" >
+                                         <a4j:support event="onchange" reRender="panelOptions"/>
+                                </h:selectBooleanCheckbox>
+                            </div>
+                            <div>
+                                <h:outputLabel value="Scheduled" styleClass="label" />
+                            </div>
+                        </div>
+
+                       <a4j:outputPanel id="scheduledPanel" rendered="#{createTweetPollBean.unitTweetPoll.schedule}">
+                           <div class="itemOption extra">
+                                 <div class="itemLeft">
+                                      <h:outputLabel  value="Date Scheduled" styleClass="label" rendered="#{createTweetPollBean.unitTweetPoll.schedule}" />
+                                 </div>
+                                 <div>
+                                     <rich:calendar value="#{createTweetPollBean.unitTweetPoll.scheduleDate}"
+                                               rendered="#{createTweetPollBean.unitTweetPoll.schedule}"
+                                               datePattern="#{calendarBean.pattern}">
+                                     </rich:calendar>
+                                 </div>
+                            </div>
+                        </a4j:outputPanel>
+
+                        <div class="itemOption">
+                            <div class="itemLeft">
+                                <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.resumeLiveResults}" />
+                            </div>
+                            <div>
+                                <h:outputLabel value="Show Live Resume" styleClass="label" />
+                            </div>
+                       </div>
+
+                        <div class="itemOption">
+                             <div class="itemLeft">
+                               <h:selectBooleanCheckbox value="#{createTweetPollBean.limitVotes}">
+                                    <a4j:support event="onchange" reRender="panelOptions"/>
+                                </h:selectBooleanCheckbox>
+                             </div>
+                             <div>
+                             <div>
+                                <h:outputLabel value="Limit Votes" styleClass="label" />
+                             </div>
+                            </div>
+                        </div>
+
+                        <a4j:outputPanel id="limitvotesPanel" rendered="#{createTweetPollBean.limitVotes}">
+                           <div class="itemOption extra">
+                                 <div class="itemLeft">
+                                    <h:outputLabel  value="Votes" styleClass="label" rendered="#{createTweetPollBean.limitVotes}" />
+                                 </div>
+                                 <div>
+                                     <rich:inputNumberSlider value="#{createTweetPollBean.unitTweetPoll.limitVotes}"
+                                             maxValue="50000"
+                                            showToolTip="true" rendered="#{createTweetPollBean.limitVotes}" />
+                                 </div>
+                            </div>
+                        </a4j:outputPanel>
+
                     </div>
-                    <div>
-                        <h:outputLabel value="Protect with Captcha"  styleClass="label" />
-                    </div>
-                </div>
-                 <div class="itemOption">
-                    <div class="left">
-                        <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.allowLiveResults}" />
-                    </div>
-                    <div>
-                       <h:outputLabel value="Show Live Result"  styleClass="label" />
-                    </div>
+                    </a4j:outputPanel>
                     </div>
 
-                <div class="itemOption">
-                    <div class="left">
-                        <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.schedule}" >
-                                 <a4j:support event="onchange" reRender="panelOptions"/>
-                        </h:selectBooleanCheckbox>
-                    </div>
-                    <div>
-                        <h:outputLabel value="Scheduled" styleClass="label" />
-                    </div>
-                </div>
+                    <a4j:outputPanel id="optionsPublish">
+                        <div class="publishButtons">
+                            <a4j:commandButton action="back" value="Back" styleClass="defaultButton"></a4j:commandButton>
+                            <a4j:commandButton action="later" value="Save To Later" disabled="#{createTweetPollBean.validPublish}" styleClass="defaultButton"></a4j:commandButton>
+                            <a4j:commandButton value="Publish Now" disabled="#{!createTweetPollBean.validPublish}"
+                             styleClass="defaultButton" action="publish">
 
-               <a4j:outputPanel id="scheduledPanel" rendered="#{createTweetPollBean.unitTweetPoll.schedule}">
-                   <div class="itemOption extra">
-                         <div class="left">
-                              <h:outputLabel  value="Date Scheduled" styleClass="label" rendered="#{createTweetPollBean.unitTweetPoll.schedule}" />
-                         </div>
-                         <div>
-                             <rich:calendar value="#{createTweetPollBean.unitTweetPoll.scheduleDate}"
-                                       rendered="#{createTweetPollBean.unitTweetPoll.schedule}"
-                                       datePattern="#{calendarBean.pattern}">
-                             </rich:calendar>
-                         </div>
+                             </a4j:commandButton>
+                        </div>
+                    </a4j:outputPanel>
                     </div>
-                </a4j:outputPanel>
-
-                <div class="itemOption">
-                    <div class="left">
-                        <h:selectBooleanCheckbox value="#{createTweetPollBean.unitTweetPoll.resumeLiveResults}" />
-                    </div>
-                    <div>
-                        <h:outputLabel value="Show Live Resume" styleClass="label" />
-                    </div>
-               </div>
-
-                <div class="itemOption">
-                     <div class="left">
-                       <h:selectBooleanCheckbox value="#{createTweetPollBean.limitVotes}">
-                            <a4j:support event="onchange" reRender="panelOptions"/>
-                        </h:selectBooleanCheckbox>
-                     </div>
-                     <div>
-                     <div>
-                        <h:outputLabel value="Limit Votes" styleClass="label" />
-                     </div>
-                    </div>
-                </div>
-
-                <a4j:outputPanel id="limitvotesPanel" rendered="#{createTweetPollBean.limitVotes}">
-                   <div class="itemOption extra">
-                         <div class="left">
-                            <h:outputLabel  value="Votes" styleClass="label" rendered="#{createTweetPollBean.limitVotes}" />
-                         </div>
-                         <div>
-                             <rich:inputNumberSlider value="#{createTweetPollBean.unitTweetPoll.limitVotes}"
-                                     maxValue="50000"
-                                    showToolTip="true" rendered="#{createTweetPollBean.limitVotes}" />
-                         </div>
-                    </div>
-                </a4j:outputPanel>
-
-            </div>
-            </a4j:outputPanel>
-            </div>
-            <a4j:outputPanel id="optionsPublish">
-                <div class="publishButtons">
-                    <a4j:commandButton action="back" value="Back" styleClass="defaultButton"></a4j:commandButton>
-                    <a4j:commandButton action="later" value="Save To Later" disabled="#{createTweetPollBean.validPublish}" styleClass="defaultButton"></a4j:commandButton>
-                    <a4j:commandButton action="publish" value="Publish Now" disabled="#{!createTweetPollBean.validPublish}" styleClass="defaultButton"></a4j:commandButton>
-                </div>
-            </a4j:outputPanel>
-            </div>
+              </div>
         </a4j:form>
     </ui:define>
 </ui:composition>

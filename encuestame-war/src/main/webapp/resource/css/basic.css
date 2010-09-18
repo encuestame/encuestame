@@ -1,0 +1,10 @@
+html, body {
+       height: 100%;
+}
+
+body {
+    font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}

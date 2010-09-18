@@ -50,7 +50,6 @@ public class TweetPollJsonDataChart extends AbstractJsonController{
              //TODO: we need check if user able to display this tweetpoll. eg. If is published or if is public
              final List<UnitTweetPollResult> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
              setItemResponse("votesResult", results);
-
              return returnData();
         }
 }

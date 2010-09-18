@@ -11,13 +11,10 @@
          <evaluate
              expression="tweetPollService.getTweetsPollsByUserName(currentUser.name)"
              result="flowScope.tweetsPolls" result-type="dataModel" />
-         <evaluate
-             expression="tweetPollService.validateUserTwitterAccount(currentUser.name)"
-             result="flowScope.validate" />
      </on-start>
 
     <view-state id="tweetpoll">
-        <transition on="create" to="addQuestion">
+        <transition on="create" to="createTweetPoll">
 
         </transition>
         <transition on="search">
@@ -44,15 +41,10 @@
          </transition>
     </view-state>
 
-    <view-state id="addQuestion">
-        <transition on="saveQuestion" to="addAnswers">
+    <view-state id="createTweetPoll">
+         <transition on="saveQuestion" to="addAnswers">
         </transition>
-    </view-state>
-
-    <view-state id="addAnswers">
-        <transition on="back" to="addQuestion">
-        </transition>
-        <transition on="publish" to="publish">
+         <transition on="publish" to="publish">
         </transition>
         <transition on="later" to="succesfullEnd">
             <evaluate expression="createTweetPollBean.saveLaterTweetPoll()" />
@@ -63,13 +55,13 @@
          <on-render>
                 <evaluate expression="createTweetPollBean.loadTwitterAccounts()" />
          </on-render>
-         <transition on="back" to="addAnswers">
-        </transition>
-        <transition on="publish" to="succesfullEnd">
-            <evaluate expression="createTweetPollBean.publishTweetPoll()" />
+         <transition on="back" to="createTweetPoll">
         </transition>
          <transition on="later" to="succesfullEnd">
             <evaluate expression="createTweetPollBean.saveLaterTweetPoll()" />
+        </transition>
+        <transition on="publish" to="succesfullEnd">
+            <evaluate expression="createTweetPollBean.publishTweetPoll()" />
         </transition>
     </view-state>
 
