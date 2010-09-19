@@ -12,7 +12,11 @@
  */
 package org.encuestame.core.persistence.dao;
 
+import java.util.List;
+
 import org.encuestame.core.persistence.dao.imp.IBaseDao;
+import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.pojo.notifications.Notification;
 
 /**
  * Implementation for Notification Domain.
@@ -22,4 +26,11 @@ import org.encuestame.core.persistence.dao.imp.IBaseDao;
  */
 public interface INotification extends IBaseDao{
 
+    /**
+     * Load Notifications By {@link SecUser} and Limit. This method add all notifications without User (global)
+     * @param secUser {@link SecUser}
+     * @param limit limit
+     * @return
+     */
+    List<Notification> loadNotificationByUserAndLimit(final SecUser secUser, final Integer limit);
 }

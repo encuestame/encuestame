@@ -15,7 +15,9 @@ package org.encuestame.mvc.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jdt.core.dom.ThisExpression;
+import org.encuestame.core.persistence.dao.INotification;
+import org.encuestame.core.persistence.dao.NotificationDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -32,6 +34,10 @@ public abstract class AbstractJsonController extends BaseController{
 
     /** Model. **/
     private ModelMap jsonMap = new ModelMap();
+
+    /** {@link NotificationDao}. **/
+    @Autowired
+    private INotification notificationDao;
 
     /** Success. **/
     private Map<String, Object> sucess = new HashMap<String, Object>();
@@ -80,5 +86,19 @@ public abstract class AbstractJsonController extends BaseController{
       mav.setViewName("MappingJacksonJsonView");
       mav.addObject("error", ex.getMessage());
       return mav;
+    }
+
+    /**
+     * @return the notificationDao
+     */
+    public INotification getNotificationDao() {
+        return notificationDao;
+    }
+
+    /**
+     * @param notificationDao the notificationDao to set
+     */
+    public void setNotificationDao(INotification notificationDao) {
+        this.notificationDao = notificationDao;
     }
 }

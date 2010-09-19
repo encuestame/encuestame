@@ -13,6 +13,8 @@
 
 package org.encuestame.mvc.controller;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +28,7 @@ import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.ServiceManager;
 import org.encuestame.core.service.TweetPollService;
+import org.encuestame.core.service.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,6 +53,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class BaseController {
 
      protected Logger log = Logger.getLogger(this.getClass());
+
+
+      public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+
+      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
      /**
       * {@link ReCaptcha}.

@@ -161,6 +161,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tPollSwitch.setTweetPoll(tweetPollDomain);
                 tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
                 getTweetPollDao().saveOrUpdate(tPollSwitch);
+                createNotification(NotificationEnum.TWEETPOL_CREATED.name(), question.getSecUsersQuestion());
             }
             //Save Hash Tags for this tweetPoll.
             log.debug("HashTag Size"+tweetPollBean.getHashTags().size());

@@ -13,12 +13,18 @@
 package org.encuestame.mvc.controller.json.notifications;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.pojo.notifications.Notification;
+import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version $Id:$
  */
 @Controller
-public class NotificationsJsonController {
+public class NotificationsJsonController extends AbstractJsonController {
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/{username}/notifications.json", method = RequestMethod.GET)
@@ -43,7 +49,20 @@ public class NotificationsJsonController {
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         //TODO: load notifications.
-         return null;
+         final SecUserSecondary secondary = getByUsername(username);
+         if(secondary == null){
+             setError("user not found");
+         }
+         final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(secondary.getSecUser(), limit);
+         final List<UtilNotification> utilNotifications = new ArrayList<UtilNotification>();
+         for (Notification notification : notifications) {
+             final UtilNotification utilNotification = new UtilNotification();
+             utilNotification.setDate(SIMPLE_DATE_FORMAT.format(notification.getCreated()));
+             utilNotification.setDescription(notification.getDescription());
+             utilNotification.setHour(SIMPLE_TIME_FORMAT.format(notification.getCreated()));
+             utilNotifications.add(utilNotification);
+         }
+         setItemResponse("notifications", utilNotifications);
+         return returnData();
     }
 }

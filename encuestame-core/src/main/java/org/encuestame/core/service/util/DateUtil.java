@@ -10,21 +10,19 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service;
+package org.encuestame.core.service.util;
+
 
 /**
- * Notification Enumeration
+ * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since Sep 18, 2010 7:14:20 PM
- * @version $Id:$
+ * @since Sep 18, 2010 11:04:07 PM
+ * @version Id:
  */
-public enum NotificationEnum {
+public class DateUtil {
 
-    TWEETPOLL_PUBLISHED,
+    public static final String DEFAULT_FORMAT_DATE = "yyyy-MM-dd";
 
-    TWEETPOL_REMOVED,
-
-    TWEETPOL_CREATED
-
+    public static final String DEFAULT_FORMAT_TIME = "hh:mm:ss";
 
 }

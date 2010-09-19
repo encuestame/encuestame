@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.persistence.pojo.notifications;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +24,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.encuestame.core.persistence.pojo.SecUser;
 
@@ -41,6 +46,10 @@ public class Notification {
     private String description;
 
     private SecUser secUser;
+
+    private Date created = Calendar.getInstance().getTime();
+
+    private Boolean readed = Boolean.FALSE;
 
     /**
      * @return the notificationId
@@ -92,5 +101,37 @@ public class Notification {
      */
     public void setSecUser(SecUser secUser) {
         this.secUser = secUser;
+    }
+
+    /**
+     * @return the created
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", nullable = false)
+    public Date getCreated() {
+        return created;
+    }
+
+    /**
+     * @param created the created to set
+     */
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    /**
+     * @return the rearded
+     */
+
+    @Column(name = "readed", nullable = false)
+    public Boolean getReaded() {
+        return readed;
+    }
+
+    /**
+     * @param rearded the rearded to set
+     */
+    public void setReaded(Boolean readed) {
+        this.readed = readed;
     }
 }
