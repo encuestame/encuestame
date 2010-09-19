@@ -28,7 +28,6 @@ import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,14 +41,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class NotificationsJsonController extends AbstractJsonController {
 
+    /**
+     * Get Notifications.
+     * @param limit
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/{username}/notifications.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/notifications.json", method = RequestMethod.GET)
     public ModelMap get(
-            @PathVariable String username,
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         final SecUserSecondary secondary = getByUsername(username);
+         final SecUserSecondary secondary = getByUsername(getUserPrincipalUsername());
          if(secondary == null){
              setError("user not found");
          }
@@ -58,11 +66,34 @@ public class NotificationsJsonController extends AbstractJsonController {
          for (Notification notification : notifications) {
              final UtilNotification utilNotification = new UtilNotification();
              utilNotification.setDate(SIMPLE_DATE_FORMAT.format(notification.getCreated()));
-             utilNotification.setDescription(notification.getDescription());
+             utilNotification.setDescription(convertNotificationMessage(notification.getDescription(), request, null));
+             utilNotification.setId(notification.getNotificationId());
              utilNotification.setHour(SIMPLE_TIME_FORMAT.format(notification.getCreated()));
+             utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
              utilNotifications.add(utilNotification);
+             utilNotification.setType(notification.getDescription().name());
+             utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
          }
          setItemResponse("notifications", utilNotifications);
          return returnData();
+    }
+
+    /**
+     * Change Status.
+     * @param limit
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/change-status-notifications.json", method = RequestMethod.POST)
+    public ModelMap changeStatus(
+            @RequestParam(value = "notificationId") Integer limit,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        return null;
     }
 }

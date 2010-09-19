@@ -18,6 +18,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.service.NotificationEnum;
 
 /**
  * Notifications domain.
@@ -43,7 +46,9 @@ public class Notification {
 
     private Long notificationId;
 
-    private String description;
+    private NotificationEnum description;
+
+    private String additionalDescription;
 
     private SecUser secUser;
 
@@ -74,7 +79,8 @@ public class Notification {
      */
 
     @Column(name = "description", nullable = false)
-    public String getDescription() {
+    @Enumerated(EnumType.STRING)
+    public NotificationEnum getDescription() {
         return description;
     }
 
@@ -82,7 +88,7 @@ public class Notification {
      * @param description
      *            the description to set
      */
-    public void setDescription(String description) {
+    public void setDescription(NotificationEnum description) {
         this.description = description;
     }
 
@@ -133,5 +139,20 @@ public class Notification {
      */
     public void setReaded(Boolean readed) {
         this.readed = readed;
+    }
+
+    /**
+     * @return the additionalDescription
+     */
+    @Column(name = "additional_description", nullable = false)
+    public String getAdditionalDescription() {
+        return additionalDescription;
+    }
+
+    /**
+     * @param additionalDescription the additionalDescription to set
+     */
+    public void setAdditionalDescription(String additionalDescription) {
+        this.additionalDescription = additionalDescription;
     }
 }

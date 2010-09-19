@@ -14,6 +14,7 @@
 package org.encuestame.mvc.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import net.tanesha.recaptcha.ReCaptcha;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
@@ -42,6 +44,7 @@ import org.springframework.security.web.context.HttpSessionContextIntegrationFil
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 /**
  * Base Controller.
@@ -50,10 +53,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @version $Id: $
  */
 @SuppressWarnings("deprecation")
-public class BaseController {
+public class BaseController extends AbstractSecurityContext{
 
      protected Logger log = Logger.getLogger(this.getClass());
-
 
       public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
 
@@ -78,7 +80,6 @@ public class BaseController {
      */
     @Autowired
     private AuthenticationManager authenticationManager;
-
 
     /**
      * @return the serviceManager
@@ -175,7 +176,7 @@ public class BaseController {
 
             final Authentication auth = getAuthenticationManager().authenticate(usernameAndPassword);
 
-            final SecurityContext securityContext = SecurityContextHolder.getContext();
+            final SecurityContext securityContext = getSecCtx();
             securityContext.setAuthentication(auth);
             session.setAttribute( HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
@@ -184,6 +185,45 @@ public class BaseController {
             SecurityContextHolder.getContext().setAuthentication(null);
             log.error("Authenticate", e);
         }
+    }
+
+    /**
+     * Get Message with Locale.
+     * @param message
+     * @param request
+     * @param args
+     * @return
+     */
+    public String getMessage(final String message, final HttpServletRequest request, Object[] args){
+        return getServiceManager().getMessageSource().getMessage(message, args, getLocale(request));
+    }
+
+    /**
+     * Get Message.
+     * @param message
+     * @param args
+     * @return
+     */
+    public String getMessage(final String message, Object[] args){
+        return getMessage(message, null, args);
+    }
+
+    /**
+     * Get Message.
+     * @param message
+     * @return
+     */
+    public String getMessage(final String message){
+        return getMessage(message, null, null);
+    }
+
+    /**
+     * Get Locale.
+     * @param request
+     * @return
+     */
+    private Locale getLocale(final HttpServletRequest request){
+        return RequestContextUtils.getLocale(request);
     }
 
     /**

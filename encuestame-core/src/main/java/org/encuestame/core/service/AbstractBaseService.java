@@ -171,10 +171,11 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @param secUser
      * @return
      */
-    public Notification createNotification(final String description, final SecUser secUser){
+    public Notification createNotification(final NotificationEnum description, final String additional,  final SecUser secUser){
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setSecUser(secUser);
+        notification.setAdditionalDescription(additional);
         getNotificationDao().saveOrUpdate(notification);
         return notification;
     }

@@ -122,14 +122,6 @@
     </property>
   </bean>
 
-  <!-- Message Source
-   <bean id="messageSource"
-        class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="messages" />
-    </bean>
-
-     -->
-
     <!-- Create Cookie Default Locale
 
     <bean id="localeResolver"

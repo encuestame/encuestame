@@ -7,6 +7,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+  <!-- Message Resources -->
   <bean id="resourceBundleMessageSource"
     class="org.springframework.context.support.ResourceBundleMessageSource">
     <property name="basename">
@@ -43,6 +44,9 @@
        </property>
        <property name="tweetPath">
            <value>${answers.tweetPath}/</value>
+       </property>
+       <property name="twitterDomain">
+            <value>${twitter.url.domain}</value>
        </property>
    </bean>
 

@@ -14,9 +14,13 @@ package org.encuestame.mvc.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.persistence.dao.INotification;
 import org.encuestame.core.persistence.dao.NotificationDao;
+import org.encuestame.core.service.NotificationEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;
@@ -86,6 +90,50 @@ public abstract class AbstractJsonController extends BaseController{
       mav.setViewName("MappingJacksonJsonView");
       mav.addObject("error", ex.getMessage());
       return mav;
+    }
+
+    /**
+     * Convert Notification Message.
+     * @param notificationEnum
+     * @return
+     */
+    public String convertNotificationMessage(final NotificationEnum notificationEnum,
+            final HttpServletRequest request, final Object[] objects){
+           String message = null;
+           if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
+               message = getMessage("notification.tweetpoll.created", request, null);
+           } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
+               message = getMessage("notification.tweetpoll.removed", request, objects);
+           } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
+               message = getMessage("notification.tweetpoll.publish", request, null);
+           }
+           return message;
+    }
+
+    /**
+     * Convert Notification Icon Message.
+     * @param notificationEnum
+     * @return
+     */
+    public String convertNotificationIconMessage(final NotificationEnum notificationEnum){
+            String icon = null;
+            /*
+             * Help: helpImage
+             * Error Network: netWorkErrorImage
+             * Like: likeImage
+             * Warning: warningImage
+             * Unlike: unLikeImage
+             * Twitter: twitterImage
+             * Poll: pollImage
+             */
+            if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
+                icon = "twitterImage";
+            } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
+                icon = "warningImage";
+            } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
+                icon = "twitterImage";
+            }
+            return icon;
     }
 
     /**

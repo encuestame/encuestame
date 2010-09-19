@@ -13,28 +13,28 @@
 package org.encuestame.web.beans;
 
 import java.util.Iterator;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang.StringUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
+import org.encuestame.core.service.ServiceManager;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitHashTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 
 /**
@@ -44,7 +44,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
  * @since 26/04/2009
  * @version $Id$
  */
-public class MasterBean{
+public class MasterBean extends AbstractSecurityContext{
 
     /** {@link ApplicationContext}. **/
     private ApplicationContext appContext;
@@ -58,9 +58,6 @@ public class MasterBean{
 
     /** User Session Id. **/
     protected Long userSessionId;
-
-    /** Obtain {@link SecurityContext}.**/
-    private SecurityContext securityContext;
 
     /** Short Number String. **/
     private Integer shortNumberString = 30;
@@ -292,20 +289,9 @@ public class MasterBean{
      * Get Username.
      * @return username
      */
+    @Deprecated
     public final String getSecurityContextUsername(){
         return getSecCtx().getAuthentication().getName();
-    }
-
-    /**
-     * Get Details.
-     */
-    public final EnMeUserDetails getSecurityDetails(){
-        EnMeUserDetails details = null;
-        log.debug("Authentication Object "+getSecCtx().getAuthentication());
-        if(getSecCtx().getAuthentication() != null){
-            details =  (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
-        }
-        return details;
     }
 
     /**
@@ -335,22 +321,6 @@ public class MasterBean{
             return "";
         }
         return attributeValue;
-    }
-
-
-    /**
-     * @return the secCtx
-     */
-    protected final SecurityContext getSecCtx() {
-        return this.securityContext = SecurityContextHolder.getContext();
-    }
-
-    /**
-     * Get Username of user client.
-     * @return
-     */
-    protected final String getUserPrincipalUsername(){
-       return getSecCtx().getAuthentication().getName();
     }
 
     /**
@@ -387,13 +357,6 @@ public class MasterBean{
      */
     public ITweetPollService getTweetPollService() {
          return getServicemanager().getApplicationServices().getTweetPollService();
-    }
-
-    /**
-     * @return the securityContext
-     */
-    public final SecurityContext getSecurityContext() {
-        return securityContext;
     }
 
     /**

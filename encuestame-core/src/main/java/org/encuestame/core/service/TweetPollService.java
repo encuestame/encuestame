@@ -68,6 +68,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     private String tweetPath;
 
     /**
+     * Twitter Domain.
+     */
+    private String twitterDomain;
+
+    /**
      * Get Tweet Polls by User Id.
      * @param username username.
      * @return list of Tweet polls bean
@@ -161,7 +166,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tPollSwitch.setTweetPoll(tweetPollDomain);
                 tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
                 getTweetPollDao().saveOrUpdate(tPollSwitch);
-                createNotification(NotificationEnum.TWEETPOL_CREATED.name(), question.getSecUsersQuestion());
+                createNotification(NotificationEnum.TWEETPOL_CREATED, question.getQuestion() , question.getSecUsersQuestion());
             }
             //Save Hash Tags for this tweetPoll.
             log.debug("HashTag Size"+tweetPollBean.getHashTags().size());
@@ -270,7 +275,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         publishedStatus.setTweetId(status.getId());
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.SUCCESS);
-                        createNotification(NotificationEnum.TWEETPOLL_PUBLISHED.name(), secUserTwitterAccounts.getSecUsers());
+                        createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
+                                buildTwitterItemView(secUserTwitterAccounts.getTwitterAccount(), String.valueOf(status.getId())),
+                                secUserTwitterAccounts.getSecUsers());
                     } catch (Exception e) {
                         e.printStackTrace();
                         log.error("Error publish tweet "+e.getMessage());
@@ -283,6 +290,20 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     log.warn("Twitter Account Not Found [Id:"+unitTwitterAccountBean.getAccountId()+"]");
                 }
             }
+    }
+
+    /**
+     * Build Twitter Url.
+     * @param username
+     * @param id
+     * @return
+     */
+    public String buildTwitterItemView(final String username, final String id){
+        final StringBuilder builder = new  StringBuilder(getTwitterDomain());
+        builder.append(username);
+        builder.append("/status/");
+        builder.append(id);
+        return builder.toString();
     }
 
     /**
@@ -400,5 +421,19 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public void setTweetPath(final String tweetPath) {
         this.tweetPath = tweetPath;
+    }
+
+    /**
+     * @return the twitterDomain
+     */
+    public String getTwitterDomain() {
+        return twitterDomain;
+    }
+
+    /**
+     * @param twitterDomain the twitterDomain to set
+     */
+    public void setTwitterDomain(String twitterDomain) {
+        this.twitterDomain = twitterDomain;
     }
 }

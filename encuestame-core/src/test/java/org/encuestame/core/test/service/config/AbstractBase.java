@@ -169,6 +169,7 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
 
+    /** Url Poll. **/
     public final String URLPOLL = "http://www.encuestame.org";
 
     /**
