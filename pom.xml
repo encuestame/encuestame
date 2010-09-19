@@ -124,16 +124,7 @@
     </organization>
 
     <repositories>
-        <repository>
-            <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
+
         <repository>
              <id>org.springframework.security.taglibs.facelets</id>
              <url>http://spring-security-facelets-taglib.googlecode.com/svn/repo/</url>
@@ -222,9 +213,9 @@
     <pluginRepositories>
         <pluginRepository>
             <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
+            <url>https://nexus.codehaus.org/content/repositories/releases/</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
             <releases>
                 <enabled>true</enabled>  <!-- Workaround for MNG-2974, see note below -->
@@ -343,6 +334,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
                 <configuration>
                     <doCheck>false</doCheck>
                     <doUpdate>false</doUpdate>
