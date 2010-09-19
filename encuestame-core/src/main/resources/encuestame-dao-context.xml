@@ -79,5 +79,10 @@
              <ref bean="hibernateTemplate" />
          </property>
     </bean>
+     <bean id="notificationDao" autowire="byName" scope="singleton" class="org.encuestame.core.persistence.dao.NotificationDao">
+         <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
+         </property>
+    </bean>
 
 </beans>

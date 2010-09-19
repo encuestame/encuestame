@@ -21,7 +21,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
-import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.AbstractTableBean;
 
 /**
  * Tweet Polls Bean.
@@ -30,7 +30,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since Feb 19, 2010 6:31:47 PM
  * @version $Id:$
  */
-public class TweetPollsBean extends MasterBean implements Serializable {
+public class TweetPollsBean extends AbstractTableBean implements Serializable {
 
     /**
      * Serial.tweetPollsBean

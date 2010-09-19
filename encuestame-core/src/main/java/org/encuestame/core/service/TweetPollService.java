@@ -238,7 +238,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     private String buildUrlAnswer(final QuestionsAnswers answer, final String domain) throws HttpException, IOException{
         StringBuffer stringBuffer = new StringBuffer(domain);
-        stringBuffer.append(getTweetPath());
+        stringBuffer.append(this.getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
         return getTwitterService().getTinyUrl(stringBuffer.toString());
     }
@@ -269,6 +269,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         publishedStatus.setTweetId(status.getId());
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(org.encuestame.core.persistence.pojo.TweetPollSavedPublishedStatus.Status.SUCCESS);
+                        createNotification(NotificationEnum.TWEETPOLL_PUBLISHED.name(), secUserTwitterAccounts.getSecUsers());
                     } catch (Exception e) {
                         e.printStackTrace();
                         log.error("Error publish tweet "+e.getMessage());
@@ -380,13 +381,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
-     * @param tweetPollResultsPath the tweetPollResultsPath to set
+     * @param tweetPollRgetTweetPollResultsPathesultsPath the tweetPollResultsPath to set
      */
     public void setTweetPollResultsPath(final String tweetPollResultsPath) {
         this.tweetPollResultsPath = tweetPollResultsPath;
     }
-
-
 
     /**
      * @return the tweetPath

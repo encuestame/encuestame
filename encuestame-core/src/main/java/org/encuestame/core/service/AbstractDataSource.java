@@ -25,6 +25,8 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatLocationTypeDao;
 import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.dao.HashTagDao;
+import org.encuestame.core.persistence.dao.INotification;
+import org.encuestame.core.persistence.dao.NotificationDao;
 import org.encuestame.core.persistence.dao.ProjectDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;
 import org.encuestame.core.persistence.dao.imp.ICatEmail;
@@ -85,6 +87,9 @@ public abstract class AbstractDataSource{
     /** {@link HashTagDao}. **/
     @Resource
     private IHashTagDao hashTagDao;
+    /*** {@link NotificationDao}. **/
+    @Resource
+    private INotification notificationDao;
     /** Log. */
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -444,5 +449,19 @@ public abstract class AbstractDataSource{
      */
     public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
+    }
+
+    /**
+     * @return the notificationDao
+     */
+    public INotification getNotificationDao() {
+        return notificationDao;
+    }
+
+    /**
+     * @param notificationDao the notificationDao to set
+     */
+    public void setNotificationDao(final INotification notificationDao) {
+        this.notificationDao = notificationDao;
     }
 }

@@ -61,6 +61,7 @@
                 <value>org.encuestame.core.persistence.pojo.QuestionDependencies</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionDependenceSurvey</value>
                 <value>org.encuestame.core.persistence.pojo.QuestionSection</value>
+                <value>org.encuestame.core.persistence.pojo.notifications.Notification</value>
             </list>
         </property>
         <property name="hibernateProperties">

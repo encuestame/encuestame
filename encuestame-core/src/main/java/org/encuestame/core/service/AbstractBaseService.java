@@ -19,6 +19,8 @@ import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
+import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.pojo.notifications.Notification;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.core.service.util.MessageSourceFactoryBean;
 import org.encuestame.utils.web.UnitEmails;
@@ -163,7 +165,19 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         }
     }
 
-
+    /**
+     * Create Notification.
+     * @param description
+     * @param secUser
+     * @return
+     */
+    public Notification createNotification(final String description, final SecUser secUser){
+        final Notification notification = new Notification();
+        notification.setDescription(description);
+        notification.setSecUser(secUser);
+        getNotificationDao().saveOrUpdate(notification);
+        return notification;
+    }
 
     public Boolean subscribeEmails(final String subscriptionCode, final String subscriptionOption) throws EnMeExpcetion{
         Boolean success = false;

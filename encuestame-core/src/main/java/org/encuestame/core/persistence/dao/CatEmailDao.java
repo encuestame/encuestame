@@ -21,7 +21,6 @@ import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**

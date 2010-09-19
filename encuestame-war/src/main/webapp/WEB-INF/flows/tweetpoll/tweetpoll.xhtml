@@ -93,6 +93,10 @@
                      <rich:column>
                         <h:outputText value="test" />
                     </rich:column>
+                    <f:facet name="footer">
+                        <rich:datascroller align="left" for="dataTableGroups" maxPages="20"
+                            page="#{tweetPollsBean.scrollerPage}" id="down" reRender="up" />
+                    </f:facet>
                 </rich:dataTable>
 
                 <rich:panel rendered="#{tweetsPolls.rowCount == 0}">

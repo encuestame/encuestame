@@ -42,7 +42,7 @@
            <value>${answers.tweetPollResults}</value>
        </property>
        <property name="tweetPath">
-           <value>/tweet/</value>
+           <value>${answers.tweetPath}/</value>
        </property>
    </bean>
 
