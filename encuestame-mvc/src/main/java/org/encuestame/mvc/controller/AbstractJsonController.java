@@ -88,7 +88,9 @@ public abstract class AbstractJsonController extends BaseController{
     public ModelAndView handleException (AccessDeniedException ex) {
       ModelAndView mav = new ModelAndView();
       mav.setViewName("MappingJacksonJsonView");
-      mav.addObject("error", ex.getMessage());
+      Map<String, Object> response = new HashMap<String, Object>();
+      response.put("message", ex.getMessage());
+      mav.addObject("error", response);
       return mav;
     }
 

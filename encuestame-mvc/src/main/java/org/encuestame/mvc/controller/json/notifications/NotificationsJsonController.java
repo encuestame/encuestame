@@ -89,11 +89,37 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/change-status-notifications.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/change-status-notifications.json", method = RequestMethod.GET)
     public ModelMap changeStatus(
             @RequestParam(value = "notificationId") Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         return null;
+    }
+
+    /**
+     * Remove Notification.
+     * @param notificationId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
+    @RequestMapping(value = "/remove-notification.json", method = RequestMethod.GET)
+    public ModelMap removeNotification(
+            @RequestParam(value = "notificationId") Long notificationId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+            final Notification notification = getNotificationDao().retrieveNotificationById(notificationId);
+            if(notification == null){
+                setError("notification not found");
+            } else {
+                getNotificationDao().delete(notification);
+                setItemResponse("removed", "ok");
+            }
+        return returnData();
     }
 }

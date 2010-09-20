@@ -33,4 +33,11 @@ public interface INotification extends IBaseDao{
      * @return
      */
     List<Notification> loadNotificationByUserAndLimit(final SecUser secUser, final Integer limit);
+
+    /**
+     * Get Notification.
+     * @param notificationId
+     * @return
+     */
+    Notification retrieveNotificationById(final Long notificationId);
 }

@@ -5,8 +5,6 @@ Notifications.EnMe = Class.create( {
     // constructor
     initialize : function(nodeName) {
         this.nodeName = nodeName;
-        console.debug("nodeName.", nodeName);
-        console.debug("this.nodeName.", this.nodeName);
         // new Ajax.PeriodicalUpdater(nodeName, '/notifications.json', {
         // method: 'get', frequency: 3, decay: 2
         // });
@@ -21,29 +19,35 @@ Notifications.EnMe = Class.create( {
         new Ajax.Request(url, {
             method : 'get',
             parameters : {
-                limit : 9
+                limit : 7
             },
             onSuccess : function(transport) {
                 var tran = transport;
-                console.debug("success", tran);
-                if(tran.responseText.isJSON()){
-                    json = tran.responseText.evalJSON();
-                    if(json.error.error == undefined){
-                        json.success.notifications.each(function(item) {
-                            console.debug("responsTExt", item)
-                            this.createNotification(item);
-                        }.bind(this));
+                if(transport.status == 200){
+                    console.debug("success", tran.responseJSON);
+                    if(tran.responseText.isJSON()){
+                        json = tran.responseJSON;
+                        if(json.error.message == undefined){
+                            json.success.notifications.each(function(item) {
+                                this.createNotification(item);
+                            }.bind(this));
+                        } else {
+                            console.debug("error", json.error.message)
+                            this.createNetworkError(json.error.message, json.error.message);
+                        }
+                        this.addEvents();
+                     }
+                } else {
+                    if(transport.status == 0){
+                         this.createNetworkError("You are lost Internet Connection", "Connection time out");
                     } else {
-                        console.debug("error", json.error)
+                        console.error("other error", transport.status);
                     }
-                    this.addEvents();
-                 } else {
-                    console.error("not json");
-                 }
+                }
             }.bind(this),
 
             onComplete : function(complete) {
-                console.debug("complete", complete);
+                //Remove error messages or something.
             }.bind(this),
 
             onLoading : function(loading) {
@@ -52,7 +56,43 @@ Notifications.EnMe = Class.create( {
 
             onFailure : function(resp) {
                 console.debug("Oops, there's been an error.", resp);
-                this.createNetworkError(resp);
+                this.createNetworkError("Error", resp);
+            }.bind(this)
+        });
+    },
+
+    removeNotification : function(notificationId){
+        var url = '/encuestame/remove-notification.json';
+        var json =
+        new Ajax.Request(url, {
+            method : 'get',
+            parameters : {
+            notificationId : notificationId
+            },
+            onSuccess : function(transport) {
+                var tran = transport;
+                if(transport.status == 200){
+                   console.debug("ok");
+                } else {
+                    if(transport.status == 0){
+                         this.createNetworkError("You are lost Internet Connection", "Connection time out");
+                    } else {
+                        console.error("other error", transport.status);
+                    }
+                }
+            }.bind(this),
+
+            onComplete : function(complete) {
+                //Remove error messages or something.
+            }.bind(this),
+
+            onLoading : function(loading) {
+              console.debug("loading", loading);
+            }.bind(this),
+
+            onFailure : function(resp) {
+                console.debug("Oops, there's been an error.", resp);
+                this.createNetworkError("Error", resp);
             }.bind(this)
         });
     },
@@ -68,19 +108,21 @@ Notifications.EnMe = Class.create( {
     addEvents : function(){
          $$(".notificationItem").each(function(item) {
              Event.observe(item, 'click', function(event){
-                 console.debug("click");
-             });
+                 console.debug("click", item.getAttribute("notificationId"));
+                 this.removeNotification(item.getAttribute("notificationId"));
+                 this.loadNotifications();
+             }.bind(this));
           }.bind(this));
     },
 
     /*
      * Create Network Error.
      */
-    createNetworkError : function(error){
+    createNetworkError : function(error, additional){
         var item = {
             type : "",
-            description : "",
-            additionalDescription: error,
+            description : error,
+            additionalDescription: additional,
             icon : "netWorkErrorImage"
         };
         this.createNotification(item);
@@ -91,7 +133,7 @@ Notifications.EnMe = Class.create( {
      */
     createNotification : function(item){
         var livePanel = $(this.nodeName);
-        var div = new Element('div', { 'class': 'notificationItem' });
+        var div = new Element('div', { 'class': 'notificationItem', "notificationId" : item.id });
         var divLeft = new Element('div', { 'class': 'left' });
         var span = new Element('span', { 'class': 'image '+item.icon });
         divLeft.update(span);

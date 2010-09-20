@@ -42,5 +42,14 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
             return getHibernateTemplate().findByCriteria(criteria, 0, limit);
     }
 
+    /**
+     * Get Notification.
+     * @param notificationId
+     * @return
+     */
+    public Notification retrieveNotificationById(final Long notificationId){
+        return (Notification) getHibernateTemplate().get(Notification.class, notificationId);
+    }
+
 
 }
