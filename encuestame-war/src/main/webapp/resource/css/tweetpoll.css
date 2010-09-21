@@ -171,7 +171,7 @@ div.answerAddForm .inputClass{
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    width: 76%;
+    width: 70%;
     border-bottom-right-radius : 5px 5px;
     border-bottom-left-radius : 5px 5px;
     border-top-left-radius : 5px 5px;
@@ -218,6 +218,7 @@ div.addAnswers div.answerItem{
     -webkit-box-shadow: 1px 1px 1px #000000;
     -moz-box-shadow: 1px 1px 1px #000000;
     min-height: 50px;
+    max-width: 96%;
 }
 
 div.addAnswers div.answerItem:hover{
@@ -246,7 +247,7 @@ div.addAnswers div.answerItem  .url{
 
 div.addAnswers div.answerItem  .changeUrl{
     display: inline-block;
-    min-width: 260px;
+    min-width: 210px;
     margin: 3px;
     float: left;
 
