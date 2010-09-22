@@ -13,6 +13,8 @@
 
 package org.encuestame.core.persistence.pojo;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,76 +35,105 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "cat_emails",
-	    uniqueConstraints = {@UniqueConstraint(columnNames={"email"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames={"email"})})
 public class CatEmails {
 
-	private Long idEmail;
- 	private String email;
- 	private CatEmailLists idListEmail;
- 	private Boolean subscribed = false;
+    private Long idEmail;
+     private String email;
+     private CatEmailLists idListEmail;
+     private Boolean subscribed = false;
+     private Date created_at;
+     private String emailAccount;
 
-
- 	/**
-	 * @return the idEmail
-	 */
- 	@Id
+     /**
+     * @return the idEmail
+     */
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "email_id", unique = true, nullable = false)
-	public Long getIdEmail() {
-		return this.idEmail;
-	}
+    public Long getIdEmail() {
+        return this.idEmail;
+    }
 
-	/**
-	 * @param idEmail the idEmail to set
-	 */
-	public void setIdEmail(Long idEmail) {
-		this.idEmail = idEmail;
-	}
+    /**
+     * @param idEmail the idEmail to set
+     */
+    public void setIdEmail(Long idEmail) {
+        this.idEmail = idEmail;
+    }
 
-	/**
-	 * @return the email
-	 */
- 	@Column(name = "email", nullable = false)
-	public String getEmail() {
-		return this.email;
-	}
+    /**
+     * @return the email
+     */
+     @Column(name = "email", nullable = false)
+    public String getEmail() {
+        return this.email;
+    }
 
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	/**
-	 * @return the idListEmail
-	 */
-	   @ManyToOne(cascade = CascadeType.MERGE)
+    /**
+     * @return the idListEmail
+     */
+       @ManyToOne(cascade = CascadeType.MERGE)
        @JoinColumn(name = "id_list", nullable = true)
-	public CatEmailLists getIdListEmail() {
-		return this.idListEmail;
-	}
+    public CatEmailLists getIdListEmail() {
+        return this.idListEmail;
+    }
 
-	/**
-	 * @param idListEmail the idListEmail to set
-	 */
-	public void setIdListEmail(CatEmailLists idListEmail) {
-		this.idListEmail = idListEmail;
-	}
+    /**
+     * @param idListEmail the idListEmail to set
+     */
+    public void setIdListEmail(CatEmailLists idListEmail) {
+        this.idListEmail = idListEmail;
+    }
 
-	/**
-	 * @return the subscribed
-	 */
-	@Column(name = "subscribed", nullable = false)
-	public Boolean getSubscribed() {
-		return subscribed;
-	}
+    /**
+     * @return the subscribed
+     */
+    @Column(name = "subscribed", nullable = false)
+    public Boolean getSubscribed() {
+        return subscribed;
+    }
 
-	/**
-	 * @param subscribed the subscribed to set
-	 */
-	public void setSubscribed(Boolean subscribed) {
-		this.subscribed = subscribed;
-	}
+    /**
+     * @param subscribed the subscribed to set
+     */
+    public void setSubscribed(Boolean subscribed) {
+        this.subscribed = subscribed;
+    }
+
+    /**
+     * @return the created_at
+     */
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    /**
+     * @param createdAt the created_at to set
+     */
+    public void setCreated_at(Date createdAt) {
+        created_at = createdAt;
+    }
+
+    /**
+     * @return the emailAccount
+     */
+    public String getEmailAccount() {
+        return emailAccount;
+    }
+
+    /**
+     * @param emailAccount the emailAccount to set
+     */
+    public void setEmailAccount(String emailAccount) {
+        this.emailAccount = emailAccount;
+    }
 
 }

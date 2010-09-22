@@ -35,7 +35,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "surveys")
-public class Surveys {
+public class Surveys extends AbstractSurvey {
 
     private Long sid;
     private SecUser secUsers;

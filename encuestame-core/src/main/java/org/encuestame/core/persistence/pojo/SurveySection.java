@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.persistence.pojo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +22,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -36,6 +41,8 @@ public class SurveySection {
     private Long ssid;
     private CatState catState;
     private String descSection;
+
+    private Set<Question> questionSection = new HashSet<Question>();
 
     /**
      * @return ssid
@@ -84,4 +91,20 @@ public class SurveySection {
     public void setDescSection(String descSection) {
         this.descSection = descSection;
     }
+
+    /**
+     * @return the questionSection
+     */
+    @ManyToMany(cascade=CascadeType.ALL)
+    public Set<Question> getQuestionSection() {
+        return questionSection;
+    }
+
+    /**
+     * @param questionSection the questionSection to set
+     */
+    public void setQuestionSection(Set<Question> questionSection) {
+        this.questionSection = questionSection;
+    }
+
 }

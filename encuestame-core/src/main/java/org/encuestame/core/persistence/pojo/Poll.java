@@ -38,7 +38,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "poll",
     uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
-public class Poll {
+public class Poll extends AbstractSurvey {
     private Long pollId;
     private Boolean pollCompleted;
     private Date createdAt;
