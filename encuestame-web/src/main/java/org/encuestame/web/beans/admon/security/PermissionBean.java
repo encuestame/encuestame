@@ -10,7 +10,12 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.admon;
+package org.encuestame.web.beans.admon.security;
+
+import java.io.Serializable;
+
+import org.encuestame.web.beans.admon.AdmonBean;
+
 /**
  * Permission Bean.
  * @author Picado, Juan juan@encuestame.org
@@ -18,6 +23,13 @@ package org.encuestame.web.beans.admon;
  * @version $Id$
  */
 
-public class PermissionBean {
+public class PermissionBean extends AdmonBean implements Serializable {
+
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = -3081928777412961605L;
+
+
 
 }

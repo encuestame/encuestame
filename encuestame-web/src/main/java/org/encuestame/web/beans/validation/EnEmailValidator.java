@@ -10,20 +10,22 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.admon.validation;
+package org.encuestame.web.beans.validation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
+
 /**
- * Encuestame Group Validation.
+ * Encuestame Email Validator.
  * @author Picado, Juan juan@encuestame.org
- * @since 25/05/2009 19:30:31
+ * @since  25/05/2009 19:16:03
  * @version $Id$
  */
-public class EnGroupValidation implements Validator {
+public class EnEmailValidator implements Validator {
 
-    public void validate(FacesContext arg0, UIComponent arg1, Object arg2) {
+    public void validate(FacesContext arg0, UIComponent arg1, Object arg2)
+              {
         // TODO Auto-generated method stub
 
     }

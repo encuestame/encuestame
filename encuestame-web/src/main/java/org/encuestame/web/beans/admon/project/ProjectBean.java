@@ -10,14 +10,15 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.project;
+package org.encuestame.web.beans.admon.project;
 
 import java.io.Serializable;
 import java.util.Collection;
 
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.admon.AdmonBean;
 
 /**
  * Project Bean.
@@ -25,7 +26,7 @@ import org.encuestame.web.beans.MasterBean;
  * @since 26/05/2009 10:25:05
  * @version $Id$
  */
-public class ProjectBean extends MasterBean implements Serializable {
+public class ProjectBean extends AdmonBean implements Serializable {
 
 
     /**
@@ -80,13 +81,12 @@ public class ProjectBean extends MasterBean implements Serializable {
      * Load List of Projects.
      */
     private void loadListProjects(){
-        /*try{
-            setListProjectsBeans(getServicemanager().getDataEnMeSource()
-                                .loadListProjects(getUsernameByName().getSecUser().getUid()));
-        }catch (EnMeExpcetion e) {
+        try{
+            setListProjectsBeans(getProjectService().loadListProjects(getUserPrincipalUsername()));
+        } catch (Exception e) {
             log.error(e);
             addErrorMessage("", "error loading projects");
-        }*/
+        }
     }
 
     /**
@@ -95,13 +95,18 @@ public class ProjectBean extends MasterBean implements Serializable {
     public final void saveProject() {
         getNewProjectBean().setUserId(getUsernameByName().getSecUser().getUid());
         if (this.getNewProjectBean() != null) {
-           /* getServicemanager().getDataEnMeSource().createProject(getNewProjectBean());
-            log.info("project created");
-            setNewProjectBean(new UnitProjectBean());*/
+            try {
+                getProjectService().createProject(getNewProjectBean());
+                log.info("project created");
+                setNewProjectBean(new UnitProjectBean());
+            } catch (EnMeExpcetion e) {
+                log.error("save project");
+                e.printStackTrace();
+            }
         }
         else {
-            log.error("error create project");
             addErrorMessage("error saving project", "error saving project");
+            log.error("error create project");
         }
     }
 
@@ -130,11 +135,10 @@ public class ProjectBean extends MasterBean implements Serializable {
         //setting id
         getUnitProjectBean().setId(Long.valueOf(projectId));
         // load project by id.
-         /* setUnitProjectBean(getServicemanager().getDataEnMeSource()
-                .loadProjectInfo(getUnitProjectBean()));
-        getUnitProjectBean().setClients(getServicemanager()
-                            .getDataEnMeSource().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
-        getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));*/
+      //   setUnitProjectBean(getProjectService()
+       //         .loadProjectInfo(getUnitProjectBean()));
+        //getUnitProjectBean().setClients(getProjectService().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
+        getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));
         log.info("project loaded.");
         log.debug("project id"+getUnitProjectBean().getId());
         log.info("project name"+getUnitProjectBean().getName());

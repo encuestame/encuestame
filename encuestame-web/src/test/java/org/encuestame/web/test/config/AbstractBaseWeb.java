@@ -15,7 +15,7 @@ package org.encuestame.web.test.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.encuestame.web.beans.admon.UserBean;
+import org.encuestame.web.beans.admon.security.UserBean;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

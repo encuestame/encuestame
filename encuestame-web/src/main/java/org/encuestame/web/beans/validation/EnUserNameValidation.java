@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.admon.validation;
+package org.encuestame.web.beans.validation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

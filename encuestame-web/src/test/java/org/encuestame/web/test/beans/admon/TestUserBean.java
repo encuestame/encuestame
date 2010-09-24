@@ -12,7 +12,7 @@
  */
 package org.encuestame.web.test.beans.admon;
 
-import org.encuestame.web.beans.admon.UserBean;
+import org.encuestame.web.beans.admon.security.UserBean;
 import org.encuestame.web.test.config.AbstractBaseWeb;
 import org.junit.Test;
 import static org.junit.Assert.*;

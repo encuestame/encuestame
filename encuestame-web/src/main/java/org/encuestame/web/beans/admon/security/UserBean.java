@@ -10,10 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.admon;
+package org.encuestame.web.beans.admon.security;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +23,7 @@ import org.encuestame.core.security.util.EmailUtils;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
-import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.admon.AdmonBean;
 import org.hibernate.HibernateException;
 import org.springframework.mail.MailSendException;
 
@@ -35,13 +34,27 @@ import org.springframework.mail.MailSendException;
  * @version $Id$
  */
 
-public class UserBean  extends MasterBean implements Serializable {
+public class UserBean  extends AdmonBean implements Serializable {
 
+    /**
+     * Serial.
+     */
     private static final long serialVersionUID = -391208809931131195L;
+
+    /**
+     * User.
+     */
     private UnitUserBean unitUserBean = new UnitUserBean();
+
+    /**
+     * New Unit User.
+     */
     private UnitUserBean newUnitUserBean = new UnitUserBean();
+
     private String processedUserId;
+
     private Long selectedPermissionId;
+
     private String selectedAction;
 
     private String[] listPermissions;
@@ -139,34 +152,23 @@ public class UserBean  extends MasterBean implements Serializable {
                     if (EmailUtils.validateEmail(email)) {
                         try {
                             //TODO: review this
-                            String code = getServicemanager()
-                                    .getApplicationServices()
-                                    .getSecurityService()
-                                    .generateHashCodeInvitation();
-                            getServicemanager()
-                            //send invitations
-                            .getApplicationServices()
-                            .getSecurityService()
-                                    .inviteUser(email, code);
-                            addInfoMessage("Invitacion enviada para " + email
-                                    + " Satisfactoriamente", "");
+                            final String code = getSecurityService().generateHashCodeInvitation();
+                            getSecurityService().inviteUser(email, code);
+                            addInfoMessage("Invitation Sended", "Invitation Sended");
                         } catch (Exception e) {
-                            addErrorMessage(
-                                    "error sending email "
-                                            + email + " error->" + e, e
-                                            .getMessage());
+                            addErrorMessage("Error "+e.getMessage(),"");
                         }
                     } else {
                         log.info("email sent ->" + email);
-                        addWarningMessage("invalid email: " + email, "");
+                        addWarningMessage("Invalid email [" + email, "]");
                     }
                 }
                 setListUsers(null);
             } else {
-                addWarningMessage("sorry, no results", "");
+                addWarningMessage("Sorry, no results", "");
             }
         } else {
-            addWarningMessage("sorry, no results", "");
+            addWarningMessage("Sorry, no results", "");
         }
     }
 

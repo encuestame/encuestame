@@ -10,13 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.web.beans.admon;
+package org.encuestame.web.beans.admon.security;
 
 import java.io.Serializable;
 import java.util.List;
 
 import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.web.beans.MasterBean;
+import org.encuestame.web.beans.admon.AdmonBean;
 
 /**
  * Group Administrator Bean.
@@ -25,7 +25,7 @@ import org.encuestame.web.beans.MasterBean;
   * @version $Id$
  */
 
-public class GroupBean extends MasterBean implements Serializable {
+public class GroupBean extends AdmonBean implements Serializable {
 
     /**
      *
