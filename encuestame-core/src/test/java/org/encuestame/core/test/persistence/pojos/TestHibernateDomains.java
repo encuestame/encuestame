@@ -97,11 +97,11 @@ public class TestHibernateDomains extends AbstractBase{
     @Test
     public void testProject(){
         final Project project = new Project();
-        project.setStateProject(createState("Active"));
         project.setProjectDescription("Tic Municipal");
         project.setProjectInfo("Tic Project in Nicaraguan Municipalities");
         project.setProjectDateStart(new Date());
         project.setProjectDateFinish(new Date());
+        project.setProjectName("Name");
          project.getSurveyGroups().add(createSurveyGroup("Education"));
         project.getSecUserSecondaries().add(createSecondaryUser("Diana",createUser()));
         project.getGroups().add(createGroups("editor"));

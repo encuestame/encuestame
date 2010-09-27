@@ -12,10 +12,12 @@
  */
 package org.encuestame.core.service.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -319,13 +321,24 @@ public class ConvertDomainBean {
      * @return {@link UnitProjectBean}
      */
     public static final UnitProjectBean convertProjectDomainToBean(final Project project) {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
         final UnitProjectBean projectBean = new UnitProjectBean();
         projectBean.setName(project.getProjectDescription());
         projectBean.setDateFinish(project.getProjectDateFinish());
         projectBean.setDateInit(project.getProjectDateStart());
         projectBean.setId(project.getProyectId());
-        projectBean.setDescription(project.getProjectInfo());
-        projectBean.setState(project.getStateProject().getIdState());
+        projectBean.setDescription(project.getProjectDescription());
+        projectBean.setName(project.getProjectName());
+        projectBean.setProjectInfo(project.getProjectInfo());
+        if(project.getLead() != null){
+            projectBean.setLeader(project.getLead().getUid());
+        }
+        projectBean.setPriority(project.getPriority().name());
+        projectBean.setPublished(project.getPublished());
+        projectBean.setState(project.getProjectStatus().name());
+        projectBean.setFormatedDateInit(simpleDateFormat.format(project.getProjectDateStart()));
+        projectBean.setFormatedDateFinish(simpleDateFormat.format(project.getProjectDateFinish()));
+        //TODO: add other properties.
         return projectBean;
     }
 

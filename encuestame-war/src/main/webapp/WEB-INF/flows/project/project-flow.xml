@@ -3,16 +3,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="projectBean" class="org.encuestame.web.beans.project.ProjectBean" />
+    <var name="projectBean" class="org.encuestame.web.beans.admon.project.ProjectBean" />
+    <var name="newProject" class="org.encuestame.utils.web.UnitProjectBean" />
 
     <view-state id="project">
         <on-render>
             <evaluate expression="projectService.loadListProjects(currentUser.name)" result="flowScope.projects"
-                result-type="dataModel" />
+                                  result-type="dataModel" />
         </on-render>
+        <transition on="new" to="createProject"/>
     </view-state>
 
-    <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
+    <view-state id="createProject">
+        <transition on="save" to="evaluateSave"/>
+        <transition on="cancel" to="succesfullEnd" history="discard"/>
+    </view-state>
+
+     <action-state id="evaluateSave">
+        <evaluate expression="projectBean.saveProject(newProject, messageContext)" />
+        <transition on="yes" to="succesfullEnd" />
+        <transition on="no" to="createProject" />
+     </action-state>
+
+    <end-state id="succesfullEnd"></end-state>
 
     <global-transitions>
         <transition on-exception="org.encuestame.core.exception.EnMeExpcetion" to="error" />

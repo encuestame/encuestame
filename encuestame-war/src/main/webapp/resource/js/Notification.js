@@ -61,6 +61,9 @@ Notifications.EnMe = Class.create( {
         });
     },
 
+    /*
+     * Remove Notification
+     */
     removeNotification : function(notificationId){
         var url = '/encuestame/remove-notification.json';
         var json =

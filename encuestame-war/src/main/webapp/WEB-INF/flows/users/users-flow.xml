@@ -3,15 +3,15 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="userBean" class="org.encuestame.web.beans.admon.UserBean" />
+    <var name="userBean" class="org.encuestame.web.beans.admon.security.UserBean" />
 
     <view-state id="users">
         <on-render>
             <evaluate expression="securityService.loadListUsers(currentUser.name)" result="flowScope.users"
-                      result-type="dataModel" />
+                      result-type="dataModel" /><!--
             <evaluate expression="securityService.loadSelectItemGroups(currentUser.name)" result="flowScope.groups" />
             <evaluate expression="securityService.loadSelectItemPermissions()" result="flowScope.permissions" />
-        </on-render>
+        --></on-render>
 
         <transition on="createUser">
              <evaluate expression="userBean.createUser(currentUser.name)"/>

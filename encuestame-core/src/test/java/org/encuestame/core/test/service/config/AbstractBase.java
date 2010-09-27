@@ -504,10 +504,12 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
             final CatState state,
             final SecUser user) {
           Project project = new Project();
-          project.setStateProject(state);
+          //project.setStateProject(state);
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
           project.setProjectInfo(infoProject);
+          project.setProjectName("name");
+          project.setLead(createSecondaryUser("test", createUser()));
           project.setProjectDescription(descProject);
           project.setUsers(user);
           getProjectDaoImp().saveOrUpdate(project);

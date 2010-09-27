@@ -31,7 +31,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         projectBean.setLeader(leadId);
         projectBean.setUserId(userId);
         projectBean.setDescription("description");
-        projectBean.setState(1L);
+        projectBean.setState("good");
         projectBean.setName(projectName);
         return projectBean;
     }

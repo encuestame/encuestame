@@ -21,8 +21,8 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 
 
@@ -86,36 +86,38 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
      * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitProjectBean createProject(final UnitProjectBean projectBean) throws EnMeExpcetion {
-        //log.info("create project");
+    public UnitProjectBean createProject(final UnitProjectBean projectBean, final String username) throws EnMeExpcetion {
+        log.debug("new Project createProject "+projectBean);
+        log.debug("new Project username "+username);
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
-                projectDomain.setStateProject(getState(projectBean.getState()));
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
-                projectDomain.setProjectDescription(projectBean.getName());
-                projectDomain.setProjectInfo(projectBean.getDescription());
+                log.debug("new Project Leader "+projectBean.getName());
+                projectDomain.setProjectDescription(projectBean.getDescription());
+                projectDomain.setProjectName(projectBean.getName());
+                projectDomain.setProjectInfo(projectBean.getProjectInfo());
                 projectDomain.setHideProject(projectBean.getHide());
                 projectDomain.setNotifyMembers(projectBean.getNotify());
-                if(projectBean.getLeader()!=null){
+                log.debug("Project Leader "+projectBean.getLeader());
+                if(projectBean.getLeader() != null){
                     projectDomain.setLead(getSecUserDao().getSecondaryUserById(projectBean.getLeader()));
                 }
-                projectDomain.setUsers(getSecUserDao().getUserById(projectBean.getUserId()));
+                projectDomain.setUsers(getUser(username).getSecUser());
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());
-                //log.debug("created domain project");
-            }
-            catch (HibernateException e) {
-                throw new EnMeExpcetion(e);
+                log.debug("created domain project");
             }
             catch (Exception e) {
+                e.printStackTrace();
+                log.error(e.getMessage());
                 throw new EnMeExpcetion(e);
             }
             return projectBean;
         }
         else {
-            throw new EnMeExpcetion("project is null");
+            throw new EnMeExpcetion("error on create project");
         }
     }
 }

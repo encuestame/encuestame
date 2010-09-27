@@ -203,14 +203,6 @@ public interface ISecurityService extends IService {
      */
     void setSuspendedNotification(final Boolean suspendedNotification);
 
-    /**
-     * Load {@link SecUserSecondary} on {@link SelectItem}.
-     * @param userId user id
-     * @return List of users
-     * @throws EnMeExpcetion exception
-     */
-     List<SelectItem> loadSelectItemSecondaryUser(final Long userId);
-
      /**
       * Update Twitter Account.
       * @param account account

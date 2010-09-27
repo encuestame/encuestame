@@ -131,7 +131,7 @@ public class TestProjectService extends AbstractBase {
       @Test
       @ExpectedException(EnMeExpcetion.class)
       public void testcreateProjectNull()throws EnMeExpcetion{
-          projectService.createProject(null);
+          projectService.createProject(null, null);
       }
 
 

@@ -83,7 +83,7 @@
     <!--  Votes -->
     <rule>
         <from>^/tweet/vote/(.*)$</from>
-        <to>/vote/tweetPoll.html?id=$1</to>
+        <to>/vote/tweet.html?id=$1</to>
     </rule>
     <rule>
         <from>^/poll/vote/(.*)$</from>

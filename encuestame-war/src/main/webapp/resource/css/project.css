@@ -1,0 +1,24 @@
+.projectTableItem{
+    width: 100%;
+    padding: 5px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.projectTableItem .title{
+    font-size: 16px;
+    color: #4B4C5A;
+}
+
+.projectTableItem .description{
+    color: #CCCCCC;
+    font-size: 100%;
+}
+
+.projectTableItem .data{
+    color: #909090;
+    font-size: 90%;
+}
+
+.projectTableItem .data .label{
+    font-weight: bold;
+}

@@ -25,7 +25,7 @@
                 infoClass="info" warnClass="war"></rich:messages>
             <h:panelGrid columns="9" cellpadding="3">
                 <h:panelGroup>
-                    <h:selectOneMenu id="listActions" immediate="true"
+                    <!-- <h:selectOneMenu id="listActions" immediate="true"
                         value="#{userBean.selectedAction}">
                         <f:selectItem itemLabel="Seleccione..."
                             itemValue="" />
@@ -34,6 +34,7 @@
                             itemValue="2" />
                         <f:selectItem itemLabel="Editor" itemValue="3" />
                     </h:selectOneMenu>
+                     -->
                     <a4j:commandButton value="Aplicar"
                         action="#{userBean.initAction}"
                         reRender="formUsers,listActions,infoBox"></a4j:commandButton>
@@ -184,16 +185,20 @@
                         </h:panelGrid>
                     </rich:tab>
                         <rich:tab label="Groups">
+                         <!--
                          <rich:pickList value="#{userBean.listGroups}">
                                <f:selectItems value="#{groups}"></f:selectItems>
                                <a4j:support event="onlistchanged" ajaxSingle="true" action="#{userBean.updateGroups}"/>
                         </rich:pickList>
+                        -->
                         </rich:tab>
                     <rich:tab label="Permissions">
+                         <!--
                          <rich:pickList value="#{userBean.listPermissions}">
                                <f:selectItems value="#{permissions}"></f:selectItems>
                                <a4j:support event="onlistchanged" ajaxSingle="true"/>
                         </rich:pickList>
+                        -->
                     </rich:tab>
                 </rich:tabPanel>
             </h:form>

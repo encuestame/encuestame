@@ -14,11 +14,17 @@ package org.encuestame.web.beans.admon.project;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.web.beans.admon.AdmonBean;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 
 /**
  * Project Bean.
@@ -51,16 +57,11 @@ public class ProjectBean extends AdmonBean implements Serializable {
      * Show the edit view.
      */
     public Boolean editDetail = false;
+
     /**
      * {@link UnitProjectBean}.
      */
     private UnitProjectBean unitProjectBean = new UnitProjectBean();
-
-
-    /**
-     * New Project Bean.
-     */
-    private UnitProjectBean newProjectBean = new UnitProjectBean();
 
     /**
      * Project Id selected.
@@ -71,6 +72,9 @@ public class ProjectBean extends AdmonBean implements Serializable {
      * List of Projects.
      */
     private Collection<UnitProjectBean> listProjectsBeans;
+
+
+    private List<SelectItem> listOfUsers;
 
     /**
      * Constructor.
@@ -91,22 +95,21 @@ public class ProjectBean extends AdmonBean implements Serializable {
 
     /**
      * Save data new proyect
+     * @throws EnMeExpcetion
      */
-    public final void saveProject() {
-        getNewProjectBean().setUserId(getUsernameByName().getSecUser().getUid());
-        if (this.getNewProjectBean() != null) {
-            try {
-                getProjectService().createProject(getNewProjectBean());
-                log.info("project created");
-                setNewProjectBean(new UnitProjectBean());
-            } catch (EnMeExpcetion e) {
-                log.error("save project");
-                e.printStackTrace();
-            }
-        }
-        else {
-            addErrorMessage("error saving project", "error saving project");
-            log.error("error create project");
+    public final String saveProject(final UnitProjectBean projectBean, final MessageContext messageContext) {
+        try {
+            log.debug("saveProject");
+            getProjectService().createProject(projectBean, getUserPrincipalUsername());
+            log.debug("yes");
+            return "yes";
+        } catch (EnMeExpcetion e) {
+            messageContext.addMessage(new MessageBuilder().error().source("create").
+                     defaultText("Error on create Proyect: "+e.getMessage()).build());
+            log.error(e);
+            log.debug("no");
+            e.printStackTrace();
+            return "no";
         }
     }
 
@@ -135,16 +138,28 @@ public class ProjectBean extends AdmonBean implements Serializable {
         //setting id
         getUnitProjectBean().setId(Long.valueOf(projectId));
         // load project by id.
-      //   setUnitProjectBean(getProjectService()
-       //         .loadProjectInfo(getUnitProjectBean()));
+        //   setUnitProjectBean(getProjectService()
+        //         .loadProjectInfo(getUnitProjectBean()));
         //getUnitProjectBean().setClients(getProjectService().loadSelecItemClientsByProjectId(Long.valueOf(projectId)));
-        getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));
+        //getUnitProjectBean().setListUsers(getSecurityService().loadSelectItemSecondaryUser(getUsernameByName().getSecUser().getUid()));
         log.info("project loaded.");
         log.debug("project id"+getUnitProjectBean().getId());
         log.info("project name"+getUnitProjectBean().getName());
         log.info("project init."+getUnitProjectBean().getDateInit());
         log.info("project dead."+getUnitProjectBean().getDateFinish());
         log.info("project grops."+getUnitProjectBean().getGroupList().size());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<SelectItem> getLoadLeaders(){
+        if(listOfUsers == null){
+            listOfUsers = ConvertListDomainSelectBean.convertListUnitUserBeanDomainToSelect(getProjectService().loadListUsers(getUserPrincipalUsername()));
+            log.debug("List of Users "+listOfUsers.size());
+        }
+        return listOfUsers;
     }
 
     /**
@@ -302,19 +317,4 @@ public class ProjectBean extends AdmonBean implements Serializable {
         log.info("editDetail "+editDetail);
         this.editDetail = editDetail;
     }
-
-    /**
-     * @return the newProjectBean
-     */
-    public final UnitProjectBean getNewProjectBean() {
-        return newProjectBean;
-    }
-
-    /**
-     * @param newProjectBean the newProjectBean to set
-     */
-    public final void setNewProjectBean(final UnitProjectBean newProjectBean) {
-        this.newProjectBean = newProjectBean;
-    }
-
 }

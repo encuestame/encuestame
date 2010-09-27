@@ -51,6 +51,7 @@ import org.encuestame.core.persistence.pojo.HashTag;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -192,7 +193,7 @@ public abstract class AbstractDataSource{
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
-                projectDomain.setStateProject(getState(projectBean.getState()));
+                //projectDomain.setStateProject(getState(projectBean.getState()));
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 projectDomain.setProjectDescription(projectBean.getName());

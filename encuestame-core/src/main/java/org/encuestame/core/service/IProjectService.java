@@ -18,6 +18,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.pojo.Project;
 import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UnitUserBean;
 
 /**
  * Project Service Interface.
@@ -50,6 +51,14 @@ public interface IProjectService {
      * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    UnitProjectBean createProject(UnitProjectBean projectBean) throws EnMeExpcetion;
+    UnitProjectBean createProject(UnitProjectBean projectBean, final String username) throws EnMeExpcetion;
+
+    /**
+     * Load list of users.
+     * @return list of users with groups and permission
+     * @throws Exception
+     * @throws EnMeExpcetion excepcion
+     */
+    List<UnitUserBean> loadListUsers(final String currentUsername);
 
 }

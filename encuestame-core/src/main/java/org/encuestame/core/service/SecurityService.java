@@ -104,25 +104,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
 
     /**
-     * Load list of users.
-     * @return list of users with groups and permission
-     * @throws Exception
-     * @throws EnMeExpcetion excepcion
-     */
-    public List<UnitUserBean> loadListUsers(final String currentUsername) {
-        log.info("currentUsername "+currentUsername);
-        final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        final SecUserSecondary secUserSecondary = getUser(currentUsername);
-        log.info("secUserSecondary "+secUserSecondary);
-            final Collection<SecUserSecondary> listUsers = getSecUserDao().retrieveListOwnerUsers(secUserSecondary.getSecUser());
-            log.info("list users "+listUsers.size());
-                for (SecUserSecondary secUserSecondary2 : listUsers) {
-                    loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary2));
-                }
-        return loadListUsers;
-    }
-
-    /**
      * Load Groups by Client
      * @return
      */
@@ -135,19 +116,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         }
         return groupBeans;
     }
-
-    /**
-     * Load {@link SecGroup} by Username.
-     * @param currentUsername username
-     * @return
-     */
-    public List<SelectItem> loadSelectItemGroups(final String currentUsername){
-        final SecUserSecondary secUserSecondary = getUser(currentUsername);
-        final List<SecGroup> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
-        final Set<SecGroup> groupsCollection = new HashSet<SecGroup>(groups);
-        return ConvertListDomainSelectBean.convertListGroupDomainToSelect(groupsCollection);
-    }
-
 
     /**
      * Update Twitter Account.
@@ -718,15 +686,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Load {@link SelectItem} permissions.
-     */
-    @SuppressWarnings("unchecked")
-    public List<SelectItem> loadSelectItemPermissions(){
-        final Set permissionCollection = new HashSet(getPermissionDao().findAllPermissions());
-        return ConvertListDomainSelectBean.convertListPermissionsToSelect(permissionCollection);
-    }
-
-    /**
      * Get User Logged Twitter Accounts.
      * @return
      */
@@ -783,16 +742,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     private String generatePassword() {
         return PasswordGenerator.getPassword(
                 PasswordGenerator.lowercase + PasswordGenerator.capitals, 10);
-    }
-
-    /**
-     * Load {@link SecUserSecondary} on {@link SelectItem}.
-     * @param userId user id
-     * @return List of users
-     * @throws EnMeExpcetion exception
-     */
-    public List<SelectItem> loadSelectItemSecondaryUser(final Long userId){
-            return ConvertListDomainSelectBean.convertListSecondaryUsersDomainToSelect(getSecUserDao().getSecondaryUsersByUserId(userId));
     }
 
     /**

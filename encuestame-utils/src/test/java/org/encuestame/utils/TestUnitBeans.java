@@ -258,7 +258,7 @@ import org.junit.Test;
         projectBean.setName("name");
         projectBean.setNotify(true);
         projectBean.setPriority("HIGH");
-        projectBean.setState(1L);
+        projectBean.setState("Good");
         projectBean.setStatus(1L);
         projectBean.setUserId(1L);
         assertNotNull(projectBean.getId());

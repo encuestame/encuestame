@@ -37,8 +37,11 @@ public class UnitProjectBean implements Serializable {
     private String name;
     private Date dateInit;
     private Date dateFinish;
-    private Long state;
+    private String formatedDateInit;
+    private String formatedDateFinish;
+    private String state;
     private String description;
+    private String projectInfo;
     private List<SelectItem> clients = new ArrayList<SelectItem>();
     private List<SelectItem> groupList = new ArrayList<SelectItem>();
     private List<SelectItem> locationList = new ArrayList<SelectItem>();
@@ -49,6 +52,7 @@ public class UnitProjectBean implements Serializable {
     private Boolean hide = false;
     private Boolean notify = false;
     private Long userId;
+    private Boolean published;
 
     /**
      * List of Users.
@@ -123,9 +127,9 @@ public class UnitProjectBean implements Serializable {
     }
 
     /**
-     * @return the state
+     * @return the state            <h:outputText value="#{pro.description}" />
      */
-    public final Long getState() {
+    public final String getState() {
         return state;
     }
 
@@ -133,7 +137,7 @@ public class UnitProjectBean implements Serializable {
      * @param state
      *            the state to set
      */
-    public final void setState(Long state) {
+    public final void setState(String state) {
         this.state = state;
     }
 
@@ -319,5 +323,62 @@ public class UnitProjectBean implements Serializable {
     public final void setLeader(final Long leader) {
         this.leader = leader;
     }
+
+    /**
+     * @return the projectInfo
+     */
+    public String getProjectInfo() {
+        return projectInfo;
+    }
+
+    /**
+     * @param projectInfo the projectInfo to set
+     */
+    public void setProjectInfo(String projectInfo) {
+        this.projectInfo = projectInfo;
+    }
+
+    /**
+     * @return the published
+     */
+    public Boolean getPublished() {
+        return published;
+    }
+
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
+    /**
+     * @return the formatedDateInit
+     */
+    public String getFormatedDateInit() {
+        return formatedDateInit;
+    }
+
+    /**
+     * @param formatedDateInit the formatedDateInit to set
+     */
+    public void setFormatedDateInit(String formatedDateInit) {
+        this.formatedDateInit = formatedDateInit;
+    }
+
+    /**
+     * @return the formatedDateFinish
+     */
+    public String getFormatedDateFinish() {
+        return formatedDateFinish;
+    }
+
+    /**
+     * @param formatedDateFinish the formatedDateFinish to set
+     */
+    public void setFormatedDateFinish(String formatedDateFinish) {
+        this.formatedDateFinish = formatedDateFinish;
+    }
+
 
 }

@@ -12,6 +12,10 @@
  */
 package org.encuestame.core.service;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
@@ -20,11 +24,14 @@ import org.encuestame.core.persistence.pojo.CatEmailLists;
 import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
 import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.notifications.Notification;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.core.service.util.MessageSourceFactoryBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
+import org.encuestame.utils.web.UnitUserBean;
 import org.hibernate.HibernateException;
 
 import twitter4j.Twitter;
@@ -277,6 +284,26 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             if (accessToken != null)
                     log.info(String.format("Got access token for user %s", accessToken.getScreenName()));
             return accessToken;
+    }
+
+
+    /**
+     * Load list of users.
+     * @return list of users with groups and permission
+     * @throws Exception
+     * @throws EnMeExpcetion excepcion
+     */
+    public List<UnitUserBean> loadListUsers(final String currentUsername) {
+        log.info("currentUsername "+currentUsername);
+        final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+        final SecUserSecondary secUserSecondary = getUser(currentUsername);
+        log.info("secUserSecondary "+secUserSecondary);
+            final Collection<SecUserSecondary> listUsers = getSecUserDao().retrieveListOwnerUsers(secUserSecondary.getSecUser());
+            log.info("list users "+listUsers.size());
+                for (SecUserSecondary secUserSecondary2 : listUsers) {
+                    loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary2));
+                }
+        return loadListUsers;
     }
 
 }

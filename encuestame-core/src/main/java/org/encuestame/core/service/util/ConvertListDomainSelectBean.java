@@ -11,9 +11,10 @@
  ************************************************************************************
  */
 
-package org.encuestame.core.service;
+package org.encuestame.core.service.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,8 +26,9 @@ import org.encuestame.core.persistence.pojo.CatState;
 import org.encuestame.core.persistence.pojo.Client;
 import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
+import org.encuestame.core.persistence.pojo.SecUser;
 import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.utils.web.UnitUserBean;
 
 /**
  * Convert List of Domains to {@link SelectItem} List.
@@ -87,6 +89,22 @@ public class ConvertListDomainSelectBean {
     }
 
     /**
+     *
+     * @param users
+     * @return
+     */
+    public static final List<SelectItem> convertListUnitUserBeanDomainToSelect(final List<UnitUserBean> users){
+        final List<SelectItem> items = new ArrayList<SelectItem>();
+        for (final UnitUserBean user : users) {
+            if(user.getUsername()!=null){
+                items.add(new SelectItem(user.getId(), user.getUsername()));
+            }
+        }
+        log.debug("sec user items loaded: "+items.size());
+        return items;
+    }
+
+    /**
      * Convert {@link SecGroup} domains to {@link SelectItem}.
      * @param groups {@link SecGroup}
      * @return select items.
@@ -116,5 +134,32 @@ public class ConvertListDomainSelectBean {
         }
         log.debug("permissions select items loaded: "+items.size());
         return items;
+    }
+
+    /**
+     * Load {@link SecGroup} by Username.
+     * @param currentUsername username
+     * @return
+     */
+    public List<SelectItem> loadSelectItemGroups(final List<SecGroup> groups){
+        final Set<SecGroup> groupsCollection = new HashSet<SecGroup>(groups);
+        return ConvertListDomainSelectBean.convertListGroupDomainToSelect(groupsCollection);
+    }
+
+
+    /**
+     * Load {@link SelectItem} permissions.
+     */
+    public List<SelectItem> loadSelectItemPermissions( Set permissionCollection){
+        return ConvertListDomainSelectBean.convertListPermissionsToSelect(permissionCollection);
+    }
+
+    /**
+     *
+     * @param permissionCollection
+     * @return
+     */
+    public List<SelectItem> loadSelectItemGroups(final Set permissionCollection ){
+        return ConvertListDomainSelectBean.convertListGroupDomainToSelect(permissionCollection);
     }
 }

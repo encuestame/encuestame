@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -44,22 +43,27 @@ import javax.persistence.TemporalType;
 public class Project {
 
     private Long proyectId;
-    private CatState stateProject;
     private String projectDescription;
+    private String projectName;
+    private Status projectStatus = Status.ACTIVE;
     private String projectInfo;
     private Date projectDateStart;
     private Date projectDateFinish;
     private SecUser users;
-    private Set<SurveyGroup> surveyGroups = new HashSet<SurveyGroup>();
-    private Set<CatLocation> locations = new HashSet<CatLocation>();
-    private Set<SecGroup> groups = new HashSet<SecGroup>();
-    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
-
     private Priority priority = Priority.MEDIUM;
     private SecUserSecondary lead;
     private Boolean notifyMembers;
     private Boolean hideProject;
+    private Boolean published;
 
+    /** Survey Groups on the project. **/
+    private Set<SurveyGroup> surveyGroups = new HashSet<SurveyGroup>();
+    /** Locations selected for this project. **/
+    private Set<CatLocation> locations = new HashSet<CatLocation>();
+    /** Group of user for this project. **/
+    private Set<SecGroup> groups = new HashSet<SecGroup>();
+    /** List of User for the project. **/
+    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
 
     /**
      */
@@ -97,7 +101,7 @@ public class Project {
     /**
      * @return projectDescription
      */
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 600)
     public String getProjectDescription() {
         return this.projectDescription;
     }
@@ -110,9 +114,24 @@ public class Project {
     }
 
     /**
+     * @return the projectName
+     */
+    @Column(name = "name", nullable = false)
+    public String getProjectName() {
+        return projectName;
+    }
+
+    /**
+     * @param projectName the projectName to set
+     */
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    /**
      * @return projectInfo
      */
-    @Column(name = "info", nullable = false)
+    @Column(name = "info", length = 3000)
     public String getProjectInfo() {
         return this.projectInfo;
     }
@@ -128,7 +147,7 @@ public class Project {
      * @return projectDateStart
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_start", nullable = false, length = 0)
+    @Column(name = "date_start", nullable = false)
     public Date getProjectDateStart() {
         return this.projectDateStart;
     }
@@ -144,7 +163,7 @@ public class Project {
      * @return projectDateFinish
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_finish")
+    @Column(name = "date_finish", nullable = false)
     public Date getProjectDateFinish() {
         return this.projectDateFinish;
     }
@@ -210,21 +229,7 @@ public class Project {
         this.secUserSecondaries = secUserSecondaries;
     }
 
-    /**
-     * @return the stateProject
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "cat_state_id", nullable = false)
-    public CatState getStateProject() {
-        return stateProject;
-    }
 
-    /**
-     * @param stateProject the stateProject to set
-     */
-    public void setStateProject(final CatState stateProject) {
-        this.stateProject = stateProject;
-    }
 
     /**
      * @return the surveyGroups
@@ -320,4 +325,34 @@ public class Project {
         this.hideProject = hideProject;
     }
 
+    /**
+     * @return the projectStatus
+     */
+    @Column(name="project_status")
+    @Enumerated(EnumType.STRING)
+    public Status getProjectStatus() {
+        return projectStatus;
+    }
+
+    /**
+     * @param projectStatus the projectStatus to set
+     */
+    public void setProjectStatus(Status projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
+    /**
+     * @return the published
+     */
+    @Column(name="published")
+    public Boolean getPublished() {
+        return published;
+    }
+
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
 }

@@ -38,7 +38,6 @@ public class SessionFilter extends OpenSessionInViewFilter {
     protected Session getSession(SessionFactory sessionFactory)
         throws DataAccessResourceFailureException {
         Session session = super.getSession(sessionFactory);
-        log.debug("Session is Open ["+session.isOpen()+"]");
         session.setFlushMode(FlushMode.AUTO);
         return session;
     }
