@@ -554,6 +554,13 @@
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
+            <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-core</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
             <!--
                 <dependency> <groupId>org.encuestame</groupId>
                 <artifactId>encuestameSkin</artifactId>
@@ -578,6 +585,13 @@
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-mvc</artifactId>
                 <version>${encuestame.version}</version>
+            </dependency>
+             <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-mvc</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
             </dependency>
             <!--
             This dependency will not necesary with JSF2.0

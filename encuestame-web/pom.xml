@@ -30,6 +30,18 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-mvc</artifactId>
         </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-mvc</artifactId>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-core</artifactId>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+        </dependency>
         <dependency>
             <groupId>com.googlecode.gmaps4jsf</groupId>
             <artifactId>gmaps4jsf-core</artifactId>

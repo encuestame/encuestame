@@ -12,15 +12,28 @@
  */
 package org.encuestame.mvc.test.config;
 
+import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 /**
  *
@@ -34,23 +47,56 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
 @Scope("singleton")
-@ContextConfiguration(locations = { "classpath:encuestame-service-context.xml",
-        "classpath:encuestame-dao-context.xml",
-        "classpath:encuestame-hibernate-context.xml",
-        "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-security-context.xml",
+@ContextConfiguration(locations = {
         "classpath:encuestame-json-context.xml",
-        "classpath:encuestame-controller-context.xml",
-        "classpath:encuestame-param-test-context.xml" })
+        "classpath:encuestame-controller-context.xml"
+         })
 public class AbstractMvcUnitBeans extends
-        AbstractTransactionalJUnit4SpringContextTests {
+        AbstractBase {
 
-    MockHttpServletRequest request = new MockHttpServletRequest();
-    MockHttpServletResponse response = new MockHttpServletResponse();
+    /**
+     * Fake Request.
+     */
+    protected MockHttpServletRequest request;
+
+    /**
+     * Fake Response.
+     */
+    protected MockHttpServletResponse response;
+
+    /**
+     * Handler Adapter.
+     */
+    protected HandlerAdapter handlerAdapter;
+
+    /**
+     * Fake Session
+     */
+    protected MockHttpSession session;
+
+    /**
+     * Json View.
+     */
+    public MappingJacksonJsonView jacksonJsonView = new MappingJacksonJsonView();
+
+    /**
+     * Model and View.
+     */
+    public ModelAndView modelAndView = new ModelAndView();
 
     public AbstractMvcUnitBeans() {
-        request.setMethod("POST");
-        request.addParameter("viewDetails", "true");
+        //http://forum.springsource.org/showthread.ph519
+        jacksonJsonView.setPrefixJson(false);
+        jacksonJsonView.setDisableCaching(true);
+        session = new MockHttpSession();
+        modelAndView.setView(jacksonJsonView);
+    }
+
+    public void authenticateUser(){
+        SecurityContext context = new SecurityContextImpl();
+        context.setAuthentication(new UsernamePasswordAuthenticationToken("oasysadmin", "password",new GrantedAuthority[] { new GrantedAuthorityImpl("ROLE_CDAC_ADJUDICATION") }));
+        session.setAttribute(HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY,context);
+        request.setSession(session);
     }
 
 }

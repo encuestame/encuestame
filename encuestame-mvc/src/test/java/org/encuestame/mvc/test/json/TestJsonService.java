@@ -18,6 +18,9 @@ import org.encuestame.mvc.controller.json.notifications.NotificationsJsonControl
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.servlet.HandlerAdapter;
 
 /**
  * Test Json Service.
@@ -30,10 +33,29 @@ public class TestJsonService extends AbstractMvcUnitBeans{
     @Autowired
     private NotificationsJsonController notificationsJsonController;
 
+    @org.junit.Before
+    public void setUp() throws Exception{
+       request = new MockHttpServletRequest();
+       response = new MockHttpServletResponse();
+       handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
+    }
+
+
+
+    /**
+     * Test Json.
+     * @throws Exception
+     */
     @Test
-    public void testJson(){
+    public void testJson() throws Exception{
          Assert.assertTrue(true);
          Assert.assertNotNull(this.notificationsJsonController);
+         request.setMethod("GET");
+         request.setRequestURI("/notifications.json");
+         request.setParameter("limit", "10");
+       //  final ModelAndView mav = handlerAdapter.handle(request, response, this.notificationsJsonController);
+        // mav.setView(this.jacksonJsonView);
+         //assertViewName(mav, null);
     }
 
     /**

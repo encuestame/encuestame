@@ -37,8 +37,8 @@ import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ISurveyFormatDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatEmailLists;
+import org.encuestame.core.persistence.pojo.CatEmails;
 import org.encuestame.core.persistence.pojo.CatLocation;
 import org.encuestame.core.persistence.pojo.CatLocationFolder;
 import org.encuestame.core.persistence.pojo.CatLocationType;
@@ -48,14 +48,14 @@ import org.encuestame.core.persistence.pojo.LocationFolderType;
 import org.encuestame.core.persistence.pojo.Poll;
 import org.encuestame.core.persistence.pojo.PollResult;
 import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionColettion;
 import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Question;
 import org.encuestame.core.persistence.pojo.QuestionsAnswers;
 import org.encuestame.core.persistence.pojo.SecGroup;
 import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.pojo.SecUserSecondary;
 import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.pojo.Status;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
@@ -78,8 +78,6 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
-import twitter4j.Twitter;
 
 /**
  * Base Class to Test Cases.
