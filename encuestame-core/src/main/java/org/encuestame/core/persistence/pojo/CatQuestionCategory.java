@@ -42,7 +42,6 @@ public class CatQuestionCategory {
     private Set<Question> questionLibrary = new HashSet<Question>();
 
     @Id
-    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "qCategory", unique = true, nullable = false)
     public Long getQuestionCategoryId() {

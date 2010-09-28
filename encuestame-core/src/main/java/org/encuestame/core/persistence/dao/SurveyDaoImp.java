@@ -13,9 +13,12 @@
 package org.encuestame.core.persistence.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISurvey;
+import org.encuestame.core.persistence.pojo.SurveyFolder;
 import org.encuestame.core.persistence.pojo.SurveyFormat;
+import org.encuestame.core.persistence.pojo.SurveyPagination;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -40,7 +43,43 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             throws HibernateException {
         return getSession().createCriteria(SurveyFormat.class)
         .add(Restrictions.like("name","%"+searchString+"%"))
+        //TODO: Add Max Results parameter
         .setMaxResults(10).list();
 
     }
+
+    /**
+     * Retrieve Survey Folders By UserId
+     * @param userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveyFolder> retrieveFolderByUserId(final Long userId){
+        return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where users.uid=:userId","userId", userId);
+    }
+
+    /**
+     * Retrieve Surveys by Folder
+     * @param userId
+     * @param folderId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveyFolder> retrieveSurveysByFolder(final Long userId, final Long folderId){
+        return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", folderId);
+    }
+
+    /**
+     * Retrieve All Folders
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveyFolder> retrieveAllFolders(){
+        return getHibernateTemplate().find("FROM SurveyFolder");
+    }
+
+    public List<SurveyPagination> retrieveSectionsByPage(final Long surveyId){
+        return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", surveyId);
+    }
+
 }

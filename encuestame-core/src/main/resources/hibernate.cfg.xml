@@ -45,7 +45,7 @@
         <mapping class="org.encuestame.core.persistence.pojo.SurveyFolder"/>
         <mapping class="org.encuestame.core.persistence.pojo.QuestionDependencies"/>
         <mapping class="org.encuestame.core.persistence.pojo.QuestionDependenceSurvey"/>
-        <mapping class="org.encuestame.core.persistence.pojo.QuestionSection"/>
         <mapping class="org.encuestame.core.persistence.pojo.notifications.Notification"/>
+        <mapping class="org.encuestame.core.persistence.pojo.notifications.CatQuestionCategory"/>
     </session-factory>
 </hibernate-configuration>
