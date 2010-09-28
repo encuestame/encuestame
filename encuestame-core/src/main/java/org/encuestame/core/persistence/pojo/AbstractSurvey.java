@@ -124,6 +124,38 @@ public abstract class AbstractSurvey {
     private Integer closedQuota;
 
     /**
+     * Show Results
+     */
+    private Boolean showResults;
+
+    private showComments showComments;
+
+    /**
+     * Show Comments Option.
+     */
+    public enum showComments {
+        /** Restrict Comments. **/
+        RESTRICT,
+        /** Approve Comments. **/
+        APPROVE
+    }
+
+    /**
+     * Show Option- Additional Info in Questions
+     */
+    private Boolean showAdditionalInfo;
+
+    /**
+     *  Additional Info in Questions.
+     */
+    private String additionalInfo;
+
+    /**
+     * Send Notifications after completed survey or Poll.
+     */
+    private Boolean notifications;
+
+    /**
      * @return the customMessage.
      */
     @Column(name = "custom_message")
@@ -335,4 +367,76 @@ public abstract class AbstractSurvey {
     public void setMultipleResponse(final MultipleResponse multipleResponse) {
         this.multipleResponse = multipleResponse;
     }
+
+    /**
+     * @return the showResults
+     */
+    public Boolean getShowResults() {
+        return showResults;
+    }
+
+    /**
+     * @param showResults the showResults to set
+     */
+    public void setShowResults(Boolean showResults) {
+        this.showResults = showResults;
+    }
+
+    /**
+     * @return the showComments
+     */
+    public showComments getShowComments() {
+        return showComments;
+    }
+
+    /**
+     * @param showComments the showComments to set
+     */
+    public void setShowComments(showComments showComments) {
+        this.showComments = showComments;
+    }
+
+    /**
+     * @return the showAdditionalInfo
+     */
+    public Boolean getShowAdditionalInfo() {
+        return showAdditionalInfo;
+    }
+
+    /**
+     * @param showAdditionalInfo the showAdditionalInfo to set
+     */
+    public void setShowAdditionalInfo(Boolean showAdditionalInfo) {
+        this.showAdditionalInfo = showAdditionalInfo;
+    }
+
+    /**
+     * @return the additionalInfo
+     */
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    /**
+     * @param additionalInfo the additionalInfo to set
+     */
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    /**
+     * @return the notifications
+     */
+    public Boolean getNotifications() {
+        return notifications;
+    }
+
+    /**
+     * @param notifications the notifications to set
+     */
+    public void setNotifications(Boolean notifications) {
+        this.notifications = notifications;
+    }
+
+
 }
