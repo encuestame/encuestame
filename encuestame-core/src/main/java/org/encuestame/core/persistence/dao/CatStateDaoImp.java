@@ -15,7 +15,7 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ICatState;
-import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.domain.CatState;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 

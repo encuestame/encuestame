@@ -15,11 +15,11 @@ package org.encuestame.core.test.service.config;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.Question;
-import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUser;
-import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.core.persistence.pojo.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.Question;
+import org.encuestame.core.persistence.domain.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.TweetPoll;
+import org.encuestame.core.persistence.domain.TweetPollSwitch;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;

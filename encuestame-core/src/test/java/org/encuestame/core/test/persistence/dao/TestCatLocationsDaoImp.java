@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationFolder;
-import org.encuestame.core.persistence.pojo.LocationFolderType;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.CatLocation;
+import org.encuestame.core.persistence.domain.CatLocationFolder;
+import org.encuestame.core.persistence.domain.LocationFolderType;
+import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;

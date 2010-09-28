@@ -14,8 +14,8 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationFolder;
+import org.encuestame.core.persistence.domain.CatLocation;
+import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.hibernate.HibernateException;
 /**
  * Interface to implement Catalog Location Dao.

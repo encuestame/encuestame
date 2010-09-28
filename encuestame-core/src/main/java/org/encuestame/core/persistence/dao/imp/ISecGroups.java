@@ -14,8 +14,8 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.SecGroup;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.SecGroup;
+import org.encuestame.core.persistence.domain.SecUser;
 /**
  * Interface to implement Sec Group Dao.
  * @author Picado, Juan juan@encuestame.org

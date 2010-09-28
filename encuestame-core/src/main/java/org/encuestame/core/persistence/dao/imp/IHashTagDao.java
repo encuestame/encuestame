@@ -15,7 +15,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.HashTagDao;
-import org.encuestame.core.persistence.pojo.HashTag;
+import org.encuestame.core.persistence.domain.HashTag;
 import org.hibernate.HibernateException;
 
 /**

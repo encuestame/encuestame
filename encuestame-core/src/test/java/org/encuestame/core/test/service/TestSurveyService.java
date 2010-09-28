@@ -21,11 +21,11 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
-import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Question;
-import org.encuestame.core.persistence.pojo.QuestionsAnswers;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.Question;
+import org.encuestame.core.persistence.domain.QuestionPattern;
+import org.encuestame.core.persistence.domain.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;

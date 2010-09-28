@@ -14,8 +14,8 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationType;
+import org.encuestame.core.persistence.domain.CatLocation;
+import org.encuestame.core.persistence.domain.CatLocationType;
 import org.hibernate.HibernateException;
 
 /**

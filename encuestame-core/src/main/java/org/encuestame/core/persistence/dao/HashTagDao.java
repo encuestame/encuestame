@@ -18,7 +18,7 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.core.persistence.dao.imp.IHashTagDao;
-import org.encuestame.core.persistence.pojo.HashTag;
+import org.encuestame.core.persistence.domain.HashTag;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;

@@ -15,7 +15,7 @@ package org.encuestame.core.service;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.Question;
+import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;

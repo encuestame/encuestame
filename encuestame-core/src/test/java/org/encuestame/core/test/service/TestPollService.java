@@ -19,13 +19,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.CatEmailLists;
-import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.Poll;
-import org.encuestame.core.persistence.pojo.QuestionPattern;
-import org.encuestame.core.persistence.pojo.Question;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.CatEmailLists;
+import org.encuestame.core.persistence.domain.CatEmails;
+import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.Question;
+import org.encuestame.core.persistence.domain.QuestionPattern;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.service.IPollService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -149,7 +149,7 @@ public class TestPollService extends AbstractBaseUnitBeans{
            assertNotNull(testUrl);
     }
 
-    @Test(timeout=40000)
+    @Test(timeout=80000)
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(), new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
             final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.secUserSecondary.getCompleteName());

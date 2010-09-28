@@ -11,7 +11,7 @@
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder">
         <property name="classes">
             <list value-type="java.lang.Class">
-                <value>org.encuestame.core.persistence.pojo.Question</value>
+                <value>org.encuestame.core.persistence.domain.Question</value>
             </list>
         </property>
     </bean>

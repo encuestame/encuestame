@@ -14,8 +14,8 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.Project;
+import org.encuestame.core.persistence.domain.SecUser;
 import org.hibernate.HibernateException;
 
  /**

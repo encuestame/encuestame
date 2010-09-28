@@ -22,7 +22,7 @@ import java.util.Map.Entry;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 
-import org.encuestame.core.persistence.pojo.LocationFolderType;
+import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.TypeTreeNode;

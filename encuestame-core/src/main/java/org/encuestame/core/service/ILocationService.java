@@ -15,8 +15,8 @@ package org.encuestame.core.service;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationFolder;
+import org.encuestame.core.persistence.domain.CatLocation;
+import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;

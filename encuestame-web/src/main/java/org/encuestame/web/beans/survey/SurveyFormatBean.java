@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.persistence.pojo.SurveyFormat;
+import org.encuestame.core.persistence.domain.SurveyFormat;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.web.beans.MasterBean;
 /**

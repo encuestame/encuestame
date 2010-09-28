@@ -15,9 +15,9 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ICatEmail;
-import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.CatEmailLists;
-import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
+import org.encuestame.core.persistence.domain.CatEmailLists;
+import org.encuestame.core.persistence.domain.CatEmails;
+import org.encuestame.core.persistence.domain.CatSubscribeEmails;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;

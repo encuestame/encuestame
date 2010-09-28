@@ -19,7 +19,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.web.UnitProjectBean;

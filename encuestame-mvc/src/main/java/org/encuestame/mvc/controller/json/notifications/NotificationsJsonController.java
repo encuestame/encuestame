@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.notifications.Notification;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.notifications.Notification;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;

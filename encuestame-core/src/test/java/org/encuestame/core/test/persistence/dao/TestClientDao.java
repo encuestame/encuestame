@@ -18,8 +18,8 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.ClientDao;
-import org.encuestame.core.persistence.pojo.Client;
-import org.encuestame.core.persistence.pojo.Project;
+import org.encuestame.core.persistence.domain.Client;
+import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;

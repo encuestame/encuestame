@@ -16,11 +16,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.CatLocation;
-import org.encuestame.core.persistence.pojo.CatLocationFolder;
-import org.encuestame.core.persistence.pojo.CatLocationType;
-import org.encuestame.core.persistence.pojo.LocationFolderType;
-import org.encuestame.core.persistence.pojo.Status;
+import org.encuestame.core.persistence.domain.CatLocation;
+import org.encuestame.core.persistence.domain.CatLocationFolder;
+import org.encuestame.core.persistence.domain.CatLocationType;
+import org.encuestame.core.persistence.domain.LocationFolderType;
+import org.encuestame.core.persistence.domain.Status;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;

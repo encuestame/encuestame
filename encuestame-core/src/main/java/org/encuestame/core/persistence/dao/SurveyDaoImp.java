@@ -16,9 +16,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISurvey;
-import org.encuestame.core.persistence.pojo.SurveyFolder;
-import org.encuestame.core.persistence.pojo.SurveyFormat;
-import org.encuestame.core.persistence.pojo.SurveyPagination;
+import org.encuestame.core.persistence.domain.SurveyFolder;
+import org.encuestame.core.persistence.domain.SurveyFormat;
+import org.encuestame.core.persistence.domain.SurveyPagination;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

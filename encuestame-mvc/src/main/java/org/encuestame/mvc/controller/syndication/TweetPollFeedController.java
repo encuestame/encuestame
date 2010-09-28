@@ -16,7 +16,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

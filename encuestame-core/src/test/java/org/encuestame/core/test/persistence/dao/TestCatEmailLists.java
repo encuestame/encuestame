@@ -19,10 +19,10 @@ import java.util.List;
 
 import org.encuestame.core.mail.MailService;
 import org.encuestame.core.persistence.dao.imp.IProject;
-import org.encuestame.core.persistence.pojo.CatEmailLists;
-import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.SecUser;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.domain.CatEmailLists;
+import org.encuestame.core.persistence.domain.CatEmails;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.mail.InvitationBean;
 import org.junit.Before;

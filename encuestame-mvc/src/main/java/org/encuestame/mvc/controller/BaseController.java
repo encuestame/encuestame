@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import net.tanesha.recaptcha.ReCaptcha;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.service.AbstractSurveyService;
 import org.encuestame.core.service.IServiceManager;

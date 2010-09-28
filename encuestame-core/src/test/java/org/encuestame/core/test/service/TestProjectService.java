@@ -19,9 +19,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.Project;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.Project;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.service.IProjectService;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.web.UnitProjectBean;

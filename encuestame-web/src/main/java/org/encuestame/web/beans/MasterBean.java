@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.core.service.ILocationService;

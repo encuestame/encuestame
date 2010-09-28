@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecGroup;
-import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUser;
+import org.encuestame.core.persistence.domain.SecGroup;
+import org.encuestame.core.persistence.domain.SecPermission;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.util.ConvertDomainBean;

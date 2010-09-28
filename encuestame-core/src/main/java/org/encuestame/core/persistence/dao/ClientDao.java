@@ -16,7 +16,7 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IClientDao;
-import org.encuestame.core.persistence.pojo.Client;
+import org.encuestame.core.persistence.domain.Client;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 

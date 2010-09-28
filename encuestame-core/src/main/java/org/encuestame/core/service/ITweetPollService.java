@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.TweetPoll;
-import org.encuestame.core.persistence.pojo.TweetPollResult;
-import org.encuestame.core.persistence.pojo.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
+import org.encuestame.core.persistence.domain.TweetPoll;
+import org.encuestame.core.persistence.domain.TweetPollResult;
+import org.encuestame.core.persistence.domain.TweetPollSwitch;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;

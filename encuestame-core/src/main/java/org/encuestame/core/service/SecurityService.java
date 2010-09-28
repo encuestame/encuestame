@@ -25,12 +25,12 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.pojo.SecGroup;
-import org.encuestame.core.persistence.pojo.SecPermission;
-import org.encuestame.core.persistence.pojo.SecUserSecondary;
-import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.pojo.SecUser;
-import org.encuestame.core.persistence.pojo.SecUserTwitterAccounts.TypeAuth;
+import org.encuestame.core.persistence.domain.SecGroup;
+import org.encuestame.core.persistence.domain.SecPermission;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
+import org.encuestame.core.persistence.domain.SecUserTwitterAccounts.TypeAuth;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;

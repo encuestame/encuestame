@@ -23,7 +23,7 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
-import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.web.beans.MasterBean;

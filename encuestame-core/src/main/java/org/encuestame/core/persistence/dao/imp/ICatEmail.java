@@ -15,9 +15,9 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.CatEmails;
-import org.encuestame.core.persistence.pojo.CatEmailLists;
-import org.encuestame.core.persistence.pojo.CatSubscribeEmails;
+import org.encuestame.core.persistence.domain.CatEmailLists;
+import org.encuestame.core.persistence.domain.CatEmails;
+import org.encuestame.core.persistence.domain.CatSubscribeEmails;
 
 /**
  * Email Catalog Interface.

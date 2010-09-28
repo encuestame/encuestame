@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.pojo.CatState;
+import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 
