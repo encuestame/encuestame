@@ -54,6 +54,14 @@ public interface IProjectService {
     UnitProjectBean createProject(UnitProjectBean projectBean, final String username) throws EnMeExpcetion;
 
     /**
+     * Update Project Bean.
+     * @param projectBean
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    void updateProject(final UnitProjectBean projectBean, final String username) throws EnMeExpcetion;
+
+    /**
      * Load list of users.
      * @return list of users with groups and permission
      * @throws Exception

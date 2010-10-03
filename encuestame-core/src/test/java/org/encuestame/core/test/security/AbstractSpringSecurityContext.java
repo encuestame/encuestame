@@ -35,7 +35,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractBase {
     /**
      * {@link SecUserSecondary}.
      */
-    private SecUserSecondary secondary;
+    public SecUserSecondary secondary;
 
     @Before
     public void setUp() throws Exception {
@@ -74,6 +74,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractBase {
         TestingAuthenticationToken token = new TestingAuthenticationToken(username, password, authorities);
         token.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(token);
+        System.out.println("creando SecurityContextHolder "+SecurityContextHolder.getContext().getAuthentication());
     }
 
     /**

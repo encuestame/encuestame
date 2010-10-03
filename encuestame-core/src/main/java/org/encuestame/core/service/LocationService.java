@@ -186,6 +186,16 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     }
 
     /**
+     * Retrieve Locations Items by Username
+     * @param username username
+     * @return
+     */
+    public List<UnitLocationBean> retrieveLocationItemsByUsername(final String username){
+        return ConvertDomainBean.convertListToUnitLocationBean(getCatLocationDao()
+                                .getLocationByUser(getPrimaryUser(username)));
+    }
+
+    /**
      * Get Location Item.
      * @param locationId location id
      * @param username username

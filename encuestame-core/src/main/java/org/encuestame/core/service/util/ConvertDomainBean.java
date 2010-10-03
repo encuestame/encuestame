@@ -336,9 +336,16 @@ public class ConvertDomainBean {
         projectBean.setPriority(project.getPriority().name());
         projectBean.setPublished(project.getPublished());
         projectBean.setState(project.getProjectStatus().name());
-        projectBean.setFormatedDateInit(simpleDateFormat.format(project.getProjectDateStart()));
-        projectBean.setFormatedDateFinish(simpleDateFormat.format(project.getProjectDateFinish()));
+        if(project.getProjectDateStart() != null){
+            projectBean.setFormatedDateInit(simpleDateFormat.format(project.getProjectDateStart()));
+        }
+        if(project.getProjectDateFinish() != null){
+            projectBean.setFormatedDateFinish(simpleDateFormat.format(project.getProjectDateFinish()));
+        }
+        projectBean.setHide(project.getHideProject());
+        projectBean.setNotify(project.getNotifyMembers());
         //TODO: add other properties.
+        log.debug("project bean converted "+projectBean.toString());
         return projectBean;
     }
 

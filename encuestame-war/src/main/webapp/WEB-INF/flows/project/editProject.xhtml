@@ -1,0 +1,141 @@
+<ui:composition template="projectTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:sf="http://www.springframework.org/tags/faces"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags">
+    <ui:define name="title"> #{msg.admonTitle} - #{msg.titleProyect}</ui:define>
+    <ui:define name="bodyOptions">
+        <div style="min-height: 500px;"><a4j:form>
+            <rich:messages id="message" errorClass="error"
+                infoClass="info" warnClass="war"></rich:messages>
+            <a4j:region id="tabsRegion">
+                <rich:tabPanel switchType="ajax">
+                    <rich:tab label="Detail">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGroup id="left">
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="Name"
+                                        for="name" />
+                                    <h:inputText id="name"
+                                        value="#{editProjectBean.name}"
+                                        size="20" />
+                                    <h:outputLabel value="Start Date"
+                                        for="startDate" />
+                                    <rich:calendar id="starDate"
+                                        value="#{editProjectBean.dateInit}"
+                                        datePattern="#{calendarBean.pattern}">
+                                    </rich:calendar>
+                                    <h:outputLabel value="End Date"
+                                        for="endDate" />
+                                    <rich:calendar id="endDate"
+                                        value="#{editProjectBean.dateFinish}"
+                                        datePattern="#{calendarBean.pattern}"></rich:calendar>
+                                    <h:outputLabel value="Description"
+                                        for="description" />
+                                    <h:inputTextarea
+                                        value="#{editProjectBean.description}"
+                                        id="description" />
+                                    <h:outputLabel value="Leader"
+                                        for="leader" />
+                                    <h:selectOneMenu id="selectLeader"
+                                        value="#{editProjectBean.leader}"
+                                        requiredMessage="Leader is required.">
+                                        <f:selectItems
+                                            value="#{projectBean.loadLeaders}"></f:selectItems>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Hide"
+                                        for="hide" />
+                                    <h:selectBooleanCheckbox id="hide"
+                                        value="#{editProjectBean.hide}"
+                                        title="Hide" />
+                                    <h:outputLabel value="Published"
+                                        for="published" />
+                                    <h:selectBooleanCheckbox
+                                        id="published"
+                                        value="#{editProjectBean.published}"
+                                        title="Published" />
+                                    <a4j:commandLink
+                                        value="Share on Twitter my Project"
+                                        rendered="#{editProjectBean.published}"></a4j:commandLink>
+                                    <h:inputText readonly="true"
+                                        rendered="#{editProjectBean.published}"
+                                        value="http://www.encuestame.org/project/xxxx" />
+                                    <h:outputLabel value="Priority"
+                                        for="priority" />
+                                    <h:selectOneMenu id="priority"
+                                        immediate="true"
+                                        value="#{editProjectBean.priority}">
+                                        <f:selectItem
+                                            itemLabel="Choose one..."
+                                            itemValue="" />
+                                        <f:selectItem itemLabel="High"
+                                            itemValue="HIGH" />
+                                        <f:selectItem itemLabel="Medium"
+                                            itemValue="MEDIUM" />
+                                        <f:selectItem itemLabel="LOw"
+                                            itemValue="LOW" />
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Notify"
+                                        for="notify" />
+                                    <h:selectBooleanCheckbox id="notify"
+                                        value="#{editProjectBean.notify}"
+                                        title="Notify Clients" />
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <rich:editor
+                            value="#{editProjectBean.projectInfo}"
+                            autoResize="true" width="800" height="200"
+                            theme="advanced"
+                            plugins="save,paste,table,advimage">
+                            <f:param name="theme_advanced_buttons1"
+                                value="bold,italic,underline,strikethrough,fontselect,fontsizeselect,formatselect,sub,sup,charmap" />
+                            <f:param name="theme_advanced_buttons2"
+                                value="hr,separator,forecolor,backcolor,separator,justifyleft,justifycenter,justifyright,separator,cut,copy,paste,pasteword,separator,bullist,numlist,separator,outdent,indent,separator,table,separator,undo,redo" />
+                            <f:param name="theme_advanced_buttons3"
+                                value="code,link,unlink,image" />
+                            <f:param
+                                name="theme_advanced_toolbar_location"
+                                value="top" />
+                            <f:param name="convert_urls" value="false" />
+                            <f:param name="theme_advanced_toolbar_align"
+                                value="center" />
+                        </rich:editor>
+                        <a4j:commandButton action="update"
+                            value="Update"></a4j:commandButton>
+                        <a4j:commandButton action="cancel"
+                            value="Cancel"></a4j:commandButton>
+                    </rich:tab>
+                    <rich:tab label="Locations">
+                        <a4j:commandLink value="Add Location">
+                        </a4j:commandLink>
+                        <a4j:commandLink value="Add Group of Locations">
+                        </a4j:commandLink>
+                        <rich:panel id="location">
+                            <a4j:repeat
+                                value="#{projectBean.locationFolders}"
+                                var="fol">
+                                <h:outputText value="#{fol}" />
+                                <br></br>
+                            </a4j:repeat>
+                            <a4j:repeat
+                                value="#{projectBean.locationsItems}"
+                                var="fol">
+                                <h:outputText value="#{fol}" />
+                                <br></br>
+                            </a4j:repeat>
+                        </rich:panel>
+                    </rich:tab>
+                    <rich:tab label="Groups">
+                    </rich:tab>
+                    <rich:tab label="Attachments">
+                    </rich:tab>
+                </rich:tabPanel>
+            </a4j:region>
+        </a4j:form></div>
+    </ui:define>
+</ui:composition>

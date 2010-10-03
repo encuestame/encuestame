@@ -22,7 +22,7 @@
           value="org.springframework.util.Log4jConfigurer.initLogging" />
         <property name="arguments">
           <list>
-            <value>${log4j.properties.path}</value>
+            <value>classpath:log4j.properties</value>
           </list>
         </property>
       </bean>

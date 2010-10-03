@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,6 +39,19 @@ import javax.persistence.Table;
 @Table(name = "sec_groups")
 public class SecGroup {
 
+     /**
+     */
+    public enum Type {
+    /**
+     * Security Groups.
+     */
+    SECURITY,
+    /**
+     * Groups for Projects.
+     */
+    PROJECT
+    };
+
     /**
      * Group Id.
      */
@@ -46,6 +61,11 @@ public class SecGroup {
      * Name.
      */
     private String groupName;
+
+    /**
+     * Group Type.
+     */
+    private Type groupType = Type.SECURITY;
 
     /**
      * Description.
@@ -184,4 +204,22 @@ public class SecGroup {
     public void setSecUsers(final SecUser secUsers) {
         this.secUsers = secUsers;
     }
+
+    /**
+     * @return the groupType
+     */
+    @Column(name="type")
+    @Enumerated(EnumType.STRING)
+    public Type getGroupType() {
+        return groupType;
+    }
+
+    /**
+     * @param groupType the groupType to set
+     */
+    public void setGroupType(Type groupType) {
+        this.groupType = groupType;
+    }
+
+
 }

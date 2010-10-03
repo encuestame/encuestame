@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.dao.CatEmailDao;
 import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.dao.PollDao;
@@ -66,18 +64,11 @@ import org.encuestame.core.persistence.domain.TweetPollResult;
 import org.encuestame.core.persistence.domain.TweetPollSwitch;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Base Class to Test Cases.
@@ -85,19 +76,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @since October 15, 2009
  * @version $Id$
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(transactionManager = "transactionManager" , defaultRollback = true)
-@Transactional
-@Scope("singleton")
-@ContextConfiguration(locations = {
-        "classpath:encuestame-service-context.xml",
-        "classpath:encuestame-dao-context.xml",
-        "classpath:encuestame-hibernate-context.xml",
-        "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-security-context.xml",
-        "classpath:encuestame-param-test-context.xml"
-         })
-public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests {
+
+public class AbstractBase extends AbstractConfigurationBase{
 
     /**
      * Hibernate Template.
@@ -160,9 +140,6 @@ public class AbstractBase extends AbstractTransactionalJUnit4SpringContextTests 
     /** {@link CatEmailDao}. **/
     @Autowired
     private ICatEmail catEmailDao;
-
-
-    protected Log log = LogFactory.getLog(this.getClass());
 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;

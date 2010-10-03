@@ -14,22 +14,35 @@
             </a4j:form>
 
             <a4j:form>
-                    <a4j:repeat value="#{projects}" var="pro">
-                        <div class="projectTableItem">
-                            <div class="title">
-                                <h:outputText value="#{pro.name}" />
-                            </div>
-                            <div class="description">
-                                <h:outputText value="#{pro.description}" />
-                            </div>
-                            <h:panelGrid columns="8" styleClass="data">
-                                    <h:outputLabel value="Start Date:" styleClass="label"/>
-                                    <h:outputText value="#{pro.formatedDateInit}" />
-                                    <h:outputLabel value="End Date:" styleClass="label" />
-                                    <h:outputText value="#{pro.formatedDateFinish}" />
-                            </h:panelGrid>
-                        </div>
-                    </a4j:repeat>
+                   <div class="defaultTable projectTableItem">
+            <rich:dataTable id="dataTableGroups" value="#{projects}" var="project" style="width:100%;" rendered="#{projects.rowCount > 0}">
+                <f:facet name="header">
+                    <rich:columnGroup>
+                        <rich:column width="400px" >
+                            <h:outputText value="Name" />
+                        </rich:column>
+                        <rich:column>
+                            <h:outputText value="Description" />
+                        </rich:column>
+                        <rich:column>
+                        </rich:column>
+                    </rich:columnGroup>
+                </f:facet>
+                <rich:column>
+                    <div class="title">
+                        <a4j:commandLink value="#{project.name}" action="editProject"></a4j:commandLink>
+                    </div>
+                    <div class="data">
+                        <h:outputText value="#{project.formatedDateInit}" /> - <h:outputText value="#{project.formatedDateFinish}" />
+                    </div>
+                </rich:column>
+                <rich:column>
+                    <div class="description">
+                        <h:outputText value="#{project.description}" />
+                    </div>
+                </rich:column>
+                </rich:dataTable>
+                </div>
             </a4j:form>
     </ui:define>
 </ui:composition>

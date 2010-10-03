@@ -31,6 +31,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 /**
  * Project.
  *
@@ -131,7 +133,7 @@ public class Project {
     /**
      * @return projectInfo
      */
-    @Column(name = "info", length = 3000)
+    @Column(name = "info", columnDefinition="TEXT")
     public String getProjectInfo() {
         return this.projectInfo;
     }

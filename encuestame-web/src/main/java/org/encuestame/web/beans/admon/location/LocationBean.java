@@ -187,8 +187,7 @@ public final class LocationBean extends MasterBean implements Serializable {
     private void loadTree() {
         try {
             rootNode = new TreeNodeImpl<UtilTreeNode>();
-            final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
-            final List<UnitLocationFolder> locationFolders = locationService.retrieveLocationFolderByUser(getUserPrincipalUsername());
+            final List<UnitLocationFolder> locationFolders = getLocationFoldersByUsername();
             log.debug("location folders size "+locationFolders.size());
             addFolders(rootNode, ConvertDomainBean.convertFolderToDragrable(locationFolders, TypeTreeNode.FOLDER));
         } catch (Exception e) {

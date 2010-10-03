@@ -85,4 +85,11 @@ public interface ICatLocation extends IBaseDao {
      */
     CatLocationFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId);
 
+    /**
+     * Get All Locations by User.
+     * @param userId userId
+     * @return
+     */
+    List<CatLocation> getLocationByUser(final Long userId);
+
 }

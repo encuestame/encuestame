@@ -12,15 +12,30 @@
  */
 package org.encuestame.mvc.test.json;
 
+import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import junit.framework.Assert;
 
+import org.codehaus.jackson.JsonEncoding;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
+import org.codehaus.jackson.JsonParser.Feature;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.encuestame.mvc.controller.json.notifications.NotificationsJsonController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Test Json Service.
@@ -33,14 +48,6 @@ public class TestJsonService extends AbstractMvcUnitBeans{
     @Autowired
     private NotificationsJsonController notificationsJsonController;
 
-    @org.junit.Before
-    public void setUp() throws Exception{
-       request = new MockHttpServletRequest();
-       response = new MockHttpServletResponse();
-       handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
-    }
-
-
 
     /**
      * Test Json.
@@ -48,14 +55,59 @@ public class TestJsonService extends AbstractMvcUnitBeans{
      */
     @Test
     public void testJson() throws Exception{
+         log.debug("TEST JSON");
          Assert.assertTrue(true);
          Assert.assertNotNull(this.notificationsJsonController);
+         Assert.assertNotNull(getSecondary());
          request.setMethod("GET");
          request.setRequestURI("/notifications.json");
          request.setParameter("limit", "10");
-       //  final ModelAndView mav = handlerAdapter.handle(request, response, this.notificationsJsonController);
-        // mav.setView(this.jacksonJsonView);
-         //assertViewName(mav, null);
+         final ModelAndView mav = handlerAdapter.handle(request, response, this.notificationsJsonController);
+         mav.setView(this.jacksonJsonView);
+         log.debug("TEST JSON 1 " + mav);
+         log.debug("TEST JSON 2 " + mav.getModel().get("success").toString());
+         log.debug("TEST JSON 2 " + response);
+         File f;
+         f = new File("myfile.json");
+         if(!f.exists()){
+             f.createNewFile();
+         }
+         BufferedWriter out = new BufferedWriter(new FileWriter(f));
+         out.write(mav.getModel().get("success").toString());
+         out.close();
+
+//         String input = "{\"id\":1,\"username\":\"admin\",\"enabled\":true,\"location\":null,\"bday\":315529200000}";
+//         log.debug("json string "+ input);
+//         log.debug("json string 2"+ mav.getModel().toString());
+//
+//         JsonFactory fs = new JsonFactory();
+//         fs.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES,false);
+//         fs.enable(Feature.ALLOW_UNQUOTED_FIELD_NAMES);
+//         JsonParser jp = fs.createJsonParser(mav.getModel().toString());
+//
+//         jp.enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES);
+//         log.debug("jsonparser get text "+ jp.getText());
+//         jp.nextToken(); //START_OBJECT
+//
+//
+//         jp.close();
+//
+//         assertViewName(mav, null);
+//         JsonFactory jsonFactory = new JsonFactory(); // or, for data binding, org.codehaus.jackson.mapper.MappingJsonFactory
+//         jsonFactory.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES,false);
+//         JsonGenerator jg = jsonFactory.createJsonGenerator(f, JsonEncoding.UTF8); // or Stream, Reader
+//
+//         ObjectMapper mapper = new ObjectMapper();
+//         mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+//         JsonNode rootNode = mapper.readValue(mav.getModel().toString(), JsonNode.class);
+//         //boolean enabled = rootNode.path("error").getBooleanValue();
+////         log.debug(enabled);
+//
+//  //       String username = rootNode.path("sucess").getTextValue();
+//   //      log.debug(username);
+//
+//         //JsonFactory f = new JsonFactory();
+//         //JsonParser parser = f.
     }
 
     /**

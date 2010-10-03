@@ -12,22 +12,14 @@
  */
 package org.encuestame.mvc.test.config;
 
-import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.core.test.security.AbstractSpringSecurityContext;
+import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,10 +41,10 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Scope("singleton")
 @ContextConfiguration(locations = {
         "classpath:encuestame-json-context.xml",
-        "classpath:encuestame-controller-context.xml"
+        "classpath:encuestame-controller-context.xml",
+        "classpath:encuestame-param-test-context.xml"
          })
-public class AbstractMvcUnitBeans extends
-        AbstractBase {
+public class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**
      * Fake Request.
@@ -84,6 +76,7 @@ public class AbstractMvcUnitBeans extends
      */
     public ModelAndView modelAndView = new ModelAndView();
 
+
     public AbstractMvcUnitBeans() {
         //http://forum.springsource.org/showthread.ph519
         jacksonJsonView.setPrefixJson(false);
@@ -92,11 +85,13 @@ public class AbstractMvcUnitBeans extends
         modelAndView.setView(jacksonJsonView);
     }
 
-    public void authenticateUser(){
-        SecurityContext context = new SecurityContextImpl();
-        context.setAuthentication(new UsernamePasswordAuthenticationToken("oasysadmin", "password",new GrantedAuthority[] { new GrantedAuthorityImpl("ROLE_CDAC_ADJUDICATION") }));
-        session.setAttribute(HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY,context);
-        request.setSession(session);
+
+
+    @Before
+    public void setUpJson() throws Exception{
+       request = new MockHttpServletRequest();
+       response = new MockHttpServletResponse();
+       handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
     }
 
 }

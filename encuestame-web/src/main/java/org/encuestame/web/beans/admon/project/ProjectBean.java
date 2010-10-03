@@ -21,6 +21,8 @@ import javax.faces.model.SelectItem;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
+import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.web.beans.admon.AdmonBean;
 import org.springframework.binding.message.MessageBuilder;
@@ -76,6 +78,8 @@ public class ProjectBean extends AdmonBean implements Serializable {
 
     private List<SelectItem> listOfUsers;
 
+    private List<UnitLocationFolder> locationFolders;
+
     /**
      * Constructor.
      */
@@ -99,18 +103,47 @@ public class ProjectBean extends AdmonBean implements Serializable {
      */
     public final String saveProject(final UnitProjectBean projectBean, final MessageContext messageContext) {
         try {
-            log.debug("saveProject");
             getProjectService().createProject(projectBean, getUserPrincipalUsername());
-            log.debug("yes");
             return "yes";
         } catch (EnMeExpcetion e) {
             messageContext.addMessage(new MessageBuilder().error().source("create").
                      defaultText("Error on create Proyect: "+e.getMessage()).build());
             log.error(e);
-            log.debug("no");
             e.printStackTrace();
             return "no";
         }
+    }
+
+    /**
+     * Update data new proyect
+     * @throws EnMeExpcetion
+     */
+    public final String updateProject(final UnitProjectBean projectBean, final MessageContext messageContext) {
+        try {
+            getProjectService().updateProject(projectBean, getUserPrincipalUsername());
+            return "yes";
+        } catch (EnMeExpcetion e) {
+            messageContext.addMessage(new MessageBuilder().error().source("message").
+                     defaultText("Error on updating Proyect: "+e.getMessage()).build());
+            log.error(e);
+            e.printStackTrace();
+            return "no";
+        }
+    }
+
+    /**
+     * Get Location Folder.
+     * @return
+     */
+    public final List<UnitLocationFolder> getLocationFolders(){
+        if(locationFolders == null){
+            locationFolders = getLocationFoldersByUsername();
+        }
+        return locationFolders;
+    }
+
+    public final List<UnitLocationBean> getLocationsItems(){
+        return getLocationService().retrieveLocationItemsByUsername(getUserPrincipalUsername());
     }
 
     /**

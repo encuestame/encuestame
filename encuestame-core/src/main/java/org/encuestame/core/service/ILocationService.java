@@ -160,4 +160,11 @@ public interface ILocationService {
        * @param username
        */
       void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeExpcetion;
+
+      /**
+       * Retrieve Locations Items by Username
+       * @param username username
+       * @return
+       */
+      List<UnitLocationBean> retrieveLocationItemsByUsername(final String username);
 }

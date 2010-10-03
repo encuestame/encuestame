@@ -19,7 +19,9 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.Project;
+import org.encuestame.core.persistence.domain.Project.Priority;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -69,6 +71,9 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             if (projectDomain != null) {
                 final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
                 projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
+                final List<CatLocation> list = new ArrayList<CatLocation>(projectDomain.getLocations());
+                log.debug("Locations on Project "+list.size());
+                projectBeanRetrieved.setUnitLocationBeans(ConvertDomainBean.convertListToUnitLocationBean(list));
                 return projectBeanRetrieved;
             } else {
                 log.info("id project is not found");
@@ -118,6 +123,35 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
         }
         else {
             throw new EnMeExpcetion("error on create project");
+        }
+    }
+
+    /**
+     * Update Project Bean.
+     * @param projectBean
+     * @param username
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public void updateProject(final UnitProjectBean projectBean, final String username) throws EnMeExpcetion {
+        log.debug("project bean "+projectBean.toString());
+        final Project project = getProjectDaoImp().getProjectbyId(projectBean.getId());
+        if(project == null){
+            throw new EnMeExpcetion("project not found");
+        }
+        else{
+            project.setProjectName(projectBean.getName());
+            project.setHideProject(projectBean.getHide());
+            project.setLead(getSecUserDao().getSecondaryUserById(projectBean.getLeader()));
+            project.setNotifyMembers(projectBean.getNotify());
+            project.setProjectDateFinish(projectBean.getDateFinish());
+            project.setProjectDateStart(projectBean.getDateInit());
+            project.setProjectDescription(projectBean.getDescription());
+            project.setProjectInfo(projectBean.getProjectInfo());
+            //project.setProjectStatus(projectBean.get)
+            project.setPriority(Priority.valueOf(projectBean.getPriority()));
+            project.setPublished(projectBean.getPublished());
+            getProjectDaoImp().saveOrUpdate(project);
         }
     }
 }

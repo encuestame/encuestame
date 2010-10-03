@@ -13,6 +13,7 @@
 package org.encuestame.web.beans;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -32,6 +33,7 @@ import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.ServiceManager;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.UnitLocationFolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -366,6 +368,15 @@ public class MasterBean extends AbstractSecurityContext{
     public ILocationService getLocationService(){
         return getServicemanager().getApplicationServices().getLocationService();
     }
+
+    /**
+     * Get Location Folders.
+     * @return List of {@link UnitLocationFolder}.
+     */
+    public List<UnitLocationFolder> getLocationFoldersByUsername(){
+        return  getLocationService().retrieveLocationFolderByUser(getUserPrincipalUsername());
+    }
+
 
     /**
      * Create Temp Hash Tag.

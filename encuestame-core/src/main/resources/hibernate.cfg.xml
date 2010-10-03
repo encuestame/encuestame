@@ -46,6 +46,6 @@
         <mapping class="org.encuestame.core.persistence.domain.QuestionDependencies"/>
         <mapping class="org.encuestame.core.persistence.domain.QuestionDependenceSurvey"/>
         <mapping class="org.encuestame.core.persistence.domain.notifications.Notification"/>
-        <mapping class="org.encuestame.core.persistence.domain.notifications.CatQuestionCategory"/>
+        <mapping class="org.encuestame.core.persistence.domain.CatQuestionCategory"/>
     </session-factory>
 </hibernate-configuration>

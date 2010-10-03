@@ -46,11 +46,12 @@ public class UnitProjectBean implements Serializable {
     private List<SelectItem> groupList = new ArrayList<SelectItem>();
     private List<SelectItem> locationList = new ArrayList<SelectItem>();
     private List<SelectItem> projectPermissions = new ArrayList<SelectItem>();
+    private List<UnitLocationBean> unitLocationBeans = new ArrayList<UnitLocationBean>();
     private Long leader;
     private String priority;
     private Long status;
-    private Boolean hide = false;
-    private Boolean notify = false;
+    private Boolean hide;
+    private Boolean notify;
     private Long userId;
     private Boolean published;
 
@@ -380,5 +381,45 @@ public class UnitProjectBean implements Serializable {
         this.formatedDateFinish = formatedDateFinish;
     }
 
+    /**
+     * @return the unitLocationBeans
+     */
+    public List<UnitLocationBean> getUnitLocationBeans() {
+        return unitLocationBeans;
+    }
+
+    /**
+     * @param unitLocationBeans the unitLocationBeans to set
+     */
+    public void setUnitLocationBeans(List<UnitLocationBean> unitLocationBeans) {
+        this.unitLocationBeans = unitLocationBeans;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("UnitProjectBean [catStateBeans=").append(catStateBeans)
+                .append(", clients=").append(clients).append(", dateFinish=")
+                .append(dateFinish).append(", dateInit=").append(dateInit)
+                .append(", description=").append(description).append(
+                        ", formatedDateFinish=").append(formatedDateFinish)
+                .append(", formatedDateInit=").append(formatedDateInit).append(
+                        ", groupList=").append(groupList).append(", hide=")
+                .append(hide).append(", id=").append(id).append(", leader=")
+                .append(leader).append(", listUsers=").append(listUsers)
+                .append(", locationList=").append(locationList).append(
+                        ", name=").append(name).append(", notify=").append(
+                        notify).append(", priority=").append(priority).append(
+                        ", projectInfo=").append(projectInfo).append(
+                        ", projectPermissions=").append(projectPermissions)
+                .append(", published=").append(published).append(", state=")
+                .append(state).append(", status=").append(status).append(
+                        ", unitLocationBeans=").append(unitLocationBeans)
+                .append(", userId=").append(userId).append("]");
+        return builder.toString();
+    }
 
 }

@@ -62,9 +62,9 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @throws HibernateException HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> getLocationByTypeLocationId(final Long tidtype) throws HibernateException{
+    public List<CatLocation> getLocationByTypeLocationId(final Long tidType) throws HibernateException{
         final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";
-       return   getHibernateTemplate().find(queryLocation,tidtype);
+       return   getHibernateTemplate().find(queryLocation, tidType);
     }
 
     /**
@@ -118,6 +118,18 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
          criteria.add(Restrictions.eq("secUsers.uid", userId));
          return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    /**
+     * Get All Locations by User.
+     * @param userId userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<CatLocation> getLocationByUser(final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
+        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        return getHibernateTemplate().findByCriteria(criteria);
+   }
 
     /**
      * Get LocationFolder by Id and User Id
