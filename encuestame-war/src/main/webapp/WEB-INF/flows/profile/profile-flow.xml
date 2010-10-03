@@ -3,7 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="userBean" class="org.encuestame.web.beans.admon.UserBean" />
+     <var name="userBean" class="org.encuestame.web.beans.admon.security.UserBean" />
 
     <view-state id="profile">
         <on-render>

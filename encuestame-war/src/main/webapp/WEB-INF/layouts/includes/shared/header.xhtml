@@ -36,11 +36,48 @@
 
                 </form>
         </div>
+        <div id="profile_menu" style="display:none; right: 0px;">
+               <div id="detail_profile">Profile Detail<br /><br />
+                <h:panelGrid columns="2">
+                  <h:outputLabel value="Username" />
+                  <h:outputText value="#{userProfile.details.username}" />
+                  <h:outputLabel value="Email" />
+                  <h:outputText value="#{userProfile.details.userEmail}" />
+                  <h:outputLabel value="Name" />
+                  <h:outputText value="#{userProfile.details.completeName}" />
+                  <h:outputLabel value="Permissions" />
+                    <h:panelGroup>
+                        <a4j:repeat  value="#{userProfile.details.authorities}" var="rol">
+                            <h:outputText value="#{rol}" /><br/>
+                        </a4j:repeat>
+                  </h:panelGroup>
+                  </h:panelGrid>
+               </div>
+               <div id="options_profile">Options<br /><br />
+                        <ul>
+                            <li>
+                                <img src="#{userProfile.gravatarImageUrl}" alt="#{userProfile.details.completeName}" />
+                            </li>
+                            <li>
+                               <a href="${request.contextPath}/user/social.html">Social Accounts</a>
+                            </li>
+                            <li>
+                               <a href="${request.contextPath}/user/lists.html">Email List</a>
+                            </li>
+                            <li>
+                                <a href="${request.contextPath}/user/profile.html">Profile Settings</a>
+                            </li>
+                            <li>
+                                <a href="${request.contextPath}/user/logout">Log Out</a>
+                            </li>
+                        </ul>
+                 </div>
+                 <div class="spacer"></div>
+              </div>
         <div style="float: left;">
             <a href="#{request.contextPath}/home">
                 <span class="logoSmallEncuestame"></span>
             </a>
-
         </div>
     </div>
 </ui:composition>

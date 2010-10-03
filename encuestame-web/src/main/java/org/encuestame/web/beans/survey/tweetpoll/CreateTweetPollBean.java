@@ -28,6 +28,8 @@ import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 
 /**
  * Create Tweet Poll.
@@ -303,21 +305,21 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
     /**
      * Publish TweetPoll.
      */
-    public final void publishTweetPoll(){
-        this.createTweetPoll(Boolean.TRUE);
+    public final String publishTweetPoll(final MessageContext messageContext){
+        return this.createTweetPoll(Boolean.TRUE, messageContext);
     }
 
     /**
      * Save Later To Publish TweetPoll.
      */
-    public final void saveLaterTweetPoll(){
-        this.createTweetPoll(Boolean.FALSE);
+    public final String saveLaterTweetPoll(final MessageContext messageContext){
+        return this.createTweetPoll(Boolean.FALSE, messageContext);
     }
 
     /**
      * Create Tweet Poll.
      */
-    public final void createTweetPoll(final Boolean publish){
+    public final String createTweetPoll(final Boolean publish, final MessageContext messageContext){
         final ITweetPollService tweetPollService = getTweetPollService();
         try {
             //Getting User Logged Id.
@@ -354,10 +356,12 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
             else{
                 log.error("Question ID don't exitst");
             }
-        }
-        catch (EnMeExpcetion e) {
-            addErrorMessage("error "+e, "");
+            return "yes";
+        } catch (EnMeExpcetion e) {
+              messageContext.addMessage(new MessageBuilder().error().source("publish").
+                      defaultText("Opps. "+e.getMessage()).build());
             log.error(e);
+            return "no";
         }
     }
 

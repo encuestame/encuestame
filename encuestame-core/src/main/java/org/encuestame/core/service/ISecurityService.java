@@ -308,4 +308,17 @@ public interface ISecurityService extends IService {
      */
     void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
             final String username) throws EnMeExpcetion;
+
+    /**
+     * Load Permissions on {@link SelectItem}.
+     * @return
+     */
+    List<SelectItem> loadSelectItemPermissions();
+
+    /**
+     * Load Groups on {@link SelectItem}.
+     * @param username
+     * @return
+     */
+    List<SelectItem> loadSelectItemGroups (final String username);
 }

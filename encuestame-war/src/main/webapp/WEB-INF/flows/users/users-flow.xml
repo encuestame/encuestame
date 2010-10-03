@@ -8,10 +8,10 @@
     <view-state id="users">
         <on-render>
             <evaluate expression="securityService.loadListUsers(currentUser.name)" result="flowScope.users"
-                      result-type="dataModel" /><!--
+                      result-type="dataModel" />
             <evaluate expression="securityService.loadSelectItemGroups(currentUser.name)" result="flowScope.groups" />
             <evaluate expression="securityService.loadSelectItemPermissions()" result="flowScope.permissions" />
-        --></on-render>
+        </on-render>
 
         <transition on="createUser">
              <evaluate expression="userBean.createUser(currentUser.name)"/>

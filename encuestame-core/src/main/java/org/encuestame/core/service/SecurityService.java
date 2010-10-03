@@ -35,6 +35,7 @@ import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
+import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -49,7 +50,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import twitter4j.TwitterException;
-import twitter4j.User;
 
 /**
  * Security Bean Service.
@@ -276,7 +276,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Load all list of permisssions and covert to permission bean.
      * @return list of permisssions
      */
-    @Deprecated
     public Collection<UnitPermission> loadAllListPermission() {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
         final Collection<SecPermission> listSecPermission = getPermissionDao()
@@ -774,5 +773,26 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public List<UnitLists> getListbyUsername(final String username){
             return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
+    }
+
+
+    /**
+     * Load Groups on {@link SelectItem}.
+     * @param username
+     * @return
+     */
+    public List<SelectItem> loadSelectItemGroups (final String username){
+        return ConvertListDomainSelectBean.convertListGroupDomainToSelect(
+               new HashSet<SecGroup>(getGroupDao().loadGroupsByUser(getUser(username).getSecUser())));
+    }
+
+    /**
+     * Load Permissions on {@link SelectItem}.
+     * @return
+     */
+    public List<SelectItem> loadSelectItemPermissions(){
+        return ConvertListDomainSelectBean.convertListPermissionsToSelect(
+               new HashSet<SecPermission>(getPermissionDao()
+                       .loadAllPermissions()));
     }
 }

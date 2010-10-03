@@ -21,6 +21,8 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.Project;
+import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.persistence.domain.Project.Priority;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
@@ -97,6 +99,8 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
+                final SecUserSecondary secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
+                final SecUser user = getUser(username).getSecUser();
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 log.debug("new Project Leader "+projectBean.getName());
@@ -107,12 +111,13 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
                 projectDomain.setNotifyMembers(projectBean.getNotify());
                 log.debug("Project Leader "+projectBean.getLeader());
                 if(projectBean.getLeader() != null){
-                    projectDomain.setLead(getSecUserDao().getSecondaryUserById(projectBean.getLeader()));
+                    projectDomain.setLead(secondary);
                 }
-                projectDomain.setUsers(getUser(username).getSecUser());
+                projectDomain.setUsers(user);
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());
                 log.debug("created domain project");
+                createNotification(NotificationEnum.PROJECT_CREATED, secondary.getUsername() +" is the leader of this project.", user);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -140,9 +145,11 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             throw new EnMeExpcetion("project not found");
         }
         else{
+            final SecUserSecondary secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
+            final SecUser user = getUser(username).getSecUser();
             project.setProjectName(projectBean.getName());
             project.setHideProject(projectBean.getHide());
-            project.setLead(getSecUserDao().getSecondaryUserById(projectBean.getLeader()));
+            project.setLead(secondary);
             project.setNotifyMembers(projectBean.getNotify());
             project.setProjectDateFinish(projectBean.getDateFinish());
             project.setProjectDateStart(projectBean.getDateInit());
@@ -152,6 +159,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             project.setPriority(Priority.valueOf(projectBean.getPriority()));
             project.setPublished(projectBean.getPublished());
             getProjectDaoImp().saveOrUpdate(project);
+            createNotification(NotificationEnum.PROJECT_UPDATED, secondary.getUsername() +" is the leader of "+projectBean.getName(), user);
         }
     }
 }

@@ -10,31 +10,18 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service;
+package org.encuestame.core.security;
 
 /**
- * Notification Enumeration
+ * Encuestame Global Permissions
  * @author Picado, Juan juanATencuestame.org
- * @since Sep 18, 2010 7:14:20 PM
+ * @since Oct 3, 2010 4:14:05 PM
  * @version $Id:$
  */
-public enum NotificationEnum {
-
-    TWEETPOLL_PUBLISHED,
-
-    TWEETPOL_REMOVED,
-
-    TWEETPOL_CREATED,
-
-    PROJECT_CREATED,
-
-    PROJECT_UPDATED,
-
-    LOCATION_NEW,
-
-    LOCATION_FOLDER_NEW,
-
-    LOCATION_GMAP_UPDATED,
-
-    LOCATION_GMAP_CHANGED_NAME
+public enum EnMePermission {
+    ENCUESTAME_USER,
+    ENCUESTAME_ADMIN,
+    ENCUESTAME_OWNER,
+    ENCUESTAME_PUBLISHER,
+    ENCUESTAME_EDITOR,
 }

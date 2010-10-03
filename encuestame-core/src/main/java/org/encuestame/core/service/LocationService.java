@@ -123,6 +123,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                 getCatLocationDao().saveOrUpdate(catLocationDomain);
                 log.debug("create location domain");
                 location.setId(catLocationDomain.getLocateId());
+                createNotification(NotificationEnum.LOCATION_NEW, location.getName() +" is created.", catLocationDomain.getSecUsers());
             } catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }
@@ -144,6 +145,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         catLocationFolder.setSecUsers(getUser(username).getSecUser());
         getCatLocationDao().saveOrUpdate(catLocationFolder);
         locationFolder.setId(catLocationFolder.getLocationFolderId());
+        createNotification(NotificationEnum.LOCATION_FOLDER_NEW, "New Folder "+locationFolder.getName() +" is created.", catLocationFolder.getSecUsers());
         return locationFolder;
     }
 
@@ -238,6 +240,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             location.setLocationCountryName(locationBean.getCountryName());
             location.setLocationLongitude(locationBean.getLng());
             getCatLocationDao().saveOrUpdate(location);
+            createNotification(NotificationEnum.LOCATION_GMAP_UPDATED, "Updated to "+ locationBean.getAddress(), location.getSecUsers());
             log.info("location map updated");
         }
     }
@@ -274,9 +277,12 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             throw new EnMeExpcetion("location not found");
         }
         else{
+            final String lastName = location.getLocationDescription();
             location.setLocationDescription(locationBean.getName());
             getCatLocationDao().saveOrUpdate(location);
             log.info("location name updated");
+            createNotification(NotificationEnum.LOCATION_GMAP_CHANGED_NAME,
+                               lastName+" is update to "+locationBean.getName(), location.getSecUsers());
         }
     }
 
@@ -301,6 +307,8 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                 locationFolder.setLocationFolderName(locationFolderBean.getName());
             }
             getCatLocationDao().saveOrUpdate(locationFolder);
+            createNotification(NotificationEnum.LOCATION_GMAP_CHANGED_NAME, "Folder name change to "
+                                + locationFolderBean.getName(), locationFolder.getSecUsers());
         }
     }
 

@@ -50,7 +50,7 @@
     </bean>
 
     <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-       <property name="order" value="2"/>
+       <property name="order" value="3"/>
        <property name="basename" value="views"/>
     </bean>
 
@@ -60,7 +60,7 @@
   -->
   <bean id="faceletsViewResolver"
     class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    <property name="order" value="3"/>
+    <property name="order" value="4"/>
     <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
     <property name="prefix" value="/WEB-INF/controller/" />
     <property name="suffix" value=".xhtml" />
