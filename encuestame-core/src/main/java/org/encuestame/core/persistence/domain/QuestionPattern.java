@@ -137,7 +137,7 @@ public class QuestionPattern {
        /**
      * @return class_
      */
-    @Column(name = "class", nullable = false, length = 50)
+    @Column(name = "clazz", length = 50)
     public String getClass_() {
         return this.class_;
     }
