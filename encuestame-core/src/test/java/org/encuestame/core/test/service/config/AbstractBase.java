@@ -770,7 +770,6 @@ public class AbstractBase extends AbstractConfigurationBase{
      */
     public QuestionPattern createQuestionPattern(final String typePatron){
         final QuestionPattern patron = new QuestionPattern();
-        patron.setClass_("class.patron1.class");
         patron.setDesQid("patron Html");
         patron.setPatternTemplate("1");
         patron.setLabelQid("1");

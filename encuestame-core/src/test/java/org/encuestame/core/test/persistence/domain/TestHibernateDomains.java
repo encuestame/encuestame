@@ -136,7 +136,6 @@ public class TestHibernateDomains extends AbstractBase{
         questionPattern.setLabelQid("Y/N");
         questionPattern.setLabelQid("Yes or No");
         questionPattern.setFinallity("Select an option");
-        questionPattern.setClass_("class1.java");
         questionPattern.setPatternTemplate("patter.template.java");
         questionPattern.setLevel(2);
         getQuestionDaoImp().saveOrUpdate(questionPattern);

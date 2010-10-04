@@ -37,7 +37,6 @@ public class QuestionPattern {
     private String labelQid;
     private String finallity;
     private String patternTemplate;
-    private String class_;
     private Integer level;
 
 
@@ -132,21 +131,6 @@ public class QuestionPattern {
      */
     public void setFinallity(String finallity) {
         this.finallity = finallity;
-    }
-
-       /**
-     * @return class_
-     */
-    @Column(name = "clazz", length = 50)
-    public String getClass_() {
-        return this.class_;
-    }
-
-    /**
-     * @param class_ class
-     */
-    public void setClass_(String class_) {
-        this.class_ = class_;
     }
 
     /**
