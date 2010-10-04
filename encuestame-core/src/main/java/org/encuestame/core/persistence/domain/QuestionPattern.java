@@ -60,7 +60,7 @@ public class QuestionPattern {
     /**
      * @return the patternType
      */
-    @Column(name = "type_pattern", nullable = false, length = 25)
+    @Column(name = "type_pattern")
     public String getPatternType() {
         return patternType;
     }
@@ -75,7 +75,7 @@ public class QuestionPattern {
     /**
      * @return the patternTemplate
      */
-    @Column(name = "template_patron", length = 25)
+    @Column(name = "template_patron")
     public String getPatternTemplate() {
         return patternTemplate;
     }
@@ -91,7 +91,7 @@ public class QuestionPattern {
     /**
      * @return desQid
      */
-    @Column(name = "des_qid", nullable = false, length = 50)
+    @Column(name = "des_qid")
     public String getDesQid() {
         return this.desQid;
     }
@@ -121,7 +121,7 @@ public class QuestionPattern {
     /**
      * @return finallity
      */
-    @Column(name = "finallity", length = 16777215)
+    @Column(name = "finallity_patter")
     public String getFinallity() {
         return this.finallity;
     }
@@ -136,7 +136,7 @@ public class QuestionPattern {
     /**
      * @return the level
      */
-    @Column(name = "level")
+    @Column(name = "level_patter")
     public Integer getLevel() {
         return level;
     }
