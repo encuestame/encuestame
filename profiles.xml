@@ -438,6 +438,7 @@
                 <hibernate.datasource.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.datasource.dialect>
                 <hibernate.datasource.showsql>false</hibernate.datasource.showsql>
                 <hibernate.datasource.hbm2ddl.auto>update</hibernate.datasource.hbm2ddl.auto>
+                <hibernate.datasource.delimited></hibernate.datasource.delimited>
                 <hibernate.datasource.core.urldb>jdbc:postgresql://localhost/encuestame_core</hibernate.datasource.core.urldb>
                 <hibernate.datasource.junit.urldb>jdbc:postgresql://localhost/encuestame_test</hibernate.datasource.junit.urldb>
                 <hibernate.properties.path>classpath:hibernate.prod.properties</hibernate.properties.path>
