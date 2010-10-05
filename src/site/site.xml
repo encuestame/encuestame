@@ -6,18 +6,12 @@
         <href>http://www.encuestame.org/</href>
     </bannerLeft>
     <bannerRight>
-    <src>http://www.encuestame.org/images/twitter.jpg</src>
-    <href>http://www.twitter.com/encuestame</href>
+        <name>Encuestame Twitter</name>
+        <src>http://www.encuestame.org/images/twitter.jpg</src>
+        <href>http://www.twitter.com/encuestame</href>
     </bannerRight>
 
-    <skin>
-        <groupId>org.apache.maven.skins</groupId>
-        <artifactId>maven-default-skin</artifactId>
-        <version>1.0</version>
-    </skin>
-
     <publishDate format="dd MMM yyyy" position="left" />
-    <version position="left" />
 
     <body>
 
