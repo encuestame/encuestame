@@ -21,6 +21,7 @@ import org.encuestame.core.persistence.domain.CatEmails;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.CatLocationType;
+import org.encuestame.core.persistence.domain.CatQuestionCategory;
 import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.Project;
@@ -278,6 +279,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
          surveys.setSurveyFormat(createSurveyFormat());
+         surveys.setSurveysfolder(createSurveyFolders());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
      }
@@ -327,7 +329,7 @@ public class TestHibernateDomains extends AbstractBase{
          final SurveyFolder surveyFolders = new SurveyFolder();
          surveyFolders.setCreatedAt(new Date());
          surveyFolders.setFolderName("My Surveys");
-         surveyFolders.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
+         //surveyFolders.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
          surveyFolders.setUsers(createUser());
          getSurveyDaoImp().saveOrUpdate(surveyFolders);
          assertNotNull(surveyFolders.getSurveyFolderId());
@@ -370,5 +372,15 @@ public class TestHibernateDomains extends AbstractBase{
          questionDep.setQuestionId_from(5L);
          questionDep.setQuestionId_to(3L);
 
+     }
+
+     @Test
+     public void testQuestionCategory(){
+         final CatQuestionCategory questionCategory = new CatQuestionCategory();
+         //questionCategory.setQuestionCategoryId(1L);
+         questionCategory.setCategory("Education");
+         getQuestionDaoImp().saveOrUpdate(questionCategory);
+         System.out.println(questionCategory.getQuestionCategoryId());
+         assertNotNull(questionCategory.getQuestionCategoryId());
      }
 }

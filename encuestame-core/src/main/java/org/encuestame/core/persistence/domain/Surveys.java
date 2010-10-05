@@ -44,7 +44,8 @@ public class Surveys extends AbstractSurvey {
     private Date endDate;
     private Date dateInterview;
     private String complete;
-    private SurveyFormat surveyFormat = new SurveyFormat();
+    private SurveyFormat surveyFormat;
+    private SurveyFolder surveysfolder;
 
     /**
      * @return sid
@@ -179,6 +180,22 @@ public class Surveys extends AbstractSurvey {
      */
     public void setTicket(Integer ticket) {
         this.ticket = ticket;
+    }
+
+    /**
+     * @return the surveysfolder
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "survey_folder")
+    public SurveyFolder getSurveysfolder() {
+        return surveysfolder;
+    }
+
+    /**
+     * @param surveysfolder the surveysfolder to set
+     */
+    public void setSurveysfolder(SurveyFolder surveysfolder) {
+        this.surveysfolder = surveysfolder;
     }
 
 }

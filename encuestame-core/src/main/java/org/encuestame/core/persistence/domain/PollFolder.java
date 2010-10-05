@@ -10,9 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-
 package org.encuestame.core.persistence.domain;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,34 +18,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
- * Survey Folders.
- * @author Morales Urbina, Diana paola@encuestame.org
- * @since August 10, 2010
+ * Polls Folder.
+ *
+ * @author Morales, Diana Paola paola AT encuestame.org
+ * @since October 04, 2010
  * @version $Id: $
  */
 @Entity
-@Table(name = "survey_folder")
-public class SurveyFolder extends AbstractFolder {
-
-    /****/
-    private Long surveyFolderId;
+@Table(name = "poll_Folder")
+public class PollFolder extends AbstractFolder {
+     private Long pollFolderId;
 
     /**
-     * @return the surveyFolderId
+     * @return the pollFolderId
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "survey_folderId", unique = true, nullable = false)
-    public Long getSurveyFolderId() {
-        return surveyFolderId;
+     @Id
+     @GeneratedValue(strategy = GenerationType.AUTO)
+     @Column(name = "pollFolderId", unique = true, nullable = true)
+    public Long getPollFolderId() {
+        return pollFolderId;
     }
 
     /**
-     * @param surveyFolderId the surveyFolderId to set
+     * @param pollFolderId the pollFolderId to set
      */
-    public void setSurveyFolderId(Long surveyFolderId) {
-        this.surveyFolderId = surveyFolderId;
+    public void setPollFolderId(Long pollFolderId) {
+        this.pollFolderId = pollFolderId;
     }
 }

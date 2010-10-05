@@ -12,7 +12,6 @@
  */
 
 package org.encuestame.core.persistence.domain;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,34 +19,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
- * Survey Folders.
- * @author Morales Urbina, Diana paola@encuestame.org
- * @since August 10, 2010
+ * Poll Domain.
+ *
+ * @author Morales, Diana Paola paola@encuestame.org
+ * @since October 04, 2010
  * @version $Id: $
  */
+
 @Entity
-@Table(name = "survey_folder")
-public class SurveyFolder extends AbstractFolder {
-
-    /****/
-    private Long surveyFolderId;
+@Table(name = "tweetPoll_Folder")
+public class TweetPollFolder extends AbstractFolder{
+     private Long tweetPollFolderId;
 
     /**
-     * @return the surveyFolderId
+     * @return the tweetPollFolderId
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "survey_folderId", unique = true, nullable = false)
-    public Long getSurveyFolderId() {
-        return surveyFolderId;
+     @Id
+     @GeneratedValue(strategy = GenerationType.AUTO)
+     @Column(name = "tweetPollFolderId", unique = true, nullable = true)
+    public Long getTweetPollFolderId() {
+        return tweetPollFolderId;
     }
 
     /**
-     * @param surveyFolderId the surveyFolderId to set
+     * @param tweetPollFolderId the tweetPollFolderId to set
      */
-    public void setSurveyFolderId(Long surveyFolderId) {
-        this.surveyFolderId = surveyFolderId;
+    public void setTweetPollFolderId(Long tweetPollFolderId) {
+        this.tweetPollFolderId = tweetPollFolderId;
     }
+
 }

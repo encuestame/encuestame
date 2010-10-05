@@ -43,6 +43,8 @@
         <mapping class="org.encuestame.core.persistence.domain.CatSubscribeEmails"/>
         <mapping class="org.encuestame.core.persistence.domain.SurveyPagination"/>
         <mapping class="org.encuestame.core.persistence.domain.SurveyFolder"/>
+        <mapping class="org.encuestame.core.persistence.domain.TweetPollFolder"/>
+        <mapping class="org.encuestame.core.persistence.domain.PollFolder"/>
         <mapping class="org.encuestame.core.persistence.domain.QuestionDependencies"/>
         <mapping class="org.encuestame.core.persistence.domain.QuestionDependenceSurvey"/>
         <mapping class="org.encuestame.core.persistence.domain.notifications.Notification"/>

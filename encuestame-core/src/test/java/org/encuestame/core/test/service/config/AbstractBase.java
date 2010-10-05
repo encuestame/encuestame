@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.test.service.config;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
@@ -56,6 +58,7 @@ import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.domain.Status;
+import org.encuestame.core.persistence.domain.SurveyFolder;
 import org.encuestame.core.persistence.domain.SurveyFormat;
 import org.encuestame.core.persistence.domain.SurveyGroup;
 import org.encuestame.core.persistence.domain.Surveys;
@@ -1119,6 +1122,16 @@ public class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.tokenSecret"),
                 secUsers,
                 getProperty("twitter.test.account"));
+    }
+
+
+    public SurveyFolder createSurveyFolders(){
+        final SurveyFolder surveyFolders = new SurveyFolder();
+        surveyFolders.setCreatedAt(new Date());
+        surveyFolders.setFolderName("My Surveys");
+        surveyFolders.setUsers(createUser());
+        getSurveyDaoImp().saveOrUpdate(surveyFolders);
+        return surveyFolders;
     }
 
     /**

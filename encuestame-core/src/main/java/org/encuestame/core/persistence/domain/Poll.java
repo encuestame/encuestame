@@ -49,6 +49,7 @@ public class Poll extends AbstractSurvey {
     private Boolean publish;
     private Boolean closeNotification;
     private Boolean showVotes;
+    private PollFolder pollFolder;
 
     /**
      * @return the poll_id
@@ -214,6 +215,22 @@ public class Poll extends AbstractSurvey {
      */
     public void setShowVotes(Boolean showVotes) {
         this.showVotes = showVotes;
+    }
+
+    /**
+     * @return the pollFolder
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "poll_folder")
+    public PollFolder getPollFolder() {
+        return pollFolder;
+    }
+
+    /**
+     * @param pollFolder the pollFolder to set
+     */
+    public void setPollFolder(PollFolder pollFolder) {
+        this.pollFolder = pollFolder;
     }
 
 }

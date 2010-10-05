@@ -58,6 +58,8 @@
                 <value>org.encuestame.core.persistence.domain.CatSubscribeEmails</value>
                 <value>org.encuestame.core.persistence.domain.SurveyPagination</value>
                 <value>org.encuestame.core.persistence.domain.SurveyFolder</value>
+                <value>org.encuestame.core.persistence.domain.TweetPollFolder</value>
+                <value>org.encuestame.core.persistence.domain.PollFolder</value>
                 <value>org.encuestame.core.persistence.domain.QuestionDependencies</value>
                 <value>org.encuestame.core.persistence.domain.QuestionDependenceSurvey</value>
                 <value>org.encuestame.core.persistence.domain.notifications.Notification</value>
