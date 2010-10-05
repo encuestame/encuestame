@@ -21,7 +21,7 @@
     <inceptionYear>2009</inceptionYear>
 
     <properties>
-        <encuestame.version>1.0-SNAPSHOT</encuestame.version>
+        <encuestame.version>1.1-SNAPSHOT</encuestame.version>
         <!-- Spring Version -->
         <spring.version>3.0.4.RELEASE</spring.version>
         <spring.webflow.version>2.1.1.RELEASE</spring.webflow.version>
