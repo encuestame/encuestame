@@ -24,6 +24,7 @@ import java.util.Set;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.SecGroup;
 import org.encuestame.core.persistence.domain.SecPermission;
@@ -106,8 +107,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Load Groups by Client
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitGroupBean> loadGroups(final String currentUsername){
+    public List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException{
         final SecUserSecondary secUserSecondary = getUser(currentUsername);
         final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
         final List<SecGroup> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
@@ -225,8 +227,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Add new Twitter Account.
      * @param account account.
      * @param username
+     * @throws EnMeDomainNotFoundException
      */
-    public void addNewTwitterAccount(final String account, final String username){
+    public void addNewTwitterAccount(final String account, final String username) throws EnMeDomainNotFoundException{
         final SecUser secUsers = getUser(username).getSecUser();
         final SecUserTwitterAccounts userTwitterAccount = new SecUserTwitterAccounts();
         userTwitterAccount.setSecUsers(secUsers);
@@ -304,8 +307,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Delete user.
      * @param userBean user to delete
+     * @throws EnMeDomainNotFoundException
      */
-    public void deleteUser(final UnitUserBean userBean){
+    public void deleteUser(final UnitUserBean userBean) throws EnMeDomainNotFoundException{
             final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
             log.info("user found "+userDomain);
             if(userDomain == null) {
@@ -399,8 +403,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Create a new Group.
      * @param groupBean group bean
+     * @throws EnMeDomainNotFoundException
      */
-    public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) {
+    public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) throws EnMeDomainNotFoundException {
         //log.info("Create Group");
         final SecGroup groupDomain = new SecGroup();
         final SecUser secUsers = getUser(username).getSecUser();
@@ -687,8 +692,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Get User Logged Twitter Accounts.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username){
+    public List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username) throws EnMeDomainNotFoundException{
          return ConvertDomainBean.convertListTwitterAccountsToBean(getSecUserDao()
                                  .getTwitterAccountByUser(getUser(username).getSecUser()));
     }
@@ -697,8 +703,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Get User Logged Verified Twitter Accounts.
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username){
+    public List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertListTwitterAccountsToBean(getSecUserDao()
                                 .getTwitterVerifiedAccountByUser(getUser(username).getSecUser()));
    }
@@ -770,8 +777,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Get Email List by Username.
      * @param username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitLists> getListbyUsername(final String username){
+    public List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException{
             return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
     }
 
@@ -780,8 +788,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Load Groups on {@link SelectItem}.
      * @param username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<SelectItem> loadSelectItemGroups (final String username){
+    public List<SelectItem> loadSelectItemGroups (final String username) throws EnMeDomainNotFoundException{
         return ConvertListDomainSelectBean.convertListGroupDomainToSelect(
                new HashSet<SecGroup>(getGroupDao().loadGroupsByUser(getUser(username).getSecUser())));
     }

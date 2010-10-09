@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.ISurveyService;
@@ -283,7 +284,13 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
     public void suggest(){
         final String pref = this.questionName;
         if(pref.length() > 1){
-            this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getSecurityContextUsername());
+            try {
+                this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getUserPrincipalUsername());
+            } catch (EnMeDomainNotFoundException e) {
+                log.error(e);
+                e.printStackTrace();
+                addErrorMessage(e.getMessage(),"");
+            }
             //setValidTweet(Boolean.FALSE);
             this.saveQuestion();
         }

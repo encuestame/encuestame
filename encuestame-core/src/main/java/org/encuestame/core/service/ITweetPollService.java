@@ -14,6 +14,7 @@ package org.encuestame.core.service;
 
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
 import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
@@ -73,8 +74,9 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param username username session
      * @param keyword keyword.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword);
+    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword) throws EnMeDomainNotFoundException;
 
     /**
      * Save Tweet Id.
@@ -120,8 +122,9 @@ public interface ITweetPollService extends IMasterSurveyService{
      *
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitTweetPoll> getTweetsPollsByUserName(final String username);
+    List<UnitTweetPoll> getTweetsPollsByUserName(final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Public Multiples Tweet Accounts.

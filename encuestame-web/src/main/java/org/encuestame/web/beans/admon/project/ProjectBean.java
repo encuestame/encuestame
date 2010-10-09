@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
@@ -137,13 +138,27 @@ public class ProjectBean extends AdmonBean implements Serializable {
      */
     public final List<UnitLocationFolder> getLocationFolders(){
         if(locationFolders == null){
-            locationFolders = getLocationFoldersByUsername();
+            try {
+                locationFolders = getLocationFoldersByUsername();
+            } catch (EnMeDomainNotFoundException e) {
+                 log.error(e);
+                 e.printStackTrace();
+                 addErrorMessage(e.getMessage(),"");
+            }
         }
         return locationFolders;
     }
 
     public final List<UnitLocationBean> getLocationsItems(){
-        return getLocationService().retrieveLocationItemsByUsername(getUserPrincipalUsername());
+        List<UnitLocationBean> locationBeans = null;
+        try {
+            locationBeans = getLocationService().retrieveLocationItemsByUsername(getUserPrincipalUsername());
+        } catch (EnMeDomainNotFoundException e) {
+            log.error(e);
+            e.printStackTrace();
+            addErrorMessage(e.getMessage(),"");
+        }
+        return locationBeans;
     }
 
     /**
@@ -189,7 +204,12 @@ public class ProjectBean extends AdmonBean implements Serializable {
      */
     public List<SelectItem> getLoadLeaders(){
         if(listOfUsers == null){
-            listOfUsers = ConvertListDomainSelectBean.convertListUnitUserBeanDomainToSelect(getProjectService().loadListUsers(getUserPrincipalUsername()));
+            try {
+                listOfUsers = ConvertListDomainSelectBean.convertListUnitUserBeanDomainToSelect(getProjectService().loadListUsers(getUserPrincipalUsername()));
+            } catch (EnMeDomainNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             log.debug("List of Users "+listOfUsers.size());
         }
         return listOfUsers;

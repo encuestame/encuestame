@@ -13,10 +13,11 @@
 package org.encuestame.web.beans;
 
 /**
- * Description Class.
+ * Abstract Table Bean.
+ * This bean is we need represent rich tables with pagination.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 18, 2010 5:19:51 PM
- * @version Id:
+ * @version $Id:$
  */
 public abstract class AbstractTableBean extends MasterBean{
 

@@ -59,6 +59,7 @@ public class TweetPollsBean extends AbstractTableBean implements Serializable {
     /** Selected Results. **/
     private List<UnitTweetPollResult> selectedResults = new ArrayList<UnitTweetPollResult>();
 
+    @SuppressWarnings("unused")
     private static final Integer TWEET_TEXT_LENGTH = 140;
 
     /**
@@ -72,7 +73,7 @@ public class TweetPollsBean extends AbstractTableBean implements Serializable {
     private void loadTweets() {
         try {
             this.listTweets = getServicemanager().getApplicationServices().getTweetPollService()
-            .getTweetsPollsByUserName(getSecurityContextUsername());
+            .getTweetsPollsByUserName(getUserPrincipalUsername());
              log.info("loading tweet polls");
         } catch (Exception e) {
             log.error(e);

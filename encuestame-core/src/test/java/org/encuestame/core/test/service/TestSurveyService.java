@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.domain.Question;
@@ -195,9 +196,10 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
 
     /**
      * Test Suggestion Question List.
+     * @throws EnMeDomainNotFoundException
      */
     @Test
-    public void testSuggestionQuestionList(){
+    public void testSuggestionQuestionList() throws EnMeDomainNotFoundException{
          List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
         final String keyword = "sky";
         flushIndexes();

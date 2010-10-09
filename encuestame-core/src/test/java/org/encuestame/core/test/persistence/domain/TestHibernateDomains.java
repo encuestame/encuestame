@@ -279,7 +279,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
          surveys.setSurveyFormat(createSurveyFormat());
-         surveys.setSurveysfolder(createSurveyFolders());
+         //surveys.setSurveysfolder(createSurveyFolders());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
      }
@@ -332,7 +332,7 @@ public class TestHibernateDomains extends AbstractBase{
          //surveyFolders.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
          surveyFolders.setUsers(createUser());
          getSurveyDaoImp().saveOrUpdate(surveyFolders);
-         assertNotNull(surveyFolders.getSurveyFolderId());
+         assertNotNull(surveyFolders.getId());
      }
 
      /**

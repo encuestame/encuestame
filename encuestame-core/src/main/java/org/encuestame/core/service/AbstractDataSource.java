@@ -21,6 +21,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatLocationTypeDao;
 import org.encuestame.core.persistence.dao.ClientDao;
@@ -126,17 +127,25 @@ public abstract class AbstractDataSource{
      * Get User.
      * @param username
      * @return user domain
+     * @throws EnMeDomainNotFoundException exception
      */
-    public SecUserSecondary getUser(final String username) {
-        return getSecUserDao().getUserByUsername(username.trim());
+    public SecUserSecondary getUser(final String username) throws EnMeDomainNotFoundException {
+        final SecUserSecondary secUserSecondary = getSecUserDao().getUserByUsername(username);
+        if(secUserSecondary == null){
+            throw new EnMeDomainNotFoundException("user not found");
+        } else {
+            //TODO: we can add others validations, like is disabled, banned or the account is expired.
+            return getSecUserDao().getUserByUsername(username);
+        }
     }
 
     /**
      * Get Primary User Id.
      * @param username
      * @return
+     * @throws EnMeDomainNotFoundException exception
      */
-    public Long getPrimaryUser(final String username){
+    public Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
         return getUser(username).getSecUser().getUid();
      }
 

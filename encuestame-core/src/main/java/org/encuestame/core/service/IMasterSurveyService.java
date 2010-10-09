@@ -13,6 +13,7 @@ package org.encuestame.core.service;
 
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 
@@ -29,7 +30,7 @@ public interface IMasterSurveyService extends IService{
      * @param questionKeyword
      * @return
      */
-    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username);
+    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * List Suggested Hash Tags.

@@ -22,6 +22,8 @@ import java.util.Map.Entry;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
@@ -232,17 +234,24 @@ public final class LocationBean extends MasterBean implements Serializable {
                 i++;
 
               //add items if folder have.
-                final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
-                        itemNode.getId(), getUserPrincipalUsername());
-                log.debug("items on folder "+locationBeans.size());
-                this.addItems(nodeImpl, ConvertDomainBean.convertItemToDragrable(locationBeans, TypeTreeNode.ITEM));
+                try{
+                    final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
+                            itemNode.getId(), getUserPrincipalUsername());
+                    log.debug("items on folder "+locationBeans.size());
+                    this.addItems(nodeImpl, ConvertDomainBean.convertItemToDragrable(locationBeans, TypeTreeNode.ITEM));
 
-                //adding subfolders
-                final List<UnitLocationFolder> unitLocationSubFolder = locationService
-                      .retrieveLocationSubFolderByUser(itemNode.getId(), getUserPrincipalUsername());
-                log.debug("subfolders found "+unitLocationSubFolder.size());
-                if(unitLocationSubFolder.size() > 0){
-                    this.addFolders(nodeImpl, ConvertDomainBean.convertFolderToDragrable(unitLocationSubFolder, TypeTreeNode.FOLDER));
+                    //adding subfolders
+                    final List<UnitLocationFolder> unitLocationSubFolder = locationService
+                          .retrieveLocationSubFolderByUser(itemNode.getId(), getUserPrincipalUsername());
+
+                    log.debug("subfolders found "+unitLocationSubFolder.size());
+                    if(unitLocationSubFolder.size() > 0){
+                        this.addFolders(nodeImpl, ConvertDomainBean.convertFolderToDragrable(unitLocationSubFolder, TypeTreeNode.FOLDER));
+                    }
+                }catch (EnMeExpcetion e) {
+                     log.error(e);
+                     e.printStackTrace();
+                     addErrorMessage(e.getMessage(),"");
                 }
         }
     }
@@ -303,8 +312,9 @@ public final class LocationBean extends MasterBean implements Serializable {
 
     /**
      * Get Items by Location Folder.
+     * @throws EnMeDomainNotFoundException
      */
-    private void getItemsByLocationFolder(){
+    private void getItemsByLocationFolder() throws EnMeDomainNotFoundException{
             setItemsBySelectedFolder(getLocationService()
             .retrieveLocationFolderItemsById(getDetailFolderLocation().getId(), getUserPrincipalUsername()));
     }
@@ -377,26 +387,38 @@ public final class LocationBean extends MasterBean implements Serializable {
        log.info("nodeTitle "+nodeTitle.getName());
        selectedNodeChildren.clear();
        //get tree selected.
-       final TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
-       log.info("currentNode "+currentNode.getData());
-       if (currentNode.isLeaf()){
-           selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
-       }
-       else{
-           Iterator<Entry<Object, TreeNode<UtilTreeNode>>> it = currentNode.getChildren();
-           while (it!=null &&it.hasNext()) {
-               Map.Entry<Object, TreeNode<UtilTreeNode>> entry = it.next();
-               selectedNodeChildren.add(entry.getValue().getData());
+       try{
+           final TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
+           log.info("currentNode "+currentNode.getData());
+           if (currentNode.isLeaf()){
+               selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
            }
-       }
-       if(nodeTitle.getNode() == TypeTreeNode.ITEM){
-           this.detailLocation = searchItemLocationDetail(nodeTitle);
-           log.info("detailLocation "+detailLocation);
-       }
-       else{
-           this.detailFolderLocation = searchFolderLocationDetail(nodeTitle);
-           this.getItemsByLocationFolder();
-           log.info("detailFolderLocation "+detailFolderLocation);
+           else{
+               Iterator<Entry<Object, TreeNode<UtilTreeNode>>> it = currentNode.getChildren();
+               while (it!=null &&it.hasNext()) {
+                   Map.Entry<Object, TreeNode<UtilTreeNode>> entry = it.next();
+                   selectedNodeChildren.add(entry.getValue().getData());
+               }
+           }
+           if(nodeTitle.getNode() == TypeTreeNode.ITEM){
+               this.detailLocation = searchItemLocationDetail(nodeTitle);
+               log.info("detailLocation "+detailLocation);
+           }
+           else{
+               this.detailFolderLocation = searchFolderLocationDetail(nodeTitle);
+               try {
+                this.getItemsByLocationFolder();
+            } catch (EnMeDomainNotFoundException e) {
+                 log.error(e);
+                 e.printStackTrace();
+                 addErrorMessage(e.getMessage(),"");
+            }
+               log.info("detailFolderLocation "+detailFolderLocation);
+           }
+       }catch (Exception e) {
+           log.error(e);
+           e.printStackTrace();
+           addErrorMessage(e.getMessage(),"");
        }
     }
 
@@ -429,8 +451,9 @@ public final class LocationBean extends MasterBean implements Serializable {
      * Search Location Detail.
      * @param treeNode Selected Tree Node.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    private UnitLocationBean searchItemLocationDetail(final UtilTreeNode treeNode){
+    private UnitLocationBean searchItemLocationDetail(final UtilTreeNode treeNode) throws EnMeDomainNotFoundException{
          log.info("searchLocationDetail "+treeNode.getId());
          final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
          final UnitLocationBean retrievedLocation = locationService.getLocationItem(treeNode.getId(), getUserPrincipalUsername());
@@ -448,8 +471,9 @@ public final class LocationBean extends MasterBean implements Serializable {
      * Search Folder Location Detail.
      * @param treeNode folder treeNode.
      * @return {@link UnitLocationFolder}.
+     * @throws EnMeDomainNotFoundException
      */
-    private UnitLocationFolder searchFolderLocationDetail(final UtilTreeNode treeNode){
+    private UnitLocationFolder searchFolderLocationDetail(final UtilTreeNode treeNode) throws EnMeDomainNotFoundException{
         log.info("searchLocationDetail "+treeNode.getId());
         final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
         final UnitLocationFolder retrievedLocation = locationService.getFolderLocation(treeNode.getId(), getUserPrincipalUsername());

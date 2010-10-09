@@ -18,7 +18,7 @@ package org.encuestame.core.exception;
  * @since Oct 9, 2010 1:27:09 PM
  * @version $Id:$
  */
-public class EnMeDomainNotFoundException extends Exception{
+public class EnMeDomainNotFoundException extends EnMeExpcetion{
 
     /**
      *

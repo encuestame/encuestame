@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatEmailLists;
 import org.encuestame.core.persistence.domain.CatEmails;
@@ -84,11 +85,12 @@ public class TestPollService extends AbstractBaseUnitBeans{
 
     /**
      * Test Find Polls By User.
+     * @throws EnMeDomainNotFoundException
      **/
     @Test
-    public void testFindAllPollByUserId(){
+    public void testFindAllPollByUserId() throws EnMeDomainNotFoundException{
         List<UnitPoll> unitPoll =  new ArrayList<UnitPoll>();
-        unitPoll=pollService.listPollByUser(this.secUserSecondary.getUsername());
+        unitPoll = pollService.listPollByUser(this.secUserSecondary.getUsername());
          assertEquals("should be equals",1, unitPoll.size());
     }
 

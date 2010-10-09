@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.stereotype.Controller;
@@ -43,8 +45,9 @@ public class TweetPollFeedController extends AbstractFeedController {
      * @param username
      * @param model
      * @param request
+     * @throws EnMeDomainNotFoundException
      */
-    private void buildTweetPollFeedBody(String username, Model model, HttpServletRequest request, SecUserSecondary secUserSecondary){
+    private void buildTweetPollFeedBody(String username, Model model, HttpServletRequest request, SecUserSecondary secUserSecondary) throws EnMeDomainNotFoundException{
          model.addAttribute("username", username);
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
          model.addAttribute("url", buildDomainWithRequest(request));
@@ -68,7 +71,12 @@ public class TweetPollFeedController extends AbstractFeedController {
             //TODO: if null do something.
         }
         else{
-            this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
+            try {
+                this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
+            } catch (EnMeExpcetion e) {
+                log.error(e);
+                e.printStackTrace();
+            }
         }
         return "tweetPollAtomFeedView";
     }
@@ -88,7 +96,12 @@ public class TweetPollFeedController extends AbstractFeedController {
             //TODO: if null do something.
         }
         else{
-            this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
+            try {
+                this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
+            } catch (EnMeDomainNotFoundException e) {
+                log.error(e);
+                e.printStackTrace();
+            }
         }
         return "tweetPollRssFeedView";
     }

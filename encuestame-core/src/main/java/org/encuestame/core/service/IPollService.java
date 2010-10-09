@@ -65,8 +65,9 @@ public interface IPollService extends IMasterSurveyService{
    * List Poll By User.
    * @param currentUser currentUser
    * @return
+ * @throws EnMeDomainNotFoundException
    */
-  List<UnitPoll> listPollByUser(final String currentUser);
+  List<UnitPoll> listPollByUser(final String currentUser) throws EnMeDomainNotFoundException;
 
       /**
        * Update Question Poll.
@@ -103,8 +104,9 @@ public interface IPollService extends IMasterSurveyService{
    * @param folderName
    * @param username
    * @return
+ * @throws EnMeDomainNotFoundException
    */
-  UnitFolder createPollFolder(final String folderName, final String username);
+  UnitFolder createPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
 
   /**
    * Update FolderName.
@@ -117,4 +119,12 @@ public interface IPollService extends IMasterSurveyService{
   public UnitFolder updateFolderName(final Long folderId,
           final String newFolderName,
           final String username) throws EnMeDomainNotFoundException;
+
+  /**
+   * Retrieve Folder Poll.
+   * @param username
+   * @return
+   * @throws EnMeDomainNotFoundException exception
+   */
+  List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException;
 }

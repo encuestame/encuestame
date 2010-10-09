@@ -22,10 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.core.service.ILocationService;
+import org.encuestame.core.service.IPollService;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ISurveyService;
@@ -370,10 +372,19 @@ public class MasterBean extends AbstractSecurityContext{
     }
 
     /**
+     * Get Poll Services.
+     * @return
+     */
+    public IPollService getPollService(){
+        return getServicemanager().getApplicationServices().getPollService();
+    }
+
+    /**
      * Get Location Folders.
      * @return List of {@link UnitLocationFolder}.
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitLocationFolder> getLocationFoldersByUsername(){
+    public List<UnitLocationFolder> getLocationFoldersByUsername() throws EnMeDomainNotFoundException{
         return  getLocationService().retrieveLocationFolderByUser(getUserPrincipalUsername());
     }
 

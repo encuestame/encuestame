@@ -39,6 +39,8 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  * @since May 05, 2009
  * @version $Id$
  */
+
+@SuppressWarnings("unchecked")
 public class MailServiceImpl extends AbstractBaseService implements MailService, IService {
 
     private Log log = LogFactory.getLog(this.getClass());
@@ -164,7 +166,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
      */
     public void sendEmailInvitation(final InvitationBean invitation) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
-           public void prepare(MimeMessage mimeMessage) throws Exception {
+        public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(invitation.getEmail());
               message.setSubject("New Password Confirmation");
@@ -240,7 +242,6 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
      * @param from
      * @param template
      */
-    @SuppressWarnings("unchecked")
     public void sendMimeEmail(
             final Map model,
             final String email,

@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Question;
@@ -76,8 +77,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * Get Tweet Polls by User Id.
      * @param username username.
      * @return list of Tweet polls bean
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitTweetPoll> getTweetsPollsByUserName(final String username){
+    public List<UnitTweetPoll> getTweetsPollsByUserName(final String username) throws EnMeDomainNotFoundException{
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
         log.info("tweetPoll size "+tweetPolls.size());
         return this.setListAnswers(tweetPolls);
@@ -103,8 +105,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username username session
      * @param keyword keyword.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword){
+    public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword) throws EnMeDomainNotFoundException{
         log.info("search keyword tweetPoll  "+keyword);
         List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
         if(keyword == null || keyword.trim().isEmpty()){
@@ -359,10 +362,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * Validate User Twitter Account.
      * @param username username logged.
      * @return if user have twitter account
+     * @throws EnMeDomainNotFoundException
      * @throws TwitterException
      */
     @Deprecated
-    public Boolean validateUserTwitterAccount(final String username){
+    public Boolean validateUserTwitterAccount(final String username) throws EnMeDomainNotFoundException{
         final SecUser users = getUser(username).getSecUser();
         Boolean validate = false;
         log.info(users.getTwitterAccount());

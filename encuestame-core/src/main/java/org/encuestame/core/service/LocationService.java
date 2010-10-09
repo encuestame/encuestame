@@ -15,6 +15,7 @@ package org.encuestame.core.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
@@ -137,8 +138,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * Create Location Folder.
      * @param locationFolder {@link UnitLocationFolder}
      * @return {@link UnitLocationFolder}.
+     * @throws EnMeDomainNotFoundException
      */
-    public UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username){
+    public UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException{
         final CatLocationFolder catLocationFolder = new CatLocationFolder();
         catLocationFolder.setFolderType(LocationFolderType.valueOf(locationFolder.getType()));
         catLocationFolder.setLocationFolderName(locationFolder.getName());
@@ -161,8 +163,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     /**
      * Retrieve Location Folders by User.
      * @param currentName
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName){
+    public List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertListToUnitLocationFolderBean(getCatLocationDao()
                                 .getLocationFolders(getPrimaryUser(currentUserName)));
     }
@@ -170,8 +173,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     /**
      * Retrieve Location Sub Folders by User.
      * @param currentName
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName){
+    public List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertListToUnitLocationFolderBean(getCatLocationDao()
                                 .getLocationFoldersByLocationFolderId(locationFolderId, getPrimaryUser(currentUserName)));
     }
@@ -181,8 +185,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationFolderId location folder id
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username){
+    public List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertListToUnitLocationBean(getCatLocationDao()
                                 .getLocationByFolder(locationFolderId, getPrimaryUser(username)));
     }
@@ -191,8 +196,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * Retrieve Locations Items by Username
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitLocationBean> retrieveLocationItemsByUsername(final String username){
+    public List<UnitLocationBean> retrieveLocationItemsByUsername(final String username) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertListToUnitLocationBean(getCatLocationDao()
                                 .getLocationByUser(getPrimaryUser(username)));
     }
@@ -202,8 +208,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationId location id
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public UnitLocationBean getLocationItem(final Long locationId, final String username){
+    public UnitLocationBean getLocationItem(final Long locationId, final String username) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertLocationToBean(getLocation(locationId, username));
     }
 
@@ -212,8 +219,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param folderLocationId folder location  Id.
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username){
+    public UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertCatLocationFolderDomainToBean(getCatLocationDao()
                                 .getLocationFolderByIdAndUserId(folderLocationId, getPrimaryUser(username)));
     }
@@ -250,8 +258,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationId location Id
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    private CatLocation getLocation(final Long locationId, final String username){
+    private CatLocation getLocation(final Long locationId, final String username) throws EnMeDomainNotFoundException{
         return getCatLocationDao().getLocationById(locationId, getPrimaryUser(username));
     }
 
@@ -260,8 +269,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationFolderId
      * @param username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    private CatLocationFolder getLocationFolder(final Long locationFolderId, final String username){
+    private CatLocationFolder getLocationFolder(final Long locationFolderId, final String username) throws EnMeDomainNotFoundException{
         return getCatLocationDao().getLocationFolderByIdAndUserId(locationFolderId, getPrimaryUser(username));
     }
 

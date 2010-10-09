@@ -25,6 +25,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
@@ -462,8 +463,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * Get List Suggestion Question.
      * @param questionKeyword question keyword
      * @return unitQuestionBean
+     * @throws EnMeDomainNotFoundException
      */
-    public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username){
+    public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeDomainNotFoundException{
         final List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
         final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
         log.info("listSuggestQuestion "+questionsList.size());

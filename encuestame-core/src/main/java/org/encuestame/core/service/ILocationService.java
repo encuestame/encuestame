@@ -14,6 +14,7 @@ package org.encuestame.core.service;
 
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
@@ -34,8 +35,9 @@ public interface ILocationService {
      * Create Location Folder.
      * @param locationFolder {@link UnitLocationFolder}
      * @return {@link UnitLocationFolder}.
+     * @throws EnMeDomainNotFoundException
      */
-    UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username);
+    UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Create Cat LocationType.
@@ -76,36 +78,41 @@ public interface ILocationService {
      * @param locationFolderId location folder id
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username);
+    List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Retrieve Location Folders by User.
      * @param currentName username
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName);
+    List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName) throws EnMeDomainNotFoundException;
 
     /**
      * Retrieve Location Sub Folders by User.
      * @param currentName
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName);
+    List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName) throws EnMeDomainNotFoundException;
 
     /**
      * Get Location Item.
      * @param locationId location id
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    UnitLocationBean getLocationItem(final Long locationId, final String username);
+    UnitLocationBean getLocationItem(final Long locationId, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Get Folder Location Detail.
      * @param folderLocationId folder location  Id.
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username);
+    UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Update Location Map.
@@ -165,6 +172,7 @@ public interface ILocationService {
        * Retrieve Locations Items by Username
        * @param username username
        * @return
+     * @throws EnMeDomainNotFoundException
        */
-      List<UnitLocationBean> retrieveLocationItemsByUsername(final String username);
+      List<UnitLocationBean> retrieveLocationItemsByUsername(final String username) throws EnMeDomainNotFoundException;
 }

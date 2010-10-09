@@ -1,4 +1,4 @@
-<ui:composition template="../../layouts/admonTemplate.xhtml"
+<ui:composition template="pollTemplate.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -6,10 +6,33 @@
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich"
     xmlns:sf="http://www.springframework.org/tags/faces">
-
     <ui:define name="title"></ui:define>
-    <ui:define name="bodyOptions">
-		<h:outputText value="Hello" />
-
+    <ui:define name="main">
+        <a4j:repeat value="#{pollBean.rollFolders}" var="folder">
+            <h:outputText value="#{folder}" />
+        </a4j:repeat>
+        <rich:panelBar height="400" width="300">
+            <rich:panelBarItem label="Folder 1">
+                <div class="pollItem">
+                    <a4j:commandLink value="Poll 1"/>
+                </div>
+                <div class="pollItem">
+                    <a4j:commandLink value="Poll 2"/>
+                    <h:outputText value="#{pollBean}" />
+                </div>
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Folder 2">
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Folder 3">
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Folder 4">
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Folder 5">
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Folder 6">
+            </rich:panelBarItem>
+            <rich:panelBarItem label="Folder 7">
+            </rich:panelBarItem>
+        </rich:panelBar>
     </ui:define>
 </ui:composition>

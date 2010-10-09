@@ -15,12 +15,16 @@ package org.encuestame.core.persistence.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.encuestame.core.persistence.dao.imp.IFolder;
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.domain.Poll;
 import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.PollResult;
+import org.encuestame.core.persistence.domain.Question;
+import org.encuestame.core.persistence.domain.SecUser;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +48,17 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     @SuppressWarnings("unchecked")
     public List<Poll> findAll() throws HibernateException {
          return getHibernateTemplate().find("FROM poll");
+    }
+
+    /**
+     * List of Poll Folder by User.
+     * @param secUser {@link SecUser}.
+     * @return list of folders.
+     */
+    public List<IFolder> getPollFolderBySecUser(final SecUser secUser){
+          final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
+          criteria.add(Restrictions.eq("users", secUser));
+          return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**

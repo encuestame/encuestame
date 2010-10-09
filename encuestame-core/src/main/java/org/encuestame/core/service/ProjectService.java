@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.Project;
@@ -46,9 +47,10 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
      * Load List of Project.
      * @param userId user id.
      * @return {@link Collection} of {@link UnitProjectBean}
+     * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion exception
      */
-    public List<UnitProjectBean> loadListProjects(final String username) {
+    public List<UnitProjectBean> loadListProjects(final String username) throws EnMeDomainNotFoundException {
             final List<UnitProjectBean> listProjects = new ArrayList<UnitProjectBean>();
             final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(getUser(username).getSecUser().getUid());
             //log.debug("project by user id: "+projectList.size());

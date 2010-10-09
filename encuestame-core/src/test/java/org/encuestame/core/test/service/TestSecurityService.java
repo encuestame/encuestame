@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.SecGroup;
 import org.encuestame.core.persistence.domain.SecPermission;
@@ -349,9 +350,10 @@ public class TestSecurityService extends AbstractBase{
 
       /**
        * Test Create Group.
+     * @throws EnMeDomainNotFoundException
        */
       @Test
-      public void testCreateGroup(){
+      public void testCreateGroup() throws EnMeDomainNotFoundException{
         SecGroup secCreateGroup = new SecGroup();
         secCreateGroup.setGroupId(12L);
         secCreateGroup.setGroupDescriptionInfo("1111");

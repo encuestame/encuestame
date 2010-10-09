@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.SecGroup;
 import org.encuestame.core.persistence.domain.SecPermission;
@@ -52,8 +53,9 @@ public interface ISecurityService extends IService {
      * Add new Twitter Account.
      * @param account account.
      * @param username
+     * @throws EnMeDomainNotFoundException
      */
-     void addNewTwitterAccount(final String account, final String username);
+     void addNewTwitterAccount(final String account, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Assing Group to User.
@@ -84,9 +86,10 @@ public interface ISecurityService extends IService {
     /**
      * Delete user.
      * @param userBean user to delete
+     * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion exception
      */
-     void deleteUser(final UnitUserBean userBean);
+     void deleteUser(final UnitUserBean userBean) throws EnMeDomainNotFoundException;
     /**
      * Renew password.
      * @param userBean {@link UnitUserBean}
@@ -109,8 +112,9 @@ public interface ISecurityService extends IService {
     /**
      * Create a new Group.
      * @param groupBean group bean
+     * @throws EnMeDomainNotFoundException
      */
-    UnitGroupBean createGroup(final UnitGroupBean groupBean , final String username);
+    UnitGroupBean createGroup(final UnitGroupBean groupBean , final String username) throws EnMeDomainNotFoundException;
     /**
      * Create a new Permisssion.
      * @param permissionBean {@link UnitPermission}
@@ -231,8 +235,9 @@ public interface ISecurityService extends IService {
     /**
      * Load Groups by Client.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitGroupBean> loadGroups(final String currentUsername);
+    List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException;
 
     /**
      * SingUp User
@@ -281,22 +286,25 @@ public interface ISecurityService extends IService {
     /**
      * Get User Logged Twitter Accounts.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username);
+    List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Get User Logged Verified Twitter Accounts.
      * @param username username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username);
+    List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Get Email List by Username.
      * @param username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<UnitLists> getListbyUsername(final String username);
+    List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Update OAuth Token/Secret Social Account.
@@ -319,6 +327,7 @@ public interface ISecurityService extends IService {
      * Load Groups on {@link SelectItem}.
      * @param username
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    List<SelectItem> loadSelectItemGroups (final String username);
+    List<SelectItem> loadSelectItemGroups (final String username) throws EnMeDomainNotFoundException;
 }

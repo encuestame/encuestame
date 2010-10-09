@@ -29,6 +29,7 @@ import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.CatLocationType;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.QuestionPattern;
@@ -553,6 +554,19 @@ public class ConvertDomainBean {
         unitFolder.setFolderName(folder.getFolderName());
         unitFolder.setId(folder.getId());
         return unitFolder;
+    }
+
+    /**
+     * Convert List of {@link IFolder} to {@link UnitFolder}.
+     * @param folders List of Folders.
+     * @return
+     */
+    public static final List<UnitFolder> convertListToUniUnitFolder(final List<IFolder> folders){
+        final List<UnitFolder> folderList = new LinkedList<UnitFolder>();
+            for (IFolder folder : folders) {
+                folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
+            }
+        return folderList;
     }
 
 }

@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.domain.CatEmailLists;
@@ -290,10 +291,11 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
+     * @throws EnMeDomainNotFoundException
      * @throws Exception
      * @throws EnMeExpcetion excepcion
      */
-    public List<UnitUserBean> loadListUsers(final String currentUsername) {
+    public List<UnitUserBean> loadListUsers(final String currentUsername) throws EnMeDomainNotFoundException {
         log.info("currentUsername "+currentUsername);
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         final SecUserSecondary secUserSecondary = getUser(currentUsername);
