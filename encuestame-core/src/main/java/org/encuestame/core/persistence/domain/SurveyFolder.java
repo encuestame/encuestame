@@ -20,6 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.encuestame.core.persistence.dao.imp.IFolder;
+
 
 /**
  * Survey Folders.
@@ -29,10 +31,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "survey_folder")
-public class SurveyFolder extends AbstractFolder {
+public class SurveyFolder extends AbstractFolder implements IFolder {
 
     /****/
-    private Long surveyFolderId;
+    private Long id;
 
     /**
      * @return the surveyFolderId
@@ -40,14 +42,14 @@ public class SurveyFolder extends AbstractFolder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "survey_folderId", unique = true, nullable = false)
-    public Long getSurveyFolderId() {
-        return surveyFolderId;
+    public Long getId() {
+        return id;
     }
 
     /**
      * @param surveyFolderId the surveyFolderId to set
      */
-    public void setSurveyFolderId(Long surveyFolderId) {
-        this.surveyFolderId = surveyFolderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

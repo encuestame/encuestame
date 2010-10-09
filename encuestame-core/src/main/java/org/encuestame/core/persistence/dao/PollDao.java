@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.PollResult;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
@@ -72,6 +73,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (Poll) getHibernateTemplate().get(Poll.class, pollId);
     }
 
+
+    /**
+     * GetPoll Folder ById.
+     * @param folderId
+     * @return
+     */
+    public PollFolder getPollFolderById(final Long folderId){
+        return getHibernateTemplate().get(PollFolder.class, folderId);
+    }
+
     /**
      * Retrieve Results Poll by PollId.
      *
@@ -82,14 +93,14 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      *             hibernate expcetion
      */
     @SuppressWarnings("unchecked")
-    public List<Object[]> retrieveResultPolls(final Long polliId,
+    public List<Object[]> retrieveResultPolls(final Long pollId,
             final Long questionId) {
         final String pollResultsCounter = "select answer.answer,"
                 + "count(poll.pollId) FROM PollResult "
-                + "where poll.pollId= :polliId and answer.questionAnswerId= :questionId "
+                + "where poll.pollId= :pollId and answer.questionAnswerId= :questionId "
                 + "group by answer.answer";
         return new ArrayList<Object[]>(getSession().createQuery(
-                pollResultsCounter).setParameter("polliId", polliId)
+                pollResultsCounter).setParameter("pollId", pollId)
                 .setParameter("questionId", questionId).list());
 
     }

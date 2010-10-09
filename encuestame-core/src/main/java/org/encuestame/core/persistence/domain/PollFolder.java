@@ -18,6 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.encuestame.core.persistence.dao.imp.IFolder;
+
 /**
  * Polls Folder.
  *
@@ -27,8 +29,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "poll_Folder")
-public class PollFolder extends AbstractFolder {
-     private Long pollFolderId;
+public class PollFolder extends AbstractFolder implements IFolder{
+     private Long id;
 
     /**
      * @return the pollFolderId
@@ -36,14 +38,14 @@ public class PollFolder extends AbstractFolder {
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name = "pollFolderId", unique = true, nullable = true)
-    public Long getPollFolderId() {
-        return pollFolderId;
+    public Long getId() {
+        return id;
     }
 
     /**
      * @param pollFolderId the pollFolderId to set
      */
-    public void setPollFolderId(Long pollFolderId) {
-        this.pollFolderId = pollFolderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

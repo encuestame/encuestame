@@ -14,9 +14,11 @@ package org.encuestame.core.service;
 
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -88,4 +90,31 @@ public interface IPollService extends IMasterSurveyService{
    * @param emailList
    */
   void publicPollByList(final String urlPoll , final UnitLists emailList);
+
+  /**
+   * Remove PollFolder.
+   * @param folderId
+   * @throws EnMeDomainNotFoundException
+   */
+  void removePollFolder(final Long folderId) throws EnMeDomainNotFoundException;
+
+  /**
+   * Create Poll Folder.
+   * @param folderName
+   * @param username
+   * @return
+   */
+  UnitFolder createPollFolder(final String folderName, final String username);
+
+  /**
+   * Update FolderName.
+   * @param folderId
+   * @param newFolderName
+   * @param username
+   * @return
+   * @throws EnMeDomainNotFoundException
+   */
+  public UnitFolder updateFolderName(final Long folderId,
+          final String newFolderName,
+          final String username) throws EnMeDomainNotFoundException;
 }

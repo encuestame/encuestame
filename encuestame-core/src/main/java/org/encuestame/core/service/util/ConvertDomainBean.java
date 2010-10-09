@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.persistence.dao.imp.IFolder;
 import org.encuestame.core.persistence.domain.CatEmailLists;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
@@ -43,6 +44,7 @@ import org.encuestame.core.persistence.domain.SecUserTwitterAccounts.TypeAuth;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLists;
@@ -538,6 +540,19 @@ public class ConvertDomainBean {
                 loadListQuestions.add(ConvertDomainBean.convertQuestionsToBean(question));
             }
         return loadListQuestions;
+    }
+
+    /**
+     * Convert Folder to {@link UnitFolder}.
+     * @param folder
+     * @return
+     */
+    public static final UnitFolder convertFolderToBeanFolder(final IFolder folder){
+        final UnitFolder unitFolder = new UnitFolder();
+        unitFolder.setCreateAt(folder.getCreatedAt());
+        unitFolder.setFolderName(folder.getFolderName());
+        unitFolder.setId(folder.getId());
+        return unitFolder;
     }
 
 }

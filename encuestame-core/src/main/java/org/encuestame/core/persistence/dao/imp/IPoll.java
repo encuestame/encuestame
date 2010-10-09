@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.PollDao;
 import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.PollFolder;
 import org.hibernate.HibernateException;
 
 /**
@@ -60,4 +61,11 @@ public interface IPoll extends IBaseDao {
       * @return list Polls
       */
      List<Poll> getPollsByQuestionKeyword(final String keywordQuestion);
+
+     /**
+      * GetPoll Folder ById.
+      * @param folderId
+      * @return
+      */
+     PollFolder getPollFolderById(final Long folderId);
 }

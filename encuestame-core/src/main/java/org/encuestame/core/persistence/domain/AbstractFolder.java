@@ -68,8 +68,8 @@ public abstract class AbstractFolder {
     /**
      * @return the createdAt
      */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", length = 0)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
     public Date getCreatedAt() {
         return createdAt;
     }

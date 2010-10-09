@@ -20,15 +20,17 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.domain.CatEmails;
 import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.QuestionsAnswers;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -176,6 +178,65 @@ public class PollService extends AbstractSurveyService implements IPollService{
              log.warn("Not Found Emails in your EmailList");
         }
 
+    }
+
+    /**
+     * Create Poll Folder.
+     * @param folderName
+     * @param username
+     * @return
+     */
+    public UnitFolder createPollFolder(final String folderName, final String username){
+        final PollFolder pollFolder = new PollFolder();
+        pollFolder.setUsers(getUser(username).getSecUser());
+        pollFolder.setCreatedAt(new Date());
+        pollFolder.setFolderName(folderName);
+        this.getPollDao().saveOrUpdate(pollFolder);
+        return ConvertDomainBean.convertFolderToBeanFolder(pollFolder);
+    }
+
+    /**
+     * Update FolderName.
+     * @param folderId
+     * @param newFolderName
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public UnitFolder updateFolderName(final Long folderId,
+            final String newFolderName,
+            final String username) throws EnMeDomainNotFoundException{
+        final PollFolder folder = this.getPollFolder(folderId);
+        if(folder == null){
+            throw new EnMeDomainNotFoundException("poll folder not found");
+        } else {
+            folder.setFolderName(newFolderName);
+            getPollDao().saveOrUpdate(folder);
+        }
+        return ConvertDomainBean.convertFolderToBeanFolder(folder);
+    }
+
+    /**
+     * Get Poll Folder.
+     * @param id
+     * @return
+     */
+    private PollFolder getPollFolder(final Long id){
+        return this.getPollDao().getPollFolderById(id);
+    }
+
+    /**
+     * Remove PollFolder.
+     * @param folderId
+     * @throws EnMeDomainNotFoundException
+     */
+    public void removePollFolder(final Long folderId) throws EnMeDomainNotFoundException{
+        final PollFolder folder = this.getPollFolder(folderId);
+        if(folder != null){
+            getPollDao().delete(folder);
+        } else {
+            throw new EnMeDomainNotFoundException("poll folder not found");
+        }
     }
 
 }
