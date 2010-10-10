@@ -13,12 +13,18 @@
 package org.encuestame.web.beans.survey.poll;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.web.beans.MasterBean;
+import org.richfaces.component.UIPanelBar;
+import org.richfaces.component.UIPanelBarItem;
 
 /**
  * PollBean.
@@ -36,6 +42,14 @@ public class PollBean extends MasterBean implements Serializable{
     private List<UnitFolder> pollFolders;
 
     private UnitFolder newFolder = new UnitFolder();
+
+    private UnitFolder selectedFolder;
+
+    private List<UnitPoll> polls = new ArrayList<UnitPoll>();
+
+    private UnitPoll pollSelected;
+
+    private String selectedPanel;
 
     /**
      * @return the pollFolders
@@ -59,6 +73,25 @@ public class PollBean extends MasterBean implements Serializable{
           }
     }
 
+    public void panelBarChanged(final ValueChangeEvent evt) {
+         log.debug("Got a value changed event, new value: #0, old value #1"+ evt.getNewValue()+ ""+evt.getOldValue());
+         UIPanelBarItem barItem =
+         (UIPanelBarItem) getFacesContext().getViewRoot().findComponent(evt.getNewValue().toString());
+         UIPanelBar panelBar = barItem.getPanel();
+         log.debug("selected panelBar: #0"+panelBar.getSelectedPanel());
+         log.debug("submittedValue #0"+panelBar.getSubmittedValue());
+         log.debug("value: #0"+panelBar.getValue());
+         String name = (String) barItem.getName();
+         log.debug("name: #0"+name);
+     }
+
+    /**
+     * Load Poll Item View.
+     */
+    public void loadPollItemView(){
+        log.debug(getPollSelected());
+    }
+
     /**
      * Save New Folder.
      */
@@ -72,6 +105,25 @@ public class PollBean extends MasterBean implements Serializable{
                 e.printStackTrace();
                 addErrorMessage(e.getMessage(), "");
             }
+        }
+    }
+
+    /**
+     * Load Folder Items.
+     */
+    public void loadFolderItems(){
+        if(getSelectedFolder() != null){
+            log.debug("Items size "+getPolls().size());
+               try {
+                this.polls = getPollService().getPollsByFolder(getSelectedFolder(), getUserPrincipalUsername());
+                log.debug("total polls "+this.polls.size());
+            } catch (Exception e) {
+               log.error(e);
+               e.printStackTrace();
+               addErrorMessage(e.getMessage(), "");
+            } finally{
+            }
+
         }
     }
 
@@ -95,4 +147,62 @@ public class PollBean extends MasterBean implements Serializable{
     public void setNewFolder(final UnitFolder newFolder) {
         this.newFolder = newFolder;
     }
+
+    /**
+     * @return the selectedFolder
+     */
+    public UnitFolder getSelectedFolder() {
+        return selectedFolder;
+    }
+
+    /**
+     * @param selectedFolder the selectedFolder to set
+     */
+    public void setSelectedFolder(UnitFolder selectedFolder) {
+        this.selectedFolder = selectedFolder;
+    }
+
+    /**
+     * @return the polls
+     */
+    public List<UnitPoll> getPolls() {
+        return polls;
+    }
+
+    /**
+     * @param polls the polls to set
+     */
+    public void setPolls(List<UnitPoll> polls) {
+        this.polls = polls;
+    }
+
+    /**
+     * @return the selectedPanel
+     */
+    public String getSelectedPanel() {
+        return selectedPanel;
+    }
+
+    /**
+     * @param selectedPanel the selectedPanel to set
+     */
+    public void setSelectedPanel(String selectedPanel) {
+        this.selectedPanel = selectedPanel;
+    }
+
+    /**
+     * @return the pollSelected
+     */
+    public UnitPoll getPollSelected() {
+        return pollSelected;
+    }
+
+    /**
+     * @param pollSelected the pollSelected to set
+     */
+    public void setPollSelected(UnitPoll pollSelected) {
+        this.pollSelected = pollSelected;
+    }
+
+
 }

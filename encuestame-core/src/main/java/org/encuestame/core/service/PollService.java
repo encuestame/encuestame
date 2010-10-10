@@ -142,18 +142,25 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public List<UnitPoll> listPollbyQuestionKeyword(final String currentUser,
             final String keyword) {
-        final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
-        final List<Poll> polls = getPollDao()
-                .getPollsByQuestionKeyword(keyword);
-        for (Poll poll : polls) {
-            unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
-        }
-        return unitPoll;
+        final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword);
+        return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
 
     /**
-     *
+     * Get Polls by Folder.
+     * @param folder
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
      */
+    public List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException{
+        final SecUser secUser = getUser(username).getSecUser();
+        final List<Poll> polls = getPollDao().getPollsByPollFolder(secUser, getPollFolder(folder.getId()));
+        return ConvertDomainBean.convertSetToUnitPollBean(polls);
+    }
+    /**
+     *
+    */
     public void updateAnswersPoll( ){
     }
 

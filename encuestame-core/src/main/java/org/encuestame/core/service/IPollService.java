@@ -127,4 +127,14 @@ public interface IPollService extends IMasterSurveyService{
    * @throws EnMeDomainNotFoundException exception
    */
   List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException;
+
+  /**
+   * Get Polls by Folder.
+   * @param folder
+   * @param username
+   * @return
+   * @throws EnMeDomainNotFoundException
+   */
+  List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException;
+
 }
