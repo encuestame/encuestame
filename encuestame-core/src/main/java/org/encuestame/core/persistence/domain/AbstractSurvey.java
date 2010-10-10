@@ -130,6 +130,16 @@ public abstract class AbstractSurvey {
 
     private showComments showComments;
 
+   /**
+    * Number votes for Survey and Poll.
+    */
+    private Integer numbervotes;
+
+    /**
+     * Number Hits or visits
+     */
+    private Integer hits;
+
     /**
      * Show Comments Option.
      */
@@ -438,5 +448,34 @@ public abstract class AbstractSurvey {
         this.notifications = notifications;
     }
 
+    /**
+     * @return the numbervotes
+     */
+    @Column(name = "numbervotes")
+    public Integer getNumbervotes() {
+        return numbervotes;
+    }
+
+    /**
+     * @param numbervotes the numbervotes to set
+     */
+    public void setNumbervotes(Integer numbervotes) {
+        this.numbervotes = numbervotes;
+    }
+
+    /**
+     * @return the hits
+     */
+    @Column(name = "hits")
+    public Integer getHits() {
+        return hits;
+    }
+
+    /**
+     * @param hits the hits to set
+     */
+    public void setHits(Integer hits) {
+        this.hits = hits;
+    }
 
 }

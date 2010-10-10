@@ -91,6 +91,13 @@ public class TweetPoll {
     /** Hash Tags. **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
+    /** Number votes for Survey and Poll.**/
+     private Integer numbervotes;
+
+     /** Number Hits or visits **/
+     private Integer hits;
+
+
     /**
      * @return the tweetPollId
      */
@@ -362,4 +369,37 @@ public class TweetPoll {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    /**
+     * @return the numbervotes
+     */
+    @Column(name = "numberVotes")
+    public Integer getNumbervotes() {
+        return numbervotes;
+    }
+
+    /**
+     * @param numbervotes the numbervotes to set
+     */
+    public void setNumbervotes(Integer numbervotes) {
+        this.numbervotes = numbervotes;
+    }
+
+    /**
+     * @return the hits
+     */
+    @Column(name = "hits")
+    public Integer getHits() {
+        return hits;
+    }
+
+    /**
+     * @param hits the hits to set
+     */
+    public void setHits(Integer hits) {
+        this.hits = hits;
+    }
+
+
+
 }
