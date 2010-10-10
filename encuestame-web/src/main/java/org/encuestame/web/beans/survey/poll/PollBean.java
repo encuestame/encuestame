@@ -19,7 +19,6 @@ import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.web.beans.MasterBean;
-import org.springframework.stereotype.Component;
 
 /**
  * PollBean.
@@ -27,7 +26,6 @@ import org.springframework.stereotype.Component;
  * @since Oct 9, 2010 1:53:50 PM
  * @version $Id:$
  */
-@Component("pollBean")
 public class PollBean extends MasterBean implements Serializable{
 
     /**
@@ -37,19 +35,44 @@ public class PollBean extends MasterBean implements Serializable{
 
     private List<UnitFolder> pollFolders;
 
+    private UnitFolder newFolder = new UnitFolder();
+
     /**
      * @return the pollFolders
      */
     public List<UnitFolder> getPollFolders() {
         if(pollFolders == null){
-            try {
-                this.pollFolders = getPollService().retrieveFolderPoll(getUserPrincipalUsername());
-            } catch (EnMeExpcetion e) {
-               log.error(e);
-               addErrorMessage(e.getMessage(), e.getMessage());
-            }
+            this.loadAllFolders();
         }
         return pollFolders;
+    }
+
+    /**
+     *
+     */
+    private void loadAllFolders(){
+          try {
+              this.pollFolders = getPollService().retrieveFolderPoll(getUserPrincipalUsername());
+          } catch (EnMeExpcetion e) {
+             log.error(e);
+             addErrorMessage(e.getMessage(), e.getMessage());
+          }
+    }
+
+    /**
+     * Save New Folder.
+     */
+    public void saveNewFolder(){
+        if(newFolder != null){
+            try {
+                getPollService().createPollFolder(newFolder.getFolderName(), getUserPrincipalUsername());
+                this.loadAllFolders();
+            } catch (EnMeDomainNotFoundException e) {
+                log.error(e.getMessage());
+                e.printStackTrace();
+                addErrorMessage(e.getMessage(), "");
+            }
+        }
     }
 
     /**
@@ -57,5 +80,19 @@ public class PollBean extends MasterBean implements Serializable{
      */
     public void setPollFolders(List<UnitFolder> pollFolders) {
         this.pollFolders = pollFolders;
+    }
+
+    /**
+     * @return the newFolder
+     */
+    public UnitFolder getNewFolder() {
+        return newFolder;
+    }
+
+    /**
+     * @param newFolder the newFolder to set
+     */
+    public void setNewFolder(final UnitFolder newFolder) {
+        this.newFolder = newFolder;
     }
 }

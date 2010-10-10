@@ -37,7 +37,7 @@ public abstract class AbstractFolder {
     /**
      * @return the folderName
      */
-    @Column(name = "folderName", unique = true, nullable = false)
+    @Column(name = "folderName", nullable = false)
     public String getFolderName() {
         return folderName;
     }

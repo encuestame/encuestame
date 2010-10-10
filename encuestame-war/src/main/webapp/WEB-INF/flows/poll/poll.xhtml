@@ -5,34 +5,53 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core">
     xmlns:sf="http://www.springframework.org/tags/faces">
     <ui:define name="title"></ui:define>
     <ui:define name="main">
-        <a4j:repeat value="#{pollBean.rollFolders}" var="folder">
-            <h:outputText value="#{folder}" />
-        </a4j:repeat>
-        <rich:panelBar height="400" width="300">
-            <rich:panelBarItem label="Folder 1">
-                <div class="pollItem">
-                    <a4j:commandLink value="Poll 1"/>
-                </div>
-                <div class="pollItem">
-                    <a4j:commandLink value="Poll 2"/>
-                    <h:outputText value="#{pollBean}" />
-                </div>
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Folder 2">
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Folder 3">
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Folder 4">
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Folder 5">
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Folder 6">
-            </rich:panelBarItem>
-            <rich:panelBarItem label="Folder 7">
-            </rich:panelBarItem>
+        <div>
+            <a4j:form>
+                <a4j:commandLink value="New Folder" rendered="true"
+                    oncomplete="javascript:Richfaces.showModalPanel('createGroup')"
+                    reRender="newFormUserUnit,formHeaderNewtUser">
+                </a4j:commandLink>
+             </a4j:form>
+        </div>
+        <rich:panelBar id="panelFolder" height="400" width="300" >
+            <c:forEach items="#{pollBean.pollFolders}" var="folder">
+                <rich:panelBarItem label="#{folder.folderName}" >
+                </rich:panelBarItem>
+            </c:forEach>
         </rich:panelBar>
+        <rich:modalPanel id="createGroup" autosized="true"
+            width="600" height="200" zindex="2000">
+            <f:facet name="header">
+                <h:form id="formHeaderNewtUser">
+                    <h:panelGroup>
+                        <h:outputText id="headerEditUser"
+                            value="New Folder"></h:outputText>
+                    </h:panelGroup>
+                </h:form>
+            </f:facet>
+            <f:facet name="controls">
+                <h:form>
+                    <h:panelGroup>
+                        <a4j:commandLink
+                            onclick="Richfaces.hideModalPanel('createGroup')"
+                            ajaxSingle="true">
+                            <div>close window</div>
+                        </a4j:commandLink>
+                    </h:panelGroup>
+                </h:form>
+            </f:facet>
+            <a4j:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Name" />
+                    <h:inputText value="#{pollBean.newFolder.folderName}" />
+                </h:panelGrid>
+                <a4j:commandButton value="Save" action="#{pollBean.saveNewFolder}"
+                 oncomplete="Richfaces.hideModalPanel('createGroup')" reRender="panelFolder"></a4j:commandButton>
+            </a4j:form>
+            </rich:modalPanel>
     </ui:define>
 </ui:composition>
