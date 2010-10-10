@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.domain.TweetPollSwitch;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
+import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -302,5 +303,11 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          unitEmails.setListsId(listsId);
          return unitEmails;
 
+     }
+
+     public UnitLocationBean createUnitLocationBean(){
+         final UnitLocationBean locationBean = new UnitLocationBean();
+
+         return locationBean;
      }
 }
