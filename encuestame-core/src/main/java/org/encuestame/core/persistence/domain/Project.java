@@ -25,6 +25,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -131,7 +132,8 @@ public class Project {
     /**
      * @return projectInfo
      */
-    @Column(name = "info", columnDefinition="TEXT")
+    @Column(name = "project_info")
+    @Lob
     public String getProjectInfo() {
         return this.projectInfo;
     }
