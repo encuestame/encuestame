@@ -78,6 +78,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         return getHibernateTemplate().find("FROM SurveyFolder");
     }
 
+    /**
+     * Retrieve Sections By Page.
+     * @param surveyId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
     public List<SurveyPagination> retrieveSectionsByPage(final Long surveyId){
         return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", surveyId);
     }

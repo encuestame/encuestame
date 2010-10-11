@@ -30,8 +30,6 @@ import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springmodules.cache.annotations.CacheFlush;
-import org.springmodules.cache.annotations.Cacheable;
 
 /**
  * Question Dao.
@@ -76,6 +74,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
         log.info("userId "+userId);
         List<Question> searchResult = (List) getHibernateTemplate().execute(
                 new HibernateCallback() {
+                    @SuppressWarnings("deprecation")
                     public Object doInHibernate(org.hibernate.Session session) {
                         try {
                             final FullTextSession fullTextSession = Search.getFullTextSession(session);

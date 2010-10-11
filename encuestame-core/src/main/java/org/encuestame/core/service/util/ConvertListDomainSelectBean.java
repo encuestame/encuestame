@@ -26,7 +26,6 @@ import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.Client;
 import org.encuestame.core.persistence.domain.SecGroup;
 import org.encuestame.core.persistence.domain.SecPermission;
-import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.utils.web.UnitUserBean;
 
@@ -150,6 +149,7 @@ public class ConvertListDomainSelectBean {
     /**
      * Load {@link SelectItem} permissions.
      */
+    @SuppressWarnings("unchecked")
     public List<SelectItem> loadSelectItemPermissions( Set permissionCollection){
         return ConvertListDomainSelectBean.convertListPermissionsToSelect(permissionCollection);
     }
@@ -159,6 +159,7 @@ public class ConvertListDomainSelectBean {
      * @param permissionCollection
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<SelectItem> loadSelectItemGroups(final Set permissionCollection ){
         return ConvertListDomainSelectBean.convertListGroupDomainToSelect(permissionCollection);
     }

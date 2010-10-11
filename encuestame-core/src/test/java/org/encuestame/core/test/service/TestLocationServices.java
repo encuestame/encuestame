@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.test.service;
 
+import java.util.List;
+
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
@@ -20,6 +23,7 @@ import org.encuestame.core.service.LocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationFolder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +61,42 @@ public class TestLocationServices extends AbstractBaseUnitBeans{
         bean.setName("test2");
         this.locationService.updateCatLocation(bean, this.secondary.getUsername());
         Assert.assertEquals(locationBean.getLocationDescription(), new String("test2"));
+    }
+
+    /**
+     * test for createCatLocation.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testcreateCatLocation() throws EnMeExpcetion{
+        final UnitLocationBean locationBean = createUnitLocationBean("pozuelo");
+        this.locationService.createCatLocation(locationBean, this.secondary.getUsername());
+        Assert.assertNotNull(locationBean.getId());
+    }
+
+    /**
+     * Test createLocationFolder.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testcreateLocationFolder() throws EnMeExpcetion{
+        final UnitLocationFolder folder = createUnitLocationFolder("folder");
+        this.locationService.createLocationFolder(folder, this.secondary.getUsername());
+        Assert.assertNotNull(folder.getId());
+    }
+
+    /**
+     * @throws EnMeDomainNotFoundException
+     *
+     */
+    @Test
+    public void testretrieveLocationFolderByUser() throws EnMeDomainNotFoundException{
+         final UnitLocationFolder folder1 = createUnitLocationFolder("folder 1");
+         this.locationService.createLocationFolder(folder1, this.secondary.getUsername());
+         final UnitLocationFolder folder2 = createUnitLocationFolder("folder2 ");
+         this.locationService.createLocationFolder(folder2, this.secondary.getUsername());
+         final List<UnitLocationFolder> list = this.locationService.retrieveLocationFolderByUser(this.secondary.getUsername());
+         Assert.assertEquals(list.size(), 2);
     }
 
     /**

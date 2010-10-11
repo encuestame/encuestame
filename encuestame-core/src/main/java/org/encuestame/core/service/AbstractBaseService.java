@@ -267,13 +267,14 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     }
 
     /**
-     *
+     * Get Access Token.
      * @param token
      * @param tokenSecret
      * @param pin
      * @return
      * @throws TwitterException
      */
+    @SuppressWarnings("unused")
     private AccessToken getAccessToken(
             final Twitter twitter,
             final String token,

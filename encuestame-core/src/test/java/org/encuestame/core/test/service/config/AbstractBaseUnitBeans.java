@@ -15,6 +15,7 @@ package org.encuestame.core.test.service.config;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.QuestionsAnswers;
 import org.encuestame.core.persistence.domain.SecUser;
@@ -24,6 +25,7 @@ import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
+import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -295,19 +297,43 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      public UnitEmails createUnitEmails(
              final Long idEmail,
              final String emailName,
-             final Long listsId)
-     {
+             final Long listsId){
          final UnitEmails unitEmails = new UnitEmails();
          unitEmails.setIdEmail(idEmail);
          unitEmails.setEmailName(emailName);
          unitEmails.setListsId(listsId);
          return unitEmails;
-
      }
 
-     public UnitLocationBean createUnitLocationBean(){
+     /**
+      * Create Unit Location Bean.
+      * @param name
+      * @return
+      */
+     public UnitLocationBean createUnitLocationBean(final String name){
          final UnitLocationBean locationBean = new UnitLocationBean();
-
+         locationBean.setAccuracy(232);
+         locationBean.setAddress("address");
+         locationBean.setCountryCode("SP");
+         locationBean.setCountryName("spain");
+         locationBean.setLat(124.232F);
+         locationBean.setLevel(1);
+         locationBean.setLng(-2321.23F);
+         locationBean.setName(name);
+         locationBean.setStatus("ACTIVE");
+         locationBean.setTidtype(21L);
          return locationBean;
+     }
+
+     /**
+      * Create Unit Location Folder.
+      * @param name
+      * @return
+      */
+     public UnitLocationFolder createUnitLocationFolder(final String name){
+         final UnitLocationFolder folder = new UnitLocationFolder();
+         folder.setName(name);
+         folder.setType(LocationFolderType.GROUPING.name());
+         return folder;
      }
 }

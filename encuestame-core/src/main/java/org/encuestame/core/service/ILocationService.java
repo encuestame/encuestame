@@ -65,7 +65,7 @@ public interface ILocationService {
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    UnitLocationBean createCatLocation(final UnitLocationBean location) throws EnMeExpcetion;
+    UnitLocationBean createCatLocation(final UnitLocationBean location, final String username) throws EnMeExpcetion;
 
     /**
      * Assign Location to Location Folder.

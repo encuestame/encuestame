@@ -68,12 +68,11 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     }
 
     /**
+     * Update Cat Location.
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion
-    {
-       log.info("Update Location");
+    public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion{
        final CatLocation catLocation =  getLocation(locationBean.getId(), username);
         if (catLocation!=null){
             catLocation.setLocationStatus(Status.valueOf(locationBean.getStatus()));
@@ -88,11 +87,11 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
 
 
     /**
+     * Update Cat Location Type.
      * @param locationTypeBean locationTypeBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
     public void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion{
-        log.info("update LocationType");
         final CatLocationType catLocationType = getCatLocationTypeDao().getLocationById(locationTypeBean.getIdLocType());
         if (catLocationType!=null){
             catLocationType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
@@ -100,29 +99,28 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             getCatLocationTypeDao().saveOrUpdate(catLocationType);
         }
         else{
-            throw new EnMeExpcetion("location type not found");
+            throw new EnMeDomainNotFoundException("location type not found");
         }
     }
 
     /**
-     * create Cat Location.
+     * Create Cat Location.
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitLocationBean createCatLocation(final UnitLocationBean location) throws EnMeExpcetion
-    {
+    public UnitLocationBean createCatLocation(final UnitLocationBean location, final String username) throws EnMeExpcetion{
         if (location != null){
             try{
                 final CatLocation catLocationDomain = new CatLocation();
                 catLocationDomain.setLocationDescription(location.getName());
                 catLocationDomain.setLocationStatus(Status.ACTIVE);
                 catLocationDomain.setLocationLatitude(location.getLat());
+                catLocationDomain.setSecUsers(getUser(username).getSecUser());
                 catLocationDomain.setLocationLongitude(location.getLng());
                 if(location.getTidtype() != null){
                     catLocationDomain.setTidtype(getCatLocationTypeDao().getLocationById(location.getTidtype()));
                 }
                 getCatLocationDao().saveOrUpdate(catLocationDomain);
-                log.debug("create location domain");
                 location.setId(catLocationDomain.getLocateId());
                 createNotification(NotificationEnum.LOCATION_NEW, location.getName() +" is created.", catLocationDomain.getSecUsers());
             } catch (Exception e) {
