@@ -62,6 +62,6 @@ public class TestSecPermissionDaoImp extends AbstractBase {
         for (SecPermission secPermission : allPermissions) {
             log.info("s "+secPermission.getPermission());
         }
-        assertEquals("should be equals", 1, allPermissions.size());
+        assertEquals("should be equals", 5, allPermissions.size());
     }
 }
