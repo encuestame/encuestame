@@ -66,6 +66,7 @@ import org.encuestame.core.persistence.domain.TweetPoll;
 import org.encuestame.core.persistence.domain.TweetPollResult;
 import org.encuestame.core.persistence.domain.TweetPollSwitch;
 import org.encuestame.core.persistence.domain.QuestionsAnswers.AnswerType;
+import org.encuestame.core.persistence.domain.SecGroup.Type;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -629,6 +630,7 @@ public class AbstractBase extends AbstractConfigurationBase{
         group.setSecUsers(createUser());
         group.setGroupName(groupname);
         group.setIdState(1L);
+        group.setGroupType(Type.SECURITY);
         group.setGroupDescriptionInfo("First Group");
         getSecGroup().saveOrUpdate(group);
         return group;

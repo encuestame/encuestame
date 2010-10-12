@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -29,7 +28,6 @@ import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.CatLocationType;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Poll;
-import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.QuestionPattern;
@@ -219,13 +217,15 @@ public class ConvertDomainBean {
      */
     public static final UnitUserBean convertSecondaryUserToUserBean(final SecUserSecondary secUserSecondary){
         final UnitUserBean unitUserBean = new UnitUserBean();
-        unitUserBean.setId(secUserSecondary.getUid());
-        unitUserBean.setName(secUserSecondary.getCompleteName());
-        unitUserBean.setEmail(secUserSecondary.getUserEmail());
-        unitUserBean.setUsername(secUserSecondary.getUsername());
-        unitUserBean.setStatus(secUserSecondary.isUserStatus());
-        unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
-        unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
+        if(secUserSecondary != null){
+            unitUserBean.setId(secUserSecondary.getUid());
+            unitUserBean.setName(secUserSecondary.getCompleteName());
+            unitUserBean.setEmail(secUserSecondary.getUserEmail());
+            unitUserBean.setUsername(secUserSecondary.getUsername());
+            unitUserBean.setStatus(secUserSecondary.isUserStatus());
+            unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
+            unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
+        }
         return unitUserBean;
     }
 

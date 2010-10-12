@@ -61,6 +61,42 @@ public class TestSecurityService extends AbstractBase{
     }
 
     /**
+     * Test findUserByUserName.
+     */
+    @Test
+    public void testfindUserByUserName(){
+        final SecUserSecondary secondary = this.securityService.findUserByUserName(this.secUserSecondary.getUsername());
+        assertEquals(this.secUserSecondary.getUid(), secondary.getUid());
+        assertEquals(this.secUserSecondary.getPassword(), secondary.getPassword());
+        assertEquals(this.secUserSecondary.getCompleteName(), secondary.getCompleteName());
+    }
+
+    /**
+     * Test findUserByEmail.
+     */
+    @Test
+    public void testfindUserByEmail(){
+        final UnitUserBean secondary = this.securityService.findUserByEmail("fake@email.com");
+        assertNull(secondary);
+        final UnitUserBean secondary2 = this.securityService.findUserByEmail(this.secUserSecondary.getUserEmail());
+        assertEquals(this.secUserSecondary.getUid(), secondary2.getId());
+        assertEquals(this.secUserSecondary.getUsername(), secondary2.getUsername());
+    }
+
+    /**
+     * Test loadGroups.
+     */
+    @Test
+    public void testloadGroups(){
+        final SecGroup group = createGroups("admin");
+        final SecGroup group2 = createGroups("editors");
+        this.secUserSecondary.getSecGroups().add(group);
+        this.secUserSecondary.getSecGroups().add(group2);
+        getSecGroup().saveOrUpdate(this.secUserSecondary);
+        assertEquals(this.secUserSecondary.getSecGroups().size(), 2);
+    }
+
+    /**
      * Generate Hash Code Invitation.
      */
     @Test

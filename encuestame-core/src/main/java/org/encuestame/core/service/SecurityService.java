@@ -32,6 +32,7 @@ import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.domain.SecUserTwitterAccounts.TypeAuth;
+import org.encuestame.core.security.EnMePermission;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
@@ -64,22 +65,22 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     private Logger log = Logger.getLogger(this.getClass());
 
     /** Default User Permission **/
-    private static final String DEFAULT = "ENCUESTAME_USER";
+    private static final String DEFAULT = EnMePermission.ENCUESTAME_USER.name();
 
     /** Default User Permission **/
-    private static final String ADMIN = "ENCUESTAME_ADMIN";
+    private static final String ADMIN = EnMePermission.ENCUESTAME_ADMIN.name();
 
     /** Default User Permission **/
-    private static final String EDITOR = "ENCUESTAME_EDITOR";
+    private static final String EDITOR = EnMePermission.ENCUESTAME_EDITOR.name();
 
     /** Default User Permission **/
-    private static final String OWNER = "ENCUESTAME_OWNER";
+    private static final String OWNER = EnMePermission.ENCUESTAME_OWNER.name();
 
     /** Default User Permission **/
-    private static final String PUBLISHER = "ENCUESTAME_PUBLISHER";
+    private static final String PUBLISHER = EnMePermission.ENCUESTAME_PUBLISHER.name();
 
     /** Anonnymous User. **/
-    private static final String ANONYMOUS = "ENCUESTAME_ANONYMOUS";
+    private static final String ANONYMOUS = EnMePermission.ENCUESTAME_ANONYMOUS.name();
 
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
@@ -100,7 +101,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link SecUserSecondary}
      */
     public UnitUserBean findUserByEmail(final String email) {
-        return ConvertDomainBean.convertSecondaryUserToUserBean(getSecUserDao().getUserByEmail(email));
+        final SecUserSecondary secondary = getSecUserDao().getUserByEmail(email);
+        return secondary == null ? null : ConvertDomainBean.convertSecondaryUserToUserBean(secondary);
     }
 
 
