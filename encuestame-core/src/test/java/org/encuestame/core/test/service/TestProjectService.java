@@ -61,8 +61,8 @@ public class TestProjectService extends AbstractBase {
         public void initService(){
            this.user = createUser();
            this.userPrincipal = createSecondaryUser("jhon", this.user);
-           createProject("project 1","TIC Project","Project", createState("active"), this.user);
-           this.project= createProject("project 2","Education Project","Project", createState("active"), this.user);
+           createProject("project 1","TIC Project","Project", this.user);
+           this.project= createProject("project 2","Education Project","Project", this.user);
         }
 
         /**

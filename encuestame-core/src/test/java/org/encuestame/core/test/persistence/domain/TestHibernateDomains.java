@@ -23,6 +23,7 @@ import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.CatLocationType;
 import org.encuestame.core.persistence.domain.CatQuestionCategory;
 import org.encuestame.core.persistence.domain.CatState;
+import org.encuestame.core.persistence.domain.Client;
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.Question;
@@ -63,7 +64,7 @@ public class TestHibernateDomains extends AbstractBase{
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
         catLoc.setTidtype(createCatLocationType("aldea"));
-        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createState("active"), createUser()));
+        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createUser()));
         getCatLocationDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }
@@ -185,7 +186,7 @@ public class TestHibernateDomains extends AbstractBase{
         groups.setIdState(createState("Active").getIdState());
         groups.setSecUsers(createUser());
         groups.getSecPermissions().add(createPermission("administrator"));
-        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active"), createUser()));
+        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
         getSecGroup().saveOrUpdate(groups);
         assertNotNull(groups.getGroupId());
     }
@@ -261,7 +262,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveyGroup.setDateCreate(new Date());
          surveyGroup.setCatState(createState("disabled"));
          surveyGroup.getSurveyFormats().add(createSurveyFormat());
-         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createState("active"), createUser()));
+         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
          getSurveyDaoImp().saveOrUpdate(surveyGroup);
          assertNotNull(surveyGroup.getSgId());
      }
@@ -382,5 +383,19 @@ public class TestHibernateDomains extends AbstractBase{
          getQuestionDaoImp().saveOrUpdate(questionCategory);
          System.out.println(questionCategory.getQuestionCategoryId());
          assertNotNull(questionCategory.getQuestionCategoryId());
+     }
+
+     @Test
+     public void testClient(){
+         final Client client = new Client();
+         client.setClientDescription("description");
+         client.setClientEmail("juan@encuestame.org");
+         client.setClientFacebook("juancarlospicado");
+         client.setClientFax("123134");
+         client.setClientName("Jhon");
+         client.setClientTelephone("34232423432");
+         client.setClientTwitter("encuestame");
+         client.setClientUrl("http://www.encuestame.org");
+         client.setProject(createProject("encuestame","open source", "info", createUser()));
      }
 }

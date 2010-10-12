@@ -9,9 +9,6 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
 /**
  *
  * HTML filtering utility for protecting against XSS (Cross Site Scripting).

@@ -113,8 +113,7 @@ public class TestCatEmailLists extends AbstractBase {
      */
     @Test
     public void testFindListByUser() {
-        final List<CatEmailLists> listByUser = getCatEmailDao().findListbyUser(
-                this.user.getUid());
+        final List<CatEmailLists> listByUser = getCatEmailDao().findListbyUser(this.user.getUid());
         assertNotNull(listByUser);
         assertEquals("Should be equals", 2, listByUser.size());
     }

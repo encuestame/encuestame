@@ -29,6 +29,7 @@ import org.junit.Test;
 public class HTMLInputFilterTestCase extends TestCase {
 
         protected HTMLInputFilter vFilter = new HTMLInputFilter(true);
+        protected HTMLInputFilter vFilter2 = new HTMLInputFilter();
 
         /**
          *
@@ -39,14 +40,21 @@ public class HTMLInputFilterTestCase extends TestCase {
             Assert.assertEquals(result, vFilter.filter(input));
         }
 
+        /**
+         * Test Basics.
+         */
         @Test
-        public void test_basics() {
+        public void testBasics() {
             verifyTest("", "");
             verifyTest("hello", "hello");
+            verifyTest("([a-z0-9]+)", "([a-z0-9]+)");
         }
 
+        /**
+         * Balancing Tags.
+         */
         @Test
-        public void test_balancing_tags() {
+        public void test_balancingTags() {
             verifyTest("<b>hello", "<b>hello</b>");
             verifyTest("<b>hello", "<b>hello</b>");
             verifyTest("hello<b>", "hello");
@@ -56,15 +64,21 @@ public class HTMLInputFilterTestCase extends TestCase {
             verifyTest("</b><b>", "");
         }
 
+        /**
+         * End Slashed.
+         */
         @Test
-        public void test_end_slashes() {
+        public void testEndSlashes() {
             verifyTest("<img>", "<img />");
             verifyTest("<img/>", "<img />");
             verifyTest("<b/></b>", "");
         }
 
+        /**
+         * Balancing.
+         */
         @Test
-        public void test_balancing_angle_brackets() {
+        public void testBalancingAnglBrackets() {
             if (HTMLInputFilter.ALWAYS_MAKE_TAGS) {
                 verifyTest("<img src=\"foo\"", "<img src=\"foo\" />");
                 verifyTest("i>", "");
@@ -88,15 +102,21 @@ public class HTMLInputFilterTestCase extends TestCase {
             }
         }
 
+        /**
+         * Test Attribites.
+         */
         @Test
-        public void test_attributes() {
+        public void testAttributes() {
             verifyTest("<img src=foo>", "<img src=\"foo\" />");
             verifyTest("<img asrc=foo>", "<img />");
             verifyTest("<img src=test test>", "<img src=\"test\" />");
         }
 
+        /**
+         * Dissalow.
+         */
         @Test
-        public void test_disallow_script_tags() {
+        public void testDisallowScriptTags() {
             verifyTest("<script>", "");
             if (HTMLInputFilter.ALWAYS_MAKE_TAGS) {
                 verifyTest("<script", "");
@@ -116,8 +136,11 @@ public class HTMLInputFilterTestCase extends TestCase {
             verifyTest("<<script<script>>", "");
         }
 
+        /**
+         * Test Protocols.
+         */
         @Test
-        public void test_protocols() {
+        public void testProtocols() {
             verifyTest("<a href=\"http://foo\">bar</a>",
                     "<a href=\"http://foo\">bar</a>");
             // we don't allow ftp. t("<a href=\"ftp://foo\">bar</a>",
@@ -137,15 +160,21 @@ public class HTMLInputFilterTestCase extends TestCase {
             verifyTest("<a href=\"view-source:foo\">bar</a>", "<a href=\"#foo\">bar</a>");
         }
 
+        /**
+         * Test Closing Tags.
+         */
         @Test
-        public void test_self_closing_tags() {
+        public void testSelfClosingTags() {
             verifyTest("<img src=\"a\">", "<img src=\"a\" />");
             verifyTest("<img src=\"a\">foo</img>", "<img src=\"a\" />foo");
             verifyTest("</img>", "");
         }
 
+        /**
+         * Test Comment.
+         */
         @Test
-        public void test_comments() {
+        public void testComments() {
             if (HTMLInputFilter.STRIP_COMMENTS) {
                 verifyTest("<!-- a<b --->", "");
             } else {

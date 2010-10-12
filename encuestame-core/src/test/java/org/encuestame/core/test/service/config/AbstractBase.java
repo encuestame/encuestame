@@ -65,6 +65,7 @@ import org.encuestame.core.persistence.domain.Surveys;
 import org.encuestame.core.persistence.domain.TweetPoll;
 import org.encuestame.core.persistence.domain.TweetPollResult;
 import org.encuestame.core.persistence.domain.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.QuestionsAnswers.AnswerType;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -479,10 +480,8 @@ public class AbstractBase extends AbstractConfigurationBase{
             final String name,
             final String descProject,
             final String infoProject,
-            final CatState state,
             final SecUser user) {
           Project project = new Project();
-          //project.setStateProject(state);
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
           project.setProjectInfo(infoProject);
@@ -572,6 +571,7 @@ public class AbstractBase extends AbstractConfigurationBase{
         final CatLocationType catLocatType = new CatLocationType();
         catLocatType.setLocationTypeDescription(locationTypeName);
         catLocatType.setLocationTypeLevel(1);
+        catLocatType.setUsers(createUser());
         getCatLocationTypeDao().saveOrUpdate(catLocatType);
         return catLocatType;
     }
@@ -761,6 +761,7 @@ public class AbstractBase extends AbstractConfigurationBase{
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
+        questionsAnswers.setAnswerType(AnswerType.DEFAULT);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         //log.info("Q "+questionsAnswers.getQuestionAnswerId());
         return questionsAnswers;
@@ -990,6 +991,7 @@ public class AbstractBase extends AbstractConfigurationBase{
         survey.setStartDate(startDate);
         survey.setSurveyFormat(surveyFormat);
         survey.setTicket(3);
+        survey.setTicket(2);
         getSurveyDaoImp().saveOrUpdate(survey);
         return survey;
     }
@@ -1096,6 +1098,7 @@ public class AbstractBase extends AbstractConfigurationBase{
             final String consumerSecret,
             final String token,
             final String secretToken,
+            final Integer twitterPin,
             final SecUser secUsers,
             final String twitterAccount){
         final SecUserTwitterAccounts secUserTwitterAccounts = new SecUserTwitterAccounts();
@@ -1104,6 +1107,8 @@ public class AbstractBase extends AbstractConfigurationBase{
         secUserTwitterAccounts.setToken(token);
         secUserTwitterAccounts.setSecretToken(secretToken);
         secUserTwitterAccounts.setSecUsers(secUsers);
+        secUserTwitterAccounts.setTwitterPin(twitterPin);
+        secUserTwitterAccounts.setVerfied(Boolean.FALSE);
         secUserTwitterAccounts.setTwitterAccount(twitterAccount);
         secUserTwitterAccounts.setTwitterPassword("not valid");
         getSecUserDao().saveOrUpdate(secUserTwitterAccounts);
@@ -1120,6 +1125,7 @@ public class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.consumerSecret"),
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
+                12345,
                 secUsers,
                 getProperty("twitter.test.account"));
     }

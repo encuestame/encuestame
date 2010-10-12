@@ -16,7 +16,10 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.domain.CatLocation;
+import org.encuestame.core.persistence.domain.CatLocationFolder;
+import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.LocationService;
@@ -42,6 +45,12 @@ public class TestLocationServices extends AbstractBaseUnitBeans{
      */
     @Autowired
     private ILocationService locationService;
+
+    /**
+     * Cat Location Dao.
+     */
+    @Autowired
+    private ICatLocation catLocation;
 
     private SecUserSecondary secondary;
 
@@ -100,6 +109,28 @@ public class TestLocationServices extends AbstractBaseUnitBeans{
     }
 
     /**
+     * test retrieveLocationSubFolderByUser.
+     * @throws Exception
+     */
+    @Test
+    public void testretrieveLocationSubFolderByUser() throws Exception{
+        final CatLocationFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder sub", locationFolder);
+        final List<UnitLocationFolder> list = this.locationService.retrieveLocationSubFolderByUser(locationFolder.getLocationFolderId(), this.secondary.getUsername());
+        Assert.assertEquals(list.size(), 1);
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testupdateLocationMap() throws Exception{
+        final CatLocationFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        //final CatLocation location = createCatLocation("Managua", locTypeName, Level, secUsers)
+    }
+
+    /**
      * @return the locationService
      */
     public ILocationService getLocationService() {
@@ -111,5 +142,19 @@ public class TestLocationServices extends AbstractBaseUnitBeans{
      */
     public void setLocationService(ILocationService locationService) {
         this.locationService = locationService;
+    }
+
+    /**
+     * @return the catLocation
+     */
+    public ICatLocation getCatLocation() {
+        return catLocation;
+    }
+
+    /**
+     * @param catLocation the catLocation to set
+     */
+    public void setCatLocation(ICatLocation catLocation) {
+        this.catLocation = catLocation;
     }
 }

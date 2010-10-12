@@ -49,7 +49,7 @@ public class TestProjectDaoImp extends AbstractBase{
     @Before
     public void initService(){
         user  = createSecondaryUser("user 1", createUser());
-        project = createProject("project 1","TIC Project","Project", createState("active"), user.getSecUser());
+        project = createProject("project 1","TIC Project","Project", user.getSecUser());
 
     }
     /**
@@ -89,7 +89,7 @@ public class TestProjectDaoImp extends AbstractBase{
      */
     @Test
     public void testFindProjectsByUserID(){
-        createProject("encuestame", "survey system", "the best", createState("active"), user.getSecUser());
+        createProject("encuestame", "survey system", "the best", user.getSecUser());
         final List<Project> projectList = getProjectDaoImp().findProjectsByUserID(user.getSecUser().getUid());
         assertEquals("Should be equals", 2, projectList.size());
     }

@@ -63,15 +63,6 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
     }
 
     /**
-     * List Email by Id.
-     * @return
-     */
-    public CatEmailLists getListEmailById(final Long listEmailId){
-        return (CatEmailLists) getHibernateTemplate().get(CatEmailLists.class,listEmailId);
-
-    }
-
-    /**
      * Get List Emails by Keyword.
      * @return
      */

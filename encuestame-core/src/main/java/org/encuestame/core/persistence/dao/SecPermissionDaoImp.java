@@ -28,8 +28,7 @@ import org.springframework.stereotype.Repository;
  * @version $Id$
  */
 @Repository
-public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
-        ISecPermissionDao {
+public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements ISecPermissionDao {
 
     /**
      * Load permissions by user.
@@ -83,10 +82,4 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements
    public SecPermission getPermissionById(final Long permId) throws HibernateException {
            return (SecPermission) getHibernateTemplate().get(SecPermission.class, permId);
    }
-
-public void createPermission(SecPermission permission) {
-	// TODO Auto-generated method stub
-
-}
-
 }

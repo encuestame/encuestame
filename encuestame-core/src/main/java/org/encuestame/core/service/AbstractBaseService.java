@@ -146,7 +146,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     public UnitEmails createEmail(final UnitEmails unitEmails) throws EnMeExpcetion{
         if(unitEmails!= null){
             try {//
-                final CatEmailLists emailList = getEmailListsDao().getListEmailById(unitEmails.getListsId());
+                final CatEmailLists emailList = new CatEmailLists();
                 final String codeSubscribe = MD5Utils.md5(String.valueOf(System.currentTimeMillis()));
                 final CatEmails emailsDomain = new CatEmails();
                 emailsDomain.setEmail(unitEmails.getEmailName());
@@ -161,7 +161,6 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
                 this.serviceMail.send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
-
                 //Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {

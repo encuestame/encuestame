@@ -49,13 +49,6 @@ public interface ICatEmail extends IBaseDao {
     public List<CatEmailLists> findAllEmailList();
 
      /**
-      * Find List Email by Id.
-      * @param listEmailId
-      * @return
-      */
-    public CatEmailLists getListEmailById(final Long listEmailId);
-
-     /**
       * Find Email List by Keyword.
       * @param keyword
       * @param userId
