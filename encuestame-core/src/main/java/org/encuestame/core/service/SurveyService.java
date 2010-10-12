@@ -46,6 +46,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 
     private Log log = LogFactory.getLog(this.getClass());
 
+    public static Integer RANDOM_QUESTION_KEY = 500;
+
     /**
      * Create Question.
      * @param questionBean {@link UnitQuestionBean}.
@@ -53,15 +55,12 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
             try{
-                log.debug("Create Question");
-                log.debug("Question Name "+questionBean.getQuestionName());
-                log.debug("Create Question User Id"+questionBean.getUserId());
-                log.debug("Create Question List Answers "+questionBean.getListAnswers().size());
                 final Question question = new Question();
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
-                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
+                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
                 question.setSharedQuestion(false);
+                //save question
                 getQuestionDao().saveOrUpdate(question);
                 questionBean.setId(question.getQid());
                 for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
@@ -217,5 +216,12 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             throw new EnMeExpcetion(e);
         }
         return listPatronBean;
+    }
+
+    /**
+     * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
+     */
+    public void setRandomQuestionKey(Integer rInteger){
+        RANDOM_QUESTION_KEY = rInteger;
     }
 }

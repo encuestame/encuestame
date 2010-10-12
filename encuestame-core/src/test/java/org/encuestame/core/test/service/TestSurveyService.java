@@ -158,7 +158,25 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      **/
     @Test
     public void testCreateQuestion() throws EnMeExpcetion {
-        surveyService.createQuestion(this.questionBean);
+        this.surveyService.createQuestion(this.questionBean);
+        assertNotNull(questionBean);
+    }
+
+    /**
+     *
+     * @throws EnMeExpcetion
+     */
+    @Test(expected = OutOfMemoryError.class)
+    public void testCreateQuestionException() throws EnMeExpcetion {
+        this.surveyService.setRandomQuestionKey(600000000);
+        this.surveyService.createQuestion(this.questionBean);
+        assertNotNull(questionBean);
+    }
+
+    @Test(expected = Exception.class)
+    public void testCreateQuestionException2() throws EnMeExpcetion {
+        this.surveyService.setRandomQuestionKey(Integer.valueOf("tres"));
+        this.surveyService.createQuestion(this.questionBean);
         assertNotNull(questionBean);
     }
 

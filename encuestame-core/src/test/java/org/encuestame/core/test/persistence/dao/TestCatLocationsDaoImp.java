@@ -21,6 +21,7 @@ import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,6 +48,15 @@ public class TestCatLocationsDaoImp extends AbstractBase{
         this.userPrimary = createUser();
         this.defaultLocation = createCatLocation("Managua", "Capital", 1, this.userPrimary);
         createCatLocation("Esteli", "Esteli", 2, this.userPrimary);
+    }
+
+    /**
+     * Test getLocationByUser.
+     */
+    @Test
+    public void testgetLocationByUser(){
+        final List<CatLocation> catLocation = getCatLocation().getLocationByUser(this.userPrimary.getUid());
+        Assert.assertEquals(2, catLocation.size());
     }
 
     /**

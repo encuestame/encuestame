@@ -97,4 +97,9 @@ public interface ISurveyService extends IMasterSurveyService {
 
 
     void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion;
+
+    /**
+     * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
+     */
+    void setRandomQuestionKey(Integer rInteger);
 }
