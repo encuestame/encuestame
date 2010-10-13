@@ -120,13 +120,13 @@ public class TestSurveyService  extends AbstractBaseUnitBeans{
      */
     @Test
     public void testloadPatternInfo() throws EnMeExpcetion {
-    //  this.serviceInit();
-        UnitPatternBean patternBean = new UnitPatternBean(this.pattern.getPatternId(),"descPattern","label",
-                "patronType", "template","classpattern","levelpattern","finallity");
-    //    patternBean.setId(createQuestionPattern("html").getPatternId());
+        //  this.serviceInit();
+        UnitPatternBean patternBean = new UnitPatternBean();
+        patternBean.setId(this.pattern.getPatternId());
+        //    	patternBean.setId(createQuestionPattern("html").getPatternId());
         patternBean = surveyService.loadPatternInfo(patternBean);
-    // assertNotNull(patternBean);
-    assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
+        // 	assertNotNull(patternBean);
+        assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
     }
 
     /**
