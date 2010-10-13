@@ -33,8 +33,7 @@ public class UnitPermission implements Serializable {
     /**
      * Empty Constructor.
      */
-    public UnitPermission() {
-    }
+    public UnitPermission() {}
 
     /**
      * Constructor.

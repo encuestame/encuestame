@@ -153,39 +153,9 @@ public class UnitPatternBean implements Serializable {
         this.finallity = finallity;
     }
 
-
-
-
-
-      /**
-     * @param id  id
-     * @param descPattern descPattern
-     * @param label label
-     * @param patronType patronType
-     * @param template template
-     * @param classpattern classpattern
-     * @param levelpattern levelpattern
-     * @param finallity finallity
-     */
-    public  UnitPatternBean (Long id, String descPattern, String label,
-            String patronType, String template, String classpattern,
-            String levelpattern, String finallity) {
-        super();
-        this.descripcion = descPattern;
-        this.label = label;
-        this.patronType = patronType;
-        this.template = template;
-        this.id = id;
-        this.classpattern = classpattern;
-        this.levelpattern = levelpattern;
-        this.finallity = finallity;
-    }
-
     /**
      *
      */
-    public UnitPatternBean(){
-
-    }
+    public UnitPatternBean(){}
 
 }

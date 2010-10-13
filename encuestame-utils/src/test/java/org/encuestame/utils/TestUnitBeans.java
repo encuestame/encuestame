@@ -18,12 +18,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitCatStateBean;
+import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -58,6 +62,7 @@ import org.junit.Test;
         assertNotNull(unitAnswer.getAnswerHash());
         assertNotNull(unitAnswer.getAnswers());
         assertNotNull(unitAnswer.getAnswerId());
+        assertNotNull(unitAnswer.getUrl());
         assertNotNull(unitAnswer.getQuestionId());
     }
 
@@ -161,6 +166,12 @@ import org.junit.Test;
         assertNotNull(tweetPoll.getSchedule());
         assertNotNull(tweetPoll.getUserId());
         assertEquals(tweetPoll.getResults().size(), 0);
+        tweetPoll.setCaptcha(true);
+        tweetPoll.setLimitVotes(12345);
+        tweetPoll.setResumeLiveResults(true);
+        assertNotNull(tweetPoll.getCaptcha());
+        assertNotNull(tweetPoll.getLimitVotes());
+        assertNotNull(tweetPoll.getResumeLiveResults());
     }
 
     /**
@@ -210,6 +221,7 @@ import org.junit.Test;
         assertNotNull(permission.getId());
         assertNotNull(permission.getDescription());
         assertNotNull(permission.getPermission());
+        new UnitPermission();
     }
 
     /**
@@ -222,10 +234,20 @@ import org.junit.Test;
         poll.setCompletedPoll(true);
         poll.setCreationDate(new Date());
         poll.setQuestionBean(new UnitQuestionBean());
+        poll.setFinishDate(new Date());
+        poll.setPublishPoll(true);
+        poll.setCloseNotification(true);
+        poll.setHashTags(new ArrayList<UnitHashTag>());
+        poll.setShowResultsPoll(true);
         assertNotNull(poll.getId());
+        assertNotNull(poll.getHashTags());
         assertNotNull(poll.getQuestionBean());
         assertNotNull(poll.getCompletedPoll());
         assertNotNull(poll.getCreationDate());
+        assertNotNull(poll.getFinishDate());
+        assertNotNull(poll.getPublishPoll());
+        assertNotNull(poll.getCloseNotification());
+        assertNotNull(poll.getShowResultsPoll());
     }
 
     /**
@@ -261,7 +283,19 @@ import org.junit.Test;
         projectBean.setState("Good");
         projectBean.setStatus(1L);
         projectBean.setUserId(1L);
-        assertNotNull(projectBean.getId());
+        projectBean.setDescription("description");
+        projectBean.setClients(new ArrayList<SelectItem>());
+        projectBean.setCatStateBeans(new ArrayList<SelectItem>());
+        projectBean.setListUsers(new ArrayList<SelectItem>());
+        projectBean.setGroupList(new ArrayList<SelectItem>());
+        projectBean.setLocationList(new ArrayList<SelectItem>());
+        projectBean.setProjectPermissions(new ArrayList<SelectItem>());
+        assertNotNull(projectBean.getClients());
+        assertNotNull(projectBean.getCatStateBeans());
+        assertNotNull(projectBean.getListUsers());
+        assertNotNull(projectBean.getGroupList());
+        assertNotNull(projectBean.getLocationList());
+        assertNotNull(projectBean.getProjectPermissions());
         assertNotNull(projectBean.getDateFinish());
         assertNotNull(projectBean.getDateInit());
         assertNotNull(projectBean.getHide());
@@ -272,6 +306,7 @@ import org.junit.Test;
         assertNotNull(projectBean.getState());
         assertNotNull(projectBean.getStatus());
         assertNotNull(projectBean.getUserId());
+        assertNotNull(projectBean.toString());
     }
     /**
      * Test {@link org.encuestame.utils.web.UnitLocationBean}.
@@ -285,6 +320,10 @@ import org.junit.Test;
         locationBean.setLevel(1);
         locationBean.setName("location");
         locationBean.setStatus("ACTIVE");
+        locationBean.setAddress("address");
+        locationBean.setCountryCode("ESP");
+        locationBean.setCountryName("spain");
+        locationBean.setAccuracy(12345);
         locationBean.setTidtype(2L);
         assertNotNull(locationBean.getId());
         assertNotNull(locationBean.getLat());
@@ -412,5 +451,19 @@ import org.junit.Test;
         assertNotNull(patternBean.getLevelpattern());
         assertNotNull(patternBean.getPatronType());
         assertNotNull(patternBean.getTemplate());
+    }
+
+    /**
+     * Test {@link UnitEmails}.
+     */
+    @Test
+    public void testUnitEmails(){
+        final UnitEmails email = new UnitEmails();
+        email.setEmailName("juanATencuestame.org");
+        email.setIdEmail(1L);
+        email.setListsId(12345L);
+        assertNotNull(email.getEmailName());
+        assertNotNull(email.getListsId());
+        assertNotNull(email.getListsId());
     }
 }

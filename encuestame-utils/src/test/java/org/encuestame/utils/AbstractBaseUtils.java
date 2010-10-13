@@ -99,6 +99,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         unitAnswerBean.setAnswerId(answerId);
         unitAnswerBean.setAnswers(answers);
         unitAnswerBean.setQuestionId(questionId);
+        unitAnswerBean.setUrl("http://www.encuestame.org");
         return unitAnswerBean;
     }
 
