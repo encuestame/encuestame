@@ -21,6 +21,9 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.security.UnitForgotPassword;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -37,10 +40,12 @@ import org.encuestame.utils.web.UnitPollResult;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
+import org.encuestame.utils.web.UnitSurveyFormat;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.notification.UtilNotification;
 import org.junit.Test;
 
     /**
@@ -465,5 +470,94 @@ import org.junit.Test;
         assertNotNull(email.getEmailName());
         assertNotNull(email.getListsId());
         assertNotNull(email.getListsId());
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testUtilVoteCaptcha(){
+        final UtilVoteCaptcha captcha = new UtilVoteCaptcha();
+        captcha.setCaptcha("12345");
+        captcha.setCodeVote("12345");
+        assertNotNull(captcha.getCaptcha());
+        assertNotNull(captcha.getCodeVote());
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void UtilNotification(){
+        final org.encuestame.utils.web.notification.UtilNotification notification = new UtilNotification();
+        notification.setAdditionalDescription("add");
+        notification.setDate("12345");
+        notification.setDescription("des");
+        notification.setHour("1");
+        notification.setIcon("icon");
+        notification.setId(1L);
+        notification.setType("type");
+        assertNotNull(notification.getAdditionalDescription());
+        assertNotNull(notification.getDate());
+        assertNotNull(notification.getDescription());
+        assertNotNull(notification.getHour());
+        assertNotNull(notification.getIcon());
+        assertNotNull(notification.getType());
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testUnitSurveyFormat(){
+        final UnitSurveyFormat format = new UnitSurveyFormat();
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testUnitForgotPassword(){
+        final UnitForgotPassword password = new UnitForgotPassword();
+        password.setCaptcha("catpcha");
+        password.setEmail("juanATencuestame.org");
+        assertNotNull(password.getCaptcha());
+        assertNotNull(password.getEmail());
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testUnitHashTag(){
+        final UnitHashTag hashTag = new UnitHashTag();
+        hashTag.setHashTagName("nicaragua");
+        hashTag.setId(1L);
+        assertNotNull(hashTag.getHashTagName());
+        assertNotNull(hashTag.getId());
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testUnitTwitterAccountBean(){
+        final UnitTwitterAccountBean accountBean = new UnitTwitterAccountBean();
+        accountBean.setAccount("account");
+        accountBean.setAccountId(1L);
+        accountBean.setKey("key");
+        accountBean.setSecret("secret");
+        accountBean.setPin("123456");
+        accountBean.setToken("token");
+        accountBean.setSecretToken("token");
+        accountBean.setType("type");
+        assertNotNull(accountBean.getAccount());
+        assertNotNull(accountBean.getAccountId());
+        assertNotNull(accountBean.getKey());
+        assertNotNull(accountBean.getPin());
+        assertNotNull(accountBean.getSecret());
+        assertNotNull(accountBean.getSecretToken());
+        assertNotNull(accountBean.getToken());
+        assertNotNull(accountBean.getType());
     }
 }
