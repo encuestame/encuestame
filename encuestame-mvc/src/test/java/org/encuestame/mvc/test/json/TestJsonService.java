@@ -12,25 +12,12 @@
  */
 package org.encuestame.mvc.test.json;
 
-import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import junit.framework.Assert;
 
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
-import org.codehaus.jackson.JsonParser.Feature;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.encuestame.mvc.controller.json.notifications.NotificationsJsonController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.junit.Test;
@@ -45,7 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class TestJsonService extends AbstractMvcUnitBeans{
 
-    @Autowired
     private NotificationsJsonController notificationsJsonController;
 
 
@@ -55,8 +41,6 @@ public class TestJsonService extends AbstractMvcUnitBeans{
      */
     @Test
     public void testJson() throws Exception{
-         log.debug("TEST JSON");
-         Assert.assertTrue(true);
          Assert.assertNotNull(this.notificationsJsonController);
          Assert.assertNotNull(getSecondary());
          request.setMethod("GET");
@@ -120,6 +104,7 @@ public class TestJsonService extends AbstractMvcUnitBeans{
     /**
      * @param notificationsJsonController the notificationsJsonController to set
      */
+    @Autowired
     public void setNotificationsJsonController(
             NotificationsJsonController notificationsJsonController) {
         this.notificationsJsonController = notificationsJsonController;
