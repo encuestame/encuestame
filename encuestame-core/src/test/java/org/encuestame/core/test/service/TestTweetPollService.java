@@ -39,8 +39,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import twitter4j.Status;
-
 /**
  * Test for {@link TweetPollService}.
  * @author Picado, Juan juanATencuestame.org
@@ -142,9 +140,9 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
      */
     public void testSaveTweetId() throws EnMeExpcetion{
         Question questionSave = createQuestion("how much or How Many?","html");
-        SecUser userpao= createUser("dianmora", "gemazo26.");
+        SecUser usersave= createUser("dianmora", "xxxxxxx");
         final String tweetUrl = "http://www.encuestame.org";
-        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), userpao, questionSave);
+        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), usersave, questionSave);
 
         answersSaveTweet = new ArrayList<UnitAnswersBean>();
         answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
@@ -152,10 +150,10 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
 
         patternBean = createPatternBean("radio.class",
                    "radio buttons", "2", "Yes/No", "template.php");
-        questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, userpao.getUid(),
+        questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, usersave.getUid(),
                    answersSaveTweet, patternBean);
-        final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,userpao.getUid(),
-                                            this.questionBean, userpao.getTwitterAccount());
+        final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,usersave.getUid(),
+                                            this.questionBean, usersave.getTwitterAccount());
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
         //final Status status = this.tweetPollService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());
@@ -174,7 +172,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
      * Test Generate Tweet Poll Text.
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    //@Test
+   //  @Test
     public void testGenerateTweetPollText() throws EnMeExpcetion{
         final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.user, this.question);
         createQuestionAnswer("Yes", this.question, "EEEE");
@@ -197,6 +195,42 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
     final TweetPoll tweetPoll = createFastTweetPollVotes();
     final List<UnitTweetPollResult> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
     assertEquals("Should be equals", 2 , results.size());
+    }
+
+
+    @Test
+    public void testSearchTweetsPollsByKeyWord() throws EnMeDomainNotFoundException{
+        final Question questionSearch = createQuestion("Why the sea is blue?","html");
+        final String keywordGood = "Why";
+        final String keywordBad = "red";
+        createTweetPollPublicated(true, true, new Date(), this.user, questionSearch);
+        final List<UnitTweetPoll> tweetsResults = this.tweetPollService.searchTweetsPollsByKeyWord(this.secUserSecondary.getUsername(), keywordGood);
+        final List<UnitTweetPoll> tweetsResultsBad = this.tweetPollService.searchTweetsPollsByKeyWord(this.secUserSecondary.getUsername(), keywordBad);
+        assertEquals("Should be equals", 1 , tweetsResults.size());
+        assertEquals("Should be equals", 0 , tweetsResultsBad.size());
+    }
+
+    @Test
+    public void testGetTweetsPollsByUserName() throws EnMeDomainNotFoundException{
+        final Question question1 = createQuestion("Why the sea is salad?","html");
+        final Question question2 = createQuestion("Why the sea is big?","html");
+        createTweetPollPublicated(true, true, new Date(), this.user, question1);
+        createTweetPollPublicated(true, true, new Date(), this.user, question2);
+        final SecUserSecondary secUser = createSecondaryUser("diana", this.user);
+        final List<UnitTweetPoll> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(secUser.getUsername());
+        assertEquals("Should be equals", 2 , tweetPollsByUser.size());
+
+    }
+
+    public void testDisableTweetPoll() throws EnMeExpcetion{
+        final Question questiondisable = createQuestion("Why the sea is blue?","html");
+        final TweetPoll tpoll = createTweetPoll(2L, false, false, false, false, false, new Date(), new Date(), false,
+                   this.user, this.question);
+         createQuestionAnswer("Yes", questiondisable, "AADD");
+         createQuestionAnswer("No", questiondisable, "VVBB");
+        tweetPollService.disableTweetPoll(tpoll.getTweetPollId());
+
+
     }
 
 
