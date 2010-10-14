@@ -551,6 +551,8 @@ import org.junit.Test;
         accountBean.setToken("token");
         accountBean.setSecretToken("token");
         accountBean.setType("type");
+
+
         assertNotNull(accountBean.getAccount());
         assertNotNull(accountBean.getAccountId());
         assertNotNull(accountBean.getKey());

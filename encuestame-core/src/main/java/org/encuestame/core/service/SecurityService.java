@@ -126,6 +126,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param account account
      * @param password password
      * @param secUser {@link SecUser}
+     * TODO: this method is close to be deprecated, twitter don't allow password login.
      */
     public void updateTwitterAccount(
             final UnitTwitterAccountBean accountBean,

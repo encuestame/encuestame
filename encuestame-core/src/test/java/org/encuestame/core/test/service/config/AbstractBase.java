@@ -626,8 +626,12 @@ public class AbstractBase extends AbstractConfigurationBase{
      * @return state
      */
     public SecGroup createGroups(final String groupname){
+        return createGroups(groupname, createUser());
+    }
+
+    public SecGroup createGroups(final String groupname, final SecUser secUser){
         final SecGroup group = new SecGroup();
-        group.setSecUsers(createUser());
+        group.setSecUsers(secUser);
         group.setGroupName(groupname);
         group.setIdState(1L);
         group.setGroupType(Type.SECURITY);

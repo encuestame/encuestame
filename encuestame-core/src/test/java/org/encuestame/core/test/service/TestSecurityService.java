@@ -15,6 +15,7 @@ package org.encuestame.core.test.service;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
@@ -22,10 +23,12 @@ import org.encuestame.core.persistence.domain.SecGroup;
 import org.encuestame.core.persistence.domain.SecPermission;
 import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
@@ -57,7 +60,11 @@ public class TestSecurityService extends AbstractBase{
         securityService.setSuspendedNotification(getActivateNotifications());
         this.userPrimary = createUser();
         this.secUserSecondary = createSecondaryUser("default", this.userPrimary);
-
+        final SecGroup group = createGroups("admin");
+        final SecGroup group2 = createGroups("editors");
+        this.secUserSecondary.getSecGroups().add(group);
+        this.secUserSecondary.getSecGroups().add(group2);
+        getSecGroup().saveOrUpdate(this.secUserSecondary);
     }
 
     /**
@@ -85,15 +92,54 @@ public class TestSecurityService extends AbstractBase{
 
     /**
      * Test loadGroups.
+     * @throws EnMeDomainNotFoundException
      */
     @Test
-    public void testloadGroups(){
-        final SecGroup group = createGroups("admin");
-        final SecGroup group2 = createGroups("editors");
-        this.secUserSecondary.getSecGroups().add(group);
-        this.secUserSecondary.getSecGroups().add(group2);
-        getSecGroup().saveOrUpdate(this.secUserSecondary);
-        assertEquals(this.secUserSecondary.getSecGroups().size(), 2);
+    public void testloadGroups() throws EnMeDomainNotFoundException{
+        createGroups("admin", this.userPrimary);
+        createGroups("user", this.userPrimary);
+        final List<UnitGroupBean> groups = this.securityService.loadGroups(this.secUserSecondary.getUsername());
+        assertEquals(groups.size(), 2);
+    }
+
+    /**
+     * Load Groups Exception.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test(expected = EnMeDomainNotFoundException.class)
+    public void testloadGroupsException() throws EnMeDomainNotFoundException{
+         this.securityService.loadGroups("xxxxxx");
+    }
+
+    /**
+     * test updateTwitterAccount.
+     */
+    @Test
+    public void testupdateTwitterAccount(){
+        SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+        final UnitTwitterAccountBean bean = ConvertDomainBean.convertTwitterAccountToBean(account);
+        this.securityService.updateTwitterAccount(bean, "12345", false);
+        account = getSecUserDao().getTwitterAccount(account.getId());
+        assertEquals(account.getTwitterPassword(), "12345");
+        assertEquals(account.getVerfied(), false);
+        //with id null.
+        this.securityService.updateTwitterAccount(new UnitTwitterAccountBean(), "12345", false);
+    }
+
+    /**
+     * test updateSecretTwitterCredentials.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testupdateSecretTwitterCredentials() throws EnMeExpcetion{
+         SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+         final UnitTwitterAccountBean bean = ConvertDomainBean.convertTwitterAccountToBean(account);
+         bean.setKey(getProperty("twitter.test.token"));
+         bean.setSecret(getProperty("twitter.test.tokenSecret"));
+         this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
+         bean.setKey("fake key");
+         bean.setSecret("fake secret");
+         this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
     }
 
     /**
@@ -174,8 +220,6 @@ public class TestSecurityService extends AbstractBase{
     public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
-
-
 
     /**
      *Test delete Group.
@@ -265,8 +309,6 @@ public class TestSecurityService extends AbstractBase{
       final UnitUserBean userPass = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
       final String retrievePassword = securityService.renewPassword(userPass, passwd);
       assertEquals("should be equals", passwd, retrievePassword);
-
-
     }
 
     /**
