@@ -15,6 +15,7 @@ package org.encuestame.core.test.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,10 +27,13 @@ import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.QuestionPattern;
 import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
 import org.encuestame.core.persistence.domain.TweetPoll;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.service.TweetPollService;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
+import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -75,6 +79,8 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
     /** List {@link UnitAnswersBean}. **/
     private List<UnitAnswersBean> answersSaveTweet;
 
+    private List<UnitTwitterAccountBean> twitterAccount;
+
     /**
     * Before.
     */
@@ -115,7 +121,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
      * Test Create Tweet Poll.
      * @throws EnMeExpcetion exception
      */
-    //@Test
+    @Test
     public void testCreateTweetPoll() throws EnMeExpcetion{
     final Question question = createQuestion("why the sky is blue?", "yes/no", this.user);
     createQuestionAnswer("yes", question, "12345");
@@ -172,7 +178,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
      * Test Generate Tweet Poll Text.
      * @throws EnMeExpcetion EnMeExpcetion
      */
-   //  @Test
+    @Test
     public void testGenerateTweetPollText() throws EnMeExpcetion{
         final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.user, this.question);
         createQuestionAnswer("Yes", this.question, "EEEE");
@@ -190,7 +196,7 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
     /**
      * Service to retrieve Results TweetPoll  Id.
      */
-    //@Test
+    @Test
     public void testGetResultsByTweetPollId(){
     final TweetPoll tweetPoll = createFastTweetPollVotes();
     final List<UnitTweetPollResult> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
@@ -233,6 +239,17 @@ public class TestTweetPollService  extends AbstractBaseUnitBeans{
 
     }
 
+    @Test
+    public void testPublicMultiplesTweetAccounts(){
+            createDefaultSettedTwitterAccount(this.secUserSecondary.getSecUser());
+            final List<SecUserTwitterAccounts> list = getSecUserDao().getTwitterAccountByUser(this.secUserSecondary.getSecUser());
+            final List<UnitTwitterAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListTwitterAccountsToBean(list);
+             final String tweetText = RandomStringUtils.randomAlphabetic(5);
+            final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);
+            tweetPollService.publicMultiplesTweetAccounts(listUnitTwitterAccount, tweetPoll.getTweetPollId(), tweetText);
+            final TweetPoll tweet = getTweetPoll().getTweetPollById(tweetPoll.getTweetPollId());
+            assertNotNull(tweet);
+    }
 
     /**
      * @return the tweetPollService
