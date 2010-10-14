@@ -225,7 +225,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
                                      final String tokenSecret,
                                      final String consumerKey,
                                      final String consumerSecret,
-                final String pin) throws TwitterException{
+                final String pin){
         Boolean verified = false;
         log.debug("verifyCredentials OAuth");
         log.debug("Token {"+token);

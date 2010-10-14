@@ -171,7 +171,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
              twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
             //If exist pin, we can verify credentials
             log.debug("Verify OAuth Credentials");
-            try {
                 if(verifyCredentials(
                         //Token and Secret token should be always from database
                         twitterAccount.getToken(),
@@ -185,12 +184,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 } else {
                     twitterAccount.setVerfied(Boolean.FALSE);
                 }
-            } catch (TwitterException e) {
-                log.error("Error on Verify Credentials "+e.getMessage());
-                twitterAccount.setVerfied(Boolean.FALSE);
-                e.printStackTrace();
-                throw new EnMeExpcetion(e);
-            }
          } else {
              log.info("Account not verified, pin not found");
              twitterAccount.setTwitterPin(null);
@@ -313,12 +306,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public void deleteUser(final UnitUserBean userBean) throws EnMeDomainNotFoundException{
-            final SecUserSecondary userDomain = getUser(userBean.getUsername().trim());
-            log.info("user found "+userDomain);
-            if(userDomain == null) {
-               log.warn("user "+userBean.getUsername()+ "not found.");
-            }
-            else {
+            final SecUserSecondary userDomain = getUser(userBean.getUsername());
                 if (getSuspendedNotification()) {
                     log.info("notify delete account");
                     getServiceMail().sendDeleteNotification(userBean.getEmail(),
@@ -327,7 +315,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 log.info("deleting user");
                 getSecUserDao().delete(userDomain);
                 log.info("user deleted");
-            }
     }
 
     /**

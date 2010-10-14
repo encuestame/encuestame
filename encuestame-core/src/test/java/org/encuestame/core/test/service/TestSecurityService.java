@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.SecGroup;
@@ -124,6 +125,8 @@ public class TestSecurityService extends AbstractBase{
         assertEquals(account.getVerfied(), false);
         //with id null.
         this.securityService.updateTwitterAccount(new UnitTwitterAccountBean(), "12345", false);
+        bean.setAccountId(1234L);
+        this.securityService.updateTwitterAccount(bean, "12345", false);
     }
 
     /**
@@ -137,9 +140,82 @@ public class TestSecurityService extends AbstractBase{
          bean.setKey(getProperty("twitter.test.token"));
          bean.setSecret(getProperty("twitter.test.tokenSecret"));
          this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
-         bean.setKey("fake key");
-         bean.setSecret("fake secret");
+         //pin null
+         bean.setPin(null);
          this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
+         //pinn empty
+         bean.setPin("");
+         this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
+         //fake data
+         account.setToken("fake key");
+         account.setSecretToken("fake secret");
+         getSecUserDao().saveOrUpdate(account);
+         this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
+    }
+
+    /**
+     * test updateOAuthTokenSocialAccount.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testupdateOAuthTokenSocialAccount() throws EnMeExpcetion{
+        SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+        this.securityService.updateOAuthTokenSocialAccount(account.getId(), "12345", "fakeTokenSecret", this.secUserSecondary.getUsername());
+        account = getSecUserDao().getTwitterAccount(account.getId());
+        assertEquals(account.getSecretToken(), "fakeTokenSecret");
+    }
+
+    /**
+     * test updateOAuthTokenSocialAccount with exception.
+     * @throws EnMeExpcetion
+     */
+    @Test(expected = EnMeExpcetion.class)
+    public void testupdateOAuthTokenSocialAccountException() throws EnMeExpcetion{
+        this.securityService.updateOAuthTokenSocialAccount(12345L, "12345", "fakeTokenSecret", this.secUserSecondary.getUsername());
+    }
+
+    /**
+     * test getTwitterAccount.
+     */
+    @Test
+    public void testgetTwitterAccount(){
+        SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+        final UnitTwitterAccountBean accountBean = this.securityService.getTwitterAccount(account.getId());
+        assertEquals(account.getId(), accountBean.getAccountId());
+    }
+
+    /**
+     * test deleteUser.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test(timeout = 30000)
+    public void testdeleteUser() throws EnMeDomainNotFoundException{
+        final SecUserSecondary tempUser = createSecondaryUser("second user", this.userPrimary);
+        final Long id = tempUser.getUid();
+        this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser));
+        final SecUserSecondary tempUser2 = createSecondaryUser("second user", getProperty("mail.test.email"), this.userPrimary);
+        this.securityService.setSuspendedNotification(true);
+        this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser2));
+        assertNull(getSecUserDao().getSecondaryUserById(id));
+    }
+
+    /**
+     * test deleteUser.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test(expected = EnMeDomainNotFoundException.class)
+    public void testdeleteUserNotFound() throws EnMeDomainNotFoundException{
+        this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(new SecUserSecondary()));
+    }
+
+    /**
+     * test addNewTwitterAccount.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test
+    public void testaddNewTwitterAccount() throws EnMeDomainNotFoundException{
+        this.securityService.addNewTwitterAccount("encuestameTest", this.secUserSecondary.getUsername());
+        assertEquals(getSecUserDao().getTwitterAccountByUser(this.userPrimary).size(), 1);
     }
 
     /**
