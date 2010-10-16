@@ -19,6 +19,7 @@
             classpath:encuestame-mvc-context.xml,
             classpath:encuestame-controller-context.xml,
             classpath:encuestame-json-context.xml,
+            classpath:encuestame-web-flow-registry-context.xml,
             classpath:encuestame-web-flow-context.xml</param-value>
     </context-param>
     <context-param>

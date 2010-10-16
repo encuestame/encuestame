@@ -11,6 +11,7 @@
                 <value>${encuestame.properties.path}</value>
                 <value>${hibernate.test.properties.path}</value>
                 <value>classpath:lucene.test.index.properties</value>
+                <value>classpath:webflow.test.properties</value>
             </list>
         </property>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>

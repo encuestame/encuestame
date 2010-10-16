@@ -19,11 +19,6 @@
         </webflow:flow-execution-listeners>
     </webflow:flow-executor>
 
-        <!-- The registry of executable flow definitions -->
-     <webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/flows">
-        <webflow:flow-location-pattern value="/**/*-flow.xml" />
-    </webflow:flow-registry>
-
     <!-- Installs a listener that manages Hibernate persistence contexts for flows that require them -->
     <bean id="hibernateFlowExecutionListener" class="org.springframework.webflow.persistence.HibernateFlowExecutionListener">
             <constructor-arg index="0"><ref bean="sessionFactory"/></constructor-arg>
@@ -33,7 +28,7 @@
     <!-- Installs a listener to apply Spring Security authoritie
     Reported on JIRA
     https://jira.springsource.org/browse/SWF-1182?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel
-    Should be ready on  Spring Webflow 2.0.9-->
+    Should be ready on  Spring Webflow 2.0.9 -->
     <bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
 
 

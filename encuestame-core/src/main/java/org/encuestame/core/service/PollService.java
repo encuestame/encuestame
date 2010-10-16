@@ -198,11 +198,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
     /**
      * Update FolderName.
-     * @param folderId
-     * @param newFolderName
-     * @param username
-     * @return
-     * @throws EnMeDomainNotFoundException
+     * @param folderId folder id
+     * @param newFolderName folder name
+     * @param username username
+     * @return {@link UnitFolder}
+     * @throws EnMeDomainNotFoundException exception
      */
     public UnitFolder updateFolderName(final Long folderId,
             final String newFolderName,

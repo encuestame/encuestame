@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since Sep 18, 2010 5:56:22 PM
  * @version $Id:$
  */
-@Controller
+@Controller("notificationsJsonController")
 public class NotificationsJsonController extends AbstractJsonController {
 
     /**

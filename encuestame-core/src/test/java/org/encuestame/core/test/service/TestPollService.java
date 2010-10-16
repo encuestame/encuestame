@@ -14,6 +14,7 @@ package org.encuestame.core.test.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,8 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
+import org.hibernate.exception.ConstraintViolationException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,10 +134,47 @@ public class TestPollService extends AbstractBaseUnitBeans{
 
     /**
      * Test createPollFolder.
+     * @throws EnMeDomainNotFoundException exception
      */
     @Test
-    public void testcreatePollFolder(){
+    public void testcreatePollFolder() throws EnMeDomainNotFoundException{
+         this.pollService.createPollFolder("folder 2", this.secUserSecondary.getUsername());
+         List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.secUserSecondary.getUsername());
+         assertEquals(folders.size(), 2);
+    }
 
+    /**
+     * Test updateFolderName.
+     * @throws EnMeDomainNotFoundException exception
+     */
+    @Test
+    public void testupdateFolderName() throws EnMeDomainNotFoundException{
+        this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.secUserSecondary.getUsername());
+        final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
+         assertEquals(folder.getFolderName(), "newFolderName");
+    }
+
+    /**
+     * test removePollFolder.
+     * @throws EnMeDomainNotFoundException exception
+     */
+    @Test(expected = ConstraintViolationException.class)
+    public void testremovePollFolderBatchUpdateException() throws EnMeDomainNotFoundException{
+        final long id = this.folder.getId();
+        this.pollService.removePollFolder(id);
+    }
+
+    /**
+     * Remove Poll Folder.
+     * @throws EnMeDomainNotFoundException exception
+     */
+    @Test()
+    public void testremovePollFolder() throws EnMeDomainNotFoundException{
+        this.poll.setPollFolder(null);
+        getiPoll().saveOrUpdate(this.poll);
+        final long id = this.folder.getId();
+        this.pollService.removePollFolder(id);
+        Assert.assertNull(getiPoll().getPollFolderById(id));
     }
 
     /**

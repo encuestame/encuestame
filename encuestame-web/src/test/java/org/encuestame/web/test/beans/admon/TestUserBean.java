@@ -12,10 +12,15 @@
  */
 package org.encuestame.web.test.beans.admon;
 
+import java.util.List;
+
+import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.admon.security.UserBean;
 import org.encuestame.web.test.config.AbstractBaseWeb;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * {@link UserBean} Test Cases.
@@ -26,9 +31,27 @@ import static org.junit.Assert.*;
 
 public class TestUserBean extends AbstractBaseWeb {
 
+    /**
+     * Init.
+     */
+    @Before
+    public void init(){
+        setUserBean(new UserBean());
+        getUserBean().setServicemanagerBean(getServiceManager());
+    }
+
+    /**
+     * Test User Bean.
+     */
     @Test
     public void testUserBean(){
-        assertNull(getUserBean());
+        final UnitUserBean unitUserBean = createUnitUserBean("jota", "jota@jota.com");
+        Assert.assertNotNull(unitUserBean.getEmail());
+        Assert.assertNotNull(unitUserBean.getUsername());
+        getUserBean().setNewUnitUserBean(unitUserBean);
+        getUserBean().createUser(getUsernameLogged());
+        final SecUserSecondary secondary = getSecUserDao().getUserByUsername("jota");
+        Assert.assertNotNull(secondary);
     }
 
 }

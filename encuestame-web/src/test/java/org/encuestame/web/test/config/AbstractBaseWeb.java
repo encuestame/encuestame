@@ -15,26 +15,24 @@ package org.encuestame.web.test.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.encuestame.core.service.IServiceManager;
+import org.encuestame.core.service.ServiceManager;
+import org.encuestame.core.test.security.AbstractSpringSecurityContext;
+import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.web.beans.admon.security.UserBean;
-import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.Scope;
-
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.RequestScope;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.SessionScope;
 
@@ -49,28 +47,27 @@ import org.springframework.web.context.request.SessionScope;
 @Transactional
 @org.springframework.context.annotation.Scope("session")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-service-context.xml",
-        "classpath:encuestame-dao-context.xml",
-        "classpath:encuestame-hibernate-context.xml",
-        "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-param-test-context.xml",
         "classpath:encuestame-beans-jsf-context.xml"
-         })
+})
 
-public class AbstractBaseWeb extends AbstractTransactionalJUnit4SpringContextTests implements Scope{
+public class AbstractBaseWeb extends AbstractSpringSecurityContext implements Scope{
 
     protected MockHttpServletRequest request;
     protected MockHttpServletResponse response;
 
+    /** {@link ServiceManager}. **/
+    @Autowired
+    private IServiceManager serviceManager;
+
     private Map<String,Object> scopeMap = new HashMap<String,Object>();
     protected void onSetUp() throws Exception {
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpSession session = new MockHttpSession();
-        request.setSession(session);
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    MockHttpSession session = new MockHttpSession();
+    request.setSession(session);
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         ((ConfigurableApplicationContext) applicationContext).getBeanFactory().registerScope( "session", new SessionScope());
-        }
+    }
 
     /***/
     private UserBean userBean;
@@ -117,5 +114,19 @@ public class AbstractBaseWeb extends AbstractTransactionalJUnit4SpringContextTes
     public Object resolveContextualObject(String arg0) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /**
+     * @return the serviceManager
+     */
+    public IServiceManager getServiceManager() {
+        return serviceManager;
+    }
+
+    /**
+     * @param serviceManager the serviceManager to set
+     */
+    public void setServiceManager(IServiceManager serviceManager) {
+        this.serviceManager = serviceManager;
     }
 }

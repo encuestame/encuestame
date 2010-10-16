@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.persistence.domain.SecUserSecondary;
-import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.core.security.EnMePermission;
+import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.junit.Before;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,12 +31,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @since Jun 30, 2010 9:03:50 PM
  * @version $Id:$
  */
-public abstract class AbstractSpringSecurityContext extends AbstractBase {
+public abstract class AbstractSpringSecurityContext extends AbstractBaseUnitBeans {
 
     /**
      * {@link SecUserSecondary}.
      */
     public SecUserSecondary secondary;
+
+    /**
+     * Username of User Logged.
+     */
+    private String usernameLogged;
 
     @Before
     public void setUp() throws Exception {
@@ -69,12 +75,13 @@ public abstract class AbstractSpringSecurityContext extends AbstractBase {
     public void setAuthentication(final String username, final String password){
         final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         //Add permissions.
-        authorities.add(new GrantedAuthorityImpl("ENCUESTAME_USER"));
-        authorities.add(new GrantedAuthorityImpl("ENCUESTAME_ADMIN"));
+        authorities.add(new GrantedAuthorityImpl(EnMePermission.ENCUESTAME_USER.name()));
+        authorities.add(new GrantedAuthorityImpl(EnMePermission.ENCUESTAME_ADMIN.name()));
         TestingAuthenticationToken token = new TestingAuthenticationToken(username, password, authorities);
         token.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(token);
-        System.out.println("creando SecurityContextHolder "+SecurityContextHolder.getContext().getAuthentication());
+        //System.out.println("creando SecurityContextHolder "+SecurityContextHolder.getContext().getAuthentication());
+        setUsernameLogged(this.secondary.getUsername());
     }
 
     /**
@@ -84,5 +91,21 @@ public abstract class AbstractSpringSecurityContext extends AbstractBase {
     public Authentication getAuthentication() {
         log.debug("Security "+ SecurityContextHolder.getContext().getAuthentication());
         return  SecurityContextHolder.getContext().getAuthentication();
+    }
+
+
+    /**
+     * @return the usernameLogged
+     */
+    public String getUsernameLogged() {
+        return usernameLogged;
+    }
+
+
+    /**
+     * @param usernameLogged the usernameLogged to set
+     */
+    public void setUsernameLogged(String usernameLogged) {
+        this.usernameLogged = usernameLogged;
     }
 }

@@ -30,6 +30,7 @@ import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.UnitUserBean;
 
 
 /**
@@ -106,13 +107,11 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          answerBean.setAnswers(answers);
          answerBean.setQuestionId(questionId);
         return answerBean;
-
-
      }
 
 
     /**
-     *
+     * Create Unit Tweet Poll.
      * @param allowLiveResults
      * @param closeNotification
      * @param completed
@@ -353,5 +352,19 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              signUpBean.setPassword(password);
              signUpBean.setUsername(username);
          return signUpBean;
+     }
+
+     /**
+      * Create {@link UnitUserBean}.
+      * @param username
+      * @return
+      */
+     public UnitUserBean createUnitUserBean(final String username, final String email){
+         final UnitUserBean bean = new UnitUserBean();
+         bean.setDateNew(new Date());
+         bean.setEmail(email);
+         bean.setUsername(username);
+         bean.setPassword("xxxxx");
+         return bean;
      }
 }
