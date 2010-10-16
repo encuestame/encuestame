@@ -488,7 +488,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param username username
      * @return
      */
-    public List<SecUserSecondary> searchUsersByUsesrname(final String username){
+    public List<SecUserSecondary> searchUsersByUsername(final String username){
         return getSecUserDao().getUsersByUsername(username);
     }
 
@@ -498,7 +498,10 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link SecPermission}
      */
     public SecPermission getPermissionByName(final String permission){
-        return getPermissionDao().loadPermission(permission);
+        System.out.println(permission);
+        final SecPermission permission2 = getPermissionDao().loadPermission(permission);
+        System.out.println(permission2);
+        return permission2;
     }
 
     /**
@@ -506,9 +509,13 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param secUserSecondary {@link SecUserSecondary}.
      * @param secPermissions List of {@link SecPermission}.
      */
-    public void assingPermission(final SecUserSecondary secUserSecondary , final Set<SecPermission> secPermissions){
+    private void assingPermission(final SecUserSecondary secUserSecondary , final Set<SecPermission> secPermissions){
         for (SecPermission secPermission : secPermissions) {
-            secUserSecondary.getSecUserPermissions().add(secPermission);
+            if(secPermission != null){
+                secUserSecondary.getSecUserPermissions().add(secPermission);
+            } else {
+                log.error("Error on assing permission to "+secUserSecondary.getUsername());
+            }
         }
         getSecUserDao().saveOrUpdate(secUserSecondary);
     }
@@ -562,7 +569,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         //search group by group id and owner user id.
         final SecGroup secGroup = getGroupDao().getGroupById(groupBean.getId(), secUserSecondary.getSecUser());
         if(secGroup == null){
-            throw new EnMeExpcetion("group not found");
+            throw new EnMeDomainNotFoundException("group not found");
         }
         //add new group.
         secUserSecondary.getSecGroups().add(secGroup);
@@ -579,7 +586,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion {
-       //TODO: need be implemented
+            //TODO: need be implemented
     }
 
     /**
@@ -588,18 +595,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return permission bean
      */
     public UnitPermission loadBeanPermission(final String permission) {
-        final UnitPermission permissionBean = new UnitPermission();
-            final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
-                if (permissionDomain != null) {
-                    permissionBean.setId(permissionDomain.getIdPermission());
-                    permissionBean.setPermission(permissionDomain.getPermission());
-                    permissionBean.setDescription(permissionDomain.getPermissionDescription());
-                }
+        UnitPermission permissionBean = null;
+        final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
+        if(permissionDomain != null){
+             permissionBean = ConvertDomainBean.convertPermissionToBean(permissionDomain);
+        }
         return permissionBean;
     }
 
     /**
-     * SingUp User
+     * SingUp User.
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UnitUserBean}.
      */

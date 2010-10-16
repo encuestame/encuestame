@@ -258,7 +258,7 @@ public interface ISecurityService extends IService {
      * @param username username
      * @return
      */
-    List<SecUserSecondary> searchUsersByUsesrname(final String username);
+    List<SecUserSecondary> searchUsersByUsername(final String username);
 
     /**
      * Load list of {@link SecPermission}.

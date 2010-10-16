@@ -21,6 +21,7 @@ import org.encuestame.core.persistence.domain.QuestionsAnswers;
 import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.TweetPoll;
 import org.encuestame.core.persistence.domain.TweetPollSwitch;
+import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -335,5 +336,22 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          folder.setName(name);
          folder.setType(LocationFolderType.GROUPING.name());
          return folder;
+     }
+
+     /**
+      * Create SignUpBean.
+      * @param username username
+      * @param email email.
+      * @param password password
+      * @return {@link SignUpBean}.
+      */
+     public SignUpBean createSignUpBean(final String username, final String email, final String password){
+         final SignUpBean signUpBean = new SignUpBean();
+             signUpBean.setCaptcha("12345");
+             signUpBean.setEmail(email);
+             signUpBean.setFullName(username);
+             signUpBean.setPassword(password);
+             signUpBean.setUsername(username);
+         return signUpBean;
      }
 }

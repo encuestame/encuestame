@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.SecGroup;
@@ -25,10 +24,12 @@ import org.encuestame.core.persistence.domain.SecPermission;
 import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
+import org.encuestame.core.security.EnMePermission;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
+import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
@@ -44,14 +45,20 @@ import org.springframework.test.annotation.ExpectedException;
  * @since 08/11/2009 11:35:01
  * @version $Id$
  */
-public class TestSecurityService extends AbstractBase{
+public class TestSecurityService extends AbstractBaseUnitBeans{
 
+    /** {@link SecurityService}. **/
     @Autowired
     private ISecurityService securityService;
 
+    /** User Primary. **/
     private SecUser userPrimary;
 
+    /** User Secondary. **/
     private SecUserSecondary secUserSecondary;
+
+    /** {@link SecPermission}. **/
+    private SecPermission secPermission;
 
     /**
      * Before.
@@ -65,6 +72,11 @@ public class TestSecurityService extends AbstractBase{
         final SecGroup group2 = createGroups("editors");
         this.secUserSecondary.getSecGroups().add(group);
         this.secUserSecondary.getSecGroups().add(group2);
+        this.secPermission = createPermission(EnMePermission.ENCUESTAME_EDITOR.name());
+        createPermission(EnMePermission.ENCUESTAME_OWNER.name());
+        createPermission(EnMePermission.ENCUESTAME_PUBLISHER.name());
+        createPermission(EnMePermission.ENCUESTAME_ADMIN.name());
+        this.secUserSecondary.getSecUserPermissions().add(this.secPermission);
         getSecGroup().saveOrUpdate(this.secUserSecondary);
     }
 
@@ -231,9 +243,7 @@ public class TestSecurityService extends AbstractBase{
      */
     @Test
     public void testLoadAllListPermission(){
-         createPermission("ADMON");
-         createPermission("EDITOR");
-        assertEquals("Should be equals",2,securityService.loadAllListPermission().size());
+         assertEquals("Should be equals", 4, securityService.loadAllListPermission().size());
     }
 
     /**
@@ -293,7 +303,7 @@ public class TestSecurityService extends AbstractBase{
      * Setter.
      * @param securityService the securityService to set
      */
-    public void setSecurityService(SecurityService securityService) {
+    public final void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
 
@@ -441,10 +451,10 @@ public class TestSecurityService extends AbstractBase{
        public void testCreateUserwithUsernameEmail() throws EnMeExpcetion{
         createDefaultPermission();
         final UnitUserBean userCreateBean = new UnitUserBean();
-        userCreateBean.setEmail("demo@demo.org");
-        userCreateBean.setUsername("demo");
+        userCreateBean.setEmail("demo3@demo.org");
+        userCreateBean.setUsername("demo3");
         userCreateBean.setStatus(true);
-        userCreateBean.setName("demo");
+        userCreateBean.setName("demo3");
         userCreateBean.setPassword(null);
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createUser().getUid());
@@ -452,7 +462,7 @@ public class TestSecurityService extends AbstractBase{
         //TODO: need assert
         final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
-        assertEquals("should be equals",1, user.getSecUserPermissions().size());
+        assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
 
       /**
@@ -465,8 +475,8 @@ public class TestSecurityService extends AbstractBase{
         SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
         userCreateBean.setPassword(null);
-        userCreateBean.setEmail("demo@demo.org");
-        userCreateBean.setUsername("demo");
+        userCreateBean.setEmail("demo2@demo.org");
+        userCreateBean.setUsername("demo2");
         userCreateBean.setStatus(true);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setPrimaryUserId(createUser().getUid());
@@ -488,8 +498,8 @@ public class TestSecurityService extends AbstractBase{
         SecUserSecondary secCreateUser = new SecUserSecondary();
         UnitUserBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
         userCreateBean.setPassword("12345");
-        userCreateBean.setEmail("demo@demo.org");
-        userCreateBean.setUsername("demo");
+        userCreateBean.setEmail("demo1@demo.org");
+        userCreateBean.setUsername("demo1");
         userCreateBean.setStatus(true);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setDateNew(new Date());
@@ -525,16 +535,12 @@ public class TestSecurityService extends AbstractBase{
       @Test
       public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
         final SecUserSecondary secUser = createSecondaryUser("demo",this.userPrimary);
-        final SecPermission secPermission = createPermission("admin");
-        final SecPermission secPermission2 = createPermission("editor");
         final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
-        final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPermission);
-        final UnitPermission permissionBean2 = ConvertDomainBean.convertPermissionToBean(secPermission2);
+        final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.secPermission);
         userPermissionBean.setId(userPermissionBean.getId());
         userPermissionBean.setUsername("demo");
         securityService.assignPermission(userPermissionBean, permissionBean);
-        securityService.assignPermission(userPermissionBean, permissionBean2);
-        assertEquals("should be equals", 2, secUser.getSecUserPermissions().size());
+        assertEquals("should be equals", 1, secUser.getSecUserPermissions().size());
       }
 
         /**
@@ -544,9 +550,8 @@ public class TestSecurityService extends AbstractBase{
         @Test
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion{
-          final SecPermission permission = createPermission("editor");
           final UnitUserBean userPermissionBean = new UnitUserBean();
-          final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(permission);
+          final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.secPermission);
           //modify id user id.
           userPermissionBean.setId(1L);
           securityService.assignPermission(userPermissionBean, permissionBean);
@@ -560,7 +565,7 @@ public class TestSecurityService extends AbstractBase{
         @Test
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermission() throws EnMeExpcetion{
-            final SecUserSecondary secUser = createSecondaryUser("juanpicado",this.userPrimary);
+            final SecUserSecondary secUser = createSecondaryUser("juanpicado2",this.userPrimary);
             final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
             final UnitPermission permissionBean = new UnitPermission();
             //modify id permission.
@@ -597,11 +602,64 @@ public class TestSecurityService extends AbstractBase{
         }
 
         /**
+         * Test searchUsersByEmail.
+         */
+        @Test
+        public void testsearchUsersByEmail(){
+            final SecUserSecondary email = createSecondaryUser("emailUser1", this.userPrimary);
+            List<SecUserSecondary> emailUsers = this.securityService.searchUsersByEmail(email.getUserEmail());
+            assertEquals(emailUsers.size(), 1);
+        }
+
+        /**
+         * Test searchUsersByEmail.
+         */
+        @Test
+        public void testsearchUsersByUsername(){
+            createSecondaryUser("emailUser2", this.userPrimary);
+            List<SecUserSecondary> emailUsers = this.securityService.searchUsersByUsername("emailUser2");
+            assertEquals(emailUsers.size(), 1);
+        }
+
+        /**
+         * Test assingGroupFromUser.
+         * @throws EnMeExpcetion exception
+         */
+        @Test
+        public void testassingGroupFromUser() throws EnMeExpcetion{
+            final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(this.secUserSecondary);
+            final UnitGroupBean groupBean = ConvertDomainBean
+                                .convertGroupDomainToBean(createGroups("admin", this.userPrimary));
+            this.securityService.assingGroupFromUser(userBean, groupBean);
+            final SecUserSecondary userWithGroup = this.securityService.findUserByUserName(userBean.getUsername());
+            assertEquals(userWithGroup.getSecGroups().size(), 3);
+        }
+
+        /**
+         * Test assingGroupFromUser with Exception.
+         * @throws EnMeExpcetion Exception
+         */
+        @Test(expected = EnMeExpcetion.class)
+        public void testassingGroupFromUserException() throws EnMeExpcetion{
+            final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(this.secUserSecondary);
+            this.securityService.assingGroupFromUser(userBean, new UnitGroupBean());
+        }
+
+        /**
          *Test Load Bean Permission.
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
         public void testloadBeanPermission() throws EnMeExpcetion{
-          securityService.loadBeanPermission("permission");
+            final UnitPermission permission = securityService.loadBeanPermission(this.secPermission.getPermission());
+            assertNotNull(permission);
+        }
+        /**
+         * Test singupUser.
+         */
+        @Test
+        public void testsingupUser(){
+            final SignUpBean bean = createSignUpBean("newUser", "newUser@gmail.com", "12345");
+            this.securityService.singupUser(bean);
         }
 }

@@ -71,20 +71,6 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
     }
 
     /**
-     * Public Tweet Poll.
-     * @param username twitter username
-     * @param password twitter password
-     * @param tweet text to tweet
-     * @return {@link Status}
-     * @throws TwitterException twitter exception
-     */
-    @Deprecated
-    public Status publicTweet(final String username, final String password, final String tweet) throws TwitterException{
-        final Twitter twitter = new TwitterFactory().getInstance(username, password);
-        return twitter.updateStatus(tweet);
-    }
-
-    /**
      * OAuth Public Tweet.
      * @param secUserTwitterAccount
      * @param tweet

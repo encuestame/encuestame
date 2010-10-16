@@ -35,17 +35,6 @@ import twitter4j.Status;
  */
 public interface ITweetPollService extends IMasterSurveyService{
 
-     /**
-     * Public Tweet Poll.
-     * @param tweetText tweet text
-     * @param username username
-     * @param password  password
-     * @return status of tweet
-     * @throws EnMeExpcetion exception
-     */
-    @Deprecated
-    Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion;
-
     /**
      * Create Tweet Poll.
      * @param tweetPollBean tweet poll bean.

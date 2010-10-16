@@ -44,18 +44,6 @@ public interface ITwitterService extends IService{
     String getTinyUrl(final String url) throws HttpException, IOException;
 
     /**
-     * Public Tweet.
-     * @param username twitter username
-     * @param password twitter password
-     * @param tweet text to tweet
-     * @return {@link Status}
-     * @throws TwitterException twitter exception
-     */
-    @Deprecated
-    Status publicTweet(final String username, final String password, final String tweet) throws TwitterException;
-
-
-    /**
      * Get Twitter Ping.
      * @param consumerKey consumer key
      * @param consumerSecret consumer secret

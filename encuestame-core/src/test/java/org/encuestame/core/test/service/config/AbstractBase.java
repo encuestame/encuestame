@@ -12,8 +12,6 @@
  */
 package org.encuestame.core.test.service.config;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;

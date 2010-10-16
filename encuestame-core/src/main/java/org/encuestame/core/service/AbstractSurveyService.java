@@ -311,25 +311,6 @@ public class AbstractSurveyService extends AbstractChartService {
     }
 
     /**
-     * Public Tweet Poll.
-     * @param tweetText tweet text
-     * @param username username
-     * @param password  password
-     * @return status of tweet
-     * @throws EnMeExpcetion exception
-     */
-    @Deprecated
-    public Status publicTweetPoll(final String tweetText, final String username, final String password) throws EnMeExpcetion {
-        try {
-          log.debug("publicTweetPoll");
-          return getTwitterService().publicTweet(username, password, tweetText);
-        } catch (TwitterException e) {
-            log.error(e);
-            throw new EnMeExpcetion(e);
-        }
-    }
-
-    /**
      * Public Tweet Poll (OAuth method).
      * @param tweetText tweet text
      * @return status of tweet

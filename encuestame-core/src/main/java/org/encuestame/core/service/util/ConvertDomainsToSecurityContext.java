@@ -22,19 +22,30 @@ import org.encuestame.core.persistence.domain.SecPermission;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
+/**
+ * Convert Domains to Security Context.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Oct 16, 2010 9:46:13 AM
+ * @version $Id:$
+ */
 public class ConvertDomainsToSecurityContext {
 
+    /** Log. **/
      private static Log log = LogFactory.getLog(ConvertDomainsToSecurityContext.class);
 
      /**
       * Convert {@link SecPermission} to {@link GrantedAuthority}.
-      * @param permissions
-      * @return
+      * @param permissions list of permission
+      * @return list of {@link GrantedAuthority}.
       */
      public static final  List<GrantedAuthority> convertEnMePermission(final Set<SecPermission> permissions){
             final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             for (SecPermission secPermission : permissions) {
-                authorities.add(new GrantedAuthorityImpl(secPermission.getPermission()));
+                if(secPermission != null){
+                    authorities.add(new GrantedAuthorityImpl(secPermission.getPermission()));
+                } else {
+                    log.warn("Impossible granted authority");
+                }
             }
             log.info("list granted "+authorities.size());
             return authorities;
