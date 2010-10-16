@@ -79,45 +79,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
     }
 
-    //FIXME: Reutilize method
-    /**
-     * Save Question Answer.
-     * @param answerBean answer
-     * @param question question
-     */
-    public void saveAnswer(final UnitAnswersBean answerBean, final Question question){
-            final QuestionsAnswers answer = new QuestionsAnswers();
-            answer.setQuestions(question);
-            answer.setAnswer(answerBean.getAnswers());
-            answer.setUniqueAnserHash(answerBean.getAnswerHash());
-            this.getQuestionDao().saveOrUpdate(answer);
-            answerBean.setAnswerId(answer.getQuestionAnswerId());
-    }
-
-    //FIXME: Reutilize method
-    /**
-     * Create Question.
-     * @param questionBean {@link UnitQuestionBean}.
-     * @throws EnMeExpcetion exception
-     */
-    public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
-            try{
-                final Question question = new Question();
-                question.setQuestion(questionBean.getQuestionName());
-               // question.setSecUsersQuestion(getClientDao().getClientById((questionBean.getUserId()));
-                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
-                question.setSharedQuestion(false);
-                getQuestionDao().saveOrUpdate(question);
-                questionBean.setId(question.getQid());
-                for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
-                    this.saveAnswer(answerBean, question);
-                }
-            }
-            catch (Exception e) {
-                throw new EnMeExpcetion(e);
-            }
-    }
-
     /**
      * List Poll ByUser.
      * @param currentUser currentUser

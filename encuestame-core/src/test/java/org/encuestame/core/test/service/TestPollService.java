@@ -23,13 +23,17 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.CatEmailLists;
 import org.encuestame.core.persistence.domain.CatEmails;
 import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.QuestionPattern;
 import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.core.service.IPollService;
+import org.encuestame.core.service.PollService;
+import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -39,12 +43,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
  /**
- * Description Class.
+ * Test for {@link PollService}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since 17/05/2010 19:35:36
- * @version Id:
+ * @version $Id:$
  */
 public class TestPollService extends AbstractBaseUnitBeans{
+
      /** {@link SecUser} **/
     private SecUser user;
 
@@ -69,19 +74,68 @@ public class TestPollService extends AbstractBaseUnitBeans{
     /** {@link CatEmails} **/
     private CatEmails emails;
 
+    /** {@link PollFolder}. **/
+    private PollFolder folder;
+
+    /**
+     * Init.
+     */
     @Before
     public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.secUserSecondary = createSecondaryUser("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE);
-
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.secUserSecondary.getSecUser());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
+        this.folder = createPollFolder("folder 1", this.user);
+        this.poll.setPollFolder(folder);
      }
+
+    /**
+     * Test createPoll.
+     * @throws Exception exception
+     */
+    @Test
+    public void testcreatePoll() throws Exception{
+        final UnitQuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
+        final UnitPoll unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
+        unitPoll.setQuestionBean(question);
+        this.pollService.createPoll(unitPoll, this.secUserSecondary.getUsername());
+    }
+
+    /**
+     * Test getPollsByFolder.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test
+    public void testgetPollsByFolder() throws EnMeDomainNotFoundException{
+        getiPoll().saveOrUpdate(this.poll);
+        List<UnitPoll> polls = this.pollService.getPollsByFolder(ConvertDomainBean
+                              .convertFolderToBeanFolder(folder), this.secUserSecondary.getUsername());
+        assertEquals(polls.size(), 1);
+    }
+
+    /**
+     * Test retrieveFolderPoll.
+     * @throws EnMeDomainNotFoundException exception
+     */
+    @Test
+    public void testretrieveFolderPoll() throws EnMeDomainNotFoundException{
+        List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.secUserSecondary.getUsername());
+        assertEquals(folders.size(), 1);
+    }
+
+    /**
+     * Test createPollFolder.
+     */
+    @Test
+    public void testcreatePollFolder(){
+
+    }
 
     /**
      * Test Find Polls By User.
@@ -153,10 +207,11 @@ public class TestPollService extends AbstractBaseUnitBeans{
 
     @Test(timeout=80000)
     public void testPublicPollByEmailList(){
-        final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(), new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
-            final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.secUserSecondary.getCompleteName());
-            pollService.publicPollByList(urlPoll, emailUnitList);
-            assertEquals(1, 1); //Decoration.
-
+        final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(),
+                        new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
+         final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.secUserSecondary.getCompleteName());
+         pollService.publicPollByList(urlPoll, emailUnitList);
+         pollService.publicPollByList(urlPoll, new UnitLists());
+         assertEquals(1, 1);
     }
 }

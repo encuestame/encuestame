@@ -44,6 +44,7 @@ import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.Client;
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.Poll;
+import org.encuestame.core.persistence.domain.PollFolder;
 import org.encuestame.core.persistence.domain.PollResult;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.Question;
@@ -1149,7 +1150,10 @@ public class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.account"));
     }
 
-
+    /**
+     * Create Survey Folders.
+     * @return
+     */
     public SurveyFolder createSurveyFolders(){
         final SurveyFolder surveyFolders = new SurveyFolder();
         surveyFolders.setCreatedAt(new Date());
@@ -1157,6 +1161,22 @@ public class AbstractBase extends AbstractConfigurationBase{
         surveyFolders.setUsers(createUser());
         getSurveyDaoImp().saveOrUpdate(surveyFolders);
         return surveyFolders;
+    }
+
+
+    /**
+     * Create {@link PollFolder}.
+     * @param folderName folder name
+     * @param users {@link SecUser}
+     * @return {@link PollFolder}.
+     */
+    public PollFolder createPollFolder(final String folderName, final SecUser users){
+        final PollFolder folder = new PollFolder();
+        folder.setCreatedAt(new Date());
+        folder.setFolderName(folderName);
+        folder.setUsers(users);
+        getiPoll().saveOrUpdate(folder);
+        return folder;
     }
 
     /**

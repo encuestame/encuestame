@@ -40,20 +40,6 @@ public interface IPollService extends IMasterSurveyService{
   void createPoll(final UnitPoll pollBean, final String currentUser) throws Exception;
 
   /**
-   * Save Answers Poll.
-   * @param answerBean
-   * @param question
-   */
-  void saveAnswer(final UnitAnswersBean answerBean, final Question question);
-
-  /**
-   * Create Answers in Poll.
-   * @param questionBean
-   * @throws EnMeExpcetion
-   */
-  void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion;
-
-  /**
    * List Poll by Question.
    * @param currentUser currentUser
    * @param keyword Question keyword
