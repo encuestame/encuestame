@@ -15,8 +15,10 @@ package org.encuestame.core.persistence.dao;
 import java.util.Calendar;
 import java.util.List;
 
+import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.domain.survey.Poll;
 import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.search.SearchSurveyPollTweetItem;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,6 +29,9 @@ import org.hibernate.criterion.Restrictions;
  * @version $Id:$
  */
 public class FrontEndDao extends AbstractHibernateDaoSupport{
+
+    /** {@link HashTagDao}. **/
+    private IHashTagDao hashTagDao;
 
     /**
      * Constructor.
@@ -77,6 +82,15 @@ public class FrontEndDao extends AbstractHibernateDaoSupport{
         criteria.add(Restrictions.le("enabled", Boolean.FALSE)); //should be enabled
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
         return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+    }
+
+    /**
+     * Search Items By Tag.
+     * @param tag
+     * @return
+     */
+    public List<SearchSurveyPollTweetItem> searchByTag(final String tag){
+        return null;
     }
 
     /**
@@ -133,5 +147,18 @@ public class FrontEndDao extends AbstractHibernateDaoSupport{
         return this.getPollFrontEnd(30 , maxResults, -1);
     }
 
+    /**
+     * @return the hashTagDao
+     */
+    public IHashTagDao getHashTagDao() {
+        return hashTagDao;
+    }
+
+    /**
+     * @param hashTagDao the hashTagDao to set
+     */
+    public void setHashTagDao(final IHashTagDao hashTagDao) {
+        this.hashTagDao = hashTagDao;
+    }
 }
 

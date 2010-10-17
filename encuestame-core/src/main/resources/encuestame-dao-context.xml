@@ -89,6 +89,9 @@
          <property name="hibernateTemplate">
              <ref bean="hibernateTemplate" />
          </property>
+         <property name="hashTagDao">
+            <ref bean="hashTagDao"/>
+         </property>
     </bean>
 
 </beans>
