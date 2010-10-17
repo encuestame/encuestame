@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.security;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -30,6 +30,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
+import org.encuestame.core.persistence.domain.Project;
 
 /**
  * Security User Secondary.

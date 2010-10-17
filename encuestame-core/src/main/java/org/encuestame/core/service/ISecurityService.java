@@ -19,10 +19,10 @@ import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.SecGroup;
-import org.encuestame.core.persistence.domain.SecPermission;
-import org.encuestame.core.persistence.domain.SecUser;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecGroup;
+import org.encuestame.core.persistence.domain.security.SecPermission;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;

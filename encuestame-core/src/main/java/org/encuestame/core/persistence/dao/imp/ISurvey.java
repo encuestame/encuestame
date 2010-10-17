@@ -14,7 +14,7 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.Collection;
 
-import org.encuestame.core.persistence.domain.SurveyFormat;
+import org.encuestame.core.persistence.domain.survey.SurveyFormat;
 
 /**
  * Interface to implement Survey Dao.

@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 
 import java.util.Date;
 import java.util.HashSet;

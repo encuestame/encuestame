@@ -19,11 +19,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IPoll;
-import org.encuestame.core.persistence.domain.Poll;
-import org.encuestame.core.persistence.domain.PollResult;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.QuestionsAnswers;
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.survey.Poll;
+import org.encuestame.core.persistence.domain.survey.PollResult;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;

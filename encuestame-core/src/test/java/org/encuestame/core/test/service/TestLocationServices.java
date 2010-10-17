@@ -20,7 +20,7 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.LocationFolderType;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.service.ILocationService;
 import org.encuestame.core.service.LocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;

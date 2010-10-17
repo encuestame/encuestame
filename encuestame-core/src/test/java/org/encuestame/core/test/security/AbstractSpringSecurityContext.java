@@ -15,7 +15,7 @@ package org.encuestame.core.test.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.security.EnMePermission;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.junit.Before;

@@ -15,8 +15,8 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ISecGroups;
-import org.encuestame.core.persistence.domain.SecGroup;
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecGroup;
+import org.encuestame.core.persistence.domain.security.SecUser;
 import org.hibernate.HibernateException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;

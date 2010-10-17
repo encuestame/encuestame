@@ -24,14 +24,14 @@ import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.QuestionsAnswers;
-import org.encuestame.core.persistence.domain.SecUser;
-import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.domain.TweetPoll;
-import org.encuestame.core.persistence.domain.TweetPollResult;
-import org.encuestame.core.persistence.domain.TweetPollSavedPublishedStatus;
-import org.encuestame.core.persistence.domain.TweetPollSwitch;
-import org.encuestame.core.persistence.domain.TweetPollSavedPublishedStatus.Type;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.persistence.domain.survey.TweetPollResult;
+import org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus;
+import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus.Type;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitHashTag;
@@ -277,14 +277,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         final Status status = this.publicTweetPoll(tweetText, secUserTwitterAccounts);
                         publishedStatus.setTweetId(status.getId());
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
-                        publishedStatus.setStatus(org.encuestame.core.persistence.domain.TweetPollSavedPublishedStatus.Status.SUCCESS);
+                        publishedStatus.setStatus(org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus.Status.SUCCESS);
                         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
                                 buildTwitterItemView(secUserTwitterAccounts.getTwitterAccount(), String.valueOf(status.getId())),
                                 secUserTwitterAccounts.getSecUsers());
                     } catch (Exception e) {
                         e.printStackTrace();
                         log.error("Error publish tweet "+e.getMessage());
-                        publishedStatus.setStatus(org.encuestame.core.persistence.domain.TweetPollSavedPublishedStatus.Status.FAILED);
+                        publishedStatus.setStatus(org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus.Status.FAILED);
                         publishedStatus.setDescriptionStatus(e.getMessage());
                     }
                     getTweetPollDao().saveOrUpdate(publishedStatus);

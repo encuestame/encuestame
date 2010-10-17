@@ -19,10 +19,10 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.QuestionsAnswers;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
-import org.encuestame.core.persistence.domain.TweetPoll;
-import org.encuestame.core.persistence.domain.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;

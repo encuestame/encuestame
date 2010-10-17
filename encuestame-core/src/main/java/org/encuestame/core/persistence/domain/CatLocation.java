@@ -29,6 +29,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 
+import org.encuestame.core.persistence.domain.security.SecUser;
+
 /**
  * CatLocation.
  *

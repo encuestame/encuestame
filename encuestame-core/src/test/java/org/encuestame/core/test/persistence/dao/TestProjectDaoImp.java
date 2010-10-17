@@ -19,7 +19,7 @@ import java.util.List;
 import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.Project;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;

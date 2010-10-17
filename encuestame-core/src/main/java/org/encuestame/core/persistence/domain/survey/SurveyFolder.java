@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.encuestame.core.persistence.dao.imp.IFolder;
+import org.encuestame.core.persistence.domain.AbstractFolder;
 
 
 /**

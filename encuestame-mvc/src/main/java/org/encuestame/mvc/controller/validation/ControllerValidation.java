@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.util.ValidationUtils;
 import org.encuestame.utils.web.UnitUserBean;

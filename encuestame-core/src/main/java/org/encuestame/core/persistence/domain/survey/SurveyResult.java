@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,72 +23,68 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Survey Pagination.
- * @author Morales Urbina, Diana paola@encuestame.org
- * @since August 10, 2010
- * @version $Id: $
+ * SurveyResult.
+ *
+ * @author Picado, Juan juan@encuestame.org
+ * @since October 17, 2009
+ * @version $Id$
  */
-
 @Entity
-@Table(name = "survey_pagination")
-public class SurveyPagination {
+@Table(name = "survey_result")
+public class SurveyResult {
 
-    /****/
-    private Long paginationId;
-
-    /****/
-    private Long pageNumber;
-
-    /****/
-    private SurveySection surveySection;
+    private Long rid;
+    private String resp;
+    //private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>();
+    private Surveys surveys = new Surveys();
 
     /**
-     * @return the paginationId
+     * @return rid
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pagination_id", unique = true, nullable = false)
-    public Long getPaginationId() {
-        return paginationId;
+    @Column(name = "rid", unique = true, nullable = false)
+    public Long getRid() {
+        return this.rid;
     }
 
     /**
-     * @param paginationId the paginationId to set
+     * @param rid rid
      */
-    public void setPaginationId(Long paginationId) {
-        this.paginationId = paginationId;
+    public void setRid(Long rid) {
+        this.rid = rid;
     }
 
-
     /**
-     * @return the pageNumber
+     * @return resp
      */
-    @Column(name = "created_at")
-    public Long getPageNumber() {
-        return pageNumber;
+    @Column(name = "resp", nullable = false)
+    public String getResp() {
+        return this.resp;
     }
 
     /**
-     * @param pageNumber the pageNumber to set
+     * @param resp resp
      */
-    public void setPageNumber(Long pageNumber) {
-        this.pageNumber = pageNumber;
+    public void setResp(String resp) {
+        this.resp = resp;
     }
 
     /**
-     * @return the surveySection
+     * @return the surveys
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "sid", nullable = false)
-    public SurveySection getSurveySection() {
-        return surveySection;
+    @JoinColumn(name = "survey_id", nullable = false)
+    public Surveys getSurveys() {
+        return surveys;
     }
 
     /**
-     * @param surveySection the surveySection to set
+     * @param surveys the surveys to set
      */
-    public void setSurveySection(SurveySection surveySection) {
-        this.surveySection = surveySection;
+    public void setSurveys(Surveys surveys) {
+        this.surveys = surveys;
     }
 
- }
+
+}

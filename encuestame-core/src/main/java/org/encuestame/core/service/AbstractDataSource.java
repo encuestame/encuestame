@@ -50,7 +50,7 @@ import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Project;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.core.service.util.MD5Utils;

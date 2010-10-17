@@ -14,8 +14,8 @@ package org.encuestame.core.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.notifications.Notification;
+import org.encuestame.core.persistence.domain.security.SecUser;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;

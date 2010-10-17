@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.QuestionDaoImp;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;

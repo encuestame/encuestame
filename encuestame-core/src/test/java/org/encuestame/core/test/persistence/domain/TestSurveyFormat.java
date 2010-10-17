@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.test.persistence.domain;
 
-import org.encuestame.core.persistence.domain.SurveyFormat;
+import org.encuestame.core.persistence.domain.survey.SurveyFormat;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 

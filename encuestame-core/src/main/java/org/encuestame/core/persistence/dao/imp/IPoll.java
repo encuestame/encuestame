@@ -15,9 +15,9 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.PollDao;
-import org.encuestame.core.persistence.domain.Poll;
-import org.encuestame.core.persistence.domain.PollFolder;
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.survey.Poll;
+import org.encuestame.core.persistence.domain.survey.PollFolder;
 import org.hibernate.HibernateException;
 
 /**

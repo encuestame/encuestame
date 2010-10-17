@@ -19,7 +19,7 @@ import java.util.List;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.LocationFolderType;
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Assert;
 import org.junit.Before;

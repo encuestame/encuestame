@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.domain.QuestionsAnswers;
-import org.encuestame.core.persistence.domain.TweetPoll;
-import org.encuestame.core.persistence.domain.TweetPollResult;
-import org.encuestame.core.persistence.domain.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.persistence.domain.survey.TweetPollResult;
+import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;

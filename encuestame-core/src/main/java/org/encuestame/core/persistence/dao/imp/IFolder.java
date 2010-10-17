@@ -14,7 +14,7 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.Date;
 
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUser;
 
 /**
  * Implementation for Folders.

@@ -24,9 +24,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.Client;
-import org.encuestame.core.persistence.domain.SecGroup;
-import org.encuestame.core.persistence.domain.SecPermission;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecGroup;
+import org.encuestame.core.persistence.domain.security.SecPermission;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.web.UnitUserBean;
 
 /**

@@ -11,13 +11,15 @@
  ************************************************************************************
  */
 
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.encuestame.core.persistence.domain.AbstractFolder;
 
 /**
  * Poll Domain.

@@ -15,7 +15,7 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.core.persistence.domain.SurveyFormat;
+import org.encuestame.core.persistence.domain.survey.SurveyFormat;
 import org.hibernate.HibernateException;
 
 

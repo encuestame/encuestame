@@ -16,8 +16,8 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import org.encuestame.core.persistence.domain.Poll;
-import org.encuestame.core.persistence.domain.PollResult;
+import org.encuestame.core.persistence.domain.survey.Poll;
+import org.encuestame.core.persistence.domain.survey.PollResult;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Test;
 

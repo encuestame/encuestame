@@ -17,10 +17,10 @@ import java.util.List;
 
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.QuestionsAnswers;
-import org.encuestame.core.persistence.domain.SecUser;
-import org.encuestame.core.persistence.domain.TweetPoll;
-import org.encuestame.core.persistence.domain.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;

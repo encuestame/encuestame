@@ -32,6 +32,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.core.persistence.domain.security.SecGroup;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
+import org.encuestame.core.persistence.domain.survey.SurveyGroup;
+
 /**
  * Project.
  *

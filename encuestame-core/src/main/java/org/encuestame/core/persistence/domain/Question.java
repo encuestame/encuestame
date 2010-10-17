@@ -28,6 +28,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.survey.QuestionColettion;
+import org.encuestame.core.persistence.domain.survey.QuestionPattern;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;

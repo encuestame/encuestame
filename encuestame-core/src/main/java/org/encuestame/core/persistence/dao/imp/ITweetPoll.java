@@ -16,10 +16,10 @@ package org.encuestame.core.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.TweetPollDao;
-import org.encuestame.core.persistence.domain.QuestionsAnswers;
-import org.encuestame.core.persistence.domain.TweetPoll;
-import org.encuestame.core.persistence.domain.TweetPollResult;
-import org.encuestame.core.persistence.domain.TweetPollSwitch;
+import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.persistence.domain.survey.TweetPollResult;
+import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
 
 /**

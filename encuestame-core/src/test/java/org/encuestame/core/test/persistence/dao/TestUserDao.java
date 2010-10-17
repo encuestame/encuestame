@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.domain.SecGroup;
-import org.encuestame.core.persistence.domain.SecPermission;
-import org.encuestame.core.persistence.domain.SecUser;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecGroup;
+import org.encuestame.core.persistence.domain.security.SecPermission;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;

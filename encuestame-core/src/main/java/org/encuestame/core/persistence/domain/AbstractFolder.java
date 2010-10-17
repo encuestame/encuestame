@@ -22,6 +22,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.core.persistence.domain.security.SecUser;
+
 @MappedSuperclass
 public abstract class AbstractFolder {
 

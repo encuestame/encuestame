@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IFolder;
 import org.encuestame.core.persistence.dao.imp.IPoll;
-import org.encuestame.core.persistence.domain.Poll;
-import org.encuestame.core.persistence.domain.PollFolder;
-import org.encuestame.core.persistence.domain.PollResult;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.survey.Poll;
+import org.encuestame.core.persistence.domain.survey.PollFolder;
+import org.encuestame.core.persistence.domain.survey.PollResult;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;

@@ -17,7 +17,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.core.service.ILocationService;

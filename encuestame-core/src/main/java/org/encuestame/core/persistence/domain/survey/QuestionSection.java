@@ -10,7 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
+
+import org.encuestame.core.persistence.domain.Question;
 
 /**
  * Questions Dependencies.

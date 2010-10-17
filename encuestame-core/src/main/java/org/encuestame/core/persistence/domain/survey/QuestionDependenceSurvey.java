@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,68 +22,57 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/**
- * SurveyResult.
- *
- * @author Picado, Juan juan@encuestame.org
- * @since October 17, 2009
- * @version $Id$
- */
-@Entity
-@Table(name = "survey_result")
-public class SurveyResult {
+import org.hibernate.search.annotations.Indexed;
 
-    private Long rid;
-    private String resp;
-    //private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>();
-    private Surveys surveys = new Surveys();
+/**
+ * Questions Dependence Surveys.
+ *
+ * @author Morales Urbina, Diana paola@encuestame.org
+ * @since August 10, 2010
+ * @version $Id: $
+ */
+
+@Entity
+@Table(name = "question_dependence_survey")
+public class QuestionDependenceSurvey {
+
+    /****/
+    private Long questionDependenceId;
+
+    /****/
+    private Surveys survey;
 
     /**
-     * @return rid
+     * @return the questionDependenceId
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "rid", unique = true, nullable = false)
-    public Long getRid() {
-        return this.rid;
+    @Column(name = "question_dependence_survey", unique = true, nullable = false)
+    public Long getQuestionDependenceId() {
+        return questionDependenceId;
     }
 
     /**
-     * @param rid rid
+     * @param questionDependenceId the questionDependenceId to set
      */
-    public void setRid(Long rid) {
-        this.rid = rid;
+    public void setQuestionDependenceId(Long questionDependenceId) {
+        this.questionDependenceId = questionDependenceId;
     }
 
     /**
-     * @return resp
-     */
-    @Column(name = "resp", nullable = false)
-    public String getResp() {
-        return this.resp;
-    }
-
-    /**
-     * @param resp resp
-     */
-    public void setResp(String resp) {
-        this.resp = resp;
-    }
-
-    /**
-     * @return the surveys
+     * @return the survey
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "survey_id", nullable = false)
-    public Surveys getSurveys() {
-        return surveys;
+    @JoinColumn(name = "sid", nullable = false)
+    public Surveys getSurvey() {
+        return survey;
     }
 
     /**
-     * @param surveys the surveys to set
+     * @param survey the survey to set
      */
-    public void setSurveys(Surveys surveys) {
-        this.surveys = surveys;
+    public void setSurvey(Surveys survey) {
+        this.survey = survey;
     }
 
 

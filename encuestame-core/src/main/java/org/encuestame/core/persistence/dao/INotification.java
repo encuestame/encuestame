@@ -15,8 +15,8 @@ package org.encuestame.core.persistence.dao;
 import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IBaseDao;
-import org.encuestame.core.persistence.domain.SecUser;
 import org.encuestame.core.persistence.domain.notifications.Notification;
+import org.encuestame.core.persistence.domain.security.SecUser;
 
 /**
  * Implementation for Notification Domain.

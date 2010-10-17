@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.encuestame.core.persistence.domain.CatState;
+import org.encuestame.core.persistence.domain.Question;
 
 /**
  * SurveySection.

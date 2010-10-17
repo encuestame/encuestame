@@ -18,7 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.TweetPollResult;
+import org.encuestame.core.persistence.domain.survey.TweetPollResult;
 import org.hibernate.CacheMode;
 import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;

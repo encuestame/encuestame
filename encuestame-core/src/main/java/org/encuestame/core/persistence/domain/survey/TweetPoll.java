@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.persistence.domain;
+package org.encuestame.core.persistence.domain.survey;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,6 +28,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.encuestame.core.persistence.domain.HashTag;
+import org.encuestame.core.persistence.domain.Question;
+import org.encuestame.core.persistence.domain.security.SecUser;
 
 /**
  * TweetPoll Domain.

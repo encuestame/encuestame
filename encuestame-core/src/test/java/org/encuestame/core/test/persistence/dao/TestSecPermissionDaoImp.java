@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.domain.SecPermission;
+import org.encuestame.core.persistence.domain.security.SecPermission;
 import org.encuestame.core.security.EnMePermission;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.junit.Before;

@@ -19,11 +19,11 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.SecGroup;
-import org.encuestame.core.persistence.domain.SecPermission;
-import org.encuestame.core.persistence.domain.SecUser;
-import org.encuestame.core.persistence.domain.SecUserSecondary;
-import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
+import org.encuestame.core.persistence.domain.security.SecGroup;
+import org.encuestame.core.persistence.domain.security.SecPermission;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUserSecondary;
+import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts;
 import org.encuestame.core.security.EnMePermission;
 import org.encuestame.core.service.ISecurityService;
 import org.encuestame.core.service.SecurityService;

@@ -19,8 +19,8 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.core.persistence.domain.SecUser;
-import org.encuestame.core.persistence.domain.SecUserTwitterAccounts;
+import org.encuestame.core.persistence.domain.security.SecUser;
+import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts;
 import org.encuestame.core.service.ITwitterService;
 import org.encuestame.core.service.TwitterService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
