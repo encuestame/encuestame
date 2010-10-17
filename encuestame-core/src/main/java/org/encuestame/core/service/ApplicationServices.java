@@ -12,6 +12,14 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.service.imp.IApplicationServices;
+import org.encuestame.core.service.imp.IChartService;
+import org.encuestame.core.service.imp.ILocationService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.ISecurityService;
+import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.mail;
 
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.imp.IService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;

@@ -25,6 +25,7 @@ import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.Project.Priority;
 import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
+import org.encuestame.core.service.imp.IProjectService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.web.UnitProjectBean;

@@ -29,6 +29,7 @@ import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.persistence.domain.survey.Poll;
 import org.encuestame.core.persistence.domain.survey.PollFolder;
 import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;

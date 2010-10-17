@@ -22,6 +22,7 @@ import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.CatLocationType;
 import org.encuestame.core.persistence.domain.LocationFolderType;
 import org.encuestame.core.persistence.domain.Status;
+import org.encuestame.core.service.imp.ILocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;

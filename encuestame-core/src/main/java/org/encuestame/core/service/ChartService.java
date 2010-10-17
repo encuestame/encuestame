@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.service.imp.IChartService;
+
 /**
  * Chart Service.
  * @author Picado, Juan juanATencuestame.org

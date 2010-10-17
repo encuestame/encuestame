@@ -22,7 +22,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.service.IProjectService;
+import org.encuestame.core.service.imp.IProjectService;
 import org.encuestame.core.test.service.config.AbstractBase;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.junit.Before;

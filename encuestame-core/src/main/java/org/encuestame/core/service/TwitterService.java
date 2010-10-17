@@ -23,6 +23,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.core.service.imp.ITwitterService;
 import org.springframework.stereotype.Service;
 
 import twitter4j.Status;

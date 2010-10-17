@@ -35,6 +35,7 @@ import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts.Ty
 import org.encuestame.core.security.EnMePermission;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.service.imp.ISecurityService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;

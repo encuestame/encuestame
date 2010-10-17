@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.service.imp.IApplicationServices;
+import org.encuestame.core.service.imp.IServiceManager;
 import org.encuestame.core.service.util.MessageSourceFactoryBean;
 import org.springframework.stereotype.Service;
 

@@ -37,6 +37,7 @@ import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.core.persistence.domain.survey.TweetPoll;
 import org.encuestame.core.persistence.domain.survey.TweetPollResult;
 import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.core.service.imp.ITwitterService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;

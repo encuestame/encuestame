@@ -32,6 +32,7 @@ import org.encuestame.core.persistence.domain.survey.TweetPollResult;
 import org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus;
 import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus.Type;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitHashTag;

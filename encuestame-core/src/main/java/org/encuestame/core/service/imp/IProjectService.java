@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service;
+package org.encuestame.core.service.imp;
 
 import java.util.Collection;
 import java.util.List;

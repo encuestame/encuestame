@@ -10,24 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service;
+package org.encuestame.core.service.imp;
 
 /**
- * Interface for Configuration Service.
+ * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since Jul 6, 2010 7:42:53 PM
- * @version $Id:$
+ * @since Sep 14, 2010 12:56:48 PM
+ * @version Id: 
  */
-public interface IConfigurationService {
+public interface IChartService {
 
-        /**
-         * Getter Domain Url.
-         * @return
-         */
-        public String getDomainUrl();
-
-        /**
-         * @param domainUrl the domainUrl to set
-         */
-        public void setDomainUrl(final String domainUrl);
 }

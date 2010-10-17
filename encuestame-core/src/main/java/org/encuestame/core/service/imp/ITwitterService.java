@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.core.service;
+package org.encuestame.core.service.imp;
 
 import java.io.IOException;
 

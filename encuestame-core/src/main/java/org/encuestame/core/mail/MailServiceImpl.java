@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.imp.IService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;

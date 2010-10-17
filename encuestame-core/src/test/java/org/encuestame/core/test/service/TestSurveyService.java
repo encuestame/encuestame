@@ -28,7 +28,7 @@ import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.persistence.domain.survey.QuestionPattern;
 import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.core.service.AbstractSurveyService;
-import org.encuestame.core.service.ISurveyService;
+import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;

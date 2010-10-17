@@ -24,6 +24,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.survey.QuestionPattern;
 import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.web.UnitAnswersBean;
