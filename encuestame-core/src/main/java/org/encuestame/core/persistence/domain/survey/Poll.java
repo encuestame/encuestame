@@ -38,7 +38,6 @@ import org.encuestame.core.persistence.domain.security.SecUser;
  * @since March 15, 2010
  * @version $Id: $
  */
-
 @Entity
 @Table(name = "poll",
     uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
