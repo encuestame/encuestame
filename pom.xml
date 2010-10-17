@@ -58,6 +58,11 @@
         <apache>file:///var/www/encuestame</apache>
         <jetty.default.port>8080</jetty.default.port>
         <jetty.default.ssl.port>8443</jetty.default.ssl.port>
+
+        <!-- JDBC Drivers Version -->
+        <mysql.version>5.1.13</mysql.version>
+        <postgres.version>8.4-702.jdbc4</postgres.version>
+        <hsqldb.version>1.8.0.7</hsqldb.version>
     </properties>
 
     <modules>
@@ -730,7 +735,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.0.7</version>
+                <version>${mysql.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -1188,12 +1193,12 @@
             <dependency>
                 <groupId>hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
-                <version>1.8.0.1</version>
+                <version>${hsqldb.version}</version>
             </dependency>
             <dependency>
                 <groupId>postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>8.3-603.jdbc3</version>
+                <version>${postgres.version}</version>
             </dependency>
             <dependency>
                 <groupId>jasperreports</groupId>
