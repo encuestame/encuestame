@@ -39,6 +39,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
+import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -158,7 +159,7 @@ public class TestPollService extends AbstractBaseUnitBeans{
      * test removePollFolder.
      * @throws EnMeDomainNotFoundException exception
      */
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = HibernateException.class)
     public void testremovePollFolderBatchUpdateException() throws EnMeDomainNotFoundException{
         final long id = this.folder.getId();
         this.pollService.removePollFolder(id);
