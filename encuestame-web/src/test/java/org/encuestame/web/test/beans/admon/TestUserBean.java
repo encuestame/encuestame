@@ -12,8 +12,6 @@
  */
 package org.encuestame.web.test.beans.admon;
 
-import java.util.List;
-
 import org.encuestame.core.persistence.domain.SecUserSecondary;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.admon.security.UserBean;
@@ -32,6 +30,26 @@ import org.junit.Test;
 public class TestUserBean extends AbstractBaseWeb {
 
     /**
+     * {@link UserBean}.
+     * */
+    private UserBean userBean;
+
+    /**
+     * Get {@link UserBean}.
+     **/
+    public final UserBean getUserBean() {
+        return userBean;
+    }
+
+    /**
+     * Set {@link UserBean}.
+     * @param userBean user
+     */
+    public final void setUserBean(final UserBean userBean) {
+        this.userBean = userBean;
+    }
+
+    /**
      * Init.
      */
     @Before
@@ -41,10 +59,10 @@ public class TestUserBean extends AbstractBaseWeb {
     }
 
     /**
-     * Test User Bean.
+     * Test Create User Bean.
      */
     @Test
-    public void testUserBean(){
+    public void testUserBeanCreateUser(){
         final UnitUserBean unitUserBean = createUnitUserBean("jota", "jota@jota.com");
         Assert.assertNotNull(unitUserBean.getEmail());
         Assert.assertNotNull(unitUserBean.getUsername());

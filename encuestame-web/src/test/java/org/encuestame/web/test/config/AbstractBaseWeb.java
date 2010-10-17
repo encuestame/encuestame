@@ -18,8 +18,6 @@ import java.util.Map;
 import org.encuestame.core.service.IServiceManager;
 import org.encuestame.core.service.ServiceManager;
 import org.encuestame.core.test.security.AbstractSpringSecurityContext;
-import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
-import org.encuestame.web.beans.admon.security.UserBean;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,26 +67,9 @@ public class AbstractBaseWeb extends AbstractSpringSecurityContext implements Sc
         ((ConfigurableApplicationContext) applicationContext).getBeanFactory().registerScope( "session", new SessionScope());
     }
 
-    /***/
-    private UserBean userBean;
-
     /**
      *
-     **/
-    public final UserBean getUserBean() {
-        return userBean;
-    }
-
-    /**
-     *
-     * @param userBean
      */
-    public final void setUserBean(final UserBean userBean) {
-        this.userBean = userBean;
-    }
-
-
-
     public Object get(String bean, ObjectFactory factory) {
         Object o = scopeMap.get(bean);
         if( o == null ){
