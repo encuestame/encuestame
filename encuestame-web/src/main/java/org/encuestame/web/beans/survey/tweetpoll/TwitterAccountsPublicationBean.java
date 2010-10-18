@@ -103,28 +103,37 @@ public class TwitterAccountsPublicationBean implements Serializable{
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         TwitterAccountsPublicationBean other = (TwitterAccountsPublicationBean) obj;
         if (accountBean == null) {
-            if (other.accountBean != null)
+            if (other.accountBean != null) {
                 return false;
-        } else if (!accountBean.equals(other.accountBean))
+            }
+        } else if (!accountBean.equals(other.accountBean)) {
             return false;
+        }
         if (active == null) {
-            if (other.active != null)
+            if (other.active != null) {
                 return false;
-        } else if (!active.equals(other.active))
+            }
+        } else if (!active.equals(other.active)) {
             return false;
+        }
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         return true;
     }
 }

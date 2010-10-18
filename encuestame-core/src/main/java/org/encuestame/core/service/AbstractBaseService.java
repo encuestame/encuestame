@@ -64,7 +64,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     /**
      *
      */
-    public static int TWITTER_AUTH_ERROR = 401;
+    private static int TWITTER_AUTH_ERROR = 401;
 
     /**
      * Constructor.
@@ -193,7 +193,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         if (subscribe!=null){
             try {
                    CatEmails emails = new CatEmails();
-                   if(subscriptionOption == "subscribe")
+                   if(subscriptionOption.equals("subscribe"))
                    {
                        emails.setSubscribed(Boolean.TRUE);
                    }
@@ -282,8 +282,9 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             final AccessToken accessToken =  twitter.getOAuthAccessToken(token, tokenSecret);
             log.info(String.format("Auth Token {%s Token Secret {%s ", accessToken.getToken(), accessToken.getTokenSecret()));
             twitter.setOAuthAccessToken(accessToken);
-            if (accessToken != null)
+            if (accessToken != null) {
                     log.info(String.format("Got access token for user %s", accessToken.getScreenName()));
+            }
             return accessToken;
     }
 

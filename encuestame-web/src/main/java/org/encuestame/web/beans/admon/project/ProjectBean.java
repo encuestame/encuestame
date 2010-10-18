@@ -45,21 +45,21 @@ public class ProjectBean extends AdmonBean implements Serializable {
     /**
      *
      */
-    public Boolean noProyects = true;
+    private Boolean noProyects = true;
     /**
      *
      */
-    public Boolean create = true;
+    private Boolean create = true;
 
     /**
      *
      */
-    public Boolean edit;
+    private Boolean edit;
 
     /**
      * Show the edit view.
      */
-    public Boolean editDetail = false;
+    private Boolean editDetail = false;
 
     /**
      * {@link UnitProjectBean}.
@@ -365,4 +365,26 @@ public class ProjectBean extends AdmonBean implements Serializable {
         log.info("editDetail "+editDetail);
         this.editDetail = editDetail;
     }
+
+    /**
+     * @return the listOfUsers
+     */
+    public List<SelectItem> getListOfUsers() {
+        return listOfUsers;
+    }
+
+    /**
+     * @param listOfUsers the listOfUsers to set
+     */
+    public void setListOfUsers(List<SelectItem> listOfUsers) {
+        this.listOfUsers = listOfUsers;
+    }
+
+    /**
+     * @param locationFolders the locationFolders to set
+     */
+    public void setLocationFolders(List<UnitLocationFolder> locationFolders) {
+        this.locationFolders = locationFolders;
+    }
+
 }

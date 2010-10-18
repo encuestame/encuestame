@@ -90,18 +90,22 @@ public class UnitHashTag implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         UnitHashTag other = (UnitHashTag) obj;
         if (hashTagName == null) {
             if (other.hashTagName != null)
                 return false;
-        } else if (!hashTagName.equals(other.hashTagName))
+        } else if (!hashTagName.equals(other.hashTagName)) {
             return false;
+        }
         return true;
     }
 

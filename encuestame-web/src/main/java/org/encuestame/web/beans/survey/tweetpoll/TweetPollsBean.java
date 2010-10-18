@@ -42,10 +42,10 @@ public class TweetPollsBean extends AbstractTableBean implements Serializable {
     }
 
     /** List Tweets. **/
-    public List<UnitTweetPoll> listTweets = new ArrayList<UnitTweetPoll>();
+    private List<UnitTweetPoll> listTweets = new ArrayList<UnitTweetPoll>();
 
     /** Selected {@link UnitTweetPoll}. **/
-    public UnitTweetPoll selectedTweetPoll = new UnitTweetPoll();
+    private UnitTweetPoll selectedTweetPoll = new UnitTweetPoll();
 
     /** Edit Answer. **/
     private Boolean editAnswer = false;

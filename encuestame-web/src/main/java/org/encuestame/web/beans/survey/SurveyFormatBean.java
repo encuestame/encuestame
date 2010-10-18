@@ -31,8 +31,8 @@ import org.encuestame.web.beans.MasterBean;
  */
 public class SurveyFormatBean extends MasterBean {
 
-    Collection<SurveyFormat> lista = new ArrayList<SurveyFormat>();
-    Collection<UnitSurveySection> sections = new LinkedList<UnitSurveySection>();
+   private Collection<SurveyFormat> lista = new ArrayList<SurveyFormat>();
+   private Collection<UnitSurveySection> sections = new LinkedList<UnitSurveySection>();
     private String surveyName;
     private Log log = LogFactory.getLog(this.getClass());
     private Boolean listSuggest = false;

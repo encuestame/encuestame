@@ -47,7 +47,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 
     private Log log = LogFactory.getLog(this.getClass());
 
-    public static Integer RANDOM_QUESTION_KEY = 500;
+    private static Integer RANDOM_QUESTION_KEY = 500;
 
     /**
      * Create Question.

@@ -29,17 +29,17 @@ public class SearchSurveyPollTweetItem {
     /**
      * List of TweetPolls.
      */
-    public List<TweetPoll> tweetPolls;
+    private List<TweetPoll> tweetPolls;
 
     /**
      * List of Polls.
      */
-    public List<Poll> polls;
+    private List<Poll> polls;
 
     /**
      * List of Surveys.
      */
-    public List<Surveys> surveys;
+    private List<Surveys> surveys;
 
     /**
      * @return the tweetPolls
@@ -82,4 +82,6 @@ public class SearchSurveyPollTweetItem {
     public void setSurveys(final List<Surveys> surveys) {
         this.surveys = surveys;
     }
+
+
 }

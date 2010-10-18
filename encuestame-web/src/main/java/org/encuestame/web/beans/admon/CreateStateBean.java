@@ -22,9 +22,9 @@ public class CreateStateBean {
     /**
      * Id estado.
      */
-    public Integer idestado;
-    public String description;
-    public String image;
+    private Integer idestado;
+    private String description;
+    private String image;
     /**
      *
      */
