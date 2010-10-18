@@ -446,7 +446,8 @@ public class UserBean  extends AdmonBean implements Serializable {
      * @param listPermissions the listPermissions to set
      */
     public void setListPermissions(String[] listPermissions) {
-        this.listPermissions = listPermissions;
+         final String[] permissionsList = listPermissions;
+        this.listPermissions = permissionsList;
     }
 
     /**
@@ -460,6 +461,7 @@ public class UserBean  extends AdmonBean implements Serializable {
      * @param listGroups the listGroups to set
      */
     public void setListGroups(String[] listGroups) {
-        this.listGroups = listGroups;
+        final String[] groupsList = listGroups;
+        this.listGroups = groupsList;
     }
 }

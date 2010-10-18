@@ -121,9 +121,7 @@ public class PollBean extends MasterBean implements Serializable{
                log.error(e);
                e.printStackTrace();
                addErrorMessage(e.getMessage(), "");
-            } finally{
             }
-
         }
     }
 
