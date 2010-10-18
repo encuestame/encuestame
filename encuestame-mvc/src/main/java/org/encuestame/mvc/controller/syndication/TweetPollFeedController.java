@@ -67,10 +67,7 @@ public class TweetPollFeedController extends AbstractFeedController {
     @RequestMapping(value = "/feed/{username}/tweetpoll.atom", method = RequestMethod.GET)
     public String tweetPollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
         final SecUserSecondary secUserSecondary = getByUsername(username);
-        if(secUserSecondary == null){
-            //TODO: if null do something.
-        }
-        else{
+        if(secUserSecondary != null){
             try {
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
@@ -92,17 +89,15 @@ public class TweetPollFeedController extends AbstractFeedController {
     @RequestMapping(value = "/feed/{username}/tweetpoll.rss", method = RequestMethod.GET)
     public String tweetPollRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final SecUserSecondary secUserSecondary = getByUsername(username);
-        if(secUserSecondary == null){
-            //TODO: if null do something.
+        if(secUserSecondary != null){
+             try {
+                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
+             } catch (EnMeDomainNotFoundException e) {
+                 log.error(e);
+                 e.printStackTrace();
+             }
         }
-        else{
-            try {
-                this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
-            } catch (EnMeDomainNotFoundException e) {
-                log.error(e);
-                e.printStackTrace();
-            }
-        }
+
         return "tweetPollRssFeedView";
     }
 
