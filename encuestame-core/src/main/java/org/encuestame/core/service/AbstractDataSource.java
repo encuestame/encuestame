@@ -35,6 +35,7 @@ import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.dao.imp.ICatLocationTypeDao;
 import org.encuestame.core.persistence.dao.imp.ICatState;
 import org.encuestame.core.persistence.dao.imp.IClientDao;
+import org.encuestame.core.persistence.dao.imp.IFrontEndDao;
 import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.dao.imp.IPoll;
 import org.encuestame.core.persistence.dao.imp.IProject;
@@ -44,18 +45,13 @@ import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
-import org.encuestame.core.persistence.domain.CatEmailLists;
-import org.encuestame.core.persistence.domain.CatEmails;
-import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
-import org.encuestame.core.service.util.MD5Utils;
-import org.encuestame.utils.web.UnitEmails;
-import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -92,6 +88,9 @@ public abstract class AbstractDataSource{
     /*** {@link NotificationDao}. **/
     @Resource
     private INotification notificationDao;
+    /** {@link FrontEndService}. **/
+    @Resource
+    private IFrontEndDao frontEndDao;
     /** Log. */
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -473,5 +472,20 @@ public abstract class AbstractDataSource{
      */
     public void setNotificationDao(final INotification notificationDao) {
         this.notificationDao = notificationDao;
+    }
+
+    /**
+     * Getter Front End.
+     * @return the frontEndDao
+     */
+    public IFrontEndDao getFrontEndDao() {
+        return frontEndDao;
+    }
+
+    /**
+     * @param frontEndDao the frontEndDao to set
+     */
+    public void setFrontEndDao(final IFrontEndDao frontEndDao) {
+        this.frontEndDao = frontEndDao;
     }
 }

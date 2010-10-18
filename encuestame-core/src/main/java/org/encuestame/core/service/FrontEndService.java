@@ -12,7 +12,16 @@
  */
 package org.encuestame.core.service;
 
+import java.util.List;
+
+import org.encuestame.core.exception.EnMeSearchException;
+import org.encuestame.core.persistence.domain.survey.Poll;
+import org.encuestame.core.persistence.domain.survey.Surveys;
+import org.encuestame.core.persistence.domain.survey.TweetPoll;
+import org.encuestame.core.search.SearchPeriods;
+import org.encuestame.core.search.SearchSurveyPollTweetItem;
 import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 
 /**
  * Front End Service.
@@ -22,4 +31,24 @@ import org.encuestame.core.service.imp.IFrontEndService;
  */
 public class FrontEndService extends AbstractBaseService implements IFrontEndService {
 
+
+    /**
+     * Search Items By Keyword.
+     * @param keyword keyword.
+     * @return result of the search.
+     * @throws EnMeSearchException
+     */
+    public List<UnitSearchItem> searchItemsByKeyword(final String keyword, final String period) throws EnMeSearchException{
+        final List<TweetPoll> items;
+        final List<Poll> polls;
+        final List<Surveys> surveys;
+        if(period == null || keyword == null){
+            throw new EnMeSearchException("search params required.");
+        } else {
+            if(period.equals(SearchPeriods.getPeriodString(period))){
+                //final List<TweetPoll> items = getFrontEndDao().
+            }
+        }
+        return null;
+    }
 }

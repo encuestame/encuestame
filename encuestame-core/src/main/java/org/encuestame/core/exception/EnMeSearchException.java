@@ -13,32 +13,47 @@
 package org.encuestame.core.exception;
 
 /**
- * EnMe Domain not found Exception.
+ * Represent exception for a search.
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 9, 2010 1:27:09 PM
+ * @since Oct 17, 2010 9:03:14 PM
  * @version $Id:$
  */
-public class EnMeDomainNotFoundException extends EnMeExpcetion{
+public class EnMeSearchException extends EnMeExpcetion {
 
     /**
-     * Serial.
+     * Serial
      */
-    private static final long serialVersionUID = -120650572833612949L;
+    private static final long serialVersionUID = -220610572233612939L;
 
-    public EnMeDomainNotFoundException() {
+    /**
+     * Constructor.
+     */
+    public EnMeSearchException() {
         super();
     }
 
-    public EnMeDomainNotFoundException(String message, Throwable cause) {
+    /**
+     * Exception Search.
+     * @param message message
+     * @param cause throwable cause
+     */
+    public EnMeSearchException(String message, Throwable cause) {
         super(message, cause);
-        // TODO Auto-generated constructor stub
     }
 
-    public EnMeDomainNotFoundException(String message) {
+    /**
+     * Exception Search.
+     * @param message message
+     */
+    public EnMeSearchException(String message) {
         super(message);
     }
 
-    public EnMeDomainNotFoundException(Throwable cause) {
+    /**
+     * Exception Search.
+     * @param cause cause
+     */
+    public EnMeSearchException(Throwable cause) {
         super(cause);
     }
 }

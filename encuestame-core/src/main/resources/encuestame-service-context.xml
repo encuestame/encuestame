@@ -119,6 +119,9 @@
      <property name="emailListsDao">
       <ref bean="catEmailDao"></ref>
     </property>
+    <property name="frontEndDao">
+      <ref bean="frontEndDao"></ref>
+    </property>
   </bean>
 
   <bean id="messageSource"
