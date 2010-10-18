@@ -89,7 +89,6 @@ public class ForgetPasswordController extends AbstractSecurityController{
                     try {
                         getSecurityService().renewPassword(unitUserBean, password);
                     } catch (EnMeExpcetion e) {
-                        e.printStackTrace();
                         log.error("Error Renewd password "+e.getMessage());
                         return "forgot";
                     }

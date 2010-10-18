@@ -102,7 +102,6 @@ public class PollBean extends MasterBean implements Serializable{
                 this.loadAllFolders();
             } catch (EnMeDomainNotFoundException e) {
                 log.error(e.getMessage());
-                e.printStackTrace();
                 addErrorMessage(e.getMessage(), "");
             }
         }
@@ -119,7 +118,6 @@ public class PollBean extends MasterBean implements Serializable{
                 log.debug("total polls "+this.polls.size());
             } catch (Exception e) {
                log.error(e);
-               e.printStackTrace();
                addErrorMessage(e.getMessage(), "");
             }
         }

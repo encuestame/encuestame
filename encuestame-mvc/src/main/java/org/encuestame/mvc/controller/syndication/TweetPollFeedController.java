@@ -72,7 +72,6 @@ public class TweetPollFeedController extends AbstractFeedController {
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
                 log.error(e);
-                e.printStackTrace();
             }
         }
         return "tweetPollAtomFeedView";
@@ -94,7 +93,6 @@ public class TweetPollFeedController extends AbstractFeedController {
                  this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
              } catch (EnMeDomainNotFoundException e) {
                  log.error(e);
-                 e.printStackTrace();
              }
         }
 

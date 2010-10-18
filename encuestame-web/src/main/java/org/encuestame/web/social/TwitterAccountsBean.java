@@ -113,6 +113,7 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
     /**
      * Save Twitter Credentials.
      */
+    @SuppressWarnings("deprecation")
     public final void saveTwitterCredentials() {
         log.debug("Updating Credentials");
         try {
@@ -131,7 +132,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
                 addErrorMessage("Bad Credentials", "Bad Credentials");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
             addErrorMessage("Error on Update Twitter Credentials", e
                     .getMessage());
@@ -149,7 +149,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
             addInfoMessage("Saved Twitter Secret Credentials",
             "You can request your Pin Now.");
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
             addErrorMessage("Error on Update OAuth Twitter Credentials", e
                     .getMessage());
@@ -185,7 +184,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
             this.updateSecreTwitterCredentials();
         } catch (EnMeExpcetion e) {
             log.error(e);
-            e.printStackTrace();
              addErrorMessage("Error on Update OAuth Twitter Credentials", e
                         .getMessage());
         }
@@ -222,7 +220,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("Error Getting URL Twitter Authentication "+e.getMessage());
             setTwitterAuthUrl("");
             addErrorMessage("Error Getting URL Twitter Authentication", e.getMessage());
@@ -258,7 +255,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
                              getUserPrincipalUsername());
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 log.error(e);
                 addErrorMessage("Error Getting URL Twitter Authentication", e
                         .getMessage());

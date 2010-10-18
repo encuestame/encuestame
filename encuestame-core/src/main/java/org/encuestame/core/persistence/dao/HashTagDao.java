@@ -84,7 +84,6 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                             return result;
                         }
                         catch (ParseException ex) {
-                            ex.printStackTrace();
                             log.error("Index Search Error "+ex.getMessage());
                             return null;
                         }

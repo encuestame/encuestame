@@ -257,7 +257,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
                 log.error("Twitter Error "+te.getStatusCode());
                 verified = false;
             } else {
-                te.printStackTrace();
+                log.error(te);
             }
             log.error("Verify OAuth Error " + te.getLocalizedMessage());
         }

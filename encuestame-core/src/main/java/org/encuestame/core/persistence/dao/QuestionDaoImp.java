@@ -92,7 +92,6 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                             log.info("result LUCENE "+result.size());
                             return result;
                         } catch (ParseException ex) {
-                            ex.printStackTrace();
                             log.error("Index Search Erro "+ex.getMessage());
                             return null;
                         }

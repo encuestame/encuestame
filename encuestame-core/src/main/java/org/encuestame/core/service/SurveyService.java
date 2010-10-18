@@ -70,7 +70,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             }
             catch (Exception e) {
                 log.error("Error Creating Question "+e.getMessage());
-                e.printStackTrace();
                 throw new EnMeExpcetion(e);
             }
     }

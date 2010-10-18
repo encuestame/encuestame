@@ -208,7 +208,6 @@ public class UserBean  extends AdmonBean implements Serializable {
             getSecurityService().assingGroupFromUser(userBean, groupBean);
         }
         catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
         }
     }
@@ -245,6 +244,7 @@ public class UserBean  extends AdmonBean implements Serializable {
      * @throws EnMeExpcetion  if the default permission dont exist
      * @throws HibernateException error db
      */
+    @SuppressWarnings("unused")
     private void assingPermission(
             final UnitUserBean user,
             final UnitPermission permission)

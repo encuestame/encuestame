@@ -110,7 +110,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
             messageContext.addMessage(new MessageBuilder().error().source("create").
                      defaultText("Error on create Proyect: "+e.getMessage()).build());
             log.error(e);
-            e.printStackTrace();
             return "no";
         }
     }
@@ -127,7 +126,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
             messageContext.addMessage(new MessageBuilder().error().source("message").
                      defaultText("Error on updating Proyect: "+e.getMessage()).build());
             log.error(e);
-            e.printStackTrace();
             return "no";
         }
     }
@@ -142,7 +140,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
                 locationFolders = getLocationFoldersByUsername();
             } catch (EnMeDomainNotFoundException e) {
                  log.error(e);
-                 e.printStackTrace();
                  addErrorMessage(e.getMessage(),"");
             }
         }
@@ -155,7 +152,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
             locationBeans = getLocationService().retrieveLocationItemsByUsername(getUserPrincipalUsername());
         } catch (EnMeDomainNotFoundException e) {
             log.error(e);
-            e.printStackTrace();
             addErrorMessage(e.getMessage(),"");
         }
         return locationBeans;
@@ -208,7 +204,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
                 listOfUsers = ConvertListDomainSelectBean.convertListUnitUserBeanDomainToSelect(getProjectService().loadListUsers(getUserPrincipalUsername()));
             } catch (EnMeDomainNotFoundException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
             }
             log.debug("List of Users "+listOfUsers.size());
         }

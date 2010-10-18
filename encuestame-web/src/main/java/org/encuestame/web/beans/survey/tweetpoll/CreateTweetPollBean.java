@@ -124,7 +124,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         catch (Exception e) {
             addErrorMessage("Error save question", "");
             log.error(e);
-            e.printStackTrace();
         }
     }
 
@@ -144,7 +143,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         }
         catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             addErrorMessage("Error to create Short Simulate Url", "");
         }
     }
@@ -176,7 +174,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         }
         catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             addErrorMessage("Error removing hash tags", "");
         }
     }
@@ -206,7 +203,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         catch (Exception e) {
              addErrorMessage("Error adding Hash Tag", "");
              log.error(e);
-             e.printStackTrace();
         }
     }
 
@@ -227,7 +223,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
             addErrorMessage("Error retrieving Hash Tahgs", "Error retrieving Hash Tahgs");
         }
         return result;
@@ -272,7 +267,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         catch (Exception e) {
             addErrorMessage("error to add answer", "");
             log.error(e);
-            e.printStackTrace();
         }
     }
 
@@ -288,7 +282,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
                 this.questionsSuggested = getTweetPollService().listSuggestQuestion(pref, getUserPrincipalUsername());
             } catch (EnMeDomainNotFoundException e) {
                 log.error(e);
-                e.printStackTrace();
                 addErrorMessage(e.getMessage(),"");
             }
             //setValidTweet(Boolean.FALSE);
@@ -428,7 +421,6 @@ public class CreateTweetPollBean extends AbstractMasterTweetPollBean implements 
         }
         catch (Exception e) {
             log.error("Error Loading Twitter Accounts "+e.getMessage());
-            e.printStackTrace();
         }
     }
 

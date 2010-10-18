@@ -193,7 +193,6 @@ public final class LocationBean extends MasterBean implements Serializable {
             log.debug("location folders size "+locationFolders.size());
             addFolders(rootNode, ConvertDomainBean.convertFolderToDragrable(locationFolders, TypeTreeNode.FOLDER));
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
         }
     }
@@ -250,7 +249,6 @@ public final class LocationBean extends MasterBean implements Serializable {
                     }
                 }catch (EnMeExpcetion e) {
                      log.error(e);
-                     e.printStackTrace();
                      addErrorMessage(e.getMessage(),"");
                 }
         }
@@ -289,7 +287,6 @@ public final class LocationBean extends MasterBean implements Serializable {
             this.loadTree();
         }
         catch (Exception e) {
-            e.printStackTrace();
             log.error("error on update name "+e.getMessage());
         }
     }
@@ -305,7 +302,6 @@ public final class LocationBean extends MasterBean implements Serializable {
             this.getItemsByLocationFolder();
         }
         catch (Exception e) {
-             e.printStackTrace();
              log.error("error on update name "+e.getMessage());
         }
     }
@@ -334,7 +330,6 @@ public final class LocationBean extends MasterBean implements Serializable {
             this.loadTree();
         }
         catch (Exception e) {
-           e.printStackTrace();
            log.error("error "+e);
         }
     }
@@ -350,7 +345,6 @@ public final class LocationBean extends MasterBean implements Serializable {
             this.loadTree();
         }
         catch (Exception e) {
-            e.printStackTrace();
             log.error("error "+e);
         }
     }
@@ -366,7 +360,6 @@ public final class LocationBean extends MasterBean implements Serializable {
             this.loadTree();
         }
         catch (Exception e) {
-            e.printStackTrace();
             log.error("error "+e);
         }
     }
@@ -410,14 +403,12 @@ public final class LocationBean extends MasterBean implements Serializable {
                 this.getItemsByLocationFolder();
             } catch (EnMeDomainNotFoundException e) {
                  log.error(e);
-                 e.printStackTrace();
                  addErrorMessage(e.getMessage(),"");
             }
                log.info("detailFolderLocation "+detailFolderLocation);
            }
        }catch (Exception e) {
            log.error(e);
-           e.printStackTrace();
            addErrorMessage(e.getMessage(),"");
        }
     }

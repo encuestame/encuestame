@@ -51,7 +51,6 @@ public class ReIndexJob {
             getIndexRebuilder().reindexEntities();
         } catch (Exception e) {
             ReIndexJob.log.error("Error Reindexing "+e.getMessage());
-            e.printStackTrace();
         }
     }
 

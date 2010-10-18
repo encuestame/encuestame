@@ -109,11 +109,9 @@ public class GlobalCommonsBeans extends MasterBean {
                 }
             }
         } catch (HibernateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e);
         }
         return select;
     }

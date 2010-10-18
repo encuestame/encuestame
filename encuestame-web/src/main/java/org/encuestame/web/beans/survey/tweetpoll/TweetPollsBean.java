@@ -77,7 +77,6 @@ public class TweetPollsBean extends AbstractTableBean implements Serializable {
              log.info("loading tweet polls");
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
         }
     }
 
@@ -102,7 +101,6 @@ public class TweetPollsBean extends AbstractTableBean implements Serializable {
             }
             catch (EnMeExpcetion e) {
                 log.error(e);
-                e.printStackTrace();
                 addErrorMessage(e.getMessage(), e.getMessage());
             }
         }else{

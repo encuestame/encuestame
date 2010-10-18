@@ -123,7 +123,6 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
                 createNotification(NotificationEnum.PROJECT_CREATED, secondary.getUsername() +" is the leader of this project.", user);
             }
             catch (Exception e) {
-                e.printStackTrace();
                 log.error(e.getMessage());
                 throw new EnMeExpcetion(e);
             }

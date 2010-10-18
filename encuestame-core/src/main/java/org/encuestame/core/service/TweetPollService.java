@@ -191,7 +191,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }
         catch (Exception e) {
-            e.printStackTrace();
             log.error("Error creating TweetlPoll "+e.getMessage());
             throw new EnMeExpcetion(e);
         }
@@ -231,7 +230,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
             throw new EnMeExpcetion(e);
         }
         log.debug("Question Generated: "+tweetQuestionText);
@@ -283,7 +281,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                                 buildTwitterItemView(secUserTwitterAccounts.getTwitterAccount(), String.valueOf(status.getId())),
                                 secUserTwitterAccounts.getSecUsers());
                     } catch (Exception e) {
-                        e.printStackTrace();
                         log.error("Error publish tweet "+e.getMessage());
                         publishedStatus.setStatus(org.encuestame.core.persistence.domain.survey.TweetPollSavedPublishedStatus.Status.FAILED);
                         publishedStatus.setDescriptionStatus(e.getMessage());
