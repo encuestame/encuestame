@@ -15,6 +15,7 @@ package org.encuestame.core.persistence.dao;
 import java.util.Calendar;
 import java.util.List;
 
+import org.encuestame.core.persistence.dao.imp.IFrontEndDao;
 import org.encuestame.core.persistence.dao.imp.IHashTagDao;
 import org.encuestame.core.persistence.domain.survey.Poll;
 import org.encuestame.core.persistence.domain.survey.TweetPoll;
@@ -28,7 +29,7 @@ import org.hibernate.criterion.Restrictions;
  * @since Oct 16, 2010 10:53:26 PM
  * @version $Id:$
  */
-public class FrontEndDao extends AbstractHibernateDaoSupport{
+public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEndDao{
 
     /** {@link HashTagDao}. **/
     private IHashTagDao hashTagDao;
