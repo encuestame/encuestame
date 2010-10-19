@@ -14,6 +14,7 @@ package org.encuestame.core.persistence.dao.imp;
 
 import java.util.List;
 
+import org.encuestame.core.persistence.domain.survey.Poll;
 import org.encuestame.core.persistence.domain.survey.TweetPoll;
 
 /**
@@ -50,19 +51,34 @@ public interface IFrontEndDao extends IBaseDao{
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getPollFrontEndLast24(final Integer maxResults);
+    List<Poll> getPollFrontEndLast24(final Integer maxResults);
 
     /**
      * Get Poll Last 7 Days
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getPollFrontEndLast7Days(final Integer maxResults);
+    List<Poll> getPollFrontEndLast7Days(final Integer maxResults);
 
     /**
      * Get Poll Last 30 Days
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getPollFrontEndLast30Days(final Integer maxResults);
+    List<Poll> getPollFrontEndLast30Days(final Integer maxResults);
+
+    /**
+     * Get Poll on All Time.
+     * @param maxResults max results
+     * @return list of tweetPoll.
+     */
+    List<Poll> getPollFrontEndAllTime(final Integer maxResults);
+
+    /**
+     * Get TweetPoll all time.
+     * @param maxResults max results
+     * @return list of tweetPoll.
+     */
+    List<TweetPoll> getTweetPollFrontEndAllTime(final Integer maxResults);
+
 }

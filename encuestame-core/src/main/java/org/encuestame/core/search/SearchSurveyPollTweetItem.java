@@ -82,6 +82,4 @@ public class SearchSurveyPollTweetItem {
     public void setSurveys(final List<Surveys> surveys) {
         this.surveys = surveys;
     }
-
-
 }

@@ -12,16 +12,18 @@
  */
 package org.encuestame.core.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeSearchException;
 import org.encuestame.core.persistence.domain.survey.Poll;
-import org.encuestame.core.persistence.domain.survey.Surveys;
 import org.encuestame.core.persistence.domain.survey.TweetPoll;
 import org.encuestame.core.search.SearchPeriods;
 import org.encuestame.core.search.SearchSurveyPollTweetItem;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
+import org.springframework.util.Assert;
 
 /**
  * Front End Service.
@@ -31,23 +33,63 @@ import org.encuestame.utils.web.frontEnd.UnitSearchItem;
  */
 public class FrontEndService extends AbstractBaseService implements IFrontEndService {
 
+    /** Front End Service Log. **/
+    private Logger log = Logger.getLogger(this.getClass());
+
+    /** Max Results. **/
+    private final Integer MAX_RESULTS = 15;
 
     /**
      * Search Items By Keyword.
      * @param keyword keyword.
+     * @param maxResults limit of results to return.
      * @return result of the search.
-     * @throws EnMeSearchException
+     * @throws EnMeSearchException search exception.
      */
-    public List<UnitSearchItem> searchItemsByKeyword(final String keyword, final String period) throws EnMeSearchException{
-        final List<TweetPoll> items;
-        final List<Poll> polls;
-        final List<Surveys> surveys;
+    public List<UnitSearchItem> searchItemsByKeyword(
+                final String keyword,
+                final String period,
+                Integer maxResults)
+           throws EnMeSearchException{
+        final SearchSurveyPollTweetItem searchItems = new SearchSurveyPollTweetItem();
+        if(maxResults == null){
+            maxResults = this.MAX_RESULTS;
+        }
+        log.debug("Max Results "+maxResults);
+        final List<TweetPoll> items = new ArrayList<TweetPoll>();
+        final List<Poll> polls = new ArrayList<Poll>();
+        //final List<Surveys> surveys = new ArrayList<Surveys>();
         if(period == null || keyword == null){
             throw new EnMeSearchException("search params required.");
         } else {
-            if(period.equals(SearchPeriods.getPeriodString(period))){
-                //final List<TweetPoll> items = getFrontEndDao().
+            final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
+            if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
+                polls.addAll(getFrontEndDao().getPollFrontEndLast24(maxResults));
+                //surveys.addAll(getFrontEndDao(), maxResults);
+            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
+                polls.addAll(getFrontEndDao().getPollFrontEndLast24(maxResults));
+                //surveys.addAll(getFrontEndDao(), maxResults);
+            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(maxResults));
+                polls.addAll(getFrontEndDao().getPollFrontEndLast7Days(maxResults));
+                //surveys.addAll(getFrontEndDao(), maxResults);
+            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(maxResults));
+                polls.addAll(getFrontEndDao().getPollFrontEndLast30Days(maxResults));
+                //surveys.addAll(getFrontEndDao(), maxResults);
+            } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
+                items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(maxResults));
+                polls.addAll(getFrontEndDao().getPollFrontEndAllTime(maxResults));
+                //surveys.addAll(getFrontEndDao(), maxResults);
             }
+            Assert.notNull(searchItems);
+            searchItems.setPolls(polls);
+            searchItems.setTweetPolls(items);
+            searchItems.setSurveys(null);
+            log.debug("Poll "+polls.size());
+            log.debug("TweetPoll "+items.size());
         }
         return null;
     }

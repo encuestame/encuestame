@@ -38,12 +38,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationService  extends AbstractBaseService implements ILocationService{
 
+    /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Create Cat LocationType.
      * @param locatTypeBean {@link UnitLocationTypeBean}
-     * @return locatTypeBean
+     * @return locatTypeBean type bean
      * @throws EnMeExpcetion exception
      */
     public UnitLocationTypeBean createCatLocationType(
@@ -57,8 +58,8 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                         .getLevel());
                 locationTypeDomain.setUsers(getUser(username).getSecUser());
                 getCatLocationTypeDao().saveOrUpdate(locationTypeDomain);
-                locatTypeBean.setIdLocType((locationTypeDomain
-                        .getLocationTypeId()));
+                locatTypeBean.setIdLocType(locationTypeDomain
+                        .getLocationTypeId());
             } catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }
@@ -71,6 +72,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
     /**
      * Update Cat Location.
      * @param locationBean locationBean
+     * @param username username
      * @throws EnMeExpcetion EnMeExpcetion
      */
     public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion{
