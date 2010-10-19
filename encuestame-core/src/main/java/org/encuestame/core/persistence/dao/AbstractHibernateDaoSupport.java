@@ -12,18 +12,15 @@
  */
 package org.encuestame.core.persistence.dao;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * Abstract Base Dao Class extend Spring class {@link HibernateDaoSupport}
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since October 30, 2009
  * @version $Id$
  */

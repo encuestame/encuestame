@@ -19,7 +19,7 @@ import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.hibernate.HibernateException;
 /**
  * Interface to implement Catalog Location Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since  26/04/2009
  * @version $Id$
  */

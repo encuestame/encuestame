@@ -21,7 +21,6 @@ import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.service.imp.ISecurityService;
 import org.encuestame.core.service.util.ValidationUtils;
 import org.encuestame.utils.web.UnitUserBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 

@@ -15,7 +15,6 @@ package org.encuestame.core.security.spring;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -33,7 +32,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Encuestame user service implementation.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 07/05/2009 14:19:02
  * @version $Id$
  */

@@ -19,7 +19,7 @@ import org.hibernate.HibernateException;
 
  /**
   * Interface to implement Permission Dao.
-  * @author Picado, Juan juan@encuestame.org
+  * @author Picado, Juan juanATencuestame.org
   * @since  11/05/2009 10:46:01
   * @version $Id$
   */

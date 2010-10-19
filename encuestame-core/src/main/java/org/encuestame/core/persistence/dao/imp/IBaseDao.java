@@ -15,7 +15,7 @@ package org.encuestame.core.persistence.dao.imp;
 import org.hibernate.HibernateException;
 /**
  * Interface Base Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since April 23, 2009
  * @version $Id$
  */

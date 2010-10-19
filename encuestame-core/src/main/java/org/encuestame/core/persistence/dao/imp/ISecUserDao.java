@@ -23,7 +23,7 @@ import org.hibernate.HibernateException;
 /**
  * Interface SecUsers.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since May 05, 2009
  * @version $Id$
  */

@@ -52,11 +52,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import twitter4j.TwitterException;
-
 /**
  * Security Bean Service.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 27/04/2009 11:35:01
  * @version $Id$
  */

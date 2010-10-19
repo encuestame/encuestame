@@ -18,7 +18,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.security.AbstractSecurityContext;
 import org.encuestame.core.security.spring.EnMeUserDetails;
 import org.encuestame.core.service.LocationService;
 import org.encuestame.core.service.PollService;
@@ -42,7 +41,7 @@ import org.springframework.context.ApplicationContext;
 /**
  * Master Bean.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 26/04/2009
  * @version $Id$
  */

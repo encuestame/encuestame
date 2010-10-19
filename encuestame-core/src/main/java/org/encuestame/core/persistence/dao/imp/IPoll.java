@@ -22,7 +22,7 @@ import org.hibernate.HibernateException;
 
 /**
  * {@link PollDao} Interface.
- * @author Morales,Diana Paola paola@encuestame.org
+ * @author Morales,Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
  * @version $Id: $
  */

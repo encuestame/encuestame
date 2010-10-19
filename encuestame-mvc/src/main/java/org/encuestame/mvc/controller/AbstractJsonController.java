@@ -14,8 +14,7 @@ package org.encuestame.mvc.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.persistence.dao.INotification;

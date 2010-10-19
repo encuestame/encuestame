@@ -23,11 +23,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.Parameter;
-import org.jasypt.hibernate.type.EncryptedStringType;
-
 /**
  * SecUser Twitter Acounts.
  * @author Picado, Juan juanATencuestame.org

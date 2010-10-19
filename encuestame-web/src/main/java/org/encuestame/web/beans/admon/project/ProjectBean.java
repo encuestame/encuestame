@@ -31,7 +31,7 @@ import org.springframework.binding.message.MessageContext;
 
 /**
  * Project Bean.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 26/05/2009 10:25:05
  * @version $Id$
  */

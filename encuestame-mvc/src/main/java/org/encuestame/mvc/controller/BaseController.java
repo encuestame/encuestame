@@ -48,7 +48,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 /**
  * Base Controller.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Mar 13, 2010 10:41:38 PM
  * @version $Id: $
  */

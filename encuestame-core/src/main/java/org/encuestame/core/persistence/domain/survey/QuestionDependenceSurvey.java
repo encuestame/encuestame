@@ -22,12 +22,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.search.annotations.Indexed;
-
 /**
  * Questions Dependence Surveys.
  *
- * @author Morales Urbina, Diana paola@encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since August 10, 2010
  * @version $Id: $
  */

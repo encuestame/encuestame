@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.service.TwitterService;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -28,7 +27,7 @@ import twitter4j.http.RequestToken;
 /**
  * Interface for Survey Service.
  *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juan AT encuestame.org
  * @since 27/04/2009
  * @version $Id$
  */

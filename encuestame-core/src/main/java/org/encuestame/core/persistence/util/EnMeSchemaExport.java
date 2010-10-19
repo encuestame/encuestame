@@ -14,7 +14,6 @@ package org.encuestame.core.persistence.util;
 
 import java.util.Date;
 
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.persistence.dao.CatStateDaoImp;
 import org.encuestame.core.persistence.dao.SecPermissionDaoImp;
 import org.encuestame.core.persistence.dao.SecUserDaoImp;

@@ -29,7 +29,7 @@ import org.springframework.mail.MailSendException;
 
 /**
  * Security User Bean.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 11/05/2009 13:52:28
  * @version $Id$
  */

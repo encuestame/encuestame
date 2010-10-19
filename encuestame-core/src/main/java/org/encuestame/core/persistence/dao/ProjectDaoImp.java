@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Project Dao.
- * @author Picado, Juan Carlos juan@encuestame.org
+ * @author Picado, Juan Carlos juanATencuestame.org
  * @since May 26, 2009
  * @version $Id$
  */

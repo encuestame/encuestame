@@ -20,7 +20,7 @@ import org.hibernate.HibernateException;
 
 /**
  * Clien Interfaces.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Jan 24, 2010 4:27:52 PM
  * @version $Id$
  */

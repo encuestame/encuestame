@@ -17,21 +17,19 @@ import java.util.List;
 
 import org.encuestame.core.persistence.dao.imp.IFolder;
 import org.encuestame.core.persistence.dao.imp.IPoll;
-import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.persistence.domain.survey.Poll;
 import org.encuestame.core.persistence.domain.survey.PollFolder;
 import org.encuestame.core.persistence.domain.survey.PollResult;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
  * Poll Dao.
  *
- * @author Morales,Diana Paola paola@encuestame.org
+ * @author Morales,Diana Paola paolaATencuestame.org
  * @since March 15, 2009
  * @version $Id: $
  */

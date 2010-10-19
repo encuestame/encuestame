@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Catalog Location Type Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 05/12/2009 12:36:22
  * @version $Id$
  */

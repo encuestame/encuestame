@@ -20,7 +20,7 @@ import org.hibernate.HibernateException;
 
 /**
  * Interface for Catalog Location Type Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 05/12/2009 12:36:43
  * @version $Id$
  */

@@ -24,12 +24,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.search.annotations.DocumentId;
-
 /**
  * QuestionLibrary.
  *
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 27, 2010
  * @version $Id: $
  */

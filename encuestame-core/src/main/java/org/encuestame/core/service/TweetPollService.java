@@ -45,7 +45,7 @@ import twitter4j.User;
 
 /**
  * Tweet Poll Service Interface.
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  April 02, 2010
  * @version $Id: $
  */

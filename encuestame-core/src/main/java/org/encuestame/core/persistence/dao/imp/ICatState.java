@@ -19,7 +19,7 @@ import org.hibernate.HibernateException;
 
 /**
  * Interface to implement Catalog State Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since April 26, 2009
  * @version $Id$
  */

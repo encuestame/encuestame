@@ -24,7 +24,7 @@ import org.hibernate.HibernateException;
 
 /**
  * Interface to {@link TweetPollDao}.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Feb 17, 2010 8:27:20 PM
  * @version $Id: change to one dolar simbol
  */

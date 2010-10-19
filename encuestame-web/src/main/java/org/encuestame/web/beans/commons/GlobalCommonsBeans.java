@@ -12,7 +12,6 @@
  */
 package org.encuestame.web.beans.commons;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,14 +21,13 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
-import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.web.beans.MasterBean;
+import org.hibernate.HibernateException;
 /**
  * Global Commons Beans.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juan AT encuestame.org
  * @since 11/05/2009 16:39:17
  * @version $Id$
  */

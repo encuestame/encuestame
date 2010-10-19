@@ -23,7 +23,7 @@ import org.encuestame.utils.web.UnitUserBean;
 
 /**
  * Project Service Interface.
- * @author Morales, Diana Paola paola@encuestame.org
+ * @author Morales, Diana Paola paola AT encuestame.org
  * @since April 13, 2009
  * @version $Id: $
  */

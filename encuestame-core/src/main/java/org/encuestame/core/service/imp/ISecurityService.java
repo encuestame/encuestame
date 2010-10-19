@@ -33,7 +33,7 @@ import org.springframework.mail.MailSendException;
 
 /**
  * Interface for Security Service.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juan AT encuestame.org
  * @since 27/04/2009  11:35:01
  * @version $Id$
  */

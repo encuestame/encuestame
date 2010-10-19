@@ -25,11 +25,9 @@ import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
-import twitter4j.Status;
-
 /**
  * Tweet Poll Service.
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  April 02, 2010
  * @version $Id: $
  */

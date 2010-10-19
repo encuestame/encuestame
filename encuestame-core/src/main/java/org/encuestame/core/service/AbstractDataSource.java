@@ -45,11 +45,11 @@ import org.encuestame.core.persistence.dao.imp.ISecPermissionDao;
 import org.encuestame.core.persistence.dao.imp.ISecUserDao;
 import org.encuestame.core.persistence.dao.imp.ISurvey;
 import org.encuestame.core.persistence.dao.imp.ITweetPoll;
+import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatState;
 import org.encuestame.core.persistence.domain.HashTag;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -57,7 +57,7 @@ import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 /**
  * Abstract Data Services.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since April 27, 2009
  * @version $Id: DataSource.java 478 2010-04-07 03:39:10Z dianmorales $
  */

@@ -28,11 +28,9 @@ import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.persistence.domain.survey.Poll;
 import org.encuestame.core.persistence.domain.survey.PollFolder;
-import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.MD5Utils;
-import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
@@ -41,7 +39,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Poll Service.
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  April 01, 2010
  * @version $Id: $
  */
