@@ -78,7 +78,7 @@
         <module name="JUnitTestCase"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="PackageDeclaration"/>
-        <module name="ParameterAssignment"/>
+        <!-- <module name="ParameterAssignment"/> -->
         <module name="ReturnCount">
             <property name="max" value="1"/>
         </module>
