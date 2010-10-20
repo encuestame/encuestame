@@ -66,11 +66,13 @@
     </properties>
 
     <modules>
-        <module>encuestame-core</module>
-        <module>encuestame-mvc</module>
-        <module>encuestame-web</module>
-        <module>encuestame-war</module>
         <module>encuestame-utils</module>
+        <module>encuestame-core</module>
+        <module>encuestame-persistence</module>
+        <module>encuestame-service</module>
+        <module>encuestame-web</module>
+        <module>encuestame-mvc</module>
+        <module>encuestame-war</module>
     </modules>
 
     <licenses>
@@ -561,7 +563,7 @@
 
     <dependencyManagement>
         <dependencies>
-              <dependency>
+             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-core</artifactId>
                 <version>${encuestame.version}</version>
@@ -575,12 +577,6 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
-            <!--
-                <dependency> <groupId>org.encuestame</groupId>
-                <artifactId>encuestameSkin</artifactId>
-                <version>${encuestame.version}</version> <type>jar</type>
-                <scope>compile</scope> </dependency>
-            -->
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-utils</artifactId>
@@ -588,12 +584,26 @@
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
+            <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-utils</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-web</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
+            </dependency>
+             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-web</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
@@ -607,6 +617,37 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
+
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-persistence</artifactId>
+                <version>${encuestame.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-persistence</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-service</artifactId>
+                <version>${encuestame.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-service</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
+
             <!--
             This dependency will not necesary with JSF2.0
             -->

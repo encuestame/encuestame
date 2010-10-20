@@ -18,29 +18,45 @@
     </properties>
 
     <dependencies>
+          <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-service</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-service</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
         </dependency>
-        <dependency>
+         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-utils</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-mvc</artifactId>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
-                <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-mvc</artifactId>
-                <scope>test</scope>
-                <classifier>tests</classifier>
-        </dependency>
         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
-                <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-core</artifactId>
-                <scope>test</scope>
-                <classifier>tests</classifier>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-core</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>com.googlecode.gmaps4jsf</groupId>
@@ -110,6 +126,17 @@
                     <showDeprecation>true</showDeprecation>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
+            </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-jar-plugin</artifactId>
+               <executions>
+                 <execution>
+                   <goals>
+                       <goal>test-jar</goal>
+                    </goals>
+                  </execution>
+                </executions>
             </plugin>
         </plugins>
         <resources>

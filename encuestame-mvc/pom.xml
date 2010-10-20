@@ -14,9 +14,45 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
+            <artifactId>encuestame-web</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-web</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
         <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-service</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-service</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-utils</artifactId>
+        </dependency>
+         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-utils</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
         </dependency>

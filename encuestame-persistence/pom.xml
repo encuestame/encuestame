@@ -8,9 +8,9 @@
         <artifactId>encuestame</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-core</artifactId>
+    <artifactId>encuestame-persistence</artifactId>
     <packaging>jar</packaging>
-    <name>encuestame core</name>
+    <name>encuestame persistence</name>
     <build>
         <plugins>
             <plugin>
@@ -35,6 +35,7 @@
                   </execution>
                 </executions>
             </plugin>
+
         </plugins>
         <resources>
             <resource>
@@ -47,19 +48,29 @@
         </resources>
     </build>
     <dependencies>
+            <dependency>
+            <groupId>com.googlecode.gmaps4jsf</groupId>
+            <artifactId>gmaps4jsf-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
         </dependency>
-         <dependency>
+         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.gmaps4jsf</groupId>
-            <artifactId>gmaps4jsf-core</artifactId>
+         <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-core</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-core</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>com.sun.facelets</groupId>

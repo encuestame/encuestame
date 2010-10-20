@@ -142,6 +142,14 @@
             <artifactId>encuestame-mvc</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-service</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>
         </dependency>
