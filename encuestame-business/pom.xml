@@ -8,9 +8,9 @@
         <artifactId>encuestame</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-service</artifactId>
+    <artifactId>encuestame-business</artifactId>
     <packaging>jar</packaging>
-    <name>encuestame service</name>
+    <name>encuestame business</name>
     <build>
         <plugins>
             <plugin>
