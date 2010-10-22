@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.mail;
+package org.encuestame.core.mail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
+import org.encuestame.business.mail.MailService;
 import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.business.service.imp.IService;
 import org.encuestame.utils.mail.InvitationBean;

@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.cron;
+package org.encuestame.core.cron;
 
 import java.util.List;
 
