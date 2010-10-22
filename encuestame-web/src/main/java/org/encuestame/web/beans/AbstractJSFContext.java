@@ -19,7 +19,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.encuestame.core.security.AbstractSecurityContext;
+import org.encuestame.business.security.AbstractSecurityContext;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**

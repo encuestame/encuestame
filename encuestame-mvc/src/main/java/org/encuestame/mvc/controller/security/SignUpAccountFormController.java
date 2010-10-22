@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
-import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.business.security.util.PasswordGenerator;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitUserBean;

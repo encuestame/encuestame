@@ -19,9 +19,9 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.core.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

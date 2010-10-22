@@ -24,11 +24,11 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-service</artifactId>
+            <artifactId>encuestame-business</artifactId>
         </dependency>
         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-service</artifactId>
+            <artifactId>encuestame-business</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>

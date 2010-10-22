@@ -16,9 +16,9 @@ import java.io.Serializable;
 
 import javax.faces.event.ActionEvent;
 
+import org.encuestame.business.service.util.ConvertDomainBean;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts.TypeAuth;
-import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.persistence.domain.security.SecUserTwitterAccounts.TypeAuth;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.web.beans.MasterBean;
 

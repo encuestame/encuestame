@@ -18,10 +18,10 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.encuestame.business.service.util.ConvertListDomainSelectBean;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.Project;
-import org.encuestame.core.service.util.ConvertListDomainSelectBean;
+import org.encuestame.persistence.domain.Project;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitProjectBean;

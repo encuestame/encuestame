@@ -69,7 +69,7 @@
         <module>encuestame-utils</module>
         <module>encuestame-core</module>
         <module>encuestame-persistence</module>
-        <module>encuestame-service</module>
+        <module>encuestame-business</module>
         <module>encuestame-web</module>
         <module>encuestame-mvc</module>
         <module>encuestame-war</module>
@@ -635,14 +635,14 @@
 
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-service</artifactId>
+                <artifactId>encuestame-business</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-service</artifactId>
+                <artifactId>encuestame-business</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>

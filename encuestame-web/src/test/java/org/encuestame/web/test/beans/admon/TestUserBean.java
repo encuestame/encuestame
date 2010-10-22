@@ -12,7 +12,7 @@
  */
 package org.encuestame.web.test.beans.admon;
 
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.web.beans.admon.security.UserBean;
 import org.encuestame.web.test.config.AbstractBaseWeb;

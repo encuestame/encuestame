@@ -15,8 +15,8 @@ package org.encuestame.web.test.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.encuestame.core.service.ServiceManager;
-import org.encuestame.core.service.imp.IServiceManager;
+import org.encuestame.business.service.ServiceManager;
+import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.core.test.security.AbstractSpringSecurityContext;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.ObjectFactory;

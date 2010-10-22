@@ -22,11 +22,11 @@ import java.util.Map.Entry;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 
+import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.util.ConvertDomainBean;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.LocationFolderType;
-import org.encuestame.core.service.imp.ILocationService;
-import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;

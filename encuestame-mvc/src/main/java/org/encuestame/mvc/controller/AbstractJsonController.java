@@ -17,9 +17,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.encuestame.core.persistence.dao.INotification;
-import org.encuestame.core.persistence.dao.NotificationDao;
-import org.encuestame.core.service.NotificationEnum;
+import org.encuestame.persistence.dao.INotification;
+import org.encuestame.persistence.dao.imp.NotificationDao;
+import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;

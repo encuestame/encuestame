@@ -12,7 +12,7 @@
  */
 package org.encuestame.web.beans.admon;
 
-import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.web.beans.MasterBean;
 
 /**

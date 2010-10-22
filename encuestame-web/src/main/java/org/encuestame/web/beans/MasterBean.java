@@ -16,22 +16,23 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.encuestame.business.security.AbstractSecurityContext;
+import org.encuestame.business.security.spring.EnMeUserDetails;
+import org.encuestame.business.service.LocationService;
+import org.encuestame.business.service.PollService;
+import org.encuestame.business.service.SecurityService;
+import org.encuestame.business.service.ServiceManager;
+import org.encuestame.business.service.SurveyService;
+import org.encuestame.business.service.TweetPollService;
+import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.IPollService;
+import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.IServiceManager;
+import org.encuestame.business.service.imp.ISurveyService;
+import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.business.service.util.MD5Utils;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.security.spring.EnMeUserDetails;
-import org.encuestame.core.service.LocationService;
-import org.encuestame.core.service.PollService;
-import org.encuestame.core.service.SecurityService;
-import org.encuestame.core.service.ServiceManager;
-import org.encuestame.core.service.SurveyService;
-import org.encuestame.core.service.TweetPollService;
-import org.encuestame.core.service.imp.ILocationService;
-import org.encuestame.core.service.imp.IPollService;
-import org.encuestame.core.service.imp.ISecurityService;
-import org.encuestame.core.service.imp.IServiceManager;
-import org.encuestame.core.service.imp.ISurveyService;
-import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ import org.springframework.context.ApplicationContext;
 /**
  * Master Bean.
  *
- * @author Picado, Juan juanATencuestame.org
+ * @author Picado, Juan juan@encuestame.org
  * @since 26/04/2009
  * @version $Id$
  */
