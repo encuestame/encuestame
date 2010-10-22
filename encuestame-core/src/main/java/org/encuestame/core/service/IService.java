@@ -10,9 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.service.imp;
+package org.encuestame.core.service;
 
-import org.encuestame.business.service.util.MessageSourceFactoryBean;
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
 
 /**
  * Class Description.

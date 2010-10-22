@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.dao.imp.ICatLocation;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.CatLocationFolder;
 import org.encuestame.core.persistence.domain.LocationFolderType;
@@ -25,6 +24,7 @@ import org.encuestame.core.service.LocationService;
 import org.encuestame.core.service.imp.ILocationService;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
+import org.encuestame.persistence.dao.ICatLocation;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.junit.Assert;

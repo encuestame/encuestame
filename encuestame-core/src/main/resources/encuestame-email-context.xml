@@ -23,7 +23,7 @@
 
   <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage" />
 
-  <bean id="serviceMail" class="org.encuestame.core.mail.MailServiceImpl"  parent="service">
+  <bean id="serviceMail" class="org.encuestame.business.mail.MailServiceImpl"  parent="service">
     <property name="mailSender" ref="mailSender" />
     <property name="templateMessage" ref="templateMessage" />
     <property name="noEmailResponse" value="${mail.noresponse}" />

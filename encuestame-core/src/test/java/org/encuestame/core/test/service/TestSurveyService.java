@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.security.SecUser;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;

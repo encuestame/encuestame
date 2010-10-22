@@ -58,6 +58,16 @@
             <classifier>tests</classifier>
         </dependency>
         <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-persistence</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.gmaps4jsf</groupId>
             <artifactId>gmaps4jsf-core</artifactId>
         </dependency>

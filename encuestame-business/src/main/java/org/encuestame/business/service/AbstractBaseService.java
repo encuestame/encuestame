@@ -18,12 +18,12 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.util.ConvertDomainBean;
-import org.encuestame.business.service.util.MD5Utils;
-import org.encuestame.business.service.util.MessageSourceFactoryBean;
+import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
 import org.encuestame.persistence.domain.CatEmailLists;
 import org.encuestame.persistence.domain.CatEmails;
 import org.encuestame.persistence.domain.CatSubscribeEmails;

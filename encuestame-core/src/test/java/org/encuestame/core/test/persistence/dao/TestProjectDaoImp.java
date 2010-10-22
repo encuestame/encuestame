@@ -16,11 +16,11 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.dao.imp.IProject;
 import org.encuestame.core.persistence.domain.CatLocation;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.persistence.dao.IProject;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

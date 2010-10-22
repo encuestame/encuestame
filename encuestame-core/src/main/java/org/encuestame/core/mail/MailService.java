@@ -10,9 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.mail;
+package org.encuestame.core.mail;
 
-import org.encuestame.business.service.imp.IService;
+import org.encuestame.core.service.IService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;

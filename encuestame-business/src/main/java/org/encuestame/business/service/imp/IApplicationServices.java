@@ -11,6 +11,9 @@
  ************************************************************************************
  */
 package org.encuestame.business.service.imp;
+
+import org.encuestame.core.service.IService;
+
 /**
  * Interface to Application Bean Service.
  * @author Picado, Juan juan@encuestame.org

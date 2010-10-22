@@ -19,6 +19,7 @@ import javax.faces.model.SelectItem;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecPermission;
 import org.encuestame.persistence.domain.security.SecUserSecondary;

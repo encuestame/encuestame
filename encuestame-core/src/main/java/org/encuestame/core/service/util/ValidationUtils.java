@@ -10,19 +10,18 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.service.util;
-
+package org.encuestame.core.service.util;
 
 /**
- * Description Class.
+ * Validations Utils.
  * @author Picado, Juan juanATencuestame.org
- * @since Sep 18, 2010 11:04:07 PM
- * @version Id:
+ * @since Jun 13, 2010 7:06:15 PM
+ * @version $Id: $
  */
-public class DateUtil {
+public final class ValidationUtils {
 
-    public static final String DEFAULT_FORMAT_DATE = "yyyy-MM-dd";
+    public static final String EMAIL_REGEXP = "^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\\.-][a-z0-9]+)*)+\\.[a-z]{2,}$";
 
-    public static final String DEFAULT_FORMAT_TIME = "hh:mm:ss";
+    public static final String NAME_PATTERN = "[A-Za-z0-9]*";
 
 }

@@ -12,7 +12,7 @@
  */
 package org.encuestame.business.service.imp;
 
-import org.encuestame.business.service.util.MessageSourceFactoryBean;
+import org.encuestame.core.service.util.MessageSourceFactoryBean;
 
 /**
  * Interface to Service Manager.

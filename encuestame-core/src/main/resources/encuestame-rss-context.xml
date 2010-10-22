@@ -21,6 +21,6 @@
     <bean id="rssReader" class="org.encuestame.core.rss.EnMeRssReader"/>
     <bean id="rssFeedMessageHandler" class="org.encuestame.core.rss.EnMeRssFeedMessageHandler"/>
     -->
-    <bean id="tweetPollAtomFeedView" class="org.encuestame.core.view.TweetPollAtomFeedView"></bean>
-    <bean id="tweetPollRssFeedView" class="org.encuestame.core.view.TweetPollRssFeedView"></bean>
+    <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
+    <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
 </beans>

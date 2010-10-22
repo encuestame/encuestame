@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.dao.ClientDao;
 import org.encuestame.core.persistence.domain.Client;
 import org.encuestame.core.persistence.domain.Project;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.persistence.dao.ClientDao;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -15,9 +15,9 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
+import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.business.service.TwitterService;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.mail.MailServiceImpl;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;

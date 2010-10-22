@@ -12,6 +12,8 @@
  */
 package org.encuestame.business.service.imp;
 
+import org.encuestame.core.service.IService;
+
 /**
  * Implementation for Front End Service.
  * @author Picado, Juan juanATencuestame.org

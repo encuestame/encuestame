@@ -17,13 +17,13 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.core.persistence.dao.TweetPollDao;
 import org.encuestame.core.persistence.domain.Question;
 import org.encuestame.core.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.core.persistence.domain.survey.TweetPoll;
 import org.encuestame.core.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.core.test.service.config.AbstractBase;
+import org.encuestame.persistence.dao.TweetPollDao;
 import org.junit.Before;
 import org.junit.Test;
 

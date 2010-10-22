@@ -21,10 +21,10 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.util.ConvertDomainBean;
-import org.encuestame.business.service.util.ConvertListDomainSelectBean;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.service.util.ConvertListDomainSelectBean;
 import org.encuestame.persistence.dao.ICatEmail;
 import org.encuestame.persistence.dao.ICatLocation;
 import org.encuestame.persistence.dao.ICatLocationTypeDao;

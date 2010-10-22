@@ -16,6 +16,7 @@ package org.encuestame.business.service.imp;
 import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
+import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
 
 import twitter4j.Status;

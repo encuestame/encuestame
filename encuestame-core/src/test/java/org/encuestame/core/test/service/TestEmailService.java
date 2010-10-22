@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.test.service;
 
-import org.encuestame.core.mail.MailServiceImpl;
+import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.core.test.service.config.AbstractBaseUnitBeans;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

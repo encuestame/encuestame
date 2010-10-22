@@ -21,7 +21,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.business.service.util.ConvertDomainsToSecurityContext;
+import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.dao.ISecUserDao;
 import org.encuestame.persistence.dao.imp.SecUserDaoImp;
 import org.springframework.dao.DataAccessException;
