@@ -18,7 +18,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ISecurityService;
-import org.encuestame.business.service.util.ValidationUtils;
+import org.encuestame.core.service.util.ValidationUtils;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.util.StringUtils;

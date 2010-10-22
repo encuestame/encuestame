@@ -29,7 +29,7 @@ import org.encuestame.business.service.TweetPollService;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
-import org.encuestame.business.service.util.DateUtil;
+import org.encuestame.core.service.util.DateUtil;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
