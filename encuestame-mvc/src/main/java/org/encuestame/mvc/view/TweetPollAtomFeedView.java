@@ -20,6 +20,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encuestame.core.rss.AbstractEnMeAtomFeedView;
+import org.encuestame.core.util.FeedUtils;
 import org.encuestame.utils.web.UnitTweetPoll;
 
 import com.sun.syndication.feed.atom.Entry;

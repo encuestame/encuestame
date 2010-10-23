@@ -23,7 +23,7 @@ import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.security.util.HTMLInputFilter;
-import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.core.util.MD5Utils;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;

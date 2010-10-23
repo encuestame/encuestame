@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.CatLocation;
 import org.encuestame.persistence.domain.CatLocationFolder;
 import org.encuestame.persistence.domain.CatLocationType;

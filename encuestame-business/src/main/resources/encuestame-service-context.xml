@@ -125,7 +125,7 @@
   </bean>
 
   <bean id="messageSource"
-    class="org.encuestame.core.service.util.MessageSourceFactoryBean">
+    class="org.encuestame.core.util.MessageSourceFactoryBean">
     <property name="messagesource" ref="resourceBundleMessageSource" />
   </bean>
 

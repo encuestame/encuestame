@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.core.service.util;
+package org.encuestame.core.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

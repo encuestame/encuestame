@@ -25,7 +25,7 @@ import javax.faces.event.ValueChangeEvent;
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitLocationBean;

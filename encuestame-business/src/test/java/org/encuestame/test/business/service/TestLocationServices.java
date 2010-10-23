@@ -21,7 +21,7 @@ import org.encuestame.persistence.domain.CatLocation;
 import org.encuestame.persistence.domain.CatLocationFolder;
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.ICatLocation;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;

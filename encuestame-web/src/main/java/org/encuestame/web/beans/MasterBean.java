@@ -31,7 +31,7 @@ import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.security.EnMeUserDetails;
-import org.encuestame.core.service.util.MD5Utils;
+import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLocationFolder;

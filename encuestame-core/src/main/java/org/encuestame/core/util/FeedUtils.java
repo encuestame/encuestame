@@ -10,18 +10,29 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service.util;
+package org.encuestame.core.util;
+
+import com.sun.syndication.feed.atom.Link;
 
 /**
- * Validations Utils.
+ * Feed Utils.
  * @author Picado, Juan juanATencuestame.org
- * @since Jun 13, 2010 7:06:15 PM
- * @version $Id: $
+ * @since Jul 3, 2010 10:19:37 AM
+ * @version $Id:$
  */
-public final class ValidationUtils {
+public class FeedUtils {
 
-    public static final String EMAIL_REGEXP = "^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\\.-][a-z0-9]+)*)+\\.[a-z]{2,}$";
 
-    public static final String NAME_PATTERN = "[A-Za-z0-9]*";
-
+    /**
+     * Create Feed Link.
+     * @param url
+     * @param title
+     * @return
+     */
+    public final static Link createLink(final String url, final String title){
+        Link link = new Link();
+        link.setHref(url);
+        link.setTitle(title);
+        return link;
+    }
 }

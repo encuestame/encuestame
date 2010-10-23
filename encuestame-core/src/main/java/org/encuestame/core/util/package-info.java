@@ -2,4 +2,4 @@
  * Contains  Services Utilities classes.
  *
  */
-package org.encuestame.core.service.util;
+package org.encuestame.core.util;

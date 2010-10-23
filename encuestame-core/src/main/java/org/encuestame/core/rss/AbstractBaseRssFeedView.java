@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.view;
+package org.encuestame.core.rss;
 
 import org.springframework.web.servlet.view.feed.AbstractRssFeedView;
 
