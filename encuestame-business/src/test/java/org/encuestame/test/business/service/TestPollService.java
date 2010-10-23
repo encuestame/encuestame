@@ -31,7 +31,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
@@ -51,7 +51,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 17/05/2010 19:35:36
  * @version $Id:$
  */
-public class TestPollService extends AbstractServiceTest{
+public class TestPollService extends AbstractServiceBase{
 
      /** {@link SecUser} **/
     private SecUser user;

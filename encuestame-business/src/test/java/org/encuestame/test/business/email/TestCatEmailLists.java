@@ -24,7 +24,6 @@ import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.dao.IProject;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.mail.InvitationBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
     }
 
 
-    @Test(timeout=60000)
+    @Test(timeout = 80000)
     public void testSendEmail(){
         createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
         createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
@@ -70,7 +69,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
             }
     }
 
-    @Test(timeout=60000)
+    @Test(timeout = 80000)
     public void testSendInvitation(){
           createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
           final List<CatEmails> catEmails = getCatEmailDao().findEmailsByListId(

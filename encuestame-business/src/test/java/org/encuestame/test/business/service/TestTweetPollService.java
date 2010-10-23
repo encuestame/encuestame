@@ -31,7 +31,7 @@ import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -49,7 +49,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Jun 5, 2010 3:36:43 PM
  * @version $Id:$
  */
-public class TestTweetPollService  extends AbstractServiceTest{
+public class TestTweetPollService  extends AbstractServiceBase{
     /**
      * {@link TweetPollService}.
      */

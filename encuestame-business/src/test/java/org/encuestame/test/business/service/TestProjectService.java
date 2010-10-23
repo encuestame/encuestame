@@ -23,7 +23,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.junit.Before;
@@ -37,7 +37,7 @@ import org.springframework.test.annotation.ExpectedException;
  * @since April 13, 2009
  * @version $Id:$
  */
-public class TestProjectService extends AbstractServiceTest {
+public class TestProjectService extends AbstractServiceBase {
 
 
        /** {@link SecUser}. **/

@@ -22,7 +22,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +39,7 @@ import twitter4j.User;
  * @since Feb 13, 2010 5:05:12 PM
  * @version $Id$
  */
-public class TestTwitterService extends AbstractServiceTest {
+public class TestTwitterService extends AbstractServiceBase {
 
     /** {@link TwitterService}.  */
     @Autowired

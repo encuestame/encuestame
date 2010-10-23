@@ -12,8 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
-import org.encuestame.test.business.service.config.AbstractServiceTest;
-import org.encuestame.test.config.AbstractBase;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.junit.Test;
 
 /**
@@ -22,7 +21,7 @@ import org.junit.Test;
  * @since 02/12/2009 22:26:24
  * @version $Id$
  */
-public class TestDataSource extends AbstractServiceTest {
+public class TestDataSource extends AbstractServiceBase {
     @Test
     public void testData(){
 

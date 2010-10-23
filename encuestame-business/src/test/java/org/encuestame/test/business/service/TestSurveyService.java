@@ -28,7 +28,7 @@ import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -45,7 +45,7 @@ import org.springframework.test.annotation.ExpectedException;
  * @version $Id$
  */
 
-public class TestSurveyService  extends AbstractServiceTest{
+public class TestSurveyService  extends AbstractServiceBase{
 
     /** {@link AbstractSurveyService} */
     @Autowired

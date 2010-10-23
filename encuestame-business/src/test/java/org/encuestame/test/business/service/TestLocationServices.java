@@ -23,7 +23,7 @@ import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.ICatLocation;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -38,7 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Oct 10, 2010 11:37:52 AM
  * @version $Id:$
  */
-public class TestLocationServices extends AbstractServiceTest{
+public class TestLocationServices extends AbstractServiceBase{
 
     /**
      * Location Service.

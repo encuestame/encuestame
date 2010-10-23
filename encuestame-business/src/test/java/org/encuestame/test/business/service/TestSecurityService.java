@@ -28,7 +28,7 @@ import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.core.service.util.ConvertDomainBean;
-import org.encuestame.test.business.service.config.AbstractServiceTest;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
@@ -46,7 +46,7 @@ import org.springframework.test.annotation.ExpectedException;
  * @since 08/11/2009 11:35:01
  * @version $Id$
  */
-public class TestSecurityService extends AbstractServiceTest{
+public class TestSecurityService extends AbstractServiceBase{
 
     /** {@link SecurityService}. **/
     @Autowired
