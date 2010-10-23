@@ -1,4 +1,4 @@
-package org.encuestame.business.security.util;
+package org.encuestame.core.security.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

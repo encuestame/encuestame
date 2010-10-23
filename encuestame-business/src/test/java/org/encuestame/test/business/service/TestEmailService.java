@@ -13,6 +13,7 @@
 package org.encuestame.test.business.service;
 
 import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Jun 12, 2010 10:02:41 AM
  * @version Id:
  */
-public class TestEmailService extends AbstractBaseUnitBeans {
+public class TestEmailService extends AbstractServiceTest {
 
     @Autowired
     private MailServiceImpl serviceMail;

@@ -17,17 +17,18 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.business.service.SecurityService;
+import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.security.SecGroup;
-import org.encuestame.core.persistence.domain.security.SecPermission;
-import org.encuestame.core.persistence.domain.security.SecUser;
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.core.security.EnMePermission;
-import org.encuestame.core.service.SecurityService;
-import org.encuestame.core.service.imp.ISecurityService;
+import org.encuestame.persistence.domain.security.SecGroup;
+import org.encuestame.persistence.domain.security.SecPermission;
+import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
@@ -45,7 +46,7 @@ import org.springframework.test.annotation.ExpectedException;
  * @since 08/11/2009 11:35:01
  * @version $Id$
  */
-public class TestSecurityService extends AbstractBaseUnitBeans{
+public class TestSecurityService extends AbstractServiceTest{
 
     /** {@link SecurityService}. **/
     @Autowired

@@ -15,8 +15,9 @@ package org.encuestame.test.business.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.security.EnMePermission;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.junit.Before;
 import org.springframework.security.authentication.TestingAuthenticationToken;
@@ -31,7 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @since Jun 30, 2010 9:03:50 PM
  * @version $Id:$
  */
-public abstract class AbstractSpringSecurityContext extends AbstractBaseUnitBeans {
+public abstract class AbstractSpringSecurityContext extends AbstractServiceTest {
 
     /**
      * {@link SecUserSecondary}.

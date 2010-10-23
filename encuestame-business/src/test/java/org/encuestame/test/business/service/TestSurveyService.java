@@ -20,15 +20,15 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.security.SecUser;
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.persistence.domain.survey.QuestionPattern;
-import org.encuestame.core.persistence.domain.survey.QuestionsAnswers;
-import org.encuestame.core.service.AbstractSurveyService;
-import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.survey.QuestionPattern;
+import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -45,7 +45,7 @@ import org.springframework.test.annotation.ExpectedException;
  * @version $Id$
  */
 
-public class TestSurveyService  extends AbstractBaseUnitBeans{
+public class TestSurveyService  extends AbstractServiceTest{
 
     /** {@link AbstractSurveyService} */
     @Autowired

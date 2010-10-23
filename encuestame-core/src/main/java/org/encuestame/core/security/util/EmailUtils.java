@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.security.util;
+package org.encuestame.core.security.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

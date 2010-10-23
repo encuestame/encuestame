@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.business.security.util;
+package org.encuestame.core.security.util;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 

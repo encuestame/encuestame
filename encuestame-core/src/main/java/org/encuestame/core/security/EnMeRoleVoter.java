@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.security.spring;
+package org.encuestame.core.security;
 
 import java.util.Collection;
 

@@ -52,7 +52,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
@@ -111,7 +111,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
@@ -170,7 +170,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
@@ -229,7 +229,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
@@ -288,7 +288,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
@@ -347,8 +347,8 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
-                <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
+                <mail.smtp.auth>true</mail.smtp.auth>
+                <mail.smtp.starttls.enable>true</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
                 <mail.smtps.debug>true</mail.smtps.debug>
@@ -406,7 +406,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->
@@ -465,7 +465,7 @@
                 <mail.noresponse>encuestamettest@gmail.com</mail.noresponse>
                 <mail.encoding>UTF-8</mail.encoding>
                 <!-- SMTP -->
-                <mail.smtp.auth>false</mail.smtp.auth>
+                <mail.smtp.auth>true</mail.smtp.auth>
                 <mail.smtp.starttls.enable>false</mail.smtp.starttls.enable>
                 <mail.smtp.starttls.required>false</mail.smtp.starttls.required>
                 <!-- SMTPS -->

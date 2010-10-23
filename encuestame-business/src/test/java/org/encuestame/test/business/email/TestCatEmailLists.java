@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.CatEmails;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.dao.IProject;
+import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.mail.InvitationBean;
 import org.junit.Before;
@@ -36,7 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since June 24, 2010
  * @version $Id: $
  */
-public class TestCatEmailLists extends AbstractBase {
+public class TestCatEmailLists extends AbstractServiceBase {
 
     private CatEmailLists emailList;
     private CatEmails emails;

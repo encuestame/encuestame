@@ -19,19 +19,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.CatEmailLists;
-import org.encuestame.core.persistence.domain.CatEmails;
-import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.security.SecUser;
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.persistence.domain.survey.Poll;
-import org.encuestame.core.persistence.domain.survey.PollFolder;
-import org.encuestame.core.persistence.domain.survey.QuestionPattern;
-import org.encuestame.core.service.PollService;
-import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.persistence.domain.CatEmailLists;
+import org.encuestame.persistence.domain.CatEmails;
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
@@ -40,7 +40,6 @@ import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.hibernate.HibernateException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +51,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 17/05/2010 19:35:36
  * @version $Id:$
  */
-public class TestPollService extends AbstractBaseUnitBeans{
+public class TestPollService extends AbstractServiceTest{
 
      /** {@link SecUser} **/
     private SecUser user;

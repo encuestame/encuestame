@@ -14,16 +14,16 @@ package org.encuestame.test.business.service;
 
 import java.util.List;
 
+import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.CatLocation;
-import org.encuestame.core.persistence.domain.CatLocationFolder;
-import org.encuestame.core.persistence.domain.LocationFolderType;
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.service.LocationService;
-import org.encuestame.core.service.imp.ILocationService;
+import org.encuestame.persistence.domain.CatLocation;
+import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.domain.LocationFolderType;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.ICatLocation;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -38,7 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Oct 10, 2010 11:37:52 AM
  * @version $Id:$
  */
-public class TestLocationServices extends AbstractBaseUnitBeans{
+public class TestLocationServices extends AbstractServiceTest{
 
     /**
      * Location Service.

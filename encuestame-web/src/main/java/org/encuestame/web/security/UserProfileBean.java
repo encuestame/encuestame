@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.business.security.spring.EnMeUserDetails;
+import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.web.beans.MasterBean;
 
 /**

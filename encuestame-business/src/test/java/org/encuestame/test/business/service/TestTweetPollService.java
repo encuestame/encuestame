@@ -21,17 +21,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.persistence.domain.Question;
-import org.encuestame.core.persistence.domain.survey.QuestionPattern;
-import org.encuestame.core.persistence.domain.security.SecUser;
-import org.encuestame.core.persistence.domain.security.SecUserSecondary;
-import org.encuestame.core.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.core.persistence.domain.survey.TweetPoll;
-import org.encuestame.core.service.TweetPollService;
-import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.survey.QuestionPattern;
+import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.core.service.util.ConvertDomainBean;
+import org.encuestame.test.business.service.config.AbstractServiceTest;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -49,7 +49,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Jun 5, 2010 3:36:43 PM
  * @version $Id:$
  */
-public class TestTweetPollService  extends AbstractBaseUnitBeans{
+public class TestTweetPollService  extends AbstractServiceTest{
     /**
      * {@link TweetPollService}.
      */

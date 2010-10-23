@@ -24,11 +24,11 @@ import java.util.Set;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.security.util.EnMePasswordUtils;
-import org.encuestame.business.security.util.PasswordGenerator;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.security.util.EnMePasswordUtils;
+import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.util.ConvertDomainBean;
 import org.encuestame.core.service.util.ConvertDomainsToSecurityContext;
 import org.encuestame.core.service.util.ConvertListDomainSelectBean;

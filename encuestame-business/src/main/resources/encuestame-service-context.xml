@@ -15,13 +15,13 @@
     </property>
   </bean>
 
-  <bean id="chartService" class="org.encuestame.core.service.ChartService" parent="abstractchart"/>
+  <bean id="chartService" class="org.encuestame.business.service.ChartService" parent="abstractchart"/>
 
-  <bean id="abstractchart" class="org.encuestame.core.service.AbstractChartService"
+  <bean id="abstractchart" class="org.encuestame.business.service.AbstractChartService"
         abstract="true" parent="service">
   </bean>
 
-  <bean id="abstractsurvey" class="org.encuestame.core.service.AbstractSurveyService"
+  <bean id="abstractsurvey" class="org.encuestame.business.service.AbstractSurveyService"
         abstract="true" parent="abstractchart">
         <property name="twitterService">
           <ref bean="twitterService" />
@@ -34,7 +34,7 @@
         </property>
   </bean>
 
-   <bean id="tweetPollService" class="org.encuestame.core.service.TweetPollService"
+   <bean id="tweetPollService" class="org.encuestame.business.service.TweetPollService"
        parent="abstractsurvey">
        <property name="answerPollPath">
            <value>${answers.answerPoll}</value>
@@ -50,7 +50,7 @@
        </property>
    </bean>
 
-    <bean id="abstractConfig" class="org.encuestame.core.service.AbstractBaseService"
+    <bean id="abstractConfig" class="org.encuestame.business.service.AbstractBaseService"
      abstract="true" parent="dataEnMeSource">
        <property name="domainUrl">
            <value>${application.domain}</value>
@@ -69,7 +69,7 @@
        </property>
      </bean>
 
-  <bean id="service" class="org.encuestame.core.service.AbstractBaseService"
+  <bean id="service" class="org.encuestame.business.service.AbstractBaseService"
       abstract="true" parent="abstractConfig">
       <property name="messageSource">
           <ref bean="messageSource" />
@@ -79,7 +79,7 @@
       </property>
   </bean>
 
-  <bean id="dataEnMeSource" class="org.encuestame.core.service.AbstractDataSource" abstract="true">
+  <bean id="dataEnMeSource" class="org.encuestame.business.service.AbstractDataSource" abstract="true">
     <property name="stateDao">
       <ref bean="catStateDaoImp"></ref>
     </property>
@@ -129,7 +129,7 @@
     <property name="messagesource" ref="resourceBundleMessageSource" />
   </bean>
 
-  <bean id="servicesManager" class="org.encuestame.core.service.ServiceManager">
+  <bean id="servicesManager" class="org.encuestame.business.service.ServiceManager">
     <property name="applicationServices">
       <ref bean="applicationServices"></ref>
     </property>
@@ -138,32 +138,32 @@
     </property>
   </bean>
 
-  <bean id="twitterService" class="org.encuestame.core.service.TwitterService"
+  <bean id="twitterService" class="org.encuestame.business.service.TwitterService"
     parent="service">
     <property name="tinyApi" value="${twitter.tinyUrl}" />
   </bean>
 
-  <bean id="surveyService" class="org.encuestame.core.service.SurveyService"
+  <bean id="surveyService" class="org.encuestame.business.service.SurveyService"
     parent="abstractsurvey">
   </bean>
 
-  <bean id="securityService" class="org.encuestame.core.service.SecurityService"
+  <bean id="securityService" class="org.encuestame.business.service.SecurityService"
     parent="service">
     <property name="suspendedNotification">
       <value>${sec.suspendedNotification}</value>
     </property>
   </bean>
 
-  <bean id="pollService" class="org.encuestame.core.service.PollService" parent="abstractsurvey">
+  <bean id="pollService" class="org.encuestame.business.service.PollService" parent="abstractsurvey">
   </bean>
 
-  <bean id="projectService" class="org.encuestame.core.service.ProjectService" parent="service">
+  <bean id="projectService" class="org.encuestame.business.service.ProjectService" parent="service">
   </bean>
 
-  <bean id="locationService" class="org.encuestame.core.service.LocationService" parent="service">
+  <bean id="locationService" class="org.encuestame.business.service.LocationService" parent="service">
   </bean>
 
-  <bean id="applicationServices" class="org.encuestame.core.service.ApplicationServices"
+  <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices"
     parent="service">
     <property name="securityService">
       <ref bean="securityService"></ref>

@@ -1,4 +1,4 @@
-package org.encuestame.business.security.spring;
+package org.encuestame.core.security;
 
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 

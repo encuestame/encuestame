@@ -13,7 +13,7 @@
 package org.encuestame.business.security;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.security.spring.EnMeUserDetails;
+import org.encuestame.core.security.EnMeUserDetails;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 

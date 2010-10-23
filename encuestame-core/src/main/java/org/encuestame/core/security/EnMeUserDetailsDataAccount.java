@@ -1,4 +1,4 @@
-package org.encuestame.business.security.spring;
+package org.encuestame.core.security;
 
 public interface EnMeUserDetailsDataAccount {
 

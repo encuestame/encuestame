@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.encuestame.business.security.util.HTMLInputFilter;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.util.MD5Utils;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;

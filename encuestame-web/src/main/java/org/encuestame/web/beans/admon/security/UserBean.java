@@ -18,8 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.encuestame.business.security.util.EmailUtils;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.security.util.EmailUtils;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
