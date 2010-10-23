@@ -12,7 +12,7 @@
  */
 package org.encuestame.mvc.test.config;
 
-import org.encuestame.core.test.security.AbstractSpringSecurityContext;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Scope;

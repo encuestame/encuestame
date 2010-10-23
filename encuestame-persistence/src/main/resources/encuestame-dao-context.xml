@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="catLocationDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.CatLocationDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="catLocationTypeDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.CatLocationTypeDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="projectDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.ProjectDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="catStateDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.CatStateDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="secPermissionDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.SecPermissionDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="secUserDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.SecUserDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="secGroupDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.SecGroupDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="surveyDaoImp" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.SurveyDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="questionDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.QuestionDaoImp">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="surveyFormatDaoImp" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.SurveyFormatDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="clientDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.ClientDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="tweetPollDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.TweetPollDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="pollDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.PollDao">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate" />
+        </property>
+    </bean>
+     <bean id="catEmailDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.CatEmailDao">
+          <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
+         </property>
+    </bean>
+    <bean id="hashTagDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.HashTagDao">
+         <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
+         </property>
+    </bean>
+    <bean id="notificationDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.NotificationDao">
+         <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
+         </property>
+    </bean>
+
+    <bean id="frontEndDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.FrontEndDao">
+         <property name="hibernateTemplate">
+             <ref bean="hibernateTemplate" />
+         </property>
+         <property name="hashTagDao">
+            <ref bean="hashTagDao"/>
+         </property>
+    </bean>
+
+</beans>
