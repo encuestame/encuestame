@@ -40,4 +40,11 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractConfigurationBase extends AbstractTransactionalJUnit4SpringContextTests{
 
     public Log log = LogFactory.getLog(this.getClass());
+
+    /**
+     * Constructor.
+     */
+    public AbstractConfigurationBase() {
+         super();
+    }
 }

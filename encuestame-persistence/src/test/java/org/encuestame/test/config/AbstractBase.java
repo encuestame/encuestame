@@ -28,6 +28,8 @@ import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.notifications.Notification;
+import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecPermission;
 import org.encuestame.persistence.domain.security.SecUser;
@@ -53,6 +55,7 @@ import org.encuestame.persistence.dao.ICatLocation;
 import org.encuestame.persistence.dao.ICatLocationTypeDao;
 import org.encuestame.persistence.dao.ICatState;
 import org.encuestame.persistence.dao.IClientDao;
+import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProject;
 import org.encuestame.persistence.dao.IQuestionDao;
@@ -81,7 +84,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @version $Id$
  */
 
-public class AbstractBase extends AbstractConfigurationBase{
+public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /**
      * Hibernate Template.
@@ -144,6 +147,10 @@ public class AbstractBase extends AbstractConfigurationBase{
     /** {@link CatEmailDao}. **/
     @Autowired
     private ICatEmail catEmailDao;
+
+    /** {@link Notification}. **/
+    @Autowired
+    private INotification notification;
 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
@@ -1235,5 +1242,36 @@ public class AbstractBase extends AbstractConfigurationBase{
      */
     public void setHibernateTemplate(final HibernateTemplate hibernateTemplate) {
         this.hibernateTemplate = hibernateTemplate;
+    }
+
+    /**
+     * Create Notification.
+     * @param message message
+     * @param secUser {@link SecUser}.
+     * @param description {@link NotificationEnum}.
+     */
+    public Notification createNotification(final String message, final SecUser secUser, final NotificationEnum description){
+         final Notification notification = new Notification();
+         notification.setAdditionalDescription(message);
+         notification.setCreated(new Date());
+         notification.setDescription(description);
+         notification.setReaded(Boolean.FALSE);
+         notification.setSecUser(secUser);
+         getNotification().saveOrUpdate(notification);
+         return notification;
+    }
+
+    /**
+     * @return the notification
+     */
+    public INotification getNotification() {
+        return notification;
+    }
+
+    /**
+     * @param notification the notification to set
+     */
+    public void setNotification(final INotification notification) {
+        this.notification = notification;
     }
 }
