@@ -14,7 +14,7 @@ Notifications.EnMe = Class.create( {
     // load notifications
     loadNotifications : function() {
         this.cleanNodeName();
-        var url = '/encuestame/notifications.json';
+        var url = '/encuestame/api/notifications.json';
         var json =
         new Ajax.Request(url, {
             method : 'get',

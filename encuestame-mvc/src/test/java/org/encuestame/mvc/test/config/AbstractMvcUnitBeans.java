@@ -12,17 +12,34 @@
  */
 package org.encuestame.mvc.test.config;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.ServletException;
+
+import junit.framework.Assert;
+
+import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.mock.web.MockServletConfig;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
@@ -40,11 +57,11 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Transactional
 @Scope("singleton")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-json-context.xml",
+        "classpath:encuestame-test-json-context.xml",
         "classpath:encuestame-controller-context.xml",
-        "classpath:encuestame-param-test-context.xml"
-         })
-public class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
+        "classpath:encuestame-param-test-context.xml" })
+public abstract class AbstractMvcUnitBeans extends
+        AbstractSpringSecurityContext {
 
     /**
      * Fake Request.
@@ -76,22 +93,109 @@ public class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
      */
     public ModelAndView modelAndView = new ModelAndView();
 
+    // this servlet is going to be instantiated by ourselves
+    // so that we can test the servlet behaviour w/o actual web container
+    // deployment
+    protected DispatcherServlet servlet;
 
+    /**
+     * Constructor.
+     */
     public AbstractMvcUnitBeans() {
-        //http://forum.springsource.org/showthread.ph519
-        jacksonJsonView.setPrefixJson(false);
-        jacksonJsonView.setDisableCaching(true);
-        session = new MockHttpSession();
-        modelAndView.setView(jacksonJsonView);
+        // http://forum.springsource.org/showthread.ph519
+        //jacksonJsonView.setPrefixJson(false);
+        //jacksonJsonView.setDisableCaching(true);
+        //session = new MockHttpSession();
+        //modelAndView.setView(jacksonJsonView);
+    }
+
+    /**
+     * Call Json Service.
+     * @param url
+     * @param method
+     * @throws ServletException
+     */
+    public void initService(final String url, final MethodJson method){
+        Assert.assertNotNull(url);
+        Assert.assertNotNull(method);
+        this.request = new MockHttpServletRequest(method.name(), url);
+        this.response = new MockHttpServletResponse();
+    }
+
+    /**
+     * Call JSON Service.
+     * @return {@link MockHttpServletResponse}
+     * @throws ServletException exception
+     * @throws IOException
+     */
+    public JSONObject callJsonService() throws ServletException, IOException{
+        servlet.init(new MockServletConfig());
+        Assert.assertNotNull("Request is null, you need call initServices first ",this.request);
+        Assert.assertNotNull("Response is null, you need call initServices first ",this.response);
+        servlet.service(this.request, this.response);
+        final String responseAsString = this.response.getContentAsString();
+        Assert.assertNotNull(responseAsString);
+        log.debug(responseAsString);
+        return (JSONObject) JSONValue.parse(responseAsString);
+    }
+
+    /**e
+     * Get Errors on response.
+     * @param response response.
+     * @return
+     */
+    public JSONObject getErrors(final JSONObject response){
+        Assert.assertNotNull("You need call first callJsonService", this.response);
+        return (JSONObject) response.get("error");
+    }
+
+    /**
+     * Get Success response.
+     * @param response response
+     * @return
+     */
+    public JSONObject getSucess(final JSONObject response){
+        Assert.assertNotNull("You need call first callJsonService", this.response);
+        return (JSONObject) response.get("success");
+    }
+
+    /**
+     * Set Parameter.
+     * @param param param
+     * @param value value
+     */
+    public void setParameter(final String param, final String value){
+        Assert.assertNotNull(request);
+        this.request.setParameter(param, value);
     }
 
 
-
+    /**
+     * using @Before is convenient, but with JUnit these annotated methods must
+     * be public (not like e.g. testNG) so be aware that no "secrets" are being
+     * set/got in these init-style methods ;_)! !
+     */
     @Before
-    public void setUpJson() throws Exception{
-       request = new MockHttpServletRequest();
-       response = new MockHttpServletResponse();
-       handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
+    public void initDispatcherServlet() {
+
+        /** Servlet. **/
+        this.servlet = new DispatcherServlet() {
+
+            /** Serial. **/
+            private static final long serialVersionUID = 34324324332432L;
+
+            /**
+             * Web Application Context.
+             */
+            @Override
+            protected WebApplicationContext createWebApplicationContext(
+                    final WebApplicationContext parent) throws BeansException {
+                final GenericWebApplicationContext gwac = new GenericWebApplicationContext();
+                gwac.setParent(applicationContext);
+                gwac.refresh();
+                return gwac;
+            }
+        };
     }
 
 }

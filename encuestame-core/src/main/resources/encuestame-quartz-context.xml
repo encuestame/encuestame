@@ -8,13 +8,7 @@
         <property name="indexRebuilder" ref="indexRebuilder"/>
     </bean>
 
-    <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder">
-        <property name="classes">
-            <list value-type="java.lang.Class">
-                <value>org.encuestame.persistence.domain.Question</value>
-            </list>
-        </property>
-    </bean>
+    <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
 
     <bean id="reindexingInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="reindexJob"/>

@@ -43,31 +43,11 @@ public class IndexRebuilder {
     private static final Log log = LogFactory.getLog(IndexRebuilder.class);
 
     /**
-     * List of Classes.
-     */
-    private List<Class> classes;
-
-    /**
      * {@link SessionFactory}.
      */
     @Autowired
     public HibernateTemplate hibernateTemplate;
 
-    /**
-     * Getter.
-     * @return
-     */
-    public List<Class> getClasses() {
-        return classes;
-    }
-
-    /**
-     * Setter.
-     * @param classes
-     */
-    public void setClasses(List<Class> classes) {
-        this.classes = classes;
-    }
 
     /**
      * Reindex Entities.

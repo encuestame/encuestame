@@ -52,7 +52,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/notifications.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/notifications.json", method = RequestMethod.GET)
     public ModelMap get(
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
