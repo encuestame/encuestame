@@ -105,7 +105,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
      */
-    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId);
+    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeDomainNotFoundException;
 
     /**
      *

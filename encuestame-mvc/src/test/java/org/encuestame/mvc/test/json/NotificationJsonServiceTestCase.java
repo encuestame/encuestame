@@ -12,42 +12,27 @@
  */
 package org.encuestame.mvc.test.json;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.Assert;
 
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.notifications.NotificationsJsonController;
-import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
+import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ContainerFactory;
-import org.json.simple.parser.JSONParser;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockServletConfig;
 
 /**
- * Test Json Service.
- *
+ * Test for {@link NotificationsJsonController}.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 26, 2010 8:19:49 PM
  * @version $Id:$
  */
-public class NotificationJsonServiceTestCase extends AbstractMvcUnitBeans {
+public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
 
     /**
      * Init Test.

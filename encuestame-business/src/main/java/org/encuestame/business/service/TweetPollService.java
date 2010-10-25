@@ -325,24 +325,31 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * Get Results By {@link TweetPoll}.
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
+     * @throws EnMeDomainNotFoundException
      */
     //FIXME: this service don' retrieve data if answer never was voted.
-    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId){
+    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeDomainNotFoundException{
+        log.debug("getResultsByTweetPollId "+tweetPollId);
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        for (QuestionsAnswers questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
-              log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
-              log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
-              final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
-              log.debug("result getResultsByTweetPollId- "+result.size());
-              for (Object[] objects : result) {
-                  log.debug("objects 1- "+objects[0]);
-                  log.debug("objects 2- "+objects[1]);
-                  final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
-                  tweetPollResult.setResults(Long.valueOf(objects[1].toString()));
-                  tweetPollResult.setAnswersBean(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
-                  pollResults.add(tweetPollResult);
-              }
+        log.debug("tweetPoll "+tweetPoll);
+        if(tweetPoll == null){
+            throw new EnMeDomainNotFoundException("tweetPoll not found");
+        } else {
+            for (QuestionsAnswers questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
+                  log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
+                  log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
+                  final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
+                  log.debug("result getResultsByTweetPollId- "+result.size());
+                  for (Object[] objects : result) {
+                      log.debug("objects 1- "+objects[0]);
+                      log.debug("objects 2- "+objects[1]);
+                      final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
+                      tweetPollResult.setResults(Long.valueOf(objects[1].toString()));
+                      tweetPollResult.setAnswersBean(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
+                      pollResults.add(tweetPollResult);
+                  }
+            }
         }
         return pollResults;
     }

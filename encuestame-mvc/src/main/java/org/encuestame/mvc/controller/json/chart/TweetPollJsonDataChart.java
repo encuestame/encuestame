@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.springframework.stereotype.Controller;
@@ -36,20 +37,28 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version $Id:$
  */
 
-@Controller
+@Controller("tweetPollJsonDataChart")
 public class TweetPollJsonDataChart extends AbstractJsonController{
 
         //@PreAuthorize("hasRole('ENCUESTAME_USER')")
-        @RequestMapping(value = "/{username}/tweetPoll/votes.json", method = RequestMethod.GET)
+        @RequestMapping(value = "/api/{username}/tweetPoll/votes.json", method = RequestMethod.GET)
         public ModelMap get(
                 @PathVariable String username,
                 @RequestParam(value = "tweetPollId") Long tweetPollId,
                 HttpServletRequest request,
                 HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-
+             log.debug("TweetPollId "+tweetPollId);
+             log.debug("TweetPollId "+ (tweetPollId instanceof Long));
              //TODO: we need check if user able to display this tweetpoll. eg. If is published or if is public
-             final List<UnitTweetPollResult> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
-             setItemResponse("votesResult", results);
+             List<UnitTweetPollResult> results;
+            try {
+                results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
+                log.debug("TweetPoll results "+results.size());
+                setItemResponse("votesResult", results);
+            } catch (EnMeDomainNotFoundException e) {
+                log.equals(e);
+                setError(e.getMessage());
+            }
              return returnData();
         }
 }

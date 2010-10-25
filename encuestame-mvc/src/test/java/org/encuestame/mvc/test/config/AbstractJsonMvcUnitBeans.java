@@ -60,7 +60,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
         "classpath:encuestame-test-json-context.xml",
         "classpath:encuestame-controller-context.xml",
         "classpath:encuestame-param-test-context.xml" })
-public abstract class AbstractMvcUnitBeans extends
+public abstract class AbstractJsonMvcUnitBeans extends
         AbstractSpringSecurityContext {
 
     /**
@@ -101,7 +101,7 @@ public abstract class AbstractMvcUnitBeans extends
     /**
      * Constructor.
      */
-    public AbstractMvcUnitBeans() {
+    public AbstractJsonMvcUnitBeans() {
         // http://forum.springsource.org/showthread.ph519
         //jacksonJsonView.setPrefixJson(false);
         //jacksonJsonView.setDisableCaching(true);

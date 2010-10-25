@@ -427,8 +427,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * Get Results By {@link TweetPoll}.
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
+     * @throws EnMeDomainNotFoundException exception
      */
-    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId){
+    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeDomainNotFoundException{
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
         for (QuestionsAnswers questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {

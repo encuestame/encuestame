@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -134,7 +135,12 @@ public class TweetPollsBean extends AbstractTableBean implements Serializable {
     public final void loadResults(){
         if(getSelectedTweetPoll().getId() != null){
             log.info("loadResults");
-            setSelectedResults(getTweetPollService().getResultsByTweetPollId(getSelectedTweetPoll().getId()));
+            try {
+                setSelectedResults(getTweetPollService().getResultsByTweetPollId(getSelectedTweetPoll().getId()));
+            } catch (EnMeDomainNotFoundException e) {
+                addErrorMessage(e.getMessage(), "");
+                log.error(e);
+            }
         }
     }
 
