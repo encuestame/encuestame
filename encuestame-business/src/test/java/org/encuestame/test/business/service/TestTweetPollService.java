@@ -195,9 +195,10 @@ public class TestTweetPollService  extends AbstractServiceBase{
 
     /**
      * Service to retrieve Results TweetPoll  Id.
+     * @throws EnMeDomainNotFoundException
      */
     @Test
-    public void testGetResultsByTweetPollId(){
+    public void testGetResultsByTweetPollId() throws EnMeDomainNotFoundException{
     final TweetPoll tweetPoll = createFastTweetPollVotes();
     final List<UnitTweetPollResult> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
     assertEquals("Should be equals", 2 , results.size());

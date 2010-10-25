@@ -108,7 +108,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
-    @RequestMapping(value = "/remove-notification.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/remove-notification.json", method = RequestMethod.GET)
     public ModelMap removeNotification(
             @RequestParam(value = "notificationId") Long notificationId,
             HttpServletRequest request,

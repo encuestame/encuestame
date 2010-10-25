@@ -34,12 +34,15 @@ import org.junit.Test;
  */
 public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
 
+    /** Notification. **/
+    private Notification notification;
+
     /**
      * Init Test.
      */
     @Before
     public void initTest() {
-        createNotification("test notification", getSecondary().getSecUser(),
+       notification = createNotification("test notification", getSecondary().getSecUser(),
                 NotificationEnum.PROJECT_CREATED);
         createNotification("test notification", getSecondary().getSecUser(),
                 NotificationEnum.TWEETPOL_CREATED);
@@ -53,17 +56,30 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     public void notificationsInJsonFormatTest() throws Exception {
         initService("/api/notifications.json", MethodJson.GET);
         setParameter("limit", "10");
-        JSONObject response = callJsonService();
-        JSONObject sucess = getSucess(response);
+        final JSONObject response = callJsonService();
+        final JSONObject sucess = getSucess(response);
         JSONArray listNotifications = (JSONArray) sucess.get("notifications");
         final List<Notification> list = getNotification().loadNotificationByUserAndLimit(getSecondary().getSecUser(), 100);
         Assert.assertEquals(list.size(), listNotifications.size());
         initService("/api/notifications.json", MethodJson.GET);
         setParameter("limit", "1");
-        JSONObject response2 = callJsonService();
-        JSONObject sucess2 = getSucess(response2);
-        JSONArray listNotifications2 = (JSONArray) sucess2.get("notifications");
+        final JSONObject response2 = callJsonService();
+        final JSONObject sucess2 = getSucess(response2);
+        final JSONArray listNotifications2 = (JSONArray) sucess2.get("notifications");
         Assert.assertEquals(listNotifications2.size(), 1);
+    }
+
+    /**
+     * Test /api/notifications.json.
+     * @throws Exception
+     */
+    @Test
+    public void removeNotificationsInJsonFormatTest() throws Exception {
+        initService("/api/remove-notification.json", MethodJson.GET);
+        setParameter("notificationId", this.notification.getNotificationId().toString());
+        final JSONObject response = callJsonService();
+        final JSONObject sucess = getSucess(response);
+        Assert.assertEquals(sucess.get("removed"), "ok");
     }
 
 }
