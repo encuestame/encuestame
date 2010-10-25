@@ -13,7 +13,6 @@
 package org.encuestame.mvc.test.config;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 
@@ -26,8 +25,6 @@ import org.json.simple.JSONValue;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -58,7 +55,6 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Scope("singleton")
 @ContextConfiguration(locations = {
         "classpath:encuestame-test-json-context.xml",
-        "classpath:encuestame-controller-context.xml",
         "classpath:encuestame-param-test-context.xml" })
 public abstract class AbstractJsonMvcUnitBeans extends
         AbstractSpringSecurityContext {
