@@ -47,7 +47,8 @@ public class TweetPollFeedController extends AbstractFeedController {
      * @param request
      * @throws EnMeDomainNotFoundException
      */
-    private void buildTweetPollFeedBody(String username, Model model, HttpServletRequest request, SecUserSecondary secUserSecondary) throws EnMeDomainNotFoundException{
+    private void buildTweetPollFeedBody(final String username, final Model model, final HttpServletRequest request,
+                 final SecUserSecondary secUserSecondary) throws EnMeDomainNotFoundException{
          model.addAttribute("username", username);
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
          model.addAttribute("url", buildDomainWithRequest(request));

@@ -20,7 +20,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.encuestame.core.rss.AbstractEnMeAtomFeedView;
+import org.encuestame.core.rss.AbstractBaseAtomFeedView;
 import org.encuestame.core.util.FeedUtils;
 import org.encuestame.utils.web.UnitTweetPoll;
 
@@ -34,7 +34,7 @@ import com.sun.syndication.feed.atom.Link;
  * @since Jul 3, 2010 2:31:28 AM
  * @version $Id:$
  */
-public final class TweetPollAtomFeedView extends AbstractEnMeAtomFeedView {
+public final class TweetPollAtomFeedView extends AbstractBaseAtomFeedView {
 
 
     /**
