@@ -30,7 +30,7 @@ import com.sun.syndication.feed.atom.Feed;
  * @since Jul 2, 2010 8:01:10 PM
  * @version $Id:$
  */
-public abstract class AbstractEnMeAtomFeedView extends AbstractAtomFeedView {
+public abstract class AbstractBaseAtomFeedView extends AbstractAtomFeedView {
 
     protected Logger log = Logger.getLogger(this.getClass());
 
