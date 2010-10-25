@@ -53,7 +53,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * @version $Id: $
  */
 @SuppressWarnings("deprecation")
-public class BaseController extends AbstractSecurityContext{
+public abstract class BaseController extends AbstractSecurityContext{
 
      protected Logger log = Logger.getLogger(this.getClass());
 
