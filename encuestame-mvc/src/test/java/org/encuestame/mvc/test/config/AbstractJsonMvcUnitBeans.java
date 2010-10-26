@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 
 import junit.framework.Assert;
 
+import org.custommonkey.xmlunit.XMLUnit;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.json.simple.JSONObject;
@@ -55,9 +56,9 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Scope("singleton")
 @ContextConfiguration(locations = {
         "classpath:encuestame-test-json-context.xml",
+        "classpath:encuestame-rss-context.xml",
         "classpath:encuestame-param-test-context.xml" })
-public abstract class AbstractJsonMvcUnitBeans extends
-        AbstractSpringSecurityContext {
+public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**
      * Fake Request.
@@ -192,6 +193,11 @@ public abstract class AbstractJsonMvcUnitBeans extends
                 return gwac;
             }
         };
+        XMLUnit.setIgnoreComments(true);
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreAttributeOrder(true);
+        XMLUnit.setNormalizeWhitespace(true);
+        XMLUnit.setNormalize(true);
     }
 
 }

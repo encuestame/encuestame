@@ -22,7 +22,7 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.encuestame.mvc.test.config.AbstractFeedMvcUnitBeans;
+import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.mvc.view.TweetPollAtomFeedView;
 import org.encuestame.mvc.view.TweetPollRssFeedView;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -41,7 +41,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * @since Oct 24, 2010 8:57:54 PM
  * @version $Id:$
  */
-public class TweetPollFeedControllerTestCase extends AbstractFeedMvcUnitBeans{
+public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /** TweetPollAtomFeedView. **/
     private  TweetPollAtomFeedView tweetPollAtomFeedView;
