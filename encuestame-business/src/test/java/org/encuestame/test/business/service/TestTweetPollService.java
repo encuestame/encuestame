@@ -108,7 +108,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     */
    @Test
    public void testGetTweetsPollByUserId() throws EnMeDomainNotFoundException{
-        createTweetPoll(2L, false, false, false, false, false, new Date(), new Date(), false,
+        createTweetPoll(2L, false, false, false, true, false, new Date(), new Date(), false,
                                                   this.user, this.question);
         createQuestionAnswer("Yes", this.question, "BBB");
         createQuestionAnswer("No", this.question, "CCC");
