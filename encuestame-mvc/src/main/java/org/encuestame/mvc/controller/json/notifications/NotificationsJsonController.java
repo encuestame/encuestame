@@ -89,12 +89,12 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/change-status-notifications.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/change-status-notifications.json", method = RequestMethod.GET)
     public ModelMap changeStatus(
             @RequestParam(value = "notificationId") Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-        return null;
+        return returnData();
     }
 
     /**

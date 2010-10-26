@@ -52,8 +52,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import twitter4j.TwitterException;
-
 /**
  * Security Bean Service.
  * @author Picado, Juan juan@encuestame.org
@@ -499,9 +497,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link SecPermission}
      */
     public SecPermission getPermissionByName(final String permission){
-        System.out.println(permission);
         final SecPermission permission2 = getPermissionDao().loadPermission(permission);
-        System.out.println(permission2);
         return permission2;
     }
 

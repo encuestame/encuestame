@@ -13,6 +13,7 @@
 package org.encuestame.mvc.test.config;
 
 import java.io.IOException;
+import java.io.StringReader;
 
 import javax.servlet.ServletException;
 
@@ -21,6 +22,9 @@ import junit.framework.Assert;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.jdom.Document;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Before;
@@ -120,17 +124,42 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
     }
 
     /**
+     * Call String Service.
+     * @return
+     * @throws ServletException servletException
+     * @throws IOException io exception.
+     */
+    private String callStringService() throws ServletException, IOException{
+        servlet.init(new MockServletConfig());
+        Assert.assertNotNull("Request is null, you need call initServices first ",this.request);
+        Assert.assertNotNull("Response is null, you need call initServices first ",this.response);
+        servlet.service(this.request, this.response);
+        return this.response.getContentAsString();
+    }
+
+    /**
+     * Call JSON Service.
+     * @return {@link MockHttpServletResponse}
+     * @throws ServletException exception
+     * @throws IOException
+     * @throws JDOMException
+     */
+    public Document callFeedService() throws ServletException, IOException, JDOMException{
+        final String responseAsString = this.callStringService();
+        System.out.println(responseAsString);
+        final SAXBuilder builder = new SAXBuilder();
+        final Document document = builder.build(new StringReader(responseAsString));
+       return document;
+    }
+
+    /**
      * Call JSON Service.
      * @return {@link MockHttpServletResponse}
      * @throws ServletException exception
      * @throws IOException
      */
     public JSONObject callJsonService() throws ServletException, IOException{
-        servlet.init(new MockServletConfig());
-        Assert.assertNotNull("Request is null, you need call initServices first ",this.request);
-        Assert.assertNotNull("Response is null, you need call initServices first ",this.response);
-        servlet.service(this.request, this.response);
-        final String responseAsString = this.response.getContentAsString();
+        final String responseAsString = this.callStringService();
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);

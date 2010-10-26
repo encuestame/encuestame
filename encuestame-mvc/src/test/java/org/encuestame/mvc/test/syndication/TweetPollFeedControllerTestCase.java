@@ -14,19 +14,28 @@ package org.encuestame.mvc.test.syndication;
 
 import static org.custommonkey.xmlunit.XMLAssert.assertXpathExists;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+
 import junit.framework.Assert;
 
+import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.mvc.view.TweetPollAtomFeedView;
 import org.encuestame.mvc.view.TweetPollRssFeedView;
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.utils.web.UnitTweetPoll;
+import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.junit.Before;
@@ -43,6 +52,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
  */
 public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
 
+    /**
+     * TweetPoll.
+     */
+    TweetPoll tweetPoll;
+
     /** TweetPollAtomFeedView. **/
     private  TweetPollAtomFeedView tweetPollAtomFeedView;
 
@@ -56,6 +70,14 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
     public void initView(){
         Assert.assertNotNull(this.tweetPollAtomFeedView);
         Assert.assertNotNull(this.tweetPollRssFeedView);
+        final Question question = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
+        final Question question1 = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
+        final Question question2 = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
+        final Question question3 = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
+        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question1);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question2);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question3);
     }
 
     /**
@@ -101,13 +123,40 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
         final Element root = document.getRootElement();
         final Namespace name = root.getNamespace();
         Assert.assertEquals(name.getURI(), "http://www.w3.org/2005/Atom");
-        final List<Element> list = root.getChildren();
         final Element title = (Element) root.getChildren("title", name).get(0);
         Assert.assertEquals(title.getName(), "title");
         Assert.assertEquals(title.getValue(), "TweetPoll Published");
         final Element id = (Element) root.getChildren("id", name).get(0);
         Assert.assertEquals(id.getName(), "id");
         Assert.assertEquals(id.getValue(), "TweetPoll Published");
+    }
+
+    /**
+     * @throws IOException
+     * @throws ServletException
+     * @throws JDOMException
+     *
+     */
+    @Test
+    public void testTweetpollDOTatom() throws ServletException, IOException, JDOMException{
+          initService("/feed/"+getSecondary().getUsername()+"/tweetpoll.atom", MethodJson.GET);
+          final Document response = callFeedService();
+          System.out.println(response);
+          Assert.assertEquals(response.getRootElement().getName(), "feed");
+    }
+
+    /**
+     * @throws IOException
+     * @throws ServletException
+     * @throws JDOMException
+     *
+     */
+    @Test
+    public void testTweetpollDOTrss() throws ServletException, IOException, JDOMException{
+          initService("/feed/"+getSecondary().getUsername()+"/tweetpoll.rss", MethodJson.GET);
+          final Document response = callFeedService();
+          System.out.println(response);
+          Assert.assertEquals(response.getRootElement().getName(), "rss");
     }
 
     /**

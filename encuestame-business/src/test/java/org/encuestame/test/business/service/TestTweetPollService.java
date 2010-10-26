@@ -112,7 +112,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
                                                   this.user, this.question);
         createQuestionAnswer("Yes", this.question, "BBB");
         createQuestionAnswer("No", this.question, "CCC");
-        final List<UnitTweetPoll> unitTweetPollList = tweetPollService.getTweetsPollsByUserName(this.secUserSecondary.getUsername());
+        final List<UnitTweetPoll> unitTweetPollList =
+              this.tweetPollService.getTweetsPollsByUserName(this.secUserSecondary.getUsername());
         assertEquals("Should be equals", 1, unitTweetPollList.size());
    }
 
