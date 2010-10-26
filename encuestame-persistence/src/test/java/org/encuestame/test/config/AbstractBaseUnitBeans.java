@@ -209,6 +209,8 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          tweetPoll.setPublishTweetPoll(publishTweetPoll);
          tweetPoll.setCompleted(completed);
          tweetPoll.setScheduleDate(scheduleDate);
+         tweetPoll.setEnabled(true);
+         tweetPoll.setCreateDate(new Date());
          tweetPoll.setQuestion(question);
          tweetPoll.setTweetOwner(tweetOwner);
          getTweetPoll().saveOrUpdate(tweetPoll);

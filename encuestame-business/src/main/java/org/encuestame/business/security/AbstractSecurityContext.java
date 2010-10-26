@@ -36,7 +36,7 @@ public abstract class AbstractSecurityContext {
      * Get Username of user client.
      * @return
      */
-    public final String getUserPrincipalUsername(){
+    public String getUserPrincipalUsername(){
        return getSecCtx().getAuthentication().getName();
     }
 
@@ -44,14 +44,14 @@ public abstract class AbstractSecurityContext {
     /**
      * @return the secCtx
      */
-    public final SecurityContext getSecCtx() {
+    public SecurityContext getSecCtx() {
         return this.securityContext = SecurityContextHolder.getContext();
     }
 
     /**
      * Get Details.
      */
-    public final EnMeUserDetails getSecurityDetails(){
+    public EnMeUserDetails getSecurityDetails(){
         EnMeUserDetails details = null;
         log.debug("Authentication Object "+getSecCtx().getAuthentication());
         if(getSecCtx().getAuthentication() != null){

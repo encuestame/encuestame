@@ -56,7 +56,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetsByUserId(final Long userId){
         return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId "
-                +" AND enabled = true order by createDate desc"
+                +" AND publishTweetPoll = true order by createDate desc" //enabled== true???
                +"", "userId", userId);
     }
 
