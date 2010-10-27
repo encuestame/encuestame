@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="encuestame">
     <bannerLeft>
         <name>Encuestame</name>
@@ -6,13 +6,19 @@
         <href>http://www.encuestame.org/</href>
     </bannerLeft>
     <bannerRight>
-        <name>Twitter</name>
-        <src>http://www.encuestame.org/images/twitter.jpg</src>
+         <src>http://www.encuestame.org/images/twitter.jpg</src>
         <href>http://www.twitter.com/encuestame</href>
     </bannerRight>
 
-    <publishDate format="dd MMM yyyy" position="left" />
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-default-skin</artifactId>
+        <version>1.0</version>
+    </skin>
 
+
+    <publishDate format="dd MMM yyyy" position="left" />
+    <version position="left" />
     <body>
 
         <head>
