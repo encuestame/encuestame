@@ -22,54 +22,6 @@
             classpath:encuestame-web-flow-registry-context.xml,
             classpath:encuestame-web-flow-context.xml</param-value>
     </context-param>
-    <context-param>
-        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-        <param-value>.xhtml</param-value>
-    </context-param>
-    <context-param>
-        <param-name>facelets.REFRESH_PERIOD</param-name>
-        <param-value>1</param-value>
-    </context-param>
-    <context-param>
-        <param-name>facelets.DEVELOPMENT</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.ajax4jsf.COMPRESS_SCRIPT</param-name>
-        <param-value>false</param-value>
-    </context-param>
-    <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/WEB-INF/taglibs/encuestame.taglib.xml;/WEB-INF/taglibs/gmaps4jsf-facelets-taglib.xml</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.richfaces.CONTROL_SKINNING</param-name>
-        <param-value>enable</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.richfaces.SKIN</param-name>
-        <param-value>plain</param-value>
-        <!-- plain = without css -->
-        <!-- DEFAULT = default css -->
-        <!-- encuestameSkin = encuestame css -->
-    </context-param>
-    <context-param>
-        <param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
-        <param-value>enable</param-value>
-    </context-param>
-    <filter>
-        <display-name>Ajax4jsf Filter</display-name>
-        <filter-name>ajax4jsf</filter-name>
-        <filter-class>org.ajax4jsf.Filter</filter-class>
-        <init-param>
-            <param-name>createTempFiles</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
-            <param-name>maxRequestSize</param-name>
-            <param-value>1000000</param-value>
-        </init-param>
-    </filter>
     <!--
     Enforce UTF-8 Character Encoding -->
     <filter>
@@ -164,20 +116,6 @@
         <filter-name>UrlRewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>ajax4jsf</filter-name>
-        <servlet-name>encuestame-spring-dispacher</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>ajax4jsf</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-    </filter-mapping>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -192,11 +130,6 @@
             <param-value />
         </init-param>
         <load-on-startup>2</load-on-startup>
-    </servlet>
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
        <servlet-name>Resource Servlet</servlet-name>
@@ -222,10 +155,6 @@
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-       <url-pattern>*.faces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>

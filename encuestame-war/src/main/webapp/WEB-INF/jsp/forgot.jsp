@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
-<body>
+<%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/publicBody.jsp" %>
+
     <div id="mainUserWrapper">
         <div class="form">
             <form:form modelAttribute="unitForgotPassword">

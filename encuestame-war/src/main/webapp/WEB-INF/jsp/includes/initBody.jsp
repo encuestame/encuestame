@@ -1,1 +1,2 @@
-<body class="login">
+<body class="tundra">
+<%@ include file="/WEB-INF/jsp/includes/headerLogged.jsp" %>

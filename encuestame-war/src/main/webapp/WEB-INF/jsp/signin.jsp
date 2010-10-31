@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/initBody.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/publicBody.jsp" %>
     <div id="loginWrapper">
        <div class="formWrapper">
            <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/j_spring_security_check"  method="post">

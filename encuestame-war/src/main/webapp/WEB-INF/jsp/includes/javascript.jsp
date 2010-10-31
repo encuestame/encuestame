@@ -1,10 +1,5 @@
-<script src="<%=request.getContextPath()%>/resource/js/prototype.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/validation.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/slider.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/effects.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/dragdrop.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/slider.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/builder.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/scriptaculous/controls.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/resource/js/encuestame-admon.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/resource/js/dojo/dojo.js" djConfig="parseOnLoad: true, useCommentedJson:true"></script>
+<style type="text/css">
+      @import "<%=request.getContextPath()%>/resource/js/dijit/themes/tundra/tundra.css";
+      @import "<%=request.getContextPath()%>/resource/js/dojo/resources/dojo.css"
+</style>
