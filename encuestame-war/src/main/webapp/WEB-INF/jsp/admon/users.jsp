@@ -2,10 +2,10 @@
 <%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
 <%@ include file="/WEB-INF/jsp/includes/initBody.jsp" %>
 <script type="text/javascript">
-  dojo.require("encuestame.org.class.shared.utils.Table");
+  dojo.require("encuestame.org.class.admon.user.Users");
 </script>
-<div class="users">
-    <div dojoType="encuestame.org.class.shared.utils.Table"></div>
+<div class="users" style=" text-align: center;" align="center">
+    <div dojoType="encuestame.org.class.admon.user.Users"></div>
 </div>
 </div>
 <%@ include file="/WEB-INF/jsp/includes/endBody.jsp" %>

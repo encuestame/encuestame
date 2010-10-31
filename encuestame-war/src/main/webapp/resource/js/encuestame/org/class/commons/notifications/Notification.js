@@ -42,21 +42,14 @@ dojo.declare(
      // load notifications
         loadNotifications : function() {
             //this.cleanNodeName();
-            var targetNode = dojo.byId("errorContainer");
-            dojo.xhrGet({
-                  url:encuestame.service.list.getNotifications,
-                  handleAs:"json",
-                  timeout: encuestame.service.timeout,
-                  content: { limit: this.limit},
-                  load: dojo.hitch(this, function(data){
-                      console.debug("data", data);
-                      var array = data.success.notifications;
-                      this._count.innerHTML = array.length;
-                  }),
-                  error: function(error) {
-                      targetNode.innerHTML = "An expected error occurred for referencing of unavailable file (404): <br>&nbsp;&nbsp;&nbsp;" + error;
-                  }
-                });
+            var load = dojo.hitch(this, function(data){
+                var array = data.success.notifications;
+                this._count.innerHTML = array.length;
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.list.getNotifications,{ limit: this.limit}, load, error);
 
            /*
             var url = '/encuestame/api/notifications.json';

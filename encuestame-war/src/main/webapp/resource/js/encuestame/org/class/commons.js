@@ -7,9 +7,9 @@ encuestame.service.timeout = 5000;
  * Json Get Call.
  */
 encuestame.service.xhrGet = function(url, params, load, error){
-    console.debug("url ", url);
-    console.debug("params ", params);
-    console.debug("load ", load);
+    //console.debug("url ", url);
+    //console.debug("params ", params);
+    //console.debug("load ", load);
     var defaultError = function(error, ioargs){
         console.debug("default error ", error);
     };
@@ -55,3 +55,4 @@ encuestame.service.xhrGet = function(url, params, load, error){
 encuestame.service.list = {};
 encuestame.service.list.userList = "/encuestame/api/admon/users.json";
 encuestame.service.list.getNotifications = "/encuestame/api/notifications.json";
+encuestame.service.list.userInfo = "/encuestame/api/admon/user-info.json";
