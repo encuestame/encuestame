@@ -11,6 +11,7 @@
  ************************************************************************************
  */
 
+/*
 function formCallback(result, form) {
          window.status = "valiation callback for form '" + form.id + "': result = " + result;
 };
@@ -24,4 +25,5 @@ Validation.addAllThese([
         notEqualToField : 'field1'
     }]
 ]);
+*/
 
