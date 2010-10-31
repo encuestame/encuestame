@@ -188,6 +188,13 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         return notification;
     }
 
+    /**
+     *
+     * @param subscriptionCode
+     * @param subscriptionOption
+     * @return
+     * @throws EnMeExpcetion
+     */
     public Boolean subscribeEmails(final String subscriptionCode, final String subscriptionOption) throws EnMeExpcetion{
         Boolean success = false;
         CatSubscribeEmails subscribe = getEmailListsDao().getSubscribeAccount(subscriptionCode);
@@ -305,9 +312,43 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             final Collection<SecUserSecondary> listUsers = getSecUserDao().retrieveListOwnerUsers(secUserSecondary.getSecUser());
             log.info("list users "+listUsers.size());
                 for (SecUserSecondary secUserSecondary2 : listUsers) {
-                    loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary2));
+                    loadListUsers.add(ConvertDomainBean.convertBasicSecondaryUserToUserBean(secUserSecondary2));
                 }
         return loadListUsers;
+    }
+
+    /**
+     * Validate Owner Group.
+     * @param user
+     * @param loggedUserName
+     * @return
+     */
+    private Boolean validateOwnerGroup(final SecUserSecondary user, final String loggedUserName){
+        Boolean validate = Boolean.FALSE;
+        final SecUserSecondary owner = getSecUserDao().getUserByUsername(loggedUserName);
+        if(user != null && owner != null){
+            if(user.getSecUser().getUid().equals(owner.getSecUser().getUid())){
+                validate = Boolean.TRUE;
+            }
+        }
+        log.debug("validateOwnerGroup info "+validate);
+        return validate;
+    }
+
+    /**
+     * Get User Complete Info.
+     * @param currentUsername
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public UnitUserBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
+        UnitUserBean userInfo = null;
+        final SecUserSecondary user = getSecUserDao().getSecondaryUserById(userId);
+        if(this.validateOwnerGroup(user, currentUsername)){
+            userInfo =  ConvertDomainBean.convertSecondaryUserToUserBean(user);
+            log.debug("getUserCompleteInfo info "+userInfo.getId());
+        }
+        return userInfo;
     }
 
 }

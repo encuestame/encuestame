@@ -46,6 +46,14 @@ public interface ISecurityService extends IService {
      */
     List<UnitUserBean> loadListUsers(final String currentUsername) throws Exception;
 
+    /**
+     * Get User Complete Info.
+     * @param currentUsername
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    UnitUserBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException;
+
 
     /**
      * Add new Twitter Account.
