@@ -3,6 +3,7 @@ dojo.provide("encuestame.org.class.commons.notifications.Notification");
 dojo.require('dojox.timing');
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require('encuestame.org.class.commons');
 
 dojo.declare(
     "encuestame.org.class.commons.notifications.Notification",
@@ -11,7 +12,7 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        delay:1000,
+        delay: 1000,
 
         limit: 100,
 
@@ -43,9 +44,9 @@ dojo.declare(
             //this.cleanNodeName();
             var targetNode = dojo.byId("errorContainer");
             dojo.xhrGet({
-                  url:"/encuestame/api/notifications.json",
+                  url:encuestame.service.list.getNotifications,
                   handleAs:"json",
-                  timeout: 4000,
+                  timeout: encuestame.service.timeout,
                   content: { limit: this.limit},
                   load: dojo.hitch(this, function(data){
                       console.debug("data", data);
