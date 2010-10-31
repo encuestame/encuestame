@@ -228,6 +228,22 @@ public class ConvertDomainBean {
         }
         return unitUserBean;
     }
+    /**
+     * Convert Basic {@link SecUserSecondary} to {@link UnitUserBean}.
+     * @param secUserSecondary {@link SecUserSecondary}.
+     * @return {@link UnitUserBean}
+     */
+    public static final UnitUserBean convertBasicSecondaryUserToUserBean(final SecUserSecondary secUserSecondary){
+        final UnitUserBean unitUserBean = new UnitUserBean();
+        if(secUserSecondary != null){
+            unitUserBean.setId(secUserSecondary.getUid());
+            unitUserBean.setName(secUserSecondary.getCompleteName());
+            unitUserBean.setEmail(secUserSecondary.getUserEmail());
+            unitUserBean.setUsername(secUserSecondary.getUsername());
+            unitUserBean.setStatus(secUserSecondary.isUserStatus());
+        }
+        return unitUserBean;
+    }
 
     /**
      * Convert Domain Permission to Bean Permission.
