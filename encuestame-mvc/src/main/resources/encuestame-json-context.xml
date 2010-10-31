@@ -8,7 +8,7 @@
 
 
     <bean id="contentNegotiatingViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="order" value="2"/>
+        <property name="order" value="1"/>
         <property name="mediaTypes">
             <map>
                 <entry key="json" value="application/json" />

@@ -21,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ISecurityService;
@@ -31,7 +30,6 @@ import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
-import org.encuestame.core.util.ConvertListDomainSelectBean;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecPermission;
@@ -773,27 +771,5 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException{
             return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
-    }
-
-
-    /**
-     * Load Groups on {@link SelectItem}.
-     * @param username
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    public List<SelectItem> loadSelectItemGroups (final String username) throws EnMeDomainNotFoundException{
-        return ConvertListDomainSelectBean.convertListGroupDomainToSelect(
-               new HashSet<SecGroup>(getGroupDao().loadGroupsByUser(getUser(username).getSecUser())));
-    }
-
-    /**
-     * Load Permissions on {@link SelectItem}.
-     * @return
-     */
-    public List<SelectItem> loadSelectItemPermissions(){
-        return ConvertListDomainSelectBean.convertListPermissionsToSelect(
-               new HashSet<SecPermission>(getPermissionDao()
-                       .loadAllPermissions()));
     }
 }

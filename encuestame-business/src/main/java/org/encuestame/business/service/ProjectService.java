@@ -22,7 +22,6 @@ import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.ConvertListDomainSelectBean;
 import org.encuestame.persistence.domain.CatLocation;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
@@ -76,10 +75,10 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             final Project projectDomain = getProjectDaoImp().getProjectbyId(projectBean.getId());
             if (projectDomain != null) {
                 final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
-                projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
+                //projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
                 final List<CatLocation> list = new ArrayList<CatLocation>(projectDomain.getLocations());
                 log.debug("Locations on Project "+list.size());
-                projectBeanRetrieved.setUnitLocationBeans(ConvertDomainBean.convertListToUnitLocationBean(list));
+                //projectBeanRetrieved.setUnitLocationBeans(ConvertDomainBean.convertListToUnitLocationBean(list));
                 return projectBeanRetrieved;
             } else {
                 log.info("id project is not found");

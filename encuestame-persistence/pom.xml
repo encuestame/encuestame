@@ -48,10 +48,6 @@
         </resources>
     </build>
     <dependencies>
-            <dependency>
-            <groupId>com.googlecode.gmaps4jsf</groupId>
-            <artifactId>gmaps4jsf-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
@@ -61,10 +57,6 @@
             <artifactId>encuestame-utils</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.facelets</groupId>
-            <artifactId>jsf-facelets</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -133,10 +125,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -244,24 +232,12 @@
             <artifactId>twitter4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.tuckey</groupId>

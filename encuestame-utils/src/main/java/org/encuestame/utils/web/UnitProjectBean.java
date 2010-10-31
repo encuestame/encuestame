@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
 
 /**
  * Unit Project Bean.
@@ -42,10 +41,6 @@ public class UnitProjectBean implements Serializable {
     private String state;
     private String description;
     private String projectInfo;
-    private List<SelectItem> clients = new ArrayList<SelectItem>();
-    private List<SelectItem> groupList = new ArrayList<SelectItem>();
-    private List<SelectItem> locationList = new ArrayList<SelectItem>();
-    private List<SelectItem> projectPermissions = new ArrayList<SelectItem>();
     private List<UnitLocationBean> unitLocationBeans = new ArrayList<UnitLocationBean>();
     private Long leader;
     private String priority;
@@ -54,18 +49,6 @@ public class UnitProjectBean implements Serializable {
     private Boolean notify;
     private Long userId;
     private Boolean published;
-
-    /**
-     * List of Users.
-     */
-    private List<SelectItem> listUsers;
-
-
-    /**
-     * Cat State Bean List.
-     */
-    private List<SelectItem> catStateBeans;
-
 
     /**
      * @return the id
@@ -155,90 +138,6 @@ public class UnitProjectBean implements Serializable {
      */
     public final void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * @return the clients
-     */
-    public final List<SelectItem> getClients() {
-        return clients;
-    }
-
-    /**
-     * @param clients the clients to set
-     */
-    public final void setClients(final List<SelectItem> clients) {
-        this.clients = clients;
-    }
-
-    /**
-     * @return the catStateBeans
-     */
-    public final List<SelectItem> getCatStateBeans() {
-        return catStateBeans;
-    }
-
-    /**
-     * @param catStateBeans the catStateBeans to set
-     */
-    public final void setCatStateBeans(final List<SelectItem> catStateBeans) {
-        this.catStateBeans = catStateBeans;
-    }
-
-    /**
-     * @return the listUsers
-     */
-    public final List<SelectItem> getListUsers() {
-        return listUsers;
-    }
-
-    /**
-     * @param listUsers the listUsers to set
-     */
-    public final void setListUsers(final List<SelectItem> listUsers) {
-        this.listUsers = listUsers;
-    }
-
-    /**
-     * @return the groupList
-     */
-    public final List<SelectItem> getGroupList() {
-        return groupList;
-    }
-
-    /**
-     * @param groupList the groupList to set
-     */
-    public final void setGroupList(final List<SelectItem> groupList) {
-        this.groupList = groupList;
-    }
-
-    /**
-     * @return the locationList
-     */
-    public final List<SelectItem> getLocationList() {
-        return locationList;
-    }
-
-    /**
-     * @param locationList the locationList to set
-     */
-    public final void setLocationList(final List<SelectItem> locationList) {
-        this.locationList = locationList;
-    }
-
-    /**
-     * @return the projectPermissions
-     */
-    public final List<SelectItem> getProjectPermissions() {
-        return projectPermissions;
-    }
-
-    /**
-     * @param projectPermissions the projectPermissions to set
-     */
-    public final void setProjectPermissions(final List<SelectItem> projectPermissions) {
-        this.projectPermissions = projectPermissions;
     }
 
     /**
@@ -379,47 +278,6 @@ public class UnitProjectBean implements Serializable {
      */
     public void setFormatedDateFinish(String formatedDateFinish) {
         this.formatedDateFinish = formatedDateFinish;
-    }
-
-    /**
-     * @return the unitLocationBeans
-     */
-    public List<UnitLocationBean> getUnitLocationBeans() {
-        return unitLocationBeans;
-    }
-
-    /**
-     * @param unitLocationBeans the unitLocationBeans to set
-     */
-    public void setUnitLocationBeans(List<UnitLocationBean> unitLocationBeans) {
-        this.unitLocationBeans = unitLocationBeans;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("UnitProjectBean [catStateBeans=").append(catStateBeans)
-                .append(", clients=").append(clients).append(", dateFinish=")
-                .append(dateFinish).append(", dateInit=").append(dateInit)
-                .append(", description=").append(description).append(
-                        ", formatedDateFinish=").append(formatedDateFinish)
-                .append(", formatedDateInit=").append(formatedDateInit).append(
-                        ", groupList=").append(groupList).append(", hide=")
-                .append(hide).append(", id=").append(id).append(", leader=")
-                .append(leader).append(", listUsers=").append(listUsers)
-                .append(", locationList=").append(locationList).append(
-                        ", name=").append(name).append(", notify=").append(
-                        notify).append(", priority=").append(priority).append(
-                        ", projectInfo=").append(projectInfo).append(
-                        ", projectPermissions=").append(projectPermissions)
-                .append(", published=").append(published).append(", state=")
-                .append(state).append(", status=").append(status).append(
-                        ", unitLocationBeans=").append(unitLocationBeans)
-                .append(", userId=").append(userId).append("]");
-        return builder.toString();
     }
 
 }

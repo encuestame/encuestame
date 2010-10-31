@@ -35,24 +35,12 @@
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.6</twitter4j.version>
 
-        <!-- JSF Version -->
-        <!--
-        <jsf-api>2.0.0-RC</jsf-api><sec:ifAllGranted roles="ENCUESTAME_ADMIN">
-        <jsf-impl>2.0.0-RC</jsf-impl>
-        -->
-        <jsf-api>1.2_02</jsf-api>
-        <jsf-impl>1.2_02</jsf-impl>
         <servlet-api>2.4</servlet-api>
-
-        <!-- Richfaces -->
-        <richfaces.version>3.3.2.GA</richfaces.version>
 
         <!-- Porlets -->
         <pluto-version>1.1.4</pluto-version>
         <portlet.version>2.0</portlet.version>
 
-        <!-- Gmap  -->
-        <gmap.version>1.1.3</gmap.version>
         <!-- Test -->
         <junit.version>4.8.1</junit.version>
         <apache>file:///var/www/encuestame</apache>
@@ -63,7 +51,13 @@
         <mysql.version>5.1.13</mysql.version>
         <postgres.version>8.4-702.jdbc4</postgres.version>
         <hsqldb.version>1.8.0.7</hsqldb.version>
-    </properties>
+
+        <!-- Dojo
+            http://www.mahieu.org/?p=3
+         -->
+         <dojo.version>1.5.0</dojo.version>
+         <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
+     </properties>
 
     <modules>
         <module>encuestame-utils</module>
@@ -175,10 +169,6 @@
             <id>repository.jboss.com</id>
             <name>Jboss Repository for Maven</name>
             <url>http://repository.jboss.com/maven2/</url>
-        </repository>
-        <repository>
-            <id>googlecode.com</id>
-            <url>http://gmaps4jsf.googlecode.com/svn/trunk/gmaps4jsf-repo</url>
         </repository>
         <repository>
             <id>maven2-repository.dev.java.net</id>
@@ -648,14 +638,6 @@
                 <classifier>tests</classifier>
             </dependency>
 
-            <!--
-            This dependency will not necesary with JSF2.0
-            -->
-            <dependency>
-                <groupId>com.sun.facelets</groupId>
-                <artifactId>jsf-facelets</artifactId>
-                <version>1.1.14</version>
-            </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -807,16 +789,6 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>javax.faces</groupId>
-                <artifactId>jsf-impl</artifactId>
-                <version>${jsf-impl}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>${jsf-api}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>org.springframework.core</artifactId>
                 <version>${spring.version}</version>
@@ -922,11 +894,6 @@
                 <version>${spring.webflow.version}</version>
             </dependency>
             <dependency>
-               <groupId>org.springframework.security</groupId>
-               <artifactId>facelets-taglib-jsf12-spring-3</artifactId>
-               <version>0.4</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-config</artifactId>
                 <version>${spring.security.version}</version>
@@ -993,28 +960,6 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.14</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui</groupId>
-                <artifactId>richfaces-ui</artifactId>
-                <version>${richfaces.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.gmaps4jsf</groupId>
-                <artifactId>gmaps4jsf-core</artifactId>
-                <version>${gmap.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>commons-fileupload</artifactId>
-                        <groupId>commons-fileupload</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.tuckey</groupId>
@@ -1304,11 +1249,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces.portlet</groupId>
-            <artifactId>jsf-portlet</artifactId>
-            <version>1.2.1</version>
         </dependency>
         <dependency>
           <groupId>org.opensymphony.quartz</groupId>

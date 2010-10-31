@@ -154,33 +154,27 @@
     </property>
   </bean>
 
-  <bean id="pollService" class="org.encuestame.business.service.PollService" parent="abstractsurvey">
-  </bean>
+  <bean id="frontEndService" class="org.encuestame.business.service.FrontEndService" parent="service"/>
 
-  <bean id="projectService" class="org.encuestame.business.service.ProjectService" parent="service">
-  </bean>
+  <bean id="pollService" class="org.encuestame.business.service.PollService" parent="abstractsurvey"/>
 
-  <bean id="locationService" class="org.encuestame.business.service.LocationService" parent="service">
-  </bean>
+  <bean id="projectService" class="org.encuestame.business.service.ProjectService" parent="service"/>
 
-  <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices"
-    parent="service">
+  <bean id="locationService" class="org.encuestame.business.service.LocationService" parent="service"/>
+
+  <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices" parent="service">
     <property name="securityService">
       <ref bean="securityService"></ref>
     </property>
-
     <property name="surveyService">
         <ref bean="surveyService"></ref>
     </property>
-
     <property name="pollService">
         <ref bean="pollService"></ref>
     </property>
-
     <property name="tweetPollService">
          <ref bean="tweetPollService"></ref>
     </property>
-
     <property name="locationService">
          <ref bean="locationService"></ref>
     </property>
@@ -189,6 +183,9 @@
     </property>
     <property name="chartService">
          <ref bean="chartService"></ref>
+    </property>
+    <property name="frontEndService">
+         <ref bean="frontEndService"/>
     </property>
   </bean>
 </beans>

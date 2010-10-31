@@ -16,11 +16,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
+
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.util.ConvertListDomainSelectBean;
+
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -76,8 +76,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
      */
     private Collection<UnitProjectBean> listProjectsBeans;
 
-
-    private List<SelectItem> listOfUsers;
 
     private List<UnitLocationFolder> locationFolders;
 
@@ -191,23 +189,7 @@ public class ProjectBean extends AdmonBean implements Serializable {
         log.info("project name"+getUnitProjectBean().getName());
         log.info("project init."+getUnitProjectBean().getDateInit());
         log.info("project dead."+getUnitProjectBean().getDateFinish());
-        log.info("project grops."+getUnitProjectBean().getGroupList().size());
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<SelectItem> getLoadLeaders(){
-        if(listOfUsers == null){
-            try {
-                listOfUsers = ConvertListDomainSelectBean.convertListUnitUserBeanDomainToSelect(getProjectService().loadListUsers(getUserPrincipalUsername()));
-            } catch (EnMeDomainNotFoundException e) {
-                // TODO Auto-generated catch block
-            }
-            log.debug("List of Users "+listOfUsers.size());
-        }
-        return listOfUsers;
+//        log.info("project grops."+getUnitProjectBean().getGroupList().size());
     }
 
     /**
@@ -364,20 +346,6 @@ public class ProjectBean extends AdmonBean implements Serializable {
     public final void setEditDetail(final Boolean editDetail) {
         log.info("editDetail "+editDetail);
         this.editDetail = editDetail;
-    }
-
-    /**
-     * @return the listOfUsers
-     */
-    public List<SelectItem> getListOfUsers() {
-        return listOfUsers;
-    }
-
-    /**
-     * @param listOfUsers the listOfUsers to set
-     */
-    public void setListOfUsers(List<SelectItem> listOfUsers) {
-        this.listOfUsers = listOfUsers;
     }
 
     /**

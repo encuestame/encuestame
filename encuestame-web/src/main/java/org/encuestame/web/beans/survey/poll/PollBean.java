@@ -16,15 +16,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.web.beans.MasterBean;
-import org.richfaces.component.UIPanelBar;
-import org.richfaces.component.UIPanelBarItem;
 
 /**
  * PollBean.
@@ -72,18 +68,6 @@ public class PollBean extends MasterBean implements Serializable{
              addErrorMessage(e.getMessage(), e.getMessage());
           }
     }
-
-    public void panelBarChanged(final ValueChangeEvent evt) {
-         log.debug("Got a value changed event, new value: #0, old value #1"+ evt.getNewValue()+ ""+evt.getOldValue());
-         UIPanelBarItem barItem =
-         (UIPanelBarItem) getFacesContext().getViewRoot().findComponent(evt.getNewValue().toString());
-         UIPanelBar panelBar = barItem.getPanel();
-         log.debug("selected panelBar: #0"+panelBar.getSelectedPanel());
-         log.debug("submittedValue #0"+panelBar.getSubmittedValue());
-         log.debug("value: #0"+panelBar.getValue());
-         String name = (String) barItem.getName();
-         log.debug("name: #0"+name);
-     }
 
     /**
      * Load Poll Item View.

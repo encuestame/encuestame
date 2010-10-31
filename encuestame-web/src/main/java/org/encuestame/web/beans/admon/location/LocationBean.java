@@ -19,9 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ValueChangeEvent;
-
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
@@ -32,15 +29,7 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.web.beans.MasterBean;
-import org.richfaces.component.html.HtmlTree;
-import org.richfaces.event.NodeSelectedEvent;
-import org.richfaces.model.TreeNode;
-import org.richfaces.model.TreeNodeImpl;
 
-
-import com.googlecode.gmaps4jsf.component.marker.MarkerValue;
-import com.googlecode.gmaps4jsf.services.GMaps4JSFServiceFactory;
-import com.googlecode.gmaps4jsf.services.data.PlaceMark;
 
 /**
  * Location Bean.
@@ -62,7 +51,6 @@ public final class LocationBean extends MasterBean implements Serializable {
     private String active;
     private Float lat;
     private Float lng;
-    private TreeNode<UtilTreeNode> rootNode = null;
     private UtilTreeNode nodeTitle;
     private String folderNewName = new String();
     private List<UtilTreeNode> selectedNodeChildren = new ArrayList<UtilTreeNode>();
@@ -183,108 +171,12 @@ public final class LocationBean extends MasterBean implements Serializable {
         this.tidtype = tidtype;
     }
 
-    /**
-     * Load Tree Items.
-     */
-    private void loadTree() {
-        try {
-            rootNode = new TreeNodeImpl<UtilTreeNode>();
-            final List<UnitLocationFolder> locationFolders = getLocationFoldersByUsername();
-            log.debug("location folders size "+locationFolders.size());
-            addFolders(rootNode, ConvertDomainBean.convertFolderToDragrable(locationFolders, TypeTreeNode.FOLDER));
-        } catch (Exception e) {
-            log.error(e);
-        }
-    }
-
-    /**
-     * Add Items.
-     * @param node node
-     * @param items list of items
-     */
-    private void addItems(final TreeNode<UtilTreeNode> node, final List<UtilTreeNode> items){
-        int i = 1;
-        log.info("Add Items size "+items.size());
-        for (UtilTreeNode utilTreeNode : items) {
-            final TreeNodeImpl<UtilTreeNode> item = new TreeNodeImpl<UtilTreeNode>();
-            log.info("Adding Item "+utilTreeNode.getId());
-            item.setData(utilTreeNode);
-            node.addChild(i, item);
-            i++;
-        }
-    }
-
-    /**
-     * Add Folders.
-     * @param node node to attach
-     * @param items Folders items folder
-     */
-    private void addFolders(final TreeNode<UtilTreeNode> node, final List<UtilTreeNode> itemsFolders) {
-        log.debug("Add FOLDERS "+itemsFolders.size());
-        log.debug("Parent Node Name "+node.getData());
-        int i = 1;
-        final ILocationService locationService = getServicemanager().getApplicationServices().getLocationService();
-        for (UtilTreeNode itemNode : itemsFolders) {
-                final TreeNodeImpl<UtilTreeNode> nodeImpl = new TreeNodeImpl<UtilTreeNode>();
-                log.debug("folder "+itemNode.getName());
-                nodeImpl.setData(itemNode);
-                //adding to principal node
-                node.addChild(i, nodeImpl);
-                i++;
-
-              //add items if folder have.
-                try{
-                    final List<UnitLocationBean> locationBeans =  locationService.retrieveLocationFolderItemsById(
-                            itemNode.getId(), getUserPrincipalUsername());
-                    log.debug("items on folder "+locationBeans.size());
-                    this.addItems(nodeImpl, ConvertDomainBean.convertItemToDragrable(locationBeans, TypeTreeNode.ITEM));
-
-                    //adding subfolders
-                    final List<UnitLocationFolder> unitLocationSubFolder = locationService
-                          .retrieveLocationSubFolderByUser(itemNode.getId(), getUserPrincipalUsername());
-
-                    log.debug("subfolders found "+unitLocationSubFolder.size());
-                    if(unitLocationSubFolder.size() > 0){
-                        this.addFolders(nodeImpl, ConvertDomainBean.convertFolderToDragrable(unitLocationSubFolder, TypeTreeNode.FOLDER));
-                    }
-                }catch (EnMeExpcetion e) {
-                     log.error(e);
-                     addErrorMessage(e.getMessage(),"");
-                }
-        }
-    }
-
-    /**
-     * Load Tree Node.
-     * @return
-     */
-    public TreeNode<UtilTreeNode> getTreeNode() {
-        if (rootNode == null) {
-            this.loadTree();
-        }
-        return rootNode;
-    }
-
-    /**
-     * Update Item Name.
-     */
-    public void updateTreeNodeName(){
-        try{
-            log.info("update name");
-            getLocationService().updateLocationName(getDetailLocation(), getUserPrincipalUsername());
-            this.loadTree();
-        }
-        catch (Exception e) {
-            log.error("error on update name "+e.getMessage());
-        }
-    }
-
     public void updateFolderName(){
         try{
             log.debug("Update folder Name to "+getDetailFolderLocation().getName());
             getLocationService().updateLocationFolder(getDetailFolderLocation(), getUserPrincipalUsername(), "name");
             log.info("folder name updated");
-            this.loadTree();
+ //           this.loadTree();
         }
         catch (Exception e) {
             log.error("error on update name "+e.getMessage());
@@ -298,7 +190,7 @@ public final class LocationBean extends MasterBean implements Serializable {
         try{
             log.info("Add New Item for "+getDetailFolderLocation().getId());
             getLocationService().createDefaultILocationItem(getDetailFolderLocation(), getUserPrincipalUsername());
-            this.loadTree();
+   //         this.loadTree();
             this.getItemsByLocationFolder();
         }
         catch (Exception e) {
@@ -327,7 +219,7 @@ public final class LocationBean extends MasterBean implements Serializable {
             newFolder.setName(getFolderNewName().isEmpty() ? "Update this name" : getFolderNewName());
             newFolder.setType(LocationFolderType.GROUPING.name());
             getLocationService().createLocationFolder(newFolder, getUserPrincipalUsername());
-            this.loadTree();
+     //       this.loadTree();
         }
         catch (Exception e) {
            log.error("error "+e);
@@ -342,7 +234,7 @@ public final class LocationBean extends MasterBean implements Serializable {
             log.info("deleting location folder");
             getLocationService().deleteLocationFolder(getDetailFolderLocation(), getUserPrincipalUsername());
             setDetailFolderLocation(null);
-            this.loadTree();
+       //     this.loadTree();
         }
         catch (Exception e) {
             log.error("error "+e);
@@ -357,86 +249,13 @@ public final class LocationBean extends MasterBean implements Serializable {
             log.info("deleting location item");
             getLocationService().deleteLocationItem(getDetailLocation(), getUserPrincipalUsername());
             setDetailLocation(null);
-            this.loadTree();
+    //        this.loadTree();
         }
         catch (Exception e) {
             log.error("error "+e);
         }
     }
 
-    /**
-     * Process Selection.
-     * @param event event
-     */
-    @SuppressWarnings("unchecked")
-    public void processSelection(NodeSelectedEvent event) {
-       //reset bean
-       setDetailLocation(null);
-       setDetailFolderLocation(null);
-       HtmlTree tree = (HtmlTree) event.getComponent();
-       log.info("tree "+tree);
-       nodeTitle = (UtilTreeNode) tree.getRowData();
-       log.info("nodeTitle "+nodeTitle.getId());
-       log.info("nodeTitle "+nodeTitle.getName());
-       selectedNodeChildren.clear();
-       //get tree selected.
-       try{
-           final TreeNode<UtilTreeNode> currentNode = tree.getModelTreeNode(tree.getRowKey());
-           log.info("currentNode "+currentNode.getData());
-           if (currentNode.isLeaf()){
-               selectedNodeChildren.add((UtilTreeNode)currentNode.getData());
-           }
-           else{
-               Iterator<Entry<Object, TreeNode<UtilTreeNode>>> it = currentNode.getChildren();
-               while (it!=null &&it.hasNext()) {
-                   Map.Entry<Object, TreeNode<UtilTreeNode>> entry = it.next();
-                   selectedNodeChildren.add(entry.getValue().getData());
-               }
-           }
-           if(nodeTitle.getNode() == TypeTreeNode.ITEM){
-               this.detailLocation = searchItemLocationDetail(nodeTitle);
-               log.info("detailLocation "+detailLocation);
-           }
-           else{
-               this.detailFolderLocation = searchFolderLocationDetail(nodeTitle);
-               try {
-                this.getItemsByLocationFolder();
-            } catch (EnMeDomainNotFoundException e) {
-                 log.error(e);
-                 addErrorMessage(e.getMessage(),"");
-            }
-               log.info("detailFolderLocation "+detailFolderLocation);
-           }
-       }catch (Exception e) {
-           log.error(e);
-           addErrorMessage(e.getMessage(),"");
-       }
-    }
-
-    /**
-     *
-     * @param event
-     * @throws AbortProcessingException
-     */
-    public void processValueMarkeChange(ValueChangeEvent event) throws AbortProcessingException {
-        final MarkerValue markerValue = (MarkerValue) event.getNewValue();
-        log.info("this.detailLocation "+ this.detailLocation.getId());
-        try {
-           final PlaceMark placeMark = GMaps4JSFServiceFactory.getReverseGeocoderService().getPlaceMark(markerValue.getLatitude(), markerValue.getLongitude());
-           log.info("Longitude "+ markerValue.getLongitude());
-           log.info("Latitude "+ markerValue.getLatitude());
-           getDetailLocation().setAccuracy(placeMark.getAccuracy());
-           getDetailLocation().setCountryName(ignoreNull(placeMark.getCountryName()));
-           getDetailLocation().setCountryCode(ignoreNull(placeMark.getCountryCode()));
-           getDetailLocation().setAddress(ignoreNull(placeMark.getAddress()));
-           getDetailLocation().setLat(Float.valueOf(markerValue.getLatitude()));
-           getDetailLocation().setLng(Float.valueOf(markerValue.getLongitude()));
-           log.info("item id moved "+getDetailLocation().getId());
-           getLocationService().updateLocationMap(getDetailLocation(), getDetailLocation().getId(), getUserPrincipalUsername());
-        } catch (Exception ex) {
-            log.error("error location map update");
-        }
-    }
 
     /**
      * Search Location Detail.

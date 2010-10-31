@@ -84,4 +84,15 @@ public interface IApplicationServices  extends IService {
      * @return the locationService
      */
     ILocationService getLocationService();
+
+    /**
+     *
+     * @return
+     */
+    IFrontEndService getFrontEndService();
+
+    /**
+     * @param frontEndService the frontEndService to set
+     */
+    void setFrontEndService(final IFrontEndService frontEndService);
 }

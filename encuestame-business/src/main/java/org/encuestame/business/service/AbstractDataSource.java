@@ -17,14 +17,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.faces.model.SelectItem;
+
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.ConvertListDomainSelectBean;
+
 import org.encuestame.persistence.dao.ICatEmail;
 import org.encuestame.persistence.dao.ICatLocation;
 import org.encuestame.persistence.dao.ICatLocationTypeDao;
@@ -109,7 +109,6 @@ public abstract class AbstractDataSource{
     @Resource
     private ITweetPoll tweetPollDao;
 
-
     /** {@link ISecGroups}. **/
     @Resource
     private ISecGroups groupDao;
@@ -128,7 +127,7 @@ public abstract class AbstractDataSource{
      * @return user domain
      * @throws EnMeDomainNotFoundException exception
      */
-    public SecUserSecondary getUser(final String username) throws EnMeDomainNotFoundException {
+    public final SecUserSecondary getUser(final String username) throws EnMeDomainNotFoundException {
         final SecUserSecondary secUserSecondary = getSecUserDao().getUserByUsername(username);
         if(secUserSecondary == null){
             throw new EnMeDomainNotFoundException("user not found");
@@ -144,7 +143,7 @@ public abstract class AbstractDataSource{
      * @return
      * @throws EnMeDomainNotFoundException exception
      */
-    public Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
+    public final Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
         return getUser(username).getSecUser().getUid();
      }
 
@@ -154,7 +153,7 @@ public abstract class AbstractDataSource{
      * @return {@link Collection} of {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public Collection<UnitProjectBean> loadListProjects(final Long userId) {
+    public final Collection<UnitProjectBean> loadListProjects(final Long userId) {
             final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
             final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
             log.info("project by user id: "+projectList.size());
@@ -178,7 +177,7 @@ public abstract class AbstractDataSource{
             final Project projectDomain = getProjectDaoImp().getProjectbyId(projectBean.getId());
             if (projectDomain != null) {
                 final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
-                projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
+                //projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
                 return projectBeanRetrieved;
             } else {
                 log.info("id project is not found");
@@ -196,7 +195,7 @@ public abstract class AbstractDataSource{
      * @return {@link UnitProjectBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitProjectBean createProject(final UnitProjectBean projectBean) throws EnMeExpcetion {
+    public final UnitProjectBean createProject(final UnitProjectBean projectBean) throws EnMeExpcetion {
         log.info("create project");
         if (projectBean != null) {
             try {
@@ -231,7 +230,7 @@ public abstract class AbstractDataSource{
      * @param name tag name
      * @return {@link HashTag}.
      */
-    public HashTag createHashTag(final String name){
+    public final HashTag createHashTag(final String name){
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(name);
         getHashTagDao().saveOrUpdate(hashTag);
@@ -239,48 +238,32 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * Load Clients on {@link SelectItem}.
-     * @param projectId project id
-     * @return select items of clients.
-     * @throws EnMeExpcetion exception
-     */
-    public List<SelectItem> loadSelecItemClientsByProjectId(final Long projectId) throws EnMeExpcetion {
-        try{
-            return ConvertListDomainSelectBean.convertListClientsDomainToSelect(
-                   this.getClientDao().findAllClientByProjectId(projectId));
-        }
-        catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
-    }
-
-    /**
      * Load state by id.
      * @param stateId state id
      * @return {@link CatState}
      */
-    public CatState getState(final Long stateId) {
+    public final CatState getState(final Long stateId) {
         return getStateDao().getState(stateId);
     }
 
     /**
      * @return the stateDao
      */
-    public ICatState getStateDao() {
+    public final ICatState getStateDao() {
         return stateDao;
     }
 
     /**
      * @param stateDao the stateDao to set
      */
-    public void setStateDao(final ICatState stateDao) {
+    public final void setStateDao(final ICatState stateDao) {
         this.stateDao = stateDao;
     }
 
     /**
      * @return the catLocationDao
      */
-    public ICatLocation getCatLocationDao() {
+    public final ICatLocation getCatLocationDao() {
         return catLocationDao;
     }
 
@@ -288,14 +271,14 @@ public abstract class AbstractDataSource{
      * @param catLocationDao the catLocationDao to set
      */
 
-    public void setCatLocationDao(final ICatLocation catLocationDao) {
+    public final void setCatLocationDao(final ICatLocation catLocationDao) {
         this.catLocationDao = catLocationDao;
     }
 
     /**
      * @return the projectDaoImp
      */
-    public IProject getProjectDaoImp() {
+    public final IProject getProjectDaoImp() {
         return projectDaoImp;
     }
 
@@ -309,84 +292,84 @@ public abstract class AbstractDataSource{
     /**
      * @return the catLocationTypeDao
      */
-    public ICatLocationTypeDao getCatLocationTypeDao() {
+    public final ICatLocationTypeDao getCatLocationTypeDao() {
         return catLocationTypeDao;
     }
 
     /**
      * @param catLocationTypeDao the catLocationTypeDao to set
      */
-    public void setCatLocationTypeDao(final ICatLocationTypeDao catLocationTypeDao) {
+    public final void setCatLocationTypeDao(final ICatLocationTypeDao catLocationTypeDao) {
         this.catLocationTypeDao = catLocationTypeDao;
     }
 
     /**
      * @return the clientDao
      */
-    public IClientDao getClientDao() {
+    public final IClientDao getClientDao() {
         return clientDao;
     }
 
     /**
      * @param clientDao the clientDao to set
      */
-    public void setClientDao(final IClientDao clientDao) {
+    public final void setClientDao(final IClientDao clientDao) {
         this.clientDao = clientDao;
     }
 
     /**
      * @return the secUserDao
      */
-    public ISecUserDao getSecUserDao() {
+    public final ISecUserDao getSecUserDao() {
         return secUserDao;
     }
 
     /**
      * @param secUserDao the secUserDao to set
      */
-    public void setSecUserDao(final ISecUserDao secUserDao) {
+    public final void setSecUserDao(final ISecUserDao secUserDao) {
         this.secUserDao = secUserDao;
     }
 
     /**
      * @return the questionDao
      */
-    public IQuestionDao getQuestionDao() {
+    public final IQuestionDao getQuestionDao() {
         return questionDao;
     }
 
     /**
      * @param questionDao the questionDao to set
      */
-    public void setQuestionDao(IQuestionDao questionDao) {
+    public final void setQuestionDao(final IQuestionDao questionDao) {
         this.questionDao = questionDao;
     }
 
     /**
      * @return the pollDao
      */
-    public IPoll getPollDao() {
+    public final IPoll getPollDao() {
         return pollDao;
     }
 
     /**
      * @param pollDao the pollDao to set
      */
-    public void setPollDao(IPoll pollDao) {
+    public final void setPollDao(final IPoll pollDao) {
         this.pollDao = pollDao;
     }
 
     /**
      * @return the surveyDaoImp
      */
-    public ISurvey getSurveyDaoImp() {
+    public final ISurvey getSurveyDaoImp() {
         return surveyDaoImp;
     }
 
     /**
      * @param surveyDaoImp the surveyDaoImp to set
      */
-    public void setSurveyDaoImp(ISurvey surveyDaoImp) {
+    public final void setSurveyDaoImp(final ISurvey surveyDaoImp) {
         this.surveyDaoImp = surveyDaoImp;
     }
 
@@ -407,42 +390,42 @@ public abstract class AbstractDataSource{
     /**
      * @return the groupDao
      */
-    public ISecGroups getGroupDao() {
+    public final ISecGroups getGroupDao() {
         return groupDao;
     }
 
     /**
      * @param groupDao the groupDao to set
      */
-    public void setGroupDao(ISecGroups groupDao) {
+    public final void setGroupDao(final ISecGroups groupDao) {
         this.groupDao = groupDao;
     }
 
     /**
      * @return the permissionDao
      */
-    public ISecPermissionDao getPermissionDao() {
+    public final ISecPermissionDao getPermissionDao() {
         return permissionDao;
     }
 
     /**
      * @param permissionDao the permissionDao to set
      */
-    public void setPermissionDao(ISecPermissionDao permissionDao) {
+    public final void setPermissionDao(ISecPermissionDao permissionDao) {
         this.permissionDao = permissionDao;
     }
 
     /**
      * @return the emailListsDao
      */
-    public ICatEmail getEmailListsDao() {
+    public final ICatEmail getEmailListsDao() {
         return emailListsDao;
     }
 
     /**
      * @param emailListsDao the emailListsDao to set
      */
-    public void setEmailListsDao(ICatEmail emailListsDao) {
+    public final void setEmailListsDao(final ICatEmail emailListsDao) {
         this.emailListsDao = emailListsDao;
     }
 
@@ -456,21 +439,21 @@ public abstract class AbstractDataSource{
     /**
      * @param hashTagDao the hashTagDao to set
      */
-    public void setHashTagDao(IHashTagDao hashTagDao) {
+    public void setHashTagDao(final IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
     }
 
     /**
      * @return the notificationDao
      */
-    public INotification getNotificationDao() {
+    public final INotification getNotificationDao() {
         return notificationDao;
     }
 
     /**
      * @param notificationDao the notificationDao tgetNotificationDaoo set
      */
-    public void setNotificationDao(final INotification notificationDao) {
+    public final void setNotificationDao(final INotification notificationDao) {
         this.notificationDao = notificationDao;
     }
 
@@ -478,14 +461,14 @@ public abstract class AbstractDataSource{
      * Getter Front End.
      * @return the frontEndDao
      */
-    public IFrontEndDao getFrontEndDao() {
+    public final IFrontEndDao getFrontEndDao() {
         return frontEndDao;
     }
 
     /**
      * @param frontEndDao the frontEndDao to set
      */
-    public void setFrontEndDao(final IFrontEndDao frontEndDao) {
+    public final void setFrontEndDao(final IFrontEndDao frontEndDao) {
         this.frontEndDao = frontEndDao;
     }
 }

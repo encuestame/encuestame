@@ -14,8 +14,6 @@ package org.encuestame.core.util;
 
 import java.util.Locale;
 
-import javax.faces.context.FacesContext;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
@@ -71,12 +69,11 @@ public class MessageSourceFactoryBean implements MessageSource {
             return locale;
         }
         // try to get it from faces context
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (context != null) {
-            return context.getViewRoot().getLocale();
-        } else {
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //if (context != null) {
+        //    return context.getViewRoot().getLocale();
+        //} else {
             return null;
-        }
-
+        //}
     }
 }

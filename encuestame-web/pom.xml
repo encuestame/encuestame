@@ -12,11 +12,6 @@
     <packaging>jar</packaging>
     <name>encuestame web</name>
 
-    <properties>
-        <encuestame.version>1.1.1-SNAPSHOT</encuestame.version>
-        <gmap.version>1.1.3</gmap.version>
-    </properties>
-
     <dependencies>
           <dependency>
             <groupId>org.encuestame</groupId>
@@ -58,10 +53,6 @@
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.gmaps4jsf</groupId>
-            <artifactId>gmaps4jsf-core</artifactId>
-        </dependency>
          <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
@@ -71,14 +62,6 @@
             <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
@@ -86,29 +69,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-        </dependency>
-        <!--  Richfaces 4
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
-        </dependency>
-         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
-        </dependency>
-        -->
-        <!-- Richfaces 3 with JSF2 -->
-        <dependency>
-                <groupId>org.richfaces.ui</groupId>
-                <artifactId>richfaces-ui</artifactId>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.sf.spring-json</groupId>-->
-<!--            <artifactId>spring-json</artifactId>-->
-<!--        </dependency>-->
          <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>

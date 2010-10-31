@@ -15,8 +15,6 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
-
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.service.IService;
@@ -317,17 +315,4 @@ public interface ISecurityService extends IService {
     void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
             final String username) throws EnMeExpcetion;
 
-    /**
-     * Load Permissions on {@link SelectItem}.
-     * @return
-     */
-    List<SelectItem> loadSelectItemPermissions();
-
-    /**
-     * Load Groups on {@link SelectItem}.
-     * @param username
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    List<SelectItem> loadSelectItemGroups (final String username) throws EnMeDomainNotFoundException;
 }

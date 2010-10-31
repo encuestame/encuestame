@@ -13,10 +13,6 @@
 package org.encuestame.web.beans;
 
 import java.util.Iterator;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.business.security.AbstractSecurityContext;
@@ -70,40 +66,6 @@ public abstract class AbstractJSFContext extends AbstractSecurityContext {
     }
 
     /**
-     * Get Request.
-     * @return {@link HttpServletRequest}.
-     */
-    public final HttpServletRequest getRequest(){
-        final HttpServletRequest request =
-            (HttpServletRequest) this.getFacesContext().getExternalContext().getRequest();
-        if (request == null){
-            throw new RuntimeException("Sorry. Got a null request from faces context");
-        }
-        return request;
-    }
-
-    /**
-     * Get Attribute.
-     * @param name name
-     * @return object
-     */
-    public final Object getAttribute(String name){
-        final HttpServletRequest request = getRequest();
-        return request.getAttribute(name);
-    }
-
-    /**
-     * add message to context
-     *
-     * @param message message
-     * @param description description
-     * @param severity severity
-     */
-    public final void showMessage(String message, String description, Severity severity) {
-        showMessage(null, message, description, severity);
-    }
-
-    /**
      * Add info message to context.
      * @param message message
      * @param description description
@@ -111,7 +73,7 @@ public abstract class AbstractJSFContext extends AbstractSecurityContext {
     public final void addInfoMessage(String message, String description) {
         log.info("addInfoMessage "+message);
         log.info("addInfoMessage description "+description);
-        showMessage(null, message, description, FacesMessage.SEVERITY_INFO);
+        //showMessage(null, message, description, FacesMessage.SEVERITY_INFO);
     }
 
     /**
@@ -122,7 +84,7 @@ public abstract class AbstractJSFContext extends AbstractSecurityContext {
     public final void addErrorMessage(String message, String description) {
         log.info("addErrorMessage "+message);
         log.info("addErrorMessage description "+description);
-        showMessage(null, message, description, FacesMessage.SEVERITY_ERROR);
+        //showMessage(null, message, description, FacesMessage.SEVERITY_ERROR);
     }
 
     /**
@@ -131,47 +93,6 @@ public abstract class AbstractJSFContext extends AbstractSecurityContext {
      * @param description description
      */
     public final void addWarningMessage(String message, String description) {
-        showMessage(null, message, description, FacesMessage.SEVERITY_WARN);
+       // showMessage(null, message, description, FacesMessage.SEVERITY_WARN);
     }
-    /**
-     * Return the FacesContext instance for the current request.
-     */
-    protected FacesContext getFacesContext() {
-        return FacesContext.getCurrentInstance();
-    }
-
-
-    /**
-     * Add message to context.
-     * @param messageId messageId
-     * @param message message
-     * @param description description
-     * @param severity severity
-     */
-    public final void showMessage(String messageId, String message, String description,
-            Severity severity) {
-        //this.clearMessages();
-        final FacesMessage facesMessages = new FacesMessage(message, description);
-        log.debug("FACES MESSAGES "+facesMessages);
-        //FIXME: nullPointer, maybe this context is not available on webflow context.
-        facesMessages.setSeverity(severity);
-        if(getFacesContext() != null){
-            log.info("Message Context Added");
-            getFacesContext().addMessage(messageId, facesMessages);
-        } else {
-            log.error("Faces Context not found");
-        }
-    }
-
-    /**
-     * Clear Messages.
-     */
-    @SuppressWarnings("unchecked")
-    public final void clearMessages(){
-        final Iterator iterator = getFacesContext().getMessages();
-        while (iterator.hasNext()) {
-            iterator.remove();
-        }
-    }
-
 }

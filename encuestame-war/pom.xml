@@ -150,14 +150,6 @@
             <artifactId>encuestame-business</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.facelets</groupId>
-            <artifactId>jsf-facelets</artifactId>
-        </dependency>
-          <dependency>
-            <groupId>com.googlecode.gmaps4jsf</groupId>
-            <artifactId>gmaps4jsf-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
@@ -224,10 +216,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -336,24 +324,12 @@
             <artifactId>twitter4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.tuckey</groupId>
@@ -492,17 +468,9 @@
 <!--            <groupId>org.springframework</groupId>-->
 <!--            <artifactId>spring-web</artifactId>-->
 <!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.sun.faces.portlet</groupId>-->
-<!--            <artifactId>jsf-portlet</artifactId>-->
-<!--        </dependency>-->
             <dependency>
               <groupId>org.opensymphony.quartz</groupId>
               <artifactId>quartz</artifactId>
-            </dependency>
-            <dependency>
-               <groupId>org.springframework.security</groupId>
-               <artifactId>facelets-taglib-jsf12-spring-3</artifactId>
             </dependency>
             <dependency>
                 <groupId>postgresql</groupId>

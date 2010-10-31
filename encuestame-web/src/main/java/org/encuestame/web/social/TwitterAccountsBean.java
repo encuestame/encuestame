@@ -12,10 +12,7 @@
  */
 package org.encuestame.web.social;
 
-import java.io.Serializable;
-
-import javax.faces.event.ActionEvent;
-
+ import java.io.Serializable;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts.TypeAuth;
@@ -173,19 +170,6 @@ public class TwitterAccountsBean extends MasterBean implements Serializable {
         log.debug("Saving credentials.");
         getSecurityService().updateSecretTwitterCredentials(
                 getUnitTwitterAccountBean(), getUserPrincipalUsername());
-    }
-
-    /**
-     * Update Authentication.
-     */
-    public final void updateAuth(ActionEvent actionEvent){
-        try {
-            this.updateSecreTwitterCredentials();
-        } catch (EnMeExpcetion e) {
-            log.error(e);
-             addErrorMessage("Error on Update OAuth Twitter Credentials", e
-                        .getMessage());
-        }
     }
 
     /**

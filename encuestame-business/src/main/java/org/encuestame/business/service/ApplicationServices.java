@@ -14,6 +14,7 @@ package org.encuestame.business.service;
 
 import org.encuestame.business.service.imp.IApplicationServices;
 import org.encuestame.business.service.imp.IChartService;
+import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
@@ -31,14 +32,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
-
+    /** {@link SecurityService}. **/
     private ISecurityService securityService;
+    /** {@link SurveyService}. **/
     private ISurveyService surveyService;
+    /** {@link PollService}. **/
     private IPollService pollService;
+    /** {@link TweetPollService}. **/
     private ITweetPollService tweetPollService;
+    /** {@link LocationService}. **/
     private ILocationService locationService;
+    /** {@link ProjectService}. **/
     private IProjectService projectService;
+    /** {@link ChartService}. **/
     private IChartService chartService;
+    /** {@link FrontEndService}. **/
+    private IFrontEndService frontEndService;
 
     /**
      * @return the securityService
@@ -134,7 +143,21 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param chartService the chartService to set
      */
-    public void setChartService(IChartService chartService) {
+    public void setChartService(final IChartService chartService) {
         this.chartService = chartService;
+    }
+
+    /**
+     * @return the frontEndService
+     */
+    public IFrontEndService getFrontEndService() {
+        return frontEndService;
+    }
+
+    /**
+     * @param frontEndService the frontEndService to set
+     */
+    public void setFrontEndService(final IFrontEndService frontEndService) {
+        this.frontEndService = frontEndService;
     }
 }

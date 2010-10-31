@@ -16,13 +16,14 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.business.security.AbstractSecurityContext;
+import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.LocationService;
 import org.encuestame.business.service.PollService;
 import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.SurveyService;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.ISecurityService;
@@ -113,6 +114,7 @@ public class MasterBean extends AbstractJSFContext{
      * @return {@link ServiceManager}
      */
     public final IServiceManager getServicemanager() {
+        log.debug("IServiceManager "+this.servicemanager);
         return servicemanager;
     }
 
@@ -121,6 +123,7 @@ public class MasterBean extends AbstractJSFContext{
      * @param servicemanagerBean {@link ServiceManager}
      */
     public final void setServicemanagerBean(final IServiceManager servicemanagerBean) {
+        log.debug("SET SERVICE MANAGER "+servicemanagerBean);
         this.servicemanager = servicemanagerBean;
     }
 
@@ -225,6 +228,17 @@ public class MasterBean extends AbstractJSFContext{
      */
     public IPollService getPollService(){
         return getServicemanager().getApplicationServices().getPollService();
+    }
+
+    /**
+     * Get {@link FrontEndService}.
+     * @return {@link FrontEndService}.
+     */
+    public IFrontEndService getFrontService(){
+        log.debug("Front Service getServicemanager "+getServicemanager());
+        log.debug("Front Service getApplicationServices "+getServicemanager().getApplicationServices());
+        log.debug("Front Service "+getServicemanager().getApplicationServices().getLocationService());
+        return getServicemanager().getApplicationServices().getFrontEndService();
     }
 
     /**

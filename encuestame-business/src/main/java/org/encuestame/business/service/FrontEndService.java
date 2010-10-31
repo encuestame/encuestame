@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 /**
@@ -31,6 +32,7 @@ import org.springframework.util.Assert;
  * @since Oct 17, 2010 11:29:38 AM
  * @version $Id:$
  */
+@Service
 public class FrontEndService extends AbstractBaseService implements IFrontEndService {
 
     /** Front End Service Log. **/
@@ -50,7 +52,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 final String keyword,
                 final String period,
                 Integer maxResults)
-           throws EnMeSearchException{
+                throws EnMeSearchException{
         final SearchSurveyPollTweetItem searchItems = new SearchSurveyPollTweetItem();
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;

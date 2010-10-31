@@ -12,7 +12,11 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.util.List;
+
+import org.encuestame.core.exception.EnMeSearchException;
 import org.encuestame.core.service.IService;
+import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 
 /**
  * Implementation for Front End Service.
@@ -21,5 +25,19 @@ import org.encuestame.core.service.IService;
  * @version $Id:$
  */
 public interface IFrontEndService extends IService {
+
+
+    /**
+     * Search Items By Keyword.
+     * @param keyword keyword.
+     * @param maxResults limit of results to return.
+     * @return result of the search.
+     * @throws EnMeSearchException search exception.
+     */
+    List<UnitSearchItem> searchItemsByKeyword(
+                final String keyword,
+                final String period,
+                Integer maxResults)
+           throws EnMeSearchException;
 
 }
