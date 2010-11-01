@@ -57,7 +57,7 @@ public class TweetPollJsonDataChart extends AbstractJsonController{
                 setItemResponse("votesResult", results);
             } catch (EnMeDomainNotFoundException e) {
                 log.equals(e);
-                setError(e.getMessage());
+                setError(e.getMessage(), response);
             }
              return returnData();
         }

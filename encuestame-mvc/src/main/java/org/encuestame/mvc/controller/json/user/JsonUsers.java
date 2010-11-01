@@ -22,12 +22,10 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,7 +66,7 @@ public class JsonUsers extends AbstractJsonController{
             setItemResponse("users", userList);
         } catch (Exception e) {
             log.error(e);
-            setError(e.getMessage());
+            setError(e.getMessage(), response);
         }
         return returnData();
     }
@@ -94,14 +92,55 @@ public class JsonUsers extends AbstractJsonController{
                                     .getUserCompleteInfo(userId, getUserPrincipalUsername());
             log.debug("user info "+userId);
             if (user == null) {
-                setError(new EnMeDomainNotFoundException("user not found").getMessage());
+                setError(new EnMeDomainNotFoundException("user not found").getMessage(), response);
                 log.error(new EnMeDomainNotFoundException("user not found").getMessage());
             } else {
                 setItemResponse("user", user);
             }
         } catch (Exception e) {
             log.error(e);
-            setError(e.getMessage());
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Create User.
+     * @param username
+     * @param email
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/admon/create-user.json", method = RequestMethod.POST)
+    public ModelMap createUser(
+            @RequestParam(value = "newUsername", required = true) String username,
+            @RequestParam(value = "newEmailUser", required = true) String email,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            log.debug("user newUsername "+username);
+            log.debug("user newEmailUser "+email);
+            final UnitUserBean userBean = new UnitUserBean();
+            userBean.setEmail(email);
+            userBean.setUsername(username);
+            final Integer emails = getServiceManager().getApplicationServices()
+                 .getSecurityService().searchUsersByEmail(email).size();
+            final Integer usernames = getServiceManager().getApplicationServices()
+                 .getSecurityService().searchUsersByUsername(username).size();
+            if(emails > 0 || usernames > 0){
+                setError("user or email exist are used.", response);
+            } else {
+                getServiceManager().getApplicationServices().getSecurityService().createUser(userBean, getUserPrincipalUsername());
+                setItemResponse("usserAdded", "ok");
+            }
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
         }
         return returnData();
     }

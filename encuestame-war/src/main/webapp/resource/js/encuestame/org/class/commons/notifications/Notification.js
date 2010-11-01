@@ -16,6 +16,8 @@ dojo.declare(
 
         limit: 100,
 
+        timer: null,
+
         postMixInProperties: function(){
 
         },
@@ -30,75 +32,27 @@ dojo.declare(
          */
         loadTimer : function(){
             var father = this;
-            var t = new dojox.timing.Timer(this.delay);
-            t.onTick = function() {
+            this.timer = new dojox.timing.Timer(this.delay);
+            this.timer.onTick = function() {
                 father.loadNotifications();
             }
-            t.onStart = function() {
+            this.timer.onStart = function() {
             }
-            t.start();
+            this.timer.start();
         },
 
      // load notifications
         loadNotifications : function() {
-            //this.cleanNodeName();
             var load = dojo.hitch(this, function(data){
+                console.debug("data", data);
                 var array = data.success.notifications;
                 this._count.innerHTML = array.length;
             });
             var error = function(error) {
                 console.debug("error", error);
+                this.timer.stop();
             };
             encuestame.service.xhrGet(encuestame.service.list.getNotifications,{ limit: this.limit}, load, error);
-
-           /*
-            var url = '/encuestame/api/notifications.json';
-            var json =
-            new Ajax.Request(url, {
-                method : 'get',
-                parameters : {
-                    limit : 7
-                },
-                onSuccess : function(transport) {
-                    var tran = transport;
-                    if(transport.status == 200){
-                        console.debug("success", tran.responseJSON);
-                        if(tran.responseText.isJSON()){
-                            json = tran.responseJSON;
-                            if(json.error.message == undefined){
-                                json.success.notifications.each(function(item) {
-                                    this.createNotification(item);
-                                }.bind(this));
-                            } else {
-                                console.debug("error", json.error.message)
-                                this.createNetworkError(json.error.message, json.error.message);
-                            }
-                            this.addEvents();
-                         }
-                    } else {
-                        if(transport.status == 0){
-                             this.createNetworkError("You are lost Internet Connection", "Connection time out");
-                        } else {
-                            console.error("other error", transport.status);
-                        }
-                    }
-                }.bind(this),
-
-                onComplete : function(complete) {
-                    //Remove error messages or something.
-                }.bind(this),
-
-                onLoading : function(loading) {
-                  console.debug("loading", loading);
-                }.bind(this),
-
-                onFailure : function(resp) {
-                    console.debug("Oops, there's been an error.", resp);
-                    this.createNetworkError("Error", resp);
-                }.bind(this)
-            });
-
-           */
         },
 
         /*

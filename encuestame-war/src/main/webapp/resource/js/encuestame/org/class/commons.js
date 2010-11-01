@@ -50,9 +50,38 @@ encuestame.service.xhrGet = function(url, params, load, error){
               }
           });
     }
+};
+
+/**
+ * Json Get Call.
+ */
+encuestame.service.xhrPost = function(url, form, load, error){
+    console.debug("default url ", url);
+    console.debug("default form ", form);
+    console.debug("default load ", load);
+    console.debug("default error ", error);
+    var defaultError = function(error, ioargs){
+        console.debug("default error ", error);
+    };
+    if(error == null){
+      error = defaultError;
+    }
+    if(load == null || url == null || form == null){
+        console.error("error params required.")
+    } else {
+        var xhrArgs = {
+                url: url,
+                form: form,
+                handleAs: "text",
+                load: load,
+                error: error
+            }
+        var deferred = dojo.xhrPost(xhrArgs);
+    }
 }
 
 encuestame.service.list = {};
 encuestame.service.list.userList = "/encuestame/api/admon/users.json";
 encuestame.service.list.getNotifications = "/encuestame/api/notifications.json";
 encuestame.service.list.userInfo = "/encuestame/api/admon/user-info.json";
+encuestame.service.list.createUser = "/encuestame/api/admon/create-user.json";

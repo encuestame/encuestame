@@ -59,7 +59,7 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
          final SecUserSecondary secondary = getByUsername(getUserPrincipalUsername());
          if(secondary == null){
-             setError("user not found");
+             setError("user not found", response);
          }
          final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(secondary.getSecUser(), limit);
          final List<UtilNotification> utilNotifications = new ArrayList<UtilNotification>();
@@ -115,7 +115,7 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Notification notification = getNotificationDao().retrieveNotificationById(notificationId);
             if(notification == null){
-                setError("notification not found");
+                setError("notification not found", response);
             } else {
                 getNotificationDao().delete(notification);
                 setItemResponse("removed", "ok");

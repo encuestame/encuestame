@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
@@ -66,7 +67,18 @@ public abstract class AbstractJsonController extends BaseController{
      * @param error error.
      */
     protected void setError(final Object error){
-         this.error.put("error", error);
+         this.error.put("message", error);
+         this.sucess =  new HashMap<String, Object>();
+    }
+
+    /**
+     * Set Error.
+     * @param error error.
+     */
+    protected void setError(final Object error,  final HttpServletResponse response){
+         this.error.put("message", error);
+         this.sucess =  new HashMap<String, Object>();
+         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 
     /**

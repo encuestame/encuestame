@@ -1,4 +1,4 @@
- <script type="text/javascript">
+<script type="text/javascript">
    dojo.require("encuestame.org.class.commons.notifications.Notification");
 </script>
  <div class="menuWrapper">
@@ -17,7 +17,7 @@
         <li class="item"><a href="<%=request.getContextPath()%>//survey.html">Surveys</a></li>
     </ul>
     <div style="float: right; padding: 12px;" >
-        <div dojoType="encuestame.org.class.commons.notifications.Notification" delay="10000"></div>
+        <div dojoType="encuestame.org.class.commons.notifications.Notification" delay="600000"></div>
     </div>
     <br style="clear: left" />
     </div>

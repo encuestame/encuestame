@@ -7,12 +7,15 @@ dojo.require("dijit.form.Button");
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dijit.layout.TabContainer");
 dojo.require("dijit.layout.ContentPane");
+dojo.require("dijit.layout.AccordionContainer");
 dojo.require("encuestame.org.class.shared.utils.Table");
 
 dojo.declare(
     "encuestame.org.class.admon.user.Users",
     [encuestame.org.class.shared.utils.Table],{
+
         templatePath: dojo.moduleUrl("encuestame.org.class.admon.user", "template/Users.inc"),
+
         widgetsInTemplate: true,
 
         /**
@@ -48,6 +51,25 @@ dojo.declare(
             dijit.byId("email");
             dijit.byId("realName");
         },
+
+        _newUser : function(event){
+            var userEdit = dijit.byId("newUser");
+            if(userEdit){
+                userEdit.show();
+            }
+        },
+
+        _createDirectlyUser : function(event){
+            var form = dojo.byId("newUserSimpleForm");
+            console.debug("form", form);
+            var load = dojo.hitch(this, function(data){
+                console.debug("data", data);
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrPost(encuestame.service.list.createUser, form, load, error);
+        }
     }
 );
 
@@ -78,7 +100,7 @@ dojo.declare(
                 var data = this.data;
                 this.createInput(data.id)
                 this.createColumnDialog(data.username);
-                this.createColumnDialog(data.name);
+                this.createColumn(data.name);
                 this.createColumn(data.email);
                 this.createColumn(data.email);
                 this.buildStatus(data.status);
