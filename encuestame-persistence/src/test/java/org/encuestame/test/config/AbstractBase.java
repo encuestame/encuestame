@@ -41,10 +41,13 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionColettion;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
+import org.encuestame.persistence.domain.survey.QuestionSection;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
+import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Surveys;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
@@ -745,6 +748,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create Default Question.
+     * @param questionName
+     * @return
+     */
+    public Question createDefaultQuestion(final String questionName){
+        return this.createQuestion(questionName, "radio");
+
+
+    }
+
+    /**
      * Create Question.
      * @param questionName
      * @param user
@@ -846,13 +860,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Helper to Create Surveys Format.
      * @return {@link SurveyFormat}
      * */
-    public SurveyFormat createSurveyFormat(){
+    public SurveyFormat createSurveyFormat(
+            final String formatName,
+            final Date createdDate
+            ){
         final SurveyFormat sformat = new SurveyFormat();
-        sformat.setDateCreated(new Date());
-        sformat.setSurveyFormatName("Schools");
+        sformat.setDateCreated(createdDate);
+        sformat.setSurveyFormatName(formatName);
         sformat.getSurveyGroups().add(createSurveyGroup("editors"));
         getSurveyformatDaoImp().saveOrUpdate(sformat);
         return sformat;
+    }
+
+    /**
+     * Create Default Survey Format
+     * @return
+     */
+    public SurveyFormat createDefaultSurveyFormat(){
+          return this.createSurveyFormat("New", new Date());
+
     }
 
     //TODO: Create Helpers for Publicated and Non Publicated TweetPoll
@@ -992,36 +1018,76 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return catLocationFolder;
     }
 
-     /**
-      * Create {@link Surveys}
-      * @param complete
-      * @param dateInterview
-      * @param endDate
-      * @param secUsers
-      * @param startDate
-      * @param surveyFormat
-      * @return
-      */
-    public Surveys createSurvey(
-            final String complete,
-            final Date dateInterview,
-            final Date endDate,
-            final SecUser secUsers,
-            final Date startDate,
-            final SurveyFormat surveyFormat
-            ){
-        final Surveys survey = new Surveys();
-        survey.setComplete(complete);
-        survey.setDateInterview(dateInterview);
-        survey.setEndDate(endDate);
-        survey.setSecUsers(secUsers);
-        survey.setStartDate(startDate);
-        survey.setSurveyFormat(surveyFormat);
-        survey.setTicket(3);
-        survey.setTicket(2);
-        getSurveyDaoImp().saveOrUpdate(survey);
-        return survey;
+    /**
+     * Helper Create Survey Section.
+     * @param catState
+     * @param descSection
+     * @return
+     */
+    public SurveySection createSurveySection(
+            final CatState catState,
+            final String descSection){
+        final SurveySection surveySection = new SurveySection();
+        surveySection.setCatState(catState);
+        surveySection.setDescSection(descSection);
+        getSurveyDaoImp().saveOrUpdate(surveySection);
+        surveySection.getQuestionSection().add(createDefaultQuestion("Why is your favourite movie"));
+        surveySection.getQuestionSection().add(createDefaultQuestion("Where do you live"));
+        surveySection.getQuestionSection().add(createDefaultQuestion("What do you do at home"));
+        getSurveyDaoImp().saveOrUpdate(surveySection);
+        return surveySection;
     }
+
+    public SurveyPagination createSurveyPagination(){
+
+        return null;
+    }
+
+    /**
+     * Create Default Survey.
+     * @param secUsers
+     * @return
+     */
+    public Surveys createDefaultSurvey(final SecUser secUsers ){
+        return this.createSurvey("", new Date(), new Date(), secUsers, new Date(), createDefaultSurveyFormat(),"FirstSurvey");
+     }
+
+    /**
+     * Create {@link Surveys}
+     * @param complete
+     * @param dateInterview
+     * @param endDate
+     * @param secUsers
+     * @param startDate
+     * @param surveyFormat
+     * @return
+     */
+   public Surveys createSurvey(
+           final String complete,
+           final Date dateInterview,
+           final Date endDate,
+           final SecUser secUsers,
+           final Date startDate,
+           final SurveyFormat surveyFormat,
+           final String name
+
+           ){
+       final Surveys survey = new Surveys();
+       survey.setName(name);
+       survey.setComplete(complete);
+       survey.setDateInterview(dateInterview);
+       survey.setEndDate(endDate);
+       survey.setSecUsers(secUsers);
+       survey.setStartDate(startDate);
+       survey.setSurveyFormat(surveyFormat);
+       survey.setTicket(3);
+       survey.setTicket(2);
+       getSurveyDaoImp().saveOrUpdate(survey);
+       return survey;
+   }
+
+
+
 
     /**
      * Create Default List Email.
@@ -1157,15 +1223,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.account"));
     }
 
-    /**
-     * Create Survey Folders.
-     * @return
-     */
-    public SurveyFolder createSurveyFolders(){
+  /**
+   *
+   * @param folderName
+   * @param users
+   * @return
+   */
+    public SurveyFolder createSurveyFolders(final String folderName, final SecUser users){
         final SurveyFolder surveyFolders = new SurveyFolder();
         surveyFolders.setCreatedAt(new Date());
-        surveyFolders.setFolderName("My Surveys");
-        surveyFolders.setUsers(createUser());
+        surveyFolders.setFolderName(folderName);
+        surveyFolders.setUsers(users);
         getSurveyDaoImp().saveOrUpdate(surveyFolders);
         return surveyFolders;
     }

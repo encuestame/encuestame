@@ -15,11 +15,16 @@ package org.encuestame.persistence.dao.imp;
 import java.util.Collection;
 import java.util.List;
 
+import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.persistence.domain.survey.Surveys;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -39,12 +44,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @throws HibernateException
      */
     @SuppressWarnings("unchecked")
-    public Collection<SurveyFormat> searchSurveyByName(String searchString)
+    public List<Surveys> searchSurveyByUserId(String searchString, final Long userId)
             throws HibernateException {
-        return getSession().createCriteria(SurveyFormat.class)
-        .add(Restrictions.like("name","%"+searchString+"%"))
-        //TODO: Add Max Results parameter
-        .setMaxResults(10).list();
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Surveys.class);
+         criteria.add(Restrictions.like("name", searchString, MatchMode.ANYWHERE));
+         criteria.add(Restrictions.eq("secUsers.uid", userId));
+        return getHibernateTemplate().findByCriteria(criteria);
 
     }
 
@@ -74,7 +79,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<SurveyFolder> retrieveAllFolders(){
+    public List<SurveyFolder> retrieveAllFolders(final Long userId){
         return getHibernateTemplate().find("FROM SurveyFolder");
     }
 
@@ -86,6 +91,19 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     @SuppressWarnings("unchecked")
     public List<SurveyPagination> retrieveSectionsByPage(final Long surveyId){
         return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", surveyId);
+    }
+
+    public SurveySection retrieveSurveySectionById(Long sectionId){
+          return (SurveySection) getHibernateTemplate().findByNamedParam("FROM SurveySection where ssid=:sectionId","sectionId", sectionId);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<SurveySection> retrieveQuestionsBySurveySection(final Long secId){
+        final SurveySection ssection = this.retrieveSurveySectionById(secId);
+         final List  quest = (List) ssection.getQuestionSection();
+        return quest;
+
     }
 
 }

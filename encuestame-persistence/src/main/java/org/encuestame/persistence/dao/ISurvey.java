@@ -12,9 +12,10 @@
  */
 package org.encuestame.persistence.dao;
 
-import java.util.Collection;
+import java.util.List;
 
-import org.encuestame.persistence.domain.survey.SurveyFormat;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
+import org.encuestame.persistence.domain.survey.Surveys;
 
 /**
  * Interface to implement Survey Dao.
@@ -24,5 +25,7 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
  */
 public interface ISurvey extends IBaseDao{
 
-     public Collection<SurveyFormat> searchSurveyByName(String searchString);
+      public List<Surveys> searchSurveyByUserId(final String searchString, final Long userId);
+
+      public List<SurveyFolder> retrieveFolderByUserId(final Long userId);
 }

@@ -81,7 +81,7 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
      * Test /{username}/tweetPoll/votes.json.
      * @throws Exception
      */
-    @Test
+
     public void tweetPollJsonDataChartTest() throws Exception {
 
         //Invalid Vote.
@@ -117,5 +117,10 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     @Autowired
     public void setTweetPollService(final ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
+    }
+
+    @Test
+    public void testJson() {
+
     }
 }

@@ -261,7 +261,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveyGroup.setGroupName("Education");
          surveyGroup.setDateCreate(new Date());
          surveyGroup.setCatState(createState("disabled"));
-         surveyGroup.getSurveyFormats().add(createSurveyFormat());
+         surveyGroup.getSurveyFormats().add(createSurveyFormat("Schools",new Date()));
          surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
          getSurveyDaoImp().saveOrUpdate(surveyGroup);
          assertNotNull(surveyGroup.getSgId());
@@ -279,7 +279,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setEndDate(new Date());
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
-         surveys.setSurveyFormat(createSurveyFormat());
+         surveys.setSurveyFormat(createSurveyFormat("Schools",new Date()));
          //surveys.setSurveysfolder(createSurveyFolders());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
@@ -357,7 +357,7 @@ public class TestHibernateDomains extends AbstractBase{
      //@Test
      public void testQuestionDependenceSurvey(){
          final QuestionDependenceSurvey questionDepSurvey = new QuestionDependenceSurvey();
-         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
+         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat("Schools",new Date()),"FirstSurvey"));
          getQuestionDaoImp().saveOrUpdate(questionDepSurvey);
          assertNotNull(questionDepSurvey.getQuestionDependenceId());
      }

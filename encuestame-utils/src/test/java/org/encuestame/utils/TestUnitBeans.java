@@ -18,8 +18,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
-
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitForgotPassword;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
@@ -289,18 +287,6 @@ import org.junit.Test;
         projectBean.setStatus(1L);
         projectBean.setUserId(1L);
         projectBean.setDescription("description");
-        projectBean.setClients(new ArrayList<SelectItem>());
-        projectBean.setCatStateBeans(new ArrayList<SelectItem>());
-        projectBean.setListUsers(new ArrayList<SelectItem>());
-        projectBean.setGroupList(new ArrayList<SelectItem>());
-        projectBean.setLocationList(new ArrayList<SelectItem>());
-        projectBean.setProjectPermissions(new ArrayList<SelectItem>());
-        assertNotNull(projectBean.getClients());
-        assertNotNull(projectBean.getCatStateBeans());
-        assertNotNull(projectBean.getListUsers());
-        assertNotNull(projectBean.getGroupList());
-        assertNotNull(projectBean.getLocationList());
-        assertNotNull(projectBean.getProjectPermissions());
         assertNotNull(projectBean.getDateFinish());
         assertNotNull(projectBean.getDateInit());
         assertNotNull(projectBean.getHide());

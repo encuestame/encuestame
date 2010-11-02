@@ -13,7 +13,8 @@
 
 package org.encuestame.test.persistence.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -23,7 +24,6 @@ import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBase;
-import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.junit.Before;
 import org.junit.Test;
 

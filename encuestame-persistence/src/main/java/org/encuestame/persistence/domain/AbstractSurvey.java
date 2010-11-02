@@ -166,6 +166,11 @@ public abstract class AbstractSurvey {
     private Boolean notifications;
 
     /**
+     * Survey or Poll Name.
+     */
+    private String name;
+
+    /**
      * @return the customMessage.
      */
     @Column(name = "custom_message")
@@ -476,6 +481,21 @@ public abstract class AbstractSurvey {
      */
     public void setHits(Integer hits) {
         this.hits = hits;
+    }
+
+    /**
+     * @return the name
+     */
+    @Column(name = "name")
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
