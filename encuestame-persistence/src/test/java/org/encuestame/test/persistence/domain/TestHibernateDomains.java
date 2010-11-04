@@ -343,7 +343,7 @@ public class TestHibernateDomains extends AbstractBase{
      public void testSurveyPagination(){
          final SurveyPagination surveyPagination = new SurveyPagination();
          //surveyPagination.setAnswers(createQuestionAnswer("Yes", createQuestion("DD", createUser()), "DD"));
-         surveyPagination.setPageNumber(2L);
+         surveyPagination.setPageNumber(1);
          //surveyPagination.setQuestions(createQuestion("DD", createUser()));
          //surveyPagination.setSurveys(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
          getSurveyDaoImp().saveOrUpdate(surveyPagination);

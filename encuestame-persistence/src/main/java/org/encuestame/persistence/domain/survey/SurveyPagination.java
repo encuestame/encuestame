@@ -37,10 +37,12 @@ public class SurveyPagination {
     private Long paginationId;
 
     /****/
-    private Long pageNumber;
+    private Integer pageNumber;
 
     /****/
     private SurveySection surveySection;
+
+    private Surveys survey;
 
     /**
      * @return the paginationId
@@ -63,15 +65,15 @@ public class SurveyPagination {
     /**
      * @return the pageNumber
      */
-    @Column(name = "created_at")
-    public Long getPageNumber() {
+    @Column(name = "pageNumber")
+    public Integer getPageNumber() {
         return pageNumber;
     }
 
     /**
      * @param pageNumber the pageNumber to set
      */
-    public void setPageNumber(Long pageNumber) {
+    public void setPageNumber(Integer pageNumber) {
         this.pageNumber = pageNumber;
     }
 
@@ -79,7 +81,7 @@ public class SurveyPagination {
      * @return the surveySection
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "sid", nullable = false)
+    @JoinColumn(name = "ssid", nullable = false)
     public SurveySection getSurveySection() {
         return surveySection;
     }
@@ -91,4 +93,19 @@ public class SurveyPagination {
         this.surveySection = surveySection;
     }
 
+    /**
+     * @return the survey
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "sid", nullable = false)
+    public Surveys getSurvey() {
+        return survey;
+    }
+
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(Surveys survey) {
+        this.survey = survey;
+    }
  }

@@ -478,6 +478,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Helper to create Default State.
+     * @return
+     */
+    public CatState createDefaultState(){
+         return this.createState("Enabled");
+     }
+
+
+    /**
      * Create project.
      * @param name Project's name
      * @param descProject Project Description
@@ -1038,9 +1047,30 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return surveySection;
     }
 
-    public SurveyPagination createSurveyPagination(){
+    /**
+     * Create Defaul Survey Pagination.
+     * @param surveySection
+     * @return
+     */
+    public SurveyPagination createDefaultSurveyPagination(final SurveySection surveySection){
+        return this.createSurveyPagination(1, surveySection,this.createDefaultSurvey(this.createUser()));
+    }
 
-        return null;
+    /**
+     * Create Survey Pagination.
+     * @param pageNumber
+     * @param surveySection
+     * @return
+     */
+    public SurveyPagination createSurveyPagination(
+            final Integer pageNumber,
+            final SurveySection surveySection,
+            final Surveys survey){
+        final SurveyPagination surveyPag = new SurveyPagination();
+        surveyPag.setPageNumber(pageNumber);
+        surveyPag.setSurveySection(surveySection);
+        surveyPag.setSurvey(survey);
+        return surveyPag;
     }
 
     /**

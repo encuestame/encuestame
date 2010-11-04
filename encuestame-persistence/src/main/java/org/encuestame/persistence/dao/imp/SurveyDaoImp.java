@@ -12,16 +12,17 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
@@ -93,17 +94,42 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", surveyId);
     }
 
+    /**
+     * Retrieve Survey Section by Id.
+     * @param sectionId
+     * @return
+     */
     public SurveySection retrieveSurveySectionById(Long sectionId){
-          return (SurveySection) getHibernateTemplate().findByNamedParam("FROM SurveySection where ssid=:sectionId","sectionId", sectionId);
+          return getHibernateTemplate().get(SurveySection.class, sectionId);
+        //return (SurveySection) getHibernateTemplate().findByNamedParam("FROM SurveySection where ssid=:sectionId","sectionId", sectionId);
 
     }
 
+    /**
+     * Retrieve Questions by Survey Section.
+     */
     @SuppressWarnings("unchecked")
     public List<SurveySection> retrieveQuestionsBySurveySection(final Long secId){
         final SurveySection ssection = this.retrieveSurveySectionById(secId);
-         final List  quest = (List) ssection.getQuestionSection();
-        return quest;
-
+        List questionsSection = new ArrayList(ssection.getQuestionSection());
+         //final List  quest = ssection.getQuestionSection();
+         System.out.println(questionsSection.size());
+        return questionsSection;
     }
 
+    /**
+     * Retrieve Sections by Page in Survey.
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveyPagination> retrieveSectionByPagination(final Integer pagId){
+        System.out.println(pagId);
+        final DetachedCriteria criteria = DetachedCriteria	.forClass(SurveyPagination.class);
+        criteria.add(Restrictions.eq("pageNumber", 1));
+        return getHibernateTemplate().findByCriteria(criteria);
+        // return getHibernateTemplate().findByNamedParam("FROM SurveyPagination where pageNumber=:pagId","pagId", pagId);
+    }
+
+
+
 }
+
