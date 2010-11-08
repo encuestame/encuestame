@@ -76,6 +76,7 @@ public abstract class AbstractJsonController extends BaseController{
      * @param error error.
      */
     protected void setError(final Object error,  final HttpServletResponse response){
+         this.error = new HashMap<String, Object>();
          this.error.put("message", error);
          this.sucess =  new HashMap<String, Object>();
          response.setStatus(HttpServletResponse.SC_ACCEPTED);
@@ -88,6 +89,16 @@ public abstract class AbstractJsonController extends BaseController{
      */
     protected void setItemResponse(final String label, final Object item){
          this.sucess.put(label, item);
+    }
+
+    /**
+     * Set Item Response.
+     * @param label
+     * @param item
+     */
+    protected void setItemResponse(final Map<String, Object> map){
+         this.error = new HashMap<String, Object>();
+         this.sucess = map;
     }
 
     /**

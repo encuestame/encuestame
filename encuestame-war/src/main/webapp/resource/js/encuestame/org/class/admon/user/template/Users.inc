@@ -20,10 +20,10 @@
                     <tr>
                         <td colspan="7" class="rounded-foot-left">
                             <div class="controlsTable" style="cursor: pointer;">
-                                <a dojoAttachEvent="onclick:first"> First Page</a>
-                                <a dojoAttachEvent="onclick:previous"> Previous </a>
-                                <a dojoAttachEvent="onclick:next">Next > </a>
-                                <a dojoAttachEvent="onclick:last">Last Page  </a>
+                                <a dojoAttachEvent="onclick:first" dojoAttachPoint="_first"> First Page</a>
+                                <a dojoAttachEvent="onclick:previous" dojoAttachPoint="_previous"> Previous </a>
+                                <a dojoAttachEvent="onclick:next" dojoAttachPoint="_next">Next > </a>
+                                <a dojoAttachEvent="onclick:last" dojoAttachPoint="_last">Last Page  </a>
                             </div>
                         </td>
                         <td class="rounded-foot-right">&nbsp;</td>
@@ -34,17 +34,24 @@
         </table>
     </div>
     <div dojoType="dijit.Dialog" id="newUser" title="New User">
-            <div dojoType="dijit.layout.AccordionContainer" style="min-height: 400px; width: 1024px;">
+            <div dojoType="dijit.layout.AccordionContainer" style="min-height: 300px; width: 1024px;">
                 <div dojoType="dijit.layout.ContentPane" title="Add User Directly" selected="true">
                     <div dojoType="dijit.form.Form" id="newUserSimpleForm">
                         <table>
                             <tr>
                               <td><label for="name">Username </label></td>
-                              <td><input dojoType="dijit.form.TextBox" type="text" name="newUsername" id="newUsername"></td>
+                              <td><input dojoType="dijit.form.ValidationTextBox"
+                                   required="true"
+                                   size="30"
+                                   type="text" name="newUsername" id="newUsername"></td>
                             </tr>
                             <tr>
                               <td><label for="loc">Email </label></td>
-                              <td><input dojoType="dijit.form.TextBox" type="text" name="newEmailUser" id="newEmailUser"></td>
+                              <td><input dojoType="dijit.form.ValidationTextBox"
+                                   size="30"
+                                   required="true"
+                                   regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                                   type="text" name="newEmailUser" id="newEmailUser"></td>
                             </tr>
                           </table>
                           <button dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_createDirectlyUser">Add</button>

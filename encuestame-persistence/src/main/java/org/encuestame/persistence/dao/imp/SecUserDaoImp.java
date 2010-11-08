@@ -20,6 +20,7 @@ import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -49,10 +50,29 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
      * @param secUsers {@link SecUser}.
      * @return List of {@link SecUserSecondary}
      */
-    public List<SecUserSecondary> retrieveListOwnerUsers(final SecUser	secUsers){
-        return getHibernateTemplate().findByNamedParam("from SecUserSecondary where secUser = :secUsers "
-            +" ", "secUsers", secUsers);
+    public List<SecUserSecondary> retrieveListOwnerUsers(final SecUser secUsers,
+               final Integer maxResults, final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SecUserSecondary.class);
+        criteria.add(Restrictions.eq("secUser", secUsers));
+        criteria.addOrder(Order.asc("enjoyDate"));
+        return getHibernateTemplate().findByCriteria(criteria, start, maxResults);
     }
+
+    /**
+     * Retrieve Total Users.
+     * @param secUsers
+     * @return
+     */
+    public Long retrieveTotalUsers(final SecUser secUsers){
+         Long resultsSize = 0L;
+         final List list =  getHibernateTemplate().findByNamedParam("select count(*) from SecUserSecondary "
+                 +" WHERE secUser = :user", "user", secUsers);
+         if (list.get(0) instanceof Long){
+             log.debug("instace of Long");
+             resultsSize = (Long) list.get(0);
+         }
+         return resultsSize;
+     }
 
     /**
      * Get User By Id.

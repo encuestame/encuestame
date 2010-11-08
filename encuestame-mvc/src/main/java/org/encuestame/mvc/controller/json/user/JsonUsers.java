@@ -13,7 +13,9 @@
 package org.encuestame.mvc.controller.json.user;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,7 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Description Class.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 30, 2010 11:08:20 PM
- * @version Id:
+ * @version $Id:$
  */
 @Controller
 public class JsonUsers extends AbstractJsonController{
@@ -61,9 +64,13 @@ public class JsonUsers extends AbstractJsonController{
             //TODO: should be limit and paginate results.
             log.debug("limit "+limit);
             log.debug("start "+start);
+            final Map<String, Object> sucess = new HashMap<String, Object>();
             final List<UnitUserBean> userList = getServiceManager()
-                  .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername());
-            setItemResponse("users", userList);
+                  .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
+            sucess.put("users", userList);
+            sucess.put("total", getServiceManager().getApplicationServices()
+                      .getSecurityService().totalOwnUsers(getUserPrincipalUsername()));
+            setItemResponse(sucess);
         } catch (Exception e) {
             log.error(e);
             setError(e.getMessage(), response);
@@ -88,6 +95,7 @@ public class JsonUsers extends AbstractJsonController{
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
+            final Map<String, Object> sucess = new HashMap<String, Object>();
             final UnitUserBean user = getServiceManager().getApplicationServices().getSecurityService()
                                     .getUserCompleteInfo(userId, getUserPrincipalUsername());
             log.debug("user info "+userId);
@@ -95,7 +103,8 @@ public class JsonUsers extends AbstractJsonController{
                 setError(new EnMeDomainNotFoundException("user not found").getMessage(), response);
                 log.error(new EnMeDomainNotFoundException("user not found").getMessage());
             } else {
-                setItemResponse("user", user);
+                sucess.put("user", user);
+                setItemResponse(sucess);
             }
         } catch (Exception e) {
             log.error(e);
@@ -128,20 +137,65 @@ public class JsonUsers extends AbstractJsonController{
             final UnitUserBean userBean = new UnitUserBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
-            final Integer emails = getServiceManager().getApplicationServices()
-                 .getSecurityService().searchUsersByEmail(email).size();
-            final Integer usernames = getServiceManager().getApplicationServices()
-                 .getSecurityService().searchUsersByUsername(username).size();
-            if(emails > 0 || usernames > 0){
-                setError("user or email exist are used.", response);
+            ///final Integer emails = getServiceManager().getApplicationServices()
+            //     .getSecurityService().searchUsersByEmail(email).size();
+            //final Integer usernames = getServiceManager().getApplicationServices()
+            //     .getSecurityService().searchUsersByUsername(username).size();
+            final ControllerValidation cv = new ControllerValidation( getServiceManager().getApplicationServices()
+                  .getSecurityService());
+            if(cv.validateEmail(email) && cv.validateUsername(username)){
+                final Map<String, Object> sucess = new HashMap<String, Object>();
+                getServiceManager().getApplicationServices().getSecurityService()
+                .createUser(userBean, getUserPrincipalUsername());
+                sucess.put("userAdded", "ok");
+                setItemResponse(sucess);
             } else {
-                getServiceManager().getApplicationServices().getSecurityService().createUser(userBean, getUserPrincipalUsername());
-                setItemResponse("usserAdded", "ok");
+                setError("user or email exist are used.", response);
             }
         } catch (Exception e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
         return returnData();
+    }
+
+    /**
+     * Remove User.
+     * @param username
+     * @param email
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/admon/remove-user.json", method = RequestMethod.GET)
+    public ModelMap removeUser(
+            @RequestParam(value = "id", required = true) String id,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+         return returnData();
+    }
+
+
+    /**
+     *
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/admon/reset-password-user.json", method = RequestMethod.GET)
+    public ModelMap resetUserPassword(
+            @RequestParam(value = "id", required = true) String id,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+         return returnData();
     }
 }

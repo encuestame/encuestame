@@ -69,6 +69,7 @@ public interface IProjectService {
      * @throws Exception
      * @throws EnMeExpcetion excepcion
      */
-    List<UnitUserBean> loadListUsers(final String currentUsername) throws EnMeDomainNotFoundException;
+    List<UnitUserBean> loadListUsers(final String currentUsername, final Integer maxResults,
+            final Integer start) throws EnMeDomainNotFoundException;
 
 }

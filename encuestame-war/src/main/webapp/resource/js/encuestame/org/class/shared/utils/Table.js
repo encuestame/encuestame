@@ -16,10 +16,13 @@ dojo.declare(
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
-        /** Principal service. **/
-        jsonServiceUrl : encuestame.service.list.userList,
 
-        limit : 20,
+        /** Principal service. **/
+        jsonServiceUrl : null,
+
+        limit : 10,
+
+        start : 0,
 
         showPagination : false,
 
@@ -30,23 +33,40 @@ dojo.declare(
             this.loadItems();
         },
 
+        cleanTable : function(){
+            if(this._body){
+                dojo.empty(this._body);
+            }
+        },
+
         /**
          * Load Users.
          */
         loadItems : function(){
             var load = dojo.hitch(this, function(data){
                 console.debug("data", data);
-                dojo.forEach(
-                        data.success.items,
-                        dojo.hitch(this, function(data, index) {
-                            console.debug(data, index);
-                            this.buildRow(data);
-                        }));
+                this.cleanTable();
+                this.iterateResponseItems(data);
             });
             var error = function(error) {
                 console.debug("error", error);
+                this.errorResponse(error);
             };
-            encuestame.service.xhrGet(this.jsonServiceUrl, {limit:10, start:10}, load, error);
+            encuestame.service.xhrGet(this.jsonServiceUrl, {limit: this.limit, start: this.start}, load, error);
+        },
+
+        /**
+         * Iterate Response Items.
+         */
+        iterateResponseItems : function(response){
+            console.error('this function should be override');
+        },
+
+        /**
+         * Error Response.
+         */
+        errorResponse : function(error){
+            console.error('this function should be override');
         },
 
         /**
@@ -61,31 +81,38 @@ dojo.declare(
          * Next.
          */
         next : function(event){
-
+            dojo.stopEvent(event);
+            this.start = this.start + this.limit;
+            this.loadItems();
         },
 
         /**
          * Previous.
          */
         previous : function(event){
-
+            dojo.stopEvent(event);
+            this.start = this.start - this.limit;
+            if(this.start < 0){
+                this.start = 0;
+            }
+            this.loadItems();
         },
 
         /**
          * Last.
          */
         last : function(event){
-
+            dojo.stopEvent(event);
         },
 
         /**
          * First.
          */
         first : function(event){
-
+          dojo.stopEvent(event);
+          this.start = 0;
+          this.loadItems();
         },
-
-
     }
 );
 

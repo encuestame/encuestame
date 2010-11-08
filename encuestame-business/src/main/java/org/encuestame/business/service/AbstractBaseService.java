@@ -304,12 +304,16 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @throws Exception
      * @throws EnMeExpcetion excepcion
      */
-    public List<UnitUserBean> loadListUsers(final String currentUsername) throws EnMeDomainNotFoundException {
+    public List<UnitUserBean> loadListUsers(
+           final String currentUsername,
+           final Integer maxResults,
+           final Integer start) throws EnMeDomainNotFoundException {
         log.info("currentUsername "+currentUsername);
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         final SecUserSecondary secUserSecondary = getUser(currentUsername);
         log.info("secUserSecondary "+secUserSecondary);
-            final Collection<SecUserSecondary> listUsers = getSecUserDao().retrieveListOwnerUsers(secUserSecondary.getSecUser());
+            final Collection<SecUserSecondary> listUsers = getSecUserDao()
+                 .retrieveListOwnerUsers(secUserSecondary.getSecUser(), start, maxResults);
             log.info("list users "+listUsers.size());
                 for (SecUserSecondary secUserSecondary2 : listUsers) {
                     loadListUsers.add(ConvertDomainBean.convertBasicSecondaryUserToUserBean(secUserSecondary2));

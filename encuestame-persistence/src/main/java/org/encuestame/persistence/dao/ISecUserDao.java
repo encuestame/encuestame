@@ -36,6 +36,13 @@ public interface ISecUserDao extends IBaseDao {
      */
     SecUserSecondary getUserByUsername(final String username);
 
+    /**
+     * Retrieve Total Users.
+     * @param secUsers
+     * @return
+     */
+    Long retrieveTotalUsers(final SecUser secUsers);
+
 
     /**
      * @return List {@link SecUserSecondary}
@@ -48,8 +55,8 @@ public interface ISecUserDao extends IBaseDao {
       * @param secUsers {@link SecUser}.
       * @return List of {@link SecUserSecondary}
       */
-     List<SecUserSecondary> retrieveListOwnerUsers(final SecUser	secUsers);
-
+     List<SecUserSecondary> retrieveListOwnerUsers(final SecUser secUsers,
+                final Integer maxResults, final Integer start);
 
     /**
      * @param userId userId

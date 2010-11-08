@@ -93,6 +93,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * Retrieve Total Own Users.
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public Long totalOwnUsers(final String username) throws EnMeDomainNotFoundException{
+        return getSecUserDao().retrieveTotalUsers(getUser(username).getSecUser());
+    }
+
+    /**
      * Find {@link SecUserSecondary} by UserName
      * @param username user name
      * @return {@link SecUserSecondary}
@@ -431,8 +441,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             secondaryUser.setUserEmail(userBean.getEmail());
             secondaryUser.setUsername(userBean.getUsername());
             secondaryUser.setSecUser(secUsers);
-        }
-        else {
+        } else {
             throw new EnMeExpcetion("needed email and username to create user");
         }
         String password = null;
@@ -468,7 +477,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 log.warn("error assing default permissions");
             }
             log.info("saving user");
-            getSecUserDao().saveOrUpdate(retrievedUser);
+            try{
+                getSecUserDao().saveOrUpdate(retrievedUser);
+            } catch (Exception e) {
+                throw new EnMeExpcetion(e.getMessage());
+            }
     }
 
     /**

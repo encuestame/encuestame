@@ -8,6 +8,7 @@ dojo.require("dijit.form.DateTextBox");
 dojo.require("dijit.layout.TabContainer");
 dojo.require("dijit.layout.ContentPane");
 dojo.require("dijit.layout.AccordionContainer");
+dojo.require("dijit.form.ValidationTextBox");
 dojo.require("encuestame.org.class.shared.utils.Table");
 
 dojo.declare(
@@ -18,6 +19,8 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
+        jsonServiceUrl : encuestame.service.list.userList,
+
         /**
          * Build Row.
          */
@@ -27,25 +30,26 @@ dojo.declare(
         },
 
         /**
-         * Load Users.
+         * Iterate Items.
          */
-        loadItems : function(){
-            var load = dojo.hitch(this, function(data){
-                console.debug("data", data);
-                var array = data.success.users;
-                dojo.forEach(
-                        data.success.users,
-                        dojo.hitch(this, function(data, index) {
-                            console.debug(data, index);
-                            this.buildRow(data);
-                        }));
-            });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrGet(this.jsonServiceUrl, {limit:10, start:10}, load, error);
+        iterateResponseItems : function(data){
+            dojo.forEach(
+                data.success.users,
+                dojo.hitch(this, function(data, index) {
+                    this.buildRow(data);
+                }));
         },
 
+        /**
+         * Error Resonse.
+         */
+        errorResponse : function(error){
+            console.debug("error", error);
+        },
+
+        /**
+         * Update User.
+         */
         _updateUser : function(event){
             dijit.byId("name");
             dijit.byId("email");
@@ -61,14 +65,23 @@ dojo.declare(
 
         _createDirectlyUser : function(event){
             var form = dojo.byId("newUserSimpleForm");
-            console.debug("form", form);
-            var load = dojo.hitch(this, function(data){
-                console.debug("data", data);
-            });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrPost(encuestame.service.list.createUser, form, load, error);
+            var formDijit = dijit.byId("newUserSimpleForm");
+            if(formDijit.isValid()){
+                var load = dojo.hitch(this, function(data){
+                    if(data.success){
+                        if(data.success.userAdded == "ok"){
+                            this.loadItems();
+                            dijit.byId("newUser").hide();
+                        }
+                    }
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrPost(encuestame.service.list.createUser, form, load, error);
+            } else {
+                console.info("form not valid");
+            }
         }
     }
 );
@@ -134,7 +147,6 @@ dojo.declare(
             editUSer : function(){
                 var userEdit = dijit.byId("userEdit");
                 userEdit.data = this.data;
-                console.debug("openDialog", userEdit);
                 if(userEdit != null){
                     userEdit.show();
                     this.getUserInfo(this.data.id);
@@ -146,10 +158,8 @@ dojo.declare(
              */
             getUserInfo : function(id){
                 var load = dojo.hitch(this, function(response){
-                    console.debug("response", response);
                     var data = response.success.user;
                     var name = dijit.byId("name");
-                    console.debug(name, data.username);
                     name.setValue(data.username);
                     var email = dijit.byId("email");
                     email.setValue(data.email);

@@ -44,7 +44,16 @@ public interface ISecurityService extends IService {
      * @throws Exception Exception
      * @throws EnMeExpcetion excepcion
      */
-    List<UnitUserBean> loadListUsers(final String currentUsername) throws Exception;
+    List<UnitUserBean> loadListUsers(final String currentUsername, final Integer maxResults,
+            final Integer start) throws Exception;
+
+    /**
+     * Retrieve Total Own Users.
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    Long totalOwnUsers(final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Get User Complete Info.

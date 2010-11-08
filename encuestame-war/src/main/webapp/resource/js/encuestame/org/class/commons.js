@@ -56,10 +56,6 @@ encuestame.service.xhrGet = function(url, params, load, error){
  * Json Get Call.
  */
 encuestame.service.xhrPost = function(url, form, load, error){
-    console.debug("default url ", url);
-    console.debug("default form ", form);
-    console.debug("default load ", load);
-    console.debug("default error ", error);
     var defaultError = function(error, ioargs){
         console.debug("default error ", error);
     };
@@ -72,8 +68,10 @@ encuestame.service.xhrPost = function(url, form, load, error){
         var xhrArgs = {
                 url: url,
                 form: form,
-                handleAs: "text",
+                timeout : encuestame.service.timeout,
+                handleAs: "json",
                 load: load,
+                preventCache: true,
                 error: error
             }
         var deferred = dojo.xhrPost(xhrArgs);
