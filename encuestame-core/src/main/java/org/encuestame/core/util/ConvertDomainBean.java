@@ -38,6 +38,7 @@ import org.encuestame.persistence.domain.security.SecUserTwitterAccounts.TypeAut
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.Surveys;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
@@ -56,9 +57,12 @@ import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
+import org.encuestame.utils.web.UnitSurvey;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.utils.web.UtilTreeNode;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * Convert Domain to  Beans.
@@ -584,5 +588,38 @@ public class ConvertDomainBean {
             }
         return folderList;
     }
+
+    public static final UnitSurvey convertSurveyDomaintoBean(final Surveys survey){
+
+        final UnitSurvey unitSurvey = new UnitSurvey();
+        unitSurvey.setSid(survey.getSid());
+        unitSurvey.setTicket(survey.getTicket());
+        unitSurvey.setStartDate(survey.getStartDate());
+        unitSurvey.setEndDate(survey.getEndDate());
+        unitSurvey.setDateInterview(survey.getDateInterview());
+        unitSurvey.setComplete(survey.getComplete());
+        //unitSurvey.setUnitUserBean(ConvertDomainBean.convertUserSessionToUserBean(survey.getSecUsers()));
+        unitSurvey.setCustomMessage(survey.getCustomMessage());
+        unitSurvey.setCustomStartMessages(survey.getCustomStartMessages());
+        //unitSurvey.setCustomFinalMessage(survey.getCustomFinalMessage());
+        unitSurvey.setShowProgressBar(survey.getShowProgressBar());
+        unitSurvey.setOptionalTitle(survey.getOptionalTitle());
+        unitSurvey.setPasswordRestrictions(survey.getPasswordRestrictions());
+        unitSurvey.setIpProtection(survey.getIpProtection());
+        unitSurvey.setIpRestriction(survey.getIpRestriction());
+        unitSurvey.setPassProtection(survey.getPassProtection());
+        unitSurvey.setCloseAfterDate(survey.getCloseAfterDate());
+        unitSurvey.setClosedDate(survey.getClosedDate());
+        unitSurvey.setCloseAfterquota(survey.getCloseAfterquota());
+        unitSurvey.setClosedQuota(survey.getClosedQuota());
+        unitSurvey.setShowResults(survey.getShowResults());
+        unitSurvey.setNumbervotes(survey.getNumbervotes());
+        unitSurvey.setHits(survey.getHits());
+        unitSurvey.setAdditionalInfo(survey.getAdditionalInfo());
+        unitSurvey.setShowAdditionalInfo(survey.getShowAdditionalInfo());
+        unitSurvey.setNotifications(survey.getNotifications());
+        unitSurvey.setName(survey.getName());
+        return unitSurvey;}
+
 
 }

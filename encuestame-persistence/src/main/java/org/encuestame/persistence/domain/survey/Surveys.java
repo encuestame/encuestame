@@ -40,14 +40,31 @@ import org.encuestame.persistence.domain.security.SecUser;
 @Table(name = "surveys")
 public class Surveys extends AbstractSurvey {
 
+    /****/
     private Long sid;
+
+    /****/
     private SecUser secUsers;
+
+    /****/
     private Integer ticket;
+
+    /****/
     private Date startDate;
+
+    /****/
     private Date endDate;
+
+    /****/
     private Date dateInterview;
+
+    /****/
     private String complete;
+
+    /****/
     private SurveyFormat surveyFormat;
+
+    /****/
     private SurveyFolder surveysfolder;
 
 
