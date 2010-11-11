@@ -24,12 +24,17 @@ import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.persistence.domain.survey.Surveys;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.UnitSurvey;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 
@@ -224,4 +229,83 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public void setRandomQuestionKey(Integer rInteger){
         RANDOM_QUESTION_KEY = rInteger;
     }
+
+    /**
+     * Create Survey.
+     * @param surveyBean
+     * @throws EnMeExpcetion
+     */
+    public void createSurvey(final UnitSurvey surveyBean) throws EnMeExpcetion{
+        try {
+            final Surveys surveyDomain = new Surveys();
+            surveyDomain.setTicket(surveyBean.getTicket());
+            surveyDomain.setStartDate(surveyBean.getStartDate());
+            surveyDomain.setEndDate(surveyBean.getEndDate());
+            surveyDomain.setDateInterview(surveyBean.getDateInterview());
+            surveyDomain.setComplete(surveyBean.getComplete());
+            surveyDomain.setCustomMessage(surveyBean.getCustomMessage());
+            surveyDomain.setCustomStartMessages(surveyBean.getCustomStartMessages());
+            surveyDomain.setShowProgressBar(surveyBean.getShowProgressBar());
+            surveyDomain.setOptionalTitle(surveyBean.getOptionalTitle());
+            surveyDomain.setPassProtection(surveyBean.getPassProtection());
+            surveyDomain.setIpProtection(surveyBean.getIpProtection());
+            surveyDomain.setIpRestriction(surveyBean.getIpRestriction());
+            surveyDomain.setPasswordRestrictions(surveyBean.getPasswordRestrictions());
+            surveyDomain.setCloseAfterDate(surveyBean.getCloseAfterDate());
+            surveyDomain.setCloseAfterquota(surveyBean.getCloseAfterquota());
+            surveyDomain.setCloseAfterquota(surveyBean.getCloseAfterquota());
+            surveyDomain.setClosedQuota(surveyBean.getClosedQuota());
+            surveyDomain.setShowResults(surveyBean.getShowResults());
+            surveyDomain.setNumbervotes(surveyBean.getNumbervotes());
+            surveyDomain.setHits(surveyBean.getHits());
+            surveyDomain.setAdditionalInfo(surveyBean.getAdditionalInfo());
+            surveyDomain.setShowAdditionalInfo(surveyBean.getShowAdditionalInfo());
+            surveyDomain.setNotifications(surveyBean.getNotifications());
+            surveyDomain.setName(surveyBean.getName());
+            getSurveyDaoImp().saveOrUpdate(surveyDomain);
+            surveyBean.setSid(surveyBean.getSid());
+        } catch (Exception e) {
+             log.error("Error Creating Survey "+e.getMessage());
+             throw new EnMeExpcetion(e);
+        }
+    }
+
+
+    /**
+     * Create Survey Section.
+     * @param surveySectionBean
+     */
+    public void createSurveySection(final UnitSurveySection surveySectionBean){
+        try {
+            final SurveySection surveySectionDomain = new SurveySection();
+            surveySectionDomain.setDescSection(surveySectionBean.getName());
+            surveySectionDomain.setCatState(getStateDao().getState(surveySectionBean.getId().longValue()));
+
+            for (final UnitQuestionBean questionBean : surveySectionBean.getListQuestions()) {
+                this.saveQuestions(questionBean);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+    }
+
+    /**
+     * Save Questions.
+     * @param questionBean
+     */
+    public void saveQuestions(final UnitQuestionBean questionBean){
+        final Question question = new Question();
+        question.setCatState(getState(questionBean.getId()));
+        question.setQuestion(questionBean.getQuestionName());
+        //	question.setQidKey();
+        question.setQuestionPattern(question.getQuestionPattern());
+        question.setQuestionsAnswers(question.getQuestionsAnswers());
+        question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
+       // question.setSharedQuestion();
+        this.getQuestionDao().saveOrUpdate(question);
+        questionBean.setId(question.getQid());
+}
+
+
 }

@@ -208,7 +208,7 @@ public class BuildSurveyControllerBean extends MasterBean {
                 + "La pregunta->" + dd.getQuestionName(), "");
         int ind = sectionList.indexOf(family);
         UnitSurveySection d = sectionList.get(ind);
-        d.getQuestions().add((UnitQuestionBean) fm);
+        d.getListQuestions().add((UnitQuestionBean) fm);
         // log.info("Posicion Encontrada->" + ind);
         // log.info("Posicion sectionList->" + sectionList);
         UnitSurveySection ddedd = sectionList.get(ind);

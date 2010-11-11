@@ -22,7 +22,6 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Surveys;
-import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;

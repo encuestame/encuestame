@@ -14,6 +14,7 @@ package org.encuestame.utils.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -28,7 +29,7 @@ public class UnitSurveySection{
     private Integer id;
     private String name;
     private Integer stateId;
-    private Collection<UnitQuestionBean> questions = new ArrayList<UnitQuestionBean>();
+    private List<UnitQuestionBean> listQuestions = new ArrayList<UnitQuestionBean>();
     private Boolean showPanel = false;
 
     public UnitSurveySection() {}
@@ -77,6 +78,7 @@ public class UnitSurveySection{
     public final Integer getStateId() {
         return stateId;
     }
+
     /**
      * @param stateId the stateId to set
      */
@@ -85,19 +87,17 @@ public class UnitSurveySection{
     }
 
     /**
-     * @return the questions
+     * @return the listQuestions
      */
-
-    public final Collection<UnitQuestionBean> getQuestions() {
-        return questions;
+    public List<UnitQuestionBean> getListQuestions() {
+        return listQuestions;
     }
 
     /**
-     * @param questions the questions to set
+     * @param listQuestions the listQuestions to set
      */
-
-    public final void setQuestions(Collection<UnitQuestionBean> questions) {
-        this.questions = questions;
+    public void setListQuestions(List<UnitQuestionBean> listQuestions) {
+        this.listQuestions = listQuestions;
     }
 
     /**
