@@ -4,25 +4,36 @@
 
 /* Templates Admon */
 
-#admonWrapper{
-    clear: left;
-    padding: 1px 0 8px;
+div.admonWrapper{
+    margin: 0px 20px 0px 20px;
 }
 
-#admonWrapper div.panelAdmon{
+div.admonWrapper div.panelAdmon{
     padding-top:8px;
     float: left;
 }
 
-#admonWrapper div.bodyAdmon{
+div.admonWrpper div.bodyAdmon{
     margin-left: 250px;
     min-width:700px;
     padding: 0 0px 8px 0;
 }
 
+.formDefault{
+    padding: 25px;
+}
+
+.formDefault label{
+    font-size: 115%;
+}
+
+.formDefault .dijitTextBox{
+    font-size: 120%;
+}
+
 /** Users **/
 
-#admonWrapper div.bodyAdmon .rich-table-header{
+div.admonWrapper div.bodyAdmon .rich-table-header{
     background-image: url(../images/topnav_stretch.gif) repeat-x !important;
 }
 .rich-table{
@@ -40,34 +51,6 @@
 
 .rowClass{
     background-color: #blue !important;
-}
-
-/**
- Project
-*/
-
-#projectBox{
-    padding: 5px;
-    min-width: 40%;
-}
-
-#projectRow{
-    width: 100%;
-    padding:3px;
-    border-bottom: 1px solid #eee;
-    min-height: 15px;
-}
-
-.title{
-    font-weight: bold;
-    padding: 2px;
-    font-size: 14px;
-}
-
-
-#projectRowWrapper{
-    width: 100%;
-    padding: 5px;
 }
 
 /** Users **/
@@ -89,5 +72,18 @@
     width: 100px;
     padding-left : 61px;
     margin-left: 6px;
+}
+
+div.menuOptions{
+    min-height: 25px;
+    padding: 0 20px 0 10px;
+}
+
+div.menuOptions .left{
+    float: left;
+}
+
+div.menuOptions .right{
+    float: right;
 }
 

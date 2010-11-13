@@ -63,7 +63,7 @@ encuestame.service.xhrPost = function(url, form, load, error){
       error = defaultError;
     }
     if(load == null || url == null || form == null){
-        console.error("error params required.")
+        console.error("error params required.");
     } else {
         var xhrArgs = {
                 url: url,
@@ -76,10 +76,12 @@ encuestame.service.xhrPost = function(url, form, load, error){
             }
         var deferred = dojo.xhrPost(xhrArgs);
     }
-}
+};
 
 encuestame.service.list = {};
 encuestame.service.list.userList = "/encuestame/api/admon/users.json";
 encuestame.service.list.getNotifications = "/encuestame/api/notifications.json";
 encuestame.service.list.userInfo = "/encuestame/api/admon/user-info.json";
 encuestame.service.list.createUser = "/encuestame/api/admon/create-user.json";
+encuestame.service.list.listPermissions = "/encuestame/api/admon/list-permissions.json";
+encuestame.service.list.listUserPermissions = "/encuestame/api/admon/list-user-permissions.json";

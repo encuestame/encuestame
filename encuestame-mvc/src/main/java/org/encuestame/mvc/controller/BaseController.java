@@ -24,8 +24,10 @@ import net.tanesha.recaptcha.ReCaptcha;
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
@@ -240,6 +242,14 @@ public abstract class BaseController extends AbstractSecurityContext{
      */
     public ISurveyService getSurveyService(){
         return getServiceManager().getApplicationServices().getSurveyService();
+    }
+
+    /**
+     * Get {@link SecurityService}.
+     * @return
+     */
+    public ISecurityService getSecurityService(){
+        return getServiceManager().getApplicationServices().getSecurityService();
     }
 
     /**

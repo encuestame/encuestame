@@ -4,7 +4,7 @@
 <script type="text/javascript">
   dojo.require("encuestame.org.class.admon.user.Users");
 </script>
-<div class="users" style=" text-align: center;" align="center">
+<div class="admonWrapper">
     <div dojoType="encuestame.org.class.admon.user.Users"></div>
 </div>
 </div>

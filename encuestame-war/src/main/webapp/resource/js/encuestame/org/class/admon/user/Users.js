@@ -4,6 +4,10 @@ dojo.require("dijit.Dialog");
 dojo.require("dijit.form.TextBox");
 dojo.require("dijit.form.TimeTextBox");
 dojo.require("dijit.form.Button");
+dojo.require("dijit.Menu");
+dojo.require("dojox.widget.Standby");
+dojo.require("dojox.widget.Dialog");
+dojo.require("dijit.form.ToggleButton");
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dijit.layout.TabContainer");
 dojo.require("dijit.layout.ContentPane");
@@ -64,10 +68,12 @@ dojo.declare(
         },
 
         _createDirectlyUser : function(event){
+            basicStandby6.show();
             var form = dojo.byId("newUserSimpleForm");
             var formDijit = dijit.byId("newUserSimpleForm");
             if(formDijit.isValid()){
                 var load = dojo.hitch(this, function(data){
+                    basicStandby6.hide();
                     if(data.success){
                         if(data.success.userAdded == "ok"){
                             this.loadItems();
@@ -76,6 +82,7 @@ dojo.declare(
                     }
                 });
                 var error = function(error) {
+                    basicStandby6.hide();
                     console.debug("error", error);
                 };
                 encuestame.service.xhrPost(encuestame.service.list.createUser, form, load, error);
@@ -165,6 +172,8 @@ dojo.declare(
                     email.setValue(data.email);
                     var realName = dijit.byId("realName");
                     realName.setValue(data.name);
+                    //set widgets
+                    dijit.byId("widgetPermission").user = data;
                 });
                 var error = function(error) {
                     console.debug("error", error);
@@ -196,6 +205,58 @@ dojo.declare(
                 var td = dojo.doc.createElement('td');
                 td.innerHTML = status;
                 this._trbody.appendChild(td);
-            },
+            }
         }
 );
+
+dojo.declare(
+        "encuestame.org.class.admon.user.UserPermissions",
+        [dijit._Widget, dijit._Templated],{
+            templatePath: dojo.moduleUrl("encuestame.org.class.admon.user", "template/UserPermissions.inc"),
+
+            /** Allow other widgets in the template. **/
+            widgetsInTemplate: true,
+
+            user: null,
+
+            permissions: [],
+
+            postCreate: function() {
+                this.loadPermisions();
+            },
+
+            loadPermisions : function(){
+                 var load = dojo.hitch(this, function(response){
+                     console.debug(response);
+                 });
+                 var error = function(error) {
+                     console.debug("error", error);
+                 };
+                 encuestame.service.xhrGet(encuestame.service.list.listPermissions, {}, load, error);
+            },
+
+            initialize: function(){
+                var load = dojo.hitch(this, function(response){
+                    console.debug(response);
+                    this.buildPermissions(response);
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrGet(encuestame.service.list.listPermissions, {id:id}, load, error);
+
+            },
+
+            buildPermissions : function(response){
+                 var widget = new dijit.form.ToggleButton({
+                     showLabel: true,
+                     checked: false,
+                     onChange: function(val) {
+                         this.attr('label', val);
+                     },
+                     label: "false"
+                 },
+                 "programmatic");
+                 this._permissions.appendChild(widget.domNode);
+            }
+});

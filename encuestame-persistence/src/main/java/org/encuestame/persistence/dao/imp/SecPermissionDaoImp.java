@@ -36,7 +36,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements 
      * @return
      */
     @SuppressWarnings("unchecked")
-   // public Collection<SecUserPermission> loadPermissionByUserId(Integer userId)
+    // public Collection<SecUserPermission> loadPermissionByUserId(Integer userId)
     //       throws HibernateException {
     //    return getHibernateTemplate().find(
     //            "from SecUserPermission d where d.secUsers.uid =" + userId);

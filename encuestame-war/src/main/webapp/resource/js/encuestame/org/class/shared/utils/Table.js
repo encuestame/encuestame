@@ -112,7 +112,7 @@ dojo.declare(
           dojo.stopEvent(event);
           this.start = 0;
           this.loadItems();
-        },
+        }
     }
 );
 
@@ -191,6 +191,6 @@ dojo.declare(
                 var td = dojo.doc.createElement('td');
                 td.innerHTML = status;
                 this._trbody.appendChild(td);
-            },
+            }
         }
 );
