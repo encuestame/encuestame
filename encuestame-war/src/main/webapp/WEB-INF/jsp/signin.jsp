@@ -25,13 +25,11 @@
                    </div>
                     <div class="signIn">
                         <input class="btn grey" type="submit" value="Sign In" />
+                        <span style="margin-left: 5px;">
+                            <a  href="<%=request.getContextPath()%>/user/signup"><span>You need account?</span></a>
+                        </span>
                     </div>
-
-
             </form>
-            <div class="options">
-                    <a  href="<%=request.getContextPath()%>/user/signup"><span>Create Your Account</span></a>
-            </div>
       </div>
     </div>
 <%@ include file="/WEB-INF/jsp/includes/endBody.jsp" %>

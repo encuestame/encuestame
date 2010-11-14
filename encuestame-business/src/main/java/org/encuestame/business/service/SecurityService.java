@@ -344,6 +344,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             //if notification is suspended we need retrieve password
             if (getSuspendedNotification()) {
                 getServiceMail().sendRenewPasswordEmail(userBean);
+            } else {
+                log.warn("Notifications Email are suspendend");
             }
             //saving user.
             getSecUserDao().saveOrUpdate(userDomain);

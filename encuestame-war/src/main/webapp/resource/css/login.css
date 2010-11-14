@@ -4,7 +4,7 @@
 }
 
 #loginWrapper{
-    margin: 5em auto;
+    margin: 5em 12em;
     position: relative;
     text-align: left;
     z-index: 1;
@@ -17,7 +17,7 @@
     margin: auto 8em ;
     padding: 3px;
     text-align: right;
-    width: 77px;
+    width: 190px;
 }
 
 #loginWrapper div.field{

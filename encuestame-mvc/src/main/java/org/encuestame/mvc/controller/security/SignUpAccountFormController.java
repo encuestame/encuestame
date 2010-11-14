@@ -51,7 +51,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
         user.setCaptcha(captcha);
         log.info("username "+user.getCaptcha());
         model.addAttribute(user);
-        return "registerJSP";
+        return "register";
     }
 
     /**
@@ -79,13 +79,13 @@ public class SignUpAccountFormController extends AbstractSecurityController {
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ControllerValidation validation = new ControllerValidation(getSecurityService());
 
-             if(!validation.validateEmail(email)){
+             if(validation.validateUserByEmail(email) != null){
                    log.warn("Email NOT VALID");
-                   result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
+                   result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
              }
              if(!validation.validateUsername(username)){
                  log.warn("Username NOT VALID");
-                 result.rejectValue("username", "secure.user.notvalid", new Object[]{user.getUsername()}, "");
+                  result.rejectValue("username", "secure.user.notvalid"); //secure.user.notvalid
              }
             //validate captcha
             validation.validateCaptcha(reCaptchaResponse, result);
@@ -93,7 +93,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
             log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
             log.info("result.hasErrors() "+result.hasErrors());
             if (result.hasErrors()) {
-                return "registerJSP";
+                return "register";
             }
             else {
                 final String password = PasswordGenerator.getPassword(6);
