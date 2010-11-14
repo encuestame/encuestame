@@ -14,7 +14,7 @@ dojo.declare(
 
         delay: 1000,
 
-        limit: 100,
+        limit: 8,
 
         notifications : null,
 
@@ -47,12 +47,12 @@ dojo.declare(
 
         open: function(event){
             if(!this.openNot){
-                dojo.addClass(this._not, "openLivePanel");
+                dojo.addClass(this._panel, "openLivePanel");
                 if(!this.notifications){
                     this.loadNotifications();
                 }
             } else {
-                dojo.removeClass(this._not, "openLivePanel");
+                dojo.removeClass(this._panel, "openLivePanel");
             }
             this.openNot = !this.openNot;
         },
@@ -74,7 +74,6 @@ dojo.declare(
         // load notifications
         loadNotifications : function() {
             var load = dojo.hitch(this, function(data){
-                console.debug("N1", data);
                 this.notifications = data.success.notifications;
                 this.buildNotifications();
             });
@@ -85,21 +84,11 @@ dojo.declare(
         },
 
         buildNotifications : function(){
-             this.cleanNot();
-             console.debug("N", this.notifications);
+             dojo.empty(this._not);
              dojo.forEach(this.notifications,
                      dojo.hitch(this, function(item, index) {
-                         console.debug(item);
                      this.createNotification(item);
               }));
-        },
-
-        /*
-         * Remove Notification
-         */
-        removeNotification : function(notificationId){
-            var url = '/encuestame/api/remove-notification.json';
-
         },
 
         cleanNodeName : function(){
@@ -108,17 +97,6 @@ dojo.declare(
              if(name != null){
                 name.innerHTML = '';
              }
-        },
-
-        addEvents : function(){
-            /* $$(".notificationItem").each(function(item) {
-                 Event.observe(item, 'click', function(event){
-                     console.debug("click", item.getAttribute("notificationId"));
-                     this.removeNotification(item.getAttribute("notificationId"));
-                     this.loadNotifications();
-                 }.bind(this));
-              }.bind(this));
-              */
         },
 
         /*
@@ -159,5 +137,15 @@ dojo.declare(
 
             postCreate : function(){
                 console.debug("item", this.item);
-            }
+            },
+
+
+            /*
+             * Remove Notification
+             */
+            removeNotification : function(notificationId){
+                var url = '/encuestame/api/remove-notification.json';
+            },
+
+
         });

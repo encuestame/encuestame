@@ -1,3 +1,12 @@
+div.notificationWrapper{
+    padding: 13px 15px 10px 10px;
+    min-height: 15px;
+}
+
+div.notificationWrapper:hover{
+    background-color: #5A5959;
+}
+
 div.livePanel{
     display: none;
     position: absolute;
@@ -9,39 +18,76 @@ div.livePanel{
     top: 75px;
 }
 
+div.livePanel .final{
+    padding: 4px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #E8E8E8;
+}
+
 div.openLivePanel{
      display: block;
 }
 
-div.livePanel .notificationItem .left .image{
+.notificationItem{
+    padding: 5px;
+    min-height: 30px;
+}
+
+.notificationItem:hover{
+    background-color: #E8E8E8;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.livePanel .notificationItem .left{
+    float: left;
+    min-height: 30px;
+    margin-left: 10px;
+    width: 50px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+div.livePanel .notificationItem .right{
 
 }
 
-div.livePanel .notificationItem .left .warningImage{
+div.livePanel .notificationItem .right .title{
+    font-size: 110%;
+}
+
+div.livePanel .notificationItem .right .description{
+    font-size: 80%;
+    color: grey;
+    font-weight: normal;
+}
+
+div.livePanel .notificationItem .warningImage{
     background-image: url(../images/icons/1243963629_001_11.png);
 }
 
-div.livePanel .notificationItem .left .helpImage{
+div.livePanel .notificationItem  .helpImage{
     background-image: url(../images/icons/enme_question.gif);
 }
 
-div.livePanel .notificationItem .left .netWorkErrorImage{
+div.livePanel .notificationItem .netWorkErrorImage{
     background-image: url(../images/icons/enme_network-error.png);
 }
 
-div.livePanel .notificationItem .left .likeImage{
+div.livePanel .notificationItem .likeImage{
     background-image: url(../images/icons/enme_like.png);
 }
 
-div.livePanel .notificationItem .left .unLikeImage{
+div.livePanel .notificationItem .unLikeImage{
     background-image: url(../images/icons/emne_unlike.png);
 }
 
-div.livePanel .notificationItem .left .twitterImage{
+div.livePanel .notificationItem  .twitterImage{
     background-image: url(../images/icons/enme_twitter.png);
 }
 
-div.livePanel .notificationItem .left .pollImage{
+div.livePanel .notificationItem .pollImage{
     background-image: url(../images/icons/emne_poll.png);
 }
 
@@ -51,5 +97,4 @@ div.counter{
 }
 
 div.counter:hover{
-    background-color: #5A5959;
 }

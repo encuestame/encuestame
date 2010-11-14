@@ -16,7 +16,7 @@
         <li class="item"><a href="<%=request.getContextPath()%>/poll.html">Polls</a></li>
         <li class="item"><a href="<%=request.getContextPath()%>//survey.html">Surveys</a></li>
     </ul>
-    <div style="float: right; padding: 12px;" >
+    <div style="float: right;">
         <div dojoType="encuestame.org.class.commons.notifications.Notification" delay="10000"></div>
     </div>
     <br style="clear: left" />
