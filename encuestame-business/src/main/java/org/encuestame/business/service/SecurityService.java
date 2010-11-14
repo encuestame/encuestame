@@ -290,10 +290,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             SecPermission permission = iterator.next();
-            permissionBean.setId(permission.getIdPermission());
-            permissionBean.setPermission(permission.getPermission());
-            permissionBean.setDescription(permission.getPermissionDescription());
-            loadListPermission.add(permissionBean);
+            if(!permission.equals(EnMePermission.ENCUESTAME_USER)){ //this permissions not should be included.
+                permissionBean.setId(permission.getIdPermission());
+                permissionBean.setPermission(permission.getPermission().toString());
+                permissionBean.setDescription(permission.getPermissionDescription());
+                loadListPermission.add(permissionBean);
+            }
         }
         return loadListPermission;
     }
@@ -421,7 +423,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public void createPermission(final UnitPermission permissionBean) {
         final SecPermission permissionDomain = new SecPermission();
-        permissionDomain.setPermission(permissionBean.getPermission());
+        permissionDomain.setPermission(EnMePermission.getPermissionString(permissionBean.getPermission()));
         permissionDomain.setPermissionDescription(permissionBean.getDescription());
         getPermissionDao().saveOrUpdate(permissionDomain);
     }
@@ -508,9 +510,21 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link SecPermission}
      */
     public SecPermission getPermissionByName(final String permission){
+        final SecPermission permission2 = getPermissionDao().loadPermission(
+              EnMePermission.getPermissionString(permission));
+        return permission2;
+    }
+
+    /**
+     * Get Permission by {@link EnMePermission}.
+     * @param permission permission.
+     * @return
+     */
+    public SecPermission getPermissionByName(final EnMePermission permission){
         final SecPermission permission2 = getPermissionDao().loadPermission(permission);
         return permission2;
     }
+
 
     /**
      * Assign Permissions to {@link SecUserSecondary}.
@@ -534,6 +548,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param permissionBean {@link UnitPermission}
      * @throws EnMeExpcetion exception
      */
+
     public void assignPermission(
             final UnitUserBean userBean,
             final UnitPermission permissionBean)
@@ -560,6 +575,35 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
            log.info("saved permission "+userDomain.getSecUserPermissions().size());
         } else {
             throw new EnMeExpcetion("error adding permission");
+        }
+    }
+
+    /**
+     * Assign Permission,
+     * @param userId user id
+     * @param permission {@link EnMePermission}.
+     * @param loggedUse user logged.
+     * @throws EnMeExpcetion exception.
+     */
+    public void updatePermission(
+            final Long userId,
+            final String loggedUser,
+            final EnMePermission permission,
+            final String action)
+            throws EnMeExpcetion{
+        final SecUserSecondary user = getValidateUser(userId, loggedUser);
+        if(user == null){
+            throw new EnMeDomainNotFoundException("user not found");
+        } else {
+            log.debug("Update Permission "+permission.toString());
+            if(action.equals("add")){
+                user.getSecUserPermissions().add(this.getPermissionByName(permission));
+                log.debug("Added Permission "+permission.toString());
+            } else if(action.equals("remove")){
+                user.getSecUserPermissions().remove(this.getPermissionByName(permission));
+                log.debug("Removed Permission "+permission.toString());
+            }
+            getSecUserDao().saveOrUpdate(user);
         }
     }
 
@@ -602,7 +646,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param permission permission
      * @return permission bean
      */
-    public UnitPermission loadBeanPermission(final String permission) {
+    public UnitPermission loadBeanPermission(final EnMePermission permission) {
         UnitPermission permissionBean = null;
         final SecPermission permissionDomain = getPermissionDao().loadPermission(permission);
         if(permissionDomain != null){
@@ -678,7 +722,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return permission domain
      */
     public SecPermission loadPermission(final String permission) {
-        return getPermissionDao().loadPermission(permission);
+        return getPermissionDao().loadPermission(EnMePermission.getPermissionString(permission));
     }
 
     /**

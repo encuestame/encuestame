@@ -355,4 +355,19 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         return userInfo;
     }
 
+    /**
+     * Get Validated User.
+     * @param userId
+     * @param currentUsername
+     * @return
+     */
+    public SecUserSecondary getValidateUser(final Long userId, final String currentUsername){
+        final SecUserSecondary user = getSecUserDao().getSecondaryUserById(userId);
+        SecUserSecondary expetedUser = null;
+        if(this.validateOwnerGroup(user, currentUsername)){
+            expetedUser = user;
+        }
+        return expetedUser;
+    }
+
 }

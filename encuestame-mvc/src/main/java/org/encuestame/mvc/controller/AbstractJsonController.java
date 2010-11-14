@@ -18,9 +18,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
+import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;
@@ -158,6 +160,17 @@ public abstract class AbstractJsonController extends BaseController{
                 icon = "twitterImage";
             }
             return icon;
+    }
+
+    /**
+     * Get User.
+     * @param userId user Id.
+     * @return
+     * @throws EnMeDomainNotFoundException exception
+     */
+    public UnitUserBean getUser(final Long userId) throws EnMeDomainNotFoundException{
+        Assert.notNull(userId);
+        return getSecurityService().getUserCompleteInfo(userId, getUserPrincipalUsername());
     }
 
     /**

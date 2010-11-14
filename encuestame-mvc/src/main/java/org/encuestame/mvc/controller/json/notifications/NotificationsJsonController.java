@@ -14,7 +14,9 @@ package org.encuestame.mvc.controller.json.notifications;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +43,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller("notificationsJsonController")
 public class NotificationsJsonController extends AbstractJsonController {
 
+
+    /**
+     * Status Notification.
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/status-notifications.json", method = RequestMethod.GET)
+    public ModelMap status(
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        final Map<String, Object> responseJson = new HashMap<String, Object>();
+        final SecUserSecondary secondary = getByUsername(getUserPrincipalUsername());
+        final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(secondary.getSecUser());
+        final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(secondary.getSecUser());
+        responseJson.put("t", totalNot);
+        responseJson.put("n", totalNewNot);
+        setItemResponse(responseJson);
+        return returnData();
+    }
+
     /**
      * Get Notifications.
      * @param limit
@@ -61,6 +88,7 @@ public class NotificationsJsonController extends AbstractJsonController {
          if(secondary == null){
              setError("user not found", response);
          }
+         final Map<String, Object> responseJson = new HashMap<String, Object>();
          final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(secondary.getSecUser(), limit);
          final List<UtilNotification> utilNotifications = new ArrayList<UtilNotification>();
          for (Notification notification : notifications) {
@@ -74,7 +102,8 @@ public class NotificationsJsonController extends AbstractJsonController {
              utilNotification.setType(notification.getDescription().name());
              utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
          }
-         setItemResponse("notifications", utilNotifications);
+         responseJson.put("notifications", utilNotifications);
+         setItemResponse(responseJson);
          return returnData();
     }
 
@@ -114,11 +143,13 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Notification notification = getNotificationDao().retrieveNotificationById(notificationId);
+            final Map<String, Object> responseJson = new HashMap<String, Object>();
             if(notification == null){
                 setError("notification not found", response);
             } else {
                 getNotificationDao().delete(notification);
-                setItemResponse("removed", "ok");
+                responseJson.put("removed", "ok");
+                setItemResponse(responseJson);
             }
         return returnData();
     }

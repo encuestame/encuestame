@@ -15,6 +15,7 @@ package org.encuestame.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ISecPermissionDao;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SecPermission;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
@@ -57,7 +58,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements 
      * @return {@link SecPermission}
      */
     @SuppressWarnings("unchecked")
-    public SecPermission loadPermission(final String permission)
+    public SecPermission loadPermission(final EnMePermission permission)
            throws HibernateException{
         final DetachedCriteria criteria = DetachedCriteria.forClass(SecPermission.class);
         criteria.add(Restrictions.like("permission", permission) );

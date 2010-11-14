@@ -42,7 +42,7 @@ public class ConvertDomainsToSecurityContext {
             final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             for (SecPermission secPermission : permissions) {
                 if(secPermission != null){
-                    authorities.add(new GrantedAuthorityImpl(secPermission.getPermission()));
+                    authorities.add(new GrantedAuthorityImpl(secPermission.getPermission().toString()));
                 } else {
                     log.warn("Impossible granted authority");
                 }

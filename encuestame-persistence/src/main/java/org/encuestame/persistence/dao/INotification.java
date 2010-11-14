@@ -39,4 +39,19 @@ public interface INotification extends IBaseDao{
      * @return
      */
     Notification retrieveNotificationById(final Long notificationId);
+
+    /**
+     * Retrieve Notification Status
+     * @param secUser
+     * @return
+     */
+    Long retrieveTotalNotificationStatus(final SecUser secUser);
+
+   /**
+    * Retrieve Notification Status
+    * @param secUser
+    * @return
+    */
+
+   Long retrieveTotalNotReadedNotificationStatus(final SecUser secUser);
 }

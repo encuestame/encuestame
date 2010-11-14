@@ -155,7 +155,6 @@ dojo.declare(
                 var userEdit = dijit.byId("userEdit");
                 userEdit.data = this.data;
                 if(userEdit != null){
-                    userEdit.show();
                     this.getUserInfo(this.data.id);
                 }
             },
@@ -165,7 +164,9 @@ dojo.declare(
              */
             getUserInfo : function(id){
                 var load = dojo.hitch(this, function(response){
+                     dijit.byId("userEdit").show();
                     var data = response.success.user;
+                    dijit.byId("userEdit").title = data.username;
                     var name = dijit.byId("name");
                     name.setValue(data.username);
                     var email = dijit.byId("email");
@@ -173,7 +174,12 @@ dojo.declare(
                     var realName = dijit.byId("realName");
                     realName.setValue(data.name);
                     //set widgets
-                    dijit.byId("widgetPermission").user = data;
+                    if(dijit.byId("widgetPermission")){
+                        dijit.byId("widgetPermission").user = data;
+                        dijit.byId("widgetPermission").initialize();
+                    } else {
+                        console.info("Permission Widget not found");
+                    }
                 });
                 var error = function(error) {
                     console.debug("error", error);
@@ -221,13 +227,19 @@ dojo.declare(
 
             permissions: [],
 
+            widgetPermissions : [],
+
             postCreate: function() {
                 this.loadPermisions();
             },
 
             loadPermisions : function(){
                  var load = dojo.hitch(this, function(response){
-                     console.debug(response);
+                     this.permissions = response.success.permissions;
+                     dojo.forEach(this.permissions,
+                         dojo.hitch(this, function(data, index) {
+                             this.buildPermission(data);
+                         }));
                  });
                  var error = function(error) {
                      console.debug("error", error);
@@ -235,28 +247,66 @@ dojo.declare(
                  encuestame.service.xhrGet(encuestame.service.list.listPermissions, {}, load, error);
             },
 
+            resetWidgets : function(){
+                 dojo.forEach(this.widgetPermissions,
+                         dojo.hitch(this, function(data, index) {
+                             data.checked = false;
+                         }));
+            },
+
             initialize: function(){
                 var load = dojo.hitch(this, function(response){
-                    console.debug(response);
-                    this.buildPermissions(response);
+                    this.resetWidgets();
+                    dojo.forEach(this.widgetPermissions,
+                            dojo.hitch(this, function(data, index) {
+                                dojo.forEach(response.success.userPermissions,
+                                        dojo.hitch(this, function(permission, index) {
+                                        if(data.permission == permission.permission){
+                                            data.checked = true;
+                                            data.postCreate();
+                                        }
+                                }));
+                            }));
                 });
                 var error = function(error) {
                     console.debug("error", error);
                 };
-                encuestame.service.xhrGet(encuestame.service.list.listPermissions, {id:id}, load, error);
-
+              encuestame.service.xhrGet(encuestame.service.list.listUserPermissions, {id: this.user.id}, load, error);
             },
 
-            buildPermissions : function(response){
+            buildPermission : function(response){
                  var widget = new dijit.form.ToggleButton({
                      showLabel: true,
                      checked: false,
-                     onChange: function(val) {
-                         this.attr('label', val);
-                     },
-                     label: "false"
-                 },
-                 "programmatic");
-                 this._permissions.appendChild(widget.domNode);
+                     layoutAlign : "left",
+                     value : response.permission,
+                     iconClass : "dijitCheckBoxIcon",
+                     onChange:  dojo.hitch(this, function(val) {
+                         console.debug(val);
+                         var error = function(error) {
+                             console.debug("error", error);
+                         };
+                         var load = dojo.hitch(this, function(response){
+
+                         });
+                         var service;
+                         if (val) {
+                            service = encuestame.service.list.addPermission;
+                         } else {
+                            service = encuestame.service.list.removePermission;
+                         }
+                         encuestame.service.xhrGet(service,
+                                 {id: this.user.id,
+                                  permission : response.description
+                                 },
+                         load, error);
+                     }),
+                     label: response.description
+                 }, "programmatic");
+                 widget.permission = response.permission;
+                 this.widgetPermissions.push(widget);
+                 var div = dojo.doc.createElement('div');
+                 div.appendChild(widget.domNode);
+                 this._permissions.appendChild(div);
             }
 });

@@ -18,6 +18,7 @@ import java.util.List;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.service.IService;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecPermission;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
@@ -183,7 +184,7 @@ public interface ISecurityService extends IService {
      * @return permission bean
      * @throws EnMeExpcetion excepcion
      */
-    UnitPermission loadBeanPermission(final String permission)
+    UnitPermission loadBeanPermission(final EnMePermission  permission)
     throws EnMeExpcetion;
 
     /**
@@ -332,4 +333,17 @@ public interface ISecurityService extends IService {
     void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
             final String username) throws EnMeExpcetion;
 
+    /**
+     * Assign Permission,
+     * @param userId user id
+     * @param permission {@link EnMePermission}.
+     * @param loggedUse user logged.
+     * @throws EnMeExpcetion exception.
+     */
+    void updatePermission(
+            final Long userId,
+            final String loggedUser,
+            final EnMePermission permission,
+            final String action)
+            throws EnMeExpcetion;
 }

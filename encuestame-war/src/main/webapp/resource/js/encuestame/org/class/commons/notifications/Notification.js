@@ -16,14 +16,18 @@ dojo.declare(
 
         limit: 100,
 
+        notifications : null,
+
+        lastNew : 0,
+
+        totalNot : 0,
+
         timer: null,
 
-        postMixInProperties: function(){
-
-        },
+        openNot : false,
 
         postCreate: function() {
-            this.loadNotifications();
+            this.loadStatus();
             this.loadTimer();
         },
 
@@ -34,25 +38,60 @@ dojo.declare(
             var father = this;
             this.timer = new dojox.timing.Timer(this.delay);
             this.timer.onTick = function() {
-                father.loadNotifications();
-            }
+                father.loadStatus();
+            };
             this.timer.onStart = function() {
-            }
+            };
             this.timer.start();
         },
 
+        open: function(event){
+            if(!this.openNot){
+                dojo.addClass(this._not, "openLivePanel");
+                if(!this.notifications){
+                    this.loadNotifications();
+                }
+            } else {
+                dojo.removeClass(this._not, "openLivePanel");
+            }
+            this.openNot = !this.openNot;
+        },
+
      // load notifications
+        loadStatus : function() {
+            var load = dojo.hitch(this, function(data){
+                var total = data.success.t;
+                var totalNew = data.success.n;
+                this.lastNew = totalNew;
+                this._count.innerHTML = data.success.t;
+            });
+            var error =  dojo.hitch(this, function(error) {
+                this.timer.stop();
+            });
+            encuestame.service.xhrGet(encuestame.service.list.getStatusNotifications, {}, load, error);
+        },
+
+        // load notifications
         loadNotifications : function() {
             var load = dojo.hitch(this, function(data){
-                console.debug("data", data);
-                var array = data.success.notifications;
-                this._count.innerHTML = array.length;
+                console.debug("N1", data);
+                this.notifications = data.success.notifications;
+                this.buildNotifications();
             });
-            var error = function(error) {
-                console.debug("error", error);
+            var error =  dojo.hitch(this, function(error) {
                 this.timer.stop();
-            };
-            encuestame.service.xhrGet(encuestame.service.list.getNotifications,{ limit: this.limit}, load, error);
+            });
+            encuestame.service.xhrGet(encuestame.service.list.getNotifications, {limit:this.limit}, load, error);
+        },
+
+        buildNotifications : function(){
+             this.cleanNot();
+             console.debug("N", this.notifications);
+             dojo.forEach(this.notifications,
+                     dojo.hitch(this, function(item, index) {
+                         console.debug(item);
+                     this.createNotification(item);
+              }));
         },
 
         /*
@@ -60,39 +99,7 @@ dojo.declare(
          */
         removeNotification : function(notificationId){
             var url = '/encuestame/api/remove-notification.json';
-            /* var json =
-            /*new Ajax.Request(url, {
-                method : 'get',
-                parameters : {
-                notificationId : notificationId
-                },
-                onSuccess : function(transport) {
-                    var tran = transport;
-                    if(transport.status == 200){
-                       console.debug("ok");
-                    } else {
-                        if(transport.status == 0){
-                             this.createNetworkError("You are lost Internet Connection", "Connection time out");
-                        } else {
-                            console.error("other error", transport.status);
-                        }
-                    }
-                }.bind(this),
 
-                onComplete : function(complete) {
-                    //Remove error messages or something.
-                }.bind(this),
-
-                onLoading : function(loading) {
-                  console.debug("loading", loading);
-                }.bind(this),
-
-                onFailure : function(resp) {
-                    console.debug("Oops, there's been an error.", resp);
-                    this.createNetworkError("Error", resp);
-                }.bind(this)
-            });
-            */
         },
 
         cleanNodeName : function(){
@@ -127,29 +134,30 @@ dojo.declare(
             this.createNotification(item);
         },
 
+        cleanNot : function(){
+            dojo.empty(this._not);
+        },
+
         /*
          * Create Notification.
          */
         createNotification : function(item){
-            var livePanel = $(this.nodeName);
-            var div = new Element('div', { 'class': 'notificationItem', "notificationId" : item.id });
-            var divLeft = new Element('div', { 'class': 'left' });
-            var span = new Element('span', { 'class': 'image '+item.icon });
-            divLeft.update(span);
-            div.appendChild(divLeft)
-            var divRight = new Element('div', { 'class': 'right' });
-            var description = new Element('div', { 'class': 'title' }).update(item.description);
-            var question = new Element('div', { 'class': 'question' });
-            if(item.type == "TWEETPOLL_PUBLISHED"){
-                var a = new Element('a', { 'href': item.additionalDescription, "target": "_blank" }).update(item.additionalDescription);
-                question.update(a);
-            } else {
-                question.update(item.additionalDescription);
-            }
-            divRight.insert(description)
-            divRight.insert(question)
-            div.appendChild(divRight)
-            livePanel.appendChild(div);
+            var not = new encuestame.org.class.commons.notifications.NotificationItem({item:item});
+            this._not.appendChild(not.domNode);
         }
     }
 );
+
+dojo.declare(
+        "encuestame.org.class.commons.notifications.NotificationItem",
+        [dijit._Widget, dijit._Templated],{
+            templatePath: dojo.moduleUrl("encuestame.org.class.commons.notifications", "template/notificationItem.inc"),
+
+            widgetsInTemplate: true,
+
+            item : null,
+
+            postCreate : function(){
+                console.debug("item", this.item);
+            }
+        });

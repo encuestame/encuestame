@@ -14,6 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SecPermission;
 import org.hibernate.HibernateException;
 
@@ -39,7 +40,7 @@ public interface ISecPermissionDao extends IBaseDao {
      * @return {@link SecPermission}
      * @throws HibernateException exception
      */
-    SecPermission loadPermission(String permission);
+    SecPermission loadPermission(EnMePermission permission);
     /**
      * Get Permission.
      * @param permId permission

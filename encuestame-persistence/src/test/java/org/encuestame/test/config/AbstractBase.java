@@ -24,6 +24,7 @@ import org.encuestame.persistence.domain.CatLocationFolder;
 import org.encuestame.persistence.domain.CatLocationType;
 import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Client;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
@@ -681,7 +682,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public SecPermission createPermission(final String permissionName){
         final SecPermission permission = new SecPermission();
         permission.setPermissionDescription(permissionName);
-        permission.setPermission(permissionName);
+        permission.setPermission(EnMePermission.getPermissionString(permissionName));
         getSecPermissionDaoImp().saveOrUpdate(permission);
         return permission;
     }

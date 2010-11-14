@@ -17,10 +17,13 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import org.encuestame.persistence.domain.EnMePermission;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -37,7 +40,7 @@ import javax.persistence.Table;
 public class SecPermission {
 
     private Long idPermission;
-    private String permission;
+    private EnMePermission permission;
     private String permissionDescription;
     private Set<SecGroup> secGroups = new HashSet<SecGroup>();
     private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
@@ -63,14 +66,15 @@ public class SecPermission {
      * @return permission
      */
     @Column(name = "permission")
-    public String getPermission() {
+    @Enumerated(EnumType.STRING)
+    public EnMePermission getPermission() {
         return this.permission;
     }
 
     /**
      * @param permission permission
      */
-    public void setPermission(String permission) {
+    public void setPermission(EnMePermission permission) {
         this.permission = permission;
     }
 

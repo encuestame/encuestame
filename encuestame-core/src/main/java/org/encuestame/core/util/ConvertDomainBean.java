@@ -62,7 +62,6 @@ import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitUserBean;
 import org.encuestame.utils.web.UtilTreeNode;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * Convert Domain to  Beans.
@@ -382,7 +381,7 @@ public class ConvertDomainBean {
       final UnitPermission permBean = new UnitPermission();
       permBean.setId(permission.getIdPermission());
       permBean.setDescription(permission.getPermissionDescription());
-      permBean.setPermission(permission.getPermission());
+      permBean.setPermission(permission.getPermission().toString());
       return permBean;
     }
 

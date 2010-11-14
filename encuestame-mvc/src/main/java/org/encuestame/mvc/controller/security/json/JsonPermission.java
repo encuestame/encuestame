@@ -22,11 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
+import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,7 +73,7 @@ public class JsonPermission  extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_ADMIN, ENCUESTAME_OWNER')")
+    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
     @RequestMapping(value = "/api/admon/list-user-permissions.json", method = RequestMethod.GET)
     public ModelMap getUserPermissions(
             @RequestParam(value = "id", required = true) Long userId,
@@ -78,7 +81,9 @@ public class JsonPermission  extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                final UnitUserBean user = getSecurityService().getUserCompleteInfo(userId, getUserPrincipalUsername());
+                final UnitUserBean user = getUser(userId);
+                log.debug("user.getListPermission() "+user.getUsername());
+                log.debug("user.getListPermission() "+user.getListPermission().size());
                 jsonResponse.put("userPermissions", user.getListPermission());
                 setItemResponse(jsonResponse);
             } catch (EnMeDomainNotFoundException e) {
@@ -86,5 +91,37 @@ public class JsonPermission  extends AbstractJsonController{
                 log.error(e);
             }
         return returnData();
+    }
+
+    /**
+     *
+     * @param userId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
+    @RequestMapping(value = "/api/admon/{action}-permission.json", method = RequestMethod.GET)
+    public ModelMap addPermission(
+             @PathVariable String action,
+             @RequestParam(value = "id", required = true) Long userId,
+             @RequestParam(value = "permission", required = true) String permission,
+             HttpServletRequest request,
+             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+            try {
+                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+                getSecurityService().updatePermission(userId,
+                                     getUserPrincipalUsername(),
+                                     EnMePermission.getPermissionString(permission), action);
+                jsonResponse.put("p", "ok");
+                setItemResponse(jsonResponse);
+            } catch (EnMeExpcetion e) {
+                setError(e.getMessage(), response);
+                log.error(e);
+            }
+            return returnData();
     }
 }

@@ -1,52 +1,20 @@
 div.livePanel{
-    background-color: #D1D7E3;
-   -webkit-border-radius: 0 4px 0px 0;
-   -moz-border-radius: 0 4px 0px 0;
-   border-radius: 0 4px 0px 0;
-    min-height: 510px;
-    border: 1px solid #DFDFDF;
-   border-collapse: separate;
+    display: none;
+    position: absolute;
+    min-height: 200px;
+    width: 400px;
+    border: 1px solid #000;
+    background-color: #FFF;
+    right: 120px;
+    top: 75px;
 }
 
-div.livePanel .notificationItem{
-    border-bottom: 1px solid #DFDFDF;
-    border-top: 1px solid #DFDFDF;
-    min-height: 45px;
-    cursor: pointer;
-    max-height: 45px;
-    padding: 10px;
-}
-
-div.livePanel .notificationItem:hover{
-    background-color: #F6F6F6;
-}
-
-div.livePanel .notificationItem .title{
-    font-size: 1em;
-    color: #3B3B3B;
-    font-weight: normal;
-    text-shadow : 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-div.livePanel .notificationItem .question{
-    font-style: italic;
-    font-size: 10px;
-}
-
-
-div.livePanel .notificationItem .left{
-    float: left;
-    clear: both;
-    min-height: 50px
+div.openLivePanel{
+     display: block;
 }
 
 div.livePanel .notificationItem .left .image{
-    display: inline-block;
-    height: 24px;
-    min-width: 24px;
-    background-repeat: no-repeat;
-    margin-top: 5px;
-    padding: 5px;
+
 }
 
 div.livePanel .notificationItem .left .warningImage{
@@ -75,4 +43,13 @@ div.livePanel .notificationItem .left .twitterImage{
 
 div.livePanel .notificationItem .left .pollImage{
     background-image: url(../images/icons/emne_poll.png);
+}
+
+div.counter{
+    color: #FFF;
+    cursor: pointer;
+}
+
+div.counter:hover{
+    background-color: #5A5959;
 }

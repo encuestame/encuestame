@@ -24,6 +24,7 @@ import org.encuestame.persistence.domain.CatLocationType;
 import org.encuestame.persistence.domain.CatQuestionCategory;
 import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Client;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
@@ -197,7 +198,7 @@ public class TestHibernateDomains extends AbstractBase{
     @Test
     public void testSecPermission(){
         final SecPermission permission = new SecPermission();
-        permission.setPermission("Administrator");
+        permission.setPermission(EnMePermission.getPermissionString("ENCUESTAME_ADMIN"));
         permission.setPermissionDescription("Administrator of alls options");
         permission.getSecGroups().add(createGroups("administrator"));
         permission.getSecUserSecondaries().add(createSecondaryUser("juan carlos", createUser()));
