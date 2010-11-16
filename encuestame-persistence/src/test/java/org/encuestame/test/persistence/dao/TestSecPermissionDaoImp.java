@@ -49,7 +49,7 @@ public class TestSecPermissionDaoImp extends AbstractBase {
      */
     @Test
     public void testloadPermission(){
-        final SecPermission retrievedPermission = getSecPermissionDaoImp().loadPermission(EnMePermission.ENCUESTAME_USER.name());
+        final SecPermission retrievedPermission = getSecPermissionDaoImp().loadPermission(EnMePermission.ENCUESTAME_USER);
         assertEquals("should be equals", permission.getPermission(), retrievedPermission.getPermission());
     }
 
