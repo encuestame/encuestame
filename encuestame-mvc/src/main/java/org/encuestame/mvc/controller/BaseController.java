@@ -14,23 +14,30 @@
 package org.encuestame.mvc.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import junit.framework.Assert;
 
 import net.tanesha.recaptcha.ReCaptcha;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.business.service.ProjectService;
 import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.DateUtil;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,6 +236,16 @@ public abstract class BaseController extends AbstractSecurityContext{
     }
 
     /**
+     * Filter Value.
+     * @param value value.
+     * @return
+     */
+    public String filterValue(String value){
+        final HTMLInputFilter vFilter = new HTMLInputFilter(true);
+        return vFilter.filter(value);
+    }
+
+    /**
      * @param serviceManager
      *            the serviceManager to set
      */
@@ -253,11 +270,27 @@ public abstract class BaseController extends AbstractSecurityContext{
     }
 
     /**
+     * Location Service.
+     * @return
+     */
+    public ILocationService getLocationService(){
+        return getServiceManager().getApplicationServices().getLocationService();
+    }
+
+    /**
      * Get {@link TweetPollService}.
      * @return
      */
     public ITweetPollService getTweetPollService(){
         return getServiceManager().getApplicationServices().getTweetPollService();
+    }
+
+    /**
+     * Get {@link ProjectService}.
+     * @return
+     */
+    public IProjectService getProjectService(){
+        return getServiceManager().getApplicationServices().getProjectService();
     }
 
     /**
@@ -289,5 +322,17 @@ public abstract class BaseController extends AbstractSecurityContext{
     @Autowired
     public void setReCaptcha(final ReCaptcha reCaptcha) {
         this.reCaptcha = reCaptcha;
+    }
+
+    /**
+     * Get Format Date.
+     * @param date
+     * @return
+     */
+    public Date getFormatDate(final String date){
+        Assert.assertNotNull(date);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+        simpleDateFormat.format(DateUtil.DEFAULT_FORMAT_DATE);
+        return simpleDateFormat.getCalendar().getTime();
     }
 }

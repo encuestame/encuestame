@@ -79,7 +79,7 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
     }
 
     /**
-     * Get Location Folders.
+     * Get Location Root Folders.
      * @param userId userId.
      * @return
      */

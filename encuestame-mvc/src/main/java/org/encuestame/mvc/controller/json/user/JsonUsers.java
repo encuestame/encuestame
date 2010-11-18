@@ -73,6 +73,7 @@ public class JsonUsers extends AbstractJsonController{
             setItemResponse(sucess);
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

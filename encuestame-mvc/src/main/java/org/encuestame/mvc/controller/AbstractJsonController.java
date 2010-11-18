@@ -104,6 +104,29 @@ public abstract class AbstractJsonController extends BaseController{
     }
 
     /**
+     * Set Succes Response.
+     */
+    protected void setSuccesResponse(){
+        final Map<String, Object> response = new HashMap<String, Object>();
+        response.put("r", 0);
+        setItemResponse(response);
+    }
+
+    /**
+     * Set Item Read Store Response.
+     * @param label label
+     * @param id id
+     * @param items items
+     */
+    protected void setItemReadStoreResponse(final String label, final String id, final Object items){
+         final Map<String, Object> store = new HashMap<String, Object>();
+         store.put("identifier", id);
+         store.put("label", label);
+         store.put("items", items);
+         setItemResponse(store);
+    }
+
+    /**
      * Handler for {@link AccessDeniedException}
      * @param ex exception
      * @return {@link ModelAndView}.

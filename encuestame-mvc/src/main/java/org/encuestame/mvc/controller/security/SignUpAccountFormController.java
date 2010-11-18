@@ -43,6 +43,8 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(types = SignUpBean.class)
 public class SignUpAccountFormController extends AbstractSecurityController {
 
+    private final Integer PASSWORD_LENGHT = 8;
+
     @RequestMapping(value = "/user/signup.html" , method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
@@ -72,8 +74,8 @@ public class SignUpAccountFormController extends AbstractSecurityController {
         @ModelAttribute SignUpBean user, BindingResult result, SessionStatus status) {
              log.info("recaptcha_challenge_field "+challenge);
              log.info("recaptcha_response_field "+response);
-             final String email = user.getEmail();
-             final String username = user.getUsername();
+             final String email = filterValue(user.getEmail());
+             final String username = filterValue(user.getUsername());
              log.info("username "+username);
              log.info("password "+email);
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
@@ -96,7 +98,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
                 return "register";
             }
             else {
-                final String password = PasswordGenerator.getPassword(6);
+                final String password = PasswordGenerator.getPassword(PASSWORD_LENGHT);
                 user.setPassword(password);
                 //create
                 final UnitUserBean unitUserBean = getSecurityService().singupUser(user);

@@ -37,7 +37,11 @@ public abstract class AbstractSecurityContext {
      * @return
      */
     public String getUserPrincipalUsername(){
-       return getSecCtx().getAuthentication().getName();
+        String username = "";
+        if(getSecCtx().getAuthentication() != null){
+            username = getSecCtx().getAuthentication().getName();
+        }
+       return username;
     }
 
 
@@ -55,7 +59,9 @@ public abstract class AbstractSecurityContext {
         EnMeUserDetails details = null;
         log.debug("Authentication Object "+getSecCtx().getAuthentication());
         if(getSecCtx().getAuthentication() != null){
-            details =  (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+            if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserDetails){
+                details =  (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+            }
         }
         return details;
     }
