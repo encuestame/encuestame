@@ -36,17 +36,21 @@ encuestame.service.xhrGet = function(url, params, load, error){
                     break;
                 case 404:
                     message = "The requested page was not found";
+                    console.debug(message);
                 case 500:
                     break;
                     message = "The server reported an error.";
+                    console.debug(message);
                     break;
                 case 407:
                     message = "You need to authenticate with a proxy.";
+                    console.debug(message);
                     break;
                 default:
                     message = "Unknown error.";
+                    console.debug(message);
                 }
-                console.debug(message);
+
               }
           });
     }
@@ -90,3 +94,4 @@ encuestame.service.list.listPermissions = "/encuestame/api/admon/list-permission
 encuestame.service.list.listUserPermissions = "/encuestame/api/admon/list-user-permissions.json";
 encuestame.service.list.addPermission = "/encuestame/api/admon/add-permission.json";
 encuestame.service.list.removePermission = "/encuestame/api/admon/remove-permission.json";
+encuestame.service.list.hashtags = "/encuestame/api/common/hashtags.json";
