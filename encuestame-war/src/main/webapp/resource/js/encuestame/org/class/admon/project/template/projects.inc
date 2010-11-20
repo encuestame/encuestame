@@ -1,3 +1,3 @@
 <div>
-DashBoard Widget Test.
+    Project.
 </div>

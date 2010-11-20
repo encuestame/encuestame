@@ -110,10 +110,10 @@ public class TestSurveyDao extends AbstractBase {
          this.surveyPag = createSurveyPagination(1, surveySection,this.survey);
          final SurveySection s2 = createSurveySection(this.state, "Second Section");
          createSurveyPagination(1, s2, this.survey);
-         System.out.println(surveyPag.getPageNumber());
-         System.out.println(surveyPag.getSurveySection().getSsid());
-         System.out.println(surveyPag.getSurveySection().getDescSection());
-         System.out.println(surveyPag.getSurvey().getName());
+         //System.out.println(surveyPag.getPageNumber());
+         //System.out.println(surveyPag.getSurveySection().getSsid());
+         //System.out.println(surveyPag.getSurveySection().getDescSection());
+         //System.out.println(surveyPag.getSurvey().getName());
 
          final List sectionsByPage = getSurveyDaoImp().retrieveSectionByPagination(surveyPag.getPageNumber());
          assertEquals("Should be equals", 2, sectionsByPage.size());

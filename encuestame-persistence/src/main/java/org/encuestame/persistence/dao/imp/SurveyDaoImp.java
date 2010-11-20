@@ -112,7 +112,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         final SurveySection ssection = this.retrieveSurveySectionById(secId);
         List questionsSection = new ArrayList(ssection.getQuestionSection());
          //final List  quest = ssection.getQuestionSection();
-         System.out.println(questionsSection.size());
+         //System.out.println(questionsSection.size());
         return questionsSection;
     }
 
@@ -121,7 +121,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      */
     @SuppressWarnings("unchecked")
     public List<SurveyPagination> retrieveSectionByPagination(final Integer pagId){
-        System.out.println(pagId);
+        //System.out.println(pagId);
         final DetachedCriteria criteria = DetachedCriteria	.forClass(SurveyPagination.class);
         criteria.add(Restrictions.eq("pageNumber", 1));
         return getHibernateTemplate().findByCriteria(criteria);

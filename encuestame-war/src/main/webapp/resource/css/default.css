@@ -1,10 +1,8 @@
-@import url("public.css");
 @import url("button.css");
 @import url("profile.css");
 @import url("social.css");
 @import url("suggest.css");
 @import url("table.css");
-@import url("menu.css");
 @import url("livePanel.css");
 
 html, body {
@@ -182,4 +180,8 @@ a:hover{
     margin: 10px;
     color: #000;
     font-weight: bold;
+}
+
+.defaultMarginWrapper{
+    margin: 0 8%;
 }

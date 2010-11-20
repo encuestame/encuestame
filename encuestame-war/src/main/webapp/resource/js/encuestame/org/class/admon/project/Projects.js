@@ -1,21 +1,17 @@
-dojo.provide("encuestame.org.class.commons.dashboard.Dashboard");
+dojo.provide("encuestame.org.class.admon.project.Projects");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 
 dojo.declare(
-    "encuestame.org.class.commons.dashboard.Dashboard",
+    "encuestame.org.class.admon.project.Projects",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.dashboard", "template/Dashboard.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.class.admon.project", "template/project.inc"),
 
         widgetsInTemplate: true,
 
-        postMixInProperties: function(){
-
-        },
-
         postCreate: function() {
 
-        },
+        }
     }
 );

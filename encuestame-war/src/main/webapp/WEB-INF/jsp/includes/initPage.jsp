@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <%@ include file="/WEB-INF/jsp/includes/css.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
+    <script type="text/javascript">
+         dojo.require("dijit.dijit");
+         dojo.require("dojo.parser");
+    </script>
     <style type="css">
         img{ border:0px;}
     </style>

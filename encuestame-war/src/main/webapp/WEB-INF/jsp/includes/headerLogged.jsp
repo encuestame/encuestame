@@ -31,8 +31,7 @@
                         <ul>
                             <li>
                                 <img src="" alt="test" />
-                            </li>
-                   <%@ include file="/WEB-INF/jsp/includes/css.jsp" %>           <li>
+                            </li>           <li>
                                <a href="/user/social.html">Social Accounts</a>
                             </li>
                             <li>

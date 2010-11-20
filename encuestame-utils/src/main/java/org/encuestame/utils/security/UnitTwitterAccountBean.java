@@ -136,7 +136,7 @@ public class UnitTwitterAccountBean implements Serializable {
     }
 
     public void setToken(String token) {
-        System.out.println("token "+token);
+        //System.out.println("token "+token);
         this.token = token;
     }
 
@@ -145,7 +145,7 @@ public class UnitTwitterAccountBean implements Serializable {
     }
 
     public void setSecretToken(String secretToken) {
-        System.out.println("secretToken "+secretToken);
+        //System.out.println("secretToken "+secretToken);
         this.secretToken = secretToken;
     }
 }

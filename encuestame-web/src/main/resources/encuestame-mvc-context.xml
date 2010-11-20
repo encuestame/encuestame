@@ -10,22 +10,22 @@
   <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
     <property name="mappings">
       <value>
-        /main.html=flowController
+        /main.html=urlFilenameViewController
         /admon/groups.html=urlFilenameViewController
         /admon/users.html=urlFilenameViewController
         /admon/location.html=urlFilenameViewController
         /admon/project.html=urlFilenameViewController
 
-        /tweetpoll.html=flowController
-        /poll.html=flowController
-        /survey.html=flowController
+        /tweetpoll.html=urlFilenameViewController
+        /poll.html=urlFilenameViewController
+        /survey.html=urlFilenameViewController
 
-        /user/profile.html=flowController
-        /user/social.html=flowController
+        /user/profile.html=urlFilenameViewController
+        /user/social.html=urlFilenameViewController
         /user/resister.html=urlFilenameViewController
         /user/signin.html=urlFilenameViewController
         /user/forgot.html=urlFilenameViewController
-        /user/lists.html=flowController
+        /user/lists.html=urlFilenameViewController
 
         /votes/tweetPoll.html=urlFilenameViewController
         /votes/poll.html=urlFilenameViewController
