@@ -8,13 +8,13 @@
                 <img src="<%=request.getContextPath()%>/resource/images/icons/enme_home.png" alt="Home" />
             </a>
         </li>
-        <li class="item"><a href="<%=request.getContextPath()%>/admon/users.html">Users</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>/admon/groups.html">Groups</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>/admon/location.html">Locations</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>/admon/project.html">Projects</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>/tweetpoll.html">TweetPolls</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>/poll.html">Polls</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>//survey.html">Surveys</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/admon/users.jspx">Users</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/admon/groups.jspx">Groups</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/admon/location.jspx">Locations</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/admon/project.jspx">Projects</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/tweetpoll.jspx">TweetPolls</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/poll.jspx">Polls</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>//survey.jspx">Surveys</a></li>
     </ul>
     <div style="float: right;">
         <div dojoType="encuestame.org.class.commons.notifications.Notification" delay="10000"></div>

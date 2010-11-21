@@ -1,9 +1,9 @@
 <div class="wrapper">
  <div id="publicLineHeader">
         <div class="headerOptions">
-                <form method="get" action="<%=request.getContextPath()%>/search.html">
+                <form method="get" action="<%=request.getContextPath()%>/search.jspx">
                         <span class="link">
-                           <a href="<%=request.getContextPath()%>/signin.html">Sign In</a>
+                           <a href="<%=request.getContextPath()%>/signin.jspx">Sign In</a>
                         </span>
                          <span class="link">
                             <a href="<%=request.getContextPath()%>/account/dashboard">My Dashboard</a>
@@ -32,13 +32,13 @@
                             <li>
                                 <img src="" alt="test" />
                             </li>           <li>
-                               <a href="/user/social.html">Social Accounts</a>
+                               <a href="/user/social.jspx">Social Accounts</a>
                             </li>
                             <li>
-                               <a href="/user/lists.html">Email List</a>
+                               <a href="/user/lists.jspx">Email List</a>
                             </li>
                             <li>
-                                <a href="/user/profile.html">Profile Settings</a>
+                                <a href="/user/profile.jspx">Profile Settings</a>
                             </li>
                             <li>
                                 <a href="/user/logout">Log Out</a>
