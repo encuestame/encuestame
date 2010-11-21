@@ -8,7 +8,7 @@ dojo.require("dijit._Widget");
 dojo.declare(
     "encuestame.org.class.commons.tweetPoll.Answers",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "template/answers.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "template/answer.inc"),
 
         widgetsInTemplate: true,
 

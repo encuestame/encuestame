@@ -3,9 +3,8 @@ dojo.provide("encuestame.org.class.shared.utils.Suggest");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.form.TextBox");
-dojo.require('encuestame.org.class.commons');
-
 dojo.require("dojox.data.QueryReadStore");
+dojo.require('encuestame.org.class.commons');
 
 dojo.declare(
     "encuestame.org.class.shared.utils.Suggest",
