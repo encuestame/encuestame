@@ -154,7 +154,7 @@
     -->
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.jspx</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>

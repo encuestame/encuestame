@@ -1,5 +1,5 @@
 <%
-    String redirectURL = "index.html";
+    String redirectURL = "home";
     response.sendRedirect(redirectURL);
 
 %>

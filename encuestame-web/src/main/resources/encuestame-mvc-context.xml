@@ -10,26 +10,26 @@
   <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
     <property name="mappings">
       <value>
-        /main.html=urlFilenameViewController
-        /admon/groups.html=urlFilenameViewController
-        /admon/users.html=urlFilenameViewController
-        /admon/location.html=urlFilenameViewController
-        /admon/project.html=urlFilenameViewController
+        /main.jspx=urlFilenameViewController
+        /admon/groups.jspx=urlFilenameViewController
+        /admon/users.jspx=urlFilenameViewController
+        /admon/location.jspx=urlFilenameViewController
+        /admon/project.jspx=urlFilenameViewController
 
-        /tweetpoll.html=urlFilenameViewController
-        /poll.html=urlFilenameViewController
-        /survey.html=urlFilenameViewController
+        /tweetpoll.jspx=urlFilenameViewController
+        /poll.jspx=urlFilenameViewController
+        /survey.jspx=urlFilenameViewController
 
-        /user/profile.html=urlFilenameViewController
-        /user/social.html=urlFilenameViewController
-        /user/resister.html=urlFilenameViewController
-        /user/signin.html=urlFilenameViewController
-        /user/forgot.html=urlFilenameViewController
-        /user/lists.html=urlFilenameViewController
+        /user/profile.jspx=urlFilenameViewController
+        /user/social.jspx=urlFilenameViewController
+        /user/resister.jspx=urlFilenameViewController
+        /user/signin.jspx=urlFilenameViewController
+        /user/forgot.jspx=urlFilenameViewController
+        /user/lists.jspx=urlFilenameViewController
 
-        /votes/tweetPoll.html=urlFilenameViewController
-        /votes/poll.html=urlFilenameViewController
-        /votes/survey.html=urlFilenameViewController
+        /votes/tweetPoll.jspx=urlFilenameViewController
+        /votes/poll.jspx=urlFilenameViewController
+        /votes/survey.jspx=urlFilenameViewController
 
        </value>
     </property>

@@ -27,7 +27,9 @@ Building this version requires Apache Maven 2 to build. Version 2.0.10 or higher
 
 After get source code is necesary move to top level and  run following command:
 
-    mvn install
+    ant build - to get dojo source code, maybe you need change parameters on buildDojo.sh
+
+    mvn install - to install app
 
 After doing this, you can run jetty server running following command:
 
@@ -37,5 +39,3 @@ After doing this, you can run jetty server running following command:
 If you want deploy on webcontainer you can find WAR file on (after run mvn install on top level):
 
     encuestame-war/target/encuestame.war
-
-

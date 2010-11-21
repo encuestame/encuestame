@@ -1,0 +1,8 @@
+<project name="encuestame">
+	<target name="build">
+		<exec executable="/bin/bash">
+			<arg value="buildDojo.sh"/>
+			<arg value="/tmp"/>
+		</exec>
+	</target>
+</project>

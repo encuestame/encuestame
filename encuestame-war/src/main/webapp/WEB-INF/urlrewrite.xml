@@ -27,71 +27,71 @@
 
     <rule>
         <from>^/user/signin</from>
-        <to>/signin.html</to>
+        <to>/signin.jspx</to>
     </rule>
     <rule>
-      <from>^/signin.html</from>
+      <from>^/signin.jspx</from>
       <to type="redirect">user/signin</to>
     </rule>
     <rule>
-      <from>^/index.html</from>
+      <from>^/index.jspx</from>
       <to type="redirect">home</to>
     </rule>
     <rule>
         <from>^/home</from>
-        <to>/index.html</to>
+        <to>/index.jspx</to>
     </rule>
     <rule>
-      <from>^/dashboard.html</from>
+      <from>^/dashboard.jspx</from>
       <to type="redirect">account/dashboard</to>
     </rule>
     <rule>
         <from>^/account/dashboard</from>
-        <to>/dashboard.html</to>
+        <to>/dashboard.jspx</to>
     </rule>
     <rule>
-      <from>^/error.html</from>
+      <from>^/error.jspx</from>
       <to type="redirect">user/denied</to>
     </rule>
     <rule>
         <from>^/user/denied</from>
-        <to>/error.html</to>
+        <to>/error.jspx</to>
     </rule>
     <rule>
         <from>^/user/signup</from>
-        <to>/user/signup.html</to>
+        <to>/user/signup.jspx</to>
     </rule>
     <rule>
         <from>^/user/forgot</from>
-        <to>/user/forgot.html</to>
+        <to>/user/forgot.jspx</to>
     </rule>
 
     <!-- Detail View Votes -->
     <rule>
         <from>^/tweet/view/(.*)$</from>
-        <to>/view/tweetPoll.html?id=$1</to>
+        <to>/view/tweetPoll.jspx?id=$1</to>
     </rule>
     <rule>
         <from>^/poll/view/(.*)$</from>
-        <to>/votes/poll.html?id=$1</to>
+        <to>/votes/poll.jspx?id=$1</to>
     </rule>
     <rule>
         <from>^/survey/view/(.*)$</from>
-        <to>/votes/survey.html?id=$1</to>
+        <to>/votes/survey.jspx?id=$1</to>
     </rule>
 
     <!--  Votes -->
     <rule>
         <from>^/tweet/vote/(.*)$</from>
-        <to>/vote/tweet.html?id=$1</to>
+        <to>/vote/tweet.jspx?id=$1</to>
     </rule>
     <rule>
         <from>^/poll/vote/(.*)$</from>
-        <to>/vote/poll.html?id=$1</to>
+        <to>/vote/poll.jspx?id=$1</to>
     </rule>
     <rule>
         <from>^/survey/vote/(.*)$</from>
-        <to>/vote/survey.html?id=$1</to>
+        <to>/vote/survey.jspx?id=$1</to>
     </rule>
 
 </urlrewrite>
