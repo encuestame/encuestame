@@ -11,7 +11,7 @@ dojo.require("encuestame.org.class.commons.tweetPoll.HashTags");
 dojo.declare(
     "encuestame.org.class.commons.tweetPoll.TweetPoll",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "template/tweetpoll.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "templates/tweetpoll.inc"),
 
         widgetsInTemplate: true,
 

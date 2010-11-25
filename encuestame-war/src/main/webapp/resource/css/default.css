@@ -185,3 +185,33 @@ a:hover{
 .defaultMarginWrapper{
     margin: 0 8%;
 }
+
+.defaultDisplayBlock{
+    display: block;
+}
+
+.defaultDisplayHide{
+    display: none;
+}
+
+/** Suggest. **/
+
+div.suggestBox{
+    position: absolute;
+    width: 216px;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+div.suggestBox .suggesItem{
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+div.suggestBox .suggesItem:hover{
+    background-color: #939397;
+    color: #FFF;
+}

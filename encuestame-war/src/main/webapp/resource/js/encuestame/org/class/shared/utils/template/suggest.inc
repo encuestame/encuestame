@@ -4,14 +4,7 @@
            dojoType="dijit.form.TextBox"
            trim="true"
            propercase="true"></input>
-    <div class="suggestBox" style="display: none;
-            position: absolute;
-            min-height: 200px;
-            width: 400px;
-            border: 1px solid #000;
-            background-color: #FFF;
-            right: 120px;
-            top: 75px;"
+    <div class="suggestBox" style="opacity :0;"
             dojoAttachPoint="_suggestItems">
     </div>
 </div>
