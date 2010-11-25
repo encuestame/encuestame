@@ -205,6 +205,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+              <id>JBoss</id>
+              <name>JBoss repository</name>
+              <url>https://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -459,7 +464,7 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
                     <formats>
-                         <format>html</format>
+                        <!-- <format>html</format>-->
                          <format>xml</format>
                     </formats>
                 </configuration>
@@ -671,7 +676,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
-                <version>${hibernate.version}</version>
+                <version>3.5.6-Final</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>hibernate</artifactId>
