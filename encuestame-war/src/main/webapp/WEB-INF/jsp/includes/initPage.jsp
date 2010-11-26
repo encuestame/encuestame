@@ -9,6 +9,7 @@
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
+         dojo.require("encuestame.org.class.contextWidget");
     </script>
     <style type="css">
         img{ border:0px;}

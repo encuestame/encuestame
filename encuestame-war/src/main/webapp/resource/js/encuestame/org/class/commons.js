@@ -82,16 +82,25 @@ encuestame.service.xhrPost = function(url, form, load, error){
     }
 };
 
+encuestame.contextWidget = function(){
+    var contextWidget2 = dojo.byId("contextWidget");
+    if(contextWidget2){
+        return contextWidget2.getAttribute("contextPath");
+    } else {
+        return "";
+    }
+};
+
 encuestame.service.list = {};
-encuestame.service.list.userList = "/encuestame/api/admon/users.json";
-encuestame.service.list.getNotifications = "/encuestame/api/notifications.json";
-encuestame.service.list.getStatusNotifications = "/encuestame/api/status-notifications.json"
-encuestame.service.list.changeStatusNotification = "/encuestame/api/change-status-notifications.json"
-encuestame.service.list.removeNotification = "/encuestame/api/remove-notification.json"
-encuestame.service.list.userInfo = "/encuestame/api/admon/user-info.json";
-encuestame.service.list.createUser = "/encuestame/api/admon/create-user.json";
-encuestame.service.list.listPermissions = "/encuestame/api/admon/list-permissions.json";
-encuestame.service.list.listUserPermissions = "/encuestame/api/admon/list-user-permissions.json";
-encuestame.service.list.addPermission = "/encuestame/api/admon/add-permission.json";
-encuestame.service.list.removePermission = "/encuestame/api/admon/remove-permission.json";
-encuestame.service.list.hashtags = "/encuestame/api/common/hashtags.json";
+encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";
+encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications.json";
+encuestame.service.list.getStatusNotifications = encuestame.contextWidget()+"/api/status-notifications.json"
+encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/change-status-notifications.json"
+encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json"
+encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
+encuestame.service.list.createUser = encuestame.contextWidget()+"/api/admon/create-user.json";
+encuestame.service.list.listPermissions = encuestame.contextWidget()+"/api/admon/list-permissions.json";
+encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/admon/list-user-permissions.json";
+encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/add-permission.json";
+encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
+encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";

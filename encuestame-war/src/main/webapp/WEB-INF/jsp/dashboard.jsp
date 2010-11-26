@@ -13,7 +13,7 @@
     <div id="pie" dojoType="encuestame.org.class.commons.dashboard.chart.DashboardPie"></div>
     <div id="column" dojoType="encuestame.org.class.commons.dashboard.chart.DashboardColumn2D"></div>
     <div id="line" dojoType="encuestame.org.class.commons.dashboard.chart.DashboardLine"></div>
-
+    <%=request.getContextPath()%>
 </div>
 
 </div>

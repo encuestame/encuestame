@@ -38,8 +38,12 @@ dojo.declare(
         },
         //new Hash Tag.
         newHashTag : function(data){
-            var widget = new encuestame.org.class.commons.tweetPoll.HashTagsItem({data:data});
-            this.listItems.push(widget);
+            var widget = new encuestame.org.class.commons.tweetPoll.HashTagsItem(
+                    {
+                     data : data,
+                     parentWidget : this
+                     });
+            this.listItems.push(data);
             this._items.appendChild(widget.domNode);
             console.debug("Add New HashTag", this.listItems);
         }
@@ -54,11 +58,17 @@ dojo.declare(
         //template
         templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "templates/hashtagItem.inc"),
         //widgets in template
-         wigetsInTemplate: true,
+        wigetsInTemplate: true,
          //data
-         data : null,
+        data : null,
 
-         postCreate : function(){
+        parentWidget : null,
+
+        postCreate : function(){
             console.debug("new HashTag", this.data);
+        },
+
+        removeHashTag : function(){
+
         }
 });

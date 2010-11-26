@@ -11,7 +11,7 @@
     <packaging>war</packaging>
     <name>encuestame war</name>
     <build>
-        <finalName>${project.artifactId}-${project.version}-r${buildNumber}-${timestamp}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
@@ -366,12 +366,7 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-        </dependency><!--
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>ejb3-persistence</artifactId>
         </dependency>
-        -->
         <dependency>
             <groupId>org.hibernate.java-persistence</groupId>
             <artifactId>jpa-api</artifactId>
@@ -420,10 +415,6 @@
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>postgresql</groupId>-->
-<!--            <artifactId>postgresql</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
@@ -440,34 +431,6 @@
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.pluto</groupId>-->
-<!--            <artifactId>pluto-util</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>javax.portlet</groupId>-->
-<!--            <artifactId>portlet-api</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-webmvc-portlet</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--                <groupId>org.springframework</groupId>-->
-<!--                <artifactId>spring-support</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--                <groupId>org.springframework</groupId>-->
-<!--                <artifactId>spring-context</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--                <artifactId>spring-expression</artifactId>-->
-<!--            </dependency>-->
-<!--         <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-web</artifactId>-->
-<!--        </dependency>-->
             <dependency>
               <groupId>org.opensymphony.quartz</groupId>
               <artifactId>quartz</artifactId>
@@ -476,19 +439,9 @@
                 <groupId>postgresql</groupId>
                 <artifactId>postgresql</artifactId>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>net.sf.spring-json</groupId>-->
-<!--                <artifactId>spring-json</artifactId>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
             </dependency>
-            <!-- OAuth
-            <dependency>
-                <groupId>org.codehaus.spring-security-oauth</groupId>
-                <artifactId>spring-security-oauth</artifactId>
-            </dependency>
-            -->
     </dependencies>
 </project>
