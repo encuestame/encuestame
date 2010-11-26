@@ -2,6 +2,7 @@ dojo.provide("encuestame.org.class.shared.utils.Suggest");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
 dojo.require("dojox.data.QueryReadStore");
 dojo.require('encuestame.org.class.commons');
@@ -18,9 +19,13 @@ dojo.declare(
 
         url : encuestame.service.list.hashtags,
 
-        textBoxWidget: null,
+        textBoxWidget : null,
+
+        buttonWidget : null,
 
         selectedItem : null,
+
+        addButton : true,
 
         limit : 10,
 
@@ -41,6 +46,17 @@ dojo.declare(
                     requestMethod : "get"}
                 );
                 this.callSuggest();
+                if(this.addButton){
+                    dojo.style(this._suggestButton, "display", "block");
+                    this.buttonWidget = new dijit.form.Button({
+                        label: "Add",
+                        onClick: dojo.hitch(this, function() {
+                            this.processSelectedItemButton();
+                        })
+                    },
+                    this._suggestButton);
+                    console.debug(this.buttonWidget);
+                }
             } else {
                 console.error("Error");
             }
@@ -94,6 +110,7 @@ dojo.declare(
                     node: this._suggestItems
             };
             dojo.fadeOut(fadeArgs).play();
+            this.clear();
         },
 
         /** Build Row. **/
@@ -107,9 +124,29 @@ dojo.declare(
             widget.processItem = this.processSelectedItem;
         },
 
+        //Process after click add button.
+        processSelectedItemButton : function(){
+            if(this.textBoxWidget && this.addButton){
+                this.hide();
+                var newValue = {id:null, label:"", newValue: true};
+                newValue.label = this.textBoxWidget.get("value");
+                this.selectedItem = newValue;
+                this.processSelectedItem(this.selectedItem);
+                this.clear();
+            }
+        },
+
+        clear : function(){
+              if(this.textBoxWidget){
+                  this.selectedItem = null;
+                  this.textBoxWidget.set("value", "");
+              }
+        },
+
         //Process Selected Item.
         processSelectedItem : function(selectedItem){
             console.info("implemt this method in the parent widget 2", selectedItem);
+            this.clear();
         }
 });
 
