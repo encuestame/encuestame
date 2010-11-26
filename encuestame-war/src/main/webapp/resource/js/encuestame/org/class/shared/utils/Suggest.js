@@ -141,6 +141,7 @@ dojo.declare(
                   this.selectedItem = null;
                   this.textBoxWidget.set("value", "");
               }
+              dojo.empty(this._suggestItems);
         },
 
         //Process Selected Item.

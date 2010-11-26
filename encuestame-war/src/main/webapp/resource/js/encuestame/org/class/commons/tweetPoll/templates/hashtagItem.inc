@@ -1,0 +1,1 @@
+<div>${data.label}</div>

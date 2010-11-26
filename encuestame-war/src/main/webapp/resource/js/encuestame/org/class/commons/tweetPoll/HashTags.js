@@ -15,6 +15,8 @@ dojo.declare(
 
         suggestWidget : null,
 
+        listItems : [],
+
         postCreate: function() {
             this.suggestWidget = dijit.byId("hashTagSuggest_"+this.id);
             if(this.suggestWidget){
@@ -26,7 +28,37 @@ dojo.declare(
         },
         //Add New Hash Tag.
         addNewHashTag : function(hashTag){
-            console.debug("Add New HashTag", hashTag);
+            if(hashTag && this.listItems){
+                this.printHashTag(hashTag);
+            }
+        },
+        //print hashTag
+        printHashTag : function(data){
+            this.newHashTag(data);
+        },
+        //new Hash Tag.
+        newHashTag : function(data){
+            var widget = new encuestame.org.class.commons.tweetPoll.HashTagsItem({data:data});
+            this.listItems.push(widget);
+            this._items.appendChild(widget.domNode);
+            console.debug("Add New HashTag", this.listItems);
         }
     }
 );
+/**
+ * HashTag Item.
+ */
+dojo.declare(
+        "encuestame.org.class.commons.tweetPoll.HashTagsItem",
+        [dijit._Widget, dijit._Templated],{
+        //template
+        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "templates/hashtagItem.inc"),
+        //widgets in template
+         wigetsInTemplate: true,
+         //data
+         data : null,
+
+         postCreate : function(){
+            console.debug("new HashTag", this.data);
+        }
+});
