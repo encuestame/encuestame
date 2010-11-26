@@ -347,12 +347,12 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
-        </dependency>
+        </dependency><!--
         <dependency>
             <groupId>org.apache.pluto</groupId>
             <artifactId>pluto-util</artifactId>
         </dependency>
-        <dependency>
+        --><dependency>
             <groupId>javax.portlet</groupId>
             <artifactId>portlet-api</artifactId>
         </dependency>

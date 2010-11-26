@@ -1210,13 +1210,13 @@
                 <groupId>org.springframework.integration</groupId>
                 <artifactId>spring-integration-core</artifactId>
                 <version>${spring-integration-core}</version>
-            </dependency>
+            </dependency><!--
             <dependency>
                 <groupId>org.apache.pluto</groupId>
                 <artifactId>pluto-util</artifactId>
                 <version>${pluto-version}</version>
             </dependency>
-            <dependency>
+            --><dependency>
                 <groupId>javax.portlet</groupId>
                 <artifactId>portlet-api</artifactId>
                 <version>${portlet.version}</version>
