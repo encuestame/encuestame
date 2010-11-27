@@ -6,7 +6,7 @@ dojo.require("dijit._Widget");
 dojo.declare(
     "encuestame.org.class.commons.dashboard.Dashboard",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.dashboard", "template/dashboard.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.class.commons.dashboard", "template/Dashboard.inc"),
 
         widgetsInTemplate: true,
 

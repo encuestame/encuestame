@@ -6,7 +6,7 @@ dojo.require("dijit._Widget");
 dojo.declare(
     "encuestame.org.class.admon.project.Projects",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.admon.project", "template/project.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.class.admon.project", "template/projects.inc"),
 
         widgetsInTemplate: true,
 
