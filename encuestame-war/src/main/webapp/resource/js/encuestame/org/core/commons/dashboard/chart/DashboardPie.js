@@ -1,4 +1,4 @@
-dojo.provide("encuestame.org.class.commons.dashboard.chart.DashboardPie");
+dojo.provide("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 
 
 dojo.require("dijit._Templated");
@@ -14,9 +14,9 @@ dojo.require("dojox.charting.widget.Legend");
 
 
 dojo.declare(
-    "encuestame.org.class.commons.dashboard.chart.DashboardPie",
+    "encuestame.org.core.commons.dashboard.chart.DashboardPie",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.dashboard.chart", "template/dashboardPie.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardPie.inc"),
 
         widgetsInTemplate: true,
 

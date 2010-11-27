@@ -1,4 +1,4 @@
-dojo.provide("encuestame.org.class.commons");
+dojo.provide("encuestame.org.core.commons");
 
 encuestame.service = {};
 encuestame.service.timeout = 5000;

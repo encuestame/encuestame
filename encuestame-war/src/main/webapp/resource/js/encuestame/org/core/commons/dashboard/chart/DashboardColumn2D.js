@@ -1,12 +1,12 @@
-dojo.provide("encuestame.org.class.commons.dashboard.chart.DashboardColumn2D");
+dojo.provide("encuestame.org.core.commons.dashboard.chart.DashboardColumn2D");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 
 dojo.declare(
-    "encuestame.org.class.commons.dashboard.chart.DashboardColumn2D",
+    "encuestame.org.core.commons.dashboard.chart.DashboardColumn2D",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.dashboard.chart", "template/dashboardColumn2D.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardColumn2D.inc"),
 
         widgetsInTemplate: true,
 

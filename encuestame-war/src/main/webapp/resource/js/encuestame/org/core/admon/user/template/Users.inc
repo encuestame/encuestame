@@ -132,7 +132,7 @@
 
             </div>
             <div id="permissions" dojoType="dijit.layout.ContentPane" title="Permisions">
-                 <div id="widgetPermission" dojoType="encuestame.org.class.admon.user.UserPermissions"></div>
+                 <div id="widgetPermission" dojoType="encuestame.org.core.admon.user.UserPermissions"></div>
             </div>
             <div id="social" dojoType="dijit.layout.ContentPane" title="Social Accounts">
                 Social

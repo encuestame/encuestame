@@ -1,14 +1,14 @@
-dojo.provide("encuestame.org.class.commons.notifications.Notification");
+dojo.provide("encuestame.org.core.commons.notifications.Notification");
 
 dojo.require('dojox.timing');
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
-dojo.require('encuestame.org.class.commons');
+dojo.require('encuestame.org.core.commons');
 
 dojo.declare(
-    "encuestame.org.class.commons.notifications.Notification",
+    "encuestame.org.core.commons.notifications.Notification",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.notifications", "template/notification.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notification.inc"),
 
         widgetsInTemplate: true,
 
@@ -120,16 +120,16 @@ dojo.declare(
          * Create Notification.
          */
         createNotification : function(item){
-            var not = new encuestame.org.class.commons.notifications.NotificationItem({item:item});
+            var not = new encuestame.org.core.commons.notifications.NotificationItem({item:item});
             this._not.appendChild(not.domNode);
         }
     }
 );
 
 dojo.declare(
-        "encuestame.org.class.commons.notifications.NotificationItem",
+        "encuestame.org.core.commons.notifications.NotificationItem",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.class.commons.notifications", "template/notificationItem.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notificationItem.inc"),
 
             widgetsInTemplate: true,
 

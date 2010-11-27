@@ -1,16 +1,16 @@
-dojo.provide("encuestame.org.class.shared.utils.Suggest");
+dojo.provide("encuestame.org.core.shared.utils.Suggest");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
 dojo.require("dojox.data.QueryReadStore");
-dojo.require('encuestame.org.class.commons');
+dojo.require('encuestame.org.core.commons');
 
 dojo.declare(
-    "encuestame.org.class.shared.utils.Suggest",
+    "encuestame.org.core.shared.utils.Suggest",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.shared.utils", "template/suggest.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -115,7 +115,7 @@ dojo.declare(
 
         /** Build Row. **/
         buildRow : function(data){
-            var widget = new encuestame.org.class.shared.utils.SuggestItem(
+            var widget = new encuestame.org.core.shared.utils.SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},
                         parentWidget : this
@@ -161,9 +161,9 @@ dojo.extend(dojox.data.QueryReadStore, {
  * Suggested Item.
  */
 dojo.declare(
-        "encuestame.org.class.shared.utils.SuggestItem",
+        "encuestame.org.core.shared.utils.SuggestItem",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.class.shared.utils", "template/suggestItem.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggestItem.inc"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,

@@ -1,4 +1,4 @@
-dojo.provide("encuestame.org.class.contextWidget");
+dojo.provide("encuestame.org.core.contextWidget");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");

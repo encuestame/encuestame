@@ -7,10 +7,10 @@
         </div>
         <div class="seccondSection" style="margin: 0 9%;">
             <div class="answers" style="float: left;">
-                <div dojoType="encuestame.org.class.commons.tweetPoll.Answers"></div>
+                <div dojoType="encuestame.org.core.commons.tweetPoll.Answers"></div>
             </div>
             <div class="hashTags" style="float: right;">
-                <div dojoType="encuestame.org.class.commons.tweetPoll.HashTags"></div>
+                <div dojoType="encuestame.org.core.commons.tweetPoll.HashTags"></div>
             </div>
         </div>
     </div>

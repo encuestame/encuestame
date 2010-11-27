@@ -1,4 +1,4 @@
-dojo.provide("encuestame.org.class.admon.user.Users");
+dojo.provide("encuestame.org.core.admon.user.Users");
 
 dojo.require("dijit.Dialog");
 dojo.require("dijit.form.TextBox");
@@ -13,13 +13,13 @@ dojo.require("dijit.layout.TabContainer");
 dojo.require("dijit.layout.ContentPane");
 dojo.require("dijit.layout.AccordionContainer");
 dojo.require("dijit.form.ValidationTextBox");
-dojo.require("encuestame.org.class.shared.utils.Table");
+dojo.require("encuestame.org.core.shared.utils.Table");
 
 dojo.declare(
-    "encuestame.org.class.admon.user.Users",
-    [encuestame.org.class.shared.utils.Table],{
+    "encuestame.org.core.admon.user.Users",
+    [encuestame.org.core.shared.utils.Table],{
 
-        templatePath: dojo.moduleUrl("encuestame.org.class.admon.user", "template/Users.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/Users.inc"),
 
         widgetsInTemplate: true,
 
@@ -29,7 +29,7 @@ dojo.declare(
          * Build Row.
          */
         buildRow : function(data){
-            var widgetRow = new encuestame.org.class.admon.user.UserTableRow({data: data });
+            var widgetRow = new encuestame.org.core.admon.user.UserTableRow({data: data });
             this._body.appendChild(widgetRow.domNode);
         },
 
@@ -94,9 +94,9 @@ dojo.declare(
 );
 
 dojo.declare(
-        "encuestame.org.class.admon.user.UserTableRow",
+        "encuestame.org.core.admon.user.UserTableRow",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.class.admon.user", "template/UserTableRow.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserTableRow.inc"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,
@@ -216,9 +216,9 @@ dojo.declare(
 );
 
 dojo.declare(
-        "encuestame.org.class.admon.user.UserPermissions",
+        "encuestame.org.core.admon.user.UserPermissions",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.class.admon.user", "template/UserPermissions.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserPermissions.inc"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,

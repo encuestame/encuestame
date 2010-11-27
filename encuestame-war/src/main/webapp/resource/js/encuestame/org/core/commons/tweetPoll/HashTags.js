@@ -1,15 +1,15 @@
-dojo.provide("encuestame.org.class.commons.tweetPoll.HashTags");
+dojo.provide("encuestame.org.core.commons.tweetPoll.HashTags");
 
 dojo.require("dijit.form.Form");
 dojo.require("dijit.form.Textarea");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
-dojo.require("encuestame.org.class.shared.utils.Suggest");
+dojo.require("encuestame.org.core.shared.utils.Suggest");
 
 dojo.declare(
-    "encuestame.org.class.commons.tweetPoll.HashTags",
+    "encuestame.org.core.commons.tweetPoll.HashTags",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "templates/hashtag.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.inc"),
 
         widgetsInTemplate: true,
 
@@ -38,7 +38,7 @@ dojo.declare(
         },
         //new Hash Tag.
         newHashTag : function(data){
-            var widget = new encuestame.org.class.commons.tweetPoll.HashTagsItem(
+            var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
                     {
                      data : data,
                      parentWidget : this
@@ -53,10 +53,10 @@ dojo.declare(
  * HashTag Item.
  */
 dojo.declare(
-        "encuestame.org.class.commons.tweetPoll.HashTagsItem",
+        "encuestame.org.core.commons.tweetPoll.HashTagsItem",
         [dijit._Widget, dijit._Templated],{
         //template
-        templatePath: dojo.moduleUrl("encuestame.org.class.commons.tweetPoll", "templates/hashtagItem.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.inc"),
         //widgets in template
         wigetsInTemplate: true,
          //data

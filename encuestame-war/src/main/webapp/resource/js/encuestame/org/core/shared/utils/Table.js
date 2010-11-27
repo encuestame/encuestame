@@ -1,4 +1,4 @@
-dojo.provide("encuestame.org.class.shared.utils.Table");
+dojo.provide("encuestame.org.core.shared.utils.Table");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
@@ -7,12 +7,12 @@ dojo.require("dijit.form.Form");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.ValidationTextBox");
 dojo.require("dijit.form.DateTextBox");
-dojo.require('encuestame.org.class.commons');
+dojo.require('encuestame.org.core.commons');
 
 dojo.declare(
-    "encuestame.org.class.shared.utils.Table",
+    "encuestame.org.core.shared.utils.Table",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.class.shared.utils", "template/Table.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/Table.inc"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -73,7 +73,7 @@ dojo.declare(
          * Build Row.
          */
         buildRow : function(data){
-            var widgetRow = new encuestame.org.class.shared.utils.TableRow({data: data });
+            var widgetRow = new encuestame.org.core.shared.utils.TableRow({data: data });
             this._body.appendChild(widgetRow.domNode);
         },
 
@@ -117,9 +117,9 @@ dojo.declare(
 );
 
 dojo.declare(
-        "encuestame.org.class.shared.utils.TableRow",
+        "encuestame.org.core.shared.utils.TableRow",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.class.shared.utils", "template/TableRow.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/TableRow.inc"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,
