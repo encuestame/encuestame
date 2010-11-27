@@ -11,8 +11,79 @@
     <packaging>war</packaging>
     <name>encuestame war</name>
     <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
+    <finalName>encuestame</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+                <execution>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/lib/js.jar"/>
+                          <pathelement location="${basedir}/lib/shrinksafe.jar"/>
+                        </classpath>
+                        <target unless="build">
+                            <java
+                             fork="true"
+                             failonerror="true"
+                             dir="/home/jpicado/workspaceTrunk/dojo/util/buildscripts"
+                             classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/lib/js.jar"/>
+                              <pathelement location="${basedir}/lib/shrinksafe.jar"/>
+                            </classpath>
+                            <jvmarg value="-Xmx512M"/>
+                            <arg value="/home/jpicado/workspaceTrunk/dojo/util/buildscripts/build.js"/>
+                            <arg value="version=1.5.0"/>
+                            <arg value="profileFile=/home/jpicado/workspaceTrunk/encuestame/encuestame-war/src/main/webapp/resource/js/encuestame.profile.js"/>
+                            <arg value="action=clean,release"/>
+                            <arg value="releaseDir=/home/jpicado/workspaceTrunk/encuestame/encuestame-war/target/dojo-compiled"/>
+                            <arg value="optimize=shrinksafe"/>
+                            <arg value="layerOptimize=shrinksafe"/>
+                            <arg value="cssOptimize=comments"/>
+                            <arg value="mini=true"/>
+                          </java>
+                          <echo message="Dojo optimized." />
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.1.1</version>
+            <configuration>
+                <!--
+                    Use this to include a selection of jars that will be included in the
+                    WAR
+                -->
+                <packagingIncludes>
+                    WEB-INF/lib/*,
+                    **/*.xml,
+                    **/*.properties,
+                    **/*.class,
+                    **/*.png,
+                    **/*.gif,
+                    **/*.ico,
+                    **/*.jpg,
+                    **/*.xsd,
+                    **/*.css,
+                    **/*.jss,
+                    **/*.jsp</packagingIncludes>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
