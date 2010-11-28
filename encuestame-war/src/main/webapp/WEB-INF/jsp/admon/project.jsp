@@ -7,10 +7,10 @@
   dojo.require("dijit.form.TimeTextBox");
   dojo.require("dijit.form.Button");
   dojo.require("dijit.form.DateTextBox");
-  dojo.require("encuestame.org.class.admon.project.Projects");
+  dojo.require("encuestame.org.core.admon.project.Projects");
 </script>
 <div>
-  <div dojoType="encuestame.org.class.admon.project.Projects"></div>
+  <div dojoType="encuestame.org.core.admon.project.Projects"></div>
 </div>
 <%@ include file="/WEB-INF/jsp/includes/endBody.jsp" %>
 <%@ include file="/WEB-INF/jsp/includes/validate.jsp" %>

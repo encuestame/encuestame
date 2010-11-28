@@ -2,10 +2,10 @@
 <%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
 <%@ include file="/WEB-INF/jsp/includes/initBody.jsp" %>
 <script type="text/javascript">
-  dojo.require("encuestame.org.class.admon.user.Users");
+  dojo.require("encuestame.org.core.admon.user.Users");
 </script>
 <div class="admonWrapper">
-    <div dojoType="encuestame.org.class.admon.user.Users"></div>
+    <div dojoType="encuestame.org.core.admon.user.Users"></div>
 </div>
 </div>
 <%@ include file="/WEB-INF/jsp/includes/endBody.jsp" %>

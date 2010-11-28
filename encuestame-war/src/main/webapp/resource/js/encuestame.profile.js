@@ -1,7 +1,7 @@
 dependencies ={
     layers:  [
         {
-            name: "encuestame.js",
+            name: "encuestame-widgets.js",
             dependencies: [
                 "encuestame.org.core.contextWidget",
                 "encuestame.org.core.commons",
@@ -13,9 +13,25 @@ dependencies ={
                 "encuestame.org.core.commons.dashboard.chart.DashboardLine",
                 "encuestame.org.core.commons.dashboard.chart.DashboardColumn2D",
                 "encuestame.org.core.admon.project.Projects",
+                "encuestame.org.core.commons.notifications.Notification",
                 "encuestame.org.core.admon.user.Users"
                 ]
-            }
+            }/*,
+            {
+                name: "../dijit/dijit.js",
+                dependencies: [
+                    "dijit.dijit"
+                ]
+            },
+            {
+                name: "../dijit/dijit-all.js",
+                layerDependencies: [
+                    "../dijit/dijit.js"
+                ],
+                dependencies: [
+                    "dijit.dijit-all"
+                ]
+            }*/
         ],
         prefixes: [
             ["encuestame", "/home/jpicado/workspaceTrunk/encuestame/encuestame-war/src/main/webapp/resource/js/encuestame"],

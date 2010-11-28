@@ -7,12 +7,12 @@
   dojo.require("dijit.form.TimeTextBox");
   dojo.require("dijit.form.Button");
   dojo.require("dijit.form.DateTextBox");
-  dojo.require("encuestame.org.class.commons.dashboard.Dashboard");
+  dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 </script>
 
 <div>
 
-    <div dojoType="encuestame.org.class.commons.dashboard.Dashboard"></div>
+    <div dojoType="encuestame.org.core.commons.dashboard.Dashboard"></div>
 
     <button dojoType="dijit.form.Button" onclick="dijit.byId('dialog1').show()">Show Dialog</button>
 

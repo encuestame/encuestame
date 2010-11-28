@@ -2,7 +2,7 @@ dojo.provide("encuestame.org.core.commons");
 
 encuestame.service = {};
 encuestame.service.timeout = 5000;
-
+encuestame.contextDefault = "/encuestame";
 /**
  * Json Get Call.
  */
@@ -83,11 +83,14 @@ encuestame.service.xhrPost = function(url, form, load, error){
 };
 
 encuestame.contextWidget = function(){
-    var contextWidget2 = dojo.byId("contextWidget");
+    var contextWidget2 = dijit.byId("contextWidget");
+    console.debug("Context Widget: ", contextWidget2)
     if(contextWidget2){
-        return contextWidget2.getAttribute("contextPath");
+        console.debug("Found Context Path");
+        return contextWidget2.contextPath;
     } else {
-        return "";
+        console.debug("Not found, default context");
+        return encuestame.contextDefault;
     }
 };
 

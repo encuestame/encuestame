@@ -56,7 +56,7 @@ public class IndexRebuilder {
     public void reindexEntities() throws Exception {
         log.debug("reindexEntities");
         FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(getHibernateTemplate().getSessionFactory().openSession());
-        reindex(fullTextSession, Question.class);
+        //reindex(fullTextSession, Question.class);
         reindex(fullTextSession, TweetPollResult.class);
         reindex(fullTextSession, HashTag.class);
         fullTextSession.close();
@@ -104,7 +104,7 @@ public class IndexRebuilder {
     /**
      * @param hibernateTemplate the hibernateTemplate to set
      */
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+    public void setHibernateTemplate(final HibernateTemplate hibernateTemplate) {
         this.hibernateTemplate = hibernateTemplate;
     }
 

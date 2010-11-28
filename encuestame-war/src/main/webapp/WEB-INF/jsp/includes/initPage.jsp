@@ -9,7 +9,8 @@
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
-         dojo.require("encuestame.org.class.contextWidget");
+         dojo.require("encuestame.org.core.contextWidget");
+         dojo.require("encuestame.org.core.commons.notifications.Notification");
     </script>
     <style type="css">
         img{ border:0px;}

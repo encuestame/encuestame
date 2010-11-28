@@ -22,30 +22,44 @@
                     <phase>compile</phase>
                     <configuration>
                         <classpath>
-                          <pathelement location="${basedir}/lib/js.jar"/>
-                          <pathelement location="${basedir}/lib/shrinksafe.jar"/>
+                          <pathelement location="../dojo/util/shrinksafe/js.jar"/>
+                          <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
                         </classpath>
+                        <property file="${basedir}/dojo.properties"/>
                         <target unless="build">
                             <java
                              fork="true"
                              failonerror="true"
-                             dir="/home/jpicado/workspaceTrunk/dojo/util/buildscripts"
+                             dir="../dojo/util/buildscripts"
                              classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
-                              <pathelement location="${basedir}/lib/js.jar"/>
-                              <pathelement location="${basedir}/lib/shrinksafe.jar"/>
+                              <pathelement location="../dojo/util/shrinksafe/js.jar"/>
+                              <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
                             </classpath>
                             <jvmarg value="-Xmx512M"/>
-                            <arg value="/home/jpicado/workspaceTrunk/dojo/util/buildscripts/build.js"/>
+                            <arg value="build.js"/>
                             <arg value="version=1.5.0"/>
-                            <arg value="profileFile=/home/jpicado/workspaceTrunk/encuestame/encuestame-war/src/main/webapp/resource/js/encuestame.profile.js"/>
+                            <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
                             <arg value="action=clean,release"/>
-                            <arg value="releaseDir=/home/jpicado/workspaceTrunk/encuestame/encuestame-war/target/dojo-compiled"/>
+                            <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
                             <arg value="optimize=shrinksafe"/>
                             <arg value="layerOptimize=shrinksafe"/>
                             <arg value="cssOptimize=comments"/>
                             <arg value="mini=true"/>
                           </java>
+                          <delete includeEmptyDirs="true" verbose="true">
+                               <fileset dir="${basedir}/target/dojo-compiled/" includes="**/.svn" defaultexcludes="false"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.psd"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.fla"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.svg"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.as"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.swf"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dijit/themes/" excludes="**/tundra/**/"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/" includes="**/*.uncompressed.js"/>
+                           </delete>
                           <echo message="Dojo optimized." />
                         </target>
                     </configuration>
@@ -59,29 +73,32 @@
             <artifactId>maven-war-plugin</artifactId>
             <version>2.1.1</version>
             <configuration>
-                <!--
-                    Use this to include a selection of jars that will be included in the
-                    WAR
-                -->
                 <packagingIncludes>
                     WEB-INF/lib/*,
-                    **/*.xml,
+                    WEB-INF/**/*.xml,
+                    resource/css/**/*,
+                    resource/images/**/*,
+                    resource/js/dojo/**/*,
+                    resource/js/dijit/**/*,
+                    resource/js/dojox/**/*,
                     **/*.properties,
                     **/*.class,
-                    **/*.png,
-                    **/*.gif,
                     **/*.ico,
-                    **/*.jpg,
                     **/*.xsd,
-                    **/*.css,
-                    **/*.jss,
-                    **/*.jsp</packagingIncludes>
+                    **/*.jsp
+                </packagingIncludes>
                 <archive>
                     <manifest>
                         <addClasspath>true</addClasspath>
                         <classpathPrefix>lib/</classpathPrefix>
                     </manifest>
                 </archive>
+                <webResources>
+                   <resource>
+                        <directory>${project.build.directory}/dojo-compiled/dojo/</directory>
+                        <targetPath>resource/js</targetPath>
+                    </resource>
+                </webResources>
             </configuration>
         </plugin>
             <plugin>
