@@ -34,7 +34,7 @@ dependencies ={
             }*/
         ],
         prefixes: [
-            ["encuestame", "/home/jpicado/workspaceTrunk/encuestame/encuestame-war/src/main/webapp/resource/js/encuestame"],
+            ["encuestame", "../../encuestame-war/src/main/webapp/resource/js/encuestame"],
             ["dijit", "../dijit" ],
             ["dojox", "../dojox" ]
         ]
