@@ -317,7 +317,10 @@
                  <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <version>2.2</version>
+                     <configuration>
+                      <locales>en,es</locales>
+                    </configuration>
                  </plugin>
             </plugins>
         </pluginManagement>
