@@ -10,133 +10,28 @@
 
 /** Create TweetPoll **/
 
-#createWrapper{
-     padding: 5px;
-      margin: 10px;
-     overflow: hidden;
+div.tweetPollWrapper{
+    margin: 0 9%;
 }
 
-#createWrapper .inputQuestion{
-    width: 98%;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    padding: 5px;
+div.tweetPollWrapper div.tweetPollOptions{
+    float: left;
+}
+div.tweetPollWrapper div.tweetPollPreview{
+    padding: 10px;
+    background-color: #9E9DA4;
 }
 
-#createWrapper .labelQuestion{
-    padding: 4px;
-    font-size: 16px;
-    color: #CDC8C8;
-}
-
-#createWrapper .inputQuestion .inputClass{
+div.tweetPollWrapper .inputClass{
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    width: 100%;
 }
 
-#createWrapper  div.buildTweetPoll{
-    width: 98%;
-    padding: 5px;
+div.tweetPollWrapper div.tweetPollOptions div.boxRight{
     margin: 10px;
-    overflow: hidden;
 }
-
-#createWrapper  div.buildTweetPoll .left{
-    float: left;
-    width: 50%;
-}
-
-#createWrapper  div.buildTweetPoll .right{
-    float: left;
-    width: 50%;
-}
-
-
-/** Question Review **/
-
-#reviewContentBox{
-
-}
-
-div.bodySurvey .normalState{
-    background-color: #E2DEDE;
-}
-
-div.bodySurvey .warningState{
-    background-color: #EDED85;
-}
-
-div.bodySurvey .questionErrorState{
-    background-color: #EA6262;
-}
-
-div.bodySurvey .errorState{
-    background-color: #EA6262;
-}
-
-#reviewContentBox .bodyTweet{
-}
-
-div.tweetResume{
-     min-width: 80%;
-     font-size: 26px;
-     font-weight: bold;
-     padding: 10px;
-}
-
-div.bodyTweet div.tweetResume div.resumeText{
-    min-width:80%;
-    padding: 10px 10px 10px 60px;
-    color:  #575555;
-    font-size: 0.8em;
-    min-height : 50px;
-}
-
-div.optionTopMenu{
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    text-align: right;
-    margin-bottom: 15px;
-}
-
-div.optionTopMenu .addButton{
-   margin-left : 8px;
-   border: 1px solid #BCBCBC;
-   min-width: 100px;
-   padding: 4px;
-}
-
-div.optionTopMenu a{
-    padding: 3px;
-    color: #1277C9;
-    text-decoration:  underline;
-    margin-left: 15px;
-}
-
-div.optionTopMenu a:hover{
-    padding: 3px;
-    background-color:#6E6E6E;
-    color: #FFF;
-    text-decoration: none;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-
-div.optionTopMenu a:visited{
-}
-
-div.bodyTweet div.tweetResume div.countTweet{
-    padding: 10px;
-    color:  #8A8A8A;
-    font-size: 1.1em;
-    float: left;
-}
-
 
 
 /** Add Answers **/
@@ -206,19 +101,19 @@ div.addAnswers  div.listAnswerWrapper{
 div.addAnswers div.answerItem{
     background-color: #9C9C9C;
     vertical-align: top;
-    padding: 7px 2px 2px;
+    padding: 0px 2px 2px;
     font-size: 12px;
     color: #FFF;
-    margin-top : 8px;
+    margin-top : 5px;
     cursor: pointer;
     border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
     box-shadow: 1px 1px 1x #000000;
     -webkit-box-shadow: 1px 1px 1px #000000;
     -moz-box-shadow: 1px 1px 1px #000000;
-    min-height: 50px;
-    max-width: 96%;
+    min-height: 39px;
+    max-width: 222px;
 }
 
 div.addAnswers div.answerItem:hover{
@@ -297,14 +192,6 @@ div.addAnswers div.addNewAnswer .label{
     font-weight: bold;
 }
 
-div.addAnswers div.addNewAnswer .inputClass{
-    padding: 5px;
-    border: 1px solid #BCBCBC;
-    color: #808080;
-    font-size: 12px;
-    width: 378px;
-}
-
 div.addAnswers div.addNewAnswer .addButton{
    margin-left : 8px;
    border: 1px solid #BCBCBC;
@@ -328,7 +215,15 @@ div.subHeader{
 
 /** Hash Tags **/
 
-div.addAnswers div.addNewHashTag{
+div.hashTagWrapper{
+    max-width: 375px;
+}
+
+div.wrapperHashTagItems{
+    max-width: 99%;
+}
+
+div.wrapperHashTagItems div.addNewHashTag{
     font-size: 12px;
     color: #FFF;
     float: left;
@@ -338,14 +233,14 @@ div.addAnswers div.addNewHashTag{
     border-radius: 2px;
 }
 
-div.addAnswers div.addNewHashTag .label{
+div.wrapperHashTagItems div.addNewHashTag .label{
     min-width: 100px;
     margin: 10px;
     color: #000;
     font-weight: bold;
 }
 
-div.addAnswers div.addNewHashTag .inputClass{
+div.wrapperHashTagItems div.addNewHashTag .inputClass{
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;9C9C9C
@@ -353,18 +248,14 @@ div.addAnswers div.addNewHashTag .inputClass{
     width: 60%;
 }
 
-div.addAnswers div.addNewHashTag .addButton{
+div.wrapperHashTagItems div.addNewHashTag .addButton{
    margin-left : 8px;
    border: 1px solid #BCBCBC;
    min-width: 100px;
    padding: 4px;
 }
 
-div.addAnswers div.addNewHashTag div.wrapperHashTag{
-    padding: 20px;
-}
-
-div.addAnswers div.addNewHashTag .hashTagItem{
+div.wrapperHashTagItems .hashTagItem{
     column-count: 2;
     column-gap: 30px;
     background-color: #CCCED1;
@@ -385,17 +276,17 @@ div.addAnswers div.addNewHashTag .hashTagItem{
     min-width: 50px;
 }
 
-div.addAnswers div.addNewHashTag .hashTagItem a{
+div.wrapperHashTagItems div.addNewHashTag .hashTagItem a{
     text-decoration: none;
     color: #FFF;
 }
 
-div.addAnswers div.addNewHashTag .hashTagItem a:visited{
+div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:visited{
     color: #FFF;
     text-decoration: none;
 }
 
-div.addAnswers div.addNewHashTag .hashTagItem a:hover{
+div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:hover{
     color: #FFF;
     text-decoration: none;
 }

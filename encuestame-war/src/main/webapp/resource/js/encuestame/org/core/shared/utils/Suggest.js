@@ -50,7 +50,8 @@ dojo.declare(
                     dojo.style(this._suggestButton, "display", "block");
                     this.buttonWidget = new dijit.form.Button({
                         label: "Add",
-                        onClick: dojo.hitch(this, function() {
+                        onClick: dojo.hitch(this, function(event) {
+                            dojo.stopEvent(event);
                             this.processSelectedItemButton();
                         })
                     },
@@ -131,7 +132,9 @@ dojo.declare(
                 var newValue = {id:null, label:"", newValue: true};
                 newValue.label = this.textBoxWidget.get("value");
                 this.selectedItem = newValue;
-                this.processSelectedItem(this.selectedItem);
+                if(newValue.label != ''){
+                    this.processSelectedItem(this.selectedItem);
+                }
                 this.clear();
             }
         },

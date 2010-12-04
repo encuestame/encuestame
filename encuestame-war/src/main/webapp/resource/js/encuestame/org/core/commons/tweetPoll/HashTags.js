@@ -46,6 +46,7 @@ dojo.declare(
             this.listItems.push(data);
             this._items.appendChild(widget.domNode);
             console.debug("Add New HashTag", this.listItems);
+            dojo.publish("/encuestame/tweetpoll/updatePreview");
         }
     }
 );

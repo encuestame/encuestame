@@ -1,1 +1,3 @@
-<div>${data.label}</div>
+<div class="hashTagItem">
+    ${data.label}
+</div>

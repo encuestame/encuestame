@@ -1,8 +1,8 @@
-<div class="suggest ">
-    <label>${label}</label>
+<div class="suggest">
+    <label>${label}</label><br></br>
     <input type="text" dojoAttachPoint="_suggest"
            dojoType="dijit.form.TextBox"
-           trim="true"
+           trim="true" class="inputClass"
            propercase="true"></input>
     <button id="suggestButton" type="button" style="display: none;" dojoAttachPoint="_suggestButton">
     Add</button>

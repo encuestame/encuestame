@@ -69,12 +69,12 @@ public class HashTagsJsonService extends AbstractJsonController{
                 log.debug("Keyword "+keyword);
                 if(keyword == null || keyword.isEmpty()){
                     jsonResponse.put("hashtags", ListUtils.EMPTY_LIST);
+                    setItemResponse(jsonResponse);
                 } else {
                     final List<UnitHashTag> hashTags = getTweetPollService().listSuggestHashTags(keyword, limit);
                     log.debug("List Hash Tags "+hashTags.size());
-                    jsonResponse.put("hashtags", hashTags);
+                    setItemReadStoreResponse("hashTagName", "id", hashTags);
                 }
-                setItemResponse(jsonResponse);
             } catch (Exception e) {
                  log.error(e);
                  e.printStackTrace();

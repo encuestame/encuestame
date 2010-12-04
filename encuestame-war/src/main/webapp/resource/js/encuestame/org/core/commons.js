@@ -84,12 +84,12 @@ encuestame.service.xhrPost = function(url, form, load, error){
 
 encuestame.contextWidget = function(){
     var contextWidget2 = dijit.byId("contextWidget");
-    console.debug("Context Widget: ", contextWidget2)
+    //console.debug("Context Widget: ", contextWidget2)
     if(contextWidget2){
-        console.debug("Found Context Path");
+        //console.debug("Found Context Path");
         return contextWidget2.contextPath;
     } else {
-        console.debug("Not found, default context");
+        //console.debug("Not found, default context");
         return encuestame.contextDefault;
     }
 };
