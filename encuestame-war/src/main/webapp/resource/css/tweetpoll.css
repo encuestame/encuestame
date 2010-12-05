@@ -16,6 +16,7 @@ div.tweetPollWrapper{
 
 div.tweetPollWrapper div.tweetPollOptions{
     float: left;
+    width: 100%;
 }
 div.tweetPollWrapper div.tweetPollPreview{
     padding: 10px;

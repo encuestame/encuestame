@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -44,6 +46,16 @@ public abstract class AbstractJsonController extends BaseController{
     /** {@link NotificationDao}. **/
     @Autowired
     private INotification notificationDao;
+
+    /**
+     * Domain.
+     */
+     @Value("${application.domain}") private String appDomainSetted;
+
+     /**
+      * Tweet Path Vote.
+      */
+     @Value("${answers.tweetPathVote}") private String tweetPathVote;
 
     /** Success. **/
     private Map<String, Object> sucess = new HashMap<String, Object>();
@@ -186,6 +198,30 @@ public abstract class AbstractJsonController extends BaseController{
     }
 
     /**
+     * Get Url Domain.
+     * @return
+     */
+    public String getUrlDomain(final HttpServletRequest request, final Boolean realDomain){
+        final StringBuilder builder = new StringBuilder();
+        if(realDomain){
+            String header = request.getHeader("X-Forwarded-Host");
+            log.debug("Host header  "+header);
+            if(header != null) {
+                    // we are only interested in the first header entry
+                    header = new StringTokenizer(header,",").nextToken().trim();
+            }
+            if(header == null) {
+                    header = request.getHeader("Host");
+            }
+            builder.append(header);
+            log.debug("Host "+builder.toString());
+        } else {
+            builder.append(getAppDomainSetted());
+        }
+        return builder.toString();
+    }
+
+    /**
      * Get User.
      * @param userId user Id.
      * @return
@@ -208,5 +244,33 @@ public abstract class AbstractJsonController extends BaseController{
      */
     public void setNotificationDao(INotification notificationDao) {
         this.notificationDao = notificationDao;
+    }
+
+    /**
+     * @return the appDomainSetted
+     */
+    public String getAppDomainSetted() {
+        return appDomainSetted;
+    }
+
+    /**
+     * @param appDomainSetted the appDomainSetted to set
+     */
+    public void setAppDomainSetted(final String appDomainSetted) {
+        this.appDomainSetted = appDomainSetted;
+    }
+
+    /**
+     * @return the tweetPathVote
+     */
+    public String getTweetPathVote() {
+        return tweetPathVote;
+    }
+
+    /**
+     * @param tweetPathVote the tweetPathVote to set
+     */
+    public void setTweetPathVote(final String tweetPathVote) {
+        this.tweetPathVote = tweetPathVote;
     }
 }

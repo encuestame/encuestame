@@ -2,8 +2,7 @@
     <label>${label}</label><br></br>
     <input type="text" dojoAttachPoint="_suggest"
            dojoType="dijit.form.TextBox"
-           trim="true" class="inputClass"
-           propercase="true"></input>
+           trim="true" class="inputClass"></input>
     <button id="suggestButton" type="button" style="display: none;" dojoAttachPoint="_suggestButton">
     Add</button>
     <div class="suggestBox" style="opacity :0;"

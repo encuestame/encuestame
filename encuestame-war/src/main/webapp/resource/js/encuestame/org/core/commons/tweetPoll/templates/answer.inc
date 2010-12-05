@@ -5,7 +5,7 @@
             <input type="text" dojoAttachPoint="_suggest"
                dojoType="dijit.form.TextBox"
                trim="true" class="inputClass"
-               propercase="true"></input>
+               ></input>
                <button id="answerAddButton" type="button" dojoAttachPoint="_addButton">
                   Add
                </button>

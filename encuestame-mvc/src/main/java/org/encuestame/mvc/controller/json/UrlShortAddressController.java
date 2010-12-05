@@ -43,16 +43,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UrlShortAddressController extends AbstractJsonController{
 
-    /**
-     * Domain.
-     */
-     @Value("${application.domain}") private String appDomainSetted;
-
-     /**
-      * Tweet Path Vote.
-      */
-     @Value("${answers.tweetPathVote}") private String tweetPathVote;
-
      /**
       * Short Url.
       * @param typeUrlShorter
@@ -112,32 +102,4 @@ public class UrlShortAddressController extends AbstractJsonController{
          }
          return builder.toString();
      }
-
-    /**
-     * @return the appDomainSetted
-     */
-    public String getAppDomainSetted() {
-        return appDomainSetted;
-    }
-
-    /**
-     * @param appDomainSetted the appDomainSetted to set
-     */
-    public void setAppDomainSetted(final String appDomainSetted) {
-        this.appDomainSetted = appDomainSetted;
-    }
-
-    /**
-     * @return the tweetPathVote
-     */
-    public String getTweetPathVote() {
-        return tweetPathVote;
-    }
-
-    /**
-     * @param tweetPathVote the tweetPathVote to set
-     */
-    public void setTweetPathVote(final String tweetPathVote) {
-        this.tweetPathVote = tweetPathVote;
-    }
 }

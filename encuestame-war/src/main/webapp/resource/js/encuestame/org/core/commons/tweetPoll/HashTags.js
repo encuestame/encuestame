@@ -4,6 +4,7 @@ dojo.require("dijit.form.Form");
 dojo.require("dijit.form.Textarea");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require("dijit.Dialog");
 dojo.require("encuestame.org.core.shared.utils.Suggest");
 
 dojo.declare(
@@ -43,10 +44,26 @@ dojo.declare(
                      data : data,
                      parentWidget : this
                      });
-            this.listItems.push(data);
+            this.listItems.push(widget);
             this._items.appendChild(widget.domNode);
-            console.debug("Add New HashTag", this.listItems);
             dojo.publish("/encuestame/tweetpoll/updatePreview");
+        },
+        //Get Dialog
+        getDialog : function(){
+            var dialog = dijit.byId("option_"+this.id);
+            return dialog;
+        },
+        _removeItem : function(event){
+            dojo.stopEvent(event);
+            var i = dojo.indexOf(this.listItems, this.getDialog().item);
+            if(i != -1){
+                this.listItems.splice(i, 1);
+                dojo.destroy(this.getDialog().item.domNode);
+                this.getDialog().hide();
+                dojo.publish("/encuestame/tweetpoll/updatePreview");
+            } else {
+                console.error("Error on remove Item");
+            }
         }
     }
 );
@@ -69,7 +86,9 @@ dojo.declare(
             console.debug("new HashTag", this.data);
         },
 
-        removeHashTag : function(){
-
+        _options : function(event){
+            var dialog = this.parentWidget.getDialog();
+            dialog.item = this;
+            dialog.show();
         }
 });
