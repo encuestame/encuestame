@@ -1,5 +1,5 @@
 <div class="twitterAccountListWrapper">
-    <ul dojoAttachPoint="_tweetPublishAccounts">
+    <div dojoAttachPoint="_tweetPublishAccounts">
 
-    </ul>
+    </div>
 </div>

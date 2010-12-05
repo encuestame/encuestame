@@ -31,9 +31,31 @@ div.tweetPollWrapper .inputClass{
 }
 
 div.tweetPollWrapper div.tweetPollOptions div.boxRight{
-    margin: 10px;
+    margin-top: 10px;
 }
 
+div.tweetPollWrapper div.tweetPollOptions div.question{
+
+}
+
+div.tweetPollWrapper div.tweetPollOptions div.question .questionTextBox{
+   float: left;
+   width: 590px;
+}
+
+div.tweetPollWrapper div.tweetPollOptions div.question .questionTextBox input{
+   padding: 4px;
+   font-size: 130%;
+}
+
+div.tweetPollWrapper div.tweetPollOptions div.question .dijitTextBox{
+   padding: 3px;
+   font-size: 130%;
+}
+div.tweetPollWrapper div.tweetPollOptions div.question .dijitTextArea{
+   padding: 3px;
+   font-size: 130%;
+}
 
 /** Add Answers **/
 

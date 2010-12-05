@@ -31,7 +31,6 @@ dojo.declare(
 
         previeWidget : null,
 
-
         maxTweetText : 140,
 
         postCreate: function() {
@@ -102,7 +101,7 @@ dojo.declare(
                      color: {
                          start: "black",
                          end: "white"
-                     },
+                     }
                  },
                  onEnd: function() {
                      //dojo.byId("tweetPollPreview").innerHTML = "Granted";
@@ -118,6 +117,7 @@ dojo.declare(
         _publish : function(event){
             dojo.stopEvent(event);
             if(this._isValid()){
+                dojo.destroy(dijit.byId("publishTweetPoll").titleBar);
                 dijit.byId("publishTweetPoll").show();
                 this.loadPublicationDialogContent();
             } else {
@@ -131,9 +131,95 @@ dojo.declare(
             this._displayPublishContent();
         },
 
+        _publishTweet : function(event){
+
+            dojo.stopEvent(event);
+            var valid = true;
+            //Question
+            var question = this.questionWidget.get("value");
+            if(!question || question == ""){
+                valid = false;
+            }
+
+            //getTwitterAccounts
+            var listAccounts = [];
+            var accountsWidget = dijit.byId("accounts").arrayAccounts;
+            if (accountsWidget.length < 0) { //answer should be 2
+                valid = false;
+            } else {
+                dojo.forEach(
+                        accountsWidget,
+                        dojo.hitch(this, function(data, index) {
+                            listAccounts.push(data.account.accountId);
+                }));
+            }
+
+            //getAnswers
+            var answers = [];
+            if (this.answerWidget.listItems.length < 2) { //answer should be 2
+                valid = false;
+            } else {
+                dojo.forEach(
+                        this.answerWidget.listItems,
+                        dojo.hitch(this, function(data, index) {
+                            answers.push(data.answer.label);
+                }));
+            }
+            //getHashTags
+            var tags = [];
+            dojo.forEach(
+                    this.hashTagWidget.listItems,
+                    dojo.hitch(this, function(data, index) {
+                        tags.push(data.data.label.trim());
+            }));
+
+            //getScheduled
+            var params = {
+                     "question" : question.trim(),
+                    "twitterAccounts" : listAccounts,
+                    "scheduled" : false,
+                    "hashtags" : tags,
+                    "answers" : answers
+            };
+
+            var load = dojo.hitch(this, function(data){
+                console.debug(data);
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(
+                    encuestame.service.list.publishTweetPoll, params, load, error);
+        },
+
+        _cancelPublish : function(event){
+            dijit.byId("publishTweetPoll").hide();
+            this.resetPublish();
+        },
+
+        resetPublish : function(){
+
+        },
+
         _displayPublishContent : function(){
 
         },
+
+        _activateScheduled : function(b){
+           if (b) {
+               dojo.style(dojo.byId("showDate"), "display", "block");
+           } else {
+               dojo.style(dojo.byId("showDate"), "display", "none");
+           }
+        },
+
+        _activateSpinner : function(b){
+            if (b) {
+                dojo.style(dojo.byId("showSpinner"), "display", "block");
+            } else {
+                dojo.style(dojo.byId("showSpinner"), "display", "none");
+            }
+         },
 
         errorLoading : function(){
 
@@ -155,18 +241,83 @@ dojo.declare(
 
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPublishTwitterAccount.inc"),
 
+        widgetsInTemplate: true,
+
         _listSocialAccounts : null,
+
+        arrayAccounts : [],
 
         _loadTwitterAccounts : function(){
            var load = dojo.hitch(this, function(data){
-                console.debug("data", data);
                 this._listSocialAccounts = data.success.items;
+                dojo.empty(this._tweetPublishAccounts);
+                dojo.publish("/encuestame/tweetpoll/twitter/accounts");
             });
             var error = function(error) {
                 console.debug("error", error);
             };
             encuestame.service.xhrGet(
                     encuestame.service.list.twitterAccount, {}, load, error);
+       },
+
+       postCreate : function(){
+           dojo.subscribe("/encuestame/tweetpoll/twitter/accounts", this, "showAccounts");
+       },
+
+       showAccounts : function(){
+           dojo.forEach(
+                   this._listSocialAccounts,
+                   dojo.hitch(this, function(data, index) {
+                     if (data.typeAccount == "TWITTER") {
+                         this.createTwitterAccount(data);
+                     } else if(data.typeAccount == "IDENTICA"){
+
+                     }
+               }));
+       },
+
+       createTwitterAccount : function(data){
+           var widget = new encuestame.org.core.commons.tweetPoll.TwitterAccount({account : data});
+           this._tweetPublishAccounts.appendChild(widget.domNode);
+           this.arrayAccounts.push(widget);
+       },
+
+       createIdentiCaAccount : function(){
+          //future.
        }
 });
+
+/*
+ * Twitter Account.
+ */
+dojo.declare(
+        "encuestame.org.core.commons.tweetPoll.TwitterAccount",
+        [dijit._Widget, dijit._Templated],{
+
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/twitterAccount.inc"),
+
+        account : {},
+
+        widgetsInTemplate: true,
+
+        selected : false,
+
+        postCreate : function(){
+        },
+
+        _select : function(b){
+            this.selected = b;
+         }
+ });
+
+/*
+ * Identi.ca account.
+ */
+dojo.declare(
+        "encuestame.org.core.commons.tweetPoll.IdentiCaAccount",
+        [dijit._Widget, dijit._Templated],{
+        //templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPublishTwitterAccount.inc"),
+        postCreate : function(){
+        }
+ });
 

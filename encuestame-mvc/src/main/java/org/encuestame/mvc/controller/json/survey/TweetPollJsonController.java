@@ -13,19 +13,25 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.util.MD5Utils;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,27 +64,43 @@ public class TweetPollJsonController extends AbstractJsonController {
         final UnitTweetPoll tweetPoll = new UnitTweetPoll();
         // Get User Logged.
         final SecUserSecondary user = getByUsername(getUserPrincipalUsername());
+        log.debug("user " +user.getUsername());
         if (user != null) {
             // set user id to question bean.
-            // this.getUnitTweetPoll().getQuestionBean().setUserId(userId);
             final UnitQuestionBean questionBean = new UnitQuestionBean();
             questionBean.setQuestionName(question);
+            questionBean.setUserId(user.getUid());
+            log.debug("questionBean.name() " +questionBean.getQuestionName());
             //Add answers
-            for (int row = 0; row < answers.length; row++) {
-                final UnitAnswersBean answer = new UnitAnswersBean();
-                answer.setAnswers(answers[row]);
-                questionBean.getListAnswers().add(answer);
-            }
             try {
+
+                //Setting Answers.
+                for (int row = 0; row < answers.length; row++) {
+                    final UnitAnswersBean answer = new UnitAnswersBean();
+                    answer.setAnswers(answers[row].trim());
+                    answer.setAnswerHash(MD5Utils.md5(
+                            String.valueOf(java.util.Calendar.getInstance().getTimeInMillis())
+                            + RandomStringUtils.randomAlphabetic(2)));
+                    questionBean.getListAnswers().add(answer);
+                }
+
+                //Setting Hash Tags
+                for (int row = 0; row < hashtags.length; row++) {
+                    final UnitHashTag hashTag = new UnitHashTag();
+                    hashTag.setHashTagName(answers[row].toLowerCase().trim());
+                    tweetPoll.getHashTags().add(hashTag);
+                }
+
+                log.debug("questionBean.getListAnswers() " +questionBean.getListAnswers().size());
                 //save question
-                  getSurveyService().createQuestion(questionBean);
+                  final Question questionDomain = getSurveyService().createQuestion(questionBean);
                 // save create tweet poll
                     tweetPoll.setUserId(user.getSecUser().getUid());
                     tweetPoll.setCloseNotification(Boolean.FALSE);
                     tweetPoll.setResultNotification(Boolean.FALSE);
                     tweetPoll.setPublishPoll(Boolean.TRUE); //always TRUE
                     tweetPoll.setSchedule(scheduled);
-                    getTweetPollService().createTweetPoll(tweetPoll);
+                    getTweetPollService().createTweetPoll(tweetPoll, questionDomain);
                     // If publish is true and Scheduled is false, because if is
                     // scheduled we want
                     // send later.
@@ -91,7 +113,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                         for (int row = 0; row < twitterAccountsId.length; row++) {
                             final UnitTwitterAccountBean twitter = new UnitTwitterAccountBean();
                                    twitter.setAccountId(twitterAccountsId[row]);
-                                accountBeans.add(twitter);
+                                   accountBeans.add(twitter);
                         }
                         log.debug("Accounts " + accountBeans.size());
                         getTweetPollService().publicMultiplesTweetAccounts(accountBeans,
@@ -103,6 +125,10 @@ public class TweetPollJsonController extends AbstractJsonController {
                   log.error(e);
                   e.printStackTrace();
                   setError(e.getMessage(), response);
+            } catch (NoSuchAlgorithmException e) {
+                log.error(e);
+                e.printStackTrace();
+                setError(e.getMessage(), response);
             }
         } else {
             setError("access denied", response);

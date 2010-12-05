@@ -1,7 +1,7 @@
 dojo.provide("encuestame.org.core.commons");
 
 encuestame.service = {};
-encuestame.service.timeout = 5000;
+encuestame.service.timeout = 20000;
 encuestame.contextDefault = "/encuestame";
 /**
  * Json Get Call.

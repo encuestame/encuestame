@@ -6,6 +6,7 @@ dependencies ={
                 "encuestame.org.core.contextWidget",
                 "encuestame.org.core.commons",
                 "encuestame.org.core.commons.tweetPoll.TweetPoll",
+                "encuestame.org.core.commons.tweetPoll.TweetPollList",
                 "encuestame.org.core.commons.tweetPoll.HashTags",
                 "encuestame.org.core.commons.tweetPoll.Answers",
                 "encuestame.org.core.commons.dashboard.Dashboard",
