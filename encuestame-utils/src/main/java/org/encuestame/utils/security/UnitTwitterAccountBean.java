@@ -44,6 +44,8 @@ public class UnitTwitterAccountBean implements Serializable {
 
     private String pin;
 
+    private String typeAccount;
+
     /**
      * @return the account
      */
@@ -136,7 +138,6 @@ public class UnitTwitterAccountBean implements Serializable {
     }
 
     public void setToken(String token) {
-        //System.out.println("token "+token);
         this.token = token;
     }
 
@@ -145,7 +146,20 @@ public class UnitTwitterAccountBean implements Serializable {
     }
 
     public void setSecretToken(String secretToken) {
-        //System.out.println("secretToken "+secretToken);
         this.secretToken = secretToken;
+    }
+
+    /**
+     * @return the typeAccount
+     */
+    public String getTypeAccount() {
+        return typeAccount;
+    }
+
+    /**
+     * @param typeAccount the typeAccount to set
+     */
+    public void setTypeAccount(String typeAccount) {
+        this.typeAccount = typeAccount;
     }
 }
