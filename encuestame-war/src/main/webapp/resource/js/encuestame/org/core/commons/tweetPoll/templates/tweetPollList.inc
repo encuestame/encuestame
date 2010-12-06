@@ -27,16 +27,8 @@
                     xxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxx
                 </div>
             </div>
-            <div class="listTweet">
-                    <div class="listItemTweet" style="min-width: 300px; min-height: 60px; padding: 8px;">
-                          111111111111
-                    </div>
-                     <div class="listItemTweet" style="min-width: 300px; min-height: 60px; padding: 8px;">
-                          2222222222222
-                    </div>
-                     <div class="listItemTweet" style="min-width: 300px; min-height: 60px; padding: 8px;">
-                          33333333333
-                    </div>
+            <div class="listTweet" dojoAttachPoint="_items">
+
             </div>
          </div>
 </div>

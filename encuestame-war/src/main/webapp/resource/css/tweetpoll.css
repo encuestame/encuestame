@@ -59,6 +59,10 @@ div.tweetPollListWrapper div.tweetListContent div.options span:hover{
     text-decoration: none;
 }
 
+div.tweetPollListWrapper div.tweetListContent div.listTweet{
+    margin-left: 200px;
+}
+
 div.tweetPollWrapper{
     margin: 0 9%;
 }

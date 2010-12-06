@@ -84,7 +84,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<UnitTweetPoll> getTweetsPollsByUserName(final String username) throws EnMeDomainNotFoundException{
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
         log.info("tweetPoll size "+tweetPolls.size());
-        return this.setListAnswers(tweetPolls);
+        return this.setTweetPollListAnswers(tweetPolls);
     }
 
     /**
@@ -92,7 +92,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param listTweetPolls List of {@link TweetPoll}
      * @return
      */
-    private List<UnitTweetPoll> setListAnswers(final List<TweetPoll> listTweetPolls){
+    private List<UnitTweetPoll> setTweetPollListAnswers(final List<TweetPoll> listTweetPolls){
         final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
         for (TweetPoll tweetPoll : listTweetPolls) {
             final UnitTweetPoll unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
@@ -109,7 +109,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeDomainNotFoundException
      */
-    public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword) throws EnMeDomainNotFoundException{
+    public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username,
+                               final String keyword) throws EnMeDomainNotFoundException{
         log.info("search keyword tweetPoll  "+keyword);
         List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
         if(keyword == null || keyword.trim().isEmpty()){
@@ -118,7 +119,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username));
         }
         log.info("search keyword tweetPoll size "+tweetPolls.size());
-        return this.setListAnswers(tweetPolls);
+        return this.setTweetPollListAnswers(tweetPolls);
     }
 
     /**
@@ -142,10 +143,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
+    public void createTweetPoll(final UnitTweetPoll tweetPollBean, final Question question) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
-            final Question question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
             log.debug("question found "+question);
             if(question == null){
                 throw new EnMeExpcetion("question not found");
@@ -192,7 +192,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollBean.setId(tweetPollDomain.getTweetPollId());
         }
         catch (Exception e) {
-            log.error("Error creating TweetlPoll "+e.getMessage());
+            log.error("Error creating TweetlPoll "+e);
+            e.printStackTrace();
             throw new EnMeExpcetion(e);
         }
     }
@@ -246,7 +247,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws HttpException exception
      */
     private String buildUrlAnswer(final QuestionsAnswers answer, final String domain) throws HttpException, IOException{
-        StringBuffer stringBuffer = new StringBuffer(domain);
+        final StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(this.getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
         return getTwitterService().getTinyUrl(stringBuffer.toString());
@@ -258,12 +259,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
-    public void publicMultiplesTweetAccounts(
+    public String[] publicMultiplesTweetAccounts(
             final List<UnitTwitterAccountBean> twitterAccounts,
             final Long tweetPollId,
             final String tweetText){
+            final String accountsResult[] = {};
             log.debug("publicMultiplesTweetAccounts "+twitterAccounts.size());
             for (UnitTwitterAccountBean unitTwitterAccountBean : twitterAccounts) {
+                final String account[] = {};
                 final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
                 final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
                 final SecUserTwitterAccounts secUserTwitterAccounts = getSecUserDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
@@ -292,6 +295,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     log.warn("Twitter Account Not Found [Id:"+unitTwitterAccountBean.getAccountId()+"]");
                 }
             }
+            return accountsResult;
     }
 
     /**

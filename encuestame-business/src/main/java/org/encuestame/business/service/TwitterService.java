@@ -79,7 +79,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @throws TwitterException
      */
     public Status publicTweet(final SecUserTwitterAccounts secUserTwitterAccount, final String tweet) throws TwitterException{
-        log.debug("publicTweet");
+        log.debug("publicTweet "+secUserTwitterAccount.getTwitterAccount());
         //Twitter twitter = new TwitterFactory().getInstance();
         log.debug("publicTweet Before  Token  {"+secUserTwitterAccount.getToken());
         log.debug("publicTweet Before Secret Token  {"+secUserTwitterAccount.getSecretToken());

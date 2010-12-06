@@ -59,24 +59,27 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param questionBean {@link UnitQuestionBean}.
      * @throws EnMeExpcetion exception
      */
-    public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
+    public Question createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
+            final Question question = new Question();
             try{
-                final Question question = new Question();
+
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
                 question.setSharedQuestion(false);
                 //save question
                 getQuestionDao().saveOrUpdate(question);
-                questionBean.setId(question.getQid());
+                //questionBean.setId(question.getQid());
                 for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
                     this.saveAnswer(answerBean, question);
                 }
+
             }
             catch (Exception e) {
                 log.error("Error Creating Question "+e.getMessage());
                 throw new EnMeExpcetion(e);
             }
+            return question;
     }
 
     /**

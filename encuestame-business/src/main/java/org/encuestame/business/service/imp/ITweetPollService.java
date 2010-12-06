@@ -16,16 +16,15 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
-
-import twitter4j.Status;
 
 /**
  * Tweet Poll Service.
@@ -40,7 +39,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
+    void createTweetPoll(final UnitTweetPoll tweetPollBean, final Question question) throws EnMeExpcetion;
 
     /**
      * Generate TweetPoll Text.
@@ -121,7 +120,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
-    void publicMultiplesTweetAccounts(
+    String[] publicMultiplesTweetAccounts(
             final List<UnitTwitterAccountBean> twitterAccounts,
             final Long tweetPollId,
             final String tweetText);
@@ -132,5 +131,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param questionName
      */
     void updateQuestionName(final Long questionId, final String questionName);
+
+    /**
+     * Twitter Service.
+     * @return
+     */
+    ITwitterService getTwitterService();
 
 }

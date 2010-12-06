@@ -15,15 +15,17 @@ package org.encuestame.mvc.controller.json.survey;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.mvc.controller.AbstractJsonController;
@@ -51,6 +53,55 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TweetPollJsonController extends AbstractJsonController {
 
+    /**
+     * Get List TweetPoll.
+     * @param typeSearch
+     * @param keyword
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/tweetpoll/search.json", method = RequestMethod.GET)
+    public ModelMap getListTweetPoll(
+            @RequestParam(value = "typeSearch", required = true) String typeSearch,
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "max", required = false)Integer max,
+            @RequestParam(value = "start", required = false)Integer start,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        List<UnitTweetPoll> list = new ArrayList<UnitTweetPoll>();
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        try {
+            if(TypeSearch.KEYWORD.name().equals(typeSearch)){
+                list = getTweetPollService().searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword);
+            } else if(TypeSearch.ALL.name().equals(typeSearch)){
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername());
+            } else if(TypeSearch.LASTDAY.name().equals(typeSearch)){
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+            } else if(TypeSearch.LASTWEEK.name().equals(typeSearch)){
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+            } else if(TypeSearch.FAVOURITES.name().equals(typeSearch)){
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+            } else if(TypeSearch.SCHEDULED.name().equals(typeSearch)){
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+            } else {
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+            }
+            jsonResponse.put("tweetPolls", list);
+            setItemResponse(jsonResponse);
+        } catch (EnMeDomainNotFoundException e) {
+             log.error(e);
+             e.printStackTrace();
+             setError(e.getMessage(), response);
+        }
+
+        return returnData();
+    }
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.GET)
     public ModelMap get(
@@ -73,7 +124,6 @@ public class TweetPollJsonController extends AbstractJsonController {
             log.debug("questionBean.name() " +questionBean.getQuestionName());
             //Add answers
             try {
-
                 //Setting Answers.
                 for (int row = 0; row < answers.length; row++) {
                     final UnitAnswersBean answer = new UnitAnswersBean();

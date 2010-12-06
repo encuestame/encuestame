@@ -95,6 +95,11 @@ public class SecUserTwitterAccounts {
      */
     private TypeAuth type = TypeAuth.OAUTH; //Twitter only accept OAuth.
 
+    /**
+     * Type Accountd.
+     */
+    private TypeAccount accounType = TypeAccount.TWITTER;
+
     /** Verfied. **/
     private Boolean verfied = false;
 
@@ -110,6 +115,20 @@ public class SecUserTwitterAccounts {
      * Password.
      */
     PASSWORD};
+
+    /**
+     * Type Account.
+     */
+    public enum TypeAccount {
+
+        /**
+         * OAuth.
+         */
+        TWITTER,
+        /**
+         * Password.
+         */
+        IDENTICA};
 
     /**
      * @return the id
@@ -188,6 +207,24 @@ public class SecUserTwitterAccounts {
      */
     public void setType(final TypeAuth type) {
         this.type = type;
+    }
+
+
+
+    /**
+     * @return the accounType
+     */
+    @Column(name="type_account")
+    @Enumerated(EnumType.STRING)
+    public TypeAccount getAccounType() {
+        return accounType;
+    }
+
+    /**
+     * @param accounType the accounType to set
+     */
+    public void setAccounType(final TypeAccount accounType) {
+        this.accounType = accounType;
     }
 
     /**

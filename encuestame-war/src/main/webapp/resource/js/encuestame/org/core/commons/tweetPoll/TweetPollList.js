@@ -15,6 +15,46 @@ dojo.declare(
         [dijit._Widget, dijit._Templated],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollList.inc"),
         widgetsInTemplate: true,
+        url : encuestame.service.list.listTweetPoll,
+        listItems : null,
+        defaultSearch : "LASTDAY",
         postCreate : function(){
+            console.debug("TweetPollList", this.listItems);
+            if(this.listItems == null){
+                console.debug("loadTweetPolls");
+                this.loadTweetPolls({typeSearch : this.defaultSearch});
+            }
+        },
+
+        /**
+         * Load Tweet Polls.
+         */
+        loadTweetPolls : function(params){
+            var load = dojo.hitch(this, function(data){
+                console.debug("loadTweetPolls", data);
+                dojo.forEach(
+                        data.success.tweetPolls,
+                        dojo.hitch(this, function(data, index) {
+                            this.createTweetPollItem(data);
+                }));
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(this.url, params, load, error);
+        },
+
+        createTweetPollItem : function(data){
+            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem();
+            this._items.appendChild(widget.domNode);
         }
  });
+
+dojo.declare(
+        "encuestame.org.core.commons.tweetPoll.TweetPollListItem",
+        [dijit._Widget, dijit._Templated],{
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListItem.inc"),
+        widgetsInTemplate: true,
+        postCreate : function(){
+        }
+});

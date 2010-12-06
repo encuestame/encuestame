@@ -89,9 +89,10 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionBean {@link UnitQuestionBean}.
      * @throws EnMeExpcetion exception
      */
-    public void createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
+    public Question createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
+              final Question question = new Question();
             try{
-                final Question question = new Question();
+
                 question.setQuestion(questionBean.getQuestionName());
                 question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
@@ -105,6 +106,7 @@ public class AbstractSurveyService extends AbstractChartService {
             catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }
+            return question;
     }
 
     /**

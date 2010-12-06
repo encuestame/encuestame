@@ -121,11 +121,14 @@ public class ConvertDomainBean {
                    twitterAccountBean.setAccount(twitterAccounts.getTwitterAccount());
                    twitterAccountBean.setSecret(twitterAccounts.getConsumerSecret());
                    twitterAccountBean.setKey(twitterAccounts.getConsumerKey());
-                   twitterAccountBean.setPin(twitterAccounts.getTwitterPin() == null ? "" : twitterAccounts.getTwitterPin().toString());
+                   twitterAccountBean.setPin(twitterAccounts.getTwitterPin() == null
+                           ? "" : twitterAccounts.getTwitterPin().toString());
                    twitterAccountBean.setAccountId(twitterAccounts.getId());
                    twitterAccountBean.setToken(twitterAccounts.getToken());
                    twitterAccountBean.setSecretToken(twitterAccounts.getSecretToken());
-                   twitterAccountBean.setType(twitterAccounts.getType() == null ? SecUserTwitterAccounts.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
+                   twitterAccountBean.setTypeAccount(twitterAccounts.getAccounType().name());
+                   twitterAccountBean.setType(twitterAccounts.getType() == null
+                          ? SecUserTwitterAccounts.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
            return twitterAccountBean;
     }
 
