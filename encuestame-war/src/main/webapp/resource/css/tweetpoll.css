@@ -10,6 +10,55 @@
 
 /** Create TweetPoll **/
 
+div.tweetPollListWrapper{
+
+}
+
+div.tweetPollListWrapper div.tweetListContent{
+    margin-top: 10px;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.options{
+    float: left;
+    min-width: 185px;
+    width: 185px;
+    min-height: 400px;
+    border-right: 1px solid #EEE;
+    text-align: left;
+    background-color: #F0F0F0;
+    margin-right: 10px;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.options div.optionItem{
+    padding: 10px;
+    height: 11px;
+    border-bottom: 1px solid #EEE;
+    padding: 8px;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.options div.optionItem:hover{
+    background-color: #6F6F6F;
+    color: #FFF;
+    cursor: pointer;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.options div.optionItem span{
+    padding-left: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    position: cursor;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.options div.optionItem span:hover{
+       color: #FFF !important;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.options span:hover{
+    color: #FFF;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 div.tweetPollWrapper{
     margin: 0 9%;
 }

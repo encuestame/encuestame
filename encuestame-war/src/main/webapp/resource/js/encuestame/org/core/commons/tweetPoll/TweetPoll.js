@@ -10,7 +10,6 @@ dojo.require("dijit.form.CheckBox");
 dojo.require("dijit._Widget");
 dojo.require("dojox.widget.Dialog");
 dojo.require("dijit.form.NumberSpinner");
-
 dojo.require("dijit.Dialog");
 
 dojo.require("encuestame.org.core.commons.tweetPoll.Answers");
