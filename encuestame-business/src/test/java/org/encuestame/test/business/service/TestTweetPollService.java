@@ -135,7 +135,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     tweetPollBean.setScheduleDate(new Date());
     tweetPollBean.setCompleted(false);
     tweetPollBean.setUserId(this.user.getUid());
-    this.tweetPollService.createTweetPoll(tweetPollBean);
+    this.tweetPollService.createTweetPoll(tweetPollBean, question);
     final String s = this.tweetPollService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
     //final Status status = this.tweetPollService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
     //assertNotNull(status.getId());
