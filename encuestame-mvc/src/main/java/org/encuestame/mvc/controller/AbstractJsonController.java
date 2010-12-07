@@ -50,12 +50,12 @@ public abstract class AbstractJsonController extends BaseController{
     /**
      * Domain.
      */
-     @Value("${application.domain}") private String appDomainSetted;
+    // @Value("${application.domain}") private String appDomainSetted;
 
      /**
       * Tweet Path Vote.
       */
-     @Value("${answers.tweetPathVote}") private String tweetPathVote;
+    // @Value("${answers.tweetPathVote}") private String tweetPathVote;
 
     /** Success. **/
     private Map<String, Object> sucess = new HashMap<String, Object>();
@@ -216,7 +216,7 @@ public abstract class AbstractJsonController extends BaseController{
             builder.append(header);
             log.debug("Host "+builder.toString());
         } else {
-            builder.append(getAppDomainSetted());
+            builder.append("/");
         }
         return builder.toString();
     }
@@ -246,31 +246,5 @@ public abstract class AbstractJsonController extends BaseController{
         this.notificationDao = notificationDao;
     }
 
-    /**
-     * @return the appDomainSetted
-     */
-    public String getAppDomainSetted() {
-        return appDomainSetted;
-    }
 
-    /**
-     * @param appDomainSetted the appDomainSetted to set
-     */
-    public void setAppDomainSetted(final String appDomainSetted) {
-        this.appDomainSetted = appDomainSetted;
-    }
-
-    /**
-     * @return the tweetPathVote
-     */
-    public String getTweetPathVote() {
-        return tweetPathVote;
-    }
-
-    /**
-     * @param tweetPathVote the tweetPathVote to set
-     */
-    public void setTweetPathVote(final String tweetPathVote) {
-        this.tweetPathVote = tweetPathVote;
-    }
 }

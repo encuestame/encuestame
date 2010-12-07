@@ -78,28 +78,4 @@ public class UrlShortAddressController extends AbstractJsonController{
             }
             return returnData();
      }
-
-     /**
-      * Get Url Domain.
-      * @return
-      */
-     public String getUrlDomain(final HttpServletRequest request, final Boolean realDomain){
-         final StringBuilder builder = new StringBuilder();
-         if(realDomain){
-             String header = request.getHeader("X-Forwarded-Host");
-             log.debug("Host header  "+header);
-             if(header != null) {
-                     // we are only interested in the first header entry
-                     header = new StringTokenizer(header,",").nextToken().trim();
-             }
-             if(header == null) {
-                     header = request.getHeader("Host");
-             }
-             builder.append(header);
-             log.debug("Host "+builder.toString());
-         } else {
-             builder.append(getAppDomainSetted());
-         }
-         return builder.toString();
-     }
 }
