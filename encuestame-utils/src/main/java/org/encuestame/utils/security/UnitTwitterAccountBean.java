@@ -16,10 +16,9 @@ import java.io.Serializable;
 
 /**
  * Unit Twitter Account Bean.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 26, 2010 5:15:12 PM
- * @version Id:
+ * @version $Id:$
  */
 public class UnitTwitterAccountBean implements Serializable {
 

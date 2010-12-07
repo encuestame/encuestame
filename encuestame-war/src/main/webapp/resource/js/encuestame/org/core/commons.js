@@ -50,7 +50,6 @@ encuestame.service.xhrGet = function(url, params, load, error){
                     message = "Unknown error.";
                     console.debug(message);
                 }
-
               }
           });
     }

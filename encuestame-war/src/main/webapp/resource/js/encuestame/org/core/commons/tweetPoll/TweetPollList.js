@@ -8,8 +8,9 @@ dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
 dojo.require("dojox.widget.Dialog");
+dojo.require("dojox.form.Rating");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
-
+dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollList",
         [dijit._Widget, dijit._Templated],{
@@ -45,7 +46,7 @@ dojo.declare(
         },
 
         createTweetPollItem : function(data){
-            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem();
+            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem({data : data});
             this._items.appendChild(widget.domNode);
         }
  });
@@ -54,7 +55,17 @@ dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollListItem",
         [dijit._Widget, dijit._Templated],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListItem.inc"),
+        //widget
         widgetsInTemplate: true,
+        //data
+        data: null,
+        //post create
         postCreate : function(){
+            console.debug(this.data);
+            this.showInfo();
+        },
+
+        showInfo : function(){
+
         }
 });

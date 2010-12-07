@@ -103,7 +103,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
 
 
    /**
-    * Test Get Tweets
+    * Test Get Tweets.
  * @throws EnMeDomainNotFoundException
     */
    @Test

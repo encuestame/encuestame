@@ -1,3 +1,32 @@
-<div class="listItemTweet" style="min-width: 300px; min-height: 60px; padding: 8px;">
-      111111111111
+<div class="listItemTweet">
+   <div class="rightPanel">
+        <div class="votesTitle">
+            Votes
+        </div>
+        <div class="votesCount">
+            100/500
+        </div>
+        <div class="rating">
+            <div dojoType="dojox.form.Rating" numStars="5" value="2"></div>
+        </div>
+   </div>
+   <div style="font-size: 130%; color: #70798C; font-weight: bold;">${data.questionBean.questionName}</div>
+   <div style="font-size: 80%; font-weight: bold;">
+        <a href="${data.tweetUrl}" target="_blank">${data.tweetUrl}</a>
+  </div>
+  <div class="hashTags" style="padding: 2px;">
+        <span class="tag">Tag 1</span>
+        <span class="tag">Tag 2</span>
+        <span class="tag">Tag 3</span>
+        <span class="tag">Tag 4</span>
+  </div>
+  <div class="optionItem">
+        <div style="float: left; width: 150px; font-size: 130%; font-weight: bold; color: green;">
+            OPEN
+        </div>
+        <div style="float: left; width: 150px;">
+
+        </div>
+  </div>
+
 </div>

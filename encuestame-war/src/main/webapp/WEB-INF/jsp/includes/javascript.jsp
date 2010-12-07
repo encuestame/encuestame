@@ -4,5 +4,6 @@
         djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: true"></script>
 <style type="text/css">
       @import "<%=request.getContextPath()%>/resource/js/dijit/themes/claro/claro.css";
+      @import "<%=request.getContextPath()%>/resource/js/dojox/form/resources/Rating.css";
       @import "<%=request.getContextPath()%>/resource/js/dojo/resources/dojo.css"
 </style>

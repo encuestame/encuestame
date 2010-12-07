@@ -30,5 +30,9 @@
             <div class="listTweet" dojoAttachPoint="_items">
 
             </div>
+            <div class="tweetDetail">
+                sadas21
+                <div id="pie" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardPie"></div>
+            </div>
          </div>
 </div>
