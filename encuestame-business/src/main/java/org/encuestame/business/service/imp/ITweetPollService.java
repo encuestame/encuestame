@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
@@ -138,4 +139,29 @@ public interface ITweetPollService extends IMasterSurveyService{
      */
     ITwitterService getTwitterService();
 
+    /**
+     * Create TweetPoll Folder.
+     * @param folderName
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
+
+    /**
+     * Update TweetPoll Folder.
+     * @param folderId
+     * @param folderName
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    UnitFolder updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeDomainNotFoundException;
+
+    /**
+     * Delete TweetPoll Folder.
+     * @param folderId
+     * @throws EnMeDomainNotFoundException
+     */
+    void deleteTweetPollFolder(final Long folderId) throws EnMeDomainNotFoundException;
 }

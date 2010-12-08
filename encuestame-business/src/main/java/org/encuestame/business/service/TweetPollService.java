@@ -28,14 +28,17 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.persistence.domain.survey.TweetPollSavedPublishedStatus.Type;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -380,8 +383,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final SecUser users = getUser(username).getSecUser();
         Boolean validate = false;
         log.info(users.getTwitterAccount());
-        log.info(users.getTwitterPassword());
         if(!users.getTwitterAccount().isEmpty() && !users.getTwitterPassword().isEmpty()){
+            log.info(users.getTwitterPassword());
             try{
                 final User user = getTwitterService().verifyCredentials(users.getTwitterAccount(), users.getTwitterPassword());
                 log.info(user);
@@ -393,6 +396,63 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         log.info(validate);
         return validate;
+    }
+
+    /**
+     * Create TweetPoll Folder.
+     * @param folderName
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException{
+        final TweetPollFolder tweetPollFolderDomain = new TweetPollFolder();
+        tweetPollFolderDomain.setUsers(getUser(username).getSecUser());
+        tweetPollFolderDomain.setCreatedAt(new Date());
+
+        tweetPollFolderDomain.setFolderName(folderName);
+        this.getTweetPollDao().saveOrUpdate(tweetPollFolderDomain);
+        return ConvertDomainBean.convertFolderToBeanFolder(tweetPollFolderDomain);
+
+    }
+
+    /**
+     * Update Tweet Poll Folder.
+     * @throws EnMeDomainNotFoundException
+     */
+    public UnitFolder updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeDomainNotFoundException{
+        final TweetPollFolder tweetPollFolder = this.getTweetPollFolder(folderId);
+        if(tweetPollFolder == null) {
+            throw new EnMeDomainNotFoundException("Tweet Poll Folder not found");
+        }
+        else{
+            tweetPollFolder.setFolderName(folderName);
+            getTweetPollDao().saveOrUpdate(tweetPollFolder);
+        }
+         return ConvertDomainBean.convertFolderToBeanFolder(tweetPollFolder);
+     }
+
+     /**
+     * Remove TweetPoll Folder.
+     * @param TweetPoll folderId
+     * @throws EnMeDomainNotFoundException
+     */
+    public void deleteTweetPollFolder(final Long folderId) throws EnMeDomainNotFoundException{
+        final TweetPollFolder tweetPollfolder = this.getTweetPollFolder(folderId);
+        if(tweetPollfolder != null){
+            getTweetPollDao().delete(tweetPollfolder);
+        } else {
+            throw new EnMeDomainNotFoundException("TweetPoll folder not found");
+        }
+    }
+
+    /**
+     * Get Tweet Poll Folder.
+     * @param id
+     * @return
+     */
+    private TweetPollFolder getTweetPollFolder(final Long folderId){
+        return this.getTweetPollDao().getTweetPollFolderById(folderId);
     }
 
     /**

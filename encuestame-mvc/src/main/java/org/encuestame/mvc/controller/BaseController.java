@@ -32,6 +32,7 @@ import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.business.service.imp.IServiceManager;
@@ -283,6 +284,11 @@ public abstract class BaseController extends AbstractSecurityContext{
      */
     public ITweetPollService getTweetPollService(){
         return getServiceManager().getApplicationServices().getTweetPollService();
+    }
+
+    public IPollService getPollService(){
+        return getServiceManager().getApplicationServices().getPollService();
+
     }
 
     /**

@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.AbstractFolder;
 
 /**
@@ -31,7 +32,7 @@ import org.encuestame.persistence.domain.AbstractFolder;
 
 @Entity
 @Table(name = "tweetPoll_Folder")
-public class TweetPollFolder extends AbstractFolder{
+public class TweetPollFolder extends AbstractFolder implements IFolder{
      private Long tweetPollFolderId;
 
     /**
@@ -40,15 +41,16 @@ public class TweetPollFolder extends AbstractFolder{
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name = "tweetPollFolderId", unique = true, nullable = true)
-    public Long getTweetPollFolderId() {
+    public Long getId() {
         return tweetPollFolderId;
     }
 
     /**
      * @param tweetPollFolderId the tweetPollFolderId to set
      */
-    public void setTweetPollFolderId(Long tweetPollFolderId) {
+    public void  setId(Long tweetPollFolderId) {
         this.tweetPollFolderId = tweetPollFolderId;
     }
+
 
 }

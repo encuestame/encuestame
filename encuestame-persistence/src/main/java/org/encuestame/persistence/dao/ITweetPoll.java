@@ -18,6 +18,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
@@ -98,4 +99,26 @@ public interface ITweetPoll extends IBaseDao{
        * @return List of Votes.
        */
       List<Object[]> getTotalVotesByTweetPoll(final Long tweetPollId);
+
+      /**
+       * Retrieve TweetPoll Folder by User Id.
+       * @param userId
+       * @return
+       */
+      List<TweetPollFolder> retrieveTweetPollFolderByUserId(final Long userId);
+
+      /**
+       * Retrieve TweetPoll by Folder Id.
+       * @param userId
+       * @param folderId
+       * @return
+       */
+      List<TweetPollFolder> retrieveTweetPollByFolder(final Long userId, final Long folderId);
+
+      /**
+       * Get Tweet Poll Folder by Id.
+       * @param folderId
+       * @return
+       */
+      TweetPollFolder getTweetPollFolderById(final Long folderId);
 }

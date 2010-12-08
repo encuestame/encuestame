@@ -18,8 +18,11 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.AbstractHibernateDaoSupport;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
@@ -163,4 +166,35 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             }
             return result;
     }
+
+    /**
+     * Retrieve Tweet Polls Folders By UserId
+     * @param userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollFolder> retrieveTweetPollFolderByUserId(final Long userId){
+        return getHibernateTemplate().findByNamedParam("FROM TweetPollFolder where users.uid=:userId","userId", userId);
+    }
+
+    /**
+     * Retrieve TweetPoll by Folder
+     * @param userId
+     * @param folderId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollFolder> retrieveTweetPollByFolder(final Long userId, final Long folderId){
+        return getHibernateTemplate().findByNamedParam("FROM TweetPollFolder where surveyFolderId:folderId","folderId", folderId);
+    }
+
+    /**
+     * Get TweetPoll Folder By Id.
+     * @param folderId
+     * @return
+     */
+    public TweetPollFolder getTweetPollFolderById(final Long folderId){
+        return getHibernateTemplate().get(TweetPollFolder.class, folderId);
+    }
+
 }
