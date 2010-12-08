@@ -31,8 +31,7 @@
 
             </div>
             <div class="tweetDetail">
-                sadas21
-                <div id="pie" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardPie"></div>
+                <div id="detail" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollListDetail"></div>
             </div>
          </div>
 </div>

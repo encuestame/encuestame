@@ -439,13 +439,14 @@ public class ConvertDomainBean {
         final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
         unitTweetPoll.setId(poll.getTweetPollId());
         unitTweetPoll.setScheduleDate(poll.getScheduleDate());
-        unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults());
-        unitTweetPoll.setSchedule(poll.getScheduleTweetPoll());
-        unitTweetPoll.setPublishPoll(poll.getPublishTweetPoll());
-        unitTweetPoll.setResultNotification(poll.getResultNotification());
+        unitTweetPoll.setCreateDate(poll.getCreateDate());
+        unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults() == null ? false : poll.getAllowLiveResults());
+        unitTweetPoll.setSchedule(poll.getScheduleTweetPoll() == null ? false : poll.getScheduleTweetPoll());
+        //unitTweetPoll.setPublishPoll(poll.getPublishTweetPoll()); TODO: remove
+        unitTweetPoll.setResultNotification(poll.getResultNotification() == null ? false : poll.getResultNotification());
         unitTweetPoll.setUserId(poll.getTweetOwner().getUid());
-        unitTweetPoll.setCloseNotification(poll.getCloseNotification());
-        unitTweetPoll.setCompleted(poll.getCompleted());
+        unitTweetPoll.setCloseNotification(poll.getCloseNotification() == null ? false : poll.getCloseNotification());
+        unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
         return unitTweetPoll;
     }

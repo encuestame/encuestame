@@ -1,4 +1,4 @@
-<div class="listItemTweet">
+<div class="listItemTweet"  dojoAttachEvent="onclick:_onClickItem">
    <div class="rightPanel">
         <div class="votesTitle">
             Votes

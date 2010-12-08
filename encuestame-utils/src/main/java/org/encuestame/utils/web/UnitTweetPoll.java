@@ -43,6 +43,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     private Boolean completed;
     private Long userId;
     private String tweetUrl;
+    private Date createDate;
     private String twitterUserAcoount;
 
     /** Required Captcha to Vote. **/
@@ -305,4 +306,20 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     public final void setResumeLiveResults(Boolean resumeLiveResults) {
         this.resumeLiveResults = resumeLiveResults;
     }
+
+    /**
+     * @return the createDate
+     */
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * @param createDate the createDate to set
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+
 }

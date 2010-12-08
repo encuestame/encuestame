@@ -11,6 +11,7 @@ dojo.require("dojox.widget.Dialog");
 dojo.require("dojox.form.Rating");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
+dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollList",
         [dijit._Widget, dijit._Templated],{
@@ -61,11 +62,20 @@ dojo.declare(
         data: null,
         //post create
         postCreate : function(){
-            console.debug(this.data);
             this.showInfo();
         },
 
         showInfo : function(){
 
+        },
+
+        _changeBackGroundSelected : function(){
+
+        },
+
+        _onClickItem : function(event){
+             dojo.stopEvent(event);
+             console.debug("_onClickItem");
+             dojo.publish("/encuestame/tweetpoll/detail/update", [this.data]);
         }
 });

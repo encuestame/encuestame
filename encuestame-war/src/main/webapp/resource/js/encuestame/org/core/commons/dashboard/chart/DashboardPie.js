@@ -20,50 +20,14 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        postCreate: function() {
-          dojo.addOnLoad(function() {
-                var dc = dojox.charting;
-                var chartTwo = new dc.Chart2D("chartTwo");
-                chartTwo.setTheme(dc.themes.MiamiNice).addPlot("default", {
-                    type: "Pie",
-                    font: "normal normal 11pt Tahoma",
-                    fontColor: "black",
-                    labelOffset: -30,
-                    radius: 80
-                }).addSeries("Series A", [{
-                    y: 4,
-                    text: "Red",
-                    stroke: "black",
-                    tooltip: "Red is 50%"
-                },
-                {
-                    y: 2,
-                    text: "Green",
-                    stroke: "black",
-                    tooltip: "Green is 25%"
-                },
-                {
-                    y: 1,
-                    text: "Blue",
-                    stroke: "black",
-                    tooltip: "I am feeling Blue!"
-                },
-                {
-                    y: 1,
-                    text: "Other",
-                    stroke: "black",
-                    tooltip: "Mighty <strong>strong</strong><br>With two lines!"
-                }]);
-                var anim_a = new dc.action2d.MoveSlice(chartTwo, "default");
-                var anim_b = new dc.action2d.Highlight(chartTwo, "default");
-                var anim_c = new dc.action2d.Tooltip(chartTwo, "default");
-                chartTwo.render();
-                var legendTwo = new dojox.charting.widget.Legend({
-                    chart: chartTwo
-                },
-                "legendTwo");
-            });
+        data : null,
 
+        postCreate: function() {
+            dojo.subscribe("/encuestame/chart/pie/render", this, "render");
         },
+
+        render: function(){
+
+        }
     }
 );

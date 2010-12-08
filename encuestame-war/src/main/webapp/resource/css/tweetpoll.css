@@ -108,6 +108,53 @@ div.tweetPollListWrapper div.tweetListContent div.tweetDetail{
      border-radius: 0px 15px 15px 0px;
 }
 
+/**
+ * TweetPoll Detail.
+ */
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper{
+
+}
+
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.title{
+    font-size: 130%;
+    font-weight: bold;
+    max-height: 30px;
+    min-height: 18px;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.detail{
+    min-height: 200px;
+    padding: 10px 10px 10px 0px;
+    border-bottom: 2px solid #C3C1C1;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.subMenu{
+    color: rgb(39, 82, 150);
+    font-weight: bold;
+    font-style: italic;
+    padding: 0pt 0px 10px 0pt;
+    font-size: 119%;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.detail div.rownDetail{
+    padding: 1px;
+    font-size: 105%;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.detail div.rownDetail div.label{
+    float: left;
+    width: 150px;
+    padding:2px;
+    font-weight: bold;
+}
+
+div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.detail div.rownDetail div.data{
+    margin-left: 5px;
+    float: left;
+    padding:2px;
+    width: 235px;
+}
+
 div.tweetPollWrapper{
     margin: 0 9%;
 }
