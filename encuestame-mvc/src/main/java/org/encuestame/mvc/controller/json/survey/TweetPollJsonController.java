@@ -185,4 +185,23 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         return returnData();
     }
+
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value ="/api/survey/tweetpoll/change_open_status_tweetpoll.json", method = RequestMethod.GET)
+    public ModelMap changeTweetPollStatus(
+            @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            log.debug("Tweet Poll Id "+ tweetPollId);
+                getTweetPollService().changeStatusTweetPoll(tweetPollId, getUserPrincipalUsername());
+                setSuccesResponse();
+        }
+        catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+                setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }

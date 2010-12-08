@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
@@ -173,4 +174,13 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      */
     void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId) throws EnMeDomainNotFoundException;
+
+    /**
+     * Change Status TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
 }

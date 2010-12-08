@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
@@ -478,6 +479,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          } else {
              throw new EnMeDomainNotFoundException("TweetPoll folder not found");
          }
+    }
+
+    public void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+        if (!tweetPoll.getCloseNotification()){
+            tweetPoll.setCloseNotification(Boolean.TRUE);
+        } else {
+               throw new EnmeFailOperation("Fail Change Status Operation");
+        }
     }
 
     /**

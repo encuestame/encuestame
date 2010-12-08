@@ -16,6 +16,8 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.domain.survey.TweetPoll;
@@ -220,4 +222,5 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
          return (TweetPoll) getHibernateTemplate().findByCriteria(criteria);
     }
+
 }
