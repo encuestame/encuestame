@@ -456,6 +456,31 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
+     * Get Tweet Poll Folder by User and FolderId.
+     * @param id
+     * @return
+     */
+    private TweetPollFolder getTweetPollFolderByFolderIdandUser(final Long folderId, final Long userId){
+        return this.getTweetPollDao().getTweetPollFolderByIdandUser(folderId, userId);
+    }
+
+    /**
+     * Add {@link TweetPoll} to Folder.
+     * @param folderId
+     * @throws EnMeDomainNotFoundException
+     */
+    public void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId) throws EnMeDomainNotFoundException{
+        final TweetPollFolder tpfolder = this.getTweetPollFolderByFolderIdandUser(folderId, getPrimaryUser(username));
+         if(tpfolder!=null) {
+             final TweetPoll tpoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+             tpoll.setTweetPollFolder(tpfolder);
+             getTweetPollDao().saveOrUpdate(tpoll);
+         } else {
+             throw new EnMeDomainNotFoundException("TweetPoll folder not found");
+         }
+    }
+
+    /**
      * @return the answerPollPath
      */
     public String getAnswerPollPath() {

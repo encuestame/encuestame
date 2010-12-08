@@ -121,4 +121,20 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       TweetPollFolder getTweetPollFolderById(final Long folderId);
+
+      /**
+       * Get TweetPoll Folders by Id and UserId.
+       * @param FolderId
+       * @param userId
+       * @return
+       */
+      TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId);
+
+      /**
+       *
+       * @param tweetPollId
+       * @param userId
+       * @return
+       */
+      TweetPoll getTweetPollByIdandUserId(final Long tweetPollId, final Long userId);
 }

@@ -164,4 +164,13 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      */
     void deleteTweetPollFolder(final Long folderId) throws EnMeDomainNotFoundException;
+
+    /**
+     * Add TweetPoll to Folder.
+     * @param folderId
+     * @param username
+     * @param tweetPollId
+     * @throws EnMeDomainNotFoundException
+     */
+    void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId) throws EnMeDomainNotFoundException;
 }

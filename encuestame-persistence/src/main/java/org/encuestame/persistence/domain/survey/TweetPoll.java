@@ -101,6 +101,8 @@ public class TweetPoll {
      /** Number Hits or visits **/
      private Integer hits;
 
+     /** TweetPoll Folder. **/
+     private TweetPollFolder tweetPollFolder;
 
     /**
      * @return the tweetPollId
@@ -402,6 +404,22 @@ public class TweetPoll {
      */
     public void setHits(Integer hits) {
         this.hits = hits;
+    }
+
+    /**
+     * @return the tweetPollFolder
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "tweetPollFolderId", nullable = true)
+    public TweetPollFolder getTweetPollFolder() {
+        return tweetPollFolder;
+    }
+
+    /**
+     * @param tweetPollFolder the tweetPollFolder to set
+     */
+    public void setTweetPollFolder(TweetPollFolder tweetPollFolder) {
+        this.tweetPollFolder = tweetPollFolder;
     }
 
 

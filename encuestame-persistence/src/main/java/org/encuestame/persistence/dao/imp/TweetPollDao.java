@@ -17,10 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.imp.AbstractHibernateDaoSupport;
-import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
-import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
@@ -197,4 +194,30 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().get(TweetPollFolder.class, folderId);
     }
 
+    /**
+     * Get TweetPoll Folder By Id and UserId.
+     * @param folderId
+     * @param userId
+     * @return
+     */
+
+    public TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
+         criteria.add(Restrictions.eq("users.id", userId));
+         criteria.add(Restrictions.eq("tweetPollFolderId", FolderId));
+         return (TweetPollFolder) getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
+     * Get TweetPoll Folder By Id and UserId.
+     * @param folderId
+     * @param userId
+     * @return
+     */
+    public TweetPoll getTweetPollByIdandUserId(final Long tweetPollId, final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+         criteria.add(Restrictions.eq("tweetOwner.uid", userId));
+         criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
+         return (TweetPoll) getHibernateTemplate().findByCriteria(criteria);
+    }
 }

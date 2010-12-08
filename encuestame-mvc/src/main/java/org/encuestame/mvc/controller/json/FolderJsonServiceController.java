@@ -121,4 +121,29 @@ public class FolderJsonServiceController extends AbstractJsonController{
                }
                return returnData();
            }
+
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/{actionType}/folder/addtofolder.json", method = RequestMethod.GET)
+    public ModelMap addToFolder(
+             @PathVariable String actionType,
+             @RequestParam(value = "folderId", required = true) Long folderId,
+             @RequestParam(value = "userId", required = true) Long UserId,
+             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+             HttpServletRequest request,
+             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException
+             {
+                 try {
+                         log.debug("Folder Id To Add "+ folderId);
+                         log.debug("Tweet Poll Id "+ tweetPollId);
+                         if("tweetPoll".equals(actionType)){
+                             getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), tweetPollId);
+                             setSuccesResponse();
+                     }
+                 } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }
