@@ -183,4 +183,31 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnmeFailOperation
      */
     void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+
+    /**
+     * Change Allow Live Results TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    void ChangeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+
+    /**
+     * Change Allow Captcha TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    void ChangeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+
+    /**
+     * Change Resume Live ResultsTweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    void ChangeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
 }

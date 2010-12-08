@@ -481,12 +481,73 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          }
     }
 
+    /**
+     * Change Status {@link TweetPoll}.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     */
     public void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
         if (!tweetPoll.getCloseNotification()){
             tweetPoll.setCloseNotification(Boolean.TRUE);
         } else {
                throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
+
+    /**
+     * Change Allow Live Results {@link TweetPoll}.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     */
+    public void ChangeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+        if (!tweetPoll.getAllowLiveResults()){
+            tweetPoll.setAllowLiveResults(Boolean.TRUE);
+        } else if (tweetPoll.getAllowLiveResults()){
+            tweetPoll.setAllowLiveResults(Boolean.FALSE);
+        }
+        else {
+            throw new EnmeFailOperation("Fail Change Allow Live Results Operation");
+        }
+    }
+
+    /**
+     * Change Allow Live Results {@link TweetPoll}.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     */
+    public void ChangeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+        if (!tweetPoll.getCaptcha()){
+            tweetPoll.setCaptcha(Boolean.TRUE);
+        } else if (tweetPoll.getCaptcha()){
+            tweetPoll.setCaptcha(Boolean.FALSE);
+        }
+        else {
+            throw new EnmeFailOperation("Fail Change Allow Captcha Operation");
+        }
+    }
+
+    /**
+     * Change Resume Live Results {@link TweetPoll}.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     */
+    public void ChangeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+        if (!tweetPoll.getResumeLiveResults()){
+            tweetPoll.setResumeLiveResults(Boolean.TRUE);
+        } else if (tweetPoll.getResumeLiveResults()){
+            tweetPoll.setResumeLiveResults(Boolean.FALSE);
+        }
+        else {
+            throw new EnmeFailOperation("Fail Change Resume Live Results Operation");
         }
     }
 

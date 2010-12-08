@@ -39,6 +39,7 @@ import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -187,15 +188,32 @@ public class TweetPollJsonController extends AbstractJsonController {
     }
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value ="/api/survey/tweetpoll/change_open_status_tweetpoll.json", method = RequestMethod.GET)
-    public ModelMap changeTweetPollStatus(
+    @RequestMapping(value ="/api/survey/tweetpoll/{propertyType}-tweetpoll.json", method = RequestMethod.GET)
+    public ModelMap changeTweetPollProperties(
+            @PathVariable String propertyType,
             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
-            log.debug("Tweet Poll Id "+ tweetPollId);
-                getTweetPollService().changeStatusTweetPoll(tweetPollId, getUserPrincipalUsername());
+                if("change-open-status".equals(propertyType)){
+                log.debug("Property Type"+ propertyType);
+                    getTweetPollService().changeStatusTweetPoll(tweetPollId, getUserPrincipalUsername());
+                    setSuccesResponse();
+                } else  if("resumeliveResults".equals(propertyType)){
+                     log.debug("Property Type"+ propertyType);
+                     getTweetPollService().ChangeResumeLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
+                     setSuccesResponse();
+                }
+              else  if("captcha".equals(propertyType)){
+                log.debug("Property Type"+ propertyType);
+                getTweetPollService().ChangeAllowCaptchaTweetPoll(tweetPollId, getUserPrincipalUsername());
                 setSuccesResponse();
+              }
+             else  if("liveResults".equals(propertyType)){
+                  log.debug("Property Type"+ propertyType);
+                  getTweetPollService().ChangeAllowLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
+                  setSuccesResponse();
+                 }
         }
         catch (Exception e) {
                 log.error(e);
