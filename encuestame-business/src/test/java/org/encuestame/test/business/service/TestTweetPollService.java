@@ -207,7 +207,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
 
 
     @Test
-    public void testSearchTweetsPollsByKeyWord() throws EnMeDomainNotFoundException{
+    public void testSearchTweetsPollsByKeyWord() throws EnMeExpcetion{
         final Question questionSearch = createQuestion("Why the sea is blue?","html");
         final String keywordGood = "Why";
         final String keywordBad = "red";
