@@ -491,6 +491,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
         if (!tweetPoll.getCloseNotification()){
             tweetPoll.setCloseNotification(Boolean.TRUE);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
         } else {
                throw new EnmeFailOperation("Fail Change Status Operation");
         }
@@ -503,12 +504,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeDomainNotFoundException
      */
-    public void ChangeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+    public void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
-        if (!tweetPoll.getAllowLiveResults()){
-            tweetPoll.setAllowLiveResults(Boolean.TRUE);
-        } else if (tweetPoll.getAllowLiveResults()){
-            tweetPoll.setAllowLiveResults(Boolean.FALSE);
+        if (tweetPoll != null){
+            tweetPoll.setAllowLiveResults(!tweetPoll.getAllowLiveResults());
+            getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
             throw new EnmeFailOperation("Fail Change Allow Live Results Operation");
@@ -521,12 +521,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeDomainNotFoundException
      */
-    public void ChangeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+    public void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
-        if (!tweetPoll.getCaptcha()){
-            tweetPoll.setCaptcha(Boolean.TRUE);
-        } else if (tweetPoll.getCaptcha()){
-            tweetPoll.setCaptcha(Boolean.FALSE);
+        if (tweetPoll != null){
+             tweetPoll.setCaptcha(!tweetPoll.getCaptcha());
+             getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
             throw new EnmeFailOperation("Fail Change Allow Captcha Operation");
@@ -539,12 +538,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeDomainNotFoundException
      */
-    public void ChangeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
+    public void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
-        if (!tweetPoll.getResumeLiveResults()){
-            tweetPoll.setResumeLiveResults(Boolean.TRUE);
-        } else if (tweetPoll.getResumeLiveResults()){
-            tweetPoll.setResumeLiveResults(Boolean.FALSE);
+        if (tweetPoll != null){
+            tweetPoll.setResumeLiveResults(!tweetPoll.getResumeLiveResults());
+            getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
             throw new EnmeFailOperation("Fail Change Resume Live Results Operation");

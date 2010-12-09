@@ -191,7 +191,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      * @throws EnmeFailOperation
      */
-    void ChangeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
 
     /**
      * Change Allow Captcha TweetPoll.
@@ -200,7 +200,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      * @throws EnmeFailOperation
      */
-    void ChangeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
 
     /**
      * Change Resume Live ResultsTweetPoll.
@@ -209,5 +209,5 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      * @throws EnmeFailOperation
      */
-    void ChangeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
 }

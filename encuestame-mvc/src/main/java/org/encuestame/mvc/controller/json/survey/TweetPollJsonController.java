@@ -201,17 +201,17 @@ public class TweetPollJsonController extends AbstractJsonController {
                     setSuccesResponse();
                 } else  if("resumeliveResults".equals(propertyType)){
                      log.debug("Property Type"+ propertyType);
-                     getTweetPollService().ChangeResumeLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
+                     getTweetPollService().changeResumeLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
                      setSuccesResponse();
                 }
               else  if("captcha".equals(propertyType)){
                 log.debug("Property Type"+ propertyType);
-                getTweetPollService().ChangeAllowCaptchaTweetPoll(tweetPollId, getUserPrincipalUsername());
+                getTweetPollService().changeAllowCaptchaTweetPoll(tweetPollId, getUserPrincipalUsername());
                 setSuccesResponse();
               }
              else  if("liveResults".equals(propertyType)){
                   log.debug("Property Type"+ propertyType);
-                  getTweetPollService().ChangeAllowLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
+                  getTweetPollService().changeAllowLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
                   setSuccesResponse();
                  }
         }
