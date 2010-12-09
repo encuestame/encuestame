@@ -10,7 +10,10 @@
             <div dojoType="dojox.form.Rating" numStars="5" value="2"></div>
         </div>
    </div>
-   <div style="font-size: 130%; color: #70798C; font-weight: bold;">${data.questionBean.questionName}</div>
+   <div style="font-size: 130%; color: #70798C; font-weight: bold;">
+    <span class="emptyFavourite" dojoAttachPoint="_favourite">    </span>
+        ${data.questionBean.questionName}
+   </div>
    <div style="font-size: 80%; font-weight: bold;">
         <a href="${data.tweetUrl}" target="_blank">${data.tweetUrl}</a>
   </div>

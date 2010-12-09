@@ -112,6 +112,13 @@ dojo.declare(
         postCreate : function(){
             this.showInfo();
             dojo.subscribe("/encuestame/tweetpoll/item/unselect", this, "unselect");
+            if(!this.data.favourites){
+                dojo.addClass(this._favourite, "emptyFavourite");
+                dojo.removeClass(this._favourite, "selectedFavourite");
+            } else {
+                dojo.addClass(this._favourite, "selectedFavourite");
+                dojo.removeClass(this._favourite, "emptyFavourite");
+            }
         },
 
         showInfo : function(){

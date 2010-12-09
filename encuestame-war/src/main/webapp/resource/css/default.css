@@ -225,18 +225,18 @@ div.yesNoWrapper div.label{
     color: #275296;
 }
 
-span.emptyFavourite{
-      background-image: url(../images/logos/enme_empty_star.gif);
+.emptyFavourite{
+      background-image: url(../images/icons/enme_empty_star.gif);
       background-repeat: no-repeat;
-      min-height : 24px;
+      min-height : 16px;
       display: inline-block;
-      width: 24px;
+      width: 16px;
 }
 
-span.selectedFavourite{
-      background-image: url(../images/logos/enme_full_star.png);
+.selectedFavourite{
+      background-image: url(../images/icons/enme_full_star.png);
       background-repeat: no-repeat;
-      min-height : 24px;
+      min-height : 16px;
       display: inline-block;
-      width: 24px;
+      width: 16px;
 }
