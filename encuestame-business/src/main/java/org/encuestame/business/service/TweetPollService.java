@@ -111,14 +111,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username username session
      * @param keyword keyword.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeExpcetion
      */
     public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username,
-                               final String keyword) throws EnMeDomainNotFoundException{
+                               final String keyword) throws EnMeExpcetion{
         log.info("search keyword tweetPoll  "+keyword);
         List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
-        if(keyword == null || keyword.trim().isEmpty()){
-            tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
+        if(keyword == null){
+           throw new EnMeExpcetion("keyword is missing");
         } else {
             tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username));
         }
@@ -127,19 +127,63 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
-     * Disabled TweetPoll.
-     * @param tweetPollId tweetPoll.
+     * Search Tweet Polls Today.
+     * @param username
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
      * @throws EnMeExpcetion
      */
-    public void disableTweetPoll(final Long tweetPollId) throws EnMeExpcetion{
-        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        if(tweetPoll == null){
-            throw new EnMeExpcetion("tweetPoll.notfound");
-        }
-        else{
-            tweetPoll.setEnabled(Boolean.FALSE);
-            getTweetPollDao().saveOrUpdate(tweetPoll);
-        }
+    public List<UnitTweetPoll> searchTweetsPollsToday(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion{
+        return this.setTweetPollListAnswers(getTweetPollDao().retrieveTweetPollToday(
+                getPrimaryUser(username), maxResults, start));
+    }
+
+    /**
+     * Search Tweet Polls Last Week.
+     * @param username
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public List<UnitTweetPoll> searchTweetsPollsLastWeek(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion{
+        return this.setTweetPollListAnswers(getTweetPollDao().retrieveTweetPollLastWeek(
+                getPrimaryUser(username), maxResults, start));
+    }
+
+    /**
+     * Search Favourites TweetPolls.
+     * @param username
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public List<UnitTweetPoll> searchTweetsPollFavourites(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion{
+        return this.setTweetPollListAnswers(getTweetPollDao().retrieveFavouritesTweetPoll(
+                getPrimaryUser(username), maxResults, start));
+    }
+
+    /**
+     * Search Scheduled TweetsPoll.
+     * @param username
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public List<UnitTweetPoll> searchTweetsPollScheduled(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion{
+        return this.setTweetPollListAnswers(getTweetPollDao().retrieveScheduledTweetPoll(
+                getPrimaryUser(username), maxResults, start));
     }
 
     /**

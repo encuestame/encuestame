@@ -53,20 +53,14 @@ public interface ITweetPollService extends IMasterSurveyService{
     String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion;
 
     /**
-     * Disabled TweetPoll.
-     * @param tweetPollId tweetPoll.
-     * @throws EnMeExpcetion
-     */
-    void disableTweetPoll(final Long tweetPollId) throws EnMeExpcetion;
-
-    /**
      * Search {@link TweetPoll} by Keyword.
      * @param username username session
      * @param keyword keyword.
      * @return
      * @throws EnMeDomainNotFoundException
+     * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword) throws EnMeDomainNotFoundException;
+    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword) throws EnMeDomainNotFoundException, EnMeExpcetion;
 
     /**
      * Save Tweet Id.
@@ -209,5 +203,53 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      * @throws EnmeFailOperation
      */
-    void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username)
+         throws EnMeDomainNotFoundException, EnmeFailOperation;
+
+
+    /**
+     * Search Scheduled TweetsPoll.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<UnitTweetPoll> searchTweetsPollScheduled(final String username,
+             final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Search Favourites TweetPolls.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<UnitTweetPoll> searchTweetsPollFavourites(final String username,
+             final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Search Tweet Polls Last Week.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<UnitTweetPoll> searchTweetsPollsLastWeek(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Search Tweet Polls Today.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<UnitTweetPoll> searchTweetsPollsToday(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
 }
+
+

@@ -12,13 +12,14 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -51,5 +52,24 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      public void delete(Object obj) throws HibernateException {
           getHibernateTemplate().delete(obj);
           getSession().flush();
+     }
+
+
+     /**
+      * Filter By Max or Start Items.
+      * @param criteria {@link DetachedCriteria}
+      * @param maxResults max results
+      * @param start start.
+      * @return
+      */
+     public List<?> filterByMaxorStart(final DetachedCriteria criteria, final Integer maxResults,
+             final Integer start){
+          List<?> results = new ArrayList();
+          if(maxResults != null && start != null){
+              results = getHibernateTemplate().findByCriteria(criteria, start, maxResults);
+          } else {
+              results = getHibernateTemplate().findByCriteria(criteria);
+          }
+          return results;
      }
 }

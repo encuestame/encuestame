@@ -14,9 +14,9 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
@@ -24,6 +24,7 @@ import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
@@ -58,7 +59,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetsByUserId(final Long userId){
         return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId "
-                +" AND publishTweetPoll = true order by createDate desc" //enabled== true???
+                +" AND publishTweetPoll = true order by createDate desc"
                +"", "userId", userId);
     }
 
@@ -75,9 +76,104 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.createAlias("tweetOwner","tweetOwner");
         criteria.add(Restrictions.like("question.question", keyWord, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("tweetOwner.id", userId));
-        criteria.add(Restrictions.eq("enabled", Boolean.TRUE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    /**
+     * Retrieve TweetPoll Today.
+     * @param keyWord
+     * @param userId
+     * @return
+     */
+    public List<TweetPoll> retrieveTweetPollToday(
+            final Long userId,
+             final Integer maxResults,
+             final Integer start){
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND,0);
+        return retrieveTweetPollByDate(userId, cal.getTime(), maxResults, start);
+    }
+
+
+    /**
+     *
+     * @param keyWord
+     * @param userId
+     * @param initDate
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    private List<TweetPoll> retrieveTweetPollByDate(
+            final Long userId,
+            final Date initDate,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+         criteria.createAlias("tweetOwner","tweetOwner");
+         criteria.add(Restrictions.between("createDate", initDate, new Date()));
+         criteria.add(Restrictions.eq("tweetOwner.id", userId));
+         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /**
+     * Retrieve TweetPoll Last Week.
+     * @param keyWord
+     * @param userId
+     * @return
+     */
+    public List<TweetPoll> retrieveTweetPollLastWeek(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_YEAR, -7);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND,0);
+        return retrieveTweetPollByDate(userId, cal.getTime(), maxResults, start);
+    }
+
+    /**
+     * Retrieve Favourites TweetPolls.
+     * @param keyWord
+     * @param userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> retrieveFavouritesTweetPoll(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.createAlias("tweetOwner","tweetOwner");
+        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
+        criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /**
+     * Retrieve Favourites TweetPolls.
+     * @param keyWord
+     * @param userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> retrieveScheduledTweetPoll(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.createAlias("tweetOwner","tweetOwner");
+        criteria.add(Restrictions.eq("scheduleTweetPoll", Boolean.TRUE));
+        criteria.add(Restrictions.isNotNull("scheduleDate"));
+        criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
 
     /**
      * Retrieve Tweets Poll Switch.
@@ -222,5 +318,4 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
          return (TweetPoll) getHibernateTemplate().findByCriteria(criteria);
     }
-
 }

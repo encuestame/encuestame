@@ -137,4 +137,47 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       TweetPoll getTweetPollByIdandUserId(final Long tweetPollId, final Long userId);
+
+      /**
+       * Retrieve TweetPoll Today.
+       * @param keyWord
+       * @param userId
+       * @return
+       */
+      List<TweetPoll> retrieveTweetPollToday(
+                final Long userId,
+                final Integer maxResults,
+                final Integer start);
+
+      /**
+       * Retrieve TweetPoll Last Week.
+       * @param keyWord
+       * @param userId
+       * @return
+       */
+      List<TweetPoll> retrieveTweetPollLastWeek(final Long userId,
+              final Integer maxResults,
+              final Integer start);
+
+      /**
+       * Retrieve Favourites TweetPolls.
+       * @param keyWord
+       * @param userId
+       * @return
+       */
+      List<TweetPoll> retrieveScheduledTweetPoll(
+              final Long userId,
+              final Integer maxResults,
+              final Integer start);
+
+      /**
+       * Retrieve Favourites TweetPolls.
+       * @param keyWord
+       * @param userId
+       * @return
+       */
+      List<TweetPoll> retrieveFavouritesTweetPoll(
+              final Long userId,
+              final Integer maxResults,
+              final Integer start);
 }

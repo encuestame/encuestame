@@ -82,19 +82,19 @@ public class TweetPollJsonController extends AbstractJsonController {
             } else if(TypeSearch.ALL.name().equals(typeSearch)){
                 list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername());
             } else if(TypeSearch.LASTDAY.name().equals(typeSearch)){
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+                list = getTweetPollService().searchTweetsPollsToday(getUserPrincipalUsername(), max, start);
             } else if(TypeSearch.LASTWEEK.name().equals(typeSearch)){
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+                list = getTweetPollService().searchTweetsPollsLastWeek(getUserPrincipalUsername(), max, start);
             } else if(TypeSearch.FAVOURITES.name().equals(typeSearch)){
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+                list = getTweetPollService().searchTweetsPollFavourites(getUserPrincipalUsername(), max, start);
             } else if(TypeSearch.SCHEDULED.name().equals(typeSearch)){
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+                list = getTweetPollService().searchTweetsPollScheduled(getUserPrincipalUsername(), max, start);
             } else {
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername()); //temp
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername());
             }
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
-        } catch (EnMeDomainNotFoundException e) {
+        } catch (EnMeExpcetion e) {
              log.error(e);
              e.printStackTrace();
              setError(e.getMessage(), response);

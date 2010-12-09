@@ -230,17 +230,6 @@ public class TestTweetPollService  extends AbstractServiceBase{
 
     }
 
-    public void testDisableTweetPoll() throws EnMeExpcetion{
-        final Question questiondisable = createQuestion("Why the sea is blue?","html");
-        final TweetPoll tpoll = createTweetPoll(2L, false, false, false, false, false, new Date(), new Date(), false,
-                   this.user, this.question);
-         createQuestionAnswer("Yes", questiondisable, "AADD");
-         createQuestionAnswer("No", questiondisable, "VVBB");
-        tweetPollService.disableTweetPoll(tpoll.getTweetPollId());
-
-
-    }
-
     @Test
     public void testPublicMultiplesTweetAccounts(){
             createDefaultSettedTwitterAccount(this.secUserSecondary.getSecUser());

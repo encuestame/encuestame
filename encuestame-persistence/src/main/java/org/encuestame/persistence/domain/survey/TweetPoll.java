@@ -89,9 +89,6 @@ public class TweetPoll {
     /** Repeated Votes. **/
     private Boolean allowRepatedVotes;
 
-    /** Disabled. **/
-    private Boolean enabled = true;
-
     /** Hash Tags. **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
@@ -103,6 +100,9 @@ public class TweetPoll {
 
      /** TweetPoll Folder. **/
      private TweetPollFolder tweetPollFolder;
+
+     /** Set Item as Favourite. **/
+     private Boolean favourites = false;
 
     /**
      * @return the tweetPollId
@@ -362,21 +362,6 @@ public class TweetPoll {
     }
 
     /**
-     * @return the enabled
-     */
-    @Column(name = "enabled", nullable = false)
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    /**
-     * @param enabled the enabled to set
-     */
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    /**
      * @return the numbervotes
      */
     @Column(name = "numberVotes")
@@ -422,6 +407,19 @@ public class TweetPoll {
         this.tweetPollFolder = tweetPollFolder;
     }
 
+    /**
+     * @return the favourites
+     */
 
+    @Column(name = "favourite")
+    public Boolean getFavourites() {
+        return favourites;
+    }
 
+    /**
+     * @param favourites the favourites to set
+     */
+    public void setFavourites(final Boolean favourites) {
+        this.favourites = favourites;
+    }
 }
