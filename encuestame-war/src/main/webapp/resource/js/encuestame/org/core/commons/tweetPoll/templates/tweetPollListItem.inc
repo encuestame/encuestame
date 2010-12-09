@@ -4,7 +4,7 @@
             Votes
         </div>
         <div class="votesCount">
-            100/500
+            0/${data.limitVotes}
         </div>
         <div class="rating">
             <div dojoType="dojox.form.Rating" numStars="5" value="2"></div>

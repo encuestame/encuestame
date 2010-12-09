@@ -195,25 +195,28 @@ public class TweetPollJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
-                if("change-open-status".equals(propertyType)){
-                log.debug("Property Type"+ propertyType);
-                    getTweetPollService().changeStatusTweetPoll(tweetPollId, getUserPrincipalUsername());
-                    setSuccesResponse();
-                } else  if("resumeliveResults".equals(propertyType)){
-                     log.debug("Property Type"+ propertyType);
-                     getTweetPollService().changeResumeLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
-                     setSuccesResponse();
-                }
-              else  if("captcha".equals(propertyType)){
-                log.debug("Property Type"+ propertyType);
-                getTweetPollService().changeAllowCaptchaTweetPoll(tweetPollId, getUserPrincipalUsername());
-                setSuccesResponse();
-              }
-             else  if("liveResults".equals(propertyType)){
-                  log.debug("Property Type"+ propertyType);
-                  getTweetPollService().changeAllowLiveResultsTweetPoll(tweetPollId, getUserPrincipalUsername());
-                  setSuccesResponse();
-                 }
+            if ("change-open-status".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().changeStatusTweetPoll(tweetPollId,
+                        getUserPrincipalUsername());
+            } else if ("resumeliveResults".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().changeResumeLiveResultsTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
+            } else if ("captcha".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().changeAllowCaptchaTweetPoll(tweetPollId,
+                        getUserPrincipalUsername());
+            } else if ("favourite".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().setFavouriteTweetPoll(tweetPollId,
+                        getUserPrincipalUsername());
+            } else if ("liveResults".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().changeAllowLiveResultsTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
+            }
+            setSuccesResponse();
         }
         catch (Exception e) {
                 log.error(e);

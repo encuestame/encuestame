@@ -11,6 +11,7 @@ dojo.require("dojox.widget.Dialog");
 dojo.require("dojox.form.Rating");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
+dojo.require("encuestame.org.core.shared.utils.YesNoWidget");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
@@ -57,13 +58,22 @@ dojo.declare(
             dojo.empty(this._detailItems);
             this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es3")));
             this.addDetail(this.builDetailRow("Created Date", this.createTextContent(this.data.captcha)));
-            this.addDetail(this.builDetailRow("Captcha", this.createTextContent(this.data.captcha)));
-            this.addDetail(this.builDetailRow("Allow Live Results", this.createTextContent(this.data.allowLiveResults)));
-            this.addDetail(this.builDetailRow("Allow Resume Live Results", this.createTextContent(this.data.resumeLiveResults)));
+            this.addDetail(this.builDetailRow("Captcha", this.addYesNoWidget(this.data.captcha)));
+            this.addDetail(this.builDetailRow("Allow Live Results", this.addYesNoWidget(this.data.allowLiveResults)));
+            this.addDetail(this.builDetailRow("Allow Resume Live Results", this.addYesNoWidget(this.data.resumeLiveResults)));
+            //allowRepatedVotes
         },
 
         addDetail : function(node){
             this._detailItems.appendChild(node);
+        },
+
+        /**
+         * Yes / No.
+         */
+        addYesNoWidget : function(value){
+            var widget = new encuestame.org.core.shared.utils.YesNoWidget({});
+            return widget.domNode;
         },
 
         createTextContent : function(text){
@@ -76,18 +86,6 @@ dojo.declare(
          * Build Detail Row.
          */
         builDetailRow : function(labelText, dataContet){
-            /**
-             * <div class="rownDetail">
-                     <div class="label">
-                        <label>
-                              Public Link
-                        </label>
-                    </div>
-                    <div class="data">
-                              http://www.google.es
-                    </div>
-                </div>
-             */
             var rowDetail = dojo.doc.createElement('div');
             dojo.addClass(rowDetail, "rownDetail");
             var label = dojo.doc.createElement('div');

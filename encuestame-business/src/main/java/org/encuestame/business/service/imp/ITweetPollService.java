@@ -250,6 +250,17 @@ public interface ITweetPollService extends IMasterSurveyService{
      */
     List<UnitTweetPoll> searchTweetsPollsToday(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Set Favourite TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    void setFavouriteTweetPoll(final Long tweetPollId, final String username) throws
+           EnMeDomainNotFoundException, EnmeFailOperation;
+
 }
 
 

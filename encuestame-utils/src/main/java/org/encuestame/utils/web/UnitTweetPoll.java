@@ -41,6 +41,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     private Boolean allowLiveResults;
     private Boolean schedule;
     private Boolean completed;
+    private Boolean favourites;
     private Long userId;
     private String tweetUrl;
     private Date createDate;
@@ -321,5 +322,18 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
         this.createDate = createDate;
     }
 
+    /**
+     * @return the favourites
+     */
+    public Boolean getFavourites() {
+        return favourites;
+    }
+
+    /**
+     * @param favourites the favourites to set
+     */
+    public void setFavourites(final Boolean favourites) {
+        this.favourites = favourites;
+    }
 
 }

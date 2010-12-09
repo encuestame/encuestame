@@ -215,3 +215,28 @@ div.suggestBox .suggesItem:hover{
     background-color: #939397;
     color: #FFF;
 }
+
+div.yesNoWrapper{
+    padding: 1px;
+    cursor: pointer;
+}
+
+div.yesNoWrapper div.label{
+    color: #275296;
+}
+
+span.emptyFavourite{
+      background-image: url(../images/logos/enme_empty_star.gif);
+      background-repeat: no-repeat;
+      min-height : 24px;
+      display: inline-block;
+      width: 24px;
+}
+
+span.selectedFavourite{
+      background-image: url(../images/logos/enme_full_star.png);
+      background-repeat: no-repeat;
+      min-height : 24px;
+      display: inline-block;
+      width: 24px;
+}

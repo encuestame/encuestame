@@ -20,34 +20,82 @@ dojo.declare(
         url : encuestame.service.list.listTweetPoll,
         listItems : null,
         defaultSearch : "LASTDAY",
+        max : 8,
+        start : 0,
         postCreate : function(){
-            console.debug("TweetPollList", this.listItems);
             if(this.listItems == null){
-                console.debug("loadTweetPolls");
                 this.loadTweetPolls({typeSearch : this.defaultSearch});
             }
+        },
+
+        _searchByAll : function(event){
+            dojo.stopEvent(event);
+            this.loadTweetPolls({typeSearch : "ALL"});
+        },
+
+        _searchByAccount : function(event){
+            dojo.stopEvent(event);
+            this.loadTweetPolls({typeSearch : "ALL"});
+        },
+
+        _searchByFavourites : function(event){
+            dojo.stopEvent(event);
+            this.loadTweetPolls({typeSearch : "FAVOURITES"});
+        },
+
+        _searchByScheduled : function(event){
+            dojo.stopEvent(event);
+            this.loadTweetPolls({typeSearch : "SCHEDULED"});
+        },
+
+        _searchByLastDay : function(event){
+            dojo.stopEvent(event);
+            this.loadTweetPolls({typeSearch : "LASTDAY"});
+        },
+
+        _searchByLastWeek : function(event){
+            dojo.stopEvent(event);
+            this.loadTweetPolls({typeSearch : "LASTWEEK"});
         },
 
         /**
          * Load Tweet Polls.
          */
         loadTweetPolls : function(params){
+            var i = false;
             var load = dojo.hitch(this, function(data){
-                console.debug("loadTweetPolls", data);
+                dojo.empty(this._items);
                 dojo.forEach(
                         data.success.tweetPolls,
                         dojo.hitch(this, function(data, index) {
-                            this.createTweetPollItem(data);
+                            this.createTweetPollItem(data, i);
+                            if(!i){
+                                dojo.publish("/encuestame/tweetpoll/detail/update", [data]);
+                                i = true;
+                            }
                 }));
             });
+            dojo.mixin(params,
+                {
+                max : this.max,
+                start : this.start
+                }
+            );
             var error = function(error) {
                 console.debug("error", error);
             };
             encuestame.service.xhrGet(this.url, params, load, error);
         },
 
-        createTweetPollItem : function(data){
-            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem({data : data});
+        createTweetPollItem : function(data, i){
+            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem(
+                    {
+                        data : data
+                    }
+                    );
+            if(!i){
+                widget._changeBackGroundSelected();
+            }
             this._items.appendChild(widget.domNode);
         }
  });
@@ -63,19 +111,28 @@ dojo.declare(
         //post create
         postCreate : function(){
             this.showInfo();
+            dojo.subscribe("/encuestame/tweetpoll/item/unselect", this, "unselect");
         },
 
         showInfo : function(){
 
         },
 
-        _changeBackGroundSelected : function(){
+        unselect : function(data){
+            if(data != this.data){
+                dojo.removeClass(this.domNode, "listItemTweetSeleted");
+            }
+        },
 
+        _changeBackGroundSelected : function(){
+            dojo.addClass(this.domNode, "listItemTweetSeleted");
         },
 
         _onClickItem : function(event){
              dojo.stopEvent(event);
              console.debug("_onClickItem");
              dojo.publish("/encuestame/tweetpoll/detail/update", [this.data]);
+             this._changeBackGroundSelected();
+             dojo.publish("/encuestame/tweetpoll/item/unselect", [this.data]);
         }
 });

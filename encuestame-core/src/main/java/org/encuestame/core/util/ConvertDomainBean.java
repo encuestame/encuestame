@@ -446,6 +446,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setResultNotification(poll.getResultNotification() == null ? false : poll.getResultNotification());
         unitTweetPoll.setUserId(poll.getTweetOwner().getUid());
         unitTweetPoll.setCloseNotification(poll.getCloseNotification() == null ? false : poll.getCloseNotification());
+        unitTweetPoll.setFavourites(poll.getFavourites() == null ? false : poll.getFavourites());
         unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
         return unitTweetPoll;

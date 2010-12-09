@@ -541,6 +541,24 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
     }
 
+    /**
+     * Set Favourite TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    public void setFavouriteTweetPoll(final Long tweetPollId, final String username) throws
+           EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+        if (!tweetPoll.getCloseNotification()){
+            tweetPoll.setFavourites(!tweetPoll.getFavourites());
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        } else {
+               throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
 
     /**
      * Change Allow Live Results {@link TweetPoll}.

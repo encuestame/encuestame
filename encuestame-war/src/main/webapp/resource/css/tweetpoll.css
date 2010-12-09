@@ -76,6 +76,10 @@ div.tweetPollListWrapper div.tweetListContent div.listTweet div.listItemTweet:ho
     background-color: #EAEAEA;
 }
 
+div.tweetPollListWrapper div.tweetListContent div.listTweet div.listItemTweetSeleted{
+    background-color: #EAEAEA;
+}
+
 div.tweetPollListWrapper div.tweetListContent div.listTweet div.listItemTweet div.rightPanel{
     float: right;
     text-align: left;
