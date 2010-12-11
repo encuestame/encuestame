@@ -1,21 +1,31 @@
 <div class="tweetPollListWrapper">
-    <div id="newTweetPoll" dojoType="encuestame.org.core.commons.tweetPoll.TweetPoll"
+
+         <div id="newTweetPoll" dojoType="encuestame.org.core.commons.tweetPoll.TweetPoll"
          class="defaultDisplayHide"></div>
-          <div class="navigation">
-                <table>
-                    <tr>
-                        <td>
-                            <label>Search by Keyword</label>
-                            <input type="text" dojoAttachPoint="_suggest"
-                                   dojoType="dijit.form.TextBox"
-                                   trim="true" class="inputClass"
-                                   ></input>
-                        </td>
-                        <td align="right" style="padding-left: 95px;">
-                           <a href="#"  dojoAttachEvent="onclick:_nextSearch">Next 10 Items</a>
-                        </td>
-                    </tr>
-                </table>
+
+         <div>
+            <div style="float: left; padding-top: 14px; padding-left: 17px; font-size: 112%; font-weight: bold; color: blue;cursor: pointer;
+            text-decoration: underline;">
+                    <div dojoAttachEvent="onClick:_new">
+                        New TweetPoll
+                    </div>
+            </div>
+              <div class="navigation">
+                    <table>
+                        <tr>
+                            <td>
+                                <label>Search by Keyword</label>
+                                <input type="text" dojoAttachPoint="_suggest"
+                                       dojoType="dijit.form.TextBox"
+                                       trim="true" class="inputClass"
+                                       ></input>
+                            </td>
+                            <td align="right" style="padding-left: 95px;">
+                               <a href="#"  dojoAttachEvent="onclick:_nextSearch">Next 10 Items</a>
+                            </td>
+                        </tr>
+                    </table>
+             </div>
          </div>
          <div class="tweetListContent">
             <div class="options">

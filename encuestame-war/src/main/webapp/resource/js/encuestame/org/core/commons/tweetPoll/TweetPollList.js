@@ -39,6 +39,10 @@ dojo.declare(
             this.loadTweetPolls({typeSearch : this.currentSearch});
         },
 
+        _new : function(event){
+            dojo.stopEvent(event);
+        },
+
         _searchByAll : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "ALL";
