@@ -119,3 +119,6 @@ encuestame.service.list.resumeliveResultsTweetPoll = encuestame.contextWidget()+
 encuestame.service.list.captchaTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/captcha-tweetpoll.json";
 encuestame.service.list.favouriteTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/favourite-tweetpoll.json";
 encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/liveResults-tweetpoll.json";
+encuestame.service.list.notificationTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/notification-tweetpoll.json";
+encuestame.service.list.repeatedTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/repeated-tweetpoll.json";
+encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetPoll/votes.json";

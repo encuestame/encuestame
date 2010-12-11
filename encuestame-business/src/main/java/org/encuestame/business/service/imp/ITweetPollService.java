@@ -60,7 +60,9 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username, final String keyword) throws EnMeDomainNotFoundException, EnMeExpcetion;
+    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username,
+            final String keyword,
+            final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException, EnMeExpcetion;
 
     /**
      * Save Tweet Id.
@@ -108,7 +110,8 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeDomainNotFoundException
      */
-    List<UnitTweetPoll> getTweetsPollsByUserName(final String username) throws EnMeDomainNotFoundException;
+    List<UnitTweetPoll> getTweetsPollsByUserName(final String username,
+            final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException;
 
     /**
      * Public Multiples Tweet Accounts.
@@ -261,6 +264,25 @@ public interface ITweetPollService extends IMasterSurveyService{
     void setFavouriteTweetPoll(final Long tweetPollId, final String username) throws
            EnMeDomainNotFoundException, EnmeFailOperation;
 
+    /**
+     * Change Allow Repeated TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    void changeAllowRepeatedTweetPoll(final Long tweetPollId, final String username)
+         throws EnMeDomainNotFoundException, EnmeFailOperation;
+
+    /**
+     * Change Close Notification.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+     void changeCloseNotificationTweetPoll(final Long tweetPollId, final String username)
+                throws EnMeDomainNotFoundException, EnmeFailOperation;
 }
 
 

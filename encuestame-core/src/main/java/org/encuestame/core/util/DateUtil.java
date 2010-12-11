@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Description Class.
@@ -24,5 +27,16 @@ public class DateUtil {
     public static final String DEFAULT_FORMAT_DATE = "yyyy-MM-dd";
 
     public static final String DEFAULT_FORMAT_TIME = "hh:mm:ss";
+
+
+    /**
+     * Get Format Date.
+     * @param date
+     * @return
+     */
+    public static String getFormatDate(final Date date){
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+        return simpleDateFormat.format(date);
+    }
 
 }

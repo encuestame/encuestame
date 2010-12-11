@@ -85,8 +85,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return list of Tweet polls bean
      * @throws EnMeDomainNotFoundException
      */
-    public List<UnitTweetPoll> getTweetsPollsByUserName(final String username) throws EnMeDomainNotFoundException{
-        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username));
+    public List<UnitTweetPoll> getTweetsPollsByUserName(final String username,
+            final Integer maxResults,
+            final Integer start) throws EnMeDomainNotFoundException{
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username), maxResults, start);
         log.info("tweetPoll size "+tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls);
     }
@@ -114,13 +116,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws EnMeExpcetion
      */
     public List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username,
-                               final String keyword) throws EnMeExpcetion{
+                               final String keyword,
+                               final Integer maxResults, final Integer start) throws EnMeExpcetion{
         log.info("search keyword tweetPoll  "+keyword);
         List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
         if(keyword == null){
            throw new EnMeExpcetion("keyword is missing");
         } else {
-            tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username));
+            tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username), maxResults, start);
         }
         log.info("search keyword tweetPoll size "+tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls);
@@ -608,6 +611,54 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         else {
             throw new EnmeFailOperation("Fail Change Resume Live Results Operation");
+        }
+    }
+
+    /**
+     * Get TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    private TweetPoll getTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException{
+        return getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+    }
+
+    /**
+     * Change Allow Repeated TweetPoll.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    public void changeAllowRepeatedTweetPoll(final Long tweetPollId, final String username)
+                throws EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
+        if (tweetPoll != null){
+            tweetPoll.setAllowRepatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : !tweetPoll.getAllowRepatedVotes());
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
+        }
+    }
+
+    /**
+     * Change Close Notification.
+     * @param tweetPollId
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     * @throws EnmeFailOperation
+     */
+    public void changeCloseNotificationTweetPoll(final Long tweetPollId, final String username)
+           throws EnMeDomainNotFoundException, EnmeFailOperation{
+        final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
+        if (tweetPoll != null){
+            tweetPoll.setCloseNotification(tweetPoll.getCloseNotification() == null
+                      ? false : !tweetPoll.getCloseNotification());
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
         }
     }
 

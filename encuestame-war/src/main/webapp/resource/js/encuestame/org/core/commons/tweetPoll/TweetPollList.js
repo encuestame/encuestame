@@ -141,7 +141,6 @@ dojo.declare(
             var params = {
                     tweetPollId : this.data.id
             };
-            console.debug("_callService", url);
             encuestame.service.xhrGet(url, params, load, error);
         },
 
@@ -149,6 +148,13 @@ dojo.declare(
             dojo.stopEvent(event);
             var load = dojo.hitch(this, function(data){
                 this.data.favourites = !this.data.favourites;
+                if(this.data.favourites){
+                    dojo.addClass(this._favourite, "selectedFavourite");
+                    dojo.removeClass(this._favourite, "emptyFavourite");
+                } else {
+                    dojo.addClass(this._favourite, "emptyFavourite");
+                    dojo.removeClass(this._favourite, "selectedFavourite");
+                }
             });
             this._callService(load, encuestame.service.list.favouriteTweetPoll);
         },

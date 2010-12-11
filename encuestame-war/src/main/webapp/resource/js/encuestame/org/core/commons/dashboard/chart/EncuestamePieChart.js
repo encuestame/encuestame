@@ -10,14 +10,35 @@ dojo.require("dojox.charting.widget.Legend");
 
 dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", null, {
 
-        constructor: function(node){
+        constructor: function(node, results){
                 this.node = node;
+                this.data = results;
+                console.debug("data", this.data);
+        },
+
+        _buildSeries : function(){
+              dojo.forEach(
+                      this.data,
+                      dojo.hitch(this, function(data, index) {
+                         var item = {
+                             y: data[1],
+                             text: data[0],
+                             stroke: "black",
+                             tooltip: data[1]
+                         };
+                         this._seriesData.push(item);
+           }));
         },
 
         node : null,
 
+        data : [],
+
+        _seriesData : [],
+
         render: function(){
             console.debug("render");
+            this._buildSeries();
             var dc = dojox.charting;
             var chartTwo = new dc.Chart2D(this.node);
             chartTwo.setTheme(dc.themes.MiamiNice).addPlot("default", {
@@ -26,30 +47,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
                 fontColor: "black",
                 labelOffset: -30,
                 radius: 80
-            }).addSeries("Series A", [{
-                y: 4,
-                text: "Red",
-                stroke: "black",
-                tooltip: "Red is 50%"
-            },
-            {
-                y: 2,
-                text: "Green",
-                stroke: "black",
-                tooltip: "Green is 25%"
-            },
-            {
-                y: 1,
-                text: "Blue",
-                stroke: "black",
-                tooltip: "I am feeling Blue!"
-            },
-            {
-                y: 1,
-                text: "Other",
-                stroke: "black",
-                tooltip: "Mighty <strong>strong</strong><br>With two lines!"
-            }]);
+            }).addSeries("A", this._seriesData);
             var anim_a = new dc.action2d.MoveSlice(chartTwo, "default");
             var anim_b = new dc.action2d.Highlight(chartTwo, "default");
             var anim_c = new dc.action2d.Tooltip(chartTwo, "default");

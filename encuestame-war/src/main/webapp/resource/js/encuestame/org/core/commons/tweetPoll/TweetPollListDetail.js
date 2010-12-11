@@ -77,6 +77,20 @@ dojo.declare(
            dojo.hitch(this, this._callService(load, encuestame.service.list.captchaTweetPoll));
        },
 
+       _setNotification : function(){
+           var load = dojo.hitch(this, function(data){
+               this.data.closeNotification = !this.data.closeNotification;
+           });
+           dojo.hitch(this, this._callService(load, encuestame.service.list.notificationTweetPoll));
+       },
+
+       _setRepeated : function(){
+           var load = dojo.hitch(this, function(data){
+               this.data.allowRepeatedVotes = !this.data.allowRepeatedVotes;
+           });
+           dojo.hitch(this, this._callService(load, encuestame.service.list.repeatedTweetPoll));
+       },
+
         error : function(){
             console.error("error");
         },
@@ -87,11 +101,11 @@ dojo.declare(
         loadContent : function(data){
             this.data = data;
             this._title.innerHTML = this.data.questionBean.questionName;
-            this.displayChart(this.typeChart[1], {});
+            this.displayChart(this.typeChart[1]);
             //Build Detail.
             dojo.empty(this._detailItems);
-            this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es3")));
-            this.addDetail(this.builDetailRow("Created Date", this.createTextContent(this.data.captcha)));
+            this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es")));
+            this.addDetail(this.builDetailRow("Created Date", this.createTextContent(this.data.createDate)));
             this.addDetail(this.builDetailRow("Captcha", this.addYesNoWidget(this.data.captcha,
                      dojo.hitch(this,this._setCaptcha))));
             this.addDetail(this.builDetailRow("Allow Live Results", this.addYesNoWidget(this.data.allowLiveResults
@@ -99,11 +113,11 @@ dojo.declare(
             this.addDetail(this.builDetailRow("Allow Resume Live Results", this.addYesNoWidget(this.data.resumeLiveResults
                             , dojo.hitch(this, this._setResumeLiveResults))));
             this.addDetail(this.builDetailRow("Allow Repeated Votes", this.addYesNoWidget(
-                    dojo.hitch(this, this.data.resumeLiveResults)))
-                    ,this._setResumeLiveResults);
+                    this.data.allowRepeatedVotes
+                    , dojo.hitch(this, this._setRepeated))));
             this.addDetail(this.builDetailRow("Notifications", this.addYesNoWidget(
-                    dojo.hitch(this, this.data.resultNotification)))
-                    ,this._setResumeLiveResults);
+                    this.data.closeNotification
+                    , dojo.hitch(this, this._setNotification))));
         },
 
         addDetail : function(node){
@@ -149,15 +163,35 @@ dojo.declare(
         /**
          * Display Data.
          */
-        displayChart : function(type, data){
+        displayChart : function(type){
             dojo.empty(this._chart);var widget;
-            var id = this.id+"_chart";
-            if(type == this.typeChart[0]){
-                this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id);
-            } else if(type == this.typeChart[1]){
-                this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id);
-            }
-            this.render();
+            this._callVotes(type);
+        },
+
+        /**
+         * Call Votes.
+         */
+        _callVotes : function(type){
+            var results = [];
+            var response = dojo.hitch(this, function(dataJson){
+                var votes = dataJson.success.votesResult;
+                dojo.forEach(
+                        votes,
+                        dojo.hitch(this, function(data, index) {
+                            var answer = [data.answersBean.answers, data.results];
+                            console.debug("Re answer", answer);
+                            results.push(answer);
+                }));
+                var id = this.id+"_chart";
+                if(type == this.typeChart[0]){
+                    this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id, results);
+                } else if(type == this.typeChart[1]){
+                    this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id, results);
+                }
+                this.render();
+            });;
+            this._callService(response, encuestame.service.list.VotesTweetPoll);
+            return results;
         },
 
         /**

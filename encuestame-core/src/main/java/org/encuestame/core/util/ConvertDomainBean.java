@@ -439,7 +439,7 @@ public class ConvertDomainBean {
         final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
         unitTweetPoll.setId(poll.getTweetPollId());
         unitTweetPoll.setScheduleDate(poll.getScheduleDate());
-        unitTweetPoll.setCreateDate(poll.getCreateDate());
+        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(poll.getCreateDate()));
         unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults() == null ? false : poll.getAllowLiveResults());
         unitTweetPoll.setResumeLiveResults(poll.getResumeLiveResults() == null ? false : poll.getResumeLiveResults());
         unitTweetPoll.setSchedule(poll.getScheduleTweetPoll() == null ? false : poll.getScheduleTweetPoll());
