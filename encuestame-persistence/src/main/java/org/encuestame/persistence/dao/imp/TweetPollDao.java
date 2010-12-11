@@ -28,6 +28,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -57,10 +58,15 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return list of tweet pools.
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> retrieveTweetsByUserId(final Long userId){
-        return getHibernateTemplate().findByNamedParam("from TweetPoll where tweetOwner.id = :userId "
-                +" AND publishTweetPoll = true order by createDate desc"
-               +"", "userId", userId);
+    public List<TweetPoll> retrieveTweetsByUserId(final Long userId,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+         criteria.createAlias("tweetOwner","tweetOwner");
+         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+         criteria.add(Restrictions.eq("tweetOwner.id", userId));
+         criteria.addOrder(Order.desc("createDate"));
+         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
     /**
@@ -70,13 +76,15 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId){
+    public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId,
+            final Integer maxResults,
+            final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
         criteria.createAlias("question","question");
         criteria.createAlias("tweetOwner","tweetOwner");
         criteria.add(Restrictions.like("question.question", keyWord, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("tweetOwner.id", userId));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
     /**

@@ -45,7 +45,9 @@ public interface ITweetPoll extends IBaseDao{
      * @param userId userId
      * @return list of tweet pools.
      */
-     List<TweetPoll> retrieveTweetsByUserId(final Long userId);
+     List<TweetPoll> retrieveTweetsByUserId(final Long userId,
+             final Integer maxResults,
+             final Integer start);
 
      /**
       * Retrieve Tweets Poll Switch.
@@ -76,7 +78,9 @@ public interface ITweetPoll extends IBaseDao{
        * @param userId user Id.
        * @return
        */
-      List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId);
+      List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId,
+              final Integer maxResults,
+              final Integer start);
 
       /**
        * Get List of Switch Answers by TweetPoll.
