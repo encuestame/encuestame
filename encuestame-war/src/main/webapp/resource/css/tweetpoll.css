@@ -127,7 +127,7 @@ div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div
 }
 
 div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.detail{
-    min-height: 200px;
+    min-height: 185px;
     padding: 10px 10px 10px 0px;
     border-bottom: 2px solid #C3C1C1;
 }
@@ -147,7 +147,7 @@ div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div
 
 div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div.detail div.rownDetail div.label{
     float: left;
-    width: 150px;
+    width: 185px;
     padding:2px;
     font-weight: bold;
 }

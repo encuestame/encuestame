@@ -43,6 +43,40 @@ dojo.declare(
             }
         },
 
+       /**
+        * Call Service.
+        */
+       _callService : function(/* function after response */ load, url){
+           var error = function(error) {
+               console.debug("error", error);
+           };
+           var params = {
+                   tweetPollId : this.data.id
+           };
+           encuestame.service.xhrGet(url, params, load, error);
+       },
+
+       _setAllowLiveResults : function(){
+           var load = dojo.hitch(this, function(data){
+               this.data.allowLiveResults = !this.data.allowLiveResults;
+           });
+           dojo.hitch(this, this._callService(load, encuestame.service.list.liveResultsTweetPoll));
+       },
+
+       _setResumeLiveResults : function(){
+           var load = dojo.hitch(this, function(data){
+               this.data.resumeLiveResults = !this.data.resumeLiveResults;
+           });
+           dojo.hitch(this, this._callService(load, encuestame.service.list.resumeliveResultsTweetPoll));
+       },
+
+       _setCaptcha : function(){
+           var load = dojo.hitch(this, function(data){
+               this.data.captcha = !this.data.captcha;
+           });
+           dojo.hitch(this, this._callService(load, encuestame.service.list.captchaTweetPoll));
+       },
+
         error : function(){
             console.error("error");
         },
@@ -58,10 +92,18 @@ dojo.declare(
             dojo.empty(this._detailItems);
             this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es3")));
             this.addDetail(this.builDetailRow("Created Date", this.createTextContent(this.data.captcha)));
-            this.addDetail(this.builDetailRow("Captcha", this.addYesNoWidget(this.data.captcha)));
-            this.addDetail(this.builDetailRow("Allow Live Results", this.addYesNoWidget(this.data.allowLiveResults)));
-            this.addDetail(this.builDetailRow("Allow Resume Live Results", this.addYesNoWidget(this.data.resumeLiveResults)));
-            //allowRepatedVotes
+            this.addDetail(this.builDetailRow("Captcha", this.addYesNoWidget(this.data.captcha,
+                     dojo.hitch(this,this._setCaptcha))));
+            this.addDetail(this.builDetailRow("Allow Live Results", this.addYesNoWidget(this.data.allowLiveResults
+                            , dojo.hitch(this, this._setAllowLiveResults))));
+            this.addDetail(this.builDetailRow("Allow Resume Live Results", this.addYesNoWidget(this.data.resumeLiveResults
+                            , dojo.hitch(this, this._setResumeLiveResults))));
+            this.addDetail(this.builDetailRow("Allow Repeated Votes", this.addYesNoWidget(
+                    dojo.hitch(this, this.data.resumeLiveResults)))
+                    ,this._setResumeLiveResults);
+            this.addDetail(this.builDetailRow("Notifications", this.addYesNoWidget(
+                    dojo.hitch(this, this.data.resultNotification)))
+                    ,this._setResumeLiveResults);
         },
 
         addDetail : function(node){
@@ -71,8 +113,11 @@ dojo.declare(
         /**
          * Yes / No.
          */
-        addYesNoWidget : function(value){
-            var widget = new encuestame.org.core.shared.utils.YesNoWidget({});
+        addYesNoWidget : function(value, onChange){
+            var widget = new encuestame.org.core.shared.utils.YesNoWidget({data: value});
+            if(onChange != null){
+                widget._onChange = onChange;
+            }
             return widget.domNode;
         },
 

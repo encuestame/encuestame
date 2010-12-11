@@ -37,6 +37,8 @@ dojo.declare(
             } else {
                 this._label.innerHTML = this.labels[1];
             }
+            //after change.
+            this._onChange();
         },
 
         /** Change Data. **/
@@ -44,5 +46,11 @@ dojo.declare(
              dojo.stopEvent(event);
              this.data = !this.data;
              this._changeValue();
+        },
+
+        /**
+         * Override.
+         */
+        _onChange : function(){
         }
 });

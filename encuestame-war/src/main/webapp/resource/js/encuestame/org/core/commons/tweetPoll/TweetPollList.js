@@ -148,33 +148,9 @@ dojo.declare(
         _setFavourite : function(event){
             dojo.stopEvent(event);
             var load = dojo.hitch(this, function(data){
-                console.debug(data);
+                this.data.favourites = !this.data.favourites;
             });
             this._callService(load, encuestame.service.list.favouriteTweetPoll);
-        },
-
-        _setCaptcha : function(event){
-             dojo.stopEvent(event);
-            var load = dojo.hitch(this, function(data){
-                console.debug(data);
-            });
-            this._callService(load, encuestame.service.list.captchaTweetPoll);
-        },
-
-        _setAllowLiveResults : function(event){
-             dojo.stopEvent(event);
-            var load = dojo.hitch(this, function(data){
-                console.debug(data);
-            });
-            this._callService(load, encuestame.service.list.liveResultsTweetPoll);
-        },
-
-        _setResumeLiveResults : function(event){
-             dojo.stopEvent(event);
-            var load = dojo.hitch(this, function(data){
-                console.debug(data);
-            });
-            this._callService(load, encuestame.service.list.resumeliveResultsTweetPoll);
         },
 
         _setCloseTweetPoll : function(event){

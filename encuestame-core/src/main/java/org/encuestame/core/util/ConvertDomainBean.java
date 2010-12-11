@@ -441,14 +441,16 @@ public class ConvertDomainBean {
         unitTweetPoll.setScheduleDate(poll.getScheduleDate());
         unitTweetPoll.setCreateDate(poll.getCreateDate());
         unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults() == null ? false : poll.getAllowLiveResults());
+        unitTweetPoll.setResumeLiveResults(poll.getResumeLiveResults() == null ? false : poll.getResumeLiveResults());
         unitTweetPoll.setSchedule(poll.getScheduleTweetPoll() == null ? false : poll.getScheduleTweetPoll());
-        //unitTweetPoll.setPublishPoll(poll.getPublishTweetPoll()); TODO: remove
         unitTweetPoll.setResultNotification(poll.getResultNotification() == null ? false : poll.getResultNotification());
         unitTweetPoll.setUserId(poll.getTweetOwner().getUid());
+        unitTweetPoll.setCaptcha(poll.getCaptcha() == null ? false : poll.getCaptcha());
         unitTweetPoll.setCloseNotification(poll.getCloseNotification() == null ? false : poll.getCloseNotification());
         unitTweetPoll.setFavourites(poll.getFavourites() == null ? false : poll.getFavourites());
         unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
+        unitTweetPoll.setAllowRepeatedVotes(poll.getAllowRepatedVotes() == null ? false : poll.getAllowRepatedVotes());
         return unitTweetPoll;
     }
 
