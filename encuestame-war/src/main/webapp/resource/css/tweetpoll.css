@@ -14,8 +14,21 @@ div.tweetPollListWrapper{
 
 }
 
-div.tweetPollListWrapper div.tweetListContent{
+div.tweetPollListWrapper div.navigation{
+    padding: 9px;
+    margin-left: 185px;
+    width: 477px;
+    background-color: #EEEEEE;
+    -webkit-border-radius: 0 15px 0px 0;
+    -moz-border-radius: 0 15px 0px 0;
+    border-radius: 0 15px 0px 0;
     margin-top: 10px;
+    border-left: 2px solid #B3B3B3;
+    min-height: 20px;
+}
+
+div.tweetPollListWrapper div.tweetListContent{
+    margin-top: 0px;
 }
 
 div.tweetPollListWrapper div.tweetListContent div.options{
@@ -23,10 +36,10 @@ div.tweetPollListWrapper div.tweetListContent div.options{
     min-width: 185px;
     width: 185px;
     min-height: 400px;
-    border-right: 1px solid #EEE;
+    border-right: 2px solid #B3B3B3;
     text-align: left;
     background-color: #F0F0F0;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 div.tweetPollListWrapper div.tweetListContent div.options div.optionItem{
@@ -68,7 +81,7 @@ div.tweetPollListWrapper div.tweetListContent div.listTweet div.listItemTweet{
     min-height: 60px;
     padding: 8px;
     border-bottom: 1px solid #D2D2D2;
-    width: 470px;
+    width: 479px;
 }
 
 div.tweetPollListWrapper div.tweetListContent div.listTweet div.listItemTweet:hover{

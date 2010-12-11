@@ -20,6 +20,7 @@ dojo.declare(
         url : encuestame.service.list.listTweetPoll,
         listItems : null,
         defaultSearch : "LASTDAY",
+        currentSearch : "",
         max : 8,
         start : 0,
         postCreate : function(){
@@ -28,33 +29,55 @@ dojo.declare(
             }
         },
 
+        resetPagination : function(){
+            this.start = 0;
+        },
+
+        _nextSearch : function(event){
+            dojo.stopEvent(event);
+            this.start = this.start + this.max;
+            this.loadTweetPolls({typeSearch : this.currentSearch});
+        },
+
         _searchByAll : function(event){
             dojo.stopEvent(event);
+            this.currentSearch = "ALL";
+            this.resetPagination();
             this.loadTweetPolls({typeSearch : "ALL"});
         },
 
         _searchByAccount : function(event){
             dojo.stopEvent(event);
+            this.currentSearch = "ALL";
+            this.resetPagination();
             this.loadTweetPolls({typeSearch : "ALL"});
         },
 
         _searchByFavourites : function(event){
             dojo.stopEvent(event);
+            this.currentSearch = "SCHEDULED";
+            this.resetPagination();
             this.loadTweetPolls({typeSearch : "FAVOURITES"});
         },
 
         _searchByScheduled : function(event){
             dojo.stopEvent(event);
+            this.currentSearch = "SCHEDULED";
+            this.resetPagination();
             this.loadTweetPolls({typeSearch : "SCHEDULED"});
         },
 
         _searchByLastDay : function(event){
             dojo.stopEvent(event);
+            this.currentSearch = "LASTDAY";
+            this.resetPagination();
             this.loadTweetPolls({typeSearch : "LASTDAY"});
         },
 
         _searchByLastWeek : function(event){
             dojo.stopEvent(event);
+            this.currentSearch = "LASTWEEK";
+            this.resetPagination();
             this.loadTweetPolls({typeSearch : "LASTWEEK"});
         },
 

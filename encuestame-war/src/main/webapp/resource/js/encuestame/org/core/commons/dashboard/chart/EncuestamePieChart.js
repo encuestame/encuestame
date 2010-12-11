@@ -17,6 +17,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
         },
 
         _buildSeries : function(){
+             this._seriesData = [];
               dojo.forEach(
                       this.data,
                       dojo.hitch(this, function(data, index) {

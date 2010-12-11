@@ -172,9 +172,9 @@ dojo.declare(
          * Call Votes.
          */
         _callVotes : function(type){
-            var results = [];
             var response = dojo.hitch(this, function(dataJson){
                 var votes = dataJson.success.votesResult;
+                var results = [];
                 dojo.forEach(
                         votes,
                         dojo.hitch(this, function(data, index) {
@@ -183,6 +183,10 @@ dojo.declare(
                             results.push(answer);
                 }));
                 var id = this.id+"_chart";
+                dojo.empty(this._chart);
+                if(this.widgetChart != null){
+                    this.widgetChart = null;
+                }
                 if(type == this.typeChart[0]){
                     this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id, results);
                 } else if(type == this.typeChart[1]){
@@ -191,13 +195,13 @@ dojo.declare(
                 this.render();
             });;
             this._callService(response, encuestame.service.list.VotesTweetPoll);
-            return results;
         },
 
         /**
          * Render.
          */
         render : function(){
+            this.widgetChart._buildSeries();
             this.widgetChart.render();
         }
 });
