@@ -299,11 +299,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
 
+    @SuppressWarnings("unchecked")
     public TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
          criteria.add(Restrictions.eq("users.id", userId));
          criteria.add(Restrictions.eq("tweetPollFolderId", FolderId));
-         return (TweetPollFolder) getHibernateTemplate().findByCriteria(criteria);
+         return (TweetPollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**
@@ -312,10 +313,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @param userId
      * @return
      */
+    @SuppressWarnings("unchecked")
     public TweetPoll getTweetPollByIdandUserId(final Long tweetPollId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
          criteria.add(Restrictions.eq("tweetOwner.uid", userId));
          criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
-         return (TweetPoll) getHibernateTemplate().findByCriteria(criteria);
+         return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 }

@@ -1,4 +1,4 @@
-<div class="listItemTweet"  dojoAttachEvent="onclick:_onClickItem">
+<div class="listItemTweet" dojoAttachEvent="onclick:_onClickItem">
    <div class="rightPanel">
         <div class="votesTitle">
             Votes
@@ -11,7 +11,7 @@
         </div>
    </div>
    <div style="font-size: 130%; color: #70798C; font-weight: bold;">
-    <span class="emptyFavourite" dojoAttachPoint="_favourite">    </span>
+    <span class="emptyFavourite" dojoAttachPoint="_favourite" dojoAttachEvent="onclick:_setFavourite">    </span>
         ${data.questionBean.questionName}
    </div>
    <div style="font-size: 80%; font-weight: bold;">

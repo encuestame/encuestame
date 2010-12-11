@@ -131,7 +131,6 @@ dojo.declare(
         },
 
         _publishTweet : function(event){
-
             dojo.stopEvent(event);
             var valid = true;
             //Question

@@ -23,6 +23,8 @@ encuestame.service.xhrGet = function(url, params, load, error){
         dojo.xhrGet({
             url : url,
             handleAs : "json",
+            failOk : true, //Indicates whether a request should be allowed to fail
+            //(and therefore no console error message in the event of a failure)
             timeout : encuestame.service.timeout,
             content: params,
             load: load,
@@ -73,6 +75,8 @@ encuestame.service.xhrPost = function(url, form, load, error){
                 form: form,
                 timeout : encuestame.service.timeout,
                 handleAs: "json",
+                ailOk : true, //Indicates whether a request should be allowed to fail
+                //(and therefore no console error message in the event of a failure)
                 load: load,
                 preventCache: true,
                 error: error
@@ -107,5 +111,11 @@ encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/a
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
 encuestame.service.list.twitterAccount = encuestame.contextWidget()+"/api/common/twitter/valid-accounts.json";
+//tweetpoll service
 encuestame.service.list.publishTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/publish.json";
 encuestame.service.list.listTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/search.json";
+encuestame.service.list.changeTweetPollStatus = encuestame.contextWidget()+"/api/survey/tweetpoll/change-open-status-tweetpoll.json";
+encuestame.service.list.resumeliveResultsTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/resumeliveResults-tweetpoll.json";
+encuestame.service.list.captchaTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/captcha-tweetpoll.json";
+encuestame.service.list.favouriteTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/favourite-tweetpoll.json";
+encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/liveResults-tweetpoll.json";

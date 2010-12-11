@@ -533,7 +533,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
-        if (!tweetPoll.getCloseNotification()){
+        if (tweetPoll != null){
             tweetPoll.setCloseNotification(Boolean.TRUE);
             getTweetPollDao().saveOrUpdate(tweetPoll);
         } else {
@@ -551,8 +551,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void setFavouriteTweetPoll(final Long tweetPollId, final String username) throws
            EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
-        if (!tweetPoll.getCloseNotification()){
-            tweetPoll.setFavourites(!tweetPoll.getFavourites());
+        if (tweetPoll != null){
+            tweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : !tweetPoll.getFavourites());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         } else {
                throw new EnmeFailOperation("Fail Change Status Operation");
@@ -569,7 +569,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
         if (tweetPoll != null){
-            tweetPoll.setAllowLiveResults(!tweetPoll.getAllowLiveResults());
+            tweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : !tweetPoll.getAllowLiveResults());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
@@ -586,7 +586,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
         if (tweetPoll != null){
-             tweetPoll.setCaptcha(!tweetPoll.getCaptcha());
+             tweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false : !tweetPoll.getCaptcha());
              getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
@@ -603,7 +603,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
         if (tweetPoll != null){
-            tweetPoll.setResumeLiveResults(!tweetPoll.getResumeLiveResults());
+            tweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : !tweetPoll.getResumeLiveResults());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
