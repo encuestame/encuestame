@@ -77,9 +77,9 @@ public class TweetPollJsonController extends AbstractJsonController {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
             if(TypeSearch.KEYWORD.name().equals(typeSearch)){
-                list = getTweetPollService().searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword);
+                list = getTweetPollService().searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword, max, start);
             } else if(TypeSearch.ALL.name().equals(typeSearch)){
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername());
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername(), max, start);
             } else if(TypeSearch.LASTDAY.name().equals(typeSearch)){
                 list = getTweetPollService().searchTweetsPollsToday(getUserPrincipalUsername(), max, start);
             } else if(TypeSearch.LASTWEEK.name().equals(typeSearch)){
@@ -89,7 +89,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             } else if(TypeSearch.SCHEDULED.name().equals(typeSearch)){
                 list = getTweetPollService().searchTweetsPollScheduled(getUserPrincipalUsername(), max, start);
             } else {
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername());
+                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername(), max, start);
             }
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
@@ -186,6 +186,17 @@ public class TweetPollJsonController extends AbstractJsonController {
         return returnData();
     }
 
+    /**
+     * Change TweetPoll Properties.
+     * @param propertyType
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value ="/api/survey/tweetpoll/{propertyType}-tweetpoll.json", method = RequestMethod.GET)
     public ModelMap changeTweetPollProperties(
@@ -194,26 +205,31 @@ public class TweetPollJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
+            log.debug("Property Type " + propertyType);
             if ("change-open-status".equals(propertyType)) {
-                log.debug("Property Type" + propertyType);
                 getTweetPollService().changeStatusTweetPoll(tweetPollId,
                         getUserPrincipalUsername());
             } else if ("resumeliveResults".equals(propertyType)) {
-                log.debug("Property Type" + propertyType);
                 getTweetPollService().changeResumeLiveResultsTweetPoll(
                         tweetPollId, getUserPrincipalUsername());
             } else if ("captcha".equals(propertyType)) {
-                log.debug("Property Type" + propertyType);
                 getTweetPollService().changeAllowCaptchaTweetPoll(tweetPollId,
                         getUserPrincipalUsername());
             } else if ("favourite".equals(propertyType)) {
-                log.debug("Property Type" + propertyType);
                 getTweetPollService().setFavouriteTweetPoll(tweetPollId,
                         getUserPrincipalUsername());
             } else if ("liveResults".equals(propertyType)) {
-                log.debug("Property Type" + propertyType);
                 getTweetPollService().changeAllowLiveResultsTweetPoll(
                         tweetPollId, getUserPrincipalUsername());
+            } else if ("notification".equals(propertyType)) {
+                getTweetPollService().changeCloseNotificationTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
+            } else if ("repeated".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().changeAllowRepeatedTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
+            } else {
+                log.warn("Type not valid");
             }
             setSuccesResponse();
         }

@@ -33,7 +33,7 @@ public abstract class AbstractFeedController extends BaseController{
      * @throws EnMeDomainNotFoundException
      */
     public List<UnitTweetPoll> getTweetPolls(final String username) throws EnMeDomainNotFoundException{
-        return getTweetPollService().getTweetsPollsByUserName(username);
+        return getTweetPollService().getTweetsPollsByUserName(username, null, null);
     }
 
 }

@@ -13,7 +13,9 @@
 package org.encuestame.mvc.controller.json.chart;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.web.UnitTweetPollResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,15 +53,49 @@ public class TweetPollJsonDataChart extends AbstractJsonController{
              log.debug("TweetPollId "+tweetPollId);
              log.debug("TweetPollId "+ (tweetPollId instanceof Long));
              //TODO: we need check if user able to display this tweetpoll. eg. If is published or if is public
-             List<UnitTweetPollResult> results;
+             this.getVotesStore(tweetPollId, response);
+             return returnData();
+        }
+
+        /**
+         *
+         * @param username
+         * @param tweetPollId
+         * @param request
+         * @param response
+         * @return
+         * @throws JsonGenerationException
+         * @throws JsonMappingException
+         * @throws IOException
+         */
+        @PreAuthorize("hasRole('ENCUESTAME_USER')")
+        @RequestMapping(value = "/api/chart/tweetPoll/votes.json", method = RequestMethod.GET)
+        public ModelMap getVotes(
+                @RequestParam(value = "tweetPollId") Long tweetPollId,
+                HttpServletRequest request,
+                HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+             log.debug("TweetPollId "+tweetPollId);
+             log.debug("TweetPollId "+ (tweetPollId instanceof Long));
+             //TODO: we need check if user able to display this tweetpoll. eg. If is published or if is public
+             this.getVotesStore(tweetPollId, response);
+             return returnData();
+        }
+
+        /**
+         * Get Votes Store.
+         * @param tweetPollId
+         * @param response
+         */
+        private void getVotesStore(final Long tweetPollId, final HttpServletResponse response){
             try {
-                results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
+                final Map<String, Object> jsonResult = new HashMap<String, Object>();
+                List<UnitTweetPollResult> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
+                jsonResult.put("votesResult", results);
                 log.debug("TweetPoll results "+results.size());
-                setItemResponse("votesResult", results);
+                setItemResponse(jsonResult);
             } catch (EnMeDomainNotFoundException e) {
                 log.equals(e);
                 setError(e.getMessage(), response);
             }
-             return returnData();
         }
 }
