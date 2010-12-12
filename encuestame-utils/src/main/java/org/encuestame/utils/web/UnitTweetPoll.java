@@ -44,7 +44,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     private Boolean favourites;
     private Long userId;
     private String tweetUrl;
-    private Date createDate;
+    private String createDate;
     private Boolean allowRepeatedVotes;
     private String twitterUserAcoount;
 
@@ -312,14 +312,14 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the createDate
      */
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
     /**
      * @param createDate the createDate to set
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -350,5 +350,4 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     public void setAllowRepeatedVotes(final Boolean allowRepeatedVotes) {
         this.allowRepeatedVotes = allowRepeatedVotes;
     }
-
 }
