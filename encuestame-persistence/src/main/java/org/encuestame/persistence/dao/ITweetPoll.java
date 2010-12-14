@@ -94,7 +94,7 @@ public interface ITweetPoll extends IBaseDao{
        * @param pollSwitch {@link TweetPollSwitch}..
        * @return
        */
-      List<Long[]> getVotesByAnswer(final TweetPollSwitch pollSwitch);
+      List<Long> getVotesByAnswer(final TweetPollSwitch pollSwitch);
 
 
       /**

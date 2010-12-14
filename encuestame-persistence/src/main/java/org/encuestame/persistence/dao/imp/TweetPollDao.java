@@ -253,7 +253,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Long[]> getVotesByAnswer(final TweetPollSwitch pollSwitch){
+    public List<Long> getVotesByAnswer(final TweetPollSwitch pollSwitch){
         return getHibernateTemplate().findByNamedParam("select count(tweetPollResultId) "
                +" from TweetPollResult where tweetPollSwitch = :tweetPollSwitch", "tweetPollSwitch", pollSwitch);
     }
@@ -267,28 +267,29 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             final List<Object[]> result = new ArrayList<Object[]>();
             final List<TweetPollSwitch> answers = this.getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId));
             for (TweetPollSwitch tweetPollSwitch : answers) {
-                final List<Long[]> answerResult = this.getVotesByAnswer(tweetPollSwitch);
+                final List<Long> answerResult = this.getVotesByAnswer(tweetPollSwitch);
                 final Object[] objects = {tweetPollSwitch.getAnswers().getAnswer(), answerResult.get(0)};
                 result.add(objects);
             }
             return result;
     }
 
+    /**
+     * Get Total Votes by TweetPoll Id.
+     */
     public Long getTotalVotesByTweetPollId(final Long tweetPollId){
         Long totalvotes = 0L;
         final List<TweetPollSwitch> answers = this.getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId)); // Type YES-NO
         for (TweetPollSwitch tweetPollSwitch : answers) {
-            final List<Long[]> answerResult = this.getVotesByAnswer(tweetPollSwitch); // Count
-            for (Long[] objects : answerResult) {
-            System.out.println(objects);
-          //       if (objects[0] != null){
-           //          totalvotes += Long.valueOf(objects[0].toString());
-         //            log.info("Total Votes "+ totalvotes);
-          //       }
+            final List<Long> answerResult = this.getVotesByAnswer(tweetPollSwitch); // Count
+            for (Long objects : answerResult) {
+                 if (objects != null){
+                    totalvotes += objects;
+                }
             }
+            log.info("Total Votes: "+ totalvotes);
         }
         return totalvotes;
-
     }
     /**
      * Retrieve Tweet Polls Folders By UserId
