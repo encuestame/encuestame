@@ -27,9 +27,9 @@ import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
@@ -37,7 +37,6 @@ import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.persistence.domain.survey.TweetPollSavedPublishedStatus.Type;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitHashTag;
@@ -79,17 +78,20 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     private String twitterDomain;
 
+    private final Long TOTALVOTE = 0L ;
+
     /**
      * Get Tweet Polls by User Id.
      * @param username username.
      * @return list of Tweet polls bean
      * @throws EnMeDomainNotFoundException
      */
+    @SuppressWarnings("unchecked")
     public List<UnitTweetPoll> getTweetsPollsByUserName(final String username,
             final Integer maxResults,
             final Integer start) throws EnMeDomainNotFoundException{
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username), maxResults, start);
-        log.info("tweetPoll size "+tweetPolls.size());
+         log.info("tweetPoll size "+tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls);
     }
 
@@ -97,12 +99,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * Set List Answer.
      * @param listTweetPolls List of {@link TweetPoll}
      * @return
+     * @throws EnMeExpcetion
      */
     private List<UnitTweetPoll> setTweetPollListAnswers(final List<TweetPoll> listTweetPolls){
         final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
         for (TweetPoll tweetPoll : listTweetPolls) {
             final UnitTweetPoll unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
              unitTweetPoll.getQuestionBean().setListAnswers(this.retrieveAnswerByQuestionId(unitTweetPoll.getQuestionBean().getId()));
+             if (unitTweetPoll.getId() != null) {
+                 unitTweetPoll.setTotalVotes(getTweetPollDao().getTotalVotesByTweetPollId(unitTweetPoll.getId()));
+             } else {
+                 unitTweetPoll.setTotalVotes(this.TOTALVOTE);
+             }
              tweetPollsBean.add(unitTweetPoll);
         }
         return tweetPollsBean;

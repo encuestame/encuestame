@@ -47,6 +47,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     private String createDate;
     private Boolean allowRepeatedVotes;
     private String twitterUserAcoount;
+    private Long totalVotes;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
@@ -350,4 +351,20 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     public void setAllowRepeatedVotes(final Boolean allowRepeatedVotes) {
         this.allowRepeatedVotes = allowRepeatedVotes;
     }
+
+    /**
+     * @return the totalVotes
+     */
+    public Long getTotalVotes() {
+        return totalVotes;
+    }
+
+    /**
+     * @param totalVotes the totalVotes to set
+     */
+    public void setTotalVotes(Long totalVotes) {
+        this.totalVotes = totalVotes;
+    }
+
+
 }
