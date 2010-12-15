@@ -368,6 +368,10 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+          <dependency>
+             <groupId>joda-time</groupId>
+             <artifactId>joda-time</artifactId>
+         </dependency>
         <!-- OAuth
          <dependency>
             <groupId>org.codehaus.spring-security-oauth</groupId>
