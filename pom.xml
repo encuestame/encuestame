@@ -1292,6 +1292,11 @@
             <artifactId>xmlunit</artifactId>
             <version>1.1</version>
          </dependency>
+         <dependency>
+             <groupId>joda-time</groupId>
+                 <artifactId>joda-time</artifactId>
+                 <version>1.6.2</version>
+         </dependency>
       </dependencies>
     </dependencyManagement>
 </project>
