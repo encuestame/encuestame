@@ -15,6 +15,7 @@ package org.encuestame.core.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.joda.time.DateTime;
@@ -134,70 +135,52 @@ public class DateUtil {
 
     /**
      * Get Relative Time.
-     * @param startDate
+     * @param startDate date in the time.
      * @return
      */
-    public Hashtable<Integer, RelativeTimeEnum> getRelativeTime(final Date startDate){
+    public static HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date startDate){
         int SECOND = 1;
         int MINUTE = 60 * SECOND;
         int HOUR = 60 * MINUTE;
         int DAY = 24 * HOUR;
         int MONTH = 30 * DAY;
-        Hashtable<Integer, RelativeTimeEnum> numbers = new Hashtable<Integer, RelativeTimeEnum>();
-        Integer seconds = DateUtil.getSecondsBetweenDates(startDate);
-        Integer minutes = DateUtil.getMinutesBetweenDates(startDate);
-        Integer hour = DateUtil.getHoursBetweenDates(startDate);
-        Integer days = DateUtil.getDaysBetweenDates(startDate);
-
-        if (seconds < 0){
-            //TODO: no yet
-        } else if (seconds < 1 * MINUTE)
-        {
-            numbers.put(seconds, (seconds == 1
-                    ? RelativeTimeEnum.ONE_SECOND_AGO
-                    : RelativeTimeEnum.SECONDS_AGO));
-        }
-        else if (seconds < 2 * MINUTE)
-        {
-
+        final HashMap<Integer, RelativeTimeEnum> numbers = new HashMap<Integer, RelativeTimeEnum>();
+        final Integer seconds = DateUtil.getSecondsBetweenDates(startDate);
+        System.out.println("seconds ago  "+seconds);
+        final Integer minutes = DateUtil.getMinutesBetweenDates(startDate);
+        System.out.println("minutes ago  "+minutes);
+        final Integer hour = DateUtil.getHoursBetweenDates(startDate);
+        System.out.println("hour ago  "+hour);
+        final Integer days = DateUtil.getDaysBetweenDates(startDate);
+        System.out.println("days ago  "+days);
+        System.out.println("start date "+startDate);
+        if (seconds < 0) {
+            // TODO: no yet
+        } else if (seconds < 1 * MINUTE) {
+            numbers.put(seconds,
+                    (seconds == 1 ? RelativeTimeEnum.ONE_SECOND_AGO
+                            : RelativeTimeEnum.SECONDS_AGO));
+        } else if (seconds < 2 * MINUTE) {
             numbers.put(seconds, RelativeTimeEnum.A_MINUTE_AGO);
-        }
-        else if (seconds < 45 * MINUTE)
-        {
+        } else if (seconds < 45 * MINUTE) {
             numbers.put(minutes, RelativeTimeEnum.MINUTES_AGO);
+        } else if (seconds < 90 * MINUTE) {
+            numbers.put(hour, RelativeTimeEnum.AN_HOUR_AGO);
+        } else if (seconds < 24 * HOUR) {
+            numbers.put(hour, RelativeTimeEnum.HOURS_AGO);
+        } else if (seconds < 48 * HOUR) {
+            numbers.put(hour, RelativeTimeEnum.YESTERDAY);
+        } else if (seconds < 30 * DAY) {
+            numbers.put(days, RelativeTimeEnum.DAYS_AGO);
+        } else if (seconds < 12 * MONTH) {
+            Integer months = DateUtil.getMothsBetweenDates(startDate);
+            numbers.put(months, (months <= 1 ? RelativeTimeEnum.ONE_MONTH_AGO
+                    : RelativeTimeEnum.MONTHS_AGO));
+        } else {
+            Integer years = DateUtil.getYearsBetweenDates(startDate);
+            numbers.put(years, (years <= 1 ? RelativeTimeEnum.ONE_YEAR_AGO
+                    : RelativeTimeEnum.YEARS_AGO));
         }
-        else if (seconds < 90 * MINUTE)
-        {
-          numbers.put(hour, RelativeTimeEnum.AN_HOUR_AGO);
-        }
-        else if (seconds < 24 * HOUR)
-        {
-          numbers.put(hour, RelativeTimeEnum.HOURS_AGO);
-        }
-        else if (seconds < 48 * HOUR)
-        {
-        // TODO: Complete return
-        }
-        else if (seconds < 30 * DAY)
-        {
-          numbers.put(days, RelativeTimeEnum.DAYS_AGO);
-        }
-        else if (seconds < 12 * MONTH) {
-          Integer months = DateUtil.getMothsBetweenDates(startDate);
-          numbers.put(months, (months <= 1
-                  ? RelativeTimeEnum.ONE_MONTH_AGO
-                  : RelativeTimeEnum.MONTHS_AGO));
-
-        }
-        else
-        {
-         Integer years = DateUtil.getYearsBetweenDates(startDate);
-          numbers.put(years, (years <= 1
-                  ? RelativeTimeEnum.ONE_YEAR_AGO
-                  : RelativeTimeEnum.YEARS_AGO));
-        }
-
         return numbers;
     }
-
 }
