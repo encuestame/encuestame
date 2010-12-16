@@ -15,13 +15,16 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.QuestionsAnswers;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.test.config.AbstractBase;
@@ -48,13 +51,28 @@ public class TestPollDao extends AbstractBase {
     /** {@link SecUser}.**/
     SecUser user;
 
-    /**
+    /** {@link SecUserSecondary} **/
+    private SecUserSecondary secUserSecondary;
+
+    /** {@link Question} **/
+    private Question question;
+
+    /** {@link QuestionPattern} **/
+    private QuestionPattern questionPattern;
+
+     /**
      * Before.
      */
     @Before
     public void initService(){
-        user  = createUser();
-        poll = createPoll();
+        //user  = createUser();
+       // poll = createPoll();
+
+        this.user = createUser("testEncuesta", "testEncuesta123");
+        this.secUserSecondary = createSecondaryUser("diana", this.user);
+        this.question = createQuestion("Why the roses are red?","html");
+        this.questionPattern = createQuestionPattern("html");
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
 
     }
 
@@ -63,10 +81,9 @@ public class TestPollDao extends AbstractBase {
       **/
     @Test
     public void testFindAllPollByUserId(){
-        final SecUser user = createUser();
-        final Poll pollnew = createPoll();
-        log.info("UID-->"+user.getUid());
-        final List<Poll> pollList = getiPoll().findAllPollByUserId(pollnew.getPollOwner().getUid());
+       this.secUserSecondary = createSecondaryUser("diana", this.user);
+        System.out.println("UID-->"+this.secUserSecondary.getUid());
+        final List<Poll> pollList = getiPoll().findAllPollByUserId(this.user.getUid(),5,0);
         assertEquals("Should be equals", 1, pollList.size());
     }
 

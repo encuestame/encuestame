@@ -409,15 +409,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Helper to create poll
      * @return poll
      */
-    public Poll createPoll(){
+    public Poll createPoll(final Date createdAt,
+            final Question question,
+            final SecUser secUser,
+            final Boolean pollCompleted,
+            final Boolean pollPublish
+            ){
+        final String pollHash = RandomStringUtils.randomAlphabetic(18);
         final Poll poll = new Poll();
-        poll.setCreatedAt(new Date());
-        poll.setQuestion(createQuestion("Do you eat pizza", "yesNo"));
-        //should be unique
-        poll.setPollHash(RandomStringUtils.randomAlphabetic(18));
-        poll.setPollOwner(createUser());
-        poll.setPollCompleted(true);
-        poll.setCreatedAt(new Date());
+        poll.setCreatedAt(createdAt);
+        poll.setQuestion(question);
+        poll.setPollHash(pollHash);         //should be unique
+        poll.setPollOwner(secUser);
+        poll.setPollCompleted(pollCompleted);
+        poll.setPublish(pollPublish);
         getiPoll().saveOrUpdate(poll);
         return poll;
 
@@ -436,13 +441,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Question question,
             final String hash,
             final SecUser secUsers,
-            final Boolean pollCompleted){
+            final Boolean pollCompleted,
+            final Boolean published){
         final Poll poll = new Poll();
         poll.setCreatedAt(createdDate);
         poll.setQuestion(question);
         poll.setPollHash(hash);
         poll.setPollOwner(secUsers);
         poll.setPollCompleted(pollCompleted);
+        poll.setPublish(published);
         getiPoll().saveOrUpdate(poll);
         return poll;
 

@@ -36,11 +36,13 @@ public interface IPoll extends IBaseDao {
      List<Poll> findAll();
 
      /**
-      * Find All Poll.
-      * @return list of all poll
-      * @throws HibernateException hibernate
+      * Find All Polls by User Id.
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
       */
-     List<Poll> findAllPollByUserId(final Long userId);
+     public List<Poll> findAllPollByUserId(final Long userId, final Integer maxResults, final Integer start);
 
      /**
       * Find All Poll.
@@ -57,11 +59,16 @@ public interface IPoll extends IBaseDao {
      List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId);
 
      /**
-      * Get Polls By Question Keyword
+      * Get Polls by question keyword.
       * @param keywordQuestion
-      * @return list Polls
+      * @param UserId
+      * @param maxResults
+      * @param start
+      * @return
       */
-     List<Poll> getPollsByQuestionKeyword(final String keywordQuestion);
+      List<Poll> getPollsByQuestionKeyword(final String keywordQuestion, final Long UserId,
+             final Integer maxResults,
+             final Integer start);
 
      /**
       * GetPoll Folder ById.

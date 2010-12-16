@@ -16,8 +16,11 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -29,6 +32,15 @@ import org.junit.Test;
  */
 public class TestPoll extends AbstractBase {
 
+
+    /** {@link Question} **/
+    private Question question;
+
+    /** {@link QuestionPattern} **/
+    private QuestionPattern questionPattern;
+
+    /** {@link SecUser}.**/
+    SecUser user;
     /**
      * Test Poll.
      */
@@ -49,12 +61,13 @@ public class TestPoll extends AbstractBase {
      * Test Result Poll.
      */
 
-    @Test
+
     public void testPollResult(){
         final PollResult pollResult = new PollResult();
+        this.user = createUser("testEncuesta", "testEncuesta123");
         pollResult.setAnswer(createQuestionAnswer("Si", createQuestion("Do you like eat vigoron?","yesNo"), "ABC"));
         pollResult.setIpaddress("127.0.0.1");
-        pollResult.setPoll(createPoll());
+        pollResult.setPoll(createPoll(new Date(), this.question, "FDK125", user, Boolean.TRUE, Boolean.TRUE));
         pollResult.setVotationDate(new Date());
         getiPoll().saveOrUpdate(pollResult);
         assertNotNull(pollResult.getPollResultId());
