@@ -45,15 +45,19 @@ public interface IPollService extends IMasterSurveyService{
    * @param keyword Question keyword
    * @return
    */
-  List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword);
+  List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException ;
 
-  /**
-   * List Poll By User.
-   * @param currentUser currentUser
-   * @return
- * @throws EnMeDomainNotFoundException
-   */
-  List<UnitPoll> listPollByUser(final String currentUser) throws EnMeDomainNotFoundException;
+   /**
+    * List Poll by User Id.
+    * @param currentUser
+    * @param maxResults
+    * @param start
+    * @return
+    * @throws EnMeDomainNotFoundException
+    */
+  List<UnitPoll> listPollByUser(final String currentUser,
+          final Integer maxResults,
+          final Integer start) throws EnMeDomainNotFoundException;
 
       /**
        * Update Question Poll.

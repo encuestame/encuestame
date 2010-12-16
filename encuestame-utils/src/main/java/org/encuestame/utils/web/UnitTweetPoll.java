@@ -16,6 +16,7 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 
 
@@ -48,6 +49,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     private Boolean allowRepeatedVotes;
     private String twitterUserAcoount;
     private Long totalVotes;
+    private Date relativeTime;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
@@ -366,5 +368,18 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
         this.totalVotes = totalVotes;
     }
 
+    /**
+     * @return the relativeTime
+     */
+    public Date getRelativeTime() {
+        return relativeTime;
+    }
+
+    /**
+     * @param relativeTime the relativeTime to set
+     */
+    public void setRelativeTime(Date relativeTime) {
+        this.relativeTime = relativeTime;
+    }
 
 }

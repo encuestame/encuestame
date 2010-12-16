@@ -89,7 +89,7 @@ public class TestPollService extends AbstractServiceBase{
         this.secUserSecondary = createSecondaryUser("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE);
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.secUserSecondary.getSecUser());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
@@ -184,19 +184,20 @@ public class TestPollService extends AbstractServiceBase{
     @Test
     public void testFindAllPollByUserId() throws EnMeDomainNotFoundException{
         List<UnitPoll> unitPoll =  new ArrayList<UnitPoll>();
-        unitPoll = pollService.listPollByUser(this.secUserSecondary.getUsername());
+        unitPoll = pollService.listPollByUser(this.secUserSecondary.getUsername(), 5, 0);
          assertEquals("should be equals",1, unitPoll.size());
     }
 
     /**
      * Test List Polls by Question Keyword.
+     * @throws EnMeDomainNotFoundException
      **/
     //FIXME:
     @Test
-    public void testListPollbyQuestionKeyword(){
+    public void testListPollbyQuestionKeyword() throws EnMeDomainNotFoundException{
         List<UnitPoll> unitPollList = new ArrayList<UnitPoll>();
         final String keyword = "Why";
-        unitPollList = pollService.listPollbyQuestionKeyword(this.secUserSecondary.getUsername(), keyword);
+        unitPollList = pollService.listPollbyQuestionKeyword(this.secUserSecondary.getUsername(), keyword, 5, 0);
         assertEquals("should be equals",1, unitPollList.size());
 
     }

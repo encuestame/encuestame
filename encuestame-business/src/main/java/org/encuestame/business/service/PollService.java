@@ -25,14 +25,12 @@ import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.CatEmails;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
-import org.encuestame.persistence.dao.IFolder;
-import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
@@ -87,9 +85,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeDomainNotFoundException
      */
 
-    public List<UnitPoll> listPollByUser(final String currentUser) throws EnMeDomainNotFoundException{
+    public List<UnitPoll> listPollByUser(final String currentUser,
+            final Integer maxResults,
+            final Integer start) throws EnMeDomainNotFoundException{
         final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
-        final List<Poll> polls = getPollDao().findAllPollByUserId(getPrimaryUser(currentUser));
+        final List<Poll> polls = getPollDao().findAllPollByUserId(getPrimaryUser(currentUser), maxResults, start);
          for (Poll poll : polls) {
              unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
         }
@@ -101,10 +101,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param currentUser currentUser
      * @param keyword QuestionKeyword
      * @return {@link UnitPoll}
+     * @throws EnMeDomainNotFoundException
      */
     public List<UnitPoll> listPollbyQuestionKeyword(final String currentUser,
-            final String keyword) {
-        final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword);
+            final String keyword, final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException {
+        final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword, getPrimaryUser(currentUser), maxResults, start);
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
 
@@ -241,4 +242,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
     }
 
+    public List<UnitPoll> listPollByUser(String currentUser)
+            throws EnMeDomainNotFoundException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

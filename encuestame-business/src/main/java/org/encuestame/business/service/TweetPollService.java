@@ -86,7 +86,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return list of Tweet polls bean
      * @throws EnMeDomainNotFoundException
      */
-    @SuppressWarnings("unchecked")
     public List<UnitTweetPoll> getTweetsPollsByUserName(final String username,
             final Integer maxResults,
             final Integer start) throws EnMeDomainNotFoundException{
