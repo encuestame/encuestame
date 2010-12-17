@@ -29,7 +29,7 @@ public class UnitGroupBean implements Serializable {
     private Long id;
     private String groupName;
     private String groupDescription;
-    private String stateId;
+    private Long stateId;
 
     public UnitGroupBean() {
     }
@@ -80,14 +80,14 @@ public class UnitGroupBean implements Serializable {
     /**
      * @return the stateId
      */
-    public final String getStateId() {
+    public final Long getStateId() {
         return stateId;
     }
 
     /**
      * @param stateId the stateId to set
      */
-    public final void setStateId(String stateId) {
+    public final void setStateId(Long stateId) {
         this.stateId = stateId;
     }
 

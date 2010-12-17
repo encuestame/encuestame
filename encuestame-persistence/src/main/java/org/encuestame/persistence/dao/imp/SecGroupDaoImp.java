@@ -18,6 +18,8 @@ import org.encuestame.persistence.dao.ISecGroups;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
@@ -79,4 +81,20 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     public SecGroup find(final Long groupId) {
         return (SecGroup) getHibernateTemplate().get(SecGroup.class, groupId);
     }
+
+    /**
+     * Get Group by Id and User.
+     * @param groupId group id
+     * @param secUser {@link SecUser}
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public SecGroup getGroupByIdandUser(final Long groupId, final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(SecGroup.class);
+         criteria.createAlias("secUsers", "secUsers");
+         criteria.add(Restrictions.eq("secUsers.uid", userId));
+         criteria.add(Restrictions.eq("tweetPollId", groupId));
+         return (SecGroup) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
 }

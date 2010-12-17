@@ -102,7 +102,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
             throw new UsernameNotFoundException("user not found");
         }
         this.updateLoggedInfo(user);
-        return convertToUserDetails(user);
+        return null;
+        //convertToUserDetails(user);
     }
 
 
@@ -117,12 +118,12 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         secUserDao.saveOrUpdate(secUserSecondary);
     }
 
-    /**
+/*    *//**
      * Convert Survey User to Spring Security UserDetails
      *
      * @param user
      * @return {@link UserDetails}
-     */
+     *//*
     protected UserDetails convertToUserDetails(final SecUserSecondary user) {
         log.debug("convertToUserDetails username "+user.getUsername());
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -159,5 +160,5 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
          log.debug("user details "+userDetails.getAuthorities());
          log.debug("user details "+userDetails.getUserEmail());
          return userDetails;
-    }
+    }*/
 }

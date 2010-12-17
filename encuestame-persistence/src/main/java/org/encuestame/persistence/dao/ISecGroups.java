@@ -38,14 +38,22 @@ public interface ISecGroups extends IBaseDao {
     SecGroup getGroupById(Long groupId);
 
     /**
-     * Get Group by Id and User.
-     * @param groupId group id
-     * @param secUser {@link SecUser}
+     * Get Group by Id
+     * @param groupId
+     * @param secUser
      * @return
      */
     SecGroup getGroupById(final Long groupId, final SecUser secUser);
 
     /**
+     * Get Group by Id and User.
+     * @param groupId
+     * @param userId
+     * @return
+     */
+    SecGroup getGroupByIdandUser(final Long groupId, final Long userId);
+
+     /**
      * Find.
      * @param groupId
      * @return

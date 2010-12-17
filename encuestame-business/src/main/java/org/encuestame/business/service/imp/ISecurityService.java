@@ -95,9 +95,9 @@ public interface ISecurityService extends IService {
 
     /**
      * Delete Group Domain.
-     * @param group group
+     * @param Long group
      */
-    void deleteGroup(final UnitGroupBean group);
+    void deleteGroup(final Long groupId);
 
     /**
      * Delete user.
@@ -346,4 +346,13 @@ public interface ISecurityService extends IService {
             final EnMePermission permission,
             final String action)
             throws EnMeExpcetion;
+
+    /**
+     * Get Group by Id and User Id.
+     * @param groupId
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    SecGroup getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException;
 }

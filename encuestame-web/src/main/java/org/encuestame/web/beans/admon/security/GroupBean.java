@@ -49,7 +49,7 @@ public class GroupBean extends AdmonBean implements Serializable {
             if (getProcessedGroupId() != null) {
                 log.info("deleting group..");
                 getServicemanager().getApplicationServices().getSecurityService().deleteGroup(
-                        getNewGroup());
+                        getNewGroup().getId());
                 reset();
             } else {
                 addErrorMessage(getMessageProperties("errorDelteGroup"),

@@ -104,7 +104,7 @@ public class TestUserDao extends AbstractBase {
     /**
      * Test Assing Group to User.
      **/
-    @SuppressWarnings("unchecked")
+/*    @SuppressWarnings("unchecked")
     @Test
     public void testAssingGroupToUser(){
          final SecUserSecondary user = createSecondaryUser("user 4", this.userPrimary);
@@ -112,7 +112,7 @@ public class TestUserDao extends AbstractBase {
          user.getSecGroups().add(group);
          getSecGroup().saveOrUpdate(user);
          assertEquals("Should be equals", 1, user.getSecGroups().size());
-    }
+    }*/
 
     /**
      * Test Add Permission to Group.

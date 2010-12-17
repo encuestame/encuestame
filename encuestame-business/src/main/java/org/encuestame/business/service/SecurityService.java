@@ -262,6 +262,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         //assingGroup(user, group);
     }
 
+
     /**
      * Search user by username.
      * @param username username
@@ -304,9 +305,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Delete Group Domain.
      * @param group group
      */
-    public void deleteGroup(final UnitGroupBean group) {
-        final SecGroup g = getGroupDao().find(Long.valueOf(group.getId()));
-        getGroupDao().delete(g);
+    public void deleteGroup(final Long groupId) {
+        final SecGroup group = getGroupDao().find(groupId);
+        getGroupDao().delete(group);
     }
 
     /**
@@ -381,6 +382,16 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             throw new EnMeExpcetion("group not found");
         }
         return groupBean;
+    }
+
+    /**
+     * Get Group by Primary User and Group Id.
+     * @param Long groupId.
+     * @param String username.
+     * @throws EnMeExpcetion exception
+     */
+    public SecGroup getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException {
+        return getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
     }
 
     /**
@@ -626,7 +637,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             throw new EnMeDomainNotFoundException("group not found");
         }
         //add new group.
-        secUserSecondary.getSecGroups().add(secGroup);
+       // secUserSecondary.getSecGroups().add(secGroup);
         getSecUserDao().saveOrUpdate(secUserSecondary);
     }
 

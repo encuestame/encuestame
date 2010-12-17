@@ -229,7 +229,7 @@ public class ConvertDomainBean {
             unitUserBean.setEmail(secUserSecondary.getUserEmail());
             unitUserBean.setUsername(secUserSecondary.getUsername());
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
-            unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
+           // unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
             unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
         }
         return unitUserBean;
@@ -289,7 +289,7 @@ public class ConvertDomainBean {
         groupBean.setId(groupDomain.getGroupId());
         groupBean.setGroupName(groupDomain.getGroupName());
         groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
-        groupBean.setStateId(String.valueOf(groupDomain.getIdState()));
+        groupBean.setStateId(groupDomain.getIdState());
         return groupBean;
     }
 

@@ -78,11 +78,14 @@ public class SecUserSecondary {
      */
     private boolean credentialsNonExpired = true;
 
-    private Set<SecGroup> secGroups = new HashSet<SecGroup>();
-
     private Set<Project> projects = new HashSet<Project>();
 
     private Set<SecPermission> secUserPermissions = new HashSet<SecPermission>();
+
+    /**
+     * {@link SecGroup}
+     */
+    private SecGroup secGroup;
 
     /**
      * @return uid
@@ -257,24 +260,6 @@ public class SecUserSecondary {
     }
 
     /**
-     * @return the secGroups
-     */
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="sec_user_group",
-               joinColumns={@JoinColumn(name="sec_id_secondary")},
-               inverseJoinColumns={@JoinColumn(name="sec_id_group")})
-    public Set<SecGroup> getSecGroups() {
-        return secGroups;
-    }
-
-    /**
-     * @param secGroups the secGroups to set
-     */
-    public void setSecGroups(Set<SecGroup> secGroups) {
-        this.secGroups = secGroups;
-    }
-
-    /**
      * @return the projects
      */
     @ManyToMany(cascade=CascadeType.ALL)
@@ -322,4 +307,4 @@ public class SecUserSecondary {
     public void setLastIpLogged(String lastIpLogged) {
         this.lastIpLogged = lastIpLogged;
     }
-}
+ }

@@ -202,7 +202,7 @@ import org.junit.Test;
         groupBean.setId(1L);
         groupBean.setGroupDescription("group description");
         groupBean.setGroupName("group name");
-        groupBean.setStateId("12345");
+        groupBean.setStateId(1L);
         assertNotNull(groupBean.getId());
         assertNotNull(groupBean.getStateId());
         assertNotNull(groupBean.getGroupDescription());

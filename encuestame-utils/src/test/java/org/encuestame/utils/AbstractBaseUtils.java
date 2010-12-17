@@ -203,7 +203,7 @@ public abstract class AbstractBaseUtils extends TestCase{
              final String groupDescription,
              final String groupName,
              final Long groupId,
-             final String stateId
+             final Long stateId
      ){
          final UnitGroupBean unitGroupBean = new UnitGroupBean();
          unitGroupBean.setGroupDescription(groupDescription);
