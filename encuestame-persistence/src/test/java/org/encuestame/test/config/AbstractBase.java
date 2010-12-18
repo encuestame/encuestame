@@ -553,6 +553,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createSecondaryUser(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
     }
 
+
+    public SecUserSecondary createSecondaryUserGroup(
+            final String name,
+            final SecUser secUser,
+            final SecGroup secGroup){
+        return createSecondaryUserGroup(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, secGroup);
+    }
+
+
     /**
      * Create Secondary User.
      * @param name
@@ -563,7 +572,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public SecUserSecondary createSecondaryUser(
             final String name,
             final String email,
-            final SecUser secUser){
+            final SecUser secUser) {
         final SecUserSecondary user= new SecUserSecondary();
         user.setCompleteName(name);
         user.setUsername(name);
@@ -577,6 +586,30 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return user;
     }
 
+    /**
+     * Create Secondary User.
+     * @param name
+     * @param email
+     * @param secUser
+     * @return
+     */
+    public SecUserSecondary createSecondaryUserGroup(
+            final String name,
+            final String email,
+            final SecUser secUser,
+            final SecGroup secGroup){
+        final SecUserSecondary user= new SecUserSecondary();
+        user.setCompleteName(name);
+        user.setUsername(name);
+        user.setPassword("12345");
+        user.setUserEmail(email);
+        user.setEnjoyDate(new Date());
+        user.setInviteCode("xxxxxxx");
+        user.setSecUser(secUser);
+        user.setUserStatus(true);
+        getSecUserDao().saveOrUpdate(user);
+        return user;
+    }
 
     /**
      * Create User.

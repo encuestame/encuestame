@@ -12,10 +12,16 @@
  */
 package org.encuestame.test.persistence.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
 
 import org.encuestame.persistence.domain.security.SecGroup;
+import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.test.config.AbstractBase;
+import org.junit.Before;
 import org.junit.Test;
 /**
  * UserDao.
@@ -25,9 +31,28 @@ import org.junit.Test;
  */
 public class TestSecGroupDaoImp extends AbstractBase{
 
-/**
-  *Test Create Group.
- */
+    /** {@link SecUserSecondary}. **/
+    private SecUserSecondary secondary;
+
+    /** {@link SecGroup} **/
+    private SecGroup secGroup;
+
+    /** {@link SecUser} **/
+    private SecUser secUser;
+
+
+    @Before
+    public void initData(){
+         this.secGroup = createGroups("adminGroup");
+         this.secUser = createUser();
+         this.secondary = createSecondaryUserGroup("paola", this.secUser, this.secGroup);
+    }
+
+
+
+    /**
+    *Test Create Group.
+    */
     @Test
     public void TestCreateGroup(){
         final SecGroup group = super.createGroups("first group");
@@ -41,7 +66,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
    public void TestDeleteGroup(){
         final SecGroup group = super.createGroups("second group");
         getSecGroup().delete(group);
-        assertEquals("Should be equals",0, getSecGroup().findAllGroups().size());
+        assertEquals("Should be equals",1, getSecGroup().findAllGroups().size());
     }
 
     /**Test Find All Groups*/
@@ -50,7 +75,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
     {
         super.createGroups("group thirth");
         super.createGroups("group fourth");
-        assertEquals("Should be equals",2, getSecGroup().findAllGroups().size());
+        assertEquals("Should be equals",3, getSecGroup().findAllGroups().size());
 
     }
     /**Test Update Group**/
@@ -69,4 +94,16 @@ public class TestSecGroupDaoImp extends AbstractBase{
             retrieveGroup.getDesInfo());*/
     }
 
+    public void testGetCountUserbyGroup(){
+        final Long counterTest = 1L;
+        final Long counter = getSecGroupDaoImp().getCountUserbyGroup(this.secGroup.getGroupId());
+        assertEquals(counterTest, counter);
+    }
+
+    public void testGetUsersbyGroups(){
+        final List<Object[]> usersGroups = getSecGroupDaoImp().getUsersbyGroups(this.secUser);
+        assertEquals("Should be equals",1, usersGroups.size());
+
+
+    }
 }

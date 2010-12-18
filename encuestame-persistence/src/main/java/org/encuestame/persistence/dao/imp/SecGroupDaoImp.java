@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.ISecGroups;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -97,4 +98,29 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
          return (SecGroup) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
+    /**
+     * Counter Users by Group
+     * @param secGroupId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public Long getCountUserbyGroup(final Long secGroupId){
+        List<Long> counter = getHibernateTemplate().findByNamedParam("select count(uid) "
+                  +" from SecUserSecondary where secGroup.groupId = :secGroupId", "secGroupId", secGroupId);
+        return counter.get(0);
+    }
+
+   /**
+    * Get Users by Groups.
+    * @param user
+    * @return
+    */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getUsersbyGroups(final SecUser user){
+         return getHibernateTemplate().findByNamedParam("SELECT sg.name, COUNT(scu.secGroup.groupId) "
+                                                         + "FROM SecUserSecondary as scu, SecGroup as sg "
+                                                         + "WHERE scu.secGroup.groupId = sg.groupId AND "
+                                                         + "scu.secUser = :secUser"
+                                                         + "GROUP BY sg.name", "secUser", user);
+    }
 }
