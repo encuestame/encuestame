@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.json.user;
+package org.encuestame.mvc.controller.security.json;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version $Id:$
  */
 @Controller
-public class JsonUsers extends AbstractJsonController{
+public class JsonUsersController extends AbstractJsonController{
 
 
     /**

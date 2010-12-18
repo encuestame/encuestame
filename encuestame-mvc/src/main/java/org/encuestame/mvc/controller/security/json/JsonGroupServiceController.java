@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-public class GroupJsonServiceController extends AbstractJsonController {
+public class JsonGroupServiceController extends AbstractJsonController {
 
     /**
      *

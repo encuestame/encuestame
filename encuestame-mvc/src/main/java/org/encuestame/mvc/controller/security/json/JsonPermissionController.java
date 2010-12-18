@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version $Id:$
  */
 @Controller
-public class JsonPermission  extends AbstractJsonController{
+public class JsonPermissionController  extends AbstractJsonController{
 
 
     /**
