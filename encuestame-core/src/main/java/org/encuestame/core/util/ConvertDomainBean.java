@@ -262,8 +262,8 @@ public class ConvertDomainBean {
      */
     public static final List<UnitUserBean> convertCollectionUsersToBean(final Collection<SecUserSecondary> listUsers) {
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        for (SecUserSecondary secUserSecondary2 : listUsers) {
-            loadListUsers.add(ConvertDomainBean.convertBasicSecondaryUserToUserBean(secUserSecondary2));
+        for (SecUserSecondary secUserSecondary : listUsers) {
+            loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary));
         }
         return loadListUsers;
     }
