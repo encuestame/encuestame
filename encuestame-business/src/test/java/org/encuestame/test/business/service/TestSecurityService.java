@@ -643,7 +643,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @Test(expected = EnMeExpcetion.class)
         public void testassingGroupFromUserException() throws EnMeExpcetion{
             final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(this.secUserSecondary);
-            this.securityService.assingGroupFromUser(userBean, new UnitGroupBean());
+            //this.securityService.assingGroupFromUser(userBean, new UnitGroupBean());
         }
 
         /**
