@@ -39,7 +39,7 @@ import org.springframework.mail.MailSendException;
 public interface ISecurityService extends IService {
 
      String getDefaultUserPermission();
-    /**
+    /**f
      * Load list of users.
      * @return list of users with groups and permission
      * @throws Exception Exception
@@ -77,8 +77,12 @@ public interface ISecurityService extends IService {
      * Assing Group to User.
      * @param user user
      * @param group group
+     * @throws EnMeDomainNotFoundException
      */
-    void assingGroupToUser(final UnitUserBean user, final UnitGroupBean group);
+    void assingGroupFromUser(
+            final Long groupId,
+            final Long userId,
+            final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Search user by username.
@@ -154,17 +158,6 @@ public interface ISecurityService extends IService {
     void assignPermission(
             final UnitUserBean userBean,
             final UnitPermission permissionBean)
-            throws EnMeExpcetion;
-
-    /**
-     * Assign group to user.
-     * @param userBean userBean
-     * @param groupBean groupBean
-     * @throws EnMeExpcetion EnMeExpcetion
-     */
-    void assingGroupFromUser(
-            final Long groupId,
-            final String username)
             throws EnMeExpcetion;
 
     /**

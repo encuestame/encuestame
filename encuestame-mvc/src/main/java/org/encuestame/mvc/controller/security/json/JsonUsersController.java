@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.security.json;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
+import org.encuestame.core.util.DateUtil;
+import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
-import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -54,6 +56,7 @@ public class JsonUsersController extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
+    @SuppressWarnings("unchecked")
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/admon/users.json", method = RequestMethod.GET)
     public ModelMap get(
@@ -68,9 +71,18 @@ public class JsonUsersController extends AbstractJsonController{
             final Map<String, Object> sucess = new HashMap<String, Object>();
             final List<UnitUserBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
-            //Filter Stats.
+            //Filter values.
             for (UnitUserBean unitUserBean : userList) {
-                getSecurityService().getStatsByUsers(unitUserBean);
+                getSecurityService().getStatsByUsers(unitUserBean); //filter
+                log.debug("Date Enjoy "+unitUserBean.getDateNew());
+                final HashMap<Integer, RelativeTimeEnum> relativeTime = DateUtil.getRelativeTime(unitUserBean.getDateNew());
+                final Iterator it = relativeTime.entrySet().iterator();
+                while (it.hasNext()) {
+                    final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
+                    System.out.println(e.getKey() + " " + e.getValue());
+                    unitUserBean.setRelateTimeEnjoy(
+                                    convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
+                }
             }
             sucess.put("users", userList);
             sucess.put("total", getServiceManager().getApplicationServices()
@@ -219,10 +231,11 @@ public class JsonUsersController extends AbstractJsonController{
     @RequestMapping(value = "/api/admon/groups/assingToUser.json", method = RequestMethod.GET)
     public ModelMap assingUserToGroup(
             @RequestParam(value = "id", required = true) Long groupId,
+            @RequestParam(value = "userId", required = true) Long userId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
        try {
-           getSecurityService().assingGroupFromUser(groupId, getUserPrincipalUsername());
+           getSecurityService().assingGroupFromUser(groupId, userId, getUserPrincipalUsername());
            setSuccesResponse();
        } catch (Exception e) {
            log.error(e);

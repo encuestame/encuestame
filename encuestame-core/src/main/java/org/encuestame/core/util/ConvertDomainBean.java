@@ -198,8 +198,6 @@ public class ConvertDomainBean {
     }
 
 
-
-
     /**
      * Convert {@link SecUser} to {@link UnitSessionUserBean}.
      * @param user user
@@ -229,8 +227,14 @@ public class ConvertDomainBean {
             unitUserBean.setEmail(secUserSecondary.getUserEmail());
             unitUserBean.setUsername(secUserSecondary.getUsername());
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
-           // unitUserBean.setListGroups(convertSetToUnitGroupBean(secUserSecondary.getSecGroups()));
+            unitUserBean.setGroupId(secUserSecondary.getSecGroup() == null ? null : secUserSecondary.getSecGroup().getGroupId());
             unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
+            unitUserBean.setFollowers(secUserSecondary.getFollowers());
+            System.out.println("Convert Enjoy Date "+secUserSecondary.getEnjoyDate());
+            unitUserBean.setDateNew(secUserSecondary.getEnjoyDate());
+            System.out.println("Convert Enjoy Date 1"+unitUserBean.getDateNew());
+            unitUserBean.setIpLastLogged(secUserSecondary.getLastIpLogged());
+            unitUserBean.setLastTimeLogged(secUserSecondary.getLastTimeLogged());
         }
         return unitUserBean;
     }

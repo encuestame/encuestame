@@ -36,6 +36,7 @@ public class UnitUserBean implements Serializable {
     private String password;
     private String inviteCode;
     private Date dateNew;
+    private String relateTimeEnjoy;
     private Long primaryUserId;
     @Deprecated
     private Collection<UnitGroupBean> listGroups;
@@ -47,7 +48,7 @@ public class UnitUserBean implements Serializable {
     private Long followers;
     private Date lastTimeLogged;
     private String ipLastLogged;
-    private Boolean isOwner;
+    private Long groupId;
 
     /**
      * @return the id
@@ -266,16 +267,29 @@ public class UnitUserBean implements Serializable {
     public void setIpLastLogged(String ipLastLogged) {
         this.ipLastLogged = ipLastLogged;
     }
+
     /**
-     * @return the isOwner
+     * @return the groupId
      */
-    public Boolean getIsOwner() {
-        return isOwner;
+    public Long getGroupId() {
+        return groupId;
     }
     /**
-     * @param isOwner the isOwner to set
+     * @param groupId the groupId to set
      */
-    public void setIsOwner(Boolean isOwner) {
-        this.isOwner = isOwner;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+    /**
+     * @return the relateTimeEnjoy
+     */
+    public String getRelateTimeEnjoy() {
+        return relateTimeEnjoy;
+    }
+    /**
+     * @param relateTimeEnjoy the relateTimeEnjoy to set
+     */
+    public void setRelateTimeEnjoy(final String relateTimeEnjoy) {
+        this.relateTimeEnjoy = relateTimeEnjoy;
     }
 }

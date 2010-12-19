@@ -164,7 +164,7 @@ dojo.declare(
              */
             createGroupWidget : function(data){
                 var td = dojo.doc.createElement('td');
-                var groupWidget = new encuestame.org.core.admon.user.UserGroup({data:data,parentWidget:this});
+                var groupWidget = new encuestame.org.core.admon.user.UserGroup({data:data, parentWidget:this});
                 td.appendChild(groupWidget.domNode);
                 this._trbody.appendChild(td);
             },
@@ -350,6 +350,8 @@ dojo.declare(
 
             _groups : [],
 
+            parentWidget : null,
+
             /*
              * Post Create.
              */
@@ -392,8 +394,8 @@ dojo.declare(
                  dojo.addClass(div, "item");
                  console.debug(data);
                  div.innerHTML = data.groupName;
-                 dojo.connect(div, "onclick", this, dojo.hitch(this, function(){
-                         this._selectItem(data);
+                 dojo.connect(div, "onclick", this, dojo.hitch(this, function(event){
+                         this._selectItem(data, div);
                  }));
                  this._items.appendChild(div);
             },
@@ -414,6 +416,9 @@ dojo.declare(
                 return myTextBox;
             },
 
+            /*
+             * Create Group.
+             */
             _createGroup : function(data){
                 var load = dojo.hitch(this, function(response){
                     this._callGroups();
@@ -424,8 +429,22 @@ dojo.declare(
                 encuestame.service.xhrGet(encuestame.service.list.groupCreate, {groupName:data}, load, error);
             },
 
-            _selectItem : function(data){
-                console.debug("select", data);
+            _markAsSelected : function(node){
+                dojo.addClass(node, "selected");
+             },
+
+            /*
+             * Select Item.
+             */
+            _selectItem : function(data, node){
+                var load = dojo.hitch(this, function(response){
+                    this._markAsSelected(node);
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                var params = {id: data.id, userId: this.parentWidget.data.id };
+                encuestame.service.xhrGet(encuestame.service.list.assingGroups, params, load, error);
             },
 
             /*

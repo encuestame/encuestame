@@ -14,17 +14,14 @@ package org.encuestame.business.service;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.annotation.Resource;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
-
 import org.encuestame.persistence.dao.ICatEmail;
 import org.encuestame.persistence.dao.ICatLocation;
 import org.encuestame.persistence.dao.ICatLocationTypeDao;
@@ -135,6 +132,24 @@ public abstract class AbstractDataSource{
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
             return getSecUserDao().getUserByUsername(username);
         }
+    }
+
+    /**
+     * Get secondary. User.
+     * @param userId
+     * @return
+     */
+    public final SecUserSecondary getUser(final Long  userId){
+        return getSecUserDao().getSecondaryUserById(userId);
+    }
+
+    /**
+     * Find {@link SecUserSecondary} by UserName
+     * @param username user name
+     * @return {@link SecUserSecondary}
+     */
+    public SecUserSecondary findUserByUserName(final String username) {
+        return getSecUserDao().getUserByUsername(username);
     }
 
     /**

@@ -82,16 +82,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
 
-
-    /**
-     * Find {@link SecUserSecondary} by UserName
-     * @param username user name
-     * @return {@link SecUserSecondary}
-     */
-    public SecUserSecondary findUserByUserName(final String username) {
-        return getSecUserDao().getUserByUsername(username);
-    }
-
     /**
      * Retrieve Total Own Users.
      * @param username
@@ -624,15 +614,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Assign group to user.
      * @param userBean userBean
      * @param groupBean groupBean
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
     public void assingGroupFromUser(
             final Long groupId,
-            final String username)
-            throws EnMeExpcetion {
-        final SecUserSecondary secUserSecondary = getUser(username);
+            final Long userId,
+            final String username) throws EnMeDomainNotFoundException {
+        final SecUserSecondary secUserSecondary = getUser(userId); //TODO: I need confirm this user perhaps same group of logged user.
         //search group by group id and owner user id.
-        final SecGroup secGroup = getGroupDao().getGroupById(groupId, secUserSecondary.getSecUser());
+        final SecGroup secGroup = getGroupDao().getGroupById(groupId, getUser(username).getSecUser());
         if(secGroup == null){
             throw new EnMeDomainNotFoundException("group not found");
         } else {

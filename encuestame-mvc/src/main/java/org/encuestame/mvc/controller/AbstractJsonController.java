@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
+import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
@@ -169,6 +170,47 @@ public abstract class AbstractJsonController extends BaseController{
                message = getMessage("notification.tweetpoll.publish", request, null);
            }
            return message;
+    }
+
+    /**
+     * Convert Relative Time Message.
+     * @param relativeTimeEnum
+     * @param number
+     * @param request
+     * @param objects
+     * @return
+     */
+    public String convertRelativeTimeMessage(final RelativeTimeEnum relativeTimeEnum, final Integer number,
+            final HttpServletRequest request){
+        final StringBuilder builder = new StringBuilder();
+        //builder.append(number);
+        //builder.append(" ");
+        log.debug("Convert Message Relative Time");
+        log.debug(relativeTimeEnum);
+        log.debug(number);
+        String str[] = {number.toString()};
+        if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_SECOND_AGO)){
+            builder.append(getMessage("relative.time.one.second.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.SECONDS_AGO)) {
+            builder.append(getMessage("relative.time.one.seconds.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.A_MINUTE_AGO)) {
+            builder.append(getMessage("relative.time.one.minute.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MINUTES_AGO)){
+            builder.append(getMessage("relative.time.one.minutes.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.AN_HOUR_AGO)){
+            builder.append(getMessage("relative.time.one.hour.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.HOURS_AGO)){
+            builder.append(getMessage("relative.time.one.hours.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MONTHS_AGO)){
+            builder.append(getMessage("relative.time.one.months.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_MONTH_AGO)){
+            builder.append(getMessage("relative.time.one.month.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_YEAR_AGO)){
+            builder.append(getMessage("relative.time.one.year.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)){
+            builder.append(getMessage("relative.time.one.years.ago", request, str));
+        }
+        return builder.toString();
     }
 
     /**

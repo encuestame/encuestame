@@ -57,6 +57,7 @@ public class SecUserSecondary {
     private String userTwitterAccount;
     private Date lastTimeLogged;
     private String lastIpLogged;
+    private Long followers;
 
     /**
      * Account Enabled.
@@ -321,5 +322,20 @@ public class SecUserSecondary {
      */
     public void setSecGroup(final SecGroup secGroup) {
         this.secGroup = secGroup;
+    }
+
+    /**
+     * @return the followers
+     */
+    public Long getFollowers() {
+        return followers;
+    }
+
+    /**
+     * @param followers the followers to set
+     */
+    @Column(name = "followers")
+    public void setFollowers(final Long followers) {
+        this.followers = followers;
     }
  }

@@ -70,6 +70,11 @@ div.userWidget div.groupWidget div.item{
     font-style: italic;
     cursor: pointer;
 }
+
+div.userWidget div.groupWidget div.selected{
+    background-color: #928E8E;
+}
+
 div.userWidget div.groupWidget div.selected{
     font-weight: bold;
 }
