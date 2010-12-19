@@ -1,62 +1,41 @@
-<div style="padding: 10px;">
+<div class="userWidget">
     <div class="menuOptions">
-        <div class="left">
-            <a dojoAttachEvent="onclick:_newUser">New User</a>
-        </div>
-        <div class="right">
-            <div dojoType="dijit.form.DropDownButton" iconClass="noteIcon">
-                  <span>Actions</span>
-                  <div dojoType="dijit.Menu">
-                    <div dojoType="dijit.MenuItem"  iconClass="dijitEditorIcon dijitEditorIconCut"
-                      onClick="console.log('not actually cutting anything, just a test!')">Cut</div>
-                    <div dojoType="dijit.MenuItem"  iconClass="dijitEditorIcon dijitEditorIconCopy"
-                      onClick="console.log('not actually copying anything, just a test!')">Copy</div>
-                    <div dojoType="dijit.MenuItem"  iconClass="dijitEditorIcon dijitEditorIconPaste"
-                      onClick="console.log('not actually pasting anything, just a test!')">Paste</div>
-                    <div dojoType="dijit.MenuSeparator"></div>
-                    <div dojoType="dijit.PopupMenuItem">
-                      <span>Submenu</span>
-                      <div dojoType="dijit.Menu" id="submenu2">
-                        <div dojoType="dijit.MenuItem" onClick="console.log('Submenu 1!')">Submenu Item One</div>
-                        <div dojoType="dijit.MenuItem" onClick="console.log('Submenu 2!')">Submenu Item Two</div>
-                        <div dojoType="dijit.PopupMenuItem">
-                          <span>Deeper Submenu</span>
-                          <div dojoType="dijit.Menu" id="submenu4"">
-                            <div dojoType="dijit.MenuItem" onClick="console.log('Sub-submenu 1!')">Sub-sub-menu Item One</div>
-                            <div dojoType="dijit.MenuItem" onClick="console.log('Sub-submenu 2!')">Sub-sub-menu Item Two</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-              </div>
-          </div>
-    </div>
+         <a dojoAttachEvent="onclick:_newUser">New User</a>
     </div>
     <div>
         <div dojoType="dijit.form.Form" id="tableForm">
-            <table id="hor-minimalist-b" cellpadding="5" cellspacing="4" class="defaultTable" width="800px">
+            <div class="option">
+
+            </div>
+            <table cellpadding="5" cellspacing="4" class="defaultTable" width="100%">
                     <thead>
                         <tr>
-                            <th scope="col">Select</th>
                             <th scope="col">Username</th>
                             <th scope="col" width="150px">Real Name</th>
-                            <th scope="col" width="150px">Email</th>
-                            <th scope="col">Permissions</th>
+                            <th scope="col">Group</th>
                             <th scope="col" width="150px">User from</th>
                             <th scope="col">Status</th>
+                            <th scope="col">TweetPoll</th>
+                            <th scope="col">Poll</th>
+                            <th scope="col">Survey</th>
+                            <th scope="col" width="100px">Last Logged</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Followers</th>
                         </tr>
                      </thead>
                       <tfoot>
                         <tr>
-                            <td colspan="7" class="rounded-foot-left">
+                            <td colspan="11" class="rounded-foot-left">
+                                <div>
+                                   <div class="total" dojoAttachPoint="_total"></div>
+                                </div>
                                 <div class="controlsTable" style="cursor: pointer;">
-                                    <a dojoAttachEvent="onclick:first" dojoAttachPoint="_first"> First Page</a>
-                                    <a dojoAttachEvent="onclick:previous" dojoAttachPoint="_previous"> Previous </a>
-                                    <a dojoAttachEvent="onclick:next" dojoAttachPoint="_next">Next > </a>
-                                    <a dojoAttachEvent="onclick:last" dojoAttachPoint="_last">Last Page  </a>
+                                    <a dojoAttachEvent="onclick:first" dojoAttachPoint="_first"> &laquo; First Page</a>
+                                    <a dojoAttachEvent="onclick:previous" dojoAttachPoint="_previous">  &laquo;  Previous </a>
+                                    <a dojoAttachEvent="onclick:next" dojoAttachPoint="_next">Next &raquo; </a>
+                                    <a dojoAttachEvent="onclick:last" dojoAttachPoint="_last">Last Page &raquo; </a>
                                 </div>
                             </td>
-                            <td class="rounded-foot-right">&nbsp;</td>
                         </tr>
                     </tfoot>
                 <tbody dojoAttachPoint="_body">

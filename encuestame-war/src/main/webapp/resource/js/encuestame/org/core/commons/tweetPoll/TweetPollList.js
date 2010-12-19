@@ -9,6 +9,8 @@ dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
 dojo.require("dojox.widget.Dialog");
 dojo.require("dojox.form.Rating");
+dojo.require("dojo.fx");
+
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
@@ -21,6 +23,7 @@ dojo.declare(
         listItems : null,
         defaultSearch : "LASTDAY",
         currentSearch : "",
+        showNew : false,
         max : 8,
         start : 0,
         postCreate : function(){
@@ -39,8 +42,30 @@ dojo.declare(
             this.loadTweetPolls({typeSearch : this.currentSearch});
         },
 
-        _new : function(event){
+        _onSwichChange : function(event){
             dojo.stopEvent(event);
+            console.debug("new");
+            //future, should add effects.
+            /*var slideArgs = {
+                    node: "detail",
+                    top: dojo.coords("tweetListContent").t,
+                    left: dojo.coords("tweetListContent").l ,
+                    unit: "px"
+                };
+            console.debug("slide", slideArgs);
+            dojo.fx.slideTo(slideArgs).play();*/
+//            if(!this.showNew){
+//                dojo.style(dojo.byId("tweetListContent"), "display", "none");
+//                dojo.style(dojo.byId("newTweetPoll"), "display", "block");
+//                this._swichChange.innerHTML = "Show Lists";
+//            } else {
+//                dojo.style(dojo.byId("tweetListContent"), "display", "block");
+//                dojo.style(dojo.byId("newTweetPoll"), "display", "none");
+//                this._swichChange.innerHTML = "New TweetPoll";
+//            }
+//            this.showNew = !this.showNew;
+            dijit.byId("newTweetPoll").show();
+            dojo.publish("/encuestame/tweetpoll/create/reset");
         },
 
         _searchByAll : function(event){

@@ -1,16 +1,16 @@
 <div class="tweetPollListWrapper">
-
-         <div id="newTweetPoll" dojoType="encuestame.org.core.commons.tweetPoll.TweetPoll"
-         class="defaultDisplayHide"></div>
-
          <div>
             <div style="float: left; padding-top: 14px; padding-left: 17px; font-size: 112%; font-weight: bold; color: blue;cursor: pointer;
             text-decoration: underline;">
-                    <div dojoAttachEvent="onClick:_new">
+                    <div dojoAttachEvent="onclick:_onSwichChange" dojoAttachPoint="_swichChange">
                         New TweetPoll
                     </div>
             </div>
-              <div class="navigation">
+             <div id="newTweetPoll" dojoType="dijit.Dialog" id="publishTweetPoll" draggable="false"
+                  >
+                <div dojoType="encuestame.org.core.commons.tweetPoll.TweetPoll"></div>
+             </div>
+              <div class="navigation" id="basicNode">
                     <table>
                         <tr>
                             <td>
@@ -27,7 +27,7 @@
                     </table>
              </div>
          </div>
-         <div class="tweetListContent">
+         <div id="tweetListContent" class="tweetListContent">
             <div class="options">
                 <div class="panel1">
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount">
@@ -49,14 +49,14 @@
                         <span>See All</span>
                     </div>
                 </div>
-                <div class="panel2">
+                <div class="panel2" dojoAttachPoint="_groups">
                     xxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxx
                 </div>
             </div>
             <div class="listTweet" dojoAttachPoint="_items">
 
             </div>
-            <div class="tweetDetail">
+            <div class="tweetDetail" id="detailTweet">
                 <div id="detail" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollListDetail"></div>
             </div>
          </div>

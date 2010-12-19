@@ -24,6 +24,8 @@ dojo.declare(
 
         start : 0,
 
+        total : null,
+
         showPagination : false,
 
         postMixInProperties: function(){

@@ -3,7 +3,11 @@
 /* Templates Admon */
 
 div.admonWrapper{
-    margin: 0px 20px 0px 20px;
+    margin: auto 110px;
+}
+
+div.admonWrapper a{
+    color: #444444;
 }
 
 div.admonWrapper div.panelAdmon{
@@ -31,57 +35,32 @@ div.admonWrpper div.bodyAdmon{
 
 /** Users **/
 
-div.admonWrapper div.bodyAdmon .rich-table-header{
-    background-image: url(../images/topnav_stretch.gif) repeat-x !important;
-}
-.rich-table{
-
+div.userWidget{
+    padding-top: 5px;
 }
 
-.rich-table-thead{
-   margin: 10px;
-   background-image: url(../images/topnav_stretch.gif) repeat-x !important;
+div.userWidget div.menuOptions{
+    padding: 10px;
+    font-size: 105%;
+    border-bottom: 1px solid #FFFFFF;
+
 }
 
-#admonWrapper div.bodyAdmo .userAdmonHeader{
-    background-color: #blue !important;
+div.userWidget div.menuOptions a{
+    padding: 2px;
+    color: #444444;
+    cursor: pointer;
 }
 
-.rowClass{
-    background-color: #blue !important;
+div.userWidget div.controlsTable{
+    text-align: center;
 }
 
-/** Users **/
-
-
-.admonUserHeader{
-    display: inline-block;
-    background-image: url(../images/icons/enme_admon_user.png);
-    background-repeat: no-repeat;
-    width: 100px;
-    padding-left : 61px;
-    margin-left: 6px;
-}
-
-.admonAddUser{
-    display: inline-block;
-    background-image: url(../images/icons/enme-add-user.png);
-    background-repeat: no-repeat;
-    width: 100px;
-    padding-left : 61px;
-    margin-left: 6px;
-}
-
-div.menuOptions{
-    min-height: 25px;
-    padding: 0 20px 0 10px;
-}
-
-div.menuOptions .left{
+div.userWidget .total{
     float: left;
 }
 
-div.menuOptions .right{
-    float: right;
+div.userWidget div.controlsTable a{
+    padding-left: 5px;
+    padding-right: 5px;
 }
-

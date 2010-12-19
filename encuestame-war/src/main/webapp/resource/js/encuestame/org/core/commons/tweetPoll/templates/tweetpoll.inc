@@ -1,6 +1,5 @@
 <div class="tweetPollWrapper">
-    <h1>Create TweetPoll</h1>
-    <div dojoType="dijit.form.Form" id="tableForm">
+    <div id="tableForm">
         <div class="secondOption">
             <div style="float: left; width: 75%; margin-left: 25px;">
                 <div id="tweetPollPreview" class="tweetPollPreview" style="min-height: 28px; float: left; min-width: 700px;">

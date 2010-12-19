@@ -25,6 +25,8 @@ dojo.declare(
 
         jsonServiceUrl : encuestame.service.list.userList,
 
+        total : 0,
+
         /**
          * Build Row.
          */
@@ -37,6 +39,8 @@ dojo.declare(
          * Iterate Items.
          */
         iterateResponseItems : function(data){
+            this.total = data.success.total;
+            this._total.innerHTML = this.start +" of "+this.total;
             dojo.forEach(
                 data.success.users,
                 dojo.hitch(this, function(data, index) {
@@ -118,13 +122,20 @@ dojo.declare(
              */
             buildDefaultRow : function(){
                 var data = this.data;
-                this.createInput(data.id)
+                //this.createInput(data.id)
                 this.createColumnDialog(data.username);
                 this.createColumn(data.name);
-                this.createColumn(data.email);
-                this.createColumn(data.email);
+                this.createGroupWidget(data);
+                this.createColumn(
+                        dojo.date.locale.format(new Date(), {datePattern: "MM/dd/yy" , selector:'date'}), true);
                 this.buildStatus(data.status);
-                this.createColumn(data.id);
+                this.createColumn(data.tweetPoll, true);
+                this.createColumn(data.poll, true);
+                this.createColumn(data.survey, true);
+                this.createColumn(
+                        dojo.date.locale.format(new Date(), {datePattern: "MM/dd/yy" , selector:'date'}), true);
+                this.createColumn(data.isOwner);
+                this.createColumn(data.followers == null ? 0 : data.followers, true);
             },
 
             /**
@@ -137,15 +148,25 @@ dojo.declare(
             /**
              * Create Column.
              */
-            createColumnDialog : function(text){
+            createColumnDialog : function(text, centered){
                  var td = dojo.doc.createElement('td');
                  var a = dojo.doc.createElement('a');
+                 dojo.addClass(a, "link");
                  a.innerHTML = text;
                  a.href = "#";
                  dojo.connect(a, "onclick", this, this.editUSer);
                  td.appendChild(a);
                  this._trbody.appendChild(td);
+            },
 
+            /*
+             *
+             */
+            createGroupWidget : function(data){
+                var td = dojo.doc.createElement('td');
+                var groupWidget = new encuestame.org.core.admon.user.UserGroup({data:data,parentWidget:this});
+                td.appendChild(groupWidget.domNode);
+                this._trbody.appendChild(td);
             },
 
             /**
@@ -190,10 +211,13 @@ dojo.declare(
             /**
              * Create Column.
              */
-            createColumn : function(text){
-                 var td = dojo.doc.createElement('td');
-                 td.innerHTML = text;
-                 this._trbody.appendChild(td);
+            createColumn : function(text, centered){
+                var td = dojo.doc.createElement('td');
+                if(centered){
+                    td.setAttribute("align", "center");
+                }
+                td.innerHTML = text;
+                this._trbody.appendChild(td);
             },
 
             /**
@@ -308,5 +332,21 @@ dojo.declare(
                  var div = dojo.doc.createElement('div');
                  div.appendChild(widget.domNode);
                  this._permissions.appendChild(div);
+            }
+});
+
+/**
+ * Group.
+ */
+dojo.declare(
+        "encuestame.org.core.admon.user.UserGroup",
+        [dijit._Widget, dijit._Templated],{
+            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserGroup.inc"),
+
+            /** Allow other widgets in the template. **/
+            widgetsInTemplate: true,
+
+            postCreate : function(){
+
             }
 });
