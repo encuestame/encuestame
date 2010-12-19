@@ -307,4 +307,19 @@ public class SecUserSecondary {
     public void setLastIpLogged(String lastIpLogged) {
         this.lastIpLogged = lastIpLogged;
     }
+
+    /**
+     * @return the secGroup
+     */
+    @ManyToOne()
+    public SecGroup getSecGroup() {
+        return secGroup;
+    }
+
+    /**
+     * @param secGroup the secGroup to set
+     */
+    public void setSecGroup(final SecGroup secGroup) {
+        this.secGroup = secGroup;
+    }
  }

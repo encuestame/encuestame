@@ -627,18 +627,19 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeExpcetion EnMeExpcetion
      */
     public void assingGroupFromUser(
-            final UnitUserBean userBean,
-            final UnitGroupBean groupBean)
+            final Long groupId,
+            final String username)
             throws EnMeExpcetion {
-        final SecUserSecondary secUserSecondary = getUser(userBean.getUsername());
+        final SecUserSecondary secUserSecondary = getUser(username);
         //search group by group id and owner user id.
-        final SecGroup secGroup = getGroupDao().getGroupById(groupBean.getId(), secUserSecondary.getSecUser());
+        final SecGroup secGroup = getGroupDao().getGroupById(groupId, secUserSecondary.getSecUser());
         if(secGroup == null){
             throw new EnMeDomainNotFoundException("group not found");
+        } else {
+            //add new group.
+            secUserSecondary.setSecGroup(secGroup);
+            getSecUserDao().saveOrUpdate(secUserSecondary);
         }
-        //add new group.
-       // secUserSecondary.getSecGroups().add(secGroup);
-        getSecUserDao().saveOrUpdate(secUserSecondary);
     }
 
     /**

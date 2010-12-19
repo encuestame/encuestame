@@ -122,3 +122,10 @@ encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/
 encuestame.service.list.notificationTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/notification-tweetpoll.json";
 encuestame.service.list.repeatedTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/repeated-tweetpoll.json";
 encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetPoll/votes.json";
+
+//group services
+encuestame.service.list.groupCreate = encuestame.contextWidget()+"/api/groups/createGroup.json";
+encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/updateGroup.json";
+encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/removeGroup.json";
+encuestame.service.list.loadGroups = encuestame.contextWidget()+"/api/groups/groups.json";
+encuestame.service.list.assingGroups = encuestame.contextWidget()+"/api/admon/groups/assingToUser.json";

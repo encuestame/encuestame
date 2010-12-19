@@ -25,6 +25,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -202,5 +203,32 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
          return returnData();
+    }
+
+    /**
+     *
+     * @param groupId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/admon/groups/assingToUser.json", method = RequestMethod.GET)
+    public ModelMap assingUserToGroup(
+            @RequestParam(value = "id", required = true) Long groupId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+       try {
+           getSecurityService().assingGroupFromUser(groupId, getUserPrincipalUsername());
+           setSuccesResponse();
+       } catch (Exception e) {
+           log.error(e);
+           e.printStackTrace();
+           setError(e.getMessage(), response);
+       }
+       return returnData();
     }
 }

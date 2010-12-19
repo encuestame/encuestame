@@ -162,9 +162,9 @@ public interface ISecurityService extends IService {
      * @param groupBean groupBean
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void assingGroupFromUser(
-            final UnitUserBean userBean,
-            final UnitGroupBean groupBean)
+    void assingGroupFromUser(
+            final Long groupId,
+            final String username)
             throws EnMeExpcetion;
 
     /**
@@ -173,7 +173,7 @@ public interface ISecurityService extends IService {
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion
      */
-    public void removeGroupFromUser(
+    void removeGroupFromUser(
             final UnitUserBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion;

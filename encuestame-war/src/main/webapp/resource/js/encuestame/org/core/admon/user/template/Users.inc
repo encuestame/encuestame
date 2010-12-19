@@ -3,9 +3,8 @@
          <a dojoAttachEvent="onclick:_newUser">New User</a>
     </div>
     <div>
-        <div dojoType="dijit.form.Form" id="tableForm">
+        <div>
             <div class="option">
-
             </div>
             <table cellpadding="5" cellspacing="4" class="defaultTable" width="100%">
                     <thead>

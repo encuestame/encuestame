@@ -98,7 +98,7 @@ public class JsonGroupServiceController extends AbstractJsonController {
       }
 
     /**
-     *
+     * Remove Group.
      * @param groupId
      * @param request
      * @param response
@@ -126,42 +126,26 @@ public class JsonGroupServiceController extends AbstractJsonController {
       }
 
     /**
-     *
-     * @param groupName
-     * @param groupDesc
-     * @param stateId
-     * @param request
-     * @param response
+     * Load Groups.
      * @return
      * @throws JsonGenerationException
      * @throws JsonMappingException
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/groups/createGroup.json", method = RequestMethod.GET)
-    public ModelMap updateGroup(
-            @RequestParam(value = "groupName", required = true) String groupName,
-            @RequestParam(value = "groupDescription", required = false) String groupDesc,
-            @RequestParam(value = "stateId", required = false) Long stateId,
-
+    @RequestMapping(value = "api/groups/groups.json", method = RequestMethod.GET)
+    public ModelMap loagGroups(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
-              // log.debug(" "+folderName);
-               final UnitGroupBean unitGroupBean = new UnitGroupBean();
-               unitGroupBean.setGroupDescription(groupDesc);
-               unitGroupBean.setGroupName(groupName);
-               unitGroupBean.setStateId(stateId);
-
-              final Map<String, Object> sucess = new HashMap<String, Object>();
-                   final UnitGroupBean gb = getSecurityService().updateGroup(unitGroupBean);
-                   sucess.put("groupBean", gb);
-                   setItemResponse(sucess);
+               final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+               jsonResponse.put("groups", getSecurityService().loadGroups(getUserPrincipalUsername()));
+               setItemResponse(jsonResponse);
           } catch (Exception e) {
               log.error(e);
               e.printStackTrace();
               setError(e.getMessage(), response);
           }
           return returnData();
-      }
+    }
 }

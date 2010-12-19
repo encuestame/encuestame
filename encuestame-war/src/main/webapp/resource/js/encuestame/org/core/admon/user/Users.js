@@ -346,7 +346,114 @@ dojo.declare(
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,
 
-            postCreate : function(){
+            _stateMenu : false,
 
+            _groups : [],
+
+            /*
+             * Post Create.
+             */
+            postCreate : function(){
+                dojo.subscribe("/encuestame/admon/user/hide", this, "_close");
+            },
+
+            /*
+             * Call Groups.
+             */
+            _callGroups : function(){
+                var load = dojo.hitch(this, function(response){
+                    this._groups = response.success.groups;
+                    this.buildGroups();
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrGet(encuestame.service.list.loadGroups, {}, load, error);
+            },
+
+            /*
+             * Build Groups.
+             */
+            buildGroups : function(){
+                dojo.empty(this._items);
+                dojo.forEach(this._groups,
+                dojo.hitch(this, function(data, index) {
+                      this._buildItemMenu(data);
+                 }));
+                this._items.appendChild(this._buildCreateGroup().domNode);
+            },
+
+            /*
+             * Build Menu Item.
+             */
+            _buildItemMenu : function(data){
+                console.debug("_buildItemMenu", data);
+                 var div = dojo.doc.createElement('div');
+                 dojo.addClass(div, "item");
+                 console.debug(data);
+                 div.innerHTML = data.groupName;
+                 dojo.connect(div, "onclick", this, dojo.hitch(this, function(){
+                         this._selectItem(data);
+                 }));
+                 this._items.appendChild(div);
+            },
+
+            _buildCreateGroup : function(){
+                var myTextBox = new dijit.form.TextBox({
+                    name: "newGroupTextBox",
+                    value: "",
+                    style: "max-width:160px",
+                    placeHolder: "enter new group"
+                }, "newGroupTextBox");
+                dojo.connect(myTextBox, "onKeyDown", this, dojo.hitch(this, function(event){
+                    // dojo.stopEvent(event);
+                     if (dojo.keys.ENTER == event.keyCode) {
+                         this._createGroup(myTextBox.attr("value"));
+                     }
+                }));
+                return myTextBox;
+            },
+
+            _createGroup : function(data){
+                var load = dojo.hitch(this, function(response){
+                    this._callGroups();
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrGet(encuestame.service.list.groupCreate, {groupName:data}, load, error);
+            },
+
+            _selectItem : function(data){
+                console.debug("select", data);
+            },
+
+            /*
+             * Close.
+             */
+            _close : function(widget){
+                 if(widget != this){
+                     dojo.addClass(this._items, "defaultDisplayHide");
+                     dojo.removeClass(this._items, "defaultDisplayBlock");
+                     this._stateMenu = false;
+                 }
+             },
+
+             /*
+              * On Open Menu.
+              */
+            _onOpenMenu : function(event){
+                dojo.stopEvent(event);
+                dojo.publish("/encuestame/admon/user/hide", [this]);
+                console.debug("group menu", this._stateMenu);
+                if(this._stateMenu){
+                    dojo.addClass(this._items, "defaultDisplayHide");
+                    dojo.removeClass(this._items, "defaultDisplayBlock");
+                } else {
+                    this._callGroups();
+                    dojo.addClass(this._items, "defaultDisplayBlock");
+                    dojo.removeClass(this._items, "defaultDisplayHide");
+                }
+                this._stateMenu = !this._stateMenu;
             }
 });

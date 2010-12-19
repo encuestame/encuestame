@@ -64,3 +64,17 @@ div.userWidget div.controlsTable a{
     padding-left: 5px;
     padding-right: 5px;
 }
+
+div.userWidget div.groupWidget div.item{
+    padding: 4px;
+    font-style: italic;
+    cursor: pointer;
+}
+div.userWidget div.groupWidget div.selected{
+    font-weight: bold;
+}
+
+div.userWidget div.groupWidget div.item:hover{
+    font-style: italic;
+    background-color: #D9D9D9;
+}
