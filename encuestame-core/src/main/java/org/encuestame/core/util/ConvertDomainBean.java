@@ -252,6 +252,19 @@ public class ConvertDomainBean {
     }
 
     /**
+     * Convert List of {@link SecUserSecondary} to {@link UnitUserBean}.
+     * @param listUsers
+     * @return
+     */
+    public static final List<UnitUserBean> convertCollectionUsersToBean(final Collection<SecUserSecondary> listUsers) {
+        final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+        for (SecUserSecondary secUserSecondary2 : listUsers) {
+            loadListUsers.add(ConvertDomainBean.convertBasicSecondaryUserToUserBean(secUserSecondary2));
+        }
+        return loadListUsers;
+    }
+
+    /**
      * Convert Domain Permission to Bean Permission.
      * @param userId user id
      * @return collection of permission

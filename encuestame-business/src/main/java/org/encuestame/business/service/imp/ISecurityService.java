@@ -355,4 +355,11 @@ public interface ISecurityService extends IService {
      * @throws EnMeDomainNotFoundException
      */
     SecGroup getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException;
+
+    /**
+     * User Bean.
+     * @param user
+     * @return
+     */
+    void getStatsByUsers(final UnitUserBean user);
 }

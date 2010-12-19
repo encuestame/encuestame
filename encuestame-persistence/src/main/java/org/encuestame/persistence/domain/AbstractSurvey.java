@@ -13,12 +13,18 @@
 package org.encuestame.persistence.domain;
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 
 /**
  * Abstract Survey.
@@ -41,6 +47,11 @@ public abstract class AbstractSurvey {
      * Custom start message.
      */
     private String customStartMessages;
+
+    /**
+     * Define which user create this tweetPoll.
+     */
+    private SecUserSecondary editorOwner;
 
     /**
      * Multiple Responses.
@@ -498,4 +509,19 @@ public abstract class AbstractSurvey {
         this.name = name;
     }
 
+    /**
+     * @return the editorOwner
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "editor")
+    public SecUserSecondary getEditorOwner() {
+        return editorOwner;
+    }
+
+    /**
+     * @param editorOwner the editorOwner to set
+     */
+    public void setEditorOwner(final SecUserSecondary editorOwner) {
+        this.editorOwner = editorOwner;
+    }
 }

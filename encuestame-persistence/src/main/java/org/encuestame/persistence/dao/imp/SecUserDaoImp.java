@@ -182,4 +182,34 @@ public class SecUserDaoImp extends AbstractHibernateDaoSupport implements ISecUs
             return getHibernateTemplate().findByNamedParam("from SecUserSecondary"
                                           +" WHERE secUser.id = :userId", "userId", userId);
     }
+
+    /**
+     * Get Total of TweetPoll By User Editor.
+     * @param userSecondary
+     * @return
+     */
+    public List<Long> getTotalTweetPollByUser(final Long userId){ //editorOwner
+        return getHibernateTemplate().findByNamedParam("select count(tweetPollId) "
+               +" from TweetPoll where editorOwner.id = :editorOwner", "editorOwner", userId);
+    }
+
+    /**
+     * Get Total of TweetPoll By User Editor.
+     * @param userSecondary
+     * @return
+     */
+    public List<Long> getTotalPollByUser(final Long userId){ //editorOwner
+        return getHibernateTemplate().findByNamedParam("select count(pollId) "
+               +" from Poll where editorOwner.id = :editorOwner", "editorOwner", userId);
+    }
+
+    /**
+     * Get Total of TweetPoll By User Editor.
+     * @param userSecondary
+     * @return
+     */
+    public List<Long> getTotalSurveyByUser(final Long userId){ //editorOwner
+        return getHibernateTemplate().findByNamedParam("select count(sid) "
+               +" from Surveys where editorOwner.id = :editorOwner", "editorOwner", userId);
+    }
 }

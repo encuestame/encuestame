@@ -32,6 +32,7 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.SecUserSecondary;
 
 /**
  * TweetPoll Domain.
@@ -82,6 +83,11 @@ public class TweetPoll {
 
     /** {@link SecUser}. **/
     private SecUser tweetOwner;
+
+    /**
+     * Define which user create this tweetPoll.
+     */
+    private SecUserSecondary editorOwner;
 
     /** {@link Question}. **/
     private Question question;
@@ -421,5 +427,21 @@ public class TweetPoll {
      */
     public void setFavourites(final Boolean favourites) {
         this.favourites = favourites;
+    }
+
+    /**
+     * @return the editorOwner
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "editor")
+    public SecUserSecondary getEditorOwner() {
+        return editorOwner;
+    }
+
+    /**
+     * @param editorOwner the editorOwner to set
+     */
+    public void setEditorOwner(final SecUserSecondary editorOwner) {
+        this.editorOwner = editorOwner;
     }
 }

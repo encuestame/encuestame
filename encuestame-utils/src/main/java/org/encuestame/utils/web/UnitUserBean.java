@@ -37,8 +37,18 @@ public class UnitUserBean implements Serializable {
     private String inviteCode;
     private Date dateNew;
     private Long primaryUserId;
+    @Deprecated
     private Collection<UnitGroupBean> listGroups;
     private Collection<UnitPermission> listPermission;
+    private UnitGroupBean groupBean;
+    private Long survey;
+    private Long tweetPoll;
+    private Long poll;
+    private Long followers;
+    private Date lastTimeLogged;
+    private String ipLastLogged;
+    private Boolean isOwner;
+
     /**
      * @return the id
      */
@@ -171,5 +181,101 @@ public class UnitUserBean implements Serializable {
      */
     public final void setPrimaryUserId(Long primaryUserId) {
         this.primaryUserId = primaryUserId;
+    }
+    /**
+     * @return the groupBean
+     */
+    public UnitGroupBean getGroupBean() {
+        return groupBean;
+    }
+    /**
+     * @param groupBean the groupBean to set
+     */
+    public void setGroupBean(UnitGroupBean groupBean) {
+        this.groupBean = groupBean;
+    }
+    /**
+     * @return the survey
+     */
+    public Long getSurvey() {
+        return survey;
+    }
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(Long survey) {
+        this.survey = survey;
+    }
+    /**
+     * @return the tweetPoll
+     */
+    public Long getTweetPoll() {
+        return tweetPoll;
+    }
+    /**
+     * @param tweetPoll the tweetPoll to set
+     */
+    public void setTweetPoll(Long tweetPoll) {
+        this.tweetPoll = tweetPoll;
+    }
+    /**
+     * @return the poll
+     */
+    public Long getPoll() {
+        return poll;
+    }
+    /**
+     * @param poll the poll to set
+     */
+    public void setPoll(Long poll) {
+        this.poll = poll;
+    }
+    /**
+     * @return the followers
+     */
+    public Long getFollowers() {
+        return followers;
+    }
+    /**
+     * @param followers the followers to set
+     */
+    public void setFollowers(Long followers) {
+        this.followers = followers;
+    }
+    /**
+     * @return the lastTimeLogged
+     */
+    public Date getLastTimeLogged() {
+        return lastTimeLogged;
+    }
+    /**
+     * @param lastTimeLogged the lastTimeLogged to set
+     */
+    public void setLastTimeLogged(Date lastTimeLogged) {
+        this.lastTimeLogged = lastTimeLogged;
+    }
+    /**
+     * @return the ipLastLogged
+     */
+    public String getIpLastLogged() {
+        return ipLastLogged;
+    }
+    /**
+     * @param ipLastLogged the ipLastLogged to set
+     */
+    public void setIpLastLogged(String ipLastLogged) {
+        this.ipLastLogged = ipLastLogged;
+    }
+    /**
+     * @return the isOwner
+     */
+    public Boolean getIsOwner() {
+        return isOwner;
+    }
+    /**
+     * @param isOwner the isOwner to set
+     */
+    public void setIsOwner(Boolean isOwner) {
+        this.isOwner = isOwner;
     }
 }

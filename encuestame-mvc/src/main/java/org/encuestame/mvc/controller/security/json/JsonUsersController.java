@@ -67,6 +67,10 @@ public class JsonUsersController extends AbstractJsonController{
             final Map<String, Object> sucess = new HashMap<String, Object>();
             final List<UnitUserBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
+            //Filter Stats.
+            for (UnitUserBean unitUserBean : userList) {
+                getSecurityService().getStatsByUsers(unitUserBean);
+            }
             sucess.put("users", userList);
             sucess.put("total", getServiceManager().getApplicationServices()
                       .getSecurityService().totalOwnUsers(getUserPrincipalUsername()));

@@ -789,6 +789,27 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * User Bean.
+     * @param user
+     * @return
+     */
+    public void getStatsByUsers(final UnitUserBean user){
+            final Long id = user.getId();
+            final List<Long> tweetPoll = getSecUserDao().getTotalTweetPollByUser(id);
+            final List<Long> poll = getSecUserDao().getTotalPollByUser(id);
+            final List<Long> surveys = getSecUserDao().getTotalSurveyByUser(id);
+            if(tweetPoll.size() > 0){
+                user.setTweetPoll(tweetPoll.get(0));
+            }
+            if(poll.size() > 0){
+                user.setPoll(poll.get(0));
+            }
+            if(surveys.size() > 0){
+                user.setSurvey(surveys.get(0));
+            }
+    }
+
+    /**
      * Send password to user.
      * @param email email
      * @param password password

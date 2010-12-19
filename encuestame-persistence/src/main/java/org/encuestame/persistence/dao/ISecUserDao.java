@@ -122,4 +122,25 @@ public interface ISecUserDao extends IBaseDao {
      */
    List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUser secUsers);
 
+   /**
+    * Get Total of TweetPoll By User Editor.
+    * @param userSecondary
+    * @return
+    */
+   List<Long> getTotalTweetPollByUser(final Long userId);
+
+  /**
+   * Get Total of TweetPoll By User Editor.
+   * @param userSecondary
+   * @return
+   */
+   List<Long> getTotalPollByUser(final Long userId);
+
+   /**
+    * Get Total of TweetPoll By User Editor.
+    * @param userSecondary
+    * @return
+    */
+   List<Long> getTotalSurveyByUser(final Long userId);
+
 }
