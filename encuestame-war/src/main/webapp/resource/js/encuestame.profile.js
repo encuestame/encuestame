@@ -18,7 +18,8 @@ dependencies ={
                 "encuestame.org.core.admon.project.Projects",
                 "encuestame.org.core.admon.user.Users",
                 "encuestame.org.core.commons.dashboard.chart.EncuestamePieChart",
-                "encuestame.org.core.shared.utils.YesNoWidget"
+                "encuestame.org.core.shared.utils.YesNoWidget",
+                "encuestame.org.core.map.Map"
                 ]
             }/*,
             {
