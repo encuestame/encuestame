@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class JsonGroupServiceController extends AbstractJsonController {
 
     /**
-     *
+     * Create or Update Group.
      * @param groupName
      * @param groupDesc
      * @param stateId

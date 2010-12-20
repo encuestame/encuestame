@@ -9,11 +9,12 @@
 </script>
 
 <div>
+  <!--
     <div dojoType="encuestame.org.core.commons.dashboard.Dashboard"></div>
     <div id="pie" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardPie"></div>
     <div id="column" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardColumn2D"></div>
     <div id="line" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardLine"></div>
-    <%=request.getContextPath()%>
+    -->
 </div>
 
 </div>
