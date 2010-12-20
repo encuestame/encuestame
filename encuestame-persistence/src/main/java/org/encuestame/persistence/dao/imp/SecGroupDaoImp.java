@@ -17,7 +17,6 @@ import java.util.List;
 import org.encuestame.persistence.dao.ISecGroups;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
