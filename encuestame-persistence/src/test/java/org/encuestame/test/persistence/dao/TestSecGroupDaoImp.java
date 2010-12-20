@@ -98,6 +98,9 @@ public class TestSecGroupDaoImp extends AbstractBase{
             retrieveGroup.getDesInfo());*/
     }
 
+    /**
+     * Test Get Count User by Group.
+     */
     @Test
     public void testGetCountUserbyGroup(){
         Assert.assertNotNull(this.secondary.getSecGroup());
@@ -107,13 +110,34 @@ public class TestSecGroupDaoImp extends AbstractBase{
         assertEquals(counterTest, counter);
     }
 
-
+    /**
+     * Test Get Counter Users by Groups.
+     */
+    @Test
     public void testGetUsersbyGroups(){
         Assert.assertNotNull(this.secondary.getSecGroup());
         Assert.assertNotNull(this.secondary.getSecGroup().getGroupId());
+        Assert.assertNotNull(this.secUser);
         final List<Object[]> usersGroups = getSecGroupDaoImp().getUsersbyGroups(this.secUser);
-        System.out.println(usersGroups.get(0));
-        System.out.println(usersGroups.get(1));
+        final String groupName = this.secGroup.getGroupName();
+        final String group = (String) usersGroups.get(0)[0];
+        assertEquals("Should be equals",groupName, group);
+        assertEquals("Should be equals",1, usersGroups.size());
+     }
+
+    /***
+     * Test Get Counter Users by Groups.
+     */
+    @Test
+    public void testCountUsersbyGroups(){
+        Assert.assertNotNull(this.secondary.getSecGroup());
+        Assert.assertNotNull(this.secondary.getSecGroup().getGroupId());
+        Assert.assertNotNull(this.secUser);
+        final List<Object[]> usersGroups = getSecGroupDaoImp().countUsersbyGroups(this.secUser.getUid());
+        final String groupName = this.secGroup.getGroupName();
+        final String group = (String) usersGroups.get(0)[0];
+        assertEquals("Should be equals",groupName, group);
         assertEquals("Should be equals",1, usersGroups.size());
      }
 }
+

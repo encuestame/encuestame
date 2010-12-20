@@ -134,7 +134,7 @@ public class JsonGroupServiceController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "api/groups/groups.json", method = RequestMethod.GET)
-    public ModelMap loagGroups(
+    public ModelMap loadGroups(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
@@ -148,4 +148,61 @@ public class JsonGroupServiceController extends AbstractJsonController {
           }
           return returnData();
     }
+
+    /**
+     * Get Users by Group.
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "api/groups/countUsersByGroup.json", method = RequestMethod.GET)
+    public ModelMap countUsersByGroup(
+              @RequestParam(value = "groupId", required = true) Long groupId,
+              HttpServletRequest request,
+              HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+             try {
+                 final Map<String, Object> sucess = new HashMap<String, Object>();
+                 log.debug("Group Id"+ groupId);
+                 sucess.put("userGroup", getSecurityService().getUserbyGroup(groupId, getUserPrincipalUsername()));
+                 setItemResponse(sucess);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+                setError(e.getMessage(), response);
+            }
+            return returnData();
+        }
+
+    /**
+     * Get Count users by Groups.
+     * @param groupId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "api/groups/countUsersByGroup.json", method = RequestMethod.GET)
+    public ModelMap countUsersByGroups(
+              @RequestParam(value = "groupId", required = true) Long groupId,
+              HttpServletRequest request,
+              HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+             try {
+                 final Map<String, Object> sucess = new HashMap<String, Object>();
+                 log.debug("Group Id"+ groupId);
+                 sucess.put("counterUsers", getSecurityService().countUsersbyGroups(groupId, getUserPrincipalUsername()));
+                 setItemResponse(sucess);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+                setError(e.getMessage(), response);
+            }
+            return returnData();
+        }
 }

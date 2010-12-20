@@ -403,6 +403,43 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
+     * Get Users by Group.
+     * @param secGroupId
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public Long getUserbyGroup(final Long secGroupId, final String username) throws EnMeDomainNotFoundException{
+        Long counterUsers = 0L;
+        try {
+             final SecGroup group = getGroupDao().getGroupByIdandUser(secGroupId, getPrimaryUser(username));
+             if(group != null){
+             counterUsers = getGroupDao().getCountUserbyGroup(secGroupId);
+             }
+        } catch (Exception e) {
+            // TODO: handle exception Group no pertenece a usuario
+        }
+        return counterUsers;
+    }
+
+    /**
+     * Get Users by Groups.
+     * @param user
+     * @return
+     */
+    public List<Object[]> countUsersbyGroups(final Long groupId, final String username){
+        List<Object[]> usersbyGroups = null;
+          try {
+               final SecGroup group = getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
+               if(group != null){
+                   usersbyGroups = getGroupDao().countUsersbyGroups(getPrimaryUser(username));
+               }
+          } catch (Exception e) {
+              // TODO: handle exception Group don't belong to user
+          }
+          return usersbyGroups;
+    }
+
+    /**
      * Create a new Group.
      * @param groupBean group bean
      * @throws EnMeDomainNotFoundException

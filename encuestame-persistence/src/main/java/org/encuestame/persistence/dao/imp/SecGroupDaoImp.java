@@ -117,10 +117,24 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     */
     @SuppressWarnings("unchecked")
     public List<Object[]> getUsersbyGroups(final SecUser user){
-         return getHibernateTemplate().findByNamedParam("SELECT sg.name, COUNT(scu.secGroup.groupId) "
+         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
                                                          + "FROM SecUserSecondary as scu, SecGroup as sg "
                                                          + "WHERE scu.secGroup.groupId = sg.groupId AND "
                                                          + "scu.secUser = :secUser "
-                                                         + "GROUP BY sg.name", "secUser", user);
+                                                         + "GROUP BY sg.groupName", "secUser", user);
     }
+
+    /**
+     * Get Users by Groups
+     * @param user
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> countUsersbyGroups(final Long user){
+        return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
+                                                        + "FROM SecUserSecondary as scu, SecGroup as sg "
+                                                        + "WHERE scu.secGroup.groupId = sg.groupId AND "
+                                                        + "scu.secUser.uid = :secUser "
+                                                        + "GROUP BY sg.groupName", "secUser", user);
+   }
 }

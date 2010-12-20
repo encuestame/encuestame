@@ -74,11 +74,18 @@ public interface ISecGroups extends IBaseDao {
      */
      Long getCountUserbyGroup(final Long secGroupId);
 
+     /**
+      *	Get Users by Groups.
+      * @param user
+      * @return
+      */
+     List<Object[]> getUsersbyGroups(final SecUser user);
+
     /**
      * Get Users by Groups.
      * @param user
      * @return
      */
-    List<Object[]> getUsersbyGroups(final SecUser user);
+    List<Object[]> countUsersbyGroups(final Long user);
 }
 

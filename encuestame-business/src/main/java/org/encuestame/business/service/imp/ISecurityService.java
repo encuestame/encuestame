@@ -21,6 +21,7 @@ import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecPermission;
+import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
@@ -355,4 +356,20 @@ public interface ISecurityService extends IService {
      * @return
      */
     void getStatsByUsers(final UnitUserBean user);
+
+    /**
+     * Get User by Group.
+     * @param secGroupId
+     * @param username
+     * @return
+     */
+    Long getUserbyGroup(final Long secGroupId, final String username)throws EnMeDomainNotFoundException;
+
+    /**
+     * Count Users by Groups
+     * @param username
+     * @param groupId
+     * @return
+     */
+    List<Object[]> countUsersbyGroups(final Long groupId, final String username);
 }
