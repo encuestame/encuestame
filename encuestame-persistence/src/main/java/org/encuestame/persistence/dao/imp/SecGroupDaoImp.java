@@ -107,7 +107,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
     public Long getCountUserbyGroup(final Long secGroupId){
         List<Long> counter = getHibernateTemplate().findByNamedParam("select count(uid) "
                   +" from SecUserSecondary where secGroup.groupId = :secGroupId", "secGroupId", secGroupId);
-        return counter.get(0);
+         return counter.get(0);
     }
 
    /**
@@ -120,7 +120,7 @@ public class SecGroupDaoImp extends AbstractHibernateDaoSupport implements
          return getHibernateTemplate().findByNamedParam("SELECT sg.name, COUNT(scu.secGroup.groupId) "
                                                          + "FROM SecUserSecondary as scu, SecGroup as sg "
                                                          + "WHERE scu.secGroup.groupId = sg.groupId AND "
-                                                         + "scu.secUser = :secUser"
+                                                         + "scu.secUser = :secUser "
                                                          + "GROUP BY sg.name", "secUser", user);
     }
 }

@@ -562,6 +562,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
 
+
     /**
      * Create Secondary User.
      * @param name
@@ -607,6 +608,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setInviteCode("xxxxxxx");
         user.setSecUser(secUser);
         user.setUserStatus(true);
+        user.setSecGroup(secGroup);
         getSecUserDao().saveOrUpdate(user);
         return user;
     }
@@ -700,7 +702,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return state
      */
     public SecGroup createGroups(final String groupname){
-        return createGroups(groupname, createUser());
+        return createGroups(groupname, this.createUser());
     }
 
     public SecGroup createGroups(final String groupname, final SecUser secUser){

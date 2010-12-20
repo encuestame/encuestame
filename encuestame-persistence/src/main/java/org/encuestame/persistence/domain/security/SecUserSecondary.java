@@ -313,6 +313,7 @@ public class SecUserSecondary {
      * @return the secGroup
      */
     @ManyToOne()
+    @JoinColumn(name = "groupId", nullable = true)
     public SecGroup getSecGroup() {
         return secGroup;
     }

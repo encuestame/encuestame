@@ -17,6 +17,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.encuestame.persistence.domain.security.SecGroup;
 import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
@@ -43,9 +45,9 @@ public class TestSecGroupDaoImp extends AbstractBase{
 
     @Before
     public void initData(){
-         this.secGroup = createGroups("adminGroup");
-         this.secUser = createUser();
-         this.secondary = createSecondaryUserGroup("paola", this.secUser, this.secGroup);
+        this.secUser = createUser();
+        this.secGroup = createGroups("adminGroup",this.secUser);
+        this.secondary = createSecondaryUserGroup("paola", this.secUser, this.secGroup);
     }
 
 
@@ -78,32 +80,40 @@ public class TestSecGroupDaoImp extends AbstractBase{
         assertEquals("Should be equals",3, getSecGroup().findAllGroups().size());
 
     }
+
     /**Test Update Group**/
     @Test
     public void TestUpdateGroup(){
-    final String newname="Administrator";
-    final String newdescription="System Admin";
-    final SecGroup group = super.createGroups("fifth group");
-    group.setGroupName(newname);
-    group.setGroupDescriptionInfo(newdescription);
-    getSecGroup().saveOrUpdate(group);
-    final SecGroup retrieveGroup =getSecGroupDaoImp().getGroupById(Long.valueOf(group.getGroupId()));
-    /*sertEquals("New Name should be",newname,
+        final String newName = "Administrator";
+        final String newDescription = "System Admin";
+        final SecGroup group = super.createGroups("fifth group");
+        group.setGroupName(newName);
+        group.setGroupDescriptionInfo(newDescription);
+        getSecGroup().saveOrUpdate(group);
+        final SecGroup retrieveGroup = getSecGroupDaoImp().getGroupById(
+                Long.valueOf(group.getGroupId()));
+        /*sertEquals("New Name should be",newname,
             retrieveGroup.getName());
     assertEquals("New Description should be",newdescription,
             retrieveGroup.getDesInfo());*/
     }
 
+    @Test
     public void testGetCountUserbyGroup(){
+        Assert.assertNotNull(this.secondary.getSecGroup());
+        Assert.assertNotNull(this.secondary.getSecGroup().getGroupId());
         final Long counterTest = 1L;
         final Long counter = getSecGroupDaoImp().getCountUserbyGroup(this.secGroup.getGroupId());
         assertEquals(counterTest, counter);
     }
 
+
     public void testGetUsersbyGroups(){
+        Assert.assertNotNull(this.secondary.getSecGroup());
+        Assert.assertNotNull(this.secondary.getSecGroup().getGroupId());
         final List<Object[]> usersGroups = getSecGroupDaoImp().getUsersbyGroups(this.secUser);
+        System.out.println(usersGroups.get(0));
+        System.out.println(usersGroups.get(1));
         assertEquals("Should be equals",1, usersGroups.size());
-
-
-    }
+     }
 }
