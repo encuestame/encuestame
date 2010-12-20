@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.3-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -13,6 +13,8 @@
     <build>
     <finalName>encuestame</finalName>
     <plugins>
+
+    <!--  To optimize JS uncomment this.  -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
@@ -57,7 +59,7 @@
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.svg"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.as"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.swf"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dijit/themes/" excludes="**/tundra/**/"/>
+                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dijit/themes/" excludes="**/claro/**/"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/" includes="**/*.uncompressed.js"/>
                            </delete>
                           <echo message="Dojo optimized." />
@@ -101,6 +103,8 @@
                 </webResources>
             </configuration>
         </plugin>
+
+
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
