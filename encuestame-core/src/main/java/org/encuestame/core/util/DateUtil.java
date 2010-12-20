@@ -146,14 +146,14 @@ public class DateUtil {
         int MONTH = 30 * DAY;
         final HashMap<Integer, RelativeTimeEnum> numbers = new HashMap<Integer, RelativeTimeEnum>();
         final Integer seconds = DateUtil.getSecondsBetweenDates(startDate);
-        System.out.println("seconds ago  "+seconds);
+        //System.out.println("seconds ago  "+seconds);
         final Integer minutes = DateUtil.getMinutesBetweenDates(startDate);
-        System.out.println("minutes ago  "+minutes);
+        //System.out.println("minutes ago  "+minutes);
         final Integer hour = DateUtil.getHoursBetweenDates(startDate);
-        System.out.println("hour ago  "+hour);
+        //System.out.println("hour ago  "+hour);
         final Integer days = DateUtil.getDaysBetweenDates(startDate);
-        System.out.println("days ago  "+days);
-        System.out.println("start date "+startDate);
+        //System.out.println("days ago  "+days);
+        //System.out.println("start date "+startDate);
         if (seconds < 0) {
             // TODO: no yet
         } else if (seconds < 1 * MINUTE) {

@@ -12,6 +12,7 @@
  */
 package org.encuestame.mvc.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
+import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
@@ -75,6 +77,15 @@ public abstract class AbstractJsonController extends BaseController{
          response.put("success", this.sucess);
          response.put("error", this.error);
          return this.jsonMap.addAllAttributes(response);
+    }
+
+    /**
+     * Relative Time.
+     * @param date
+     * @return
+     */
+    protected  HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date date){
+         return DateUtil.getRelativeTime(date);
     }
 
     /**

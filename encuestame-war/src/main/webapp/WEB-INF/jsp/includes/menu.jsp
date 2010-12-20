@@ -5,8 +5,7 @@
                 <img src="<%=request.getContextPath()%>/resource/images/icons/enme_home.png" alt="Home" />
             </a>
         </li>
-        <li class="item"><a href="<%=request.getContextPath()%>/admon/users.jspx">Users</a></li>
-        <li class="item"><a href="<%=request.getContextPath()%>/admon/groups.jspx">Groups</a></li>
+        <li class="item"><a href="<%=request.getContextPath()%>/admon/members.jspx">Accounts Members</a></li>
         <li class="item"><a href="<%=request.getContextPath()%>/admon/location.jspx">Locations</a></li>
         <li class="item"><a href="<%=request.getContextPath()%>/admon/project.jspx">Projects</a></li>
         <li class="item"><a href="<%=request.getContextPath()%>/tweetpoll.jspx">TweetPolls</a></li>

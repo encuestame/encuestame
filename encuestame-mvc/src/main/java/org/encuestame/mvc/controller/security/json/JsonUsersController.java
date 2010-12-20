@@ -75,7 +75,7 @@ public class JsonUsersController extends AbstractJsonController{
             for (UnitUserBean unitUserBean : userList) {
                 getSecurityService().getStatsByUsers(unitUserBean); //filter
                 log.debug("Date Enjoy "+unitUserBean.getDateNew());
-                final HashMap<Integer, RelativeTimeEnum> relativeTime = DateUtil.getRelativeTime(unitUserBean.getDateNew());
+                final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(unitUserBean.getDateNew());
                 final Iterator it = relativeTime.entrySet().iterator();
                 while (it.hasNext()) {
                     final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();

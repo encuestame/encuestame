@@ -126,15 +126,13 @@ dojo.declare(
                 this.createColumnDialog(data.username);
                 this.createColumn(data.name);
                 this.createGroupWidget(data);
-                this.createColumn(
-                        dojo.date.locale.format(new Date(), {datePattern: "MM/dd/yy" , selector:'date'}), true);
+                this.createColumn(data.relateTimeEnjoy);
                 this.buildStatus(data.status);
                 this.createColumn(data.tweetPoll, true);
                 this.createColumn(data.poll, true);
                 this.createColumn(data.survey, true);
                 this.createColumn(
                         dojo.date.locale.format(new Date(), {datePattern: "MM/dd/yy" , selector:'date'}), true);
-                this.createColumn(data.isOwner);
                 this.createColumn(data.followers == null ? 0 : data.followers, true);
             },
 
@@ -164,7 +162,11 @@ dojo.declare(
              */
             createGroupWidget : function(data){
                 var td = dojo.doc.createElement('td');
-                var groupWidget = new encuestame.org.core.admon.user.UserGroup({data:data, parentWidget:this});
+                var groupWidget = new encuestame.org.core.admon.user.UserGroup(
+                        {
+                         dataUser: data,
+                         parentWidget: this
+                         });
                 td.appendChild(groupWidget.domNode);
                 this._trbody.appendChild(td);
             },
@@ -352,11 +354,29 @@ dojo.declare(
 
             parentWidget : null,
 
+            _groupId : null,
+
+            dataUser : {},
+
+            _groupSelectedName : "",
+
+            _timer : null,
+
             /*
              * Post Create.
              */
             postCreate : function(){
+                if(this.dataUser.groupId){
+                    this._groupId = this.dataUser.groupId;
+                    if(this.dataUser.groupBean != null){
+                        this._groupName.innerHTML = this.dataUser.groupBean.groupName;
+                    }
+                }
                 dojo.subscribe("/encuestame/admon/user/hide", this, "_close");
+            },
+
+            _setLabelSelected : function(label){
+                this._groupName.innerHTML = label;
             },
 
             /*
@@ -389,13 +409,18 @@ dojo.declare(
              * Build Menu Item.
              */
             _buildItemMenu : function(data){
-                console.debug("_buildItemMenu", data);
                  var div = dojo.doc.createElement('div');
                  dojo.addClass(div, "item");
+                 if(this._groupId == data.id){
+                    dojo.addClass(div, "selected");
+                 }
                  console.debug(data);
                  div.innerHTML = data.groupName;
                  dojo.connect(div, "onclick", this, dojo.hitch(this, function(event){
                          this._selectItem(data, div);
+                         this.dataUser.groupId = data.id;
+                         this._groupId = data.id;
+                         this._setLabelSelected(data.groupName);
                  }));
                  this._items.appendChild(div);
             },
@@ -439,6 +464,10 @@ dojo.declare(
             _selectItem : function(data, node){
                 var load = dojo.hitch(this, function(response){
                     this._markAsSelected(node);
+                    dojo.addClass(this._items, "defaultDisplayHide");
+                    dojo.removeClass(this._items, "defaultDisplayBlock");
+                    dojo.removeClass(this._groupWrapper, "openMenu");
+                    this._stateMenu = false;
                 });
                 var error = function(error) {
                     console.debug("error", error);
@@ -454,7 +483,21 @@ dojo.declare(
                  if(widget != this){
                      dojo.addClass(this._items, "defaultDisplayHide");
                      dojo.removeClass(this._items, "defaultDisplayBlock");
+                     dojo.removeClass(this._groupWrapper, "openMenu");
                      this._stateMenu = false;
+                 }
+             },
+
+             _changeMenu : function(){
+                 if(this._stateMenu){
+                     dojo.addClass(this._items, "defaultDisplayHide");
+                     dojo.removeClass(this._items, "defaultDisplayBlock");
+                     //dojo.removeClass(this._groupWrapper, "openMenu");
+                 } else {
+                     this._callGroups();
+                     dojo.addClass(this._groupWrapper, "openMenu");
+                     dojo.addClass(this._items, "defaultDisplayBlock");
+                     dojo.removeClass(this._items, "defaultDisplayHide");
                  }
              },
 
@@ -464,15 +507,22 @@ dojo.declare(
             _onOpenMenu : function(event){
                 dojo.stopEvent(event);
                 dojo.publish("/encuestame/admon/user/hide", [this]);
-                console.debug("group menu", this._stateMenu);
-                if(this._stateMenu){
-                    dojo.addClass(this._items, "defaultDisplayHide");
-                    dojo.removeClass(this._items, "defaultDisplayBlock");
-                } else {
-                    this._callGroups();
-                    dojo.addClass(this._items, "defaultDisplayBlock");
-                    dojo.removeClass(this._items, "defaultDisplayHide");
-                }
+                this._changeMenu();
                 this._stateMenu = !this._stateMenu;
+            },
+
+            _onMouseOver: function(event){
+                dojo.stopEvent(event);
+                console.debug("on mouse over");
+                this._timer = setTimeout(dojo.hitch(this, function() {
+                    dojo.addClass(this._groupWrapper, "showMenu");
+                    } ), 200);
+            },
+
+            _onMouseOut : function(event){
+                 dojo.stopEvent(event);
+                 console.debug("on mouse out");
+                 clearTimeout(this._timer);
+                 dojo.removeClass(this._groupWrapper, "showMenu");
             }
 });

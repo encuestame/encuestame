@@ -227,12 +227,13 @@ public class ConvertDomainBean {
             unitUserBean.setEmail(secUserSecondary.getUserEmail());
             unitUserBean.setUsername(secUserSecondary.getUsername());
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
+            unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary.getSecGroup()));
             unitUserBean.setGroupId(secUserSecondary.getSecGroup() == null ? null : secUserSecondary.getSecGroup().getGroupId());
             unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
             unitUserBean.setFollowers(secUserSecondary.getFollowers());
-            System.out.println("Convert Enjoy Date "+secUserSecondary.getEnjoyDate());
+            //System.out.println("Convert Enjoy Date "+secUserSecondary.getEnjoyDate());
             unitUserBean.setDateNew(secUserSecondary.getEnjoyDate());
-            System.out.println("Convert Enjoy Date 1"+unitUserBean.getDateNew());
+            //System.out.println("Convert Enjoy Date 1"+unitUserBean.getDateNew());
             unitUserBean.setIpLastLogged(secUserSecondary.getLastIpLogged());
             unitUserBean.setLastTimeLogged(secUserSecondary.getLastTimeLogged());
         }
@@ -303,10 +304,12 @@ public class ConvertDomainBean {
      */
     public static final UnitGroupBean convertGroupDomainToBean(final SecGroup groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
-        groupBean.setId(groupDomain.getGroupId());
-        groupBean.setGroupName(groupDomain.getGroupName());
-        groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
-        groupBean.setStateId(groupDomain.getIdState());
+        if (groupDomain != null) {
+            groupBean.setId(groupDomain.getGroupId());
+            groupBean.setGroupName(groupDomain.getGroupName());
+            groupBean.setGroupDescription(groupDomain.getGroupDescriptionInfo());
+            groupBean.setStateId(groupDomain.getIdState());
+        }
         return groupBean;
     }
 

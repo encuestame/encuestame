@@ -14,8 +14,8 @@ dependencies ={
                 "encuestame.org.core.commons.dashboard.chart.DashboardPie",
                 "encuestame.org.core.commons.dashboard.chart.DashboardLine",
                 "encuestame.org.core.commons.dashboard.chart.DashboardColumn2D",
-                "encuestame.org.core.admon.project.Projects",
                 "encuestame.org.core.commons.notifications.Notification",
+                "encuestame.org.core.admon.project.Projects",
                 "encuestame.org.core.admon.user.Users",
                 "encuestame.org.core.commons.dashboard.chart.EncuestamePieChart",
                 "encuestame.org.core.shared.utils.YesNoWidget"

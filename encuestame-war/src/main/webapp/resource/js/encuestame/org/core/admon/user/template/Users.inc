@@ -18,7 +18,6 @@
                             <th scope="col">Poll</th>
                             <th scope="col">Survey</th>
                             <th scope="col" width="100px">Last Logged</th>
-                            <th scope="col">Owner</th>
                             <th scope="col">Followers</th>
                         </tr>
                      </thead>
