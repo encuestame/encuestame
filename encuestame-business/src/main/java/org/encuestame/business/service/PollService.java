@@ -79,6 +79,70 @@ public class PollService extends AbstractSurveyService implements IPollService{
     }
 
     /**
+     * Get Poll by Id.
+     * @param pollId
+     * @return
+     */
+     private Poll getPoll(final Long pollId){
+         return this.getPollDao().getPollById(pollId);
+     }
+
+     /**
+      * Remove Poll
+      * @param pollId
+      * @throws EnMeDomainNotFoundException
+      */
+    public void removePoll(final Long pollId) throws EnMeDomainNotFoundException{
+        final Poll pollDomain = this.getPoll(pollId);
+        if(pollDomain != null){
+              getPollDao().delete(pollDomain);
+          } else {
+              throw new EnMeDomainNotFoundException("Poll not found");
+          }
+      }
+
+    /**
+     * Search Polls by Question keyword.
+     * @param keywordQuestion
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public List<UnitPoll> searchPollByKeyword(final String keywordQuestion, final String username, final Integer maxResults,
+        final Integer start) throws EnMeExpcetion{
+        log.info("search keyword Poll  "+keywordQuestion);
+        List<Poll> polls = new ArrayList<Poll>();
+        if(keywordQuestion == null){
+            throw new EnMeExpcetion("keyword is missing");
+        } else {
+            polls = getPollDao().getPollsByQuestionKeyword(keywordQuestion,getPrimaryUser(username), maxResults, start);
+        }
+        log.info("search keyword polls size "+polls.size());
+        return null;
+           //   return this.setTweetPollListAnswers(polls);
+       }
+
+    /**
+     * Search Polls by Folder Id.
+     * @param folderId
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeDomainNotFoundException{
+        final PollFolder pollFolder = getPollDao().getPollFolderById(folderId);
+        List<Poll> polls = new ArrayList<Poll>();
+        if (pollFolder != null){
+            polls = getPollDao().getPollsByPollFolderId(getPrimaryUser(username), pollFolder);
+        }
+        log.info("search polls by folder size "+polls.size());
+        return ConvertDomainBean.convertSetToUnitPollBean(polls);
+    }
+
+
+    /**
      * List Poll ByUser.
      * @param currentUser currentUser
      * @return unitPoll

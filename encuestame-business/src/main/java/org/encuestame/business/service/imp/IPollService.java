@@ -16,8 +16,6 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.persistence.domain.Question;
-import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
@@ -31,21 +29,21 @@ import org.encuestame.utils.web.UnitQuestionBean;
  */
 public interface IPollService extends IMasterSurveyService{
 
-    /**
-     *	Create Poll
-     * @param pollBean
-     * @param currentUser
-     * @throws Exception
-     */
-  void createPoll(final UnitPoll pollBean, final String currentUser) throws Exception;
+   /**
+    *	Create Poll
+    * @param pollBean
+    * @param currentUser
+    * @throws Exception
+    */
+    void createPoll(final UnitPoll pollBean, final String currentUser) throws Exception;
 
-  /**
-   * List Poll by Question.
-   * @param currentUser currentUser
-   * @param keyword Question keyword
-   * @return
-   */
-  List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException ;
+    /**
+    * List Poll by Question.
+    * @param currentUser currentUser
+    * @param keyword Question keyword
+    * @return
+    */
+    List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException ;
 
    /**
     * List Poll by User Id.
@@ -55,76 +53,97 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeDomainNotFoundException
     */
-  List<UnitPoll> listPollByUser(final String currentUser,
-          final Integer maxResults,
-          final Integer start) throws EnMeDomainNotFoundException;
+    List<UnitPoll> listPollByUser(final String currentUser,
+        final Integer maxResults,
+        final Integer start) throws EnMeDomainNotFoundException;
 
-      /**
-       * Update Question Poll.
-       * @param unitQuestionPoll
-       * @throws EnMeExpcetion exception
-       */
-  void updateQuestionPoll(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion;
+    /**
+    * Update Question Poll.
+    * @param unitQuestionPoll
+    * @throws EnMeExpcetion exception
+    */
+    void updateQuestionPoll(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion;
 
-  /**
-   * Create Url Poll.
-   * @param domain
-   * @param hashUrl
-   * @param currentUser
-   * @return
-   */
-  String createUrlPoll(final String domain, final String hashUrl, final String currentUser);
+    /**
+    * Create Url Poll.
+    * @param domain
+    * @param hashUrl
+    * @param currentUser
+    * @return
+    */
+    String createUrlPoll(final String domain, final String hashUrl, final String currentUser);
 
-  /**
-   * Public Poll by List.
-   * @param urlPoll
-   * @param emailList
-   */
-  void publicPollByList(final String urlPoll , final UnitLists emailList);
+    /**
+    * Public Poll by List.
+    * @param urlPoll
+    * @param emailList
+    */
+    void publicPollByList(final String urlPoll , final UnitLists emailList);
 
-  /**
-   * Remove PollFolder.
-   * @param folderId
-   * @throws EnMeDomainNotFoundException
-   */
-  void removePollFolder(final Long folderId) throws EnMeDomainNotFoundException;
+    /**
+    * Remove PollFolder.
+    * @param folderId
+    * @throws EnMeDomainNotFoundException
+    */
+    void removePollFolder(final Long folderId) throws EnMeDomainNotFoundException;
 
-  /**
-   * Create Poll Folder.
-   * @param folderName
-   * @param username
-   * @return
- * @throws EnMeDomainNotFoundException
-   */
-  UnitFolder createPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
+    /**
+    * Create Poll Folder.
+    * @param folderName
+    * @param username
+    * @return
+    * @throws EnMeDomainNotFoundException
+    */
+    UnitFolder createPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
 
-  /**
-   * Update FolderName.
-   * @param folderId
-   * @param newFolderName
-   * @param username
-   * @return
-   * @throws EnMeDomainNotFoundException
-   */
-  public UnitFolder updateFolderName(final Long folderId,
+    /**
+    * Update FolderName.
+    * @param folderId
+    * @param newFolderName
+    * @param username
+    * @return
+    * @throws EnMeDomainNotFoundException
+    */
+    public UnitFolder updateFolderName(final Long folderId,
           final String newFolderName,
           final String username) throws EnMeDomainNotFoundException;
 
-  /**
-   * Retrieve Folder Poll.
-   * @param username
-   * @return
-   * @throws EnMeDomainNotFoundException exception
-   */
-  List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException;
+    /**
+    * Retrieve Folder Poll.
+    * @param username
+    * @return
+    * @throws EnMeDomainNotFoundException exception
+    */
+    List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException;
 
-  /**
-   * Get Polls by Folder.
-   * @param folder
-   * @param username
-   * @return
-   * @throws EnMeDomainNotFoundException
-   */
+    /**
+    * Get Polls by Folder.
+    * @param folder
+    * @param username
+    * @return
+    * @throws EnMeDomainNotFoundException
+    */
   List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException;
+
+      /**
+    *
+    * @param keywordQuestion
+    * @param username
+    * @param maxResults
+    * @param start
+    * @return
+    * @throws EnMeExpcetion
+    */
+    List<UnitPoll> searchPollByKeyword(final String keywordQuestion, final String username, final Integer maxResults,
+        final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Search Polls By Folder Id.
+     * @param folderId
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeDomainNotFoundException;
 
 }

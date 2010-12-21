@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SecGroup;
@@ -372,4 +373,11 @@ public interface ISecurityService extends IService {
      * @return
      */
     List<Object[]> countUsersbyGroups(final Long groupId, final String username);
+
+    /**
+     * Change User Status.
+     * @param username
+     * @throws EnmeFailOperation
+     */
+    void changeUserStatus(final String username) throws EnmeFailOperation;
 }

@@ -70,9 +70,24 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollsByPollFolder(final SecUser secUser, final PollFolder folder){
+    public List<Poll> getPollsByPollFolder(final SecUser userId, final PollFolder folder){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.add(Restrictions.eq("pollOwner", secUser));
+        criteria.add(Restrictions.eq("pollOwner", userId));
+        criteria.add(Restrictions.eq("pollFolder", folder));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
+     * Get Polls by Folder.
+     * @param secUser
+     * @param folder
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> getPollsByPollFolderId(final Long userId, final PollFolder folder){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.createAlias("pollOwner", "pollOwner");
+        criteria.add(Restrictions.eq("pollOwner.uid", userId));
         criteria.add(Restrictions.eq("pollFolder", folder));
         return getHibernateTemplate().findByCriteria(criteria);
     }

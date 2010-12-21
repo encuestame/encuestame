@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -37,6 +38,7 @@ import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.domain.security.SecUserSecondary;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
 import org.encuestame.persistence.domain.security.SecUserTwitterAccounts.TypeAuth;
+import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -666,6 +668,23 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             //add new group.
             secUserSecondary.setSecGroup(secGroup);
             getSecUserDao().saveOrUpdate(secUserSecondary);
+        }
+    }
+
+
+    /**
+     * Change User Status.
+     * @param username
+     * @throws EnmeFailOperation
+     */
+    public void changeUserStatus(final String username) throws EnmeFailOperation{
+        final SecUserSecondary secondaryUser = getSecUserDao().getUserByUsername(username);
+        if (secondaryUser != null){
+            secondaryUser.setUserStatus(secondaryUser.isUserStatus()== null ? false : ! secondaryUser.isUserStatus());
+            getSecUserDao().saveOrUpdate(secondaryUser);
+        }
+        else {
+            throw new EnmeFailOperation("Fail Change User Status");
         }
     }
 

@@ -86,9 +86,17 @@ public interface IPoll extends IBaseDao {
 
      /**
       * Get Polls by Folder.
-      * @param secUser
+      * @param SecUser
       * @param folder
       * @return
       */
-     List<Poll> getPollsByPollFolder(final SecUser secUser, final PollFolder folder);
+     List<Poll> getPollsByPollFolder(final SecUser userId, final PollFolder folder);
+
+     /**
+      * Get Polls by Folder Id.
+      * @param userId
+      * @param folder
+      * @return
+      */
+     List<Poll> getPollsByPollFolderId(final Long userId, final PollFolder folder);
 }

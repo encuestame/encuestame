@@ -244,4 +244,20 @@ public class JsonUsersController extends AbstractJsonController{
        }
        return returnData();
     }
+
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/admon/changeUserStatus.json", method = RequestMethod.GET)
+    public ModelMap changeUserStatus(
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+       try {
+           getSecurityService().changeUserStatus(getUserPrincipalUsername());
+           setSuccesResponse();
+       } catch (Exception e) {
+           log.error(e);
+           e.printStackTrace();
+           setError(e.getMessage(), response);
+       }
+       return returnData();
+    }
 }
