@@ -26,7 +26,7 @@ dojo.declare("encuestame.org.core.map.Map", null, {
              var mapOptions = {
                      zoom: this.zoom,
                      mapTypeId: google.maps.MapTypeId.ROADMAP,
-                     center: this._newLatLng(long,lat)
+                     center: this._newLatLng(lng, lat)
                    };
               this.map = new google.maps.Map(document.getElementById(this.node),
                    mapOptions);
