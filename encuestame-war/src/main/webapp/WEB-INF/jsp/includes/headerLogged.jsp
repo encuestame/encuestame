@@ -6,17 +6,16 @@
                            <a href="<%=request.getContextPath()%>/signin.jspx">Sign In</a>
                         </span>
                          <span class="link">
-                            <a href="<%=request.getContextPath()%>/account/dashboard">My Dashboard</a>
+                            <div dojoType="encuestame.org.core.commons.dashboard.DashBoardMenu"
+                                contextPath="<%=request.getContextPath()%>"></div>
                          </span>
                         <span class="link">
                          <span id="navbar">
-                               <a href="#" onclick="showlayer('profile_menu')">profile</a>
+                               <div dojoType="encuestame.org.core.commons.profile.ProfileMenu"></div>
                          </span>
                         </span>
                     <span class="search">
-                        <input type="text" name="search" id="search" size="20" class="defaultInputClass"
-                         value="SEARCH"
-                         onclick = "if(this.value=='SEARCH') this.value=''"/>
+                        <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
                     </span>
                         <span class="link">
                                <a href="<%=request.getContextPath()%>/user/logout">Log out</a>

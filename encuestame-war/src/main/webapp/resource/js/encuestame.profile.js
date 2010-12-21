@@ -20,7 +20,12 @@ dependencies ={
                 "encuestame.org.core.admon.user.Users",
                 "encuestame.org.core.commons.dashboard.chart.EncuestamePieChart",
                 "encuestame.org.core.shared.utils.YesNoWidget",
-                "encuestame.org.core.map.Map"
+                "encuestame.org.core.map.Map",
+                "encuestame.org.core.commons.profile.ProfileMenu",
+                "encuestame.org.core.commons.search.SearchMenu",
+                "encuestame.org.core.commons.dashboard.DashBoardMenu",
+                "encuestame.org.core.commons.security.Login",
+                "encuestame.org.core.commons.security.Password"
                 ]
             }/*,
             {

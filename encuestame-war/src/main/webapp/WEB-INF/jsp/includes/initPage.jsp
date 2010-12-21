@@ -11,6 +11,9 @@
          dojo.require("dojo.parser");
          dojo.require("encuestame.org.core.contextWidget");
          dojo.require("encuestame.org.core.commons.notifications.Notification");
+         dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
+         dojo.require("encuestame.org.core.commons.search.SearchMenu");
+         dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
     </script>
     <style type="css">
         img{ border:0px;}
