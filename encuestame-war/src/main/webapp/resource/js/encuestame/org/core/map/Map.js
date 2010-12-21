@@ -35,10 +35,10 @@ dojo.declare("encuestame.org.core.map.Map", null, {
         /*
          * Add Marker.
          */
-        addMarker : function(long, lat){
+        addMarker : function(lng, lat){
              console.debug("AddMarker");
              var marker;
-             var parliament = this._newLatLng(long,lat);
+             var parliament = this._newLatLng(lng,lat);
              marker = new google.maps.Marker({
                  map: this.map,
                  draggable:true,
@@ -51,8 +51,8 @@ dojo.declare("encuestame.org.core.map.Map", null, {
         /*
          * New Lat Long.
          */
-        _newLatLng : function(long,lat){
-            return new google.maps.LatLng(long,lat);
+        _newLatLng : function(lng,lat){
+            return new google.maps.LatLng(lng,lat);
         },
 
         toggleBounce : function(marker) {
