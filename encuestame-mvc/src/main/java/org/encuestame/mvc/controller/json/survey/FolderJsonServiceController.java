@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.json;
+package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,26 +38,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FolderJsonServiceController extends AbstractJsonController{
 
+    /**
+     * Create Folder for Survey/TweetPoll/Poll.
+     * @param actionType Survey/TweetPoll/Poll
+     * @param folderName name
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/{actionType}/folder/create.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/create.json", method = RequestMethod.GET)
     public ModelMap createFolder(
             @PathVariable String actionType,
-            @RequestParam(value = "folderName", required = true) String folderName,
+            @RequestParam(value = "n", required = true) String folderName,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                log.debug("FolderName "+folderName);
-
               final Map<String, Object> sucess = new HashMap<String, Object>();
               if("tweetPoll".equals(actionType)){
-                  final UnitFolder f = getTweetPollService().createTweetPollFolder(folderName, getUserPrincipalUsername());
-                   sucess.put("folder", f);
+                   sucess.put("folder", getTweetPollService().createTweetPollFolder(folderName,
+                                  getUserPrincipalUsername()));
+                   setItemResponse(sucess);
+               } else if("poll".equals(actionType)){
+                   sucess.put("folder", getPollService().createPollFolder(folderName, getUserPrincipalUsername()));
+                   setItemResponse(sucess);
+               } else if("survey".equals(actionType)){
+                   setItemResponse(sucess);
+               } else {
+                   setError("operation not valid", response); //if type no exist.
                }
-               else if("poll".equals(actionType)){
-                   final UnitFolder f = getPollService().createPollFolder(folderName, getUserPrincipalUsername());
-                   sucess.put("folder", f);
-               }
-              setItemResponse(sucess);
           } catch (Exception e) {
               log.error(e);
               e.printStackTrace();
@@ -66,8 +79,20 @@ public class FolderJsonServiceController extends AbstractJsonController{
           return returnData();
       }
 
+    /**
+     *
+     * @param actionType
+     * @param folderName
+     * @param folderId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/{actionType}/folder/update.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/update.json", method = RequestMethod.GET)
     public ModelMap updateFolder(
             @PathVariable String actionType,
             @RequestParam(value = "folderName", required = true) String folderName,
@@ -76,17 +101,21 @@ public class FolderJsonServiceController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
                 try {
                     log.debug("FolderName "+folderName);
-
                    final Map<String, Object> sucess = new HashMap<String, Object>();
                    if("tweetPoll".equals(actionType)){
-                       final UnitFolder f = getTweetPollService().updateTweetPollFolder(folderId, folderName,getUserPrincipalUsername());
-                        sucess.put("folder", f);
+                        sucess.put("folder", getTweetPollService().updateTweetPollFolder(folderId,
+                                             folderName,getUserPrincipalUsername()));
+                        setItemResponse(sucess);
+                    } else if("poll".equals(actionType)){
+                        sucess.put("folder", getPollService().updateFolderName(
+                                   folderId, folderName, getUserPrincipalUsername()));
+                        setItemResponse(sucess);
+                    } else if("survey".equals(actionType)){
+                        //TODO: change folder name survey.
+                        setItemResponse(sucess);
+                    } else {
+                        setError("operation not valid", response); //if type no exist.
                     }
-                    else if("poll".equals(actionType)){
-                        final UnitFolder f = getPollService().updateFolderName(folderId,folderName, getUserPrincipalUsername());
-                        sucess.put("folder", f);
-                    }
-                   setItemResponse(sucess);
                } catch (Exception e) {
                    log.error(e);
                    e.printStackTrace();
@@ -96,8 +125,19 @@ public class FolderJsonServiceController extends AbstractJsonController{
            }
 
 
+    /**
+     * Remove Folder.
+     * @param actionType
+     * @param folderId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/{actionType}/folder/remove.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/remove.json", method = RequestMethod.GET)
     public ModelMap removeFolder(
             @PathVariable String actionType,
             @RequestParam(value = "folderId", required = true) Long folderId,
@@ -108,11 +148,14 @@ public class FolderJsonServiceController extends AbstractJsonController{
                     if("tweetPoll".equals(actionType)){
                         getTweetPollService().deleteTweetPollFolder(folderId);
                         setSuccesResponse();
-                    }
-
-                    else if("poll".equals(actionType)){
+                    } else if("poll".equals(actionType)){
                         getPollService().removePollFolder(folderId);
                         setSuccesResponse();
+                    } else if("survey".equals(actionType)){
+                        //TODO: remove folder.
+                           setSuccesResponse();
+                    } else {
+                        setError("operation not valid", response); //if type no exist.
                     }
                } catch (Exception e) {
                    log.error(e);
@@ -122,28 +165,49 @@ public class FolderJsonServiceController extends AbstractJsonController{
                return returnData();
            }
 
+    /**
+     * Movte Item to another
+     * @param actionType
+     * @param folderId
+     * @param UserId
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/{actionType}/folder/addtofolder.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/move.json", method = RequestMethod.GET)
     public ModelMap addToFolder(
              @PathVariable String actionType,
              @RequestParam(value = "folderId", required = true) Long folderId,
-             @RequestParam(value = "userId", required = true) Long UserId,
-             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+             @RequestParam(value = "itemId", required = true) Long itemId,
              HttpServletRequest request,
-             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException
-             {
-                 try {
-                         log.debug("Folder Id To Add "+ folderId);
-                         log.debug("Tweet Poll Id "+ tweetPollId);
-                         if("tweetPoll".equals(actionType)){
-                             getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), tweetPollId);
-                             setSuccesResponse();
-                     }
-                 } catch (Exception e) {
+             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException{
+              try {
+                 /*
+                  * One TweetPoll/Survey/Poll ONLY should be in ONE FOLDER. ONLY ONE ! So if
+                  * itemId (poll) == 2 is assigned to folder "A" and user drag and drop to the other
+                  * folder, the current relationship should be removed and create new realtionship.
+                  */
+                 if("tweetPoll".equals(actionType)){
+                     getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), itemId);
+                     setSuccesResponse();
+                 } else if("poll".equals(actionType)){
+                     //add poll to folder. itemId == pollId
+                 } else if("survey".equals(actionType)){
+                     //add survey to folder. itemId == sid
+                 } else {
+                     //set error
+                 }
+            } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
             setError(e.getMessage(), response);
-        }
-        return returnData();
+            }
+            return returnData();
     }
+
 }
