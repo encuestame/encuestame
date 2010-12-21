@@ -22,7 +22,7 @@ dojo.declare("encuestame.org.core.map.Map", null, {
         /*
          * Create Map
          */
-        _createMap : function(long, lat){
+        _createMap : function(lng, lat){
              var mapOptions = {
                      zoom: this.zoom,
                      mapTypeId: google.maps.MapTypeId.ROADMAP,
