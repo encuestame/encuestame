@@ -22,10 +22,12 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -128,7 +130,21 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         // return getHibernateTemplate().findByNamedParam("FROM SurveyPagination where pageNumber=:pagId","pagId", pagId);
     }
 
+    /**
+     * Get Survey Folder by Id.
+     * @param folderId
+     * @return
+     */
+    public SurveyFolder getSurveyFolderById(final Long folderId){
+        return getHibernateTemplate().get(SurveyFolder.class,folderId);
+    }
 
-
+    @SuppressWarnings("unchecked")
+    public SurveyFolder getSurveyFolderByIdandUser(final Long FolderId, final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(SurveyFolder.class);
+         criteria.add(Restrictions.eq("users.id", userId));
+         criteria.add(Restrictions.eq("id", FolderId));
+         return (SurveyFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
 }
 

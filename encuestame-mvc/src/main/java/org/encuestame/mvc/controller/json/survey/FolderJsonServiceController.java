@@ -15,12 +15,13 @@ package org.encuestame.mvc.controller.json.survey;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.utils.web.UnitFolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -67,6 +68,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                    sucess.put("folder", getPollService().createPollFolder(folderName, getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else if("survey".equals(actionType)){
+                   sucess.put("survey", getSurveyService().createSurveyFolder(folderName, getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else {
                    setError("operation not valid", response); //if type no exist.
@@ -111,7 +113,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                                    folderId, folderName, getUserPrincipalUsername()));
                         setItemResponse(sucess);
                     } else if("survey".equals(actionType)){
-                        //TODO: change folder name survey.
+                        sucess.put("folder", getSurveyService().updateSurveyFolder(folderId, folderName, getUserPrincipalUsername()));
                         setItemResponse(sucess);
                     } else {
                         setError("operation not valid", response); //if type no exist.
@@ -152,7 +154,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                         getPollService().removePollFolder(folderId);
                         setSuccesResponse();
                     } else if("survey".equals(actionType)){
-                        //TODO: remove folder.
+                        getSurveyService().deleteSurveyFolder(folderId);
                            setSuccesResponse();
                     } else {
                         setError("operation not valid", response); //if type no exist.

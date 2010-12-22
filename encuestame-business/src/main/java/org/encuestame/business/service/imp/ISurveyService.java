@@ -15,11 +15,12 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.business.service.TwitterService;
+import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 
@@ -104,4 +105,31 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
      */
     void setRandomQuestionKey(Integer rInteger);
+
+    /**
+     * Create Survey Folder.
+     * @param folderName
+     * @param username
+     * @return
+     */
+    UnitFolder createSurveyFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
+
+    /**
+     * Update Survey Folder.
+     * @param folderId
+     * @param folderName
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    UnitFolder updateSurveyFolder(final Long folderId, final String folderName, final String username)
+        throws EnMeDomainNotFoundException;
+
+    /**
+     * Delete Survey Folder.
+     * @param folderId
+     * @throws EnMeDomainNotFoundException
+     */
+    void deleteSurveyFolder(final Long folderId) throws EnMeDomainNotFoundException;
+
 }

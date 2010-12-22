@@ -61,4 +61,19 @@ public interface ISurvey extends IBaseDao{
        * @return
        */
       public List<SurveyPagination> retrieveSectionByPagination(final Integer pagId);
+
+      /**
+       * Get Survey Folder by Id.
+       * @param folderId
+       * @return
+       */
+      SurveyFolder getSurveyFolderById(final Long folderId);
+
+      /**
+       * Get Survey Folder by Folder Id and User.
+       * @param FolderId
+       * @param userId
+       * @return
+       */
+      SurveyFolder getSurveyFolderByIdandUser(final Long FolderId, final Long userId);
 }
