@@ -54,6 +54,8 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     /***/
     private Boolean showResultsPoll;
 
+    /***/
+    private String hashPoll;
 
     @Deprecated
     private String pollUser;
@@ -163,4 +165,18 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     public void setShowResultsPoll(Boolean showResultsPoll) {
         this.showResultsPoll = showResultsPoll;
     }
+    /**
+     * @return the hashPoll
+     */
+    public String getHashPoll() {
+        return hashPoll;
+    }
+    /**
+     * @param hashPoll the hashPoll to set
+     */
+    public void setHashPoll(String hashPoll) {
+        this.hashPoll = hashPoll;
+    }
+
+
 }

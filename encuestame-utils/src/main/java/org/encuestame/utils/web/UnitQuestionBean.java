@@ -25,15 +25,13 @@ import java.util.List;
  **/
 public class UnitQuestionBean implements Serializable {
 
-
-
     /**
      * Serial.
      */
     private static final long serialVersionUID = -3106607865655197340L;
 
-    private String questionName = new String("");
 
+    private String questionName = new String("");
     /**
      *
      */
@@ -68,6 +66,14 @@ public class UnitQuestionBean implements Serializable {
      * Constructor.
      */
     public UnitQuestionBean() {
+    }
+
+    /**
+     * Constructor Name.
+     * @param name
+     */
+    public UnitQuestionBean(final String name){
+        this.questionName = name;
     }
 
     /**

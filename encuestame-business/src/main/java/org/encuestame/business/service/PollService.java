@@ -54,13 +54,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Create Poll.
      */
-    public final void createPoll(final UnitPoll pollBean, final String currentUser) throws EnMeExpcetion{
+    public final void createPoll(final UnitPoll pollBean, final String currentUser,
+            final Question question) throws EnMeExpcetion{
         try {
             final Poll pollDomain = new Poll();
-            final Question question = getQuestionDao().retrieveQuestionById(pollBean.getQuestionBean().getId());
-            if (question == null){
-                 throw new EnMeExpcetion("question not found");
-            }
             pollDomain.setCreatedAt(pollBean.getCreationDate());
             pollDomain.setPollOwner(getUser(currentUser).getSecUser());
             pollDomain.setPollCompleted(Boolean.FALSE);
@@ -72,7 +69,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(pollBean.getPublishPoll());
             pollDomain.setShowVotes(pollBean.getShowResultsPoll());
             this.getPollDao().saveOrUpdate(pollDomain);
-
         } catch (Exception e) {
             throw new EnMeExpcetion(e);
         }

@@ -13,16 +13,21 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
-
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.UnitQuestionBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,4 +66,96 @@ public class PollJsonController extends AbstractJsonController{
             throws JsonGenerationException, JsonMappingException, IOException {
         return returnData();
      }
+
+    /**
+     * Remove Poll.
+     * @param pollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "api/survey/poll/removePoll.json", method = RequestMethod.GET)
+    public ModelMap deleteGroup(
+            @RequestParam(value = "pollId", required = true) Long pollId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+           try {
+               log.debug("Poll Id"+ pollId);
+               getPollService().removePollFolder(pollId);
+               setSuccesResponse();
+          } catch (Exception e) {
+              log.error(e);
+              e.printStackTrace();
+              setError(e.getMessage(), response);
+          }
+          return returnData();
+      }
+
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "api/survey/poll/searchPollby{type}.json", method = RequestMethod.GET)
+    public ModelMap countUsersByGroup(
+              @RequestParam(value = "pollId", required = true) Long pollId,
+              @RequestParam(value = "keyword", required = false) String keyword,
+              @RequestParam(value = "maxResults", required = false) Integer maxResults,
+              @RequestParam(value = "start", required = false) Integer start,
+              @RequestParam(value = "folderId", required = false) Long folderId,
+              @PathVariable String type,
+              HttpServletRequest request,
+              HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+              try {
+                  final Map<String, Object> sucess = new HashMap<String, Object>();
+                  if("keyword".equals(type)){
+                      log.debug("Poll Id"+ pollId);
+                      sucess.put("pollsbyKey", getPollService().searchPollByKeyword(keyword, getUserPrincipalUsername(), maxResults, start));
+                      setItemResponse(sucess);
+                  } else if ("folder".equals(type)) {
+                     log.debug("Folder Id"+ folderId);
+                     sucess.put("pollsByFolder", getPollService().searchPollsByFolder(folderId, getUserPrincipalUsername()));
+                 }
+              } catch (Exception e) {
+                  log.error(e);
+                  e.printStackTrace();
+                  setError(e.getMessage(), response);
+              }
+            return returnData();
+        }
+
+
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+      @RequestMapping(value = "api/survey/poll/{actionType}Poll.json", method = RequestMethod.GET)
+    public ModelMap createGroup(
+            @RequestParam(value = "questionName", required = true) String questionName,
+            @RequestParam(value = "listAnswers", required = true) String[] answers,
+            @RequestParam(value = "creationDate", required = true) Date creationDate,
+            @RequestParam(value = "completedPoll", required = true) Boolean completedPoll,
+            @RequestParam(value = "closeNotification", required = true) Boolean closeNotification,
+            @RequestParam(value = "hashPoll", required = true) String hashPoll,
+            @RequestParam(value = "publishPoll", required = true) Boolean publishPoll,
+            @PathVariable String actionType,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+           try {
+               final Map<String, Object> sucess = new HashMap<String, Object>();
+               if("create".equals(actionType)){
+                   final UnitPoll unitPoll = new UnitPoll();
+                   final Question question =  getSurveyService().createQuestion(new UnitQuestionBean(questionName));
+                   unitPoll.setCreationDate(creationDate);
+                   unitPoll.setCompletedPoll(completedPoll);
+                   unitPoll.setCloseNotification(closeNotification);
+                   unitPoll.setHashPoll(hashPoll);
+                   unitPoll.setPublishPoll(publishPoll);
+                   getPollService().createPoll(unitPoll, getUserPrincipalUsername(), question);
+                   setSuccesResponse();
+               }
+          } catch (Exception e) {
+              log.error(e);
+              e.printStackTrace();
+              setError(e.getMessage(), response);
+          }
+          return returnData();
+      }
 }

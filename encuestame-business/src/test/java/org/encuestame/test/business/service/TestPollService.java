@@ -107,7 +107,7 @@ public class TestPollService extends AbstractServiceBase{
         final UnitQuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final UnitPoll unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
-        this.pollService.createPoll(unitPoll, this.secUserSecondary.getUsername());
+        this.pollService.createPoll(unitPoll, this.secUserSecondary.getUsername(), this.question);
     }
 
     /**

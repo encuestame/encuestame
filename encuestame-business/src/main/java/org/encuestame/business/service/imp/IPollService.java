@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
+import org.encuestame.persistence.domain.Question;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
@@ -33,9 +34,11 @@ public interface IPollService extends IMasterSurveyService{
     *	Create Poll
     * @param pollBean
     * @param currentUser
+    * @param Question
     * @throws Exception
     */
-    void createPoll(final UnitPoll pollBean, final String currentUser) throws Exception;
+    void createPoll(final UnitPoll pollBean, final String currentUser,
+                final Question question) throws EnMeExpcetion;
 
     /**
     * List Poll by Question.
