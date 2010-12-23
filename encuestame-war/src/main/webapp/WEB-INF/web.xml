@@ -18,9 +18,10 @@
             classpath:encuestame-beans-jsf-context.xml,
             classpath:encuestame-mvc-context.xml,
             classpath:encuestame-controller-context.xml,
-            classpath:encuestame-json-context.xml,
-            classpath:encuestame-web-flow-registry-context.xml,
-            classpath:encuestame-web-flow-context.xml</param-value>
+            classpath:encuestame-json-context.xml
+<!--            classpath:encuestame-web-flow-registry-context.xml,-->
+<!--            classpath:encuestame-web-flow-context.xml-->
+            </param-value>
     </context-param>
     <!--
     Enforce UTF-8 Character Encoding -->

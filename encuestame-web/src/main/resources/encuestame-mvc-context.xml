@@ -88,7 +88,7 @@
 
   <!--
     Dispatches requests mapped to flows to FlowHandler implementations
-  -->
+
    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
     <property name="flowExecutor" ref="flowExecutor" />
   </bean>
@@ -96,6 +96,7 @@
   <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
     <property name="flowExecutor" ref="flowExecutor"/>
   </bean>
+  -->
 
     <!-- Create Cookie Default Locale
 
