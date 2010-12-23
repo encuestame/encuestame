@@ -33,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Scope("singleton")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-dao-context.xml",
         "classpath:encuestame-hibernate-context.xml",
         "classpath:encuestame-param-test-context.xml"
          })
