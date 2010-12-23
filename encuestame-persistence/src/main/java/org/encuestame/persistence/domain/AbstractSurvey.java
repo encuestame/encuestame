@@ -24,7 +24,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * Abstract Survey.
@@ -51,7 +51,7 @@ public abstract class AbstractSurvey {
     /**
      * Define which user create this tweetPoll.
      */
-    private SecUserSecondary editorOwner;
+    private UserAccount editorOwner;
 
     /**
      * Multiple Responses.
@@ -514,14 +514,14 @@ public abstract class AbstractSurvey {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "editor")
-    public SecUserSecondary getEditorOwner() {
+    public UserAccount getEditorOwner() {
         return editorOwner;
     }
 
     /**
      * @param editorOwner the editorOwner to set
      */
-    public void setEditorOwner(final SecUserSecondary editorOwner) {
+    public void setEditorOwner(final UserAccount editorOwner) {
         this.editorOwner = editorOwner;
     }
 }

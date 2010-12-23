@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
@@ -39,8 +39,8 @@ public class TestPoll extends AbstractBase {
     /** {@link QuestionPattern} **/
     private QuestionPattern questionPattern;
 
-    /** {@link SecUser}.**/
-    SecUser user;
+    /** {@link Account}.**/
+    Account user;
     /**
      * Test Poll.
      */

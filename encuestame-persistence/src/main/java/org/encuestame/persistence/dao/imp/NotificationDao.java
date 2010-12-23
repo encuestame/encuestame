@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -30,13 +30,13 @@ import org.hibernate.criterion.Restrictions;
 public class NotificationDao extends AbstractHibernateDaoSupport implements INotification{
 
     /**
-     * Load Notifications By {@link SecUser} and Limit. This method add all notifications without User (global)
-     * @param secUser {@link SecUser}
+     * Load Notifications By {@link Account} and Limit. This method add all notifications without User (global)
+     * @param secUser {@link Account}
      * @param limit limit
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Notification> loadNotificationByUserAndLimit(final SecUser secUser, final Integer limit){
+    public List<Notification> loadNotificationByUserAndLimit(final Account secUser, final Integer limit){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
             criteria.add(Restrictions.or(Restrictions.eq("secUser", secUser), Restrictions.isNull("secUser")));
             criteria.addOrder(Order.desc("created"));
@@ -48,7 +48,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @param secUser
      * @return
      */
-    public Long retrieveTotalNotificationStatus(final SecUser secUser){
+    public Long retrieveTotalNotificationStatus(final Account secUser){
         return retrieveCountNotification(secUser, "select count(*) from Notification "
                 +" WHERE secUser = :user");
     }
@@ -60,7 +60,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    private Long retrieveCountNotification(final SecUser secUser, final String query){
+    private Long retrieveCountNotification(final Account secUser, final String query){
         Long resultsSize = 0L;
         final List<Object> list =  getHibernateTemplate().findByNamedParam(query, "user", secUser);
         if (list.get(0) instanceof Long){
@@ -75,7 +75,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    public Long retrieveTotalNotReadedNotificationStatus(final SecUser secUser){
+    public Long retrieveTotalNotReadedNotificationStatus(final Account secUser){
         return retrieveCountNotification(secUser ,"select count(*) from Notification "
                 +" WHERE secUser = :user AND readed = false");
     }

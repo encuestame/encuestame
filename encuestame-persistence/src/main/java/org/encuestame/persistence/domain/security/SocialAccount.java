@@ -23,11 +23,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.Parameter;
-import org.jasypt.hibernate.type.EncryptedStringType;
-
 /**
  * SecUser Twitter Acounts.
  * @author Picado, Juan juanATencuestame.org
@@ -43,7 +38,7 @@ import org.jasypt.hibernate.type.EncryptedStringType;
 
 @Entity
 @Table(name = "sec_user_twitter_account")
-public class SecUserTwitterAccounts {
+public class SocialAccount {
 
     /**
      * Id.
@@ -51,9 +46,9 @@ public class SecUserTwitterAccounts {
     private Long id;
 
     /**
-     * {@link SecUser}.
+     * {@link Account}.
      */
-    private SecUser secUsers;
+    private Account secUsers;
 
     /**
      * Twitter Account.
@@ -151,14 +146,14 @@ public class SecUserTwitterAccounts {
      * @return the secUsers
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public SecUser getSecUsers() {
+    public Account getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final SecUser secUsers) {
+    public void setSecUsers(final Account secUsers) {
         this.secUsers = secUsers;
     }
 

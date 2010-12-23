@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.IProject;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +41,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
     }
 
     /**
-     * Find Projects by {@link SecUser} id.
+     * Find Projects by {@link Account} id.
      * @param userId user id.
      * @return list of projects.
      */

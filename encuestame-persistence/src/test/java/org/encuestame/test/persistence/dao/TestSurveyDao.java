@@ -16,36 +16,32 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.CatState;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test {@link Surveys}..
+ * Test {@link Survey}..
  * @author Morales, Urbina Diana paola AT encuestame.org
  * @since October 28, 2010
  * @version $Id: $
  */
 public class TestSurveyDao extends AbstractBase {
 
-    /** {@link SecUser}.**/
-    SecUser user;
+    /** {@link Account}.**/
+    Account user;
 
-    /** {@link SecUserSecondary}. **/
-    private SecUserSecondary secondaryUser;
+    /** {@link UserAccount}. **/
+    private UserAccount secondaryUser;
 
     /** {@link SurveyFolder}. **/
     private SurveyFolder surveyFolder;
-
-    /** {@link CatState}. **/
-    private CatState state;
 
     /** {@link SurveySection}. **/
     private SurveySection surveySection;
@@ -53,7 +49,7 @@ public class TestSurveyDao extends AbstractBase {
     /** {@link SurveyPagination}. **/
     private SurveyPagination surveyPag;
 
-    private Surveys survey;
+    private Survey survey;
 
     @Before
     public void initData(){
@@ -61,8 +57,7 @@ public class TestSurveyDao extends AbstractBase {
         this.secondaryUser = createSecondaryUser("paola", this.user);
         this.survey = createDefaultSurvey(user);
         this.surveyFolder = createSurveyFolders("My Survey Folder", user);
-        this.state = createState("Enabled");
-        this.surveySection = createSurveySection(state, "My Section");
+        this.surveySection = createSurveySection("My Section");
      }
 
     /**
@@ -70,7 +65,7 @@ public class TestSurveyDao extends AbstractBase {
      */
     @Test
     public void testSearchSurveyByName(){
-        final List<Surveys> surveyResult = getSurveyDaoImp().searchSurveyByUserId("First", user.getUid());
+        final List<Survey> surveyResult = getSurveyDaoImp().searchSurveyByUserId("First", user.getUid());
         assertEquals("Should be equals", 1, surveyResult.size());
        }
 
@@ -108,7 +103,7 @@ public class TestSurveyDao extends AbstractBase {
    // @Test
     public void testRetrieveSectionByPagination(){
          this.surveyPag = createSurveyPagination(1, surveySection,this.survey);
-         final SurveySection s2 = createSurveySection(this.state, "Second Section");
+         final SurveySection s2 = createSurveySection("Second Section");
          createSurveyPagination(1, s2, this.survey);
          //System.out.println(surveyPag.getPageNumber());
          //System.out.println(surveyPag.getSurveySection().getSsid());

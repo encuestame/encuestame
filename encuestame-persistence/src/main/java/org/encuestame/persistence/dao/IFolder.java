@@ -14,7 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.Date;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Implementation for Folders.
@@ -29,9 +29,9 @@ public interface IFolder {
 
     void setFolderName(String folderName);
 
-    SecUser getUsers();
+    Account getUsers();
 
-    void setUsers(SecUser users);
+    void setUsers(Account users);
 
     Date getCreatedAt();
 

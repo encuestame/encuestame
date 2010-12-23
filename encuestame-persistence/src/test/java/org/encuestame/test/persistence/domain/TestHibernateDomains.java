@@ -12,37 +12,36 @@
  */
 package org.encuestame.test.persistence.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatEmails;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
 import org.encuestame.persistence.domain.CatLocationType;
 import org.encuestame.persistence.domain.CatQuestionCategory;
-import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Client;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Emails;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.GeoFolder;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.QuestionColettion;
 import org.encuestame.persistence.domain.survey.QuestionDependenceSurvey;
 import org.encuestame.persistence.domain.survey.QuestionDependencies;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
-import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -59,7 +58,7 @@ public class TestHibernateDomains extends AbstractBase{
      */
     @Test
     public void testCatLocation(){
-        final CatLocation catLoc = new CatLocation();
+        final GeoPoint catLoc = new GeoPoint();
         catLoc.setLocationStatus(Status.ACTIVE);
         catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
@@ -81,18 +80,6 @@ public class TestHibernateDomains extends AbstractBase{
        getCatLocationTypeDao().saveOrUpdate(catLocType);
        assertNotNull(catLocType.getLocationTypeId());
    }
-
-    /**
-     * Test Catalog State.
-     */
-    @Test
-    public void testCatState(){
-        final CatState catState = new CatState();
-        catState.setDescState("Disabled");
-        catState.setStateImage("Image");
-        getCatStateDaoImp().saveOrUpdate(catState);
-        assertNotNull(catState.getIdState());
-     }
 
     /**
      * Test Project.
@@ -154,7 +141,6 @@ public class TestHibernateDomains extends AbstractBase{
         final Question questions = new Question();
         questions.setQuestion("What is your Name");
         questions.setQidKey("2");
-        questions.setCatState(createState("Inactive"));
         questions.setQuestionPattern(createQuestionPattern("options"));
         questions.getQuestionColettions().add(createQuestionCollect("options"));
         questions.setSecUsersQuestion(createUser());
@@ -168,7 +154,7 @@ public class TestHibernateDomains extends AbstractBase{
      **/
     @Test
     public void testQuestionsAnswer(){
-        final QuestionsAnswers questionsAns = new QuestionsAnswers();
+        final QuestionAnswer questionsAns = new QuestionAnswer();
         questionsAns.setQuestions(createQuestion("how old are you", "textbox"));
         questionsAns.setAnswer("25");
         questionsAns.setUniqueAnserHash("");
@@ -181,10 +167,9 @@ public class TestHibernateDomains extends AbstractBase{
      **/
     @Test
     public void testSecGroups(){
-        final SecGroup groups = new SecGroup();
+        final Group groups = new Group();
         groups.setGroupName("writers");
         groups.setGroupDescriptionInfo("writers");
-        groups.setIdState(createState("Active").getIdState());
         groups.setSecUsers(createUser());
         groups.getSecPermissions().add(createPermission("administrator"));
         groups.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
@@ -197,7 +182,7 @@ public class TestHibernateDomains extends AbstractBase{
      **/
     @Test
     public void testSecPermission(){
-        final SecPermission permission = new SecPermission();
+        final Permission permission = new Permission();
         permission.setPermission(EnMePermission.getPermissionString("ENCUESTAME_ADMIN"));
         permission.setPermissionDescription("Administrator of alls options");
         permission.getSecGroups().add(createGroups("administrator"));
@@ -211,7 +196,7 @@ public class TestHibernateDomains extends AbstractBase{
     */
     @Test
     public void testSecUser(){
-        final SecUser user = new SecUser();
+        final Account user = new Account();
         user.setTwitterAccount("");
         user.setTwitterPassword("");
         getSecUserDao().saveOrUpdate(user);
@@ -223,7 +208,7 @@ public class TestHibernateDomains extends AbstractBase{
     **/
     @Test
     public void testSecUserSecondary(){
-        final SecUserSecondary userSec = new SecUserSecondary();
+        final UserAccount userSec = new UserAccount();
         userSec.setCompleteName("Juan Carlos Picado");
         userSec.setUserEmail("juan@encuestame.org");
         userSec.setUsername("jpicado");
@@ -261,7 +246,6 @@ public class TestHibernateDomains extends AbstractBase{
          final SurveyGroup surveyGroup = new SurveyGroup();
          surveyGroup.setGroupName("Education");
          surveyGroup.setDateCreate(new Date());
-         surveyGroup.setCatState(createState("disabled"));
          surveyGroup.getSurveyFormats().add(createSurveyFormat("Schools",new Date()));
          surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
          getSurveyDaoImp().saveOrUpdate(surveyGroup);
@@ -273,7 +257,7 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testSurveys(){
-         final Surveys surveys = new Surveys();
+         final Survey surveys = new Survey();
          surveys.setSecUsers(createUser());
          surveys.setTicket(1);
          surveys.setStartDate(new Date());
@@ -291,7 +275,7 @@ public class TestHibernateDomains extends AbstractBase{
      */
      @Test
      public void testLocationFolder(){
-         final CatLocationFolder catLocationFolder = new CatLocationFolder();
+         final GeoFolder catLocationFolder = new GeoFolder();
          catLocationFolder.setFolderType(LocationFolderType.GROUPING);
          catLocationFolder.setLocationFolderName("test folder");
          catLocationFolder.setSecUsers(createUser());
@@ -303,7 +287,7 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmail(){
-         final CatEmails catEmailList = new CatEmails();
+         final Emails catEmailList = new Emails();
          catEmailList.setEmail("paola@jotadeveloper.com");
          catEmailList.setIdListEmail(createDefaultListEmail());
          getCatEmailDao().saveOrUpdate(catEmailList);
@@ -315,7 +299,7 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmailList(){
-         final CatEmailLists catListEmails = new CatEmailLists();
+         final EmailList catListEmails = new EmailList();
          catListEmails.setCreatedAt(new Date());
          catListEmails.setListName("default encuestame list");
          catListEmails.setUsuarioEmail(createUser());

@@ -37,13 +37,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sec_permission")
-public class SecPermission {
+public class Permission {
 
     private Long idPermission;
     private EnMePermission permission;
     private String permissionDescription;
-    private Set<SecGroup> secGroups = new HashSet<SecGroup>();
-    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
+    private Set<Group> secGroups = new HashSet<Group>();
+    private Set<UserAccount> secUserSecondaries = new HashSet<UserAccount>();
 
     /**
      * @return idPermission
@@ -100,14 +100,14 @@ public class SecPermission {
     @JoinTable(name="sec_user_permission",
                joinColumns={@JoinColumn(name="sec_id_permission")},
                inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
-    public Set<SecUserSecondary> getSecUserSecondaries() {
+    public Set<UserAccount> getSecUserSecondaries() {
         return secUserSecondaries;
     }
 
     /**
      * @param secUserSecondaries the secUserSecondaries to set
      */
-    public void setSecUserSecondaries(Set<SecUserSecondary> secUserSecondaries) {
+    public void setSecUserSecondaries(Set<UserAccount> secUserSecondaries) {
         this.secUserSecondaries = secUserSecondaries;
     }
 
@@ -118,14 +118,14 @@ public class SecPermission {
     @JoinTable(name="sec_group_permission",
                joinColumns={@JoinColumn(name="sec_id_permission")},
                inverseJoinColumns={@JoinColumn(name="sec_id_group")})
-    public Set<SecGroup> getSecGroups() {
+    public Set<Group> getSecGroups() {
         return secGroups;
     }
 
     /**
      * @param secGroups the secGroups to set
      */
-    public void setSecGroups(Set<SecGroup> secGroups) {
+    public void setSecGroups(Set<Group> secGroups) {
         this.secGroups = secGroups;
     }
 }

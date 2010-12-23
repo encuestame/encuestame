@@ -22,11 +22,11 @@ import java.util.List;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatEmails;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Emails;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
@@ -53,8 +53,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestPollService extends AbstractServiceBase{
 
-     /** {@link SecUser} **/
-    private SecUser user;
+     /** {@link Account} **/
+    private Account user;
 
     /** {@link Question} **/
     private Question question;
@@ -69,13 +69,13 @@ public class TestPollService extends AbstractServiceBase{
     /** {@link Poll} **/
     private Poll poll;
 
-    private SecUserSecondary secUserSecondary;
+    private UserAccount secUserSecondary;
 
-    /** {@link CatEmailLists} **/
-    private CatEmailLists emailList;
+    /** {@link EmailList} **/
+    private EmailList emailList;
 
-    /** {@link CatEmails} **/
-    private CatEmails emails;
+    /** {@link Emails} **/
+    private Emails emails;
 
     /** {@link PollFolder}. **/
     private PollFolder folder;

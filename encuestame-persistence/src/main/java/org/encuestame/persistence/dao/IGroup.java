@@ -14,28 +14,28 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Account;
 /**
  * Interface to implement Sec Group Dao.
  * @author Picado, Juan juan@encuestame.org
  * @since 11/05/2009 10:45:30
  * @version $Id$
  */
-public interface ISecGroups extends IBaseDao {
+public interface IGroup extends IBaseDao {
 
     /**
      * Find All Groups.
      * @return
      */
-    List<SecGroup> findAllGroups();
+    List<Group> findAllGroups();
 
     /**
      * Group By Id.
      * @param groupId
      * @return
      */
-    SecGroup getGroupById(Long groupId);
+    Group getGroupById(Long groupId);
 
     /**
      * Get Group by Id
@@ -43,7 +43,7 @@ public interface ISecGroups extends IBaseDao {
      * @param secUser
      * @return
      */
-    SecGroup getGroupById(final Long groupId, final SecUser secUser);
+    Group getGroupById(final Long groupId, final Account secUser);
 
     /**
      * Get Group by Id and User.
@@ -51,21 +51,21 @@ public interface ISecGroups extends IBaseDao {
      * @param userId
      * @return
      */
-    SecGroup getGroupByIdandUser(final Long groupId, final Long userId);
+    Group getGroupByIdandUser(final Long groupId, final Long userId);
 
      /**
      * Find.
      * @param groupId
      * @return
      */
-    SecGroup find(final Long groupId);
+    Group find(final Long groupId);
 
     /**
      * Load Groups By User.
-     * @param secUsers {@link SecUser}.
+     * @param secUsers {@link Account}.
      * @return list of groups.
      */
-    List<SecGroup> loadGroupsByUser(final SecUser secUsers);
+    List<Group> loadGroupsByUser(final Account secUsers);
 
     /**
      * Counter Users by Group.
@@ -79,7 +79,7 @@ public interface ISecGroups extends IBaseDao {
       * @param user
       * @return
       */
-     List<Object[]> getUsersbyGroups(final SecUser user);
+     List<Object[]> getUsersbyGroups(final Account user);
 
     /**
      * Get Users by Groups.

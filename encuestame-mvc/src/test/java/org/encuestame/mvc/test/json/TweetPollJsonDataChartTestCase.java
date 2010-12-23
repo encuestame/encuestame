@@ -22,7 +22,7 @@ import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.chart.TweetPollJsonDataChart;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.json.simple.JSONArray;
@@ -66,8 +66,8 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     public void init(){
         final Question question = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
         this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question);
-        final QuestionsAnswers questionsAnswers1 = createQuestionAnswer("Yes", question, "hash1");
-        final QuestionsAnswers questionsAnswers2 = createQuestionAnswer("No", question, "hash2");
+        final QuestionAnswer questionsAnswers1 = createQuestionAnswer("Yes", question, "hash1");
+        final QuestionAnswer questionsAnswers2 = createQuestionAnswer("No", question, "hash2");
         this.answer1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         this.answer2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
         getTweetPollService().tweetPollVote(answer1, "80.23.43.23");

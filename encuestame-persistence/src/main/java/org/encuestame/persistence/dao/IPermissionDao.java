@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.security.SecPermission;
+import org.encuestame.persistence.domain.security.Permission;
 import org.hibernate.HibernateException;
 
  /**
@@ -24,35 +24,35 @@ import org.hibernate.HibernateException;
   * @since  11/05/2009 10:46:01
   * @version $Id$
   */
-public interface ISecPermissionDao extends IBaseDao {
+public interface IPermissionDao extends IBaseDao {
 
     //public Collection<SecUserPermission> loadPermissionByUserId(Integer id) throws HibernateException;
 
     /**
      * Load all permisssion.
-     * @return List of  {@link SecPermission}
+     * @return List of  {@link Permission}
      * @throws HibernateException exception
      */
-    List<SecPermission> loadAllPermissions();
+    List<Permission> loadAllPermissions();
     /**
      * Load permission.
      * @param permission permission
-     * @return {@link SecPermission}
+     * @return {@link Permission}
      * @throws HibernateException exception
      */
-    SecPermission loadPermission(EnMePermission permission);
+    Permission loadPermission(EnMePermission permission);
     /**
      * Get Permission.
      * @param permId permission
-     * @return {@link SecPermission}
+     * @return {@link Permission}
      * @throws HibernateException exception
      */
-     SecPermission getPermissionById(Long permId);
+     Permission getPermissionById(Long permId);
 
      /**
       * Find All Permissions.
-      * @return {@link SecPermission}
+      * @return {@link Permission}
       */
-     List<SecPermission> findAllPermissions();
+     List<Permission> findAllPermissions();
 
 }

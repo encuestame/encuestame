@@ -28,12 +28,10 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Surveys;
-import org.encuestame.persistence.domain.survey.TweetPoll;
-import org.encuestame.persistence.domain.survey.TweetPollFolder;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -93,7 +91,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param question question
      */
     public void saveAnswer(final UnitAnswersBean answerBean, final Question question){
-            final QuestionsAnswers answer = new QuestionsAnswers();
+            final QuestionAnswer answer = new QuestionAnswer();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
             answer.setUrlAnswer(answerBean.getUrl());
@@ -108,9 +106,9 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @return List of Answers
      */
     public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
-        final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
+        final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
         final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
-        for (QuestionsAnswers questionsAnswers : answers) {
+        for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
         }
         return answersBean;
@@ -125,7 +123,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @throws EnMeExpcetion exception
      */
     public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion{
-            final QuestionsAnswers answer = getQuestionDao().retrieveAnswerById(answerId);
+            final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(answerId);
             if(answer==null){
                 throw new EnMeExpcetion("answer not found");
             }
@@ -163,7 +161,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
-                    q.setStateId(questions.getCatState().getIdState());
                     listQuestionBean.add(q);
                 }
             }
@@ -245,7 +242,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public void createSurvey(final UnitSurvey surveyBean) throws EnMeExpcetion{
         try {
-            final Surveys surveyDomain = new Surveys();
+            final Survey surveyDomain = new Survey();
             surveyDomain.setTicket(surveyBean.getTicket());
             surveyDomain.setStartDate(surveyBean.getStartDate());
             surveyDomain.setEndDate(surveyBean.getEndDate());
@@ -287,8 +284,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         try {
             final SurveySection surveySectionDomain = new SurveySection();
             surveySectionDomain.setDescSection(surveySectionBean.getName());
-            surveySectionDomain.setCatState(getStateDao().getState(surveySectionBean.getId().longValue()));
-
             for (final UnitQuestionBean questionBean : surveySectionBean.getListQuestions()) {
                 this.saveQuestions(questionBean);
             }
@@ -304,7 +299,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public void saveQuestions(final UnitQuestionBean questionBean){
         final Question question = new Question();
-        question.setCatState(getState(questionBean.getId()));
         question.setQuestion(questionBean.getQuestionName());
         //	question.setQidKey();
         question.setQuestionPattern(question.getQuestionPattern());
@@ -396,10 +390,13 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeDomainNotFoundException{
         final SurveyFolder surveyFolder = this.getSurveysFolderByFolderIdandUser(folderId, getPrimaryUser(username));
-          if(surveyFolder!=null) {
-              //TODO: to continue with Surveys method.
-         } else {
-             throw new EnMeDomainNotFoundException("Survey folder not found");
-         }
-    }
+        if(surveyFolder!=null) {
+            final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, getPrimaryUser(username));
+            survey.setSurveysfolder(surveyFolder);
+            getSurveyDaoImp().saveOrUpdate(survey);
+            } else {
+            throw new EnMeDomainNotFoundException("Survey folder not found");
+        }
+   }
+
 }

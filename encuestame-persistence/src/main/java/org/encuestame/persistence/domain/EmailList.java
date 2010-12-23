@@ -27,7 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 
 /**
@@ -39,10 +39,10 @@ import org.encuestame.persistence.domain.security.SecUser;
 
 @Entity
 @Table(name = "cat_list_emails")
-public class CatEmailLists {
+public class EmailList {
 
     private Long idList;
-    private SecUser usuarioEmail;
+    private Account usuarioEmail;
     private Date createdAt;
     private String listName;
     private String descripcionList;
@@ -70,14 +70,14 @@ public class CatEmailLists {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getUsuarioEmail() {
+    public Account getUsuarioEmail() {
         return usuarioEmail;
     }
 
     /**
      * @param usuarioEmail the usuarioEmail to set
      */
-    public void setUsuarioEmail(SecUser usuarioEmail) {
+    public void setUsuarioEmail(Account usuarioEmail) {
         this.usuarioEmail = usuarioEmail;
     }
 

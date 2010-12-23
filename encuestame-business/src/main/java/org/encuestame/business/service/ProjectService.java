@@ -22,11 +22,11 @@ import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.CatLocation;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.springframework.stereotype.Service;
@@ -76,7 +76,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             if (projectDomain != null) {
                 final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
                 //projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
-                final List<CatLocation> list = new ArrayList<CatLocation>(projectDomain.getLocations());
+                final List<GeoPoint> list = new ArrayList<GeoPoint>(projectDomain.getLocations());
                 log.debug("Locations on Project "+list.size());
                 //projectBeanRetrieved.setUnitLocationBeans(ConvertDomainBean.convertListToUnitLocationBean(list));
                 return projectBeanRetrieved;
@@ -102,8 +102,8 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
-                final SecUserSecondary secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
-                final SecUser user = getUser(username).getSecUser();
+                final UserAccount secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
+                final Account user = getUser(username).getSecUser();
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 log.debug("new Project Leader "+projectBean.getName());
@@ -147,8 +147,8 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             throw new EnMeExpcetion("project not found");
         }
         else{
-            final SecUserSecondary secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
-            final SecUser user = getUser(username).getSecUser();
+            final UserAccount secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
+            final Account user = getUser(username).getSecUser();
             project.setProjectName(projectBean.getName());
             project.setHideProject(projectBean.getHide());
             project.setLead(secondary);

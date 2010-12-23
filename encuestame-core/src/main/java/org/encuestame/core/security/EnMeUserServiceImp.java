@@ -19,11 +19,11 @@ import java.util.Date;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
-import org.encuestame.persistence.dao.ISecUserDao;
-import org.encuestame.persistence.dao.imp.SecUserDaoImp;
+import org.encuestame.persistence.dao.IAccountDao;
+import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,9 +40,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
     /**
-     * {@link SecUserDaoImp}.
+     * {@link AccountDaoImp}.
      */
-    private ISecUserDao secUserDao;
+    private IAccountDao secUserDao;
 
     /**
      * Define if group permissions should be added.
@@ -73,7 +73,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      *
      * @param userDao the userDao to set
      */
-    public void setUserDao(final ISecUserDao userDao) {
+    public void setUserDao(final IAccountDao userDao) {
         this.secUserDao = userDao;
     }
 
@@ -96,7 +96,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
         log.debug("username "+username);
-        final SecUserSecondary user = secUserDao.getUserByUsername(username);
+        final UserAccount user = secUserDao.getUserByUsername(username);
         if (user == null) {
             log.error("user not found");
             throw new UsernameNotFoundException("user not found");
@@ -110,7 +110,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * Update Logged Info.
      * @param secUserSecondary
      */
-    private void updateLoggedInfo(final SecUserSecondary secUserSecondary){
+    private void updateLoggedInfo(final UserAccount secUserSecondary){
         final Calendar calendar = Calendar.getInstance();
         secUserSecondary.setLastTimeLogged(calendar.getTime());
         log.debug("Updating logged time "+calendar.getTime());
@@ -123,7 +123,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * @param user
      * @return {@link UserDetails}
      */
-    protected UserDetails convertToUserDetails(final SecUserSecondary user) {
+    protected UserDetails convertToUserDetails(final UserAccount user) {
         log.debug("convertToUserDetails username "+user.getUsername());
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         // search if authorities if the group are activated

@@ -200,7 +200,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                  } else if("poll".equals(actionType)){
                      //add poll to folder. itemId == pollId
                  } else if("survey".equals(actionType)){
-                     //add survey to folder. itemId == sid
+                     getSurveyService().addSurveyToFolder(folderId, getUserPrincipalUsername(), itemId);
                  } else {
                      //set error
                  }

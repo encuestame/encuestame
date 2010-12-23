@@ -12,7 +12,6 @@
  */
 package org.encuestame.test.persistence.dao;
 
-import org.encuestame.persistence.domain.CatLocationType;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 

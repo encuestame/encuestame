@@ -21,13 +21,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Question;
 
 /**
@@ -42,7 +38,6 @@ import org.encuestame.persistence.domain.Question;
 public class SurveySection {
 
     private Long ssid;
-    private CatState catState;
     private String descSection;
 
     private Set<Question> questionSection = new HashSet<Question>();
@@ -62,22 +57,6 @@ public class SurveySection {
      */
     public void setSsid(Long ssid) {
         this.ssid = ssid;
-    }
-
-    /**
-     * @return catState
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_state", nullable = false)
-    public CatState getCatState() {
-        return this.catState;
-    }
-
-    /**
-     * @param catState catState
-     */
-    public void setCatState(CatState catState) {
-        this.catState = catState;
     }
 
     /**

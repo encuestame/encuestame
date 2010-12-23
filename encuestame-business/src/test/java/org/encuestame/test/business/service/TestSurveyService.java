@@ -24,10 +24,10 @@ import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -60,10 +60,10 @@ public class TestSurveyService  extends AbstractServiceBase{
     /** {@link QuestionPattern} **/
     private QuestionPattern pattern;
 
-    /** {@link SecUser} **/
-    private SecUser user;
+    /** {@link Account} **/
+    private Account user;
 
-    private SecUserSecondary userSecondary;
+    private UserAccount userSecondary;
 
     private List<UnitAnswersBean> answers;
 
@@ -207,7 +207,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     @Test
     public void testUpdateAnswersByAnswerId() throws EnMeExpcetion{
         final String expectedResponse = "Quizas";
-        final QuestionsAnswers questionAnswers = createQuestionAnswer("No", this.question, "HASH");
+        final QuestionAnswer questionAnswers = createQuestionAnswer("No", this.question, "HASH");
         surveyService.updateAnswerByAnswerId(questionAnswers.getQuestionAnswerId(), expectedResponse);
         assertEquals(questionAnswers.getAnswer(), expectedResponse);
     }

@@ -17,12 +17,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
+import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,8 +33,8 @@ import org.junit.Test;
 @SuppressWarnings("deprecation")
 public class TestQuestionDao extends AbstractBase{
 
-    /** {@link SecUser} **/
-    private SecUser user;
+    /** {@link Account} **/
+    private Account user;
 
     /**
      * Before.

@@ -14,7 +14,7 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.*;
 
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class TestQuestionAnswer extends AbstractBase {
      **/
     @Test
     public void testQuestionAnswer(){
-        final QuestionsAnswers qanswer = new QuestionsAnswers();
+        final QuestionAnswer qanswer = new QuestionAnswer();
         qanswer.setAnswer("Yes");
         qanswer.setQuestions(createQuestion("Are you single?", "yesNo",createUser()));
         qanswer.setUniqueAnserHash("AKDL12");

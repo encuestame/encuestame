@@ -14,8 +14,8 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoFolder;
 import org.hibernate.HibernateException;
 /**
  * Interface to implement Catalog Location Dao.
@@ -23,51 +23,51 @@ import org.hibernate.HibernateException;
  * @since  26/04/2009
  * @version $Id$
  */
-public interface ICatLocation extends IBaseDao {
+public interface IGeoPoint extends IBaseDao {
 
     /**
      * Find All Location.
      * @return list of all locations
      * @throws HibernateException hibernate
      */
-    List<CatLocation> findAll();
+    List<GeoPoint> findAll();
 
 
     /**
      * Find Location by Id.
      * @param locateId locate id
-     * @return {@link CatLocation}
+     * @return {@link GeoPoint}
      * @throws HibernateException excetion
      */
-    CatLocation getLocationById(final Long locateId, final Long userId);
+    GeoPoint getLocationById(final Long locateId, final Long userId);
 
     /**
      * @param locateId locateId
      * @return aa
       * @throws HibernateException HibernateException
      */
-    List<CatLocation> getLocationbyLevelId(final Integer locateId);
+    List<GeoPoint> getLocationbyLevelId(final Integer locateId);
 
     /**
      * @param tidtype tidtype
      * @return aa
      * @throws HibernateException HibernateException
      */
-    List<CatLocation> getLocationByTypeLocationId(final Long tidtype);
+    List<GeoPoint> getLocationByTypeLocationId(final Long tidtype);
 
     /**
      * Get Location Folders.
      * @param userId userId.
      * @return
      */
-    List<CatLocationFolder> getLocationFolders(final Long userId);
+    List<GeoFolder> getLocationFolders(final Long userId);
 
     /**
      * Get Items by Location by Folder Id.
      * @param locationFolderId location folder id.
      * @return
      */
-    List<CatLocation> getLocationByFolder(final Long locationFolderId, final Long userId);
+    List<GeoPoint> getLocationByFolder(final Long locationFolderId, final Long userId);
 
     /**
      * Get Locations Folders Childrens by Location Folder Id.
@@ -75,7 +75,7 @@ public interface ICatLocation extends IBaseDao {
      * @param userId userId.
      * @return
      */
-    List<CatLocationFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId);
+    List<GeoFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId);
 
     /**
      * Get LocationFolder by Id and User Id
@@ -83,13 +83,13 @@ public interface ICatLocation extends IBaseDao {
      * @param userId userId
      * @return
      */
-    CatLocationFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId);
+    GeoFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId);
 
     /**
      * Get All Locations by User.
      * @param userId userId
      * @return
      */
-    List<CatLocation> getLocationByUser(final Long userId);
+    List<GeoPoint> getLocationByUser(final Long userId);
 
 }

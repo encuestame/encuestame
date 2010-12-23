@@ -17,12 +17,12 @@ import java.util.List;
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoFolder;
 import org.encuestame.persistence.domain.LocationFolderType;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.dao.ICatLocation;
+import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitLocationBean;
@@ -50,9 +50,9 @@ public class TestLocationServices extends AbstractServiceBase{
      * Cat Location Dao.
      */
     @Autowired
-    private ICatLocation catLocation;
+    private IGeoPoint catLocation;
 
-    private SecUserSecondary secondary;
+    private UserAccount secondary;
 
     @Before
     public void init(){
@@ -65,7 +65,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateCatLocation() throws EnMeExpcetion{
-        final CatLocation locationBean = createCatLocation("test", "test", 0, this.secondary.getSecUser());
+        final GeoPoint locationBean = createCatLocation("test", "test", 0, this.secondary.getSecUser());
         final UnitLocationBean bean = ConvertDomainBean.convertLocationToBean(locationBean);
         bean.setName("test2");
         this.locationService.updateCatLocation(bean, this.secondary.getUsername());
@@ -114,7 +114,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testretrieveLocationSubFolderByUser() throws Exception{
-        final CatLocationFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        final GeoFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
         createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder sub", locationFolder);
         final List<UnitLocationFolder> list = this.locationService.retrieveLocationSubFolderByUser(locationFolder.getLocationFolderId(), this.secondary.getUsername());
         Assert.assertEquals(list.size(), 1);
@@ -126,7 +126,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateLocationMap() throws Exception{
-        final CatLocationFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        final GeoFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
         //final CatLocation location = createCatLocation("Managua", locTypeName, Level, secUsers)
     }
 
@@ -147,14 +147,14 @@ public class TestLocationServices extends AbstractServiceBase{
     /**
      * @return the catLocation
      */
-    public ICatLocation getCatLocation() {
+    public IGeoPoint getCatLocation() {
         return catLocation;
     }
 
     /**
      * @param catLocation the catLocation to set
      */
-    public void setCatLocation(ICatLocation catLocation) {
+    public void setCatLocation(IGeoPoint catLocation) {
         this.catLocation = catLocation;
     }
 }

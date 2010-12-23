@@ -14,10 +14,10 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.imp.SecUserDaoImp;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.dao.imp.AccountDaoImp;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.hibernate.HibernateException;
 
 /**
@@ -27,100 +27,100 @@ import org.hibernate.HibernateException;
  * @since May 05, 2009
  * @version $Id$
  */
-public interface ISecUserDao extends IBaseDao {
+public interface IAccountDao extends IBaseDao {
 
     /**
      * @param username username
-     * @return {@link SecUserSecondary}
+     * @return {@link UserAccount}
      * @throws HibernateException HibernateException
      */
-    SecUserSecondary getUserByUsername(final String username);
+    UserAccount getUserByUsername(final String username);
 
     /**
      * Retrieve Total Users.
      * @param secUsers
      * @return
      */
-    Long retrieveTotalUsers(final SecUser secUsers);
+    Long retrieveTotalUsers(final Account secUsers);
 
 
     /**
-     * @return List {@link SecUserSecondary}
+     * @return List {@link UserAccount}
      * @throws HibernateException HibernateException
      */
-     List<SecUserSecondary> findAll();
+     List<UserAccount> findAll();
 
      /**
       * Retrieve List of Secondary users without owner account.
-      * @param secUsers {@link SecUser}.
-      * @return List of {@link SecUserSecondary}
+      * @param secUsers {@link Account}.
+      * @return List of {@link UserAccount}
       */
-     List<SecUserSecondary> retrieveListOwnerUsers(final SecUser secUsers,
+     List<UserAccount> retrieveListOwnerUsers(final Account secUsers,
                 final Integer maxResults, final Integer start);
 
     /**
      * @param userId userId
-     * @return {@link SecUser}
+     * @return {@link Account}
      * @throws HibernateException HibernateException
      */
-    SecUser getUserById(final Long userId);
+    Account getUserById(final Long userId);
 
     /**
      * @param userId userId
-     * @return {@link SecUserSecondary}
+     * @return {@link UserAccount}
      * @throws HibernateException HibernateException
      */
-    SecUserSecondary getSecondaryUserById(final Long userId);
+    UserAccount getSecondaryUserById(final Long userId);
 
     /**
      * Get list of users by username.
      * @param username username
      * @return list of users
      */
-    List<SecUserSecondary> getUsersByUsername(final String username);
+    List<UserAccount> getUsersByUsername(final String username);
 
     /**
-     * Get {@link SecUserSecondary} but {@link SecUser} id.
+     * Get {@link UserAccount} but {@link Account} id.
      * @param userId user id
      * @return secondary user list
      */
-    List<SecUserSecondary> getSecondaryUsersByUserId(final Long userId);
+    List<UserAccount> getSecondaryUsersByUserId(final Long userId);
 
     /**
      * Search user by email
      * @param email email
      * @return
      */
-    List<SecUserSecondary> searchUsersByEmail(final String email);
+    List<UserAccount> searchUsersByEmail(final String email);
 
     /**
      * Get one user by email.
      * @param email
      * @return
      */
-    SecUserSecondary getUserByEmail(final String email);
+    UserAccount getUserByEmail(final String email);
 
     /**
      * Get Twitter Accounts.
-     * @param secUsers {@link SecUser}.
-     * @return List {@link SecUserTwitterAccounts}.
+     * @param secUsers {@link Account}.
+     * @return List {@link SocialAccount}.
      *
      */
-    List<SecUserTwitterAccounts> getTwitterAccountByUser(final SecUser secUsers);
+    List<SocialAccount> getTwitterAccountByUser(final Account secUsers);
 
     /**
      * Get Twitter Account.
      * @param twitterAccountId
      * @return
      */
-    SecUserTwitterAccounts getTwitterAccount(final Long twitterAccountId);
+    SocialAccount getTwitterAccount(final Long twitterAccountId);
 
     /**
      * Get Twitter Verified Accounts.
-     * @param secUsers {@link SecUserDaoImp}
-     * @return List {@link SecUserTwitterAccounts}.
+     * @param secUsers {@link AccountDaoImp}
+     * @return List {@link SocialAccount}.
      */
-   List<SecUserTwitterAccounts> getTwitterVerifiedAccountByUser(final SecUser secUsers);
+   List<SocialAccount> getTwitterVerifiedAccountByUser(final Account secUsers);
 
    /**
     * Get Total of TweetPoll By User Editor.

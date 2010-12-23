@@ -15,9 +15,9 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatEmails;
-import org.encuestame.persistence.domain.CatSubscribeEmails;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.EmailSubscribe;
 
 /**
  * Email Catalog Interface.
@@ -25,14 +25,14 @@ import org.encuestame.persistence.domain.CatSubscribeEmails;
  * @since  June 20, 2010
  * @version $Id: $
  */
-public interface ICatEmail extends IBaseDao {
+public interface IEmail extends IBaseDao {
 
      /**
       * Find Email List By User Id.
       * @param userId
       * @return
       */
-    public List<CatEmailLists> findListbyUser(final Long userId);
+    public List<EmailList> findListbyUser(final Long userId);
 
 
      /**
@@ -40,13 +40,13 @@ public interface ICatEmail extends IBaseDao {
       * @param emailListId
       * @return
       */
-    public List<CatEmails> findEmailsByListId(final Long emailListId);
+    public List<Emails> findEmailsByListId(final Long emailListId);
 
      /**
       * Find All Email List.
       * @return
       */
-    public List<CatEmailLists> findAllEmailList();
+    public List<EmailList> findAllEmailList();
 
      /**
       * Find Email List by Keyword.
@@ -54,7 +54,7 @@ public interface ICatEmail extends IBaseDao {
       * @param userId
       * @return
       */
-    public List<CatEmailLists> getListEmailsByKeyword(final String keyword, final Long userId);
+    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId);
 
     /**
      * Find Emails by Keyword.
@@ -62,12 +62,12 @@ public interface ICatEmail extends IBaseDao {
      * @param userId
      * @return
      */
-    public List<CatEmails> getEmailsByKeyword(final String keyword, final Long userId);
+    public List<Emails> getEmailsByKeyword(final String keyword, final Long userId);
 
     /**
      *
      * @param code
      * @return
      */
-    public CatSubscribeEmails getSubscribeAccount(final String code);
+    public EmailSubscribe getSubscribeAccount(final String code);
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.hibernate.HibernateException;
 
  /**
@@ -77,14 +77,14 @@ public interface IQuestionDao extends IBaseDao {
      * @return list of answers
      * @throws HibernateException exception
      */
-    List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId);
+    List<QuestionAnswer> getAnswersByQuestionId(final Long questionId);
 
     /**
      * Retrieve Answer by Id.
      * @param answerId answer id
-     * @return {@link QuestionsAnswers}
+     * @return {@link QuestionAnswer}
      */
-    QuestionsAnswers retrieveAnswerById(final Long answerId);
+    QuestionAnswer retrieveAnswerById(final Long answerId);
 
     /**
      *

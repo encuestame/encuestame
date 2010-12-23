@@ -20,7 +20,7 @@ import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
@@ -112,10 +112,10 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     /**
      * Retrieve Answer by Id.
      * @param answerId answer id
-     * @return {@link QuestionsAnswers}
+     * @return {@link QuestionAnswer}
      */
-    public QuestionsAnswers retrieveAnswerById(final Long answerId){
-       return (QuestionsAnswers) getHibernateTemplate().get(QuestionsAnswers.class, answerId);
+    public QuestionAnswer retrieveAnswerById(final Long answerId){
+       return (QuestionAnswer) getHibernateTemplate().get(QuestionAnswer.class, answerId);
     }
 
     /**
@@ -125,7 +125,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
-    public List<QuestionsAnswers> getAnswersByQuestionId(final Long questionId) throws HibernateException {
+    public List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
         return getHibernateTemplate().findByNamedParam("from QuestionsAnswers where questions.id =:questionId ",
                                                        "questionId", questionId);
     }

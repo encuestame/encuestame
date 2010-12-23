@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -53,11 +53,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
     /**
      * List of Poll Folder by User.
-     * @param secUser {@link SecUser}.
+     * @param secUser {@link Account}.
      * @return list of folders.
      */
     @SuppressWarnings("unchecked")
-    public List<IFolder> getPollFolderBySecUser(final SecUser secUser){
+    public List<IFolder> getPollFolderBySecUser(final Account secUser){
           final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
           criteria.add(Restrictions.eq("users", secUser));
           return getHibernateTemplate().findByCriteria(criteria);
@@ -70,7 +70,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollsByPollFolder(final SecUser userId, final PollFolder folder){
+    public List<Poll> getPollsByPollFolder(final Account userId, final PollFolder folder){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("pollOwner", userId));
         criteria.add(Restrictions.eq("pollFolder", folder));
@@ -199,5 +199,4 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.add(Restrictions.eq("id", pollFolderId));
         return (PollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
-
 }

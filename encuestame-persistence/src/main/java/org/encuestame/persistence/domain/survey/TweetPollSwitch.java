@@ -42,7 +42,7 @@ public class TweetPollSwitch {
 
     private TweetPoll tweetPoll;
 
-    private QuestionsAnswers answers;
+    private QuestionAnswer answers;
 
     /**
      * @return the switchId
@@ -101,7 +101,7 @@ public class TweetPollSwitch {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "q_answer_id", nullable = false)
-    public QuestionsAnswers getAnswers() {
+    public QuestionAnswer getAnswers() {
         return answers;
     }
 
@@ -109,7 +109,7 @@ public class TweetPollSwitch {
      * @param answers
      *            the answers to set
      */
-    public void setAnswers(QuestionsAnswers answers) {
+    public void setAnswers(QuestionAnswer answers) {
         this.answers = answers;
     }
 }

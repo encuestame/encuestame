@@ -17,7 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.Survey;
 
 /**
  * Interface to implement Survey Dao.
@@ -32,7 +32,7 @@ public interface ISurvey extends IBaseDao{
      * @param userId
      * @return
      */
-      public List<Surveys> searchSurveyByUserId(final String searchString, final Long userId);
+      public List<Survey> searchSurveyByUserId(final String searchString, final Long userId);
 
       /**
        *
@@ -76,4 +76,12 @@ public interface ISurvey extends IBaseDao{
        * @return
        */
       SurveyFolder getSurveyFolderByIdandUser(final Long FolderId, final Long userId);
+
+      /**
+       * Get Survey by Id and User.
+       * @param surveyId
+       * @param userId
+       * @return
+       */
+      Survey getSurveyByIdandUserId(final Long surveyId, final Long userId);
 }

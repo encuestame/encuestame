@@ -26,36 +26,35 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>org.encuestame.persistence.domain.CatState</value>
                 <value>org.encuestame.persistence.domain.Project</value>
-                <value>org.encuestame.persistence.domain.CatLocation</value>
-                <value>org.encuestame.persistence.domain.CatLocationType</value>
-                <value>org.encuestame.persistence.domain.CatLocationFolder</value>
+                <value>org.encuestame.persistence.domain.GeoPoint</value>
+                <value>org.encuestame.persistence.domain.GeoPointType</value>
+                <value>org.encuestame.persistence.domain.GeoPointFolder</value>
                 <value>org.encuestame.persistence.domain.Client</value>
                 <value>org.encuestame.persistence.domain.HashTag</value>
-                <value>org.encuestame.persistence.domain.security.SecGroup</value>
-                <value>org.encuestame.persistence.domain.security.SecPermission</value>
-                <value>org.encuestame.persistence.domain.security.SecUser</value>
-                <value>org.encuestame.persistence.domain.security.SecUserTwitterAccounts</value>
-                <value>org.encuestame.persistence.domain.security.SecUserSecondary</value>
+                <value>org.encuestame.persistence.domain.security.Group</value>
+                <value>org.encuestame.persistence.domain.security.Permission</value>
+                <value>org.encuestame.persistence.domain.security.Account</value>
+                <value>org.encuestame.persistence.domain.security.SocialAccount</value>
+                <value>org.encuestame.persistence.domain.security.UserAccount</value>
                 <value>org.encuestame.persistence.domain.survey.Poll</value>
                 <value>org.encuestame.persistence.domain.survey.PollResult</value>
                 <value>org.encuestame.persistence.domain.survey.QuestionColettion</value>
                 <value>org.encuestame.persistence.domain.Question</value>
-                <value>org.encuestame.persistence.domain.survey.QuestionsAnswers</value>
+                <value>org.encuestame.persistence.domain.survey.QuestionAnswer</value>
                 <value>org.encuestame.persistence.domain.survey.QuestionPattern</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyFormat</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyGroup</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyResult</value>
-                <value>org.encuestame.persistence.domain.survey.Surveys</value>
+                <value>org.encuestame.persistence.domain.survey.Survey</value>
                 <value>org.encuestame.persistence.domain.survey.SurveySection</value>
                 <value>org.encuestame.persistence.domain.survey.TweetPollSwitch</value>
                 <value>org.encuestame.persistence.domain.survey.TweetPoll</value>
                 <value>org.encuestame.persistence.domain.survey.TweetPollResult</value>
                 <value>org.encuestame.persistence.domain.survey.TweetPollSavedPublishedStatus</value>
-                <value>org.encuestame.persistence.domain.CatEmails</value>
-                <value>org.encuestame.persistence.domain.CatEmailLists</value>
-                <value>org.encuestame.persistence.domain.CatSubscribeEmails</value>
+                <value>org.encuestame.persistence.domain.Email</value>
+                <value>org.encuestame.persistence.domain.EmailList</value>
+                <value>org.encuestame.persistence.domain.EmailSubscribe</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyPagination</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyFolder</value>
                 <value>org.encuestame.persistence.domain.survey.TweetPollFolder</value>

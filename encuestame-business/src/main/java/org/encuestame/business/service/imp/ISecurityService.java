@@ -20,10 +20,10 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -163,7 +163,7 @@ public interface ISecurityService extends IService {
             throws EnMeExpcetion;
 
     /**
-     * Remove {@link SecGroup} from User.
+     * Remove {@link Group} from User.
      * @param userBean {@link UnitUserBean}
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion
@@ -187,7 +187,7 @@ public interface ISecurityService extends IService {
      * @param permission permission
      * @return permission domain
      */
-    SecPermission loadPermission(final String permission);
+    Permission loadPermission(final String permission);
 
     /**
      * Invite some users to register in the system.
@@ -206,11 +206,11 @@ public interface ISecurityService extends IService {
 
 
     /**
-     * Find {@link SecUserSecondary} by UserName
+     * Find {@link UserAccount} by UserName
      * @param username user name
-     * @return {@link SecUserSecondary}
+     * @return {@link UserAccount}
      */
-    SecUserSecondary findUserByUserName(final String username);
+    UserAccount findUserByUserName(final String username);
 
     /**
      * Setter.
@@ -222,7 +222,7 @@ public interface ISecurityService extends IService {
       * Update Twitter Account.
       * @param account account
       * @param password password
-      * @param secUser {@link SecUser}
+      * @param secUser {@link Account}
       */
      void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password,
                                final Boolean verify);
@@ -258,21 +258,21 @@ public interface ISecurityService extends IService {
     UnitUserBean singupUser(final SignUpBean singUpBean);
 
     /**
-     * Search {@link SecUserSecondary} by email.
+     * Search {@link UserAccount} by email.
      * @param email email
      * @return
      */
-    List<SecUserSecondary> searchUsersByEmail(final String email);
+    List<UserAccount> searchUsersByEmail(final String email);
 
     /**
      * Search List of User By Username
      * @param username username
      * @return
      */
-    List<SecUserSecondary> searchUsersByUsername(final String username);
+    List<UserAccount> searchUsersByUsername(final String username);
 
     /**
-     * Load list of {@link SecPermission}.
+     * Load list of {@link Permission}.
      * @return list of permissions.
      */
     List<UnitPermission> loadPermissions();
@@ -288,9 +288,9 @@ public interface ISecurityService extends IService {
             throws MailSendException;
 
     /**
-     * Find {@link SecUserSecondary} by UserName
+     * Find {@link UserAccount} by UserName
      * @param username user name
-     * @return {@link SecUserSecondary}
+     * @return {@link UserAccount}
      */
     UnitUserBean findUserByEmail(final String email);
 
@@ -349,7 +349,7 @@ public interface ISecurityService extends IService {
      * @return
      * @throws EnMeDomainNotFoundException
      */
-    SecGroup getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException;
+    Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * User Bean.

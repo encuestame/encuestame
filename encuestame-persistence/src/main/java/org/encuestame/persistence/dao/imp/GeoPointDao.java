@@ -14,9 +14,9 @@ package org.encuestame.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.ICatLocation;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.dao.IGeoPoint;
+import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoFolder;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -30,7 +30,7 @@ import org.springframework.stereotype.Repository;
  * @version $Id$
  */
 @Repository
-public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatLocation {
+public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoint {
 
     /**
      * Find All Location.
@@ -38,42 +38,42 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @throws HibernateException hibernate
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> findAll() throws HibernateException {
+    public List<GeoPoint> findAll() throws HibernateException {
           return getHibernateTemplate().find("from CatLocation");
     }
 
     /**
      * Find Location by Id.
      * @param locateId locate id
-     * @return {@link CatLocation}
+     * @return {@link GeoPoint}
      * @throws HibernateException excetion
      */
     @SuppressWarnings("unchecked")
-    public CatLocation getLocationById(final Long locateId, final Long userId) {
-        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
+    public GeoPoint getLocationById(final Long locateId, final Long userId) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
         criteria.add(Restrictions.eq("secUsers.uid", userId));
         criteria.add(Restrictions.eq("locateId", locateId));
-        return (CatLocation) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        return (GeoPoint) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**
      * @param tidtype tidtype.
-     * @return List of {@link CatLocation}
+     * @return List of {@link GeoPoint}
      * @throws HibernateException HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> getLocationByTypeLocationId(final Long tidType) throws HibernateException{
+    public List<GeoPoint> getLocationByTypeLocationId(final Long tidType) throws HibernateException{
         final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";
        return   getHibernateTemplate().find(queryLocation, tidType);
     }
 
     /**
      * @param locateId  locateId.
-     * @return List of {@link CatLocation} by Level
+     * @return List of {@link GeoPoint} by Level
      * @throws HibernateException HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> getLocationbyLevelId(final Integer locateId) throws HibernateException{
+    public List<GeoPoint> getLocationbyLevelId(final Integer locateId) throws HibernateException{
         final String queryLocationType ="FROM CatLocation WHERE locationLevel = ?";
         return getHibernateTemplate().find(queryLocationType, locateId);
     }
@@ -84,8 +84,8 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocationFolder> getLocationFolders(final Long userId){
-         final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
+    public List<GeoFolder> getLocationFolders(final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoFolder.class);
          criteria.add(Restrictions.eq("secUsers.id", userId));
          criteria.add(Restrictions.isNull("subLocationFolder"));
          return getHibernateTemplate().findByCriteria(criteria);
@@ -98,8 +98,8 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocationFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
+    public List<GeoFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoFolder.class);
         criteria.add(Restrictions.eq("secUsers.id", userId));
         criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
         criteria.add(Restrictions.isNotNull("subLocationFolder"));
@@ -112,8 +112,8 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> getLocationByFolder(final Long locationFolderId, final Long userId){
-         final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
+    public List<GeoPoint> getLocationByFolder(final Long locationFolderId, final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
          criteria.add(Restrictions.eq("catLocationFolder.id", locationFolderId));
          criteria.add(Restrictions.eq("secUsers.uid", userId));
          return getHibernateTemplate().findByCriteria(criteria);
@@ -125,8 +125,8 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocation> getLocationByUser(final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocation.class);
+    public List<GeoPoint> getLocationByUser(final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
         criteria.add(Restrictions.eq("secUsers.uid", userId));
         return getHibernateTemplate().findByCriteria(criteria);
    }
@@ -138,11 +138,11 @@ public class CatLocationDao extends AbstractHibernateDaoSupport implements ICatL
      * @return
      */
     @SuppressWarnings("unchecked")
-    public CatLocationFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(CatLocationFolder.class);
+    public GeoFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoFolder.class);
         criteria.add(Restrictions.eq("locationFolderId", locationFolderId));
         criteria.add(Restrictions.eq("secUsers.uid", userId));
-        return (CatLocationFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        return (GeoFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
    }
 
 }

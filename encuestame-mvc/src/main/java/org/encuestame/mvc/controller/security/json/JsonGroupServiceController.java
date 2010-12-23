@@ -23,7 +23,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.security.SecGroup;
+import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -76,7 +76,7 @@ public class JsonGroupServiceController extends AbstractJsonController {
                    sucess.put("groupBean", getSecurityService().createGroup(unitGroupBean, getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else if ("update".equals(type)) {
-                   final SecGroup groupDomain = getSecurityService().getGroupbyIdandUser(groupId, getUserPrincipalUsername());//find by group Id and principal User.
+                   final Group groupDomain = getSecurityService().getGroupbyIdandUser(groupId, getUserPrincipalUsername());//find by group Id and principal User.
                    if (groupDomain != null){
                        final UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
                        groupBean.setGroupDescription(groupDesc);

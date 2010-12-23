@@ -14,10 +14,10 @@ package org.encuestame.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.ICatEmail;
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatEmails;
-import org.encuestame.persistence.domain.CatSubscribeEmails;
+import org.encuestame.persistence.dao.IEmail;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.EmailSubscribe;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -31,14 +31,14 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmail{
+public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
 
     /**
      * Find Emails by User.
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatEmailLists> findListbyUser(final Long userId){
+    public List<EmailList> findListbyUser(final Long userId){
         return getHibernateTemplate().findByNamedParam(
                 "from CatEmailLists where usuarioEmail.uid= :userId", "userId", userId);
      }
@@ -49,7 +49,7 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatEmails> findEmailsByListId(final Long idList){
+    public List<Emails> findEmailsByListId(final Long idList){
         return getHibernateTemplate().findByNamedParam("FROM CatEmails WHERE idListEmail.idList= :idList", "idList", idList);
      }
 
@@ -58,7 +58,7 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatEmailLists> findAllEmailList(){
+    public List<EmailList> findAllEmailList(){
         return getHibernateTemplate().find("FROM CatEmailLists");
     }
 
@@ -67,8 +67,8 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatEmailLists> getListEmailsByKeyword(final String keyword, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(CatEmailLists.class);
+    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(EmailList.class);
         criteria.add(Restrictions.like("listName", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -78,8 +78,8 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<CatEmails> getEmailsByKeyword(final String keyword, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(CatEmails.class);
+    public List<Emails> getEmailsByKeyword(final String keyword, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Emails.class);
         criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
 
@@ -90,8 +90,8 @@ public class CatEmailDao extends AbstractHibernateDaoSupport implements ICatEmai
      * @param code
      * @return
      */
-    public CatSubscribeEmails getSubscribeAccount(final String code){
-           return (CatSubscribeEmails) getHibernateTemplate().findByNamedParam("FROM CatSubscribeEmails WHERE hashCode= :code", "code", code);
+    public EmailSubscribe getSubscribeAccount(final String code){
+           return (EmailSubscribe) getHibernateTemplate().findByNamedParam("FROM CatSubscribeEmails WHERE hashCode= :code", "code", code);
     }
 
 }

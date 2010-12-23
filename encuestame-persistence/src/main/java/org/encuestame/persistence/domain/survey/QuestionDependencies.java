@@ -45,7 +45,7 @@ public class QuestionDependencies {
     private Long questionId_from;
 
     /****/
-    private QuestionsAnswers answers;
+    private QuestionAnswer answers;
 
     /****/
     private String descriptionDependence;
@@ -104,14 +104,14 @@ public class QuestionDependencies {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "q_answer_id", nullable = false)
-    public QuestionsAnswers getAnswers() {
+    public QuestionAnswer getAnswers() {
         return answers;
     }
 
     /**
      * @param answers the answers to set
      */
-    public void setAnswers(QuestionsAnswers answers) {
+    public void setAnswers(QuestionAnswer answers) {
         this.answers = answers;
     }
 

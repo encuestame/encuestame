@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Implementation for Notification Domain.
@@ -26,12 +26,12 @@ import org.encuestame.persistence.domain.security.SecUser;
 public interface INotification extends IBaseDao{
 
     /**
-     * Load Notifications By {@link SecUser} and Limit. This method add all notifications without User (global)
-     * @param secUser {@link SecUser}
+     * Load Notifications By {@link Account} and Limit. This method add all notifications without User (global)
+     * @param secUser {@link Account}
      * @param limit limit
      * @return
      */
-    List<Notification> loadNotificationByUserAndLimit(final SecUser secUser, final Integer limit);
+    List<Notification> loadNotificationByUserAndLimit(final Account secUser, final Integer limit);
 
     /**
      * Get Notification.
@@ -45,7 +45,7 @@ public interface INotification extends IBaseDao{
      * @param secUser
      * @return
      */
-    Long retrieveTotalNotificationStatus(final SecUser secUser);
+    Long retrieveTotalNotificationStatus(final Account secUser);
 
    /**
     * Retrieve Notification Status
@@ -53,5 +53,5 @@ public interface INotification extends IBaseDao{
     * @return
     */
 
-   Long retrieveTotalNotReadedNotificationStatus(final SecUser secUser);
+   Long retrieveTotalNotReadedNotificationStatus(final Account secUser);
 }

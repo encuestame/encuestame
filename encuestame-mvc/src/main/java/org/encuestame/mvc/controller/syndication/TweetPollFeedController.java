@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +48,7 @@ public class TweetPollFeedController extends AbstractFeedController {
      * @throws EnMeDomainNotFoundException
      */
     private void buildTweetPollFeedBody(final String username, final Model model, final HttpServletRequest request,
-                 final SecUserSecondary secUserSecondary) throws EnMeDomainNotFoundException{
+                 final UserAccount secUserSecondary) throws EnMeDomainNotFoundException{
          model.addAttribute("username", username);
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
          model.addAttribute("url", buildDomainWithRequest(request));
@@ -67,7 +67,7 @@ public class TweetPollFeedController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/tweetpoll.atom", method = RequestMethod.GET)
     public String tweetPollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final SecUserSecondary secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
@@ -88,7 +88,7 @@ public class TweetPollFeedController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/tweetpoll.rss", method = RequestMethod.GET)
     public String tweetPollRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final SecUserSecondary secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
                  this.buildTweetPollFeedBody(username, model, request, secUserSecondary);

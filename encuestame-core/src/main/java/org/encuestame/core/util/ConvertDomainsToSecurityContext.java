@@ -18,7 +18,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.persistence.domain.security.SecPermission;
+import org.encuestame.persistence.domain.security.Permission;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
@@ -34,13 +34,13 @@ public class ConvertDomainsToSecurityContext {
      private static Log log = LogFactory.getLog(ConvertDomainsToSecurityContext.class);
 
      /**
-      * Convert {@link SecPermission} to {@link GrantedAuthority}.
+      * Convert {@link Permission} to {@link GrantedAuthority}.
       * @param permissions list of permission
       * @return list of {@link GrantedAuthority}.
       */
-     public static final  List<GrantedAuthority> convertEnMePermission(final Set<SecPermission> permissions){
+     public static final  List<GrantedAuthority> convertEnMePermission(final Set<Permission> permissions){
             final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            for (SecPermission secPermission : permissions) {
+            for (Permission secPermission : permissions) {
                 if(secPermission != null){
                     authorities.add(new GrantedAuthorityImpl(secPermission.getPermission().toString()));
                 } else {

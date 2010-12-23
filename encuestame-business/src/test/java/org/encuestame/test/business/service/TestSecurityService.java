@@ -21,11 +21,11 @@ import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
@@ -53,13 +53,13 @@ public class TestSecurityService extends AbstractServiceBase{
     private ISecurityService securityService;
 
     /** User Primary. **/
-    private SecUser userPrimary;
+    private Account userPrimary;
 
     /** User Secondary. **/
-    private SecUserSecondary secUserSecondary;
+    private UserAccount secUserSecondary;
 
-    /** {@link SecPermission}. **/
-    private SecPermission secPermission;
+    /** {@link Permission}. **/
+    private Permission secPermission;
 
     /**
      * Before.
@@ -69,8 +69,8 @@ public class TestSecurityService extends AbstractServiceBase{
         securityService.setSuspendedNotification(getActivateNotifications());
         this.userPrimary = createUser();
         this.secUserSecondary = createSecondaryUser("default", this.userPrimary);
-        final SecGroup group = createGroups("admin");
-        final SecGroup group2 = createGroups("editors");
+        final Group group = createGroups("admin");
+        final Group group2 = createGroups("editors");
       //  this.secUserSecondary.getSecGroups().add(group);
        // this.secUserSecondary.getSecGroups().add(group2);
         this.secPermission = createPermission(EnMePermission.ENCUESTAME_EDITOR.name());
@@ -86,7 +86,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testfindUserByUserName(){
-        final SecUserSecondary secondary = this.securityService.findUserByUserName(this.secUserSecondary.getUsername());
+        final UserAccount secondary = this.securityService.findUserByUserName(this.secUserSecondary.getUsername());
         assertEquals(this.secUserSecondary.getUid(), secondary.getUid());
         assertEquals(this.secUserSecondary.getPassword(), secondary.getPassword());
         assertEquals(this.secUserSecondary.getCompleteName(), secondary.getCompleteName());
@@ -130,7 +130,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testupdateTwitterAccount(){
-        SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+        SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
         final UnitTwitterAccountBean bean = ConvertDomainBean.convertTwitterAccountToBean(account);
         this.securityService.updateTwitterAccount(bean, "12345", false);
         account = getSecUserDao().getTwitterAccount(account.getId());
@@ -148,7 +148,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testupdateSecretTwitterCredentials() throws EnMeExpcetion{
-         SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+         SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
          final UnitTwitterAccountBean bean = ConvertDomainBean.convertTwitterAccountToBean(account);
          bean.setKey(getProperty("twitter.test.token"));
          bean.setSecret(getProperty("twitter.test.tokenSecret"));
@@ -172,7 +172,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testupdateOAuthTokenSocialAccount() throws EnMeExpcetion{
-        SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+        SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
         this.securityService.updateOAuthTokenSocialAccount(account.getId(), "12345", "fakeTokenSecret", this.secUserSecondary.getUsername());
         account = getSecUserDao().getTwitterAccount(account.getId());
         assertEquals(account.getSecretToken(), "fakeTokenSecret");
@@ -192,7 +192,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testgetTwitterAccount(){
-        SecUserTwitterAccounts account = createDefaultSettedTwitterAccount(this.userPrimary);
+        SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
         final UnitTwitterAccountBean accountBean = this.securityService.getTwitterAccount(account.getId());
         assertEquals(account.getId(), accountBean.getAccountId());
     }
@@ -203,10 +203,10 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test(timeout = 30000)
     public void testdeleteUser() throws EnMeDomainNotFoundException{
-        final SecUserSecondary tempUser = createSecondaryUser("second user", this.userPrimary);
+        final UserAccount tempUser = createSecondaryUser("second user", this.userPrimary);
         final Long id = tempUser.getUid();
         this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser));
-        final SecUserSecondary tempUser2 = createSecondaryUser("second user", getProperty("mail.test.email"), this.userPrimary);
+        final UserAccount tempUser2 = createSecondaryUser("second user", getProperty("mail.test.email"), this.userPrimary);
         this.securityService.setSuspendedNotification(true);
         this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser2));
         assertNull(getSecUserDao().getSecondaryUserById(id));
@@ -218,7 +218,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test(expected = EnMeDomainNotFoundException.class)
     public void testdeleteUserNotFound() throws EnMeDomainNotFoundException{
-        this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(new SecUserSecondary()));
+        this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(new UserAccount()));
     }
 
     /**
@@ -263,7 +263,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testSearchUserByUsername() throws EnMeExpcetion{
-      final SecUserSecondary userDomain = createSecondaryUser("user 1",this.userPrimary);
+      final UserAccount userDomain = createSecondaryUser("user 1",this.userPrimary);
       createSecondaryUser("user 2",this.userPrimary);
       final UnitUserBean userBean = securityService.searchUserByUsername(userDomain.getUsername());
       assertEquals("Should be equals",userDomain.getUsername(),userBean.getUsername());
@@ -292,11 +292,11 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testDeleteGroup(){
-        final SecGroup groupDomain = createGroups("admin");
+        final Group groupDomain = createGroups("admin");
         final Long idGroup = groupDomain.getGroupId();
         final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
         securityService.deleteGroup(group.getId());
-        final SecGroup groupRetrieve = getSecGroup().getGroupById(idGroup);
+        final Group groupRetrieve = getSecGroup().getGroupById(idGroup);
         assertNull(groupRetrieve);
     }
 
@@ -313,11 +313,11 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testdeleteGroup(){
-      final SecGroup groupDomain = createGroups("admin");
+      final Group groupDomain = createGroups("admin");
       final Long idGroup = groupDomain.getGroupId();
       final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
       securityService.deleteGroup(group.getId());
-      final SecGroup groupRetrieve = getSecGroup().getGroupById(idGroup);
+      final Group groupRetrieve = getSecGroup().getGroupById(idGroup);
       assertNull(groupRetrieve);
 
     }
@@ -328,12 +328,12 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testDeleteUser() throws EnMeExpcetion{
-     final SecUserSecondary secUsers = createSecondaryUser("administrator",this.userPrimary);
+     final UserAccount secUsers = createSecondaryUser("administrator",this.userPrimary);
      final Long idUser = secUsers.getUid();
      //final String username = secUsers.getUsername();
      final UnitUserBean user = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
      securityService.deleteUser(user);
-     final SecUser userRetrieve = getSecUserDao().getUserById(idUser);
+     final Account userRetrieve = getSecUserDao().getUserById(idUser);
      assertNull(userRetrieve);
     }
 
@@ -345,12 +345,12 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testUpdateGroup() throws EnMeExpcetion{
-      SecGroup secgroups = createGroups("guests");
+      Group secgroups = createGroups("guests");
       Long idGroupUpdate = secgroups.getGroupId();
       UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(secgroups);
       groupBean.setGroupName("editors");
       securityService.updateGroup(groupBean);
-      SecGroup groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
+      Group groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
       assertEquals("Should be","editors",groupUpdateRetrieve.getGroupName());
 
     }
@@ -361,12 +361,12 @@ public class TestSecurityService extends AbstractServiceBase{
      **/
     @Test
     public void testUpdateUser() throws EnMeExpcetion{
-      final SecUserSecondary secUsers = createSecondaryUser("developer",this.userPrimary);
+      final UserAccount secUsers = createSecondaryUser("developer",this.userPrimary);
       final Long idUser = secUsers.getUid();
       final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
       userBean.setName("editor");
       securityService.updateUser(userBean);
-      final SecUserSecondary userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);
+      final UserAccount userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);
       assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
     }
 
@@ -375,10 +375,10 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testCreatePermission(){
-      final SecPermission secPerm = createPermission("writer");
+      final Permission secPerm = createPermission("writer");
       final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPerm);
       securityService.createPermission(permissionBean);
-      final SecPermission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
+      final Permission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
       assertNotNull(permissionRetrieve);
       assertEquals("should be","writer", permissionRetrieve.getPermissionDescription());
 
@@ -391,7 +391,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testRenewPassword() throws EnMeExpcetion{
-      final SecUserSecondary secUser = createSecondaryUser("paola",this.userPrimary);
+      final UserAccount secUser = createSecondaryUser("paola",this.userPrimary);
       final String passwd = secUser.getPassword();
       final UnitUserBean userPass = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
       final String retrievePassword = securityService.renewPassword(userPass, passwd);
@@ -405,7 +405,7 @@ public class TestSecurityService extends AbstractServiceBase{
    @Test
    @ExpectedException(EnMeExpcetion.class)
    public void testRenewPasswordwithoutPass()throws EnMeExpcetion{
-      final SecUserSecondary secUser = createSecondaryUser("diana",this.userPrimary);
+      final UserAccount secUser = createSecondaryUser("diana",this.userPrimary);
       UnitUserBean userPassBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
       final String retrievePassword = securityService.renewPassword(userPassBean,null);
       assertEquals("should be equals", null, retrievePassword);
@@ -461,7 +461,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
-        final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
+        final UserAccount user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
         assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
@@ -473,7 +473,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @Test
        public void testCreateUserwithoutPassword() throws EnMeExpcetion{
         createDefaultPermission();
-        SecUserSecondary secCreateUser = new SecUserSecondary();
+        UserAccount secCreateUser = new UserAccount();
         UnitUserBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
         userCreateBean.setPassword(null);
         userCreateBean.setEmail("demo2@demo.org");
@@ -484,7 +484,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setDateNew(new Date());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
-        final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
+        final UserAccount user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
         assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
@@ -496,7 +496,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @Test
        public void testCreateUserwithPassword() throws EnMeExpcetion{
         createDefaultPermission();
-        SecUserSecondary secCreateUser = new SecUserSecondary();
+        UserAccount secCreateUser = new UserAccount();
         UnitUserBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
         userCreateBean.setPassword("12345");
         userCreateBean.setEmail("demo1@demo.org");
@@ -507,7 +507,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
-        final SecUserSecondary user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
+        final UserAccount user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
         assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
@@ -519,7 +519,7 @@ public class TestSecurityService extends AbstractServiceBase{
        */
       @Test
       public void testCreateGroup() throws EnMeDomainNotFoundException{
-        SecGroup secCreateGroup = new SecGroup();
+        Group secCreateGroup = new Group();
         secCreateGroup.setGroupId(12L);
         secCreateGroup.setGroupDescriptionInfo("1111");
         secCreateGroup.setGroupName("vvvv");
@@ -535,7 +535,7 @@ public class TestSecurityService extends AbstractServiceBase{
        */
       @Test
       public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
-        final SecUserSecondary secUser = createSecondaryUser("demo",this.userPrimary);
+        final UserAccount secUser = createSecondaryUser("demo",this.userPrimary);
         final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
         final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.secPermission);
         userPermissionBean.setId(userPermissionBean.getId());
@@ -566,7 +566,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @Test
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermission() throws EnMeExpcetion{
-            final SecUserSecondary secUser = createSecondaryUser("juanpicado2",this.userPrimary);
+            final UserAccount secUser = createSecondaryUser("juanpicado2",this.userPrimary);
             final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
             final UnitPermission permissionBean = new UnitPermission();
             //modify id permission.
@@ -595,8 +595,8 @@ public class TestSecurityService extends AbstractServiceBase{
          */
         @Test
         public void testAssignGroup() throws EnMeExpcetion{
-          final SecUserSecondary users=  createSecondaryUser("juanpicado",this.userPrimary);
-          final SecGroup groups = createGroups("encuestador");
+          final UserAccount users=  createSecondaryUser("juanpicado",this.userPrimary);
+          final Group groups = createGroups("encuestador");
           UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(users);
           UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
           //securityService.assingGroup(userBean, groupBean);
@@ -607,8 +607,8 @@ public class TestSecurityService extends AbstractServiceBase{
          */
         @Test
         public void testsearchUsersByEmail(){
-            final SecUserSecondary email = createSecondaryUser("emailUser1", this.userPrimary);
-            List<SecUserSecondary> emailUsers = this.securityService.searchUsersByEmail(email.getUserEmail());
+            final UserAccount email = createSecondaryUser("emailUser1", this.userPrimary);
+            List<UserAccount> emailUsers = this.securityService.searchUsersByEmail(email.getUserEmail());
             assertEquals(emailUsers.size(), 1);
         }
 
@@ -618,7 +618,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @Test
         public void testsearchUsersByUsername(){
             createSecondaryUser("emailUser2", this.userPrimary);
-            List<SecUserSecondary> emailUsers = this.securityService.searchUsersByUsername("emailUser2");
+            List<UserAccount> emailUsers = this.securityService.searchUsersByUsername("emailUser2");
             assertEquals(emailUsers.size(), 1);
         }
 

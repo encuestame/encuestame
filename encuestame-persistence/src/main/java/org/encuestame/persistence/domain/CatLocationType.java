@@ -21,7 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * CatLocationType.
@@ -43,8 +43,8 @@ public class CatLocationType {
     /** Type Level. **/
     private Integer locationTypeLevel;
 
-    /** {@link SecUser}. **/
-    private SecUser users;
+    /** {@link Account}. **/
+    private Account users;
 
     /**
      * @return locationTypeId
@@ -97,14 +97,14 @@ public class CatLocationType {
      * @return the users
      */
     @ManyToOne()
-    public SecUser getUsers() {
+    public Account getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(final SecUser users) {
+    public void setUsers(final Account users) {
         this.users = users;
     }
 }

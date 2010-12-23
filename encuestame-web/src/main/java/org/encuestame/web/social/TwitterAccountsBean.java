@@ -15,7 +15,7 @@ package org.encuestame.web.social;
  import java.io.Serializable;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts.TypeAuth;
+import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.web.beans.MasterBean;
 

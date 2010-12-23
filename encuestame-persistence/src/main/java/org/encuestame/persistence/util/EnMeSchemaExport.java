@@ -14,13 +14,11 @@ package org.encuestame.persistence.util;
 
 import java.util.Date;
 
-import org.encuestame.persistence.dao.imp.CatStateDaoImp;
-import org.encuestame.persistence.dao.imp.SecPermissionDaoImp;
-import org.encuestame.persistence.dao.imp.SecUserDaoImp;
-import org.encuestame.persistence.domain.CatState;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.dao.imp.PermissionDaoImp;
+import org.encuestame.persistence.dao.imp.AccountDaoImp;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -80,11 +78,11 @@ public class EnMeSchemaExport {
         //TODO: lazy exception problem with this script.
 
         //create user admin
-        final SecUser userPrimary = new SecUser();
+        final Account userPrimary = new Account();
         userPrimary.setTwitterAccount("testEncuesta");
         userPrimary.setTwitterPassword("testEncuesta123");
 
-        final SecUserDaoImp secUserDao = (SecUserDaoImp) appContext.getBean("secUserDao");
+        final AccountDaoImp secUserDao = (AccountDaoImp) appContext.getBean("secUserDao");
         secUserDao.saveOrUpdate(userPrimary);
         final UnitUserBean user = new UnitUserBean();
         user.setDateNew(new Date());
@@ -100,22 +98,13 @@ public class EnMeSchemaExport {
         //securityService.assignPermission(user, permissionAdmin);
         //securityService.assignPermission(user, defaultUserPermission);
 
-        final SecPermissionDaoImp secPermissionDaoImp = (SecPermissionDaoImp) appContext.getBean("secPermissionDaoImp");
-        SecPermission d = secPermissionDaoImp.getPermissionById(1L);
-        SecPermission d2 = secPermissionDaoImp.getPermissionById(2L);
-        SecUserSecondary secondary = secUserDao.getSecondaryUserById(1L);
+        final PermissionDaoImp secPermissionDaoImp = (PermissionDaoImp) appContext.getBean("secPermissionDaoImp");
+        Permission d = secPermissionDaoImp.getPermissionById(1L);
+        Permission d2 = secPermissionDaoImp.getPermissionById(2L);
+        UserAccount secondary = secUserDao.getSecondaryUserById(1L);
         secondary.getSecUserPermissions().add(d);
         secondary.getSecUserPermissions().add(d2);
         secUserDao.saveOrUpdate(secondary);
-
-        final CatStateDaoImp stateDao = (CatStateDaoImp) appContext.getBean("catStateDaoImp");
-        final CatState activate = new CatState();
-        activate.setDescState("activate");
-        stateDao.saveOrUpdate(activate);
-        final CatState inactive = new CatState();
-        inactive.setDescState("inactive");
-        stateDao.saveOrUpdate(inactive);
-        stateDao.saveOrUpdate(inactive);
 
         final FileSystemXmlApplicationContext appContextTest = new FileSystemXmlApplicationContext(
                 SPRING_CONFIG_TEST_FILES);

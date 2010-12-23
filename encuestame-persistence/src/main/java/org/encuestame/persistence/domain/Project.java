@@ -32,9 +32,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 
 /**
@@ -55,9 +55,9 @@ public class Project {
     private String projectInfo;
     private Date projectDateStart;
     private Date projectDateFinish;
-    private SecUser users;
+    private Account users;
     private Priority priority = Priority.MEDIUM;
-    private SecUserSecondary lead;
+    private UserAccount lead;
     private Boolean notifyMembers;
     private Boolean hideProject;
     private Boolean published;
@@ -65,11 +65,11 @@ public class Project {
     /** Survey Groups on the project. **/
     private Set<SurveyGroup> surveyGroups = new HashSet<SurveyGroup>();
     /** Locations selected for this project. **/
-    private Set<CatLocation> locations = new HashSet<CatLocation>();
+    private Set<GeoPoint> locations = new HashSet<GeoPoint>();
     /** Group of user for this project. **/
-    private Set<SecGroup> groups = new HashSet<SecGroup>();
+    private Set<Group> groups = new HashSet<Group>();
     /** List of User for the project. **/
-    private Set<SecUserSecondary> secUserSecondaries = new HashSet<SecUserSecondary>();
+    private Set<UserAccount> secUserSecondaries = new HashSet<UserAccount>();
 
     /**
      */
@@ -189,14 +189,14 @@ public class Project {
     @JoinTable(name="project_locations",
               joinColumns={@JoinColumn(name="cat_id_project")},
               inverseJoinColumns={@JoinColumn(name="cat_id_loc")})
-    public Set<CatLocation> getLocations() {
+    public Set<GeoPoint> getLocations() {
         return locations;
     }
 
     /**
      * @param locations the locations to set
      */
-    public void setLocations(final Set<CatLocation> locations) {
+    public void setLocations(final Set<GeoPoint> locations) {
         this.locations = locations;
     }
 
@@ -207,14 +207,14 @@ public class Project {
     @JoinTable(name="sec_project_group",
               joinColumns={@JoinColumn(name="cat_id_project")},
               inverseJoinColumns={@JoinColumn(name="sec_id_group")})
-    public Set<SecGroup> getGroups() {
+    public Set<Group> getGroups() {
         return groups;
     }
 
     /**
      * @param groups the groups to set
      */
-    public void setGroups(final Set<SecGroup> groups) {
+    public void setGroups(final Set<Group> groups) {
         this.groups = groups;
     }
 
@@ -225,14 +225,14 @@ public class Project {
     @JoinTable(name="sec_user_project",
                joinColumns={@JoinColumn(name="cat_id_project")},
                inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
-    public Set<SecUserSecondary> getSecUserSecondaries() {
+    public Set<UserAccount> getSecUserSecondaries() {
         return secUserSecondaries;
     }
 
     /**
      * @param secUserSecondaries the secUserSecondaries to set
      */
-    public void setSecUserSecondaries(final Set<SecUserSecondary> secUserSecondaries) {
+    public void setSecUserSecondaries(final Set<UserAccount> secUserSecondaries) {
         this.secUserSecondaries = secUserSecondaries;
     }
 
@@ -260,14 +260,14 @@ public class Project {
      * @return the users
      */
     @ManyToOne()
-    public SecUser getUsers() {
+    public Account getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(SecUser users) {
+    public void setUsers(Account users) {
         this.users = users;
     }
 
@@ -291,14 +291,14 @@ public class Project {
      * @return the lead
      */
     @ManyToOne()
-    public SecUserSecondary getLead() {
+    public UserAccount getLead() {
         return lead;
     }
 
     /**
      * @param lead the lead to set
      */
-    public void setLead(SecUserSecondary lead) {
+    public void setLead(UserAccount lead) {
         this.lead = lead;
     }
 

@@ -19,9 +19,9 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,14 +33,14 @@ import org.junit.Test;
  */
 public class TestSecGroupDaoImp extends AbstractBase{
 
-    /** {@link SecUserSecondary}. **/
-    private SecUserSecondary secondary;
+    /** {@link UserAccount}. **/
+    private UserAccount secondary;
 
-    /** {@link SecGroup} **/
-    private SecGroup secGroup;
+    /** {@link Group} **/
+    private Group secGroup;
 
-    /** {@link SecUser} **/
-    private SecUser secUser;
+    /** {@link Account} **/
+    private Account secUser;
 
 
     @Before
@@ -57,7 +57,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
     */
     @Test
     public void TestCreateGroup(){
-        final SecGroup group = super.createGroups("first group");
+        final Group group = super.createGroups("first group");
         assertNotNull(group);
     }
 
@@ -66,7 +66,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
      */
     @Test
    public void TestDeleteGroup(){
-        final SecGroup group = super.createGroups("second group");
+        final Group group = super.createGroups("second group");
         getSecGroup().delete(group);
         assertEquals("Should be equals",1, getSecGroup().findAllGroups().size());
     }
@@ -86,11 +86,11 @@ public class TestSecGroupDaoImp extends AbstractBase{
     public void TestUpdateGroup(){
         final String newName = "Administrator";
         final String newDescription = "System Admin";
-        final SecGroup group = super.createGroups("fifth group");
+        final Group group = super.createGroups("fifth group");
         group.setGroupName(newName);
         group.setGroupDescriptionInfo(newDescription);
         getSecGroup().saveOrUpdate(group);
-        final SecGroup retrieveGroup = getSecGroupDaoImp().getGroupById(
+        final Group retrieveGroup = getSecGroupDaoImp().getGroupById(
                 Long.valueOf(group.getGroupId()));
         /*sertEquals("New Name should be",newname,
             retrieveGroup.getName());

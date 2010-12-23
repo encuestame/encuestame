@@ -14,8 +14,8 @@ package org.encuestame.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.ICatLocationTypeDao;
-import org.encuestame.persistence.domain.CatLocation;
+import org.encuestame.persistence.dao.IGeoPointTypeDao;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.CatLocationType;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
  * @version $Id$
  */
 @Repository
-public class CatLocationTypeDao extends AbstractHibernateDaoSupport implements ICatLocationTypeDao {
+public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeoPointTypeDao {
 
     /**
      * Find All {@link CatLocationType}
@@ -42,7 +42,7 @@ public class CatLocationTypeDao extends AbstractHibernateDaoSupport implements I
     /**
      * Find Locate type by Id.
      * @param locaTypeId locate type id
-     * @return {@link CatLocation}
+     * @return {@link GeoPoint}
      * @throws HibernateException excetion
      */
     public CatLocationType getLocationById(final Long locaTypeId) throws HibernateException {

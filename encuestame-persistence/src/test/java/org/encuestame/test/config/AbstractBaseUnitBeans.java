@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
@@ -203,7 +203,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
               Boolean publishTweetPoll,
               Boolean completed,
               Date scheduleDate,
-              SecUser tweetOwner,
+              Account tweetOwner,
               Question question){
          final TweetPoll tweetPoll = new TweetPoll();
          tweetPoll.setPublishTweetPoll(publishTweetPoll);
@@ -225,7 +225,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       */
      public TweetPollSwitch createTweetPollSwitch(
              final TweetPoll tweetPoll,
-             final QuestionsAnswers answers,
+             final QuestionAnswer answers,
              final String codeTweet) {
          final TweetPollSwitch tweetPollSwitch = new TweetPollSwitch();
          tweetPollSwitch.setAnswers(answers);

@@ -132,4 +132,13 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     void deleteSurveyFolder(final Long folderId) throws EnMeDomainNotFoundException;
 
-}
+    /**
+     * Add Survey to Folder.
+     * @param folderId
+     * @param username
+     * @param surveyId
+     * @throws EnMeDomainNotFoundException
+     */
+    void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeDomainNotFoundException;
+
+ }

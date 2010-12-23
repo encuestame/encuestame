@@ -14,7 +14,7 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.*;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class TestSecUsers extends AbstractBase{
      */
     @Test
     public void testSecUser(){
-        final SecUser user = new SecUser();
+        final Account user = new Account();
         user.setTwitterAccount("testTWitterAccount");
         user.setTwitterPassword("testTwitterPwsd");
         getSecUserDao().saveOrUpdate(user);

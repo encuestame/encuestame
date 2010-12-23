@@ -15,7 +15,7 @@ package org.encuestame.test.business.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.junit.Before;
@@ -34,9 +34,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public abstract class AbstractSpringSecurityContext extends AbstractServiceBase {
 
     /**
-     * {@link SecUserSecondary}.
+     * {@link UserAccount}.
      */
-    public SecUserSecondary secondary;
+    public UserAccount secondary;
 
     /**
      * Username of User Logged.
@@ -56,14 +56,14 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
     /**
      * @return the secondary
      */
-    public SecUserSecondary getSecondary() {
+    public UserAccount getSecondary() {
         return secondary;
     }
 
     /**
      * @param secondary the secondary to set
      */
-    public void setSecondary(SecUserSecondary secondary) {
+    public void setSecondary(UserAccount secondary) {
         this.secondary = secondary;
     }
 

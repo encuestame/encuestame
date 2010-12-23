@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.SecPermission;
+import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
@@ -30,7 +30,7 @@ import org.junit.Test;
  */
 public class TestSecPermissionDaoImp extends AbstractBase {
 
-     private SecPermission permission;
+     private Permission permission;
 
     /**
      * Before.
@@ -49,7 +49,7 @@ public class TestSecPermissionDaoImp extends AbstractBase {
      */
     @Test
     public void testloadPermission(){
-        final SecPermission retrievedPermission = getSecPermissionDaoImp().loadPermission(EnMePermission.ENCUESTAME_USER);
+        final Permission retrievedPermission = getSecPermissionDaoImp().loadPermission(EnMePermission.ENCUESTAME_USER);
         assertEquals("should be equals", permission.getPermission(), retrievedPermission.getPermission());
     }
 
@@ -58,8 +58,8 @@ public class TestSecPermissionDaoImp extends AbstractBase {
      */
     @Test
     public void testloadAllPermissions(){
-        final List<SecPermission> allPermissions = getSecPermissionDaoImp().loadAllPermissions();
-        for (SecPermission secPermission : allPermissions) {
+        final List<Permission> allPermissions = getSecPermissionDaoImp().loadAllPermissions();
+        for (Permission secPermission : allPermissions) {
             log.info("s "+secPermission.getPermission());
         }
         assertEquals("should be equals", 5, allPermissions.size());

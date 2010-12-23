@@ -27,7 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Surveys.
@@ -38,13 +38,13 @@ import org.encuestame.persistence.domain.security.SecUser;
  */
 @Entity
 @Table(name = "surveys")
-public class Surveys extends AbstractSurvey {
+public class Survey extends AbstractSurvey {
 
     /****/
     private Long sid;
 
     /****/
-    private SecUser secUsers;
+    private Account secUsers;
 
     /****/
     private Integer ticket;
@@ -91,14 +91,14 @@ public class Surveys extends AbstractSurvey {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getSecUsers() {
+    public Account getSecUsers() {
         return this.secUsers;
     }
 
     /**
      * @param secUsers secUsers
      */
-    public void setSecUsers(SecUser secUsers) {
+    public void setSecUsers(Account secUsers) {
         this.secUsers = secUsers;
     }
 

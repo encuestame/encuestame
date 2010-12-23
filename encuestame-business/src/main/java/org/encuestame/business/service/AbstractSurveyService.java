@@ -32,9 +32,9 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
@@ -147,7 +147,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws EnMeExpcetion EnMeExpcetion
      */
     public void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion{
-            final QuestionsAnswers answer = new QuestionsAnswers();
+            final QuestionAnswer answer = new QuestionAnswer();
             if(answerBean.getQuestionId()!= null){
                 final Question question = getQuestionDao().retrieveQuestionById(answerBean.getQuestionId());
                 answer.setQuestions(question);
@@ -183,10 +183,10 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return List of Answers
      */
     public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
-        final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
+        final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
         log.debug("answers by question id ["+questionId+"] answers size "+answers.size());
         final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
-        for (QuestionsAnswers questionsAnswers : answers) {
+        for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
         }
         return answersBean;
@@ -216,7 +216,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws EnMeExpcetion exception
      */
     public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion{
-            final QuestionsAnswers answer = getQuestionDao().retrieveAnswerById(answerId);
+            final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(answerId);
             if(answer==null){
                 throw new EnMeExpcetion("answer not found");
             }
@@ -248,8 +248,8 @@ public class AbstractSurveyService extends AbstractChartService {
             tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
             tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
             this.getTweetPollDao().saveOrUpdate(tweetPollDomain);
-            final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(question.getQid());
-            for (QuestionsAnswers questionsAnswers : answers) {
+            final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(question.getQid());
+            for (QuestionAnswer questionsAnswers : answers) {
                 final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
                 tPollSwitch.setAnswers(questionsAnswers);
                 tPollSwitch.setTweetPoll(tweetPollDomain);
@@ -287,9 +287,9 @@ public class AbstractSurveyService extends AbstractChartService {
         try{
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
-            final List<QuestionsAnswers> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
+            final List<QuestionAnswer> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
             if(answers.size()==2){
-                for (final QuestionsAnswers questionsAnswers : answers) {
+                for (final QuestionAnswer questionsAnswers : answers) {
                     tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
                 }
             }
@@ -306,7 +306,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws IOException exception
      * @throws HttpException exception
      */
-    private String buildUrlAnswer(final QuestionsAnswers answer, final String domain) throws HttpException, IOException{
+    private String buildUrlAnswer(final QuestionAnswer answer, final String domain) throws HttpException, IOException{
         StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
@@ -319,7 +319,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final SecUserTwitterAccounts account) throws EnMeExpcetion {
+    public Status publicTweetPoll(final String tweetText, final SocialAccount account) throws EnMeExpcetion {
         try {
            return getTwitterService().publicTweet(account, tweetText);
         } catch (TwitterException e) {
@@ -344,7 +344,6 @@ public class AbstractSurveyService extends AbstractChartService {
                     final UnitQuestionBean q = new UnitQuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
-                    q.setStateId(questions.getCatState().getIdState());
                     listQuestionBean.add(q);
                 }
             }
@@ -434,7 +433,7 @@ public class AbstractSurveyService extends AbstractChartService {
     public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeDomainNotFoundException{
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        for (QuestionsAnswers questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
+        for (QuestionAnswer questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
               final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
               final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
               tweetPollResult.setResults(Long.valueOf(result.get(0)[1].toString()));

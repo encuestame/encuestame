@@ -28,10 +28,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.QuestionColettion;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -51,16 +51,15 @@ import org.hibernate.search.annotations.Store;
 public class Question {
 
     private Long qid;
-    private CatState catState;
     private String question;
     private String qidKey;
     private Boolean sharedQuestion;
     private QuestionPattern questionPattern;
-    private SecUser secUsersQuestion;
+    private Account secUsersQuestion;
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
-    /** {@link QuestionsAnswers}. **/
-    private Set<QuestionsAnswers> questionsAnswers = new HashSet<QuestionsAnswers>();
+    /** {@link QuestionAnswer}. **/
+    private Set<QuestionAnswer> questionsAnswers = new HashSet<QuestionAnswer>();
 
     /**
      * @return qid
@@ -78,23 +77,6 @@ public class Question {
      */
     public void setQid(final Long qid) {
         this.qid = qid;
-    }
-
-
-    /**
-     * @return catState
-     */
-    @ManyToOne()
-    @JoinColumn(name = "id_state", nullable = true)
-    public CatState getCatState() {
-        return this.catState;
-    }
-
-    /**
-     * @param catState catState
-     */
-    public void setCatState(final CatState catState) {
-        this.catState = catState;
     }
 
     /**
@@ -168,14 +150,14 @@ public class Question {
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getSecUsersQuestion() {
+    public Account getSecUsersQuestion() {
         return secUsersQuestion;
     }
 
     /**
      * @param secUsersQuestion the secUsersQuestion to set
      */
-    public void setSecUsersQuestion(final SecUser secUsersQuestion) {
+    public void setSecUsersQuestion(final Account secUsersQuestion) {
         this.secUsersQuestion = secUsersQuestion;
     }
 
@@ -198,14 +180,14 @@ public class Question {
      * @return the questionsAnswers
      */
     @OneToMany(mappedBy = "questions", cascade = CascadeType.REMOVE)
-    public Set<QuestionsAnswers> getQuestionsAnswers() {
+    public Set<QuestionAnswer> getQuestionsAnswers() {
         return questionsAnswers;
     }
 
     /**
      * @param questionsAnswers the questionsAnswers to set
      */
-    public void setQuestionsAnswers(final Set<QuestionsAnswers> questionsAnswers) {
+    public void setQuestionsAnswers(final Set<QuestionAnswer> questionsAnswers) {
         this.questionsAnswers = questionsAnswers;
     }
 }

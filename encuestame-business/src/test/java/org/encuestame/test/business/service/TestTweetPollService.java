@@ -26,9 +26,9 @@ import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
@@ -62,11 +62,11 @@ public class TestTweetPollService  extends AbstractServiceBase{
     /** {@link QuestionPattern} **/
     private QuestionPattern pattern;
 
-    /** {@link SecUser} **/
-    private SecUser user;
+    /** {@link Account} **/
+    private Account user;
 
-    /** {@link SecUserSecondary}. **/
-    private SecUserSecondary secUserSecondary;
+    /** {@link UserAccount}. **/
+    private UserAccount secUserSecondary;
 
     private List<UnitAnswersBean> answers;
 
@@ -147,7 +147,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
      */
     public void testSaveTweetId() throws EnMeExpcetion{
         Question questionSave = createQuestion("how much or How Many?","html");
-        SecUser usersave= createUser("dianmora", "xxxxxxx");
+        Account usersave= createUser("dianmora", "xxxxxxx");
         final String tweetUrl = "http://www.encuestame.org";
         final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), usersave, questionSave);
 
@@ -224,7 +224,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         final Question question2 = createQuestion("Why the sea is big?","html");
         createTweetPollPublicated(true, true, new Date(), this.user, question1);
         createTweetPollPublicated(true, true, new Date(), this.user, question2);
-        final SecUserSecondary secUser = createSecondaryUser("diana", this.user);
+        final UserAccount secUser = createSecondaryUser("diana", this.user);
         final List<UnitTweetPoll> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(
                 secUser.getUsername(),5,0);
         assertEquals("Should be equals", 2 , tweetPollsByUser.size());
@@ -234,7 +234,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     @Test
     public void testPublicMultiplesTweetAccounts(){
             createDefaultSettedTwitterAccount(this.secUserSecondary.getSecUser());
-            final List<SecUserTwitterAccounts> list = getSecUserDao().getTwitterAccountByUser(this.secUserSecondary.getSecUser());
+            final List<SocialAccount> list = getSecUserDao().getTwitterAccountByUser(this.secUserSecondary.getSecUser());
             final List<UnitTwitterAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListTwitterAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);

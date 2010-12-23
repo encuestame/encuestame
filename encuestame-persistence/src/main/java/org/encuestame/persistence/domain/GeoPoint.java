@@ -29,7 +29,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * CatLocation.
@@ -40,7 +40,7 @@ import org.encuestame.persistence.domain.security.SecUser;
  */
 @Entity
 @Table(name = "cat_location")
-public class CatLocation {
+public class GeoPoint {
 
     /** Id. **/
     private Long locateId;
@@ -72,10 +72,10 @@ public class CatLocation {
     private Integer locationAccuracy;
 
     /** User. **/
-    private SecUser secUsers;
+    private Account secUsers;
 
     /** Location Folder. **/
-    private CatLocationFolder catLocationFolder;
+    private GeoFolder catLocationFolder;
 
     /** Projects. **/
     private Set<Project> projects = new HashSet<Project>();
@@ -173,14 +173,14 @@ public class CatLocation {
      * @return the secUsers
      */
     @ManyToOne()
-    public SecUser getSecUsers() {
+    public Account getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(SecUser secUsers) {
+    public void setSecUsers(Account secUsers) {
         this.secUsers = secUsers;
     }
 
@@ -204,14 +204,14 @@ public class CatLocation {
      * @return the catLocationFolder
      */
     @ManyToOne(cascade=CascadeType.MERGE)
-    public CatLocationFolder getCatLocationFolder() {
+    public GeoFolder getCatLocationFolder() {
         return catLocationFolder;
     }
 
     /**
      * @param catLocationFolder the catLocationFolder to set
      */
-    public void setCatLocationFolder(CatLocationFolder catLocationFolder) {
+    public void setCatLocationFolder(GeoFolder catLocationFolder) {
         this.catLocationFolder = catLocationFolder;
     }
 

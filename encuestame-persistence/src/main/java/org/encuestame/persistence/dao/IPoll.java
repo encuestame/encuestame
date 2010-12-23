@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.PollDao;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.hibernate.HibernateException;
@@ -79,18 +79,18 @@ public interface IPoll extends IBaseDao {
 
      /**
       * Poll Folder.
-      * @param secUser {@link SecUser}.
+      * @param secUser {@link Account}.
       * @return list of folders.
       */
-     List<IFolder> getPollFolderBySecUser(final SecUser secUser);
+     List<IFolder> getPollFolderBySecUser(final Account secUser);
 
      /**
       * Get Polls by Folder.
-      * @param SecUser
+      * @param Account
       * @param folder
       * @return
       */
-     List<Poll> getPollsByPollFolder(final SecUser userId, final PollFolder folder);
+     List<Poll> getPollsByPollFolder(final Account userId, final PollFolder folder);
 
      /**
       * Get Polls by Folder Id.

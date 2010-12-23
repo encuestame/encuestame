@@ -14,7 +14,7 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.encuestame.persistence.domain.CatLocation;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class TestCatLocation extends AbstractBase{
      */
     @Test
     public void testCatLocation(){
-        final CatLocation catLoc = new CatLocation();
+        final GeoPoint catLoc = new GeoPoint();
         catLoc.setLocationStatus(Status.ACTIVE);
         catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);

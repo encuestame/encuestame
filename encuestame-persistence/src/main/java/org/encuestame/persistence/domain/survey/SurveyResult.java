@@ -36,7 +36,7 @@ public class SurveyResult {
     private Long rid;
     private String resp;
     //private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>();
-    private Surveys surveys = new Surveys();
+    private Survey surveys = new Survey();
 
     /**
      * @return rid
@@ -75,14 +75,14 @@ public class SurveyResult {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "survey_id", nullable = false)
-    public Surveys getSurveys() {
+    public Survey getSurveys() {
         return surveys;
     }
 
     /**
      * @param surveys the surveys to set
      */
-    public void setSurveys(Surveys surveys) {
+    public void setSurveys(Survey surveys) {
         this.surveys = surveys;
     }
 

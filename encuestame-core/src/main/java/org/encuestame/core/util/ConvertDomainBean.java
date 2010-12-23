@@ -21,24 +21,24 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoFolder;
 import org.encuestame.persistence.domain.CatLocationType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts.TypeAuth;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
-import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
@@ -79,7 +79,7 @@ public class ConvertDomainBean {
      * @return Bean User
      */
     @Deprecated
-    public static final UnitUserBean convertUserDaoToUserBean(final SecUserSecondary domainUser) {
+    public static final UnitUserBean convertUserDaoToUserBean(final UserAccount domainUser) {
         final UnitUserBean user = new UnitUserBean();
         try {
             user.setName(domainUser.getCompleteName());
@@ -116,7 +116,7 @@ public class ConvertDomainBean {
      * @param twitterAccounts
      * @return
      */
-    public static final UnitTwitterAccountBean convertTwitterAccountToBean(final SecUserTwitterAccounts twitterAccounts){
+    public static final UnitTwitterAccountBean convertTwitterAccountToBean(final SocialAccount twitterAccounts){
            final UnitTwitterAccountBean twitterAccountBean = new UnitTwitterAccountBean();
                    twitterAccountBean.setAccount(twitterAccounts.getTwitterAccount());
                    twitterAccountBean.setSecret(twitterAccounts.getConsumerSecret());
@@ -128,7 +128,7 @@ public class ConvertDomainBean {
                    twitterAccountBean.setSecretToken(twitterAccounts.getSecretToken());
                    twitterAccountBean.setTypeAccount(twitterAccounts.getAccounType().name());
                    twitterAccountBean.setType(twitterAccounts.getType() == null
-                          ? SecUserTwitterAccounts.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
+                          ? SocialAccount.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
            return twitterAccountBean;
     }
 
@@ -162,9 +162,9 @@ public class ConvertDomainBean {
      * @param accounts
      * @return
      */
-    public static final  List<UnitTwitterAccountBean> convertListTwitterAccountsToBean(final List<SecUserTwitterAccounts> accounts) {
+    public static final  List<UnitTwitterAccountBean> convertListTwitterAccountsToBean(final List<SocialAccount> accounts) {
         final List<UnitTwitterAccountBean> loadListPermission = new ArrayList<UnitTwitterAccountBean>();
-        for (SecUserTwitterAccounts account : accounts) {
+        for (SocialAccount account : accounts) {
             loadListPermission.add(ConvertDomainBean.convertTwitterAccountToBean(account));
         }
         return loadListPermission;
@@ -175,7 +175,7 @@ public class ConvertDomainBean {
      * @param twitterAccounts
      * @return
      */
-    public static final UnitLists convertEmailListtoToBean(final CatEmailLists emailLists){
+    public static final UnitLists convertEmailListtoToBean(final EmailList emailLists){
            final UnitLists emailListsBean = new UnitLists();
                   emailListsBean.setCreatedAt(emailLists.getCreatedAt());
                   emailListsBean.setId(emailLists.getIdList());
@@ -189,9 +189,9 @@ public class ConvertDomainBean {
      * @param accounts
      * @return
      */
-    public static final  List<UnitLists> convertEmailListToBean(final List<CatEmailLists> lists) {
+    public static final  List<UnitLists> convertEmailListToBean(final List<EmailList> lists) {
         final List<UnitLists> loadEmailLists = new ArrayList<UnitLists>();
-        for (CatEmailLists emailList : lists) {
+        for (EmailList emailList : lists) {
             loadEmailLists.add(ConvertDomainBean.convertEmailListtoToBean(emailList));
         }
         return loadEmailLists;
@@ -199,11 +199,11 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert {@link SecUser} to {@link UnitSessionUserBean}.
+     * Convert {@link Account} to {@link UnitSessionUserBean}.
      * @param user user
      * @return {@link UnitSessionUserBean}
      */
-    public static final UnitSessionUserBean convertUserSessionToUserBean(final SecUser user){
+    public static final UnitSessionUserBean convertUserSessionToUserBean(final Account user){
         final UnitSessionUserBean sessionUserBean =  new UnitSessionUserBean();
         sessionUserBean.setUserSessionId(user.getUid());
         sessionUserBean.setConsumerTwitterKey(user.getConsumerKey());
@@ -215,11 +215,11 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link SecUserSecondary} to {@link UnitUserBean}.
-     * @param secUserSecondary {@link SecUserSecondary}.
+     * Convert {@link UserAccount} to {@link UnitUserBean}.
+     * @param secUserSecondary {@link UserAccount}.
      * @return {@link UnitUserBean}
      */
-    public static final UnitUserBean convertSecondaryUserToUserBean(final SecUserSecondary secUserSecondary){
+    public static final UnitUserBean convertSecondaryUserToUserBean(final UserAccount secUserSecondary){
         final UnitUserBean unitUserBean = new UnitUserBean();
         if(secUserSecondary != null){
             unitUserBean.setId(secUserSecondary.getUid());
@@ -240,11 +240,11 @@ public class ConvertDomainBean {
         return unitUserBean;
     }
     /**
-     * Convert Basic {@link SecUserSecondary} to {@link UnitUserBean}.
-     * @param secUserSecondary {@link SecUserSecondary}.
+     * Convert Basic {@link UserAccount} to {@link UnitUserBean}.
+     * @param secUserSecondary {@link UserAccount}.
      * @return {@link UnitUserBean}
      */
-    public static final UnitUserBean convertBasicSecondaryUserToUserBean(final SecUserSecondary secUserSecondary){
+    public static final UnitUserBean convertBasicSecondaryUserToUserBean(final UserAccount secUserSecondary){
         final UnitUserBean unitUserBean = new UnitUserBean();
         if(secUserSecondary != null){
             unitUserBean.setId(secUserSecondary.getUid());
@@ -257,13 +257,13 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert List of {@link SecUserSecondary} to {@link UnitUserBean}.
+     * Convert List of {@link UserAccount} to {@link UnitUserBean}.
      * @param listUsers
      * @return
      */
-    public static final List<UnitUserBean> convertCollectionUsersToBean(final Collection<SecUserSecondary> listUsers) {
+    public static final List<UnitUserBean> convertCollectionUsersToBean(final Collection<UserAccount> listUsers) {
         final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        for (SecUserSecondary secUserSecondary : listUsers) {
+        for (UserAccount secUserSecondary : listUsers) {
             loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary));
         }
         return loadListUsers;
@@ -275,9 +275,9 @@ public class ConvertDomainBean {
      * @return collection of permission
      * @throws Exception all exceptions.
   */
-    public static final Collection<UnitPermission> convertSetToUnitPermission(final Set<SecPermission> permissions) {
+    public static final Collection<UnitPermission> convertSetToUnitPermission(final Set<Permission> permissions) {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        for (SecPermission secPermission : permissions) {
+        for (Permission secPermission : permissions) {
             loadListPermission.add(ConvertDomainBean.convertPermissionToBean(secPermission));
         }
         return loadListPermission;
@@ -289,20 +289,20 @@ public class ConvertDomainBean {
      * @return collection of groups beans.
      * @throws Exception
      */
-    public static final Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<SecGroup> groups){
+    public static final Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<Group> groups){
             final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-            for (SecGroup secGroups : groups) {
+            for (Group secGroups : groups) {
                  loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
             }
         return loadListGroups;
     }
 
     /**
-     * Convert {@link SecGroup} to {@link UnitGroupBean}
-     * @param groupDomain {@link SecGroup}
+     * Convert {@link Group} to {@link UnitGroupBean}
+     * @param groupDomain {@link Group}
      * @return {@link UnitGroupBean}
      */
-    public static final UnitGroupBean convertGroupDomainToBean(final SecGroup groupDomain) {
+    public static final UnitGroupBean convertGroupDomainToBean(final Group groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
         if (groupDomain != null) {
             groupBean.setId(groupDomain.getGroupId());
@@ -314,11 +314,11 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link CatLocation} to {@link UnitLocationBean}.
-     * @param location {@link CatLocation}
+     * Convert {@link GeoPoint} to {@link UnitLocationBean}.
+     * @param location {@link GeoPoint}
      * @return {@link UnitLocationBean}
      */
-    public static final UnitLocationBean convertLocationToBean(final CatLocation location){
+    public static final UnitLocationBean convertLocationToBean(final GeoPoint location){
         final UnitLocationBean locationBean = new UnitLocationBean();
         locationBean.setId(location.getLocateId());
         locationBean.setStatus(location.getLocationStatus()  == null ? Status.INACTIVE.name() : location.getLocationStatus().name());
@@ -337,12 +337,12 @@ public class ConvertDomainBean {
 
     /**
      * Convert List of Locations.
-     * @param catLocations List {@link CatLocation}
+     * @param catLocations List {@link GeoPoint}
      * @return List of {@link UnitLocationBean}
      */
-    public static final List<UnitLocationBean> convertListToUnitLocationBean(final List<CatLocation> catLocations){
+    public static final List<UnitLocationBean> convertListToUnitLocationBean(final List<GeoPoint> catLocations){
         final List<UnitLocationBean> listLocations = new ArrayList<UnitLocationBean>();
-        for (CatLocation location : catLocations) {
+        for (GeoPoint location : catLocations) {
             listLocations.add(ConvertDomainBean.convertLocationToBean(location));
         }
     return listLocations;
@@ -396,11 +396,11 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert {@link SecPermission} to {@link UnitPermission}
+     * Convert {@link Permission} to {@link UnitPermission}
      * @param permission permission.
      * @return permBean
      */
-    public static final UnitPermission convertPermissionToBean(final SecPermission permission){
+    public static final UnitPermission convertPermissionToBean(final Permission permission){
       final UnitPermission permBean = new UnitPermission();
       permBean.setId(permission.getIdPermission());
       permBean.setDescription(permission.getPermissionDescription());
@@ -432,16 +432,15 @@ public class ConvertDomainBean {
         questionBean.setId(questions.getQid());
         questionBean.setQuestionName(questions.getQuestion());
         questionBean.setUserId(questions.getSecUsersQuestion().getUid());
-        questionBean.setStateId(questions.getCatState() == null ? null : questions.getCatState().getIdState());
         return questionBean;
     }
 
     /**
-     * Convert {@link QuestionsAnswers} to {@link UnitAnswersBean}.
-     * @param questionsAnswer {@link QuestionsAnswers}
+     * Convert {@link QuestionAnswer} to {@link UnitAnswersBean}.
+     * @param questionsAnswer {@link QuestionAnswer}
      * @return {@link UnitAnswersBean}.
      */
-    public static final UnitAnswersBean convertAnswerToBean(final QuestionsAnswers questionsAnswer){
+    public static final UnitAnswersBean convertAnswerToBean(final QuestionAnswer questionsAnswer){
             final UnitAnswersBean answersBean = new UnitAnswersBean();
             answersBean.setAnswerId(questionsAnswer.getQuestionAnswerId());
             answersBean.setAnswers(questionsAnswer.getAnswer());
@@ -509,24 +508,24 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert List of {@link CatLocationFolder}. to List of {@link UnitLocationFolder}.
-     * @param catLocationFolders {@link CatLocationFolder}.
+     * Convert List of {@link GeoFolder}. to List of {@link UnitLocationFolder}.
+     * @param catLocationFolders {@link GeoFolder}.
      * @return
      */
-    public static final List<UnitLocationFolder> convertListToUnitLocationFolderBean(final List<CatLocationFolder> catLocationFolders){
+    public static final List<UnitLocationFolder> convertListToUnitLocationFolderBean(final List<GeoFolder> catLocationFolders){
         final List<UnitLocationFolder> listFolders = new ArrayList<UnitLocationFolder>();
-        for (CatLocationFolder locationFolder : catLocationFolders) {
+        for (GeoFolder locationFolder : catLocationFolders) {
             listFolders.add(ConvertDomainBean.convertCatLocationFolderDomainToBean(locationFolder));
         }
     return listFolders;
     }
 
     /**
-     * Convert {@link CatLocationFolder}. to {@link UnitLocationFolder}.
-     * @param catLocationFolder {@link CatLocationFolder}.
+     * Convert {@link GeoFolder}. to {@link UnitLocationFolder}.
+     * @param catLocationFolder {@link GeoFolder}.
      * @return {@link UnitLocationFolder}.
      */
-    public static UnitLocationFolder convertCatLocationFolderDomainToBean(final CatLocationFolder catLocationFolder){
+    public static UnitLocationFolder convertCatLocationFolderDomainToBean(final GeoFolder catLocationFolder){
         final UnitLocationFolder locationFolder = new UnitLocationFolder();
         locationFolder.setId(catLocationFolder.getLocationFolderId());
         locationFolder.setName(catLocationFolder.getLocationFolderName());
@@ -615,7 +614,7 @@ public class ConvertDomainBean {
         return folderList;
     }
 
-    public static final UnitSurvey convertSurveyDomaintoBean(final Surveys survey){
+    public static final UnitSurvey convertSurveyDomaintoBean(final Survey survey){
 
         final UnitSurvey unitSurvey = new UnitSurvey();
         unitSurvey.setSid(survey.getSid());

@@ -20,8 +20,8 @@ import java.io.IOException;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.imp.ITwitterService;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.junit.Before;
@@ -45,10 +45,10 @@ public class TestTwitterService extends AbstractServiceBase {
     @Autowired
     public ITwitterService twitterService;
 
-    /** {@link SecUser}. **/
-    private SecUser user;
+    /** {@link Account}. **/
+    private Account user;
 
-    private SecUserTwitterAccounts secUserTwitterAccount;
+    private SocialAccount secUserTwitterAccount;
 
     /**
      * Before.

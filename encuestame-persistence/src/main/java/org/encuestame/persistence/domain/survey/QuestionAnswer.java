@@ -32,7 +32,7 @@ import org.encuestame.persistence.domain.Question;
  */
 @Entity
 @Table(name = "questions_answers")
-public class QuestionsAnswers {
+public class QuestionAnswer {
 
     /** questionAnswerId. **/
     private Long questionAnswerId;

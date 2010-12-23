@@ -26,9 +26,9 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.dao.IFolder;
-import org.encuestame.persistence.domain.CatEmails;
+import org.encuestame.persistence.domain.Emails;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.utils.web.UnitFolder;
@@ -177,7 +177,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeDomainNotFoundException
      */
     public List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException{
-        final SecUser secUser = getUser(username).getSecUser();
+        final Account secUser = getUser(username).getSecUser();
         final List<Poll> polls = getPollDao().getPollsByPollFolder(secUser, getPollFolder(folder.getId()));
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
@@ -210,9 +210,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      *
      */
     public void publicPollByList(String urlPoll, UnitLists emailList) {
-        final List<CatEmails> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
+        final List<Emails> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
         if(emailList !=null){
-                 for (CatEmails emails : emailsList) {
+                 for (Emails emails : emailsList) {
                    getServiceMail().send(emails.getEmail(),"New Poll", urlPoll);
                   }
          }
@@ -237,7 +237,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeDomainNotFoundException exception
      */
     public List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException{
-        final SecUser secUser = getUser(username).getSecUser();
+        final Account secUser = getUser(username).getSecUser();
         final List<IFolder> folders = getPollDao().getPollFolderBySecUser(secUser);
         return ConvertDomainBean.convertListToUniUnitFolder(folders);
     }

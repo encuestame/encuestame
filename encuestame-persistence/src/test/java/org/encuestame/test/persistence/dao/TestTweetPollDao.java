@@ -19,8 +19,8 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBase;
@@ -35,14 +35,14 @@ import org.junit.Test;
  */
 public class TestTweetPollDao  extends AbstractBase{
 
-    /** {@link SecUserSecondary}. **/
-    private SecUserSecondary secondary;
+    /** {@link UserAccount}. **/
+    private UserAccount secondary;
 
-    /** {@link QuestionsAnswers}. **/
-    private QuestionsAnswers questionsAnswers1;
+    /** {@link QuestionAnswer}. **/
+    private QuestionAnswer questionsAnswers1;
 
-    /** {@link QuestionsAnswers}. **/
-    private QuestionsAnswers questionsAnswers2;
+    /** {@link QuestionAnswer}. **/
+    private QuestionAnswer questionsAnswers2;
 
     /** {@link TweetPollSwitch}. **/
     private TweetPollSwitch pollSwitch1;

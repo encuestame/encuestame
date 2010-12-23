@@ -4,12 +4,12 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="catLocationDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.CatLocationDao">
+    <bean id="geoPointDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.GeoPointDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="catLocationTypeDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.CatLocationTypeDao">
+    <bean id="geoPointTypeDao" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.GeoPointTypeDao">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
@@ -19,22 +19,17 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="catStateDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.CatStateDaoImp">
+    <bean id="permissionDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.PermissionDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="secPermissionDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.SecPermissionDaoImp">
+    <bean id="accountDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.AccountDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-    <bean id="secUserDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.SecUserDaoImp">
-        <property name="hibernateTemplate">
-            <ref bean="hibernateTemplate" />
-        </property>
-    </bean>
-    <bean id="secGroupDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.SecGroupDaoImp">
+    <bean id="groupDaoImp" autowire="byName" scope="singleton"  class="org.encuestame.persistence.dao.imp.GroupDaoImp">
         <property name="hibernateTemplate">
             <ref bean="hibernateTemplate" />
         </property>
@@ -69,7 +64,7 @@
             <ref bean="hibernateTemplate" />
         </property>
     </bean>
-     <bean id="catEmailDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.CatEmailDao">
+     <bean id="emailDao" autowire="byName" scope="singleton" class="org.encuestame.persistence.dao.imp.emailDao">
           <property name="hibernateTemplate">
              <ref bean="hibernateTemplate" />
          </property>

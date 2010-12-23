@@ -31,7 +31,6 @@ public interface IClientDao extends IBaseDao {
      * @return list of clients.
      * @throws HibernateException exception
      */
-    @SuppressWarnings("unchecked")
     List<Client> findAll();
 
 
@@ -41,7 +40,6 @@ public interface IClientDao extends IBaseDao {
      * @param projectId project Id.
      * @return clients.
      */
-    @SuppressWarnings("unchecked")
     List<Client> findAllClientByProjectId(final Long projectId);
 
 

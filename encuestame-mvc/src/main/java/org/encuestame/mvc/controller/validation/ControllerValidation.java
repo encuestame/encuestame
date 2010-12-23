@@ -19,7 +19,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.util.ValidationUtils;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -53,7 +53,7 @@ public class ControllerValidation {
      */
     public Boolean validateUsername(final String username){
         Boolean valid = false;
-        final SecUserSecondary user = getSecurityService().findUserByUserName(username);
+        final UserAccount user = getSecurityService().findUserByUserName(username);
         if(user == null){
             valid = true;
         }

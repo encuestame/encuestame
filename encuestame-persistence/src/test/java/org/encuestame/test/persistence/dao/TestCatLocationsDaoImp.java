@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoFolder;
 import org.encuestame.persistence.domain.LocationFolderType;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,12 +33,12 @@ import org.junit.Test;
  */
 public class TestCatLocationsDaoImp extends AbstractBase{
 
-    private SecUser userPrimary;
+    private Account userPrimary;
 
     /**
-     * {@link CatLocation}.
+     * {@link GeoPoint}.
      */
-    private CatLocation defaultLocation;
+    private GeoPoint defaultLocation;
 
     /**
      * Before..
@@ -55,7 +55,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Test
     public void testgetLocationByUser(){
-        final List<CatLocation> catLocation = getCatLocation().getLocationByUser(this.userPrimary.getUid());
+        final List<GeoPoint> catLocation = getCatLocation().getLocationByUser(this.userPrimary.getUid());
         Assert.assertEquals(2, catLocation.size());
     }
 
@@ -64,7 +64,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Test
     public void testFindAll(){
-        final List<CatLocation> catLocations = getCatLocation().findAll();
+        final List<GeoPoint> catLocations = getCatLocation().findAll();
         assertEquals("Should be equals",2 , catLocations.size());
     }
 
@@ -73,7 +73,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Test
     public void testGetLocationById(){
-        final CatLocation catLocation = getCatLocationDao().getLocationById(this.defaultLocation.getLocateId(),
+        final GeoPoint catLocation = getCatLocationDao().getLocationById(this.defaultLocation.getLocateId(),
                                         this.userPrimary.getUid());
         assertNotNull(catLocation);
         assertEquals("Should be equals", this.defaultLocation.getLocateId() , catLocation.getLocateId());
@@ -86,7 +86,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     public void testGetLocationFolders(){
         createCatLocationFolder(LocationFolderType.GROUPING, this.userPrimary, "Managua", null);
         createCatLocationFolder(LocationFolderType.GROUPING, this.userPrimary, "Ocotal", null);
-        final List<CatLocationFolder> catLocationFolders = getCatLocationDao().getLocationFolders(this.userPrimary.getUid());
+        final List<GeoFolder> catLocationFolders = getCatLocationDao().getLocationFolders(this.userPrimary.getUid());
         assertEquals("Should be equals",2 , catLocationFolders.size());
     }
 
@@ -95,9 +95,9 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Test
     public void testGetLocationFoldersByLocationFolderId(){
-        final CatLocationFolder catLocationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.userPrimary, "Condega", null);
+        final GeoFolder catLocationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.userPrimary, "Condega", null);
         createCatLocationFolder(LocationFolderType.GROUPING, this.userPrimary, "Wiwili", catLocationFolder);
-        final List<CatLocationFolder> catLocationFolders = getCatLocationDao().getLocationFoldersByLocationFolderId(
+        final List<GeoFolder> catLocationFolders = getCatLocationDao().getLocationFoldersByLocationFolderId(
                                       catLocationFolder.getLocationFolderId(), this.userPrimary.getUid());
         assertEquals("Should be equals",1 , catLocationFolders.size());
     }
@@ -107,10 +107,10 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Test
     public void testGetLocationByFolder(){
-        final CatLocationFolder catLocationFolder = createCatLocationFolder(LocationFolderType.GROUPING,
+        final GeoFolder catLocationFolder = createCatLocationFolder(LocationFolderType.GROUPING,
                                                     this.userPrimary, "Matagalpa", null);
         createCatLocation("Location 1", "type", 1, this.userPrimary, catLocationFolder);
-        final List<CatLocation> catLocations = getCatLocationDao().getLocationByFolder(catLocationFolder.getLocationFolderId(),
+        final List<GeoPoint> catLocations = getCatLocationDao().getLocationByFolder(catLocationFolder.getLocationFolderId(),
                                          this.userPrimary.getUid());
         assertEquals("Should be equals",1 , catLocations.size());
     }
@@ -120,9 +120,9 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Test
     public void testGetLocationFolderByIdAndUserId(){
-        final CatLocationFolder catLocationFolder = createCatLocationFolder(LocationFolderType.GROUPING,
+        final GeoFolder catLocationFolder = createCatLocationFolder(LocationFolderType.GROUPING,
                 this.userPrimary, "Carazo", null);
-        final CatLocationFolder catLocationFolder2 = getCatLocationDao().getLocationFolderByIdAndUserId(catLocationFolder.getLocationFolderId(), this.userPrimary.getUid());
+        final GeoFolder catLocationFolder2 = getCatLocationDao().getLocationFolderByIdAndUserId(catLocationFolder.getLocationFolderId(), this.userPrimary.getUid());
         assertEquals("Should be equals", catLocationFolder.getLocationFolderId() , catLocationFolder2.getLocationFolderId());
     }
 
@@ -131,8 +131,8 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      **/
     @Test
     public void getLocationByTypeLocationId(){
-        final CatLocation catLoc = createCatLocation("Managua","Departamento",1, this.userPrimary);
-        final List<CatLocation> retrieveLocations = getCatLocationDao().getLocationByTypeLocationId(catLoc.getTidtype().getLocationTypeId());
+        final GeoPoint catLoc = createCatLocation("Managua","Departamento",1, this.userPrimary);
+        final List<GeoPoint> retrieveLocations = getCatLocationDao().getLocationByTypeLocationId(catLoc.getTidtype().getLocationTypeId());
         assertEquals("Should be equals ",1 , retrieveLocations.size());
     }
 }

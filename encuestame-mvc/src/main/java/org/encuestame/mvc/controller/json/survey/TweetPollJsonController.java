@@ -29,7 +29,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;
@@ -114,7 +114,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             throws JsonGenerationException, JsonMappingException, IOException {
         final UnitTweetPoll tweetPoll = new UnitTweetPoll();
         // Get User Logged.
-        final SecUserSecondary user = getByUsername(getUserPrincipalUsername());
+        final UserAccount user = getByUsername(getUserPrincipalUsername());
         log.debug("user " +user.getUsername());
         if (user != null) {
             // set user id to question bean.

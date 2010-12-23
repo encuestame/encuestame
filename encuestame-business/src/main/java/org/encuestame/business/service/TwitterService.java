@@ -23,7 +23,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ITwitterService;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
@@ -78,7 +78,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @return
      * @throws TwitterException
      */
-    public Status publicTweet(final SecUserTwitterAccounts secUserTwitterAccount, final String tweet) throws TwitterException{
+    public Status publicTweet(final SocialAccount secUserTwitterAccount, final String tweet) throws TwitterException{
         log.debug("publicTweet "+secUserTwitterAccount.getTwitterAccount());
         //Twitter twitter = new TwitterFactory().getInstance();
         log.debug("publicTweet Before  Token  {"+secUserTwitterAccount.getToken());
@@ -93,20 +93,20 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
 
     /**
      * Create New OAuth Access Token.
-     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @param secUserTwitterAccount {@link SocialAccount}.
      * @return {@link AccessToken}.
      */
-    public AccessToken createNewOAuthAccessToken(final SecUserTwitterAccounts secUserTwitterAccount){
+    public AccessToken createNewOAuthAccessToken(final SocialAccount secUserTwitterAccount){
          final AccessToken accessToken = new AccessToken(secUserTwitterAccount.getToken(), secUserTwitterAccount.getSecretToken());
          return accessToken;
     }
 
     /**
      * Get OAuthorized Token.
-     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @param secUserTwitterAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    public Twitter getOAuthAuthorizedInstance(final SecUserTwitterAccounts secUserTwitterAccount, final AccessToken accessToken){
+    public Twitter getOAuthAuthorizedInstance(final SocialAccount secUserTwitterAccount, final AccessToken accessToken){
          return new TwitterFactory().getOAuthAuthorizedInstance(secUserTwitterAccount.getConsumerKey(),
                  secUserTwitterAccount.getConsumerSecret(),
                  accessToken);

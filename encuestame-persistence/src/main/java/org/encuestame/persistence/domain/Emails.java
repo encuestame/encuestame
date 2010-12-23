@@ -36,11 +36,11 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "cat_emails",
         uniqueConstraints = {@UniqueConstraint(columnNames={"email"})})
-public class CatEmails {
+public class Emails {
 
     private Long idEmail;
      private String email;
-     private CatEmailLists idListEmail;
+     private EmailList idListEmail;
      private Boolean subscribed = false;
      private Date created_at;
      private String emailAccount;
@@ -82,14 +82,14 @@ public class CatEmails {
      */
        @ManyToOne(cascade = CascadeType.MERGE)
        @JoinColumn(name = "id_list", nullable = true)
-    public CatEmailLists getIdListEmail() {
+    public EmailList getIdListEmail() {
         return this.idListEmail;
     }
 
     /**
      * @param idListEmail the idListEmail to set
      */
-    public void setIdListEmail(CatEmailLists idListEmail) {
+    public void setIdListEmail(EmailList idListEmail) {
         this.idListEmail = idListEmail;
     }
 

@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 
 /**
@@ -39,7 +39,7 @@ public class SearchSurveyPollTweetItem {
     /**
      * List of Surveys.
      */
-    private List<Surveys> surveys;
+    private List<Survey> surveys;
 
     /**
      * @return the tweetPolls
@@ -72,14 +72,14 @@ public class SearchSurveyPollTweetItem {
     /**
      * @return the surveys
      */
-    public List<Surveys> getSurveys() {
+    public List<Survey> getSurveys() {
         return surveys;
     }
 
     /**
      * @param surveys the surveys to set
      */
-    public void setSurveys(final List<Surveys> surveys) {
+    public void setSurveys(final List<Survey> surveys) {
         this.surveys = surveys;
     }
 }

@@ -29,7 +29,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Notifications domain.
@@ -49,7 +49,7 @@ public class Notification {
 
     private String additionalDescription;
 
-    private SecUser secUser;
+    private Account secUser;
 
     private Date created = Calendar.getInstance().getTime();
 
@@ -96,7 +96,7 @@ public class Notification {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getSecUser() {
+    public Account getSecUser() {
         return secUser;
     }
 
@@ -104,7 +104,7 @@ public class Notification {
      * @param secUser
      *            the secUser to set
      */
-    public void setSecUser(SecUser secUser) {
+    public void setSecUser(Account secUser) {
         this.secUser = secUser;
     }
 

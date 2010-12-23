@@ -39,7 +39,7 @@ import javax.persistence.TemporalType;
 public class PollResult {
 
     private Long pollResultId;
-    private QuestionsAnswers answer;
+    private QuestionAnswer answer;
     private Poll poll;
     private Date votationDate;
     private String ipAddress;
@@ -69,14 +69,14 @@ public class PollResult {
      */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "q_answer_id", nullable = false)
-    public QuestionsAnswers getAnswer() {
+    public QuestionAnswer getAnswer() {
         return answer;
     }
 
     /**
      * @param answer the answer to set
      */
-    public void setAnswer(final QuestionsAnswers answer) {
+    public void setAnswer(final QuestionAnswer answer) {
         this.answer = answer;
     }
 

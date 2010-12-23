@@ -27,7 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.SocialAccount;
 
 /**
  * TweetPoll Status Save Tweet Id.
@@ -42,8 +42,8 @@ public class TweetPollSavedPublishedStatus {
     /** Id. **/
     private Long id;
 
-    /** {@link SecUserTwitterAccounts}. **/
-    private SecUserTwitterAccounts twitterAccount;
+    /** {@link SocialAccount}. **/
+    private SocialAccount twitterAccount;
 
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
@@ -143,14 +143,14 @@ public class TweetPollSavedPublishedStatus {
      * @return the twitterAccount
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public SecUserTwitterAccounts getTwitterAccount() {
+    public SocialAccount getTwitterAccount() {
         return twitterAccount;
     }
 
     /**
      * @param twitterAccount the twitterAccount to set
      */
-    public void setTwitterAccount(SecUserTwitterAccounts twitterAccount) {
+    public void setTwitterAccount(SocialAccount twitterAccount) {
         this.twitterAccount = twitterAccount;
     }
 

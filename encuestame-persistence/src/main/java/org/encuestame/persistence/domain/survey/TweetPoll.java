@@ -31,8 +31,8 @@ import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * TweetPoll Domain.
@@ -81,13 +81,13 @@ public class TweetPoll {
     /** If true, system display in left nav live results. **/
     private Boolean resumeLiveResults = false;
 
-    /** {@link SecUser}. **/
-    private SecUser tweetOwner;
+    /** {@link Account}. **/
+    private Account tweetOwner;
 
     /**
      * Define which user create this tweetPoll.
      */
-    private SecUserSecondary editorOwner;
+    private UserAccount editorOwner;
 
     /** {@link Question}. **/
     private Question question;
@@ -182,7 +182,7 @@ public class TweetPoll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getTweetOwner() {
+    public Account getTweetOwner() {
         return tweetOwner;
     }
 
@@ -190,7 +190,7 @@ public class TweetPoll {
      * @param tweetOwner
      *            the tweetOwner to set
      */
-    public void setTweetOwner(final SecUser tweetOwner) {
+    public void setTweetOwner(final Account tweetOwner) {
         this.tweetOwner = tweetOwner;
     }
 
@@ -434,14 +434,14 @@ public class TweetPoll {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "editor")
-    public SecUserSecondary getEditorOwner() {
+    public UserAccount getEditorOwner() {
         return editorOwner;
     }
 
     /**
      * @param editorOwner the editorOwner to set
      */
-    public void setEditorOwner(final SecUserSecondary editorOwner) {
+    public void setEditorOwner(final UserAccount editorOwner) {
         this.editorOwner = editorOwner;
     }
 }

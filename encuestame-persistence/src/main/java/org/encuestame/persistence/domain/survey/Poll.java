@@ -29,7 +29,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Poll Domain.
@@ -47,7 +47,7 @@ public class Poll extends AbstractSurvey {
     private Date createdAt;
     private String pollHash;
     private Question question;
-    private SecUser pollOwner;
+    private Account pollOwner;
     private Date endDate;
     private Boolean publish;
     private Boolean closeNotification;
@@ -139,14 +139,14 @@ public class Poll extends AbstractSurvey {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getPollOwner() {
+    public Account getPollOwner() {
         return pollOwner;
     }
 
     /**
      * @param pollOwner the pollOwner to set
      */
-    public void setPollOwner(final SecUser pollOwner) {
+    public void setPollOwner(final Account pollOwner) {
         this.pollOwner = pollOwner;
     }
 

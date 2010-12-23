@@ -31,7 +31,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cat_subscribe_emails")
-public class CatSubscribeEmails {
+public class EmailSubscribe {
 
     /****/
     private Long idSubscribe;
@@ -40,10 +40,10 @@ public class CatSubscribeEmails {
     private String hashCode;
 
     /****/
-    private CatEmails email;
+    private Emails email;
 
     /****/
-    private CatEmailLists list;
+    private EmailList list;
 
     /**
      * @return the idSubscribe
@@ -82,14 +82,14 @@ public class CatSubscribeEmails {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "email_id", nullable = false)
-    public CatEmails getEmail() {
+    public Emails getEmail() {
         return email;
     }
 
     /**
      * @param emailId the emailId to set
      */
-    public void setEmail(CatEmails email) {
+    public void setEmail(Emails email) {
         this.email = email;
     }
 
@@ -98,14 +98,14 @@ public class CatSubscribeEmails {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_list", nullable = false)
-    public CatEmailLists getList() {
+    public EmailList getList() {
         return list;
     }
 
     /**
      * @param listId the listId to set
      */
-    public void setList(CatEmailLists list) {
+    public void setList(EmailList list) {
         this.list = list;
     }
 }

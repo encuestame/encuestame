@@ -14,7 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.CatLocation;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.CatLocationType;
 import org.hibernate.HibernateException;
 
@@ -24,7 +24,7 @@ import org.hibernate.HibernateException;
  * @since 05/12/2009 12:36:43
  * @version $Id$
  */
-public interface ICatLocationTypeDao extends IBaseDao {
+public interface IGeoPointTypeDao extends IBaseDao {
 
     /**
      * Find All Location.
@@ -36,7 +36,7 @@ public interface ICatLocationTypeDao extends IBaseDao {
     /**
      * Find Locate type by Id.
      * @param locaTypeId locate type id
-     * @return {@link CatLocation}
+     * @return {@link GeoPoint}
      * @throws HibernateException excetion
      */
      CatLocationType getLocationById(final Long locaTypeId);

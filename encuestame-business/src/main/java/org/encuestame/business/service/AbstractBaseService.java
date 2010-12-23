@@ -24,12 +24,12 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.MessageSourceFactoryBean;
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatEmails;
-import org.encuestame.persistence.domain.CatSubscribeEmails;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.EmailSubscribe;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -121,7 +121,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     public UnitLists createEmailLists(final UnitLists unitLists) throws EnMeExpcetion{
         if (unitLists!=null){
             try {
-                final CatEmailLists listsDomain = new CatEmailLists();
+                final EmailList listsDomain = new EmailList();
                 listsDomain.setCreatedAt(unitLists.getCreatedAt());
                 listsDomain.setListName(unitLists.getListName());
                 listsDomain.setUsuarioEmail(getSecUserDao().getUserById(unitLists.getUserId()));
@@ -147,16 +147,16 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     public UnitEmails createEmail(final UnitEmails unitEmails) throws EnMeExpcetion{
         if(unitEmails!= null){
             try {//
-                final CatEmailLists emailList = new CatEmailLists();
+                final EmailList emailList = new EmailList();
                 final String codeSubscribe = MD5Utils.md5(String.valueOf(System.currentTimeMillis()));
-                final CatEmails emailsDomain = new CatEmails();
+                final Emails emailsDomain = new Emails();
                 emailsDomain.setEmail(unitEmails.getEmailName());
                 emailsDomain.setSubscribed(Boolean.FALSE); //By Default is FALSE, user need subscribe.
                 emailsDomain.setIdListEmail(emailList);
                 getEmailListsDao().saveOrUpdate(emailsDomain);
                 unitEmails.setIdEmail(emailsDomain.getIdEmail());
                 //Necesitamos crear el registro con el hash !!
-                final CatSubscribeEmails subscribe = new CatSubscribeEmails();
+                final EmailSubscribe subscribe = new EmailSubscribe();
                 subscribe.setEmail(emailsDomain);
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
@@ -179,7 +179,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @param secUser
      * @return
      */
-    public Notification createNotification(final NotificationEnum description, final String additional,  final SecUser secUser){
+    public Notification createNotification(final NotificationEnum description, final String additional,  final Account secUser){
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setSecUser(secUser);
@@ -197,10 +197,10 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      */
     public Boolean subscribeEmails(final String subscriptionCode, final String subscriptionOption) throws EnMeExpcetion{
         Boolean success = false;
-        CatSubscribeEmails subscribe = getEmailListsDao().getSubscribeAccount(subscriptionCode);
+        EmailSubscribe subscribe = getEmailListsDao().getSubscribeAccount(subscriptionCode);
         if (subscribe!=null){
             try {
-                   CatEmails emails = new CatEmails();
+                   Emails emails = new Emails();
                    if(subscriptionOption.equals("subscribe"))
                    {
                        emails.setSubscribed(Boolean.TRUE);
@@ -309,9 +309,9 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
            final Integer start) throws EnMeDomainNotFoundException {
         log.info("currentUsername "+currentUsername);
         List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        final SecUserSecondary secUserSecondary = this.getUser(currentUsername);
+        final UserAccount secUserSecondary = this.getUser(currentUsername);
         if(secUserSecondary != null){
-            final Collection<SecUserSecondary> listUsers = getSecUserDao()
+            final Collection<UserAccount> listUsers = getSecUserDao()
                  .retrieveListOwnerUsers(secUserSecondary.getSecUser(), start, maxResults);
                 log.info("list users "+listUsers.size());
                 loadListUsers = ConvertDomainBean.convertCollectionUsersToBean(listUsers);
@@ -325,9 +325,9 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @param loggedUserName
      * @return
      */
-    private Boolean validateOwnerGroup(final SecUserSecondary user, final String loggedUserName){
+    private Boolean validateOwnerGroup(final UserAccount user, final String loggedUserName){
         Boolean validate = Boolean.FALSE;
-        final SecUserSecondary owner = getSecUserDao().getUserByUsername(loggedUserName);
+        final UserAccount owner = getSecUserDao().getUserByUsername(loggedUserName);
         if(user != null && owner != null){
             if(user.getSecUser().getUid().equals(owner.getSecUser().getUid())){
                 validate = Boolean.TRUE;
@@ -345,7 +345,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      */
     public UnitUserBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
         UnitUserBean userInfo = null;
-        final SecUserSecondary user = getSecUserDao().getSecondaryUserById(userId);
+        final UserAccount user = getSecUserDao().getSecondaryUserById(userId);
         if(this.validateOwnerGroup(user, currentUsername)){
             userInfo =  ConvertDomainBean.convertSecondaryUserToUserBean(user);
             log.debug("getUserCompleteInfo info "+userInfo.getId());
@@ -359,9 +359,9 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @param currentUsername
      * @return
      */
-    public SecUserSecondary getValidateUser(final Long userId, final String currentUsername){
-        final SecUserSecondary user = getSecUserDao().getSecondaryUserById(userId);
-        SecUserSecondary expetedUser = null;
+    public UserAccount getValidateUser(final Long userId, final String currentUsername){
+        final UserAccount user = getSecUserDao().getSecondaryUserById(userId);
+        UserAccount expetedUser = null;
         if(this.validateOwnerGroup(user, currentUsername)){
             expetedUser = user;
         }

@@ -33,7 +33,7 @@ import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.core.util.MD5Utils;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,10 +157,10 @@ public class MasterBean extends AbstractJSFContext{
     }
 
     /**
-     * Get {@link SecUserSecondary} by Name.
-     * @return {@link SecUserSecondary}
+     * Get {@link UserAccount} by Name.
+     * @return {@link UserAccount}
      */
-    public final SecUserSecondary getUsernameByName(){
+    public final UserAccount getUsernameByName(){
         return getServicemanager().getApplicationServices().getSecurityService().findUserByUserName(this.getUserPrincipalUsername());
     }
 

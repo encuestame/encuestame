@@ -21,8 +21,8 @@ import java.util.List;
 import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -40,9 +40,9 @@ import org.springframework.test.annotation.ExpectedException;
 public class TestProjectService extends AbstractServiceBase {
 
 
-       /** {@link SecUser}. **/
+       /** {@link Account}. **/
 
-         SecUser user;
+         Account user;
 
         /** {@link IProjectService} **/
         @Autowired
@@ -52,8 +52,8 @@ public class TestProjectService extends AbstractServiceBase {
 
         private Project project;
 
-        /** {@link SecUserSecondary}. **/
-        private SecUserSecondary userPrincipal;
+        /** {@link UserAccount}. **/
+        private UserAccount userPrincipal;
 
         /**
          * Before.

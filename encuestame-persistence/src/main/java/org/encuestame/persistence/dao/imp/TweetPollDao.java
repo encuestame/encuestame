@@ -21,7 +21,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
@@ -222,13 +222,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     }
 
     /**
-     * Get Results By {@link TweetPoll} && {@link QuestionsAnswers}.
+     * Get Results By {@link TweetPoll} && {@link QuestionAnswer}.
      * @param tweetPoll {@link TweetPoll}
-     * @param answers {@link QuestionsAnswers}
+     * @param answers {@link QuestionAnswer}
      * @return List of {@link TweetPollResult}
      */
     @SuppressWarnings("unchecked")
-    public List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionsAnswers answers){
+    public List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionAnswer answers){
         return getHibernateTemplate().findByNamedParam("select tweetPollSwitch.answers.answer, count(tweetPollResultId) from TweetPollResult "
               +"where tweetPollSwitch.tweetPoll = :tweetPoll and tweetPollSwitch.answers = :answer group by tweetPollSwitch.answers.answer",
               new String[]{"tweetPoll", "answer"}, new Object[]{tweetPoll, answers});

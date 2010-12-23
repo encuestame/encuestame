@@ -14,9 +14,9 @@ package org.encuestame.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.ISecPermissionDao;
+import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.security.SecPermission;
+import org.encuestame.persistence.domain.security.Permission;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Repository;
  * @version $Id$
  */
 @Repository
-public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements ISecPermissionDao {
+public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPermissionDao {
 
     /**
      * Load permissions by user.
@@ -47,7 +47,7 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements 
      * Load all permisssion.
      * @return List of  {@link SecPermission}
      */
-    public List<SecPermission> loadAllPermissions() throws HibernateException {
+    public List<Permission> loadAllPermissions() throws HibernateException {
         return getHibernateTemplate().find("from SecPermission");
 
     }
@@ -55,32 +55,32 @@ public class SecPermissionDaoImp extends AbstractHibernateDaoSupport implements 
     /**
      * Load permission.
      * @param permission permission
-     * @return {@link SecPermission}
+     * @return {@link Permission}
      */
     @SuppressWarnings("unchecked")
-    public SecPermission loadPermission(final EnMePermission permission)
+    public Permission loadPermission(final EnMePermission permission)
            throws HibernateException{
-        final DetachedCriteria criteria = DetachedCriteria.forClass(SecPermission.class);
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Permission.class);
         criteria.add(Restrictions.like("permission", permission) );
-        return (SecPermission) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        return (Permission) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**
      * Find All Permissions.
-     * @return List of {@link SecPermission}
+     * @return List of {@link Permission}
      * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
-    public List<SecPermission> findAllPermissions() throws HibernateException {
+    public List<Permission> findAllPermissions() throws HibernateException {
         return getHibernateTemplate().find("from SecPermission");
     }
 
    /**
     * Get Permission.
     * @param permId permission Id
-    * return {@link SecPermission}
+    * return {@link Permission}
     */
-   public SecPermission getPermissionById(final Long permId) throws HibernateException {
-           return (SecPermission) getHibernateTemplate().get(SecPermission.class, permId);
+   public Permission getPermissionById(final Long permId) throws HibernateException {
+           return (Permission) getHibernateTemplate().get(Permission.class, permId);
    }
 }

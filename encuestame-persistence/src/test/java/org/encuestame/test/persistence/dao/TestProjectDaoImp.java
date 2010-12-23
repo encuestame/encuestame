@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.CatLocation;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.dao.IProject;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
@@ -40,8 +40,8 @@ public class TestProjectDaoImp extends AbstractBase{
     /** {@link Project} **/
     Project project;
 
-    /** {@link SecUserSecondary}.**/
-    SecUserSecondary user;
+    /** {@link UserAccount}.**/
+    UserAccount user;
 
     /**
      * Before.
@@ -76,8 +76,8 @@ public class TestProjectDaoImp extends AbstractBase{
      * Test Add Locations to Project.
      */
     public void testGetProjectByLocationId(){
-        final CatLocation loc1 = createCatLocation("managua", "mga", 1, this.user.getSecUser());
-        final CatLocation loc2 = createCatLocation("diriomo", "drm", 1, this.user.getSecUser());
+        final GeoPoint loc1 = createCatLocation("managua", "mga", 1, this.user.getSecUser());
+        final GeoPoint loc2 = createCatLocation("diriomo", "drm", 1, this.user.getSecUser());
         project.getLocations().add(loc1);
         project.getLocations().add(loc2);
         getProjectDaoImp().saveOrUpdate(project);

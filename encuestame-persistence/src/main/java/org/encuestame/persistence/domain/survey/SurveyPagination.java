@@ -42,7 +42,7 @@ public class SurveyPagination {
     /****/
     private SurveySection surveySection;
 
-    private Surveys survey;
+    private Survey survey;
 
     /**
      * @return the paginationId
@@ -98,14 +98,14 @@ public class SurveyPagination {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "sid", nullable = false)
-    public Surveys getSurvey() {
+    public Survey getSurvey() {
         return survey;
     }
 
     /**
      * @param survey the survey to set
      */
-    public void setSurvey(Surveys survey) {
+    public void setSurvey(Survey survey) {
         this.survey = survey;
     }
  }

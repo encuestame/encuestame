@@ -22,10 +22,9 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.dao.ICatEmail;
-import org.encuestame.persistence.dao.ICatLocation;
-import org.encuestame.persistence.dao.ICatLocationTypeDao;
-import org.encuestame.persistence.dao.ICatState;
+import org.encuestame.persistence.dao.IEmail;
+import org.encuestame.persistence.dao.IGeoPoint;
+import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
@@ -33,22 +32,21 @@ import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProject;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.ISecGroups;
-import org.encuestame.persistence.dao.ISecPermissionDao;
-import org.encuestame.persistence.dao.ISecUserDao;
+import org.encuestame.persistence.dao.IGroup;
+import org.encuestame.persistence.dao.IPermissionDao;
+import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.imp.CatLocationTypeDao;
+import org.encuestame.persistence.dao.imp.GeoPointTypeDao;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.dao.imp.ProjectDaoImp;
-import org.encuestame.persistence.dao.imp.SecUserDaoImp;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatState;
+import org.encuestame.persistence.dao.imp.AccountDaoImp;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -61,24 +59,21 @@ import org.springframework.stereotype.Service;
 @Service
 public abstract class AbstractDataSource{
 
-    /** {@link CatState}. */
+    /** {@link GeoPoint}. */
     @Resource
-    private ICatState stateDao;
-    /** {@link CatLocation}. */
+    private IGeoPoint catLocationDao;
+    /** {@link GeoPointTypeDao}. */
     @Resource
-    private ICatLocation catLocationDao;
-    /** {@link CatLocationTypeDao}. */
-    @Resource
-    private ICatLocationTypeDao catLocationTypeDao;
+    private IGeoPointTypeDao catLocationTypeDao;
     /** {@link ProjectDaoImp}. */
     @Resource
     private IProject projectDaoImp;
     /** {@link ClientDao}. **/
     @Resource
     private IClientDao clientDao;
-    /** {@link SecUserDaoImp}. **/
+    /** {@link AccountDaoImp}. **/
     @Resource
-    private ISecUserDao secUserDao;
+    private IAccountDao secUserDao;
     /** {@link HashTagDao}. **/
     @Resource
     private IHashTagDao hashTagDao;
@@ -106,17 +101,17 @@ public abstract class AbstractDataSource{
     @Resource
     private ITweetPoll tweetPollDao;
 
-    /** {@link ISecGroups}. **/
+    /** {@link IGroup}. **/
     @Resource
-    private ISecGroups groupDao;
+    private IGroup groupDao;
 
-    /** {@link ISecPermissionDao} **/
+    /** {@link IPermissionDao} **/
     @Resource
-    private ISecPermissionDao permissionDao;
+    private IPermissionDao permissionDao;
 
-   /** {@link ICatEmail} **/
+   /** {@link IEmail} **/
     @Resource
-    private ICatEmail emailListsDao;
+    private IEmail emailListsDao;
 
     /**
      * Get User.
@@ -124,8 +119,8 @@ public abstract class AbstractDataSource{
      * @return user domain
      * @throws EnMeDomainNotFoundException exception
      */
-    public final SecUserSecondary getUser(final String username) throws EnMeDomainNotFoundException {
-        final SecUserSecondary secUserSecondary = getSecUserDao().getUserByUsername(username);
+    public final UserAccount getUser(final String username) throws EnMeDomainNotFoundException {
+        final UserAccount secUserSecondary = getSecUserDao().getUserByUsername(username);
         if(secUserSecondary == null){
             throw new EnMeDomainNotFoundException("user not found");
         } else {
@@ -139,16 +134,16 @@ public abstract class AbstractDataSource{
      * @param userId
      * @return
      */
-    public final SecUserSecondary getUser(final Long  userId){
+    public final UserAccount getUser(final Long  userId){
         return getSecUserDao().getSecondaryUserById(userId);
     }
 
     /**
-     * Find {@link SecUserSecondary} by UserName
+     * Find {@link UserAccount} by UserName
      * @param username user name
-     * @return {@link SecUserSecondary}
+     * @return {@link UserAccount}
      */
-    public SecUserSecondary findUserByUserName(final String username) {
+    public UserAccount findUserByUserName(final String username) {
         return getSecUserDao().getUserByUsername(username);
     }
 
@@ -253,32 +248,9 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * Load state by id.
-     * @param stateId state id
-     * @return {@link CatState}
-     */
-    public final CatState getState(final Long stateId) {
-        return getStateDao().getState(stateId);
-    }
-
-    /**
-     * @return the stateDao
-     */
-    public final ICatState getStateDao() {
-        return stateDao;
-    }
-
-    /**
-     * @param stateDao the stateDao to set
-     */
-    public final void setStateDao(final ICatState stateDao) {
-        this.stateDao = stateDao;
-    }
-
-    /**
      * @return the catLocationDao
      */
-    public final ICatLocation getCatLocationDao() {
+    public final IGeoPoint getCatLocationDao() {
         return catLocationDao;
     }
 
@@ -286,7 +258,7 @@ public abstract class AbstractDataSource{
      * @param catLocationDao the catLocationDao to set
      */
 
-    public final void setCatLocationDao(final ICatLocation catLocationDao) {
+    public final void setCatLocationDao(final IGeoPoint catLocationDao) {
         this.catLocationDao = catLocationDao;
     }
 
@@ -307,14 +279,14 @@ public abstract class AbstractDataSource{
     /**
      * @return the catLocationTypeDao
      */
-    public final ICatLocationTypeDao getCatLocationTypeDao() {
+    public final IGeoPointTypeDao getCatLocationTypeDao() {
         return catLocationTypeDao;
     }
 
     /**
      * @param catLocationTypeDao the catLocationTypeDao to set
      */
-    public final void setCatLocationTypeDao(final ICatLocationTypeDao catLocationTypeDao) {
+    public final void setCatLocationTypeDao(final IGeoPointTypeDao catLocationTypeDao) {
         this.catLocationTypeDao = catLocationTypeDao;
     }
 
@@ -335,14 +307,14 @@ public abstract class AbstractDataSource{
     /**
      * @return the secUserDao
      */
-    public final ISecUserDao getSecUserDao() {
+    public final IAccountDao getSecUserDao() {
         return secUserDao;
     }
 
     /**
      * @param secUserDao the secUserDao to set
      */
-    public final void setSecUserDao(final ISecUserDao secUserDao) {
+    public final void setSecUserDao(final IAccountDao secUserDao) {
         this.secUserDao = secUserDao;
     }
 
@@ -405,42 +377,42 @@ public abstract class AbstractDataSource{
     /**
      * @return the groupDao
      */
-    public final ISecGroups getGroupDao() {
+    public final IGroup getGroupDao() {
         return groupDao;
     }
 
     /**
      * @param groupDao the groupDao to set
      */
-    public final void setGroupDao(final ISecGroups groupDao) {
+    public final void setGroupDao(final IGroup groupDao) {
         this.groupDao = groupDao;
     }
 
     /**
      * @return the permissionDao
      */
-    public final ISecPermissionDao getPermissionDao() {
+    public final IPermissionDao getPermissionDao() {
         return permissionDao;
     }
 
     /**
      * @param permissionDao the permissionDao to set
      */
-    public final void setPermissionDao(ISecPermissionDao permissionDao) {
+    public final void setPermissionDao(IPermissionDao permissionDao) {
         this.permissionDao = permissionDao;
     }
 
     /**
      * @return the emailListsDao
      */
-    public final ICatEmail getEmailListsDao() {
+    public final IEmail getEmailListsDao() {
         return emailListsDao;
     }
 
     /**
      * @param emailListsDao the emailListsDao to set
      */
-    public final void setEmailListsDao(final ICatEmail emailListsDao) {
+    public final void setEmailListsDao(final IEmail emailListsDao) {
         this.emailListsDao = emailListsDao;
     }
 

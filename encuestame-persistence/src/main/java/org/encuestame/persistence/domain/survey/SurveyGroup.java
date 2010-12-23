@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,12 +24,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Project;
 
 /**
@@ -47,7 +44,6 @@ public class SurveyGroup {
     private Long sgId;
     private String groupName;
     private Date dateCreate;
-    private CatState catState;
     private Set<SurveyFormat> surveyFormats = new HashSet<SurveyFormat>();
     private Set<Project> projects = new HashSet<Project>();
 
@@ -97,22 +93,6 @@ public class SurveyGroup {
      */
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
-    }
-
-    /**
-     * @return the catState
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "cat_state_id_survey_group", nullable = false)
-    public CatState getCatState() {
-        return catState;
-    }
-
-    /**
-     * @param catState the catState to set
-     */
-    public void setCatState(CatState catState) {
-        this.catState = catState;
     }
 
     /**

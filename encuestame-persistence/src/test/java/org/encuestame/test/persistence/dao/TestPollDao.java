@@ -20,12 +20,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
@@ -48,11 +48,11 @@ public class TestPollDao extends AbstractBase {
     /** {@link Poll} **/
     Poll poll;
 
-    /** {@link SecUser}.**/
-    SecUser user;
+    /** {@link Account}.**/
+    Account user;
 
-    /** {@link SecUserSecondary} **/
-    private SecUserSecondary secUserSecondary;
+    /** {@link UserAccount} **/
+    private UserAccount secUserSecondary;
 
     /** {@link Question} **/
     private Question question;
@@ -103,8 +103,8 @@ public class TestPollDao extends AbstractBase {
   public void testRetrievePollResultsById(){
       final Question quest = createQuestion("Do you like futboll", "Yes/No");
 
-      final QuestionsAnswers qansw = createQuestionAnswer("Yes", quest, "2020");
-      final QuestionsAnswers qansw2 = createQuestionAnswer("No", quest, "2020");
+      final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2020");
+      final QuestionAnswer qansw2 = createQuestionAnswer("No", quest, "2020");
       final PollResult pollResult =createPollResults(qansw, this.poll);
       final PollResult pollResult2 =createPollResults(qansw, this.poll);
       final List<Object[]> polli = getiPoll().retrieveResultPolls(this.poll.getPollId(),qansw.getQuestionAnswerId());

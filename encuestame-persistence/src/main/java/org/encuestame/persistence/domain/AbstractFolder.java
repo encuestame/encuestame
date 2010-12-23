@@ -22,7 +22,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 @MappedSuperclass
 public abstract class AbstractFolder {
@@ -31,7 +31,7 @@ public abstract class AbstractFolder {
     private String folderName;
 
     /****/
-    private SecUser users;
+    private Account users;
 
     /****/
     private Date createdAt;
@@ -56,14 +56,14 @@ public abstract class AbstractFolder {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getUsers() {
+    public Account getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(SecUser users) {
+    public void setUsers(Account users) {
         this.users = users;
     }
 

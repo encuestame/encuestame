@@ -28,9 +28,9 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
@@ -222,8 +222,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
             tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
             this.getTweetPollDao().saveOrUpdate(tweetPollDomain);
-            final List<QuestionsAnswers> answers = this.getQuestionDao().getAnswersByQuestionId(question.getQid());
-            for (QuestionsAnswers questionsAnswers : answers) {
+            final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(question.getQid());
+            for (QuestionAnswer questionsAnswers : answers) {
                 final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
                 tPollSwitch.setAnswers(questionsAnswers);
                 tPollSwitch.setTweetPoll(tweetPollDomain);
@@ -272,8 +272,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             log.debug("Question text: "+tweetQuestionText);
             //Build Answers.
-            final List<QuestionsAnswers> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
-            for (final QuestionsAnswers questionsAnswers : answers) {
+            final List<QuestionAnswer> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
+            for (final QuestionAnswer questionsAnswers : answers) {
                  log.debug("Answer ID: "+questionsAnswers.getQuestionAnswerId());
                  log.debug("Answer Question: "+questionsAnswers.getAnswer());
                  tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
@@ -304,7 +304,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws IOException exception
      * @throws HttpException exception
      */
-    private String buildUrlAnswer(final QuestionsAnswers answer, final String domain) throws HttpException, IOException{
+    private String buildUrlAnswer(final QuestionAnswer answer, final String domain) throws HttpException, IOException{
         final StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(this.getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
@@ -313,7 +313,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
     /**
      * Public Multiples Tweet Accounts.
-     * @param twitterAccounts List of {@link SecUserTwitterAccounts}.
+     * @param twitterAccounts List of {@link SocialAccount}.
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
@@ -327,7 +327,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 final String account[] = {};
                 final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
                 final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-                final SecUserTwitterAccounts secUserTwitterAccounts = getSecUserDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
+                final SocialAccount secUserTwitterAccounts = getSecUserDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
                 publishedStatus.setApiType(Type.TWITTER);
                 if(secUserTwitterAccounts != null && tweetPoll != null){
                     log.debug("secUserTwitterAccounts Account"+secUserTwitterAccounts.getTwitterAccount());
@@ -398,7 +398,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         if(tweetPoll == null){
             throw new EnMeDomainNotFoundException("tweetPoll not found");
         } else {
-            for (QuestionsAnswers questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
+            for (QuestionAnswer questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
                   log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
                   log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
                   final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
@@ -435,7 +435,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     @Deprecated
     public Boolean validateUserTwitterAccount(final String username) throws EnMeDomainNotFoundException{
-        final SecUser users = getUser(username).getSecUser();
+        final Account users = getUser(username).getSecUser();
         Boolean validate = false;
         log.info(users.getTwitterAccount());
         if(!users.getTwitterAccount().isEmpty() && !users.getTwitterPassword().isEmpty()){

@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ import org.junit.Test;
  */
 public class TestUserDao extends AbstractBase {
 
-    private SecUser userPrimary;
+    private Account userPrimary;
 
     /**
      * Before.
@@ -47,7 +47,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testCreateUser() {
-       final SecUserSecondary user = createSecondaryUser("user 1", this.userPrimary);
+       final UserAccount user = createSecondaryUser("user 1", this.userPrimary);
        assertNotNull(user);
     }
 
@@ -56,7 +56,7 @@ public class TestUserDao extends AbstractBase {
      **/
     @Test
     public void testDeleteUser() {
-        final SecUserSecondary user = createSecondaryUser("user 2", this.userPrimary);
+        final UserAccount user = createSecondaryUser("user 2", this.userPrimary);
          getSecUserDao().delete(user);
         assertEquals("Should be equals",0, getSecUserDao().findAll().size());
     }
@@ -78,11 +78,11 @@ public class TestUserDao extends AbstractBase {
     public void testUpdateUser(){
         final String newPassword = "67809";
         final String newEmail = "user2@users.com";
-        final SecUserSecondary user = createSecondaryUser("user 1", this.userPrimary);
+        final UserAccount user = createSecondaryUser("user 1", this.userPrimary);
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
         getSecUserDao().saveOrUpdate(user);
-         final SecUserSecondary retrieveUser = getSecUserDao()
+         final UserAccount retrieveUser = getSecUserDao()
          .getSecondaryUserById(Long.valueOf(user.getUid()));
      assertEquals("Password should be",newPassword,
                      retrieveUser.getPassword());
@@ -95,8 +95,8 @@ public class TestUserDao extends AbstractBase {
      **/
     @Test
     public void testGetUserByUsername(){
-        final SecUserSecondary user = createSecondaryUser("user 3", this.userPrimary);
-        final SecUserSecondary retrieveUser = getSecUserDao()
+        final UserAccount user = createSecondaryUser("user 3", this.userPrimary);
+        final UserAccount retrieveUser = getSecUserDao()
         .getUserByUsername(user.getUsername());
         assertEquals("Username should be",user.getUsername(), retrieveUser.getUsername());
     }
@@ -119,10 +119,10 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testAddPermissionToGroup(){
-        final SecPermission editor = createPermission("editor");
-        final SecPermission admon = createPermission("publisher");
-        final SecPermission permission = createPermission("administrator");
-        final SecGroup group = createGroups("group 1");
+        final Permission editor = createPermission("editor");
+        final Permission admon = createPermission("publisher");
+        final Permission permission = createPermission("administrator");
+        final Group group = createGroups("group 1");
         group.getSecPermissions().add(editor);
         group.getSecPermissions().add(admon);
         group.getSecPermissions().add(permission);
@@ -136,7 +136,7 @@ public class TestUserDao extends AbstractBase {
     public void testGetSecondaryUsersByUserId(){
          createSecondaryUser("user 1", this.userPrimary);
          createSecondaryUser("user 2", this.userPrimary);
-         final List<SecUserSecondary> userList = getSecUserDao().getSecondaryUsersByUserId(this.userPrimary.getUid());
+         final List<UserAccount> userList = getSecUserDao().getSecondaryUsersByUserId(this.userPrimary.getUid());
          assertEquals("Should be equals", 2, userList.size());
     }
 
@@ -145,9 +145,9 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testSearchUsersByEmail(){
-        final SecUserSecondary secondary = createSecondaryUser("jhon", this.userPrimary);
+        final UserAccount secondary = createSecondaryUser("jhon", this.userPrimary);
         createSecondaryUser("paola", this.userPrimary);
-        final List<SecUserSecondary> users = getSecUserDao().searchUsersByEmail(secondary.getUserEmail());
+        final List<UserAccount> users = getSecUserDao().searchUsersByEmail(secondary.getUserEmail());
         assertEquals("Should be equals", 1, users.size());
     }
 }

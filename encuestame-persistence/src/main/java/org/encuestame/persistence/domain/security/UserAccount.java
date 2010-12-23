@@ -43,14 +43,14 @@ import org.encuestame.persistence.domain.Project;
 @Table(name = "sec_user_secondary",
        uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
   )
-public class SecUserSecondary {
+public class UserAccount {
 
     private Long uid;
     private String completeName;
     private String userEmail;
     private String username;
     private String password;
-    private SecUser secUser;
+    private Account secUser;
     private String inviteCode;
     private Date enjoyDate;
     private Boolean userStatus;
@@ -81,12 +81,12 @@ public class SecUserSecondary {
 
     private Set<Project> projects = new HashSet<Project>();
 
-    private Set<SecPermission> secUserPermissions = new HashSet<SecPermission>();
+    private Set<Permission> secUserPermissions = new HashSet<Permission>();
 
     /**
-     * {@link SecGroup}
+     * {@link Group}
      */
-    private SecGroup secGroup;
+    private Group secGroup;
 
     /**
      * @return uid
@@ -170,14 +170,14 @@ public class SecUserSecondary {
      * @return the secUser
      */
     @ManyToOne()
-    public SecUser getSecUser() {
+    public Account getSecUser() {
         return secUser;
     }
 
     /**
      * @param secUser the secUser to set
      */
-    public void setSecUser(SecUser secUser) {
+    public void setSecUser(Account secUser) {
         this.secUser = secUser;
     }
 
@@ -242,14 +242,14 @@ public class SecUserSecondary {
     @JoinTable(name="sec_user_permission",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
-    public Set<SecPermission> getSecUserPermissions() {
+    public Set<Permission> getSecUserPermissions() {
         return secUserPermissions;
     }
 
     /**
      * @param secUserPermissions the secUserPermissions to set
      */
-    public void setSecUserPermissions(Set<SecPermission> secUserPermissions) {
+    public void setSecUserPermissions(Set<Permission> secUserPermissions) {
         this.secUserPermissions = secUserPermissions;
     }
 
@@ -314,14 +314,14 @@ public class SecUserSecondary {
      */
     @ManyToOne()
     @JoinColumn(name = "groupId", nullable = true)
-    public SecGroup getSecGroup() {
+    public Group getSecGroup() {
         return secGroup;
     }
 
     /**
      * @param secGroup the secGroup to set
      */
-    public void setSecGroup(final SecGroup secGroup) {
+    public void setSecGroup(final Group secGroup) {
         this.secGroup = secGroup;
     }
 

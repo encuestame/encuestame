@@ -40,7 +40,7 @@ import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.DateUtil;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -147,7 +147,7 @@ public abstract class BaseController extends AbstractSecurityContext{
      * @param username username
      * @return
      */
-    public SecUserSecondary getByUsername(final String username){
+    public UserAccount getByUsername(final String username){
         return getServiceManager().getApplicationServices().getSecurityService().findUserByUserName(username);
     }
 

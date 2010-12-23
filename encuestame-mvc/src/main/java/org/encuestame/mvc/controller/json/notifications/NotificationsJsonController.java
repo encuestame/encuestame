@@ -25,7 +25,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -59,7 +59,7 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> responseJson = new HashMap<String, Object>();
-        final SecUserSecondary secondary = getByUsername(getUserPrincipalUsername());
+        final UserAccount secondary = getByUsername(getUserPrincipalUsername());
         final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(secondary.getSecUser());
         final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(secondary.getSecUser());
         responseJson.put("t", totalNot);
@@ -84,7 +84,7 @@ public class NotificationsJsonController extends AbstractJsonController {
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         final SecUserSecondary secondary = getByUsername(getUserPrincipalUsername());
+         final UserAccount secondary = getByUsername(getUserPrincipalUsername());
          if(secondary == null){
              setError("user not found", response);
          }

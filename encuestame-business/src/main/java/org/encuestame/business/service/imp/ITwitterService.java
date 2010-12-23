@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
 import org.encuestame.core.service.IService;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.SocialAccount;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -66,17 +66,17 @@ public interface ITwitterService extends IService{
 
     /**
      * Get OAuthorized Token.
-     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @param secUserTwitterAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    Twitter getOAuthAuthorizedInstance(final SecUserTwitterAccounts secUserTwitterAccount, final AccessToken accessToken);
+    Twitter getOAuthAuthorizedInstance(final SocialAccount secUserTwitterAccount, final AccessToken accessToken);
 
     /**
      * Create New OAuth Access Token.
-     * @param secUserTwitterAccount {@link SecUserTwitterAccounts}.
+     * @param secUserTwitterAccount {@link SocialAccount}.
      * @return {@link AccessToken}.
      */
-    AccessToken createNewOAuthAccessToken(final SecUserTwitterAccounts secUserTwitterAccount);
+    AccessToken createNewOAuthAccessToken(final SocialAccount secUserTwitterAccount);
 
     /**
      * OAuth Public Tweet.
@@ -85,5 +85,5 @@ public interface ITwitterService extends IService{
      * @return
      * @throws TwitterException
      */
-    Status publicTweet(final SecUserTwitterAccounts secUserTwitterAccount, final String tweet) throws TwitterException;
+    Status publicTweet(final SocialAccount secUserTwitterAccount, final String tweet) throws TwitterException;
 }

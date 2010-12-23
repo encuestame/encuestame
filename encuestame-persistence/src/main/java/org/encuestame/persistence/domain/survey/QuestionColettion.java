@@ -25,7 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * QuestionColettion.
@@ -39,7 +39,7 @@ import org.encuestame.persistence.domain.security.SecUser;
 public class QuestionColettion {
 
     private Long idQColection;
-    private SecUser secUsers;
+    private Account secUsers;
     private String desColeccion;
     private Date creationDate;
 
@@ -61,18 +61,18 @@ public class QuestionColettion {
     }
 
     /**
-     * @return {@link SecUser}
+     * @return {@link Account}
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
-    public SecUser getSecUsers() {
+    public Account getSecUsers() {
         return this.secUsers;
     }
 
     /**
-     * @param secUsers {@link SecUser}
+     * @param secUsers {@link Account}
      */
-    public void setSecUsers(final SecUser secUsers) {
+    public void setSecUsers(final Account secUsers) {
         this.secUsers = secUsers;
     }
 

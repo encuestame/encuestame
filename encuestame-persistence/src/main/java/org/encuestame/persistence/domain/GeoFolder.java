@@ -22,7 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.security.SecUser;
+import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Cat Location Folder.
@@ -33,7 +33,7 @@ import org.encuestame.persistence.domain.security.SecUser;
  */
 @Entity
 @Table(name = "cat_location_folder")
-public class CatLocationFolder {
+public class GeoFolder {
 
     /**
      * Id.
@@ -51,14 +51,14 @@ public class CatLocationFolder {
     private LocationFolderType folderType;
 
     /**
-     * {@link SecUser}.
+     * {@link Account}.
      */
-    private SecUser secUsers;
+    private Account secUsers;
 
     /**
      * SubLocation Folder.
      */
-    private CatLocationFolder subLocationFolder;
+    private GeoFolder subLocationFolder;
 
     /**
      * @return the locationFolderId
@@ -112,14 +112,14 @@ public class CatLocationFolder {
      * @return the secUsers
      */
     @ManyToOne()
-    public SecUser getSecUsers() {
+    public Account getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final SecUser secUsers) {
+    public void setSecUsers(final Account secUsers) {
         this.secUsers = secUsers;
     }
 
@@ -127,14 +127,14 @@ public class CatLocationFolder {
      * @return the subLocationFolder
      */
     @ManyToOne()
-    public CatLocationFolder getSubLocationFolder() {
+    public GeoFolder getSubLocationFolder() {
         return subLocationFolder;
     }
 
     /**
      * @param subLocationFolder the subLocationFolder to set
      */
-    public void setSubLocationFolder(final CatLocationFolder subLocationFolder) {
+    public void setSubLocationFolder(final GeoFolder subLocationFolder) {
         this.subLocationFolder = subLocationFolder;
     }
 }

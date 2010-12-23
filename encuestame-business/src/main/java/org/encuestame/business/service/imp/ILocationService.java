@@ -16,8 +16,8 @@ import java.util.List;
 
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoFolder;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -69,9 +69,9 @@ public interface ILocationService {
 
     /**
      * Assign Location to Location Folder.
-     * @param location {@link CatLocation}.
+     * @param location {@link GeoPoint}.
      */
-    void assignLocationToLocationFolder(final CatLocation location, final CatLocationFolder catLocationFolder);
+    void assignLocationToLocationFolder(final GeoPoint location, final GeoFolder catLocationFolder);
 
     /**
      * Retrieve Locations Folder Items by Folder Id and User Id.

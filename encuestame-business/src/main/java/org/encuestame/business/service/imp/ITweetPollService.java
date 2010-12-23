@@ -19,7 +19,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
@@ -115,7 +115,7 @@ public interface ITweetPollService extends IMasterSurveyService{
 
     /**
      * Public Multiples Tweet Accounts.
-     * @param twitterAccounts List of {@link SecUserTwitterAccounts}.
+     * @param twitterAccounts List of {@link SocialAccount}.
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */

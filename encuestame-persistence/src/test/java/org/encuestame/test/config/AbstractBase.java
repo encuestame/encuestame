@@ -17,62 +17,59 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.persistence.domain.CatEmailLists;
-import org.encuestame.persistence.domain.CatEmails;
-import org.encuestame.persistence.domain.CatLocation;
-import org.encuestame.persistence.domain.CatLocationFolder;
+import org.encuestame.persistence.dao.IEmail;
+import org.encuestame.persistence.dao.IGeoPoint;
+import org.encuestame.persistence.dao.IGeoPointTypeDao;
+import org.encuestame.persistence.dao.IClientDao;
+import org.encuestame.persistence.dao.INotification;
+import org.encuestame.persistence.dao.IPoll;
+import org.encuestame.persistence.dao.IProject;
+import org.encuestame.persistence.dao.IQuestionDao;
+import org.encuestame.persistence.dao.IGroup;
+import org.encuestame.persistence.dao.IPermissionDao;
+import org.encuestame.persistence.dao.IAccountDao;
+import org.encuestame.persistence.dao.ISurvey;
+import org.encuestame.persistence.dao.ISurveyFormatDao;
+import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.dao.imp.EmailDao;
+import org.encuestame.persistence.dao.imp.ClientDao;
+import org.encuestame.persistence.dao.imp.PollDao;
+import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.CatLocationType;
-import org.encuestame.persistence.domain.CatState;
 import org.encuestame.persistence.domain.Client;
+import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Emails;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.GeoFolder;
+import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.LocationFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.domain.security.SecGroup;
-import org.encuestame.persistence.domain.security.SecPermission;
-import org.encuestame.persistence.domain.security.SecUser;
-import org.encuestame.persistence.domain.security.SecUserSecondary;
-import org.encuestame.persistence.domain.security.SecUserTwitterAccounts;
-import org.encuestame.persistence.domain.security.SecGroup.Type;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionColettion;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionSection;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Surveys;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.persistence.domain.survey.QuestionsAnswers.AnswerType;
-import org.encuestame.persistence.dao.ICatEmail;
-import org.encuestame.persistence.dao.ICatLocation;
-import org.encuestame.persistence.dao.ICatLocationTypeDao;
-import org.encuestame.persistence.dao.ICatState;
-import org.encuestame.persistence.dao.IClientDao;
-import org.encuestame.persistence.dao.INotification;
-import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IProject;
-import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.ISecGroups;
-import org.encuestame.persistence.dao.ISecPermissionDao;
-import org.encuestame.persistence.dao.ISecUserDao;
-import org.encuestame.persistence.dao.ISurvey;
-import org.encuestame.persistence.dao.ISurveyFormatDao;
-import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.imp.CatEmailDao;
-import org.encuestame.persistence.dao.imp.ClientDao;
-import org.encuestame.persistence.dao.imp.PollDao;
-import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.survey.QuestionAnswer.AnswerType;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,25 +97,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     @Autowired
     private ISurveyFormatDao surveyformatDaoImp;
 
-    /** State Catalog Dao.**/
-    @Autowired
-    private ICatState catStateDaoImp;
-
     /** User Security Dao.**/
     @Autowired
-    private ISecUserDao secUserDao;
+    private IAccountDao secUserDao;
 
     /**Group Security Dao.**/
     @Autowired
-    private ISecGroups secGroupDaoImp;
+    private IGroup secGroupDaoImp;
 
     /** Security Permissions Dao.**/
     @Autowired
-    private ISecPermissionDao secPermissionDaoImp;
+    private IPermissionDao secPermissionDaoImp;
 
     /** Catalog Location Dao.**/
     @Autowired
-    private ICatLocation catLocationDao;
+    private IGeoPoint catLocationDao;
 
     /** Project Dao Imp.**/
     @Autowired
@@ -134,7 +127,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Catalog Location Type Dao.**/
     @Autowired
-    private ICatLocationTypeDao catLocationTypeDao;
+    private IGeoPointTypeDao catLocationTypeDao;
 
     /** {@link ClientDao}. **/
     @Autowired
@@ -148,9 +141,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     @Autowired
     private IPoll iPoll;
 
-    /** {@link CatEmailDao}. **/
+    /** {@link EmailDao}. **/
     @Autowired
-    private ICatEmail catEmailDao;
+    private IEmail catEmailDao;
 
     /** {@link Notification}. **/
     @Autowired
@@ -204,73 +197,58 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * Getter.
-     * @return the catStateDaoImp
-     */
-    public ICatState getCatStateDaoImp() {
-        return catStateDaoImp;
-    }
-
-    /**
-     * @param catStateDaoImp the catStateDaoImp to set
-     */
-    public void setCatStateDaoImp(final ICatState catStateDaoImp) {
-        this.catStateDaoImp = catStateDaoImp;
-    }
-
-    /**
      * @return the userDao
      */
-    public ISecUserDao getSecUserDao() {
+    public IAccountDao getSecUserDao() {
         return secUserDao;
     }
 
     /**
      * @param userDao the userDao to set
      */
-    public void setSecUserDao(final ISecUserDao userDao) {
+    public void setSecUserDao(final IAccountDao userDao) {
         this.secUserDao = userDao;
     }
 
     /**
-     * @return {@link ISecGroups}
+     * @return {@link IGroup}
      */
-    public ISecGroups getSecGroup(){
+    public IGroup getSecGroup(){
         return secGroupDaoImp;
     }
 
     /**
-     * @param secGroupDaoImp  {@link ISecGroups}
+     * @param secGroupDaoImp  {@link IGroup}
      */
-    public void setgroupDao(final ISecGroups secGroupDaoImp){
+    public void setgroupDao(final IGroup secGroupDaoImp){
         this.secGroupDaoImp = secGroupDaoImp;
     }
 
     /**
      * @return the secPermissionDaoImp
      */
-    public ISecPermissionDao getSecPermissionDaoImp() {
+    public IPermissionDao getSecPermissionDaoImp() {
         return secPermissionDaoImp;
     }
 
     /**
      * @param secPermissionDaoImp the secPermissionDaoImp to set
      */
-    public void setSecPermissionDaoImp(final ISecPermissionDao secPermissionDaoImp) {
+    public void setSecPermissionDaoImp(final IPermissionDao secPermissionDaoImp) {
         this.secPermissionDaoImp = secPermissionDaoImp;
     }
 
     /**
      * @return the secGroupDaoImp
      */
-    public ISecGroups getSecGroupDaoImp() {
+    public IGroup getSecGroupDaoImp() {
         return secGroupDaoImp;
     }
 
     /**
      * @param secGroupDaoImp the secGroupDaoImp to set
      */
-    public void setSecGroupDaoImp(final ISecGroups secGroupDaoImp) {
+    public void setSecGroupDaoImp(final IGroup secGroupDaoImp) {
         this.secGroupDaoImp = secGroupDaoImp;
     }
 
@@ -334,14 +312,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @return the catLocationTypeDao
      */
-    public ICatLocationTypeDao getCatLocationTypeDao() {
+    public IGeoPointTypeDao getCatLocationTypeDao() {
         return catLocationTypeDao;
     }
 
     /**
      * @param catLocationTypeDao the catLocationTypeDao to set
      */
-    public void setCatLocationTypeDao(ICatLocationTypeDao catLocationTypeDao) {
+    public void setCatLocationTypeDao(IGeoPointTypeDao catLocationTypeDao) {
         this.catLocationTypeDao = catLocationTypeDao;
     }
 
@@ -350,28 +328,28 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @return catLocationDao
      */
-    public ICatLocation getCatLocationDao() {
+    public IGeoPoint getCatLocationDao() {
         return catLocationDao;
     }
 
     /**
      * @param catLocationDao catLocationDao
      */
-    public void setCatLocationDao(ICatLocation catLocationDao) {
+    public void setCatLocationDao(IGeoPoint catLocationDao) {
         this.catLocationDao = catLocationDao;
     }
 
     /**
-     * @return {@link CatLocation}
+     * @return {@link GeoPoint}
      */
-    public ICatLocation getCatLocation() {
+    public IGeoPoint getCatLocation() {
         return catLocationDao;
     }
 
     /**
-     * @param catLocation {@link CatLocation}
+     * @param catLocation {@link GeoPoint}
      */
-    public void setCatLocation(final ICatLocation catLocation) {
+    public void setCatLocation(final IGeoPoint catLocation) {
         this.catLocationDao = catLocation;
     }
 
@@ -392,7 +370,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @return the catEmailDao
      */
-    public ICatEmail getCatEmailDao() {
+    public IEmail getCatEmailDao() {
         return catEmailDao;
     }
 
@@ -400,7 +378,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @param catEmailDao the catEmailDao to set
      */
-    public void setCatEmailDao(ICatEmail catEmailDao) {
+    public void setCatEmailDao(IEmail catEmailDao) {
         this.catEmailDao = catEmailDao;
     }
 
@@ -411,7 +389,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Poll createPoll(final Date createdAt,
             final Question question,
-            final SecUser secUser,
+            final Account secUser,
             final Boolean pollCompleted,
             final Boolean pollPublish
             ){
@@ -440,7 +418,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Date createdDate,
             final Question question,
             final String hash,
-            final SecUser secUsers,
+            final Account secUsers,
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();
@@ -457,11 +435,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
      /**
      * Helper to create Poll Result.
-     * @param questionAnswer {@link QuestionsAnswers}
+     * @param questionAnswer {@link QuestionAnswer}
      * @param poll {@link Poll}
      * @return state
      */
-    public PollResult createPollResults(final QuestionsAnswers questionAnswer, final Poll poll){
+    public PollResult createPollResults(final QuestionAnswer questionAnswer, final Poll poll){
         final PollResult pollRes = new PollResult();
         pollRes.setAnswer(questionAnswer);
         pollRes.setIpaddress("127.0.0.1");
@@ -471,28 +449,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return pollRes;
 
     }
-
-    /**
-     * Helper to create state.
-     * @param name name of state
-     * @return state
-     */
-    public CatState createState(final String name){
-        final CatState state = new CatState();
-        state.setDescState(name);
-        state.setStateImage("image.jpg");
-        getCatStateDaoImp().saveOrUpdate(state);
-        return state;
-    }
-
-    /**
-     * Helper to create Default State.
-     * @return
-     */
-    public CatState createDefaultState(){
-         return this.createState("Enabled");
-     }
-
 
     /**
      * Create project.
@@ -507,7 +463,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String name,
             final String descProject,
             final String infoProject,
-            final SecUser user) {
+            final Account user) {
           Project project = new Project();
           project.setProjectDateFinish(new Date());
           project.setProjectDateStart(new Date());
@@ -544,20 +500,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Helper to create Secondary User.
      * @param name user name
-     * @param secUser {@link SecUser}
+     * @param secUser {@link Account}
      * @return state
      */
-    public SecUserSecondary createSecondaryUser(
+    public UserAccount createSecondaryUser(
             final String name,
-            final SecUser secUser){
+            final Account secUser){
         return createSecondaryUser(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
     }
 
 
-    public SecUserSecondary createSecondaryUserGroup(
+    public UserAccount createSecondaryUserGroup(
             final String name,
-            final SecUser secUser,
-            final SecGroup secGroup){
+            final Account secUser,
+            final Group secGroup){
         return createSecondaryUserGroup(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, secGroup);
     }
 
@@ -570,11 +526,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUser
      * @return
      */
-    public SecUserSecondary createSecondaryUser(
+    public UserAccount createSecondaryUser(
             final String name,
             final String email,
-            final SecUser secUser) {
-        final SecUserSecondary user= new SecUserSecondary();
+            final Account secUser) {
+        final UserAccount user= new UserAccount();
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
@@ -594,12 +550,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUser
      * @return
      */
-    public SecUserSecondary createSecondaryUserGroup(
+    public UserAccount createSecondaryUserGroup(
             final String name,
             final String email,
-            final SecUser secUser,
-            final SecGroup secGroup){
-        final SecUserSecondary user= new SecUserSecondary();
+            final Account secUser,
+            final Group secGroup){
+        final UserAccount user= new UserAccount();
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
@@ -615,10 +571,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /**
      * Create User.
-     * @return {@link SecUser}
+     * @return {@link Account}
      */
-    public SecUser createUser(){
-        SecUser user = new SecUser();
+    public Account createUser(){
+        Account user = new Account();
         user.setTwitterAccount("testTWitterAccount");
         user.setTwitterPassword("testTwitterPwsd");
         getSecUserDao().saveOrUpdate(user);
@@ -628,10 +584,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Create User.
      * @param twitterAccount account
      * @param twitterPassword password
-     * @return {@link SecUser}
+     * @return {@link Account}
      */
-    public SecUser createUser(final String twitterAccount, final String twitterPassword){
-        SecUser user = new SecUser();
+    public Account createUser(final String twitterAccount, final String twitterPassword){
+        Account user = new Account();
         user.setTwitterAccount(twitterAccount);
         user.setTwitterPassword(twitterPassword);
         getSecUserDao().saveOrUpdate(user);
@@ -659,15 +615,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param locDescription locDescription
      * @param locTypeName locTypeName
      * @param Level Level
-     * @return location {@link CatLocationFolder}.
+     * @return location {@link GeoFolder}.
      */
-    public CatLocation createCatLocation(
+    public GeoPoint createCatLocation(
                        final String locDescription,
                        final String locTypeName,
                        final Integer Level,
-                       final SecUser secUsers,
-                       final CatLocationFolder catLocationFolder){
-        final CatLocation location = new CatLocation();
+                       final Account secUsers,
+                       final GeoFolder catLocationFolder){
+        final GeoPoint location = new GeoPoint();
         location.setLocationStatus(Status.ACTIVE);
         location.setLocationDescription(locDescription);
         location.setLocationLatitude(2F);
@@ -684,14 +640,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param locDescription description.
      * @param locTypeName type
      * @param Level level
-     * @param secUsers {@link SecUser}.
+     * @param secUsers {@link Account}.
      * @return
      */
-    public CatLocation createCatLocation(
+    public GeoPoint createCatLocation(
             final String locDescription,
             final String locTypeName,
             final Integer Level,
-            final SecUser secUsers){
+            final Account secUsers){
     return this.createCatLocation(locDescription, locTypeName, Level, secUsers, null);
     }
 
@@ -701,12 +657,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param groupname user name
      * @return state
      */
-    public SecGroup createGroups(final String groupname){
+    public Group createGroups(final String groupname){
         return createGroups(groupname, this.createUser());
     }
 
-    public SecGroup createGroups(final String groupname, final SecUser secUser){
-        final SecGroup group = new SecGroup();
+    public Group createGroups(final String groupname, final Account secUser){
+        final Group group = new Group();
         group.setSecUsers(secUser);
         group.setGroupName(groupname);
         group.setIdState(1L);
@@ -721,8 +677,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param permissionName name
      * @return Permission
      */
-    public SecPermission createPermission(final String permissionName){
-        final SecPermission permission = new SecPermission();
+    public Permission createPermission(final String permissionName){
+        final Permission permission = new Permission();
         permission.setPermissionDescription(permissionName);
         permission.setPermission(EnMePermission.getPermissionString(permissionName));
         getSecPermissionDaoImp().saveOrUpdate(permission);
@@ -734,7 +690,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param user user
      * @param permission permission
      */
-    public void addPermissionToUser(final SecUser user, final SecPermission permission){
+    public void addPermissionToUser(final Account user, final Permission permission){
        // final SecUserPermission userPerId = new SecUserPermission();
        // final SecUserPermissionId id = new SecUserPermissionId();
        /// id.setIdPermission(permission.getIdPermission());
@@ -750,8 +706,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param group group
      */
     public void addGroupUser(
-            final SecUserSecondary user,
-            final SecGroup group)
+            final UserAccount user,
+            final Group group)
     {
        /* final SecGroupUserId id = new SecGroupUserId();
         id.setGroupId(group.getGroupId());
@@ -769,8 +725,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param group group
      */
     public void addPermissionToGroup(
-            final SecPermission permission,
-            final SecGroup group)
+            final Permission permission,
+            final Group group)
     {
       //  final SecGroupPermissionId groupPermissionId = new SecGroupPermissionId();
        //// groupPermissionId.setGroupId(group.getGroupId());
@@ -790,7 +746,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Question createQuestion(final String question, String patron){
         final Question questions = new Question();
-        questions.setCatState(this.createState("active"));
         questions.setQidKey("1");
         questions.setQuestion(question);
         questions.setQuestionPattern(createQuestionPattern(patron));
@@ -816,7 +771,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param user
      * @return
      */
-    public Question createQuestion(final String questionName, final SecUser user){
+    public Question createQuestion(final String questionName, final Account user){
         final Question question =  createQuestion(questionName, "patter");
         question.setSecUsersQuestion(user);
         getQuestionDaoImp().saveOrUpdate(question);
@@ -831,9 +786,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param user user
      * @return {@link Question}
      */
-    public Question createQuestion(final String question, final String patron, final SecUser user){
+    public Question createQuestion(final String question, final String patron, final Account user){
         final Question questions = new Question();
-        questions.setCatState(this.createState("active"));
         questions.setQidKey("1");
         questions.setSecUsersQuestion(user);
         questions.setQuestion(question);
@@ -847,10 +801,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param answer answer
      * @param question question
      * @param hash hash
-     * @return {@link QuestionsAnswers}
+     * @return {@link QuestionAnswer}
      */
-    public QuestionsAnswers createQuestionAnswer(final String answer, final Question question, final String hash){
-        final QuestionsAnswers questionsAnswers = new QuestionsAnswers();
+    public QuestionAnswer createQuestionAnswer(final String answer, final Question question, final String hash){
+        final QuestionAnswer questionsAnswers = new QuestionAnswer();
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
@@ -886,7 +840,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      **/
     public SurveyGroup createSurveyGroup(String surveyGroupName){
         final SurveyGroup surveyGroup = new SurveyGroup();
-        surveyGroup.setCatState(createState("editor"));
         surveyGroup.setDateCreate(new Date());
         surveyGroup.setGroupName(surveyGroupName);
         getSurveyDaoImp().saveOrUpdate(surveyGroup);
@@ -960,7 +913,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
              Date scheduleDate,
              Date publicationDateTweet,
              Boolean completed,
-             SecUser tweetOwner,
+             Account tweetOwner,
              Question question){
         final TweetPoll tweetPoll = new TweetPoll();
         tweetPoll.setCloseNotification(closeNotification);
@@ -983,7 +936,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createPublishedTweetPoll(final SecUser tweetOwner, final Question question){
+    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
        return createTweetPoll(12345L, false, false, false, true, false, new Date(), new Date(), false, tweetOwner, question);
     }
 
@@ -993,17 +946,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createNotPublishedTweetPoll(final SecUser tweetOwner, final Question question){
+    public TweetPoll createNotPublishedTweetPoll(final Account tweetOwner, final Question question){
        return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question);
     }
 
     /**
      * Create {@link TweetPollSwitch}.
-     * @param questionsAnswers  {@link QuestionsAnswers}.
+     * @param questionsAnswers  {@link QuestionAnswer}.
      * @param tweetPollDomain {@link TweetPoll}.
      * @return {@link TweetPollSwitch}.
      */
-    public TweetPollSwitch createTweetPollSwitch(final QuestionsAnswers questionsAnswers, final TweetPoll tweetPollDomain){
+    public TweetPollSwitch createTweetPollSwitch(final QuestionAnswer questionsAnswers, final TweetPoll tweetPollDomain){
         final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
         tPollSwitch.setAnswers(questionsAnswers);
         tPollSwitch.setTweetPoll(tweetPollDomain);
@@ -1032,10 +985,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return tweet poll
      */
     public TweetPoll createFastTweetPollVotes(){
-        final SecUserSecondary secondary = createSecondaryUser("jhon", createUser());
+        final UserAccount secondary = createSecondaryUser("jhon", createUser());
         final Question question = createQuestion("who I am?", "");
-        final QuestionsAnswers questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
-        final QuestionsAnswers questionsAnswers2 = createQuestionAnswer("no", question, "12346");
+        final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
+        final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
         final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
         final TweetPollSwitch pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         final TweetPollSwitch pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
@@ -1048,20 +1001,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * Create {@link CatLocationFolder}.
+     * Create {@link GeoFolder}.
      * @param type {@link LocationFolderType}.
      * @param locationFolderId folder Id
-     * @param secUsers {@link SecUser}.
+     * @param secUsers {@link Account}.
      * @param folderName name
      * @param locationFolder
-     * @return {@link CatLocationFolder}.
+     * @return {@link GeoFolder}.
      */
-    public CatLocationFolder createCatLocationFolder(
+    public GeoFolder createCatLocationFolder(
             final LocationFolderType type,
-            final SecUser secUsers,
+            final Account secUsers,
             final String folderName,
-            final CatLocationFolder locationFolder){
-        final CatLocationFolder catLocationFolder = new CatLocationFolder();
+            final GeoFolder locationFolder){
+        final GeoFolder catLocationFolder = new GeoFolder();
         catLocationFolder.setFolderType(type);
         catLocationFolder.setLocationFolderName(folderName);
         catLocationFolder.setSecUsers(secUsers);
@@ -1077,10 +1030,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public SurveySection createSurveySection(
-            final CatState catState,
             final String descSection){
         final SurveySection surveySection = new SurveySection();
-        surveySection.setCatState(catState);
         surveySection.setDescSection(descSection);
         getSurveyDaoImp().saveOrUpdate(surveySection);
         surveySection.getQuestionSection().add(createDefaultQuestion("Why is your favourite movie"));
@@ -1108,7 +1059,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public SurveyPagination createSurveyPagination(
             final Integer pageNumber,
             final SurveySection surveySection,
-            final Surveys survey){
+            final Survey survey){
         final SurveyPagination surveyPag = new SurveyPagination();
         surveyPag.setPageNumber(pageNumber);
         surveyPag.setSurveySection(surveySection);
@@ -1121,12 +1072,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUsers
      * @return
      */
-    public Surveys createDefaultSurvey(final SecUser secUsers ){
+    public Survey createDefaultSurvey(final Account secUsers ){
         return this.createSurvey("", new Date(), new Date(), secUsers, new Date(), createDefaultSurveyFormat(),"FirstSurvey");
      }
 
     /**
-     * Create {@link Surveys}
+     * Create {@link Survey}
      * @param complete
      * @param dateInterview
      * @param endDate
@@ -1135,17 +1086,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param surveyFormat
      * @return
      */
-   public Surveys createSurvey(
+   public Survey createSurvey(
            final String complete,
            final Date dateInterview,
            final Date endDate,
-           final SecUser secUsers,
+           final Account secUsers,
            final Date startDate,
            final SurveyFormat surveyFormat,
            final String name
 
            ){
-       final Surveys survey = new Surveys();
+       final Survey survey = new Survey();
        survey.setName(name);
        survey.setComplete(complete);
        survey.setDateInterview(dateInterview);
@@ -1168,7 +1119,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param list
      * @return
      */
-    public CatEmailLists createDefaultListEmail(final SecUser user,final String list){
+    public EmailList createDefaultListEmail(final Account user,final String list){
         return this.createListEmails(user, list, new Date());
     }
 
@@ -1176,7 +1127,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Create Default List Email.
      * @return
      */
-    public CatEmailLists createDefaultListEmail(){
+    public EmailList createDefaultListEmail(){
         return this.createListEmails(createUser(), "default", new Date());
     }
 
@@ -1186,7 +1137,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
 
-    public CatEmailLists createDefaultListEmail(final String list){
+    public EmailList createDefaultListEmail(final String list){
         return this.createListEmails(createUser(), list, new Date());
     }
 
@@ -1195,7 +1146,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param user
      * @return
      */
-    public CatEmailLists createDefaultListEmail(final SecUser user){
+    public EmailList createDefaultListEmail(final Account user){
         return this.createListEmails(user, "default", new Date());
     }
 
@@ -1203,11 +1154,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Create Email List.
      * @return
      */
-    public CatEmailLists createListEmails(
-                final SecUser users,
+    public EmailList createListEmails(
+                final Account users,
                 final String listName,
                 final Date createDate){
-            final CatEmailLists catListEmails = new CatEmailLists();
+            final EmailList catListEmails = new EmailList();
             catListEmails.setCreatedAt(createDate);
             catListEmails.setListName(listName);
             catListEmails.setUsuarioEmail(users);
@@ -1220,7 +1171,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param email
      * @return
      */
-    public CatEmails createDefaultEmails(final String email){
+    public Emails createDefaultEmails(final String email){
         return this.createEmails(email, createDefaultListEmail());
     }
 
@@ -1230,7 +1181,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param listEmail
      * @return
      */
-    public CatEmails createDefaultEmails(final String email, final CatEmailLists listEmail){
+    public Emails createDefaultEmails(final String email, final EmailList listEmail){
         return this.createEmails(email, listEmail);
     }
     /**
@@ -1239,10 +1190,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param list
      * @return
      */
-    public CatEmails createEmails(
+    public Emails createEmails(
                 final String email,
-                final CatEmailLists list){
-            final CatEmails emails = new CatEmails();
+                final EmailList list){
+            final Emails emails = new Emails();
             emails.setEmail(email);
             emails.setIdListEmail(list);
             getCatEmailDao().saveOrUpdate(emails);
@@ -1251,7 +1202,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
 
     /**
-     * Create {@link SecUserTwitterAccounts}.
+     * Create {@link SocialAccount}.
      * @param consumerKey
      * @param consumerSecret
      * @param secretToken
@@ -1259,15 +1210,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param twitterAccount
      * @return
      */
-    public SecUserTwitterAccounts createTwitterAccount(
+    public SocialAccount createTwitterAccount(
             final String consumerKey,
             final String consumerSecret,
             final String token,
             final String secretToken,
             final Integer twitterPin,
-            final SecUser secUsers,
+            final Account secUsers,
             final String twitterAccount){
-        final SecUserTwitterAccounts secUserTwitterAccounts = new SecUserTwitterAccounts();
+        final SocialAccount secUserTwitterAccounts = new SocialAccount();
         secUserTwitterAccounts.setConsumerKey(consumerKey);
         secUserTwitterAccounts.setConsumerSecret(consumerSecret);
         secUserTwitterAccounts.setToken(token);
@@ -1283,10 +1234,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /**
      * Create Default Setted User.
-     * @param secUsers {@link SecUser}.
-     * @return {@link SecUserTwitterAccounts}.
+     * @param secUsers {@link Account}.
+     * @return {@link SocialAccount}.
      */
-    public SecUserTwitterAccounts createDefaultSettedTwitterAccount(final SecUser secUsers){
+    public SocialAccount createDefaultSettedTwitterAccount(final Account secUsers){
         return this.createTwitterAccount(getProperty("twitter.test.consumerKey"),
                 getProperty("twitter.test.consumerSecret"),
                 getProperty("twitter.test.token"),
@@ -1302,7 +1253,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
    * @param users
    * @return
    */
-    public SurveyFolder createSurveyFolders(final String folderName, final SecUser users){
+    public SurveyFolder createSurveyFolders(final String folderName, final Account users){
         final SurveyFolder surveyFolders = new SurveyFolder();
         surveyFolders.setCreatedAt(new Date());
         surveyFolders.setFolderName(folderName);
@@ -1315,10 +1266,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Create {@link PollFolder}.
      * @param folderName folder name
-     * @param users {@link SecUser}
+     * @param users {@link Account}
      * @return {@link PollFolder}.
      */
-    public PollFolder createPollFolder(final String folderName, final SecUser users){
+    public PollFolder createPollFolder(final String folderName, final Account users){
         final PollFolder folder = new PollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
@@ -1388,10 +1339,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Create Notification.
      * @param message message
-     * @param secUser {@link SecUser}.
+     * @param secUser {@link Account}.
      * @param description {@link NotificationEnum}.
      */
-    public Notification createNotification(final String message, final SecUser secUser, final NotificationEnum description){
+    public Notification createNotification(final String message, final Account secUser, final NotificationEnum description){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
          notification.setCreated(new Date());

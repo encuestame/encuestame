@@ -39,7 +39,7 @@ import org.encuestame.persistence.domain.Project;
  */
 @Entity
 @Table(name = "sec_groups")
-public class SecGroup {
+public class Group {
 
      /**
      */
@@ -87,12 +87,12 @@ public class SecGroup {
     /**
      * Permissions by Group.
      */
-    private Set<SecPermission> secPermissions = new HashSet<SecPermission>();
+    private Set<Permission> secPermissions = new HashSet<Permission>();
 
     /**
-     * {@link SecUser}.
+     * {@link Account}.
      */
-    private SecUser secUsers = new SecUser();
+    private Account secUsers = new Account();
 
     /**
      * @return groupId
@@ -163,14 +163,14 @@ public class SecGroup {
     @JoinTable(name="sec_group_permission",
                joinColumns={@JoinColumn(name="sec_id_group")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
-    public Set<SecPermission> getSecPermissions() {
+    public Set<Permission> getSecPermissions() {
         return secPermissions;
     }
 
     /**
      * @param secPermissions the secPermissions to set
      */
-    public void setSecPermissions(Set<SecPermission> secPermissions) {
+    public void setSecPermissions(Set<Permission> secPermissions) {
         this.secPermissions = secPermissions;
     }
 
@@ -196,14 +196,14 @@ public class SecGroup {
      * @return the secUsers
      */
     @ManyToOne()
-    public SecUser getSecUsers() {
+    public Account getSecUsers() {
         return secUsers;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final SecUser secUsers) {
+    public void setSecUsers(final Account secUsers) {
         this.secUsers = secUsers;
     }
 
