@@ -33,7 +33,7 @@ import org.encuestame.persistence.domain.security.Account;
  */
 @Entity
 @Table(name = "cat_location_folder")
-public class GeoFolder {
+public class GeoPointFolder {
 
     /**
      * Id.
@@ -46,9 +46,9 @@ public class GeoFolder {
     private String locationFolderName;
 
     /**
-     * {@link LocationFolderType}.
+     * {@link GeoPointFolderType}.
      */
-    private LocationFolderType folderType;
+    private GeoPointFolderType folderType;
 
     /**
      * {@link Account}.
@@ -58,7 +58,7 @@ public class GeoFolder {
     /**
      * SubLocation Folder.
      */
-    private GeoFolder subLocationFolder;
+    private GeoPointFolder subLocationFolder;
 
     /**
      * @return the locationFolderId
@@ -97,14 +97,14 @@ public class GeoFolder {
      */
     @Column(name="type")
     @Enumerated(EnumType.STRING)
-    public LocationFolderType getFolderType() {
+    public GeoPointFolderType getFolderType() {
         return folderType;
     }
 
     /**
      * @param folderType the folderType to set
      */
-    public void setFolderType(final LocationFolderType folderType) {
+    public void setFolderType(final GeoPointFolderType folderType) {
         this.folderType = folderType;
     }
 
@@ -127,14 +127,14 @@ public class GeoFolder {
      * @return the subLocationFolder
      */
     @ManyToOne()
-    public GeoFolder getSubLocationFolder() {
+    public GeoPointFolder getSubLocationFolder() {
         return subLocationFolder;
     }
 
     /**
      * @param subLocationFolder the subLocationFolder to set
      */
-    public void setSubLocationFolder(final GeoFolder subLocationFolder) {
+    public void setSubLocationFolder(final GeoPointFolder subLocationFolder) {
         this.subLocationFolder = subLocationFolder;
     }
 }

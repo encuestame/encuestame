@@ -27,10 +27,12 @@ import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
@@ -40,11 +42,16 @@ import org.springframework.stereotype.Repository;
  * @since Feb 17, 2010 8:26:57 PM
  * @version $Id$
  */
-@Repository
+@Repository("tweetPollDao")
 public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetPoll{
 
      private Log log = LogFactory.getLog(this.getClass());
 
+ 	@Autowired
+	public TweetPollDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+     
     /**
      * Get TweetPoll by Id.
      * @param tweetPollId tweetPollId

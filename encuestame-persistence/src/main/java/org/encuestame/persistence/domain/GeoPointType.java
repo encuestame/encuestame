@@ -32,7 +32,7 @@ import org.encuestame.persistence.domain.security.Account;
  */
 @Entity
 @Table(name = "cat_location_type")
-public class CatLocationType {
+public class GeoPointType {
 
     /** Location Type Id. */
     private Long locationTypeId;

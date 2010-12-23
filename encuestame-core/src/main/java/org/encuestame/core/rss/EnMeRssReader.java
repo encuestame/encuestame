@@ -13,9 +13,9 @@
 package org.encuestame.core.rss;
 
 import org.apache.log4j.Logger;
-import org.springframework.integration.core.Message;
-import org.springframework.integration.message.MessageBuilder;
-import org.springframework.integration.message.MessageSource;
+import org.springframework.integration.Message;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.integration.core.MessageSource;
 
 
 /**

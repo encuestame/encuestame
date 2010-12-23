@@ -14,12 +14,14 @@ package org.encuestame.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.IGroup;
+import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Account;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
@@ -29,17 +31,21 @@ import org.springframework.stereotype.Repository;
  * @since May 05, 2009
  * @version $Id$
  */
-@Repository
-public class GroupDaoImp extends AbstractHibernateDaoSupport implements
-        IGroup {
+@Repository("groupDaoImp")
+public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDao {
 
+	@Autowired
+	public GroupDaoImp(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Find all groups.
      */
     //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
     public List<Group> findAllGroups() {
-        return getHibernateTemplate().find("from SecGroup");
+        return getHibernateTemplate().find("from Group");
     }
 
     /**
@@ -49,7 +55,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<Group> loadGroupsByUser(final Account secUsers) {
-        return getHibernateTemplate().findByNamedParam("from SecGroup where secUsers = :secUsers ", "secUsers", secUsers);
+        return getHibernateTemplate().findByNamedParam("from Group where secUsers = :secUsers ", "secUsers", secUsers);
     }
 
     /**
@@ -69,7 +75,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public Group getGroupById(final Long groupId, final Account secUser){
         return (Group) DataAccessUtils.uniqueResult(getHibernateTemplate()
-               .findByNamedParam("from SecGroup where groupId = :groupId and  secUsers = :secUser",
+               .findByNamedParam("from Group where groupId = :groupId and  secUsers = :secUser",
                 new String[]{"groupId", "secUser"}, new Object[]{groupId, secUser}));
     }
 
@@ -99,13 +105,13 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements
 
     /**
      * Counter Users by Group
-     * @param secGroupId
+     * @param GroupId
      * @return
      */
     @SuppressWarnings("unchecked")
     public Long getCountUserbyGroup(final Long secGroupId){
         List<Long> counter = getHibernateTemplate().findByNamedParam("select count(uid) "
-                  +" from SecUserSecondary where secGroup.groupId = :secGroupId", "secGroupId", secGroupId);
+                  +" from UserAccount where secGroup.groupId = :secGroupId", "secGroupId", secGroupId);
          return counter.get(0);
     }
 
@@ -117,7 +123,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<Object[]> getUsersbyGroups(final Account user){
          return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
-                                                         + "FROM SecUserSecondary as scu, SecGroup as sg "
+                                                         + "FROM UserAccount as scu, Group as sg "
                                                          + "WHERE scu.secGroup.groupId = sg.groupId AND "
                                                          + "scu.secUser = :secUser "
                                                          + "GROUP BY sg.groupName", "secUser", user);
@@ -131,7 +137,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<Object[]> countUsersbyGroups(final Long user){
         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
-                                                        + "FROM SecUserSecondary as scu, SecGroup as sg "
+                                                        + "FROM UserAccount as scu, Group as sg "
                                                         + "WHERE scu.secGroup.groupId = sg.groupId AND "
                                                         + "scu.secUser.uid = :secUser "
                                                         + "GROUP BY sg.groupName", "secUser", user);

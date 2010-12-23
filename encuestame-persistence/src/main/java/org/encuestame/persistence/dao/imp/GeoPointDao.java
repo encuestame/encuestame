@@ -16,10 +16,12 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.GeoFolder;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
@@ -29,9 +31,14 @@ import org.springframework.stereotype.Repository;
  * @since  6/05/2009 14:45:54
  * @version $Id$
  */
-@Repository
+@Repository(value = "geoPointDao") 
 public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoint {
 
+	@Autowired
+	public GeoPointDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Find All Location.
      * @return list of all locations
@@ -39,7 +46,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      */
     @SuppressWarnings("unchecked")
     public List<GeoPoint> findAll() throws HibernateException {
-          return getHibernateTemplate().find("from CatLocation");
+          return getHibernateTemplate().find("from GeoPoint");
     }
 
     /**
@@ -63,7 +70,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      */
     @SuppressWarnings("unchecked")
     public List<GeoPoint> getLocationByTypeLocationId(final Long tidType) throws HibernateException{
-        final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";
+        final String queryLocation = "FROM GeoPoint WHERE tidtype.id  =?";
        return   getHibernateTemplate().find(queryLocation, tidType);
     }
 
@@ -74,7 +81,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      */
     @SuppressWarnings("unchecked")
     public List<GeoPoint> getLocationbyLevelId(final Integer locateId) throws HibernateException{
-        final String queryLocationType ="FROM CatLocation WHERE locationLevel = ?";
+        final String queryLocationType ="FROM GeoPoint WHERE locationLevel = ?";
         return getHibernateTemplate().find(queryLocationType, locateId);
     }
 
@@ -84,8 +91,8 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GeoFolder> getLocationFolders(final Long userId){
-         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoFolder.class);
+    public List<GeoPointFolder> getLocationFolders(final Long userId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
          criteria.add(Restrictions.eq("secUsers.id", userId));
          criteria.add(Restrictions.isNull("subLocationFolder"));
          return getHibernateTemplate().findByCriteria(criteria);
@@ -98,8 +105,8 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GeoFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoFolder.class);
+    public List<GeoPointFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
         criteria.add(Restrictions.eq("secUsers.id", userId));
         criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
         criteria.add(Restrictions.isNotNull("subLocationFolder"));
@@ -138,11 +145,11 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public GeoFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoFolder.class);
+    public GeoPointFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
         criteria.add(Restrictions.eq("locationFolderId", locationFolderId));
         criteria.add(Restrictions.eq("secUsers.uid", userId));
-        return (GeoFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        return (GeoPointFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
    }
 
 }

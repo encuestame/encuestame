@@ -20,8 +20,11 @@ import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Front End Dao.
@@ -29,11 +32,11 @@ import org.hibernate.criterion.Restrictions;
  * @since Oct 16, 2010 10:53:26 PM
  * @version $Id:$
  */
+@Repository("frontEndDao")
 public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEndDao{
 
     /** {@link HashTagDao}. **/
     private IHashTagDao hashTagDao;
-
     /** Represent 24 hours. **/
     private final Integer PERIOD24 = 1;
     /** Represent 7 days. **/
@@ -45,12 +48,10 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     /** Represent All Items in the time. **/
     private final Integer WITHOUT_FIRST_RESULTS = -1;
 
-
-    /**
-     * Constructor.
-     */
-    public FrontEndDao() {
-        super();
+    
+	@Autowired
+	public FrontEndDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
     }
 
     /**

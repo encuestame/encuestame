@@ -14,10 +14,12 @@ package org.encuestame.persistence.dao.imp;
 
 import java.util.List;
 
-import org.encuestame.persistence.dao.IProject;
+import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -26,9 +28,13 @@ import org.springframework.stereotype.Repository;
  * @since May 26, 2009
  * @version $Id$
  */
-@Repository
-public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProject {
+@Repository("projectDaoImp")
+public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProjectDao {
 
+	@Autowired
+	public ProjectDaoImp(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
 
     /**
      * Find all projects.

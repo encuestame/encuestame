@@ -16,8 +16,10 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.CatLocationType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -26,16 +28,21 @@ import org.springframework.stereotype.Repository;
  * @since 05/12/2009 12:36:22
  * @version $Id$
  */
-@Repository
+@Repository("geoPointTypeDao")
 public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeoPointTypeDao {
 
+	@Autowired
+	public GeoPointTypeDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
-     * Find All {@link CatLocationType}
-     * @return List of {@link CatLocationType}
+     * Find All {@link GeoPointType}
+     * @return List of {@link GeoPointType}
      * @throws HibernateException hibernate exception.
      */
     @SuppressWarnings("unchecked")
-    public List<CatLocationType> findAll() throws HibernateException {
+    public List<GeoPointType> findAll() throws HibernateException {
         return getHibernateTemplate().find("from CatLocationType");
     }
 
@@ -45,7 +52,7 @@ public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeo
      * @return {@link GeoPoint}
      * @throws HibernateException excetion
      */
-    public CatLocationType getLocationById(final Long locaTypeId) throws HibernateException {
-        return (CatLocationType) getHibernateTemplate().get(CatLocationType.class,locaTypeId);
+    public GeoPointType getLocationById(final Long locaTypeId) throws HibernateException {
+        return (GeoPointType) getHibernateTemplate().get(GeoPointType.class,locaTypeId);
     }
 }

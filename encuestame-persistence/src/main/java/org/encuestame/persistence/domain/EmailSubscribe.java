@@ -40,7 +40,7 @@ public class EmailSubscribe {
     private String hashCode;
 
     /****/
-    private Emails email;
+    private Email email;
 
     /****/
     private EmailList list;
@@ -82,14 +82,14 @@ public class EmailSubscribe {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "email_id", nullable = false)
-    public Emails getEmail() {
+    public Email getEmail() {
         return email;
     }
 
     /**
      * @param emailId the emailId to set
      */
-    public void setEmail(Emails email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 

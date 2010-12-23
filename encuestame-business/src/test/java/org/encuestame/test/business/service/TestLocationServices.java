@@ -18,8 +18,8 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.GeoFolder;
-import org.encuestame.persistence.domain.LocationFolderType;
+import org.encuestame.persistence.domain.GeoPointFolder;
+import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -114,8 +114,8 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testretrieveLocationSubFolderByUser() throws Exception{
-        final GeoFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
-        createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder sub", locationFolder);
+        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getSecUser(), "folder sub", locationFolder);
         final List<UnitLocationFolder> list = this.locationService.retrieveLocationSubFolderByUser(locationFolder.getLocationFolderId(), this.secondary.getUsername());
         Assert.assertEquals(list.size(), 1);
     }
@@ -126,7 +126,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateLocationMap() throws Exception{
-        final GeoFolder locationFolder = createCatLocationFolder(LocationFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
         //final CatLocation location = createCatLocation("Managua", locTypeName, Level, secUsers)
     }
 

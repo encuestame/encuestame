@@ -19,7 +19,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -33,7 +36,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      protected Log log = LogFactory.getLog(this.getClass());
 
      protected Session session = null;
-
+   
      /**
       * Save or Create entity.
       * @param obj obj

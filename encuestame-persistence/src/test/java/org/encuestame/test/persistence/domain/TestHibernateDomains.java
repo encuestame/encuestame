@@ -16,15 +16,15 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
-import org.encuestame.persistence.domain.CatLocationType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.CatQuestionCategory;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.GeoFolder;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.LocationFolderType;
+import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
@@ -74,7 +74,7 @@ public class TestHibernateDomains extends AbstractBase{
     */
    @Test
    public void testLocationType(){
-       final CatLocationType catLocType = new CatLocationType();
+       final GeoPointType catLocType = new GeoPointType();
        catLocType.setLocationTypeDescription("Departamento");
        catLocType.setLocationTypeLevel(1);
        getCatLocationTypeDao().saveOrUpdate(catLocType);
@@ -275,8 +275,8 @@ public class TestHibernateDomains extends AbstractBase{
      */
      @Test
      public void testLocationFolder(){
-         final GeoFolder catLocationFolder = new GeoFolder();
-         catLocationFolder.setFolderType(LocationFolderType.GROUPING);
+         final GeoPointFolder catLocationFolder = new GeoPointFolder();
+         catLocationFolder.setFolderType(GeoPointFolderType.GROUPING);
          catLocationFolder.setLocationFolderName("test folder");
          catLocationFolder.setSecUsers(createUser());
          getCatLocationDao().saveOrUpdate(catLocationFolder);
@@ -287,7 +287,7 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmail(){
-         final Emails catEmailList = new Emails();
+         final Email catEmailList = new Email();
          catEmailList.setEmail("paola@jotadeveloper.com");
          catEmailList.setIdListEmail(createDefaultListEmail());
          getCatEmailDao().saveOrUpdate(catEmailList);

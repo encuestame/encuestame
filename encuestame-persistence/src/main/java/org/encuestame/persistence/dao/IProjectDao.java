@@ -24,7 +24,7 @@ import org.hibernate.HibernateException;
   * @since  26/04/2009
   * @version $Id$
   */
-public interface IProject extends IBaseDao {
+public interface IProjectDao extends IBaseDao {
 
     /**
      * Retrieve project by id.

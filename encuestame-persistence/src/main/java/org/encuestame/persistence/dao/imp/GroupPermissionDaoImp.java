@@ -13,6 +13,8 @@
 package org.encuestame.persistence.dao.imp;
 
 import org.encuestame.persistence.dao.IGroupPermissionDao;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,10 +23,15 @@ import org.springframework.stereotype.Repository;
  * @since February 8, 2009
  * @version $Id$
  */
-@Repository
+@Repository("groupPermissionDao")
 public class GroupPermissionDaoImp extends AbstractHibernateDaoSupport implements
         IGroupPermissionDao {
 
+	@Autowired
+	public GroupPermissionDaoImp(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Find all Groups Permissions.
      * @return list of groups permissions.

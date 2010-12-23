@@ -20,13 +20,16 @@ import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.stereotype.Repository;
 
 /**
  * {@link HashTag} Dao.
@@ -34,8 +37,15 @@ import org.springframework.orm.hibernate3.HibernateCallback;
  * @since Jul 25, 2010 5:30:46 PM
  * @version Id:
  */
+@Repository("hashTagDao")
 public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagDao {
 
+	
+	@Autowired
+	public HashTagDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Create Hash TAg.
      * @param hashTag

@@ -19,10 +19,13 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -33,16 +36,22 @@ import org.springframework.stereotype.Repository;
  * @version $Id$
  */
 @SuppressWarnings("unchecked")
-@Repository
+@Repository("accountDao")
 public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccountDao {
 
+	
+	@Autowired
+	public AccountDaoImp(SessionFactory sessionFactory) {
+	 		 setSessionFactory(sessionFactory);
+    }
+	
    /**
      * Find All Users.
      * @return list of all users
      * @throws HibernateException hibernate
      */
     public List<UserAccount> findAll() throws HibernateException {
-        return getHibernateTemplate().find("from SecUserSecondary");
+        return getHibernateTemplate().find("from UserAccount");
     }
 
     /**
@@ -65,7 +74,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public Long retrieveTotalUsers(final Account secUsers){
          Long resultsSize = 0L;
-         final List list =  getHibernateTemplate().findByNamedParam("select count(*) from SecUserSecondary "
+         final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount "
                  +" WHERE secUser = :user", "user", secUsers);
          if (list.get(0) instanceof Long){
              log.debug("instace of Long");
@@ -179,7 +188,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return secondary user list
      */
     public List<UserAccount> getSecondaryUsersByUserId(final Long userId){
-            return getHibernateTemplate().findByNamedParam("from SecUserSecondary"
+            return getHibernateTemplate().findByNamedParam("from UserAccount"
                                           +" WHERE secUser.id = :userId", "userId", userId);
     }
 

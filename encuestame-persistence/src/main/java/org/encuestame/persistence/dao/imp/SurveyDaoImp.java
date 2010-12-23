@@ -23,9 +23,11 @@ import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
@@ -35,9 +37,14 @@ import org.springframework.stereotype.Repository;
  * @since June 01, 2009
  * @version $Id$
  */
-@Repository
+@Repository("surveyDaoImp")
 public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey {
 
+	@Autowired
+	public SurveyDaoImp(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Search survey by name.
      * @param searchString search string

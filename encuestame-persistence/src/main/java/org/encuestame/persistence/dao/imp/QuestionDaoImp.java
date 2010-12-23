@@ -23,13 +23,16 @@ import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.stereotype.Repository;
 
 /**
  * Question Dao.
@@ -37,8 +40,14 @@ import org.springframework.orm.hibernate3.HibernateCallback;
  * @since June 02, 2009
  * @version $Id$
  */
+@Repository("questionDaoImp")
 public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQuestionDao {
 
+	@Autowired
+	public QuestionDaoImp(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Create Question.
      * @param question question

@@ -22,7 +22,7 @@ import org.encuestame.persistence.domain.security.Account;
  * @since 11/05/2009 10:45:30
  * @version $Id$
  */
-public interface IGroup extends IBaseDao {
+public interface IGroupDao extends IBaseDao {
 
     /**
      * Find All Groups.

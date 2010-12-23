@@ -19,10 +19,10 @@ import java.util.List;
 
 import org.encuestame.core.mail.MailService;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.dao.IProject;
+import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.mail.InvitationBean;
 import org.junit.Before;
@@ -39,11 +39,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TestCatEmailLists extends AbstractServiceBase {
 
     private EmailList emailList;
-    private Emails emails;
+    private Email emails;
     private Account user;
     private UserAccount secondary;
 
-     /** {@link IProject} **/
+     /** {@link IProjectDao} **/
     @Autowired
     MailService  mailService;
 
@@ -61,9 +61,9 @@ public class TestCatEmailLists extends AbstractServiceBase {
     public void testSendEmail(){
         createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
         createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
-        final List<Emails> catEmails = getCatEmailDao().findEmailsByListId(
+        final List<Email> catEmails = getCatEmailDao().findEmailsByListId(
                 this.emailList.getIdList());
-        for (Emails catemails : catEmails) {
+        for (Email catemails : catEmails) {
               assertNotNull(catemails.getEmail());
               mailService.send(catemails.getEmail().toString(), "Welcome Encuestame List", "Welcome Encuestame List");
             }
@@ -72,9 +72,9 @@ public class TestCatEmailLists extends AbstractServiceBase {
     @Test(timeout = 80000)
     public void testSendInvitation(){
           createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
-          final List<Emails> catEmails = getCatEmailDao().findEmailsByListId(
+          final List<Email> catEmails = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
-          for (Emails catemails : catEmails) {
+          for (Email catemails : catEmails) {
                 assertNotNull(catemails.getEmail());
                 final InvitationBean invitation = new InvitationBean();
                 invitation.setCode("1253");
@@ -92,7 +92,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
      */
     @Test
     public void testFindEmailByListId() {
-        final List<Emails> catEmails = getCatEmailDao().findEmailsByListId(
+        final List<Email> catEmails = getCatEmailDao().findEmailsByListId(
                 this.emailList.getIdList());
         assertNotNull(catEmails);
         assertEquals("Should be equals", 1, catEmails.size());
@@ -142,7 +142,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
     @Test
     public void testEmailsByKeyword() {
         final String keywordEmail = "jotadeveloper.com";
-        final List<Emails> emails = getCatEmailDao().getEmailsByKeyword(
+        final List<Email> emails = getCatEmailDao().getEmailsByKeyword(
                 keywordEmail, this.user.getUid());
 
         assertEquals("Should be equals", 1, emails.size());

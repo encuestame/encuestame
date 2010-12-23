@@ -16,11 +16,13 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailSubscribe;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,9 +32,14 @@ import org.springframework.stereotype.Repository;
  * @version $Id: $
  */
 
-@Repository
+@Repository("emailDao")
 public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
 
+	@Autowired
+	public EmailDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Find Emails by User.
      * @return
@@ -49,7 +56,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Emails> findEmailsByListId(final Long idList){
+    public List<Email> findEmailsByListId(final Long idList){
         return getHibernateTemplate().findByNamedParam("FROM CatEmails WHERE idListEmail.idList= :idList", "idList", idList);
      }
 
@@ -78,8 +85,8 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Emails> getEmailsByKeyword(final String keyword, final Long userId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(Emails.class);
+    public List<Email> getEmailsByKeyword(final String keyword, final Long userId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Email.class);
         criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
 

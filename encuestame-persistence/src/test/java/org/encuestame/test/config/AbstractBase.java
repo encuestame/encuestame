@@ -23,9 +23,9 @@ import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IProject;
+import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.IGroup;
+import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISurvey;
@@ -35,14 +35,14 @@ import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
-import org.encuestame.persistence.domain.CatLocationType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.GeoFolder;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.LocationFolderType;
+import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
@@ -99,23 +99,23 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** User Security Dao.**/
     @Autowired
-    private IAccountDao secUserDao;
+    private IAccountDao accountDao;
 
     /**Group Security Dao.**/
     @Autowired
-    private IGroup secGroupDaoImp;
+    private IGroupDao groupDaoImp;
 
     /** Security Permissions Dao.**/
     @Autowired
-    private IPermissionDao secPermissionDaoImp;
+    private IPermissionDao permissionDaoImp;
 
     /** Catalog Location Dao.**/
     @Autowired
-    private IGeoPoint catLocationDao;
+    private IGeoPoint geoPointDao;
 
     /** Project Dao Imp.**/
     @Autowired
-    private IProject projectDaoImp;
+    private IProjectDao projectDaoImp;
 
     /** Survey Dao Imp.**/
     @Autowired
@@ -127,7 +127,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Catalog Location Type Dao.**/
     @Autowired
-    private IGeoPointTypeDao catLocationTypeDao;
+    private IGeoPointTypeDao geoPointTypeDao;
 
     /** {@link ClientDao}. **/
     @Autowired
@@ -143,11 +143,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** {@link EmailDao}. **/
     @Autowired
-    private IEmail catEmailDao;
+    private IEmail emailDao;
 
     /** {@link Notification}. **/
     @Autowired
-    private INotification notification;
+    private INotification notificationDao;
 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
@@ -200,69 +200,69 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return the userDao
      */
     public IAccountDao getSecUserDao() {
-        return secUserDao;
+        return accountDao;
     }
 
     /**
      * @param userDao the userDao to set
      */
     public void setSecUserDao(final IAccountDao userDao) {
-        this.secUserDao = userDao;
+        this.accountDao = userDao;
     }
 
     /**
-     * @return {@link IGroup}
+     * @return {@link IGroupDao}
      */
-    public IGroup getSecGroup(){
-        return secGroupDaoImp;
+    public IGroupDao getSecGroup(){
+        return groupDaoImp;
     }
 
     /**
-     * @param secGroupDaoImp  {@link IGroup}
+     * @param secGroupDaoImp  {@link IGroupDao}
      */
-    public void setgroupDao(final IGroup secGroupDaoImp){
-        this.secGroupDaoImp = secGroupDaoImp;
+    public void setgroupDao(final IGroupDao secGroupDaoImp){
+        this.groupDaoImp = secGroupDaoImp;
     }
 
     /**
      * @return the secPermissionDaoImp
      */
     public IPermissionDao getSecPermissionDaoImp() {
-        return secPermissionDaoImp;
+        return permissionDaoImp;
     }
 
     /**
      * @param secPermissionDaoImp the secPermissionDaoImp to set
      */
     public void setSecPermissionDaoImp(final IPermissionDao secPermissionDaoImp) {
-        this.secPermissionDaoImp = secPermissionDaoImp;
+        this.permissionDaoImp = secPermissionDaoImp;
     }
 
     /**
      * @return the secGroupDaoImp
      */
-    public IGroup getSecGroupDaoImp() {
-        return secGroupDaoImp;
+    public IGroupDao getSecGroupDaoImp() {
+        return groupDaoImp;
     }
 
     /**
      * @param secGroupDaoImp the secGroupDaoImp to set
      */
-    public void setSecGroupDaoImp(final IGroup secGroupDaoImp) {
-        this.secGroupDaoImp = secGroupDaoImp;
+    public void setSecGroupDaoImp(final IGroupDao secGroupDaoImp) {
+        this.groupDaoImp = secGroupDaoImp;
     }
 
     /**
      * @return the projectDaoImp
      */
-    public IProject getProjectDaoImp() {
+    public IProjectDao getProjectDaoImp() {
         return projectDaoImp;
     }
 
     /**
      * @param projectDaoImp the projectDaoImp to set
      */
-    public void setProjectDaoImp(final IProject projectDaoImp) {
+    public void setProjectDaoImp(final IProjectDao projectDaoImp) {
         this.projectDaoImp = projectDaoImp;
     }
 
@@ -313,14 +313,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return the catLocationTypeDao
      */
     public IGeoPointTypeDao getCatLocationTypeDao() {
-        return catLocationTypeDao;
+        return geoPointTypeDao;
     }
 
     /**
      * @param catLocationTypeDao the catLocationTypeDao to set
      */
     public void setCatLocationTypeDao(IGeoPointTypeDao catLocationTypeDao) {
-        this.catLocationTypeDao = catLocationTypeDao;
+        this.geoPointTypeDao = catLocationTypeDao;
     }
 
 
@@ -329,28 +329,28 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return catLocationDao
      */
     public IGeoPoint getCatLocationDao() {
-        return catLocationDao;
+        return geoPointDao;
     }
 
     /**
      * @param catLocationDao catLocationDao
      */
     public void setCatLocationDao(IGeoPoint catLocationDao) {
-        this.catLocationDao = catLocationDao;
+        this.geoPointDao = catLocationDao;
     }
 
     /**
      * @return {@link GeoPoint}
      */
     public IGeoPoint getCatLocation() {
-        return catLocationDao;
+        return geoPointDao;
     }
 
     /**
      * @param catLocation {@link GeoPoint}
      */
     public void setCatLocation(final IGeoPoint catLocation) {
-        this.catLocationDao = catLocation;
+        this.geoPointDao = catLocation;
     }
 
     /**
@@ -371,7 +371,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return the catEmailDao
      */
     public IEmail getCatEmailDao() {
-        return catEmailDao;
+        return emailDao;
     }
 
 
@@ -379,7 +379,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param catEmailDao the catEmailDao to set
      */
     public void setCatEmailDao(IEmail catEmailDao) {
-        this.catEmailDao = catEmailDao;
+        this.emailDao = catEmailDao;
     }
 
 
@@ -600,8 +600,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return locationType
      */
 
-    public CatLocationType createCatLocationType(final String locationTypeName){
-        final CatLocationType catLocatType = new CatLocationType();
+    public GeoPointType createCatLocationType(final String locationTypeName){
+        final GeoPointType catLocatType = new GeoPointType();
         catLocatType.setLocationTypeDescription(locationTypeName);
         catLocatType.setLocationTypeLevel(1);
         catLocatType.setUsers(createUser());
@@ -615,14 +615,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param locDescription locDescription
      * @param locTypeName locTypeName
      * @param Level Level
-     * @return location {@link GeoFolder}.
+     * @return location {@link GeoPointFolder}.
      */
     public GeoPoint createCatLocation(
                        final String locDescription,
                        final String locTypeName,
                        final Integer Level,
                        final Account secUsers,
-                       final GeoFolder catLocationFolder){
+                       final GeoPointFolder catLocationFolder){
         final GeoPoint location = new GeoPoint();
         location.setLocationStatus(Status.ACTIVE);
         location.setLocationDescription(locDescription);
@@ -1001,20 +1001,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * Create {@link GeoFolder}.
-     * @param type {@link LocationFolderType}.
+     * Create {@link GeoPointFolder}.
+     * @param type {@link GeoPointFolderType}.
      * @param locationFolderId folder Id
      * @param secUsers {@link Account}.
      * @param folderName name
      * @param locationFolder
-     * @return {@link GeoFolder}.
+     * @return {@link GeoPointFolder}.
      */
-    public GeoFolder createCatLocationFolder(
-            final LocationFolderType type,
+    public GeoPointFolder createCatLocationFolder(
+            final GeoPointFolderType type,
             final Account secUsers,
             final String folderName,
-            final GeoFolder locationFolder){
-        final GeoFolder catLocationFolder = new GeoFolder();
+            final GeoPointFolder locationFolder){
+        final GeoPointFolder catLocationFolder = new GeoPointFolder();
         catLocationFolder.setFolderType(type);
         catLocationFolder.setLocationFolderName(folderName);
         catLocationFolder.setSecUsers(secUsers);
@@ -1171,7 +1171,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param email
      * @return
      */
-    public Emails createDefaultEmails(final String email){
+    public Email createDefaultEmails(final String email){
         return this.createEmails(email, createDefaultListEmail());
     }
 
@@ -1181,7 +1181,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param listEmail
      * @return
      */
-    public Emails createDefaultEmails(final String email, final EmailList listEmail){
+    public Email createDefaultEmails(final String email, final EmailList listEmail){
         return this.createEmails(email, listEmail);
     }
     /**
@@ -1190,10 +1190,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param list
      * @return
      */
-    public Emails createEmails(
+    public Email createEmails(
                 final String email,
                 final EmailList list){
-            final Emails emails = new Emails();
+            final Email emails = new Email();
             emails.setEmail(email);
             emails.setIdListEmail(list);
             getCatEmailDao().saveOrUpdate(emails);
@@ -1357,13 +1357,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return the notification
      */
     public INotification getNotification() {
-        return notification;
+        return notificationDao;
     }
 
     /**
      * @param notification the notification to set
      */
     public void setNotification(final INotification notification) {
-        this.notification = notification;
+        this.notificationDao = notification;
     }
 }

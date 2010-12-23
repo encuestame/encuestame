@@ -18,8 +18,10 @@ import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Permission;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 /**
@@ -28,9 +30,14 @@ import org.springframework.stereotype.Repository;
  * @since May 11, 2009
  * @version $Id$
  */
-@Repository
+@Repository("permissionDaoImp")
 public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPermissionDao {
 
+	@Autowired
+	public PermissionDaoImp(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Load permissions by user.
      * @param userId user id
@@ -48,7 +55,7 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
      * @return List of  {@link SecPermission}
      */
     public List<Permission> loadAllPermissions() throws HibernateException {
-        return getHibernateTemplate().find("from SecPermission");
+        return getHibernateTemplate().find("from Permission");
 
     }
 
@@ -72,7 +79,7 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
      */
     @SuppressWarnings("unchecked")
     public List<Permission> findAllPermissions() throws HibernateException {
-        return getHibernateTemplate().find("from SecPermission");
+        return getHibernateTemplate().find("from Permission");
     }
 
    /**

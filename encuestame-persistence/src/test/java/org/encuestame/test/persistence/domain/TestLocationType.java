@@ -12,7 +12,7 @@
  */
 package org.encuestame.test.persistence.domain;
 
-import org.encuestame.persistence.domain.CatLocationType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class TestLocationType extends AbstractBase {
      */
     @Test
     public void testLocationType(){
-        final CatLocationType catLocType = new CatLocationType();
+        final GeoPointType catLocType = new GeoPointType();
         catLocType.setLocationTypeDescription("Description");
         catLocType.setLocationTypeLevel(1);
         catLocType.setLocationTypeId(1L);

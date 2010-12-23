@@ -16,7 +16,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailSubscribe;
 
 /**
@@ -40,7 +40,7 @@ public interface IEmail extends IBaseDao {
       * @param emailListId
       * @return
       */
-    public List<Emails> findEmailsByListId(final Long emailListId);
+    public List<Email> findEmailsByListId(final Long emailListId);
 
      /**
       * Find All Email List.
@@ -62,7 +62,7 @@ public interface IEmail extends IBaseDao {
      * @param userId
      * @return
      */
-    public List<Emails> getEmailsByKeyword(final String keyword, final Long userId);
+    public List<Email> getEmailsByKeyword(final String keyword, final Long userId);
 
     /**
      *

@@ -17,9 +17,12 @@ import java.util.List;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Notification Dao.
@@ -27,8 +30,14 @@ import org.hibernate.criterion.Restrictions;
  * @since Sep 18, 2010 7:10:33 PM
  * @version $Id:$
  */
+@Repository("notificationDao")
 public class NotificationDao extends AbstractHibernateDaoSupport implements INotification{
 
+	@Autowired
+	public NotificationDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Load Notifications By {@link Account} and Limit. This method add all notifications without User (global)
      * @param secUser {@link Account}

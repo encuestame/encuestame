@@ -19,7 +19,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.dao.IProject;
+import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 public class TestProjectDaoImp extends AbstractBase{
 
-    /** {@link IProject} **/
+    /** {@link IProjectDao} **/
     @Autowired
-    IProject  projectI;
+    IProjectDao  projectI;
 
     /** {@link Project} **/
     Project project;

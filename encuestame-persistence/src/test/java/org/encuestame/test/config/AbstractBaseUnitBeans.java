@@ -15,7 +15,7 @@ package org.encuestame.test.config;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.persistence.domain.LocationFolderType;
+import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
@@ -334,7 +334,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      public UnitLocationFolder createUnitLocationFolder(final String name){
          final UnitLocationFolder folder = new UnitLocationFolder();
          folder.setName(name);
-         folder.setType(LocationFolderType.GROUPING.name());
+         folder.setType(GeoPointFolderType.GROUPING.name());
          return folder;
      }
 

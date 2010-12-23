@@ -23,7 +23,7 @@ import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -74,8 +74,8 @@ public class TestPollService extends AbstractServiceBase{
     /** {@link EmailList} **/
     private EmailList emailList;
 
-    /** {@link Emails} **/
-    private Emails emails;
+    /** {@link Email} **/
+    private Email emails;
 
     /** {@link PollFolder}. **/
     private PollFolder folder;

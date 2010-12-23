@@ -18,7 +18,7 @@ package org.encuestame.persistence.domain;
  * @since May 15, 2010 10:40:32 PM
  * @version $Id:$
  */
-public enum LocationFolderType {
+public enum GeoPointFolderType {
     GROUPING,
     POLYGON,
     POLYLINE

@@ -22,10 +22,12 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
@@ -36,9 +38,14 @@ import org.springframework.stereotype.Repository;
  * @since March 15, 2009
  * @version $Id: $
  */
-@Repository
+@Repository("pollDao")
 public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
+	@Autowired
+	public PollDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
     /**
      * Find All Polls.
      *

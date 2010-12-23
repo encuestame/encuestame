@@ -45,7 +45,7 @@ public class GeoPoint {
     /** Id. **/
     private Long locateId;
     /** Type **/
-    private CatLocationType tidtype;
+    private GeoPointType tidtype;
 
     /** Description. **/
     private String locationDescription;
@@ -75,7 +75,7 @@ public class GeoPoint {
     private Account secUsers;
 
     /** Location Folder. **/
-    private GeoFolder catLocationFolder;
+    private GeoPointFolder catLocationFolder;
 
     /** Projects. **/
     private Set<Project> projects = new HashSet<Project>();
@@ -102,14 +102,14 @@ public class GeoPoint {
      */
     @ManyToOne()
     @JoinColumn(name = "loc_id_type")
-    public CatLocationType getTidtype() {
+    public GeoPointType getTidtype() {
         return this.tidtype;
     }
 
     /**
      * @param tidtype tidtype
      */
-    public void setTidtype(CatLocationType tidtype) {
+    public void setTidtype(GeoPointType tidtype) {
         this.tidtype = tidtype;
     }
 
@@ -204,14 +204,14 @@ public class GeoPoint {
      * @return the catLocationFolder
      */
     @ManyToOne(cascade=CascadeType.MERGE)
-    public GeoFolder getCatLocationFolder() {
+    public GeoPointFolder getCatLocationFolder() {
         return catLocationFolder;
     }
 
     /**
      * @param catLocationFolder the catLocationFolder to set
      */
-    public void setCatLocationFolder(GeoFolder catLocationFolder) {
+    public void setCatLocationFolder(GeoPointFolder catLocationFolder) {
         this.catLocationFolder = catLocationFolder;
     }
 

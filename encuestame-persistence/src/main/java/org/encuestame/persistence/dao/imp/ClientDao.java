@@ -18,6 +18,8 @@ import java.util.List;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.domain.Client;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -26,9 +28,13 @@ import org.springframework.stereotype.Repository;
  * @since January 24, 2010
  * @version $Id$
  */
-@Repository
+@Repository("clientDao")
 public class ClientDao extends AbstractHibernateDaoSupport implements IClientDao {
 
+	@Autowired
+	public ClientDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
 
     /**
      * Retrieve all clients.

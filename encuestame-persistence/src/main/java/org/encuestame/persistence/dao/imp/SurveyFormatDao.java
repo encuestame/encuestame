@@ -18,7 +18,9 @@ import java.util.List;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,9 +29,14 @@ import org.springframework.stereotype.Repository;
  * @since November 10, 2009
  * @version $Id$
  */
-@Repository
+@Repository("surveyFormatDaoImp")
 public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISurveyFormatDao{
 
+	@Autowired
+	public SurveyFormatDao(SessionFactory sessionFactory) {
+	 		setSessionFactory(sessionFactory);
+    }
+	
      /**
      * Get User By Id.
      * @param idSidFormat idSidFormat

@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.GeoFolder;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.hibernate.HibernateException;
 /**
  * Interface to implement Catalog Location Dao.
@@ -60,7 +60,7 @@ public interface IGeoPoint extends IBaseDao {
      * @param userId userId.
      * @return
      */
-    List<GeoFolder> getLocationFolders(final Long userId);
+    List<GeoPointFolder> getLocationFolders(final Long userId);
 
     /**
      * Get Items by Location by Folder Id.
@@ -75,7 +75,7 @@ public interface IGeoPoint extends IBaseDao {
      * @param userId userId.
      * @return
      */
-    List<GeoFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId);
+    List<GeoPointFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId);
 
     /**
      * Get LocationFolder by Id and User Id
@@ -83,7 +83,7 @@ public interface IGeoPoint extends IBaseDao {
      * @param userId userId
      * @return
      */
-    GeoFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId);
+    GeoPointFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId);
 
     /**
      * Get All Locations by User.
