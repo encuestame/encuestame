@@ -14,10 +14,10 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -51,14 +51,16 @@ public interface ILocationService {
     /**
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
-    void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion;
+    void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion, EnMeDomainNotFoundException;
 
     /**
      * @param locationTypeBean locationTypeBean
      * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
-    void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion;
+    void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException;
 
     /**
      * create Cat Location.
@@ -121,17 +123,19 @@ public interface ILocationService {
      * @param locationId
      * @param username
      * @throws EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
      void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username)
-           throws EnMeExpcetion;
+           throws EnMeExpcetion, EnMeDomainNotFoundException;
 
      /**
       * Update Location Name.
       * @param locationBean {@link UnitLocationBean}.
       * @param username username logged
       * @throws EnMeExpcetion exception
+     * @throws EnMeDomainNotFoundException
       */
-      void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion;
+      void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeDomainNotFoundException;
 
       /**
        * Update Location Folder.
@@ -139,34 +143,38 @@ public interface ILocationService {
        * @param username
        * @param typeUpdate
        * @throws EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
        */
       void updateLocationFolder(final UnitLocationFolder locationFolderBean,
               final String username, final String typeUpdate)
-              throws EnMeExpcetion;
+              throws EnMeDomainNotFoundException;
 
       /**
        * Create Default Location Item.
        * @param locationFolder
        * @param username
        * @throws EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
        */
       void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username)
-             throws EnMeExpcetion;
+             throws EnMeDomainNotFoundException;
 
       /**
        * Delete Location Folder.
        * @param unitLocationFolder
        * @param username
        * @throws EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
        */
-      void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeExpcetion;
+      void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeDomainNotFoundException;
 
       /**
        * Delete Location Item.
        * @param unitLocationBean
        * @param username
+     * @throws EnMeDomainNotFoundException
        */
-      void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeExpcetion;
+      void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeDomainNotFoundException;
 
       /**
        * Retrieve Locations Items by Username

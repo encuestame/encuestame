@@ -16,9 +16,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

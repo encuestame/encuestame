@@ -16,8 +16,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ILocationService;
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
@@ -25,6 +23,8 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -74,9 +74,10 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * Update Cat Location.
      * @param locationBean locationBean
      * @param username username
+     * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion{
+    public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeDomainNotFoundException, EnMeExpcetion{
        final GeoPoint catLocation =  getLocation(locationBean.getId(), username);
         if (catLocation!=null){
             catLocation.setLocationStatus(Status.valueOf(locationBean.getStatus()));
@@ -94,8 +95,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * Update Cat Location Type.
      * @param locationTypeBean locationTypeBean
      * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
-    public void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion{
+    public void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException{
         final GeoPointType catLocationType = getCatLocationTypeDao().getLocationById(locationTypeBean.getIdLocType());
         if (catLocationType!=null){
             catLocationType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
@@ -235,8 +237,9 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationId
      * @param username
      * @throws EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
-    public void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeExpcetion{
+    public void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeExpcetion, EnMeDomainNotFoundException{
         final GeoPoint location = getLocation(locationId, username);
         log.info("location map location "+location);
         if(location == null){
@@ -282,11 +285,12 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param locationBean {@link UnitLocationBean}.
      * @param username username logged
      * @throws EnMeExpcetion exception
+     * @throws EnMeDomainNotFoundException
      */
-    public void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion{
+    public void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeDomainNotFoundException{
         final GeoPoint location = getLocation(locationBean.getId(), username);
         if(location == null){
-            throw new EnMeExpcetion("location not found");
+            throw new EnMeDomainNotFoundException("location not found");
         }
         else{
             final String lastName = location.getLocationDescription();
@@ -304,14 +308,15 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param username
      * @param typeUpdate
      * @throws EnMeExpcetion
+     * @throws EnMeDomainNotFoundException
      */
     public void updateLocationFolder(final UnitLocationFolder locationFolderBean,
             final String username, final String typeUpdate)
-            throws EnMeExpcetion {
+            throws EnMeDomainNotFoundException {
         final GeoPointFolder locationFolder = getLocationFolder(locationFolderBean
                 .getId(), username);
         if (locationFolder == null) {
-            throw new EnMeExpcetion("location folder not found");
+            throw new EnMeDomainNotFoundException("location folder not found");
         }
         else {
             if (typeUpdate.equals("name")) {
@@ -330,13 +335,14 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param username
      * @throws EnMeExpcetion
      */
-    public void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username) throws EnMeExpcetion{
+    public void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username)
+           throws EnMeDomainNotFoundException{
         log.info("createDefaultILocationItem");
         final GeoPointFolder locationFolder = getLocationFolder(locationFolderBean
                 .getId(), username);
         log.info("createDefaultILocationItem locationFolder "+locationFolder);
         if (locationFolder == null) {
-            throw new EnMeExpcetion("location folder not found");
+            throw new EnMeDomainNotFoundException("location folder not found");
         }
         else {
             final GeoPoint catLocation = new GeoPoint();
@@ -355,11 +361,11 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param username
      * @throws EnMeExpcetion
      */
-    public void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeExpcetion{
+    public void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeDomainNotFoundException{
         final GeoPointFolder locationFolder = getLocationFolder(unitLocationFolder.getId(), username);
         log.info("deleteLocationFolder locationFolder "+locationFolder);
         if (locationFolder == null) {
-            throw new EnMeExpcetion("location folder not found");
+            throw new EnMeDomainNotFoundException("location folder not found");
         }
         else {
             //TODO: we need remove items on CASCADE.
@@ -378,10 +384,10 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param unitLocationBean
      * @param username
      */
-    public void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeExpcetion{
+    public void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeDomainNotFoundException{
         final GeoPoint location = getLocation(unitLocationBean.getId(), username);
         if(location == null){
-            throw new EnMeExpcetion("location not found");
+            throw new EnMeDomainNotFoundException("location not found");
         }
         else{
            //TODO: Maybe we have conflict in the future if this location was used on other tables, delete on cascade

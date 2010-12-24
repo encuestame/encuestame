@@ -39,7 +39,8 @@
 
   <security:http auto-config="false"
                  entry-point-ref="authenticationEntryPoint"
-                 access-decision-manager-ref="voteAccessDecisionManager" access-denied-page="${spring.sec.login.denied}">
+                 access-decision-manager-ref="voteAccessDecisionManager"
+                 access-denied-page="${spring.sec.login.denied}">
     <security:intercept-url pattern="index.jsp" filters="none" />
 
     <!-- Public Paths -->
@@ -84,6 +85,10 @@
                      logout-url="${spring.sec.logout.url}"/>
     <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
   </security:http>
+
+  <!--  Enable OAuth Security.
+  <import resource="encuestame-security-oauth-context.xml"/>
+    -->
 
   <bean id="authenticationProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
       <property name="authenticationManager" ref="authenticationManager"/>

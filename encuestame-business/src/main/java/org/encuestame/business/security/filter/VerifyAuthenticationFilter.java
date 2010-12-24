@@ -58,7 +58,7 @@ public class VerifyAuthenticationFilter implements Filter {
                       //responseHttp.sendRedirect("/account/dashboard");
                       response.reset();
                       response.resetBuffer();
-                      final Collection<GrantedAuthority> authorities = authentication
+                      final Collection<? extends GrantedAuthority>  authorities = authentication
                       .getAuthorities();
                       for (GrantedAuthority grantedAuthority : authorities) {
                           if(grantedAuthority.getAuthority().equals("ENCUESTAME_USER")){

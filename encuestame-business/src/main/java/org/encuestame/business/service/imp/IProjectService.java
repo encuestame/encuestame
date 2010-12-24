@@ -15,9 +15,9 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitUserBean;
 

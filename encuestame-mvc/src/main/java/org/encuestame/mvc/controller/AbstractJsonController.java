@@ -20,12 +20,12 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.exception;
+package org.encuestame.persistence.exception;
 
 /**
  * EnMe Fail Operation.
@@ -18,27 +18,27 @@ package org.encuestame.core.exception;
  * @since December 8, 2010
  * @version $Id:$
  */
-public class EnmeFailOperation extends EnMeExpcetion{
+public class EnmeNotAllowedException extends EnMeExpcetion{
     /**
      * Serial.
      */
        private static final long serialVersionUID = -120650589333637899L;
 
-       public EnmeFailOperation() {
+       public EnmeNotAllowedException() {
         // TODO Auto-generated constructor stub
            super();
         }
 
-       public EnmeFailOperation(String message, Throwable cause) {
+       public EnmeNotAllowedException(String message, Throwable cause) {
            super(message, cause);
            // TODO Auto-generated constructor stub
        }
 
-       public EnmeFailOperation(String message) {
+       public EnmeNotAllowedException(String message) {
            super(message);
        }
 
-       public EnmeFailOperation(Throwable cause) {
+       public EnmeNotAllowedException(Throwable cause) {
            super(cause);
        }
    }

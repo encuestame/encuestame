@@ -14,8 +14,8 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeSearchException;
 import org.encuestame.core.service.IService;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 
 /**

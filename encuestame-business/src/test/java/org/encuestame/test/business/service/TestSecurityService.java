@@ -19,14 +19,14 @@ import java.util.List;
 
 import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.imp.ISecurityService;
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;

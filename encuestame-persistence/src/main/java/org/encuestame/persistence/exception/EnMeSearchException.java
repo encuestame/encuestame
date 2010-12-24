@@ -10,32 +10,50 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.exception;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.ModelAndView;
+package org.encuestame.persistence.exception;
 
 /**
- * Exception for Json Calls.
- *
+ * Represent exception for a search.
  * @author Picado, Juan juanATencuestame.org
- * @since Sep 15, 2010 2:13:09 PM
+ * @since Oct 17, 2010 9:03:14 PM
  * @version $Id:$
  */
-public class EnMeJsonExceptionResolver implements HandlerExceptionResolver {
+public class EnMeSearchException extends EnMeExpcetion {
 
     /**
-     * Resolver Exception.
+     * Serial
      */
-    public ModelAndView resolveException(HttpServletRequest request,
-            HttpServletResponse response, Object handler, Exception exception) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("MappingJacksonJsonView");
-        mav.addObject("error", exception.getMessage());
-        return mav;
+    private static final long serialVersionUID = -220610572233612939L;
+
+    /**
+     * Constructor.
+     */
+    public EnMeSearchException() {
+        super();
     }
 
+    /**
+     * Exception Search.
+     * @param message message
+     * @param cause throwable cause
+     */
+    public EnMeSearchException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    /**
+     * Exception Search.
+     * @param message message
+     */
+    public EnMeSearchException(String message) {
+        super(message);
+    }
+
+    /**
+     * Exception Search.
+     * @param cause cause
+     */
+    public EnMeSearchException(Throwable cause) {
+        super(cause);
+    }
 }

@@ -19,10 +19,10 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.web.UnitProjectBean;

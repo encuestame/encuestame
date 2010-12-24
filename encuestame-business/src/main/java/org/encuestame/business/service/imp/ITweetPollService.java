@@ -14,15 +14,15 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
-import org.encuestame.core.exception.EnMeExpcetion;
-import org.encuestame.core.exception.EnmeFailOperation;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitTweetPoll;

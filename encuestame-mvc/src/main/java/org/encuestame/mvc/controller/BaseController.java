@@ -49,8 +49,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AuthenticationProcessingFilter;
-import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -181,14 +182,14 @@ public abstract class BaseController extends AbstractSecurityContext{
             final UsernamePasswordAuthenticationToken usernameAndPassword = new UsernamePasswordAuthenticationToken(username, password);
             final HttpSession session = request.getSession();
             session.setAttribute(
-                    AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
+                    UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
                     username);
 
             final Authentication auth = getAuthenticationManager().authenticate(usernameAndPassword);
 
             final SecurityContext securityContext = getSecCtx();
             securityContext.setAuthentication(auth);
-            session.setAttribute( HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY, securityContext);
+            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
         }
         catch (AuthenticationException e) {

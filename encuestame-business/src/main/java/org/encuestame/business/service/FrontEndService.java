@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
-import org.encuestame.core.exception.EnMeSearchException;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;

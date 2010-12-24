@@ -10,50 +10,35 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.exception;
+package org.encuestame.persistence.exception;
 
 /**
- * Represent exception for a search.
+ * EnMe Domain not found Exception.
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 17, 2010 9:03:14 PM
+ * @since Oct 9, 2010 1:27:09 PM
  * @version $Id:$
  */
-public class EnMeSearchException extends EnMeExpcetion {
+public class EnMeDomainNotFoundException extends EnMeExpcetion{
 
     /**
-     * Serial
+     * Serial.
      */
-    private static final long serialVersionUID = -220610572233612939L;
+    private static final long serialVersionUID = -120650572833612949L;
 
-    /**
-     * Constructor.
-     */
-    public EnMeSearchException() {
+    public EnMeDomainNotFoundException() {
         super();
     }
 
-    /**
-     * Exception Search.
-     * @param message message
-     * @param cause throwable cause
-     */
-    public EnMeSearchException(String message, Throwable cause) {
+    public EnMeDomainNotFoundException(String message, Throwable cause) {
         super(message, cause);
+        // TODO Auto-generated constructor stub
     }
 
-    /**
-     * Exception Search.
-     * @param message message
-     */
-    public EnMeSearchException(String message) {
+    public EnMeDomainNotFoundException(String message) {
         super(message);
     }
 
-    /**
-     * Exception Search.
-     * @param cause cause
-     */
-    public EnMeSearchException(Throwable cause) {
+    public EnMeDomainNotFoundException(Throwable cause) {
         super(cause);
     }
 }

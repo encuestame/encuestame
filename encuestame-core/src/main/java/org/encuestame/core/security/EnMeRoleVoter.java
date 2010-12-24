@@ -48,9 +48,9 @@ public class EnMeRoleVoter extends RoleVoter {
     public int vote(Authentication authentication, Object object,
             Collection<ConfigAttribute> attributes) {
 
-        int result = ACCESS_ABSTAIN;
+        int result = ACCESS_GRANTED;
 
-        final Collection<GrantedAuthority> authorities = authentication
+        final Collection<? extends GrantedAuthority> authorities = authentication
                 .getAuthorities();
 
         for (ConfigAttribute attribute : attributes) {

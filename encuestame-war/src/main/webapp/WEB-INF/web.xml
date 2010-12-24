@@ -6,21 +6,20 @@
     <description>online survey system</description>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:encuestame-service-context.xml,
+        <param-value>
+            classpath:encuestame-service-context.xml,
             classpath:encuestame-hibernate-context.xml,
-            classpath:encuestame-dao-context.xml,
             classpath:encuestame-security-context.xml,
+            classpath:encuestame-security-oauth-context.xml,
             classpath:encuestame-email-context.xml,
             classpath:encuestame-param-context.xml,
-            classpath:encuestame-report-context.xml,
+            <!-- classpath:encuestame-report-context.xml,-->
             classpath:encuestame-quartz-context.xml
             classpath:encuestame-rss-context.xml,
-            classpath:encuestame-beans-jsf-context.xml,
             classpath:encuestame-mvc-context.xml,
             classpath:encuestame-controller-context.xml,
             classpath:encuestame-json-context.xml
-<!--            classpath:encuestame-web-flow-registry-context.xml,-->
-<!--            classpath:encuestame-web-flow-context.xml-->
+            <!--  classpath:encuestame-integration.xml-->
             </param-value>
     </context-param>
     <!--

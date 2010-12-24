@@ -14,8 +14,8 @@ package org.encuestame.mvc.controller.syndication;
 
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitTweetPoll;
 
 /**

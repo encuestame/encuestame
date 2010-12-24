@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.exception;
+package org.encuestame.persistence.exception;
  /**
  * Encuestame Exception.
  * @author Picado, Juan juan@encuestame.org

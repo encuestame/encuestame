@@ -10,36 +10,35 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.exception;
+package org.encuestame.persistence.exception;
 
 /**
- * EnMe Fail Operation.
- * @author Morales, Diana Paola paola AT encuestame.org
- * @since December 8, 2010
+ * EnMe Domain not found Exception.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Oct 9, 2010 1:27:09 PM
  * @version $Id:$
  */
-public class EnmeNotAllowedException extends EnMeExpcetion{
+public class EnMeOAuthSecurityException extends Exception{
+
     /**
      * Serial.
      */
-       private static final long serialVersionUID = -120650589333637899L;
+    private static final long serialVersionUID = -120650572833612949L;
 
-       public EnmeNotAllowedException() {
+    public EnMeOAuthSecurityException() {
+        super();
+    }
+
+    public EnMeOAuthSecurityException(String message, Throwable cause) {
+        super(message, cause);
         // TODO Auto-generated constructor stub
-           super();
-        }
+    }
 
-       public EnmeNotAllowedException(String message, Throwable cause) {
-           super(message, cause);
-           // TODO Auto-generated constructor stub
-       }
+    public EnMeOAuthSecurityException(String message) {
+        super(message);
+    }
 
-       public EnmeNotAllowedException(String message) {
-           super(message);
-       }
-
-       public EnmeNotAllowedException(Throwable cause) {
-           super(cause);
-       }
-   }
-
+    public EnMeOAuthSecurityException(Throwable cause) {
+        super(cause);
+    }
+}

@@ -13,8 +13,8 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeDomainNotFoundException;
 import org.encuestame.core.service.IService;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 
