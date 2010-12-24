@@ -102,7 +102,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
-                final UserAccount secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
+                final UserAccount secondary = getAccountDao().getSecondaryUserById(projectBean.getLeader());
                 final Account user = getUser(username).getSecUser();
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
@@ -147,7 +147,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             throw new EnMeExpcetion("project not found");
         }
         else{
-            final UserAccount secondary = getSecUserDao().getSecondaryUserById(projectBean.getLeader());
+            final UserAccount secondary = getAccountDao().getSecondaryUserById(projectBean.getLeader());
             final Account user = getUser(username).getSecUser();
             project.setProjectName(projectBean.getName());
             project.setHideProject(projectBean.getHide());

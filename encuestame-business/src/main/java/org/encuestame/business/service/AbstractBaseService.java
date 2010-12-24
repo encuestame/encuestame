@@ -124,7 +124,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
                 final EmailList listsDomain = new EmailList();
                 listsDomain.setCreatedAt(unitLists.getCreatedAt());
                 listsDomain.setListName(unitLists.getListName());
-                listsDomain.setUsuarioEmail(getSecUserDao().getUserById(unitLists.getUserId()));
+                listsDomain.setUsuarioEmail(getAccountDao().getUserById(unitLists.getUserId()));
                 getEmailListsDao().saveOrUpdate(listsDomain);
                 unitLists.setId(listsDomain.getIdList());
               } catch (HibernateException e) {
@@ -311,7 +311,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
         final UserAccount secUserSecondary = this.getUser(currentUsername);
         if(secUserSecondary != null){
-            final Collection<UserAccount> listUsers = getSecUserDao()
+            final Collection<UserAccount> listUsers = getAccountDao()
                  .retrieveListOwnerUsers(secUserSecondary.getSecUser(), start, maxResults);
                 log.info("list users "+listUsers.size());
                 loadListUsers = ConvertDomainBean.convertCollectionUsersToBean(listUsers);
@@ -327,7 +327,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      */
     private Boolean validateOwnerGroup(final UserAccount user, final String loggedUserName){
         Boolean validate = Boolean.FALSE;
-        final UserAccount owner = getSecUserDao().getUserByUsername(loggedUserName);
+        final UserAccount owner = getAccountDao().getUserByUsername(loggedUserName);
         if(user != null && owner != null){
             if(user.getSecUser().getUid().equals(owner.getSecUser().getUid())){
                 validate = Boolean.TRUE;
@@ -345,7 +345,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      */
     public UnitUserBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
         UnitUserBean userInfo = null;
-        final UserAccount user = getSecUserDao().getSecondaryUserById(userId);
+        final UserAccount user = getAccountDao().getSecondaryUserById(userId);
         if(this.validateOwnerGroup(user, currentUsername)){
             userInfo =  ConvertDomainBean.convertSecondaryUserToUserBean(user);
             log.debug("getUserCompleteInfo info "+userInfo.getId());
@@ -360,7 +360,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @return
      */
     public UserAccount getValidateUser(final Long userId, final String currentUsername){
-        final UserAccount user = getSecUserDao().getSecondaryUserById(userId);
+        final UserAccount user = getAccountDao().getSecondaryUserById(userId);
         UserAccount expetedUser = null;
         if(this.validateOwnerGroup(user, currentUsername)){
             expetedUser = user;

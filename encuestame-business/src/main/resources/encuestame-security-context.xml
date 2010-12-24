@@ -27,7 +27,6 @@
 
 
   <bean id="EnMeAuthenticationDao" class="org.encuestame.core.security.EnMeUserServiceImp">
-    <property name="userDao" ref="secUserDao" />
     <property name="roleGroupAuth" value="${spring.sec.roleByGroup}" />
     <property name="roleUserAuth" value="${spring.sec.roleByAuthor}" />
   </bean>

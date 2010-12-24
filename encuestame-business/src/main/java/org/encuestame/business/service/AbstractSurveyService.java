@@ -94,7 +94,7 @@ public class AbstractSurveyService extends AbstractChartService {
             try{
 
                 question.setQuestion(questionBean.getQuestionName());
-                question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
+                question.setSecUsersQuestion(getAccountDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);
@@ -241,7 +241,7 @@ public class AbstractSurveyService extends AbstractChartService {
             tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
             //tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
             tweetPollDomain.setCompleted(Boolean.FALSE);
-            tweetPollDomain.setTweetOwner(getSecUserDao().getUserById(tweetPollBean.getUserId()));
+            tweetPollDomain.setTweetOwner(getAccountDao().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
             tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());

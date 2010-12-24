@@ -214,7 +214,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPollDomain.setCaptcha(tweetPollBean.getCaptcha());
             tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
             tweetPollDomain.setLimitVotes(tweetPollBean.getLimitVotes());
-            tweetPollDomain.setTweetOwner(getSecUserDao().getUserById(tweetPollBean.getUserId()));
+            tweetPollDomain.setTweetOwner(getAccountDao().getUserById(tweetPollBean.getUserId()));
             tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
             tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
             tweetPollDomain.setCreateDate(new Date());
@@ -327,7 +327,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 final String account[] = {};
                 final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
                 final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-                final SocialAccount secUserTwitterAccounts = getSecUserDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
+                final SocialAccount secUserTwitterAccounts = getAccountDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
                 publishedStatus.setApiType(Type.TWITTER);
                 if(secUserTwitterAccounts != null && tweetPoll != null){
                     log.debug("secUserTwitterAccounts Account"+secUserTwitterAccounts.getTwitterAccount());

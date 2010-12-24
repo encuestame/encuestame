@@ -80,48 +80,6 @@
   </bean>
 
   <bean id="dataEnMeSource" class="org.encuestame.business.service.AbstractDataSource" abstract="true">
-    <property name="stateDao">
-      <ref bean="catStateDaoImp"></ref>
-    </property>
-    <property name="projectDaoImp">
-      <ref bean="projectDaoImp"></ref>
-    </property>
-    <property name="catLocationDao">
-      <ref bean="catLocationDao"></ref>
-    </property>
-    <property name="catLocationTypeDao">
-      <ref bean="catLocationTypeDao"></ref>
-    </property>
-    <property name="clientDao">
-      <ref bean="clientDao"></ref>
-    </property>
-    <property name="secUserDao">
-      <ref bean="secUserDao"></ref>
-    </property>
-    <property name="questionDao">
-      <ref bean="questionDaoImp"></ref>
-    </property>
-    <property name="pollDao">
-      <ref bean="pollDao"></ref>
-    </property>
-    <property name="tweetPollDao">
-      <ref bean="tweetPollDao"></ref>
-    </property>
-    <property name="surveyDaoImp">
-      <ref bean="surveyDaoImp"></ref>
-    </property>
-  <property name="groupDao">
-      <ref bean="secGroupDaoImp"></ref>
-    </property>
-    <property name="permissionDao">
-      <ref bean="secPermissionDaoImp"></ref>
-    </property>
-     <property name="emailListsDao">
-      <ref bean="catEmailDao"></ref>
-    </property>
-    <property name="frontEndDao">
-      <ref bean="frontEndDao"></ref>
-    </property>
   </bean>
 
   <bean id="messageSource"

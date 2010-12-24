@@ -35,11 +35,11 @@ import org.springframework.stereotype.Repository;
 @Repository("emailDao")
 public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
 
-	@Autowired
-	public EmailDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public EmailDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Find Emails by User.
      * @return
@@ -47,7 +47,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
     @SuppressWarnings("unchecked")
     public List<EmailList> findListbyUser(final Long userId){
         return getHibernateTemplate().findByNamedParam(
-                "from CatEmailLists where usuarioEmail.uid= :userId", "userId", userId);
+                "from EmailList where usuarioEmail.uid= :userId", "userId", userId);
      }
 
     /**
@@ -57,7 +57,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      */
     @SuppressWarnings("unchecked")
     public List<Email> findEmailsByListId(final Long idList){
-        return getHibernateTemplate().findByNamedParam("FROM CatEmails WHERE idListEmail.idList= :idList", "idList", idList);
+        return getHibernateTemplate().findByNamedParam("FROM Email WHERE idListEmail.idList= :idList", "idList", idList);
      }
 
     /**
@@ -66,7 +66,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      */
     @SuppressWarnings("unchecked")
     public List<EmailList> findAllEmailList(){
-        return getHibernateTemplate().find("FROM CatEmailLists");
+        return getHibernateTemplate().find("FROM EmailList");
     }
 
     /**

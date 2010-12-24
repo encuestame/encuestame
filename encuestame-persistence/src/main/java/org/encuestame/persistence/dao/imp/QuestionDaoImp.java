@@ -43,11 +43,11 @@ import org.springframework.stereotype.Repository;
 @Repository("questionDaoImp")
 public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQuestionDao {
 
-	@Autowired
-	public QuestionDaoImp(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public QuestionDaoImp(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Create Question.
      * @param question question
@@ -135,7 +135,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     @SuppressWarnings("unchecked")
     public List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
-        return getHibernateTemplate().findByNamedParam("from QuestionsAnswers where questions.id =:questionId ",
+        return getHibernateTemplate().findByNamedParam("from QuestionAnswer where questions.id =:questionId ",
                                                        "questionId", questionId);
     }
 

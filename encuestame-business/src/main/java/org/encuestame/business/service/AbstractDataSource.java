@@ -49,6 +49,7 @@ import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
  * Abstract Data Services.
@@ -60,57 +61,57 @@ import org.springframework.stereotype.Service;
 public abstract class AbstractDataSource{
 
     /** {@link GeoPoint}. */
-    @Resource
-    private IGeoPoint catLocationDao;
+    @Autowired
+    private IGeoPoint geoPointDao;
     /** {@link GeoPointTypeDao}. */
-    @Resource
+    @Autowired
     private IGeoPointTypeDao catLocationTypeDao;
     /** {@link ProjectDaoImp}. */
-    @Resource
+    @Autowired
     private IProjectDao projectDaoImp;
     /** {@link ClientDao}. **/
-    @Resource
+    @Autowired
     private IClientDao clientDao;
     /** {@link AccountDaoImp}. **/
-    @Resource
-    private IAccountDao secUserDao;
+    @Autowired
+    private IAccountDao accountDao;
     /** {@link HashTagDao}. **/
-    @Resource
+    @Autowired
     private IHashTagDao hashTagDao;
     /*** {@link NotificationDao}. **/
-    @Resource
+    @Autowired
     private INotification notificationDao;
     /** {@link FrontEndService}. **/
-    @Resource
+    @Autowired
     private IFrontEndDao frontEndDao;
     /** Log. */
     private Log log = LogFactory.getLog(this.getClass());
 
     /** {@link IQuestionDao}**/
-    @Resource
+    @Autowired
     private IQuestionDao questionDao;
 
     /**{@link IPoll}**/
-    @Resource
+    @Autowired
     private IPoll pollDao;
 
-    @Resource
+    @Autowired
     private ISurvey surveyDaoImp;
 
     /**{@link ITweetPoll}**/
-    @Resource
+    @Autowired
     private ITweetPoll tweetPollDao;
 
     /** {@link IGroupDao}. **/
-    @Resource
+    @Autowired
     private IGroupDao groupDao;
 
     /** {@link IPermissionDao} **/
-    @Resource
+    @Autowired
     private IPermissionDao permissionDao;
 
    /** {@link IEmail} **/
-    @Resource
+    @Autowired
     private IEmail emailListsDao;
 
     /**
@@ -120,12 +121,12 @@ public abstract class AbstractDataSource{
      * @throws EnMeDomainNotFoundException exception
      */
     public final UserAccount getUser(final String username) throws EnMeDomainNotFoundException {
-        final UserAccount secUserSecondary = getSecUserDao().getUserByUsername(username);
+        final UserAccount secUserSecondary = getAccountDao().getUserByUsername(username);
         if(secUserSecondary == null){
             throw new EnMeDomainNotFoundException("user not found");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
-            return getSecUserDao().getUserByUsername(username);
+            return getAccountDao().getUserByUsername(username);
         }
     }
 
@@ -135,7 +136,7 @@ public abstract class AbstractDataSource{
      * @return
      */
     public final UserAccount getUser(final Long  userId){
-        return getSecUserDao().getSecondaryUserById(userId);
+        return getAccountDao().getSecondaryUserById(userId);
     }
 
     /**
@@ -144,7 +145,7 @@ public abstract class AbstractDataSource{
      * @return {@link UserAccount}
      */
     public UserAccount findUserByUserName(final String username) {
-        return getSecUserDao().getUserByUsername(username);
+        return getAccountDao().getUserByUsername(username);
     }
 
     /**
@@ -218,9 +219,9 @@ public abstract class AbstractDataSource{
                 projectDomain.setHideProject(projectBean.getHide());
                 projectDomain.setNotifyMembers(projectBean.getNotify());
                 if(projectBean.getLeader()!=null){
-                    projectDomain.setLead(getSecUserDao().getSecondaryUserById(projectBean.getLeader()));
+                    projectDomain.setLead(getAccountDao().getSecondaryUserById(projectBean.getLeader()));
                 }
-                projectDomain.setUsers(getSecUserDao().getUserById(projectBean.getUserId()));
+                projectDomain.setUsers(getAccountDao().getUserById(projectBean.getUserId()));
                 getProjectDaoImp().saveOrUpdate(projectDomain);
                 projectBean.setId(projectDomain.getProyectId());
                 log.debug("created domain project");
@@ -250,16 +251,16 @@ public abstract class AbstractDataSource{
     /**
      * @return the catLocationDao
      */
-    public final IGeoPoint getCatLocationDao() {
-        return catLocationDao;
+    public final IGeoPoint getGeoPointDao() {
+        return geoPointDao;
     }
 
     /**
      * @param catLocationDao the catLocationDao to set
      */
 
-    public final void setCatLocationDao(final IGeoPoint catLocationDao) {
-        this.catLocationDao = catLocationDao;
+    public final void setGeoPointDao(final IGeoPoint geoPointDao) {
+        this.geoPointDao = geoPointDao;
     }
 
     /**
@@ -307,15 +308,15 @@ public abstract class AbstractDataSource{
     /**
      * @return the secUserDao
      */
-    public final IAccountDao getSecUserDao() {
-        return secUserDao;
+    public final IAccountDao getAccountDao() {
+        return accountDao;
     }
 
     /**
      * @param secUserDao the secUserDao to set
      */
-    public final void setSecUserDao(final IAccountDao secUserDao) {
-        this.secUserDao = secUserDao;
+    public final void setAccountDao(final IAccountDao accountDao) {
+        this.accountDao = accountDao;
     }
 
     /**

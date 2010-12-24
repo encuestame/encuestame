@@ -31,9 +31,9 @@ import org.springframework.stereotype.Repository;
 @Repository("projectDaoImp")
 public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProjectDao {
 
-	@Autowired
-	public ProjectDaoImp(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public ProjectDaoImp(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
 
     /**

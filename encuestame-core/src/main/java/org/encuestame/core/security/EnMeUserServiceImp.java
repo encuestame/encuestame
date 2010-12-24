@@ -24,6 +24,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,7 +43,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     /**
      * {@link AccountDaoImp}.
      */
-    private IAccountDao secUserDao;
+    @Autowired
+    private IAccountDao accountDao;
 
     /**
      * Define if group permissions should be added.
@@ -73,8 +75,8 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      *
      * @param userDao the userDao to set
      */
-    public void setUserDao(final IAccountDao userDao) {
-        this.secUserDao = userDao;
+    public void setAccountDao(final IAccountDao accountDao) {
+        this.accountDao = accountDao;
     }
 
     /**
@@ -96,7 +98,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
         log.debug("username "+username);
-        final UserAccount user = secUserDao.getUserByUsername(username);
+        final UserAccount user = this.accountDao.getUserByUsername(username);
         if (user == null) {
             log.error("user not found");
             throw new UsernameNotFoundException("user not found");
@@ -114,7 +116,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         final Calendar calendar = Calendar.getInstance();
         secUserSecondary.setLastTimeLogged(calendar.getTime());
         log.debug("Updating logged time "+calendar.getTime());
-        secUserDao.saveOrUpdate(secUserSecondary);
+        accountDao.saveOrUpdate(secUserSecondary);
     }
 
     /**

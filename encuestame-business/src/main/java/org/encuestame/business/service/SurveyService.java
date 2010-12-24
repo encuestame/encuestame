@@ -67,7 +67,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             try{
 
                 question.setQuestion(questionBean.getQuestionName());
-                question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
+                question.setSecUsersQuestion(getAccountDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
                 question.setSharedQuestion(false);
                 //save question
@@ -303,7 +303,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         //	question.setQidKey();
         question.setQuestionPattern(question.getQuestionPattern());
         question.setQuestionsAnswers(question.getQuestionsAnswers());
-        question.setSecUsersQuestion(getSecUserDao().getUserById(questionBean.getUserId()));
+        question.setSecUsersQuestion(getAccountDao().getUserById(questionBean.getUserId()));
        // question.setSharedQuestion();
         this.getQuestionDao().saveOrUpdate(question);
         questionBean.setId(question.getQid());
