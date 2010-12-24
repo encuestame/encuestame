@@ -25,10 +25,13 @@
         <java-version>1.6</java-version>
         <!--  encuestame version -->
         <encuestame.version>1.1.3-SNAPSHOT</encuestame.version>
-        <!-- Spring Version -->
+        <!-- Spring Version 
         <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version>
+        -->
+        <spring.version>3.0.5.RELEASE</spring.version>
+        
         <spring.webflow.version>2.2.1.RELEASE</spring.webflow.version>
-        <spring.security.version>3.0.3.RELEASE</spring.security.version> <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
+        <spring.security.version>3.1.0.M2</spring.security.version> <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.0.0.RC1</spring-integration-core>
         <org.aspectj-version>1.6.9</org.aspectj-version>
         <org.slf4j-version>1.6.1</org.slf4j-version>
@@ -70,7 +73,7 @@
         <module>encuestame-core</module>
         <module>encuestame-persistence</module>
         <module>encuestame-business</module>
-        <module>encuestame-web</module>
+<!--        <module>encuestame-web</module>-->
         <module>encuestame-mvc</module>
         <module>encuestame-war</module>
     </modules>
@@ -1394,6 +1397,17 @@
              <artifactId>joda-time</artifactId>
              <version>1.6.2</version>
          </dependency>
+          <!-- Aspect J -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${org.aspectj-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
       </dependencies>
     </dependencyManagement>
 </project>
