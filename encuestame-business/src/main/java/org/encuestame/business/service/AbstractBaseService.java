@@ -25,7 +25,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.MessageSourceFactoryBean;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailSubscribe;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
@@ -149,7 +149,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             try {//
                 final EmailList emailList = new EmailList();
                 final String codeSubscribe = MD5Utils.md5(String.valueOf(System.currentTimeMillis()));
-                final Emails emailsDomain = new Emails();
+                final Email emailsDomain = new Email();
                 emailsDomain.setEmail(unitEmails.getEmailName());
                 emailsDomain.setSubscribed(Boolean.FALSE); //By Default is FALSE, user need subscribe.
                 emailsDomain.setIdListEmail(emailList);
@@ -200,7 +200,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         EmailSubscribe subscribe = getEmailListsDao().getSubscribeAccount(subscriptionCode);
         if (subscribe!=null){
             try {
-                   Emails emails = new Emails();
+                   Email emails = new Email();
                    if(subscriptionOption.equals("subscribe"))
                    {
                        emails.setSubscribed(Boolean.TRUE);

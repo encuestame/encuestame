@@ -26,7 +26,7 @@ import org.encuestame.core.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.dao.IFolder;
-import org.encuestame.persistence.domain.Emails;
+import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -210,9 +210,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      *
      */
     public void publicPollByList(String urlPoll, UnitLists emailList) {
-        final List<Emails> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
+        final List<Email> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
         if(emailList !=null){
-                 for (Emails emails : emailsList) {
+                 for (Email emails : emailsList) {
                    getServiceMail().send(emails.getEmail(),"New Poll", urlPoll);
                   }
          }

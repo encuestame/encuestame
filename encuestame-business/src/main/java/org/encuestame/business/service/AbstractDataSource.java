@@ -30,9 +30,9 @@ import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IProject;
+import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.IGroup;
+import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISurvey;
@@ -67,7 +67,7 @@ public abstract class AbstractDataSource{
     private IGeoPointTypeDao catLocationTypeDao;
     /** {@link ProjectDaoImp}. */
     @Resource
-    private IProject projectDaoImp;
+    private IProjectDao projectDaoImp;
     /** {@link ClientDao}. **/
     @Resource
     private IClientDao clientDao;
@@ -101,9 +101,9 @@ public abstract class AbstractDataSource{
     @Resource
     private ITweetPoll tweetPollDao;
 
-    /** {@link IGroup}. **/
+    /** {@link IGroupDao}. **/
     @Resource
-    private IGroup groupDao;
+    private IGroupDao groupDao;
 
     /** {@link IPermissionDao} **/
     @Resource
@@ -265,14 +265,14 @@ public abstract class AbstractDataSource{
     /**
      * @return the projectDaoImp
      */
-    public final IProject getProjectDaoImp() {
+    public final IProjectDao getProjectDaoImp() {
         return projectDaoImp;
     }
 
     /**
      * @param projectDaoImp the projectDaoImp to set
      */
-    public void setProjectDaoImp(final IProject projectDaoImp) {
+    public void setProjectDaoImp(final IProjectDao projectDaoImp) {
         this.projectDaoImp = projectDaoImp;
     }
 
@@ -377,14 +377,14 @@ public abstract class AbstractDataSource{
     /**
      * @return the groupDao
      */
-    public final IGroup getGroupDao() {
+    public final IGroupDao getGroupDao() {
         return groupDao;
     }
 
     /**
      * @param groupDao the groupDao to set
      */
-    public final void setGroupDao(final IGroup groupDao) {
+    public final void setGroupDao(final IGroupDao groupDao) {
         this.groupDao = groupDao;
     }
 
