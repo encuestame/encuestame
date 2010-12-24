@@ -13,17 +13,21 @@
 package org.encuestame.persistence.domain.security;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
- * Description Class.
+ * Define Account App Coonection.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 23, 2010 10:45:15 PM
- * @version Id:
+ * @version $Id:$
  */
+@Entity
+@Table(name = "oauth_account_connection")
 public class AccountConnection {
 
     private Long accountConnectionId;

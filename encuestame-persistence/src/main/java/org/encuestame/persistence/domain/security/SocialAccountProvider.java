@@ -13,16 +13,20 @@
 package org.encuestame.persistence.domain.security;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * Description Class.
+ * Social Account Provider.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 23, 2010 11:44:52 PM
- * @version Id:
+ * @version $Id:$
  */
+@Entity
+@Table(name = "oauth_account_social_provider")
 public class SocialAccountProvider {
 
     private Long socialProviderId;
