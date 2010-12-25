@@ -25,7 +25,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -39,12 +38,12 @@ import org.springframework.stereotype.Repository;
 @Repository("accountDao")
 public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccountDao {
 
-	
-	@Autowired
-	public AccountDaoImp(SessionFactory sessionFactory) {
-	 		 setSessionFactory(sessionFactory);
+
+    @Autowired
+    public AccountDaoImp(SessionFactory sessionFactory) {
+              setSessionFactory(sessionFactory);
     }
-	
+
    /**
      * Find All Users.
      * @return list of all users
@@ -219,6 +218,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public List<Long> getTotalSurveyByUser(final Long userId){ //editorOwner
         return getHibernateTemplate().findByNamedParam("select count(sid) "
-               +" from Surveys where editorOwner.id = :editorOwner", "editorOwner", userId);
+               +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
+
+
+
 }
