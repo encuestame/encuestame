@@ -69,3 +69,6 @@ values
 'https://www.tripit.com/oauth/authorize?oauth_token={token}&oauth_callback=https://greenhouse.springsource.org/connect/tripit',
 'https://api.tripit.com/oauth/access_token'
 );
+
+
+INSERT INTO `encuestame_core`.`application` (`application_id`, `api_key`, `callback_url`, `description`, `icon_url`, `name`, `secret`, `slug`, `account_uid`) VALUES (NULL, 'a08318eb478a1ee31f69a55276f3af64', 'http://localhost:8080/encuestame', 'encuestame oauth app', NULL, 'encuestame', '80e7f8f7ba724aae9103f297e5fb9bdf', NULL, '1');
