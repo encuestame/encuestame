@@ -16,8 +16,13 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.oauth.OAuthToken;
 import org.hibernate.HibernateException;
 
 /**
@@ -143,4 +148,82 @@ public interface IAccountDao extends IBaseDao {
     */
    List<Long> getTotalSurveyByUser(final Long userId);
 
+   /**
+    * Find user account connected.
+    * @param provider
+    * @param providerAccount
+    * @return
+    */
+   List<?> findUserAccountsConnectedTo(String provider,
+                  List<SocialAccountProvider> providerAccount);
+
+   /**
+    * User Account.
+    * @param provider
+    * @param accessToken
+    * @return
+    * @throws EnMeExpcetion
+    */
+    UserAccount findAccountByConnection(String provider,
+                      String accessToken) throws EnMeExpcetion;
+
+    /**
+     * Get Provider Account Id.
+     * @param accountId
+     * @param provider
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    Long getProviderAccountId(Long accountId, String provider)
+         throws EnMeDomainNotFoundException;
+
+
+    /**
+     * Get Access Token.
+     * @param accountId
+     * @param provider
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    OAuthToken getAccessToken(Long accountId, String provider)
+           throws EnMeDomainNotFoundException;
+
+    /**
+     * Disconnect Account Connection.
+     * @param accountId
+     * @param provider
+     * @throws EnMeDomainNotFoundException
+     */
+    void disconnect(Long accountId, String provider) throws EnMeDomainNotFoundException;
+
+    /**
+     * Get Account Connection.
+     * @param accountId
+     * @param proviver
+     * @return
+     */
+    AccountConnection getAccountConnection(final Long accountId, final String provider);
+
+    /**
+     * {@link AccountConnection} Is Connected.
+     * @param accountId
+     * @param provider
+     * @return
+     */
+    boolean isConnected(Long accountId, String provider);
+
+    /**
+     * Add connection.
+     * @param provider
+     * @param accessToken
+     * @param providerAccountId
+     * @param userAccountId
+     * @param providerProfileUrl
+     */
+    void addConnection(
+                final String provider,
+                final OAuthToken token,
+                final String socialAccountId,
+                final Long userAccountId,
+                final String providerProfileUrl);
 }

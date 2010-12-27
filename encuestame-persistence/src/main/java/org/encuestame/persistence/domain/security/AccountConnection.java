@@ -30,14 +30,39 @@ import javax.persistence.Table;
 @Table(name = "oauth_account_connection")
 public class AccountConnection {
 
+    /**
+     * Account Id.
+     */
     private Long accountConnectionId;
 
-    private SocialAccountProvider accountProvider;
-
-    private String accessToken;
-
+    /**
+     * Reference to User Account.
+     */
     private UserAccount userAccout;
 
+    /**
+     * Reference to Account Provider.
+     */
+    private SocialAccountProvider accountProvider;
+
+    /**
+     * Access Token.
+     */
+    private String accessToken;
+
+    /**
+     * Social Account Id, eg: @encuestame
+     */
+    private String socialAccountId;
+
+    /**
+     * Secret Key.
+     */
+    private String secret;
+
+    /**
+     * Url to Social User Profile.
+     */
     private String profileUrl;
 
     /**
@@ -115,5 +140,34 @@ public class AccountConnection {
      */
     public void setProfileUrl(final String profileUrl) {
         this.profileUrl = profileUrl;
+    }
+
+    /**
+     * @return the secret
+     */
+    public String getSecret() {
+        return secret;
+    }
+
+    /**
+     * @param secret the secret to set
+     */
+    @Column(name = "secret")
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    /**
+     * @return the socialAccountId
+     */
+    public String getSocialAccountId() {
+        return socialAccountId;
+    }
+
+    /**
+     * @param socialAccountId the socialAccountId to set
+     */
+    public void setSocialAccountId(final String socialAccountId) {
+        this.socialAccountId = socialAccountId;
     }
 }

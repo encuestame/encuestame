@@ -34,11 +34,11 @@ import org.springframework.stereotype.Repository;
 @Repository("groupDaoImp")
 public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDao {
 
-	@Autowired
-	public GroupDaoImp(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public GroupDaoImp(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Find all groups.
      */

@@ -67,7 +67,7 @@ public class SocialAccountProvider {
     /**
      * @return the name
      */
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     public String getName() {
         return name;
     }
