@@ -13,16 +13,23 @@
     MVC proceeds to the next HandlerMapping (order=0 below).
   -->
   <bean
-    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"><!--
-      <property name="interceptors"> <list>
-        <ref bean="openSessionInViewInterceptor"/> </list>
+    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+      <property name="interceptors">
+          <list>
+               <!--<ref bean="openSessionInViewInterceptor"/>-->
+               <ref bean="mobileInterceptor"/>
+               <ref bean="enMeInterceptor"/>
+          </list>
       </property>
-  -->
      <property name="order" value="0"/>
   </bean>
 
+
+ <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
+ <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
+
   <!-- Scans for application @Components to deploy -->
-  <context:component-scan base-package="org.encuestame.mvc.controller" />
+  <context:component-scan base-package="org.encuestame.mvc" />
 
   <!--
     Enables annotated @Controllers; responsible for invoking an annotated
