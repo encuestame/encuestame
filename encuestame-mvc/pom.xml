@@ -383,7 +383,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
-
+        <dependency>
+           <groupId>org.scribe</groupId>
+           <artifactId>scribe</artifactId>
+        </dependency>
+       <dependency>
+          <groupId>org.springframework.mobile</groupId>
+         <artifactId>spring-mobile-device</artifactId>
+      </dependency>	                                                                                    
     </dependencies>
     <build>
         <plugins>
