@@ -66,7 +66,7 @@ values
 'ed00208afc958b1d6fbd06f7a20faa03e810fa27',
 '47c29a0bb66df8c633580e3810536b9b25ff3a59',
 'https://api.tripit.com/oauth/request_token',
-'https://www.tripit.com/oauth/authorize?oauth_token={token}&oauth_callback=https://greenhouse.springsource.org/connect/tripit',
+'https://www.tripit.com/oauth/authorize?oauth_token={token}&oauth_callback=https://xxxx.com/connect/tripit',
 'https://api.tripit.com/oauth/access_token'
 );
 

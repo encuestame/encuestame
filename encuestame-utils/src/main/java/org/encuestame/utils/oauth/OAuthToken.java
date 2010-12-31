@@ -31,4 +31,15 @@ public final class OAuthToken {
         return secret;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("OAuthToken [value=").append(value).append(", secret=")
+                .append(secret).append("]");
+        return builder.toString();
+    }
+
 }

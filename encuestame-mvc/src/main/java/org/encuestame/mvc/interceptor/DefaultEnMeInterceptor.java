@@ -88,7 +88,9 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
             final String cookieName,
             final HttpServletResponse response,
             final String value){
-        response.addCookie(new Cookie(cookieName, value));
+        Cookie cookie = new Cookie(cookieName, value);
+        //cookie.setMaxAge(expiry)
+        response.addCookie(cookie);
     }
 
     /* (non-Javadoc)

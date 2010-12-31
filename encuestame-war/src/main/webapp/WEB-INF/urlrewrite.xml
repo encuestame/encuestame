@@ -39,7 +39,7 @@
     </rule>
     <rule>
         <from>^/home</from>
-        <to>/index.jspx</to>
+        <to>/home.jspx</to>
     </rule>
     <rule>
       <from>^/dashboard.jspx</from>

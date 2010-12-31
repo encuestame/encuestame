@@ -241,13 +241,14 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param userAccountId
      * @param providerProfileUrl
      */
-    public void addConnection(
+    public AccountConnection addConnection(
                 final String provider,
                 final OAuthToken token,
                 final String socialAccountId,
                 final Long userAccountId,
                 final String providerProfileUrl){
         final AccountConnection connection = new AccountConnection();
+        //get provider
         final SocialAccountProvider providerSocial = getSocialProviderDao()
                                    .getSocialAccountProviderId(provider);
         connection.setAccountProvider(providerSocial);
@@ -257,6 +258,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         connection.setProfileUrl(providerProfileUrl);
         connection.setUserAccout(this.getSecondaryUserById(userAccountId));
         getHibernateTemplate().saveOrUpdate(connection);
+        return connection;
     }
 
 
@@ -269,10 +271,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     public boolean isConnected(Long accountId, String provider) {
         boolean account = false;
         final AccountConnection connection =  this.getAccountConnection(accountId, provider);
+        log.debug("Is connected "+account);
         if(connection != null){
             account = true;
         }
-        log.debug("Is Connected "+account);
         return account;
     }
 
@@ -343,25 +345,37 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
-     * User Account.
+     * Retrieve {@link AccountConnection} by access token and provider name.
      * @param provider
      * @param accessToken
      * @return
      * @throws EnMeExpcetion
      */
-    public UserAccount findAccountByConnection(String provider,
-                       String accessToken) throws EnMeExpcetion {
+    public AccountConnection findAccountConnectionByAccessToken(final String provider,
+                       final String accessToken){
          final DetachedCriteria criteria = DetachedCriteria.forClass(AccountConnection.class);
          criteria.createAlias("accountProvider","accountProvider");
          criteria.add(Restrictions.eq("accessToken", accessToken));
          criteria.add(Restrictions.eq("accountProvider.name", provider));
-         final AccountConnection ac = (AccountConnection) DataAccessUtils.uniqueResult(getHibernateTemplate()
+         return (AccountConnection) DataAccessUtils.uniqueResult(getHibernateTemplate()
                  .findByCriteria(criteria));
-         if (ac == null) {
-             throw new EnMeDomainNotFoundException("connection not found");
-         } else {
-             return ac.getUserAccout();
-         }
+    }
+
+    /**
+     * Return {@link UserAccount} by provider name and access token key.
+     * @param provider
+     * @param accessToken
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public UserAccount findAccountByConnection(final String provider, final String accessToken)
+           throws EnMeDomainNotFoundException {
+        final AccountConnection ac = this.findAccountConnectionByAccessToken(provider, accessToken);
+        if (ac == null) {
+            throw new EnMeDomainNotFoundException("connection not found");
+        } else {
+            return ac.getUserAccout();
+        }
     }
 
     /**

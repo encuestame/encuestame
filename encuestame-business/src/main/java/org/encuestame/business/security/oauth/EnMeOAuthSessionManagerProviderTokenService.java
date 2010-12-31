@@ -19,6 +19,7 @@ import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;
+import org.encuestame.utils.oauth.OAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

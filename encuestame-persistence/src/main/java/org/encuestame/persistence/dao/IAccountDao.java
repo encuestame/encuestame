@@ -158,14 +158,14 @@ public interface IAccountDao extends IBaseDao {
                   List<SocialAccountProvider> providerAccount);
 
    /**
-    * User Account.
+    * Return {@link UserAccount} by provider name and access token key.
     * @param provider
     * @param accessToken
     * @return
     * @throws EnMeExpcetion
     */
     UserAccount findAccountByConnection(String provider,
-                      String accessToken) throws EnMeExpcetion;
+                      String accessToken) throws EnMeDomainNotFoundException;
 
     /**
      * Get Provider Account Id.
@@ -219,11 +219,23 @@ public interface IAccountDao extends IBaseDao {
      * @param providerAccountId
      * @param userAccountId
      * @param providerProfileUrl
+     * @return
      */
-    void addConnection(
+    AccountConnection addConnection(
                 final String provider,
                 final OAuthToken token,
                 final String socialAccountId,
                 final Long userAccountId,
                 final String providerProfileUrl);
+
+    /**
+     * Retrieve {@link AccountConnection} by access token and provider name.
+     * @param provider
+     * @param accessToken
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public AccountConnection findAccountConnectionByAccessToken(
+                       final String provider,
+                       final String accessToken);
 }

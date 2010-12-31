@@ -45,7 +45,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
 
     private final Integer PASSWORD_LENGHT = 8;
 
-    @RequestMapping(value = "/user/signup.html" , method = RequestMethod.GET)
+    @RequestMapping(value = "/user/signup.jspx" , method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
         final SignUpBean user = new SignUpBean();

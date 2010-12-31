@@ -51,7 +51,7 @@ public class TweetPollFeedController extends AbstractFeedController {
                  final UserAccount secUserSecondary) throws EnMeDomainNotFoundException{
          model.addAttribute("username", username);
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
-         model.addAttribute("url", buildDomainWithRequest(request));
+         model.addAttribute("url", getDomain(request));
          //find and add tweetPolls.
          final List<UnitTweetPoll> tweetPolls = getTweetPolls(secUserSecondary.getUsername());
          log.debug("Tweet Polls size "+tweetPolls.size());

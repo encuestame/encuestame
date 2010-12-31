@@ -24,7 +24,7 @@
             <list>
                  <bean id="cronReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0/5 * * * ?" />
+                    <property name="cronExpression" value="0 0/15 * * * ?" />
                     <!-- Every 5 minutes 0 0/5 * * * ? -->
                     <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
                 </bean>

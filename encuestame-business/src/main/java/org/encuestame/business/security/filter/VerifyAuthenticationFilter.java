@@ -32,7 +32,7 @@ public class VerifyAuthenticationFilter implements Filter {
 
     protected  String loginUrl = "/user/signin";
 
-    protected  String redirectUrl = "/dashboard.html";
+    protected  String redirectUrl = "/account/dashboard";
 
     /**
      * Do Filter.

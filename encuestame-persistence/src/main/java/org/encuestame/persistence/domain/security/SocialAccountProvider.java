@@ -183,4 +183,23 @@ public class SocialAccountProvider {
     public void setAccessTokenUrl(final String accessTokenUrl) {
         this.accessTokenUrl = accessTokenUrl;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("SocialAccountProvider [socialProviderId=")
+                .append(socialProviderId).append(", name=").append(name)
+                .append(", implementation=").append(implementation)
+                .append(", apiKey=").append(apiKey).append(", secret=")
+                .append(secret).append(", appId=").append(appId)
+                .append(", requestTokenUrl=").append(requestTokenUrl)
+                .append(", authorizeUrl=").append(authorizeUrl)
+                .append(", accessTokenUrl=").append(accessTokenUrl).append("]");
+        return builder.toString();
+    }
+
+
 }

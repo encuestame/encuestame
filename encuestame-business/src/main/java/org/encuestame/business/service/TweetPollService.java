@@ -345,7 +345,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     } catch (Exception e) {
                         log.error("Error publish tweet "+e.getMessage());
                         publishedStatus.setStatus(TweetPollSavedPublishedStatus.Status.FAILED);
-                        publishedStatus.setDescriptionStatus(e.getMessage());
+                        publishedStatus.setDescriptionStatus(e.getMessage().substring(254));
                     }
                     getTweetPollDao().saveOrUpdate(publishedStatus);
                 }

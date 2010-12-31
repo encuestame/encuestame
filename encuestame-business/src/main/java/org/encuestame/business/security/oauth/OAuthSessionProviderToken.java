@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.security.oauth;
 
+import org.encuestame.utils.oauth.OAuthSession;
 import org.springframework.security.oauth.provider.token.OAuthProviderToken;
 
 /**

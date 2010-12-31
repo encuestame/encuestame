@@ -14,7 +14,10 @@
 package org.encuestame.mvc.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +41,11 @@ import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.core.security.EnMeUserDetails;
+import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.DateUtil;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +53,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -120,9 +128,13 @@ public abstract class BaseController extends AbstractSecurityContext{
      * @param request {@link HttpServletRequest}.
      * @return
      */
-    public String buildDomainWithRequest(final HttpServletRequest request){
+    public String getDomain(final HttpServletRequest request){
             final StringBuffer stringBuffer = new StringBuffer(this.isSecure(request) ? "https://" : "http://");
             stringBuffer.append(request.getServerName());
+            if(request.getRemotePort() != 80){
+                stringBuffer.append(":");
+                stringBuffer.append(request.getLocalPort());
+            }
             stringBuffer.append(request.getContextPath());
             return stringBuffer.toString();
     }
@@ -153,6 +165,14 @@ public abstract class BaseController extends AbstractSecurityContext{
     }
 
     /**
+     * Get User Account.
+     * @return
+     */
+    public UserAccount getUserAccount(){
+        return this.getByUsername(this.getUserPrincipalUsername());
+    }
+
+    /**
      * Get Ip Client.
      * @return ip
      */
@@ -177,7 +197,7 @@ public abstract class BaseController extends AbstractSecurityContext{
      * @param username username
      * @param password password
      */
-    protected void authenticate(HttpServletRequest request, final String username, final String password) {
+    public void authenticate(HttpServletRequest request, final String username, final String password) {
         try{
             final UsernamePasswordAuthenticationToken usernameAndPassword = new UsernamePasswordAuthenticationToken(username, password);
             final HttpSession session = request.getSession();
@@ -197,6 +217,22 @@ public abstract class BaseController extends AbstractSecurityContext{
             log.error("Authenticate", e);
         }
     }
+
+    /**
+     * Authenticate User.
+     * @param user
+     */
+    public void authenticate(final UserAccount user){
+        final EnMeUserDetails details = SecurityUtils.convertUserAccount(user, true);
+        final Collection<GrantedAuthority> authorities = details.getAuthorities();
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(details, null,
+                authorities));
+        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication());
+        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
+        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getName());
+        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+    }
+
 
     /**
      * Get Message with Locale.

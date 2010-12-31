@@ -12,21 +12,14 @@
  */
 package org.encuestame.core.security;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.encuestame.persistence.domain.security.Group;
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -97,16 +90,16 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      */
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException, DataAccessException {
-        log.debug("username "+username);
+        //log.debug("username "+username);
         final UserAccount user = this.accountDao.getUserByUsername(username);
         if (user == null) {
-            log.error("user not found");
+            //log.error("user not found");
             throw new UsernameNotFoundException("user not found");
+        } else {
+            this.updateLoggedInfo(user);
+            return SecurityUtils.convertUserAccount(user, this.roleUserAuth);
         }
-        this.updateLoggedInfo(user);
-        return convertToUserDetails(user);
     }
-
 
     /**
      * Update Logged Info.
@@ -115,51 +108,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     private void updateLoggedInfo(final UserAccount secUserSecondary){
         final Calendar calendar = Calendar.getInstance();
         secUserSecondary.setLastTimeLogged(calendar.getTime());
-        log.debug("Updating logged time "+calendar.getTime());
+        //log.debug("Updating logged time "+calendar.getTime());
         accountDao.saveOrUpdate(secUserSecondary);
-    }
-
-    /**
-     * Convert Survey User to Spring Security UserDetails
-     *
-     * @param user
-     * @return {@link UserDetails}
-     */
-    protected UserDetails convertToUserDetails(final UserAccount user) {
-        log.debug("convertToUserDetails username "+user.getUsername());
-        final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        // search if authorities if the group are activated
-       /* if (this.roleGroupAuth) {
-            // search groups of the user
-            final Set<SecGroup> groups = user.getSecGroups();
-            for (final SecGroup secGroups : groups) {
-                authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(secGroups.getSecPermissions()));
-            }
-        }*/
-        // sec permissions
-        if (this.roleUserAuth) {
-            authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
-        }
-
-         //creating user details
-         final EnMeUserDetails userDetails = new EnMeUserDetails(
-         user.getUsername(),
-         user.getPassword(),
-         authorities,
-         user.isUserStatus() == null ? false : user.isUserStatus(),
-         true, // accoun not expired
-         true, // cridentials not expired
-         true, // account not locked
-         user.getUserTwitterAccount() == null ? "" : user.getUserTwitterAccount(), //twitter account
-         user.getCompleteName() == null ? "" : user.getCompleteName(), // complete name
-         user.getUserEmail() // user email
-         );
-         userDetails.setAccountNonExpired(true);
-         userDetails.setAccountNonLocked(true);
-         log.debug("user details "+userDetails.getPassword());
-         log.debug("user details "+userDetails.getPassword());
-         log.debug("user details "+userDetails.getAuthorities());
-         log.debug("user details "+userDetails.getUserEmail());
-         return userDetails;
     }
 }

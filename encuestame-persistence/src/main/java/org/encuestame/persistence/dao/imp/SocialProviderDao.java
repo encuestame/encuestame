@@ -14,8 +14,12 @@ package org.encuestame.persistence.dao.imp;
 
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -26,8 +30,7 @@ import org.springframework.stereotype.Repository;
  * @version $Id:$
  */
 @Repository("socialProviderDao")
-public class SocialProviderDao extends AbstractHibernateDaoSupport implements
-             ISocialProviderDao {
+public class SocialProviderDao extends AbstractHibernateDaoSupport implements ISocialProviderDao {
 
     @Autowired
     public SocialProviderDao(SessionFactory sessionFactory) {
@@ -51,8 +54,10 @@ public class SocialProviderDao extends AbstractHibernateDaoSupport implements
      * @return
      */
     public SocialAccountProvider getSocialAccountProviderId(final String socialName) {
-        return (SocialAccountProvider) getHibernateTemplate().findByNamedParam("from SocialAccountProvider"
-                +" where name = :name", "name", socialName);
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccountProvider.class);
+        criteria.add(Restrictions.eq("name", socialName) );
+        return (SocialAccountProvider) DataAccessUtils.uniqueResult(getHibernateTemplate()
+                .findByCriteria(criteria));
     }
 
 }

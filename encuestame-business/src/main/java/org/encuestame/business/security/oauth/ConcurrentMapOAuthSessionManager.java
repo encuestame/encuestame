@@ -22,6 +22,8 @@ import org.encuestame.persistence.dao.imp.ApplicationDao;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;
 import org.encuestame.persistence.utils.SecureRandomStringKeyGenerator;
+import org.encuestame.utils.oauth.OAuthSession;
+import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.collect.MapMaker;
 /**
@@ -65,10 +67,10 @@ public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
      */
     public OAuthSession newOAuthSession(String apiKey, String callbackUrl) {
         final StandardOAuthSession session = new StandardOAuthSession(apiKey, callbackUrl, keyGenerator.generateKey(), keyGenerator.generateKey());
-        log.debug("New OAuth StandardOAuthSession"+session.apiKey);
-        log.debug("New OAuth StandardOAuthSession"+session.secret);
-        log.debug("New OAuth StandardOAuthSession"+session.verifier);
-        log.debug("New OAuth StandardOAuthSession"+session.callbackUrl);
+        log.debug("New OAuth StandardOAuthSession"+session.getApiKey());
+        log.debug("New OAuth StandardOAuthSession"+session.getSecret());
+        log.debug("New OAuth StandardOAuthSession"+session.getVerifier());
+        log.debug("New OAuth StandardOAuthSession"+session.getCallbackUrl());
         sessions.put(session.getRequestToken(), session);
         return session;
     }
@@ -154,67 +156,4 @@ public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
     public void setApplicationDao(ApplicationDao applicationDao) {
         this.applicationDao = applicationDao;
     }
-
-
-    /**
-     * Describe Standard OAuth Session.
-     * Description Class.
-     * @author Picado, Juan juanATencuestame.org
-     * @since Dec 24, 2010 3:53:13 PM
-     * @version $Id:$
-     */
-    private static class StandardOAuthSession implements OAuthSession {
-
-        private String apiKey;
-
-        private String callbackUrl;
-
-        private String requestToken;
-
-        private String secret;
-
-        private Long authorizingAccountId;
-
-        private String verifier;
-
-        public StandardOAuthSession(String apiKey, String callbackUrl, String requestToken, String secret) {
-            this.apiKey = apiKey;
-            this.callbackUrl = callbackUrl;
-            this.requestToken = requestToken;
-            this.secret = secret;
-        }
-
-        public String getApiKey() {
-            return apiKey;
-        }
-
-        public String getCallbackUrl() {
-            return callbackUrl;
-        }
-
-        public String getRequestToken() {
-            return requestToken;
-        }
-
-        public String getSecret() {
-            return secret;
-        }
-
-        public void authorize(Long authorizingAccountId, String verifier) {
-            this.authorizingAccountId = authorizingAccountId;
-            this.verifier = verifier;
-        }
-
-        public boolean authorized() {
-            return authorizingAccountId != null;
-        }
-
-        public Long getAuthorizingAccountId() {
-            return authorizingAccountId;
-        }
-
-        public String getVerifier() {
-            return verifier;
-        }
-   }
 }

@@ -33,7 +33,7 @@ import org.springframework.security.oauth.provider.token.OAuthAccessProviderToke
  * @see OAuthSessionManagerProviderTokenServices
  */
 @SuppressWarnings("serial")
-class AppConnectionProviderToken implements OAuthAccessProviderToken {
+public class AppConnectionProviderToken implements OAuthAccessProviderToken {
 
     /** Log. **/
     protected Log log = LogFactory.getLog(this.getClass());

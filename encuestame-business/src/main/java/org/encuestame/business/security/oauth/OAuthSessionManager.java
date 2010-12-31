@@ -14,6 +14,7 @@ package org.encuestame.business.security.oauth;
 
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;
+import org.encuestame.utils.oauth.OAuthSession;
 /**
  * Implementation to manage OAuth Sessions
  * @author Picado, Juan juanATencuestame.org

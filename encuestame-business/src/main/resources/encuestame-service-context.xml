@@ -146,4 +146,32 @@
          <ref bean="frontEndService"/>
     </property>
   </bean>
+
+  <!--
+        Social Accounts Beans
+        This beans provide next features:
+        * Facebook Connect
+        * Twitter Connect
+        * LinkedIn Connect
+  -->
+
+    <bean id="abstractSocialProvider" class="org.encuestame.business.social.AbstractSocialProvider"
+          abstract="true">
+    </bean>
+
+    <!-- Twitter Service Provider Consumer -->
+    <bean id="twitterServiceConnect" autowire="byName"
+          class="org.encuestame.business.social.TwitterSocialService" parent="abstractSocialProvider">
+    </bean>
+
+    <!-- Facebook OAuth Consumer
+    <bean id="facebookServiceConnect" autowire="byName" class="org.encuestame.business.social.FacebookSocialService" parent="abstractSocialProvider">
+        <constructor-arg value="facebook" />
+    </bean>-->
+
+    <!-- LinkedIn OAuth Consumer
+    <bean id="linkedInServiceConnect" autowire="byName" class="org.encuestame.business.social.LinkedInSocialService" parent="abstractSocialProvider">
+        <constructor-arg value="linkedin" />
+    </bean>-->
+
 </beans>
