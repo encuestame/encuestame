@@ -33,7 +33,7 @@ import org.encuestame.persistence.domain.AbstractFolder;
 @Entity
 @Table(name = "tweetPoll_Folder")
 public class TweetPollFolder extends AbstractFolder implements IFolder{
-     private Long tweetPollFolderId;
+     private Long id;
 
     /**
      * @return the tweetPollFolderId
@@ -42,14 +42,14 @@ public class TweetPollFolder extends AbstractFolder implements IFolder{
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name = "tweetPollFolderId", unique = true, nullable = true)
     public Long getId() {
-        return tweetPollFolderId;
+        return id;
     }
 
     /**
      * @param tweetPollFolderId the tweetPollFolderId to set
      */
-    public void  setId(Long tweetPollFolderId) {
-        this.tweetPollFolderId = tweetPollFolderId;
+    public void  setId(Long id) {
+        this.id = id;
     }
 
 

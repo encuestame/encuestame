@@ -47,11 +47,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 
      private Log log = LogFactory.getLog(this.getClass());
 
- 	@Autowired
-	public TweetPollDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+     @Autowired
+    public TweetPollDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-     
+
     /**
      * Get TweetPoll by Id.
      * @param tweetPollId tweetPollId
@@ -314,8 +314,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPollFolder> retrieveTweetPollByFolder(final Long userId, final Long folderId){
-        return getHibernateTemplate().findByNamedParam("FROM TweetPollFolder where surveyFolderId:folderId","folderId", folderId);
+    public List<TweetPoll> retrieveTweetPollByFolder(final Long userId, final Long folderId){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+         criteria.add(Restrictions.eq("tweetOwner.uid", userId));
+         criteria.add(Restrictions.eq("tweetPollFolder.id", folderId));
+         return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -338,7 +341,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     public TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
          criteria.add(Restrictions.eq("users.id", userId));
-         criteria.add(Restrictions.eq("tweetPollFolderId", FolderId));
+         criteria.add(Restrictions.eq("id", FolderId));
          return (TweetPollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 

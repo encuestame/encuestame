@@ -22,7 +22,9 @@ import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +55,10 @@ public class TestTweetPollDao  extends AbstractBase{
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
 
+    /** {@link TweetPollFolder}. **/
+    private TweetPollFolder tweetPollFolder;
+
+
     /**
      * Before.
      */
@@ -69,6 +75,9 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch1, "192.168.0.2");
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
+
+      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getSecUser());
+
     }
 
     /**
@@ -91,16 +100,77 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", "2", results.get(0)[1].toString());
     }
 
+    /**
+     * Test Get Total Votes by TweetPoll
+     */
     @Test
     public void testgetTotalVotesByTweetPoll(){
         final List<Object[]>  pollSwitchs = getTweetPoll().getTotalVotesByTweetPoll(this.tweetPoll.getTweetPollId());
         assertEquals("Should be equals", 2, pollSwitchs.size());
     }
 
-
     @Test
     public void testgetVotesByAnswer(){
         final Long d = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
         System.out.println(d);
+    }
+
+
+    /**
+     * Test Get TweetPoll by TweetPoll Id and User.
+     */
+    @Test
+    public void testGetTweetPollByIdandUserId(){
+        assertNotNull(tweetPoll);
+        assertNotNull(secondary);
+        final TweetPoll tp = getTweetPoll().getTweetPollByIdandUserId(this.tweetPoll.getTweetPollId(), secondary.getSecUser().getUid());
+        assertEquals("Should be equals", 1, 1);
+        assertEquals("Should be equals", this.tweetPoll.getTweetPollId(), tp.getTweetPollId());
+    }
+
+    /**
+     * Test Get TweetPoll Folder by FolderId and User.
+     */
+    @Test
+    public void testGetTweetPollFolderByIdandUser(){
+        assertNotNull(this.tweetPollFolder);
+        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getSecUser().getUid());
+        assertEquals("Should be equals", this.tweetPollFolder.getId(), tpf.getId());
+     }
+
+    /**
+     * Test Get TweetPoll Folder by folderId.
+     */
+    @Test
+    public void testGetTweetPollFolderById(){
+        assertNotNull(tweetPollFolder);
+        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderById(this.tweetPollFolder.getId());
+        assertNotNull(tpf);
+     }
+
+    /**
+     * Test Retrieve TweetPoll Folder by User.
+     */
+    @Test
+    public void testRetrieveTweetPollFolderByUserId(){
+        assertNotNull(tweetPollFolder);
+        assertNotNull(secondary);
+        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByUserId(this.secondary.getSecUser().getUid());
+        assertEquals("Should be equals", 1, tpfu.size());
+    }
+
+    /**
+     * Test Retrieve TweetPoll by Folder.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test
+    public void testRetrieveTweetPollByFolder() throws EnMeDomainNotFoundException {
+        final Long user = this.secondary.getSecUser().getUid();
+        assertNotNull(tweetPollFolder);
+        assertNotNull(tweetPoll);
+        final TweetPoll addTweetPoll = addTweetPollToFolder(this.tweetPollFolder.getId(), user, this.tweetPoll.getTweetPollId());
+        assertNotNull(addTweetPoll);
+        final List<TweetPoll> tpfolder = getTweetPoll().retrieveTweetPollByFolder(user, this.tweetPollFolder.getId());
+        assertEquals("Should be equals", 1, tpfolder.size());
     }
 }

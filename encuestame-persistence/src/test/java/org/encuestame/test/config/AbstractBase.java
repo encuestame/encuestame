@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
+import junit.framework.Assert;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -28,6 +30,7 @@ import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IAccountDao;
+import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -67,9 +70,11 @@ import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.persistence.domain.survey.QuestionAnswer.AnswerType;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,6 +159,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Url Poll. **/
     public final String URLPOLL = "http://www.encuestame.org";
+
+    /** Social Account Dao.**/
+    @Autowired
+    private ISocialProviderDao providerDao;
 
     /**
      * Get Property.
@@ -1279,6 +1288,37 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create TweetPoll Folder.
+     * @param folderName
+     * @param users
+     * @return
+     */
+    public TweetPollFolder createTweetPollFolder(final String folderName, final Account users){
+        final TweetPollFolder folder = new TweetPollFolder();
+        folder.setCreatedAt(new Date());
+        folder.setFolderName(folderName);
+        folder.setUsers(users);
+        getTweetPoll().saveOrUpdate(folder);
+        return folder;
+    }
+
+    /**
+     * Add TweetPoll to Folder.
+     * @param folderId
+     * @param username
+     * @param tweetPollId
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public TweetPoll addTweetPollToFolder(final Long folderId, final Long userId, final Long tweetPollId) throws EnMeDomainNotFoundException{
+        final TweetPollFolder tpfolder = getTweetPoll().getTweetPollFolderById(folderId);
+        final TweetPoll tpoll = getTweetPoll().getTweetPollByIdandUserId(tweetPollId, userId);
+        tpoll.setTweetPollFolder(tpfolder);
+        getTweetPoll().saveOrUpdate(tpoll);
+        return tpoll;
+    }
+
+    /**
      * @return the activateNotifications
      */
     public Boolean getActivateNotifications() {
@@ -1366,4 +1406,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public void setNotification(final INotification notification) {
         this.notificationDao = notification;
     }
+
+    /**
+     * @return the providerDao
+     */
+    public ISocialProviderDao getProviderDao() {
+        return providerDao;
+    }
+
+    /**
+     * @param providerDao the providerDao to set
+     */
+    public void setProviderDao(ISocialProviderDao providerDao) {
+        this.providerDao = providerDao;
+    }
+
 }
