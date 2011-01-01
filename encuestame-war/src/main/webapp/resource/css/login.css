@@ -5,7 +5,7 @@
 
 #loginWrapper{
     margin: 5em 20em;
-    position: relative;
+    float: left
     text-align: left;
     z-index: 1;
 }
@@ -89,7 +89,33 @@
 }
 
 #loginWrapper div.formWrapper{
+    float: left;
+    min-width: 520px;
+}
 
+div.socialConnect{
+    margin-left: 47%;
+    max-width: 400px;
+    min-width: 350px;
+    padding: 10px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #E7E7E7;
+    border: 1px solid #8BA0BC;
+}
+div.socialConnect .title{
+    font-size: 120%;
+    font-weight: bold;
+    color: #626366;
+    padding-bottom: 10px;
+}
+
+div.socialConnect .twitter{
+    padding: 4px;
+}
+
+div.socialConnect .facebook{
+    padding: 4px;
 }
 
 div.formWrapper div.options{
