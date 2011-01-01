@@ -34,7 +34,8 @@
         <spring.security.version>3.0.3.RELEASE</spring.security.version> <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.0.0.RC1</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
-        <spring.mobile.version>1.0.0.M2</spring.mobile.version>
+        <spring.mobile.version>1.0.0.M1</spring.mobile.version>
+        <spring.social.version>1.0.0.M2</spring.social.version>
         <org.aspectj-version>1.6.9</org.aspectj-version>
         <org.slf4j-version>1.6.1</org.slf4j-version>
 
@@ -238,6 +239,11 @@
           <id>spring-snapshot</id>
           <name>Spring Snapshot Repository</name>
           <url>s3://maven.springframework.org/snapshot</url>
+        </repository>
+        <!-- Local Repository -->
+        <repository>
+                <id>local-project-repo</id>
+                <url>file:${basedir}/lib/repository</url>
         </repository>
     </repositories>
 
@@ -944,9 +950,9 @@
             <dependency>
                 <groupId>org.springframework.social</groupId>
                 <artifactId>spring-social-core</artifactId>
-                <version>1.0.0.M1</version>
+                <version>${spring.social.version}</version>
             </dependency>
-              <!-- Spring Security -->
+            <!-- Spring Security -->
              <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>

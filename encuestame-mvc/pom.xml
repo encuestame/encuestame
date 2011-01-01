@@ -390,7 +390,7 @@
        <dependency>
           <groupId>org.springframework.mobile</groupId>
          <artifactId>spring-mobile-device</artifactId>
-      </dependency>	                                                                                    
+      </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -435,4 +435,12 @@
             </resource>
         </resources>
     </build>
+
+
+     <repositories>
+            <repository>
+                <id>local-project-repo</id>
+                <url>file:${basedir}/../lib/repository</url>
+            </repository>
+     </repositories>
 </project>
