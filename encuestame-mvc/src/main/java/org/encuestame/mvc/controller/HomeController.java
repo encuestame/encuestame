@@ -43,6 +43,13 @@ public class HomeController extends BaseController {
         return "home";
     }
 
+
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public String signInController(ModelMap model) {
+        log.debug("HOME");
+        return "user/signin";
+    }
+
     /**
      * Search.
      * @param model

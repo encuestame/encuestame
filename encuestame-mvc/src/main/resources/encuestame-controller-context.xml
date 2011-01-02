@@ -16,14 +16,13 @@
     class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
       <property name="interceptors">
           <list>
-               <!--<ref bean="openSessionInViewInterceptor"/>-->
+               <!--<ref bean="openSessionInViewInterceptor"/>
                <ref bean="mobileInterceptor"/>
-               <ref bean="enMeInterceptor"/>
+               <ref bean="enMeInterceptor"/>-->
           </list>
       </property>
      <property name="order" value="0"/>
   </bean>
-
 
  <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
  <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
@@ -35,9 +34,6 @@
     Enables annotated @Controllers; responsible for invoking an annotated
     POJO @Controller when one is mapped.
   -->
-  <bean
-    class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="order" value="0"/>
-  </bean>
+  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
 </beans>

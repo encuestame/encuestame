@@ -3,7 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="singUpBean" class="org.encuestame.utils.security.SignUpBean" />
+    <var name="signUpBean" class="org.encuestame.utils.security.SignUpBean" />
 
     <view-state id="signup">
         <transition on="singup" to="succesfull" >

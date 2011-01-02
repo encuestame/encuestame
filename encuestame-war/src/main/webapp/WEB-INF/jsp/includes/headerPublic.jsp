@@ -1,9 +1,9 @@
 <body class="tundra">
  <div id="publicLineHeader">
         <div class="headerOptions">
-                <form method="get" action="<%=request.getContextPath()%>/search.jspx">
+                <form method="get" action="<%=request.getContextPath()%>/dashboard/search">
                         <span class="link">
-                           <a href="<%=request.getContextPath()%>/signin.jspx">Sign In</a>
+                           <a href="<%=request.getContextPath()%>/user/signin">Sign In</a>
                         </span>
                          <span class="link">
 

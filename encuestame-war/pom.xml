@@ -477,6 +477,14 @@
                 <groupId>org.springframework.webflow</groupId>
                 <artifactId>spring-binding</artifactId>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.webflow</groupId>
+                <artifactId>org.springframework.webflow</artifactId>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework.webflow</groupId>
+               <artifactId>spring-js</artifactId>
+            </dependency>
             <!-- Spring Integration  -->
             <dependency>
                 <groupId>org.springframework.integration</groupId>
@@ -535,10 +543,6 @@
         <dependency>
             <groupId>org.springframework.ldap</groupId>
                 <artifactId>spring-ldap-core</artifactId>
-        </dependency>
-        <dependency>
-              <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-js</artifactId>
         </dependency>
         <dependency>
            <groupId>org.springframework</groupId>

@@ -45,15 +45,15 @@ public class SignUpAccountFormController extends AbstractSecurityController {
 
     private final Integer PASSWORD_LENGHT = 8;
 
-    @RequestMapping(value = "/user/signup.jspx" , method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String addHandler(Model model) {
-        log.info("/register");
+        log.info("/register JUANNNNNNNNNNNNNNNNNN");
         final SignUpBean user = new SignUpBean();
         final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
         user.setCaptcha(captcha);
         log.info("username "+user.getCaptcha());
         model.addAttribute(user);
-        return "register";
+        return "user/signup";
     }
 
     /**
@@ -66,7 +66,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
      * @param status
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST)
+    //@RequestMapping(method = RequestMethod.POST)
     public String processSubmit(
         HttpServletRequest req,
         @RequestParam("recaptcha_challenge_field") String challenge,

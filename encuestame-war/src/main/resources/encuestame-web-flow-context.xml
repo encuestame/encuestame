@@ -2,14 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:webflow="http://www.springframework.org/schema/webflow-config"
-       xmlns:faces="http://www.springframework.org/schema/faces"
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/webflow-config
-           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
-           http://www.springframework.org/schema/faces
-           http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
+           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd">
+
+
+   <!-- The registry of executable flow definitions -->
+    <webflow:flow-registry id="flowRegistry" base-path="/WEB-INF/flows">
+       <webflow:flow-location-pattern value="/**/*-flow.xml" />
+    </webflow:flow-registry>
 
    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
     <webflow:flow-executor id="flowExecutor" flow-registry="flowRegistry">
@@ -18,6 +21,17 @@
             <webflow:listener ref="securityFlowExecutionListener" />
         </webflow:flow-execution-listeners>
     </webflow:flow-executor>
+
+        <!-- Plugs in a custom creator for Web Flow views
+    <webflow:flow-builder-services id="flowBuilderServices"
+           view-factory-creator="mvcViewFactoryCreator" development="true" />
+           -->
+
+    <!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views
+    <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <property name="viewResolvers" ref="jspViewResolver"/>
+        <property name="useSpringBeanBinding" value="true" />
+    </bean> -->
 
     <!-- Installs a listener that manages Hibernate persistence contexts for flows that require them -->
     <bean id="hibernateFlowExecutionListener" class="org.springframework.webflow.persistence.HibernateFlowExecutionListener">
@@ -30,6 +44,5 @@
     https://jira.springsource.org/browse/SWF-1182?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel
     Should be ready on  Spring Webflow 2.0.9 -->
     <bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
-
 
 </beans>
