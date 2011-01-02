@@ -25,14 +25,14 @@
 <!--        <to>/announceController.do?id=$1</to>-->
 <!--    </rule>-->
 
-    <rule>
-        <from>^/user/signin</from>
-        <to>/signin.jspx</to>
-    </rule>
-    <rule>
-      <from>^/signin.jspx</from>
-      <to type="redirect">user/signin</to>
-    </rule>
+<!--    <rule>-->
+<!--        <from>^/user/signin</from>-->
+<!--        <to>user/signin</to>-->
+<!--    </rule>-->
+<!--    <rule>-->
+<!--      <from>^/signin.jspx</from>-->
+<!--      <to type="redirect">user/signin</to>-->
+<!--    </rule>-->
     <rule>
       <from>^/index.jspx</from>
       <to type="redirect">home</to>
@@ -53,18 +53,18 @@
       <from>^/error.jspx</from>
       <to type="redirect">user/denied</to>
     </rule>
-    <rule>
-        <from>^/user/denied</from>
-        <to>/error.jspx</to>
-    </rule>
-    <rule>
-        <from>^/user/signup</from>
-        <to>/user/signup.jspx</to>
-    </rule>
-    <rule>
-        <from>^/user/forgot</from>
-        <to>/user/forgot.jspx</to>
-    </rule>
+<!--    <rule>-->
+<!--        <from>^/user/denied</from>-->
+<!--        <to>/error.jspx</to>-->
+<!--    </rule>-->
+<!--    <rule>-->
+<!--        <from>^/user/signup</from>-->
+<!--        <to>/user/signup.jspx</to>-->
+<!--    </rule>-->
+<!--    <rule>-->
+<!--        <from>^/user/forgot</from>-->
+<!--        <to>/user/forgot.jspx</to>-->
+<!--    </rule>-->
 
     <!-- Detail View Votes -->
     <rule>

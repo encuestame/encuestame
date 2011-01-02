@@ -17,6 +17,7 @@
             classpath:encuestame-quartz-context.xml
             classpath:encuestame-rss-context.xml,
             classpath:encuestame-mvc-context.xml,
+            classpath:encuestame-web-flow-context.xml,
             classpath:encuestame-controller-context.xml,
             classpath:encuestame-json-context.xml
             <!--  classpath:encuestame-integration.xml-->
@@ -155,6 +156,10 @@
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
