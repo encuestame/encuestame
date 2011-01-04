@@ -13,15 +13,17 @@
 package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,5 +115,64 @@ public class TestSurveyDao extends AbstractBase {
          final List sectionsByPage = getSurveyDaoImp().retrieveSectionByPagination(surveyPag.getPageNumber());
          assertEquals("Should be equals", 2, sectionsByPage.size());
     }
+
+    /**
+     * Test Get Survey by User.
+     */
+    @Test
+    public void testGetSurveyByIdandUserId(){
+        assertNotNull(this.survey);
+        assertNotNull(this.user);
+        final Survey mySurvey = getSurveyDaoImp().getSurveyByIdandUserId(this.survey.getSid(), this.user.getUid());
+        assertNotNull(mySurvey.getSid());
+        assertEquals("Should be equals", this.survey.getSid(), mySurvey.getSid());
+    }
+
+    /**
+     * Test Get Survey Folder
+     */
+    @Test
+    public void testGetSurveyFolderByIdandUser(){
+        assertNotNull(this.surveyFolder);
+        assertNotNull(this.user);
+        final SurveyFolder folder = getSurveyDaoImp().getSurveyFolderByIdandUser(this.surveyFolder.getId(), this.user.getUid());
+        assertNotNull(folder.getId());
+        assertEquals("Should be equals", this.surveyFolder.getId(), surveyFolder.getId());
+    }
+
+    /**
+     * Test Get Survey by Id.
+     */
+    @Test
+    public void testGetSurveyFolderById(){
+        assertNotNull(this.surveyFolder);
+        final SurveyFolder folder = getSurveyDaoImp().getSurveyFolderById(this.surveyFolder.getId());
+        assertNotNull(folder.getId());
+        System.out.println("SURVEY FOLDER ID--->"+ this.surveyFolder.getId());
+        System.out.println("MY SURVEY FOLDER--->"+ surveyFolder.getId());
+        assertEquals("Should be equals", this.surveyFolder.getId(), surveyFolder.getId());
+    }
+
+    /**
+     * Test Retrieve Survey by Folder.
+     * @throws EnMeDomainNotFoundException
+     */
+    @Test
+    public void testRetrieveSurveysByFolder() throws EnMeDomainNotFoundException{
+        assertNotNull(surveyFolder);
+        assertNotNull(survey);
+        final Survey addSurvey = addSurveyToFolder(this.surveyFolder.getId(), this.user.getUid(), this.survey.getSid());
+        assertNotNull(addSurvey);
+        final List<Survey> sfolder = getSurveyDaoImp().retrieveSurveyByFolder(this.user.getUid(), this.surveyFolder.getId());
+        assertEquals("Should be equals", 1, sfolder.size());
+    }
+
+    @Test
+    public void testRetrieveAllFolders(){
+         assertNotNull(surveyFolder);
+         final List<SurveyFolder> allSurveyFolder = getSurveyDaoImp().retrieveAllFolders(this.user.getUid());
+         assertEquals("Should be equals", 1, allSurveyFolder.size());
+    }
+
 
 }

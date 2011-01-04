@@ -16,36 +16,34 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.persistence.dao.IAccountDao;
+import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
-import org.encuestame.persistence.dao.IClientDao;
+import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.dao.INotification;
+import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.IGroupDao;
-import org.encuestame.persistence.dao.IPermissionDao;
-import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.ClientDao;
+import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
-import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
-import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
@@ -60,15 +58,15 @@ import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.QuestionColettion;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
@@ -1316,6 +1314,38 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tpoll.setTweetPollFolder(tpfolder);
         getTweetPoll().saveOrUpdate(tpoll);
         return tpoll;
+    }
+
+    /**
+     * Add Survey To Folder.
+     * @param folderId
+     * @param userId
+     * @param surveyId
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public Survey addSurveyToFolder(final Long folderId, final Long userId, final Long surveyId) throws EnMeDomainNotFoundException{
+        final SurveyFolder sfolder = getSurveyDaoImp().getSurveyFolderById(folderId);
+        final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, userId);
+        survey.setSurveysfolder(sfolder);
+        getSurveyDaoImp().saveOrUpdate(survey);
+        return survey;
+    }
+
+    /**
+     * Add Poll to Folder.
+     * @param folderId
+     * @param userId
+     * @param pollId
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeDomainNotFoundException{
+        final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
+        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userId);
+        poll.setPollFolder(pfolder);
+        getiPoll().saveOrUpdate(poll);
+        return poll;
     }
 
     /**

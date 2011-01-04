@@ -17,11 +17,11 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ISurvey;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -40,11 +40,11 @@ import org.springframework.stereotype.Repository;
 @Repository("surveyDaoImp")
 public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey {
 
-	@Autowired
-	public SurveyDaoImp(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public SurveyDaoImp(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Search survey by name.
      * @param searchString search string
@@ -78,9 +78,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<SurveyFolder> retrieveSurveysByFolder(final Long userId, final Long folderId){
-        return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", folderId);
-    }
+    public List<Survey> retrieveSurveyByFolder(final Long userId, final Long folderId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        criteria.add(Restrictions.eq("surveysfolder.id", folderId));
+        return getHibernateTemplate().findByCriteria(criteria);
+   }
 
     /**
      * Retrieve All Folders
@@ -166,5 +169,6 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          criteria.add(Restrictions.eq("sid", surveyId));
          return (Survey) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
 }
 

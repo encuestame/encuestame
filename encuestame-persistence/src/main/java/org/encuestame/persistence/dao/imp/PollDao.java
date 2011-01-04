@@ -41,11 +41,11 @@ import org.springframework.stereotype.Repository;
 @Repository("pollDao")
 public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
-	@Autowired
-	public PollDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public PollDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Find All Polls.
      *
@@ -55,7 +55,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> findAll() throws HibernateException {
-         return getHibernateTemplate().find("FROM poll");
+         return getHibernateTemplate().find("FROM Poll");
     }
 
     /**

@@ -84,4 +84,19 @@ public interface ISurvey extends IBaseDao{
        * @return
        */
       Survey getSurveyByIdandUserId(final Long surveyId, final Long userId);
+
+      /**
+       * Retrieve Surveys by Folder.
+       * @param userId
+       * @param folderId
+       * @return
+       */
+      List<Survey> retrieveSurveyByFolder(final Long userId, final Long folderId);
+
+      /**
+       * Retrieve All Folders.
+       * @param userId
+       * @return
+       */
+      List<SurveyFolder> retrieveAllFolders(final Long userId);
 }
