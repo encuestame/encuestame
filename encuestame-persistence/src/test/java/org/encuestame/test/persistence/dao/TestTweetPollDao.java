@@ -16,8 +16,10 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
@@ -172,5 +174,73 @@ public class TestTweetPollDao  extends AbstractBase{
         assertNotNull(addTweetPoll);
         final List<TweetPoll> tpfolder = getTweetPoll().retrieveTweetPollByFolder(user, this.tweetPollFolder.getId());
         assertEquals("Should be equals", 1, tpfolder.size());
+    }
+
+    /**
+     * Test Retrieve Tweets By User.
+     */
+    @Test
+    public void testRetrieveTweetsByUserId(){
+        assertNotNull(this.secondary);
+        assertNotNull(tweetPoll);
+        final Long userId = this.secondary.getSecUser().getUid();
+        final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(userId, 5, 0);
+        assertEquals("Should be equals", 1, tweets.size());
+    }
+
+    /**
+     * Test Retrieve Tweets by
+     */
+    @Test
+    public void testRetrieveTweetsByQuestionName(){
+        assertNotNull(this.secondary);
+        assertNotNull(tweetPoll);
+        final Long userId = this.secondary.getSecUser().getUid();
+        final String keyword = "Who";
+        final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByQuestionName(keyword, userId, 5, 0);
+        assertEquals("Should be equals", 1, tweets.size());
+    }
+
+    /**
+     * Test Retrieve TweetPoll Today.
+     */
+    @Test
+    public void testRetrieveTweetPollToday(){
+        assertNotNull(this.secondary);
+        assertNotNull(tweetPoll);
+        final Long userId = this.secondary.getSecUser().getUid();
+        final List<TweetPoll> tweetsToday = getTweetPoll().retrieveTweetPollToday(userId, 5, 0);
+        assertEquals("Should be equals", 1, tweetsToday.size());
+    }
+
+    @Test
+    public void testRetrieveTweetPollByDate(){
+        assertNotNull(this.secondary);
+        assertNotNull(tweetPoll);
+        final Long userId = this.secondary.getSecUser().getUid();
+        final Date initDate = new Date();
+        final List<TweetPoll> tweetsByDate = getTweetPoll().retrieveTweetPollByDate(userId, initDate, 5, 0);
+        assertEquals("Should be equals", 1, tweetsByDate.size());
+    }
+
+    /**
+     * Test Retrieve TweetPoll Last Week
+     */
+    @Test
+    public void testRetrieveFavouritesTweetPoll(){
+        assertNotNull(this.secondary);
+        assertNotNull(tweetPoll);
+        final Long userId = this.secondary.getSecUser().getUid();
+        final List<TweetPoll> favouritesTweets = getTweetPoll().retrieveFavouritesTweetPoll(userId, 5, 0);
+        assertEquals("Should be equals", 1, favouritesTweets.size());
+    }
+
+    @Test
+    public void testRetrieveScheduledTweetPoll(){
+        assertNotNull(this.secondary);
+        assertNotNull(tweetPoll);
+        final Long userId = this.secondary.getSecUser().getUid();
+        final List<TweetPoll> scheduledTweets = getTweetPoll().retrieveScheduledTweetPoll(userId, 5, 0);
+        assertEquals("Should be equals", 1, scheduledTweets.size());
     }
 }

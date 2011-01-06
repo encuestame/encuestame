@@ -13,6 +13,7 @@
 
 package org.encuestame.persistence.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.TweetPollDao;
@@ -193,4 +194,14 @@ public interface ITweetPoll extends IBaseDao{
        */
      Long getTotalVotesByTweetPollId(final Long tweetPollId);
 
+     /**
+      * Retrieve TweetPoll by Date
+      * @param userId
+      * @param initDate
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<TweetPoll> retrieveTweetPollByDate(final Long userId, final Date initDate, final Integer maxResults,
+             final Integer start);
 }

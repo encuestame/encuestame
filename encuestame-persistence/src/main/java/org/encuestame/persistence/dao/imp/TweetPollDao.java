@@ -124,7 +124,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
     @SuppressWarnings("unchecked")
-    private List<TweetPoll> retrieveTweetPollByDate(
+    public List<TweetPoll> retrieveTweetPollByDate(
             final Long userId,
             final Date initDate,
             final Integer maxResults,
@@ -188,7 +188,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.createAlias("tweetOwner","tweetOwner");
         criteria.add(Restrictions.eq("scheduleTweetPoll", Boolean.TRUE));
         criteria.add(Restrictions.isNotNull("scheduleDate"));
-        criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        criteria.add(Restrictions.eq("tweetOwner.uid", userId));
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 

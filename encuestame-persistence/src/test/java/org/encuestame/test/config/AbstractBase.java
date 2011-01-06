@@ -23,6 +23,7 @@ import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.dao.IGroupDao;
+import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
@@ -34,6 +35,7 @@ import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
+import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Client;
@@ -44,6 +46,7 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
@@ -161,6 +164,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** Social Account Dao.**/
     @Autowired
     private ISocialProviderDao providerDao;
+
+    /** {@link HashTagDao} **/
+    @Autowired
+    private IHashTagDao hashTagDao;
 
     /**
      * Get Property.
@@ -931,7 +938,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setQuestion(question);
         tweetPoll.setScheduleDate(scheduleDate);
         tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
-        //tweetPoll.setTweetId(tweetId);
+        tweetPoll.setCreateDate(publicationDateTweet);
+        tweetPoll.setFavourites(Boolean.TRUE);
         tweetPoll.setTweetOwner(tweetOwner);
         getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
@@ -944,7 +952,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(12345L, false, false, false, true, false, new Date(), new Date(), false, tweetOwner, question);
+       return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question);
     }
 
     /**
@@ -1424,6 +1432,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create Hash Tag.
+     * @param hashTagName
+     * @return
+     */
+    public HashTag createHashTag(final String hashTagName){
+        final HashTag hashTag = new HashTag();
+        hashTag.setHashTag(hashTagName);
+        getHashTagDao().saveOrUpdate(hashTag);
+        return hashTag;
+    }
+    /**
      * @return the notification
      */
     public INotification getNotification() {
@@ -1451,4 +1470,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.providerDao = providerDao;
     }
 
+    /**
+     * @return the hashTagDao
+     */
+    public IHashTagDao getHashTagDao() {
+        return hashTagDao;
+    }
+
+    /**
+     * @param hashTagDao the hashTagDao to set
+     */
+    public void setHashTagDao(IHashTagDao hashTagDao) {
+        this.hashTagDao = hashTagDao;
+    }
 }
