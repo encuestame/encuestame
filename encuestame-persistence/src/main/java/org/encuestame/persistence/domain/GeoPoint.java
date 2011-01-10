@@ -39,7 +39,7 @@ import org.encuestame.persistence.domain.security.Account;
  * @version $Id$
  */
 @Entity
-@Table(name = "cat_location")
+@Table(name = "geoPoint")
 public class GeoPoint {
 
     /** Id. **/

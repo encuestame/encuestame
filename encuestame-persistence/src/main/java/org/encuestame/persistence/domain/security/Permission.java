@@ -36,7 +36,7 @@ import javax.persistence.Table;
  * @version $Id$
  */
 @Entity
-@Table(name = "sec_permission")
+@Table(name = "permission")
 public class Permission {
 
     private Long idPermission;
@@ -97,7 +97,7 @@ public class Permission {
      * @return the secUserSecondaries
      */
     @ManyToMany()
-    @JoinTable(name="sec_user_permission",
+    @JoinTable(name="userAccount_permission",
                joinColumns={@JoinColumn(name="sec_id_permission")},
                inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
     public Set<UserAccount> getSecUserSecondaries() {
@@ -115,7 +115,7 @@ public class Permission {
      * @return the secGroups
      */
     @ManyToMany()
-    @JoinTable(name="sec_group_permission",
+    @JoinTable(name="group_permission",
                joinColumns={@JoinColumn(name="sec_id_permission")},
                inverseJoinColumns={@JoinColumn(name="sec_id_group")})
     public Set<Group> getSecGroups() {

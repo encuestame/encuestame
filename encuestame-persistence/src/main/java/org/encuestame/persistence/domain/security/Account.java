@@ -28,7 +28,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "sec_user")
+@Table(name = "account")
 public class Account{
 
     /** User Id. **/

@@ -38,7 +38,7 @@ import org.encuestame.persistence.domain.Project;
  * @version $Id$
  */
 @Entity
-@Table(name = "sec_groups")
+@Table(name = "groups")
 public class Group {
 
      /**
@@ -160,7 +160,7 @@ public class Group {
      * @return the secPermissions
      */
     @ManyToMany()
-    @JoinTable(name="sec_group_permission",
+    @JoinTable(name="groups_permission",
                joinColumns={@JoinColumn(name="sec_id_group")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
     public Set<Permission> getSecPermissions() {
@@ -178,7 +178,7 @@ public class Group {
      * @return the projects
      */
     @ManyToMany()
-    @JoinTable(name="sec_project_group",
+    @JoinTable(name="project_group",
               joinColumns={@JoinColumn(name="sec_id_group")},
               inverseJoinColumns={@JoinColumn(name="cat_id_project")})
     public Set<Project> getProjects() {

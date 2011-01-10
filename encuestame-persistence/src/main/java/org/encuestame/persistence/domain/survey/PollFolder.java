@@ -29,7 +29,7 @@ import org.encuestame.persistence.domain.AbstractFolder;
  * @version $Id: $
  */
 @Entity
-@Table(name = "poll_Folder")
+@Table(name = "poll_folder")
 public class PollFolder extends AbstractFolder implements IFolder{
      private Long id;
 

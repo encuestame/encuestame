@@ -38,7 +38,7 @@ import org.encuestame.persistence.domain.security.Account;
  */
 
 @Entity
-@Table(name = "cat_list_emails")
+@Table(name = "emailList")
 public class EmailList {
 
     private Long idList;

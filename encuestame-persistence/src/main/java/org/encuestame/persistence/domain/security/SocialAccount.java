@@ -37,7 +37,7 @@ import javax.persistence.Table;
 //    )
 
 @Entity
-@Table(name = "sec_user_twitter_account")
+@Table(name = "social_account")
 public class SocialAccount {
 
     /**

@@ -30,7 +30,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "cat_subscribe_emails")
+@Table(name = "emailSubscribe")
 public class EmailSubscribe {
 
     /****/

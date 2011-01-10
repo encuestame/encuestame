@@ -31,7 +31,7 @@ import org.encuestame.persistence.domain.security.Account;
  * @version $Id$
  */
 @Entity
-@Table(name = "cat_location_type")
+@Table(name = "geoPoint_type")
 public class GeoPointType {
 
     /** Location Type Id. */

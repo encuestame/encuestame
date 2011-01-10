@@ -32,7 +32,7 @@ import org.encuestame.persistence.domain.security.Account;
  * @version $Id:$
  */
 @Entity
-@Table(name = "cat_location_folder")
+@Table(name = "geoPoint_folder")
 public class GeoPointFolder {
 
     /**

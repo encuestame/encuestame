@@ -40,7 +40,7 @@ import org.encuestame.persistence.domain.Project;
  * @version $Id$
  */
 @Entity
-@Table(name = "sec_user_secondary",
+@Table(name = "userAccount",
        uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
   )
 public class UserAccount {
@@ -239,7 +239,7 @@ public class UserAccount {
      * @return the secUserPermissions
      */
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="sec_user_permission",
+    @JoinTable(name="userAccount_permission",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
     public Set<Permission> getSecUserPermissions() {
@@ -264,7 +264,7 @@ public class UserAccount {
      * @return the projects
      */
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="sec_user_project",
+    @JoinTable(name="userAccount_project",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="cat_id_project")})
     public Set<Project> getProjects() {

@@ -186,7 +186,7 @@ public class Project {
      * @return the locations
      */
     @ManyToMany()
-    @JoinTable(name="project_locations",
+    @JoinTable(name="project_geoPoint",
               joinColumns={@JoinColumn(name="cat_id_project")},
               inverseJoinColumns={@JoinColumn(name="cat_id_loc")})
     public Set<GeoPoint> getLocations() {
@@ -204,7 +204,7 @@ public class Project {
      * @return the groups
      */
     @ManyToMany()
-    @JoinTable(name="sec_project_group",
+    @JoinTable(name="project_group",
               joinColumns={@JoinColumn(name="cat_id_project")},
               inverseJoinColumns={@JoinColumn(name="sec_id_group")})
     public Set<Group> getGroups() {
@@ -222,7 +222,7 @@ public class Project {
      * @return the secUserSecondaries
      */
     @ManyToMany()
-    @JoinTable(name="sec_user_project",
+    @JoinTable(name="userAccount_project",
                joinColumns={@JoinColumn(name="cat_id_project")},
                inverseJoinColumns={@JoinColumn(name="sec_id_secondary")})
     public Set<UserAccount> getSecUserSecondaries() {
