@@ -337,12 +337,12 @@ public class ConvertDomainBean {
 
     /**
      * Convert List of Locations.
-     * @param catLocations List {@link GeoPoint}
+     * @param geoPoint List {@link GeoPoint}
      * @return List of {@link UnitLocationBean}
      */
-    public static final List<UnitLocationBean> convertListToUnitLocationBean(final List<GeoPoint> catLocations){
+    public static final List<UnitLocationBean> convertListToUnitLocationBean(final List<GeoPoint> geoPoint){
         final List<UnitLocationBean> listLocations = new ArrayList<UnitLocationBean>();
-        for (GeoPoint location : catLocations) {
+        for (GeoPoint location : geoPoint) {
             listLocations.add(ConvertDomainBean.convertLocationToBean(location));
         }
     return listLocations;
@@ -509,27 +509,27 @@ public class ConvertDomainBean {
 
     /**
      * Convert List of {@link GeoPointFolder}. to List of {@link UnitLocationFolder}.
-     * @param catLocationFolders {@link GeoPointFolder}.
+     * @param GeoPointFolders {@link GeoPointFolder}.
      * @return
      */
-    public static final List<UnitLocationFolder> convertListToUnitLocationFolderBean(final List<GeoPointFolder> catLocationFolders){
+    public static final List<UnitLocationFolder> convertListToUnitLocationFolderBean(final List<GeoPointFolder> geoPointFolders){
         final List<UnitLocationFolder> listFolders = new ArrayList<UnitLocationFolder>();
-        for (GeoPointFolder locationFolder : catLocationFolders) {
-            listFolders.add(ConvertDomainBean.convertCatLocationFolderDomainToBean(locationFolder));
+        for (GeoPointFolder locationFolder : geoPointFolders) {
+            listFolders.add(ConvertDomainBean.convertGeoPointFolderDomainToBean(locationFolder));
         }
     return listFolders;
     }
 
     /**
      * Convert {@link GeoPointFolder}. to {@link UnitLocationFolder}.
-     * @param catLocationFolder {@link GeoPointFolder}.
+     * @param geoPointFolder {@link GeoPointFolder}.
      * @return {@link UnitLocationFolder}.
      */
-    public static UnitLocationFolder convertCatLocationFolderDomainToBean(final GeoPointFolder catLocationFolder){
+    public static UnitLocationFolder convertGeoPointFolderDomainToBean(final GeoPointFolder geoPointFolder){
         final UnitLocationFolder locationFolder = new UnitLocationFolder();
-        locationFolder.setId(catLocationFolder.getLocationFolderId());
-        locationFolder.setName(catLocationFolder.getLocationFolderName());
-        locationFolder.setType(catLocationFolder.getFolderType().GROUPING.name());
+        locationFolder.setId(geoPointFolder.getLocationFolderId());
+        locationFolder.setName(geoPointFolder.getLocationFolderName());
+        locationFolder.setType(geoPointFolder.getFolderType().GROUPING.name());
         return locationFolder;
     }
 

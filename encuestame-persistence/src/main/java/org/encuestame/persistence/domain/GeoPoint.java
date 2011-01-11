@@ -32,7 +32,7 @@ import javax.persistence.CascadeType;
 import org.encuestame.persistence.domain.security.Account;
 
 /**
- * CatLocation.
+ * GeoPoint.
  *
  * @author Picado, Juan juanATencuestame.org
  * @since October 17, 2009
@@ -75,7 +75,7 @@ public class GeoPoint {
     private Account account;
 
     /** Location Folder. **/
-    private GeoPointFolder catLocationFolder;
+    private GeoPointFolder geoPointFolder;
 
     /** Projects. **/
     private Set<Project> projects = new HashSet<Project>();
@@ -201,18 +201,18 @@ public class GeoPoint {
     }
 
     /**
-     * @return the catLocationFolder
+     * @return the geoPointFolder
      */
     @ManyToOne(cascade=CascadeType.MERGE)
-    public GeoPointFolder getCatLocationFolder() {
-        return catLocationFolder;
+    public GeoPointFolder getGeoPointFolder() {
+        return geoPointFolder;
     }
 
     /**
-     * @param catLocationFolder the catLocationFolder to set
+     * @param geoPointFolder the geoPointFolder to set
      */
-    public void setCatLocationFolder(GeoPointFolder catLocationFolder) {
-        this.catLocationFolder = catLocationFolder;
+    public void setGeoPointFolder(GeoPointFolder geoPointFolder) {
+        this.geoPointFolder = geoPointFolder;
     }
 
     /**

@@ -37,7 +37,7 @@ public interface ILocationService {
      * @return {@link UnitLocationFolder}.
      * @throws EnMeDomainNotFoundException
      */
-    UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException;
+    UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException;
 
     /**
      * Create Cat LocationType.
@@ -45,7 +45,7 @@ public interface ILocationService {
      * @return locatTypeBean
      * @throws EnMeExpcetion exception
      */
-    UnitLocationTypeBean createCatLocationType(
+    UnitLocationTypeBean createGeoPointType(
             final UnitLocationTypeBean locatTypeBean, final String username) throws EnMeExpcetion;
 
     /**
@@ -53,27 +53,27 @@ public interface ILocationService {
      * @throws EnMeExpcetion EnMeExpcetion
      * @throws EnMeDomainNotFoundException
      */
-    void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion, EnMeDomainNotFoundException;
+    void updateGeoPoint(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion, EnMeDomainNotFoundException;
 
     /**
      * @param locationTypeBean locationTypeBean
      * @throws EnMeExpcetion EnMeExpcetion
      * @throws EnMeDomainNotFoundException
      */
-    void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException;
+    void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException;
 
     /**
      * create Cat Location.
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    UnitLocationBean createCatLocation(final UnitLocationBean location, final String username) throws EnMeExpcetion;
+    UnitLocationBean createGeoPoint(final UnitLocationBean location, final String username) throws EnMeExpcetion;
 
     /**
      * Assign Location to Location Folder.
      * @param location {@link GeoPoint}.
      */
-    void assignLocationToLocationFolder(final GeoPoint location, final GeoPointFolder catLocationFolder);
+    void assignLocationToLocationFolder(final GeoPoint location, final GeoPointFolder geoPointFolder);
 
     /**
      * Retrieve Locations Folder Items by Folder Id and User Id.

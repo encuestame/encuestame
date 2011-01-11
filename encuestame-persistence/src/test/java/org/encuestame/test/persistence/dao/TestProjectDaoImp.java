@@ -76,8 +76,8 @@ public class TestProjectDaoImp extends AbstractBase{
      * Test Add Locations to Project.
      */
     public void testGetProjectByLocationId(){
-        final GeoPoint loc1 = createCatLocation("managua", "mga", 1, this.user.getAccount());
-        final GeoPoint loc2 = createCatLocation("diriomo", "drm", 1, this.user.getAccount());
+        final GeoPoint loc1 = createGeoPoint("managua", "mga", 1, this.user.getAccount());
+        final GeoPoint loc2 = createGeoPoint("diriomo", "drm", 1, this.user.getAccount());
         project.getLocations().add(loc1);
         project.getLocations().add(loc2);
         getProjectDaoImp().saveOrUpdate(project);

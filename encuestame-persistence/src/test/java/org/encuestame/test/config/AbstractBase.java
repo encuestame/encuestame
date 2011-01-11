@@ -324,47 +324,47 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * @return the catLocationTypeDao
+     * @return the geoPointTypeDao
      */
-    public IGeoPointTypeDao getCatLocationTypeDao() {
+    public IGeoPointTypeDao getGeoPointTypeDao() {
         return geoPointTypeDao;
     }
 
     /**
-     * @param catLocationTypeDao the catLocationTypeDao to set
+     * @param geoPointTypeDao the geoPointTypeDao to set
      */
-    public void setCatLocationTypeDao(IGeoPointTypeDao catLocationTypeDao) {
-        this.geoPointTypeDao = catLocationTypeDao;
+    public void setGeoPointTypeDao(IGeoPointTypeDao geoPointTypeDao) {
+        this.geoPointTypeDao = geoPointTypeDao;
     }
 
 
 
     /**
-     * @return catLocationDao
+     * @return geoPointDao
      */
-    public IGeoPoint getCatLocationDao() {
+    public IGeoPoint getGeoPointDao() {
         return geoPointDao;
     }
 
     /**
-     * @param catLocationDao catLocationDao
+     * @param geoPointDao geoPointDao
      */
-    public void setCatLocationDao(IGeoPoint catLocationDao) {
-        this.geoPointDao = catLocationDao;
+    public void setGeoPointDao(IGeoPoint geoPointDao) {
+        this.geoPointDao = geoPointDao;
     }
 
     /**
      * @return {@link GeoPoint}
      */
-    public IGeoPoint getCatLocation() {
+    public IGeoPoint getGeoPoint() {
         return geoPointDao;
     }
 
     /**
-     * @param catLocation {@link GeoPoint}
+     * @param geoPoint {@link GeoPoint}
      */
-    public void setCatLocation(final IGeoPoint catLocation) {
-        this.geoPointDao = catLocation;
+    public void setGeoPoint(final IGeoPoint geoPoint) {
+        this.geoPointDao = geoPoint;
     }
 
     /**
@@ -614,38 +614,38 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return locationType
      */
 
-    public GeoPointType createCatLocationType(final String locationTypeName){
+    public GeoPointType createGeoPointType(final String locationTypeName){
         final GeoPointType catLocatType = new GeoPointType();
         catLocatType.setLocationTypeDescription(locationTypeName);
         catLocatType.setLocationTypeLevel(1);
         catLocatType.setUsers(createUser());
-        getCatLocationTypeDao().saveOrUpdate(catLocatType);
+        getGeoPointTypeDao().saveOrUpdate(catLocatType);
         return catLocatType;
     }
 
 
     /**
-     * Helper to create CatLocation.
+     * Helper to create GeoPoint.
      * @param locDescription locDescription
      * @param locTypeName locTypeName
      * @param Level Level
      * @return location {@link GeoPointFolder}.
      */
-    public GeoPoint createCatLocation(
+    public GeoPoint createGeoPoint(
                        final String locDescription,
                        final String locTypeName,
                        final Integer Level,
                        final Account secUsers,
-                       final GeoPointFolder catLocationFolder){
+                       final GeoPointFolder geoPointFolder){
         final GeoPoint location = new GeoPoint();
         location.setLocationStatus(Status.ACTIVE);
         location.setLocationDescription(locDescription);
         location.setLocationLatitude(2F);
         location.setAccount(secUsers);
-        location.setCatLocationFolder(catLocationFolder);
+        location.setGeoPointFolder(geoPointFolder);
         location.setLocationLongitude(3F);
-        location.setTidtype(createCatLocationType(locTypeName));
-        getCatLocationDao().saveOrUpdate(location);
+        location.setTidtype(createGeoPointType(locTypeName));
+        getGeoPointDao().saveOrUpdate(location);
       return location;
     }
 
@@ -657,12 +657,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUsers {@link Account}.
      * @return
      */
-    public GeoPoint createCatLocation(
+    public GeoPoint createGeoPoint(
             final String locDescription,
             final String locTypeName,
             final Integer Level,
             final Account secUsers){
-    return this.createCatLocation(locDescription, locTypeName, Level, secUsers, null);
+    return this.createGeoPoint(locDescription, locTypeName, Level, secUsers, null);
     }
 
 
@@ -1024,18 +1024,18 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param locationFolder
      * @return {@link GeoPointFolder}.
      */
-    public GeoPointFolder createCatLocationFolder(
+    public GeoPointFolder createGeoPointFolder(
             final GeoPointFolderType type,
             final Account secUsers,
             final String folderName,
             final GeoPointFolder locationFolder){
-        final GeoPointFolder catLocationFolder = new GeoPointFolder();
-        catLocationFolder.setFolderType(type);
-        catLocationFolder.setLocationFolderName(folderName);
-        catLocationFolder.setAccount(secUsers);
-        catLocationFolder.setSubLocationFolder(locationFolder);
-        getCatLocationDao().saveOrUpdate(catLocationFolder);
-        return catLocationFolder;
+        final GeoPointFolder geoPointFolder = new GeoPointFolder();
+        geoPointFolder.setFolderType(type);
+        geoPointFolder.setLocationFolderName(folderName);
+        geoPointFolder.setAccount(secUsers);
+        geoPointFolder.setSubLocationFolder(locationFolder);
+        getGeoPointDao().saveOrUpdate(geoPointFolder);
+        return geoPointFolder;
     }
 
     /**

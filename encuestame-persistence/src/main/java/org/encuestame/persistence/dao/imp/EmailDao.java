@@ -98,7 +98,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     public EmailSubscribe getSubscribeAccount(final String code){
-           return (EmailSubscribe) getHibernateTemplate().findByNamedParam("FROM CatSubscribeEmails WHERE hashCode= :code", "code", code);
+           return (EmailSubscribe) getHibernateTemplate().findByNamedParam("FROM EmailSubscribe WHERE hashCode= :code", "code", code);
     }
 
 }

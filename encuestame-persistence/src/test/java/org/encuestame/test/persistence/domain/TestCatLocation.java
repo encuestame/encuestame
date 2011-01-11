@@ -31,15 +31,15 @@ public class TestCatLocation extends AbstractBase{
      * Test Catalag Location.
      */
     @Test
-    public void testCatLocation(){
+    public void testGeoPoint(){
         final GeoPoint catLoc = new GeoPoint();
         catLoc.setLocationStatus(Status.ACTIVE);
         catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
-        catLoc.setTidtype(createCatLocationType("aldea"));
+        catLoc.setTidtype(createGeoPointType("aldea"));
         catLoc.getProjects().add(createProject("encuestame", "survey", "open source",  createUser()));
-        getCatLocationDao().saveOrUpdate(catLoc);
+        getGeoPointDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }
 

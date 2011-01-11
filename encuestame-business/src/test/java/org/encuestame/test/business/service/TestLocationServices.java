@@ -50,7 +50,7 @@ public class TestLocationServices extends AbstractServiceBase{
      * Cat Location Dao.
      */
     @Autowired
-    private IGeoPoint catLocation;
+    private IGeoPoint geoPoint;
 
     private UserAccount secondary;
 
@@ -64,22 +64,22 @@ public class TestLocationServices extends AbstractServiceBase{
      * @throws EnMeExpcetion
      */
     @Test
-    public void testupdateCatLocation() throws EnMeExpcetion{
-        final GeoPoint locationBean = createCatLocation("test", "test", 0, this.secondary.getAccount());
+    public void testupdateGeoPoint() throws EnMeExpcetion{
+        final GeoPoint locationBean = createGeoPoint("test", "test", 0, this.secondary.getAccount());
         final UnitLocationBean bean = ConvertDomainBean.convertLocationToBean(locationBean);
         bean.setName("test2");
-        this.locationService.updateCatLocation(bean, this.secondary.getUsername());
+        this.locationService.updateGeoPoint(bean, this.secondary.getUsername());
         Assert.assertEquals(locationBean.getLocationDescription(), new String("test2"));
     }
 
     /**
-     * test for createCatLocation.
+     * test for createGeoPoint.
      * @throws EnMeExpcetion
      */
     @Test
-    public void testcreateCatLocation() throws EnMeExpcetion{
+    public void testCreateGeoPoint() throws EnMeExpcetion{
         final UnitLocationBean locationBean = createUnitLocationBean("pozuelo");
-        this.locationService.createCatLocation(locationBean, this.secondary.getUsername());
+        this.locationService.createGeoPoint(locationBean, this.secondary.getUsername());
         Assert.assertNotNull(locationBean.getId());
     }
 
@@ -90,7 +90,7 @@ public class TestLocationServices extends AbstractServiceBase{
     @Test
     public void testcreateLocationFolder() throws EnMeExpcetion{
         final UnitLocationFolder folder = createUnitLocationFolder("folder");
-        this.locationService.createLocationFolder(folder, this.secondary.getUsername());
+        this.locationService.createGeoPointFolder(folder, this.secondary.getUsername());
         Assert.assertNotNull(folder.getId());
     }
 
@@ -101,9 +101,9 @@ public class TestLocationServices extends AbstractServiceBase{
     @Test
     public void testretrieveLocationFolderByUser() throws EnMeDomainNotFoundException{
          final UnitLocationFolder folder1 = createUnitLocationFolder("folder 1");
-         this.locationService.createLocationFolder(folder1, this.secondary.getUsername());
+         this.locationService.createGeoPointFolder(folder1, this.secondary.getUsername());
          final UnitLocationFolder folder2 = createUnitLocationFolder("folder2 ");
-         this.locationService.createLocationFolder(folder2, this.secondary.getUsername());
+         this.locationService.createGeoPointFolder(folder2, this.secondary.getUsername());
          final List<UnitLocationFolder> list = this.locationService.retrieveLocationFolderByUser(this.secondary.getUsername());
          Assert.assertEquals(list.size(), 2);
     }
@@ -114,8 +114,8 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testretrieveLocationSubFolderByUser() throws Exception{
-        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder", null);
-        createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder sub", locationFolder);
+        final GeoPointFolder locationFolder = createGeoPointFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder", null);
+        createGeoPointFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder sub", locationFolder);
         final List<UnitLocationFolder> list = this.locationService.retrieveLocationSubFolderByUser(locationFolder.getLocationFolderId(), this.secondary.getUsername());
         Assert.assertEquals(list.size(), 1);
     }
@@ -126,7 +126,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateLocationMap() throws Exception{
-        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder", null);
+        final GeoPointFolder locationFolder = createGeoPointFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder", null);
         //final CatLocation location = createCatLocation("Managua", locTypeName, Level, secUsers)
     }
 
@@ -145,16 +145,16 @@ public class TestLocationServices extends AbstractServiceBase{
     }
 
     /**
-     * @return the catLocation
+     * @return the geoPoint.
      */
-    public IGeoPoint getCatLocation() {
-        return catLocation;
+    public IGeoPoint getGeoPoint() {
+        return geoPoint;
     }
 
     /**
-     * @param catLocation the catLocation to set
+     * @param geoPoint the catLocation to set
      */
-    public void setCatLocation(IGeoPoint catLocation) {
-        this.catLocation = catLocation;
+    public void setGeoPoint(IGeoPoint geoPoint) {
+        this.geoPoint = geoPoint;
     }
 }

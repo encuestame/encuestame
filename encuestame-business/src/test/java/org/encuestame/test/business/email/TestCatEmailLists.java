@@ -61,24 +61,24 @@ public class TestCatEmailLists extends AbstractServiceBase {
     public void testSendEmail(){
         createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
         createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
-        final List<Email> catEmails = getCatEmailDao().findEmailsByListId(
+        final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                 this.emailList.getIdList());
-        for (Email catemails : catEmails) {
-              assertNotNull(catemails.getEmail());
-              mailService.send(catemails.getEmail().toString(), "Welcome Encuestame List", "Welcome Encuestame List");
+        for (Email emails : emailList) {
+              assertNotNull(emails.getEmail());
+              mailService.send(emails.getEmail().toString(), "Welcome Encuestame List", "Welcome Encuestame List");
             }
     }
 
     @Test(timeout = 80000)
     public void testSendInvitation(){
           createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
-          final List<Email> catEmails = getCatEmailDao().findEmailsByListId(
+          final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
-          for (Email catemails : catEmails) {
-                assertNotNull(catemails.getEmail());
+          for (Email emails : emailList) {
+                assertNotNull(emails.getEmail());
                 final InvitationBean invitation = new InvitationBean();
                 invitation.setCode("1253");
-                invitation.setEmail((catemails.getEmail().toString()));
+                invitation.setEmail((emails.getEmail().toString()));
                 invitation.setListName(this.emailList.getListName());
                 invitation.setUrlInvitation(URLPOLL);
                 mailService.sendEmailInvitation(invitation);
@@ -92,10 +92,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
      */
     @Test
     public void testFindEmailByListId() {
-        final List<Email> catEmails = getCatEmailDao().findEmailsByListId(
+        final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                 this.emailList.getIdList());
-        assertNotNull(catEmails);
-        assertEquals("Should be equals", 1, catEmails.size());
+        assertNotNull(emailList);
+        assertEquals("Should be equals", 1, emailList.size());
     }
 
     /**

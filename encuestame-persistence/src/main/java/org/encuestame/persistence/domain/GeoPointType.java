@@ -24,7 +24,7 @@ import javax.persistence.Table;
 import org.encuestame.persistence.domain.security.Account;
 
 /**
- * CatLocationType.
+ * GeoPointType.
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009

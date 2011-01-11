@@ -31,11 +31,11 @@ import org.springframework.stereotype.Repository;
 @Repository("geoPointTypeDao")
 public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeoPointTypeDao {
 
-	@Autowired
-	public GeoPointTypeDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public GeoPointTypeDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Find All {@link GeoPointType}
      * @return List of {@link GeoPointType}
@@ -43,7 +43,7 @@ public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeo
      */
     @SuppressWarnings("unchecked")
     public List<GeoPointType> findAll() throws HibernateException {
-        return getHibernateTemplate().find("from CatLocationType");
+        return getHibernateTemplate().find("from GeoPointType");
     }
 
     /**

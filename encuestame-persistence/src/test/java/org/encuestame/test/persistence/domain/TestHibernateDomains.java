@@ -57,15 +57,15 @@ public class TestHibernateDomains extends AbstractBase{
      * Test Catalog Location.
      */
     @Test
-    public void testCatLocation(){
+    public void testGeoPoint(){
         final GeoPoint catLoc = new GeoPoint();
         catLoc.setLocationStatus(Status.ACTIVE);
         catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
-        catLoc.setTidtype(createCatLocationType("aldea"));
+        catLoc.setTidtype(createGeoPointType("aldea"));
         catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createUser()));
-        getCatLocationDao().saveOrUpdate(catLoc);
+        getGeoPointDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }
 
@@ -77,7 +77,7 @@ public class TestHibernateDomains extends AbstractBase{
        final GeoPointType catLocType = new GeoPointType();
        catLocType.setLocationTypeDescription("Departamento");
        catLocType.setLocationTypeLevel(1);
-       getCatLocationTypeDao().saveOrUpdate(catLocType);
+       getGeoPointDao().saveOrUpdate(catLocType);
        assertNotNull(catLocType.getLocationTypeId());
    }
 
@@ -95,7 +95,7 @@ public class TestHibernateDomains extends AbstractBase{
          project.getSurveyGroups().add(createSurveyGroup("Education"));
         project.getSecUserSecondaries().add(createSecondaryUser("Diana",createUser()));
         project.getGroups().add(createGroups("editor"));
-        project.getLocations().add(createCatLocation("Matagalpa","Matalgalpa Department",2, createUser()));
+        project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createUser()));
         getProjectDaoImp().saveOrUpdate(project);
         assertNotNull(project.getProyectId());
     }
@@ -275,11 +275,11 @@ public class TestHibernateDomains extends AbstractBase{
      */
      @Test
      public void testLocationFolder(){
-         final GeoPointFolder catLocationFolder = new GeoPointFolder();
-         catLocationFolder.setFolderType(GeoPointFolderType.GROUPING);
-         catLocationFolder.setLocationFolderName("test folder");
-         catLocationFolder.setAccount(createUser());
-         getCatLocationDao().saveOrUpdate(catLocationFolder);
+         final GeoPointFolder geoPointFolder = new GeoPointFolder();
+         geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
+         geoPointFolder.setLocationFolderName("test folder");
+         geoPointFolder.setAccount(createUser());
+         getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 
      /**
@@ -287,11 +287,11 @@ public class TestHibernateDomains extends AbstractBase{
       **/
      @Test
      public void testCatEmail(){
-         final Email catEmailList = new Email();
-         catEmailList.setEmail("paola@jotadeveloper.com");
-         catEmailList.setIdListEmail(createDefaultListEmail());
-         getCatEmailDao().saveOrUpdate(catEmailList);
-         assertNotNull(catEmailList.getIdEmail());
+         final Email email = new Email();
+         email.setEmail("paola@jotadeveloper.com");
+         email.setIdListEmail(createDefaultListEmail());
+         getCatEmailDao().saveOrUpdate(email);
+         assertNotNull(email.getIdEmail());
      }
 
      /**

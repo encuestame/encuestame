@@ -121,7 +121,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public List<GeoPoint> getLocationByFolder(final Long locationFolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
-         criteria.add(Restrictions.eq("catLocationFolder.id", locationFolderId));
+         criteria.add(Restrictions.eq("geoPointFolder.id", locationFolderId));
          criteria.add(Restrictions.eq("account.uid", userId));
          return getHibernateTemplate().findByCriteria(criteria);
     }

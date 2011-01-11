@@ -65,7 +65,7 @@ public abstract class AbstractDataSource{
     private IGeoPoint geoPointDao;
     /** {@link GeoPointTypeDao}. */
     @Autowired
-    private IGeoPointTypeDao catLocationTypeDao;
+    private IGeoPointTypeDao geoPointTypeDao;
     /** {@link ProjectDaoImp}. */
     @Autowired
     private IProjectDao projectDaoImp;
@@ -249,14 +249,14 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * @return the catLocationDao
+     * @return the geoPointDao
      */
     public final IGeoPoint getGeoPointDao() {
         return geoPointDao;
     }
 
     /**
-     * @param catLocationDao the catLocationDao to set
+     * @param geoPointDao the geoPointDao to set
      */
 
     public final void setGeoPointDao(final IGeoPoint geoPointDao) {
@@ -278,17 +278,17 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * @return the catLocationTypeDao
+     * @return the geoPointTypeDao
      */
-    public final IGeoPointTypeDao getCatLocationTypeDao() {
-        return catLocationTypeDao;
+    public final IGeoPointTypeDao getGeoPointTypeDao() {
+        return geoPointTypeDao;
     }
 
     /**
-     * @param catLocationTypeDao the catLocationTypeDao to set
+     * @param geoPointTypeDao the geoPointTypeDao to set
      */
-    public final void setCatLocationTypeDao(final IGeoPointTypeDao catLocationTypeDao) {
-        this.catLocationTypeDao = catLocationTypeDao;
+    public final void setGeoPointTypeDao(final IGeoPointTypeDao geoPointTypeDao) {
+        this.geoPointTypeDao = geoPointTypeDao;
     }
 
     /**

@@ -48,7 +48,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @return locatTypeBean type bean
      * @throws EnMeExpcetion exception
      */
-    public UnitLocationTypeBean createCatLocationType(
+    public UnitLocationTypeBean createGeoPointType(
             final UnitLocationTypeBean locatTypeBean, final String username) throws EnMeExpcetion {
         if (locatTypeBean != null) {
             try {
@@ -58,7 +58,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                 locationTypeDomain.setLocationTypeLevel(locatTypeBean
                         .getLevel());
                 locationTypeDomain.setUsers(getUser(username).getAccount());
-                getCatLocationTypeDao().saveOrUpdate(locationTypeDomain);
+                getGeoPointTypeDao().saveOrUpdate(locationTypeDomain);
                 locatTypeBean.setIdLocType(locationTypeDomain
                         .getLocationTypeId());
             } catch (Exception e) {
@@ -77,16 +77,16 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateCatLocation(final UnitLocationBean locationBean, final String username) throws EnMeDomainNotFoundException, EnMeExpcetion{
-       final GeoPoint catLocation =  getLocation(locationBean.getId(), username);
-        if (catLocation!=null){
-            catLocation.setLocationStatus(Status.valueOf(locationBean.getStatus()));
-            catLocation.setLocationDescription(locationBean.getName());
-            catLocation.setLocationLatitude(locationBean.getLat());
-            catLocation.setLocationLongitude(locationBean.getLng());
-            getGeoPointDao().saveOrUpdate(catLocation);
+    public void updateGeoPoint(final UnitLocationBean locationBean, final String username) throws EnMeDomainNotFoundException, EnMeExpcetion{
+       final GeoPoint geoPoint =  getLocation(locationBean.getId(), username);
+        if (geoPoint!=null){
+            geoPoint.setLocationStatus(Status.valueOf(locationBean.getStatus()));
+            geoPoint.setLocationDescription(locationBean.getName());
+            geoPoint.setLocationLatitude(locationBean.getLat());
+            geoPoint.setLocationLongitude(locationBean.getLng());
+            getGeoPointDao().saveOrUpdate(geoPoint);
         }else{
-            throw new EnMeExpcetion("location not found");
+            throw new EnMeExpcetion("geoPoint not found");
         }
    }
 
@@ -97,12 +97,12 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @throws EnMeExpcetion EnMeExpcetion
      * @throws EnMeDomainNotFoundException
      */
-    public void updateCatLocationType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException{
-        final GeoPointType catLocationType = getCatLocationTypeDao().getLocationById(locationTypeBean.getIdLocType());
-        if (catLocationType!=null){
-            catLocationType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
-            catLocationType.setLocationTypeLevel(locationTypeBean.getLevel());
-            getCatLocationTypeDao().saveOrUpdate(catLocationType);
+    public void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException{
+        final GeoPointType geoPointType = getGeoPointTypeDao().getLocationById(locationTypeBean.getIdLocType());
+        if (geoPointType!=null){
+            geoPointType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
+            geoPointType.setLocationTypeLevel(locationTypeBean.getLevel());
+            getGeoPointTypeDao().saveOrUpdate(geoPointType);
         }
         else{
             throw new EnMeDomainNotFoundException("location type not found");
@@ -114,21 +114,21 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitLocationBean createCatLocation(final UnitLocationBean location, final String username) throws EnMeExpcetion{
+    public UnitLocationBean createGeoPoint(final UnitLocationBean location, final String username) throws EnMeExpcetion{
         if (location != null){
             try{
-                final GeoPoint catLocationDomain = new GeoPoint();
-                catLocationDomain.setLocationDescription(location.getName());
-                catLocationDomain.setLocationStatus(Status.ACTIVE);
-                catLocationDomain.setLocationLatitude(location.getLat());
-                catLocationDomain.setAccount(getUser(username).getAccount());
-                catLocationDomain.setLocationLongitude(location.getLng());
+                final GeoPoint geoPointDomain = new GeoPoint();
+                geoPointDomain.setLocationDescription(location.getName());
+                geoPointDomain.setLocationStatus(Status.ACTIVE);
+                geoPointDomain.setLocationLatitude(location.getLat());
+                geoPointDomain.setAccount(getUser(username).getAccount());
+                geoPointDomain.setLocationLongitude(location.getLng());
                 if(location.getTidtype() != null){
-                    catLocationDomain.setTidtype(getCatLocationTypeDao().getLocationById(location.getTidtype()));
+                    geoPointDomain.setTidtype(getGeoPointTypeDao().getLocationById(location.getTidtype()));
                 }
-                getGeoPointDao().saveOrUpdate(catLocationDomain);
-                location.setId(catLocationDomain.getLocateId());
-                createNotification(NotificationEnum.LOCATION_NEW, location.getName() +" is created.", catLocationDomain.getAccount());
+                getGeoPointDao().saveOrUpdate(geoPointDomain);
+                location.setId(geoPointDomain.getLocateId());
+                createNotification(NotificationEnum.LOCATION_NEW, location.getName() +" is created.", geoPointDomain.getAccount());
             } catch (Exception e) {
                 throw new EnMeExpcetion(e);
             }
@@ -144,14 +144,14 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @return {@link UnitLocationFolder}.
      * @throws EnMeDomainNotFoundException
      */
-    public UnitLocationFolder createLocationFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException{
-        final GeoPointFolder catLocationFolder = new GeoPointFolder();
-        catLocationFolder.setFolderType(GeoPointFolderType.valueOf(locationFolder.getType()));
-        catLocationFolder.setLocationFolderName(locationFolder.getName());
-        catLocationFolder.setAccount(getUser(username).getAccount());
-        getGeoPointDao().saveOrUpdate(catLocationFolder);
-        locationFolder.setId(catLocationFolder.getLocationFolderId());
-        createNotification(NotificationEnum.LOCATION_FOLDER_NEW, "New Folder "+locationFolder.getName() +" is created.", catLocationFolder.getAccount());
+    public UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException{
+        final GeoPointFolder geoPointFolder = new GeoPointFolder();
+        geoPointFolder.setFolderType(GeoPointFolderType.valueOf(locationFolder.getType()));
+        geoPointFolder.setLocationFolderName(locationFolder.getName());
+        geoPointFolder.setAccount(getUser(username).getAccount());
+        getGeoPointDao().saveOrUpdate(geoPointFolder);
+        locationFolder.setId(geoPointFolder.getLocationFolderId());
+        createNotification(NotificationEnum.LOCATION_FOLDER_NEW, "New Folder "+locationFolder.getName() +" is created.", geoPointFolder.getAccount());
         return locationFolder;
     }
 
@@ -159,8 +159,8 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * Assign Location to Location Folder.
      * @param location
      */
-    public void assignLocationToLocationFolder(final GeoPoint location, final GeoPointFolder catLocationFolder){
-            location.setCatLocationFolder(catLocationFolder);
+    public void assignLocationToLocationFolder(final GeoPoint location, final GeoPointFolder geoPointFolder){
+            location.setGeoPointFolder(geoPointFolder);
             getGeoPointDao().saveOrUpdate(location);
     }
 
@@ -226,7 +226,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
      * @throws EnMeDomainNotFoundException
      */
     public UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username) throws EnMeDomainNotFoundException{
-        return ConvertDomainBean.convertCatLocationFolderDomainToBean(getGeoPointDao()
+        return ConvertDomainBean.convertGeoPointFolderDomainToBean(getGeoPointDao()
                                 .getLocationFolderByIdAndUserId(folderLocationId, getPrimaryUser(username)));
     }
 
@@ -345,12 +345,12 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             throw new EnMeDomainNotFoundException("location folder not found");
         }
         else {
-            final GeoPoint catLocation = new GeoPoint();
-            catLocation.setCatLocationFolder(locationFolder);
-            catLocation.setAccount(getUser(username).getAccount());
-            catLocation.setLocationStatus(Status.ACTIVE);
-            catLocation.setLocationDescription("Default Item Name");
-            getGeoPointDao().saveOrUpdate(catLocation);
+            final GeoPoint geopoint = new GeoPoint();
+            geopoint.setGeoPointFolder(locationFolder);
+            geopoint.setAccount(getUser(username).getAccount());
+            geopoint.setLocationStatus(Status.ACTIVE);
+            geopoint.setLocationDescription("Default Item Name");
+            getGeoPointDao().saveOrUpdate(geopoint);
             log.info("Default Location Item Created");
         }
     }
@@ -371,8 +371,8 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
             //TODO: we need remove items on CASCADE.
             final List<GeoPoint> itemsToDelete = getGeoPointDao()
                                     .getLocationByFolder(locationFolder.getLocationFolderId(), getPrimaryUser(username));
-            for (GeoPoint catLocation : itemsToDelete) {
-                 getGeoPointDao().delete(catLocation);
+            for (GeoPoint geoPoint : itemsToDelete) {
+                 getGeoPointDao().delete(geoPoint);
             }
             getGeoPointDao().delete(locationFolder);
             log.info("delete location folder");
