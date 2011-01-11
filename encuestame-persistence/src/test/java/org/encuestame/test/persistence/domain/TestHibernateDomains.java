@@ -173,7 +173,7 @@ public class TestHibernateDomains extends AbstractBase{
         groups.setAccount(createUser());
         groups.getSecPermissions().add(createPermission("administrator"));
         groups.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
-        getSecGroup().saveOrUpdate(groups);
+        getGroup().saveOrUpdate(groups);
         assertNotNull(groups.getGroupId());
     }
 
@@ -185,7 +185,7 @@ public class TestHibernateDomains extends AbstractBase{
         final Permission permission = new Permission();
         permission.setPermission(EnMePermission.getPermissionString("ENCUESTAME_ADMIN"));
         permission.setPermissionDescription("Administrator of alls options");
-        permission.getSecGroups().add(createGroups("administrator"));
+        permission.getGroups().add(createGroups("administrator"));
         permission.getSecUserSecondaries().add(createSecondaryUser("juan carlos", createUser()));
         getSecPermissionDaoImp().saveOrUpdate(permission);
         assertNotNull(permission.getIdPermission());

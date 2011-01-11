@@ -364,7 +364,7 @@ public interface ISecurityService extends IService {
      * @param username
      * @return
      */
-    Long getUserbyGroup(final Long secGroupId, final String username)throws EnMeDomainNotFoundException;
+    Long getUserbyGroup(final Long groupId, final String username)throws EnMeDomainNotFoundException;
 
     /**
      * Count Users by Groups

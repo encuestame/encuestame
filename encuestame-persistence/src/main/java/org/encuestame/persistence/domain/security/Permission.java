@@ -42,7 +42,7 @@ public class Permission {
     private Long idPermission;
     private EnMePermission permission;
     private String permissionDescription;
-    private Set<Group> secGroups = new HashSet<Group>();
+    private Set<Group> groups = new HashSet<Group>();
     private Set<UserAccount> secUserSecondaries = new HashSet<UserAccount>();
 
     /**
@@ -118,14 +118,14 @@ public class Permission {
     @JoinTable(name="group_permission",
                joinColumns={@JoinColumn(name="sec_id_permission")},
                inverseJoinColumns={@JoinColumn(name="sec_id_group")})
-    public Set<Group> getSecGroups() {
-        return secGroups;
+    public Set<Group> getGroups() {
+        return groups;
     }
 
     /**
      * @param secGroups the secGroups to set
      */
-    public void setSecGroups(Set<Group> secGroups) {
-        this.secGroups = secGroups;
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

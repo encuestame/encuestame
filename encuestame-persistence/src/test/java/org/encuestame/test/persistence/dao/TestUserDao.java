@@ -126,7 +126,7 @@ public class TestUserDao extends AbstractBase {
         group.getSecPermissions().add(editor);
         group.getSecPermissions().add(admon);
         group.getSecPermissions().add(permission);
-        getSecGroup().saveOrUpdate(group);
+        getGroup().saveOrUpdate(group);
         assertEquals("Should be equals", 3, group.getSecPermissions().size());
     }
 

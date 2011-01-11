@@ -111,9 +111,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException{
         final UserAccount userAccount = getUser(currentUsername);
         final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
-        final List<Group> groups = getGroupDao().loadGroupsByUser(userAccount.getAccount());
-        for (Group secGroups : groups) {
-            groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
+        final List<Group> groupsList = getGroupDao().loadGroupsByUser(userAccount.getAccount());
+        for (Group groups : groupsList) {
+            groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(groups));
         }
         return groupBeans;
     }
@@ -408,12 +408,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return
      * @throws EnMeDomainNotFoundException
      */
-    public Long getUserbyGroup(final Long secGroupId, final String username) throws EnMeDomainNotFoundException{
+    public Long getUserbyGroup(final Long groupId, final String username) throws EnMeDomainNotFoundException{
         Long counterUsers = 0L;
         try {
-             final Group group = getGroupDao().getGroupByIdandUser(secGroupId, getPrimaryUser(username));
+             final Group group = getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
              if(group != null){
-             counterUsers = getGroupDao().getCountUserbyGroup(secGroupId);
+             counterUsers = getGroupDao().getCountUserbyGroup(groupId);
              }
         } catch (Exception e) {
             // TODO: handle exception Group no pertenece a usuario
@@ -659,12 +659,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             final String username) throws EnMeDomainNotFoundException {
         final UserAccount userAccount = getUser(userId); //TODO: I need confirm this user perhaps same group of logged user.
         //search group by group id and owner user id.
-        final Group secGroup = getGroupDao().getGroupById(groupId, getUser(username).getAccount());
-        if(secGroup == null){
+        final Group group = getGroupDao().getGroupById(groupId, getUser(username).getAccount());
+        if(group == null){
             throw new EnMeDomainNotFoundException("group not found");
         } else {
             //add new group.
-            userAccount.setSecGroup(secGroup);
+            userAccount.setGroup(group);
             getAccountDao().saveOrUpdate(userAccount);
         }
     }

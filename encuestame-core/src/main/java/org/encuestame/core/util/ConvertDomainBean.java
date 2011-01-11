@@ -227,8 +227,8 @@ public class ConvertDomainBean {
             unitUserBean.setEmail(secUserSecondary.getUserEmail());
             unitUserBean.setUsername(secUserSecondary.getUsername());
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
-            unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary.getSecGroup()));
-            unitUserBean.setGroupId(secUserSecondary.getSecGroup() == null ? null : secUserSecondary.getSecGroup().getGroupId());
+            unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary.getGroup()));
+            unitUserBean.setGroupId(secUserSecondary.getGroup() == null ? null : secUserSecondary.getGroup().getGroupId());
             unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
             unitUserBean.setFollowers(secUserSecondary.getFollowers());
             //System.out.println("Convert Enjoy Date "+secUserSecondary.getEnjoyDate());
@@ -291,8 +291,8 @@ public class ConvertDomainBean {
      */
     public static final Collection<UnitGroupBean> convertSetToUnitGroupBean(final Set<Group> groups){
             final Collection<UnitGroupBean> loadListGroups = new LinkedList<UnitGroupBean>();
-            for (Group secGroups : groups) {
-                 loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
+            for (Group groupsList : groups) {
+                 loadListGroups.add(ConvertDomainBean.convertGroupDomainToBean(groupsList));
             }
         return loadListGroups;
     }

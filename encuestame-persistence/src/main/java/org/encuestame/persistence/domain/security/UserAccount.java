@@ -86,7 +86,7 @@ public class UserAccount {
     /**
      * {@link Group}
      */
-    private Group secGroup;
+    private Group group;
 
     /**
      * @return uid
@@ -314,15 +314,15 @@ public class UserAccount {
      */
     @ManyToOne()
     @JoinColumn(name = "groupId", nullable = true)
-    public Group getSecGroup() {
-        return secGroup;
+    public Group getGroup() {
+        return group;
     }
 
     /**
      * @param secGroup the secGroup to set
      */
-    public void setSecGroup(final Group secGroup) {
-        this.secGroup = secGroup;
+    public void setGroup(final Group group) {
+        this.group = group;
     }
 
     /**

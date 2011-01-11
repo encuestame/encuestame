@@ -227,15 +227,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @return {@link IGroupDao}
      */
-    public IGroupDao getSecGroup(){
+    public IGroupDao getGroup(){
         return groupDaoImp;
     }
 
     /**
-     * @param secGroupDaoImp  {@link IGroupDao}
+     * @param GroupDaoImp  {@link IGroupDao}
      */
-    public void setgroupDao(final IGroupDao secGroupDaoImp){
-        this.groupDaoImp = secGroupDaoImp;
+    public void setgroupDao(final IGroupDao GroupDaoImp){
+        this.groupDaoImp = groupDaoImp;
     }
 
     /**
@@ -253,17 +253,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * @return the secGroupDaoImp
+     * @return the groupDaoImp
      */
-    public IGroupDao getSecGroupDaoImp() {
+    public IGroupDao getGroupDaoImp() {
         return groupDaoImp;
     }
 
     /**
      * @param secGroupDaoImp the secGroupDaoImp to set
      */
-    public void setSecGroupDaoImp(final IGroupDao secGroupDaoImp) {
-        this.groupDaoImp = secGroupDaoImp;
+    public void setGroupDaoImp(final IGroupDao groupDaoImp) {
+        this.groupDaoImp = groupDaoImp;
     }
 
     /**
@@ -527,8 +527,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public UserAccount createSecondaryUserGroup(
             final String name,
             final Account secUser,
-            final Group secGroup){
-        return createSecondaryUserGroup(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, secGroup);
+            final Group group){
+        return createSecondaryUserGroup(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
 
@@ -568,7 +568,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String name,
             final String email,
             final Account secUser,
-            final Group secGroup){
+            final Group group){
         final UserAccount user= new UserAccount();
         user.setCompleteName(name);
         user.setUsername(name);
@@ -578,7 +578,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setInviteCode("xxxxxxx");
         user.setAccount(secUser);
         user.setUserStatus(true);
-        user.setSecGroup(secGroup);
+        user.setGroup(group);
         getSecUserDao().saveOrUpdate(user);
         return user;
     }
@@ -682,7 +682,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         group.setIdState(1L);
         group.setGroupType(Type.SECURITY);
         group.setGroupDescriptionInfo("First Group");
-        getSecGroup().saveOrUpdate(group);
+        getGroup().saveOrUpdate(group);
         return group;
     }
 

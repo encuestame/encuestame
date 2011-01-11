@@ -109,9 +109,9 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return
      */
     @SuppressWarnings("unchecked")
-    public Long getCountUserbyGroup(final Long secGroupId){
+    public Long getCountUserbyGroup(final Long groupId){
         List<Long> counter = getHibernateTemplate().findByNamedParam("select count(uid) "
-                  +" from UserAccount where secGroup.groupId = :secGroupId", "secGroupId", secGroupId);
+                  +" from UserAccount where group.groupId = :groupId", "groupId", groupId);
          return counter.get(0);
     }
 
@@ -122,9 +122,9 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
     */
     @SuppressWarnings("unchecked")
     public List<Object[]> getUsersbyGroups(final Account user){
-         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
+         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                          + "FROM UserAccount as scu, Group as sg "
-                                                         + "WHERE scu.secGroup.groupId = sg.groupId AND "
+                                                         + "WHERE scu.group.groupId = sg.groupId AND "
                                                          + "scu.account = :account "
                                                          + "GROUP BY sg.groupName", "account", user);
     }
@@ -136,9 +136,9 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      */
     @SuppressWarnings("unchecked")
     public List<Object[]> countUsersbyGroups(final Long user){
-        return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
+        return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                         + "FROM UserAccount as scu, Group as sg "
-                                                        + "WHERE scu.secGroup.groupId = sg.groupId AND "
+                                                        + "WHERE scu.group.groupId = sg.groupId AND "
                                                         + "scu.account.uid = :account "
                                                         + "GROUP BY sg.groupName", "account", user);
    }

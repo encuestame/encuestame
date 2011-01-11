@@ -78,7 +78,7 @@ public class TestSecurityService extends AbstractServiceBase{
         createPermission(EnMePermission.ENCUESTAME_PUBLISHER.name());
         createPermission(EnMePermission.ENCUESTAME_ADMIN.name());
         this.secUserSecondary.getSecUserPermissions().add(this.secPermission);
-        getSecGroup().saveOrUpdate(this.secUserSecondary);
+        getGroup().saveOrUpdate(this.secUserSecondary);
     }
 
     /**
@@ -296,7 +296,7 @@ public class TestSecurityService extends AbstractServiceBase{
         final Long idGroup = groupDomain.getGroupId();
         final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
         securityService.deleteGroup(group.getId());
-        final Group groupRetrieve = getSecGroup().getGroupById(idGroup);
+        final Group groupRetrieve = getGroup().getGroupById(idGroup);
         assertNull(groupRetrieve);
     }
 
@@ -317,7 +317,7 @@ public class TestSecurityService extends AbstractServiceBase{
       final Long idGroup = groupDomain.getGroupId();
       final UnitGroupBean group = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
       securityService.deleteGroup(group.getId());
-      final Group groupRetrieve = getSecGroup().getGroupById(idGroup);
+      final Group groupRetrieve = getGroup().getGroupById(idGroup);
       assertNull(groupRetrieve);
 
     }
@@ -350,7 +350,7 @@ public class TestSecurityService extends AbstractServiceBase{
       UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(secgroups);
       groupBean.setGroupName("editors");
       securityService.updateGroup(groupBean);
-      Group groupUpdateRetrieve =  getSecGroup().getGroupById(idGroupUpdate);
+      Group groupUpdateRetrieve =  getGroup().getGroupById(idGroupUpdate);
       assertEquals("Should be","editors",groupUpdateRetrieve.getGroupName());
 
     }
