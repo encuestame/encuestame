@@ -327,21 +327,21 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 final String account[] = {};
                 final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
                 final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-                final SocialAccount secUserTwitterAccounts = getAccountDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
+                final SocialAccount socialTwitterAccounts = getAccountDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
                 publishedStatus.setApiType(Type.TWITTER);
-                if(secUserTwitterAccounts != null && tweetPoll != null){
-                    log.debug("secUserTwitterAccounts Account"+secUserTwitterAccounts.getTwitterAccount());
+                if(socialTwitterAccounts != null && tweetPoll != null){
+                    log.debug("secUserTwitterAccounts Account"+socialTwitterAccounts.getTwitterAccount());
                     publishedStatus.setTweetPoll(tweetPoll);
-                    publishedStatus.setTwitterAccount(secUserTwitterAccounts);
+                    publishedStatus.setTwitterAccount(socialTwitterAccounts);
                     try {
                         log.debug("Publishing...");
-                        final Status status = this.publicTweetPoll(tweetText, secUserTwitterAccounts);
+                        final Status status = this.publicTweetPoll(tweetText, socialTwitterAccounts);
                         publishedStatus.setTweetId(status.getId());
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(TweetPollSavedPublishedStatus.Status.SUCCESS);
                         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
-                                buildTwitterItemView(secUserTwitterAccounts.getTwitterAccount(), String.valueOf(status.getId())),
-                                secUserTwitterAccounts.getSecUsers());
+                                buildTwitterItemView(socialTwitterAccounts.getTwitterAccount(), String.valueOf(status.getId())),
+                                socialTwitterAccounts.getSecUsers());
                     } catch (Exception e) {
                         log.error("Error publish tweet "+e.getMessage());
                         publishedStatus.setStatus(TweetPollSavedPublishedStatus.Status.FAILED);

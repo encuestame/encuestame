@@ -40,9 +40,9 @@ public class ConvertDomainsToSecurityContext {
       */
      public static final  List<GrantedAuthority> convertEnMePermission(final Set<Permission> permissions){
             final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            for (Permission secPermission : permissions) {
-                if(secPermission != null){
-                    authorities.add(new GrantedAuthorityImpl(secPermission.getPermission().toString()));
+            for (Permission permission : permissions) {
+                if(permission != null){
+                    authorities.add(new GrantedAuthorityImpl(permission.getPermission().toString()));
                 } else {
                     log.warn("Impossible granted authority");
                 }

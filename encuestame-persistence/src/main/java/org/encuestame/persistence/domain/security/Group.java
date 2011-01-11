@@ -87,7 +87,7 @@ public class Group {
     /**
      * Permissions by Group.
      */
-    private Set<Permission> secPermissions = new HashSet<Permission>();
+    private Set<Permission> permissions = new HashSet<Permission>();
 
     /**
      * {@link Account}.
@@ -157,21 +157,21 @@ public class Group {
     }
 
     /**
-     * @return the secPermissions
+     * @return the permissions
      */
     @ManyToMany()
     @JoinTable(name="groups_permission",
                joinColumns={@JoinColumn(name="sec_id_group")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
-    public Set<Permission> getSecPermissions() {
-        return secPermissions;
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
     /**
-     * @param secPermissions the secPermissions to set
+     * @param permissions the permissions to set
      */
-    public void setSecPermissions(Set<Permission> secPermissions) {
-        this.secPermissions = secPermissions;
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
     /**

@@ -73,19 +73,19 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
 
     /**
      * OAuth Public Tweet.
-     * @param secUserTwitterAccount
+     * @param socialTwitterAccount
      * @param tweet
      * @return
      * @throws TwitterException
      */
-    public Status publicTweet(final SocialAccount secUserTwitterAccount, final String tweet) throws TwitterException{
-        log.debug("publicTweet "+secUserTwitterAccount.getTwitterAccount());
+    public Status publicTweet(final SocialAccount socialTwitterAccount, final String tweet) throws TwitterException{
+        log.debug("publicTweet "+socialTwitterAccount.getTwitterAccount());
         //Twitter twitter = new TwitterFactory().getInstance();
-        log.debug("publicTweet Before  Token  {"+secUserTwitterAccount.getToken());
-        log.debug("publicTweet Before Secret Token  {"+secUserTwitterAccount.getSecretToken());
-        final AccessToken accessToken = this.createNewOAuthAccessToken(secUserTwitterAccount);
+        log.debug("publicTweet Before  Token  {"+socialTwitterAccount.getToken());
+        log.debug("publicTweet Before Secret Token  {"+socialTwitterAccount.getSecretToken());
+        final AccessToken accessToken = this.createNewOAuthAccessToken(socialTwitterAccount);
         log.debug("Access Token "+accessToken);
-        final Twitter twitter = this.getOAuthAuthorizedInstance(secUserTwitterAccount, accessToken);
+        final Twitter twitter = this.getOAuthAuthorizedInstance(socialTwitterAccount, accessToken);
         log.debug("Verify  "+twitter.verifyCredentials());
         log.debug("Update Status "+tweet);
         return twitter.updateStatus(tweet);
@@ -93,22 +93,22 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
 
     /**
      * Create New OAuth Access Token.
-     * @param secUserTwitterAccount {@link SocialAccount}.
+     * @param socialTwitterAccount {@link SocialAccount}.
      * @return {@link AccessToken}.
      */
-    public AccessToken createNewOAuthAccessToken(final SocialAccount secUserTwitterAccount){
-         final AccessToken accessToken = new AccessToken(secUserTwitterAccount.getToken(), secUserTwitterAccount.getSecretToken());
+    public AccessToken createNewOAuthAccessToken(final SocialAccount socialTwitterAccount){
+         final AccessToken accessToken = new AccessToken(socialTwitterAccount.getToken(), socialTwitterAccount.getSecretToken());
          return accessToken;
     }
 
     /**
      * Get OAuthorized Token.
-     * @param secUserTwitterAccount {@link SocialAccount}.
+     * @param socialTwitterAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    public Twitter getOAuthAuthorizedInstance(final SocialAccount secUserTwitterAccount, final AccessToken accessToken){
-         return new TwitterFactory().getOAuthAuthorizedInstance(secUserTwitterAccount.getConsumerKey(),
-                 secUserTwitterAccount.getConsumerSecret(),
+    public Twitter getOAuthAuthorizedInstance(final SocialAccount socialTwitterAccount, final AccessToken accessToken){
+         return new TwitterFactory().getOAuthAuthorizedInstance(socialTwitterAccount.getConsumerKey(),
+                 socialTwitterAccount.getConsumerSecret(),
                  accessToken);
     }
 

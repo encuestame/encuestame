@@ -239,17 +239,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * @return the secPermissionDaoImp
+     * @return the permissionDaoImp
      */
-    public IPermissionDao getSecPermissionDaoImp() {
+    public IPermissionDao getPermissionDaoImp() {
         return permissionDaoImp;
     }
 
     /**
-     * @param secPermissionDaoImp the secPermissionDaoImp to set
+     * @param permissionDaoImp the permissionDaoImp to set
      */
-    public void setSecPermissionDaoImp(final IPermissionDao secPermissionDaoImp) {
-        this.permissionDaoImp = secPermissionDaoImp;
+    public void setPermissionDaoImp(final IPermissionDao permissionDaoImp) {
+        this.permissionDaoImp = permissionDaoImp;
     }
 
     /**
@@ -695,7 +695,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Permission permission = new Permission();
         permission.setPermissionDescription(permissionName);
         permission.setPermission(EnMePermission.getPermissionString(permissionName));
-        getSecPermissionDaoImp().saveOrUpdate(permission);
+        getPermissionDaoImp().saveOrUpdate(permission);
         return permission;
     }
 
@@ -1233,18 +1233,18 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Integer twitterPin,
             final Account secUsers,
             final String twitterAccount){
-        final SocialAccount secUserTwitterAccounts = new SocialAccount();
-        secUserTwitterAccounts.setConsumerKey(consumerKey);
-        secUserTwitterAccounts.setConsumerSecret(consumerSecret);
-        secUserTwitterAccounts.setToken(token);
-        secUserTwitterAccounts.setSecretToken(secretToken);
-        secUserTwitterAccounts.setSecUsers(secUsers);
-        secUserTwitterAccounts.setTwitterPin(twitterPin);
-        secUserTwitterAccounts.setVerfied(Boolean.FALSE);
-        secUserTwitterAccounts.setTwitterAccount(twitterAccount);
-        secUserTwitterAccounts.setTwitterPassword("not valid");
-        getSecUserDao().saveOrUpdate(secUserTwitterAccounts);
-        return secUserTwitterAccounts;
+        final SocialAccount socialTwitterAccounts = new SocialAccount();
+        socialTwitterAccounts.setConsumerKey(consumerKey);
+        socialTwitterAccounts.setConsumerSecret(consumerSecret);
+        socialTwitterAccounts.setToken(token);
+        socialTwitterAccounts.setSecretToken(secretToken);
+        socialTwitterAccounts.setSecUsers(secUsers);
+        socialTwitterAccounts.setTwitterPin(twitterPin);
+        socialTwitterAccounts.setVerfied(Boolean.FALSE);
+        socialTwitterAccounts.setTwitterAccount(twitterAccount);
+        socialTwitterAccounts.setTwitterPassword("not valid");
+        getSecUserDao().saveOrUpdate(socialTwitterAccounts);
+        return socialTwitterAccounts;
      }
 
     /**

@@ -29,7 +29,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
- * SecPermission.
+ * Permission.
  *
  * @author Picado, Juan juan@encuestame.org
  * @since October 17, 2009

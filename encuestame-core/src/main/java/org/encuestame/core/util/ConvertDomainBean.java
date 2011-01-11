@@ -277,8 +277,8 @@ public class ConvertDomainBean {
   */
     public static final Collection<UnitPermission> convertSetToUnitPermission(final Set<Permission> permissions) {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        for (Permission secPermission : permissions) {
-            loadListPermission.add(ConvertDomainBean.convertPermissionToBean(secPermission));
+        for (Permission permission : permissions) {
+            loadListPermission.add(ConvertDomainBean.convertPermissionToBean(permission));
         }
         return loadListPermission;
     }

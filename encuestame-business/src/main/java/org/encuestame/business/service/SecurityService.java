@@ -275,9 +275,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public Collection<UnitPermission> loadAllListPermission() {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        final Collection<Permission> listSecPermission = getPermissionDao()
+        final Collection<Permission> listPermission = getPermissionDao()
                 .loadAllPermissions();
-        for (Iterator<Permission> iterator = listSecPermission.iterator(); iterator
+        for (Iterator<Permission> iterator = listPermission.iterator(); iterator
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             Permission permission = iterator.next();
@@ -569,12 +569,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Assign Permissions to {@link UserAccount}.
      * @param userAccount {@link UserAccount}.
-     * @param secPermissions List of {@link Permission}.
+     * @param permissions List of {@link Permission}.
      */
-    private void assingPermission(final UserAccount userAccount , final Set<Permission> secPermissions){
-        for (Permission secPermission : secPermissions) {
-            if(secPermission != null){
-                userAccount.getSecUserPermissions().add(secPermission);
+    private void assingPermission(final UserAccount userAccount , final Set<Permission> permissions){
+        for (Permission Permission : permissions) {
+            if(Permission != null){
+                userAccount.getSecUserPermissions().add(Permission);
             } else {
                 log.error("Error on assing permission to "+userAccount.getUsername());
             }
@@ -767,9 +767,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     private void setSpringSecurityAuthentication(
             final String username,
             final String password,
-            final Set<Permission> secPermissions){
+            final Set<Permission> permissions){
          SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
-         Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(secPermissions);
+         Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(permissions);
          SecurityContextHolder.getContext().setAuthentication(
                  new UsernamePasswordAuthenticationToken(username, String.valueOf(password), authorities));
     }

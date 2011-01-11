@@ -59,7 +59,7 @@ public class TestSecurityService extends AbstractServiceBase{
     private UserAccount secUserSecondary;
 
     /** {@link Permission}. **/
-    private Permission secPermission;
+    private Permission permission;
 
     /**
      * Before.
@@ -73,11 +73,11 @@ public class TestSecurityService extends AbstractServiceBase{
         final Group group2 = createGroups("editors");
       //  this.secUserSecondary.getSecGroups().add(group);
        // this.secUserSecondary.getSecGroups().add(group2);
-        this.secPermission = createPermission(EnMePermission.ENCUESTAME_EDITOR.name());
+        this.permission = createPermission(EnMePermission.ENCUESTAME_EDITOR.name());
         createPermission(EnMePermission.ENCUESTAME_OWNER.name());
         createPermission(EnMePermission.ENCUESTAME_PUBLISHER.name());
         createPermission(EnMePermission.ENCUESTAME_ADMIN.name());
-        this.secUserSecondary.getSecUserPermissions().add(this.secPermission);
+        this.secUserSecondary.getSecUserPermissions().add(this.permission);
         getGroup().saveOrUpdate(this.secUserSecondary);
     }
 
@@ -378,7 +378,7 @@ public class TestSecurityService extends AbstractServiceBase{
       final Permission secPerm = createPermission("writer");
       final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(secPerm);
       securityService.createPermission(permissionBean);
-      final Permission permissionRetrieve = getSecPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
+      final Permission permissionRetrieve = getPermissionDaoImp().getPermissionById(secPerm.getIdPermission());
       assertNotNull(permissionRetrieve);
       assertEquals("should be","writer", permissionRetrieve.getPermissionDescription());
 
@@ -537,7 +537,7 @@ public class TestSecurityService extends AbstractServiceBase{
       public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
         final UserAccount secUser = createSecondaryUser("demo",this.userPrimary);
         final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
-        final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.secPermission);
+        final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.permission);
         userPermissionBean.setId(userPermissionBean.getId());
         userPermissionBean.setUsername("demo");
         securityService.assignPermission(userPermissionBean, permissionBean);
@@ -552,7 +552,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion{
           final UnitUserBean userPermissionBean = new UnitUserBean();
-          final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.secPermission);
+          final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.permission);
           //modify id user id.
           userPermissionBean.setId(1L);
           securityService.assignPermission(userPermissionBean, permissionBean);
@@ -652,7 +652,7 @@ public class TestSecurityService extends AbstractServiceBase{
          */
         @Test
         public void testloadBeanPermission() throws EnMeExpcetion{
-            final UnitPermission permission = securityService.loadBeanPermission(this.secPermission.getPermission());
+            final UnitPermission permission = securityService.loadBeanPermission(this.permission.getPermission());
             assertNotNull(permission);
         }
         /**

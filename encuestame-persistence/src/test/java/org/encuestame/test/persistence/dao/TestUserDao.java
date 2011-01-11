@@ -123,11 +123,11 @@ public class TestUserDao extends AbstractBase {
         final Permission admon = createPermission("publisher");
         final Permission permission = createPermission("administrator");
         final Group group = createGroups("group 1");
-        group.getSecPermissions().add(editor);
-        group.getSecPermissions().add(admon);
-        group.getSecPermissions().add(permission);
+        group.getPermissions().add(editor);
+        group.getPermissions().add(admon);
+        group.getPermissions().add(permission);
         getGroup().saveOrUpdate(group);
-        assertEquals("Should be equals", 3, group.getSecPermissions().size());
+        assertEquals("Should be equals", 3, group.getPermissions().size());
     }
 
     /**

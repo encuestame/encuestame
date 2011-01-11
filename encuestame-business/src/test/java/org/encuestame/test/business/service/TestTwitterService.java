@@ -48,7 +48,7 @@ public class TestTwitterService extends AbstractServiceBase {
     /** {@link Account}. **/
     private Account user;
 
-    private SocialAccount secUserTwitterAccount;
+    private SocialAccount socialTwitterAccount;
 
     /**
      * Before.
@@ -56,7 +56,7 @@ public class TestTwitterService extends AbstractServiceBase {
     @Before
     public void before(){
         this.user = createUser();
-        this.secUserTwitterAccount = createDefaultSettedTwitterAccount(this.user);
+        this.socialTwitterAccount = createDefaultSettedTwitterAccount(this.user);
     }
 
     /**
@@ -77,7 +77,7 @@ public class TestTwitterService extends AbstractServiceBase {
     @Test
     public void testPublicTweet() throws TwitterException{
         final String testTweet = RandomStringUtils.randomAlphabetic(5);
-        final Status tweet = twitterService.publicTweet(this.secUserTwitterAccount, testTweet);
+        final Status tweet = twitterService.publicTweet(this.socialTwitterAccount, testTweet);
         assertNotNull(tweet.getId());
     }
 
@@ -87,7 +87,7 @@ public class TestTwitterService extends AbstractServiceBase {
      */
     @Test
     public void testVerifyCredentials() throws TwitterException{
-        final Twitter twitter = getTwitterService().getOAuthAuthorizedInstance(this.secUserTwitterAccount, getTwitterService().createNewOAuthAccessToken(this.secUserTwitterAccount));
+        final Twitter twitter = getTwitterService().getOAuthAuthorizedInstance(this.socialTwitterAccount, getTwitterService().createNewOAuthAccessToken(this.socialTwitterAccount));
         final User user = twitter.verifyCredentials();
         assertNotNull(user);
     }

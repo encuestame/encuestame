@@ -33,11 +33,11 @@ import org.springframework.stereotype.Repository;
 @Repository("permissionDaoImp")
 public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPermissionDao {
 
-	@Autowired
-	public PermissionDaoImp(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public PermissionDaoImp(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Load permissions by user.
      * @param userId user id
@@ -52,7 +52,7 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
 
     /**
      * Load all permisssion.
-     * @return List of  {@link SecPermission}
+     * @return List of  {@link Permission}
      */
     public List<Permission> loadAllPermissions() throws HibernateException {
         return getHibernateTemplate().find("from Permission");
