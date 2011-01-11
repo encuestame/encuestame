@@ -66,7 +66,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     private Account user;
 
     /** {@link UserAccount}. **/
-    private UserAccount secUserSecondary;
+    private UserAccount userAccount;
 
     private List<UnitAnswersBean> answers;
 
@@ -87,7 +87,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
    @Before
    public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.secUserSecondary = createSecondaryUser("jhon", user);
+        this.userAccount = createSecondaryUser("jhon", user);
         this.question = createQuestion("Why the sky is blue?","html");
         this.pattern = createQuestionPattern("html");
         createQuestionAnswer("Yes", this.question,"SSSA");
@@ -233,8 +233,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
 
     @Test
     public void testPublicMultiplesTweetAccounts(){
-            createDefaultSettedTwitterAccount(this.secUserSecondary.getSecUser());
-            final List<SocialAccount> list = getSecUserDao().getTwitterAccountByUser(this.secUserSecondary.getSecUser());
+            createDefaultSettedTwitterAccount(this.userAccount.getAccount());
+            final List<SocialAccount> list = getSecUserDao().getTwitterAccountByUser(this.userAccount.getAccount());
             final List<UnitTwitterAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListTwitterAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);

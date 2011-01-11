@@ -94,8 +94,8 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                             final org.apache.lucene.search.Query query = parser.parse(keyword);
                             final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Question.class);
                             final Criteria criteria = session.createCriteria(Question.class);
-                            criteria.createAlias("secUsersQuestion", "secUsersQuestion");
-                            criteria.add(Restrictions.eq("secUsersQuestion.uid", userId));
+                            criteria.createAlias("accountQuestion", "accountQuestion");
+                            criteria.add(Restrictions.eq("accountQuestion.uid", userId));
                             hibernateQuery.setCriteriaQuery(criteria);
                             final List<Question> result = hibernateQuery.list();
                             log.info("result LUCENE "+result.size());

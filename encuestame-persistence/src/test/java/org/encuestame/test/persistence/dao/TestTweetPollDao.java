@@ -70,7 +70,7 @@ public class TestTweetPollDao  extends AbstractBase{
       final Question question = createQuestion("who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
-      this.tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
+      this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
       this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
       this.pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
       createTweetPollResult(pollSwitch1, "192.168.0.1");
@@ -78,7 +78,7 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
 
-      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getSecUser());
+      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
 
     }
 
@@ -125,7 +125,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testGetTweetPollByIdandUserId(){
         assertNotNull(tweetPoll);
         assertNotNull(secondary);
-        final TweetPoll tp = getTweetPoll().getTweetPollByIdandUserId(this.tweetPoll.getTweetPollId(), secondary.getSecUser().getUid());
+        final TweetPoll tp = getTweetPoll().getTweetPollByIdandUserId(this.tweetPoll.getTweetPollId(), secondary.getAccount().getUid());
         assertEquals("Should be equals", 1, 1);
         assertEquals("Should be equals", this.tweetPoll.getTweetPollId(), tp.getTweetPollId());
     }
@@ -136,7 +136,7 @@ public class TestTweetPollDao  extends AbstractBase{
     @Test
     public void testGetTweetPollFolderByIdandUser(){
         assertNotNull(this.tweetPollFolder);
-        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getSecUser().getUid());
+        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getAccount().getUid());
         assertEquals("Should be equals", this.tweetPollFolder.getId(), tpf.getId());
      }
 
@@ -157,7 +157,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollFolderByUserId(){
         assertNotNull(tweetPollFolder);
         assertNotNull(secondary);
-        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByUserId(this.secondary.getSecUser().getUid());
+        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByUserId(this.secondary.getAccount().getUid());
         assertEquals("Should be equals", 1, tpfu.size());
     }
 
@@ -167,7 +167,7 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testRetrieveTweetPollByFolder() throws EnMeDomainNotFoundException {
-        final Long user = this.secondary.getSecUser().getUid();
+        final Long user = this.secondary.getAccount().getUid();
         assertNotNull(tweetPollFolder);
         assertNotNull(tweetPoll);
         final TweetPoll addTweetPoll = addTweetPollToFolder(this.tweetPollFolder.getId(), user, this.tweetPoll.getTweetPollId());
@@ -183,7 +183,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetsByUserId(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getSecUser().getUid();
+        final Long userId = this.secondary.getAccount().getUid();
         final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(userId, 5, 0);
         assertEquals("Should be equals", 1, tweets.size());
     }
@@ -195,7 +195,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetsByQuestionName(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getSecUser().getUid();
+        final Long userId = this.secondary.getAccount().getUid();
         final String keyword = "Who";
         final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByQuestionName(keyword, userId, 5, 0);
         assertEquals("Should be equals", 1, tweets.size());
@@ -208,7 +208,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollToday(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getSecUser().getUid();
+        final Long userId = this.secondary.getAccount().getUid();
         final List<TweetPoll> tweetsToday = getTweetPoll().retrieveTweetPollToday(userId, 5, 0);
         assertEquals("Should be equals", 1, tweetsToday.size());
     }
@@ -217,7 +217,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollByDate(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getSecUser().getUid();
+        final Long userId = this.secondary.getAccount().getUid();
         final Date initDate = new Date();
         final List<TweetPoll> tweetsByDate = getTweetPoll().retrieveTweetPollByDate(userId, initDate, 5, 0);
         assertEquals("Should be equals", 1, tweetsByDate.size());
@@ -230,7 +230,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveFavouritesTweetPoll(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getSecUser().getUid();
+        final Long userId = this.secondary.getAccount().getUid();
         final List<TweetPoll> favouritesTweets = getTweetPoll().retrieveFavouritesTweetPoll(userId, 5, 0);
         assertEquals("Should be equals", 1, favouritesTweets.size());
     }
@@ -239,7 +239,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveScheduledTweetPoll(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getSecUser().getUid();
+        final Long userId = this.secondary.getAccount().getUid();
         final List<TweetPoll> scheduledTweets = getTweetPoll().retrieveScheduledTweetPoll(userId, 5, 0);
         assertEquals("Should be equals", 1, scheduledTweets.size());
     }

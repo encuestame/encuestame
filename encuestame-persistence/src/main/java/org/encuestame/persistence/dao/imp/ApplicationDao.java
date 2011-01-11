@@ -15,11 +15,9 @@ package org.encuestame.persistence.dao.imp;
 import org.encuestame.persistence.dao.IApplicationDao;
 import org.encuestame.persistence.domain.application.Application;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.utils.SecureRandomStringKeyGenerator;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -99,6 +97,7 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
      * @param application
      * @return
      */
+    @SuppressWarnings("unchecked")
     public ApplicationConnection searchConnectionByAppIdAndUserId(
             final UserAccount account, final Application application){
          final DetachedCriteria criteria = DetachedCriteria.forClass(ApplicationConnection.class);

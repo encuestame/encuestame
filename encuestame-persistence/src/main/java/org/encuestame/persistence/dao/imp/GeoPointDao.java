@@ -31,14 +31,14 @@ import org.springframework.stereotype.Repository;
  * @since  6/05/2009 14:45:54
  * @version $Id$
  */
-@Repository(value = "geoPointDao") 
+@Repository(value = "geoPointDao")
 public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoint {
 
-	@Autowired
-	public GeoPointDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public GeoPointDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Find All Location.
      * @return list of all locations
@@ -58,7 +58,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public GeoPoint getLocationById(final Long locateId, final Long userId) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
-        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        criteria.add(Restrictions.eq("account.uid", userId));
         criteria.add(Restrictions.eq("locateId", locateId));
         return (GeoPoint) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -93,7 +93,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public List<GeoPointFolder> getLocationFolders(final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
-         criteria.add(Restrictions.eq("secUsers.id", userId));
+         criteria.add(Restrictions.eq("account.id", userId));
          criteria.add(Restrictions.isNull("subLocationFolder"));
          return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -107,7 +107,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public List<GeoPointFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
-        criteria.add(Restrictions.eq("secUsers.id", userId));
+        criteria.add(Restrictions.eq("account.id", userId));
         criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
         criteria.add(Restrictions.isNotNull("subLocationFolder"));
         return getHibernateTemplate().findByCriteria(criteria);
@@ -122,7 +122,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     public List<GeoPoint> getLocationByFolder(final Long locationFolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
          criteria.add(Restrictions.eq("catLocationFolder.id", locationFolderId));
-         criteria.add(Restrictions.eq("secUsers.uid", userId));
+         criteria.add(Restrictions.eq("account.uid", userId));
          return getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -134,7 +134,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public List<GeoPoint> getLocationByUser(final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
-        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        criteria.add(Restrictions.eq("account.uid", userId));
         return getHibernateTemplate().findByCriteria(criteria);
    }
 
@@ -148,7 +148,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     public GeoPointFolder getLocationFolderByIdAndUserId(final Long locationFolderId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
         criteria.add(Restrictions.eq("locationFolderId", locationFolderId));
-        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        criteria.add(Restrictions.eq("account.uid", userId));
         return (GeoPointFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
    }
 

@@ -33,11 +33,11 @@ import org.springframework.stereotype.Repository;
 @Repository("notificationDao")
 public class NotificationDao extends AbstractHibernateDaoSupport implements INotification{
 
-	@Autowired
-	public NotificationDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public NotificationDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Load Notifications By {@link Account} and Limit. This method add all notifications without User (global)
      * @param secUser {@link Account}
@@ -45,9 +45,9 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Notification> loadNotificationByUserAndLimit(final Account secUser, final Integer limit){
+    public List<Notification> loadNotificationByUserAndLimit(final Account user, final Integer limit){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
-            criteria.add(Restrictions.or(Restrictions.eq("secUser", secUser), Restrictions.isNull("secUser")));
+            criteria.add(Restrictions.or(Restrictions.eq("account", user), Restrictions.isNull("account")));
             criteria.addOrder(Order.desc("created"));
             return getHibernateTemplate().findByCriteria(criteria, 0, limit);
     }
@@ -59,7 +59,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      */
     public Long retrieveTotalNotificationStatus(final Account secUser){
         return retrieveCountNotification(secUser, "select count(*) from Notification "
-                +" WHERE secUser = :user");
+                +" WHERE account = :secUser");
     }
 
     /**
@@ -84,9 +84,9 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    public Long retrieveTotalNotReadedNotificationStatus(final Account secUser){
-        return retrieveCountNotification(secUser ,"select count(*) from Notification "
-                +" WHERE secUser = :user AND readed = false");
+    public Long retrieveTotalNotReadedNotificationStatus(final Account user){
+        return retrieveCountNotification(user ,"select count(*) from Notification "
+                +" WHERE account = :user AND readed = false");
     }
 
     /**

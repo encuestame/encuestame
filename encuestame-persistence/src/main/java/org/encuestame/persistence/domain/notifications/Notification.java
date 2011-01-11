@@ -49,7 +49,7 @@ public class Notification {
 
     private String additionalDescription;
 
-    private Account secUser;
+    private Account account;
 
     private Date created = Calendar.getInstance().getTime();
 
@@ -96,16 +96,16 @@ public class Notification {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public Account getSecUser() {
-        return secUser;
+    public Account getAccount() {
+        return account;
     }
 
     /**
      * @param secUser
      *            the secUser to set
      */
-    public void setSecUser(Account secUser) {
-        this.secUser = secUser;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     /**

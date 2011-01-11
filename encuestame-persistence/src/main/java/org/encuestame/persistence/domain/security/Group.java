@@ -92,7 +92,7 @@ public class Group {
     /**
      * {@link Account}.
      */
-    private Account secUsers = new Account();
+    private Account account = new Account();
 
     /**
      * @return groupId
@@ -196,15 +196,15 @@ public class Group {
      * @return the secUsers
      */
     @ManyToOne()
-    public Account getSecUsers() {
-        return secUsers;
+    public Account getAccount() {
+        return account;
     }
 
     /**
      * @param secUsers the secUsers to set
      */
-    public void setSecUsers(final Account secUsers) {
-        this.secUsers = secUsers;
+    public void setAccount(final Account account) {
+        this.account = account;
     }
 
     /**

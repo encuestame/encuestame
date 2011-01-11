@@ -59,7 +59,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         try {
             final Poll pollDomain = new Poll();
             pollDomain.setCreatedAt(pollBean.getCreationDate());
-            pollDomain.setPollOwner(getUser(currentUser).getSecUser());
+            pollDomain.setPollOwner(getUser(currentUser).getAccount());
             pollDomain.setPollCompleted(Boolean.FALSE);
             pollDomain.setCreatedAt(new Date());
             pollDomain.setPollHash(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
@@ -177,8 +177,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeDomainNotFoundException
      */
     public List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException{
-        final Account secUser = getUser(username).getSecUser();
-        final List<Poll> polls = getPollDao().getPollsByPollFolder(secUser, getPollFolder(folder.getId()));
+        final Account account = getUser(username).getAccount();
+        final List<Poll> polls = getPollDao().getPollsByPollFolder(account, getPollFolder(folder.getId()));
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
     /**
@@ -237,8 +237,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeDomainNotFoundException exception
      */
     public List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException{
-        final Account secUser = getUser(username).getSecUser();
-        final List<IFolder> folders = getPollDao().getPollFolderBySecUser(secUser);
+        final Account account = getUser(username).getAccount();
+        final List<IFolder> folders = getPollDao().getPollFolderBySecUser(account);
         return ConvertDomainBean.convertListToUniUnitFolder(folders);
     }
 
@@ -251,7 +251,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public UnitFolder createPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException{
         final PollFolder pollFolder = new PollFolder();
-        pollFolder.setUsers(getUser(username).getSecUser());
+        pollFolder.setUsers(getUser(username).getAccount());
         pollFolder.setCreatedAt(new Date());
         pollFolder.setFolderName(folderName);
         this.getPollDao().saveOrUpdate(pollFolder);

@@ -30,7 +30,6 @@ import org.junit.Test;
  * @since Feb 14, 2010 12:18:42 AM
  * @version $Id$
  */
-@SuppressWarnings("deprecation")
 public class TestQuestionDao extends AbstractBase{
 
     /** {@link Account} **/

@@ -53,7 +53,7 @@ public class GeoPointFolder {
     /**
      * {@link Account}.
      */
-    private Account secUsers;
+    private Account account;
 
     /**
      * SubLocation Folder.
@@ -109,18 +109,18 @@ public class GeoPointFolder {
     }
 
     /**
-     * @return the secUsers
+     * @return the account
      */
     @ManyToOne()
-    public Account getSecUsers() {
-        return secUsers;
+    public Account getAccount() {
+        return account;
     }
 
     /**
-     * @param secUsers the secUsers to set
+     * @param account the account to set
      */
-    public void setSecUsers(final Account secUsers) {
-        this.secUsers = secUsers;
+    public void setAccount(final Account account) {
+        this.account = account;
     }
 
     /**

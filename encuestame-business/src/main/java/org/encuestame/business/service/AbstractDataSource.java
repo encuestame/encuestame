@@ -121,8 +121,8 @@ public abstract class AbstractDataSource{
      * @throws EnMeDomainNotFoundException exception
      */
     public final UserAccount getUser(final String username) throws EnMeDomainNotFoundException {
-        final UserAccount secUserSecondary = getAccountDao().getUserByUsername(username);
-        if(secUserSecondary == null){
+        final UserAccount userAccount = getAccountDao().getUserByUsername(username);
+        if(userAccount == null){
             throw new EnMeDomainNotFoundException("user not found");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
@@ -155,7 +155,7 @@ public abstract class AbstractDataSource{
      * @throws EnMeDomainNotFoundException exception
      */
     public final Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
-        return getUser(username).getSecUser().getUid();
+        return getUser(username).getAccount().getUid();
      }
 
     /**
@@ -306,14 +306,14 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * @return the secUserDao
+     * @return the accountDao
      */
     public final IAccountDao getAccountDao() {
         return accountDao;
     }
 
     /**
-     * @param secUserDao the secUserDao to set
+     * @param accountDao the accountDao to set
      */
     public final void setAccountDao(final IAccountDao accountDao) {
         this.accountDao = accountDao;

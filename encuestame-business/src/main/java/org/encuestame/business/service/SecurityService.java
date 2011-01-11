@@ -89,7 +89,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public Long totalOwnUsers(final String username) throws EnMeDomainNotFoundException{
-        return getAccountDao().retrieveTotalUsers(getUser(username).getSecUser());
+        return getAccountDao().retrieveTotalUsers(getUser(username).getAccount());
     }
 
     /**
@@ -109,9 +109,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException{
-        final UserAccount secUserSecondary = getUser(currentUsername);
+        final UserAccount userAccount = getUser(currentUsername);
         final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
-        final List<Group> groups = getGroupDao().loadGroupsByUser(secUserSecondary.getSecUser());
+        final List<Group> groups = getGroupDao().loadGroupsByUser(userAccount.getAccount());
         for (Group secGroups : groups) {
             groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(secGroups));
         }
@@ -223,9 +223,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public void addNewTwitterAccount(final String account, final String username) throws EnMeDomainNotFoundException{
-        final Account secUsers = getUser(username).getSecUser();
+        final Account user = getUser(username).getAccount();
         final SocialAccount userTwitterAccount = new SocialAccount();
-        userTwitterAccount.setSecUsers(secUsers);
+        userTwitterAccount.setSecUsers(user);
         userTwitterAccount.setTwitterAccount(account);
         userTwitterAccount.setTwitterPassword("");
         userTwitterAccount.setType(TypeAuth.PASSWORD); //By default is PASSWORD.
@@ -447,11 +447,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) throws EnMeDomainNotFoundException {
         //log.info("Create Group");
         final Group groupDomain = new Group();
-        final Account secUsers = getUser(username).getSecUser();
+        final Account secUsers = getUser(username).getAccount();
         groupDomain.setGroupDescriptionInfo(groupBean.getGroupDescription());
         groupDomain.setGroupName(groupBean.getGroupName());
         groupDomain.setIdState(null);
-        groupDomain.setSecUsers(secUsers);
+        groupDomain.setAccount(secUsers);
         getGroupDao().saveOrUpdate(groupDomain);
         groupBean.setId(groupDomain.getGroupId());
         return ConvertDomainBean.convertGroupDomainToBean(groupDomain);
@@ -476,38 +476,38 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return if password is not notified  is returned
      */
     public void createUser(final UnitUserBean userBean, final String username) throws EnMeExpcetion {
-        final UserAccount secondaryUser = new UserAccount();
-        final Account secUsers = getUser(username).getSecUser();
+        final UserAccount userAccount = new UserAccount();
+        final Account account = getUser(username).getAccount();
         //validate email and password
         if (userBean.getEmail() != null && userBean.getUsername() != null) {
-            secondaryUser.setUserEmail(userBean.getEmail());
-            secondaryUser.setUsername(userBean.getUsername());
-            secondaryUser.setSecUser(secUsers);
+            userAccount.setUserEmail(userBean.getEmail());
+            userAccount.setUsername(userBean.getUsername());
+            userAccount.setAccount(account);
         } else {
             throw new EnMeExpcetion("needed email and username to create user");
         }
         String password = null;
         if (userBean.getPassword()!=null) {
              password = userBean.getPassword();
-             secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
+             userAccount.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         else{
             password = generatePassword();
-            secondaryUser.setPassword(EnMePasswordUtils.encryptPassworD(password));
+            userAccount.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         //TODO: maybe we need create a table for editor permissions
         //secondaryUser.setPublisher(userBean.getPublisher());
-        secondaryUser.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
-        secondaryUser.setUserStatus(Boolean.TRUE);
-        secondaryUser.setEnjoyDate(new Date());
+        userAccount.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
+        userAccount.setUserStatus(Boolean.TRUE);
+        userAccount.setEnjoyDate(new Date());
             // send to user the password to her emails
             if((getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), password);
             }
             // save user
-            getAccountDao().saveOrUpdate(secondaryUser);
+            getAccountDao().saveOrUpdate(userAccount);
             // assing first default group to user
-            final UserAccount retrievedUser = getAccountDao().getSecondaryUserById(secondaryUser.getUid());
+            final UserAccount retrievedUser = getAccountDao().getSecondaryUserById(userAccount.getUid());
             final Permission permission = getPermissionByName(SecurityService.DEFAULT);
             if(permission != null){
                 final List<Permission> all = getPermissionDao().findAllPermissions();
@@ -568,18 +568,18 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Assign Permissions to {@link UserAccount}.
-     * @param secUserSecondary {@link UserAccount}.
+     * @param userAccount {@link UserAccount}.
      * @param secPermissions List of {@link Permission}.
      */
-    private void assingPermission(final UserAccount secUserSecondary , final Set<Permission> secPermissions){
+    private void assingPermission(final UserAccount userAccount , final Set<Permission> secPermissions){
         for (Permission secPermission : secPermissions) {
             if(secPermission != null){
-                secUserSecondary.getSecUserPermissions().add(secPermission);
+                userAccount.getSecUserPermissions().add(secPermission);
             } else {
-                log.error("Error on assing permission to "+secUserSecondary.getUsername());
+                log.error("Error on assing permission to "+userAccount.getUsername());
             }
         }
-        getAccountDao().saveOrUpdate(secUserSecondary);
+        getAccountDao().saveOrUpdate(userAccount);
     }
 
     /**
@@ -657,15 +657,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             final Long groupId,
             final Long userId,
             final String username) throws EnMeDomainNotFoundException {
-        final UserAccount secUserSecondary = getUser(userId); //TODO: I need confirm this user perhaps same group of logged user.
+        final UserAccount userAccount = getUser(userId); //TODO: I need confirm this user perhaps same group of logged user.
         //search group by group id and owner user id.
-        final Group secGroup = getGroupDao().getGroupById(groupId, getUser(username).getSecUser());
+        final Group secGroup = getGroupDao().getGroupById(groupId, getUser(username).getAccount());
         if(secGroup == null){
             throw new EnMeDomainNotFoundException("group not found");
         } else {
             //add new group.
-            secUserSecondary.setSecGroup(secGroup);
-            getAccountDao().saveOrUpdate(secUserSecondary);
+            userAccount.setSecGroup(secGroup);
+            getAccountDao().saveOrUpdate(userAccount);
         }
     }
 
@@ -719,18 +719,18 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link UnitUserBean}.
      */
     public UnitUserBean singupUser(final SignUpBean singUpBean){
-        final Account secUsers = new Account();
-        getAccountDao().saveOrUpdate(secUsers);
-        final UserAccount secUserSecondary = new UserAccount();
-        secUserSecondary.setUsername(singUpBean.getUsername());
-        secUserSecondary.setPassword(encodingPassword(singUpBean.getPassword()));
-        secUserSecondary.setEnjoyDate(new Date());
-        secUserSecondary.setSecUser(secUsers);
-        secUserSecondary.setUserStatus(Boolean.TRUE);
-        secUserSecondary.setUserEmail(singUpBean.getEmail());
-        secUserSecondary.setCompleteName("");
-        secUserSecondary.setInviteCode(""); //TODO: invite code?
-        getAccountDao().saveOrUpdate(secUserSecondary);
+        final Account account = new Account();
+        getAccountDao().saveOrUpdate(account);
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setUsername(singUpBean.getUsername());
+        userAccount.setPassword(encodingPassword(singUpBean.getPassword()));
+        userAccount.setEnjoyDate(new Date());
+        userAccount.setAccount(account);
+        userAccount.setUserStatus(Boolean.TRUE);
+        userAccount.setUserEmail(singUpBean.getEmail());
+        userAccount.setCompleteName("");
+        userAccount.setInviteCode(""); //TODO: invite code?
+        getAccountDao().saveOrUpdate(userAccount);
         //Add default permissions, if user is signup we should add admin access
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(SecurityService.DEFAULT));
@@ -738,15 +738,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         permissions.add(getPermissionByName(SecurityService.OWNER));
         permissions.add(getPermissionByName(SecurityService.PUBLISHER));
         permissions.add(getPermissionByName(SecurityService.EDITOR));
-        this.assingPermission(secUserSecondary, permissions);
+        this.assingPermission(userAccount, permissions);
         //Create login.
         setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
         if(this.suspendedNotification){
             getServiceMail().sendPasswordConfirmationEmail(singUpBean);
         }
-        log.info("new user "+secUserSecondary.getUsername());
+        log.info("new user "+userAccount.getUsername());
         log.info("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
-        return ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary);
+        return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
     }
 
     /**
@@ -801,7 +801,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username) throws EnMeDomainNotFoundException{
          return ConvertDomainBean.convertListTwitterAccountsToBean(getAccountDao()
-                                 .getTwitterAccountByUser(getUser(username).getSecUser()));
+                                 .getTwitterAccountByUser(getUser(username).getAccount()));
     }
 
     /**
@@ -812,7 +812,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username) throws EnMeDomainNotFoundException{
         return ConvertDomainBean.convertListTwitterAccountsToBean(getAccountDao()
-                                .getTwitterVerifiedAccountByUser(getUser(username).getSecUser()));
+                                .getTwitterVerifiedAccountByUser(getUser(username).getAccount()));
    }
 
     /**

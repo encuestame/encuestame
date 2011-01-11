@@ -42,9 +42,9 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Before
     public void initTest() {
-       notification = createNotification("test notification", getSecondary().getSecUser(),
+       notification = createNotification("test notification", getSecondary().getAccount(),
                 NotificationEnum.PROJECT_CREATED);
-        createNotification("test notification", getSecondary().getSecUser(),
+        createNotification("test notification", getSecondary().getAccount(),
                 NotificationEnum.TWEETPOL_CREATED);
     }
 
@@ -59,7 +59,7 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject response = callJsonService();
         final JSONObject sucess = getSucess(response);
         JSONArray listNotifications = (JSONArray) sucess.get("notifications");
-        final List<Notification> list = getNotification().loadNotificationByUserAndLimit(getSecondary().getSecUser(), 100);
+        final List<Notification> list = getNotification().loadNotificationByUserAndLimit(getSecondary().getAccount(), 100);
         Assert.assertEquals(list.size(), listNotifications.size());
         initService("/api/notifications.json", MethodJson.GET);
         setParameter("limit", "1");

@@ -66,24 +66,24 @@ public interface ITwitterService extends IService{
 
     /**
      * Get OAuthorized Token.
-     * @param secUserTwitterAccount {@link SocialAccount}.
+     * @param socialAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    Twitter getOAuthAuthorizedInstance(final SocialAccount secUserTwitterAccount, final AccessToken accessToken);
+    Twitter getOAuthAuthorizedInstance(final SocialAccount socialAccount, final AccessToken accessToken);
 
     /**
      * Create New OAuth Access Token.
-     * @param secUserTwitterAccount {@link SocialAccount}.
+     * @param socialAccount {@link SocialAccount}.
      * @return {@link AccessToken}.
      */
-    AccessToken createNewOAuthAccessToken(final SocialAccount secUserTwitterAccount);
+    AccessToken createNewOAuthAccessToken(final SocialAccount socialAccount);
 
     /**
      * OAuth Public Tweet.
-     * @param secUserTwitterAccount
+     * @param socialAccount
      * @param tweet
      * @return
      * @throws TwitterException
      */
-    Status publicTweet(final SocialAccount secUserTwitterAccount, final String tweet) throws TwitterException;
+    Status publicTweet(final SocialAccount socialAccount, final String tweet) throws TwitterException;
 }

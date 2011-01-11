@@ -67,7 +67,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             try{
 
                 question.setQuestion(questionBean.getQuestionName());
-                question.setSecUsersQuestion(getAccountDao().getUserById(questionBean.getUserId()));
+                question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
                 question.setSharedQuestion(false);
                 //save question
@@ -303,7 +303,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         //	question.setQidKey();
         question.setQuestionPattern(question.getQuestionPattern());
         question.setQuestionsAnswers(question.getQuestionsAnswers());
-        question.setSecUsersQuestion(getAccountDao().getUserById(questionBean.getUserId()));
+        question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
        // question.setSharedQuestion();
         this.getQuestionDao().saveOrUpdate(question);
         questionBean.setId(question.getQid());
@@ -319,7 +319,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public UnitFolder createSurveyFolder(final String folderName, final String username)
             throws EnMeDomainNotFoundException{
         final SurveyFolder surveyFolderDomain = new SurveyFolder();
-        surveyFolderDomain.setUsers(getUser(username).getSecUser());
+        surveyFolderDomain.setUsers(getUser(username).getAccount());
         surveyFolderDomain.setCreatedAt(new Date());
         surveyFolderDomain.setFolderName(folderName);
         this.getSurveyDaoImp().saveOrUpdate(surveyFolderDomain);

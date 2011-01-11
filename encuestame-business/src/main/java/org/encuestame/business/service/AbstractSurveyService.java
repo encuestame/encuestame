@@ -94,7 +94,7 @@ public class AbstractSurveyService extends AbstractChartService {
             try{
 
                 question.setQuestion(questionBean.getQuestionName());
-                question.setSecUsersQuestion(getAccountDao().getUserById(questionBean.getUserId()));
+                question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);

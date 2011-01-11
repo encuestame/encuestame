@@ -72,7 +72,7 @@ public class GeoPoint {
     private Integer locationAccuracy;
 
     /** User. **/
-    private Account secUsers;
+    private Account account;
 
     /** Location Folder. **/
     private GeoPointFolder catLocationFolder;
@@ -173,15 +173,15 @@ public class GeoPoint {
      * @return the secUsers
      */
     @ManyToOne()
-    public Account getSecUsers() {
-        return secUsers;
+    public Account getAccount() {
+        return account;
     }
 
     /**
-     * @param secUsers the secUsers to set
+     * @param account the account to set
      */
-    public void setSecUsers(Account secUsers) {
-        this.secUsers = secUsers;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     /**

@@ -54,8 +54,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return list of groups.
      */
     @SuppressWarnings("unchecked")
-    public List<Group> loadGroupsByUser(final Account secUsers) {
-        return getHibernateTemplate().findByNamedParam("from Group where secUsers = :secUsers ", "secUsers", secUsers);
+    public List<Group> loadGroupsByUser(final Account user) {
+        return getHibernateTemplate().findByNamedParam("from Group where account = :user ", "user", user);
     }
 
     /**
@@ -75,8 +75,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
     @SuppressWarnings("unchecked")
     public Group getGroupById(final Long groupId, final Account secUser){
         return (Group) DataAccessUtils.uniqueResult(getHibernateTemplate()
-               .findByNamedParam("from Group where groupId = :groupId and  secUsers = :secUser",
-                new String[]{"groupId", "secUser"}, new Object[]{groupId, secUser}));
+               .findByNamedParam("from Group where groupId = :groupId and  account = :account",
+                new String[]{"groupId", "account"}, new Object[]{groupId, secUser}));
     }
 
     /**
@@ -97,8 +97,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
     @SuppressWarnings("unchecked")
     public Group getGroupByIdandUser(final Long groupId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Group.class);
-         criteria.createAlias("secUsers", "secUsers");
-         criteria.add(Restrictions.eq("secUsers.uid", userId));
+         criteria.createAlias("account", "account");
+         criteria.add(Restrictions.eq("account.uid", userId));
          criteria.add(Restrictions.eq("tweetPollId", groupId));
          return (Group) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -125,8 +125,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
          return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
                                                          + "FROM UserAccount as scu, Group as sg "
                                                          + "WHERE scu.secGroup.groupId = sg.groupId AND "
-                                                         + "scu.secUser = :secUser "
-                                                         + "GROUP BY sg.groupName", "secUser", user);
+                                                         + "scu.account = :account "
+                                                         + "GROUP BY sg.groupName", "account", user);
     }
 
     /**
@@ -139,7 +139,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.secGroup.groupId) "
                                                         + "FROM UserAccount as scu, Group as sg "
                                                         + "WHERE scu.secGroup.groupId = sg.groupId AND "
-                                                        + "scu.secUser.uid = :secUser "
-                                                        + "GROUP BY sg.groupName", "secUser", user);
+                                                        + "scu.account.uid = :account "
+                                                        + "GROUP BY sg.groupName", "account", user);
    }
 }

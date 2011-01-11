@@ -65,7 +65,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateCatLocation() throws EnMeExpcetion{
-        final GeoPoint locationBean = createCatLocation("test", "test", 0, this.secondary.getSecUser());
+        final GeoPoint locationBean = createCatLocation("test", "test", 0, this.secondary.getAccount());
         final UnitLocationBean bean = ConvertDomainBean.convertLocationToBean(locationBean);
         bean.setName("test2");
         this.locationService.updateCatLocation(bean, this.secondary.getUsername());
@@ -114,8 +114,8 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testretrieveLocationSubFolderByUser() throws Exception{
-        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
-        createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getSecUser(), "folder sub", locationFolder);
+        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder", null);
+        createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder sub", locationFolder);
         final List<UnitLocationFolder> list = this.locationService.retrieveLocationSubFolderByUser(locationFolder.getLocationFolderId(), this.secondary.getUsername());
         Assert.assertEquals(list.size(), 1);
     }
@@ -126,7 +126,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateLocationMap() throws Exception{
-        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getSecUser(), "folder", null);
+        final GeoPointFolder locationFolder = createCatLocationFolder(GeoPointFolderType.GROUPING, this.secondary.getAccount(), "folder", null);
         //final CatLocation location = createCatLocation("Managua", locTypeName, Level, secUsers)
     }
 

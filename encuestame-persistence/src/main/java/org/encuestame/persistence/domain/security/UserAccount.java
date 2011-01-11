@@ -50,7 +50,7 @@ public class UserAccount {
     private String userEmail;
     private String username;
     private String password;
-    private Account secUser;
+    private Account account;
     private String inviteCode;
     private Date enjoyDate;
     private Boolean userStatus;
@@ -170,15 +170,15 @@ public class UserAccount {
      * @return the secUser
      */
     @ManyToOne()
-    public Account getSecUser() {
-        return secUser;
+    public Account getAccount() {
+        return account;
     }
 
     /**
      * @param secUser the secUser to set
      */
-    public void setSecUser(Account secUser) {
-        this.secUser = secUser;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     /**

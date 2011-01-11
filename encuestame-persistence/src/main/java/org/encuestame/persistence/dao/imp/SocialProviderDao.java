@@ -14,7 +14,6 @@ package org.encuestame.persistence.dao.imp;
 
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -53,6 +52,7 @@ public class SocialProviderDao extends AbstractHibernateDaoSupport implements IS
      * @param socialName name
      * @return
      */
+    @SuppressWarnings("unchecked")
     public SocialAccountProvider getSocialAccountProviderId(final String socialName) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccountProvider.class);
         criteria.add(Restrictions.eq("name", socialName) );

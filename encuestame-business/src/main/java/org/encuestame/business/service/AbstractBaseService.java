@@ -179,10 +179,10 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @param secUser
      * @return
      */
-    public Notification createNotification(final NotificationEnum description, final String additional,  final Account secUser){
+    public Notification createNotification(final NotificationEnum description, final String additional,  final Account account){
         final Notification notification = new Notification();
         notification.setDescription(description);
-        notification.setSecUser(secUser);
+        notification.setAccount(account);
         notification.setAdditionalDescription(additional);
         getNotificationDao().saveOrUpdate(notification);
         return notification;
@@ -309,10 +309,10 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
            final Integer start) throws EnMeDomainNotFoundException {
         log.info("currentUsername "+currentUsername);
         List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        final UserAccount secUserSecondary = this.getUser(currentUsername);
-        if(secUserSecondary != null){
+        final UserAccount userAccount = this.getUser(currentUsername);
+        if(userAccount != null){
             final Collection<UserAccount> listUsers = getAccountDao()
-                 .retrieveListOwnerUsers(secUserSecondary.getSecUser(), start, maxResults);
+                 .retrieveListOwnerUsers(userAccount.getAccount(), start, maxResults);
                 log.info("list users "+listUsers.size());
                 loadListUsers = ConvertDomainBean.convertCollectionUsersToBean(listUsers);
         }
@@ -329,7 +329,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         Boolean validate = Boolean.FALSE;
         final UserAccount owner = getAccountDao().getUserByUsername(loggedUserName);
         if(user != null && owner != null){
-            if(user.getSecUser().getUid().equals(owner.getSecUser().getUid())){
+            if(user.getAccount().getUid().equals(owner.getAccount().getUid())){
                 validate = Boolean.TRUE;
             }
         }

@@ -55,7 +55,7 @@ public class Question {
     private String qidKey;
     private Boolean sharedQuestion;
     private QuestionPattern questionPattern;
-    private Account secUsersQuestion;
+    private Account accountQuestion;
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
     /** {@link QuestionAnswer}. **/
@@ -150,15 +150,15 @@ public class Question {
      */
     @ManyToOne()
     @JoinColumn(name = "uid", nullable = false)
-    public Account getSecUsersQuestion() {
-        return secUsersQuestion;
+    public Account getAccountQuestion() {
+        return accountQuestion;
     }
 
     /**
      * @param secUsersQuestion the secUsersQuestion to set
      */
-    public void setSecUsersQuestion(final Account secUsersQuestion) {
-        this.secUsersQuestion = secUsersQuestion;
+    public void setAccountQuestion(final Account accountQuestion) {
+        this.accountQuestion = accountQuestion;
     }
 
     /**

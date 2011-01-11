@@ -49,7 +49,7 @@ public class TestProjectDaoImp extends AbstractBase{
     @Before
     public void initService(){
         user  = createSecondaryUser("user 1", createUser());
-        project = createProject("project 1","TIC Project","Project", user.getSecUser());
+        project = createProject("project 1","TIC Project","Project", user.getAccount());
 
     }
     /**
@@ -76,8 +76,8 @@ public class TestProjectDaoImp extends AbstractBase{
      * Test Add Locations to Project.
      */
     public void testGetProjectByLocationId(){
-        final GeoPoint loc1 = createCatLocation("managua", "mga", 1, this.user.getSecUser());
-        final GeoPoint loc2 = createCatLocation("diriomo", "drm", 1, this.user.getSecUser());
+        final GeoPoint loc1 = createCatLocation("managua", "mga", 1, this.user.getAccount());
+        final GeoPoint loc2 = createCatLocation("diriomo", "drm", 1, this.user.getAccount());
         project.getLocations().add(loc1);
         project.getLocations().add(loc2);
         getProjectDaoImp().saveOrUpdate(project);
@@ -89,8 +89,8 @@ public class TestProjectDaoImp extends AbstractBase{
      */
     @Test
     public void testFindProjectsByUserID(){
-        createProject("encuestame", "survey system", "the best", user.getSecUser());
-        final List<Project> projectList = getProjectDaoImp().findProjectsByUserID(user.getSecUser().getUid());
+        createProject("encuestame", "survey system", "the best", user.getAccount());
+        final List<Project> projectList = getProjectDaoImp().findProjectsByUserID(user.getAccount().getUid());
         assertEquals("Should be equals", 2, projectList.size());
     }
 

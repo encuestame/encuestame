@@ -229,7 +229,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tPollSwitch.setTweetPoll(tweetPollDomain);
                 tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
                 getTweetPollDao().saveOrUpdate(tPollSwitch);
-                createNotification(NotificationEnum.TWEETPOL_CREATED, question.getQuestion() , question.getSecUsersQuestion());
+                createNotification(NotificationEnum.TWEETPOL_CREATED, question.getQuestion() , question.getAccountQuestion());
             }
             //Save Hash Tags for this tweetPoll.
             log.debug("HashTag Size"+tweetPollBean.getHashTags().size());
@@ -435,7 +435,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     @Deprecated
     public Boolean validateUserTwitterAccount(final String username) throws EnMeDomainNotFoundException{
-        final Account users = getUser(username).getSecUser();
+        final Account users = getUser(username).getAccount();
         Boolean validate = false;
         log.info(users.getTwitterAccount());
         if(!users.getTwitterAccount().isEmpty() && !users.getTwitterPassword().isEmpty()){
@@ -462,7 +462,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException{
         final TweetPollFolder tweetPollFolderDomain = new TweetPollFolder();
-        tweetPollFolderDomain.setUsers(getUser(username).getSecUser());
+        tweetPollFolderDomain.setUsers(getUser(username).getAccount());
         tweetPollFolderDomain.setCreatedAt(new Date());
 
         tweetPollFolderDomain.setFolderName(folderName);

@@ -69,7 +69,7 @@ public class TestPollService extends AbstractServiceBase{
     /** {@link Poll} **/
     private Poll poll;
 
-    private UserAccount secUserSecondary;
+    private UserAccount userAccount;
 
     /** {@link EmailList} **/
     private EmailList emailList;
@@ -86,11 +86,11 @@ public class TestPollService extends AbstractServiceBase{
     @Before
     public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.secUserSecondary = createSecondaryUser("diana", this.user);
+        this.userAccount = createSecondaryUser("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
         this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
-        this.emailList = createDefaultListEmail(this.secUserSecondary.getSecUser());
+        this.emailList = createDefaultListEmail(this.userAccount.getAccount());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
@@ -107,7 +107,7 @@ public class TestPollService extends AbstractServiceBase{
         final UnitQuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final UnitPoll unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
-        this.pollService.createPoll(unitPoll, this.secUserSecondary.getUsername(), this.question);
+        this.pollService.createPoll(unitPoll, this.userAccount.getUsername(), this.question);
     }
 
     /**
@@ -118,7 +118,7 @@ public class TestPollService extends AbstractServiceBase{
     public void testgetPollsByFolder() throws EnMeDomainNotFoundException{
         getiPoll().saveOrUpdate(this.poll);
         List<UnitPoll> polls = this.pollService.getPollsByFolder(ConvertDomainBean
-                              .convertFolderToBeanFolder(folder), this.secUserSecondary.getUsername());
+                              .convertFolderToBeanFolder(folder), this.userAccount.getUsername());
         assertEquals(polls.size(), 1);
     }
 
@@ -128,7 +128,7 @@ public class TestPollService extends AbstractServiceBase{
      */
     @Test
     public void testretrieveFolderPoll() throws EnMeDomainNotFoundException{
-        List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.secUserSecondary.getUsername());
+        List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
         assertEquals(folders.size(), 1);
     }
 
@@ -138,8 +138,8 @@ public class TestPollService extends AbstractServiceBase{
      */
     @Test
     public void testcreatePollFolder() throws EnMeDomainNotFoundException{
-         this.pollService.createPollFolder("folder 2", this.secUserSecondary.getUsername());
-         List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.secUserSecondary.getUsername());
+         this.pollService.createPollFolder("folder 2", this.userAccount.getUsername());
+         List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
          assertEquals(folders.size(), 2);
     }
 
@@ -149,7 +149,7 @@ public class TestPollService extends AbstractServiceBase{
      */
     @Test
     public void testupdateFolderName() throws EnMeDomainNotFoundException{
-        this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.secUserSecondary.getUsername());
+        this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.userAccount.getUsername());
         final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
          assertEquals(folder.getFolderName(), "newFolderName");
     }
@@ -184,7 +184,7 @@ public class TestPollService extends AbstractServiceBase{
     @Test
     public void testFindAllPollByUserId() throws EnMeDomainNotFoundException{
         List<UnitPoll> unitPoll =  new ArrayList<UnitPoll>();
-        unitPoll = pollService.listPollByUser(this.secUserSecondary.getUsername(), 5, 0);
+        unitPoll = pollService.listPollByUser(this.userAccount.getUsername(), 5, 0);
          assertEquals("should be equals",1, unitPoll.size());
     }
 
@@ -197,7 +197,7 @@ public class TestPollService extends AbstractServiceBase{
     public void testListPollbyQuestionKeyword() throws EnMeDomainNotFoundException{
         List<UnitPoll> unitPollList = new ArrayList<UnitPoll>();
         final String keyword = "Why";
-        unitPollList = pollService.listPollbyQuestionKeyword(this.secUserSecondary.getUsername(), keyword, 5, 0);
+        unitPollList = pollService.listPollbyQuestionKeyword(this.userAccount.getUsername(), keyword, 5, 0);
         assertEquals("should be equals",1, unitPollList.size());
 
     }
@@ -242,15 +242,15 @@ public class TestPollService extends AbstractServiceBase{
     @Test
     public void testCreateUrlPoll(){
            final String hashUrl="3456DS";
-           final String testUrl= pollService.createUrlPoll(URLPOLL, hashUrl, this.secUserSecondary.getCompleteName());
+           final String testUrl= pollService.createUrlPoll(URLPOLL, hashUrl, this.userAccount.getCompleteName());
            assertNotNull(testUrl);
     }
 
     @Test(timeout=80000)
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(),
-                        new Date(), this.emailList.getListName(), this.secUserSecondary.getUid());
-         final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.secUserSecondary.getCompleteName());
+                        new Date(), this.emailList.getListName(), this.userAccount.getUid());
+         final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.userAccount.getCompleteName());
          pollService.publicPollByList(urlPoll, emailUnitList);
          pollService.publicPollByList(urlPoll, new UnitLists());
          assertEquals(1, 1);

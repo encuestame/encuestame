@@ -70,14 +70,14 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
     public void initView(){
         Assert.assertNotNull(this.tweetPollAtomFeedView);
         Assert.assertNotNull(this.tweetPollRssFeedView);
-        final Question question = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
-        final Question question1 = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
-        final Question question2 = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
-        final Question question3 = createQuestion("Real Madrid or Barcelona?", getSecondary().getSecUser());
-        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question1);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question2);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getSecUser(), question3);
+        final Question question = createQuestion("Real Madrid or Barcelona?", getSecondary().getAccount());
+        final Question question1 = createQuestion("Real Madrid or Barcelona?", getSecondary().getAccount());
+        final Question question2 = createQuestion("Real Madrid or Barcelona?", getSecondary().getAccount());
+        final Question question3 = createQuestion("Real Madrid or Barcelona?", getSecondary().getAccount());
+        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getAccount(), question);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getAccount(), question1);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getAccount(), question2);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSecondary().getAccount(), question3);
     }
 
     /**

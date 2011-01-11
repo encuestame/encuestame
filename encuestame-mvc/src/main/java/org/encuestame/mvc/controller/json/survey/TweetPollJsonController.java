@@ -145,7 +145,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 //save question
                   final Question questionDomain = getSurveyService().createQuestion(questionBean);
                 // save create tweet poll
-                    tweetPoll.setUserId(user.getSecUser().getUid());
+                    tweetPoll.setUserId(user.getAccount().getUid());
                     tweetPoll.setCloseNotification(Boolean.FALSE);
                     tweetPoll.setResultNotification(Boolean.FALSE);
                     tweetPoll.setPublishPoll(Boolean.TRUE); //always TRUE

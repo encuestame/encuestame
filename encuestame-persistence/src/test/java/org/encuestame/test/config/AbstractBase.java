@@ -551,7 +551,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setUserEmail(email);
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
-        user.setSecUser(secUser);
+        user.setAccount(secUser);
         user.setUserStatus(true);
         getSecUserDao().saveOrUpdate(user);
         return user;
@@ -576,7 +576,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setUserEmail(email);
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
-        user.setSecUser(secUser);
+        user.setAccount(secUser);
         user.setUserStatus(true);
         user.setSecGroup(secGroup);
         getSecUserDao().saveOrUpdate(user);
@@ -641,7 +641,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         location.setLocationStatus(Status.ACTIVE);
         location.setLocationDescription(locDescription);
         location.setLocationLatitude(2F);
-        location.setSecUsers(secUsers);
+        location.setAccount(secUsers);
         location.setCatLocationFolder(catLocationFolder);
         location.setLocationLongitude(3F);
         location.setTidtype(createCatLocationType(locTypeName));
@@ -677,7 +677,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     public Group createGroups(final String groupname, final Account secUser){
         final Group group = new Group();
-        group.setSecUsers(secUser);
+        group.setAccount(secUser);
         group.setGroupName(groupname);
         group.setIdState(1L);
         group.setGroupType(Type.SECURITY);
@@ -763,7 +763,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         questions.setQidKey("1");
         questions.setQuestion(question);
         questions.setQuestionPattern(createQuestionPattern(patron));
-        questions.setSecUsersQuestion(createUser());
+        questions.setAccountQuestion(createUser());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
     }
@@ -787,7 +787,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Question createQuestion(final String questionName, final Account user){
         final Question question =  createQuestion(questionName, "patter");
-        question.setSecUsersQuestion(user);
+        question.setAccountQuestion(user);
         getQuestionDaoImp().saveOrUpdate(question);
         //log.info("user assigned "+question.getSecUsersQuestion().getUid());
         return question;
@@ -803,7 +803,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Question createQuestion(final String question, final String patron, final Account user){
         final Question questions = new Question();
         questions.setQidKey("1");
-        questions.setSecUsersQuestion(user);
+        questions.setAccountQuestion(user);
         questions.setQuestion(question);
         questions.setQuestionPattern(createQuestionPattern(patron));
         getQuestionDaoImp().saveOrUpdate(questions);
@@ -1004,7 +1004,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question question = createQuestion("who I am?", "");
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
-        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getSecUser(), question);
+        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
         final TweetPollSwitch pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         final TweetPollSwitch pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
         createTweetPollResult(pollSwitch1, "192.168.0.1");
@@ -1032,7 +1032,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final GeoPointFolder catLocationFolder = new GeoPointFolder();
         catLocationFolder.setFolderType(type);
         catLocationFolder.setLocationFolderName(folderName);
-        catLocationFolder.setSecUsers(secUsers);
+        catLocationFolder.setAccount(secUsers);
         catLocationFolder.setSubLocationFolder(locationFolder);
         getCatLocationDao().saveOrUpdate(catLocationFolder);
         return catLocationFolder;
@@ -1426,7 +1426,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          notification.setCreated(new Date());
          notification.setDescription(description);
          notification.setReaded(Boolean.FALSE);
-         notification.setSecUser(secUser);
+         notification.setAccount(secUser);
          getNotification().saveOrUpdate(notification);
          return notification;
     }

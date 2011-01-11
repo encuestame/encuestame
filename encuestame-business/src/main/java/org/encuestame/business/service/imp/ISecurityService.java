@@ -218,12 +218,12 @@ public interface ISecurityService extends IService {
      */
     void setSuspendedNotification(final Boolean suspendedNotification);
 
-     /**
-      * Update Twitter Account.
-      * @param account account
-      * @param password password
-      * @param secUser {@link Account}
-      */
+    /**
+     * Update Twitter Account.
+     * @param accountBean accountBean
+     * @param password password
+     * @param verify verify
+     */
      void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password,
                                final Boolean verify);
 

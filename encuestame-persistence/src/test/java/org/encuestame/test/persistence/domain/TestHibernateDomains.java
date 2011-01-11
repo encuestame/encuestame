@@ -143,7 +143,7 @@ public class TestHibernateDomains extends AbstractBase{
         questions.setQidKey("2");
         questions.setQuestionPattern(createQuestionPattern("options"));
         questions.getQuestionColettions().add(createQuestionCollect("options"));
-        questions.setSecUsersQuestion(createUser());
+        questions.setAccountQuestion(createUser());
         getQuestionDaoImp().saveOrUpdate(questions);
         assertNotNull(questions.getQid());
 
@@ -170,7 +170,7 @@ public class TestHibernateDomains extends AbstractBase{
         final Group groups = new Group();
         groups.setGroupName("writers");
         groups.setGroupDescriptionInfo("writers");
-        groups.setSecUsers(createUser());
+        groups.setAccount(createUser());
         groups.getSecPermissions().add(createPermission("administrator"));
         groups.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
         getSecGroup().saveOrUpdate(groups);
@@ -217,7 +217,7 @@ public class TestHibernateDomains extends AbstractBase{
         userSec.setEnjoyDate(new Date());
         userSec.setUserStatus(true);
         userSec.setUserTwitterAccount("si");
-        userSec.setSecUser(createUser());
+        userSec.setAccount(createUser());
         getSecUserDao().saveOrUpdate(userSec);
         assertNotNull(userSec.getUid());
     }
@@ -278,7 +278,7 @@ public class TestHibernateDomains extends AbstractBase{
          final GeoPointFolder catLocationFolder = new GeoPointFolder();
          catLocationFolder.setFolderType(GeoPointFolderType.GROUPING);
          catLocationFolder.setLocationFolderName("test folder");
-         catLocationFolder.setSecUsers(createUser());
+         catLocationFolder.setAccount(createUser());
          getCatLocationDao().saveOrUpdate(catLocationFolder);
      }
 

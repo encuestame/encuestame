@@ -431,7 +431,7 @@ public class ConvertDomainBean {
         final UnitQuestionBean questionBean = new UnitQuestionBean();
         questionBean.setId(questions.getQid());
         questionBean.setQuestionName(questions.getQuestion());
-        questionBean.setUserId(questions.getSecUsersQuestion().getUid());
+        questionBean.setUserId(questions.getAccountQuestion().getUid());
         return questionBean;
     }
 
