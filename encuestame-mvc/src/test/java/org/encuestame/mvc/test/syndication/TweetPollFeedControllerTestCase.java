@@ -53,7 +53,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /**
-     * TweetPoll.
+     * TweetPoll..
      */
     TweetPoll tweetPoll;
 
