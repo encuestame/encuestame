@@ -14,16 +14,6 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-web</artifactId>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-web</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>
         </dependency>
         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
