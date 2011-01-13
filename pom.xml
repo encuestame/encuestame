@@ -114,8 +114,8 @@
     </mailingLists>
 
     <scm>
-        <connection>scm:svn:http://svn.encuesta.me/trunk/encuestame</connection>
-        <developerConnection>scm:svn:http://svn.encuesta.me/trunk/encuestame</developerConnection>
+        <connection>scm:git:ssh://git@jotadeveloper.com:6785:encuestame.git</connection>
+        <developerConnection>scm:git:ssh://git@jotadeveloper.com:6785:encuestame.git</developerConnection>
         <url>http://svn.encuesta.me/trunk/encuestame</url>
     </scm>
 
@@ -423,7 +423,7 @@
         </resources>
 
          <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
                 <version>1.0-beta-4</version>
@@ -444,7 +444,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
