@@ -114,8 +114,8 @@
     </mailingLists>
 
     <scm>
-        <connection>scm:git:ssh://git@jotadeveloper.com:6785:encuestame.git</connection>
-        <developerConnection>scm:git:ssh://git@jotadeveloper.com:6785:encuestame.git</developerConnection>
+        <connection>scm:git:ssh://git@jotadeveloper.com:6784:encuestame.git</connection>
+        <developerConnection>scm:git:ssh://git@jotadeveloper.com:6784:encuestame.git</developerConnection>
         <url>http://svn.encuesta.me/trunk/encuestame</url>
     </scm>
 
