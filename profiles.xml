@@ -190,7 +190,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
-                <surefire.failures.ignore>false</surefire.failures.ignore>
+                <surefire.failures.ignore>true</surefire.failures.ignore>
                 <app.proxypass>false</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
