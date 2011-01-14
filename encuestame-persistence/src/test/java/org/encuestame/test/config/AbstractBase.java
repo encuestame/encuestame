@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
@@ -1232,7 +1234,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String secretToken,
             final Integer twitterPin,
             final Account secUsers,
-            final String twitterAccount){
+            final String twitterAccount,
+            final Boolean verified){
         final SocialAccount socialTwitterAccounts = new SocialAccount();
         socialTwitterAccounts.setConsumerKey(consumerKey);
         socialTwitterAccounts.setConsumerSecret(consumerSecret);
@@ -1240,7 +1243,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         socialTwitterAccounts.setSecretToken(secretToken);
         socialTwitterAccounts.setSecUsers(secUsers);
         socialTwitterAccounts.setTwitterPin(twitterPin);
-        socialTwitterAccounts.setVerfied(Boolean.FALSE);
+        socialTwitterAccounts.setVerfied(verified);
         socialTwitterAccounts.setTwitterAccount(twitterAccount);
         socialTwitterAccounts.setTwitterPassword("not valid");
         getAccountDao().saveOrUpdate(socialTwitterAccounts);
@@ -1259,7 +1262,23 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.tokenSecret"),
                 12345,
                 secUsers,
-                getProperty("twitter.test.account"));
+                getProperty("twitter.test.account"), Boolean.FALSE);
+    }
+
+
+    /**
+     * Create Default Setted Verified Twitter Account.
+     * @param secUsers
+     * @return
+     */
+    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account secUsers){
+        return this.createTwitterAccount(getProperty("twitter.test.consumerKey"),
+                getProperty("twitter.test.consumerSecret"),
+                getProperty("twitter.test.token"),
+                getProperty("twitter.test.tokenSecret"),
+                12345,
+                secUsers,
+                getProperty("twitter.test.account"), Boolean.TRUE);
     }
 
   /**

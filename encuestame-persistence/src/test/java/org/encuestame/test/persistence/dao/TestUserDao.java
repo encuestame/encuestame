@@ -14,13 +14,19 @@ package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +48,27 @@ public class TestUserDao extends AbstractBase {
     /** {@link SocialAccount} **/
     private SocialAccount socialAccount;
 
+    /** {@link QuestionAnswer}. **/
+    private QuestionAnswer questionsAnswers1;
+
+    /** {@link QuestionAnswer}. **/
+    private QuestionAnswer questionsAnswers2;
+
+    /** {@link TweetPollSwitch}. **/
+    private TweetPollSwitch pollSwitch1;
+
+    /** {@link TweetPollSwitch}. **/
+    private TweetPollSwitch pollSwitch2;
+
+    /** {@link TweetPoll}. **/
+    private TweetPoll tweetPoll;
+
+    /** {@link Poll} **/
+    private Poll poll;
+
+    /** {@link Question} **/
+    private Question question;
+
     /**
      * Before.
      **/
@@ -49,7 +76,9 @@ public class TestUserDao extends AbstractBase {
     public void initService(){
         this.account = createUser();
         this.userAccount = createSecondaryUser("user 1", this.account);
-        this.socialAccount = createDefaultSettedTwitterAccount(this.account);
+        this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
+        this.question = createQuestion("What day is today?", "");
+
     }
 
     /***
@@ -218,4 +247,41 @@ public class TestUserDao extends AbstractBase {
     	assertEquals("Should be equals", this.userAccount.getUsername(), user.getUsername());
     }
 
+    /**
+     * Test Get Twitter Verified Account By User.
+     */
+    @Test
+    public void testgetTwitterVerifiedAccountByUser(){
+    	final List<SocialAccount> socAccount = getAccountDao().getTwitterVerifiedAccountByUser(this.account);
+    	assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
+    	assertEquals("Should be equals", 1, socAccount.size());
+    }
+
+    /**
+     * Test Get Total TweetPoll by User.
+     */
+    @Test
+    public void testGetTotalTweetPollByUser(){
+    	this.questionsAnswers1 = createQuestionAnswer("monday", question, "12345");
+        this.questionsAnswers2 = createQuestionAnswer("sunday", question, "12346");
+        this.tweetPoll = createPublishedTweetPoll(userAccount.getAccount(), question);
+        this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
+        this.pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
+        createTweetPollResult(pollSwitch1, "192.168.0.1");
+        createTweetPollResult(pollSwitch1, "192.168.0.2");
+        createTweetPollResult(pollSwitch2, "192.168.0.3");
+        createTweetPollResult(pollSwitch2, "192.168.0.4");
+     	final List<Long> tweets = getAccountDao().getTotalTweetPollByUser(this.account.getUid());
+      	assertEquals("Should be equals", 1, tweets.size());
+    }
+
+    /**
+     * Test Get Total Poll by User.
+     */
+    @Test
+    public void testGetTotalPollByUser(){
+    	this.poll = createPoll(new Date(), this.question, "FDK125", this.account, Boolean.TRUE, Boolean.TRUE);
+    	final List<Long> polls = getAccountDao().getTotalPollByUser(this.account.getUid());
+    	assertEquals("Should be equals", 1, polls.size());
+    }
 }
