@@ -68,10 +68,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param secUsers {@link Account}.
      * @return List of {@link UserAccount}
      */
-    public List<UserAccount> retrieveListOwnerUsers(final Account secUsers,
+    public List<UserAccount> retrieveListOwnerUsers(final Account account,
                final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
-        criteria.add(Restrictions.eq("secUser", secUsers));
+        criteria.add(Restrictions.eq("account", account));
         criteria.addOrder(Order.asc("enjoyDate"));
         return getHibernateTemplate().findByCriteria(criteria, start, maxResults);
     }
@@ -81,10 +81,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param secUsers
      * @return
      */
-    public Long retrieveTotalUsers(final Account secUsers){
+    public Long retrieveTotalUsers(final Account account){
          Long resultsSize = 0L;
          final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount "
-                 +" WHERE secUser = :user", "user", secUsers);
+                 +" WHERE account = :account", "account", account);
          if (list.get(0) instanceof Long){
              log.debug("instace of Long");
              resultsSize = (Long) list.get(0);

@@ -199,7 +199,7 @@ public class TestHibernateDomains extends AbstractBase{
         final Account user = new Account();
         user.setTwitterAccount("");
         user.setTwitterPassword("");
-        getSecUserDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }
 
@@ -218,7 +218,7 @@ public class TestHibernateDomains extends AbstractBase{
         userSec.setUserStatus(true);
         userSec.setUserTwitterAccount("si");
         userSec.setAccount(createUser());
-        getSecUserDao().saveOrUpdate(userSec);
+        getAccountDao().saveOrUpdate(userSec);
         assertNotNull(userSec.getUid());
     }
 

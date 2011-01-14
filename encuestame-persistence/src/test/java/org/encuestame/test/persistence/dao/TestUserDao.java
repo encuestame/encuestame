@@ -19,6 +19,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
@@ -32,14 +33,23 @@ import org.junit.Test;
  */
 public class TestUserDao extends AbstractBase {
 
-    private Account userPrimary;
+	/** {@link Account} **/
+    private Account account;
+
+    /** {@link UserAccount} **/
+    private UserAccount userAccount;
+
+    /** {@link SocialAccount} **/
+    private SocialAccount socialAccount;
 
     /**
      * Before.
      **/
     @Before
     public void initService(){
-        this.userPrimary = createUser();
+        this.account = createUser();
+        this.userAccount = createSecondaryUser("user 1", this.account);
+        this.socialAccount = createDefaultSettedTwitterAccount(this.account);
     }
 
     /***
@@ -47,7 +57,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testCreateUser() {
-       final UserAccount user = createSecondaryUser("user 1", this.userPrimary);
+       final UserAccount user = createSecondaryUser("user 1", this.account);
        assertNotNull(user);
     }
 
@@ -56,9 +66,9 @@ public class TestUserDao extends AbstractBase {
      **/
     @Test
     public void testDeleteUser() {
-        final UserAccount user = createSecondaryUser("user 2", this.userPrimary);
-         getSecUserDao().delete(user);
-        assertEquals("Should be equals",0, getSecUserDao().findAll().size());
+        final UserAccount user = createSecondaryUser("user 2", this.account);
+         getAccountDao().delete(user);
+        assertEquals("Should be equals",1, getAccountDao().findAll().size());
     }
 
     /**
@@ -66,9 +76,9 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testFindAllUsers() {
-        createSecondaryUser("user 1", this.userPrimary);
-        createSecondaryUser("user 2", this.userPrimary);
-        assertEquals("Should be equals",2, getSecUserDao().findAll().size());
+        createSecondaryUser("user 1", this.account);
+        createSecondaryUser("user 2", this.account);
+        assertEquals("Should be equals",3, getAccountDao().findAll().size());
     }
 
     /**
@@ -78,11 +88,11 @@ public class TestUserDao extends AbstractBase {
     public void testUpdateUser(){
         final String newPassword = "67809";
         final String newEmail = "user2@users.com";
-        final UserAccount user = createSecondaryUser("user 1", this.userPrimary);
+        final UserAccount user = createSecondaryUser("user 1", this.account);
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
-        getSecUserDao().saveOrUpdate(user);
-         final UserAccount retrieveUser = getSecUserDao()
+        getAccountDao().saveOrUpdate(user);
+         final UserAccount retrieveUser = getAccountDao()
          .getSecondaryUserById(Long.valueOf(user.getUid()));
      assertEquals("Password should be",newPassword,
                      retrieveUser.getPassword());
@@ -95,8 +105,8 @@ public class TestUserDao extends AbstractBase {
      **/
     @Test
     public void testGetUserByUsername(){
-        final UserAccount user = createSecondaryUser("user 3", this.userPrimary);
-        final UserAccount retrieveUser = getSecUserDao()
+        final UserAccount user = createSecondaryUser("user 3", this.account);
+        final UserAccount retrieveUser = getAccountDao()
         .getUserByUsername(user.getUsername());
         assertEquals("Username should be",user.getUsername(), retrieveUser.getUsername());
     }
@@ -134,9 +144,9 @@ public class TestUserDao extends AbstractBase {
      * Test getSecondaryUsersByUserId.
      */
     public void testGetSecondaryUsersByUserId(){
-         createSecondaryUser("user 1", this.userPrimary);
-         createSecondaryUser("user 2", this.userPrimary);
-         final List<UserAccount> userList = getSecUserDao().getSecondaryUsersByUserId(this.userPrimary.getUid());
+         createSecondaryUser("user 1", this.account);
+         createSecondaryUser("user 2", this.account);
+         final List<UserAccount> userList = getAccountDao().getSecondaryUsersByUserId(this.account.getUid());
          assertEquals("Should be equals", 2, userList.size());
     }
 
@@ -145,9 +155,67 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testSearchUsersByEmail(){
-        final UserAccount secondary = createSecondaryUser("jhon", this.userPrimary);
-        createSecondaryUser("paola", this.userPrimary);
-        final List<UserAccount> users = getSecUserDao().searchUsersByEmail(secondary.getUserEmail());
+        final UserAccount secondary = createSecondaryUser("jhon", this.account);
+        createSecondaryUser("paola", this.account);
+        final List<UserAccount> users = getAccountDao().searchUsersByEmail(secondary.getUserEmail());
         assertEquals("Should be equals", 1, users.size());
     }
+
+    /**
+     * Test Retrieve Total Users.
+     */
+    @Test
+    public void testRetrieveTotalUsers(){
+    	 final Long totalUserAccount = getAccountDao().retrieveTotalUsers(this.account);
+    	 System.out.println("TOTAL USER ACCOUNT --> "+totalUserAccount);
+    	 assertEquals("Should be equals", 1, 1);
+
+    }
+
+    /**
+     * Test Retrieve List Owner Users.
+     */
+    @Test
+    public void testretRieveListOwnerUsers(){
+    	final List<UserAccount> usersAccount = getAccountDao().retrieveListOwnerUsers(this.account, 5, 0);
+         assertEquals("Should be equals", 1, usersAccount.size());
+    }
+
+    /**
+     * Test Get Twitter Account.
+     */
+    @Test
+    public void testGetTwitterAccount(){
+    	final SocialAccount social = getAccountDao().getTwitterAccount(this.socialAccount.getId());
+        assertEquals("Should be equals", this.socialAccount.getId(), social.getId());
+    }
+
+    /**
+     * Test Get User by Id.
+     */
+    @Test
+    public void testGetUserById(){
+    	final Account userAccount = getAccountDao().getUserById(this.account.getUid());
+    	 assertEquals("Should be equals", this.account.getUid(), userAccount.getUid());
+     }
+
+    /**
+     * Test Get User by Email.
+     */
+    @Test
+    public void testGetUserByEmail(){
+    	final UserAccount userAcc = getAccountDao().getUserByEmail(this.userAccount.getUserEmail());
+    	assertNotNull(userAcc);
+      	assertEquals("Should be equals", this.userAccount.getUserEmail(), userAcc.getUserEmail());
+    }
+
+    /**
+     * Test get Users By Username.
+     */
+    @Test
+    public void testGetUsersByUsername(){
+    	final UserAccount user = getAccountDao().getUserByUsername(this.userAccount.getUsername());
+    	assertEquals("Should be equals", this.userAccount.getUsername(), user.getUsername());
+    }
+
 }

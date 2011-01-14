@@ -213,14 +213,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @return the userDao
      */
-    public IAccountDao getSecUserDao() {
+    public IAccountDao getAccountDao() {
         return accountDao;
     }
 
     /**
      * @param userDao the userDao to set
      */
-    public void setSecUserDao(final IAccountDao userDao) {
+    public void setAccountDao(final IAccountDao userDao) {
         this.accountDao = userDao;
     }
 
@@ -553,7 +553,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setInviteCode("xxxxxxx");
         user.setAccount(secUser);
         user.setUserStatus(true);
-        getSecUserDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user);
         return user;
     }
 
@@ -579,7 +579,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setAccount(secUser);
         user.setUserStatus(true);
         user.setGroup(group);
-        getSecUserDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user);
         return user;
     }
 
@@ -591,7 +591,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         Account user = new Account();
         user.setTwitterAccount("testTWitterAccount");
         user.setTwitterPassword("testTwitterPwsd");
-        getSecUserDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user);
         return user;
     }
     /**
@@ -604,7 +604,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         Account user = new Account();
         user.setTwitterAccount(twitterAccount);
         user.setTwitterPassword(twitterPassword);
-        getSecUserDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user);
         return user;
     }
 
@@ -1243,7 +1243,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         socialTwitterAccounts.setVerfied(Boolean.FALSE);
         socialTwitterAccounts.setTwitterAccount(twitterAccount);
         socialTwitterAccounts.setTwitterPassword("not valid");
-        getSecUserDao().saveOrUpdate(socialTwitterAccounts);
+        getAccountDao().saveOrUpdate(socialTwitterAccounts);
         return socialTwitterAccounts;
      }
 

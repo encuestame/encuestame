@@ -34,7 +34,7 @@ public class TestSecUsers extends AbstractBase{
         final Account user = new Account();
         user.setTwitterAccount("testTWitterAccount");
         user.setTwitterPassword("testTwitterPwsd");
-        getSecUserDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }
 }

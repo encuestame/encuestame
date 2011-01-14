@@ -133,7 +133,7 @@ public class TestSecurityService extends AbstractServiceBase{
         SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
         final UnitTwitterAccountBean bean = ConvertDomainBean.convertTwitterAccountToBean(account);
         this.securityService.updateTwitterAccount(bean, "12345", false);
-        account = getSecUserDao().getTwitterAccount(account.getId());
+        account = getAccountDao().getTwitterAccount(account.getId());
         assertEquals(account.getTwitterPassword(), "12345");
         assertEquals(account.getVerfied(), false);
         //with id null.
@@ -162,7 +162,7 @@ public class TestSecurityService extends AbstractServiceBase{
          //fake data
          account.setToken("fake key");
          account.setSecretToken("fake secret");
-         getSecUserDao().saveOrUpdate(account);
+         getAccountDao().saveOrUpdate(account);
          this.securityService.updateSecretTwitterCredentials(bean, this.secUserSecondary.getUsername());
     }
 
@@ -174,7 +174,7 @@ public class TestSecurityService extends AbstractServiceBase{
     public void testupdateOAuthTokenSocialAccount() throws EnMeExpcetion{
         SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
         this.securityService.updateOAuthTokenSocialAccount(account.getId(), "12345", "fakeTokenSecret", this.secUserSecondary.getUsername());
-        account = getSecUserDao().getTwitterAccount(account.getId());
+        account = getAccountDao().getTwitterAccount(account.getId());
         assertEquals(account.getSecretToken(), "fakeTokenSecret");
     }
 
@@ -209,7 +209,7 @@ public class TestSecurityService extends AbstractServiceBase{
         final UserAccount tempUser2 = createSecondaryUser("second user", getProperty("mail.test.email"), this.userPrimary);
         this.securityService.setSuspendedNotification(true);
         this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser2));
-        assertNull(getSecUserDao().getSecondaryUserById(id));
+        assertNull(getAccountDao().getSecondaryUserById(id));
     }
 
     /**
@@ -228,7 +228,7 @@ public class TestSecurityService extends AbstractServiceBase{
     @Test
     public void testaddNewTwitterAccount() throws EnMeDomainNotFoundException{
         this.securityService.addNewTwitterAccount("encuestameTest", this.secUserSecondary.getUsername());
-        assertEquals(getSecUserDao().getTwitterAccountByUser(this.userPrimary).size(), 1);
+        assertEquals(getAccountDao().getTwitterAccountByUser(this.userPrimary).size(), 1);
     }
 
     /**
@@ -333,7 +333,7 @@ public class TestSecurityService extends AbstractServiceBase{
      //final String username = secUsers.getUsername();
      final UnitUserBean user = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
      securityService.deleteUser(user);
-     final Account userRetrieve = getSecUserDao().getUserById(idUser);
+     final Account userRetrieve = getAccountDao().getUserById(idUser);
      assertNull(userRetrieve);
     }
 
@@ -366,7 +366,7 @@ public class TestSecurityService extends AbstractServiceBase{
       final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
       userBean.setName("editor");
       securityService.updateUser(userBean);
-      final UserAccount userUpdateRetrieve = getSecUserDao().getSecondaryUserById(idUser);
+      final UserAccount userUpdateRetrieve = getAccountDao().getSecondaryUserById(idUser);
       assertEquals("shouldbe", "editor", userUpdateRetrieve.getCompleteName());
     }
 
@@ -461,7 +461,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
-        final UserAccount user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
+        final UserAccount user = getAccountDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
         assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
@@ -484,7 +484,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setDateNew(new Date());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
-        final UserAccount user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
+        final UserAccount user = getAccountDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
         assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
@@ -507,7 +507,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setPrimaryUserId(createUser().getUid());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
-        final UserAccount user = getSecUserDao().getUserByUsername(userCreateBean.getUsername());
+        final UserAccount user = getAccountDao().getUserByUsername(userCreateBean.getUsername());
         assertNotNull("should be equals", user);
         assertEquals("should be equals", 1, user.getSecUserPermissions().size());
        }
