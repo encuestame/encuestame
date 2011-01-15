@@ -9,8 +9,9 @@ Log/
 log/
 *.db
 *.log
-.settings/*
+*.settings/*
 */.classpath
 */.project
 .project
 .classpath
+*~
