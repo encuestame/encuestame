@@ -155,7 +155,7 @@
         * LinkedIn Connect
   -->
 
-    <bean id="abstractSocialProvider" class="org.encuestame.business.social.AbstractSocialProvider"
+     <bean id="abstractSocialProvider" class="org.encuestame.business.social.AbstractSocialProvider"
           abstract="true">
     </bean>
 
@@ -164,10 +164,11 @@
           class="org.encuestame.business.social.TwitterSocialService" parent="abstractSocialProvider">
     </bean>
 
-    <!-- Facebook OAuth Consumer
-    <bean id="facebookServiceConnect" autowire="byName" class="org.encuestame.business.social.FacebookSocialService" parent="abstractSocialProvider">
-        <constructor-arg value="facebook" />
-    </bean>-->
+    <!-- Facebook OAuth Consumer -->
+    <bean id="facebookServiceConnect" autowire="byName"
+          class="org.encuestame.business.social.FacebookSocialService"
+          parent="abstractSocialProvider">
+    </bean>
 
     <!-- LinkedIn OAuth Consumer
     <bean id="linkedInServiceConnect" autowire="byName" class="org.encuestame.business.social.LinkedInSocialService" parent="abstractSocialProvider">

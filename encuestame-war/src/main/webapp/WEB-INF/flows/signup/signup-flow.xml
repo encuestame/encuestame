@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <var name="signUpBean" class="org.encuestame.utils.security.SignUpBean" />
 
-    <view-state id="signup">
-        <transition on="singup" to="succesfull" >
-             <evaluate expression="securityService.singupUser(singUpBean)" result="flowScope.userInfo"
-                result-type="org.encuestame.utils.web.UnitUserBean" />
-        </transition>
+    <persistence-context />
+
+    <view-state id="signup" model="signUpBean">
+        <binder>
+            <binding property="username" />
+            <binding property="email" />
+            <binding property="captcha" />
+        </binder>
+        <transition on="saveUser" to="findFriends" />
+
+
     </view-state>
 
-    <view-state id="succesfull">
-        <transition on="confirm" to="succesfullEnd" >
-        </transition>
+    <view-state id="findFriends" model="signUpBean">
+        <transition on="next" to="profile" />
     </view-state>
 
-    <end-state id="succesfullEnd" view="externalRedirect:contextRelative:/login.do"></end-state>
+    <view-state id="profile" model="signUpBean">
+        <transition on="next" to="profile" />
+    </view-state>
+
+    <end-state id="profile"
+        view="externalRedirect:contextRelative:/account/dashboard" commit="false" />
+
 
 </flow>

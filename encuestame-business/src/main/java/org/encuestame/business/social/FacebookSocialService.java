@@ -27,12 +27,38 @@ import org.springframework.social.twitter.TwitterTemplate;
  */
 public class FacebookSocialService extends AbstractSocialProvider<FacebookOperations> implements IFacebookSocialService{
 
+
+    /**
+     * Social Account Provider;
+     */
+    private SocialAccountProvider parameters;
+
+    /**
+     * Twitter Template.
+     */
+    private FacebookTemplate facebookTemplate;
+
     /**
      *
      * @param socialProviderName
      */
-    public FacebookSocialService(String socialProviderName) {
-        //super(socialProviderName);
+    public FacebookSocialService() {
+        this.loadParameters();
+    }
+
+    /**
+     * Load Parameters.
+     */
+    private void loadParameters(){
+        if(getSocialProviderDao() != null){
+            final SocialAccountProvider parameters = getSocialProviderDao().getSocialAccountProviderId(4L);
+            if(parameters == null){
+                log.error("NOT SOCIAL PROVIDER FOUND");
+            }
+            setParameters(parameters);
+        } else {
+            log.error("No Provider Dao");
+        }
     }
 
     @Override
