@@ -10,3 +10,7 @@ log/
 *.db
 *.log
 .settings/*
+*/.classpath
+*/.project
+.project
+.classpath
