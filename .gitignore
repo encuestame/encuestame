@@ -15,3 +15,5 @@ log/
 .project
 .classpath
 *~
+target/
+*/.settings
