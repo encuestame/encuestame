@@ -1,0 +1,12 @@
+dojo/
+*/target/*
+.svn*
+obj/
+bin/
+*.suo
+*.user
+Log/
+log/
+*.db
+*.log
+.settings/*
