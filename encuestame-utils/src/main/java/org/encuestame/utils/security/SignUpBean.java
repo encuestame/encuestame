@@ -78,9 +78,25 @@ public class SignUpBean implements Serializable {
     }
 
     /**
-     * @param captcha the captcha to set
+     * @param captcha
+     *            the captcha to set
      */
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("SignUpBean [fullName=").append(fullName)
+                .append(", username=").append(username).append(", password=")
+                .append(password).append(", email=").append(email)
+                .append(", captcha=").append(captcha).append("]");
+        return builder.toString();
     }
 }

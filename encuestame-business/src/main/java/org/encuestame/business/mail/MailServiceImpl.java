@@ -225,6 +225,28 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
      }
 
     /**
+     * Sent email to confirm user account by email.
+     * @param user
+     */
+    public void sendConfirmYourAccountEmail(final SignUpBean user, final String inviteCode) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(user.getEmail());
+              message.setSubject("Confirm Your Account");
+              message.setFrom(noEmailResponse);
+              final Map<String, Object> model = new HashMap<String, Object>();
+              model.put("user", user);
+              model.put("inviteCode", inviteCode);
+              String text = VelocityEngineUtils.mergeTemplateIntoString(
+                              velocityEngine, "confirm-your-account.vm", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
+
+    /**
      * Send Renew Password Email.
      * @param unitUserBean {@link UnitUserBean}.
      */
