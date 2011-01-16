@@ -13,6 +13,7 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -78,6 +79,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /** Anonnymous User. **/
     private static final String ANONYMOUS = EnMePermission.ENCUESTAME_ANONYMOUS.name();
+
+
+    private final Integer DEFAULT_LENGTH_PASSWORD = 8;
 
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
@@ -719,18 +723,21 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link UnitUserBean}.
      */
     public UnitUserBean singupUser(final SignUpBean singUpBean){
+        log.debug("singupUser "+singUpBean.toString());
         final Account account = new Account();
         getAccountDao().saveOrUpdate(account);
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
-        userAccount.setPassword(encodingPassword(singUpBean.getPassword()));
-        userAccount.setEnjoyDate(new Date());
+        userAccount.setPassword(encodingPassword(singUpBean.getPassword() == null
+                ? EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD) : singUpBean.getPassword() ));
+        userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setUserEmail(singUpBean.getEmail());
         userAccount.setCompleteName("");
-        userAccount.setInviteCode(""); //TODO: invite code?
+        userAccount.setInviteCode("12345678910");
         getAccountDao().saveOrUpdate(userAccount);
+        log.debug("singupUser created user account");
         //Add default permissions, if user is signup we should add admin access
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(SecurityService.DEFAULT));
@@ -739,14 +746,26 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         permissions.add(getPermissionByName(SecurityService.PUBLISHER));
         permissions.add(getPermissionByName(SecurityService.EDITOR));
         this.assingPermission(userAccount, permissions);
+        log.debug("singupUser assigned default user account");
         //Create login.
         setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
+        log.debug("singupUser autenticated");
         if(this.suspendedNotification){
             getServiceMail().sendPasswordConfirmationEmail(singUpBean);
         }
-        log.info("new user "+userAccount.getUsername());
-        log.info("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
+        log.debug("singupUser notificated");
+        log.debug("new user "+userAccount.getUsername());
+        log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
+    }
+
+    /**
+     * User Account Is Activated.
+     * @param signUpBean
+     * @return
+     */
+    public Boolean isActivated(final SignUpBean signUpBean){
+        return true;
     }
 
     /**

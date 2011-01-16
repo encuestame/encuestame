@@ -29,7 +29,7 @@
                     <div class="recaptcha">
                         <c:out value="${signUpBean.captcha}" escapeXml="false" />
                         <br />
-                        <form:errors path="capcetcha" cssClass="error" />
+                        <form:errors path="captcha" cssClass="error" />
                     </div>
                     <div class="form-submit-buttons">
                         <input type="submit" id="saveUser" name="_eventId_saveUser" value="Sign Up"/>

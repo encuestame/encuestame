@@ -5,8 +5,8 @@
         <div class="form">
             profile
         </div>
-        <form>
-            <a href="next">Next</a>
-        </form>
+        <form:form modelAttribute="signUpBean">
+            <input type="submit" name="_eventId_next" value="Next"/>
+        </form:form>
     </div>
 <%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

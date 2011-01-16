@@ -5,17 +5,16 @@
 
     <var name="signUpBean" class="org.encuestame.utils.security.SignUpBean" />
 
-    <persistence-context />
-
     <view-state id="signup" model="signUpBean">
         <binder>
             <binding property="username" />
             <binding property="email" />
             <binding property="captcha" />
         </binder>
-        <transition on="saveUser" to="findFriends" />
-
-
+        <transition on="saveUser" to="findFriends" >
+               <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
+                         result-type="org.encuestame.utils.web.UnitUserBean"/>
+        </transition>
     </view-state>
 
     <view-state id="findFriends" model="signUpBean">
@@ -23,11 +22,21 @@
     </view-state>
 
     <view-state id="profile" model="signUpBean">
-        <transition on="next" to="profile" />
+        <transition on="next" to="isActivated" />
     </view-state>
 
-    <end-state id="profile"
-        view="externalRedirect:contextRelative:/account/dashboard" commit="false" />
+     <view-state id="noActivated" model="signUpBean">
+        <transition on="review" to="isActivated" />
+    </view-state>
+
+    <action-state id="isActivated">
+        <evaluate expression="securityService.isActivated(signUpBean)" />
+        <transition on="yes" to="dashboard">
+        </transition>
+        <transition on="no" to="noActivated" />
+    </action-state>
+
+    <end-state id="dashboard" view="externalRedirect:contextRelative:/account/dashboard.do"></end-state>
 
 
 </flow>
