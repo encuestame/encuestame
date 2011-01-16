@@ -728,14 +728,21 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         getAccountDao().saveOrUpdate(account);
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
-        userAccount.setPassword(encodingPassword(singUpBean.getPassword() == null
-                ? EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD) : singUpBean.getPassword() ));
+
+        final String password = encodingPassword(singUpBean.getPassword() == null
+                ? EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD) : singUpBean.getPassword());
+        if(singUpBean.getPassword() == null){
+            singUpBean.setPassword(password);
+        }
+        //Invite Code
+        final String inviteCode = "12345678910"; //BUG 98
+        userAccount.setPassword(password);
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setUserEmail(singUpBean.getEmail());
         userAccount.setCompleteName("");
-        userAccount.setInviteCode("12345678910");
+        userAccount.setInviteCode(inviteCode);
         getAccountDao().saveOrUpdate(userAccount);
         log.debug("singupUser created user account");
         //Add default permissions, if user is signup we should add admin access
@@ -748,10 +755,10 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         this.assingPermission(userAccount, permissions);
         log.debug("singupUser assigned default user account");
         //Create login.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
+        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
         log.debug("singupUser autenticated");
-        if(this.suspendedNotification){
-            getServiceMail().sendPasswordConfirmationEmail(singUpBean);
+        if (this.suspendedNotification) {
+            getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: BUG 97
         }
         log.debug("singupUser notificated");
         log.debug("new user "+userAccount.getUsername());
