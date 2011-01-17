@@ -139,7 +139,7 @@ public class UserAccount {
     /**
      * @return username
      */
-    @Column(name = "username", nullable = false, length = 16)
+    @Column(name = "username", nullable = false, length = 30)
     public String getUsername() {
         return this.username;
     }
