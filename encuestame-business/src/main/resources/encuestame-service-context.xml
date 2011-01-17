@@ -120,6 +120,10 @@
 
   <bean id="locationService" class="org.encuestame.business.service.LocationService" parent="service"/>
 
+  <bean id="pictureService" class="org.encuestame.business.service.PictureService" parent="service">
+        <property name="picturePath" value="${application.picture.path}"/>
+  </bean>
+
   <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices" parent="service">
     <property name="securityService">
       <ref bean="securityService"></ref>
@@ -144,6 +148,9 @@
     </property>
     <property name="frontEndService">
          <ref bean="frontEndService"/>
+    </property>
+    <property name="pictureService">
+         <ref bean="pictureService"/>
     </property>
   </bean>
 

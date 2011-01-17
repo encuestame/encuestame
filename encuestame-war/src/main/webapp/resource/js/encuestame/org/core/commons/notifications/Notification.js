@@ -145,7 +145,7 @@ dojo.declare(
              */
             removeNotification : function(notificationId){
                 var url = '/encuestame/api/remove-notification.json';
-            },
+            }
 
 
         });

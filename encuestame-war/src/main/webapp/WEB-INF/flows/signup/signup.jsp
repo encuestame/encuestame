@@ -10,7 +10,7 @@
                                 <label for="username">Username</label>
                             </div>
                             <div class="form-value">
-                                <form:input path="username" size="30" maxlength="16" />
+                                <form:input path="username" size="30" maxlength="40" />
                                 <br />
                                 <form:errors path="username" cssClass="errors" />
                              </div>
@@ -20,7 +20,7 @@
                                 <label for="email">Email</label>
                             </div>
                             <div class="form-value">
-                                <form:input path="email" size="30" maxlength="25" />
+                                <form:input path="email" size="30" maxlength="80" />
                                 <br />
                                 <form:errors path="email" cssClass="errors" />
                              </div>

@@ -35,6 +35,7 @@ import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.business.service.imp.ISecurityService;
@@ -76,9 +77,9 @@ public abstract class BaseController extends AbstractSecurityContext{
 
      protected Logger log = Logger.getLogger(this.getClass());
 
-      public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+     public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
 
-      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
+     public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
      /**
       * {@link ReCaptcha}.
@@ -334,6 +335,14 @@ public abstract class BaseController extends AbstractSecurityContext{
      */
     public IProjectService getProjectService(){
         return getServiceManager().getApplicationServices().getProjectService();
+    }
+
+    /**
+     * Get Picture Service.
+     * @return
+     */
+    public IPictureService getPictureService(){
+        return getServiceManager().getApplicationServices().getPictureService();
     }
 
     /**

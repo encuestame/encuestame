@@ -16,6 +16,7 @@ import org.encuestame.business.service.imp.IApplicationServices;
 import org.encuestame.business.service.imp.IChartService;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
 import org.encuestame.business.service.imp.ISecurityService;
@@ -48,6 +49,8 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private IChartService chartService;
     /** {@link FrontEndService}. **/
     private IFrontEndService frontEndService;
+    /** {@link PictureService}. **/
+    private IPictureService pictureService;
 
     /**
      * @return the securityService
@@ -159,5 +162,19 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      */
     public void setFrontEndService(final IFrontEndService frontEndService) {
         this.frontEndService = frontEndService;
+    }
+
+    /**
+     * @return the pictureService
+     */
+    public IPictureService getPictureService() {
+        return pictureService;
+    }
+
+    /**
+     * @param pictureService the pictureService to set
+     */
+    public void setPictureService(IPictureService pictureService) {
+        this.pictureService = pictureService;
     }
 }
