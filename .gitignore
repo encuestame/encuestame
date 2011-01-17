@@ -18,3 +18,6 @@ log/
 target/
 */.settings
 *DEADJOE*
+encuestame-war/src/main/webapp/resource/js/dijit/
+encuestame-war/src/main/webapp/resource/js/dojox/
+encuestame-war/src/main/webapp/resource/js/dojo/

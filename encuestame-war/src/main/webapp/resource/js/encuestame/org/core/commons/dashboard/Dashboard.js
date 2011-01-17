@@ -16,6 +16,6 @@ dojo.declare(
 
         postCreate: function() {
 
-        },
+        }
     }
 );
