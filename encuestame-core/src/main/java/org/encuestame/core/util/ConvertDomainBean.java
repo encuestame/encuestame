@@ -230,7 +230,6 @@ public class ConvertDomainBean {
             unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary.getGroup()));
             unitUserBean.setGroupId(secUserSecondary.getGroup() == null ? null : secUserSecondary.getGroup().getGroupId());
             unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
-            unitUserBean.setFollowers(secUserSecondary.getFollowers());
             //System.out.println("Convert Enjoy Date "+secUserSecondary.getEnjoyDate());
             unitUserBean.setDateNew(secUserSecondary.getEnjoyDate());
             //System.out.println("Convert Enjoy Date 1"+unitUserBean.getDateNew());
