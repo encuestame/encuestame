@@ -60,6 +60,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
         <profile>
@@ -119,6 +121,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
         <profile>
@@ -178,6 +182,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>	
             </properties>
         </profile>
         <profile>
@@ -237,6 +243,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
         <profile>
@@ -296,6 +304,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
         <profile>
@@ -308,7 +318,7 @@
             </activation>
             <properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
-                <surefire.failures.ignore>true</surefire.failures.ignore>
+                <surefire.failures.ignore>false</surefire.failures.ignore>
                 <app.proxypass>true</app.proxypass>
                 <!-- Encuestame Properties -->
                 <encuestame.properties.path>classpath:encuestame-config.properties</encuestame.properties.path>
@@ -355,6 +365,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>/home/jpicado/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
         <profile>
@@ -414,6 +426,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
         <profile>
@@ -473,6 +487,8 @@
                 <mail.smtps.auth>true</mail.smtps.auth>
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
+		<!--Pictures -->
+		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
             </properties>
         </profile>
     </profiles>

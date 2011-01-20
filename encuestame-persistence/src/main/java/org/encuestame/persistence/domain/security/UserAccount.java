@@ -57,7 +57,7 @@ public class UserAccount {
     private String userTwitterAccount;
     private Date lastTimeLogged;
     private String lastIpLogged;
-    private Long followers;
+    private String userProfilePicture;
 
     /**
      * Account Enabled.
@@ -87,6 +87,11 @@ public class UserAccount {
      * {@link Group}
      */
     private Group group;
+
+    /**
+     * {@link UserAccount}
+     */
+    private Set<UserAccount> followers = new HashSet<UserAccount>();
 
     /**
      * @return uid
@@ -139,7 +144,7 @@ public class UserAccount {
     /**
      * @return username
      */
-    @Column(name = "username", nullable = false, length = 16)
+    @Column(name = "username", nullable = false, length = 30)
     public String getUsername() {
         return this.username;
     }
@@ -326,17 +331,34 @@ public class UserAccount {
     }
 
     /**
-     * @return the followers
-     */
-    public Long getFollowers() {
-        return followers;
-    }
+	 * @return the seguidores
+	 */
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="userAccount_followers",
+               joinColumns={@JoinColumn(name="uid")},
+               inverseJoinColumns={@JoinColumn(name="uid_follower")})
+	public Set<UserAccount> getFollowers() {
+		return followers;
+	}
 
-    /**
-     * @param followers the followers to set
-     */
-    @Column(name = "followers")
-    public void setFollowers(final Long followers) {
-        this.followers = followers;
-    }
+	/**
+	 * @param seguidores the seguidores to set
+	 */
+	public void setFollowers(Set<UserAccount> followers) {
+		this.followers = followers;
+	}
+
+	/**
+	 * @return the userProfilePicture
+	 */
+	public String getUserProfilePicture() {
+		return userProfilePicture;
+	}
+
+	/**
+	 * @param userProfilePicture the userProfilePicture to set
+	 */
+	public void setUserProfilePicture(String userProfilePicture) {
+		this.userProfilePicture = userProfilePicture;
+	}
  }

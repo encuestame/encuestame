@@ -95,4 +95,8 @@ public interface IApplicationServices  extends IService {
      * @param frontEndService the frontEndService to set
      */
     void setFrontEndService(final IFrontEndService frontEndService);
+
+    IPictureService getPictureService();
+
+    void setPictureService(IPictureService pictureService);
 }
