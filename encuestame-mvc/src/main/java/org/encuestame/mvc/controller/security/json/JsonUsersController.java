@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.controller.validation.ControllerValidation;
