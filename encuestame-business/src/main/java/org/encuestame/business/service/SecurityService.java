@@ -13,6 +13,7 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -78,6 +79,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /** Anonnymous User. **/
     private static final String ANONYMOUS = EnMePermission.ENCUESTAME_ANONYMOUS.name();
+
+
+    private final Integer DEFAULT_LENGTH_PASSWORD = 8;
 
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
@@ -719,18 +723,28 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return {@link UnitUserBean}.
      */
     public UnitUserBean singupUser(final SignUpBean singUpBean){
+        log.debug("singupUser "+singUpBean.toString());
         final Account account = new Account();
         getAccountDao().saveOrUpdate(account);
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
-        userAccount.setPassword(encodingPassword(singUpBean.getPassword()));
-        userAccount.setEnjoyDate(new Date());
+
+        final String password = encodingPassword(singUpBean.getPassword() == null
+                ? EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD) : singUpBean.getPassword());
+        if(singUpBean.getPassword() == null){
+            singUpBean.setPassword(password);
+        }
+        //Invite Code
+        final String inviteCode = "12345678910"; //BUG 98
+        userAccount.setPassword(password);
+        userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setUserEmail(singUpBean.getEmail());
         userAccount.setCompleteName("");
-        userAccount.setInviteCode(""); //TODO: invite code?
+        userAccount.setInviteCode(inviteCode);
         getAccountDao().saveOrUpdate(userAccount);
+        log.debug("singupUser created user account");
         //Add default permissions, if user is signup we should add admin access
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(SecurityService.DEFAULT));
@@ -739,14 +753,26 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         permissions.add(getPermissionByName(SecurityService.PUBLISHER));
         permissions.add(getPermissionByName(SecurityService.EDITOR));
         this.assingPermission(userAccount, permissions);
+        log.debug("singupUser assigned default user account");
         //Create login.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), singUpBean.getPassword(), permissions);
-        if(this.suspendedNotification){
-            getServiceMail().sendPasswordConfirmationEmail(singUpBean);
+        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
+        log.debug("singupUser autenticated");
+        if (this.suspendedNotification) {
+            getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: BUG 97
         }
-        log.info("new user "+userAccount.getUsername());
-        log.info("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
+        log.debug("singupUser notificated");
+        log.debug("new user "+userAccount.getUsername());
+        log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
+    }
+
+    /**
+     * User Account Is Activated.
+     * @param signUpBean
+     * @return
+     */
+    public Boolean isActivated(final SignUpBean signUpBean){
+        return true;
     }
 
     /**
@@ -907,5 +933,66 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      */
     public List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException{
             return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
+    }
+
+    /**
+     * Get Followers User.
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public Integer getFollowers(final String username) throws EnMeDomainNotFoundException{
+    	UserAccount userAcc = getUser(username);
+    	final Integer followers = userAcc.getFollowers().size();
+    	return followers;
+    }
+
+
+    /**
+     * Follow Operations.
+     *  FollowOperations.FOLLOW - to follow user.
+     *  FollowOperations.UNFOLLOW - to unfollow user.
+     * @param userAcc
+     * @param myUsername
+     * @param followerUser
+     * @param operation
+     * @throws EnMeDomainNotFoundException
+     */
+	public void followOperations(final UserAccount userAcc,
+			final String myUsername, final String followerUser,
+			final FollowOperations operation) throws EnMeDomainNotFoundException {
+		final UserAccount myAccount = getUser(myUsername);
+		final UserAccount myFollower = getUser(followerUser);
+		if (FollowOperations.FOLLOW.equals(operation)) {
+			myAccount.getFollowers().add(myFollower);
+		} else if (FollowOperations.UNFOLLOW.equals(operation)) {
+			for (UserAccount dataAccount : myAccount.getFollowers()) {
+				if (myFollower.getUsername().equals(dataAccount.getUsername())) {
+					userAcc.getFollowers().remove(dataAccount);
+					getAccountDao().delete(dataAccount);
+				}
+			}
+		}
+		getAccountDao().saveOrUpdate(myAccount);
+	}
+
+    /**
+     * Add Followers.
+     * @param myUser
+     * @param followerUser
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public UserAccount addFollower(final String myUsername, final String followerUser) throws EnMeDomainNotFoundException{
+    	final UserAccount myAccount = getUser(myUsername);
+    	final UserAccount myFollower = getUser(followerUser);
+    	myAccount.getFollowers().add(myFollower);
+    	getAccountDao().saveOrUpdate(myAccount);
+    	return myAccount;
+    }
+
+    public enum FollowOperations{
+    	FOLLOW,
+    	UNFOLLOW
     }
 }

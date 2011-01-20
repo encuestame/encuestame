@@ -120,6 +120,10 @@
 
   <bean id="locationService" class="org.encuestame.business.service.LocationService" parent="service"/>
 
+  <bean id="pictureService" class="org.encuestame.business.service.PictureService" parent="service">
+        <property name="picturePath" value="${application.picture.path}"/>
+  </bean>
+
   <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices" parent="service">
     <property name="securityService">
       <ref bean="securityService"></ref>
@@ -145,6 +149,9 @@
     <property name="frontEndService">
          <ref bean="frontEndService"/>
     </property>
+    <property name="pictureService">
+         <ref bean="pictureService"/>
+    </property>
   </bean>
 
   <!--
@@ -155,7 +162,7 @@
         * LinkedIn Connect
   -->
 
-    <bean id="abstractSocialProvider" class="org.encuestame.business.social.AbstractSocialProvider"
+     <bean id="abstractSocialProvider" class="org.encuestame.business.social.AbstractSocialProvider"
           abstract="true">
     </bean>
 
@@ -164,10 +171,11 @@
           class="org.encuestame.business.social.TwitterSocialService" parent="abstractSocialProvider">
     </bean>
 
-    <!-- Facebook OAuth Consumer
-    <bean id="facebookServiceConnect" autowire="byName" class="org.encuestame.business.social.FacebookSocialService" parent="abstractSocialProvider">
-        <constructor-arg value="facebook" />
-    </bean>-->
+    <!-- Facebook OAuth Consumer -->
+    <bean id="facebookServiceConnect" autowire="byName"
+          class="org.encuestame.business.social.FacebookSocialService"
+          parent="abstractSocialProvider">
+    </bean>
 
     <!-- LinkedIn OAuth Consumer
     <bean id="linkedInServiceConnect" autowire="byName" class="org.encuestame.business.social.LinkedInSocialService" parent="abstractSocialProvider">

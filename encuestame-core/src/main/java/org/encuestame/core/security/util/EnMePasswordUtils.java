@@ -13,6 +13,9 @@
 
 package org.encuestame.core.security.util;
 
+import java.util.Random;
+
+import org.apache.commons.lang.RandomStringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 /**
@@ -22,6 +25,15 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
  * @version $Id$
  */
 public class EnMePasswordUtils {
+
+    /**
+     * Create Random Password.
+     * @param length
+     * @return
+     */
+    public final static String createRandomPassword(final int length){
+        return PasswordGenerator.getPassword(length);
+    }
 
     /**
      * Encrypt the password.

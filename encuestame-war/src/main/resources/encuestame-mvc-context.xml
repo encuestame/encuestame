@@ -25,9 +25,21 @@
     <property name="order" value="1"/>
   </bean>
 
+  <!-- Maps request paths to @Controller classes;
+       e.g. a path of /signup looks for a controller named SignUpController -->
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="3" />
+        <property name="defaultHandler">
+            <!-- If no @Controller match, map path to a view to render; e.g. the "/intro"
+                 path would map to the view named "intro" -->
+            <ref bean="urlFilenameViewController"></ref>
+        </property>
+    </bean>
+
     <!-- Configures File Upload -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="500000" />
+        <!-- the maximum file size in bytes = 10MB -->
+        <property name="maxUploadSize" value="10485760" />
     </bean>
 
    <bean name="openSessionInViewInterceptor"

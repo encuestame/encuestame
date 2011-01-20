@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.social;
 
+import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
