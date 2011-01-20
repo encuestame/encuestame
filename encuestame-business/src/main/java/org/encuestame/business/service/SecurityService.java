@@ -934,4 +934,65 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException{
             return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
     }
+
+    /**
+     * Get Followers User.
+     * @param username
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public Integer getFollowers(final String username) throws EnMeDomainNotFoundException{
+    	UserAccount userAcc = getUser(username);
+    	final Integer followers = userAcc.getFollowers().size();
+    	return followers;
+    }
+
+
+    /**
+     * Follow Operations.
+     *  FollowOperations.FOLLOW - to follow user.
+     *  FollowOperations.UNFOLLOW - to unfollow user.
+     * @param userAcc
+     * @param myUsername
+     * @param followerUser
+     * @param operation
+     * @throws EnMeDomainNotFoundException
+     */
+	public void followOperations(final UserAccount userAcc,
+			final String myUsername, final String followerUser,
+			final FollowOperations operation) throws EnMeDomainNotFoundException {
+		final UserAccount myAccount = getUser(myUsername);
+		final UserAccount myFollower = getUser(followerUser);
+		if (FollowOperations.FOLLOW.equals(operation)) {
+			myAccount.getFollowers().add(myFollower);
+		} else if (FollowOperations.UNFOLLOW.equals(operation)) {
+			for (UserAccount dataAccount : myAccount.getFollowers()) {
+				if (myFollower.getUsername().equals(dataAccount.getUsername())) {
+					userAcc.getFollowers().remove(dataAccount);
+					getAccountDao().delete(dataAccount);
+				}
+			}
+		}
+		getAccountDao().saveOrUpdate(myAccount);
+	}
+
+    /**
+     * Add Followers.
+     * @param myUser
+     * @param followerUser
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public UserAccount addFollower(final String myUsername, final String followerUser) throws EnMeDomainNotFoundException{
+    	final UserAccount myAccount = getUser(myUsername);
+    	final UserAccount myFollower = getUser(followerUser);
+    	myAccount.getFollowers().add(myFollower);
+    	getAccountDao().saveOrUpdate(myAccount);
+    	return myAccount;
+    }
+
+    public enum FollowOperations{
+    	FOLLOW,
+    	UNFOLLOW
+    }
 }
