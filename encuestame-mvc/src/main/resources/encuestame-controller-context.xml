@@ -35,6 +35,7 @@
     POJO @Controller when one is mapped.
   -->
   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="order" value="0"/>
         <!--
             NOTE: it is important to specify the order property, so this
             adapter will be attempted before the HandlerAdapter that
@@ -58,7 +59,7 @@
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
 
                 <!-- Converter for images -->
-                <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+                <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
 
                 <!-- Handle JAXB XML objects
                 <bean id="marshallingHttpMessageConverter"
@@ -75,8 +76,9 @@
                     </constructor-arg>
                 </bean> -->
 
-                <!-- This must come after our image converter -->
+                <!-- This must come after our image converter
                 <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+                -->
             </list>
         </property>
   </bean>

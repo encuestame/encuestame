@@ -30,11 +30,11 @@
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         <property name="order" value="3" />
         <property name="defaultHandler">
-            <!-- If no @Controller match, map path to a view to render; e.g. the "/intro"
-                 path would map to the view named "intro" -->
             <ref bean="urlFilenameViewController"></ref>
         </property>
     </bean>
+
+
 
     <!-- Configures File Upload -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -54,14 +54,6 @@
     <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
          <property name="order" value="0"/>
     </bean>
-
-     <!--
-     http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/view.html
-    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-       <property name="order" value="3"/>
-       <property name="basename" value="views"/>
-    </bean>
-    -->
 
   <!--
   This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver -->
@@ -130,4 +122,13 @@
     </property>
   </bean>
   -->
+
+    <!--
+     http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/view.html
+    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+       <property name="order" value="3"/>
+       <property name="basename" value="views"/>
+    </bean>
+    -->
+
 </beans>
