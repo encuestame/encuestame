@@ -15,6 +15,7 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
+import org.encuestame.business.service.SecurityService.FollowOperations;
 import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
@@ -387,4 +388,25 @@ public interface ISecurityService extends IService {
      * @return
      */
     Boolean isActivated(final SignUpBean signUpBean);
+
+    /**
+     * Add Followers.
+     * @param myUser
+     * @param followerUser
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    UserAccount addFollower(final String myUser, final String followerUser) throws EnMeDomainNotFoundException;
+
+   /**
+    * Follow Operations.
+    * @param userAcc
+    * @param myUsername
+    * @param followerUser
+    * @param operation
+    * @throws EnMeDomainNotFoundException
+    */
+	void followOperations(final UserAccount userAcc,
+			final String myUsername, final String followerUser,
+			final FollowOperations operation) throws EnMeDomainNotFoundException;
 }
