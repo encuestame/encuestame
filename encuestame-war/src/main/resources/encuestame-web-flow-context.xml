@@ -23,15 +23,16 @@
     </webflow:flow-executor>
 
         <!-- Plugs in a custom creator for Web Flow views
+        -->
     <webflow:flow-builder-services id="flowBuilderServices"
            view-factory-creator="mvcViewFactoryCreator" development="true" />
-           -->
 
-    <!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views
+
+    <!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views-->
     <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
         <property name="viewResolvers" ref="jspViewResolver"/>
         <property name="useSpringBeanBinding" value="true" />
-    </bean> -->
+    </bean>
 
     <!-- Installs a listener that manages Hibernate persistence contexts for flows that require them -->
     <bean id="hibernateFlowExecutionListener" class="org.springframework.webflow.persistence.HibernateFlowExecutionListener">

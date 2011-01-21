@@ -380,4 +380,11 @@ public interface ISecurityService extends IService {
      * @throws EnmeFailOperation
      */
     void changeUserStatus(final String username) throws EnmeFailOperation;
+
+    /**
+     * User Account Is Activated.
+     * @param signUpBean
+     * @return
+     */
+    Boolean isActivated(final SignUpBean signUpBean);
 }
