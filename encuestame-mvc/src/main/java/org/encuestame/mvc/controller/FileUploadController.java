@@ -20,6 +20,7 @@ import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,7 @@ public class FileUploadController extends BaseController {
      * @param multipartFile
      * @return
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/file/upload/profile", method = RequestMethod.POST)
     public ModelAndView handleUserProfileFileUpload(
             @RequestParam("file") MultipartFile multipartFile) {
@@ -57,7 +59,7 @@ public class FileUploadController extends BaseController {
             String filePath = null;
             try {
                 log.debug("getting file path for this user");
-                filePath = getPictureService().getAccountUserPicturePath("admin");
+                filePath = getPictureService().getAccountUserPicturePath(getUserPrincipalUsername());
                 InputStream stream = multipartFile.getInputStream();
                 try {
                     //generate thumbnails

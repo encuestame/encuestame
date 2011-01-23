@@ -319,7 +319,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public UnitFolder createSurveyFolder(final String folderName, final String username)
             throws EnMeDomainNotFoundException{
         final SurveyFolder surveyFolderDomain = new SurveyFolder();
-        surveyFolderDomain.setUsers(getUser(username).getAccount());
+        surveyFolderDomain.setUsers(getUserAccount(username).getAccount());
         surveyFolderDomain.setCreatedAt(new Date());
         surveyFolderDomain.setFolderName(folderName);
         this.getSurveyDaoImp().saveOrUpdate(surveyFolderDomain);

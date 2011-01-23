@@ -21,13 +21,7 @@ Project Status
 
 Links
 
-    * {{{http://www.encuestame.org/} Official Website}}
-
-    * {{{http://www.encuesta.me/} Blog}}
-
     * {{{http://sourceforge.net/projects/encuestame/files/} Downloads}}
-
-    * {{{http://www.encuesta.me/cgi-bin/mailman/listinfo/encuestame-es} Email List}}
 
     * {{{http://trac.encuesta.me/} Trac && Bugs}}
 
@@ -35,10 +29,8 @@ Links
 
     * {{{http://demo.encuestame.org/encuestame/} Demo}}
 
-    * {{{http://stats.encuestame.org/} SVN Stats}}
+    * {{{http://stats.encuestame.org/git/} GIT Stats}}
 
     * {{{http://wiki.encuestame.org/en/Build_Guide} Build Guide}}
-
-    * {{{http://svn.encuesta.me/trunk/encuestame} Subversion Source Code}}
 
     * {{{http://webalizer.encuestame.org/} Webalizer}}

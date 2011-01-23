@@ -20,7 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.mail.MailServiceImpl;
-import org.encuestame.core.files.FileUpload;
+import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.MessageSourceFactoryBean;
@@ -311,7 +311,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
            final Integer start) throws EnMeDomainNotFoundException {
         log.info("currentUsername "+currentUsername);
         List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
-        final UserAccount userAccount = this.getUser(currentUsername);
+        final UserAccount userAccount = this.getUserAccount(currentUsername);
         if(userAccount != null){
             final Collection<UserAccount> listUsers = getAccountDao()
                  .retrieveListOwnerUsers(userAccount.getAccount(), start, maxResults);
@@ -387,7 +387,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @param account
      */
     public void createGlobalAccount(final Account account){
-        final File file = new File(getDataGlobalPath() + FileUpload.accounts);
+        final File file = new File(getDataGlobalPath() + PathUtil.accounts);
         if (file.exists()) {
             this.createAccountGlobalAccount(account);
         } else {
@@ -404,8 +404,8 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     public String getGlobalAccountPath(final Account account){
         final StringBuilder d = new StringBuilder();
         d.append(getDataGlobalPath());
-        d.append(FileUpload.accounts);
-        d.append(FileUpload.account);
+        d.append(PathUtil.accounts);
+        d.append(PathUtil.account);
         d.append(account.getUid());
         return d.toString();
     }

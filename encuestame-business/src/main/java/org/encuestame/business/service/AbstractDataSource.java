@@ -120,7 +120,7 @@ public abstract class AbstractDataSource{
      * @return user domain
      * @throws EnMeDomainNotFoundException exception
      */
-    public final UserAccount getUser(final String username) throws EnMeDomainNotFoundException {
+    public final UserAccount getUserAccount(final String username) throws EnMeDomainNotFoundException {
         final UserAccount userAccount = getAccountDao().getUserByUsername(username);
         if(userAccount == null){
             throw new EnMeDomainNotFoundException(" user not found {"+username+"}");
@@ -155,7 +155,7 @@ public abstract class AbstractDataSource{
      * @throws EnMeDomainNotFoundException exception
      */
     public final Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
-        return getUser(username).getAccount().getUid();
+        return getUserAccount(username).getAccount().getUid();
      }
 
     /**

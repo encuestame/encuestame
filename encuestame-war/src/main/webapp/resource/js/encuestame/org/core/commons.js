@@ -105,12 +105,15 @@ encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json"
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
 encuestame.service.list.createUser = encuestame.contextWidget()+"/api/admon/create-user.json";
+encuestame.service.list.upgradeProfile = encuestame.contextWidget()+"/api/user/profile/upgrade.json";
+
 encuestame.service.list.listPermissions = encuestame.contextWidget()+"/api/admon/list-permissions.json";
 encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/admon/list-user-permissions.json";
 encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/add-permission.json";
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
 encuestame.service.list.twitterAccount = encuestame.contextWidget()+"/api/common/twitter/valid-accounts.json";
+
 //tweetpoll service
 encuestame.service.list.publishTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/publish.json";
 encuestame.service.list.listTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/search.json";

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IPictureService;
-import org.encuestame.core.files.FileUpload;
+import org.encuestame.core.files.PathUtil;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
@@ -46,7 +46,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      */
     private String getPicturePath(final Account account){
         final StringBuilder d = new StringBuilder(getGlobalAccountPath(account));
-        d.append(FileUpload.profile);
+        d.append(PathUtil.profile);
         final File profileDir =  new File(d.toString());
         if (!profileDir.exists()) {
             profileDir.mkdirs();
@@ -107,7 +107,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      */
     public String getAccountUserPicturePath(final String username)
            throws EnMeDomainNotFoundException{
-        final UserAccount user = getUser(username);
+        final UserAccount user = getUserAccount(username);
         log.debug("getAccountUserPicturePath "+user);
         return this.getPicturePath(user.getAccount());
     }

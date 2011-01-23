@@ -6,7 +6,7 @@ package org.encuestame.core.files;
  * @since Jan 22, 2011 9:44:41 PM
  * @version Id:
  */
-public class FileUpload {
+public class PathUtil {
 
     /**
      * Profile Images Folder.
@@ -32,4 +32,5 @@ public class FileUpload {
     public static final String account = "/account";
 
 
+    public static final String profileUserImage = "/user/picture/profile";
 }

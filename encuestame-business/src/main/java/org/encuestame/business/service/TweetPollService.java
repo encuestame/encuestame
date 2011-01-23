@@ -435,7 +435,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     @Deprecated
     public Boolean validateUserTwitterAccount(final String username) throws EnMeDomainNotFoundException{
-        final Account users = getUser(username).getAccount();
+        final Account users = getUserAccount(username).getAccount();
         Boolean validate = false;
         log.info(users.getTwitterAccount());
         if(!users.getTwitterAccount().isEmpty() && !users.getTwitterPassword().isEmpty()){
@@ -462,7 +462,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException{
         final TweetPollFolder tweetPollFolderDomain = new TweetPollFolder();
-        tweetPollFolderDomain.setUsers(getUser(username).getAccount());
+        tweetPollFolderDomain.setUsers(getUserAccount(username).getAccount());
         tweetPollFolderDomain.setCreatedAt(new Date());
 
         tweetPollFolderDomain.setFolderName(folderName);
