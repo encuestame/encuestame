@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.service;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.core.files.FileUpload;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.MessageSourceFactoryBean;
@@ -366,6 +368,76 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             expetedUser = user;
         }
         return expetedUser;
+    }
+
+    /**
+     * Build Data Username Path.
+     * @param username username
+     * @return
+     */
+    public String buildDataUsernamePath(final String username){
+        final StringBuilder d = new StringBuilder();
+        d.append(getDataGlobalPath());
+        d.append(username);
+        return d.toString();
+    }
+
+    /**
+     *
+     * @param account
+     */
+    public void createGlobalAccount(final Account account){
+        final File file = new File(getDataGlobalPath() + FileUpload.accounts);
+        if (file.exists()) {
+            this.createAccountGlobalAccount(account);
+        } else {
+            file.mkdirs();
+            this.createAccountGlobalAccount(account);
+        }
+    }
+
+    /**
+     * Return the global path for account.
+     * @param account account
+     * @return
+     */
+    public String getGlobalAccountPath(final Account account){
+        final StringBuilder d = new StringBuilder();
+        d.append(getDataGlobalPath());
+        d.append(FileUpload.accounts);
+        d.append(FileUpload.account);
+        d.append(account.getUid());
+        return d.toString();
+    }
+
+    /**
+     * Create Account Global Account.
+     * @param account
+     */
+    private void createAccountGlobalAccount(final Account account){
+        final File file = new File(this.getGlobalAccountPath(account));
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+    }
+
+    /**
+     * Create User Directory if No Exist.
+     * @param username
+     * @throws EnMeExpcetion
+     */
+    public void createUserFolderIfNoExist(final String username) throws EnMeExpcetion{
+        File f = new File(this.buildDataUsernamePath(username));
+        try{
+            if (f.exists()){
+                log.debug("Directory Exist");
+            }else{
+                f.mkdirs(); //create parent directoty if no exist.
+            }
+        } catch (Exception e) {
+            log.error("error on create directory "+e.getMessage());
+            throw new EnMeExpcetion("error on create directory");
+        }
     }
 
 }

@@ -744,6 +744,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         userAccount.setCompleteName("");
         userAccount.setInviteCode(inviteCode);
         getAccountDao().saveOrUpdate(userAccount);
+        //create global account directory
+        createGlobalAccount(userAccount.getAccount());
         log.debug("singupUser created user account");
         //Add default permissions, if user is signup we should add admin access
         final Set<Permission> permissions = new HashSet<Permission>();
@@ -942,9 +944,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public Integer getFollowers(final String username) throws EnMeDomainNotFoundException{
-    	UserAccount userAcc = getUser(username);
-    	final Integer followers = userAcc.getFollowers().size();
-    	return followers;
+        UserAccount userAcc = getUser(username);
+        final Integer followers = userAcc.getFollowers().size();
+        return followers;
     }
 
 
@@ -958,23 +960,23 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param operation
      * @throws EnMeDomainNotFoundException
      */
-	public void followOperations(final UserAccount userAcc,
-			final String myUsername, final String followerUser,
-			final FollowOperations operation) throws EnMeDomainNotFoundException {
-		final UserAccount myAccount = getUser(myUsername);
-		final UserAccount myFollower = getUser(followerUser);
-		if (FollowOperations.FOLLOW.equals(operation)) {
-			myAccount.getFollowers().add(myFollower);
-		} else if (FollowOperations.UNFOLLOW.equals(operation)) {
-			for (UserAccount dataAccount : myAccount.getFollowers()) {
-				if (myFollower.getUsername().equals(dataAccount.getUsername())) {
-					userAcc.getFollowers().remove(dataAccount);
-					getAccountDao().delete(dataAccount);
-				}
-			}
-		}
-		getAccountDao().saveOrUpdate(myAccount);
-	}
+    public void followOperations(final UserAccount userAcc,
+            final String myUsername, final String followerUser,
+            final FollowOperations operation) throws EnMeDomainNotFoundException {
+        final UserAccount myAccount = getUser(myUsername);
+        final UserAccount myFollower = getUser(followerUser);
+        if (FollowOperations.FOLLOW.equals(operation)) {
+            myAccount.getFollowers().add(myFollower);
+        } else if (FollowOperations.UNFOLLOW.equals(operation)) {
+            for (UserAccount dataAccount : myAccount.getFollowers()) {
+                if (myFollower.getUsername().equals(dataAccount.getUsername())) {
+                    userAcc.getFollowers().remove(dataAccount);
+                    getAccountDao().delete(dataAccount);
+                }
+            }
+        }
+        getAccountDao().saveOrUpdate(myAccount);
+    }
 
     /**
      * Add Followers.
@@ -984,15 +986,15 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public UserAccount addFollower(final String myUsername, final String followerUser) throws EnMeDomainNotFoundException{
-    	final UserAccount myAccount = getUser(myUsername);
-    	final UserAccount myFollower = getUser(followerUser);
-    	myAccount.getFollowers().add(myFollower);
-    	getAccountDao().saveOrUpdate(myAccount);
-    	return myAccount;
+        final UserAccount myAccount = getUser(myUsername);
+        final UserAccount myFollower = getUser(followerUser);
+        myAccount.getFollowers().add(myFollower);
+        getAccountDao().saveOrUpdate(myAccount);
+        return myAccount;
     }
 
     public enum FollowOperations{
-    	FOLLOW,
-    	UNFOLLOW
+        FOLLOW,
+        UNFOLLOW
     }
 }

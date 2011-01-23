@@ -123,7 +123,7 @@ public abstract class AbstractDataSource{
     public final UserAccount getUser(final String username) throws EnMeDomainNotFoundException {
         final UserAccount userAccount = getAccountDao().getUserByUsername(username);
         if(userAccount == null){
-            throw new EnMeDomainNotFoundException("user not found");
+            throw new EnMeDomainNotFoundException(" user not found {"+username+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
             return getAccountDao().getUserByUsername(username);

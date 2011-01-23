@@ -12,6 +12,9 @@
  */
 package org.encuestame.business.service;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Abtract Configuration Service.
  *
@@ -30,6 +33,8 @@ public abstract class AbstractConfigurationService extends AbstractDataSource {
     private String apiKeygoogle;
 
     private String proxyPass;
+
+    private @Value("${application.picture.path}") String dataGlobalPath;
 
     /**
      * @return the domainUrl
@@ -103,5 +108,22 @@ public abstract class AbstractConfigurationService extends AbstractDataSource {
      */
     public void setProxyPass(String proxyPass) {
         this.proxyPass = proxyPass;
+    }
+
+    /**
+     * @return the dataGlobalPath
+     */
+    public String getDataGlobalPath() {
+        if (!StringUtils.endsWith(dataGlobalPath, "/")) {
+            dataGlobalPath += "/";
+        }
+        return dataGlobalPath;
+    }
+
+    /**
+     * @param dataGlobalPath the dataGlobalPath to set
+     */
+    public void setDataGlobalPath(String dataGlobalPath) {
+        this.dataGlobalPath = dataGlobalPath;
     }
 }

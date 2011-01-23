@@ -16,12 +16,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.encuestame.business.service.PictureService.PictureType;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 
 /**
- * Description Class.
+ * Picture Service.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 16, 2011 4:12:57 PM
- * @version Id:
+ * @version $Id:$
  */
 public interface IPictureService {
 
@@ -29,8 +30,10 @@ public interface IPictureService {
     /**
      * Return real path folder for user account.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    String getAccountUserPicturePath(final String username);
+    String getAccountUserPicturePath(final String account)
+                                    throws EnMeDomainNotFoundException;
 
     /**
      * Get Profile Picture.
@@ -40,9 +43,9 @@ public interface IPictureService {
      * @return
      * @throws FileNotFoundException
      * @throws IOException
+     * @throws EnMeDomainNotFoundException
      */
     byte[] getProfilePicture(
-            final String id,
             final String username,
-            final PictureType pictureType) throws FileNotFoundException, IOException;
+            final PictureType pictureType) throws FileNotFoundException, IOException, EnMeDomainNotFoundException;
 }

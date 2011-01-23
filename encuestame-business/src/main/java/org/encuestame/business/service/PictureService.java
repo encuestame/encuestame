@@ -14,13 +14,16 @@ package org.encuestame.business.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IPictureService;
+import org.encuestame.core.files.FileUpload;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 
 /**
  * Picture / Image Service.
@@ -30,18 +33,25 @@ import org.encuestame.business.service.imp.IPictureService;
  */
 public class PictureService extends AbstractBaseService implements IPictureService{
 
+    /**
+     * Log.
+     */
     private Log log = LogFactory.getLog(this.getClass());
 
-    /**
-     * Picure Path.
-     */
-    private String picturePath;
+
 
     /**
-     * @return the picturePath
+     * Create Picture Path.
+     * @param account
      */
-    public String getPicturePath() {
-        return picturePath;
+    private String getPicturePath(final Account account){
+        final StringBuilder d = new StringBuilder(getGlobalAccountPath(account));
+        d.append(FileUpload.profile);
+        final File profileDir =  new File(d.toString());
+        if (!profileDir.exists()) {
+            profileDir.mkdirs();
+        }
+        return d.toString();
     }
 
     /**
@@ -51,14 +61,17 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @param pictureType
      * @return
      * @throws IOException
+     * @throws EnMeDomainNotFoundException
      */
     public byte[] getProfilePicture(
-            final String id,
             final String username,
-            final PictureType pictureType) throws IOException{
-        final String url = getAccountUserPicturePath(username);
+            final PictureType pictureType) throws IOException, EnMeDomainNotFoundException{
+        final StringBuilder url = new StringBuilder(getAccountUserPicturePath(username));
+        url.append("/file");
+        url.append(pictureType.toString());
+        url.append(".jpg");
         log.debug("getProfileURl "+url);
-        final File file = new File(url + "3261353607_3bf3a23053_o.jpg");
+        final File file = new File(url.toString());
         InputStream is = new FileInputStream(file);
         // Get the size of the file
         long length = file.length();
@@ -90,20 +103,36 @@ public class PictureService extends AbstractBaseService implements IPictureServi
     /**
      * Return real path folder for user account.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public String getAccountUserPicturePath(final String username){
-        //TODO: should be real user account path.
-        return this.getPicturePath();
-    }
-
-    /**
-     * @param picturePath the picturePath to set
-     */
-    public void setPicturePath(final String picturePath) {
-        this.picturePath = picturePath;
+    public String getAccountUserPicturePath(final String username)
+           throws EnMeDomainNotFoundException{
+        final UserAccount user = getUser(username);
+        log.debug("getAccountUserPicturePath "+user);
+        return this.getPicturePath(user.getAccount());
     }
 
     public enum PictureType {
-        THUMBNAIL, DEFAULT, PREVIEW, WEB;
+        ICON,
+        THUMBNAIL,
+        DEFAULT,
+        PREVIEW,
+        WEB;
+
+        private PictureType() {
+        }
+
+        /**
+         * To String.
+         */
+        public String toString() {
+            String pictureSize = "_64";
+            if (this == ICON) { pictureSize = "_22"; }
+            else if (this == THUMBNAIL) { pictureSize = "_64"; }
+            else if (this == DEFAULT) { pictureSize = "_128"; }
+            else if (this == PREVIEW) { pictureSize = "_375"; }
+            else if (this == WEB) { pictureSize = "_900"; }
+            return pictureSize;
+        }
     }
 }
