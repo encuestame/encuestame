@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.validation;
+package org.encuestame.mvc.validator;
 
 import java.util.regex.Pattern;
 
@@ -30,7 +30,7 @@ import org.springframework.validation.Errors;
  * @since Jun 13, 2010 7:48:27 PM
  * @version $Id:$
  */
-public class ControllerValidation {
+public class ValidateOperations {
 
     private static final Pattern emailPattern = Pattern.compile(ValidationUtils.EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
 
@@ -40,7 +40,7 @@ public class ControllerValidation {
      *
      * @param securityService
      */
-    public ControllerValidation(final ISecurityService securityService) {
+    public ValidateOperations(final ISecurityService securityService) {
         this.securityService = securityService;
     }
 

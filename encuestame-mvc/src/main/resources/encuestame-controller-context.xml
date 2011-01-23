@@ -6,7 +6,6 @@
                         http://www.springframework.org/schema/context
                         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-
   <!--
     Maps requests to @Controllers based on @RequestMapping("path")
     annotation values If no annotation-based path mapping is found, Spring
@@ -24,8 +23,8 @@
      <property name="order" value="0"/>
   </bean>
 
- <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
- <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
+  <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
+  <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
 
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.mvc" />
@@ -35,6 +34,7 @@
     POJO @Controller when one is mapped.
   -->
   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="order" value="0"/>
         <!--
             NOTE: it is important to specify the order property, so this
             adapter will be attempted before the HandlerAdapter that
@@ -58,7 +58,7 @@
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
 
                 <!-- Converter for images -->
-                <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+                <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
 
                 <!-- Handle JAXB XML objects
                 <bean id="marshallingHttpMessageConverter"
@@ -75,10 +75,58 @@
                     </constructor-arg>
                 </bean> -->
 
-                <!-- This must come after our image converter -->
+                <!-- This must come after our image converter
                 <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+                -->
             </list>
         </property>
   </bean>
+
+    <!-- thumbnail generator engine
+         thanks to raulraja.
+     -->
+    <bean id="thumbnailGeneratorEngine" class="org.encuestame.core.image.ThumbnailGeneratorEngineImpl">
+
+        <!-- the file extension for the thumbnail files -->
+        <property name="generatedExtension">
+            <value>.jpg</value>
+        </property>
+
+        <!-- the different sizes we want to generate, adjusting the aspect ratio based on the biggest dimension -->
+        <property name="supportedSizes">
+            <list>
+                <value>900</value>
+                <value>768</value>
+                <value>375</value>
+                <value>128</value>
+                <value>64</value>
+                <value>48</value>
+                <value>22</value>
+            </list>
+        </property>
+
+        <!-- mappings from the different content types to the right generator that handles each type -->
+        <property name="thumbnailGenerators">
+            <map>
+                <entry key="image/jpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/jpg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/pjpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/gif" value-ref="imageThumbnailGenerator" />
+                <entry key="image/png" value-ref="imageThumbnailGenerator" />
+                <entry key="image/tiff" value-ref="imageThumbnailGenerator" />
+                <entry key="image/bmp" value-ref="imageThumbnailGenerator" />
+                <!--<entry key="application/pdf" value-ref="pdfThumbnailGenerator" />-->
+            </map>
+        </property>
+
+        <!-- A default thumbnail generator to be used for unregistered mime types -->
+        <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
+
+        <!-- location for the generated thumbnails -->
+        <property name="thumbnailsLocation" value="/home/jpicado/opt/encuestameImage"/>
+    </bean>
+
+    <!-- a thumbnail generator that generates thumbnails from images -->
+    <bean id="imageThumbnailGenerator" class="org.encuestame.core.image.ImageThumbnailGeneratorImpl" />
 
 </beans>

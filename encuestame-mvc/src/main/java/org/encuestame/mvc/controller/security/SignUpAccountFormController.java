@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.stereotype.Controller;
@@ -79,7 +79,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
              log.info("username "+username);
              log.info("password "+email);
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
-             final ControllerValidation validation = new ControllerValidation(getSecurityService());
+             final ValidateOperations validation = new ValidateOperations(getSecurityService());
 
              if(validation.validateUserByEmail(email) != null){
                    log.warn("Email NOT VALID");

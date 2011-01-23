@@ -12,8 +12,12 @@
  */
 package org.encuestame.mvc.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.encuestame.business.service.PictureService.PictureType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,12 +37,22 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/thumbnail/{id}", method = RequestMethod.GET )
+    @RequestMapping( value = "/picture/{username}/thumbnail/{id}", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureThumbnail(
             @PathVariable String id,
             @PathVariable String username ){
-        return getPictureService().getProfilePicture(id, username, PictureType.THUMBNAIL);
+        byte[] bytes = {};
+        try {
+            bytes = getPictureService().getProfilePicture(id, username, PictureType.THUMBNAIL);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return bytes;
     }
 
     /**
@@ -46,12 +60,22 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/default/{id}", method = RequestMethod.GET )
+    @RequestMapping( value = "/picture/{username}/default/{id}", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureMaster(
             @PathVariable String id,
             @PathVariable String username ){
-        return getPictureService().getProfilePicture(id, username, PictureType.DEFAULT);
+        byte[] bytes = {};
+        try {
+            bytes = getPictureService().getProfilePicture(id, username, PictureType.DEFAULT);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return bytes;
     }
 
     /**
@@ -59,12 +83,22 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/preview/{id}", method = RequestMethod.GET)
+    @RequestMapping( value = "/picture/{username}/preview/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPicturePreview(
             @PathVariable String id,
             @PathVariable String username ){
-        return getPictureService().getProfilePicture(id, username,  PictureType.PREVIEW);
+        byte[] bytes = {};
+        try {
+            bytes = getPictureService().getProfilePicture(id, username,  PictureType.PREVIEW);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return bytes;
     }
 
     /**
@@ -72,12 +106,23 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id  The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/web/{id}", method = RequestMethod.GET)
+    @RequestMapping( value = "/picture/{username}/web/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getPictureWeb(
-            @PathVariable String id,
-            @PathVariable String username  ){
-        return getPictureService().getProfilePicture(id, username, PictureType.WEB);
+    public byte[] getPictureWeb(){
+        byte[] bytes = {};
+        log.debug("getPictureWeb");
+        //log.debug("getPictureWeb"+id);
+        //log.debug("getPictureWeb"+username);
+        try {
+            bytes = getPictureService().getProfilePicture("","", PictureType.WEB);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            log.error(e);
+        }
+        return bytes;
     }
-
 }

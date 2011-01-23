@@ -30,9 +30,9 @@ dojo.declare("encuestame.org.core.commons.signup.SignupProfile",
             handleAs : "html",
             handle : function(ioResponse, args) {
                 if (ioResponse instanceof Error) {
-                    console.log("handle error: " + ioResponse);
+                    console.error("handle error: " + ioResponse);
                 } else {
-                    console.log("handle response: " + ioResponse);
+                    console.info("handle response: " + ioResponse);
                 }
             },
             // Callback on successful call:

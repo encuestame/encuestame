@@ -13,7 +13,13 @@
 package org.encuestame.business.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IPictureService;
 
 /**
@@ -23,6 +29,8 @@ import org.encuestame.business.service.imp.IPictureService;
  * @version $Id:$
  */
 public class PictureService extends AbstractBaseService implements IPictureService{
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Picure Path.
@@ -42,15 +50,40 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @param username
      * @param pictureType
      * @return
+     * @throws IOException
      */
     public byte[] getProfilePicture(
             final String id,
             final String username,
-            final PictureType pictureType){
+            final PictureType pictureType) throws IOException{
         final String url = getAccountUserPicturePath(username);
+        log.debug("getProfileURl "+url);
         final File file = new File(url + "3261353607_3bf3a23053_o.jpg");
+        InputStream is = new FileInputStream(file);
+        // Get the size of the file
+        long length = file.length();
+        if (length > Integer.MAX_VALUE) {
+            // File is too large
+        }
+        // Create the byte array to hold the data
+        byte[] bytes = new byte[(int)length];
+     // Read in the bytes
+        int offset = 0;
+        int numRead = 0;
+        while (offset < bytes.length
+               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+            offset += numRead;
+        }
 
-        return null;
+        // Ensure all the bytes have been read in
+        if (offset < bytes.length) {
+            throw new IOException("Could not completely read file "+file.getName());
+        }
+
+        // Close the input stream and return bytes
+        is.close();
+        log.debug("getProfileURl "+bytes);
+        return bytes;
 
     }
 

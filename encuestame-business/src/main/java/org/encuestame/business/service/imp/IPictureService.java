@@ -12,6 +12,9 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.encuestame.business.service.PictureService.PictureType;
 
 /**
@@ -35,9 +38,11 @@ public interface IPictureService {
      * @param username
      * @param pictureType
      * @return
+     * @throws FileNotFoundException
+     * @throws IOException
      */
     byte[] getProfilePicture(
             final String id,
             final String username,
-            final PictureType pictureType);
+            final PictureType pictureType) throws FileNotFoundException, IOException;
 }
