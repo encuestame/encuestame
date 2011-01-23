@@ -18,7 +18,9 @@ import java.io.InputStream;
 
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +46,7 @@ public class FileUploadController extends BaseController {
      * @param multipartFile
      * @return
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/file/upload/profile", method = RequestMethod.POST)
     public ModelAndView handleUserProfileFileUpload(
             @RequestParam("file") MultipartFile multipartFile) {
@@ -53,8 +56,10 @@ public class FileUploadController extends BaseController {
             String orgName = multipartFile.getOriginalFilename();
             log.debug("org name "+orgName);
             //TODO: convert name to numbers, MD5 hash.
-            final String filePath = MD5Utils.shortMD5(getPictureService().getAccountUserPicturePath("FAKE") + orgName);
+            String filePath = null;
             try {
+                log.debug("getting file path for this user");
+                filePath = getPictureService().getAccountUserPicturePath(getUserPrincipalUsername());
                 InputStream stream = multipartFile.getInputStream();
                 try {
                     //generate thumbnails
@@ -62,20 +67,12 @@ public class FileUploadController extends BaseController {
                             multipartFile.getName(),
                             stream,
                             multipartFile.getContentType(),
-                            getPictureService().getAccountUserPicturePath("FAKE"));
+                            filePath);
                 } catch (Exception e) {
                     log.error(e);
                 } finally {
                     stream.close();
                 }
-
-
-                //TODO: replace FAKE by getUserAuthenticationUsername
-                log.debug("org filePath "+filePath);
-                final File dest = new File(filePath);
-                log.debug("dest  "+dest);
-                multipartFile.transferTo(dest);
-                log.debug("transferTo after");
                 //TODO: after save image, we need relationship user with profile picture.
                 //I suggest store ID on user account table, to retrieve easily future profile image.
                 //BUG 102
@@ -85,6 +82,9 @@ public class FileUploadController extends BaseController {
             } catch (IOException e) {
                 e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
+            } catch (EnMeDomainNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
             // Save the file here
             mav.addObject("status", "saved");

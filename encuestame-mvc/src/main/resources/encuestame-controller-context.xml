@@ -121,9 +121,6 @@
 
         <!-- A default thumbnail generator to be used for unregistered mime types -->
         <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
-
-        <!-- location for the generated thumbnails -->
-        <property name="thumbnailsLocation" value="/home/jpicado/opt/encuestameImage"/>
     </bean>
 
     <!-- a thumbnail generator that generates thumbnails from images -->

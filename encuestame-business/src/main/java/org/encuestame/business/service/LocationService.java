@@ -57,7 +57,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                         .getLocTypeDesc());
                 locationTypeDomain.setLocationTypeLevel(locatTypeBean
                         .getLevel());
-                locationTypeDomain.setUsers(getUser(username).getAccount());
+                locationTypeDomain.setUsers(getUserAccount(username).getAccount());
                 getGeoPointTypeDao().saveOrUpdate(locationTypeDomain);
                 locatTypeBean.setIdLocType(locationTypeDomain
                         .getLocationTypeId());
@@ -121,7 +121,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
                 geoPointDomain.setLocationDescription(location.getName());
                 geoPointDomain.setLocationStatus(Status.ACTIVE);
                 geoPointDomain.setLocationLatitude(location.getLat());
-                geoPointDomain.setAccount(getUser(username).getAccount());
+                geoPointDomain.setAccount(getUserAccount(username).getAccount());
                 geoPointDomain.setLocationLongitude(location.getLng());
                 if(location.getTidtype() != null){
                     geoPointDomain.setTidtype(getGeoPointTypeDao().getLocationById(location.getTidtype()));
@@ -148,7 +148,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(GeoPointFolderType.valueOf(locationFolder.getType()));
         geoPointFolder.setLocationFolderName(locationFolder.getName());
-        geoPointFolder.setAccount(getUser(username).getAccount());
+        geoPointFolder.setAccount(getUserAccount(username).getAccount());
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         locationFolder.setId(geoPointFolder.getLocationFolderId());
         createNotification(NotificationEnum.LOCATION_FOLDER_NEW, "New Folder "+locationFolder.getName() +" is created.", geoPointFolder.getAccount());
@@ -347,7 +347,7 @@ public class LocationService  extends AbstractBaseService implements ILocationSe
         else {
             final GeoPoint geopoint = new GeoPoint();
             geopoint.setGeoPointFolder(locationFolder);
-            geopoint.setAccount(getUser(username).getAccount());
+            geopoint.setAccount(getUserAccount(username).getAccount());
             geopoint.setLocationStatus(Status.ACTIVE);
             geopoint.setLocationDescription("Default Item Name");
             getGeoPointDao().saveOrUpdate(geopoint);

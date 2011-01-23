@@ -259,4 +259,34 @@ public class JsonUsersController extends AbstractJsonController{
        }
        return returnData();
     }
+
+    /**
+     * Upgrade user account profile.
+     * @param request
+     * @param property
+     * @param value
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/user/profile/upgrade.json", method = RequestMethod.GET)
+    public ModelMap upgradeProfile(HttpServletRequest request,
+            @RequestParam(value = "property", required = true) String property,
+            @RequestParam(value = "value", required = true) String value,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            getSecurityService().upadteAccountProfile(property, value,
+                    getUserPrincipalUsername());
+            setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }
