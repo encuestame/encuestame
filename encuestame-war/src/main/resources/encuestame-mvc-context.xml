@@ -14,16 +14,16 @@
                         http://www.springframework.org/schema/mobile/device
                         http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
 
- <!-- Define url mappings to web flow controller.  -->
-  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-    <property name="mappings">
-      <value>
-        /signup=flowController
-       </value>
-    </property>
-    <property name="defaultHandler" ref="urlFilenameViewController"/>
-    <property name="order" value="1"/>
-  </bean>
+   <!-- Define url mappings to web flow controller.  -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+       <property name="mappings">
+         <value>
+           /signup=flowController
+         </value>
+       </property>
+       <property name="defaultHandler" ref="urlFilenameViewController"/>
+       <property name="order" value="1"/>
+    </bean>
 
   <!-- Maps request paths to @Controller classes;
        e.g. a path of /signup looks for a controller named SignUpController -->
@@ -33,8 +33,6 @@
             <ref bean="urlFilenameViewController"></ref>
         </property>
     </bean>
-
-
 
     <!-- Configures File Upload -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -64,14 +62,19 @@
       <property name="suffix" value=".jsp"/>
   </bean>
 
-  <!-- UrlFile Name View Controller. -->
+  <!-- Controller Views -->
   <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
-  <!--
-    Dispatches requests mapped to
+  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+    <property name="flowExecutor" ref="flowExecutor"/>
+  </bean>
+
+  <!-- Dispatches requests mapped to
     org.springframework.web.servlet.mvc.Controller implementations
-  -->
+    required to render urlFilenameViewController.
+    -->
   <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
 
   <!--
     Dispatches requests mapped to flows to FlowHandler implementations
@@ -79,10 +82,6 @@
     <property name="flowExecutor" ref="flowExecutor" />
   </bean>
   -->
-
-  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
-    <property name="flowExecutor" ref="flowExecutor"/>
-  </bean>
 
     <!-- Maps request paths to flows in the flowRegistry;
         e.g. a path of /hotels/booking looks for a flow with id "hotels/booking"

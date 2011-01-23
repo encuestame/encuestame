@@ -15,7 +15,6 @@ package org.encuestame.mvc.validator;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.imp.ISecurityService;
-import org.encuestame.mvc.controller.validation.ControllerValidation;
 import org.encuestame.utils.security.SignUpBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
@@ -48,8 +47,9 @@ public class SignUpBeanValidator{
      * @param booking
      * @param context
      */
-    public void validate(SignUpBean booking, ValidationContext context) {
-        final ControllerValidation validation = new ControllerValidation(securityService);
+    public void validateSignup(SignUpBean booking, ValidationContext context) {
+        log.debug("Validate Sign Up");
+        final ValidateOperations validation = new ValidateOperations(securityService);
         MessageContext messages = context.getMessageContext();
         if(validation.validateUserByEmail(booking.getEmail()) != null){
             log.warn("Email NOT VALID");

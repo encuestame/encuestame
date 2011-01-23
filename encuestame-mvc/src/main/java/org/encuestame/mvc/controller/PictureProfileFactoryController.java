@@ -37,7 +37,7 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/thumbnail/{id}", method = RequestMethod.GET )
+    @RequestMapping( value = "/picture/{username}/thumbnail/{id}", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureThumbnail(
             @PathVariable String id,
@@ -60,7 +60,7 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/default/{id}", method = RequestMethod.GET )
+    @RequestMapping( value = "/picture/{username}/default/{id}", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureMaster(
             @PathVariable String id,
@@ -83,7 +83,7 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/user/picture/{username}/preview/{id}", method = RequestMethod.GET)
+    @RequestMapping( value = "/picture/{username}/preview/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPicturePreview(
             @PathVariable String id,
@@ -106,7 +106,7 @@ public class PictureProfileFactoryController extends BaseController {
      * @param id  The identifier of the image
      * @return A byte[] that contains the requested image
      */
-    @RequestMapping( value = "/picture/web/id", method = RequestMethod.GET)
+    @RequestMapping( value = "/picture/{username}/web/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPictureWeb(){
         byte[] bytes = {};
@@ -125,12 +125,4 @@ public class PictureProfileFactoryController extends BaseController {
         }
         return bytes;
     }
-
-    @RequestMapping(value = "/picture/jota", method = RequestMethod.GET)
-    public String searchHomePost(ModelMap model) {
-        log.debug("search");
-        log.debug("getPictureWeb JUANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
-        return "search";
-    }
-
 }

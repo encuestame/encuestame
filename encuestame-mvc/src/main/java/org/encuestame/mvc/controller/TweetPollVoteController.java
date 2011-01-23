@@ -20,7 +20,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ISecurityService;
-import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.stereotype.Controller;
@@ -125,7 +125,7 @@ public class TweetPollVoteController extends BaseController {
              log.info("vote_code "+code);
              final ISecurityService securityService = getServiceManager().getApplicationServices().getSecurityService();
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
-             final ControllerValidation validation = new ControllerValidation(securityService);
+             final ValidateOperations validation = new ValidateOperations(securityService);
              validation.validateCaptcha(reCaptchaResponse, result);
              log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
              log.info("reCaptchaResponse "+reCaptchaResponse.isValid());

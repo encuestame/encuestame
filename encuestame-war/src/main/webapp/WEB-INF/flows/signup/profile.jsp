@@ -5,7 +5,7 @@
     dojo.require("encuestame.org.core.commons.signup.SignupProfile");
 </script>
     <div id="mainUserWrapper">
-        <form:form modelAttribute="signUpBean">
+        <form:form>
             <div class="">
                 <div dojoType="encuestame.org.core.commons.signup.SignupProfile"
                      username="${signUpBean.username}"

@@ -25,7 +25,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -158,7 +158,7 @@ public class JsonUsersController extends AbstractJsonController{
             //     .getSecurityService().searchUsersByEmail(email).size();
             //final Integer usernames = getServiceManager().getApplicationServices()
             //     .getSecurityService().searchUsersByUsername(username).size();
-            final ControllerValidation cv = new ControllerValidation( getServiceManager().getApplicationServices()
+            final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
             if(cv.validateEmail(email) && cv.validateUsername(username)){
                 final Map<String, Object> sucess = new HashMap<String, Object>();

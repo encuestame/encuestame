@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.security.UnitForgotPassword;
 import org.encuestame.utils.web.UnitUserBean;
@@ -72,7 +72,7 @@ public class ForgetPasswordController extends AbstractSecurityController{
                  final String email = user.getEmail();
                  log.debug("email "+email);
                  final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
-                 final ControllerValidation validation = new ControllerValidation(getSecurityService());
+                 final ValidateOperations validation = new ValidateOperations(getSecurityService());
                  final UnitUserBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
                  if(unitUserBean == null){
                      result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");

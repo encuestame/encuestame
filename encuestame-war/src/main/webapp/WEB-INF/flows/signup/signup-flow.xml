@@ -11,22 +11,22 @@
             <binding property="email" />
             <binding property="captcha" />
         </binder>
-        <transition on="saveUser" to="findFriends" validate="true">
+        <transition on="saveUser" to="findFriends" validate="true" history="discard">
                <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
                          result-type="org.encuestame.utils.web.UnitUserBean"/>
         </transition>
     </view-state>
 
     <view-state id="findFriends" model="signUpBean">
-        <transition on="next" to="profile" />
+        <transition on="next" to="profile" history="discard" />
     </view-state>
 
     <view-state id="profile" model="signUpBean">
-        <transition on="next" to="isActivated" />
+        <transition on="next" to="isActivated" history="discard" />
     </view-state>
 
      <view-state id="noActivated" model="signUpBean">
-        <transition on="review" to="isActivated" />
+        <transition on="review" to="isActivated" history="discard" />
     </view-state>
 
     <action-state id="isActivated">

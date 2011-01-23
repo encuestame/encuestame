@@ -14,8 +14,11 @@ package org.encuestame.mvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
+import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.core.util.MD5Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,12 +36,15 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Controller
 public class FileUploadController extends BaseController {
 
+    @Autowired
+    private ThumbnailGeneratorEngine thumbnailGeneratorEngine;
+
     /**
      * Upload Profile for User Account.
      * @param multipartFile
      * @return
      */
-    @RequestMapping(value = "/user/profile/file/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/upload/profile", method = RequestMethod.POST)
     public ModelAndView handleUserProfileFileUpload(
             @RequestParam("file") MultipartFile multipartFile) {
         ModelAndView mav = new ModelAndView(new MappingJacksonJsonView());
@@ -49,6 +55,21 @@ public class FileUploadController extends BaseController {
             //TODO: convert name to numbers, MD5 hash.
             final String filePath = MD5Utils.shortMD5(getPictureService().getAccountUserPicturePath("FAKE") + orgName);
             try {
+                InputStream stream = multipartFile.getInputStream();
+                try {
+                    //generate thumbnails
+                    thumbnailGeneratorEngine.generateThumbnails(
+                            multipartFile.getName(),
+                            stream,
+                            multipartFile.getContentType(),
+                            getPictureService().getAccountUserPicturePath("FAKE"));
+                } catch (Exception e) {
+                    log.error(e);
+                } finally {
+                    stream.close();
+                }
+
+
                 //TODO: replace FAKE by getUserAuthenticationUsername
                 log.debug("org filePath "+filePath);
                 final File dest = new File(filePath);
@@ -73,6 +94,23 @@ public class FileUploadController extends BaseController {
         }
         return mav;
     }
+
+    /**
+     * @return the thumbnailGeneratorEngine
+     */
+    public ThumbnailGeneratorEngine getThumbnailGeneratorEngine() {
+        return thumbnailGeneratorEngine;
+    }
+
+    /**
+     * @param thumbnailGeneratorEngine the thumbnailGeneratorEngine to set
+     */
+    public void setThumbnailGeneratorEngine(
+            ThumbnailGeneratorEngine thumbnailGeneratorEngine) {
+        this.thumbnailGeneratorEngine = thumbnailGeneratorEngine;
+    }
+
+
 
     /**  TODO: we can add more methods to upload different types of files. **/
 }
