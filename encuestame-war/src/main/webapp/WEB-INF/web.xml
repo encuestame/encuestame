@@ -163,6 +163,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>/picture/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.pdf</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

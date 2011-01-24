@@ -14,8 +14,13 @@ package org.encuestame.mvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
+import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,12 +38,16 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Controller
 public class FileUploadController extends BaseController {
 
+    @Autowired
+    private ThumbnailGeneratorEngine thumbnailGeneratorEngine;
+
     /**
      * Upload Profile for User Account.
      * @param multipartFile
      * @return
      */
-    @RequestMapping(value = "/user/profile/file/upload", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/file/upload/profile", method = RequestMethod.POST)
     public ModelAndView handleUserProfileFileUpload(
             @RequestParam("file") MultipartFile multipartFile) {
         ModelAndView mav = new ModelAndView(new MappingJacksonJsonView());
@@ -47,14 +56,23 @@ public class FileUploadController extends BaseController {
             String orgName = multipartFile.getOriginalFilename();
             log.debug("org name "+orgName);
             //TODO: convert name to numbers, MD5 hash.
-            final String filePath = MD5Utils.shortMD5(getPictureService().getAccountUserPicturePath("FAKE") + orgName);
+            String filePath = null;
             try {
-                //TODO: replace FAKE by getUserAuthenticationUsername
-                log.debug("org filePath "+filePath);
-                final File dest = new File(filePath);
-                log.debug("dest  "+dest);
-                multipartFile.transferTo(dest);
-                log.debug("transferTo after");
+                log.debug("getting file path for this user");
+                filePath = getPictureService().getAccountUserPicturePath(getUserPrincipalUsername());
+                InputStream stream = multipartFile.getInputStream();
+                try {
+                    //generate thumbnails
+                    thumbnailGeneratorEngine.generateThumbnails(
+                            multipartFile.getName(),
+                            stream,
+                            multipartFile.getContentType(),
+                            filePath);
+                } catch (Exception e) {
+                    log.error(e);
+                } finally {
+                    stream.close();
+                }
                 //TODO: after save image, we need relationship user with profile picture.
                 //I suggest store ID on user account table, to retrieve easily future profile image.
                 //BUG 102
@@ -64,6 +82,9 @@ public class FileUploadController extends BaseController {
             } catch (IOException e) {
                 e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
+            } catch (EnMeDomainNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
             // Save the file here
             mav.addObject("status", "saved");
@@ -73,6 +94,23 @@ public class FileUploadController extends BaseController {
         }
         return mav;
     }
+
+    /**
+     * @return the thumbnailGeneratorEngine
+     */
+    public ThumbnailGeneratorEngine getThumbnailGeneratorEngine() {
+        return thumbnailGeneratorEngine;
+    }
+
+    /**
+     * @param thumbnailGeneratorEngine the thumbnailGeneratorEngine to set
+     */
+    public void setThumbnailGeneratorEngine(
+            ThumbnailGeneratorEngine thumbnailGeneratorEngine) {
+        this.thumbnailGeneratorEngine = thumbnailGeneratorEngine;
+    }
+
+
 
     /**  TODO: we can add more methods to upload different types of files. **/
 }

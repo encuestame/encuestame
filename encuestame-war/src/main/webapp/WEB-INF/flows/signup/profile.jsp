@@ -5,17 +5,19 @@
     dojo.require("encuestame.org.core.commons.signup.SignupProfile");
 </script>
     <div id="mainUserWrapper">
-        <form:form modelAttribute="signUpBean">
+        <form:form>
             <div class="">
                 <div dojoType="encuestame.org.core.commons.signup.SignupProfile"
                      username="${signUpBean.username}"
                      email="${signUpBean.email}"
-                     fullName="${signUpBean.fullName}">
+                     fullName="${signUpBean.fullName}"
+                     contextPath="<%=WidgetUtil.getDomain(request)%>"
+                     imagePath="<%=WidgetUtil.getUserProfileImagePath(request)%>">
                 </div>
 
             </div>
             <br/>
-            <input type="submit" name="_eventId_next" value="Update My Profile"/>
+            <input type="submit" name="_eventId_next" value="Go to DashBoard"/>
         </form:form>
     </div>
 <%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

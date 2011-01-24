@@ -4,10 +4,11 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.31-SNAPSHOT</version>
+    <version>1.1.32-SNAPSHOT</version>
     <name>encuestame</name>
     <description>
-    encuestame is a open source webapp java survey system
+    encuestame is a open source webapp java survey system build
+    with open source lib, spring, hibernate, lucene and dojo
   </description>
     <url>http://www.encuestame.org</url>
     <issueManagement>
@@ -24,7 +25,7 @@
         <!--  Java version -->
         <java-version>1.6</java-version>
         <!--  encuestame version -->
-        <encuestame.version>1.1.31-SNAPSHOT</encuestame.version>
+        <encuestame.version>1.1.32-SNAPSHOT</encuestame.version>
         <!-- Spring Version
         <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version>
         -->
@@ -43,6 +44,7 @@
         <hibernate.version>3.5.6-Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.2.1.Final</hibernate.search.version>
+	<lucene.version>2.9.3</lucene.version>
 
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.6</twitter4j.version>
@@ -1437,15 +1439,23 @@
            <artifactId>scribe</artifactId>
            <version>1.0.7</version>
         </dependency>
-    <dependency>
-        <groupId>org.springframework.mobile</groupId>
-        <artifactId>spring-mobile-device</artifactId>
+        <!-- Spring Mobile -->
+        <dependency>
+	    <groupId>org.springframework.mobile</groupId>
+            <artifactId>spring-mobile-device</artifactId>
             <version>${spring.mobile.version}</version>
         </dependency>
         <dependency>
              <groupId>net.sourceforge.wurfl</groupId>
              <artifactId>wurfl</artifactId>
              <version>1.2</version>
+        </dependency>
+	<!-- Lucene-->
+        <dependency>
+           <groupId>org.apache.lucene</groupId>
+           <artifactId>lucene-core</artifactId>
+           <version>${lucene.version}</version>
+           <scope>compile</scope>
         </dependency>
         <!-- Apache Tiles -->
         <dependency>

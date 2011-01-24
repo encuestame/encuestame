@@ -239,3 +239,36 @@ div.yesNoWrapper div.label{
       display: inline-block;
       width: 16px;
 }
+
+div.updateProfile{
+
+}
+
+div.updateProfile .pictureWrapper{
+    min-height: 128px;
+    min-width: 95px;
+}
+
+div.updateProfile .pictureProfileNew{
+    padding: 10px;
+    text-align: center;
+    width: 400px;'
+}
+
+div.updateProfile .pictureProfileNew .class{
+    position: relative;
+    height: 100%;
+    width: auto;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+div.updateProfile .profileItem{
+    padding: 5px;
+}
+
+div.updateProfile .profileItem label{
+    font-size: 12px;
+    font-weight: bold;
+}
