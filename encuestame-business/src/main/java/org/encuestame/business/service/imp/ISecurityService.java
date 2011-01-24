@@ -383,6 +383,18 @@ public interface ISecurityService extends IService {
     void changeUserStatus(final String username) throws EnmeFailOperation;
 
     /**
+     * Update property for user account.
+     * @param property
+     * @param value
+     * @param username
+     * @throws EnMeDomainNotFoundException
+     */
+    void upadteAccountProfile(
+            final String property,
+            final String value,
+            final String username) throws EnMeDomainNotFoundException;
+
+    /**
      * User Account Is Activated.
      * @param signUpBean
      * @return
@@ -406,7 +418,7 @@ public interface ISecurityService extends IService {
     * @param operation
     * @throws EnMeDomainNotFoundException
     */
-	void followOperations(final UserAccount userAcc,
-			final String myUsername, final String followerUser,
-			final FollowOperations operation) throws EnMeDomainNotFoundException;
+    void followOperations(final UserAccount userAcc,
+            final String myUsername, final String followerUser,
+            final FollowOperations operation) throws EnMeDomainNotFoundException;
 }

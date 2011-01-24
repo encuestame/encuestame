@@ -61,7 +61,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
+		<data.path>${user.home}/opt/encuestameImage/</data.path>
             </properties>
         </profile>
         <profile>
@@ -122,7 +122,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
+		<data.path>${user.home}/opt/encuestameImage/</data.path>
             </properties>
         </profile>
         <profile>
@@ -183,7 +183,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>	
+		<data.path>${user.home}/opt/encuestameImage/</data.path>	
             </properties>
         </profile>
         <profile>
@@ -244,7 +244,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
+		<data.path>${user.home}/opt/encuestameImage/</data.path>
             </properties>
         </profile>
         <profile>
@@ -305,7 +305,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
+		<data.path>${user.home}/opt/encuestameImage/</data.path>
             </properties>
         </profile>
         <profile>
@@ -366,7 +366,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>/home/jpicado/opt/encuestameImage/</picture.path>
+		<data.path>/home/jpicado/opt/encuestameImage/</data.path>
             </properties>
         </profile>
         <profile>
@@ -427,7 +427,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
+		<data.path>${user.home}/opt/encuestameImage/</data.path>
             </properties>
         </profile>
         <profile>
@@ -488,7 +488,7 @@
                 <mail.smtps.starttls.enable>true</mail.smtps.starttls.enable>
                 <mail.smtps.starttls.required>false</mail.smtps.starttls.required>
 		<!--Pictures -->
-		<picture.path>${user.home}/opt/encuestameImage/</picture.path>
+		<data.path>${user.home}/opt/encuestameImage/</data.path>
             </properties>
         </profile>
     </profiles>
