@@ -1,24 +1,27 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="encuestame">
+   
     <bannerLeft>
-        <name>Encuestame</name>
-        <src>http://www.encuestame.org/images/encuestame_header.png</src>
+        <name>encuestame</name>
+        <src>images/encuestame_header.png</src>
         <href>http://www.encuestame.org/</href>
     </bannerLeft>
+    
     <bannerRight>
-         <src>http://www.encuestame.org/images/twitter.jpg</src>
+        <src>images/twitter.jpg</src>
         <href>http://www.twitter.com/encuestame</href>
     </bannerRight>
 
     <skin>
-        <groupId>org.apache.maven.skins</groupId>
-        <artifactId>maven-stylus-skin</artifactId> 
-        <version>1.2</version> 
+	<groupId>org.apache.maven.skins</groupId>
+	<artifactId>maven-default-skin</artifactId>
+        <version>1.0</version>
     </skin>
 
 
     <publishDate format="dd MMM yyyy" position="left" />
     <version position="left" />
+
     <body>
 
         <head>
