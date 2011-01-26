@@ -71,6 +71,11 @@
          -->
          <dojo.version>1.5.0</dojo.version>
          <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
+
+        <!-- Plugin Version -->
+	<surefire.version>2.6</surefire.version>
+	<site.version>2.1.1</site.version>
+
      </properties>
 
     <modules>
@@ -343,7 +348,7 @@
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
                     </configuration>
-                    <version>2.4.3</version>
+                    <version>${surefire.version}</version>
                 </plugin>
 
                 <plugin>
@@ -406,7 +411,7 @@
                  <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${site.version}</version>
                      <configuration>
                       <locales>en,es</locales>
                     </configuration>
@@ -497,14 +502,23 @@
                 <version>2.5</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <showSuccess>false</showSuccess>
-                </configuration>
-            </plugin>
+            <plugin> 
+               <groupId>org.apache.maven.plugins</groupId> 
+               <artifactId>maven-surefire-plugin</artifactId> 
+               <version>${surefire.version}</version> 
+            </plugin> 
+
+           <plugin> 
+               <groupId>org.apache.maven.plugins</groupId> 
+               <artifactId>maven-surefire-report-plugin</artifactId> 
+               <version>${surefire.version}</version> 
+           </plugin> 
+
+           <plugin> 
+             <groupId>org.apache.maven.plugins</groupId> 
+             <artifactId>maven-failsafe-plugin</artifactId> 
+             <version>${surefire.version}</version> 
+           </plugin> 
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

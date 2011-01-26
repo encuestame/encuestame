@@ -69,9 +69,10 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    private Long retrieveCountNotification(final Account secUser, final String query){
+    private Long retrieveCountNotification(final Account account, final String query){
         Long resultsSize = 0L;
-        final List<Object> list =  getHibernateTemplate().findByNamedParam(query, "user", secUser);
+        final List<Object> list =  getHibernateTemplate().findByNamedParam("select count(*) from Notification "
+                +" WHERE account =:user AND readed = false", "user", account);
         if (list.get(0) instanceof Long){
             resultsSize = (Long) list.get(0);
         }
@@ -83,10 +84,9 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @param secUser
      * @return
      */
-    @SuppressWarnings("unchecked")
     public Long retrieveTotalNotReadedNotificationStatus(final Account user){
         return retrieveCountNotification(user ,"select count(*) from Notification "
-                +" WHERE account = :user AND readed = false");
+                +" WHERE account =:account AND readed = false");
     }
 
     /**

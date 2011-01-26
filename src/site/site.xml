@@ -12,8 +12,8 @@
 
     <skin>
         <groupId>org.apache.maven.skins</groupId>
-        <artifactId>maven-default-skin</artifactId>
-        <version>1.0</version>
+        <artifactId>maven-stylus-skin</artifactId> 
+        <version>1.2</version> 
     </skin>
 
 
