@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.joda.time.DateMidnight;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,7 +68,7 @@ public class TestTweetPollDao  extends AbstractBase{
     @Before
     public void initData(){
       this.secondary = createSecondaryUser("jhon", createUser());
-      final Question question = createQuestion("who I am?", "");
+      final Question question = createQuestion("Who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
       this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
@@ -77,7 +78,6 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch1, "192.168.0.2");
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
-
       this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
 
     }
@@ -114,7 +114,6 @@ public class TestTweetPollDao  extends AbstractBase{
     @Test
     public void testgetVotesByAnswer(){
         final Long d = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
-        System.out.println(d);
     }
 
 
@@ -218,8 +217,8 @@ public class TestTweetPollDao  extends AbstractBase{
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
         final Long userId = this.secondary.getAccount().getUid();
-        final Date initDate = new Date();
-        final List<TweetPoll> tweetsByDate = getTweetPoll().retrieveTweetPollByDate(userId, initDate, 5, 0);
+        final DateMidnight initDate = new DateMidnight();
+        final List<TweetPoll> tweetsByDate = getTweetPoll().retrieveTweetPollByDate(userId, initDate.toDate(), 5, 0);
         assertEquals("Should be equals", 1, tweetsByDate.size());
     }
 
