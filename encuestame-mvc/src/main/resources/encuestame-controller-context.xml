@@ -6,7 +6,6 @@
                         http://www.springframework.org/schema/context
                         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-
   <!--
     Maps requests to @Controllers based on @RequestMapping("path")
     annotation values If no annotation-based path mapping is found, Spring
@@ -24,8 +23,8 @@
      <property name="order" value="0"/>
   </bean>
 
- <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
- <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
+  <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
+  <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
 
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.mvc" />
@@ -35,6 +34,7 @@
     POJO @Controller when one is mapped.
   -->
   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="order" value="0"/>
         <!--
             NOTE: it is important to specify the order property, so this
             adapter will be attempted before the HandlerAdapter that
@@ -58,7 +58,7 @@
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
 
                 <!-- Converter for images -->
-                <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+                <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
 
                 <!-- Handle JAXB XML objects
                 <bean id="marshallingHttpMessageConverter"
@@ -75,10 +75,10 @@
                     </constructor-arg>
                 </bean> -->
 
-                <!-- This must come after our image converter -->
+                <!-- This must come after our image converter
                 <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+                -->
             </list>
         </property>
   </bean>
-
 </beans>

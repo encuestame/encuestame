@@ -124,7 +124,6 @@ public class DateUtil {
         return yearsBetween.getYears();
     }
 
-
     /**
      *  DateTime start = new DateTime(); //Devuelve la fecha actual al estilo Date
         DateTime end = new DateTime(); //Devuelve la fecha actual al estilo Date

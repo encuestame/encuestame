@@ -14,24 +14,22 @@
                         http://www.springframework.org/schema/mobile/device
                         http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
 
- <!-- Define url mappings to web flow controller.  -->
-  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-    <property name="mappings">
-      <value>
-        /signup=flowController
-       </value>
-    </property>
-    <property name="defaultHandler" ref="urlFilenameViewController"/>
-    <property name="order" value="1"/>
-  </bean>
+   <!-- Define url mappings to web flow controller.  -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+       <property name="mappings">
+         <value>
+           /signup=flowController
+         </value>
+       </property>
+       <property name="defaultHandler" ref="urlFilenameViewController"/>
+       <property name="order" value="1"/>
+    </bean>
 
   <!-- Maps request paths to @Controller classes;
        e.g. a path of /signup looks for a controller named SignUpController -->
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         <property name="order" value="3" />
         <property name="defaultHandler">
-            <!-- If no @Controller match, map path to a view to render; e.g. the "/intro"
-                 path would map to the view named "intro" -->
             <ref bean="urlFilenameViewController"></ref>
         </property>
     </bean>
@@ -55,14 +53,6 @@
          <property name="order" value="0"/>
     </bean>
 
-     <!--
-     http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/view.html
-    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-       <property name="order" value="3"/>
-       <property name="basename" value="views"/>
-    </bean>
-    -->
-
   <!--
   This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver -->
   <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -72,14 +62,19 @@
       <property name="suffix" value=".jsp"/>
   </bean>
 
-  <!-- UrlFile Name View Controller. -->
+  <!-- Controller Views -->
   <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
-  <!--
-    Dispatches requests mapped to
+  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+    <property name="flowExecutor" ref="flowExecutor"/>
+  </bean>
+
+  <!-- Dispatches requests mapped to
     org.springframework.web.servlet.mvc.Controller implementations
-  -->
+    required to render urlFilenameViewController.
+    -->
   <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
 
   <!--
     Dispatches requests mapped to flows to FlowHandler implementations
@@ -87,10 +82,6 @@
     <property name="flowExecutor" ref="flowExecutor" />
   </bean>
   -->
-
-  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
-    <property name="flowExecutor" ref="flowExecutor"/>
-  </bean>
 
     <!-- Maps request paths to flows in the flowRegistry;
         e.g. a path of /hotels/booking looks for a flow with id "hotels/booking"
@@ -130,4 +121,13 @@
     </property>
   </bean>
   -->
+
+    <!--
+     http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/view.html
+    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+       <property name="order" value="3"/>
+       <property name="basename" value="views"/>
+    </bean>
+    -->
+
 </beans>
