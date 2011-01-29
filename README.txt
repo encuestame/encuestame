@@ -26,7 +26,7 @@ After get source code is necesary move to top level and  run following command:
 
     ant build - to get dojo source code, maybe you need change parameters on buildDojo.sh
 
-    mvn install - to install app
+    mvn install - to install app.
 
 After doing this, you can run jetty server running following command:
 
