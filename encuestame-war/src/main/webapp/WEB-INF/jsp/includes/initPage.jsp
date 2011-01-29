@@ -14,6 +14,9 @@
          dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
          dojo.require("encuestame.org.core.commons.search.SearchMenu");
          dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
+         dojo.require("encuestame.org.core.commons.error.ErrorSessionHandler");
+         dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
+         dojo.require("encuestame.org.core.commons.error.ErrorHandler");
     </script>
     <style type="css">
         img{ border:0px;}

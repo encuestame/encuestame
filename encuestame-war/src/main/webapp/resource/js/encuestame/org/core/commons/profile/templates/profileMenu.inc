@@ -1,7 +1,7 @@
 <span>
     <a href="#" dojoAttachEvent="onclick:_open">Profile</a>
     <div class="profilePanel" dojoAttachPoint="_profileBox">
-        <ul class="user-dropdown">
+        <ul>
             <li><a href="${contextPath}/settings/account">Configuration</a></li>
             <li><a href="${contextPath}/settings/social">Social Accounts</a></li>
             <li><a href="${contextPath}/help">Help</a></li>

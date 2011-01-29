@@ -1,7 +1,4 @@
-.profileWrapper{
-
-}
-
+/** profile menu **/
 div.profilePanel{
     display: none;
     position: absolute;
@@ -53,4 +50,10 @@ div.profilePanel li a{
     padding: 10px;
     color: #BABABA !important;
     font-weight: normal;
+}
+
+/** profile update wrapper **/
+
+div.accountUpdateWrapper{
+    padding: 10px;
 }

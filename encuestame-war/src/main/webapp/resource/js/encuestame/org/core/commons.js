@@ -7,9 +7,6 @@ encuestame.contextDefault = "/encuestame";
  * Json Get Call.
  */
 encuestame.service.xhrGet = function(url, params, load, error){
-    //console.debug("url ", url);
-    //console.debug("params ", params);
-    //console.debug("load ", load);
     var defaultError = function(error, ioargs){
         console.debug("default error ", error);
     };
@@ -49,6 +46,8 @@ encuestame.service.xhrGet = function(url, params, load, error){
                     console.debug(message);
                     break;
                 default:
+                    console.debug("error", dijit.byId("errorConexionHandler"));
+                    dijit.byId("errorConexionHandler").show();
                     message = "Unknown error.";
                     console.debug(message);
                 }
@@ -56,6 +55,12 @@ encuestame.service.xhrGet = function(url, params, load, error){
           });
     }
 };
+
+encuestame.filter = {};
+
+encuestame.filter.response = function(load){
+
+}
 
 /**
  * Json Get Call.
