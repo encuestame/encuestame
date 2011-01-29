@@ -1,3 +1,19 @@
+release v1.1.33
+
+        * Validation features in SignUp.
+
+        * Pictures thumbnail generator.
+
+        * Update user profile enhancement.
+
+        * Upgraded Spring Security 3.0.5.RELEASE version.
+
+release v1.1.32
+
+        * Upload pictures.
+
+        * Sign up User Improvement, wizard feature
+
 release v1.1.31  
 
 	* Replaced config xml by spring annotations.
@@ -15,16 +31,3 @@ release v1.1.32
 	* Upload pictures.
 
 	* Sign up User Improvement, wizard feature
-
-  	
-
-release v1.1.33
- 
-	* Validation features in SignUp.
-
-	* Pictures thumbnail generator.
-   
-	* Update user profile enhancement.
- 
-	* Upgraded Spring Security 3.0.5.RELEASE version.
-	   

@@ -1,8 +1,10 @@
 dojo.provide("encuestame.org.core.commons.notifications.Notification");
 
 dojo.require('dojox.timing');
+dojo.require("dojox.widget.Dialog");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
 
 dojo.declare(
@@ -45,7 +47,11 @@ dojo.declare(
             this.timer.start();
         },
 
+        /*
+         * open dialog notification.
+         */
         open: function(event){
+            dojo.stopEvent(event);
             if(!this.openNot){
                 dojo.addClass(this._panel, "openLivePanel");
                 if(!this.notifications){
@@ -57,7 +63,17 @@ dojo.declare(
             this.openNot = !this.openNot;
         },
 
-     // load notifications
+        /*
+         * view all.
+         */
+        _viewAll : function(event){
+             dojo.stopEvent(event);
+             dijit.byId("allNot").show();
+        },
+
+        /*
+         * load notifications
+         */
         loadStatus : function() {
             var load = dojo.hitch(this, function(data){
                 var total = data.success.t;
@@ -139,13 +155,11 @@ dojo.declare(
                 console.debug("item", this.item);
             },
 
-
             /*
              * Remove Notification
              */
             removeNotification : function(notificationId){
                 var url = '/encuestame/api/remove-notification.json';
             }
-
 
         });

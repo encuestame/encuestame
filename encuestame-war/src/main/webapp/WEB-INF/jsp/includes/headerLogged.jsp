@@ -11,15 +11,13 @@
                          </span>
                         <span class="link">
                          <span id="navbar">
-                               <div dojoType="encuestame.org.core.commons.profile.ProfileMenu"></div>
+                               <div dojoType="encuestame.org.core.commons.profile.ProfileMenu"
+                                    contextPath="<%=request.getContextPath()%>"></div>
                          </span>
                         </span>
                     <span class="search">
                         <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
                     </span>
-                        <span class="link">
-                               <a href="<%=request.getContextPath()%>/user/logout">Log out</a>
-                        </span>
                 </form>
         </div>
         <div id="profile_menu" style="display:none; right: 0px;">
