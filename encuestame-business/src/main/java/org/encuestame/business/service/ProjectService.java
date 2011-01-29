@@ -53,7 +53,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
      */
     public List<UnitProjectBean> loadListProjects(final String username) throws EnMeDomainNotFoundException {
             final List<UnitProjectBean> listProjects = new ArrayList<UnitProjectBean>();
-            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(getUser(username).getAccount().getUid());
+            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(getUserAccount(username).getAccount().getUid());
             //log.debug("project by user id: "+projectList.size());
             for (final Project project : projectList) {
                 //log.debug("adding project "+project.getProjectDescription());
@@ -103,7 +103,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             try {
                 final Project projectDomain = new Project();
                 final UserAccount secondary = getAccountDao().getSecondaryUserById(projectBean.getLeader());
-                final Account user = getUser(username).getAccount();
+                final Account user = getUserAccount(username).getAccount();
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
                 log.debug("new Project Leader "+projectBean.getName());
@@ -148,7 +148,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
         }
         else{
             final UserAccount secondary = getAccountDao().getSecondaryUserById(projectBean.getLeader());
-            final Account user = getUser(username).getAccount();
+            final Account user = getUserAccount(username).getAccount();
             project.setProjectName(projectBean.getName());
             project.setHideProject(projectBean.getHide());
             project.setLead(secondary);

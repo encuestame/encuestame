@@ -25,7 +25,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.mvc.controller.validation.ControllerValidation;
+import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -158,7 +158,7 @@ public class JsonUsersController extends AbstractJsonController{
             //     .getSecurityService().searchUsersByEmail(email).size();
             //final Integer usernames = getServiceManager().getApplicationServices()
             //     .getSecurityService().searchUsersByUsername(username).size();
-            final ControllerValidation cv = new ControllerValidation( getServiceManager().getApplicationServices()
+            final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
             if(cv.validateEmail(email) && cv.validateUsername(username)){
                 final Map<String, Object> sucess = new HashMap<String, Object>();
@@ -258,5 +258,35 @@ public class JsonUsersController extends AbstractJsonController{
            setError(e.getMessage(), response);
        }
        return returnData();
+    }
+
+    /**
+     * Upgrade user account profile.
+     * @param request
+     * @param property
+     * @param value
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/user/profile/upgrade.json", method = RequestMethod.GET)
+    public ModelMap upgradeProfile(HttpServletRequest request,
+            @RequestParam(value = "property", required = true) String property,
+            @RequestParam(value = "value", required = true) String value,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            getSecurityService().upadteAccountProfile(property, value,
+                    getUserPrincipalUsername());
+            setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
     }
 }

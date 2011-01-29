@@ -13,12 +13,17 @@
 
 package org.encuestame.mvc.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.PictureService.PictureType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Home or FrontEnd Controller.
@@ -50,6 +55,12 @@ public class HomeController extends BaseController {
         return "user/signin";
     }
 
+    @RequestMapping(value = "/signin2", method = RequestMethod.GET)
+    public String signInController2(ModelMap model) {
+        log.debug("HOME222222");
+        return "user/signin";
+    }
+
     /**
      * Search.
      * @param model
@@ -61,9 +72,4 @@ public class HomeController extends BaseController {
         return "search";
     }
 
-    @RequestMapping(value = "/search.jspx", method = RequestMethod.GET)
-    public String searchHomeGet(ModelMap model) {
-        log.debug("search");
-        return "search";
-    }
 }

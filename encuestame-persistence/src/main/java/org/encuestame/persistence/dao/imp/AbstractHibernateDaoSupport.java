@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -20,6 +21,8 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -72,4 +75,17 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
           }
           return results;
      }
+
+     /**
+     *
+     * @param date
+     * @return
+     */
+    public Date getCurrentMidnightDate(){
+        DateTime midNight = new DateTime();
+        midNight = midNight.plusDays(1);
+        DateMidnight d  = midNight.toDateMidnight();
+        System.out.println("midNight---->"+d.toDate());
+        return d.toDate();
+    }
 }
