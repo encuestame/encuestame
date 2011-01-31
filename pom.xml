@@ -98,32 +98,39 @@
 
     <mailingLists>
         <mailingList>
-            <name>Encuestame english mailing list</name>
-            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-en</subscribe>
-            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-en</unsubscribe>
-            <post>encuestame-en@encuestame.org</post>
-            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-en</archive>
+            <name>Commit mail list</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/commits</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/commits</unsubscribe>
+            <post>commits@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/commits</archive>
         </mailingList>
         <mailingList>
-            <name>Encuestame Lista de Correo</name>
-            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-es</subscribe>
-            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-es</unsubscribe>
-            <post>encuestame-es@encuestame.org</post>
-            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/encuestame-es</archive>
+            <name>Build mail list</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/builds</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/builds</unsubscribe>
+            <post>builds@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/builds</archive>
         </mailingList>
         <mailingList>
-            <name>Encuestame commits mailing list</name>
-            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/svn-encuestame-commits</subscribe>
-            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/svn-encuestame-commits</unsubscribe>
-            <post>svn-encuestame-commits@encuestame.org</post>
-            <archive>http://encuestame.org/cgi-bin/mailman/private/svn-encuestame-commits/</archive>
+            <name>Dev mail list</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/dev</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/dev</unsubscribe>
+            <post>dev@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/dev</archive>
         </mailingList>
+        <mailingList> 
+            <name>Announcements mail list</name>
+            <subscribe>http://encuestame.org/cgi-bin/mailman/listinfo/announcements</subscribe>
+            <unsubscribe>http://encuestame.org/cgi-bin/mailman/listinfo/announcements</unsubscribe>
+            <post>announcements@encuestame.org</post>
+            <archive>http://encuestame.org/cgi-bin/mailman/listinfo/announcements</archive>            
+       </mailingList>                                                                            
     </mailingLists>
 
     <scm>
         <connection>scm:git:git://jotadeveloper.com/encuestame.git</connection>
         <developerConnection>scm:git:git://jotadeveloper.com/encuestame.git</developerConnection>
-        <url>http://git.jotadeveloper.com/?p=encuestame.git/.git;a=summary</url>
+        <url>http://git.encuestame.org</url>
     </scm>
 
     <distributionManagement>

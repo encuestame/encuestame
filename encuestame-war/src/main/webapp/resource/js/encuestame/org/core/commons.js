@@ -1,23 +1,30 @@
 dojo.provide("encuestame.org.core.commons");
 
+dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
+dojo.require("encuestame.org.core.commons.error.ErrorHandler");
+dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
+dojo.require("dijit.Dialog");
+
 encuestame.service = {};
 encuestame.service.timeout = 20000;
 encuestame.contextDefault = "/encuestame";
+encuestame.signin = encuestame.contextDefault+"/signin.jspx";
+
 /**
  * Json Get Call.
  */
-encuestame.service.xhrGet = function(url, params, load, error){
-    //console.debug("url ", url);
-    //console.debug("params ", params);
-    //console.debug("load ", load);
+encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
+    if (logginHandler == null) {
+        logginHandler = true;
+    }
     var defaultError = function(error, ioargs){
         console.debug("default error ", error);
     };
     if(error == null){
       error = defaultError;
-      console.debug("default error");
+      console.error("default error");
     }
-    if(load == null || url == null || params == null){
+    if (load == null || url == null || params == null) {
         console.error("error params required.")
     } else {
         dojo.xhrGet({
@@ -29,31 +36,218 @@ encuestame.service.xhrGet = function(url, params, load, error){
             content: params,
             load: load,
             preventCache: true,
-            error: error,
-            handle: function(error, ioargs) {
+            error: function(error, ioargs) {
+                console.info("error function", ioargs);
                 var message = "";
+                console.info(ioargs.xhr.status, error);
+                //if dialog is missing or is hide.
+                if (encuestame.error.dialog == null || !encuestame.error.dialog.open) {
+                    switch (ioargs.xhr.status) {
+                    case 403:
+                        var jsonError = dojo.fromJson(ioargs.xhr.responseText);
+                        console.info("queryObject", jsonError);
+                        message = "Application does not have permission for this action";
+                        if(!logginHandler){
+                            encuestame.error.denied(message);
+                        } else {
+                            if (!jsonError.session || jsonERror.anonymousUser) {
+                                console.info("session is expired");
+                                encuestame.error.session(encuestame.error.messages.session);
+                            }
+                        }
+                        break;
+                    case 0:
+                        message = "A network error occurred. Check that you are connected to the internet.";
+                        encuestame.error.conexion(message);
+                        break;
+                    default:
+                        message = "An unknown error occurred";
+                        encuestame.error.unknown(message, ioargs.xhr.status);
+                    }
+                }
+              },
+            handle: function(response, ioargs) {
+                encuestame.filter.response(response);
+                var message = "";
+                console.info(ioargs.xhr.status, error);
                 switch (ioargs.xhr.status) {
                 case 200:
                     message = "Good request.";
+                    if (encuestame.error.dialog != null) {
+                        encuestame.error.clear();
+                    }
                     break;
                 case 404:
-                    message = "The requested page was not found";
-                    console.debug(message);
+                    message = "The page you requested was not found.";
+                    encuestame.error.createDialog(message, message);
+                    break;
+                case 400:
+                    message = "Bad Request";
+                    encuestame.error.createDialog(message, message);
+                    break;
                 case 500:
                     break;
-                    message = "The server reported an error.";
-                    console.debug(message);
+                    message = "Service temporarily unavailable.";
+                    encuestame.error.createDialog(message, message);
                     break;
                 case 407:
                     message = "You need to authenticate with a proxy.";
-                    console.debug(message);
+                    encuestame.error.createDialog(message, message);
+                    break;
+                case 0:
+                    message = "A network error occurred. Check that you are connected to the internet.";
+                    encuestame.error.conexion(message);
                     break;
                 default:
-                    message = "Unknown error.";
-                    console.debug(message);
+                    message = "An unknown error occurred";
+                    encuestame.error.unknown(message, ioargs.xhr.status);
                 }
               }
           });
+    }
+};
+
+encuestame.error = {};
+encuestame.error.debug = true;
+encuestame.error.dialog = null;
+
+/*
+ * clear dialog.
+ */
+encuestame.error.clear = function(){
+    console.info("clean", encuestame.error.dialog);
+    if (encuestame.error.dialog != null){
+        console.info("hidding dialog");
+        encuestame.error.dialog.hide();
+    }
+};
+
+/*
+ * denied dialog.
+ */
+encuestame.error.denied = function(error){
+    var div = dojo.doc.createElement('div');
+    var h3 = dojo.doc.createElement('h3');
+        h3.innerHTML = error;
+        var p = dojo.doc.createElement('p');
+        p.innerHTML = status;
+        div.appendChild(h3);
+        div.appendChild(p);
+    encuestame.error.createDialog("Opps, What's happening?", div);
+};
+
+/*
+ * unknow error dialog.
+ */
+encuestame.error.unknown = function(error, status){
+    var div = dojo.doc.createElement('div');
+    var h3 = dojo.doc.createElement('h3');
+        h3.innerHTML = error;
+        var p = dojo.doc.createElement('p');
+        p.innerHTML = status;
+        div.appendChild(h3);
+        div.appendChild(p);
+    encuestame.error.createDialog("Opps, What's happening?", div, true);
+};
+
+/*
+ * conexion error.
+ */
+encuestame.error.conexion = function(message){
+    var div = dojo.doc.createElement('div');
+    var h3 = dojo.doc.createElement('h3');
+    h3.innerHTML = message;
+    div.appendChild(h3);
+    encuestame.error.createDialog(message, div, true);
+};
+
+/*
+ * expired sesion dialog.
+ */
+encuestame.error.session = function(message){
+    var div = dojo.doc.createElement('div');
+    var h3 = dojo.doc.createElement('h3');
+    h3.innerHTML = message;
+    var widgetButton = new dijit.form.Button({
+        label: "Sign In",
+        onClick: dojo.hitch(this, function(event) {
+            dojo.stopEvent(event);
+            document.location.href = encuestame.signin;
+        })
+    });
+    div.appendChild(h3);
+    div.appendChild(widgetButton.domNode);
+    encuestame.error.createDialog("Not logged in", div, true);
+};
+
+/*
+ * Create New Error Dialog.
+ */
+encuestame.error.createDialog = function(title, content, addcloseButton){
+    var node = dojo.byId("errorHandler");
+    console.debug("node", node);
+    if(node != null){
+        if (encuestame.error.dialog != null){
+             encuestame.error.dialog.open ? encuestame.error.dialog.hide() : "";
+        } else {
+        }
+        dojo.empty(node);
+        //close button validation
+        addcloseButton = addcloseButton == null ? false : addcloseButton;
+        encuestame.error.dialog = new dijit.Dialog({
+              title: title,
+              content: content,
+              style: "width: 480px; height: 100px;"
+          });
+        if(addcloseButton){
+            var widgetButton = new dijit.form.Button({
+                label: "Close",
+                onClick: dojo.hitch(this, function(event) {
+                    dojo.stopEvent(event);
+                    encuestame.error.dialog.hide();
+                })
+            });
+            var content = encuestame.error.dialog.content;
+            content.appendChild(widgetButton.domNode);
+        }
+        console.debug("dialog", encuestame.error.dialog);
+        node.appendChild(encuestame.error.dialog.domNode);
+        encuestame.error.dialog.show();
+    } else {
+        console.error("no error handler dialog found");
+    }
+};
+
+encuestame.error.messages = {};
+encuestame.error.messages.denied = "Application does not have permission for this action";
+encuestame.error.messages.session = "Your session has expired, please sign in to contiue.";
+
+encuestame.filter = {};
+
+/**
+ * {"error":{"message":"Access is denied"}}
+ */
+encuestame.filter.response = function(response){
+    console.info("filter", response);
+    //no permissions or session
+    if(response == undefined){
+        //no response
+
+    }else if (response.error.message != undefined && response.success == undefined ) {
+        encuestame.session.getSession();
+    } else if(response.success == undefined ) {
+        console.info("sucess response no existe");
+    }
+};
+
+encuestame.session = {};
+encuestame.session.getSession = function(){
+    //JSESSIONID=dh3u2xvj7fwd1llbddl33dhcq; path=/encuestame; domain=demo2.encuestame.org
+    var sessionCookie = dojo.cookie("JSESSIONID");
+    if(sessionCookie == undefined){
+        encuestame.error.session(encuestame.error.messages.denied);
+    } else {
+        console.info("session is valid");
     }
 };
 
@@ -80,7 +274,7 @@ encuestame.service.xhrPost = function(url, form, load, error){
                 load: load,
                 preventCache: true,
                 error: error
-            }
+            };
         var deferred = dojo.xhrPost(xhrArgs);
     }
 };
@@ -100,9 +294,9 @@ encuestame.contextWidget = function(){
 encuestame.service.list = {};
 encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";
 encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications.json";
-encuestame.service.list.getStatusNotifications = encuestame.contextWidget()+"/api/status-notifications.json"
-encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/change-status-notifications.json"
-encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json"
+encuestame.service.list.getStatusNotifications = encuestame.contextWidget()+"/api/status-notifications.json";
+encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/change-status-notifications.json";
+encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
 encuestame.service.list.createUser = encuestame.contextWidget()+"/api/admon/create-user.json";
 encuestame.service.list.upgradeProfile = encuestame.contextWidget()+"/api/user/profile/upgrade.json";
