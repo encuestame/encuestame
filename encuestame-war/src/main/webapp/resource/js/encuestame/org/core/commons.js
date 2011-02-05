@@ -6,6 +6,7 @@ dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 dojo.require("dijit.Dialog");
 
 encuestame.service = {};
+encuestame.service.offline = false;
 encuestame.service.timeout = 20000;
 encuestame.contextDefault = "/encuestame";
 encuestame.signin = encuestame.contextDefault+"/signin.jspx";
@@ -158,7 +159,7 @@ encuestame.error.conexion = function(message){
     var h3 = dojo.doc.createElement('h3');
     h3.innerHTML = message;
     div.appendChild(h3);
-    encuestame.error.createDialog(message, div, true);
+    encuestame.error.createDialog("Network Issues", div, true);
 };
 
 /*
