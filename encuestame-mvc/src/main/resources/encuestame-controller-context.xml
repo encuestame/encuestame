@@ -23,7 +23,7 @@
      <property name="order" value="0"/>
   </bean>
 
-  <bean id="mobileInterceptor" class="org.springframework.mobile.device.mvc.DeviceResolverHandlerInterceptor" />
+  <bean id="mobileInterceptor" class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
   <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
 
   <!-- Scans for application @Components to deploy -->

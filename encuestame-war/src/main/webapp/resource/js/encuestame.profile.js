@@ -23,10 +23,14 @@ dependencies ={
                 "encuestame.org.core.shared.utils.YesNoWidget",
                 "encuestame.org.core.map.Map",
                 "encuestame.org.core.commons.profile.ProfileMenu",
+                "encuestame.org.core.commons.profile.Profile",
                 "encuestame.org.core.commons.search.SearchMenu",
                 "encuestame.org.core.commons.dashboard.DashBoardMenu",
                 "encuestame.org.core.commons.security.Login",
-                "encuestame.org.core.commons.security.Password"
+                "encuestame.org.core.commons.security.Password",
+                "encuestame.org.core.commons.error.ErrorSessionHandler",
+                "encuestame.org.core.commons.error.ErrorConexionHandler",
+                "encuestame.org.core.commons.error.ErrorHandler"
                 ]
             }/*,
             {

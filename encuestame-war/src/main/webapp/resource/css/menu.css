@@ -1,3 +1,13 @@
+div.menuWrapper{
+    font-weight: bold;
+    -moz-box-shadow: 0px 2px 2px #888;
+    -webkit-box-shadow: 0px 2px 2px #888;
+    box-shadow: 10px 10px 5px #888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+}
+
 .menuWrapper ul {
     margin: 0;
     padding: 0;
@@ -26,6 +36,9 @@
 .menuWrapper ul li.item a:hover,.menuWrapper ul li .current {
     color: #444444;
     background-color: #E8E8E8;
+    -moz-box-shadow: 0px 2px 2px #888;
+    -webkit-box-shadow: 0px 2px 2px #888;
+    box-shadow: 10px 10px 5px #888;
 }
 
 .menuWrapper {
