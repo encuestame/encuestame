@@ -28,8 +28,8 @@ import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.web.UnitUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -156,13 +156,48 @@ public abstract class AbstractJsonController extends BaseController{
      * @return {@link ModelAndView}.
      */
     @ExceptionHandler(AccessDeniedException.class)
-    public ModelAndView handleException (AccessDeniedException ex) {
+    public ModelAndView handleException (final AccessDeniedException ex, HttpServletResponse httpResponse) {
+      log.error("handleException "+ ex.getMessage());
+      httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
       ModelAndView mav = new ModelAndView();
       mav.setViewName("MappingJacksonJsonView");
-      Map<String, Object> response = new HashMap<String, Object>();
+      final Map<String, Object> response = new HashMap<String, Object>();
       response.put("message", ex.getMessage());
-      mav.addObject("error", response);
+      response.put("description", "Application does not have permission for this action");
+      response.put("status", httpResponse.SC_FORBIDDEN);
+      response.put("session", this.checkIsSessionIsExpired());
+      response.put("anonymousUser", this.checkIsSessionIsAnonymousUser());
+      mav.addObject("error",  response);
       return mav;
+    }
+
+    /**
+     * Check is Session is Expired.
+     * @return
+     */
+    public boolean checkIsSessionIsExpired(){
+        boolean session = false;
+        if(getSecCtx().getAuthentication() != null){
+            session = getSecCtx().getAuthentication().isAuthenticated();
+            log.debug("checkIsSessionIsExpired "+getSecCtx().getAuthentication().getName());
+            log.debug("checkIsSessionIsExpired "+getSecCtx().getAuthentication().getCredentials());
+            log.debug("checkIsSessionIsExpired "+getSecCtx().getAuthentication().getDetails());
+        }
+        log.debug("checkIsSessionIsExpired->"+session);
+        return session;
+    }
+
+    /**
+     * Check is Session is Expired.
+     * @return
+     */
+    public boolean checkIsSessionIsAnonymousUser(){
+        boolean anonymous = false;
+        if("anonymousUser".equals(getSecCtx().getAuthentication().getName())){
+            anonymous = true;
+        }
+        log.debug("checkIsSessionIsExpired->"+anonymous);
+        return anonymous;
     }
 
     /**
