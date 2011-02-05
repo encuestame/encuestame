@@ -52,9 +52,40 @@ public class ValidateOperations {
      * @return
      */
     public Boolean validateUsername(final String username){
+        log.debug("validating username... ");
         Boolean valid = false;
         final UserAccount user = getSecurityService().findUserByUserName(username);
         if(user == null){
+            log.debug("username is valid..");
+            valid = true;
+        } else if (username.equals(user.getUsername())){
+            log.debug("username nothing to update");
+            valid = true;
+        }
+        return valid;
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    private UserAccount getUser(final String username){
+        final UserAccount user = getSecurityService().findUserByUserName(username);
+        return user;
+    }
+
+    /**
+     * Validate user email.
+     * @param username
+     * @return
+     */
+    public Boolean validateUserEmail(final String username){
+        log.debug("validating email... ");
+        Boolean valid = false;
+        final UserAccount user = getUser(username);
+        if(user == null){
+            log.debug("email is valid..");
             valid = true;
         }
         return valid;
@@ -67,7 +98,9 @@ public class ValidateOperations {
      */
     public UnitUserBean validateUserByEmail(final String email){
         UnitUserBean unitUserBean = null;
+        log.debug("validating email... ");
         if(this.validateEmail(email)) {
+            log.debug("enail...");
             unitUserBean = getSecurityService().findUserByEmail(email);
         }
         return unitUserBean;
@@ -81,7 +114,7 @@ public class ValidateOperations {
     public Boolean validateEmail(final String email){
         Boolean valid = false;
         if(emailPattern.matcher(email).matches() && StringUtils.hasLength(email)) {
-            log.warn("Captcha NOT VALID");
+            log.warn("email not valid");
             valid = !valid;
         }
         return valid;
