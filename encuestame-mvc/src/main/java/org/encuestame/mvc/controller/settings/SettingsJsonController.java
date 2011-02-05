@@ -55,7 +55,6 @@ public class SettingsJsonController extends AbstractJsonController{
             @PathVariable String type,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
-        try {
         log.debug("account");
         return returnData();
     }
