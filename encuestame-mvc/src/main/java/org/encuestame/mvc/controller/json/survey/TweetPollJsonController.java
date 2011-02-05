@@ -102,13 +102,27 @@ public class TweetPollJsonController extends AbstractJsonController {
         return returnData();
     }
 
+    /**
+     * Publish tweet on social accout.
+     * @param twitterAccountsId
+     * @param question
+     * @param scheduled
+     * @param hashtags
+     * @param answers
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.GET)
     public ModelMap get(
             @RequestParam(value = "twitterAccounts", required = true) Long[] twitterAccountsId,
             @RequestParam(value = "question", required = true) String question,
-            @RequestParam(value = "scheduled", required = true) Boolean scheduled,
-            @RequestParam(value = "hashtags", required = true) String[] hashtags,
+            @RequestParam(value = "scheduled", required = false) Boolean scheduled,
+            @RequestParam(value = "hashtags", required = false) String[] hashtags,
             @RequestParam(value = "answers", required = true) String[] answers,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {

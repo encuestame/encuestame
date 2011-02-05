@@ -2,11 +2,11 @@
 <project name="encuestame">
     <bannerLeft>
         <name>Encuestame</name>
-        <src>http://www.encuestame.org/images/encuestame_header.png</src>
+        <src>images/encuestame_header.png</src>
         <href>http://www.encuestame.org/</href>
     </bannerLeft>
     <bannerRight>
-         <src>http://www.encuestame.org/images/twitter.jpg</src>
+         <src>images/twitter.jpg</src>
         <href>http://www.twitter.com/encuestame</href>
     </bannerRight>
 

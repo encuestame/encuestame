@@ -10,18 +10,15 @@ Fast Deploy
 encuestame have 4 modules
 
  encuestame-utils: Bean utils
- encuestame-core: Core encuestame project
+ encuestame-persistence Domains and Dao
+ encuestame-core: core classes
+ encuestame-bussiness app business logic
  encuestame-mvc: Controller module
  encuestame-war:  The encuestame webapp, create war and jetty server
- encuestame-web:  Beans for webapp, (JSF, RichFaces and Webflow Beans)
 
 To checkout the last source code version run this.
 
-    svn co http://www.encuestame.org/svn/trunk/encuestame encuestame
-
-If you want only code without versions
-
-    svn export http://www.encuestame.org/svn/trunk/encuestame encuestame
+    git clone git://jotadeveloper.com/encuestame.git
 
 Building this version requires Apache Maven 2 to build. Version 2.0.10 or higher is suggested.
 

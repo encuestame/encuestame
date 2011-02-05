@@ -179,7 +179,7 @@ dojo.declare(
                     "hashtags" : tags,
                     "answers" : answers
             };
-
+            console.debug("params", params);
             var load = dojo.hitch(this, function(data){
                 console.debug(data);
             });

@@ -1,9 +1,14 @@
 <div class="notificationWrapper">
     <div class="livePanel" dojoAttachPoint="_panel">
-        <div dojoAttachPoint="_not"></div>
+        <div dojoAttachPoint="_not" class="panelItems"></div>
         <div class="final">
-            <a href="#">View All</a>
+            <a href="#" dojoAttachEvent="onclick:_viewAll">View All</a>
         </div>
     </div>
     <div dojoAttachPoint="_count" class="counter" dojoAttachEvent="onclick:open"></div>
+    <div dojoType="dojox.widget.Dialog" id="allNot" dimensions="[1030,310]">
+         <div dojoType="dijit.layout.ContentPane" title="Add User Directly" selected="true">
+            Dialog with All notifications
+         </div>
+    </div>
 </div>
