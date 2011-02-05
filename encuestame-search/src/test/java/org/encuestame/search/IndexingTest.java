@@ -16,12 +16,13 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.encuestame.search.main.TestUtil;
+import org.junit.Ignore;
 
 /**
  * Adding documents to an index.
  * @author dmorales
  */
-
+@Ignore
 public class IndexingTest extends TestCase{
     protected String[] ids = { "1", "2" };
     protected String[] unindexed = { "Netherlands", "Italy" };

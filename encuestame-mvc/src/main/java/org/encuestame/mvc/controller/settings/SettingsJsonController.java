@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.settings;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.business.security.ISecurityContext;
+import org.encuestame.business.service.SecurityService.Profile;
+import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,18 +51,54 @@ public class SettingsJsonController extends AbstractJsonController{
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Account Settings.
+     * Upgrade profile settings.
      * @param model
      * @return
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/api/user/settings/profile/{type}/update.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/settings/profile/{type}/update.json", method = RequestMethod.GET)
     public ModelMap upgradeProfile(HttpServletRequest request,
             @PathVariable String type,
+            @RequestParam(value = "data", required = true) String data,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
-        log.debug("account");
+        log.debug("update profile type:"+type);
+        log.debug("update profile data:"+data);
+        try {
+            final ISecurityService security = getSecurityService();
+            final ValidateOperations operations = new ValidateOperations(security);
+            final HashMap<String, Object> listError = new HashMap<String, Object>();
+            if(type.equals(Profile.EMAIL.toString())){
+                log.debug("update email");
+                if (operations.validateUserEmail(data)) {
+                    security.upadteAccountProfile(type, data,
+                            getUserPrincipalUsername());
+                    setSuccesResponse();
+                } else {
+                    listError.put(type, "email not valid");
+                }
+            } else if(type.equals(Profile.USERNAME.toString())){
+                log.debug("update username");
+                if (operations.validateUsername(data)) {
+                    security.upadteAccountProfile(type, data,
+                            getUserPrincipalUsername());
+                    setSuccesResponse();
+                } else {
+                    listError.put(type, "username not valid");
+                }
+            } else {
+                setError("type not valid", response);
+            }
+            if (!listError.isEmpty()) {
+                log.debug("list errors " + listError.size());
+                setError(listError, response);
+            }
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+            throw new JsonGenerationException(e.getMessage());
+        }
         return returnData();
     }
-
 }

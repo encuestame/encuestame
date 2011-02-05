@@ -92,6 +92,7 @@ public abstract class AbstractJsonController extends BaseController{
      * Set Error.
      * @param error error.
      */
+    @Deprecated
     protected void setError(final Object error){
          this.error.put("message", error);
          this.sucess =  new HashMap<String, Object>();
@@ -107,6 +108,18 @@ public abstract class AbstractJsonController extends BaseController{
          this.sucess =  new HashMap<String, Object>();
          response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
+
+    /**
+     * Set List of Errors.
+     * @param listError
+     * @param response
+     */
+    protected void setError(final HashMap<String, Object> listError,  final HttpServletResponse response){
+        this.error = new HashMap<String, Object>();
+        this.error.put("message", listError);
+        this.sucess =  new HashMap<String, Object>();
+        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+   }
 
     /**
      * Set Item Response.

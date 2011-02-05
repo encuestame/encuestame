@@ -1005,10 +1005,18 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             final String value,
             final String username) throws EnMeDomainNotFoundException{
         final UserAccount account = getUserAccount(username);
-        if("completeName".equals(property)){
+        if(Profile.REAL_NAME.equals(property)){
             account.setCompleteName(value.trim());
+        } else if(Profile.USERNAME.toString().equals(property)){
+            account.setUsername(value.trim());
+            //TODO: we need update authorities
+        } else if(Profile.EMAIL.toString().equals(property)){
+            account.setUserEmail(value.trim());
+        } else if(Profile.LANGUAGE.toString().equals(property)){
+            //TODO: we need language property.
+        } else if(Profile.PRIVATE.toString().equals(property)){
+            //TODO: we need private property.
         }
-        //TODO: more properties to upadte.
         getAccountDao().saveOrUpdate(account);
     }
 
@@ -1021,5 +1029,34 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     public enum FollowOperations{
         FOLLOW,
         UNFOLLOW
+    }
+
+    /**
+     * User Account profile.
+     * @author Picado, Juan juanATencuestame.org
+     * @since Feb 5, 2011 11:18:56 AM
+     */
+    public enum Profile{
+        EMAIL,
+        USERNAME,
+        LANGUAGE,
+        PRIVATE,
+        REAL_NAME;
+
+        Profile(){
+        }
+
+        /**
+         * To String.
+         */
+        public String toString() {
+            String type = "";
+            if (this == EMAIL) { type = "email"; }
+            else if (this == USERNAME) { type = "username"; }
+            else if (this == REAL_NAME) { type = "completeName"; }
+            else if (this == LANGUAGE) { type = "language"; }
+            else if (this == PRIVATE) { type = "private"; }
+            return type;
+        }
     }
 }
