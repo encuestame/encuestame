@@ -21,6 +21,9 @@ dojo.declare(
 
         postCreate : function(){
             this._getMyProfile();
+            var email = dijit.byId("email");
+            var username = dijit.byId("username");
+
         },
 
         /*
@@ -80,5 +83,44 @@ dojo.declare(
                 console.info("form not valid");
             }
         }
+});
 
+dojo.extend(dijit.form.ValidationTextBox, {
+
+
+
+    isValid: function(/*Boolean*/ isFocused){
+        // summary:
+        //		Tests if value is valid.
+        //		Can override with your own routine in a subclass.
+        // tags:
+        //		protected
+        console.debug("isFocused", isFocused);
+        var defaultValid =  this.validator(this.textbox.value, this.constraints);
+        var backEndValid =  true;
+        if(isFocused){
+            backEndValid = this.validateBackEnd(this.textbox.value);
+        }
+        return (defaultValid && backEndValid);
+    },
+
+    /*
+     * validate back end.
+     */
+    validateBackEnd : function(value){
+        var type = this.validateType;
+        console.debug("validateBackEnd", type);
+        if(type != null){
+            var load = dojo.hitch(this, function(response){
+                return response.success.validate;
+            });
+            var error = function(error) {
+                console.debug("error", error);
+                return false;
+            };
+            encuestame.service.xhrGet(encuestame.service.list.checkProfile, {type:type, value: value}, load, error);
+        } else {
+            return true;
+        }
+    }
 });

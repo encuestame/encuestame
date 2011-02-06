@@ -5,6 +5,8 @@
            <div>
                <input type="text" name="email" id="email"
                         dojoType="dijit.form.ValidationTextBox"
+                        required="true"
+                        validateType="email"
                         regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
                         invalidMessage="Invalid email." lowercase="true" maxLength="40" selectOnClick="true">
                         <label for="email">
@@ -14,6 +16,8 @@
            <div>
                <input type="text" name="username" id="username"
                         dojoType="dijit.form.ValidationTextBox"
+                        required="true"
+                        validateType="username"
                         regExp="[\w]+" required="false" invalidMessage="Invalid username">
                         <label for="username">
                             without spaces, check availability

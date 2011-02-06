@@ -345,3 +345,5 @@ encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/setting
 encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
 encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
 encuestame.service.list.myProfile = encuestame.contextWidget()+"/api/admon/info-profile.json";
+
+encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/account/validate.json";

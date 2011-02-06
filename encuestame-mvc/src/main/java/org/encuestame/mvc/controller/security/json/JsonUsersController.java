@@ -33,6 +33,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -314,6 +315,50 @@ public class JsonUsersController extends AbstractJsonController{
             getSecurityService().upadteAccountProfile(Profile.findProfile(property.toUpperCase()), value,
                     getUserPrincipalUsername());
             setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+
+    /**
+     * Check if profile item is valid.
+     * @param request
+     * @param type
+     * @param value
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/user/account/validate.json", method = RequestMethod.GET)
+    public ModelMap validateItem(HttpServletRequest request,
+            @RequestParam(value = "type", required = true) String type,
+            @RequestParam(value = "value", required = true) String value,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            ValidateOperations operations = new ValidateOperations(getSecurityService());
+            if (Profile.findProfile(type).equals(Profile.USERNAME)) {
+                if(operations.validateUsername(filterValue(value))){
+                    setItemResponse("validate", true);
+                } else {
+                    setItemResponse("validate", false);
+                }
+            } else if (Profile.findProfile(type).equals(Profile.EMAIL)) {
+                if(operations.validateUserEmail(filterValue(value))){
+                    setItemResponse("validate", true);
+                } else {
+                    setItemResponse("validate", false);
+                }
+            } else {
+                setError("invalid params", response);
+            }
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
