@@ -21,7 +21,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -101,7 +101,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
                 final String password = PasswordGenerator.getPassword(PASSWORD_LENGHT);
                 user.setPassword(password);
                 //create
-                final UnitUserBean unitUserBean = getSecurityService().singupUser(user);
+                final UserAccountBean unitUserBean = getSecurityService().singupUser(user);
                 status.setComplete();
                 log.info("password generated "+password);
                 log.info("New User with userId: " + unitUserBean.getId() + " added at " + new Date());

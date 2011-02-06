@@ -20,13 +20,15 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -328,9 +330,18 @@ public abstract class AbstractJsonController extends BaseController{
      * @return
      * @throws EnMeDomainNotFoundException exception
      */
-    public UnitUserBean getUser(final Long userId) throws EnMeDomainNotFoundException{
+    public UserAccountBean getUser(final Long userId) throws EnMeDomainNotFoundException{
         Assert.notNull(userId);
         return getSecurityService().getUserCompleteInfo(userId, getUserPrincipalUsername());
+    }
+
+    /**
+     * Get full profile logged user info.
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public ProfileUserAccount getProfileUserInfo() throws EnMeDomainNotFoundException{
+        return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
     }
 
     /**

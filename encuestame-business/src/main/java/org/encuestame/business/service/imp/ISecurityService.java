@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.business.service.SecurityService.FollowOperations;
+import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.core.service.IService;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
@@ -30,7 +31,7 @@ import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.mail.MailSendException;
 
 /**
@@ -48,7 +49,7 @@ public interface ISecurityService extends IService {
      * @throws Exception Exception
      * @throws EnMeExpcetion excepcion
      */
-    List<UnitUserBean> loadListUsers(final String currentUsername, final Integer maxResults,
+    List<UserAccountBean> loadListUsers(final String currentUsername, final Integer maxResults,
             final Integer start) throws Exception;
 
     /**
@@ -65,7 +66,7 @@ public interface ISecurityService extends IService {
      * @return
      * @throws EnMeDomainNotFoundException
      */
-    UnitUserBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException;
+    UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException;
 
 
     /**
@@ -90,9 +91,9 @@ public interface ISecurityService extends IService {
     /**
      * Search user by username.
      * @param username username
-     * @return {@link UnitUserBean}
+     * @return {@link UserAccountBean}
      */
-    UnitUserBean searchUserByUsername(final String username);
+    UserAccountBean searchUserByUsername(final String username);
 
     /**
      * Load all list of permisssions and covert to permission bean.
@@ -112,15 +113,15 @@ public interface ISecurityService extends IService {
      * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion exception
      */
-     void deleteUser(final UnitUserBean userBean) throws EnMeDomainNotFoundException;
+     void deleteUser(final UserAccountBean userBean) throws EnMeDomainNotFoundException;
     /**
      * Renew password.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @param newPassword new password
      * @return new password
      * @throws EnMeExpcetion exception
      */
-    String renewPassword(final UnitUserBean userBean, final String newPassword) throws EnMeExpcetion;
+    String renewPassword(final UserAccountBean userBean, final String newPassword) throws EnMeExpcetion;
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
@@ -131,7 +132,7 @@ public interface ISecurityService extends IService {
      * @param userBean user bean.
      * @throws EnMeExpcetion exception
      */
-    void updateUser(final UnitUserBean userBean);
+    void updateUser(final UserAccountBean userBean);
     /**
      * Create a new Group.
      * @param groupBean group bean
@@ -150,27 +151,27 @@ public interface ISecurityService extends IService {
      * @throws EnMeExpcetion
      * @throws EnMeExpcetion personalize exception
      */
-    void createUser(final UnitUserBean userBean,  final String username) throws EnMeExpcetion;
+    void createUser(final UserAccountBean userBean,  final String username) throws EnMeExpcetion;
 
     /**
      * Assign permission to user.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @param permissionBean {@link UnitPermission}
      * @throws EnMeExpcetion exception
      */
     void assignPermission(
-            final UnitUserBean userBean,
+            final UserAccountBean userBean,
             final UnitPermission permissionBean)
             throws EnMeExpcetion;
 
     /**
      * Remove {@link Group} from User.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion
      */
     void removeGroupFromUser(
-            final UnitUserBean userBean,
+            final UserAccountBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion;
 
@@ -214,6 +215,13 @@ public interface ISecurityService extends IService {
     UserAccount findUserByUserName(final String username);
 
     /**
+     * Find {@link UserAccount} by email.
+     * @param email
+     * @return
+     */
+    UserAccount findUserAccountByEmail(final String email);
+
+    /**
      * Setter.
      * @param suspendedNotification suspended notification
      */
@@ -254,9 +262,9 @@ public interface ISecurityService extends IService {
     /**
      * SingUp User
      * @param singUpBean {@link SignUpBean}.
-     * @return {@link UnitUserBean}.
+     * @return {@link UserAccountBean}.
      */
-    UnitUserBean singupUser(final SignUpBean singUpBean);
+    UserAccountBean singupUser(final SignUpBean singUpBean);
 
     /**
      * Search {@link UserAccount} by email.
@@ -293,7 +301,7 @@ public interface ISecurityService extends IService {
      * @param username user name
      * @return {@link UserAccount}
      */
-    UnitUserBean findUserByEmail(final String email);
+    UserAccountBean findUserByEmail(final String email);
 
     /**
      * Get User Logged Twitter Accounts.
@@ -357,7 +365,7 @@ public interface ISecurityService extends IService {
      * @param user
      * @return
      */
-    void getStatsByUsers(final UnitUserBean user);
+    void getStatsByUsers(final UserAccountBean user);
 
     /**
      * Get User by Group.
@@ -390,9 +398,24 @@ public interface ISecurityService extends IService {
      * @throws EnMeDomainNotFoundException
      */
     void upadteAccountProfile(
-            final String property,
+            final Profile property,
             final String value,
             final String username) throws EnMeDomainNotFoundException;
+
+    /**
+     * Update Account Profile.
+     * @param bio
+     * @param email
+     * @param username
+     * @param language
+     * @param completeName
+     * @throws EnMeDomainNotFoundException
+     */
+    void upadteAccountProfile(
+            final String bio,
+            final String language,
+            final String completeName,
+            final String loggedUsername) throws EnMeDomainNotFoundException;
 
     /**
      * User Account Is Activated.

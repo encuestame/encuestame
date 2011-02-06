@@ -149,6 +149,15 @@ public abstract class AbstractDataSource{
     }
 
     /**
+     * Find {@link UserAccount} by email.
+     * @param email
+     * @return
+     */
+    public UserAccount findUserAccountByEmail(final String email) {
+        return getAccountDao().getUserByEmail(email);
+    }
+
+    /**
      * Get Primary User Id.
      * @param username
      * @return

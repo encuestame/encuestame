@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 
@@ -32,8 +32,14 @@ import org.springframework.validation.Errors;
  */
 public class ValidateOperations {
 
+    /**
+     * Email Pattern.
+     */
     private static final Pattern emailPattern = Pattern.compile(ValidationUtils.EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
 
+    /**
+     * Log.
+     */
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
@@ -80,10 +86,10 @@ public class ValidateOperations {
      * @param username
      * @return
      */
-    public Boolean validateUserEmail(final String username){
-        log.debug("validating email... ");
+    public Boolean validateUserEmail(final String email){
+        log.debug("validating email... ->"+email);
         Boolean valid = false;
-        final UserAccount user = getUser(username);
+        final UserAccount user = getSecurityService().findUserAccountByEmail(email);
         if(user == null){
             log.debug("email is valid..");
             valid = true;
@@ -96,11 +102,11 @@ public class ValidateOperations {
      * @param email email
      * @return
      */
-    public UnitUserBean validateUserByEmail(final String email){
-        UnitUserBean unitUserBean = null;
+    public UserAccountBean validateUserByEmail(final String email){
+        UserAccountBean unitUserBean = null;
         log.debug("validating email... ");
         if(this.validateEmail(email)) {
-            log.debug("enail...");
+            log.debug("fetch by email...");
             unitUserBean = getSecurityService().findUserByEmail(email);
         }
         return unitUserBean;
@@ -112,10 +118,13 @@ public class ValidateOperations {
      * @return
      */
     public Boolean validateEmail(final String email){
+        log.debug("email validateEmail "+email);
         Boolean valid = false;
         if(emailPattern.matcher(email).matches() && StringUtils.hasLength(email)) {
             log.warn("email not valid");
-            valid = !valid;
+            valid = true;
+        } else {
+            log.debug("email format valid");
         }
         return valid;
     }

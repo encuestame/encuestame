@@ -20,7 +20,7 @@ import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.security.UnitForgotPassword;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,7 +73,7 @@ public class ForgetPasswordController extends AbstractSecurityController{
                  log.debug("email "+email);
                  final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
                  final ValidateOperations validation = new ValidateOperations(getSecurityService());
-                 final UnitUserBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
+                 final UserAccountBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
                  if(unitUserBean == null){
                      result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
                  }

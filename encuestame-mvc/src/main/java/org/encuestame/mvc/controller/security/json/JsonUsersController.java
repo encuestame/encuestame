@@ -23,11 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -68,10 +70,10 @@ public class JsonUsersController extends AbstractJsonController{
             log.debug("limit "+limit);
             log.debug("start "+start);
             final Map<String, Object> sucess = new HashMap<String, Object>();
-            final List<UnitUserBean> userList = getServiceManager()
+            final List<UserAccountBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
             //Filter values.
-            for (UnitUserBean unitUserBean : userList) {
+            for (UserAccountBean unitUserBean : userList) {
                 getSecurityService().getStatsByUsers(unitUserBean); //filter
                 log.debug("Date Enjoy "+unitUserBean.getDateNew());
                 final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(unitUserBean.getDateNew());
@@ -113,14 +115,44 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
             final Map<String, Object> sucess = new HashMap<String, Object>();
-            final UnitUserBean user = getServiceManager().getApplicationServices().getSecurityService()
-                                    .getUserCompleteInfo(userId, getUserPrincipalUsername());
+            final UserAccountBean user = getUser(userId);
             log.debug("user info "+userId);
             if (user == null) {
                 setError(new EnMeDomainNotFoundException("user not found").getMessage(), response);
-                log.error(new EnMeDomainNotFoundException("user not found").getMessage());
+                log.error("user not found");
             } else {
                 sucess.put("user", user);
+                setItemResponse(sucess);
+            }
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Get my info profile.
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/admon/info-profile.json", method = RequestMethod.GET)
+    public ModelMap getMyUserInfo(
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final Map<String, Object> sucess = new HashMap<String, Object>();
+            final ProfileUserAccount user = getProfileUserInfo();
+            if (user == null) {
+                setError("user not found", response);
+                log.error("user not found");
+            } else {
+                sucess.put("profile", user);
                 setItemResponse(sucess);
             }
         } catch (Exception e) {
@@ -151,7 +183,7 @@ public class JsonUsersController extends AbstractJsonController{
         try {
             log.debug("user newUsername "+username);
             log.debug("user newEmailUser "+email);
-            final UnitUserBean userBean = new UnitUserBean();
+            final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
             ///final Integer emails = getServiceManager().getApplicationServices()
@@ -279,7 +311,7 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-            getSecurityService().upadteAccountProfile(property, value,
+            getSecurityService().upadteAccountProfile(Profile.findProfile(property.toUpperCase()), value,
                     getUserPrincipalUsername());
             setSuccesResponse();
         } catch (Exception e) {

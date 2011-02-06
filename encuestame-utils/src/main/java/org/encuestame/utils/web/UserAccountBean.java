@@ -20,9 +20,8 @@ import java.util.Date;
  * Unit Use rBean.
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009
- * @version $Id$
  */
-public class UnitUserBean implements Serializable {
+public class UserAccountBean implements Serializable {
 
     /**
      *
@@ -291,5 +290,25 @@ public class UnitUserBean implements Serializable {
      */
     public void setRelateTimeEnjoy(final String relateTimeEnjoy) {
         this.relateTimeEnjoy = relateTimeEnjoy;
+    }
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("UnitUserBean [id=").append(id).append(", email=")
+                .append(email).append(", name=").append(name)
+                .append(", username=").append(username).append(", status=")
+                .append(status).append(", dateNew=").append(dateNew)
+                .append(", relateTimeEnjoy=").append(relateTimeEnjoy)
+                .append(", primaryUserId=").append(primaryUserId)
+                .append(", survey=").append(survey).append(", tweetPoll=")
+                .append(tweetPoll).append(", poll=").append(poll)
+                .append(", followers=").append(followers)
+                .append(", lastTimeLogged=").append(lastTimeLogged)
+                .append(", ipLastLogged=").append(ipLastLogged)
+                .append(", groupId=").append(groupId).append("]");
+        return builder.toString();
     }
 }
