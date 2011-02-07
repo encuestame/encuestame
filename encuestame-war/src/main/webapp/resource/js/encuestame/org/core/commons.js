@@ -68,7 +68,7 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
                 }
               },
             handle: function(response, ioargs) {
-                encuestame.filter.response(response);
+                //encuestame.filter.response(response);
                 var message = "";
                 console.info(ioargs.xhr.status, error);
                 switch (ioargs.xhr.status) {
@@ -229,7 +229,7 @@ encuestame.filter = {};
  * {"error":{"message":"Access is denied"}}
  */
 encuestame.filter.response = function(response){
-    console.info("filter", response);
+    console.info("encuestame.filter.response", response);
     //no permissions or session
     if(response == undefined){
         //no response

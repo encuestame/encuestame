@@ -343,22 +343,26 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-            ValidateOperations operations = new ValidateOperations(getSecurityService());
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final ValidateOperations operations = new ValidateOperations(getSecurityService());
             if (Profile.findProfile(type).equals(Profile.USERNAME)) {
                 if(operations.validateUsername(filterValue(value))){
-                    setItemResponse("validate", true);
+                    jsonResponse.put("validate", true);
                 } else {
-                    setItemResponse("validate", false);
+                    jsonResponse.put("validate", false);
                 }
             } else if (Profile.findProfile(type).equals(Profile.EMAIL)) {
                 if(operations.validateUserEmail(filterValue(value))){
-                    setItemResponse("validate", true);
+                    jsonResponse.put("validate", true);
                 } else {
-                    setItemResponse("validate", false);
+                    jsonResponse.put("validate", false);
                 }
             } else {
                 setError("invalid params", response);
             }
+            log.debug("messages"+ operations.getMessages().toString());
+            jsonResponse.put("messages", operations.getMessages());
+            setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();

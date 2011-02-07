@@ -81,7 +81,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ValidateOperations validation = new ValidateOperations(getSecurityService());
 
-             if(validation.validateUserByEmail(email) != null){
+             if(validation.validateUserEmail(email) != null){
                    log.warn("Email NOT VALID");
                    result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
              }

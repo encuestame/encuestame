@@ -21,8 +21,6 @@ dojo.declare(
 
         postCreate : function(){
             this._getMyProfile();
-            var email = dijit.byId("email");
-            var username = dijit.byId("username");
 
         },
 
@@ -34,8 +32,20 @@ dojo.declare(
                console.debug("profile info ", response);
                var email = dijit.byId("email");
                email.set("value", response.success.profile.email);
+               email.onChange = dojo.hitch(this, function(){
+                       console.debug("change");
+                       if(email.isValid()){
+                           email.validateBackEnd("email");
+                       }
+               });
                var username = dijit.byId("username");
                username.set("value", response.success.profile.username);
+               username.onChange = dojo.hitch(this, function(){
+                   console.debug("change");
+                   if(username.isValid()){
+                       username.validateBackEnd("username");
+                   }
+               });
                var completeName = dijit.byId("completeName");
                completeName.set("value", response.success.profile.name);
                var bio = dijit.byId("bio");
@@ -88,37 +98,36 @@ dojo.declare(
 dojo.extend(dijit.form.ValidationTextBox, {
 
 
-
-    isValid: function(/*Boolean*/ isFocused){
-        // summary:
-        //		Tests if value is valid.
-        //		Can override with your own routine in a subclass.
-        // tags:
-        //		protected
-        console.debug("isFocused", isFocused);
-        var defaultValid =  this.validator(this.textbox.value, this.constraints);
-        var backEndValid =  true;
-        if(isFocused){
-            backEndValid = this.validateBackEnd(this.textbox.value);
-        }
-        return (defaultValid && backEndValid);
-    },
+//
+//    isValid: function(/*Boolean*/ isFocused){
+//        // summary:
+//        //		Tests if value is valid.
+//        //		Can override with your own routine in a subclass.
+//        // tags:
+//        //		protected
+//        var defaultValid =  this.validator(this.textbox.value, this.constraints);
+//        var backEndValid =  true;
+//        if(isFocused){
+//            backEndValid = this.validateBackEnd(this.textbox.value);
+//        }
+//        return (defaultValid && backEndValid);
+//    },
 
     /*
      * validate back end.
      */
-    validateBackEnd : function(value){
-        var type = this.validateType;
+    validateBackEnd : function(type){
         console.debug("validateBackEnd", type);
         if(type != null){
             var load = dojo.hitch(this, function(response){
+                console.debug(type, response.success.validate);
                 return response.success.validate;
             });
             var error = function(error) {
                 console.debug("error", error);
                 return false;
             };
-            encuestame.service.xhrGet(encuestame.service.list.checkProfile, {type:type, value: value}, load, error);
+            encuestame.service.xhrGet(encuestame.service.list.checkProfile, {type:type, value: this.textbox.value}, load, error);
         } else {
             return true;
         }

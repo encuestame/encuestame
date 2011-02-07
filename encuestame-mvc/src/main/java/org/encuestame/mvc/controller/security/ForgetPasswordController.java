@@ -73,8 +73,7 @@ public class ForgetPasswordController extends AbstractSecurityController{
                  log.debug("email "+email);
                  final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
                  final ValidateOperations validation = new ValidateOperations(getSecurityService());
-                 final UserAccountBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
-                 if(unitUserBean == null){
+                 if(validation.validateUserEmail(email == null ? "" : email)){
                      result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
                  }
                  validation.validateCaptcha(reCaptchaResponse, result);
@@ -86,12 +85,14 @@ public class ForgetPasswordController extends AbstractSecurityController{
                 }
                 else {
                     final String password = PasswordGenerator.getPassword(6);
-                    try {
-                        getSecurityService().renewPassword(unitUserBean, password);
-                    } catch (EnMeExpcetion e) {
-                        log.error("Error Renewd password "+e.getMessage());
-                        return "forgot";
-                    }
+//                    try {
+//                        //getSecurityService().renewPassword(unitUserBean, password);
+//                        //TODO: refactor this method.
+//                        log.debug("foo");
+//                    } catch (EnMeExpcetion e) {
+//                        log.error("Error Renewd password "+e.getMessage());
+//                        return "forgot";
+//                    }
                      status.setComplete();
                     log.info("password generated "+password);
                     return "redirect:/user/signup";

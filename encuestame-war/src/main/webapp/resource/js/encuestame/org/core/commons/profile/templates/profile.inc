@@ -8,7 +8,9 @@
                         required="true"
                         validateType="email"
                         regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
-                        invalidMessage="Invalid email." lowercase="true" maxLength="40" selectOnClick="true">
+                        invalidMessage="Invalid email."
+                        lowercase="true"
+                        maxLength="150" selectOnClick="true">
                         <label for="email">
                             We need email to sent notificaitons, email required.
                         </label>
@@ -18,6 +20,7 @@
                         dojoType="dijit.form.ValidationTextBox"
                         required="true"
                         validateType="username"
+                        maxLength="18"
                         regExp="[\w]+" required="false" invalidMessage="Invalid username">
                         <label for="username">
                             without spaces, check availability

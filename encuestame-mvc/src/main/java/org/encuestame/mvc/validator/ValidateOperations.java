@@ -12,6 +12,7 @@
  */
 package org.encuestame.mvc.validator;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -37,6 +38,14 @@ public class ValidateOperations {
      */
     private static final Pattern emailPattern = Pattern.compile(ValidationUtils.EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
 
+
+    private static final Integer MIN_USERNAME_LENGTH = 3;
+
+    /**
+     *
+     */
+    private HashMap<String, String> messages = new HashMap<String, String>();
+
     /**
      * Log.
      */
@@ -60,13 +69,22 @@ public class ValidateOperations {
     public Boolean validateUsername(final String username){
         log.debug("validating username... ");
         Boolean valid = false;
-        final UserAccount user = getSecurityService().findUserByUserName(username);
-        if(user == null){
-            log.debug("username is valid..");
-            valid = true;
-        } else if (username.equals(user.getUsername())){
-            log.debug("username nothing to update");
-            valid = true;
+        if(username.length() >= MIN_USERNAME_LENGTH){
+            final UserAccount user = getSecurityService().findUserByUserName(username);
+            if (user == null) {
+                log.debug("username is valid..");
+                getMessages().put("username", "username is available");
+                valid = true;
+            } else if (username.equals(user.getUsername())) {
+                log.debug("username nothing to update");
+                getMessages().put("username", "nothing to update");
+                valid = true;
+            } else {
+                log.debug("username already exist");
+                getMessages().put("username", "username already exist");
+            }
+        } else {
+            getMessages().put("username", "username not valid");
         }
         return valid;
     }
@@ -89,10 +107,21 @@ public class ValidateOperations {
     public Boolean validateUserEmail(final String email){
         log.debug("validating email... ->"+email);
         Boolean valid = false;
-        final UserAccount user = getSecurityService().findUserAccountByEmail(email);
-        if(user == null){
-            log.debug("email is valid..");
-            valid = true;
+        if (this.validateEmail(email)) {
+            final UserAccount user = getSecurityService().findUserAccountByEmail(email);
+            if(user == null){
+                log.debug("email is valid..");
+                getMessages().put("email", "email is available");
+                valid = true;
+            } else if(email.equals(user.getUserEmail())){
+                getMessages().put("email", "nothing to change");
+                valid = true;
+            } else {
+                getMessages().put("email", "email already exist");
+            }
+
+        } else {
+            getMessages().put("email", "email wrong format");
         }
         return valid;
     }
@@ -102,6 +131,7 @@ public class ValidateOperations {
      * @param email email
      * @return
      */
+    @Deprecated //should be removed.
     public UserAccountBean validateUserByEmail(final String email){
         UserAccountBean unitUserBean = null;
         log.debug("validating email... ");
@@ -121,10 +151,12 @@ public class ValidateOperations {
         log.debug("email validateEmail "+email);
         Boolean valid = false;
         if(emailPattern.matcher(email).matches() && StringUtils.hasLength(email)) {
-            log.warn("email not valid");
+            log.warn("email valid");
+            getMessages().put("email", "email good format");
             valid = true;
         } else {
-            log.debug("email format valid");
+            log.debug("email format not valid");
+            getMessages().put("email", "email wrong valid");
         }
         return valid;
     }
@@ -153,5 +185,19 @@ public class ValidateOperations {
      */
     public void setSecurityService(final ISecurityService securityService) {
         this.securityService = securityService;
+    }
+
+    /**
+     * @return the messages
+     */
+    public HashMap<String, String> getMessages() {
+        return messages;
+    }
+
+    /**
+     * @param messages the messages to set
+     */
+    public void setMessages(HashMap<String, String> messages) {
+        this.messages = messages;
     }
 }
