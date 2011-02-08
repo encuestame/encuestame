@@ -49,7 +49,7 @@ public class TestUtil {
 
     public static Directory getBookIndexDirectory() throws IOException {
         // The build.xml ant script sets this property for us:
-        return FSDirectory.open(new File("src/main/resources/"));
+        return FSDirectory.open(new File("src/main/resources/IndexTest1"));
     }
 
     public static void rmDir(File dir) throws IOException {
