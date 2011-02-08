@@ -16,10 +16,12 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.encuestame.search.main.TestUtil;
+import org.junit.Ignore;
 
 /**
  * Adding documents to an index.
  * @author dmorales
+<<<<<<< HEAD
  * 1- The setUp() method first creates a new RAMDirectory, to hold the index.
  * 2-  it creates an IndexWriter on this Directory.
  * 3- Finally, setUp() iterates over our content, creating a Document and Fields, and then
@@ -29,6 +31,7 @@ string, returning the number of documents that matched.
  * 5- We verify the documents counts according to IndexReader and IndexWriter matches
  *	  how many documents we added.
   */
+
 
 public class IndexingTest extends TestCase{
     protected String[] ids = { "1", "2" };

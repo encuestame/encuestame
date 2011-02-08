@@ -15,7 +15,8 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Version;
 import org.encuestame.search.main.TestUtil;
-
+import org.junit.Ignore;
+@Ignore
 public class BasicSearchingTest extends TestCase {
 
     public void testTerm() throws Exception {
@@ -66,6 +67,4 @@ public class BasicSearchingTest extends TestCase {
         searcher.close();
         dir.close();
         }
-
-
 }
