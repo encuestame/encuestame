@@ -82,6 +82,7 @@
         <module>encuestame-utils</module>
         <module>encuestame-core</module>
         <module>encuestame-persistence</module>
+        <module>encuestame-search</module>
         <module>encuestame-business</module>
 <!--        <module>encuestame-web</module>-->
         <module>encuestame-mvc</module>
