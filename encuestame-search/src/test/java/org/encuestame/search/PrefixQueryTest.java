@@ -13,18 +13,22 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.encuestame.search.main.TestUtil;
-import org.junit.Ignore;
-@Ignore
+
+
 public class PrefixQueryTest extends TestCase{
     public void testPrefix() throws Exception {
         Directory dir = TestUtil.getBookIndexDirectory();
-        IndexSearcher searcher = new IndexSearcher(dir);
-        Term term = new Term("category", "src/main/resources/data/technology/computers/programming");
+        IndexSearcher searcher = new IndexSearcher(dir, true);
+        Term term = new Term("category", "/technology/computers/programming");
+        // Search, including subcategories.
         PrefixQuery query = new PrefixQuery(term);
-         TopDocs matches = searcher.search(query, 10);
+        TopDocs matches = searcher.search(query, 10);
         int programmingAndBelow = matches.totalHits;
+        System.out.println("Total Hits including -->"+ matches.totalHits);
+        // Search, without subcategories.
         matches = searcher.search(new TermQuery(term), 10);
         int justProgramming = matches.totalHits;
+        System.out.println("Total Hits without -->"+ matches.totalHits);
         assertTrue(programmingAndBelow > justProgramming);
         searcher.close();
         dir.close();
@@ -48,18 +52,18 @@ public void testAnd() throws Exception {
 
 
 public void testOr() throws Exception {
-    TermQuery methodologyBooks = new TermQuery(new Term("category", "src/main/resources/data/technology/computers/programming/methodology"));
+    TermQuery methodologyBooks = new TermQuery(new Term("category", "/technology/computers/programming/methodology"));
     TermQuery easternPhilosophyBooks = new TermQuery(
-    new Term("category", "src/main/resources/data/philosophy/eastern"));
+    new Term("category", "/data/philosophy/eastern"));
     BooleanQuery enlightenmentBooks = new BooleanQuery();
     enlightenmentBooks.add(methodologyBooks, BooleanClause.Occur.SHOULD);
     enlightenmentBooks.add(easternPhilosophyBooks , BooleanClause.Occur.SHOULD);
      Directory dir = TestUtil.getBookIndexDirectory();
-    IndexSearcher searcher = new IndexSearcher(dir);
+    IndexSearcher searcher = new IndexSearcher(dir, true);
     TopDocs matches = searcher.search(enlightenmentBooks, 10);
     System.out.println("or = " + enlightenmentBooks);
     assertTrue(TestUtil.hitsIncludeTitle(searcher, matches, "Extreme Programming Explained"));
-    assertTrue(TestUtil.hitsIncludeTitle(searcher, matches, "Tao Te Ching \u9053\u5FB7\u7D93"));
+    assertTrue(TestUtil.hitsIncludeTitle(searcher, matches, "Tao Te Ching 道德經"));
     searcher.close();
     dir.close();
     }
