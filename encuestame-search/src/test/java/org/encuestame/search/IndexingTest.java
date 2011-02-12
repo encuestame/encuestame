@@ -21,8 +21,18 @@ import org.junit.Ignore;
 /**
  * Adding documents to an index.
  * @author dmorales
- */
-@Ignore
+<<<<<<< HEAD
+ * 1- The setUp() method first creates a new RAMDirectory, to hold the index.
+ * 2-  it creates an IndexWriter on this Directory.
+ * 3- Finally, setUp() iterates over our content, creating a Document and Fields, and then
+ *	adds the Document to the index.
+ * 4- We create the IndexSearcher and execute a basic single-term query with the specified
+string, returning the number of documents that matched.
+ * 5- We verify the documents counts according to IndexReader and IndexWriter matches
+ *	  how many documents we added.
+  */
+
+
 public class IndexingTest extends TestCase{
     protected String[] ids = { "1", "2" };
     protected String[] unindexed = { "Netherlands", "Italy" };
@@ -34,8 +44,9 @@ public class IndexingTest extends TestCase{
     protected void setUp() throws Exception {
         directory = new RAMDirectory();
 
-        IndexWriter writer = getWriter();
+        IndexWriter writer = getWriter(); // Create an Index writer.
 
+        // Add documents to the index.
         for (int i = 0; i < ids.length; i++) {
             Document doc = new Document();
             doc.add(new Field("id", ids[i], Field.Store.YES,
@@ -72,7 +83,7 @@ public class IndexingTest extends TestCase{
             throws IOException {
         IndexSearcher searcher = new IndexSearcher(directory); // Create New Searcher.
         Term t = new Term(fieldName, searchString);
-        Query query = new TermQuery(t);
+        Query query = new TermQuery(t); // Build simple single term query.
         int hitCount = TestUtil.hitCount(searcher, query);
         searcher.close();
         return hitCount;
@@ -101,24 +112,37 @@ public class IndexingTest extends TestCase{
         reader.close();
     }
 
+    /**
+     * Deleting documents from an index.
+     * @throws IOException
+     */
     public void testDeleteBeforeOptimize() throws IOException {
         IndexWriter writer = getWriter();
-        assertEquals(2, writer.numDocs());
-        writer.deleteDocuments(new Term("id", "1"));
+        assertEquals(2, writer.numDocs()); // Verify 2 docs in index
+        writer.deleteDocuments(new Term("id", "1")); // Delete first document (Field, DocumentId)
         System.out.println("-------Writer NumDocs Before>"+ writer.numDocs());
         writer.commit();
-        assertTrue(writer.hasDeletions());
+        assertTrue(writer.hasDeletions()); // Verify Index contains deletions.
+        /** Verify 1 indexed doc returns the total number of deleted
+         * or undeleted documents in the index **/
         assertEquals(2, writer.maxDoc());
+        /**  Verify 1 deleted doc and returns the number of undeleted documents in an index. **/
         assertEquals(1, writer.numDocs());
-        System.out.println("-------Writer NumDocs After>"+ writer.numDocs());
+         System.out.println("-------Writer NumDocs After>"+ writer.numDocs());
         writer.close();
         }
 
+    /**
+     * Deleting documents from an index.
+     * we force Lucene to merge index segments, after deleting one document,
+     * by optimizing the index.
+     * @throws IOException
+     */
     public void testDeleteAfterOptimize() throws IOException {
         IndexWriter writer = getWriter();
         assertEquals(2, writer.numDocs());
         writer.deleteDocuments(new Term("id", "1"));
-        writer.optimize();
+        writer.optimize(); // Optimize to compact deletions.
         writer.commit();
         assertFalse(writer.hasDeletions());
         System.out.println("-------Writer Has Delete "+ writer.hasDeletions());
@@ -127,16 +151,20 @@ public class IndexingTest extends TestCase{
         writer.close();
     }
 
+     /**
+      * Updating indexed Documents
+      * @throws IOException
+      */
     public void testUpdate() throws IOException {
         assertEquals(1, getHitCount("city", "Amsterdam"));
         System.out.println("-------HIT COUNT BEFORE>"+ getHitCount("city", "Amsterdam"));
         IndexWriter writer = getWriter();
-        Document doc = new Document();
+        Document doc = new Document(); // Create new Document for Haag.
         doc.add(new Field("id", "1", Field.Store.YES, Field.Index.NOT_ANALYZED));
         doc.add(new Field("country", "Netherlands", Field.Store.YES, Field.Index.NO));
         doc.add(new Field("contents", "Den Haag has a lot of museums", Field.Store.NO, Field.Index.ANALYZED));
         doc.add(new Field("city", "Den Haag", Field.Store.YES, Field.Index.ANALYZED));
-        writer.updateDocument(new Term("id", "1"), doc);
+        writer.updateDocument(new Term("id", "1"), doc); // Replace with the new version.
         writer.close();
         System.out.println("-------HIT COUNT AFTER --->"+ getHitCount("city", "Amsterdam"));
         System.out.println("-------HIT COUNT AFTER DEN --->"+ getHitCount("city", "Den Haag"));
