@@ -38,6 +38,10 @@
         </plugins>
     </build>
     <dependencies>
+     <dependency>
+        <groupId>org.encuestame</groupId>
+        <artifactId>encuestame-search</artifactId>
+       </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-persistence</artifactId>

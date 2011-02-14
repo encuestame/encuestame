@@ -727,7 +727,11 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
-
+	    <dependency>
+        	<groupId>org.encuestame</groupId>
+                <artifactId>encuestame-search</artifactId>
+                <version>${encuestame.version}</version>
+             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-business</artifactId>
@@ -1496,6 +1500,18 @@
             <artifactId>tiles-el</artifactId>
             <version>2.2.1</version>
         </dependency>
+     <!-- Apache Poi  -->
+      <dependency>
+	   <groupId>org.apache.poi</groupId>
+	   <artifactId>poi-scratchpad</artifactId>
+	   <version>3.0.1-FINAL</version>
+      </dependency>
+     <!-- PDF Box -->
+      <dependency>
+           <groupId>pdfbox</groupId>
+	   <artifactId>pdfbox</artifactId>
+	   <version>0.7.3</version>
+      </dependency>
       </dependencies>
     </dependencyManagement>
 </project>
