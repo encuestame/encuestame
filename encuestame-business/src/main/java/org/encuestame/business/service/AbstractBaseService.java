@@ -35,7 +35,7 @@ import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.hibernate.HibernateException;
 
 import twitter4j.Twitter;
@@ -48,7 +48,6 @@ import twitter4j.http.AccessToken;
  * Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
- * @version $Id$
  */
 public abstract class AbstractBaseService extends AbstractConfigurationService {
 
@@ -157,14 +156,14 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
                 emailsDomain.setIdListEmail(emailList);
                 getEmailListsDao().saveOrUpdate(emailsDomain);
                 unitEmails.setIdEmail(emailsDomain.getIdEmail());
-                //Necesitamos crear el registro con el hash !!
+                //TODO: Necesitamos crear el registro con el hash !!
                 final EmailSubscribe subscribe = new EmailSubscribe();
                 subscribe.setEmail(emailsDomain);
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
                 this.serviceMail.send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
-                //Enviamos correo al usuario para que confirme su subscripcion.
+                //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {
                 throw new EnMeExpcetion(e);
@@ -305,12 +304,12 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @throws EnMeDomainNotFoundException
      * @throws EnMeExpcetion excepcion
      */
-    public List<UnitUserBean> loadListUsers(
+    public List<UserAccountBean> loadListUsers(
            final String currentUsername,
            final Integer maxResults,
            final Integer start) throws EnMeDomainNotFoundException {
         log.info("currentUsername "+currentUsername);
-        List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+        List<UserAccountBean> loadListUsers = new LinkedList<UserAccountBean>();
         final UserAccount userAccount = this.getUserAccount(currentUsername);
         if(userAccount != null){
             final Collection<UserAccount> listUsers = getAccountDao()
@@ -345,8 +344,8 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @return
      * @throws EnMeDomainNotFoundException
      */
-    public UnitUserBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
-        UnitUserBean userInfo = null;
+    public UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
+        UserAccountBean userInfo = null;
         final UserAccount user = getAccountDao().getSecondaryUserById(userId);
         if(this.validateOwnerGroup(user, currentUsername)){
             userInfo =  ConvertDomainBean.convertSecondaryUserToUserBean(user);

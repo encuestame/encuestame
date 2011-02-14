@@ -51,7 +51,7 @@ public class SignUpBeanValidator{
         log.debug("Validate Sign Up");
         final ValidateOperations validation = new ValidateOperations(securityService);
         MessageContext messages = context.getMessageContext();
-        if(validation.validateUserByEmail(booking.getEmail()) != null){
+        if(validation.validateUserEmail(booking.getEmail()) != null){
             log.warn("Email NOT VALID");
             //result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
             messages.addMessage(new MessageBuilder().error().source("email").

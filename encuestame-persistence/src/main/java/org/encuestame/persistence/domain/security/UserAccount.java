@@ -144,7 +144,7 @@ public class UserAccount {
     /**
      * @return username
      */
-    @Column(name = "username", nullable = false, length = 30)
+    @Column(name = "username", nullable = false, length = 30, unique = true)
     public String getUsername() {
         return this.username;
     }
@@ -331,34 +331,34 @@ public class UserAccount {
     }
 
     /**
-	 * @return the seguidores
-	 */
+     * @return the seguidores
+     */
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="userAccount_followers",
                joinColumns={@JoinColumn(name="uid")},
                inverseJoinColumns={@JoinColumn(name="uid_follower")})
-	public Set<UserAccount> getFollowers() {
-		return followers;
-	}
+    public Set<UserAccount> getFollowers() {
+        return followers;
+    }
 
-	/**
-	 * @param seguidores the seguidores to set
-	 */
-	public void setFollowers(Set<UserAccount> followers) {
-		this.followers = followers;
-	}
+    /**
+     * @param seguidores the seguidores to set
+     */
+    public void setFollowers(Set<UserAccount> followers) {
+        this.followers = followers;
+    }
 
-	/**
-	 * @return the userProfilePicture
-	 */
-	public String getUserProfilePicture() {
-		return userProfilePicture;
-	}
+    /**
+     * @return the userProfilePicture
+     */
+    public String getUserProfilePicture() {
+        return userProfilePicture;
+    }
 
-	/**
-	 * @param userProfilePicture the userProfilePicture to set
-	 */
-	public void setUserProfilePicture(String userProfilePicture) {
-		this.userProfilePicture = userProfilePicture;
-	}
+    /**
+     * @param userProfilePicture the userProfilePicture to set
+     */
+    public void setUserProfilePicture(String userProfilePicture) {
+        this.userProfilePicture = userProfilePicture;
+    }
  }

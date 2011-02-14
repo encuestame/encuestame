@@ -26,7 +26,7 @@ import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -248,10 +248,10 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
 
     /**
      * Send Renew Password Email.
-     * @param unitUserBean {@link UnitUserBean}.
+     * @param unitUserBean {@link UserAccountBean}.
      */
-    public void sendRenewPasswordEmail(final UnitUserBean unitUserBean){
-        final Map<String, UnitUserBean> model = new HashMap<String, UnitUserBean>();
+    public void sendRenewPasswordEmail(final UserAccountBean unitUserBean){
+        final Map<String, UserAccountBean> model = new HashMap<String, UserAccountBean>();
         model.put("user", unitUserBean);
         this.sendMimeEmail(model, unitUserBean.getEmail(), "Your New Password", this.noEmailResponse,
                            "renew-password.vm");

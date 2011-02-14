@@ -30,7 +30,7 @@ import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 
 
 /**
@@ -356,12 +356,12 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      }
 
      /**
-      * Create {@link UnitUserBean}.
+      * Create {@link UserAccountBean}.
       * @param username
       * @return
       */
-     public UnitUserBean createUnitUserBean(final String username, final String email){
-         final UnitUserBean bean = new UnitUserBean();
+     public UserAccountBean createUnitUserBean(final String username, final String email){
+         final UserAccountBean bean = new UserAccountBean();
          bean.setDateNew(new Date());
          bean.setEmail(email);
          bean.setUsername(username);

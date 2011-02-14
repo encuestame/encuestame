@@ -33,8 +33,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -43,7 +43,7 @@ import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -55,7 +55,6 @@ import org.springframework.stereotype.Service;
  * Security Bean Service.
  * @author Picado, Juan juan@encuestame.org
  * @since 27/04/2009 11:35:01
- * @version $Id$
  */
 @Service
 public class SecurityService extends AbstractBaseService implements ISecurityService {
@@ -101,7 +100,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param username user name
      * @return {@link UserAccount}
      */
-    public UnitUserBean findUserByEmail(final String email) {
+    public UserAccountBean findUserByEmail(final String email) {
         final UserAccount secondary = getAccountDao().getUserByEmail(email);
         return secondary == null ? null : ConvertDomainBean.convertSecondaryUserToUserBean(secondary);
     }
@@ -250,7 +249,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param user user
      * @param group group
      */
-    public void assingGroupToUser(final UnitUserBean user, final UnitGroupBean group){
+    public void assingGroupToUser(final UserAccountBean user, final UnitGroupBean group){
         // SecUsers userD = getUser(user.getUsername());
         // SecPermission perD = loadPermission(permission.getPermission());
         //assingGroup(user, group);
@@ -260,11 +259,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Search user by username.
      * @param username username
-     * @return {@link UnitUserBean}
+     * @return {@link UserAccountBean}
      */
-    public UnitUserBean searchUserByUsername(final String username) {
+    public UserAccountBean searchUserByUsername(final String username) {
         final UserAccount userDomain = getAccountDao().getUserByUsername(username);
-        UnitUserBean user = null;
+        UserAccountBean user = null;
         if (userDomain != null) {
             user = ConvertDomainBean.convertSecondaryUserToUserBean(userDomain);
         } else {
@@ -309,7 +308,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param userBean user to delete
      * @throws EnMeDomainNotFoundException
      */
-    public void deleteUser(final UnitUserBean userBean) throws EnMeDomainNotFoundException{
+    public void deleteUser(final UserAccountBean userBean) throws EnMeDomainNotFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
                 if (getSuspendedNotification()) {
                     log.info("notify delete account");
@@ -323,11 +322,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Renew password.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @param newPassword new password
      * @throws EnMeExpcetion
      */
-    public String renewPassword(final UnitUserBean userBean, String newPassword) throws EnMeExpcetion {
+    public String renewPassword(final UserAccountBean userBean, String newPassword) throws EnMeExpcetion {
         // search user
         final UserAccount userDomain = getUserAccount(userBean.getUsername());
         // validate user and password
@@ -393,7 +392,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param userBean user bean.
      * @throws EnMeExpcetion exception
      */
-    public void updateUser(final UnitUserBean userBean){
+    public void updateUser(final UserAccountBean userBean){
         log.info("service update user method");
             final UserAccount updateUser = getAccountDao().getUserByUsername(userBean.getUsername());
             log.info("update user, user found: "+updateUser.getUid());
@@ -475,11 +474,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Create a secondary user, generate password for user and send email to confirmate
      * the account.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @throws EnMeExpcetion personalize exception
      * @return if password is not notified  is returned
      */
-    public void createUser(final UnitUserBean userBean, final String username) throws EnMeExpcetion {
+    public void createUser(final UserAccountBean userBean, final String username) throws EnMeExpcetion {
         final UserAccount userAccount = new UserAccount();
         final Account account = getUserAccount(username).getAccount();
         //validate email and password
@@ -588,13 +587,13 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Assign permission to user.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @param permissionBean {@link UnitPermission}
      * @throws EnMeExpcetion exception
      */
 
     public void assignPermission(
-            final UnitUserBean userBean,
+            final UserAccountBean userBean,
             final UnitPermission permissionBean)
             throws EnMeExpcetion
    {
@@ -692,12 +691,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Remove {@link Group} from User.
-     * @param userBean {@link UnitUserBean}
+     * @param userBean {@link UserAccountBean}
      * @param groupBean {@link UnitGroupBean}
      * @throws EnMeExpcetion
      */
     public void removeGroupFromUser(
-            final UnitUserBean userBean,
+            final UserAccountBean userBean,
             final UnitGroupBean groupBean)
             throws EnMeExpcetion {
             //TODO: need be implemented
@@ -720,9 +719,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * SingUp User.
      * @param singUpBean {@link SignUpBean}.
-     * @return {@link UnitUserBean}.
+     * @return {@link UserAccountBean}.
      */
-    public UnitUserBean singupUser(final SignUpBean singUpBean){
+    public UserAccountBean singupUser(final SignUpBean singUpBean){
         log.debug("singupUser "+singUpBean.toString());
         final Account account = new Account();
         getAccountDao().saveOrUpdate(account);
@@ -866,7 +865,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param user
      * @return
      */
-    public void getStatsByUsers(final UnitUserBean user){
+    public void getStatsByUsers(final UserAccountBean user){
             final Long id = user.getId();
             final List<Long> tweetPoll = getAccountDao().getTotalTweetPollByUser(id);
             final List<Long> poll = getAccountDao().getTotalPollByUser(id);
@@ -1001,22 +1000,39 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @throws EnMeDomainNotFoundException
      */
     public void upadteAccountProfile(
-            final String property,
+            final Profile property,
             final String value,
             final String username) throws EnMeDomainNotFoundException{
         final UserAccount account = getUserAccount(username);
-        if(Profile.REAL_NAME.equals(property)){
-            account.setCompleteName(value.trim());
-        } else if(Profile.USERNAME.toString().equals(property)){
+        if(Profile.USERNAME.equals(property)){
             account.setUsername(value.trim());
             //TODO: we need update authorities
-        } else if(Profile.EMAIL.toString().equals(property)){
+        } else if(Profile.EMAIL.equals(property)){
             account.setUserEmail(value.trim());
-        } else if(Profile.LANGUAGE.toString().equals(property)){
-            //TODO: we need language property.
-        } else if(Profile.PRIVATE.toString().equals(property)){
-            //TODO: we need private property.
         }
+        getAccountDao().saveOrUpdate(account);
+    }
+
+    /**
+     * Update Account Profile.
+     * @param bio
+     * @param email
+     * @param username
+     * @param language
+     * @param completeName
+     * @throws EnMeDomainNotFoundException
+     */
+    public void upadteAccountProfile(
+            final String bio,
+            final String language,
+            final String completeName,
+            final String loggedUsername) throws EnMeDomainNotFoundException{
+        final UserAccount account = getUserAccount(loggedUsername);
+        log.debug("update Account user to update "+account.getUsername());
+        log.debug("update Account Profile bio "+bio);
+        log.debug("update Account Profile language "+language);
+        account.setCompleteName(completeName);
+        //TODO: bug 112, add another missing properties.
         getAccountDao().saveOrUpdate(account);
     }
 
@@ -1044,6 +1060,23 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         REAL_NAME;
 
         Profile(){
+        }
+
+        /**
+         * Find Profile.
+         * @param value
+         * @return
+         */
+        public static Profile findProfile(final String value) {
+            SecurityService.Profile result = null;
+            if (null != value) {
+               if ("EMAIL".equalsIgnoreCase(value)) { result = EMAIL; }
+               if ("USERNAME".equalsIgnoreCase(value)) { result = USERNAME; }
+               if ("LANGUAGE".equalsIgnoreCase(value)) { result = LANGUAGE; }
+               if ("PRIVATE".equalsIgnoreCase(value)) { result = PRIVATE; }
+               if ("REAL_NAME".equalsIgnoreCase(value)) { result = REAL_NAME; }
+            }
+            return result;
         }
 
         /**
