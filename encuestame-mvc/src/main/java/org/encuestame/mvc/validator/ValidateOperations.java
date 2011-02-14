@@ -20,6 +20,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.core.util.ValidationUtils;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.util.StringUtils;
@@ -53,10 +54,25 @@ public class ValidateOperations {
 
     /**
      *
+     */
+    private UserAccount userAccount;
+
+    /**
+     *
      * @param securityService
      */
     public ValidateOperations(final ISecurityService securityService) {
         this.securityService = securityService;
+    }
+
+    /**
+     *
+     * @param securityService
+     * @param currentUser
+     */
+    public ValidateOperations(final ISecurityService securityService, final UserAccount currentUser) {
+        this.securityService = securityService;
+        this.userAccount = currentUser;
     }
 
     private ISecurityService securityService;
@@ -71,17 +87,18 @@ public class ValidateOperations {
         Boolean valid = false;
         if(username.length() >= MIN_USERNAME_LENGTH){
             final UserAccount user = getSecurityService().findUserByUserName(username);
+            log.debug("fect user by username "+user);
             if (user == null) {
                 log.debug("username is valid..");
                 getMessages().put("username", "username is available");
                 valid = true;
             } else if (username.equals(user.getUsername())) {
-                log.debug("username nothing to update");
-                getMessages().put("username", "nothing to update");
-                valid = true;
-            } else {
                 log.debug("username already exist");
                 getMessages().put("username", "username already exist");
+            }
+            else {
+                log.debug("username not valid");
+                getMessages().put("username", "username not valid");
             }
         } else {
             getMessages().put("username", "username not valid");
@@ -109,15 +126,15 @@ public class ValidateOperations {
         Boolean valid = false;
         if (this.validateEmail(email)) {
             final UserAccount user = getSecurityService().findUserAccountByEmail(email);
+            log.debug("fect user by email "+user);
             if(user == null){
                 log.debug("email is valid..");
                 getMessages().put("email", "email is available");
                 valid = true;
             } else if(email.equals(user.getUserEmail())){
-                getMessages().put("email", "nothing to change");
-                valid = true;
-            } else {
                 getMessages().put("email", "email already exist");
+            } else {
+                getMessages().put("email", "email not valid");
             }
 
         } else {

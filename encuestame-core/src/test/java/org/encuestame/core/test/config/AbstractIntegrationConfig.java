@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,23 +10,30 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.test.business.service.config;
+package org.encuestame.core.test.config;
 
-import org.encuestame.test.config.AbstractBaseUnitBeans;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
+import org.junit.runner.RunWith;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 23, 2010 10:42:59 AM
- * @version Id:
+ * @since Feb 12, 2011 1:21:01 AM
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@Scope("singleton")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-security-context.xml",
-        "classpath:encuestame-service-context.xml",
-        "classpath:encuestame-integration.xml"
-         })
-public class AbstractServiceBase extends AbstractBaseUnitBeans{
+         "classpath:encuestame-integration.xml"
+          })
+@Ignore
+public class AbstractIntegrationConfig{
+
+    public Log log = LogFactory.getLog(this.getClass());
+
 
 }

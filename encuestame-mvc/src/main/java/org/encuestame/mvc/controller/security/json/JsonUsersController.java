@@ -344,7 +344,7 @@ public class JsonUsersController extends AbstractJsonController{
             JsonMappingException, IOException {
         try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            final ValidateOperations operations = new ValidateOperations(getSecurityService());
+            final ValidateOperations operations = new ValidateOperations(getSecurityService(), getUserAccount());
             if (Profile.findProfile(type).equals(Profile.USERNAME)) {
                 if(operations.validateUsername(filterValue(value))){
                     jsonResponse.put("validate", true);

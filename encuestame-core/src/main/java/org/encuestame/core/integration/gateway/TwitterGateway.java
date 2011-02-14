@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,23 +10,16 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.test.business.service.config;
+package org.encuestame.core.integration.gateway;
 
-import org.encuestame.test.config.AbstractBaseUnitBeans;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.integration.annotation.Gateway;
 
 /**
- * Description Class.
+ * Spring Integration Message Gateway for sending twitter messages.
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 23, 2010 10:42:59 AM
- * @version Id:
+ * @since Feb 12, 2011 1:24:36 PM
  */
-@ContextConfiguration(locations = {
-        "classpath:encuestame-email-context.xml",
-        "classpath:encuestame-security-context.xml",
-        "classpath:encuestame-service-context.xml",
-        "classpath:encuestame-integration.xml"
-         })
-public class AbstractServiceBase extends AbstractBaseUnitBeans{
+public interface TwitterGateway {
 
+    void publishTweet(String message);
 }

@@ -166,7 +166,7 @@ public abstract class BaseController extends AbstractSecurityContext{
     }
 
     /**
-     * Get User Account.
+     * Fetch user account currently logged.
      * @return
      */
     public UserAccount getUserAccount(){

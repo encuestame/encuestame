@@ -20,8 +20,8 @@
             classpath:encuestame-mvc-context.xml,
             classpath:encuestame-web-flow-context.xml,
             classpath:encuestame-controller-context.xml,
-            classpath:encuestame-json-context.xml
-            <!--  classpath:encuestame-integration.xml-->
+            classpath:encuestame-json-context.xml,
+            classpath:encuestame-integration.xml
             </param-value>
     </context-param>
     <!--

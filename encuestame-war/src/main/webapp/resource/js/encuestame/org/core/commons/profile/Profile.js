@@ -34,17 +34,13 @@ dojo.declare(
                email.set("value", response.success.profile.email);
                email.onChange = dojo.hitch(this, function(){
                        console.debug("change");
-                       if(email.isValid()){
-                           email.validateBackEnd("email");
-                       }
+                       email.validateBackEnd("email");
                });
                var username = dijit.byId("username");
                username.set("value", response.success.profile.username);
                username.onChange = dojo.hitch(this, function(){
                    console.debug("change");
-                   if(username.isValid()){
-                       username.validateBackEnd("username");
-                   }
+                   username.validateBackEnd("username");
                });
                var completeName = dijit.byId("completeName");
                completeName.set("value", response.success.profile.name);
@@ -121,15 +117,22 @@ dojo.extend(dijit.form.ValidationTextBox, {
         if(type != null){
             var load = dojo.hitch(this, function(response){
                 console.debug(type, response.success.validate);
-                return response.success.validate;
+                if(!response.success.validate){
+                    var message = response.success.messages[type];
+                     console.debug("Error", message);
+                    this.invalidMessage = message;
+                    this.getErrorMessage(true);
+                    this._maskValidSubsetError = true;
+                    this.displayMessage(message);
+                    console.debug("set error message");
+                }
+                //return response.success.validate;
             });
             var error = function(error) {
                 console.debug("error", error);
-                return false;
+                //return false;
             };
             encuestame.service.xhrGet(encuestame.service.list.checkProfile, {type:type, value: this.textbox.value}, load, error);
-        } else {
-            return true;
         }
     }
 });
