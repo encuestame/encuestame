@@ -1,6 +1,3 @@
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/publicBody.jsp" %>
     <div id="mainUserWrapper">
         <div class="form">
             <form:form modelAttribute="signUpBean">
@@ -38,4 +35,3 @@
             <a href="<%=request.getContextPath()%>/user/forgot">Forgot Password?</a>
         </div>
     </div>
-<%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

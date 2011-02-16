@@ -21,25 +21,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Home or FrontEnd Controller.
+ * DashBoard Controller.
  * @author Picado, Juan juan@encuestame.org
  * @since Mar 6, 2010 10:58:02 AM
  * @version $Id: $
  */
 
 @Controller
-public class HomeController extends BaseController {
+public class DashBoardController extends BaseController {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Home Controller.
+     * DashBoard Controller.
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/home.jspx", method = RequestMethod.GET)
-    public String homeController(ModelMap model) {
-        log.debug("HOME");
-        return "home";
+    @RequestMapping(value = "/dashboard.jspx", method = RequestMethod.GET)
+    public String dashBoardController(ModelMap model) {
+        log.debug("dashboard");
+        return "dashboard";
     }
 }

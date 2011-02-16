@@ -28,18 +28,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class HomeController extends BaseController {
+public class SearchController extends BaseController {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Home Controller.
-     * @param model model
-     * @return template
+     * Search Controller.
+     * @param model
+     * @return
      */
-    @RequestMapping(value = "/home.jspx", method = RequestMethod.GET)
-    public String homeController(ModelMap model) {
-        log.debug("HOME");
-        return "home";
+    @RequestMapping(value = "/search.jspx", method = RequestMethod.POST)
+    public String searchHomePost(ModelMap model) {
+        log.debug("search post");
+        return "search";
     }
+
+    /**
+     * Search.
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/search.jspx", method = RequestMethod.GET)
+    public String searchHomeGet(ModelMap model) {
+        log.debug("search get");
+        return "search";
+    }
+
 }

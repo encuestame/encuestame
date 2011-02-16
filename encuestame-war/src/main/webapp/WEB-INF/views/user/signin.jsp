@@ -1,8 +1,9 @@
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
+<%@ page session="false" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <script src='http://connect.facebook.net/en_US/all.js'></script>
-<%@ include file="/WEB-INF/jsp/includes/publicBody.jsp" %>
-    <div id="loginWrapper">
+ <div id="loginWrapper">
        <div class="formWrapper">
            <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/j_spring_security_check"  method="post">
                   <div class="field">
@@ -86,6 +87,3 @@
                 </script>
         </div>
     </div>
-<%@ include file="/WEB-INF/jsp/includes/endBody.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/validate.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>

@@ -15,14 +15,13 @@ import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.message.GenericMessage;
 import org.springframework.integration.twitter.core.Tweet;
 import org.springframework.integration.twitter.core.Twitter4jTemplate;
-import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
 @ContextConfiguration(locations = {
-         "classpath:TwitterSendUpdates-context.xml",
+         "classpath:TwitterSendUpdates-context.xml"
           })
 @Ignore
 public class TwitterIntegrationTestCase {
@@ -42,8 +41,8 @@ public class TwitterIntegrationTestCase {
 
     //@Test
     public void validateTemplate(){
-        System.out.println(this.twitterTemplate.search("nicaragua").getTweets().size());
-        System.out.println(this.twitterTemplate.getDirectMessages().size());
+        //System.out.println(this.twitterTemplate.search("nicaragua").getTweets().size());
+        //System.out.println(this.twitterTemplate.getDirectMessages().size());
         for (Tweet tweet : this.twitterTemplate.search("nicaragua").getTweets()) {
             System.out.println(tweet.getFromUser());
             System.out.println(tweet.getText());

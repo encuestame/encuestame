@@ -3,7 +3,6 @@ package org.encuestame.core.test.integration;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
