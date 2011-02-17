@@ -5,8 +5,8 @@
 
     <definition name="dashboard" extends="page">
         <put-attribute name="title" value="DashBoard" />
-         <put-attribute name="menu" value="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" value="/WEB-INF/views/dashboard/${currentDevice.mobile ? 'mobile/' : 'web/'}dashboard.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/dashboard/${currentDevice.mobile ? 'mobile/' : 'web/'}dashboard.jsp" />
     </definition>
 
 </tiles-definitions>

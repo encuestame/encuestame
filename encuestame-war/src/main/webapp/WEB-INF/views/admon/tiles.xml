@@ -5,17 +5,20 @@
 
     <definition name="location" extends="page">
         <put-attribute name="title" value="Locations | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}location.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}location.jsp" />
     </definition>
 
     <definition name="members" extends="page">
         <put-attribute name="title" value="Members | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/members/${currentDevice.mobile ? 'mobile/' : 'web/'}members.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/members/${currentDevice.mobile ? 'mobile/' : 'web/'}members.jsp" />
     </definition>
 
     <definition name="project" extends="page">
         <put-attribute name="title" value="Project | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/project/${currentDevice.mobile ? 'mobile/' : 'web/'}project.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/project/${currentDevice.mobile ? 'mobile/' : 'web/'}project.jsp" />
     </definition>
 
 </tiles-definitions>

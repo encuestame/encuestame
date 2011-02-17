@@ -1,3 +1,4 @@
+   <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
     <div id="mainUserWrapper">
         <div class="form">
             <form:form modelAttribute="signUpBean">

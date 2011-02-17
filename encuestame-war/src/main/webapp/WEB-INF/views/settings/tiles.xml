@@ -4,8 +4,9 @@
 <tiles-definitions>
 
     <definition name="settings" extends="page">
-        <put-attribute name="title" value="Home | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/settings/${currentDevice.mobile ? 'mobile/' : 'web/'}settings.jsp" />
+        <put-attribute name="title" value="Settings | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/settings/${currentDevice.mobile ? 'mobile/' : 'web/'}settings.jsp" />
     </definition>
 
 </tiles-definitions>

@@ -43,7 +43,7 @@
         <tiles:insertAttribute name="menu" ignore="true" />
         <div id="content-container">
             <div id="content">
-                <tiles:insertAttribute name="content" />
+                <tiles:insertAttribute name="content"/>
             </div>
             <div id="footer">
                 <tiles:insertAttribute name="footer" />
