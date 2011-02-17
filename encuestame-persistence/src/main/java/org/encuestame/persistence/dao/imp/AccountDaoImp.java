@@ -164,7 +164,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public List<SocialAccount> getTwitterAccountByUser(final Account secUsers){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.like("secUsers", secUsers) );
+        criteria.add(Restrictions.eq("secUsers", secUsers) );
         return   getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -175,9 +175,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public List<SocialAccount> getTwitterVerifiedAccountByUser(final Account secUsers){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.like("secUsers", secUsers) );
+        criteria.add(Restrictions.eq("secUsers", secUsers) );
         criteria.add(Restrictions.eq("verfied", true) );
-        return   getHibernateTemplate().findByCriteria(criteria);
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**

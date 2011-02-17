@@ -5,12 +5,17 @@
 
     <definition name="signin" extends="page">
         <put-attribute name="title" value="Sign In | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/user/signin.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signin.jsp" />
     </definition>
 
     <definition name="signup" extends="page">
         <put-attribute name="title" value="Sign Up | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/user/signup.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signup.jsp" />
+    </definition>
+
+    <definition name="forgot" extends="page">
+        <put-attribute name="title" value="Sign Up | encuestame" />
+        <put-attribute name="content" value="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}forgot.jsp" />
     </definition>
 
 </tiles-definitions>

@@ -3,9 +3,9 @@
 
 <tiles-definitions>
 
-    <definition name="home" extends="page">
+    <definition name="poll" extends="page">
         <put-attribute name="title" value="Home | encuestame" />
-        <put-attribute name="content" value="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}home.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}poll.jsp" />
     </definition>
 
 </tiles-definitions>
