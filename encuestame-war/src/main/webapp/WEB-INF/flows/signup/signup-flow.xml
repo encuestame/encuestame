@@ -13,7 +13,7 @@
         </binder>
         <transition on="saveUser" to="findFriends" validate="true" history="discard">
                <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
-                         result-type="org.encuestame.utils.web.UnitUserBean"/>
+                         result-type="org.encuestame.utils.web.UserAccountBean"/>
         </transition>
     </view-state>
 

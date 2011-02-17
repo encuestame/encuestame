@@ -14,6 +14,9 @@
                         http://www.springframework.org/schema/mobile/device
                         http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
 
+   <!-- Tiles Configuration -->
+   <import resource="classpath:encuestame-tiles-context.xml"/>
+
    <!-- Define url mappings to web flow controller.  -->
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
        <property name="mappings">
@@ -54,13 +57,14 @@
     </bean>
 
   <!--
-  This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver -->
+  This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver
   <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="order" value="3"/>
       <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
       <property name="prefix" value="/WEB-INF/jsp/"/>
       <property name="suffix" value=".jsp"/>
   </bean>
+  -->
 
   <!-- Controller Views -->
   <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
@@ -90,7 +94,6 @@
         <property name="order" value="1"/>
     </bean>
      -->
-
 
     <!-- Create Cookie Default Locale
 

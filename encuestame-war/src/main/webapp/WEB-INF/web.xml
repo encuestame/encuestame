@@ -162,7 +162,7 @@
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>/settings/*</url-pattern>
     </servlet-mapping>
