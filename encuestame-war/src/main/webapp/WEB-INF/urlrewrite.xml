@@ -90,6 +90,24 @@
       <to type="redirect">admon/members</to>
     </rule>
 
+    <rule>
+        <from>^/admon/location</from>
+        <to>/location.jspx</to>
+    </rule>
+     <rule>
+      <from>^/location.jspx</from>
+      <to type="redirect">admon/location</to>
+    </rule>
+
+    <rule>
+        <from>^/admon/project</from>
+        <to>/project.jspx</to>
+    </rule>
+     <rule>
+      <from>^/project.jspx</from>
+      <to type="redirect">admon/project</to>
+    </rule>
+
 
 <!--    <rule>-->
 <!--        <from>^/user/denied</from>-->

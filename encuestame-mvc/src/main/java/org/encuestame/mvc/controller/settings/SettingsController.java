@@ -36,7 +36,7 @@ public class SettingsController extends BaseController{
      * @param model
      * @return
      */
-    @RequestMapping(value = "/settings/account", method = RequestMethod.GET)
+    @RequestMapping(value = "/ac/account", method = RequestMethod.GET)
     public String settingsAccountController(ModelMap model) {
         log.debug("account");
         return "settings/account";
@@ -47,7 +47,7 @@ public class SettingsController extends BaseController{
     * @param model
     * @return
     */
-   @RequestMapping(value = "/settings/social", method = RequestMethod.GET)
+   @RequestMapping(value = "/ac/social", method = RequestMethod.GET)
    public String socialSettingsController(ModelMap model) {
        log.debug("social");
        return "settings/social";

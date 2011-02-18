@@ -861,7 +861,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * User Bean.
+     * Fetch stats by user account.
      * @param user
      * @return
      */

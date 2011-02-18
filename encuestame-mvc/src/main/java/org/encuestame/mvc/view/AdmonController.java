@@ -42,19 +42,19 @@ public class AdmonController extends BaseController {
     @RequestMapping(value = "/admon/location.jspx", method = RequestMethod.GET)
     public String admonLocation(ModelMap model) {
         log.debug("LOCATION");
-        return "admon/location";
+        return "location";
     }
 
     @RequestMapping(value = "/admon/members.jspx", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
-        log.debug("LOCATION");
-        return "admon/members";
+        log.debug("MEMGERS");
+        return "members";
     }
 
-    @RequestMapping(value = "admon/project.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/project.jspx", method = RequestMethod.GET)
     public String admonProject(ModelMap model) {
-        log.debug("LOCATION");
-        return "admon/project";
+        log.debug("PROJECT");
+        return "project";
     }
 
 }

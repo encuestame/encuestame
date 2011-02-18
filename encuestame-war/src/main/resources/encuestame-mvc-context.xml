@@ -25,6 +25,12 @@
          </value>
        </property>
        <property name="defaultHandler" ref="urlFilenameViewController"/>
+       <property name="interceptors">
+        <list>
+             <ref bean="enMeInterceptor"/>
+             <ref bean="openSessionInViewInterceptor"/>
+        </list>
+    </property>
        <property name="order" value="1"/>
     </bean>
 
@@ -42,14 +48,6 @@
         <!-- the maximum file size in bytes = 10MB -->
         <property name="maxUploadSize" value="10485760" />
     </bean>
-
-   <bean name="openSessionInViewInterceptor"
-            class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-        <property name="singleSession" value="false" />
-   </bean>
 
     <!-- Resolvers -->
     <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">

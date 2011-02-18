@@ -18,11 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.EnMeUserDetails;
-import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.core.security.SecurityUtils;
 import org.joda.time.DateTimeZone;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -47,34 +44,27 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
 
     private final String COOKIE_CONTEXT = "en_me-context";
 
-    /**
-     * Account Dao.
-     */
-    @Autowired
-    private IAccountDao accountDao;
-
     /* (non-Javadoc)
      * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
      */
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-        //filter account
+        log.debug("preHandle");
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.getPrincipal() instanceof EnMeUserDetails) {
-            final EnMeUserDetails details = (EnMeUserDetails) auth.getPrincipal();
-            final UserAccount account = this.accountDao.getUserByUsername(details.getUsername());
-            if(account != null){
-                request.setAttribute("userAccount", account);
-                log.debug("Added account to request "+account.getUid());
+        if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
+            if(SecurityUtils.checkIsSessionIsAnonymousUser(auth)){
+                request.setAttribute("logged", false);
             } else {
-                log.warn("This account not should be null: Username ["+details.getUsername()+"]");
+                //cookies
+                Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
+                if(cookieName != null){
+                    log.debug("Cookie "+cookieName.getName());
+                    cookieName.setValue(RandomStringUtils.random(4)); //TODO: testing cookies.
+                }
+                request.setAttribute("logged", true);
             }
-            //cookies
-            Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
-            if(cookieName != null){
-                log.debug("Cookie "+cookieName.getName());
-                cookieName.setValue(RandomStringUtils.random(4)); //TODO: testing cookies.
-            }
+        } else {
+            request.setAttribute("logged", false);
         }
         return true;
     }
@@ -99,6 +89,7 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
+            log.debug("postHandle");
             Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
             if(cookieName == null){
                 this.createAddCookie(COOKIE_NAME, response, RandomStringUtils.random(4));
@@ -124,12 +115,5 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
             HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
 
-    }
-
-    /**
-     * @param accountDao the accountDao to set
-     */
-    public void setAccountDao(final IAccountDao accountDao) {
-        this.accountDao = accountDao;
     }
 }

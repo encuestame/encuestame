@@ -33,7 +33,6 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,22 +72,24 @@ public class JsonUsersController extends AbstractJsonController{
             final Map<String, Object> sucess = new HashMap<String, Object>();
             final List<UserAccountBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
+            log.debug("size users to retrieve "+userList.size());
             //Filter values.
             for (UserAccountBean unitUserBean : userList) {
+                log.debug("user to retrieve "+unitUserBean.getUsername());
                 getSecurityService().getStatsByUsers(unitUserBean); //filter
-                log.debug("Date Enjoy "+unitUserBean.getDateNew());
                 final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(unitUserBean.getDateNew());
                 final Iterator it = relativeTime.entrySet().iterator();
                 while (it.hasNext()) {
                     final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
-                    System.out.println(e.getKey() + " " + e.getValue());
-                    unitUserBean.setRelateTimeEnjoy(
-                                    convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
+                    log.debug("--"+e.getKey() + "**" + e.getValue());
+                    unitUserBean.setRelateTimeEnjoy(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
                 }
             }
             sucess.put("users", userList);
-            sucess.put("total", getServiceManager().getApplicationServices()
-                      .getSecurityService().totalOwnUsers(getUserPrincipalUsername()));
+            long total = getServiceManager().getApplicationServices()
+            .getSecurityService().totalOwnUsers(getUserPrincipalUsername());
+            log.debug("user total users "+total);
+            sucess.put("total", total);
             setItemResponse(sucess);
         } catch (Exception e) {
             log.error(e);

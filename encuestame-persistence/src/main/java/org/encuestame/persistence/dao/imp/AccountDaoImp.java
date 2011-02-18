@@ -24,6 +24,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.OAuthToken;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -72,6 +73,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("account", account));
+        criteria.setFetchMode("secUserPermissions", FetchMode.SELECT);
         criteria.addOrder(Order.asc("enjoyDate"));
         return getHibernateTemplate().findByCriteria(criteria, start, maxResults);
     }

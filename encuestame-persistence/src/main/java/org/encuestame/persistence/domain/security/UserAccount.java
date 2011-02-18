@@ -19,6 +19,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -243,7 +244,8 @@ public class UserAccount {
     /**
      * @return the secUserPermissions
      */
-    @ManyToMany(cascade=CascadeType.ALL)
+    //TODO: eager is not properly solution, but works for now, we need remove this anotation.
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="userAccount_permission",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})

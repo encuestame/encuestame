@@ -15,9 +15,8 @@
     class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
       <property name="interceptors">
           <list>
-               <!--<ref bean="openSessionInViewInterceptor"/>
-               <ref bean="mobileInterceptor"/>
-               <ref bean="enMeInterceptor"/>-->
+               <ref bean="enMeInterceptor"/>
+               <ref bean="openSessionInViewInterceptor"/>
           </list>
       </property>
      <property name="order" value="0"/>
@@ -25,6 +24,14 @@
 
   <bean id="mobileInterceptor" class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
   <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
+  <bean name="openSessionInViewInterceptor"
+            class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="singleSession" value="false" />
+   </bean>
+
 
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.mvc" />

@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <meta name="description" content="encuestame survey system" />
     <meta name="keywords" content="survey, twitter, social, open source, etc, etc" />
-    <%@ include file="/WEB-INF/jsp/includes/css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <script type="text/javascript">
          dojo.require("dijit.dijit");

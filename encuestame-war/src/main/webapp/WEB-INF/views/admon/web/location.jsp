@@ -1,6 +1,3 @@
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/initPage.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/initBody.jsp" %>
 <!-- Temporal Api -->
 <script src="http://maps.google.com/maps/api/js?sensor=false"
         type="text/javascript"></script>
@@ -19,6 +16,3 @@
 <div class="defaultMarginWrapper">
    <div id="map_canvas" style="width: 100%;height: 300px;"></div>
 </div>
-<%@ include file="/WEB-INF/jsp/includes/endBody.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/validate.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>
