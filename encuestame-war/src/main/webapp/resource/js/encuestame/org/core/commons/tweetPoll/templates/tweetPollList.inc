@@ -1,15 +1,12 @@
 <div class="tweetPollListWrapper">
          <div>
-            <div style="float: left; padding-top: 14px; padding-left: 17px; font-size: 112%; font-weight: bold; color: blue;cursor: pointer;
+            <div style="float: left; padding-top: 14px; padding-left: 17px; font-size: 112%; font-weight:
+                        bold; color: blue;cursor: pointer;
             text-decoration: underline;">
                     <div dojoAttachEvent="onclick:_onSwichChange" dojoAttachPoint="_swichChange">
                         New TweetPoll
                     </div>
             </div>
-             <div id="newTweetPoll" dojoType="dijit.Dialog" id="publishTweetPoll" draggable="false"
-                  >
-                <div dojoType="encuestame.org.core.commons.tweetPoll.TweetPoll"></div>
-             </div>
               <div class="navigation" id="basicNode">
                     <table>
                         <tr>

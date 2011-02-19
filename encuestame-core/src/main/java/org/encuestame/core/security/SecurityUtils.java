@@ -15,8 +15,10 @@ package org.encuestame.core.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -26,6 +28,11 @@ import org.springframework.security.core.GrantedAuthority;
  * @version Id:
  */
 public class SecurityUtils {
+
+    /*
+     * Log.
+     */
+    private static Logger log = Logger.getLogger(SecurityUtils.class);
 
     /**
      * Convert User Account to {@link EnMeUserDetails}.
@@ -69,5 +76,39 @@ public class SecurityUtils {
          //log.debug("user details "+userDetails.getAuthorities());
          //log.debug("user details "+userDetails.getUserEmail());
          return userDetails;
+    }
+
+    /**
+     * Check is Session is Expired.
+     * @param authentication
+     * @return
+     */
+    public static boolean checkIsSessionIsExpired(final Authentication authentication){
+        boolean session = true;
+        if(authentication != null){
+            session = authentication.isAuthenticated();
+            log.debug("checkIsSessionIsExpired NAME "+authentication.getName());
+            log.debug("checkIsSessionIsExpired CREDENTAISL "+authentication.getCredentials());
+            log.debug("checkIsSessionIsExpired DETAILS "+authentication.getDetails());
+            session = false;
+        }
+        log.debug("checkIsSessionIsExpired->"+session);
+        return session;
+    }
+
+    /**
+     * Check is Session is Expired.
+     * @param authentication
+     * @return
+     */
+    public static boolean checkIsSessionIsAnonymousUser(final Authentication authentication){
+        boolean anonymous = false;
+        if(authentication != null){
+            if("anonymousUser".equals(authentication.getName())){
+                anonymous = true;
+            }
+            log.debug("checkIsSessionIsExpired->"+anonymous);
+        }
+        return anonymous;
     }
 }

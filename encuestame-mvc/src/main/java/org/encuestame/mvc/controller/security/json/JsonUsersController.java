@@ -23,11 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -68,24 +71,26 @@ public class JsonUsersController extends AbstractJsonController{
             log.debug("limit "+limit);
             log.debug("start "+start);
             final Map<String, Object> sucess = new HashMap<String, Object>();
-            final List<UnitUserBean> userList = getServiceManager()
+            final List<UserAccountBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
+            log.debug("size users to retrieve "+userList.size());
             //Filter values.
-            for (UnitUserBean unitUserBean : userList) {
+            for (UserAccountBean unitUserBean : userList) {
+                log.debug("user to retrieve "+unitUserBean.getUsername());
                 getSecurityService().getStatsByUsers(unitUserBean); //filter
-                log.debug("Date Enjoy "+unitUserBean.getDateNew());
                 final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(unitUserBean.getDateNew());
                 final Iterator it = relativeTime.entrySet().iterator();
                 while (it.hasNext()) {
                     final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
-                    System.out.println(e.getKey() + " " + e.getValue());
-                    unitUserBean.setRelateTimeEnjoy(
-                                    convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
+                    log.debug("--"+e.getKey() + "**" + e.getValue());
+                    unitUserBean.setRelateTimeEnjoy(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
                 }
             }
             sucess.put("users", userList);
-            sucess.put("total", getServiceManager().getApplicationServices()
-                      .getSecurityService().totalOwnUsers(getUserPrincipalUsername()));
+            long total = getServiceManager().getApplicationServices()
+            .getSecurityService().totalOwnUsers(getUserPrincipalUsername());
+            log.debug("user total users "+total);
+            sucess.put("total", total);
             setItemResponse(sucess);
         } catch (Exception e) {
             log.error(e);
@@ -113,14 +118,44 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
             final Map<String, Object> sucess = new HashMap<String, Object>();
-            final UnitUserBean user = getServiceManager().getApplicationServices().getSecurityService()
-                                    .getUserCompleteInfo(userId, getUserPrincipalUsername());
+            final UserAccountBean user = getUser(userId);
             log.debug("user info "+userId);
             if (user == null) {
                 setError(new EnMeDomainNotFoundException("user not found").getMessage(), response);
-                log.error(new EnMeDomainNotFoundException("user not found").getMessage());
+                log.error("user not found");
             } else {
                 sucess.put("user", user);
+                setItemResponse(sucess);
+            }
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Get my info profile.
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/admon/info-profile.json", method = RequestMethod.GET)
+    public ModelMap getMyUserInfo(
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final Map<String, Object> sucess = new HashMap<String, Object>();
+            final ProfileUserAccount user = getProfileUserInfo();
+            if (user == null) {
+                setError("user not found", response);
+                log.error("user not found");
+            } else {
+                sucess.put("profile", user);
                 setItemResponse(sucess);
             }
         } catch (Exception e) {
@@ -151,7 +186,7 @@ public class JsonUsersController extends AbstractJsonController{
         try {
             log.debug("user newUsername "+username);
             log.debug("user newEmailUser "+email);
-            final UnitUserBean userBean = new UnitUserBean();
+            final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
             ///final Integer emails = getServiceManager().getApplicationServices()
@@ -160,7 +195,7 @@ public class JsonUsersController extends AbstractJsonController{
             //     .getSecurityService().searchUsersByUsername(username).size();
             final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
-            if(cv.validateEmail(email) && cv.validateUsername(username)){
+            if(cv.validateEmail(email)){ //TODO && cv.validateUsername(username)
                 final Map<String, Object> sucess = new HashMap<String, Object>();
                 getServiceManager().getApplicationServices().getSecurityService()
                 .createUser(userBean, getUserPrincipalUsername());
@@ -279,9 +314,58 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-            getSecurityService().upadteAccountProfile(property, value,
+            getSecurityService().upadteAccountProfile(Profile.findProfile(property.toUpperCase()), value,
                     getUserPrincipalUsername());
             setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+
+    /**
+     * Check if profile item is valid.
+     * @param request
+     * @param type
+     * @param value
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/user/account/validate.json", method = RequestMethod.GET)
+    public ModelMap validateItem(HttpServletRequest request,
+            @RequestParam(value = "type", required = true) String type,
+            @RequestParam(value = "value", required = true) String value,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final ValidateOperations operations = new ValidateOperations(getSecurityService(), getUserAccount());
+            final UserAccount account = getUserAccount();
+            if (Profile.findProfile(type).equals(Profile.USERNAME)) {
+                if(operations.validateUsername(filterValue(value), account)){
+                    jsonResponse.put("validate", true);
+                } else {
+                    jsonResponse.put("validate", false);
+                }
+            } else if (Profile.findProfile(type).equals(Profile.EMAIL)) {
+                if(operations.validateUserEmail(filterValue(value), account)){
+                    jsonResponse.put("validate", true);
+                } else {
+                    jsonResponse.put("validate", false);
+                }
+            } else {
+                setError("invalid params", response);
+            }
+            log.debug("messages"+ operations.getMessages().toString());
+            jsonResponse.put("messages", operations.getMessages());
+            setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();

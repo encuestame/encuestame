@@ -19,7 +19,7 @@ import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 
 /**
  * Project Service Interface.
@@ -69,7 +69,7 @@ public interface IProjectService {
      * @throws Exception
      * @throws EnMeExpcetion excepcion
      */
-    List<UnitUserBean> loadListUsers(final String currentUsername, final Integer maxResults,
+    List<UserAccountBean> loadListUsers(final String currentUsername, final Integer maxResults,
             final Integer start) throws EnMeDomainNotFoundException;
 
 }

@@ -1,0 +1,26 @@
+html{
+    font-family:helvetica,arial,sans-serif;
+    background-color: #FFF;
+}
+
+body {
+    font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile{
+    margin: 10px;
+}
+
+.mobile img{
+    margin: 5px;
+}
+
+.mobile{
+    font-style: italic;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px;
+}

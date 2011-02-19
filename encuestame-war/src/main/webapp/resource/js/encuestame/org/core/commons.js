@@ -68,7 +68,7 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
                 }
               },
             handle: function(response, ioargs) {
-                encuestame.filter.response(response);
+                //encuestame.filter.response(response);
                 var message = "";
                 console.info(ioargs.xhr.status, error);
                 switch (ioargs.xhr.status) {
@@ -229,7 +229,7 @@ encuestame.filter = {};
  * {"error":{"message":"Access is denied"}}
  */
 encuestame.filter.response = function(response){
-    console.info("filter", response);
+    console.info("encuestame.filter.response", response);
     //no permissions or session
     if(response == undefined){
         //no response
@@ -255,19 +255,22 @@ encuestame.session.getSession = function(){
 /**
  * Json Get Call.
  */
-encuestame.service.xhrPost = function(url, form, load, error){
+encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
+    //validate form param.
+    formEnabled = formEnabled == null ? true : formEnabled;
+    //default error.
     var defaultError = function(error, ioargs){
-        console.debug("default error ", error);
+        console.error("default error ", error);
     };
     if(error == null){
       error = defaultError;
     }
+    console.debug("Form POST ", form);
     if(load == null || url == null || form == null){
         console.error("error params required.");
     } else {
         var xhrArgs = {
                 url: url,
-                form: form,
                 timeout : encuestame.service.timeout,
                 handleAs: "json",
                 ailOk : true, //Indicates whether a request should be allowed to fail
@@ -276,10 +279,19 @@ encuestame.service.xhrPost = function(url, form, load, error){
                 preventCache: true,
                 error: error
             };
+        if (formEnabled) {
+            dojo.mixin(xhrArgs, { form: form });
+        } else {
+            dojo.mixin(xhrArgs, { postData: form });
+        }
         var deferred = dojo.xhrPost(xhrArgs);
     }
 };
 
+/*
+ * get context widget.
+ * TODO: review if this works properly.
+ */
 encuestame.contextWidget = function(){
     var contextWidget2 = dijit.byId("contextWidget");
     //console.debug("Context Widget: ", contextWidget2)
@@ -327,3 +339,11 @@ encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/u
 encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/removeGroup.json";
 encuestame.service.list.loadGroups = encuestame.contextWidget()+"/api/groups/groups.json";
 encuestame.service.list.assingGroups = encuestame.contextWidget()+"/api/admon/groups/assingToUser.json";
+
+//settings update
+encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/settings/profile/update.json";
+encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
+encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
+encuestame.service.list.myProfile = encuestame.contextWidget()+"/api/admon/info-profile.json";
+
+encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/account/validate.json";

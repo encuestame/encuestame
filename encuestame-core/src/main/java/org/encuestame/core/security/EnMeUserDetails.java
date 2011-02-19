@@ -247,4 +247,16 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
         this.completeName = completeName;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "EnMeUserDetails [authorities=" + authorities + ", username="
+                + username + ", enabled=" + enabled + ", accountNonExpired="
+                + accountNonExpired + ", accountNonLocked=" + accountNonLocked
+                + ", credentialsNonExpired=" + credentialsNonExpired
+                + ", userEmail=" + userEmail + ", completeName=" + completeName
+                + "]";
+    }
 }

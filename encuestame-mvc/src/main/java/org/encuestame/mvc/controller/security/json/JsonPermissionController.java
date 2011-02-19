@@ -25,7 +25,7 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -81,7 +81,7 @@ public class JsonPermissionController  extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                final UnitUserBean user = getUser(userId);
+                final UserAccountBean user = getUser(userId);
                 log.debug("user.getListPermission() "+user.getUsername());
                 log.debug("user.getListPermission() "+user.getListPermission().size());
                 jsonResponse.put("userPermissions", user.getListPermission());

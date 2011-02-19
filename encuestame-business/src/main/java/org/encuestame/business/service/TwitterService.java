@@ -23,6 +23,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ITwitterService;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,9 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @return tiny url
      * @throws IOException IOException
      * @throws HttpException HttpExceptio
+     * @deprecated moved to {@link SocialUtils}.
      */
+    @Deprecated
     public String getTinyUrl(final String url) throws HttpException, IOException{
         final HttpClient httpclient = new HttpClient();
         final HttpMethod method = new GetMethod(tinyApi);
