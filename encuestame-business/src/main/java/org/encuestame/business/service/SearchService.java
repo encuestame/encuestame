@@ -31,4 +31,10 @@ public class SearchService extends ISearchService {
         search.getIndexer(indexDirPath);
 
     }
+
+    public void searchContent(final String dirPath){
+
+    }
+
+
 }

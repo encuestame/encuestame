@@ -43,9 +43,7 @@ public class Searcher {
     public static void search(String indexDir, String q) throws IOException,
             ParseException {
         Directory dir = FSDirectory.open(new File(indexDir)); // Open Index
-
-
-        IndexSearcher is = new IndexSearcher(dir);
+        IndexSearcher is = new IndexSearcher(dir, true);
         QueryParser parser = new QueryParser(Version.LUCENE_29, "contents",
                 new StandardAnalyzer(Version.LUCENE_29));
         Query query = parser.parse(q); // Parse Query

@@ -121,6 +121,14 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
         </dependency>
+        <dependency>  
+           <groupId>org.apache.poi</groupId>
+           <artifactId>poi</artifactId>
+        </dependency>
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>	
+        </dependency>
         <dependency>
             <groupId>pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
