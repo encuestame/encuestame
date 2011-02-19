@@ -23,6 +23,7 @@ dojo.declare(
         listItems : null,
         defaultSearch : "LASTDAY",
         currentSearch : "",
+        contextPath : "",
         showNew : false,
         max : 8,
         start : 0,
@@ -45,6 +46,7 @@ dojo.declare(
         _onSwichChange : function(event){
             dojo.stopEvent(event);
             console.debug("new");
+            location.href = this.contextPath + "/newTweetPoll.jspx";
             //future, should add effects.
             /*var slideArgs = {
                     node: "detail",
@@ -64,8 +66,8 @@ dojo.declare(
 //                this._swichChange.innerHTML = "New TweetPoll";
 //            }
 //            this.showNew = !this.showNew;
-            dijit.byId("newTweetPoll").show();
-            dojo.publish("/encuestame/tweetpoll/create/reset");
+            //dijit.byId("newTweetPoll").show();
+            //dojo.publish("/encuestame/tweetpoll/create/reset");
         },
 
         _searchByAll : function(event){

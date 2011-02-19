@@ -11,6 +11,9 @@ dojo.declare(
 
         contextPath : "",
 
+        /*
+         *
+         */
         _open: function(event){
             dojo.stopEvent(event);
             if(this._openBox){

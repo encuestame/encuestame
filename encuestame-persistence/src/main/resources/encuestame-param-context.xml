@@ -24,6 +24,7 @@
                 <value>${encuestame.properties.path}</value>
                 <value>${hibernate.properties.path}</value>
                 <value>${lucene.properties.path}</value>
+                <value>classpath:email-config.properties</value>
             </list>
         </property>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>

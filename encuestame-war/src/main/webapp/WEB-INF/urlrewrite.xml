@@ -46,13 +46,69 @@
       <to type="redirect">account/dashboard</to>
     </rule>
     <rule>
+        <from>^/tweetpoll</from>
+        <to>/tweetpoll.jspx</to>
+    </rule>
+     <rule>
+      <from>^/tweetpoll.jspx</from>
+      <to type="redirect">tweetpoll</to>
+    </rule>
+    <rule>
         <from>^/account/dashboard</from>
         <to>/dashboard.jspx</to>
     </rule>
     <rule>
-      <from>^/error.jspx</from>
+    <from>^/error.jspx</from>
       <to type="redirect">user/denied</to>
     </rule>
+
+    <!-- Poll -->
+    <rule>
+        <from>^/poll</from>
+        <to>/poll.jspx</to>
+    </rule>
+     <rule>
+      <from>^/poll.jspx</from>
+      <to type="redirect">poll</to>
+    </rule>
+
+    <rule>
+        <from>^/survey</from>
+        <to>/survey.jspx</to>
+    </rule>
+     <rule>
+      <from>^/survey.jspx</from>
+      <to type="redirect">survey</to>
+    </rule>
+
+    <rule>
+        <from>^/admon/members</from>
+        <to>/members.jspx</to>
+    </rule>
+     <rule>
+      <from>^/members.jspx</from>
+      <to type="redirect">admon/members</to>
+    </rule>
+
+    <rule>
+        <from>^/admon/location</from>
+        <to>/location.jspx</to>
+    </rule>
+     <rule>
+      <from>^/location.jspx</from>
+      <to type="redirect">admon/location</to>
+    </rule>
+
+    <rule>
+        <from>^/admon/project</from>
+        <to>/project.jspx</to>
+    </rule>
+     <rule>
+      <from>^/project.jspx</from>
+      <to type="redirect">admon/project</to>
+    </rule>
+
+
 <!--    <rule>-->
 <!--        <from>^/user/denied</from>-->
 <!--        <to>/error.jspx</to>-->

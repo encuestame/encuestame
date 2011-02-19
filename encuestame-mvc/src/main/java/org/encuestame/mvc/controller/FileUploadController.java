@@ -12,12 +12,10 @@
  */
 package org.encuestame.mvc.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
-import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -97,7 +97,7 @@
   </bean>
 
   <bean id="twitterService" class="org.encuestame.business.service.TwitterService"
-    parent="service">
+        parent="service">
     <property name="tinyApi" value="${twitter.tinyUrl}" />
   </bean>
 
@@ -150,6 +150,13 @@
     <property name="pictureService">
          <ref bean="pictureService"/>
     </property>
+  </bean>
+
+  <bean id="serviceMail" class="org.encuestame.business.mail.MailServiceImpl"  parent="service">
+      <property name="mailSender" ref="mailSender" />
+      <property name="templateMessage" ref="templateMessage" />
+      <property name="noEmailResponse" value="${mail.noresponse}" />
+      <property name="velocityEngine" ref="velocityEngine"/>
   </bean>
 
   <!--

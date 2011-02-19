@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="location" extends="page">
+        <put-attribute name="title" value="Locations | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}location.jsp" />
+    </definition>
+
+    <definition name="members" extends="page">
+        <put-attribute name="title" value="Members | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}members.jsp" />
+    </definition>
+
+    <definition name="project" extends="page">
+        <put-attribute name="title" value="Project | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}project.jsp" />
+    </definition>
+
+</tiles-definitions>

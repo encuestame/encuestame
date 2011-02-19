@@ -51,13 +51,13 @@ public class SignUpBeanValidator{
         log.debug("Validate Sign Up");
         final ValidateOperations validation = new ValidateOperations(securityService);
         MessageContext messages = context.getMessageContext();
-        if(validation.validateUserByEmail(booking.getEmail()) != null){
+        if(validation.validateUserEmail(booking.getEmail(), null) != null){
             log.warn("Email NOT VALID");
             //result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
             messages.addMessage(new MessageBuilder().error().source("email").
                     defaultText("Email NOT VALID").build());
         }
-        if(!validation.validateUsername(booking.getUsername())){
+        if(!validation.validateUsername(booking.getUsername(), null)){
             log.warn("Username NOT VALID");
              //result.rejectValue("username", "secure.user.notvalid"); //secure.user.notvalid
             messages.addMessage(new MessageBuilder().error().source("username").

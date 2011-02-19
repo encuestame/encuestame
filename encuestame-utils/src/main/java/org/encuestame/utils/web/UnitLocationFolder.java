@@ -29,21 +29,21 @@ public class UnitLocationFolder extends AbstractUnitLocation implements Serializ
      */
     private static final long serialVersionUID = -8070322441826004390L;
 
-    private UnitUserBean unitUserBean;
+    private UserAccountBean unitUserBean;
 
     private String type;
 
     /**
      * @return the unitUserBean
      */
-    public UnitUserBean getUnitUserBean() {
+    public UserAccountBean getUnitUserBean() {
         return unitUserBean;
     }
 
     /**
      * @param unitUserBean the unitUserBean to set
      */
-    public void setUnitUserBean(final UnitUserBean unitUserBean) {
+    public void setUnitUserBean(final UserAccountBean unitUserBean) {
         this.unitUserBean = unitUserBean;
     }
 

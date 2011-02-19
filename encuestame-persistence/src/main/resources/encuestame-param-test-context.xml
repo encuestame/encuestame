@@ -8,10 +8,11 @@
         <constructor-arg ref="configurationEncryptor" />
         <property name="locations">
             <list>
-                <value>${encuestame.properties.path}</value>
-                <value>${hibernate.test.properties.path}</value>
+                <value>classpath:encuestame-config.properties</value>
+                <value>classpath:hibernate.test.properties</value>
                 <value>classpath:lucene.test.index.properties</value>
                 <value>classpath:webflow.test.properties</value>
+                <value>classpath:test-email-config.properties</value>
             </list>
         </property>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>

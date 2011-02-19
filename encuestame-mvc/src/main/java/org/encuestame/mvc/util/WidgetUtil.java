@@ -18,7 +18,7 @@ import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.MD5Utils;
 
 /**
- * Dojo Widgeg Utils.
+ * Dojo Widget Utils.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 23, 2011 8:23:58 AM
  * @version $Id:$

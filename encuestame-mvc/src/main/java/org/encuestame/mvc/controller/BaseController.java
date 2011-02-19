@@ -45,9 +45,12 @@ import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.DateUtil;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -166,11 +169,17 @@ public abstract class BaseController extends AbstractSecurityContext{
     }
 
     /**
-     * Get User Account.
+     * Fetch user account currently logged.
      * @return
+     * @throws EnMeDomainNotFoundException
      */
-    public UserAccount getUserAccount(){
-        return this.getByUsername(this.getUserPrincipalUsername());
+    public UserAccount getUserAccount() throws EnMeDomainNotFoundException{
+        final UserAccount account = this.getByUsername(this.getUserPrincipalUsername());
+        if(account == null){
+            log.fatal("user not found");
+            throw new EnMeDomainNotFoundException("user not found");
+        }
+        return account;
     }
 
     /**
@@ -386,5 +395,14 @@ public abstract class BaseController extends AbstractSecurityContext{
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
         simpleDateFormat.format(DateUtil.DEFAULT_FORMAT_DATE);
         return simpleDateFormat.getCalendar().getTime();
+    }
+
+    /**
+     * Get full profile logged user info.
+     * @return
+     * @throws EnMeDomainNotFoundException
+     */
+    public ProfileUserAccount getProfileUserInfo() throws EnMeDomainNotFoundException{
+        return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
     }
 }
