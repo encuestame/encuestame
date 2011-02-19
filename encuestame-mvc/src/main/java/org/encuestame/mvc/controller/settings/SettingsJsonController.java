@@ -22,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.business.security.ISecurityContext;
 import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.mvc.controller.AbstractJsonController;
@@ -68,10 +67,14 @@ public class SettingsJsonController extends AbstractJsonController{
             final ISecurityService security = getSecurityService();
             final ValidateOperations operations = new ValidateOperations(security);
             final HashMap<String, Object> listError = new HashMap<String, Object>();
+            //filter data
+            data = filterValue(data);
+            final UserAccount account = getUserAccount();
             if(type.equals(Profile.EMAIL.toString())){
+                //TODO: review pattern email format validator.
                 log.debug("update email");
-                if (operations.validateUserEmail(data)) {
-                    security.upadteAccountProfile(type, data,
+                if (operations.validateUserEmail(data, account)) {
+                    security.upadteAccountProfile(Profile.EMAIL, data,
                             getUserPrincipalUsername());
                     setSuccesResponse();
                 } else {
@@ -79,8 +82,8 @@ public class SettingsJsonController extends AbstractJsonController{
                 }
             } else if(type.equals(Profile.USERNAME.toString())){
                 log.debug("update username");
-                if (operations.validateUsername(data)) {
-                    security.upadteAccountProfile(type, data,
+                if (operations.validateUsername(data, account)) {
+                    security.upadteAccountProfile(Profile.USERNAME, data,
                             getUserPrincipalUsername());
                     setSuccesResponse();
                 } else {
@@ -98,6 +101,77 @@ public class SettingsJsonController extends AbstractJsonController{
             e.printStackTrace();
             setError(e.getMessage(), response);
             throw new JsonGenerationException(e.getMessage());
+        }
+        return returnData();
+    }
+
+    /**
+     * Upgrade profile settings.
+     * @param request
+     * @param email
+     * @param username
+     * @param completeName
+     * @param language
+     * @param bio
+     * @param response
+     * @param model
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/settings/profile/update.json", method = RequestMethod.POST)
+    public ModelMap upgradePostProfile(HttpServletRequest request,
+            @RequestParam(value = "email", required = true) String email,
+            @RequestParam(value = "username", required = true) String username,
+            @RequestParam(value = "completeName", required = false) String completeName,
+            @RequestParam(value = "language", required = false) String language,
+            @RequestParam(value = "bio", required = false) String bio,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            final ISecurityService security = getSecurityService();
+            final UserAccount account = getUserAccount();
+            final ValidateOperations operations = new ValidateOperations(security);
+            final HashMap<String, Object> listError = new HashMap<String, Object>();
+            //filter values.
+            log.debug("email " +email);
+            log.debug("username " +username);
+            log.debug("completeName " +completeName);
+            log.debug("language " +language);
+            log.debug("bio " +bio);
+            email = email != null  ? filterValue(email) : null;
+            username = username != null ? filterValue(username) : null;
+            completeName = completeName != null ? filterValue(completeName) : null;
+            language = language != null ? filterValue(language) : language;
+            bio = bio != null ? filterValue(bio) : null;
+            //valid flag.
+            boolean valid = true;
+            if (!operations.validateUserEmail(email, account)) {
+                listError.put("username", "username not valid");
+                valid = false;
+            }
+            if (!operations.validateUsername(username, account)) {
+                listError.put("email", "email not valid");
+               valid = false;
+            }
+            if (!valid) {
+                log.debug("list errors->" + listError.size());
+                setError(listError, response);
+                valid = false;
+            } else {
+                log.debug("updating profile ....");
+                security.upadteAccountProfile(Profile.USERNAME, username, getUserPrincipalUsername());
+                security.upadteAccountProfile(Profile.EMAIL, email, getUserPrincipalUsername());
+                //update the other properties
+                security.upadteAccountProfile(bio, language, completeName, getUserPrincipalUsername());
+                setSuccesResponse();
+            }
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
         }
         return returnData();
     }

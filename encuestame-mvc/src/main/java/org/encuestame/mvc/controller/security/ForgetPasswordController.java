@@ -18,9 +18,10 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.security.UnitForgotPassword;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -60,21 +61,21 @@ public class ForgetPasswordController extends AbstractSecurityController{
          * @param result
          * @param status
          * @return
+         * @throws EnMeDomainNotFoundException
          */
         @RequestMapping(method = RequestMethod.POST)
         public String processSubmit(
             HttpServletRequest req,
             @RequestParam("recaptcha_challenge_field") String challenge,
             @RequestParam("recaptcha_response_field") String response,
-            @ModelAttribute UnitForgotPassword user, BindingResult result, SessionStatus status) {
+            @ModelAttribute UnitForgotPassword user, BindingResult result, SessionStatus status) throws EnMeDomainNotFoundException {
                  log.info("recaptcha_challenge_field "+challenge);
                  log.info("recaptcha_response_field "+response);
                  final String email = user.getEmail();
                  log.debug("email "+email);
                  final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
                  final ValidateOperations validation = new ValidateOperations(getSecurityService());
-                 final UnitUserBean unitUserBean = validation.validateUserByEmail(email == null ? "" : email);
-                 if(unitUserBean == null){
+                 if(validation.validateUserEmail((email == null ? "" : email),  getUserAccount())){
                      result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
                  }
                  validation.validateCaptcha(reCaptchaResponse, result);
@@ -86,12 +87,14 @@ public class ForgetPasswordController extends AbstractSecurityController{
                 }
                 else {
                     final String password = PasswordGenerator.getPassword(6);
-                    try {
-                        getSecurityService().renewPassword(unitUserBean, password);
-                    } catch (EnMeExpcetion e) {
-                        log.error("Error Renewd password "+e.getMessage());
-                        return "forgot";
-                    }
+//                    try {
+//                        //getSecurityService().renewPassword(unitUserBean, password);
+//                        //TODO: refactor this method.
+//                        log.debug("foo");
+//                    } catch (EnMeExpcetion e) {
+//                        log.error("Error Renewd password "+e.getMessage());
+//                        return "forgot";
+//                    }
                      status.setComplete();
                     log.info("password generated "+password);
                     return "redirect:/user/signup";

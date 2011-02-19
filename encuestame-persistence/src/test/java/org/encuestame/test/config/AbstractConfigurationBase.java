@@ -33,8 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Scope("singleton")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-hibernate-context.xml",
-        "classpath:encuestame-param-test-context.xml"
+        "classpath:encuestame-param-test-context.xml",
+        "classpath:encuestame-hibernate-context.xml"
          })
 public abstract class AbstractConfigurationBase extends AbstractTransactionalJUnit4SpringContextTests{
 

@@ -40,7 +40,7 @@ public class UnitSurvey extends UnitAbstractSurvey implements Serializable {
     /****/
     private String complete;
 
-    private UnitUserBean unitUserBean;
+    private UserAccountBean unitUserBean;
 
     /**
      * @return the sid
@@ -129,14 +129,14 @@ public class UnitSurvey extends UnitAbstractSurvey implements Serializable {
     /**
      * @return the unitUserBean
      */
-    public UnitUserBean getUnitUserBean() {
+    public UserAccountBean getUnitUserBean() {
         return unitUserBean;
     }
 
     /**
      * @param unitUserBean the unitUserBean to set
      */
-    public void setUnitUserBean(UnitUserBean unitUserBean) {
+    public void setUnitUserBean(UserAccountBean unitUserBean) {
         this.unitUserBean = unitUserBean;
     }
 

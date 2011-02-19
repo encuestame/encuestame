@@ -41,6 +41,7 @@ import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.dao.IFolder;
+import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
@@ -59,7 +60,7 @@ import org.encuestame.utils.web.UnitQuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
 import org.encuestame.utils.web.UnitTweetPoll;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 
 
@@ -79,8 +80,8 @@ public class ConvertDomainBean {
      * @return Bean User
      */
     @Deprecated
-    public static final UnitUserBean convertUserDaoToUserBean(final UserAccount domainUser) {
-        final UnitUserBean user = new UnitUserBean();
+    public static final UserAccountBean convertUserDaoToUserBean(final UserAccount domainUser) {
+        final UserAccountBean user = new UserAccountBean();
         try {
             user.setName(domainUser.getCompleteName());
             user.setUsername(domainUser.getUsername());
@@ -215,12 +216,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link UserAccount} to {@link UnitUserBean}.
+     * Convert {@link UserAccount} to {@link UserAccountBean}.
      * @param secUserSecondary {@link UserAccount}.
-     * @return {@link UnitUserBean}
+     * @return {@link UserAccountBean}
      */
-    public static final UnitUserBean convertSecondaryUserToUserBean(final UserAccount secUserSecondary){
-        final UnitUserBean unitUserBean = new UnitUserBean();
+    public static final UserAccountBean convertSecondaryUserToUserBean(final UserAccount secUserSecondary){
+        final UserAccountBean unitUserBean = new UserAccountBean();
         if(secUserSecondary != null){
             unitUserBean.setId(secUserSecondary.getUid());
             unitUserBean.setName(secUserSecondary.getCompleteName());
@@ -238,13 +239,30 @@ public class ConvertDomainBean {
         }
         return unitUserBean;
     }
+
     /**
-     * Convert Basic {@link UserAccount} to {@link UnitUserBean}.
-     * @param secUserSecondary {@link UserAccount}.
-     * @return {@link UnitUserBean}
+     * Return user account limited profile info.
+     * @param secUserSecondary
+     * @return
      */
-    public static final UnitUserBean convertBasicSecondaryUserToUserBean(final UserAccount secUserSecondary){
-        final UnitUserBean unitUserBean = new UnitUserBean();
+    public static final ProfileUserAccount convertUserAccountToUserProfileBean(final UserAccount secUserSecondary){
+        final ProfileUserAccount unitUserBean = new ProfileUserAccount();
+        if(secUserSecondary != null){
+            unitUserBean.setName(secUserSecondary.getCompleteName());
+            unitUserBean.setEmail(secUserSecondary.getUserEmail());
+            unitUserBean.setUsername(secUserSecondary.getUsername());
+            //TODO: Bug 112, add private, language y bio.
+        }
+        return unitUserBean;
+    }
+
+    /**
+     * Convert Basic {@link UserAccount} to {@link UserAccountBean}.
+     * @param secUserSecondary {@link UserAccount}.
+     * @return {@link UserAccountBean}
+     */
+    public static final UserAccountBean convertBasicSecondaryUserToUserBean(final UserAccount secUserSecondary){
+        final UserAccountBean unitUserBean = new UserAccountBean();
         if(secUserSecondary != null){
             unitUserBean.setId(secUserSecondary.getUid());
             unitUserBean.setName(secUserSecondary.getCompleteName());
@@ -256,12 +274,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert List of {@link UserAccount} to {@link UnitUserBean}.
+     * Convert List of {@link UserAccount} to {@link UserAccountBean}.
      * @param listUsers
      * @return
      */
-    public static final List<UnitUserBean> convertCollectionUsersToBean(final Collection<UserAccount> listUsers) {
-        final List<UnitUserBean> loadListUsers = new LinkedList<UnitUserBean>();
+    public static final List<UserAccountBean> convertCollectionUsersToBean(final Collection<UserAccount> listUsers) {
+        final List<UserAccountBean> loadListUsers = new LinkedList<UserAccountBean>();
         for (UserAccount secUserSecondary : listUsers) {
             loadListUsers.add(ConvertDomainBean.convertSecondaryUserToUserBean(secUserSecondary));
         }

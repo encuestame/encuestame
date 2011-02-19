@@ -34,7 +34,7 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,9 +97,9 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testfindUserByEmail(){
-        final UnitUserBean secondary = this.securityService.findUserByEmail("fake@email.com");
+        final UserAccountBean secondary = this.securityService.findUserByEmail("fake@email.com");
         assertNull(secondary);
-        final UnitUserBean secondary2 = this.securityService.findUserByEmail(this.secUserSecondary.getUserEmail());
+        final UserAccountBean secondary2 = this.securityService.findUserByEmail(this.secUserSecondary.getUserEmail());
         assertEquals(this.secUserSecondary.getUid(), secondary2.getId());
         assertEquals(this.secUserSecondary.getUsername(), secondary2.getUsername());
     }
@@ -265,7 +265,7 @@ public class TestSecurityService extends AbstractServiceBase{
     public void testSearchUserByUsername() throws EnMeExpcetion{
       final UserAccount userDomain = createSecondaryUser("user 1",this.userPrimary);
       createSecondaryUser("user 2",this.userPrimary);
-      final UnitUserBean userBean = securityService.searchUserByUsername(userDomain.getUsername());
+      final UserAccountBean userBean = securityService.searchUserByUsername(userDomain.getUsername());
       assertEquals("Should be equals",userDomain.getUsername(),userBean.getUsername());
     }
 
@@ -331,7 +331,7 @@ public class TestSecurityService extends AbstractServiceBase{
      final UserAccount secUsers = createSecondaryUser("administrator",this.userPrimary);
      final Long idUser = secUsers.getUid();
      //final String username = secUsers.getUsername();
-     final UnitUserBean user = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
+     final UserAccountBean user = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
      securityService.deleteUser(user);
      final Account userRetrieve = getAccountDao().getUserById(idUser);
      assertNull(userRetrieve);
@@ -363,7 +363,7 @@ public class TestSecurityService extends AbstractServiceBase{
     public void testUpdateUser() throws EnMeExpcetion{
       final UserAccount secUsers = createSecondaryUser("developer",this.userPrimary);
       final Long idUser = secUsers.getUid();
-      final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
+      final UserAccountBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
       userBean.setName("editor");
       securityService.updateUser(userBean);
       final UserAccount userUpdateRetrieve = getAccountDao().getSecondaryUserById(idUser);
@@ -393,7 +393,7 @@ public class TestSecurityService extends AbstractServiceBase{
     public void testRenewPassword() throws EnMeExpcetion{
       final UserAccount secUser = createSecondaryUser("paola",this.userPrimary);
       final String passwd = secUser.getPassword();
-      final UnitUserBean userPass = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
+      final UserAccountBean userPass = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
       final String retrievePassword = securityService.renewPassword(userPass, passwd);
       assertEquals("should be equals", passwd, retrievePassword);
     }
@@ -406,7 +406,7 @@ public class TestSecurityService extends AbstractServiceBase{
    @ExpectedException(EnMeExpcetion.class)
    public void testRenewPasswordwithoutPass()throws EnMeExpcetion{
       final UserAccount secUser = createSecondaryUser("diana",this.userPrimary);
-      UnitUserBean userPassBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
+      UserAccountBean userPassBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
       final String retrievePassword = securityService.renewPassword(userPassBean,null);
       assertEquals("should be equals", null, retrievePassword);
     }
@@ -418,7 +418,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @Test
       @ExpectedException(EnMeExpcetion.class)
        public void testCreateUserwithoutEmail() throws EnMeExpcetion{
-        final UnitUserBean userCreateBean = new UnitUserBean();
+        final UserAccountBean userCreateBean = new UserAccountBean();
         userCreateBean.setEmail(null);
         userCreateBean.setUsername("diana");
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
@@ -431,7 +431,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @Test
       @ExpectedException(EnMeExpcetion.class)
        public void testCreateUserwithoutUsername() throws EnMeExpcetion{
-        final UnitUserBean userCreateBean = new UnitUserBean();
+        final UserAccountBean userCreateBean = new UserAccountBean();
         userCreateBean.setEmail("paola@jotadeveloper.com");
         userCreateBean.setUsername(null);
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
@@ -451,7 +451,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @Test
        public void testCreateUserwithUsernameEmail() throws EnMeExpcetion{
         createDefaultPermission();
-        final UnitUserBean userCreateBean = new UnitUserBean();
+        final UserAccountBean userCreateBean = new UserAccountBean();
         userCreateBean.setEmail("demo3@demo.org");
         userCreateBean.setUsername("demo3");
         userCreateBean.setStatus(true);
@@ -474,7 +474,7 @@ public class TestSecurityService extends AbstractServiceBase{
        public void testCreateUserwithoutPassword() throws EnMeExpcetion{
         createDefaultPermission();
         UserAccount secCreateUser = new UserAccount();
-        UnitUserBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
+        UserAccountBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
         userCreateBean.setPassword(null);
         userCreateBean.setEmail("demo2@demo.org");
         userCreateBean.setUsername("demo2");
@@ -497,7 +497,7 @@ public class TestSecurityService extends AbstractServiceBase{
        public void testCreateUserwithPassword() throws EnMeExpcetion{
         createDefaultPermission();
         UserAccount secCreateUser = new UserAccount();
-        UnitUserBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
+        UserAccountBean userCreateBean = ConvertDomainBean.convertSecondaryUserToUserBean(secCreateUser);
         userCreateBean.setPassword("12345");
         userCreateBean.setEmail("demo1@demo.org");
         userCreateBean.setUsername("demo1");
@@ -536,7 +536,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @Test
       public void testAssignPermissionwithIdUsername() throws EnMeExpcetion{
         final UserAccount secUser = createSecondaryUser("demo",this.userPrimary);
-        final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
+        final UserAccountBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
         final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.permission);
         userPermissionBean.setId(userPermissionBean.getId());
         userPermissionBean.setUsername("demo");
@@ -551,7 +551,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @Test
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion{
-          final UnitUserBean userPermissionBean = new UnitUserBean();
+          final UserAccountBean userPermissionBean = new UserAccountBean();
           final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.permission);
           //modify id user id.
           userPermissionBean.setId(1L);
@@ -567,7 +567,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermission() throws EnMeExpcetion{
             final UserAccount secUser = createSecondaryUser("juanpicado2",this.userPrimary);
-            final UnitUserBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
+            final UserAccountBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
             final UnitPermission permissionBean = new UnitPermission();
             //modify id permission.
             permissionBean.setId(1L);
@@ -583,7 +583,7 @@ public class TestSecurityService extends AbstractServiceBase{
         @Test
         @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermissionIdandUserId() throws EnMeExpcetion{
-          UnitUserBean userPermissionBean = new UnitUserBean();
+          UserAccountBean userPermissionBean = new UserAccountBean();
           UnitPermission permissionBean = new UnitPermission();
           securityService.assignPermission(userPermissionBean, permissionBean);
 
@@ -597,7 +597,7 @@ public class TestSecurityService extends AbstractServiceBase{
         public void testAssignGroup() throws EnMeExpcetion{
           final UserAccount users=  createSecondaryUser("juanpicado",this.userPrimary);
           final Group groups = createGroups("encuestador");
-          UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(users);
+          UserAccountBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(users);
           UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
           //securityService.assingGroup(userBean, groupBean);
         }
@@ -642,7 +642,7 @@ public class TestSecurityService extends AbstractServiceBase{
          */
         //@Test(expected = EnMeExpcetion.class)
         public void testassingGroupFromUserException() throws EnMeExpcetion{
-            final UnitUserBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(this.secUserSecondary);
+            final UserAccountBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(this.secUserSecondary);
             //this.securityService.assingGroupFromUser(userBean, new UnitGroupBean());
         }
 

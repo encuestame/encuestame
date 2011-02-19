@@ -59,12 +59,16 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> responseJson = new HashMap<String, Object>();
-        final UserAccount secondary = getByUsername(getUserPrincipalUsername());
-        final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(secondary.getAccount());
-        final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(secondary.getAccount());
-        responseJson.put("t", totalNot);
-        responseJson.put("n", totalNewNot);
-        setItemResponse(responseJson);
+        final UserAccount userAccount = getByUsername(getUserPrincipalUsername());
+        if (userAccount != null) {
+            final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
+            final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
+            responseJson.put("t", totalNot);
+            responseJson.put("n", totalNewNot);
+            setItemResponse(responseJson);
+        } else {
+            setError("account not valid", response);
+        }
         return returnData();
     }
 
@@ -86,7 +90,7 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
          final UserAccount secondary = getByUsername(getUserPrincipalUsername());
          if(secondary == null){
-             setError("user not found", response);
+             setError("account not valid", response);
          }
          final Map<String, Object> responseJson = new HashMap<String, Object>();
          final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(secondary.getAccount(), limit);

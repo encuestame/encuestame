@@ -41,7 +41,7 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.junit.Test;
@@ -92,11 +92,11 @@ import org.junit.Test;
     }
 
     /**
-     * Test for {@link UnitUserBean}.
+     * Test for {@link UserAccountBean}.
      */
     @Test
     public void testUnitUserBean(){
-        final UnitUserBean userBean = new UnitUserBean();
+        final UserAccountBean userBean = new UserAccountBean();
         userBean.setId(1L);
         userBean.setDateNew(new Date());
         userBean.setEmail("juanATencuestame.org");
@@ -334,7 +334,7 @@ import org.junit.Test;
         locationFolder.setId(1L);
         locationFolder.setName("folder");
         locationFolder.setType("type");
-        locationFolder.setUnitUserBean(new UnitUserBean());
+        locationFolder.setUnitUserBean(new UserAccountBean());
         assertNotNull(locationFolder.getId());
         assertNotNull(locationFolder.getName());
         assertNotNull(locationFolder.getUnitUserBean());

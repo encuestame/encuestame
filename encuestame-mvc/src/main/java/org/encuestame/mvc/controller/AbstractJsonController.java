@@ -20,16 +20,18 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -176,46 +178,20 @@ public abstract class AbstractJsonController extends BaseController{
       mav.setViewName("MappingJacksonJsonView");
       final Map<String, Object> response = new HashMap<String, Object>();
       response.put("message", ex.getMessage());
+      //TODO: add internationalitazion
       response.put("description", "Application does not have permission for this action");
       response.put("status", httpResponse.SC_FORBIDDEN);
-      response.put("session", this.checkIsSessionIsExpired());
-      response.put("anonymousUser", this.checkIsSessionIsAnonymousUser());
+      response.put("session", SecurityUtils.checkIsSessionIsExpired(getSecCtx().getAuthentication()));
+      response.put("anonymousUser", SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication()));
       mav.addObject("error",  response);
       return mav;
     }
 
     /**
-     * Check is Session is Expired.
-     * @return
-     */
-    public boolean checkIsSessionIsExpired(){
-        boolean session = false;
-        if(getSecCtx().getAuthentication() != null){
-            session = getSecCtx().getAuthentication().isAuthenticated();
-            log.debug("checkIsSessionIsExpired "+getSecCtx().getAuthentication().getName());
-            log.debug("checkIsSessionIsExpired "+getSecCtx().getAuthentication().getCredentials());
-            log.debug("checkIsSessionIsExpired "+getSecCtx().getAuthentication().getDetails());
-        }
-        log.debug("checkIsSessionIsExpired->"+session);
-        return session;
-    }
-
-    /**
-     * Check is Session is Expired.
-     * @return
-     */
-    public boolean checkIsSessionIsAnonymousUser(){
-        boolean anonymous = false;
-        if("anonymousUser".equals(getSecCtx().getAuthentication().getName())){
-            anonymous = true;
-        }
-        log.debug("checkIsSessionIsExpired->"+anonymous);
-        return anonymous;
-    }
-
-    /**
      * Convert Notification Message.
      * @param notificationEnum
+     * @param request
+     * @param objects
      * @return
      */
     public String convertNotificationMessage(final NotificationEnum notificationEnum,
@@ -300,6 +276,8 @@ public abstract class AbstractJsonController extends BaseController{
 
     /**
      * Get Url Domain.
+     * @param request
+     * @param realDomain
      * @return
      */
     public String getUrlDomain(final HttpServletRequest request, final Boolean realDomain){
@@ -328,7 +306,7 @@ public abstract class AbstractJsonController extends BaseController{
      * @return
      * @throws EnMeDomainNotFoundException exception
      */
-    public UnitUserBean getUser(final Long userId) throws EnMeDomainNotFoundException{
+    public UserAccountBean getUser(final Long userId) throws EnMeDomainNotFoundException{
         Assert.notNull(userId);
         return getSecurityService().getUserCompleteInfo(userId, getUserPrincipalUsername());
     }
@@ -346,6 +324,4 @@ public abstract class AbstractJsonController extends BaseController{
     public void setNotificationDao(INotification notificationDao) {
         this.notificationDao = notificationDao;
     }
-
-
 }

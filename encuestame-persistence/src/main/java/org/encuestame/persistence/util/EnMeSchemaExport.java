@@ -20,7 +20,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitUserBean;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 
@@ -84,7 +84,7 @@ public class EnMeSchemaExport {
 
         final AccountDaoImp secUserDao = (AccountDaoImp) appContext.getBean("secUserDao");
         secUserDao.saveOrUpdate(userPrimary);
-        final UnitUserBean user = new UnitUserBean();
+        final UserAccountBean user = new UserAccountBean();
         user.setDateNew(new Date());
         user.setPrimaryUserId(userPrimary.getUid());
         user.setEmail("admin@encuestame.org");
