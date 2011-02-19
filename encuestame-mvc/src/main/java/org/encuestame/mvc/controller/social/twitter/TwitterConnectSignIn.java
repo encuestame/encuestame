@@ -19,6 +19,7 @@ import org.encuestame.business.social.ITwitterSocialProvider;
 import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.oauth.OAuthToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -76,10 +77,11 @@ public class TwitterConnectSignIn extends AbstractSocialController {
     /**
      * Disconnect from the provider.
      * The member has decided they no longer wish to use the service provider from this application.
+     * @throws EnMeDomainNotFoundException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value="/signin/twitter.jspx", method=RequestMethod.DELETE)
-    public String disconnect(@PathVariable String name) {
+    public String disconnect(@PathVariable String name) throws EnMeDomainNotFoundException {
         this.twitterServiceConnect.disconnect(getUserAccount().getUid());
         return "redirect:/signin/" + name;
     }

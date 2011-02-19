@@ -46,10 +46,10 @@
         Hibernate's OpenSessionInView still required since we are using
         lazy-collection in method to get list of tasks & steps
     -->
-<!--    <filter>-->
-<!--        <filter-name>OpenSessionInViewFilter</filter-name>-->
-<!--        <filter-class>org.encuestame.persistence.filter.SessionFilter</filter-class>-->
-<!--    </filter>-->
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.encuestame.persistence.filter.SessionFilter</filter-class>
+    </filter>
 <!--    <filter>-->
 <!--        <filter-name>VerifyAuthenticationFilter</filter-name>-->
 <!--        <filter-class>org.encuestame.business.security.filter.VerifyAuthenticationFilter</filter-class>-->
@@ -102,10 +102,18 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
-<!--    <filter-mapping>-->
-<!--        <filter-name>OpenSessionInViewFilter</filter-name>-->
-<!--        <url-pattern>/dsadasdsa/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/j_spring_security_check</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>*.json</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>*.jspx</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>

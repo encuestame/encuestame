@@ -49,23 +49,26 @@
     <security:intercept-url pattern="/home" filters="none"/>
     <security:intercept-url pattern="/users.jspx" filters="none"/>
     <security:intercept-url pattern="/tags.jspx" filters="none"/>
+    <security:intercept-url pattern="/signin.jspx" filters="none"/>
+    <security:intercept-url pattern="/forgot.jspx" filters="none"/>
+    <security:intercept-url pattern="/signup.jspx" filters="none"/>
 
     <!-- Admon Paths -->
     <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
-    <!-- Account Paths -->
+
+    <!-- Account Paths
     <security:intercept-url pattern="/user/signin.jspx" access="ENCUESTAME_ANONYMOUS"/>
     <security:intercept-url pattern="/user/forgot.jspx" access="ENCUESTAME_ANONYMOUS" />
     <security:intercept-url pattern="/user/signup.jspx" access="ENCUESTAME_ANONYMOUS"/>
+    -->
 
-    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER"/>
 
     <!-- Super Admin -->
     <security:intercept-url pattern="/superAdmin.jspx" access="ENCUESTAME_SUPER"/>
 
     <!-- Shared areas -->
-    <security:intercept-url pattern="/account/**/*" access="ENCUESTAME_USER"/>
-    <security:intercept-url pattern="/user/lists.jspx" access="ENCUESTAME_USER"/>
-    <security:intercept-url pattern="/user/social.jspx" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/settings/**/*" access="ENCUESTAME_USER"/>
 
     <!-- Surveys / Poll / TweetPoll Paths -->
     <security:intercept-url pattern="/tweetpoll.jspx" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />

@@ -47,7 +47,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String addHandler(Model model) {
-        log.info("/register JUANNNNNNNNNNNNNNNNNN");
+        log.info("/register");
         final SignUpBean user = new SignUpBean();
         final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
         user.setCaptcha(captcha);
@@ -81,11 +81,11 @@ public class SignUpAccountFormController extends AbstractSecurityController {
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ValidateOperations validation = new ValidateOperations(getSecurityService());
 
-             if(validation.validateUserEmail(email) != null){
+             if(validation.validateUserEmail(email, null) != null){
                    log.warn("Email NOT VALID");
                    result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
              }
-             if(!validation.validateUsername(username)){
+             if(!validation.validateUsername(username,  null)){
                  log.warn("Username NOT VALID");
                   result.rejectValue("username", "secure.user.notvalid"); //secure.user.notvalid
              }

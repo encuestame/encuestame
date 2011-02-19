@@ -50,9 +50,13 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     @Autowired
     private ISocialProviderDao socialProviderDao;
 
+    /**
+     * Constructor.
+     * @param sessionFactory
+     */
     @Autowired
     public AccountDaoImp(SessionFactory sessionFactory) {
-              setSessionFactory(sessionFactory);
+           setSessionFactory(sessionFactory);
     }
 
    /**

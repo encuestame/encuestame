@@ -78,20 +78,34 @@ public class ValidateOperations {
     private ISecurityService securityService;
 
     /**
-     * Validate Username.
-     * @param username username
+     *
+     * @param username
      * @return
      */
-    public Boolean validateUsername(final String username){
+    public Boolean validateUsername(final String username, final UserAccount userLogged){
+        final UserAccount user = getUser(username);
+        return this.validateUsername(username, user, userLogged);
+    }
+
+    /**
+     * Validate Username.
+     * @param username username
+     * @param user
+     * @param userLogged
+     * @return
+     */
+    public Boolean validateUsername(final String username, final UserAccount user, final UserAccount userLogged){
         log.debug("validating username... ");
         Boolean valid = false;
         if(username.length() >= MIN_USERNAME_LENGTH){
-            final UserAccount user = getSecurityService().findUserByUserName(username);
             log.debug("fect user by username "+user);
             if (user == null) {
                 log.debug("username is valid..");
                 getMessages().put("username", "username is available");
                 valid = true;
+            } else if(userLogged != null && userLogged.getUsername().equals(username)){
+                valid = true;
+                getMessages().put("username", "it's your current username");
             } else if (username.equals(user.getUsername())) {
                 log.debug("username already exist");
                 getMessages().put("username", "username already exist");
@@ -116,27 +130,45 @@ public class ValidateOperations {
         return user;
     }
 
+
     /**
      * Validate user email.
+     * @param email
+     * @param userLogged
      * @param username
      * @return
      */
-    public Boolean validateUserEmail(final String email){
+    public Boolean validateUserEmail(final String email, final UserAccount userLogged){
+        log.debug("validating email... ->"+email);
+        final UserAccount user = getSecurityService().findUserAccountByEmail(email);
+        return this.validateUserEmail(email, user, userLogged);
+    }
+
+    /**
+     * Validate user email.
+     * @param email
+     * @param user
+     * @param userLogged
+     * @param username
+     * @return
+     */
+    public Boolean validateUserEmail(final String email, final UserAccount user, final UserAccount userLogged){
         log.debug("validating email... ->"+email);
         Boolean valid = false;
         if (this.validateEmail(email)) {
-            final UserAccount user = getSecurityService().findUserAccountByEmail(email);
-            log.debug("fect user by email "+user);
             if(user == null){
                 log.debug("email is valid..");
                 getMessages().put("email", "email is available");
+                valid = true;
+            } else if(userLogged != null && userLogged.getUserEmail().equals(email)){
+                log.debug("email is valid..");
+                getMessages().put("email", "it's your email");
                 valid = true;
             } else if(email.equals(user.getUserEmail())){
                 getMessages().put("email", "email already exist");
             } else {
                 getMessages().put("email", "email not valid");
             }
-
         } else {
             getMessages().put("email", "email wrong format");
         }

@@ -27,7 +27,7 @@
         <property name="definitions">
             <value>/WEB-INF/layouts/tiles.xml,/WEB-INF/views/**/tiles.xml</value>
         </property>
-        <property name="checkRefresh" value="true" />
+        <property name="checkRefresh" value="false" />
     </bean>
 
 </beans>

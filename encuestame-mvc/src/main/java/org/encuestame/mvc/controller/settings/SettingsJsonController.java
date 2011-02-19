@@ -26,6 +26,7 @@ import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.business.service.imp.ISecurityService;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -68,10 +69,11 @@ public class SettingsJsonController extends AbstractJsonController{
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter data
             data = filterValue(data);
+            final UserAccount account = getUserAccount();
             if(type.equals(Profile.EMAIL.toString())){
                 //TODO: review pattern email format validator.
                 log.debug("update email");
-                if (operations.validateUserEmail(data)) {
+                if (operations.validateUserEmail(data, account)) {
                     security.upadteAccountProfile(Profile.EMAIL, data,
                             getUserPrincipalUsername());
                     setSuccesResponse();
@@ -80,7 +82,7 @@ public class SettingsJsonController extends AbstractJsonController{
                 }
             } else if(type.equals(Profile.USERNAME.toString())){
                 log.debug("update username");
-                if (operations.validateUsername(data)) {
+                if (operations.validateUsername(data, account)) {
                     security.upadteAccountProfile(Profile.USERNAME, data,
                             getUserPrincipalUsername());
                     setSuccesResponse();
@@ -105,8 +107,18 @@ public class SettingsJsonController extends AbstractJsonController{
 
     /**
      * Upgrade profile settings.
+     * @param request
+     * @param email
+     * @param username
+     * @param completeName
+     * @param language
+     * @param bio
+     * @param response
      * @param model
      * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/settings/profile/update.json", method = RequestMethod.POST)
@@ -120,6 +132,7 @@ public class SettingsJsonController extends AbstractJsonController{
             JsonMappingException, IOException {
         try {
             final ISecurityService security = getSecurityService();
+            final UserAccount account = getUserAccount();
             final ValidateOperations operations = new ValidateOperations(security);
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter values.
@@ -135,11 +148,11 @@ public class SettingsJsonController extends AbstractJsonController{
             bio = bio != null ? filterValue(bio) : null;
             //valid flag.
             boolean valid = true;
-            if (!operations.validateUserEmail(email)) {
+            if (!operations.validateUserEmail(email, account)) {
                 listError.put("username", "username not valid");
                 valid = false;
             }
-            if (!operations.validateUsername(username)) {
+            if (!operations.validateUsername(username, account)) {
                 listError.put("email", "email not valid");
                valid = false;
             }

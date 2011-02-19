@@ -5,15 +5,21 @@
         <div class="headerOptions">
                 <form method="get" action="<%=request.getContextPath()%>/search.jspx">
                         <span class="link">
-                           <a href="<%=request.getContextPath()%>/signin.jspx">Sign In</a>
+                            <c:if test="${!logged}">
+                                <a href="<%=request.getContextPath()%>/signin.jspx">Sign In</a>
+                           </c:if>
                         </span>
                          <span class="link">
-                            <div dojoType="encuestame.org.core.commons.dashboard.DashBoardMenu"
-                                contextPath="<%=request.getContextPath()%>"></div>
+                            <c:if test="${logged}">
+                                <div dojoType="encuestame.org.core.commons.dashboard.DashBoardMenu"
+                                    contextPath="<%=request.getContextPath()%>"></div>
+                            </c:if>
                          </span>
                         <span class="link">
                          <span id="navbar">
-                            <%@ include file="/WEB-INF/jsp/includes/profile.jsp" %>
+                            <c:if test="${logged}">
+                                <%@ include file="/WEB-INF/jsp/includes/profile.jsp" %>
+                            </c:if>
                          </span>
                         </span>
                     <span class="search">

@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Mar 6, 2010 10:58:02 AM
  * @version $Id: $
  */
-
 @Controller
 public class HomeController extends BaseController {
 

@@ -312,15 +312,6 @@ public abstract class AbstractJsonController extends BaseController{
     }
 
     /**
-     * Get full profile logged user info.
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    public ProfileUserAccount getProfileUserInfo() throws EnMeDomainNotFoundException{
-        return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
-    }
-
-    /**
      * @return the notificationDao
      */
     public INotification getNotificationDao() {

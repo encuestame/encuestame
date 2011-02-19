@@ -52,10 +52,13 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
         log.debug("preHandle");
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
+            log.debug("auth valid");
             if(SecurityUtils.checkIsSessionIsAnonymousUser(auth)){
+                log.debug("session expired");
                 request.setAttribute("logged", false);
             } else {
                 //cookies
+                log.debug("session is valid");
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
                     log.debug("Cookie "+cookieName.getName());
@@ -64,6 +67,7 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
                 request.setAttribute("logged", true);
             }
         } else {
+            log.info("Session Expired");
             request.setAttribute("logged", false);
         }
         return true;
@@ -114,6 +118,5 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request,
             HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-
     }
 }

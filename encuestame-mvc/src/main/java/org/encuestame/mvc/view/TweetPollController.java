@@ -167,4 +167,15 @@ public class TweetPollController extends BaseController {
         log.debug("tweetpoll");
         return "tweetpoll";
     }
+
+    /**
+     * TweetPoll Controller.
+     * @param model model
+     * @return template
+     */
+    @RequestMapping(value = "/newTweetPoll.jspx", method = RequestMethod.GET)
+    public String newTweetPollController(final ModelMap model) {
+        log.debug("tweetpoll new");
+        return "tweetpoll/new";
+    }
 }

@@ -15,6 +15,8 @@ package org.encuestame.mvc.controller.settings;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +38,14 @@ public class SettingsController extends BaseController{
      * @param model
      * @return
      */
-    @RequestMapping(value = "/ac/account", method = RequestMethod.GET)
+    @RequestMapping(value = "/configuration.jspx", method = RequestMethod.GET)
     public String settingsAccountController(ModelMap model) {
+        try {
+            final ProfileUserAccount user = getProfileUserInfo();
+            model.put("profile", user);
+        } catch (EnMeDomainNotFoundException e) {
+            log.warn("profile not found");
+        }
         log.debug("account");
         return "settings/account";
     }
@@ -47,7 +55,7 @@ public class SettingsController extends BaseController{
     * @param model
     * @return
     */
-   @RequestMapping(value = "/ac/social", method = RequestMethod.GET)
+   @RequestMapping(value = "/social.jspx", method = RequestMethod.GET)
    public String socialSettingsController(ModelMap model) {
        log.debug("social");
        return "settings/social";

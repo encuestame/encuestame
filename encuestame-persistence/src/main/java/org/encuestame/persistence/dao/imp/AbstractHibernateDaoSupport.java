@@ -18,12 +18,14 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Abstract Base Dao Class extend Spring class {@link HibernateDaoSupport}
@@ -42,6 +44,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @param obj obj
       * @throws HibernateException hibernate
       */
+     //@Transactional(readOnly = false)
      public void saveOrUpdate(final Object obj) throws HibernateException {
          getHibernateTemplate().saveOrUpdate(obj);
          getSession().flush();

@@ -17,11 +17,35 @@ dojo.declare(
 
         contextPath : "",
 
+        completeName : "",
+
+        username : " ",
+
+        email : "",
+
+        bio : "",
+
+        language : "",
+
+        privateProfile : "",
+
         serviceProfileInfo : encuestame.service.list.myProfile,
 
         postCreate : function(){
-            this._getMyProfile();
-
+            //this._getMyProfile();
+            var email = dijit.byId("email");
+            email.onChange = dojo.hitch(this, function(){
+                    console.debug("change");
+                    email.validateBackEnd("email");
+            });
+            var username = dijit.byId("username");
+            username.onChange = dojo.hitch(this, function(){
+                console.debug("change");
+                username.validateBackEnd("username");
+            });
+            var completeName = dijit.byId("completeName");
+            var bio = dijit.byId("bio");
+            dojo.style(this._form, "display", "block");
         },
 
         /*
@@ -29,24 +53,7 @@ dojo.declare(
          */
         _getMyProfile :function(){
            var load = dojo.hitch(this, function(response){
-               console.debug("profile info ", response);
-               var email = dijit.byId("email");
-               email.set("value", response.success.profile.email);
-               email.onChange = dojo.hitch(this, function(){
-                       console.debug("change");
-                       email.validateBackEnd("email");
-               });
-               var username = dijit.byId("username");
-               username.set("value", response.success.profile.username);
-               username.onChange = dojo.hitch(this, function(){
-                   console.debug("change");
-                   username.validateBackEnd("username");
-               });
-               var completeName = dijit.byId("completeName");
-               completeName.set("value", response.success.profile.name);
-               var bio = dijit.byId("bio");
-               bio.set("value", this._emptyBio(response.success.profile.bio));
-               dojo.style(this._form, "display", "block");
+               //
            });
            var error = function(error) {
                console.debug("error", error);

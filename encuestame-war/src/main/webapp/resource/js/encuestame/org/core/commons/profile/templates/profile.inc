@@ -7,9 +7,10 @@
                         dojoType="dijit.form.ValidationTextBox"
                         required="true"
                         validateType="email"
-                        regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
+                        regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                         invalidMessage="Invalid email."
                         lowercase="true"
+                        value="${email}"
                         maxLength="150" selectOnClick="true">
                         <label for="email">
                             We need email to sent notificaitons, email required.
@@ -21,6 +22,7 @@
                         required="true"
                         validateType="username"
                         maxLength="18"
+                        value="${username}"
                         regExp="[\w]+" required="false" invalidMessage="Invalid username">
                         <label for="username">
                             without spaces, check availability
@@ -29,7 +31,8 @@
             <div>
                 <input type="text" name="completeName" id="completeName"
                         dojoType="dijit.form.ValidationTextBox"
-                        regExp="[\w]+" required="false" >
+                        required="false"
+                        value="${completeName}">
                         <label for="completeName">
                             Optional, your real name
                         </label>
@@ -47,7 +50,7 @@
              <div>
                 <textarea id="bio" name="bio" dojoType="dijit.form.Textarea"
                     style="width:200px;">
-                        Write your bio....
+                       ${bio}
                     </textarea>
 
              </div>

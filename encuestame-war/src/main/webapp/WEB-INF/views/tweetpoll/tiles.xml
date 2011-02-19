@@ -9,4 +9,10 @@
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}tweetpoll.jsp" />
     </definition>
 
+    <definition name="tweetpoll/new" extends="page">
+        <put-attribute name="title" value="TweetPoll | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}new.jsp" />
+    </definition>
+
 </tiles-definitions>

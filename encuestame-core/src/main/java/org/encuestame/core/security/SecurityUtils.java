@@ -84,12 +84,13 @@ public class SecurityUtils {
      * @return
      */
     public static boolean checkIsSessionIsExpired(final Authentication authentication){
-        boolean session = false;
+        boolean session = true;
         if(authentication != null){
             session = authentication.isAuthenticated();
             log.debug("checkIsSessionIsExpired NAME "+authentication.getName());
             log.debug("checkIsSessionIsExpired CREDENTAISL "+authentication.getCredentials());
             log.debug("checkIsSessionIsExpired DETAILS "+authentication.getDetails());
+            session = false;
         }
         log.debug("checkIsSessionIsExpired->"+session);
         return session;

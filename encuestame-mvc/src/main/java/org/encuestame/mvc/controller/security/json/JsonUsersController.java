@@ -27,6 +27,7 @@ import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.UserAccountBean;
@@ -194,7 +195,7 @@ public class JsonUsersController extends AbstractJsonController{
             //     .getSecurityService().searchUsersByUsername(username).size();
             final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
-            if(cv.validateEmail(email) && cv.validateUsername(username)){
+            if(cv.validateEmail(email)){ //TODO && cv.validateUsername(username)
                 final Map<String, Object> sucess = new HashMap<String, Object>();
                 getServiceManager().getApplicationServices().getSecurityService()
                 .createUser(userBean, getUserPrincipalUsername());
@@ -346,14 +347,15 @@ public class JsonUsersController extends AbstractJsonController{
         try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             final ValidateOperations operations = new ValidateOperations(getSecurityService(), getUserAccount());
+            final UserAccount account = getUserAccount();
             if (Profile.findProfile(type).equals(Profile.USERNAME)) {
-                if(operations.validateUsername(filterValue(value))){
+                if(operations.validateUsername(filterValue(value), account)){
                     jsonResponse.put("validate", true);
                 } else {
                     jsonResponse.put("validate", false);
                 }
             } else if (Profile.findProfile(type).equals(Profile.EMAIL)) {
-                if(operations.validateUserEmail(filterValue(value))){
+                if(operations.validateUserEmail(filterValue(value), account)){
                     jsonResponse.put("validate", true);
                 } else {
                     jsonResponse.put("validate", false);

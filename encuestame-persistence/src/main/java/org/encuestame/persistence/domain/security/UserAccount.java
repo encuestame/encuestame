@@ -245,7 +245,7 @@ public class UserAccount {
      * @return the secUserPermissions
      */
     //TODO: eager is not properly solution, but works for now, we need remove this anotation.
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="userAccount_permission",
                joinColumns={@JoinColumn(name="sec_id_secondary")},
                inverseJoinColumns={@JoinColumn(name="sec_id_permission")})
