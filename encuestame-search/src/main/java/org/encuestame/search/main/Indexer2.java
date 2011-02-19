@@ -128,10 +128,10 @@ public class Indexer2 {
      * Index .txt files only using FileFilter
      * @author dmorales
      */
-        public String getExtension(File path) {
-            String ruta = path.getName().toString();
-              final String ext = ruta.substring(ruta.lastIndexOf('.')+1);
-              System.out.println("PATH ------> "+ ruta);
+        public String getExtension(String path) {
+          //  String ruta = path.getName().toString();
+              final String ext = path.substring(path.lastIndexOf('.')+1);
+              System.out.println("PATH ------> "+ path);
               System.out.println("EXT ------> "+ ext);
             return ext;
             //path.getName().toLowerCase().endsWith(ext);
@@ -149,11 +149,11 @@ public class Indexer2 {
     }*/
 
     private void indexFile(File f) throws Exception {
-        System.out.println("Indexing " + f.getCanonicalPath());
+        //System.out.println("Indexing " + f.getCanonicalPath());
         String ruta = f.getName().toString();
-        final String ext = ruta.substring(ruta.lastIndexOf('.')+1);
-        System.out.println("PATH ------> "+ ruta);
-        System.out.println("EXT ------> "+ ext);
+        final String ext = getExtension(ruta);
+       // System.out.println("PATH ------> "+ ruta);
+        System.out.println("EXTENSION ------> "+ ext);
         Document doc = getDocument(f, ext);
         writer.addDocument(doc); // Add Document to Lucene Index.
     }
@@ -299,9 +299,9 @@ public class Indexer2 {
         IndexSearcher searcher = new IndexSearcher(reader);
         QueryParser parser = new QueryParser(Version.LUCENE_29, "content",
                 new StandardAnalyzer(Version.LUCENE_29));
-        Query query = parser.parse("again");
+        Query query = parser.parse("api");
         TopDocCollector collector = new TopDocCollector(100);
-        TopDocs hits2 = searcher.search(query, 10); // Search Index
+        TopDocs hits2 = searcher.search(query, 3); // Search Index
 
         searcher.search(query , collector);
         ScoreDoc[] hits = collector.topDocs().scoreDocs;
@@ -310,8 +310,8 @@ public class Indexer2 {
         for(int i=0 ; i<hits.length ; i++) {
         int doc = hits[i].doc;
         Document doc1 = searcher.doc(doc);
-        System.out.println(doc1.get("filename"));
-        System.out.println("Document id is "+doc);
+        //System.out.println(doc1.get("filename"));
+
         }
         System.out.println("Total number of docs "+reader.maxDoc());
     }
