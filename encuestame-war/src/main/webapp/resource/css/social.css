@@ -1,3 +1,35 @@
-#socialWrapper{
+div.socialAccounts{
     margin: 70px;
+}
+
+
+div.socialAccounts div.socialWrapper{
+    margin: 70px;
+}
+
+div.socialAccounts div.socialWrapper{
+    margin: 70px;
+}
+
+div.socialAccounts div.socialWrapper div.listSocialCommunities{
+
+}
+
+div.socialAccounts div.socialWrapper div.socialCommunitieItem{
+    padding: 10px;
+    font-size: 130%;
+    font-weight: bold;
+    background-color: blue;
+    color: #FFF;
+    max-width: 200px;
+    cursor: pointer;
+}
+
+div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
+    background-color: white;
+    color: grey;
+}
+
+div.socialAccounts div.socialWrapper  div.socialAccountListDetail{
+
 }
