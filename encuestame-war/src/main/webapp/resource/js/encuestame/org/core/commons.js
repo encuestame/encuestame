@@ -347,3 +347,12 @@ encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/
 encuestame.service.list.myProfile = encuestame.contextWidget()+"/api/admon/info-profile.json";
 
 encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/account/validate.json";
+
+//settings social
+encuestame.service.social = {};
+encuestame.service.social.twitter = {};
+encuestame.service.social.twitter.authorize = encuestame.contextWidget()+"/api/social/twitter/authorize/url.json";
+encuestame.service.social.twitter.confirm = encuestame.contextWidget()+"/api/social/twitter/authorize/confirm.json";
+encuestame.service.social.twitter.create = encuestame.contextWidget()+"/api/social/twitter/account/create.json";
+encuestame.service.social.facebook = {};
+encuestame.service.social.linkedIn = {};

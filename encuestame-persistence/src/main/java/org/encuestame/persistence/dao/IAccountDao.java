@@ -75,7 +75,7 @@ public interface IAccountDao extends IBaseDao {
      * @return {@link UserAccount}
      * @throws HibernateException HibernateException
      */
-    UserAccount getSecondaryUserById(final Long userId);
+    UserAccount getUserAccountById(final Long userId);
 
     /**
      * Get list of users by username.

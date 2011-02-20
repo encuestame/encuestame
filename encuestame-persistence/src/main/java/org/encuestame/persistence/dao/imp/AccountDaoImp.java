@@ -105,7 +105,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return SecUserSecondary
      * @throws HibernateException hibernate exception
      */
-    public UserAccount getSecondaryUserById(final Long userId){
+    public UserAccount getUserAccountById(final Long userId){
             return (UserAccount) (getHibernateTemplate().get(UserAccount.class, userId));
     }
 
@@ -181,7 +181,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public List<SocialAccount> getTwitterVerifiedAccountByUser(final Account secUsers){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", secUsers) );
+        criteria.add(Restrictions.eq("secUsers", secUsers));
         criteria.add(Restrictions.eq("verfied", true) );
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -262,7 +262,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         connection.setSocialAccountId(socialAccountId);
         connection.setSecret(token.getSecret());
         connection.setProfileUrl(providerProfileUrl);
-        connection.setUserAccout(this.getSecondaryUserById(userAccountId));
+        connection.setUserAccout(this.getUserAccountById(userAccountId));
         getHibernateTemplate().saveOrUpdate(connection);
         return connection;
     }

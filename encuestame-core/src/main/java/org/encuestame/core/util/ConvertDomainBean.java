@@ -119,11 +119,7 @@ public class ConvertDomainBean {
      */
     public static final UnitTwitterAccountBean convertTwitterAccountToBean(final SocialAccount twitterAccounts){
            final UnitTwitterAccountBean twitterAccountBean = new UnitTwitterAccountBean();
-                   twitterAccountBean.setAccount(twitterAccounts.getTwitterAccount());
-                   twitterAccountBean.setSecret(twitterAccounts.getConsumerSecret());
-                   twitterAccountBean.setKey(twitterAccounts.getConsumerKey());
-                   twitterAccountBean.setPin(twitterAccounts.getTwitterPin() == null
-                           ? "" : twitterAccounts.getTwitterPin().toString());
+                   twitterAccountBean.setAccount(twitterAccounts.getSocialAccountName());
                    twitterAccountBean.setAccountId(twitterAccounts.getId());
                    twitterAccountBean.setToken(twitterAccounts.getToken());
                    twitterAccountBean.setSecretToken(twitterAccounts.getSecretToken());

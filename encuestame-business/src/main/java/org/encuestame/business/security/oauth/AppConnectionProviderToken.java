@@ -120,7 +120,7 @@ public class AppConnectionProviderToken implements OAuthAccessProviderToken {
      */
     public Authentication getUserAuthentication() {
         if (userAuthentication == null) {
-            UserAccount account = this.accountDaoImp.getSecondaryUserById(connection.getAccount().getUid());
+            UserAccount account = this.accountDaoImp.getUserAccountById(connection.getAccount().getUid());
             log.debug("Get User Authentication "+account);
             return this.authenticationTokenFor(account);
         }

@@ -70,14 +70,6 @@ public interface ISecurityService extends IService {
 
 
     /**
-     * Add new Twitter Account.
-     * @param account account.
-     * @param username
-     * @throws EnMeDomainNotFoundException
-     */
-     void addNewTwitterAccount(final String account, final String username) throws EnMeDomainNotFoundException;
-
-    /**
      * Assing Group to User.
      * @param user user
      * @param group group
@@ -328,14 +320,19 @@ public interface ISecurityService extends IService {
 
     /**
      * Update OAuth Token/Secret Social Account.
-     * @param accountId
+     * @param socialAccountId
      * @param token
      * @param tokenSecret
      * @param username
+     * @param account
      * @throws EnMeExpcetion
      */
-    void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
-            final String username) throws EnMeExpcetion;
+    public void addOAuthTokenSocialAccount(
+            final Long socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String username,
+            final UserAccount account) throws EnMeExpcetion;
 
     /**
      * Assign Permission,

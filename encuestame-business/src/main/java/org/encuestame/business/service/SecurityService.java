@@ -76,9 +76,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /** Default User Permission **/
     private static final String PUBLISHER = EnMePermission.ENCUESTAME_PUBLISHER.name();
 
-    /** Anonnymous User. **/
-    private static final String ANONYMOUS = EnMePermission.ENCUESTAME_ANONYMOUS.name();
-
 
     private final Integer DEFAULT_LENGTH_PASSWORD = 8;
 
@@ -87,9 +84,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Retrieve Total Own Users.
-     * @param username
-     * @return
-     * @throws EnMeDomainNotFoundException
+     * @param username username
+     * @return total own users.
+     * @throws EnMeDomainNotFoundException exception
      */
     public Long totalOwnUsers(final String username) throws EnMeDomainNotFoundException{
         return getAccountDao().retrieveTotalUsers(getUserAccount(username).getAccount());
@@ -108,8 +105,8 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Load Groups by Client
-     * @return
-     * @throws EnMeDomainNotFoundException
+     * @return list of groups
+     * @throws EnMeDomainNotFoundException exception
      */
     public List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException{
         final UserAccount userAccount = getUserAccount(currentUsername);
@@ -123,11 +120,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Update Twitter Account.
-     * @param account account
+     * @param accountBean account
      * @param password password
-     * @param secUser {@link Account}
      * TODO: this method is close to be deprecated, twitter don't allow password login.
      */
+    @Deprecated
     public void updateTwitterAccount(
             final UnitTwitterAccountBean accountBean,
             final String password,
@@ -135,7 +132,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         if(accountBean.getAccountId() != null){
             final SocialAccount twitterAccount = getAccountDao().getTwitterAccount(accountBean.getAccountId());
             if(twitterAccount != null){
-                twitterAccount.setTwitterPassword(password);
+                //twitterAccount.setTwitterPassword(password);
                 twitterAccount.setVerfied(verify);
                 log.debug("Updating twitter password account");
                 getAccountDao().saveOrUpdate(twitterAccount);
@@ -163,12 +160,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             final String username) throws EnMeExpcetion{
          //TODO: we should search twitter account filter by username
          final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
-         twitterAccount.setConsumerKey(accountBean.getKey());
-         twitterAccount.setConsumerSecret(accountBean.getSecret());
+         //twitterAccount.setConsumerKey(accountBean.getKey());
+         //twitterAccount.setConsumerSecret(accountBean.getSecret());
          twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
          if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
              log.debug("PIN Exists {"+accountBean.getPin());
-             twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
+             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
             //If exist pin, we can verify credentials
             log.debug("Verify OAuth Credentials");
                 if(verifyCredentials(
@@ -186,7 +183,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
                 }
          } else {
              log.info("Account not verified, pin not found");
-             twitterAccount.setTwitterPin(null);
+             //twitterAccount.setTwitterPin(null);
              twitterAccount.setVerfied(Boolean.FALSE);
          }
         log.debug("Update Secret Twitter Credentials");
@@ -197,43 +194,33 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
 
     /**
      * Update OAuth Token/Secret Social Account.
-     * @param accountId
+     * @param socialAccountId
      * @param token
      * @param tokenSecret
      * @param username
+     * @param account
      * @throws EnMeExpcetion
      */
-    public void updateOAuthTokenSocialAccount(final Long accountId, final String token, final String tokenSecret,
-            final String username) throws EnMeExpcetion{
-        final SocialAccount twitterAccount = this.getSocialAccount(accountId); //TODO: filter by Username Too
-        if(twitterAccount == null){
-            throw new EnMeExpcetion("Social Account not found");
-        }
-        else{
+    public void addOAuthTokenSocialAccount(
+            final Long socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String username,
+            final UserAccount account) throws EnMeExpcetion{
+        final SocialAccount socialAccount = new SocialAccount();
             log.debug("Updating  Token to {"+token);
             log.debug("Updating Secret Token to {"+tokenSecret);
-            twitterAccount.setToken(token);
-            twitterAccount.setSecretToken(tokenSecret);
-            getAccountDao().saveOrUpdate(twitterAccount);
+            socialAccount.setToken(token);
+            socialAccount.setVerfied(Boolean.TRUE);
+            socialAccount.setSecUsers(account.getAccount());
+            socialAccount.setSocialAccountName(username);
+            socialAccount.setType(TypeAuth.OAUTH);
+            socialAccount.setSecretToken(tokenSecret);
+            socialAccount.setSocialUserId(socialAccountId);
+            getAccountDao().saveOrUpdate(socialAccount);
             log.debug("Updated Token");
-        }
     }
 
-    /**
-     * Add new Twitter Account.
-     * @param account account.
-     * @param username
-     * @throws EnMeDomainNotFoundException
-     */
-    public void addNewTwitterAccount(final String account, final String username) throws EnMeDomainNotFoundException{
-        final Account user = getUserAccount(username).getAccount();
-        final SocialAccount userTwitterAccount = new SocialAccount();
-        userTwitterAccount.setSecUsers(user);
-        userTwitterAccount.setTwitterAccount(account);
-        userTwitterAccount.setTwitterPassword("");
-        userTwitterAccount.setType(TypeAuth.PASSWORD); //By default is PASSWORD.
-        getAccountDao().saveOrUpdate(userTwitterAccount);
-    }
 
     /**
      * Get Twitter Account.
@@ -510,7 +497,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             // save user
             getAccountDao().saveOrUpdate(userAccount);
             // assing first default group to user
-            final UserAccount retrievedUser = getAccountDao().getSecondaryUserById(userAccount.getUid());
+            final UserAccount retrievedUser = getAccountDao().getUserAccountById(userAccount.getUid());
             final Permission permission = getPermissionByName(SecurityService.DEFAULT);
             if(permission != null){
                 final List<Permission> all = getPermissionDao().findAllPermissions();
@@ -602,7 +589,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
         log.info("userBean found "+userBean.getId());
         log.info("permissionBean found "+permissionBean.getId());
         if (userBean.getId() != null) {
-            userDomain = getAccountDao().getSecondaryUserById(userBean.getId());
+            userDomain = getAccountDao().getUserAccountById(userBean.getId());
             log.info("user found "+userDomain);
         }
         if (permissionBean.getId() != null) {

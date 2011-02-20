@@ -51,24 +51,14 @@ public class SocialAccount {
     private Account secUsers;
 
     /**
-     * Twitter Account.
+     * Social Account Name.
      */
-    private String twitterAccount;
+    private String socialAccountName;
 
     /**
-     * Twitter Password.
+     * Social User Id.
      */
-    private String twitterPassword;
-
-    /**
-     *  Consumer Key.
-     **/
-    private String consumerKey;
-
-    /**
-     * Consumer Secret.
-     **/
-    private String consumerSecret;
+    private Long socialUserId;
 
     /**
      * Tokeb
@@ -79,11 +69,6 @@ public class SocialAccount {
      * Secret Token.
      */
     private String secretToken;
-
-    /** Twitter Pin.
-     *
-     **/
-    private Integer twitterPin;
 
     /**
      * Type.
@@ -108,7 +93,9 @@ public class SocialAccount {
     OAUTH,
     /**
      * Password.
+     * Twitter as deprecated password login from 31/10/10.
      */
+    @Deprecated
     PASSWORD};
 
     /**
@@ -160,32 +147,31 @@ public class SocialAccount {
     /**
      * @return the twitterAccount
      */
-    @Column (name="twitter_account", nullable = false)
-    public String getTwitterAccount() {
-        return twitterAccount;
+    @Column (name="socual_account_name", nullable = false)
+    public String getSocialAccountName() {
+        return socialAccountName;
     }
 
     /**
-     * @param twitterAccount the twitterAccount to set
+     * @param socialAccountName the social account name to set
      */
-    public void setTwitterAccount(final String twitterAccount) {
-        this.twitterAccount = twitterAccount;
+    public void setSocialAccountName(final String socialAccountName) {
+        this.socialAccountName = socialAccountName;
     }
 
     /**
-     * @return the twitterPassword
+     * @return the socialUserId
      */
-    //@Type(type="encryptedString")
-    @Column (name="twitter_password", nullable = false)
-    public String getTwitterPassword() {
-        return twitterPassword;
+    @Column (name="socual_account_id", nullable = false)
+    public Long getSocialUserId() {
+        return socialUserId;
     }
 
     /**
-     * @param twitterPassword the twitterPassword to set
+     * @param socialUserId the socialUserId to set
      */
-    public void setTwitterPassword(final String twitterPassword) {
-        this.twitterPassword = twitterPassword;
+    public void setSocialUserId(Long socialUserId) {
+        this.socialUserId = socialUserId;
     }
 
     /**
@@ -223,51 +209,6 @@ public class SocialAccount {
     }
 
     /**
-     * @return the consumerKey
-     */
-    @Column(name = "twitter_consumer_key", nullable = true)
-    public String getConsumerKey() {
-        return consumerKey;
-    }
-
-    /**
-     * @param consumerKey the consumerKey to set
-     */
-    public void setConsumerKey(final String consumerKey) {
-        this.consumerKey = consumerKey;
-    }
-
-    /**
-     * @return the consumerSecret
-     */
-    @Column(name = "twitter_consumer_secret", nullable = true)
-    public String getConsumerSecret() {
-        return consumerSecret;
-    }
-
-    /**
-     * @param consumerSecret the consumerSecret to set
-     */
-    public void setConsumerSecret(final String consumerSecret) {
-        this.consumerSecret = consumerSecret;
-    }
-
-    /**
-     * @return the twitterPin
-     */
-    @Column(name = "twitter_pin", nullable = true)
-    public Integer getTwitterPin() {
-        return twitterPin;
-    }
-
-    /**
-     * @param twitterPin the twitterPin to set
-     */
-    public void setTwitterPin(Integer twitterPin) {
-        this.twitterPin = twitterPin;
-    }
-
-    /**
      * @return the verfied
      */
     @Column (name="twitter_verified", nullable = true)
@@ -282,7 +223,7 @@ public class SocialAccount {
         this.verfied = verfied;
     }
 
-    @Column (name="twitter_token", nullable = true)
+    @Column(name = "twitter_token", nullable = true)
     public String getToken() {
         return token;
     }
@@ -291,7 +232,7 @@ public class SocialAccount {
         this.token = token;
     }
 
-    @Column (name="twitter_secret_token", nullable = true)
+    @Column(name = "twitter_secret_token", nullable = true)
     public String getSecretToken() {
         return secretToken;
     }
@@ -299,6 +240,4 @@ public class SocialAccount {
     public void setSecretToken(String secretToken) {
         this.secretToken = secretToken;
     }
-
-
 }

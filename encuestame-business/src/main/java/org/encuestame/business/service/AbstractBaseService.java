@@ -346,7 +346,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      */
     public UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
         UserAccountBean userInfo = null;
-        final UserAccount user = getAccountDao().getSecondaryUserById(userId);
+        final UserAccount user = getAccountDao().getUserAccountById(userId);
         if(this.validateOwnerGroup(user, currentUsername)){
             userInfo =  ConvertDomainBean.convertSecondaryUserToUserBean(user);
             log.debug("getUserCompleteInfo info "+userInfo.getId());
@@ -361,7 +361,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @return
      */
     public UserAccount getValidateUser(final Long userId, final String currentUsername){
-        final UserAccount user = getAccountDao().getSecondaryUserById(userId);
+        final UserAccount user = getAccountDao().getUserAccountById(userId);
         UserAccount expetedUser = null;
         if(this.validateOwnerGroup(user, currentUsername)){
             expetedUser = user;

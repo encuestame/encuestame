@@ -37,6 +37,16 @@ public abstract class AbstractConfigurationService extends AbstractDataSource {
     private @Value("${application.picture.path}") String dataGlobalPath;
 
     /**
+     * App Consumer Key.
+     */
+    public @Value("${twitter.oauth.consumerKey}") String consumerKey;
+
+    /**
+     * App consumer secret.
+     */
+    public @Value("${twitter.oauth.consumerSecret}") String consumerSecret;
+
+    /**
      * @return the domainUrl
      */
     public String getDomainUrl() {

@@ -81,6 +81,7 @@ import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -177,7 +178,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public String getProperty(final String property){
-        Resource resource = new FileSystemResource("src/main/resources/test-config.properties");
+        Resource resource = new ClassPathResource("test-config.properties");
         Properties props = null;
         try {
             props = PropertiesLoaderUtils.loadProperties(resource);
@@ -1244,7 +1245,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         socialTwitterAccounts.setSecUsers(secUsers);
         socialTwitterAccounts.setTwitterPin(twitterPin);
         socialTwitterAccounts.setVerfied(verified);
-        socialTwitterAccounts.setTwitterAccount(twitterAccount);
+        socialTwitterAccounts.setSocialAccountName(twitterAccount);
         socialTwitterAccounts.setTwitterPassword("not valid");
         getAccountDao().saveOrUpdate(socialTwitterAccounts);
         return socialTwitterAccounts;

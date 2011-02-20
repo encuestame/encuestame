@@ -119,11 +119,11 @@ public class TweetPollJsonController extends AbstractJsonController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.GET)
     public ModelMap get(
-            @RequestParam(value = "twitterAccounts", required = true) Long[] twitterAccountsId,
-            @RequestParam(value = "question", required = true) String question,
-            @RequestParam(value = "scheduled", required = false) Boolean scheduled,
+            @RequestParam(value = "twitterAccounts", required = true) final Long[] twitterAccountsId,
+            @RequestParam(value = "question", required = true) final String question,
+            @RequestParam(value = "scheduled", required = false) final Boolean scheduled,
             @RequestParam(value = "hashtags", required = false) String[] hashtags,
-            @RequestParam(value = "answers", required = true) String[] answers,
+            @RequestParam(value = "answers", required = true) final String[] answers,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final UnitTweetPoll tweetPoll = new UnitTweetPoll();
@@ -149,6 +149,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 }
 
                 //Setting Hash Tags
+                hashtags = hashtags == null ?  new String[0] : hashtags;
                 for (int row = 0; row < hashtags.length; row++) {
                     final UnitHashTag hashTag = new UnitHashTag();
                     hashTag.setHashTagName(answers[row].toLowerCase().trim());

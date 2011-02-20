@@ -39,7 +39,7 @@ import org.junit.Test;
  */
 public class TestUserDao extends AbstractBase {
 
-	/** {@link Account} **/
+    /** {@link Account} **/
     private Account account;
 
     /** {@link UserAccount} **/
@@ -122,7 +122,7 @@ public class TestUserDao extends AbstractBase {
         user.setUserEmail(newEmail);
         getAccountDao().saveOrUpdate(user);
          final UserAccount retrieveUser = getAccountDao()
-         .getSecondaryUserById(Long.valueOf(user.getUid()));
+         .getUserAccountById(Long.valueOf(user.getUid()));
      assertEquals("Password should be",newPassword,
                      retrieveUser.getPassword());
         assertEquals("Email should be",newEmail,
@@ -195,9 +195,9 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testRetrieveTotalUsers(){
-    	 final Long totalUserAccount = getAccountDao().retrieveTotalUsers(this.account);
-    	 System.out.println("TOTAL USER ACCOUNT --> "+totalUserAccount);
-    	 assertEquals("Should be equals", 1, 1);
+         final Long totalUserAccount = getAccountDao().retrieveTotalUsers(this.account);
+         System.out.println("TOTAL USER ACCOUNT --> "+totalUserAccount);
+         assertEquals("Should be equals", 1, 1);
 
     }
 
@@ -206,7 +206,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testretRieveListOwnerUsers(){
-    	final List<UserAccount> usersAccount = getAccountDao().retrieveListOwnerUsers(this.account, 5, 0);
+        final List<UserAccount> usersAccount = getAccountDao().retrieveListOwnerUsers(this.account, 5, 0);
          assertEquals("Should be equals", 1, usersAccount.size());
     }
 
@@ -215,7 +215,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetTwitterAccount(){
-    	final SocialAccount social = getAccountDao().getTwitterAccount(this.socialAccount.getId());
+        final SocialAccount social = getAccountDao().getTwitterAccount(this.socialAccount.getId());
         assertEquals("Should be equals", this.socialAccount.getId(), social.getId());
     }
 
@@ -224,8 +224,8 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetUserById(){
-    	final Account userAccount = getAccountDao().getUserById(this.account.getUid());
-    	 assertEquals("Should be equals", this.account.getUid(), userAccount.getUid());
+        final Account userAccount = getAccountDao().getUserById(this.account.getUid());
+         assertEquals("Should be equals", this.account.getUid(), userAccount.getUid());
      }
 
     /**
@@ -233,9 +233,9 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetUserByEmail(){
-    	final UserAccount userAcc = getAccountDao().getUserByEmail(this.userAccount.getUserEmail());
-    	assertNotNull(userAcc);
-      	assertEquals("Should be equals", this.userAccount.getUserEmail(), userAcc.getUserEmail());
+        final UserAccount userAcc = getAccountDao().getUserByEmail(this.userAccount.getUserEmail());
+        assertNotNull(userAcc);
+          assertEquals("Should be equals", this.userAccount.getUserEmail(), userAcc.getUserEmail());
     }
 
     /**
@@ -243,8 +243,8 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetUsersByUsername(){
-    	final UserAccount user = getAccountDao().getUserByUsername(this.userAccount.getUsername());
-    	assertEquals("Should be equals", this.userAccount.getUsername(), user.getUsername());
+        final UserAccount user = getAccountDao().getUserByUsername(this.userAccount.getUsername());
+        assertEquals("Should be equals", this.userAccount.getUsername(), user.getUsername());
     }
 
     /**
@@ -252,9 +252,9 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testgetTwitterVerifiedAccountByUser(){
-    	final List<SocialAccount> socAccount = getAccountDao().getTwitterVerifiedAccountByUser(this.account);
-    	assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
-    	assertEquals("Should be equals", 1, socAccount.size());
+        final List<SocialAccount> socAccount = getAccountDao().getTwitterVerifiedAccountByUser(this.account);
+        assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
+        assertEquals("Should be equals", 1, socAccount.size());
     }
 
     /**
@@ -262,7 +262,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetTotalTweetPollByUser(){
-    	this.questionsAnswers1 = createQuestionAnswer("monday", question, "12345");
+        this.questionsAnswers1 = createQuestionAnswer("monday", question, "12345");
         this.questionsAnswers2 = createQuestionAnswer("sunday", question, "12346");
         this.tweetPoll = createPublishedTweetPoll(userAccount.getAccount(), question);
         this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
@@ -271,8 +271,8 @@ public class TestUserDao extends AbstractBase {
         createTweetPollResult(pollSwitch1, "192.168.0.2");
         createTweetPollResult(pollSwitch2, "192.168.0.3");
         createTweetPollResult(pollSwitch2, "192.168.0.4");
-     	final List<Long> tweets = getAccountDao().getTotalTweetPollByUser(this.account.getUid());
-      	assertEquals("Should be equals", 1, tweets.size());
+         final List<Long> tweets = getAccountDao().getTotalTweetPollByUser(this.account.getUid());
+          assertEquals("Should be equals", 1, tweets.size());
     }
 
     /**
@@ -280,8 +280,8 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetTotalPollByUser(){
-    	this.poll = createPoll(new Date(), this.question, "FDK125", this.account, Boolean.TRUE, Boolean.TRUE);
-    	final List<Long> polls = getAccountDao().getTotalPollByUser(this.account.getUid());
-    	assertEquals("Should be equals", 1, polls.size());
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.account, Boolean.TRUE, Boolean.TRUE);
+        final List<Long> polls = getAccountDao().getTotalPollByUser(this.account.getUid());
+        assertEquals("Should be equals", 1, polls.size());
     }
 }
