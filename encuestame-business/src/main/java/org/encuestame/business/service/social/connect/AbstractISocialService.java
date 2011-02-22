@@ -18,7 +18,6 @@ import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuthToken;
-import org.springframework.social.twitter.TwitterOperations;
 
 /**
  * Description Class.
@@ -37,7 +36,7 @@ public abstract interface AbstractISocialService {
         void disconnect(Long accountId);
 
 
-        String fetchProviderAccountId(TwitterOperations serviceOperations);
+        //String fetchProviderAccountId(TwitterOperations serviceOperations);
 
         /**
          * The key used to identify the local application with the remote service provider.

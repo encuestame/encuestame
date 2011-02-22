@@ -14,9 +14,8 @@ package org.encuestame.business.service.social.connect;
 
 import org.encuestame.utils.oauth.OAuthToken;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.social.facebook.FacebookOperations;
+import org.springframework.social.facebook.FacebookApi;
 import org.springframework.social.facebook.FacebookTemplate;
-import org.springframework.social.twitter.TwitterOperations;
 import org.springframework.social.twitter.TwitterTemplate;
 
 /**
@@ -25,7 +24,7 @@ import org.springframework.social.twitter.TwitterTemplate;
  * @since Dec 25, 2010 5:57:35 PM
  * @version $Id:$
  */
-public class FacebookSocialService extends AbstractSocialProvider<FacebookOperations> implements IFacebookSocialService{
+public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> implements IFacebookSocialService{
 
 
     /**
@@ -72,7 +71,7 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
     }
 
     @Override
-    protected FacebookOperations createServiceOperations(OAuthToken accessToken) {
+    protected FacebookApi createServiceOperations(OAuthToken accessToken) {
         if (accessToken == null) {
             throw new IllegalStateException("Cannot access Facebook without an access token");
         }
@@ -80,13 +79,13 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
     }
 
     @Override
-    protected String fetchProviderAccountId(FacebookOperations serviceOperations) {
+    protected String fetchProviderAccountId(FacebookApi serviceOperations) {
       return serviceOperations.getProfileId();
     }
 
     @Override
     protected String buildProviderProfileUrl(String providerAccountId,
-            FacebookOperations serviceOperations) {
+            FacebookApi serviceOperations) {
         return "http://www.facebook.com/profile.php?id=" + providerAccountId;
     }
 
@@ -102,8 +101,4 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
         return null;
     }
 
-    public String fetchProviderAccountId(TwitterOperations serviceOperations) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

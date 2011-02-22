@@ -14,7 +14,8 @@ package org.encuestame.business.service.social.connect;
 
 import org.encuestame.utils.oauth.OAuthToken;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.social.linkedin.LinkedInOperations;
+import org.springframework.social.linkedin.LinkedInApi;
+import org.springframework.social.linkedin.LinkedInApi;
 import org.springframework.social.linkedin.LinkedInTemplate;
 
 /**
@@ -23,7 +24,7 @@ import org.springframework.social.linkedin.LinkedInTemplate;
  * @since Dec 25, 2010 5:57:35 PM
  * @version $Id:$
  */
-public class LinkedInSocialService extends AbstractSocialProvider<LinkedInOperations>{
+public class LinkedInSocialService extends AbstractSocialProvider<LinkedInApi>{
 
     /**
      * Social Account Provider;
@@ -64,7 +65,7 @@ public class LinkedInSocialService extends AbstractSocialProvider<LinkedInOperat
     }
 
     @Override
-    protected LinkedInOperations createServiceOperations(OAuthToken accessToken) {
+    protected LinkedInApi createServiceOperations(OAuthToken accessToken) {
         log.debug("Twitter Operations createServiceOperations "+accessToken.toString());
         if(this.linkedInTemplate == null){
             log.debug("Creando Provider");
@@ -89,7 +90,7 @@ public class LinkedInSocialService extends AbstractSocialProvider<LinkedInOperat
      * Fetch Provider Account Id.
      */
     @Override
-    public String fetchProviderAccountId(LinkedInOperations serviceOperations) {
+    public String fetchProviderAccountId(LinkedInApi serviceOperations) {
       log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
       return serviceOperations.getProfileId();
     }
@@ -99,7 +100,7 @@ public class LinkedInSocialService extends AbstractSocialProvider<LinkedInOperat
      */
     @Override
     protected String buildProviderProfileUrl(String providerAccountId,
-            LinkedInOperations serviceOperations) {
+            LinkedInApi serviceOperations) {
         return "url-" + providerAccountId;
     }
 

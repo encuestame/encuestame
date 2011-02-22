@@ -13,8 +13,8 @@
 package org.encuestame.business.service.social.connect;
 
 import org.encuestame.utils.oauth.OAuthToken;
+import org.scribe.builder.api.TwitterApi;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.social.twitter.TwitterOperations;
 import org.springframework.social.twitter.TwitterTemplate;
 
 /**
@@ -23,7 +23,7 @@ import org.springframework.social.twitter.TwitterTemplate;
  * @since Dec 25, 2010 5:57:35 PM
  * @version $Id:$
  */
-public class TwitterSocialService extends AbstractSocialProvider<TwitterOperations> implements ITwitterSocialProvider{
+public class TwitterSocialService extends AbstractSocialProvider<TwitterApi> implements ITwitterSocialProvider{
 
     /**
      * Social Account Provider;
@@ -74,13 +74,13 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
     }
 
     @Override
-    protected TwitterOperations createServiceOperations(OAuthToken accessToken) {
+    protected TwitterApi createServiceOperations(OAuthToken accessToken) {
         log.debug("Twitter Operations createServiceOperations "+accessToken.toString());
         if(this.twitterTemplate == null){
             log.debug("Creando Provider");
             this.createTwitterTemplate(accessToken);
         }
-        return this.twitterTemplate;
+        return null;
     }
 
     /**
@@ -100,10 +100,11 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
     /**
      * Fetch Provider Account Id.
      */
-    @Override
-    public String fetchProviderAccountId(TwitterOperations serviceOperations) {
-      log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
-      return serviceOperations.getProfileId();
+    //@Override
+    public String fetchProviderAccountId(TwitterApi serviceOperations) {
+        return TWITTER_URL;
+      //log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
+      //return serviceOperations.getProfileId();
     }
 
     /**
@@ -111,7 +112,7 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
      */
     @Override
     protected String buildProviderProfileUrl(String providerAccountId,
-            TwitterOperations serviceOperations) {
+            TwitterApi serviceOperations) {
         return this.TWITTER_URL + providerAccountId;
     }
 

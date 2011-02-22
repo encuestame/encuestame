@@ -41,6 +41,7 @@ public class LinkedInService extends AbstractBaseService implements ILinkedInSer
     String requestTokenUrl;
 
     public LinkedInService() {
+        System.out.println("**********************LinkedInService*************************************");
     }
 
     /**
@@ -48,12 +49,18 @@ public class LinkedInService extends AbstractBaseService implements ILinkedInSer
      * @return
      */
     public String getAuthorizeLinkedInUrl() {
-        OAuthService service = new ServiceBuilder().provider(LinkedInApi.class)
-                .apiKey(this.apiKey).apiSecret(this.consumerKey).build();
+        System.out.println("*****"+this.apiKey);
+        System.out.println("*****"+this.consumerSecret);
+        OAuthService service = new ServiceBuilder()
+                .provider(LinkedInApi.class)
+                .apiKey(this.apiKey)
+                .apiSecret(this.consumerSecret).build();
         Token requestToken = service.getRequestToken();
+        System.out.println("*****"+requestToken);
         String myToken = requestToken.getToken();
         String completeUrl = org.apache.commons.lang.StringUtils.replace(
                 this.authorizeUrl, "{token}", myToken);
+        System.out.println("*****"+completeUrl);
         return completeUrl;
     }
 }
