@@ -21,6 +21,7 @@ import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.OAuthToken;
@@ -105,7 +106,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return SecUserSecondary
      * @throws HibernateException hibernate exception
      */
-    public UserAccount getSecondaryUserById(final Long userId){
+    public UserAccount getUserAccountById(final Long userId){
             return (UserAccount) (getHibernateTemplate().get(UserAccount.class, userId));
     }
 
@@ -181,7 +182,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public List<SocialAccount> getTwitterVerifiedAccountByUser(final Account secUsers){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", secUsers) );
+        criteria.add(Restrictions.eq("secUsers", secUsers));
         criteria.add(Restrictions.eq("verfied", true) );
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -257,12 +258,12 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         //get provider
         final SocialAccountProvider providerSocial = getSocialProviderDao()
                                    .getSocialAccountProviderId(provider);
-        connection.setAccountProvider(providerSocial);
+        connection.setAccountProvider(SocialProvider.TWITTER); //TODO: FIX THIS HARD CODE.
         connection.setAccessToken(token.getValue());
         connection.setSocialAccountId(socialAccountId);
         connection.setSecret(token.getSecret());
         connection.setProfileUrl(providerProfileUrl);
-        connection.setUserAccout(this.getSecondaryUserById(userAccountId));
+        connection.setUserAccout(this.getUserAccountById(userAccountId));
         getHibernateTemplate().saveOrUpdate(connection);
         return connection;
     }

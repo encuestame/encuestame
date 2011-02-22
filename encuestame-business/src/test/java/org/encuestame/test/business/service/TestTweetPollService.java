@@ -87,7 +87,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
    @Before
    public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.userAccount = createSecondaryUser("jhon", user);
+        this.userAccount = createUserAccount("jhon", user);
         this.question = createQuestion("Why the sky is blue?","html");
         this.pattern = createQuestionPattern("html");
         createQuestionAnswer("Yes", this.question,"SSSA");
@@ -224,7 +224,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         final Question question2 = createQuestion("Why the sea is big?","html");
         createTweetPollPublicated(true, true, new Date(), this.user, question1);
         createTweetPollPublicated(true, true, new Date(), this.user, question2);
-        final UserAccount secUser = createSecondaryUser("diana", this.user);
+        final UserAccount secUser = createUserAccount("diana", this.user);
         final List<UnitTweetPoll> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(
                 secUser.getUsername(),5,0);
         assertEquals("Should be equals", 2 , tweetPollsByUser.size());

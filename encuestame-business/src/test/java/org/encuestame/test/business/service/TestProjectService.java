@@ -61,7 +61,7 @@ public class TestProjectService extends AbstractServiceBase {
         @Before
         public void initService(){
            this.user = createUser();
-           this.userPrincipal = createSecondaryUser("jhon", this.user);
+           this.userPrincipal = createUserAccount("jhon", this.user);
            createProject("project 1","TIC Project","Project", this.user);
            this.project= createProject("project 2","Education Project","Project", this.user);
         }

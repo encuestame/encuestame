@@ -10,23 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
-
-import org.encuestame.persistence.exception.EnMeExpcetion;
+package org.encuestame.business.service.social.connect;
 
 /**
- * Previous Provider Connection.
+ * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 30, 2010 8:29:18 PM
- * @version $Id:$
+ * @since Dec 31, 2010 3:34:35 PM
+ * @version Id:
  */
-public class EnMeExistPreviousConnectionException extends EnMeExpcetion{
+public interface IFacebookSocialService extends AbstractISocialService {
 
-    /**
-     * Constructor.
-     * @param message
-     */
-    public EnMeExistPreviousConnectionException(final String message) {
-        super(message);
-    }
 }

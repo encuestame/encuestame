@@ -330,7 +330,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 final SocialAccount socialTwitterAccounts = getAccountDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
                 publishedStatus.setApiType(Type.TWITTER);
                 if(socialTwitterAccounts != null && tweetPoll != null){
-                    log.debug("secUserTwitterAccounts Account"+socialTwitterAccounts.getTwitterAccount());
+                    log.debug("secUserTwitterAccounts Account"+socialTwitterAccounts.getSocialAccountName());
                     publishedStatus.setTweetPoll(tweetPoll);
                     publishedStatus.setTwitterAccount(socialTwitterAccounts);
                     try {
@@ -340,7 +340,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(TweetPollSavedPublishedStatus.Status.SUCCESS);
                         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
-                                buildTwitterItemView(socialTwitterAccounts.getTwitterAccount(), String.valueOf(status.getId())),
+                                buildTwitterItemView(socialTwitterAccounts.getSocialAccountName(), String.valueOf(status.getId())),
                                 socialTwitterAccounts.getSecUsers());
                     } catch (Exception e) {
                         log.error("Error publish tweet "+e.getMessage());

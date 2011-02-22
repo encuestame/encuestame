@@ -15,7 +15,7 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.service.TwitterService;
+import org.encuestame.business.service.social.provider.TwitterService;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;

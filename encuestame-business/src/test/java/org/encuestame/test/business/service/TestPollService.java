@@ -86,7 +86,7 @@ public class TestPollService extends AbstractServiceBase{
     @Before
     public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.userAccount = createSecondaryUser("diana", this.user);
+        this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
         this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);

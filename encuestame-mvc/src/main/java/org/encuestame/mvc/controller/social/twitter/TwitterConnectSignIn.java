@@ -15,7 +15,7 @@ package org.encuestame.mvc.controller.social.twitter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.encuestame.business.social.ITwitterSocialProvider;
+import org.encuestame.business.service.social.connect.ITwitterSocialProvider;
 import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;

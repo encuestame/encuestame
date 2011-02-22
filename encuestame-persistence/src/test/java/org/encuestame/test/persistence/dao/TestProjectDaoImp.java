@@ -48,7 +48,7 @@ public class TestProjectDaoImp extends AbstractBase{
      */
     @Before
     public void initService(){
-        user  = createSecondaryUser("user 1", createUser());
+        user  = createUserAccount("user 1", createUser());
         project = createProject("project 1","TIC Project","Project", user.getAccount());
 
     }

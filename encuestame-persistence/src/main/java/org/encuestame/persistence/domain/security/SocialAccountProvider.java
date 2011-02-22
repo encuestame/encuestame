@@ -24,9 +24,11 @@ import javax.persistence.Table;
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 23, 2010 11:44:52 PM
  * @version $Id:$
+ * @deprecated moved to property file. social-providers.properties
  */
 @Entity
 @Table(name = "oauth_account_social_provider")
+@Deprecated
 public class SocialAccountProvider {
 
     private Long socialProviderId;

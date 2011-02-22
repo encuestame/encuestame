@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
 import java.util.List;
 
@@ -18,7 +18,6 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.AccountConnection;
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;

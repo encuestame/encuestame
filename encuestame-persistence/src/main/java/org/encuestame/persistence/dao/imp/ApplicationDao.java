@@ -117,7 +117,7 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
     public ApplicationConnection
            connectApplication(final Long accountId, final String apiKey) throws Exception{
         final Application application = getApplicationByKey(apiKey);
-        final UserAccount account = getAccountDaoImp().getSecondaryUserById(accountId);
+        final UserAccount account = getAccountDaoImp().getUserAccountById(accountId);
         final ApplicationConnection app = searchConnectionByAppIdAndUserId(account, application);
         ApplicationConnection applicationConnection = null;
         if (app != null) {

@@ -10,17 +10,23 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
+import org.encuestame.persistence.exception.EnMeExpcetion;
 
 /**
- * Interface for Twitter Service Provider Implementation.
+ * Previous Provider Connection.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 30, 2010 11:22:51 PM
+ * @since Dec 30, 2010 8:29:18 PM
  * @version $Id:$
  */
-public interface ITwitterSocialProvider extends AbstractISocialService {
+public class EnMeExistPreviousConnectionException extends EnMeExpcetion{
 
-
-
+    /**
+     * Constructor.
+     * @param message
+     */
+    public EnMeExistPreviousConnectionException(final String message) {
+        super(message);
+    }
 }

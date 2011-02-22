@@ -10,30 +10,17 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
-import org.encuestame.persistence.exception.EnMeExpcetion;
 
 /**
- * No Sicual Account Connection Exception.
+ * Interface for Twitter Service Provider Implementation.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 25, 2010 2:19:06 AM
- * @version Id:
+ * @since Dec 30, 2010 11:22:51 PM
+ * @version $Id:$
  */
-public class NoSocialAccountConnectionException extends EnMeExpcetion{
+public interface ITwitterSocialProvider extends AbstractISocialService {
 
-    private String accessToken;
-
-    public NoSocialAccountConnectionException(final String accessToken) {
-        super("invalid access token");
-    }
-
-    /**
-     * @return the accessToken
-     */
-    public String getAccessToken() {
-        return accessToken;
-    }
 
 
 }

@@ -37,9 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * TweetPoll Json Data Chart.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 15, 2010 10:30:29 AM
- * @version $Id:$
  */
-
 @Controller("tweetPollJsonDataChart")
 public class TweetPollJsonDataChart extends AbstractJsonController{
 
