@@ -23,6 +23,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.encuestame.persistence.domain.social.SocialProvider;
+
 /**
  * SecUser Twitter Acounts.
  * @author Picado, Juan juanATencuestame.org
@@ -78,7 +80,8 @@ public class SocialAccount {
     /**
      * Type Accountd.
      */
-    private TypeAccount accounType = TypeAccount.TWITTER;
+    private SocialProvider accounType = SocialProvider.TWITTER;
+
 
     /** Verfied. **/
     private Boolean verfied = false;
@@ -97,20 +100,6 @@ public class SocialAccount {
      */
     @Deprecated
     PASSWORD};
-
-    /**
-     * Type Account.
-     */
-    public enum TypeAccount {
-
-        /**
-         * OAuth.
-         */
-        TWITTER,
-        /**
-         * Password.
-         */
-        IDENTICA};
 
     /**
      * @return the id
@@ -162,7 +151,7 @@ public class SocialAccount {
     /**
      * @return the socialUserId
      */
-    @Column (name="socual_account_id", nullable = false)
+    @Column (name="social_account_id", nullable = false, unique = true)
     public Long getSocialUserId() {
         return socialUserId;
     }
@@ -197,14 +186,14 @@ public class SocialAccount {
      */
     @Column(name="type_account")
     @Enumerated(EnumType.STRING)
-    public TypeAccount getAccounType() {
+    public SocialProvider getAccounType() {
         return accounType;
     }
 
     /**
      * @param accounType the accounType to set
      */
-    public void setAccounType(final TypeAccount accounType) {
+    public void setAccounType(final SocialProvider accounType) {
         this.accounType = accounType;
     }
 

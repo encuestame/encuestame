@@ -67,7 +67,7 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Before
     public void initData(){
-      this.secondary = createSecondaryUser("jhon", createUser());
+      this.secondary = createUserAccount("jhon", createUser());
       final Question question = createQuestion("Who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");

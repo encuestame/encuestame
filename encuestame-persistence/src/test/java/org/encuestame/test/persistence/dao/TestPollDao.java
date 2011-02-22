@@ -73,7 +73,7 @@ public class TestPollDao extends AbstractBase {
        // poll = createPoll();
 
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.secUserSecondary = createSecondaryUser("diana", this.user);
+        this.secUserSecondary = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
         this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
@@ -86,7 +86,7 @@ public class TestPollDao extends AbstractBase {
       **/
     @Test
     public void testFindAllPollByUserId(){
-        this.secUserSecondary = createSecondaryUser("diana", this.user);
+        this.secUserSecondary = createUserAccount("diana", this.user);
         System.out.println("UID-->"+this.secUserSecondary.getUid());
         final List<Poll> pollList = getiPoll().findAllPollByUserId(this.user.getUid(),5,0);
         assertEquals("Should be equals", 1, pollList.size());

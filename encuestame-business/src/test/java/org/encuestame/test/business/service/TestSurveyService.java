@@ -80,7 +80,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     public void serviceInit(){
         // surveyService.setServiceMail(mailServiceImpl);
          this.user = createUser("testEncuesta", "testEncuesta123");
-         this.userSecondary = createSecondaryUser("user", this.user);
+         this.userSecondary = createUserAccount("user", this.user);
          this.question = createQuestion("Why the sky is blue?","html");
          this.pattern = createQuestionPattern("html");
          createQuestionAnswer("Yes", this.question,"SSSA");

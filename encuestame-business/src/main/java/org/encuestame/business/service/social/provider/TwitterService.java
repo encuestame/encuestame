@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.business.service;
+package org.encuestame.business.service.social.provider;
 
 import java.io.IOException;
 
@@ -22,6 +22,7 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.security.SocialAccount;

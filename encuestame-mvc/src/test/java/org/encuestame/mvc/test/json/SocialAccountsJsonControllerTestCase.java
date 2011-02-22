@@ -39,8 +39,8 @@ public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBea
     @Test
     public void testGetAuthorizeTwitterUrl() throws Exception {
         initService("/api/social/twitter/authorize/url.json", MethodJson.GET);
-        setParameter("consumerKey", this.socialTwitterAccount.getConsumerKey());
-        setParameter("consumerSecret", this.socialTwitterAccount.getConsumerSecret());
+        //setParameter("consumerKey", this.socialTwitterAccount.getConsumerKey());
+        //setParameter("consumerSecret", this.socialTwitterAccount.getConsumerSecret());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         String url = (String) success.get("url");

@@ -10,10 +10,10 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.utils.oauth.OAuthToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.social.facebook.FacebookOperations;
 import org.springframework.social.facebook.FacebookTemplate;
 import org.springframework.social.twitter.TwitterOperations;
@@ -31,12 +31,28 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
     /**
      * Social Account Provider;
      */
-    private SocialAccountProvider parameters;
+    private SocialAccountProvider parameters = new SocialAccountProvider();
 
     /**
      * Twitter Template.
      */
     private FacebookTemplate facebookTemplate;
+
+    /**
+     * Consumer Key.
+     */
+    public @Value("${facebook.api.id}") Long apiId;
+
+    /**
+     * Consumer Secret.
+     */
+    public @Value("${facebook.api.secret}") String secret;
+
+    /**
+     * Authorize Url.
+     */
+    public @Value("${facebook.api.key}") String key;
+
 
     /**
      *
@@ -50,15 +66,9 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
      * Load Parameters.
      */
     private void loadParameters(){
-        if(getSocialProviderDao() != null){
-            final SocialAccountProvider parameters = getSocialProviderDao().getSocialAccountProviderId(4L);
-            if(parameters == null){
-                log.error("NOT SOCIAL PROVIDER FOUND");
-            }
-            setParameters(parameters);
-        } else {
-            log.error("No Provider Dao");
-        }
+        this.parameters.setAppId(this.apiId);
+        this.parameters.setApiKey(this.key);
+        this.parameters.setSecret(this.secret);
     }
 
     @Override

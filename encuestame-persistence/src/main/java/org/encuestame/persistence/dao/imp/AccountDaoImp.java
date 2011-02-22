@@ -21,6 +21,7 @@ import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.OAuthToken;
@@ -257,7 +258,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         //get provider
         final SocialAccountProvider providerSocial = getSocialProviderDao()
                                    .getSocialAccountProviderId(provider);
-        connection.setAccountProvider(providerSocial);
+        connection.setAccountProvider(SocialProvider.TWITTER); //TODO: FIX THIS HARD CODE.
         connection.setAccessToken(token.getValue());
         connection.setSocialAccountId(socialAccountId);
         connection.setSecret(token.getSecret());

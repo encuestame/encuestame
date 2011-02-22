@@ -61,7 +61,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
 
     /**
      * Get Twitter Authorize Url.
-     * @param consumerKey
+     * @param apiKey
      * @param consumerSecret
      * @param request
      * @param response

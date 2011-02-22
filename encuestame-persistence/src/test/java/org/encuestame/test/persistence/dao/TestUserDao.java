@@ -75,7 +75,7 @@ public class TestUserDao extends AbstractBase {
     @Before
     public void initService(){
         this.account = createUser();
-        this.userAccount = createSecondaryUser("user 1", this.account);
+        this.userAccount = createUserAccount("user 1", this.account);
         this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
         this.question = createQuestion("What day is today?", "");
 
@@ -86,7 +86,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testCreateUser() {
-       final UserAccount user = createSecondaryUser("user 1", this.account);
+       final UserAccount user = createUserAccount("user 1", this.account);
        assertNotNull(user);
     }
 
@@ -95,7 +95,7 @@ public class TestUserDao extends AbstractBase {
      **/
     @Test
     public void testDeleteUser() {
-        final UserAccount user = createSecondaryUser("user 2", this.account);
+        final UserAccount user = createUserAccount("user 2", this.account);
          getAccountDao().delete(user);
         assertEquals("Should be equals",1, getAccountDao().findAll().size());
     }
@@ -105,8 +105,8 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testFindAllUsers() {
-        createSecondaryUser("user 1", this.account);
-        createSecondaryUser("user 2", this.account);
+        createUserAccount("user 1", this.account);
+        createUserAccount("user 2", this.account);
         assertEquals("Should be equals",3, getAccountDao().findAll().size());
     }
 
@@ -117,7 +117,7 @@ public class TestUserDao extends AbstractBase {
     public void testUpdateUser(){
         final String newPassword = "67809";
         final String newEmail = "user2@users.com";
-        final UserAccount user = createSecondaryUser("user 1", this.account);
+        final UserAccount user = createUserAccount("user 1", this.account);
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
         getAccountDao().saveOrUpdate(user);
@@ -134,7 +134,7 @@ public class TestUserDao extends AbstractBase {
      **/
     @Test
     public void testGetUserByUsername(){
-        final UserAccount user = createSecondaryUser("user 3", this.account);
+        final UserAccount user = createUserAccount("user 3", this.account);
         final UserAccount retrieveUser = getAccountDao()
         .getUserByUsername(user.getUsername());
         assertEquals("Username should be",user.getUsername(), retrieveUser.getUsername());
@@ -173,8 +173,8 @@ public class TestUserDao extends AbstractBase {
      * Test getSecondaryUsersByUserId.
      */
     public void testGetSecondaryUsersByUserId(){
-         createSecondaryUser("user 1", this.account);
-         createSecondaryUser("user 2", this.account);
+         createUserAccount("user 1", this.account);
+         createUserAccount("user 2", this.account);
          final List<UserAccount> userList = getAccountDao().getSecondaryUsersByUserId(this.account.getUid());
          assertEquals("Should be equals", 2, userList.size());
     }
@@ -184,8 +184,8 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testSearchUsersByEmail(){
-        final UserAccount secondary = createSecondaryUser("jhon", this.account);
-        createSecondaryUser("paola", this.account);
+        final UserAccount secondary = createUserAccount("jhon", this.account);
+        createUserAccount("paola", this.account);
         final List<UserAccount> users = getAccountDao().searchUsersByEmail(secondary.getUserEmail());
         assertEquals("Should be equals", 1, users.size());
     }
