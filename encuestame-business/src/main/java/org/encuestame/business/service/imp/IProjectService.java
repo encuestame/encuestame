@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
@@ -33,10 +33,10 @@ public interface IProjectService {
      * Load List of Project.
      * @param userId user id.
      * @return {@link Collection} of {@link UnitProjectBean}
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion exception
      */
-    List<UnitProjectBean> loadListProjects(final String username) throws EnMeDomainNotFoundException;
+    List<UnitProjectBean> loadListProjects(final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Load project info.
@@ -70,6 +70,6 @@ public interface IProjectService {
      * @throws EnMeExpcetion excepcion
      */
     List<UserAccountBean> loadListUsers(final String currentUsername, final Integer maxResults,
-            final Integer start) throws EnMeDomainNotFoundException;
+            final Integer start) throws EnMeNoResultsFoundException;
 
 }

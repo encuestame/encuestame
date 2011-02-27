@@ -23,7 +23,7 @@ import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Picture / Image Service.
@@ -61,11 +61,11 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @param pictureType
      * @return
      * @throws IOException
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public byte[] getProfilePicture(
             final String username,
-            final PictureType pictureType) throws IOException, EnMeDomainNotFoundException{
+            final PictureType pictureType) throws IOException, EnMeNoResultsFoundException{
         final StringBuilder url = new StringBuilder(getAccountUserPicturePath(username));
         url.append("/file");
         url.append(pictureType.toString());
@@ -103,10 +103,10 @@ public class PictureService extends AbstractBaseService implements IPictureServi
     /**
      * Return real path folder for user account.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public String getAccountUserPicturePath(final String username)
-           throws EnMeDomainNotFoundException{
+           throws EnMeNoResultsFoundException{
         final UserAccount user = getUserAccount(username);
         log.debug("getAccountUserPicturePath "+user);
         return this.getPicturePath(user.getAccount());

@@ -23,7 +23,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -86,7 +86,7 @@ public class JsonPermissionController  extends AbstractJsonController{
                 log.debug("user.getListPermission() "+user.getListPermission().size());
                 jsonResponse.put("userPermissions", user.getListPermission());
                 setItemResponse(jsonResponse);
-            } catch (EnMeDomainNotFoundException e) {
+            } catch (EnMeNoResultsFoundException e) {
                 setError(e.getMessage(), response);
                 log.error(e);
             }

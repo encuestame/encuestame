@@ -21,7 +21,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.IGeoPoint;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
@@ -95,11 +95,11 @@ public class TestLocationServices extends AbstractServiceBase{
     }
 
     /**
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      *
      */
     @Test
-    public void testretrieveLocationFolderByUser() throws EnMeDomainNotFoundException{
+    public void testretrieveLocationFolderByUser() throws EnMeNoResultsFoundException{
          final UnitLocationFolder folder1 = createUnitLocationFolder("folder 1");
          this.locationService.createGeoPointFolder(folder1, this.secondary.getUsername());
          final UnitLocationFolder folder2 = createUnitLocationFolder("folder2 ");

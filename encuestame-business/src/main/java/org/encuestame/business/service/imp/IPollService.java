@@ -15,7 +15,7 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
@@ -46,7 +46,7 @@ public interface IPollService extends IMasterSurveyService{
     * @param keyword Question keyword
     * @return
     */
-    List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException ;
+    List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException ;
 
    /**
     * List Poll by User Id.
@@ -54,11 +54,11 @@ public interface IPollService extends IMasterSurveyService{
     * @param maxResults
     * @param start
     * @return
-    * @throws EnMeDomainNotFoundException
+    * @throws EnMeNoResultsFoundException
     */
     List<UnitPoll> listPollByUser(final String currentUser,
         final Integer maxResults,
-        final Integer start) throws EnMeDomainNotFoundException;
+        final Integer start) throws EnMeNoResultsFoundException;
 
     /**
     * Update Question Poll.
@@ -86,18 +86,18 @@ public interface IPollService extends IMasterSurveyService{
     /**
     * Remove PollFolder.
     * @param folderId
-    * @throws EnMeDomainNotFoundException
+    * @throws EnMeNoResultsFoundException
     */
-    void removePollFolder(final Long folderId) throws EnMeDomainNotFoundException;
+    void removePollFolder(final Long folderId) throws EnMeNoResultsFoundException;
 
     /**
     * Create Poll Folder.
     * @param folderName
     * @param username
     * @return
-    * @throws EnMeDomainNotFoundException
+    * @throws EnMeNoResultsFoundException
     */
-    UnitFolder createPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
+    UnitFolder createPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Update FolderName.
@@ -105,28 +105,28 @@ public interface IPollService extends IMasterSurveyService{
     * @param newFolderName
     * @param username
     * @return
-    * @throws EnMeDomainNotFoundException
+    * @throws EnMeNoResultsFoundException
     */
     public UnitFolder updateFolderName(final Long folderId,
           final String newFolderName,
-          final String username) throws EnMeDomainNotFoundException;
+          final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Retrieve Folder Poll.
     * @param username
     * @return
-    * @throws EnMeDomainNotFoundException exception
+    * @throws EnMeNoResultsFoundException exception
     */
-    List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException;
+    List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Get Polls by Folder.
     * @param folder
     * @param username
     * @return
-    * @throws EnMeDomainNotFoundException
+    * @throws EnMeNoResultsFoundException
     */
-  List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException;
+  List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeNoResultsFoundException;
 
       /**
     *
@@ -145,8 +145,8 @@ public interface IPollService extends IMasterSurveyService{
      * @param folderId
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeDomainNotFoundException;
+    List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException;
 
 }

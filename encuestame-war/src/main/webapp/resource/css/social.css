@@ -1,18 +1,15 @@
 div.socialAccounts{
-    margin: 70px;
+    margin-top: 20px;
 }
 
 
 div.socialAccounts div.socialWrapper{
-    margin: 70px;
-}
-
-div.socialAccounts div.socialWrapper{
-    margin: 70px;
+    margin: 0px;
 }
 
 div.socialAccounts div.socialWrapper div.listSocialCommunities{
-
+    float: left;
+    min-width: 200px;
 }
 
 div.socialAccounts div.socialWrapper div.socialCommunitieItem{
@@ -31,5 +28,6 @@ div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
 }
 
 div.socialAccounts div.socialWrapper  div.socialAccountListDetail{
-
+    margin-left: 220px;
+    padding: 10px;
 }

@@ -13,7 +13,7 @@
 package org.encuestame.core.exception;
 
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Indicates no connection exists between a {@link UserAccount} and a service provider with the submitted access token.
@@ -22,7 +22,7 @@ import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
  * @version $Id:$
  */
 @SuppressWarnings("serial")
-public final class EnMeNoSuchAccountConnectionException extends EnMeDomainNotFoundException {
+public final class EnMeNoSuchAccountConnectionException extends EnMeNoResultsFoundException {
 
     private String accessToken;
 

@@ -255,7 +255,7 @@ dojo.declare(
                 console.debug("error", error);
             };
             encuestame.service.xhrGet(
-                    encuestame.service.list.twitterAccount, {}, load, error);
+                    encuestame.service.list.socialAccounts, {}, load, error);
        },
 
        postCreate : function(){

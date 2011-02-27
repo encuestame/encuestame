@@ -10,52 +10,34 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.security;
-
-import java.io.Serializable;
+package org.encuestame.persistence.exception;
 
 /**
- * Unit Forgot Password.
+ * EnMe Domain not found Exception.
  * @author Picado, Juan juanATencuestame.org
- * @since Jun 14, 2010 8:38:35 PM
- * @version Id:
+ * @since Oct 9, 2010 1:27:09 PM
+ * @version $Id:$
  */
-public class UnitForgotPassword implements Serializable {
+public class EnMeNoResultsFoundException extends EnMeExpcetion{
 
     /**
-     * Serial
+     * Serial.
      */
-    private static final long serialVersionUID = -540239456251902444L;
+    private static final long serialVersionUID = -120650572833612949L;
 
-    private String email;
-
-    private String captcha;
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
+    public EnMeNoResultsFoundException() {
+        super();
     }
 
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
+    public EnMeNoResultsFoundException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    /**
-     * @return the captcha
-     */
-    public String getCaptcha() {
-        return captcha;
+    public EnMeNoResultsFoundException(String message) {
+        super(message);
     }
 
-    /**
-     * @param captcha the captcha to set
-     */
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
+    public EnMeNoResultsFoundException(Throwable cause) {
+        super(cause);
     }
 }

@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import org.encuestame.business.service.PictureService.PictureType;
 import org.encuestame.mvc.controller.BaseController;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,12 +38,12 @@ public class PictureProfileFactoryController extends BaseController {
      * Returns the byte[] that contains the requested thumbnail image (128x128 constrained).
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureThumbnail(
-            @PathVariable String username ) throws EnMeDomainNotFoundException{
+            @PathVariable String username ) throws EnMeNoResultsFoundException{
         byte[] bytes = {};
         try {
             bytes = getPictureService().getProfilePicture(username, PictureType.THUMBNAIL);
@@ -61,12 +61,12 @@ public class PictureProfileFactoryController extends BaseController {
      * Returns the byte[] that contains the requested master image.
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/default", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureMaster(
-            @PathVariable String username ) throws EnMeDomainNotFoundException{
+            @PathVariable String username ) throws EnMeNoResultsFoundException{
         byte[] bytes = {};
         try {
             bytes = getPictureService().getProfilePicture(username, PictureType.DEFAULT);
@@ -84,12 +84,12 @@ public class PictureProfileFactoryController extends BaseController {
      * Returns the byte[] that contains the requested preview image (800x800 constrained)
      * @param id The identifier of the image
      * @return A byte[] that contains the requested image
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/preview", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPicturePreview(
-            @PathVariable String username ) throws EnMeDomainNotFoundException{
+            @PathVariable String username ) throws EnMeNoResultsFoundException{
         byte[] bytes = {};
         try {
             bytes = getPictureService().getProfilePicture(username,  PictureType.PREVIEW);

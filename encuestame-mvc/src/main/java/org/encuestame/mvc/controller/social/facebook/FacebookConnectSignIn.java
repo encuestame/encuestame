@@ -17,7 +17,7 @@ import org.encuestame.business.service.social.connect.IFacebookSocialService;
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.FacebookProfile;
 import org.springframework.social.facebook.FacebookTemplate;
@@ -52,7 +52,7 @@ public class FacebookConnectSignIn extends AbstractSocialController{
             return "redirect:/";
         } catch (EnMeNoSuchAccountConnectionException e) {
             return handleNoFacebookConnection(new FacebookTemplate(accessToken).getUserProfile());
-        } catch (EnMeDomainNotFoundException e) {
+        } catch (EnMeNoResultsFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

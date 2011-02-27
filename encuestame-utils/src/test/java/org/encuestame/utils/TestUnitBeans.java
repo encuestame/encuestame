@@ -19,8 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.UnitForgotPassword;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.security.ForgotPasswordBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -504,7 +504,7 @@ import org.junit.Test;
      */
     @Test
     public void testUnitForgotPassword(){
-        final UnitForgotPassword password = new UnitForgotPassword();
+        final ForgotPasswordBean password = new ForgotPasswordBean();
         password.setCaptcha("catpcha");
         password.setEmail("juanATencuestame.org");
         assertNotNull(password.getCaptcha());
@@ -528,7 +528,7 @@ import org.junit.Test;
      */
     @Test
     public void testUnitTwitterAccountBean(){
-        final UnitTwitterAccountBean accountBean = new UnitTwitterAccountBean();
+        final SocialAccountBean accountBean = new SocialAccountBean();
         accountBean.setAccount("account");
         accountBean.setAccountId(1L);
         accountBean.setKey("key");

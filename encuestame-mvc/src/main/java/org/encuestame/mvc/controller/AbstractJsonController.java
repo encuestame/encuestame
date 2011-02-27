@@ -27,7 +27,7 @@ import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -304,9 +304,9 @@ public abstract class AbstractJsonController extends BaseController{
      * Get User.
      * @param userId user Id.
      * @return
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public UserAccountBean getUser(final Long userId) throws EnMeDomainNotFoundException{
+    public UserAccountBean getUser(final Long userId) throws EnMeNoResultsFoundException{
         Assert.notNull(userId);
         return getSecurityService().getUserCompleteInfo(userId, getUserPrincipalUsername());
     }
