@@ -12,8 +12,9 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -169,20 +170,23 @@ public class SocialAccountsJsonController extends AbstractJsonController {
      * Return Social Valid Accounts.
      * @param request
      * @param response
+     * @param provider
      * @return
      * @throws JsonGenerationException
      * @throws JsonMappingException
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/common/twitter/valid-accounts.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/social/valid-accounts.json", method = RequestMethod.GET)
     public ModelMap get(
-            HttpServletRequest request, HttpServletResponse response)
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-             final List<UnitTwitterAccountBean> accounts = getSecurityService()
-                   .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername());
-             setItemReadStoreResponse("twitterAccounts", "id", accounts);
+             final List<SocialAccountBean> accounts = getSecurityService()
+                   .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+             setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
         } catch (Exception e) {
             log.error(e);

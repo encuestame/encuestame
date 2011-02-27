@@ -20,10 +20,10 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -57,12 +57,12 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param username username session
      * @param keyword keyword.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
     List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username,
             final String keyword,
-            final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException, EnMeExpcetion;
+            final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException, EnMeExpcetion;
 
     /**
      * Save Tweet Id.
@@ -102,16 +102,16 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
      */
-    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeDomainNotFoundException;
+    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
 
     /**
      *
      * @param username username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     List<UnitTweetPoll> getTweetsPollsByUserName(final String username,
-            final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException;
+            final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
     /**
      * Public Multiples Tweet Accounts.
@@ -120,7 +120,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetText tweet text.
      */
     String[] publicMultiplesTweetAccounts(
-            final List<UnitTwitterAccountBean> twitterAccounts,
+            final List<SocialAccountBean> twitterAccounts,
             final Long tweetPollId,
             final String tweetText);
 
@@ -142,9 +142,9 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param folderName
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
+    UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Update TweetPoll Folder.
@@ -152,62 +152,62 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param folderName
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UnitFolder updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeDomainNotFoundException;
+    UnitFolder updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Delete TweetPoll Folder.
      * @param folderId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void deleteTweetPollFolder(final Long folderId) throws EnMeDomainNotFoundException;
+    void deleteTweetPollFolder(final Long folderId) throws EnMeNoResultsFoundException;
 
     /**
      * Add TweetPoll to Folder.
      * @param folderId
      * @param username
      * @param tweetPollId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId) throws EnMeDomainNotFoundException;
+    void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId) throws EnMeNoResultsFoundException;
 
     /**
      * Change Status TweetPoll.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
-    void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation;
 
     /**
      * Change Allow Live Results TweetPoll.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
-    void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation;
 
     /**
      * Change Allow Captcha TweetPoll.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
-    void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeDomainNotFoundException, EnmeFailOperation;
+    void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation;
 
     /**
      * Change Resume Live ResultsTweetPoll.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
     void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username)
-         throws EnMeDomainNotFoundException, EnmeFailOperation;
+         throws EnMeNoResultsFoundException, EnmeFailOperation;
 
 
     /**
@@ -258,31 +258,31 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Set Favourite TweetPoll.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
     void setFavouriteTweetPoll(final Long tweetPollId, final String username) throws
-           EnMeDomainNotFoundException, EnmeFailOperation;
+           EnMeNoResultsFoundException, EnmeFailOperation;
 
     /**
      * Change Allow Repeated TweetPoll.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
     void changeAllowRepeatedTweetPoll(final Long tweetPollId, final String username)
-         throws EnMeDomainNotFoundException, EnmeFailOperation;
+         throws EnMeNoResultsFoundException, EnmeFailOperation;
 
     /**
      * Change Close Notification.
      * @param tweetPollId
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
      void changeCloseNotificationTweetPoll(final Long tweetPollId, final String username)
-                throws EnMeDomainNotFoundException, EnmeFailOperation;
+                throws EnMeNoResultsFoundException, EnmeFailOperation;
 }
 
 

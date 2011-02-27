@@ -15,7 +15,7 @@ package org.encuestame.mvc.controller.settings;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.BaseController;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,7 +43,7 @@ public class SettingsController extends BaseController{
         try {
             final ProfileUserAccount user = getProfileUserInfo();
             model.put("profile", user);
-        } catch (EnMeDomainNotFoundException e) {
+        } catch (EnMeNoResultsFoundException e) {
             log.warn("profile not found");
         }
         log.debug("account");

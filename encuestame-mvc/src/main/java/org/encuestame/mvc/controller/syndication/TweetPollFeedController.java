@@ -17,7 +17,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.stereotype.Controller;
@@ -45,10 +45,10 @@ public class TweetPollFeedController extends AbstractFeedController {
      * @param username
      * @param model
      * @param request
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     private void buildTweetPollFeedBody(final String username, final Model model, final HttpServletRequest request,
-                 final UserAccount secUserSecondary) throws EnMeDomainNotFoundException{
+                 final UserAccount secUserSecondary) throws EnMeNoResultsFoundException{
          model.addAttribute("username", username);
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
          model.addAttribute("url", getDomain(request));
@@ -92,7 +92,7 @@ public class TweetPollFeedController extends AbstractFeedController {
         if(secUserSecondary != null){
              try {
                  this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
-             } catch (EnMeDomainNotFoundException e) {
+             } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
         }

@@ -30,7 +30,7 @@ import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
@@ -314,10 +314,10 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param folderName
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public UnitFolder createSurveyFolder(final String folderName, final String username)
-            throws EnMeDomainNotFoundException{
+            throws EnMeNoResultsFoundException{
         final SurveyFolder surveyFolderDomain = new SurveyFolder();
         surveyFolderDomain.setUsers(getUserAccount(username).getAccount());
         surveyFolderDomain.setCreatedAt(new Date());
@@ -332,13 +332,13 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param folderName
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public UnitFolder updateSurveyFolder(final Long folderId, final String folderName, final String username)
-                throws EnMeDomainNotFoundException{
+                throws EnMeNoResultsFoundException{
         final SurveyFolder surveyPollFolder = this.getSurveyFolder(folderId);
         if(surveyPollFolder == null) {
-            throw new EnMeDomainNotFoundException("Survey Poll Folder not found");
+            throw new EnMeNoResultsFoundException("Survey Poll Folder not found");
         }
         else{
             surveyPollFolder.setFolderName(folderName);
@@ -359,14 +359,14 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     /**
      * Delete Survey Folder.
      * @param folderId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public void deleteSurveyFolder(final Long folderId) throws EnMeDomainNotFoundException{
+    public void deleteSurveyFolder(final Long folderId) throws EnMeNoResultsFoundException{
         final SurveyFolder surveyFolder = this.getSurveyFolder(folderId);
         if(surveyFolder != null){
             getSurveyDaoImp().delete(surveyFolder);
         } else {
-            throw new EnMeDomainNotFoundException("Survey folder not found");
+            throw new EnMeNoResultsFoundException("Survey folder not found");
         }
     }
 
@@ -386,16 +386,16 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param folderId
      * @param username
      * @param surveyId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeDomainNotFoundException{
+    public void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeNoResultsFoundException{
         final SurveyFolder surveyFolder = this.getSurveysFolderByFolderIdandUser(folderId, getPrimaryUser(username));
         if(surveyFolder!=null) {
             final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, getPrimaryUser(username));
             survey.setSurveysfolder(surveyFolder);
             getSurveyDaoImp().saveOrUpdate(survey);
             } else {
-            throw new EnMeDomainNotFoundException("Survey folder not found");
+            throw new EnMeNoResultsFoundException("Survey folder not found");
         }
    }
 

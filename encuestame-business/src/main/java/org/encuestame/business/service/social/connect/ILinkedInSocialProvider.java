@@ -12,8 +12,7 @@
  */
 package org.encuestame.business.service.social.connect;
 
-import org.springframework.social.linkedin.LinkedInOperations;
-import org.springframework.social.twitter.TwitterOperations;
+import org.springframework.social.linkedin.LinkedInApi;
 
 
 /**
@@ -24,7 +23,7 @@ import org.springframework.social.twitter.TwitterOperations;
  */
 public interface ILinkedInSocialProvider extends AbstractISocialService {
 
-    String fetchProviderAccountId(LinkedInOperations serviceOperations);
+    String fetchProviderAccountId(LinkedInApi serviceOperations);
 
 
 }

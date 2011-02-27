@@ -14,7 +14,7 @@ package org.encuestame.business.service.social.connect;
 
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuthToken;
@@ -53,6 +53,6 @@ public abstract interface AbstractISocialService {
         void connect(Long accountId, AuthorizedRequestToken requestToken) throws EnMeExistPreviousConnectionException;
 
 
-        UserAccount findAccountByConnection(String accessToken) throws EnMeDomainNotFoundException;
+        UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 
 }

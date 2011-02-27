@@ -29,7 +29,7 @@ import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
@@ -86,14 +86,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
      /**
       * Remove Poll
       * @param pollId
-      * @throws EnMeDomainNotFoundException
+      * @throws EnMeNoResultsFoundException
       */
-    public void removePoll(final Long pollId) throws EnMeDomainNotFoundException{
+    public void removePoll(final Long pollId) throws EnMeNoResultsFoundException{
         final Poll pollDomain = this.getPoll(pollId);
         if(pollDomain != null){
               getPollDao().delete(pollDomain);
           } else {
-              throw new EnMeDomainNotFoundException("Poll not found");
+              throw new EnMeNoResultsFoundException("Poll not found");
           }
       }
 
@@ -125,9 +125,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param folderId
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeDomainNotFoundException{
+    public List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException{
         final PollFolder pollFolder = getPollDao().getPollFolderById(folderId);
         List<Poll> polls = new ArrayList<Poll>();
         if (pollFolder != null){
@@ -142,12 +142,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * List Poll ByUser.
      * @param currentUser currentUser
      * @return unitPoll
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
 
     public List<UnitPoll> listPollByUser(final String currentUser,
             final Integer maxResults,
-            final Integer start) throws EnMeDomainNotFoundException{
+            final Integer start) throws EnMeNoResultsFoundException{
         final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
         final List<Poll> polls = getPollDao().findAllPollByUserId(getPrimaryUser(currentUser), maxResults, start);
          for (Poll poll : polls) {
@@ -161,10 +161,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param currentUser currentUser
      * @param keyword QuestionKeyword
      * @return {@link UnitPoll}
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public List<UnitPoll> listPollbyQuestionKeyword(final String currentUser,
-            final String keyword, final Integer maxResults, final Integer start) throws EnMeDomainNotFoundException {
+            final String keyword, final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException {
         final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword, getPrimaryUser(currentUser), maxResults, start);
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
@@ -174,9 +174,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param folder
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeDomainNotFoundException{
+    public List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeNoResultsFoundException{
         final Account account = getUserAccount(username).getAccount();
         final List<Poll> polls = getPollDao().getPollsByPollFolder(account, getPollFolder(folder.getId()));
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
@@ -234,9 +234,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * Retrieve Folder Poll.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeDomainNotFoundException{
+    public List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException{
         final Account account = getUserAccount(username).getAccount();
         final List<IFolder> folders = getPollDao().getPollFolderBySecUser(account);
         return ConvertDomainBean.convertListToUniUnitFolder(folders);
@@ -247,9 +247,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param folderName
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UnitFolder createPollFolder(final String folderName, final String username) throws EnMeDomainNotFoundException{
+    public UnitFolder createPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException{
         final PollFolder pollFolder = new PollFolder();
         pollFolder.setUsers(getUserAccount(username).getAccount());
         pollFolder.setCreatedAt(new Date());
@@ -264,14 +264,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param newFolderName folder name
      * @param username username
      * @return {@link UnitFolder}
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
     public UnitFolder updateFolderName(final Long folderId,
             final String newFolderName,
-            final String username) throws EnMeDomainNotFoundException{
+            final String username) throws EnMeNoResultsFoundException{
         final PollFolder folder = this.getPollFolder(folderId);
         if(folder == null){
-            throw new EnMeDomainNotFoundException("poll folder not found");
+            throw new EnMeNoResultsFoundException("poll folder not found");
         } else {
             folder.setFolderName(newFolderName);
             getPollDao().saveOrUpdate(folder);
@@ -291,19 +291,19 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Remove PollFolder.
      * @param folderId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public void removePollFolder(final Long folderId) throws EnMeDomainNotFoundException{
+    public void removePollFolder(final Long folderId) throws EnMeNoResultsFoundException{
         final PollFolder folder = this.getPollFolder(folderId);
         if(folder != null){
             getPollDao().delete(folder);
         } else {
-            throw new EnMeDomainNotFoundException("poll folder not found");
+            throw new EnMeNoResultsFoundException("poll folder not found");
         }
     }
 
     public List<UnitPoll> listPollByUser(String currentUser)
-            throws EnMeDomainNotFoundException {
+            throws EnMeNoResultsFoundException {
         // TODO Auto-generated method stub
         return null;
     }

@@ -49,7 +49,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.DateUtil;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -171,13 +171,13 @@ public abstract class BaseController extends AbstractSecurityContext{
     /**
      * Fetch user account currently logged.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccount getUserAccount() throws EnMeDomainNotFoundException{
+    public UserAccount getUserAccount() throws EnMeNoResultsFoundException{
         final UserAccount account = this.getByUsername(this.getUserPrincipalUsername());
         if(account == null){
             log.fatal("user not found");
-            throw new EnMeDomainNotFoundException("user not found");
+            throw new EnMeNoResultsFoundException("user not found");
         }
         return account;
     }
@@ -400,9 +400,9 @@ public abstract class BaseController extends AbstractSecurityContext{
     /**
      * Get full profile logged user info.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public ProfileUserAccount getProfileUserInfo() throws EnMeDomainNotFoundException{
+    public ProfileUserAccount getProfileUserInfo() throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
     }
 }

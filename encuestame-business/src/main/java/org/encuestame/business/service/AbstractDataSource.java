@@ -45,7 +45,7 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
@@ -118,12 +118,12 @@ public abstract class AbstractDataSource{
      * Get {@link UserAccount} by Username.
      * @param username username
      * @return user domain
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public final UserAccount getUserAccount(final String username) throws EnMeDomainNotFoundException {
+    public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getAccountDao().getUserByUsername(username);
         if(userAccount == null){
-            throw new EnMeDomainNotFoundException(" user not found {"+username+"}");
+            throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
             return userAccount;
@@ -134,12 +134,12 @@ public abstract class AbstractDataSource{
      * Get {@link UserAccount} by Id.
      * @param userId user id
      * @return {@link UserAccount}.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-   public final UserAccount getUserAccount(final Long userId) throws EnMeDomainNotFoundException {
+   public final UserAccount getUserAccount(final Long userId) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getAccountDao().getUserAccountById(userId);
         if(userAccount == null){
-            throw new EnMeDomainNotFoundException(" user id not found {"+userId+"}");
+            throw new EnMeNoResultsFoundException(" user id not found {"+userId+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
             return userAccount;
@@ -180,9 +180,9 @@ public abstract class AbstractDataSource{
      * Get Primary User Id.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public final Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
+    public final Long getPrimaryUser(final String username) throws EnMeNoResultsFoundException{
         return getUserAccount(username).getAccount().getUid();
      }
 

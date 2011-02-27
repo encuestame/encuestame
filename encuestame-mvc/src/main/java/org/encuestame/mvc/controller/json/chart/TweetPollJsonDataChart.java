@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -91,7 +91,7 @@ public class TweetPollJsonDataChart extends AbstractJsonController{
                 jsonResult.put("votesResult", results);
                 log.debug("TweetPoll results "+results.size());
                 setItemResponse(jsonResult);
-            } catch (EnMeDomainNotFoundException e) {
+            } catch (EnMeNoResultsFoundException e) {
                 log.equals(e);
                 setError(e.getMessage(), response);
             }

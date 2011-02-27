@@ -28,7 +28,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
@@ -112,10 +112,10 @@ public class TestPollService extends AbstractServiceBase{
 
     /**
      * Test getPollsByFolder.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testgetPollsByFolder() throws EnMeDomainNotFoundException{
+    public void testgetPollsByFolder() throws EnMeNoResultsFoundException{
         getiPoll().saveOrUpdate(this.poll);
         List<UnitPoll> polls = this.pollService.getPollsByFolder(ConvertDomainBean
                               .convertFolderToBeanFolder(folder), this.userAccount.getUsername());
@@ -124,20 +124,20 @@ public class TestPollService extends AbstractServiceBase{
 
     /**
      * Test retrieveFolderPoll.
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
     @Test
-    public void testretrieveFolderPoll() throws EnMeDomainNotFoundException{
+    public void testretrieveFolderPoll() throws EnMeNoResultsFoundException{
         List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
         assertEquals(folders.size(), 1);
     }
 
     /**
      * Test createPollFolder.
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
     @Test
-    public void testcreatePollFolder() throws EnMeDomainNotFoundException{
+    public void testcreatePollFolder() throws EnMeNoResultsFoundException{
          this.pollService.createPollFolder("folder 2", this.userAccount.getUsername());
          List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
          assertEquals(folders.size(), 2);
@@ -145,10 +145,10 @@ public class TestPollService extends AbstractServiceBase{
 
     /**
      * Test updateFolderName.
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
     @Test
-    public void testupdateFolderName() throws EnMeDomainNotFoundException{
+    public void testupdateFolderName() throws EnMeNoResultsFoundException{
         this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.userAccount.getUsername());
         final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
          assertEquals(folder.getFolderName(), "newFolderName");
@@ -156,20 +156,20 @@ public class TestPollService extends AbstractServiceBase{
 
     /**
      * test removePollFolder.
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
     @Test(expected = HibernateException.class)
-    public void testremovePollFolderBatchUpdateException() throws EnMeDomainNotFoundException{
+    public void testremovePollFolderBatchUpdateException() throws EnMeNoResultsFoundException{
         final long id = this.folder.getId();
         this.pollService.removePollFolder(id);
     }
 
     /**
      * Remove Poll Folder.
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
     @Test()
-    public void testremovePollFolder() throws EnMeDomainNotFoundException{
+    public void testremovePollFolder() throws EnMeNoResultsFoundException{
         this.poll.setPollFolder(null);
         getiPoll().saveOrUpdate(this.poll);
         final long id = this.folder.getId();
@@ -179,10 +179,10 @@ public class TestPollService extends AbstractServiceBase{
 
     /**
      * Test Find Polls By User.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      **/
     @Test
-    public void testFindAllPollByUserId() throws EnMeDomainNotFoundException{
+    public void testFindAllPollByUserId() throws EnMeNoResultsFoundException{
         List<UnitPoll> unitPoll =  new ArrayList<UnitPoll>();
         unitPoll = pollService.listPollByUser(this.userAccount.getUsername(), 5, 0);
          assertEquals("should be equals",1, unitPoll.size());
@@ -190,11 +190,11 @@ public class TestPollService extends AbstractServiceBase{
 
     /**
      * Test List Polls by Question Keyword.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      **/
     //FIXME:
     @Test
-    public void testListPollbyQuestionKeyword() throws EnMeDomainNotFoundException{
+    public void testListPollbyQuestionKeyword() throws EnMeNoResultsFoundException{
         List<UnitPoll> unitPollList = new ArrayList<UnitPoll>();
         final String keyword = "Why";
         unitPollList = pollService.listPollbyQuestionKeyword(this.userAccount.getUsername(), keyword, 5, 0);

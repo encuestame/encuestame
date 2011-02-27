@@ -10,35 +10,52 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.exception;
+package org.encuestame.utils.security;
+
+import java.io.Serializable;
 
 /**
- * EnMe Domain not found Exception.
+ * Unit Forgot Password.
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 9, 2010 1:27:09 PM
- * @version $Id:$
+ * @since Jun 14, 2010 8:38:35 PM
+ * @version Id:
  */
-public class EnMeDomainNotFoundException extends EnMeExpcetion{
+public class ForgotPasswordBean implements Serializable {
 
     /**
-     * Serial.
+     * Serial
      */
-    private static final long serialVersionUID = -120650572833612949L;
+    private static final long serialVersionUID = -540239456251902444L;
 
-    public EnMeDomainNotFoundException() {
-        super();
+    private String email;
+
+    private String captcha;
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
     }
 
-    public EnMeDomainNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-        // TODO Auto-generated constructor stub
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public EnMeDomainNotFoundException(String message) {
-        super(message);
+    /**
+     * @return the captcha
+     */
+    public String getCaptcha() {
+        return captcha;
     }
 
-    public EnMeDomainNotFoundException(Throwable cause) {
-        super(cause);
+    /**
+     * @param captcha the captcha to set
+     */
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 }

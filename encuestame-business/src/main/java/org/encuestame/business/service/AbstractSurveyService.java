@@ -38,7 +38,7 @@ import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;
@@ -428,9 +428,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * Get Results By {@link TweetPoll}.
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeDomainNotFoundException{
+    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException{
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
         for (QuestionAnswer questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
@@ -447,9 +447,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * Get List Suggestion Question.
      * @param questionKeyword question keyword
      * @return unitQuestionBean
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeDomainNotFoundException{
+    public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException{
         final List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
         final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
         log.info("listSuggestQuestion "+questionsList.size());

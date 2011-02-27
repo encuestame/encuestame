@@ -26,7 +26,7 @@ import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.joda.time.DateMidnight;
 import org.junit.Before;
@@ -162,10 +162,10 @@ public class TestTweetPollDao  extends AbstractBase{
 
     /**
      * Test Retrieve TweetPoll by Folder.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testRetrieveTweetPollByFolder() throws EnMeDomainNotFoundException {
+    public void testRetrieveTweetPollByFolder() throws EnMeNoResultsFoundException {
         final Long user = this.secondary.getAccount().getUid();
         assertNotNull(tweetPollFolder);
         assertNotNull(tweetPoll);

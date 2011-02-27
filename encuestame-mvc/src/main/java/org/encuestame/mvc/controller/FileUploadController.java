@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -80,7 +80,7 @@ public class FileUploadController extends BaseController {
             } catch (IOException e) {
                 e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
-            } catch (EnMeDomainNotFoundException e) {
+            } catch (EnMeNoResultsFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
