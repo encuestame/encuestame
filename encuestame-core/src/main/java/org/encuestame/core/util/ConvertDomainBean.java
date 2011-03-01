@@ -203,11 +203,13 @@ public class ConvertDomainBean {
     public static final UnitSessionUserBean convertUserSessionToUserBean(final Account user){
         final UnitSessionUserBean sessionUserBean =  new UnitSessionUserBean();
         sessionUserBean.setUserSessionId(user.getUid());
-        sessionUserBean.setConsumerTwitterKey(user.getConsumerKey());
+     /*   sessionUserBean.setConsumerTwitterKey(user.getConsumerKey());
         sessionUserBean.setConsumerTwitterSecret(user.getConsumerSecret());
         sessionUserBean.setTwitterPassword(user.getTwitterPassword());
         sessionUserBean.setTwitterAccount(user.getTwitterAccount());
         sessionUserBean.setTwitterTwitterPing(user.getTwitterPing());
+     */
+        // TODO: Removed by ENCUESTAME-43
         return sessionUserBean;
     }
 

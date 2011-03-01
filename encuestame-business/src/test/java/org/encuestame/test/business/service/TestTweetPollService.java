@@ -160,7 +160,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, usersave.getUid(),
                    answersSaveTweet, patternBean);
         final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,usersave.getUid(),
-                                            this.questionBean, usersave.getTwitterAccount());
+                                            this.questionBean, null);
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
         //final Status status = this.tweetPollService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());

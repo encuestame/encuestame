@@ -86,7 +86,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testCreateUser() {
-       final UserAccount user = createUserAccount("user 1", this.account);
+       final UserAccount user = createUserAccount("user 3", this.account);
        assertNotNull(user);
     }
 
@@ -105,8 +105,8 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testFindAllUsers() {
-        createUserAccount("user 1", this.account);
-        createUserAccount("user 2", this.account);
+        createUserAccount("user 4", this.account);
+        createUserAccount("user 5", this.account);
         assertEquals("Should be equals",3, getAccountDao().findAll().size());
     }
 
@@ -117,16 +117,14 @@ public class TestUserDao extends AbstractBase {
     public void testUpdateUser(){
         final String newPassword = "67809";
         final String newEmail = "user2@users.com";
-        final UserAccount user = createUserAccount("user 1", this.account);
+        final UserAccount user = createUserAccount("user 6", this.account);
         user.setPassword(newPassword);
         user.setUserEmail(newEmail);
         getAccountDao().saveOrUpdate(user);
          final UserAccount retrieveUser = getAccountDao()
-         .getUserAccountById(Long.valueOf(user.getUid()));
-     assertEquals("Password should be",newPassword,
-                     retrieveUser.getPassword());
-        assertEquals("Email should be",newEmail,
-               retrieveUser.getUserEmail());
+            .getUserAccountById(Long.valueOf(user.getUid()));
+        assertEquals("Password should be",newPassword, retrieveUser.getPassword());
+        assertEquals("Email should be",newEmail, retrieveUser.getUserEmail());
     }
 
     /**
