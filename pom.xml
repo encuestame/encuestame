@@ -464,23 +464,7 @@
                     </execution>
                 </executions>
             </plugin>-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
          </plugins>
-
     </build>
     <reporting>
         <plugins><!--
@@ -1604,14 +1588,12 @@
             <artifactId>bayeux-api</artifactId>
             <version>${comet.version}</version>
         </dependency>
-       <!-- <
-	 dependency>
+        <dependency>
             <groupId>org.cometd.javascript</groupId>
             <artifactId>cometd-javascript-dojo</artifactId>
             <version>${comet.version}</version>
             <type>war</type>
         </dependency>
-       -->
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-java-server</artifactId>

@@ -127,6 +127,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>cross-origin</filter-name>
+        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cross-origin</filter-name>
+        <url-pattern>/cometd/*</url-pattern>
+    </filter-mapping>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -202,33 +211,7 @@
    <!-- Cometd Servlet -->
     <servlet>
         <servlet-name>cometd</servlet-name>
-        <servlet-class>org.cometd.java.annotation.AnnotationCometdServlet</servlet-class>
-        <!--async-supported>true</async-supported-->
-        <init-param>
-            <param-name>timeout</param-name>
-            <param-value>20000</param-value>
-        </init-param>
-        <init-param>
-            <param-name>interval</param-name>
-            <param-value>0</param-value>
-        </init-param>
-        <init-param>
-            <param-name>maxInterval</param-name>
-            <param-value>10000</param-value>
-        </init-param>
-        <init-param>
-            <param-name>maxLazyTimeout</param-name>
-            <param-value>5000</param-value>
-        </init-param>
-        <init-param>
-            <param-name>long-polling.multiSessionInterval</param-name>
-            <param-value>2000</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logLevel</param-name>
-            <param-value>0</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
+        <servlet-class>org.cometd.server.CometdServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>cometd</servlet-name>

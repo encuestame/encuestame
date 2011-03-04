@@ -36,6 +36,8 @@
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.mvc" />
 
+   <context:component-scan base-package="org.encuestame.comet" />
+
   <!--
     Enables annotated @Controllers; responsible for invoking an annotated
     POJO @Controller when one is mapped.
