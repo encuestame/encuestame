@@ -13,8 +13,9 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.encuestame.search.main.TestUtil;
+import org.junit.Ignore;
 
-
+@Ignore
 public class PrefixQueryTest extends TestCase{
     public void testPrefix() throws Exception {
         Directory dir = TestUtil.getBookIndexDirectory();

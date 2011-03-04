@@ -96,9 +96,13 @@
     </property>
   </bean>
 
-  <bean id="twitterService" class="org.encuestame.business.service.TwitterService"
+  <bean id="twitterService" class="org.encuestame.business.service.social.provider.TwitterService"
         parent="service">
     <property name="tinyApi" value="${twitter.tinyUrl}" />
+  </bean>
+
+  <bean id="linkedInService" class="org.encuestame.business.service.social.provider.LinkedInService"
+        parent="service">
   </bean>
 
   <bean id="surveyService" class="org.encuestame.business.service.SurveyService"
@@ -165,26 +169,30 @@
         * Facebook Connect
         * Twitter Connect
         * LinkedIn Connect
+        Future
+        * TripIt
   -->
 
-     <bean id="abstractSocialProvider" class="org.encuestame.business.social.AbstractSocialProvider"
+     <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider"
           abstract="true">
     </bean>
 
     <!-- Twitter Service Provider Consumer -->
     <bean id="twitterServiceConnect" autowire="byName"
-          class="org.encuestame.business.social.TwitterSocialService" parent="abstractSocialProvider">
+          class="org.encuestame.business.service.social.connect.TwitterSocialService" parent="abstractSocialProvider">
     </bean>
 
     <!-- Facebook OAuth Consumer -->
     <bean id="facebookServiceConnect" autowire="byName"
-          class="org.encuestame.business.social.FacebookSocialService"
+          class="org.encuestame.business.service.social.connect.FacebookSocialService"
           parent="abstractSocialProvider">
     </bean>
 
     <!-- LinkedIn OAuth Consumer
-    <bean id="linkedInServiceConnect" autowire="byName" class="org.encuestame.business.social.LinkedInSocialService" parent="abstractSocialProvider">
-        <constructor-arg value="linkedin" />
-    </bean>-->
+    <bean id="linkedInServiceConnect" autowire="byName"
+          class="org.encuestame.business.service.social.connect.LinkedInSocialService"
+          parent="abstractSocialProvider">
+    </bean>
+    -->
 
 </beans>

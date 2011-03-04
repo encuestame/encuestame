@@ -28,7 +28,7 @@ import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -121,7 +121,7 @@ public class JsonUsersController extends AbstractJsonController{
             final UserAccountBean user = getUser(userId);
             log.debug("user info "+userId);
             if (user == null) {
-                setError(new EnMeDomainNotFoundException("user not found").getMessage(), response);
+                setError(new EnMeNoResultsFoundException("user not found").getMessage(), response);
                 log.error("user not found");
             } else {
                 sucess.put("user", user);

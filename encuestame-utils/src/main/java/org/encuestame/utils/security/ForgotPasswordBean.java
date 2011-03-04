@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @since Jun 14, 2010 8:38:35 PM
  * @version Id:
  */
-public class UnitForgotPassword implements Serializable {
+public class ForgotPasswordBean implements Serializable {
 
     /**
      * Serial

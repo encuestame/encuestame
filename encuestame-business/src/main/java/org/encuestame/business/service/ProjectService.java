@@ -26,7 +26,7 @@ import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.springframework.stereotype.Service;
@@ -48,10 +48,10 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
      * Load List of Project.
      * @param userId user id.
      * @return {@link Collection} of {@link UnitProjectBean}
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion exception
      */
-    public List<UnitProjectBean> loadListProjects(final String username) throws EnMeDomainNotFoundException {
+    public List<UnitProjectBean> loadListProjects(final String username) throws EnMeNoResultsFoundException {
             final List<UnitProjectBean> listProjects = new ArrayList<UnitProjectBean>();
             final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(getUserAccount(username).getAccount().getUid());
             //log.debug("project by user id: "+projectList.size());
@@ -102,7 +102,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
         if (projectBean != null) {
             try {
                 final Project projectDomain = new Project();
-                final UserAccount secondary = getAccountDao().getSecondaryUserById(projectBean.getLeader());
+                final UserAccount secondary = getAccountDao().getUserAccountById(projectBean.getLeader());
                 final Account user = getUserAccount(username).getAccount();
                 projectDomain.setProjectDateFinish(projectBean.getDateFinish());
                 projectDomain.setProjectDateStart(projectBean.getDateInit());
@@ -147,7 +147,7 @@ public class ProjectService extends AbstractBaseService implements IProjectServi
             throw new EnMeExpcetion("project not found");
         }
         else{
-            final UserAccount secondary = getAccountDao().getSecondaryUserById(projectBean.getLeader());
+            final UserAccount secondary = getAccountDao().getUserAccountById(projectBean.getLeader());
             final Account user = getUserAccount(username).getAccount();
             project.setProjectName(projectBean.getName());
             project.setHideProject(projectBean.getHide());

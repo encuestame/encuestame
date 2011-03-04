@@ -17,6 +17,7 @@ import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -40,9 +41,10 @@ public class TestSocialAccountDao extends AbstractBase{
     }
 
     @Test
+    @Ignore
     public void testGetSocialAccountProviderId(){
         //final SocialAccountProvider socialAccount = getProviderDao().getSocialAccountProviderId(this.socialAccount.getId());
-        System.out.println("TEST");
+       // System.out.println("TEST");
     }
 
 }

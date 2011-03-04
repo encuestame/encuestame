@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.encuestame.business.service.PictureService.PictureType;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Picture Service.
@@ -30,10 +30,10 @@ public interface IPictureService {
     /**
      * Return real path folder for user account.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     String getAccountUserPicturePath(final String account)
-                                    throws EnMeDomainNotFoundException;
+                                    throws EnMeNoResultsFoundException;
 
     /**
      * Get Profile Picture.
@@ -43,9 +43,9 @@ public interface IPictureService {
      * @return
      * @throws FileNotFoundException
      * @throws IOException
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     byte[] getProfilePicture(
             final String username,
-            final PictureType pictureType) throws FileNotFoundException, IOException, EnMeDomainNotFoundException;
+            final PictureType pictureType) throws FileNotFoundException, IOException, EnMeNoResultsFoundException;
 }

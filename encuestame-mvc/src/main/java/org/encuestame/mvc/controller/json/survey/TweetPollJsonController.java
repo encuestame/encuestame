@@ -30,7 +30,7 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -119,11 +119,11 @@ public class TweetPollJsonController extends AbstractJsonController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.GET)
     public ModelMap get(
-            @RequestParam(value = "twitterAccounts", required = true) Long[] twitterAccountsId,
-            @RequestParam(value = "question", required = true) String question,
-            @RequestParam(value = "scheduled", required = false) Boolean scheduled,
+            @RequestParam(value = "twitterAccounts", required = true) final Long[] twitterAccountsId,
+            @RequestParam(value = "question", required = true) final String question,
+            @RequestParam(value = "scheduled", required = false) final Boolean scheduled,
             @RequestParam(value = "hashtags", required = false) String[] hashtags,
-            @RequestParam(value = "answers", required = true) String[] answers,
+            @RequestParam(value = "answers", required = true) final String[] answers,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final UnitTweetPoll tweetPoll = new UnitTweetPoll();
@@ -149,6 +149,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 }
 
                 //Setting Hash Tags
+                hashtags = hashtags == null ?  new String[0] : hashtags;
                 for (int row = 0; row < hashtags.length; row++) {
                     final UnitHashTag hashTag = new UnitHashTag();
                     hashTag.setHashTagName(answers[row].toLowerCase().trim());
@@ -173,9 +174,9 @@ public class TweetPollJsonController extends AbstractJsonController {
                         String tweetText;
                             tweetText = getTweetPollService()
                                     .generateTweetPollText(tweetPoll, getUrlDomain(request, Boolean.TRUE));
-                        final List<UnitTwitterAccountBean> accountBeans = new ArrayList<UnitTwitterAccountBean>();
+                        final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
                         for (int row = 0; row < twitterAccountsId.length; row++) {
-                            final UnitTwitterAccountBean twitter = new UnitTwitterAccountBean();
+                            final SocialAccountBean twitter = new SocialAccountBean();
                                    twitter.setAccountId(twitterAccountsId[row]);
                                    accountBeans.add(twitter);
                         }

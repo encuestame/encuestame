@@ -10,14 +10,30 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
+
+import org.encuestame.persistence.exception.EnMeExpcetion;
 
 /**
- * Description Class.
+ * No Sicual Account Connection Exception.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 31, 2010 3:34:35 PM
+ * @since Dec 25, 2010 2:19:06 AM
  * @version Id:
  */
-public interface IFacebookSocialService extends AbstractISocialService {
+public class NoSocialAccountConnectionException extends EnMeExpcetion{
+
+    private String accessToken;
+
+    public NoSocialAccountConnectionException(final String accessToken) {
+        super("invalid access token");
+    }
+
+    /**
+     * @return the accessToken
+     */
+    public String getAccessToken() {
+        return accessToken;
+    }
+
 
 }

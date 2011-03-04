@@ -15,9 +15,9 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.service.TwitterService;
+import org.encuestame.business.service.social.provider.TwitterService;
 import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
@@ -112,7 +112,7 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param username
      * @return
      */
-    UnitFolder createSurveyFolder(final String folderName, final String username) throws EnMeDomainNotFoundException;
+    UnitFolder createSurveyFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Update Survey Folder.
@@ -120,25 +120,25 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param folderName
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     UnitFolder updateSurveyFolder(final Long folderId, final String folderName, final String username)
-        throws EnMeDomainNotFoundException;
+        throws EnMeNoResultsFoundException;
 
     /**
      * Delete Survey Folder.
      * @param folderId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void deleteSurveyFolder(final Long folderId) throws EnMeDomainNotFoundException;
+    void deleteSurveyFolder(final Long folderId) throws EnMeNoResultsFoundException;
 
     /**
      * Add Survey to Folder.
      * @param folderId
      * @param username
      * @param surveyId
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeDomainNotFoundException;
+    void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeNoResultsFoundException;
 
  }

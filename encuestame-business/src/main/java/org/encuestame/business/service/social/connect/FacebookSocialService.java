@@ -10,13 +10,12 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.utils.oauth.OAuthToken;
-import org.springframework.social.facebook.FacebookOperations;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.social.facebook.FacebookApi;
 import org.springframework.social.facebook.FacebookTemplate;
-import org.springframework.social.twitter.TwitterOperations;
 import org.springframework.social.twitter.TwitterTemplate;
 
 /**
@@ -25,18 +24,34 @@ import org.springframework.social.twitter.TwitterTemplate;
  * @since Dec 25, 2010 5:57:35 PM
  * @version $Id:$
  */
-public class FacebookSocialService extends AbstractSocialProvider<FacebookOperations> implements IFacebookSocialService{
+public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> implements IFacebookSocialService{
 
 
     /**
      * Social Account Provider;
      */
-    private SocialAccountProvider parameters;
+    private SocialAccountProvider parameters = new SocialAccountProvider();
 
     /**
      * Twitter Template.
      */
     private FacebookTemplate facebookTemplate;
+
+    /**
+     * Consumer Key.
+     */
+    public @Value("${facebook.api.id}") Long apiId;
+
+    /**
+     * Consumer Secret.
+     */
+    public @Value("${facebook.api.secret}") String secret;
+
+    /**
+     * Authorize Url.
+     */
+    public @Value("${facebook.api.key}") String key;
+
 
     /**
      *
@@ -50,19 +65,13 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
      * Load Parameters.
      */
     private void loadParameters(){
-        if(getSocialProviderDao() != null){
-            final SocialAccountProvider parameters = getSocialProviderDao().getSocialAccountProviderId(4L);
-            if(parameters == null){
-                log.error("NOT SOCIAL PROVIDER FOUND");
-            }
-            setParameters(parameters);
-        } else {
-            log.error("No Provider Dao");
-        }
+        this.parameters.setAppId(this.apiId);
+        this.parameters.setApiKey(this.key);
+        this.parameters.setSecret(this.secret);
     }
 
     @Override
-    protected FacebookOperations createServiceOperations(OAuthToken accessToken) {
+    protected FacebookApi createServiceOperations(OAuthToken accessToken) {
         if (accessToken == null) {
             throw new IllegalStateException("Cannot access Facebook without an access token");
         }
@@ -70,13 +79,13 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
     }
 
     @Override
-    protected String fetchProviderAccountId(FacebookOperations serviceOperations) {
+    protected String fetchProviderAccountId(FacebookApi serviceOperations) {
       return serviceOperations.getProfileId();
     }
 
     @Override
     protected String buildProviderProfileUrl(String providerAccountId,
-            FacebookOperations serviceOperations) {
+            FacebookApi serviceOperations) {
         return "http://www.facebook.com/profile.php?id=" + providerAccountId;
     }
 
@@ -92,8 +101,4 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookOperat
         return null;
     }
 
-    public String fetchProviderAccountId(TwitterOperations serviceOperations) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

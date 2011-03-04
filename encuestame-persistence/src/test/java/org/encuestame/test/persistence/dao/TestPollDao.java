@@ -28,7 +28,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +73,7 @@ public class TestPollDao extends AbstractBase {
        // poll = createPoll();
 
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.secUserSecondary = createSecondaryUser("diana", this.user);
+        this.secUserSecondary = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
         this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
@@ -86,7 +86,7 @@ public class TestPollDao extends AbstractBase {
       **/
     @Test
     public void testFindAllPollByUserId(){
-        this.secUserSecondary = createSecondaryUser("diana", this.user);
+        this.secUserSecondary = createUserAccount("diana1", this.user);
         System.out.println("UID-->"+this.secUserSecondary.getUid());
         final List<Poll> pollList = getiPoll().findAllPollByUserId(this.user.getUid(),5,0);
         assertEquals("Should be equals", 1, pollList.size());
@@ -160,10 +160,10 @@ public class TestPollDao extends AbstractBase {
 
     /**
      * Test Get Polls By PollFolderId.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testGetPollsByPollFolderId() throws EnMeDomainNotFoundException{
+    public void testGetPollsByPollFolderId() throws EnMeNoResultsFoundException{
          assertNotNull(this.pollFolder);
          assertNotNull(poll);
          final Poll addPoll = addPollToFolder(this.pollFolder.getId(), this.user.getUid(), this.poll.getPollId());

@@ -68,6 +68,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
    public void TestDeleteGroup(){
         final Group group = super.createGroups("second group");
         getGroup().delete(group);
+        assertNotNull(this.secGroup);
         assertEquals("Should be equals",1, getGroup().findAllGroups().size());
     }
 

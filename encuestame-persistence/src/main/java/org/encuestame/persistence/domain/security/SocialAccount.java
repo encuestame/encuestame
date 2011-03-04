@@ -23,6 +23,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.encuestame.persistence.domain.social.SocialProvider;
+
 /**
  * SecUser Twitter Acounts.
  * @author Picado, Juan juanATencuestame.org
@@ -51,24 +53,14 @@ public class SocialAccount {
     private Account secUsers;
 
     /**
-     * Twitter Account.
+     * Social Account Name.
      */
-    private String twitterAccount;
+    private String socialAccountName;
 
     /**
-     * Twitter Password.
+     * Social User Id.
      */
-    private String twitterPassword;
-
-    /**
-     *  Consumer Key.
-     **/
-    private String consumerKey;
-
-    /**
-     * Consumer Secret.
-     **/
-    private String consumerSecret;
+    private Long socialUserId;
 
     /**
      * Tokeb
@@ -80,11 +72,6 @@ public class SocialAccount {
      */
     private String secretToken;
 
-    /** Twitter Pin.
-     *
-     **/
-    private Integer twitterPin;
-
     /**
      * Type.
      */
@@ -93,7 +80,8 @@ public class SocialAccount {
     /**
      * Type Accountd.
      */
-    private TypeAccount accounType = TypeAccount.TWITTER;
+    private SocialProvider accounType = SocialProvider.TWITTER;
+
 
     /** Verfied. **/
     private Boolean verfied = false;
@@ -108,22 +96,10 @@ public class SocialAccount {
     OAUTH,
     /**
      * Password.
+     * Twitter as deprecated password login from 31/10/10.
      */
+    @Deprecated
     PASSWORD};
-
-    /**
-     * Type Account.
-     */
-    public enum TypeAccount {
-
-        /**
-         * OAuth.
-         */
-        TWITTER,
-        /**
-         * Password.
-         */
-        IDENTICA};
 
     /**
      * @return the id
@@ -160,32 +136,31 @@ public class SocialAccount {
     /**
      * @return the twitterAccount
      */
-    @Column (name="twitter_account", nullable = false)
-    public String getTwitterAccount() {
-        return twitterAccount;
+    @Column (name="social_account_name", nullable = false)
+    public String getSocialAccountName() {
+        return socialAccountName;
     }
 
     /**
-     * @param twitterAccount the twitterAccount to set
+     * @param socialAccountName the social account name to set
      */
-    public void setTwitterAccount(final String twitterAccount) {
-        this.twitterAccount = twitterAccount;
+    public void setSocialAccountName(final String socialAccountName) {
+        this.socialAccountName = socialAccountName;
     }
 
     /**
-     * @return the twitterPassword
+     * @return the socialUserId
      */
-    //@Type(type="encryptedString")
-    @Column (name="twitter_password", nullable = false)
-    public String getTwitterPassword() {
-        return twitterPassword;
+    @Column (name="social_account_id", nullable = false, unique = true)
+    public Long getSocialUserId() {
+        return socialUserId;
     }
 
     /**
-     * @param twitterPassword the twitterPassword to set
+     * @param socialUserId the socialUserId to set
      */
-    public void setTwitterPassword(final String twitterPassword) {
-        this.twitterPassword = twitterPassword;
+    public void setSocialUserId(Long socialUserId) {
+        this.socialUserId = socialUserId;
     }
 
     /**
@@ -211,66 +186,21 @@ public class SocialAccount {
      */
     @Column(name="type_account")
     @Enumerated(EnumType.STRING)
-    public TypeAccount getAccounType() {
+    public SocialProvider getAccounType() {
         return accounType;
     }
 
     /**
      * @param accounType the accounType to set
      */
-    public void setAccounType(final TypeAccount accounType) {
+    public void setAccounType(final SocialProvider accounType) {
         this.accounType = accounType;
-    }
-
-    /**
-     * @return the consumerKey
-     */
-    @Column(name = "twitter_consumer_key", nullable = true)
-    public String getConsumerKey() {
-        return consumerKey;
-    }
-
-    /**
-     * @param consumerKey the consumerKey to set
-     */
-    public void setConsumerKey(final String consumerKey) {
-        this.consumerKey = consumerKey;
-    }
-
-    /**
-     * @return the consumerSecret
-     */
-    @Column(name = "twitter_consumer_secret", nullable = true)
-    public String getConsumerSecret() {
-        return consumerSecret;
-    }
-
-    /**
-     * @param consumerSecret the consumerSecret to set
-     */
-    public void setConsumerSecret(final String consumerSecret) {
-        this.consumerSecret = consumerSecret;
-    }
-
-    /**
-     * @return the twitterPin
-     */
-    @Column(name = "twitter_pin", nullable = true)
-    public Integer getTwitterPin() {
-        return twitterPin;
-    }
-
-    /**
-     * @param twitterPin the twitterPin to set
-     */
-    public void setTwitterPin(Integer twitterPin) {
-        this.twitterPin = twitterPin;
     }
 
     /**
      * @return the verfied
      */
-    @Column (name="twitter_verified", nullable = true)
+    @Column (name="account_verified", nullable = true)
     public Boolean getVerfied() {
         return verfied;
     }
@@ -282,7 +212,7 @@ public class SocialAccount {
         this.verfied = verfied;
     }
 
-    @Column (name="twitter_token", nullable = true)
+    @Column(name = "oauth_token", nullable = true)
     public String getToken() {
         return token;
     }
@@ -291,7 +221,7 @@ public class SocialAccount {
         this.token = token;
     }
 
-    @Column (name="twitter_secret_token", nullable = true)
+    @Column(name = "oauth_secret_token", nullable = true)
     public String getSecretToken() {
         return secretToken;
     }
@@ -299,6 +229,4 @@ public class SocialAccount {
     public void setSecretToken(String secretToken) {
         this.secretToken = secretToken;
     }
-
-
 }

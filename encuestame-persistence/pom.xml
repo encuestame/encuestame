@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.33-SNAPSHOT</version>
+        <version>1.1.34-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-persistence</artifactId>
     <packaging>jar</packaging>

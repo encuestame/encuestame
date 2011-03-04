@@ -14,11 +14,15 @@ package org.encuestame.persistence.domain.security;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.encuestame.persistence.domain.social.SocialProvider;
 
 /**
  * Define Account App Coonection.
@@ -43,7 +47,7 @@ public class AccountConnection {
     /**
      * Reference to Account Provider.
      */
-    private SocialAccountProvider accountProvider;
+    private SocialProvider accountProvider;
 
     /**
      * Access Token.
@@ -85,15 +89,16 @@ public class AccountConnection {
     /**
      * @return the accountProvider
      */
-    @ManyToOne()
-    public SocialAccountProvider getAccountProvider() {
+    @Column(name="account_provider")
+    @Enumerated(EnumType.STRING)
+    public SocialProvider getAccountProvider() {
         return accountProvider;
     }
 
     /**
      * @param accountProvider the accountProvider to set
      */
-    public void setAccountProvider(SocialAccountProvider accountProvider) {
+    public void setAccountProvider(SocialProvider accountProvider) {
         this.accountProvider = accountProvider;
     }
 

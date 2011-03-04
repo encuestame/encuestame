@@ -16,9 +16,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
@@ -56,14 +55,16 @@ import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.security.Group.Type;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.survey.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.survey.QuestionColettion;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -76,12 +77,11 @@ import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.persistence.domain.survey.QuestionAnswer.AnswerType;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -177,7 +177,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public String getProperty(final String property){
-        Resource resource = new FileSystemResource("src/main/resources/test-config.properties");
+        Resource resource = new ClassPathResource("test-config.properties");
         Properties props = null;
         try {
             props = PropertiesLoaderUtils.loadProperties(resource);
@@ -485,7 +485,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
           project.setProjectDateStart(new Date());
           project.setProjectInfo(infoProject);
           project.setProjectName("name");
-          project.setLead(createSecondaryUser("test", createUser()));
+          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createUser()));
           project.setProjectDescription(descProject);
           project.setUsers(user);
           getProjectDaoImp().saveOrUpdate(project);
@@ -519,10 +519,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUser {@link Account}
      * @return state
      */
-    public UserAccount createSecondaryUser(
+    public UserAccount createUserAccount(
             final String name,
             final Account secUser){
-        return createSecondaryUser(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
+        return createUserAccount(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
     }
 
 
@@ -542,7 +542,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUser
      * @return
      */
-    public UserAccount createSecondaryUser(
+    public UserAccount createUserAccount(
             final String name,
             final String email,
             final Account secUser) {
@@ -591,8 +591,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Account createUser(){
         Account user = new Account();
-        user.setTwitterAccount("testTWitterAccount");
-        user.setTwitterPassword("testTwitterPwsd");
+       // user.setTwitterAccount("testTWitterAccount");
+       // user.setTwitterPassword("testTwitterPwsd");
         getAccountDao().saveOrUpdate(user);
         return user;
     }
@@ -604,8 +604,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Account createUser(final String twitterAccount, final String twitterPassword){
         Account user = new Account();
-        user.setTwitterAccount(twitterAccount);
-        user.setTwitterPassword(twitterPassword);
         getAccountDao().saveOrUpdate(user);
         return user;
     }
@@ -1002,7 +1000,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return tweet poll
      */
     public TweetPoll createFastTweetPollVotes(){
-        final UserAccount secondary = createSecondaryUser("jhon", createUser());
+        final UserAccount secondary = createUserAccount("jhon-"+RandomStringUtils.randomAscii(4), createUser());
         final Question question = createQuestion("who I am?", "");
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
@@ -1228,24 +1226,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public SocialAccount createTwitterAccount(
-            final String consumerKey,
-            final String consumerSecret,
             final String token,
             final String secretToken,
-            final Integer twitterPin,
             final Account secUsers,
             final String twitterAccount,
             final Boolean verified){
         final SocialAccount socialTwitterAccounts = new SocialAccount();
-        socialTwitterAccounts.setConsumerKey(consumerKey);
-        socialTwitterAccounts.setConsumerSecret(consumerSecret);
         socialTwitterAccounts.setToken(token);
         socialTwitterAccounts.setSecretToken(secretToken);
         socialTwitterAccounts.setSecUsers(secUsers);
-        socialTwitterAccounts.setTwitterPin(twitterPin);
+        long randomNum = 100 + (int)(Math.random()* 4000);
+        socialTwitterAccounts.setSocialUserId(randomNum);
         socialTwitterAccounts.setVerfied(verified);
-        socialTwitterAccounts.setTwitterAccount(twitterAccount);
-        socialTwitterAccounts.setTwitterPassword("not valid");
+        socialTwitterAccounts.setAccounType(SocialProvider.TWITTER);
+        socialTwitterAccounts.setSocialAccountName(twitterAccount);
         getAccountDao().saveOrUpdate(socialTwitterAccounts);
         return socialTwitterAccounts;
      }
@@ -1256,11 +1250,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link SocialAccount}.
      */
     public SocialAccount createDefaultSettedTwitterAccount(final Account secUsers){
-        return this.createTwitterAccount(getProperty("twitter.test.consumerKey"),
-                getProperty("twitter.test.consumerSecret"),
+        return this.createTwitterAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
-                12345,
                 secUsers,
                 getProperty("twitter.test.account"), Boolean.FALSE);
     }
@@ -1272,13 +1264,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account secUsers){
-        return this.createTwitterAccount(getProperty("twitter.test.consumerKey"),
-                getProperty("twitter.test.consumerSecret"),
+        return this.createTwitterAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
-                12345,
                 secUsers,
-                getProperty("twitter.test.account"), Boolean.TRUE);
+                getProperty("twitter.test.account"),
+                Boolean.TRUE);
     }
 
   /**
@@ -1333,9 +1324,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param username
      * @param tweetPollId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public TweetPoll addTweetPollToFolder(final Long folderId, final Long userId, final Long tweetPollId) throws EnMeDomainNotFoundException{
+    public TweetPoll addTweetPollToFolder(final Long folderId, final Long userId, final Long tweetPollId) throws EnMeNoResultsFoundException{
         final TweetPollFolder tpfolder = getTweetPoll().getTweetPollFolderById(folderId);
         final TweetPoll tpoll = getTweetPoll().getTweetPollByIdandUserId(tweetPollId, userId);
         tpoll.setTweetPollFolder(tpfolder);
@@ -1349,9 +1340,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userId
      * @param surveyId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Survey addSurveyToFolder(final Long folderId, final Long userId, final Long surveyId) throws EnMeDomainNotFoundException{
+    public Survey addSurveyToFolder(final Long folderId, final Long userId, final Long surveyId) throws EnMeNoResultsFoundException{
         final SurveyFolder sfolder = getSurveyDaoImp().getSurveyFolderById(folderId);
         final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, userId);
         survey.setSurveysfolder(sfolder);
@@ -1365,9 +1356,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userId
      * @param pollId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeDomainNotFoundException{
+    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeNoResultsFoundException{
         final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
         final Poll poll = getiPoll().getPollByIdandUserId(pollId, userId);
         poll.setPollFolder(pfolder);

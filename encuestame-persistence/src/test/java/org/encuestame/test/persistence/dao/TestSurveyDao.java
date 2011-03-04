@@ -23,7 +23,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class TestSurveyDao extends AbstractBase {
     @Before
     public void initData(){
         this.user  = createUser();
-        this.secondaryUser = createSecondaryUser("paola", this.user);
+        this.secondaryUser = createUserAccount("paola", this.user);
         this.survey = createDefaultSurvey(user);
         this.surveyFolder = createSurveyFolders("My Survey Folder", user);
         this.surveySection = createSurveySection("My Section");
@@ -155,10 +155,10 @@ public class TestSurveyDao extends AbstractBase {
 
     /**
      * Test Retrieve Survey by Folder.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testRetrieveSurveysByFolder() throws EnMeDomainNotFoundException{
+    public void testRetrieveSurveysByFolder() throws EnMeNoResultsFoundException{
         assertNotNull(surveyFolder);
         assertNotNull(survey);
         final Survey addSurvey = addSurveyToFolder(this.surveyFolder.getId(), this.user.getUid(), this.survey.getSid());

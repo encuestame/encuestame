@@ -18,9 +18,9 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.security.UnitForgotPassword;
+import org.encuestame.utils.security.ForgotPasswordBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +39,13 @@ import org.springframework.web.bind.support.SessionStatus;
  * @version $Id:$
  */
 @Controller
-@SessionAttributes(types = UnitForgotPassword.class)
+@SessionAttributes(types = ForgotPasswordBean.class)
 public class ForgetPasswordController extends AbstractSecurityController{
 
         @RequestMapping(value = "/user/forgot.html" , method = RequestMethod.GET)
         public String addHandler(Model model) {
             log.info("/forgot");
-            final UnitForgotPassword forgot = new UnitForgotPassword();
+            final ForgotPasswordBean forgot = new ForgotPasswordBean();
             final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
             forgot.setCaptcha(captcha);
             model.addAttribute(forgot);
@@ -61,14 +61,14 @@ public class ForgetPasswordController extends AbstractSecurityController{
          * @param result
          * @param status
          * @return
-         * @throws EnMeDomainNotFoundException
+         * @throws EnMeNoResultsFoundException
          */
         @RequestMapping(method = RequestMethod.POST)
         public String processSubmit(
             HttpServletRequest req,
             @RequestParam("recaptcha_challenge_field") String challenge,
             @RequestParam("recaptcha_response_field") String response,
-            @ModelAttribute UnitForgotPassword user, BindingResult result, SessionStatus status) throws EnMeDomainNotFoundException {
+            @ModelAttribute ForgotPasswordBean user, BindingResult result, SessionStatus status) throws EnMeNoResultsFoundException {
                  log.info("recaptcha_challenge_field "+challenge);
                  log.info("recaptcha_response_field "+response);
                  final String email = user.getEmail();

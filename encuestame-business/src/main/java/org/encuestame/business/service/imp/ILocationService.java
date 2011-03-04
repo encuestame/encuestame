@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -35,9 +35,9 @@ public interface ILocationService {
      * Create Location Folder.
      * @param locationFolder {@link UnitLocationFolder}
      * @return {@link UnitLocationFolder}.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeDomainNotFoundException;
+    UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Create Cat LocationType.
@@ -51,16 +51,16 @@ public interface ILocationService {
     /**
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void updateGeoPoint(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion, EnMeDomainNotFoundException;
+    void updateGeoPoint(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion, EnMeNoResultsFoundException;
 
     /**
      * @param locationTypeBean locationTypeBean
      * @throws EnMeExpcetion EnMeExpcetion
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeDomainNotFoundException;
+    void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeNoResultsFoundException;
 
     /**
      * create Cat Location.
@@ -80,41 +80,41 @@ public interface ILocationService {
      * @param locationFolderId location folder id
      * @param username username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username) throws EnMeDomainNotFoundException;
+    List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Retrieve Location Folders by User.
      * @param currentName username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName) throws EnMeDomainNotFoundException;
+    List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName) throws EnMeNoResultsFoundException;
 
     /**
      * Retrieve Location Sub Folders by User.
      * @param currentName
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName) throws EnMeDomainNotFoundException;
+    List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName) throws EnMeNoResultsFoundException;
 
     /**
      * Get Location Item.
      * @param locationId location id
      * @param username username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UnitLocationBean getLocationItem(final Long locationId, final String username) throws EnMeDomainNotFoundException;
+    UnitLocationBean getLocationItem(final Long locationId, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Get Folder Location Detail.
      * @param folderLocationId folder location  Id.
      * @param username username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username) throws EnMeDomainNotFoundException;
+    UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Update Location Map.
@@ -123,19 +123,19 @@ public interface ILocationService {
      * @param locationId
      * @param username
      * @throws EnMeExpcetion
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
      void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username)
-           throws EnMeExpcetion, EnMeDomainNotFoundException;
+           throws EnMeExpcetion, EnMeNoResultsFoundException;
 
      /**
       * Update Location Name.
       * @param locationBean {@link UnitLocationBean}.
       * @param username username logged
       * @throws EnMeExpcetion exception
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
       */
-      void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeDomainNotFoundException;
+      void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeNoResultsFoundException;
 
       /**
        * Update Location Folder.
@@ -143,44 +143,44 @@ public interface ILocationService {
        * @param username
        * @param typeUpdate
        * @throws EnMeExpcetion
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
        */
       void updateLocationFolder(final UnitLocationFolder locationFolderBean,
               final String username, final String typeUpdate)
-              throws EnMeDomainNotFoundException;
+              throws EnMeNoResultsFoundException;
 
       /**
        * Create Default Location Item.
        * @param locationFolder
        * @param username
        * @throws EnMeExpcetion
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
        */
       void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username)
-             throws EnMeDomainNotFoundException;
+             throws EnMeNoResultsFoundException;
 
       /**
        * Delete Location Folder.
        * @param unitLocationFolder
        * @param username
        * @throws EnMeExpcetion
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
        */
-      void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeDomainNotFoundException;
+      void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeNoResultsFoundException;
 
       /**
        * Delete Location Item.
        * @param unitLocationBean
        * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
        */
-      void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeDomainNotFoundException;
+      void deleteLocationItem(final UnitLocationBean unitLocationBean, final String username) throws EnMeNoResultsFoundException;
 
       /**
        * Retrieve Locations Items by Username
        * @param username username
        * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
        */
-      List<UnitLocationBean> retrieveLocationItemsByUsername(final String username) throws EnMeDomainNotFoundException;
+      List<UnitLocationBean> retrieveLocationItemsByUsername(final String username) throws EnMeNoResultsFoundException;
 }

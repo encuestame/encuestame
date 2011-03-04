@@ -26,7 +26,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
@@ -80,7 +80,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     public void serviceInit(){
         // surveyService.setServiceMail(mailServiceImpl);
          this.user = createUser("testEncuesta", "testEncuesta123");
-         this.userSecondary = createSecondaryUser("user", this.user);
+         this.userSecondary = createUserAccount("user", this.user);
          this.question = createQuestion("Why the sky is blue?","html");
          this.pattern = createQuestionPattern("html");
          createQuestionAnswer("Yes", this.question,"SSSA");
@@ -214,10 +214,10 @@ public class TestSurveyService  extends AbstractServiceBase{
 
     /**
      * Test Suggestion Question List.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testSuggestionQuestionList() throws EnMeDomainNotFoundException{
+    public void testSuggestionQuestionList() throws EnMeNoResultsFoundException{
          List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
         final String keyword = "sky";
         flushIndexes();

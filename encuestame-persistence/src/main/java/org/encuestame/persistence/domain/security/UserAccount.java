@@ -130,6 +130,7 @@ public class UserAccount {
     /**
      * @return userEmail userEmail
      */
+    @org.hibernate.annotations.Index(name = "emailIndex")
     @Column(name = "email", unique = true, nullable = false, length = 150)
     public String getUserEmail() {
         return this.userEmail;
@@ -145,6 +146,7 @@ public class UserAccount {
     /**
      * @return username
      */
+    @org.hibernate.annotations.Index(name = "usernameIndex")
     @Column(name = "username", nullable = false, length = 30, unique = true)
     public String getUsername() {
         return this.username;

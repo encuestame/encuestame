@@ -93,7 +93,7 @@ public class TestHibernateDomains extends AbstractBase{
         project.setProjectDateFinish(new Date());
         project.setProjectName("Name");
          project.getSurveyGroups().add(createSurveyGroup("Education"));
-        project.getSecUserSecondaries().add(createSecondaryUser("Diana",createUser()));
+        project.getSecUserSecondaries().add(createUserAccount("Diana",createUser()));
         project.getGroups().add(createGroups("editor"));
         project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createUser()));
         getProjectDaoImp().saveOrUpdate(project);
@@ -186,7 +186,7 @@ public class TestHibernateDomains extends AbstractBase{
         permission.setPermission(EnMePermission.getPermissionString("ENCUESTAME_ADMIN"));
         permission.setPermissionDescription("Administrator of alls options");
         permission.getGroups().add(createGroups("administrator"));
-        permission.getSecUserSecondaries().add(createSecondaryUser("juan carlos", createUser()));
+        permission.getSecUserSecondaries().add(createUserAccount("juan carlos", createUser()));
         getPermissionDaoImp().saveOrUpdate(permission);
         assertNotNull(permission.getIdPermission());
     }
@@ -197,9 +197,7 @@ public class TestHibernateDomains extends AbstractBase{
     @Test
     public void testSecUser(){
         final Account user = new Account();
-        user.setTwitterAccount("");
-        user.setTwitterPassword("");
-        getAccountDao().saveOrUpdate(user);
+         getAccountDao().saveOrUpdate(user);
         assertNotNull(user.getUid());
     }
 

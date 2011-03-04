@@ -52,11 +52,11 @@ public class Search {
      * @param indexDirPath Index Directory Path.
      * @throws IOException
      */
-    public void getIndexer(String indexDirPath) throws IOException{
+    public IndexWriter getIndexer(String indexDirPath) throws IOException{
         Directory dir = FSDirectory.open(new File(indexDirPath));
         this.writer = new IndexWriter(dir, new StandardAnalyzer(Version.LUCENE_29) ,
                 true, IndexWriter.MaxFieldLength.UNLIMITED);
-
+        return writer;
     }
 
     /**
@@ -170,7 +170,4 @@ public class Search {
     public void setAnalyzer(Analyzer analyzer) {
         this.analyzer = analyzer;
     }
-
-
-
 }

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -55,7 +55,7 @@ public class JsonLocation extends AbstractJsonController {
             try {
                 final List<UnitLocationFolder> items1 = getLocationService().retrieveLocationFolderByUser(getUserPrincipalUsername());
                 setItemReadStoreResponse("name", "id", items1);
-            } catch (EnMeDomainNotFoundException e) {
+            } catch (EnMeNoResultsFoundException e) {
                 setError(e.getMessage(), response);
                 e.printStackTrace();
                 log.error(e);

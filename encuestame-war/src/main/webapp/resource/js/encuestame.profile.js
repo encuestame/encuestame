@@ -12,6 +12,7 @@ dependencies ={
                 "encuestame.org.core.commons.tweetPoll.Answers",
                 "encuestame.org.core.commons.poll.Poll",
                 "encuestame.org.core.commons.signup.SignupProfile",
+                "encuestame.org.core.commons.social.SocialAccounts",
                 "encuestame.org.core.commons.dashboard.Dashboard",
                 "encuestame.org.core.commons.dashboard.chart.DashboardPie",
                 "encuestame.org.core.commons.dashboard.chart.DashboardLine",

@@ -44,7 +44,7 @@ import junit.framework.TestCase;
  * @version $Id: $
  */
 public class TestSearch extends TestCase {
-    final String queryString = "indexed";
+    final String queryString = "indexing";
     final String indexDir = "src/main/resources/Indexer2";
 
     public void testSearcher() throws CorruptIndexException, IOException, ParseException{
@@ -60,6 +60,10 @@ public class TestSearch extends TestCase {
             for (ScoreDoc scoreDoc : hits.scoreDocs) {
                 Document doc = searcher.doc(scoreDoc.doc); // Retrieving matching document.
                 System.out.println(doc);
+                System.out.println("*****************************************");
+                // get the filename
+                System.out.println(doc.get("filename"));
+                System.out.println(doc.getField("fullpath").stringValue());
             }
             searcher.close(); // Close IndexSearcher.
             System.out.println("Total number of docs "+reader.maxDoc());
