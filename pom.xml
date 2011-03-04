@@ -44,7 +44,7 @@
         <hibernate.version>3.5.6-Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.2.1.Final</hibernate.search.version>
-    <lucene.version>2.9.3</lucene.version>
+        <lucene.version>2.9.3</lucene.version>
 
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.6</twitter4j.version>
@@ -71,11 +71,15 @@
          -->
          <dojo.version>1.5.0</dojo.version>
          <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
+	
+	<!--CometD -->
+	<comet.version>2.1.0</comet.version>
 
-        <!-- Plugin Version -->
-    <surefire.version>2.6</surefire.version>
-    <site.version>2.1.1</site.version>
-
+         <!-- Plugin Version -->
+         <surefire.version>2.6</surefire.version>
+         <site.version>2.1.1</site.version>
+    	 <jetty7.version>7.2.2.v20101205</jetty7.version>
+         <jetty-plugin-version>${jetty7.version}</jetty-plugin-version>
      </properties>
 
     <modules>
@@ -1567,33 +1571,79 @@
             <artifactId>tiles-el</artifactId>
             <version>2.2.1</version>
         </dependency>
-     <!-- Apache Poi  -->
-      <dependency>
-    	<groupId>org.apache.poi</groupId>
-    	<artifactId>poi-scratchpad</artifactId>
-    	<version>3.0.1-FINAL</version>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.poi</groupId>
-          <artifactId>poi</artifactId>
-          <version>3.7</version>
-      </dependency>  
-      <dependency>
-         <groupId>org.apache.poi</groupId>
-         <artifactId>poi-ooxml</artifactId>
-         <version>3.7</version>
-      </dependency> 
-     <!-- PDF Box -->
-      <dependency>
-           <groupId>pdfbox</groupId>
-    <artifactId>pdfbox</artifactId>
-    <version>0.7.3</version>
-      </dependency>
-    <dependency>
-           <groupId>com.google.api.client</groupId>
-           <artifactId>google-api-client</artifactId>
-           <version>1.2.2-alpha</version>
-       </dependency>
+        <!-- Apache Poi  -->
+        <dependency>
+    	   <groupId>org.apache.poi</groupId>
+    	   <artifactId>poi-scratchpad</artifactId>
+    	   <version>3.0.1-FINAL</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.7</version>
+        </dependency>  
+        <dependency>
+           <groupId>org.apache.poi</groupId>
+           <artifactId>poi-ooxml</artifactId>
+           <version>3.7</version>
+        </dependency> 
+        <!-- PDF Box -->
+        <dependency>
+            <groupId>pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+        <dependency>
+             <groupId>com.google.api.client</groupId>
+             <artifactId>google-api-client</artifactId>
+             <version>1.2.2-alpha</version>
+        </dependency>
+  	<!-- CommetD -->
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>bayeux-api</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+       <!-- <
+	 dependency>
+            <groupId>org.cometd.javascript</groupId>
+            <artifactId>cometd-javascript-dojo</artifactId>
+            <version>${comet.version}</version>
+            <type>war</type>
+        </dependency>
+       -->
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-server</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-annotations</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+                <dependency>
+            <groupId>org.cometd.javascript</groupId>
+            <artifactId>cometd-javascript-dojo</artifactId>
+            <version>${comet.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-oort</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>${jetty7.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
       </dependencies>
     </dependencyManagement>
 </project>
