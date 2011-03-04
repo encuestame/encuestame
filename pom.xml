@@ -1548,6 +1548,17 @@
            <artifactId>google-api-client</artifactId>
            <version>1.2.2-alpha</version>
        </dependency>
+    <dependency>
+	 <groupId>org.apache.lucene</groupId>
+   	 <artifactId>lucene-highlighter</artifactId>
+  	 <version>2.9.3</version>
+     </dependency>
+     <dependency>
+    	<groupId>org.apache.lucene</groupId>
+    	<artifactId>lucene-fast-vector-highlighter</artifactId>
+    	<version>2.9.1</version>
+     </dependency>
+   
       </dependencies>
     </dependencyManagement>
 </project>

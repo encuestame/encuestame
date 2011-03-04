@@ -15,23 +15,34 @@ package org.encuestame.search;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.analysis.StopAnalyzer;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocCollector;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
+import org.apache.lucene.search.highlight.TokenSources;
 
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 import org.apache.lucene.util.Version;
+import org.encuestame.search.main.TestUtil;
 
 
 import junit.framework.TestCase;
@@ -68,4 +79,27 @@ public class TestSearch extends TestCase {
             searcher.close(); // Close IndexSearcher.
             System.out.println("Total number of docs "+reader.maxDoc());
         }
+    /**
+     *
+     * @throws IOException
+     * @throws InvalidTokenOffsetsException
+     */
+    public void testHits() throws IOException, InvalidTokenOffsetsException  {
+        IndexSearcher searcher = new IndexSearcher(TestUtil.getBookIndexDirectory(), true);
+        TermQuery query = new TermQuery(new Term("title", "action"));
+        TopDocs hits = searcher.search(query, 10);
+        QueryScorer scorer = new QueryScorer(query, "title");
+        Highlighter highlighter = new Highlighter(scorer);
+        highlighter.setTextFragmenter(
+                new SimpleSpanFragmenter(scorer));
+        Analyzer analyzer = new SimpleAnalyzer();
+        for (ScoreDoc sd : hits.scoreDocs) {
+                Document doc = searcher.doc(sd.doc);
+                String title = doc.get("title");
+                TokenStream stream = TokenSources.getAnyTokenStream(searcher.getIndexReader(),
+                        sd.doc, "title", doc, analyzer);
+                String fragment = highlighter.getBestFragment(stream, title);
+                System.out.println(fragment);
+            }
+}
 }
