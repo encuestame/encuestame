@@ -86,7 +86,7 @@ public class TestPollDao extends AbstractBase {
       **/
     @Test
     public void testFindAllPollByUserId(){
-        this.secUserSecondary = createUserAccount("diana", this.user);
+        this.secUserSecondary = createUserAccount("diana1", this.user);
         System.out.println("UID-->"+this.secUserSecondary.getUid());
         final List<Poll> pollList = getiPoll().findAllPollByUserId(this.user.getUid(),5,0);
         assertEquals("Should be equals", 1, pollList.size());

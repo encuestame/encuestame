@@ -591,8 +591,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Account createUser(){
         Account user = new Account();
-        user.setTwitterAccount("testTWitterAccount");
-        user.setTwitterPassword("testTwitterPwsd");
+       // user.setTwitterAccount("testTWitterAccount");
+       // user.setTwitterPassword("testTwitterPwsd");
         getAccountDao().saveOrUpdate(user);
         return user;
     }
@@ -604,8 +604,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Account createUser(final String twitterAccount, final String twitterPassword){
         Account user = new Account();
-        user.setTwitterAccount(twitterAccount);
-        user.setTwitterPassword(twitterPassword);
         getAccountDao().saveOrUpdate(user);
         return user;
     }

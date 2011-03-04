@@ -79,8 +79,9 @@ public class EnMeSchemaExport {
 
         //create user admin
         final Account userPrimary = new Account();
-        userPrimary.setTwitterAccount("testEncuesta");
-        userPrimary.setTwitterPassword("testEncuesta123");
+        //TODO: Delete Twitter properties. ENCUESTAME-43
+       // userPrimary.setTwitterAccount("testEncuesta");
+       // userPrimary.setTwitterPassword("testEncuesta123");
 
         final AccountDaoImp secUserDao = (AccountDaoImp) appContext.getBean("secUserDao");
         secUserDao.saveOrUpdate(userPrimary);

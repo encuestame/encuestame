@@ -136,7 +136,7 @@ public class SocialAccount {
     /**
      * @return the twitterAccount
      */
-    @Column (name="socual_account_name", nullable = false)
+    @Column (name="social_account_name", nullable = false)
     public String getSocialAccountName() {
         return socialAccountName;
     }
@@ -200,7 +200,7 @@ public class SocialAccount {
     /**
      * @return the verfied
      */
-    @Column (name="twitter_verified", nullable = true)
+    @Column (name="account_verified", nullable = true)
     public Boolean getVerfied() {
         return verfied;
     }
@@ -212,7 +212,7 @@ public class SocialAccount {
         this.verfied = verfied;
     }
 
-    @Column(name = "twitter_token", nullable = true)
+    @Column(name = "oauth_token", nullable = true)
     public String getToken() {
         return token;
     }
@@ -221,7 +221,7 @@ public class SocialAccount {
         this.token = token;
     }
 
-    @Column(name = "twitter_secret_token", nullable = true)
+    @Column(name = "oauth_secret_token", nullable = true)
     public String getSecretToken() {
         return secretToken;
     }

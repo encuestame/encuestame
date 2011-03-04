@@ -9,8 +9,6 @@ dojo.declare(
 
         domain : "",
 
-        socialList : ["Twitter", "Facebook", "LinkedIn"],
-
         postCreate : function(){
               console.debug("domain", this.domain);
         }
@@ -63,13 +61,18 @@ dojo.declare(
                     //his._listSocialAccounts = data.success.items;
                     //dojo.empty(this._tweetPublishAccounts);
                     //dojo.publish("/encuestame/tweetpoll/twitter/accounts");
+                    this._printListOfAccounts(data.success.items);
                 });
                 var error = function(error) {
                     console.debug("error", error);
                 };
                 encuestame.service.xhrGet(
                         encuestame.service.list.twitterAccount, {}, load, error);
-            }
+            },
+
+            _printListOfAccounts : function(listAccounts){
+
+             }
  });
 
 dojo.declare(
@@ -98,8 +101,43 @@ dojo.declare(
                     console.debug("error", error);
                 };
                 encuestame.service.xhrGet(encuestame.service.social.twitter.authorize, params, load, error);
-            }
+            },
+
+            /*
+             * list twitter account.s
+             */
+            _printListOfAccounts : function(listAccounts){
+                console.debug("list accounts", listAccounts);
+                dojo.empty(this._list);
+                dojo.forEach
+                (listAccounts,
+                    //Process elements dropped.
+                    dojo.hitch(this,
+                        function(account) {
+                           console.debug("account", account);
+                           var widget = this._createTwitterAccount(account);
+                           this._list.appendChild(widget.domNode);
+                    }));
+             },
+
+             /*
+              *
+              */
+             _createTwitterAccount : function(twitterAccount){
+                 var widget = new encuestame.org.core.commons.social.SocialAccountRow({account : twitterAccount});
+                 console.debug("_createTwitterAccount", widget);
+                 return widget;
+             }
  });
+
+dojo.declare(
+        "encuestame.org.core.commons.social.SocialAccountRow",
+        [dijit._Widget, dijit._Templated],{
+
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountRow.inc")
+
+});
+
 
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountFacebookDetail",
