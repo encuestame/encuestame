@@ -10,35 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.exception;
+package org.encuestame.business.service.social.connect;
 
 /**
- * EnMe Domain not found Exception.
+ * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 9, 2010 1:27:09 PM
- * @version $Id:$
+ * @since Dec 31, 2010 3:34:35 PM
+ * @version Id:
  */
-public class EnMeDomainNotFoundException extends EnMeExpcetion{
+public interface IFacebookSocialService extends AbstractISocialService {
 
-    /**
-     * Serial.
-     */
-    private static final long serialVersionUID = -120650572833612949L;
-
-    public EnMeDomainNotFoundException() {
-        super();
-    }
-
-    public EnMeDomainNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-        // TODO Auto-generated constructor stub
-    }
-
-    public EnMeDomainNotFoundException(String message) {
-        super(message);
-    }
-
-    public EnMeDomainNotFoundException(Throwable cause) {
-        super(cause);
-    }
 }

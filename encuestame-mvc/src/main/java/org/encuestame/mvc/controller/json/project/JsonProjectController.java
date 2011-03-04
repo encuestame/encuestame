@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,7 @@ public class JsonProjectController extends AbstractJsonController{
                  final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                  jsonResponse.put("projects", projects);
                  setItemResponse(jsonResponse);
-            } catch (EnMeDomainNotFoundException e) {
+            } catch (EnMeNoResultsFoundException e) {
                 setError(e.getMessage(), response);
                 e.printStackTrace();
                 log.error(e);

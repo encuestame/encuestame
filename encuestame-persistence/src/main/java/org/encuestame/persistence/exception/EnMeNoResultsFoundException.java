@@ -10,17 +10,34 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
-
+package org.encuestame.persistence.exception;
 
 /**
- * Interface for Twitter Service Provider Implementation.
+ * EnMe Domain not found Exception.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 30, 2010 11:22:51 PM
+ * @since Oct 9, 2010 1:27:09 PM
  * @version $Id:$
  */
-public interface ITwitterSocialProvider extends AbstractISocialService {
+public class EnMeNoResultsFoundException extends EnMeExpcetion{
 
+    /**
+     * Serial.
+     */
+    private static final long serialVersionUID = -120650572833612949L;
 
+    public EnMeNoResultsFoundException() {
+        super();
+    }
 
+    public EnMeNoResultsFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public EnMeNoResultsFoundException(String message) {
+        super(message);
+    }
+
+    public EnMeNoResultsFoundException(Throwable cause) {
+        super(cause);
+    }
 }

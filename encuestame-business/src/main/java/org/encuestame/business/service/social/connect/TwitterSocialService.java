@@ -10,11 +10,11 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.utils.oauth.OAuthToken;
-import org.springframework.social.twitter.TwitterOperations;
+import org.scribe.builder.api.TwitterApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.social.twitter.TwitterTemplate;
 
 /**
@@ -23,12 +23,12 @@ import org.springframework.social.twitter.TwitterTemplate;
  * @since Dec 25, 2010 5:57:35 PM
  * @version $Id:$
  */
-public class TwitterSocialService extends AbstractSocialProvider<TwitterOperations> implements ITwitterSocialProvider{
+public class TwitterSocialService extends AbstractSocialProvider<TwitterApi> implements ITwitterSocialProvider{
 
     /**
      * Social Account Provider;
      */
-    private SocialAccountProvider parameters;
+    private SocialAccountProvider parameters = new SocialAccountProvider();
 
     /**
      * Twitter Template.
@@ -41,6 +41,31 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
     private final String TWITTER_URL = "http://www.twitter.com/";
 
     /**
+     * Consumer Key.
+     */
+    public @Value("${twitter.oauth.consumerKey}") String consumerKey;
+
+    /**
+     * Consumer Secret.
+     */
+    public @Value("${twitter.oauth.consumerSecret}") String consumerSecret;
+
+    /**
+     * Authorize Url.
+     */
+    public @Value("${twitter.oauth.authorize}") String authorizeUrl;
+
+    /**
+     * Access Token Url.
+     */
+    public @Value("${twitter.oauth.access.token}") String accessTokenUrl;
+
+    /**
+     * Request Token Url.
+     */
+    public @Value("${twitter.oauth.request.token}") String requestTokenUrl;
+
+    /**
      *
      * @param socialProviderName
      */
@@ -49,13 +74,13 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
     }
 
     @Override
-    protected TwitterOperations createServiceOperations(OAuthToken accessToken) {
+    protected TwitterApi createServiceOperations(OAuthToken accessToken) {
         log.debug("Twitter Operations createServiceOperations "+accessToken.toString());
         if(this.twitterTemplate == null){
             log.debug("Creando Provider");
             this.createTwitterTemplate(accessToken);
         }
-        return this.twitterTemplate;
+        return null;
     }
 
     /**
@@ -75,10 +100,11 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
     /**
      * Fetch Provider Account Id.
      */
-    @Override
-    public String fetchProviderAccountId(TwitterOperations serviceOperations) {
-      log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
-      return serviceOperations.getProfileId();
+    //@Override
+    public String fetchProviderAccountId(TwitterApi serviceOperations) {
+        return TWITTER_URL;
+      //log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
+      //return serviceOperations.getProfileId();
     }
 
     /**
@@ -86,7 +112,7 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
      */
     @Override
     protected String buildProviderProfileUrl(String providerAccountId,
-            TwitterOperations serviceOperations) {
+            TwitterApi serviceOperations) {
         return this.TWITTER_URL + providerAccountId;
     }
 
@@ -94,15 +120,11 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
      * Load Parameters.
      */
     private void loadParameters(){
-        if(getSocialProviderDao() != null){
-            final SocialAccountProvider parameters = getSocialProviderDao().getSocialAccountProviderId(1L);
-            if(parameters == null){
-                log.error("NOT SOCIAL PROVIDER FOUND");
-            }
-            setParameters(parameters);
-        } else {
-            log.error("No Provider Dao");
-        }
+        this.parameters.setApiKey(this.consumerKey);
+        this.parameters.setSecret(this.consumerSecret);
+        this.parameters.setAccessTokenUrl(this.accessTokenUrl);
+        this.parameters.setAuthorizeUrl(this.authorizeUrl);
+        this.parameters.setRequestTokenUrl(this.requestTokenUrl);
     }
 
     /**
@@ -128,5 +150,33 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterOperatio
         log.error("No getParameters "+accountProvider);
         this.parameters = accountProvider;
         return this.parameters;
+    }
+
+    /**
+     * @return the consumerKey
+     */
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    /**
+     * @param consumerKey the consumerKey to set
+     */
+    public void setConsumerKey(String consumerKey) {
+        this.consumerKey = consumerKey;
+    }
+
+    /**
+     * @return the consumerSecret
+     */
+    public String getConsumerSecret() {
+        return consumerSecret;
+    }
+
+    /**
+     * @param consumerSecret the consumerSecret to set
+     */
+    public void setConsumerSecret(String consumerSecret) {
+        this.consumerSecret = consumerSecret;
     }
 }

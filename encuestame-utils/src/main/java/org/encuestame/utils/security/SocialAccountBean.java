@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @since Jun 26, 2010 5:15:12 PM
  * @version $Id:$
  */
-public class UnitTwitterAccountBean implements Serializable {
+public class SocialAccountBean implements Serializable {
 
     /**
      * Serial.

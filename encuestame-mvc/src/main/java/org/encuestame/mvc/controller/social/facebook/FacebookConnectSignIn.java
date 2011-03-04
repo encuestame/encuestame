@@ -13,15 +13,15 @@
 package org.encuestame.mvc.controller.social.facebook;
 
 import org.encuestame.business.service.imp.ISecurityService;
-import org.encuestame.business.social.IFacebookSocialService;
+import org.encuestame.business.service.social.connect.IFacebookSocialService;
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.facebook.FacebookAccessToken;
 import org.springframework.social.facebook.FacebookProfile;
 import org.springframework.social.facebook.FacebookTemplate;
+import org.springframework.social.facebook.web.FacebookCookieValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,14 +45,14 @@ public class FacebookConnectSignIn extends AbstractSocialController{
      * Notifies the user if the access token is invalid.
      */
     @RequestMapping(value="/signin/facebook", method=RequestMethod.POST)
-    public String signin(@FacebookAccessToken String accessToken) {
+    public String signin(@FacebookCookieValue String accessToken) {
         try {
             UserAccount account = this.facebookSocialService.findAccountByConnection(accessToken);
             authenticate(account);
             return "redirect:/";
         } catch (EnMeNoSuchAccountConnectionException e) {
             return handleNoFacebookConnection(new FacebookTemplate(accessToken).getUserProfile());
-        } catch (EnMeDomainNotFoundException e) {
+        } catch (EnMeNoResultsFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

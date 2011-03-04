@@ -10,12 +10,12 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuthToken;
@@ -121,7 +121,7 @@ public interface SocialProviderOperations<S> {
          * Used to support "Sign in using Facebook"-type scenarios, where the access token identifying a connection is available to client code, typically a cookie managed by JavaScript.
          * @throws NoSuchAccountConnectionException no such connection has been established between a member and this service provider
          */
-        UserAccount findAccountByConnection(String accessToken) throws EnMeDomainNotFoundException;
+        UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 
         /**
          * Find the members connected to this provider that have the specified account ids in the provider's system.

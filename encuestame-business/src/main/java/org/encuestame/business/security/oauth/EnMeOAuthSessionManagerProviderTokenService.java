@@ -17,7 +17,7 @@ import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.dao.imp.ApplicationDao;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,7 @@ public class EnMeOAuthSessionManagerProviderTokenService implements
         } catch (EnMeNotValidKeyOAuthSecurityException e) {
             try {
                 return providerTokenFor(this.applicationDao.findAppConnection(token));
-            } catch (EnMeDomainNotFoundException ex) {
+            } catch (EnMeNoResultsFoundException ex) {
                 throw new InvalidOAuthTokenException("Could not find OAuthSession or AppConnection for provided OAuth request token " + token);
             }
         }

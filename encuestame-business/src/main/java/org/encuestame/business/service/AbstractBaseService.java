@@ -31,7 +31,7 @@ import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -301,13 +301,13 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion excepcion
      */
     public List<UserAccountBean> loadListUsers(
            final String currentUsername,
            final Integer maxResults,
-           final Integer start) throws EnMeDomainNotFoundException {
+           final Integer start) throws EnMeNoResultsFoundException {
         log.info("currentUsername "+currentUsername);
         List<UserAccountBean> loadListUsers = new LinkedList<UserAccountBean>();
         final UserAccount userAccount = this.getUserAccount(currentUsername);
@@ -342,11 +342,11 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * Get User Complete Info.
      * @param currentUsername
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
+    public UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeNoResultsFoundException {
         UserAccountBean userInfo = null;
-        final UserAccount user = getAccountDao().getSecondaryUserById(userId);
+        final UserAccount user = getAccountDao().getUserAccountById(userId);
         if(this.validateOwnerGroup(user, currentUsername)){
             userInfo =  ConvertDomainBean.convertSecondaryUserToUserBean(user);
             log.debug("getUserCompleteInfo info "+userInfo.getId());
@@ -361,7 +361,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * @return
      */
     public UserAccount getValidateUser(final Long userId, final String currentUsername){
-        final UserAccount user = getAccountDao().getSecondaryUserById(userId);
+        final UserAccount user = getAccountDao().getUserAccountById(userId);
         UserAccount expetedUser = null;
         if(this.validateOwnerGroup(user, currentUsername)){
             expetedUser = user;

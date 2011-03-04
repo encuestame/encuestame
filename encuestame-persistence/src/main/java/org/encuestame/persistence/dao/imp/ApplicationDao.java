@@ -16,7 +16,7 @@ import org.encuestame.persistence.dao.IApplicationDao;
 import org.encuestame.persistence.domain.application.Application;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.utils.SecureRandomStringKeyGenerator;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -77,15 +77,15 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
 
     /**
      * Find App Connection by Access Token.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @SuppressWarnings("unchecked")
-    public ApplicationConnection findAppConnection(final String accessToken) throws EnMeDomainNotFoundException{
+    public ApplicationConnection findAppConnection(final String accessToken) throws EnMeNoResultsFoundException{
          final DetachedCriteria criteria = DetachedCriteria.forClass(ApplicationConnection.class);
          criteria.add(Restrictions.eq("accessToken", accessToken) );
          final ApplicationConnection app = (ApplicationConnection) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
          if(app == null){
-            throw new EnMeDomainNotFoundException(accessToken);
+            throw new EnMeNoResultsFoundException(accessToken);
          } else {
             return app;
          }
@@ -117,7 +117,7 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
     public ApplicationConnection
            connectApplication(final Long accountId, final String apiKey) throws Exception{
         final Application application = getApplicationByKey(apiKey);
-        final UserAccount account = getAccountDaoImp().getSecondaryUserById(accountId);
+        final UserAccount account = getAccountDaoImp().getUserAccountById(accountId);
         final ApplicationConnection app = searchConnectionByAppIdAndUserId(account, application);
         ApplicationConnection applicationConnection = null;
         if (app != null) {

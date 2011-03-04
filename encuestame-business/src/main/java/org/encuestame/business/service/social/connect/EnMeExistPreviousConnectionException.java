@@ -10,30 +10,23 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
 import org.encuestame.persistence.exception.EnMeExpcetion;
 
 /**
- * No Sicual Account Connection Exception.
+ * Previous Provider Connection.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 25, 2010 2:19:06 AM
- * @version Id:
+ * @since Dec 30, 2010 8:29:18 PM
+ * @version $Id:$
  */
-public class NoSocialAccountConnectionException extends EnMeExpcetion{
-
-    private String accessToken;
-
-    public NoSocialAccountConnectionException(final String accessToken) {
-        super("invalid access token");
-    }
+public class EnMeExistPreviousConnectionException extends EnMeExpcetion{
 
     /**
-     * @return the accessToken
+     * Constructor.
+     * @param message
      */
-    public String getAccessToken() {
-        return accessToken;
+    public EnMeExistPreviousConnectionException(final String message) {
+        super(message);
     }
-
-
 }

@@ -14,7 +14,7 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.core.service.IService;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
 
@@ -31,7 +31,7 @@ public interface IMasterSurveyService extends IService{
      * @param questionKeyword
      * @return
      */
-    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeDomainNotFoundException;
+    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * List Suggested Hash Tags.

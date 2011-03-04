@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
 import java.util.List;
 
@@ -18,9 +18,8 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.AccountConnection;
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuthToken;
@@ -150,7 +149,7 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
                 log.info("There is already a connection created");
                 throw new EnMeExistPreviousConnectionException("There is already a connection created");
             }
-        } catch (EnMeDomainNotFoundException e) {
+        } catch (EnMeNoResultsFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -201,7 +200,7 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
     public void disconnect(Long accountId) {
             try {
                 this.accountDaoImp.disconnect(accountId, getName());
-            } catch (EnMeDomainNotFoundException e) {
+            } catch (EnMeNoResultsFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -211,10 +210,10 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
      * Gets a handle to the API offered by this service provider.
      * This API may be used by the application to invoke the service on behalf of a member.
      * @param accountId the member account identifier (may be null, if so, only operations that require no authorization may be invoked)
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Transactional
-    public S getServiceOperations(Long accountId) throws EnMeDomainNotFoundException {
+    public S getServiceOperations(Long accountId) throws EnMeNoResultsFoundException {
         if (accountId == null || !isConnected(accountId)) {
             return getServiceOperations(null);
         }
@@ -226,9 +225,9 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
      * Find possible open provider account connections.
      * @param accessToken
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccount findAccountByConnection(String accessToken) throws EnMeDomainNotFoundException {
+    public UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException {
         return this.accountDaoImp.findAccountByConnection(this.getName(), accessToken);
     }
 
@@ -236,9 +235,9 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
      *
      * @param accessToken
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public AccountConnection findAccountConnection(String accessToken) throws EnMeDomainNotFoundException {
+    public AccountConnection findAccountConnection(String accessToken) throws EnMeNoResultsFoundException {
         return this.accountDaoImp.findAccountConnectionByAccessToken(this.getName(), accessToken);
     }
 

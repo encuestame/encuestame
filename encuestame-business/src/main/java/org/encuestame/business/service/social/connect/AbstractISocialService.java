@@ -10,15 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.social;
+package org.encuestame.business.service.social.connect;
 
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuthToken;
-import org.springframework.social.twitter.TwitterOperations;
 
 /**
  * Description Class.
@@ -37,7 +36,7 @@ public abstract interface AbstractISocialService {
         void disconnect(Long accountId);
 
 
-        String fetchProviderAccountId(TwitterOperations serviceOperations);
+        //String fetchProviderAccountId(TwitterOperations serviceOperations);
 
         /**
          * The key used to identify the local application with the remote service provider.
@@ -54,6 +53,6 @@ public abstract interface AbstractISocialService {
         void connect(Long accountId, AuthorizedRequestToken requestToken) throws EnMeExistPreviousConnectionException;
 
 
-        UserAccount findAccountByConnection(String accessToken) throws EnMeDomainNotFoundException;
+        UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 
 }

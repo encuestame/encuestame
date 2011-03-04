@@ -45,7 +45,7 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
@@ -115,28 +115,47 @@ public abstract class AbstractDataSource{
     private IEmail emailListsDao;
 
     /**
-     * Get User.
-     * @param username
+     * Get {@link UserAccount} by Username.
+     * @param username username
      * @return user domain
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public final UserAccount getUserAccount(final String username) throws EnMeDomainNotFoundException {
+    public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getAccountDao().getUserByUsername(username);
         if(userAccount == null){
-            throw new EnMeDomainNotFoundException(" user not found {"+username+"}");
+            throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
-            return getAccountDao().getUserByUsername(username);
+            return userAccount;
         }
     }
 
     /**
-     * Get secondary. User.
-     * @param userId
-     * @return
+     * Get {@link UserAccount} by Id.
+     * @param userId user id
+     * @return {@link UserAccount}.
+     * @throws EnMeNoResultsFoundException
      */
+   public final UserAccount getUserAccount(final Long userId) throws EnMeNoResultsFoundException {
+        final UserAccount userAccount = getAccountDao().getUserAccountById(userId);
+        if(userAccount == null){
+            throw new EnMeNoResultsFoundException(" user id not found {"+userId+"}");
+        } else {
+            //TODO: we can add others validations, like is disabled, banned or the account is expired.
+            return userAccount;
+        }
+    }
+
+    /**
+     * Get {@link UserAccount} by Id.
+     * @param userId user id.
+     * @return
+     * @see user getUserAccount(id);
+     * @deprecated should be use getUserAccount.
+     */
+    @Deprecated
     public final UserAccount getUser(final Long  userId){
-        return getAccountDao().getSecondaryUserById(userId);
+        return getAccountDao().getUserAccountById(userId);
     }
 
     /**
@@ -161,9 +180,9 @@ public abstract class AbstractDataSource{
      * Get Primary User Id.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public final Long getPrimaryUser(final String username) throws EnMeDomainNotFoundException{
+    public final Long getPrimaryUser(final String username) throws EnMeNoResultsFoundException{
         return getUserAccount(username).getAccount().getUid();
      }
 
@@ -228,7 +247,7 @@ public abstract class AbstractDataSource{
                 projectDomain.setHideProject(projectBean.getHide());
                 projectDomain.setNotifyMembers(projectBean.getNotify());
                 if(projectBean.getLeader()!=null){
-                    projectDomain.setLead(getAccountDao().getSecondaryUserById(projectBean.getLeader()));
+                    projectDomain.setLead(getAccountDao().getUserAccountById(projectBean.getLeader()));
                 }
                 projectDomain.setUsers(getAccountDao().getUserById(projectBean.getUserId()));
                 getProjectDaoImp().saveOrUpdate(projectDomain);
