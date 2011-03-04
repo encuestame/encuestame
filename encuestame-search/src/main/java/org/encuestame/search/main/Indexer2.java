@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.StopAnalyzer;
@@ -187,6 +188,10 @@ public class Indexer2 {
         Document doc = new Document();
         if (StringUtils.isNotEmpty(docText)) {
         doc.add(new Field("content", docText,Field.Store.NO,Field.Index.ANALYZED));
+        doc.add(new Field("fullpath", file.getCanonicalPath(), Field.Store.YES,
+                Field.Index.NOT_ANALYZED)); // Index Full Path.
+        doc.add(new Field("filename", file.getName(), Field.Store.YES,
+                Field.Index.NOT_ANALYZED));
         }
         // extract PDF document's meta-data
 
@@ -294,19 +299,22 @@ public class Indexer2 {
        return doc;
        }
 
-    public void searcher(final String indexDir) throws CorruptIndexException, IOException, ParseException{
-        IndexReader reader = IndexReader.open(indexDir);
+    public void searcher(final String indexDir) throws CorruptIndexException,
+                        IOException, ParseException{
+        Directory dir = FSDirectory.open(new File(indexDir)); // Open Index
+        IndexReader reader = IndexReader.open(dir, true) ;
         IndexSearcher searcher = new IndexSearcher(reader);
         QueryParser parser = new QueryParser(Version.LUCENE_29, "content",
                 new StandardAnalyzer(Version.LUCENE_29));
         Query query = parser.parse("api");
-        TopDocCollector collector = new TopDocCollector(100);
+        TopScoreDocCollector  collector = TopScoreDocCollector.create(10, true);
         TopDocs hits2 = searcher.search(query, 3); // Search Index
 
         searcher.search(query , collector);
+
         ScoreDoc[] hits = collector.topDocs().scoreDocs;
         System.out.println("----------->" +hits2.totalHits );
-        String[] stopWords = StopAnalyzer.ENGLISH_STOP_WORDS;
+        Set stopWords = StopAnalyzer.ENGLISH_STOP_WORDS_SET;
         for(int i=0 ; i<hits.length ; i++) {
         int doc = hits[i].doc;
         Document doc1 = searcher.doc(doc);

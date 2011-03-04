@@ -437,7 +437,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public Boolean validateUserTwitterAccount(final String username) throws EnMeNoResultsFoundException{
         final Account users = getUserAccount(username).getAccount();
         Boolean validate = false;
-        log.info(users.getTwitterAccount());
+     // TODO: Removed by ENCUESTAME-43
+    /*    log.info(users.getTwitterAccount());
         if(!users.getTwitterAccount().isEmpty() && !users.getTwitterPassword().isEmpty()){
             log.info(users.getTwitterPassword());
             try{
@@ -448,7 +449,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             catch (Exception e) {
                 log.error("Error Validate Twitter Account "+e.getMessage());
             }
-        }
+        }*/
         log.info(validate);
         return validate;
     }

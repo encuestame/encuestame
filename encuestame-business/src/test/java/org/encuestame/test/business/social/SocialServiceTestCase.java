@@ -1,10 +1,15 @@
 
 package org.encuestame.test.business.social;
 
+import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.business.service.imp.ILinkedInService;
 import org.encuestame.business.service.social.connect.ITwitterSocialProvider;
 import org.encuestame.business.service.social.connect.TwitterSocialService;
+
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+
+import org.junit.Ignore;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.support.ConnectionRepository;
@@ -15,7 +20,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.context.request.WebRequest;
 
 
-public class SocialServiceTestCase extends AbstractServiceBase{
+@Ignore
+public class SocialServiceTestCase extends AbstractBaseService{
 
     /**
      * Twitter Social Service.
@@ -33,7 +39,9 @@ public class SocialServiceTestCase extends AbstractServiceBase{
     /**
      * Test.
      */
+
     @Test
+    @Ignore
     public void twitterSocialServiceTest(){
         Assert.notNull(this.linkedInService);
         Assert.isTrue(true);
@@ -54,7 +62,6 @@ public class SocialServiceTestCase extends AbstractServiceBase{
        System.out.println("********URL "+url);
         //request.setAttribute(OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
     }
-
 
     /**
      * @return the twitterSocialService
