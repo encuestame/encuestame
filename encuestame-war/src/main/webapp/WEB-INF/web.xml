@@ -18,6 +18,7 @@
             classpath:encuestame-quartz-context.xml
             classpath:encuestame-rss-context.xml,
             classpath:encuestame-mvc-context.xml,
+            classpath:encuestame-comet-context.xml,
             classpath:encuestame-web-flow-context.xml,
             classpath:encuestame-controller-context.xml,
             classpath:encuestame-json-context.xml,
@@ -118,10 +119,6 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-<!--    <filter-mapping>-->
-<!--        <filter-name>VerifyAuthenticationFilter</filter-name>-->
-<!--        <url-pattern>/*</url-pattern>-->
-<!--    </filter-mapping>-->
     <filter-mapping>
         <filter-name>charEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -130,12 +127,24 @@
         <filter-name>UrlRewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>cross-origin</filter-name>
+        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cross-origin</filter-name>
+        <url-pattern>/cometd/*</url-pattern>
+    </filter-mapping>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
+
     <servlet>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -143,25 +152,18 @@
             <param-name>contextConfigLocation</param-name>
             <param-value />
         </init-param>
-        <load-on-startup>2</load-on-startup>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
        <servlet-name>Resource Servlet</servlet-name>
        <servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
        <load-on-startup>0</load-on-startup>
     </servlet>
-<!--    <servlet>-->
-<!--	  <servlet-name>ViewRendererServlet</servlet-name>-->
-<!--	  <servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>-->
-<!--	</servlet>-->
     <servlet-mapping>
        <servlet-name>Resource Servlet</servlet-name>
        <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
-<!--    <servlet-mapping>-->
-<!--	  <servlet-name>ViewRendererServlet</servlet-name>-->
-<!--	  <url-pattern>/WEB-INF/servlet/view</url-pattern>-->
-<!--	</servlet-mapping>-->
+
     <!--
         Serves static resource content from .jar files such as
         spring-faces.jar
@@ -206,7 +208,19 @@
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
+
+   <!-- Cometd Servlet -->
+    <servlet>
+        <servlet-name>cometd</servlet-name>
+        <servlet-class>org.cometd.server.CometdServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cometd</servlet-name>
+        <url-pattern>/cometd/*</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
 </web-app>
