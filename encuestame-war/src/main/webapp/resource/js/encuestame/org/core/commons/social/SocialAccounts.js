@@ -1,5 +1,11 @@
 dojo.provide("encuestame.org.core.commons.social.SocialAccounts");
 
+dojo.require("dijit.form.ValidationTextBox");
+dojo.require("dijit.form.Textarea");
+dojo.require("dijit.form.Select");
+dojo.require("dijit.form.Button");
+dojo.require("dijit.form.Form");
+
 dojo.declare(
     "encuestame.org.core.commons.social.SocialAccounts",
     [dijit._Widget, dijit._Templated],{
@@ -134,8 +140,26 @@ dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountRow",
         [dijit._Widget, dijit._Templated],{
 
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountRow.inc")
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountRow.inc"),
 
+            account : null,
+
+            postCreate : function(){
+              console.debug("account", this.account);
+            },
+
+            _disableSocialAccount : function(){
+
+            },
+
+            _removeSocialAccount : function(){
+
+            },
+
+            _testAccount : function(){
+
+
+            }
 });
 
 
