@@ -1,4 +1,4 @@
-package org.encuestame.comet.service;
+package org.encuestame.comet.services;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,23 +18,20 @@ import org.cometd.java.annotation.Session;
 @Named
 @Singleton
 @Service("helloService")
-public class HelloService
-{
+public class HelloService {
     @Inject
     private BayeuxServer bayeux;
     @Session
     private ServerSession serverSession;
 
     @PostConstruct
-    public void init()
-    {
+    public void init() {
     }
 
     @Listener("/service/hello")
-    public void processHello(ServerSession remote, ServerMessage.Mutable message)
-    {
+    public void processHello(ServerSession remote, ServerMessage.Mutable message) {
         Map<String, Object> input = message.getDataAsMap();
-        String name = (String)input.get("name");
+        String name = (String) input.get("name");
 
         Map<String, Object> output = new HashMap<String, Object>();
         output.put("greeting", "Hello, " + name);

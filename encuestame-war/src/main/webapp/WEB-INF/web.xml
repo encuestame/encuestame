@@ -18,6 +18,7 @@
             classpath:encuestame-quartz-context.xml
             classpath:encuestame-rss-context.xml,
             classpath:encuestame-mvc-context.xml,
+            classpath:encuestame-comet-context.xml,
             classpath:encuestame-web-flow-context.xml,
             classpath:encuestame-controller-context.xml,
             classpath:encuestame-json-context.xml,

@@ -15,6 +15,8 @@
 <script type="text/javascript">
 dojo.addOnLoad(function()
 {
+
+    //More Info: http://cometd.org/node/49
     var cometd = dojox.cometd;
     console.debug("comentD",cometd);
     var config = {
@@ -65,14 +67,18 @@ dojo.addOnLoad(function()
     {
         if (handshake.successful === true)
         {
-            cometd.batch(function()
-            {
-                cometd.subscribe('/hello', function(message)
-                {
+            cometd.batch(function(){
+                cometd.subscribe('/hello', function(message){
                     dojo.byId('body').innerHTML += '<div>Server Says: ' + message.data.greeting + '</div>';
                 });
                 // Publish on a service channel since the message is for the server only
                 cometd.publish('/service/hello', { name: 'World' });
+
+                cometd.subscribe('/not', function(message){
+                    console.debug("NOTF", message);
+                });
+                // Publish on a service channel since the message is for the server only
+                cometd.publish('/service/notification', { name: 'World2' });
             });
         }
     }
