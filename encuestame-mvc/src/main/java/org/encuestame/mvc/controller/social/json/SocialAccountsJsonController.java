@@ -154,12 +154,15 @@ public class SocialAccountsJsonController extends AbstractJsonController {
          log.debug("pin "+pin);
          try {
             final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
-            final HashMap<String, Object> r = this.createOAuthSocialAccountWithPinNumber(pin, getUserAccount());
+            final HashMap<String, Object> r = this.createOAuthSocialAccountWithPinNumber(pin, getUserAccount(), SocialProvider.TWITTER);
             jsonResponse.put("confirm", r.get("confirm"));
-            jsonResponse.put("screenName", r.get("screenName"));
+            jsonResponse.put("message", r.get("message"));
             setItemResponse(jsonResponse);
         } catch (Exception e) {
-            setItemResponse("url", "");
+            final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
+            jsonResponse.put("confirm", false);
+            jsonResponse.put("message", e.getMessage());
+            setItemResponse(jsonResponse);
             setError(e.getMessage(), response);
         }
          return returnData();
@@ -238,13 +241,17 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     }
 
     /**
-     *
+     * Create Social Account with Pin Number.
      * @param pin
      * @param account
+     * @param socialProvider
      * @param userId
      * @return
      */
-    public HashMap<String, Object> createOAuthSocialAccountWithPinNumber(final String pin, final UserAccount account){
+    public HashMap<String, Object> createOAuthSocialAccountWithPinNumber(
+            final String pin,
+            final UserAccount account,
+            final SocialProvider socialProvider){
         log.debug("confirmOAuthPin");
         boolean confirmed = false;
         AccessToken accessToken = null;
@@ -268,19 +275,23 @@ public class SocialAccountsJsonController extends AbstractJsonController {
                          log.debug("Access Token UserId {"+accessToken.getUserId());
                          log.debug("New Token {"+accessToken.getToken());
                          log.debug("New Secret Token {"+accessToken.getTokenSecret());
-                         getSecurityService().addOAuthTokenSocialAccount((long) accessToken.getUserId(),
+                         getSecurityService().addOrUpdateOAuthTokenSocialAccount((long) accessToken.getUserId(),
                                  accessToken.getToken(),
                                  accessToken.getTokenSecret(),
                                  accessToken.getScreenName(),
-                                 account);
+                                 account,
+                                 socialProvider);
                          confirmed = true;
+                         response.put("message", "ok");
                     }
                 }
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
+                response.put("message", e.getMessage());
             }
         }
+        response.put("confirm", confirmed);
         return response;
     }
 

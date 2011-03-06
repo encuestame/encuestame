@@ -203,17 +203,23 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param account
      * @throws EnMeExpcetion
      */
-    public void addOAuthTokenSocialAccount(
+    public void addOrUpdateOAuthTokenSocialAccount(
             final Long socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
-            final UserAccount account) throws EnMeExpcetion{
-        final SocialAccount socialAccount = new SocialAccount();
+            final UserAccount account,
+            final SocialProvider socialProvider) throws EnMeExpcetion{
+            SocialAccount socialAccount = getAccountDao().getSocialAccount(socialProvider, socialAccountId);
+            if (socialAccount == null) {
+                log.info("adding new social account");
+                socialAccount = new SocialAccount();
+            }
             log.debug("Updating  Token to {"+token);
             log.debug("Updating Secret Token to {"+tokenSecret);
             socialAccount.setToken(token);
             socialAccount.setVerfied(Boolean.TRUE);
+            socialAccount.setAccounType(socialProvider);
             socialAccount.setSecUsers(account.getAccount());
             socialAccount.setSocialAccountName(username);
             socialAccount.setType(TypeAuth.OAUTH);

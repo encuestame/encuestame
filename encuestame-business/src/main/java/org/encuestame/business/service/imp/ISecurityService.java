@@ -329,14 +329,16 @@ public interface ISecurityService extends IService {
      * @param tokenSecret
      * @param username
      * @param account
+     * @param socialProvider
      * @throws EnMeExpcetion
      */
-    public void addOAuthTokenSocialAccount(
+    public void addOrUpdateOAuthTokenSocialAccount(
             final Long socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
-            final UserAccount account) throws EnMeExpcetion;
+            final UserAccount account,
+            final SocialProvider socialProvider) throws EnMeExpcetion;
 
     /**
      * Assign Permission,
