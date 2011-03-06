@@ -13,7 +13,7 @@
         <li class="item"><a href="<%=request.getContextPath()%>/survey">Surveys</a></li>
     </ul>
     <div style="float: right;">
-        <div dojoType="encuestame.org.core.commons.notifications.Notification" delay="40000"></div>
+        <div dojoType="encuestame.org.core.commons.notifications.Notification"></div>
     </div>
     <br style="clear: left" />
     </div>

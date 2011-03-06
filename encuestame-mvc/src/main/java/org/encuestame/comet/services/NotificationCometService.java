@@ -35,11 +35,10 @@ public class NotificationCometService extends AbstractCometService {
      * @param remote
      * @param message
      */
-    @Listener("/service/notification")
+    @Listener("/service/notification/status")
     public void processNotification(final ServerSession remote, final ServerMessage.Mutable message) {
         final Map<String, Object> input = message.getDataAsMap();
         log.debug("Notification Input "+input);
-        String name = (String) input.get("name");
         final Map<String, Object> output = new HashMap<String, Object>();
         final UserAccount userAccount = getByUsername(getUserPrincipalUsername());
         if (userAccount != null) {
@@ -48,12 +47,11 @@ public class NotificationCometService extends AbstractCometService {
             final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
             log.debug("totalNewNot "+totalNewNot);
             output.put("totalNot", totalNot);
-            output.put("totalNot", totalNewNot);
+            output.put("totalNewNot", totalNewNot);
         } else {
-            log.error("Error username ");
+            log.error("Error username");
         }
-        output.put("greeting", "Hello, " + name);
-        remote.deliver(serverSession, "/not", output, null);
+        remote.deliver(serverSession, "/notificationStatus", output, null);
     }
 
     /**

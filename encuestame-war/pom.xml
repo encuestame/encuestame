@@ -148,7 +148,7 @@
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                     </webAppConfig>
-                    <scanIntervalSeconds>10</scanIntervalSeconds><!--
+                    <scanIntervalSeconds>5</scanIntervalSeconds><!--
                         <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                             <filename>target/encuestame.log</filename>
                             <retainDays>90</retainDays>

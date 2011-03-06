@@ -32,7 +32,19 @@
          dojo.require("encuestame.org.core.commons.error.ErrorSessionHandler");
          dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
          dojo.require("encuestame.org.core.commons.error.ErrorHandler");
+         //cometd libs
+         dojo.require("dojox.cometd");
+         dojo.require("dojo.io.script");
+         dojo.require("dojox.cometd");
+         //dojo.require("dojox.cometd.callbackPollTransport");
     </script>
+<script type="text/javascript">
+    var config = {
+        contextPath: '<%=request.getContextPath()%>'
+    };
+    var cometd = dojox.cometd;
+</script>
+<script src="<%=request.getContextPath()%>/resource/js/cometd.js"></script>
 </head>
 <body class="claro">
 <div id="contextWidget" dojoType="encuestame.org.core.contextWidget" contextPath="<%=request.getContextPath()%>"></div>
