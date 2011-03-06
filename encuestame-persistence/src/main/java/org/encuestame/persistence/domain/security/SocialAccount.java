@@ -136,7 +136,7 @@ public class SocialAccount {
     /**
      * @return the twitterAccount
      */
-    @Column (name="social_account_name", nullable = false)
+    @Column (name="social_account_name", nullable = false, unique = true)
     public String getSocialAccountName() {
         return socialAccountName;
     }
