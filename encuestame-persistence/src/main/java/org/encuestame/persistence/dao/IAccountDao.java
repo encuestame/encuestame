@@ -109,10 +109,12 @@ public interface IAccountDao extends IBaseDao {
     /**
      * Get Twitter Accounts.
      * @param secUsers {@link Account}.
+     * @param provider
      * @return List {@link SocialAccount}.
      *
      */
-    List<SocialAccount> getTwitterAccountByUser(final Account secUsers);
+    List<SocialAccount> getTwitterAccountByUser(final Account secUsers,
+            final SocialProvider provider);
 
     /**
      * Get Twitter Account.

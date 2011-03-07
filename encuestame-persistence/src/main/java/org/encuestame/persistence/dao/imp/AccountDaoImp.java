@@ -181,12 +181,18 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     /**
      * Get Twitter Accounts.
      * @param secUsers {@link Account}.
+     * @param provider
      * @return List {@link SocialAccount}.
      *
      */
-    public List<SocialAccount> getTwitterAccountByUser(final Account secUsers){
+    public List<SocialAccount> getTwitterAccountByUser(
+            final Account secUsers,
+            final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("secUsers", secUsers) );
+        if (provider != null) { //if provider is null, we fetch everything
+            criteria.add(Restrictions.eq("accounType", provider));
+        }
         return   getHibernateTemplate().findByCriteria(criteria);
     }
 

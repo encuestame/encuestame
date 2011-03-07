@@ -6,6 +6,8 @@ dojo.require("dijit.form.Select");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.Form");
 
+dojo.require("dojo.hash");
+
 dojo.declare(
     "encuestame.org.core.commons.social.SocialAccounts",
     [dijit._Widget, dijit._Templated],{
@@ -26,18 +28,34 @@ dojo.declare(
 
             label : "define label",
 
+            widgetsInTemplate: true,
+
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialButton.inc"),
 
             postCreate : function(){
+                var hash = dojo.queryToObject(dojo.hash());
+                if (hash.provider && hash.provider == this.id) {
+                    this._loadAccountInterface(hash.provider);
+                }
 
             },
 
-            _click : function(event){
-                console.debug("click button");
-                var widget = dijit.byId(this.id.toLowerCase()+"Detail");
+            _loadAccountInterface : function(id){
+                console.debug("_loadAccountInterface ", id.toLowerCase()+"Detail");
+                var widget = dijit.byId(id.toLowerCase()+"Detail");
                 console.debug("widget ", widget);
                 dojo.publish("/encuestame/social/change", [widget]);
-                dojo.publish("/encuestame/social/"+this.id+"/loadAccounts");
+                dojo.publish("/encuestame/social/"+id+"/loadAccounts");
+            },
+
+            _click : function(event){
+                var hash = dojo.queryToObject(dojo.hash());
+                console.debug("click button");
+                this._loadAccountInterface(this.id);
+                params = {
+                   provider : this.id
+                };
+                dojo.hash(dojo.objectToQuery(params));
             }
  });
 
@@ -75,7 +93,7 @@ dojo.declare(
                     console.debug("error", error);
                 };
                 encuestame.service.xhrGet(
-                        encuestame.service.list.twitterAccount, {}, load, error);
+                        encuestame.service.list.allSocialAccount, {}, load, error);
             },
 
 
@@ -216,10 +234,22 @@ dojo.declare(
 
             widgetsInTemplate: true,
 
+            _secrets : false,
+
             type : "twitter",
 
             postCreate : function(){
               console.debug("account", this.account);
+              dojo.subscribe("/encuestame/social/account/row/show", this, function(widget){
+                  console.debug(this.id, widget.id);
+                  if (this.id != widget.id) {
+                      console.debug("hiding ...", widget.id);
+                      this._secrets = true;
+                      this._showHideAction();
+                  } else {
+
+                  }
+              });
             },
 
             _disableSocialAccount : function(){
@@ -232,10 +262,27 @@ dojo.declare(
 
             _remove : function(event){
                 dojo.stopEvent(event);
+
             },
 
             _changeStatusAccount : function(){
                 dojo.stopEvent(event);
+            },
+
+            _showHideAction : function(){
+                console.debug("_showHideAction ", this);
+                if(this._secrets){
+                    dojo.addClass(this._secretView, "defaultDisplayHide");
+                } else {
+                    dojo.removeClass(this._secretView, "defaultDisplayHide");
+                }
+                this._secrets = !this._secrets;
+            },
+
+            _showHideSecrets : function(event){
+                dojo.stopEvent(event);
+                this._showHideAction();
+                dojo.publish("/encuestame/social/account/row/show", [this]);
             }
 });
 

@@ -298,10 +298,14 @@ public interface ISecurityService extends IService {
 
     /**
      * Get User Logged Twitter Accounts.
+     * @param username
+     * @param provider
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<SocialAccountBean> getUserLoggedSocialAccount(final String username) throws EnMeNoResultsFoundException;
+    List<SocialAccountBean> getUserLoggedSocialAccount(
+            final String username
+            , final SocialProvider provider) throws EnMeNoResultsFoundException;
 
     /**
      * Get User Logged Verified Twitter Accounts.

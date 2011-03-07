@@ -1,4 +1,3 @@
-
 package org.encuestame.mvc.controller.social.json;
 
 import java.io.IOException;
@@ -109,21 +108,17 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     @RequestMapping(value = "/api/social/twitter/account/{type}.json", method = RequestMethod.GET)
     public ModelMap actionTwitterAccount(
             @PathVariable String type,
-            @RequestParam(value = "consumerKey", required = true) String consumerKey,
-            @RequestParam(value = "consumerSecret", required = true) String consumerSecret,
-            @RequestParam(value = "username", required = true) String usernameAccount,
-            @RequestParam(value = "socialAccountId", required = false) String socialAccountId,
+            @RequestParam(value = "socialAccountId", required = true) String socialAccountId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         log.debug("consumerKey "+consumerKey);
-         log.debug("consumerSecret "+ (consumerSecret));
          try {
            final UserAccount userAccount = getUserAccount();
-           if("create".equals(type)){
-               //getSecurityService().addNewTwitterAccount(userAccount, usernameAccount, consumerKey, consumerSecret);
-               setSuccesResponse();
-           } else if("update".equals(type)){
+           if("default".equals(type)){
               log.info("update social twitter account");
+           } else if("remove".equals(type)){
+
+           } else if("valid".equals(type)){
+
            } else {
                setError("type not valid", response);
            }
@@ -180,7 +175,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/common/social/valid-accounts.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/social/confirmed-accounts.json", method = RequestMethod.GET)
     public ModelMap get(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -189,6 +184,36 @@ public class SocialAccountsJsonController extends AbstractJsonController {
         try {
              final List<SocialAccountBean> accounts = getSecurityService()
                    .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+             setItemReadStoreResponse("socialAccounts", "id", accounts);
+             log.debug("Twitter Accounts Loaded");
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Return Social Valid Accounts.
+     * @param request
+     * @param response
+     * @param provider
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/social/accounts.json", method = RequestMethod.GET)
+    public ModelMap getSocialAccountByType(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam(value = "provider", required = false) String provider)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+             final List<SocialAccountBean> accounts = getSecurityService()
+                   .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
              setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
         } catch (Exception e) {

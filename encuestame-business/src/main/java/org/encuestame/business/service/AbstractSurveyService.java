@@ -62,9 +62,6 @@ import twitter4j.http.RequestToken;
 @Service
 public class AbstractSurveyService extends AbstractChartService {
 
-    /** Twitter Service. **/
-    private ITwitterService twitterService;
-
     /** AnswerPoll Path. **/
     private String answerPollPath;
 
@@ -496,20 +493,6 @@ public class AbstractSurveyService extends AbstractChartService {
              getQuestionDao().saveOrUpdate(question);
          }
      }
-
-    /**
-     * @return the twitterService
-     */
-    public ITwitterService getTwitterService() {
-        return twitterService;
-    }
-
-    /**
-     * @param twitterService the twitterService to set
-     */
-    public void setTwitterService(final ITwitterService twitterService) {
-        this.twitterService = twitterService;
-    }
 
     /**
      * @return the answerPollPath

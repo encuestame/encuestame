@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
@@ -49,7 +50,7 @@ import twitter4j.http.AccessToken;
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
  */
-public abstract class AbstractBaseService extends AbstractConfigurationService {
+public abstract class AbstractBaseService extends AbstractSocialService {
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -62,11 +63,6 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      *  {@link MailServiceImpl}.
      */
     private MailServiceImpl serviceMail;
-
-    /**
-     *
-     */
-    private static int TWITTER_AUTH_ERROR = 401;
 
     /**
      * Constructor.
@@ -221,58 +217,6 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             throw new EnMeExpcetion("Email Not Found in Subscribe List");
         }
      }
-
-    /**
-     * Verify OAuth Credentials
-     * @param token token stored
-     * @param secretToken secret Token
-     * @param pin pin
-     * @return
-     * @throws TwitterException
-     */
-    public Boolean verifyCredentials(final String token,
-                                     final String tokenSecret,
-                                     final String consumerKey,
-                                     final String consumerSecret,
-                final String pin){
-        Boolean verified = false;
-        log.debug("verifyCredentials OAuth");
-        log.debug("Token {"+token);
-        log.debug("secretToken {"+tokenSecret);
-        log.debug("pin {"+pin);
-        log.debug("consumerKey {"+consumerKey);
-        log.debug("consumerSecret {"+consumerSecret);
-        Twitter twitter = null;
-        try {
-             twitter = new TwitterFactory().getInstance();
-            if(token == null || token.isEmpty()){
-                verified = false;
-            } else {
-                log.debug("Exist Previous Token.");
-                final AccessToken accessToken = new AccessToken(token, tokenSecret);
-                log.debug("Created Token "+accessToken);
-                twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
-                log.debug("Verifying Credentials");
-                final User user = twitter.verifyCredentials();
-                log.debug("Verifying Credentials User "+user);
-                if (user != null) {
-                    log.debug("Verify OAuth User " + user.getId());
-                    verified = true;
-                }
-            }
-        } catch (TwitterException te) {
-            log.error("Twitter Error "+te.getMessage());
-            if (AbstractBaseService.TWITTER_AUTH_ERROR == te.getStatusCode()) {
-                log.error("Twitter Error "+te.getStatusCode());
-                verified = false;
-            } else {
-                log.error(te);
-            }
-            log.error("Verify OAuth Error " + te.getLocalizedMessage());
-        }
-        log.debug("verified "+verified);
-        return verified;
-    }
 
     /**
      * Get Access Token.
@@ -438,5 +382,4 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             throw new EnMeExpcetion("error on create directory");
         }
     }
-
 }

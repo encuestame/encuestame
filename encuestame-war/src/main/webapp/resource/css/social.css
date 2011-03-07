@@ -8,7 +8,6 @@ div.socialAccounts div.socialWrapper{
 }
 
 div.socialAccounts div.socialWrapper div.listSocialCommunities{
-    float: left;
     min-width: 200px;
 }
 
@@ -28,33 +27,42 @@ div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
 }
 
 div.socialAccounts div.socialWrapper  div.socialAccountListDetail{
-    margin-left: 220px;
-    padding: 10px;
+    float: right;
+    width: 1050px;
 }
 
 
 /** Row Account */
 
 div.socialWrapperRow{
-    padding: 7px;
-    font-size: 110%;
-    margin: 2px;
+     padding: 7px;
+     font-size: 110%;
+     margin: 2px;
     -moz-box-shadow: 0px 2px 2px #888;
     -webkit-box-shadow: 0px 2px 2px #888;
-    box-shadow: 10px 10px 5px #888;
+     box-shadow: 10px 10px 5px #888;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
      border-radius: 0px 0px 5px 5px;
      cursor: pointer;
      margin: 10px 0px 10px 0px;
-     min-height: 50px;
+}
+
+div.socialWrapperRow div.socialNewForm{
+    clear: both;
+    position: fixed;
 }
 
 div.socialWrapperRow div.tokensWrapper{
-    float: left;
+    padding: 5px;
+}
+
+div.socialWrapperRow div.tokensWrapper div.tokenHideOptions{
+    min-height: 45px;
 }
 
 div.socialWrapperRow  div.optionToken{
+    text-align: right;
     float: right;
 }
 
@@ -75,10 +83,19 @@ div.socialWrapperRow div.title{
 }
 
 /** Twitter Account **/
+
+div.twitterListAccount{
+
+}
+
 div.twitterWrapperRow{
     background-color: #9AE4E8;
 }
 
 div.twitterWrapperRow div.tokensWrapper label{
     color: #2C4762;
+}
+
+div.twitterListAccount div.newTwitterAccount{
+    padding: 10px;
 }

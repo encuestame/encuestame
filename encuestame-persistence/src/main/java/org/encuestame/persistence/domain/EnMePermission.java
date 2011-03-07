@@ -26,10 +26,11 @@ public enum EnMePermission {
     ENCUESTAME_PUBLISHER,
     ENCUESTAME_EDITOR,
     ENCUESTAME_ANONYMOUS,
+    ENCUESTAME_API,
+    ENCUESTAME_READ,
+    ENCUESTAME_WRITE,
 
-    EnMePermission(){
-        //Constructor.
-    };
+    EnMePermission(){};
 
     /**
      * To String.
