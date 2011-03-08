@@ -65,6 +65,13 @@ public interface ITwitterService extends IService{
     User verifyCredentials(final String username, final String password) throws TwitterException;
 
     /**
+     * Verify Credentials.
+     * @param socialAccount
+     * @return
+     */
+    Boolean verifyCredentials(final SocialAccount socialAccount);
+
+    /**
      * Get OAuthorized Token.
      * @param socialAccount {@link SocialAccount}.
      * @return {@link Twitter}.

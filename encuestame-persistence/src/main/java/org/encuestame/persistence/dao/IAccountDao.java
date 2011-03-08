@@ -109,10 +109,12 @@ public interface IAccountDao extends IBaseDao {
     /**
      * Get Twitter Accounts.
      * @param secUsers {@link Account}.
+     * @param provider
      * @return List {@link SocialAccount}.
      *
      */
-    List<SocialAccount> getTwitterAccountByUser(final Account secUsers);
+    List<SocialAccount> getTwitterAccountByUser(final Account secUsers,
+            final SocialProvider provider);
 
     /**
      * Get Twitter Account.
@@ -120,6 +122,22 @@ public interface IAccountDao extends IBaseDao {
      * @return
      */
     SocialAccount getTwitterAccount(final Long twitterAccountId);
+
+    /**
+     * Get Social Account.
+     * @param socialProvider
+     * @param socialAccountId
+     * @return
+     */
+    SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId);
+
+    /**
+     * Get Social Account.
+     * @param socialAccountId
+     * @param account
+     * @return
+     */
+    SocialAccount getSocialAccount(final Long socialAccountId, final Account account);
 
     /**
      * Get Twitter Verified Accounts.

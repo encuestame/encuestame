@@ -73,6 +73,11 @@ public class SocialAccount {
     private String secretToken;
 
     /**
+     * Default Selected.
+     */
+    private Boolean defaultSelected = false;
+
+    /**
      * Type.
      */
     private TypeAuth type = TypeAuth.OAUTH; //Twitter only accept OAuth.
@@ -136,7 +141,7 @@ public class SocialAccount {
     /**
      * @return the twitterAccount
      */
-    @Column (name="social_account_name", nullable = false)
+    @Column (name="social_account_name", nullable = false, unique = true)
     public String getSocialAccountName() {
         return socialAccountName;
     }
@@ -228,5 +233,20 @@ public class SocialAccount {
 
     public void setSecretToken(String secretToken) {
         this.secretToken = secretToken;
+    }
+
+    /**
+     * @return the defaultSelected
+     */
+    @Column(name = "default_selected", nullable = true)
+    public Boolean getDefaultSelected() {
+        return defaultSelected;
+    }
+
+    /**
+     * @param defaultSelected the defaultSelected to set
+     */
+    public void setDefaultSelected(Boolean defaultSelected) {
+        this.defaultSelected = defaultSelected;
     }
 }

@@ -13,7 +13,6 @@
     <build>
     <finalName>encuestame</finalName>
     <plugins>
-    <!--  To optimize JS uncomment this.
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
@@ -27,6 +26,7 @@
                           <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
                         </classpath>
                         <property file="${basedir}/dojo.properties"/>
+                        <!--  To optimize JS uncomment this.
                         <target unless="build">
                             <java
                              fork="true"
@@ -63,6 +63,7 @@
                            </delete>
                           <echo message="Dojo optimized." />
                         </target>
+                        -->
                     </configuration>
                     <goals>
                         <goal>run</goal>
@@ -70,6 +71,8 @@
                 </execution>
             </executions>
         </plugin>
+        <!--
+        Customize and Optimize WAR file.
         <plugin>
             <artifactId>maven-war-plugin</artifactId>
             <version>2.1.1</version>
@@ -102,6 +105,7 @@
                 </webResources>
             </configuration>
             </plugin> -->
+
         <!-- Development War Configuration - NOT Optimized -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -144,7 +148,7 @@
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                     </webAppConfig>
-                    <scanIntervalSeconds>10</scanIntervalSeconds><!--
+                    <scanIntervalSeconds>5</scanIntervalSeconds><!--
                         <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                             <filename>target/encuestame.log</filename>
                             <retainDays>90</retainDays>

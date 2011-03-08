@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -234,7 +235,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     @Test
     public void testPublicMultiplesTweetAccounts(){
             createDefaultSettedTwitterAccount(this.userAccount.getAccount());
-            final List<SocialAccount> list = getAccountDao().getTwitterAccountByUser(this.userAccount.getAccount());
+            final List<SocialAccount> list = getAccountDao().getTwitterAccountByUser(this.userAccount.getAccount(), SocialProvider.TWITTER);
             final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);
