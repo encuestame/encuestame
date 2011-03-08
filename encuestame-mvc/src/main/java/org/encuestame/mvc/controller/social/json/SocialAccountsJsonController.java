@@ -13,6 +13,8 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -91,11 +93,8 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     }
 
     /**
-     * Create or Update Twitter Social Account.
+     * Change state of social account.
      * @param type
-     * @param consumerKey
-     * @param consumerSecret
-     * @param usernameAccount
      * @param socialAccountId
      * @param request
      * @param response
@@ -108,22 +107,14 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     @RequestMapping(value = "/api/social/twitter/account/{type}.json", method = RequestMethod.GET)
     public ModelMap actionTwitterAccount(
             @PathVariable String type,
-            @RequestParam(value = "socialAccountId", required = true) String socialAccountId,
+            @RequestParam(value = "socialAccountId", required = true) Long socialAccountId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
          try {
-           final UserAccount userAccount = getUserAccount();
-           if("default".equals(type)){
-              log.info("update social twitter account");
-           } else if("remove".equals(type)){
-
-           } else if("valid".equals(type)){
-
-           } else {
-               setError("type not valid", response);
-           }
-        } catch (EnMeExpcetion e) {
-            setItemResponse("url", "");
+           getSecurityService().changeStateSocialAccount(socialAccountId, getUserPrincipalUsername(), type);
+        } catch (IllegalSocialActionException e) {
+            setError(e.getMessage(), response);
+        } catch (EnMeNoResultsFoundException e) {
             setError(e.getMessage(), response);
         }
         return returnData();

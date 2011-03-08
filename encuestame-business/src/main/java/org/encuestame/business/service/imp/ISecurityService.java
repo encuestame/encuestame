@@ -220,30 +220,6 @@ public interface ISecurityService extends IService {
      */
     void setSuspendedNotification(final Boolean suspendedNotification);
 
-    /**
-     * Update Twitter Account.
-     * @param accountBean accountBean
-     * @param password password
-     * @param verify verify
-     */
-     void updateTwitterAccount(final SocialAccountBean accountBean, final String password,
-                               final Boolean verify);
-
-     /**
-      * Update OAuth Secret Twitter Credentials.
-      * @param accountBean
-      * @param username
-      */
-     void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
-             final String username) throws EnMeExpcetion;
-
-     /**
-      * Get Twitter Account.
-      * @param twitterAccountId
-      * @return
-      */
-     SocialAccountBean getTwitterAccount(final Long twitterAccountId);
-
 
     /**
      * Load Groups by Client.
@@ -297,52 +273,12 @@ public interface ISecurityService extends IService {
     UserAccountBean findUserByEmail(final String email);
 
     /**
-     * Get User Logged Twitter Accounts.
-     * @param username
-     * @param provider
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    List<SocialAccountBean> getUserLoggedSocialAccount(
-            final String username
-            , final SocialProvider provider) throws EnMeNoResultsFoundException;
-
-    /**
-     * Get User Logged Verified Twitter Accounts.
-     * @param username username
-     * @param socialProvider
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(
-            final String username,
-            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
-
-    /**
      * Get Email List by Username.
      * @param username
      * @return
      * @throws EnMeNoResultsFoundException
      */
     List<UnitLists> getListbyUsername(final String username) throws EnMeNoResultsFoundException;
-
-    /**
-     * Update OAuth Token/Secret Social Account.
-     * @param socialAccountId
-     * @param token
-     * @param tokenSecret
-     * @param username
-     * @param account
-     * @param socialProvider
-     * @throws EnMeExpcetion
-     */
-    public void addOrUpdateOAuthTokenSocialAccount(
-            final Long socialAccountId,
-            final String token,
-            final String tokenSecret,
-            final String username,
-            final UserAccount account,
-            final SocialProvider socialProvider) throws EnMeExpcetion;
 
     /**
      * Assign Permission,

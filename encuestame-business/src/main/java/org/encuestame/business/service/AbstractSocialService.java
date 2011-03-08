@@ -13,6 +13,7 @@ import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SocialAccountBean;
 
 import twitter4j.Twitter;
@@ -22,19 +23,22 @@ import twitter4j.User;
 import twitter4j.http.AccessToken;
 
 /**
- *
+ * Social service layer.
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 7, 2011
  */
 public class AbstractSocialService extends AbstractConfigurationService {
 
+    /**
+     * Log.
+     */
     private Logger log = Logger.getLogger(this.getClass());
 
     /** Twitter Service. **/
     private ITwitterService twitterService;
 
    /**
-    *
+    * Twitter error code.
     */
    private static int TWITTER_AUTH_ERROR = 401;
 
@@ -78,6 +82,37 @@ public class AbstractSocialService extends AbstractConfigurationService {
         log.debug("Update Secret Twitter Credentials");
         getAccountDao().saveOrUpdate(twitterAccount);
         log.info("update Twitter Account");
+    }
+
+    /**
+     * Change state social account.
+     * @param accountId
+     * @param username
+     * @param action
+     * @throws EnMeNoResultsFoundException
+     * @throws IllegalSocialActionException
+     */
+    public void changeStateSocialAccount(
+            final Long accountId,
+            final String username,
+            final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException{
+        final UserAccount userAccount = getUserAccount(username);
+        final SocialAccount social = getAccountDao().getSocialAccount(accountId, userAccount.getAccount());
+        if(social == null){
+            throw new EnMeNoResultsFoundException("social accout not found");
+        }
+        if("default".equals(action)){
+           log.info("update social twitter account");
+           social.setDefaultSelected(!social.getDefaultSelected());
+           getAccountDao().saveOrUpdate(social);
+        } else if("remove".equals(action)){
+            getAccountDao().delete(social);
+        } else if("valid".equals(action)){
+            social.setVerfied(!social.getVerfied());
+            getAccountDao().saveOrUpdate(social);
+        } else {
+            throw new IllegalSocialActionException();
+        }
     }
 
     /**
@@ -140,6 +175,7 @@ public class AbstractSocialService extends AbstractConfigurationService {
      * @param tokenSecret
      * @param username
      * @param account
+     * @param socialProvider
      * @throws EnMeExpcetion
      */
     public void addOrUpdateOAuthTokenSocialAccount(
@@ -213,14 +249,13 @@ public class AbstractSocialService extends AbstractConfigurationService {
         return comfirmedSocialAccounts;
    }
 
-
-    /**
-    *
+   /**
+    * Get social account by id.
     * @param accountId
     * @return
     */
    protected SocialAccount getSocialAccount(final Long accountId){
-        return  getAccountDao().getTwitterAccount(accountId); //TODO: filter by Username Too
+        return  getAccountDao().getTwitterAccount(accountId); //TODO: ENCUESTAME-113
    }
 
    /**
@@ -245,7 +280,6 @@ public class AbstractSocialService extends AbstractConfigurationService {
        }
        log.info("update Twitter Account");
    }
-
 
    /**
     * @return the twitterService
