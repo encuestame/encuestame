@@ -47,7 +47,7 @@
         <lucene.version>2.9.3</lucene.version>
 
         <!-- Twitter4J Version -->
-        <twitter4j.version>2.1.6</twitter4j.version>
+        <twitter4j.version>2.1.9</twitter4j.version>
 
         <servlet-api>2.5</servlet-api>
 
