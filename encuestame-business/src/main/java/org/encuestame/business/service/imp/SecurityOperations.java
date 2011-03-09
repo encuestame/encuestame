@@ -17,18 +17,15 @@ import java.util.List;
 
 import org.encuestame.business.service.SecurityService.FollowOperations;
 import org.encuestame.business.service.SecurityService.Profile;
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
@@ -41,7 +38,7 @@ import org.springframework.mail.MailSendException;
  * @since 27/04/2009  11:35:01
  * @version $Id$
  */
-public interface ISecurityService extends IService {
+public interface SecurityOperations extends ServiceOperations {
 
      String getDefaultUserPermission();
     /**f

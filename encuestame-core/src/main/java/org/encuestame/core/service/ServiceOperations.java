@@ -20,7 +20,7 @@ import org.encuestame.core.util.MessageSourceFactoryBean;
  * @since 29/11/2009 21:47:14
  * @version $Id$
  */
-public interface IService extends SocialOperations{
+public interface ServiceOperations extends SocialOperations{
 
     /**
      * Getter.

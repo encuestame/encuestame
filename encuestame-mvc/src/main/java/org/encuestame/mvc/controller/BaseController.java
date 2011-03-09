@@ -38,7 +38,7 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
@@ -313,7 +313,7 @@ public abstract class BaseController extends AbstractSecurityContext{
      * Get {@link SecurityService}.
      * @return
      */
-    public ISecurityService getSecurityService(){
+    public SecurityOperations getSecurityService(){
         return getServiceManager().getApplicationServices().getSecurityService();
     }
 

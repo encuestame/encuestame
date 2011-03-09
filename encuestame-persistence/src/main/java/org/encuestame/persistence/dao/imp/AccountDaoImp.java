@@ -141,9 +141,11 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return
      */
     public SocialAccount getSocialAccount(final Long socialAccountId, final Account account){
+        log.debug("account "+account.getUid());
+        log.debug("socialAccountId "+socialAccountId);
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("secUsers", account));
-        criteria.add(Restrictions.eq("socialUserId", socialAccountId));
+        criteria.add(Restrictions.eq("id", socialAccountId));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 

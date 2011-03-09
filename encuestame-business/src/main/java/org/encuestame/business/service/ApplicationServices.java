@@ -19,7 +19,7 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
     /** {@link SecurityService}. **/
-    private ISecurityService securityService;
+    private SecurityOperations securityService;
     /** {@link SurveyService}. **/
     private ISurveyService surveyService;
     /** {@link PollService}. **/
@@ -55,14 +55,14 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @return the securityService
      */
-    public ISecurityService getSecurityService() {
+    public SecurityOperations getSecurityService() {
         return securityService;
     }
 
     /**
      * @param securityService the securityService to set
      */
-    public void setSecurityService(ISecurityService securityService) {
+    public void setSecurityService(SecurityOperations securityService) {
         this.securityService = securityService;
     }
 
