@@ -84,26 +84,9 @@ public class EncuestameConfig {
                 }
             }*/
 
-            // initialize logging subsystem via EncuestameConfig
-            Properties log4jprops = new Properties();
-            PropertyConfigurator.configure(EncuestameConfig.getPropertiesStartingWith("log4j."));
-
-            // finally we can start logging...
-
-            // some debugging for those that want it
-            if(log.isDebugEnabled()) {
-                log.debug("EncuestameConfig looks like this ...");
-
-                String key = null;
-                Enumeration keys = configHolderProperty.keys();
-                while(keys.hasMoreElements()) {
-                    key = (String) keys.nextElement();
-                    log.debug(key+"="+configHolderProperty.getProperty(key));
-                }
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            log.fatal("Encuestame Config: "+e);
         }
     }
 

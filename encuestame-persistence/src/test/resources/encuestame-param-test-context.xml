@@ -4,27 +4,15 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <!--
-  <bean id="propertyConfigurer"
-    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="ignoreResourceNotFound" value="false"/>
-    <property name="locations">
-      <list>
-        <value>classpath:encuestame-config.properties</value>
-        <value>classpath:hibernate.prod.properties</value>
-      </list>
-    </property>
-  </bean>
-   -->
-
-   <bean id="propertyConfigurer" class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+  <bean id="propertyConfigurer" class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
         <constructor-arg ref="configurationEncryptor" />
         <property name="locations">
             <list>
-                <value>${encuestame.properties.path}</value>
-                <value>${hibernate.properties.path}</value>
-                <value>${lucene.properties.path}</value>
-                <value>classpath:email-config.properties</value>
+                <value>classpath:encuestame-config.properties</value>
+                <value>classpath:hibernate.test.properties</value>
+                <value>classpath:lucene.test.index.properties</value>
+                <value>classpath:webflow.test.properties</value>
+                <value>classpath:test-email-config.properties</value>
             </list>
         </property>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
@@ -36,10 +24,8 @@
           value="org.springframework.util.Log4jConfigurer.initLogging" />
         <property name="arguments">
           <list>
-            <value>${log4j.properties.path}</value>
+            <value>classpath:log4j.properties</value>
           </list>
         </property>
       </bean>
-
-
 </beans>

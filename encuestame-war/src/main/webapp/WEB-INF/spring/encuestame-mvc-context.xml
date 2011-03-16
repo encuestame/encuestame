@@ -15,7 +15,7 @@
                         http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
 
    <!-- Tiles Configuration -->
-   <import resource="classpath:encuestame-tiles-context.xml"/>
+   <import resource="encuestame-tiles-context.xml"/>
 
    <!-- Define url mappings to web flow controller.  -->
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">

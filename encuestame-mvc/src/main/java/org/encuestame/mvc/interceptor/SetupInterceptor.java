@@ -42,7 +42,7 @@ public class SetupInterceptor implements HandlerInterceptor {
             Object arg2) throws Exception {
         log.debug("SetupInterceptor preHandle");
         log.info(this.startup);
-        return false;
+        return true;
     }
 
     /**
