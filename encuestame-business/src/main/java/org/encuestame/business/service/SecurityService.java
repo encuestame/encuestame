@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -32,14 +32,11 @@ import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
@@ -57,24 +54,24 @@ import org.springframework.stereotype.Service;
  * @since 27/04/2009 11:35:01
  */
 @Service
-public class SecurityService extends AbstractBaseService implements ISecurityService {
+public class SecurityService extends AbstractBaseService implements SecurityOperations {
 
     private Logger log = Logger.getLogger(this.getClass());
 
     /** Default User Permission **/
-    private static final String DEFAULT = EnMePermission.ENCUESTAME_USER.name();
+    private static final EnMePermission DEFAULT = EnMePermission.ENCUESTAME_USER;
 
     /** Default User Permission **/
-    private static final String ADMIN = EnMePermission.ENCUESTAME_ADMIN.name();
+    private static final EnMePermission ADMIN = EnMePermission.ENCUESTAME_ADMIN;
 
     /** Default User Permission **/
-    private static final String EDITOR = EnMePermission.ENCUESTAME_EDITOR.name();
+    private static final EnMePermission EDITOR = EnMePermission.ENCUESTAME_EDITOR;
 
     /** Default User Permission **/
-    private static final String OWNER = EnMePermission.ENCUESTAME_OWNER.name();
+    private static final EnMePermission OWNER = EnMePermission.ENCUESTAME_OWNER;
 
     /** Default User Permission **/
-    private static final String PUBLISHER = EnMePermission.ENCUESTAME_PUBLISHER.name();
+    private static final EnMePermission PUBLISHER = EnMePermission.ENCUESTAME_PUBLISHER;
 
 
     private final Integer DEFAULT_LENGTH_PASSWORD = 8;
@@ -86,9 +83,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Retrieve Total Own Users.
      * @param username username
      * @return total own users.
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public Long totalOwnUsers(final String username) throws EnMeDomainNotFoundException{
+    public Long totalOwnUsers(final String username) throws EnMeNoResultsFoundException{
         return getAccountDao().retrieveTotalUsers(getUserAccount(username).getAccount());
     }
 
@@ -106,9 +103,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Load Groups by Client
      * @return list of groups
-     * @throws EnMeDomainNotFoundException exception
+     * @throws EnMeNoResultsFoundException exception
      */
-    public List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException{
+    public List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeNoResultsFoundException{
         final UserAccount userAccount = getUserAccount(currentUsername);
         final List<UnitGroupBean> groupBeans = new ArrayList<UnitGroupBean>();
         final List<Group> groupsList = getGroupDao().loadGroupsByUser(userAccount.getAccount());
@@ -116,119 +113,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             groupBeans.add(ConvertDomainBean.convertGroupDomainToBean(groups));
         }
         return groupBeans;
-    }
-
-    /**
-     * Update Twitter Account.
-     * @param accountBean account
-     * @param password password
-     * TODO: this method is close to be deprecated, twitter don't allow password login.
-     */
-    @Deprecated
-    public void updateTwitterAccount(
-            final UnitTwitterAccountBean accountBean,
-            final String password,
-            final Boolean verify){
-        if(accountBean.getAccountId() != null){
-            final SocialAccount twitterAccount = getAccountDao().getTwitterAccount(accountBean.getAccountId());
-            if(twitterAccount != null){
-                //twitterAccount.setTwitterPassword(password);
-                twitterAccount.setVerfied(verify);
-                log.debug("Updating twitter password account");
-                getAccountDao().saveOrUpdate(twitterAccount);
-            }
-        }
-        log.info("update Twitter Account");
-    }
-
-    /**
-     *
-     * @param accountId
-     * @return
-     */
-    private SocialAccount getSocialAccount(final Long accountId){
-         return  getAccountDao().getTwitterAccount(accountId); //TODO: filter by Username Too
-    }
-
-    /**
-     * Update OAuth Secret Twitter Credentials.
-     * @param accountBean {@link UnitTwitterAccountBean}
-     * @param username username logged
-     * @throws EnMeExpcetion exception
-     */
-    public void updateSecretTwitterCredentials(final UnitTwitterAccountBean accountBean,
-            final String username) throws EnMeExpcetion{
-         //TODO: we should search twitter account filter by username
-         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
-         //twitterAccount.setConsumerKey(accountBean.getKey());
-         //twitterAccount.setConsumerSecret(accountBean.getSecret());
-         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
-         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
-             log.debug("PIN Exists {"+accountBean.getPin());
-             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
-            //If exist pin, we can verify credentials
-            log.debug("Verify OAuth Credentials");
-                if(verifyCredentials(
-                        //Token and Secret token should be always from database
-                        twitterAccount.getToken(),
-                        twitterAccount.getSecretToken(),
-                        //consumer key's
-                        accountBean.getKey(),
-                        accountBean.getSecret(),
-                        //pin, update by the user.
-                        accountBean.getPin())){
-                    twitterAccount.setVerfied(Boolean.TRUE);
-                } else {
-                    twitterAccount.setVerfied(Boolean.FALSE);
-                }
-         } else {
-             log.info("Account not verified, pin not found");
-             //twitterAccount.setTwitterPin(null);
-             twitterAccount.setVerfied(Boolean.FALSE);
-         }
-        log.debug("Update Secret Twitter Credentials");
-        getAccountDao().saveOrUpdate(twitterAccount);
-        log.info("update Twitter Account");
-    }
-
-
-    /**
-     * Update OAuth Token/Secret Social Account.
-     * @param socialAccountId
-     * @param token
-     * @param tokenSecret
-     * @param username
-     * @param account
-     * @throws EnMeExpcetion
-     */
-    public void addOAuthTokenSocialAccount(
-            final Long socialAccountId,
-            final String token,
-            final String tokenSecret,
-            final String username,
-            final UserAccount account) throws EnMeExpcetion{
-        final SocialAccount socialAccount = new SocialAccount();
-            log.debug("Updating  Token to {"+token);
-            log.debug("Updating Secret Token to {"+tokenSecret);
-            socialAccount.setToken(token);
-            socialAccount.setVerfied(Boolean.TRUE);
-            socialAccount.setSecUsers(account.getAccount());
-            socialAccount.setSocialAccountName(username);
-            socialAccount.setType(TypeAuth.OAUTH);
-            socialAccount.setSecretToken(tokenSecret);
-            socialAccount.setSocialUserId(socialAccountId);
-            getAccountDao().saveOrUpdate(socialAccount);
-            log.debug("Updated Token");
-    }
-
-
-    /**
-     * Get Twitter Account.
-     * @param twitterAccountId
-     * @return
-     */
-    public UnitTwitterAccountBean getTwitterAccount(final Long twitterAccountId){
-        return ConvertDomainBean.convertTwitterAccountToBean(getAccountDao().getTwitterAccount(twitterAccountId));
     }
 
     /**
@@ -293,9 +177,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Delete user.
      * @param userBean user to delete
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public void deleteUser(final UserAccountBean userBean) throws EnMeDomainNotFoundException{
+    public void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
                 if (getSuspendedNotification()) {
                     log.info("notify delete account");
@@ -370,7 +254,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param String username.
      * @throws EnMeExpcetion exception
      */
-    public Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException {
+    public Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeNoResultsFoundException {
         return getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
     }
 
@@ -396,9 +280,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Get Users by Group.
      * @param secGroupId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Long getUserbyGroup(final Long groupId, final String username) throws EnMeDomainNotFoundException{
+    public Long getUserbyGroup(final Long groupId, final String username) throws EnMeNoResultsFoundException{
         Long counterUsers = 0L;
         try {
              final Group group = getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
@@ -432,9 +316,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     /**
      * Create a new Group.
      * @param groupBean group bean
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) throws EnMeDomainNotFoundException {
+    public UnitGroupBean createGroup(final UnitGroupBean groupBean, final String username) throws EnMeNoResultsFoundException {
         //log.info("Create Group");
         final Group groupDomain = new Group();
         final Account secUsers = getUserAccount(username).getAccount();
@@ -535,17 +419,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Get Permission By Name
-     * @param permission permission
-     * @return {@link Permission}
-     */
-    public Permission getPermissionByName(final String permission){
-        final Permission permission2 = getPermissionDao().loadPermission(
-              EnMePermission.getPermissionString(permission));
-        return permission2;
-    }
-
-    /**
      * Get Permission by {@link EnMePermission}.
      * @param permission permission.
      * @return
@@ -623,7 +496,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
             throws EnMeExpcetion{
         final UserAccount user = getValidateUser(userId, loggedUser);
         if(user == null){
-            throw new EnMeDomainNotFoundException("user not found");
+            throw new EnMeNoResultsFoundException("user not found");
         } else {
             log.debug("Update Permission "+permission.toString());
             if(action.equals("add")){
@@ -641,17 +514,17 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Assign group to user.
      * @param userBean userBean
      * @param groupBean groupBean
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public void assingGroupFromUser(
             final Long groupId,
             final Long userId,
-            final String username) throws EnMeDomainNotFoundException {
+            final String username) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getUser(userId); //TODO: I need confirm this user perhaps same group of logged user.
         //search group by group id and owner user id.
         final Group group = getGroupDao().getGroupById(groupId, getUserAccount(username).getAccount());
         if(group == null){
-            throw new EnMeDomainNotFoundException("group not found");
+            throw new EnMeNoResultsFoundException("group not found");
         } else {
             //add new group.
             userAccount.setGroup(group);
@@ -809,27 +682,6 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
     }
 
     /**
-     * Get User Logged Twitter Accounts.
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    public List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username) throws EnMeDomainNotFoundException{
-         return ConvertDomainBean.convertListTwitterAccountsToBean(getAccountDao()
-                                 .getTwitterAccountByUser(getUserAccount(username).getAccount()));
-    }
-
-    /**
-     * Get User Logged Verified Twitter Accounts.
-     * @param username username
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    public List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username) throws EnMeDomainNotFoundException{
-        return ConvertDomainBean.convertListTwitterAccountsToBean(getAccountDao()
-                                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount()));
-   }
-
-    /**
      * Invite some users to register in the system.
      * @param email list of users
      * @param code code
@@ -895,7 +747,7 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @return default user permission.
      */
     public String getDefaultUserPermission() {
-        return  DEFAULT;
+        return  DEFAULT.name();
     }
 
     /**
@@ -917,9 +769,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Get Email List by Username.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException{
+    public List<UnitLists> getListbyUsername(final String username) throws EnMeNoResultsFoundException{
             return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
     }
 
@@ -927,9 +779,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * Get Followers User.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Integer getFollowers(final String username) throws EnMeDomainNotFoundException{
+    public Integer getFollowers(final String username) throws EnMeNoResultsFoundException{
         UserAccount userAcc = getUserAccount(username);
         final Integer followers = userAcc.getFollowers().size();
         return followers;
@@ -944,11 +796,11 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param myUsername
      * @param followerUser
      * @param operation
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public void followOperations(final UserAccount userAcc,
             final String myUsername, final String followerUser,
-            final FollowOperations operation) throws EnMeDomainNotFoundException {
+            final FollowOperations operation) throws EnMeNoResultsFoundException {
         final UserAccount myAccount = getUserAccount(myUsername);
         final UserAccount myFollower = getUserAccount(followerUser);
         if (FollowOperations.FOLLOW.equals(operation)) {
@@ -969,9 +821,9 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param myUser
      * @param followerUser
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccount addFollower(final String myUsername, final String followerUser) throws EnMeDomainNotFoundException{
+    public UserAccount addFollower(final String myUsername, final String followerUser) throws EnMeNoResultsFoundException{
         final UserAccount myAccount = getUserAccount(myUsername);
         final UserAccount myFollower = getUserAccount(followerUser);
         myAccount.getFollowers().add(myFollower);
@@ -984,12 +836,12 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param property
      * @param value
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public void upadteAccountProfile(
             final Profile property,
             final String value,
-            final String username) throws EnMeDomainNotFoundException{
+            final String username) throws EnMeNoResultsFoundException{
         final UserAccount account = getUserAccount(username);
         if(Profile.USERNAME.equals(property)){
             account.setUsername(value.trim());
@@ -1007,13 +859,13 @@ public class SecurityService extends AbstractBaseService implements ISecuritySer
      * @param username
      * @param language
      * @param completeName
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     public void upadteAccountProfile(
             final String bio,
             final String language,
             final String completeName,
-            final String loggedUsername) throws EnMeDomainNotFoundException{
+            final String loggedUsername) throws EnMeNoResultsFoundException{
         final UserAccount account = getUserAccount(loggedUsername);
         log.debug("update Account user to update "+account.getUsername());
         log.debug("update Account Profile bio "+bio);

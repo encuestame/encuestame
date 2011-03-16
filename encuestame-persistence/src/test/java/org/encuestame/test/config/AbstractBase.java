@@ -77,7 +77,7 @@ import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.domain.survey.TweetPollFolder;
 import org.encuestame.persistence.domain.survey.TweetPollResult;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1324,9 +1324,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param username
      * @param tweetPollId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public TweetPoll addTweetPollToFolder(final Long folderId, final Long userId, final Long tweetPollId) throws EnMeDomainNotFoundException{
+    public TweetPoll addTweetPollToFolder(final Long folderId, final Long userId, final Long tweetPollId) throws EnMeNoResultsFoundException{
         final TweetPollFolder tpfolder = getTweetPoll().getTweetPollFolderById(folderId);
         final TweetPoll tpoll = getTweetPoll().getTweetPollByIdandUserId(tweetPollId, userId);
         tpoll.setTweetPollFolder(tpfolder);
@@ -1340,9 +1340,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userId
      * @param surveyId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Survey addSurveyToFolder(final Long folderId, final Long userId, final Long surveyId) throws EnMeDomainNotFoundException{
+    public Survey addSurveyToFolder(final Long folderId, final Long userId, final Long surveyId) throws EnMeNoResultsFoundException{
         final SurveyFolder sfolder = getSurveyDaoImp().getSurveyFolderById(folderId);
         final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, userId);
         survey.setSurveysfolder(sfolder);
@@ -1356,9 +1356,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userId
      * @param pollId
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeDomainNotFoundException{
+    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeNoResultsFoundException{
         final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
         final Poll poll = getiPoll().getPollByIdandUserId(pollId, userId);
         poll.setPollFolder(pfolder);

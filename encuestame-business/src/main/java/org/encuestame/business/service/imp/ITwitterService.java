@@ -16,7 +16,7 @@ package org.encuestame.business.service.imp;
 import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.security.SocialAccount;
 
 import twitter4j.Status;
@@ -32,7 +32,7 @@ import twitter4j.http.RequestToken;
  * @since Feb 13, 2010 4:07:14 PM
  * @version $Id$
  */
-public interface ITwitterService extends IService{
+public interface ITwitterService extends ServiceOperations{
 
 
     /**
@@ -63,6 +63,13 @@ public interface ITwitterService extends IService{
      */
     @Deprecated
     User verifyCredentials(final String username, final String password) throws TwitterException;
+
+    /**
+     * Verify Credentials.
+     * @param socialAccount
+     * @return
+     */
+    Boolean verifyCredentials(final SocialAccount socialAccount);
 
     /**
      * Get OAuthorized Token.

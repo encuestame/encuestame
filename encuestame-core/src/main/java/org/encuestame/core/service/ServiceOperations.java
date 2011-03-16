@@ -15,12 +15,12 @@ package org.encuestame.core.service;
 import org.encuestame.core.util.MessageSourceFactoryBean;
 
 /**
- * Class Description.
+ * Service Interface.
  * @author Picado, Juan juan@encuestame.org
  * @since 29/11/2009 21:47:14
  * @version $Id$
  */
-public interface IService{
+public interface ServiceOperations extends SocialOperations{
 
     /**
      * Getter.

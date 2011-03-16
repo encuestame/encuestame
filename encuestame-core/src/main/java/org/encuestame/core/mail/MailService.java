@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.mail;
 
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
@@ -25,7 +25,7 @@ import org.springframework.mail.MailSendException;
  * @since May 05, 2009
  * @version $Id$
  */
-public interface MailService extends IService {
+public interface MailService extends ServiceOperations {
 
     /**
      * Send a email.

@@ -22,7 +22,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.OAuthToken;
 import org.hibernate.FetchMode;
@@ -120,6 +120,36 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
+     * Get Social Account.
+     * @param socialProvider
+     * @param socialAccountId
+     * @return
+     */
+    public SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
+        log.debug("accounType "+socialProvider);
+        log.debug("socialAccountId "+socialAccountId);
+        criteria.add(Restrictions.eq("accounType", socialProvider));
+        criteria.add(Restrictions.eq("socialUserId", socialAccountId) );
+        return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
+     * Get Social Account.
+     * @param socialAccountId
+     * @param account
+     * @return
+     */
+    public SocialAccount getSocialAccount(final Long socialAccountId, final Account account){
+        log.debug("account "+account.getUid());
+        log.debug("socialAccountId "+socialAccountId);
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
+        criteria.add(Restrictions.eq("secUsers", account));
+        criteria.add(Restrictions.eq("id", socialAccountId));
+        return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
      * Get Primary User By Id.
      * @param userId user id
      * @return {@link Account}
@@ -166,24 +196,36 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     /**
      * Get Twitter Accounts.
      * @param secUsers {@link Account}.
+     * @param provider
      * @return List {@link SocialAccount}.
      *
      */
-    public List<SocialAccount> getTwitterAccountByUser(final Account secUsers){
+    public List<SocialAccount> getTwitterAccountByUser(
+            final Account secUsers,
+            final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("secUsers", secUsers) );
+        if (provider != null) { //if provider is null, we fetch everything
+            criteria.add(Restrictions.eq("accounType", provider));
+        }
         return   getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
      * Get Twitter Verified Accounts.
      * @param secUsers {@link AccountDaoImp}
+     * @param provider
      * @return List {@link SocialAccount}.
      */
-    public List<SocialAccount> getTwitterVerifiedAccountByUser(final Account secUsers){
+    public List<SocialAccount> getTwitterVerifiedAccountByUser(
+            final Account secUsers,
+            final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("secUsers", secUsers));
-        criteria.add(Restrictions.eq("verfied", true) );
+        criteria.add(Restrictions.eq("verfied", Boolean.TRUE) );
+        if (provider != null) { //if provider is null, we fetch everything
+            criteria.add(Restrictions.eq("accounType", provider));
+        }
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -305,12 +347,12 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * Disconnect Account Connection.
      * @param accountId
      * @param provider
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public void disconnect(Long accountId, String provider) throws EnMeDomainNotFoundException {
+    public void disconnect(Long accountId, String provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if(ac == null){
-            throw new EnMeDomainNotFoundException("connection not found");
+            throw new EnMeNoResultsFoundException("connection not found");
         } else {
             getHibernateTemplate().delete(ac);
         }
@@ -321,16 +363,16 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param accountId
      * @param provider
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public OAuthToken getAccessToken(Long accountId, String provider) throws EnMeDomainNotFoundException {
+    public OAuthToken getAccessToken(Long accountId, String provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
             final OAuthToken oAuthToken = new OAuthToken(ac.getAccessToken(),
                     ac.getSecret());
             return oAuthToken;
         } else {
-            throw new EnMeDomainNotFoundException("connection not found");
+            throw new EnMeNoResultsFoundException("connection not found");
         }
     }
 
@@ -339,14 +381,14 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param accountId
      * @param provider
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public Long getProviderAccountId(Long accountId, String provider) throws EnMeDomainNotFoundException {
+    public Long getProviderAccountId(Long accountId, String provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
             return ac.getAccountConnectionId();
         } else {
-            throw new EnMeDomainNotFoundException("connection not found");
+            throw new EnMeNoResultsFoundException("connection not found");
         }
 
     }
@@ -376,10 +418,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @throws EnMeExpcetion
      */
     public UserAccount findAccountByConnection(final String provider, final String accessToken)
-           throws EnMeDomainNotFoundException {
+           throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.findAccountConnectionByAccessToken(provider, accessToken);
         if (ac == null) {
-            throw new EnMeDomainNotFoundException("connection not found");
+            throw new EnMeNoResultsFoundException("connection not found");
         } else {
             return ac.getUserAccout();
         }

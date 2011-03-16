@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import org.encuestame.persistence.domain.application.Application;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Description Class.
@@ -55,8 +55,8 @@ public interface IApplicationDao extends IBaseDao {
 
     /**
      * Find App Connection by Access Token.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    ApplicationConnection findAppConnection(final String accessToken) throws EnMeDomainNotFoundException;
+    ApplicationConnection findAppConnection(final String accessToken) throws EnMeNoResultsFoundException;
 
 }

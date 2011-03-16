@@ -15,7 +15,7 @@ package org.encuestame.mvc.controller.syndication;
 import java.util.List;
 
 import org.encuestame.mvc.controller.BaseController;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitTweetPoll;
 
 /**
@@ -30,9 +30,9 @@ public abstract class AbstractFeedController extends BaseController{
      * Get TweetPolls.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public List<UnitTweetPoll> getTweetPolls(final String username) throws EnMeDomainNotFoundException{
+    public List<UnitTweetPoll> getTweetPolls(final String username) throws EnMeNoResultsFoundException{
         return getTweetPollService().getTweetsPollsByUserName(username, null, null);
     }
 

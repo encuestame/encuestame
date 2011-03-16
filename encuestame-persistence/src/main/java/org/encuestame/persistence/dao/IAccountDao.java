@@ -20,7 +20,8 @@ import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.OAuthToken;
 import org.hibernate.HibernateException;
@@ -108,10 +109,12 @@ public interface IAccountDao extends IBaseDao {
     /**
      * Get Twitter Accounts.
      * @param secUsers {@link Account}.
+     * @param provider
      * @return List {@link SocialAccount}.
      *
      */
-    List<SocialAccount> getTwitterAccountByUser(final Account secUsers);
+    List<SocialAccount> getTwitterAccountByUser(final Account secUsers,
+            final SocialProvider provider);
 
     /**
      * Get Twitter Account.
@@ -121,11 +124,30 @@ public interface IAccountDao extends IBaseDao {
     SocialAccount getTwitterAccount(final Long twitterAccountId);
 
     /**
+     * Get Social Account.
+     * @param socialProvider
+     * @param socialAccountId
+     * @return
+     */
+    SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId);
+
+    /**
+     * Get Social Account.
+     * @param socialAccountId
+     * @param account
+     * @return
+     */
+    SocialAccount getSocialAccount(final Long socialAccountId, final Account account);
+
+    /**
      * Get Twitter Verified Accounts.
      * @param secUsers {@link AccountDaoImp}
+     * @param provider {@link SocialProvider}
      * @return List {@link SocialAccount}.
      */
-   List<SocialAccount> getTwitterVerifiedAccountByUser(final Account secUsers);
+   List<SocialAccount> getTwitterVerifiedAccountByUser(
+           final Account secUsers,
+           final SocialProvider provider);
 
    /**
     * Get Total of TweetPoll By User Editor.
@@ -165,17 +187,17 @@ public interface IAccountDao extends IBaseDao {
     * @throws EnMeExpcetion
     */
     UserAccount findAccountByConnection(String provider,
-                      String accessToken) throws EnMeDomainNotFoundException;
+                      String accessToken) throws EnMeNoResultsFoundException;
 
     /**
      * Get Provider Account Id.
      * @param accountId
      * @param provider
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     Long getProviderAccountId(Long accountId, String provider)
-         throws EnMeDomainNotFoundException;
+         throws EnMeNoResultsFoundException;
 
 
     /**
@@ -183,18 +205,18 @@ public interface IAccountDao extends IBaseDao {
      * @param accountId
      * @param provider
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     OAuthToken getAccessToken(Long accountId, String provider)
-           throws EnMeDomainNotFoundException;
+           throws EnMeNoResultsFoundException;
 
     /**
      * Disconnect Account Connection.
      * @param accountId
      * @param provider
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    void disconnect(Long accountId, String provider) throws EnMeDomainNotFoundException;
+    void disconnect(Long accountId, String provider) throws EnMeNoResultsFoundException;
 
     /**
      * Get Account Connection.

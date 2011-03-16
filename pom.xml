@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.33-SNAPSHOT</version>
+    <version>1.1.34-SNAPSHOT</version>
     <name>encuestame</name>
     <description>
     encuestame is a open source webapp java survey system build
@@ -12,7 +12,7 @@
   </description>
     <url>http://www.encuestame.org</url>
     <issueManagement>
-        <system>TRAC</system>
+        <system>JIRA</system>
         <url>http://trac.encuesta.me</url>
     </issueManagement>
     <ciManagement>
@@ -25,7 +25,7 @@
         <!--  Java version -->
         <java-version>1.6</java-version>
         <!--  encuestame version -->
-        <encuestame.version>1.1.33-SNAPSHOT</encuestame.version>
+        <encuestame.version>1.1.34-SNAPSHOT</encuestame.version>
         <!-- Spring Version
         <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version>
         -->
@@ -36,7 +36,7 @@
         <spring-integration-core>2.0.0.RC2</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
         <spring.mobile.version>1.0.0.BUILD-SNAPSHOT</spring.mobile.version>
-        <spring.social.version>1.0.0.M2</spring.social.version>
+        <spring.social.version>1.0.0.BUILD-SNAPSHOT</spring.social.version>
         <org.aspectj-version>1.6.9</org.aspectj-version>
         <org.slf4j-version>1.6.1</org.slf4j-version>
 
@@ -44,10 +44,10 @@
         <hibernate.version>3.5.6-Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.2.1.Final</hibernate.search.version>
-    <lucene.version>2.9.3</lucene.version>
+        <lucene.version>2.9.3</lucene.version>
 
         <!-- Twitter4J Version -->
-        <twitter4j.version>2.1.6</twitter4j.version>
+        <twitter4j.version>2.1.9</twitter4j.version>
 
         <servlet-api>2.5</servlet-api>
 
@@ -71,11 +71,15 @@
          -->
          <dojo.version>1.5.0</dojo.version>
          <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
+	
+	<!--CometD -->
+	<comet.version>2.1.0</comet.version>
 
-        <!-- Plugin Version -->
-    <surefire.version>2.6</surefire.version>
-    <site.version>2.1.1</site.version>
-
+         <!-- Plugin Version -->
+         <surefire.version>2.6</surefire.version>
+         <site.version>2.1.1</site.version>
+    	 <jetty7.version>7.2.2.v20101205</jetty7.version>
+         <jetty-plugin-version>${jetty7.version}</jetty-plugin-version>
      </properties>
 
     <modules>
@@ -460,23 +464,7 @@
                     </execution>
                 </executions>
             </plugin>-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
          </plugins>
-
     </build>
     <reporting>
         <plugins><!--
@@ -491,6 +479,18 @@
                 <version>2.2</version>
             </plugin>
             -->
+  	     <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-changes-plugin</artifactId>
+		<version>2.4</version>
+		<reportSets>
+		  <reportSet>
+		    <reports>
+		      <report>changes-report</report>
+		    </reports>
+		  </reportSet>
+		</reportSets>
+	     </plugin>
              <plugin>
                  <groupId>net.sf</groupId>
                  <artifactId>stat-scm</artifactId>
@@ -545,8 +545,7 @@
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <!--<report>dependencies</report>
-                            -->
+                            <report>dependencies</report>
                             <report>project-team</report>
                             <report>mailing-list</report>
                             <report>cim</report>
@@ -1029,6 +1028,41 @@
             <dependency>
                 <groupId>org.springframework.social</groupId>
                 <artifactId>spring-social-core</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-facebook</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-twitter</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-linkedin</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-github</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-tripit</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-web</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-gowalla</artifactId>
                 <version>${spring.social.version}</version>
             </dependency>
             <!-- Spring Security -->
@@ -1520,34 +1554,35 @@
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-el</artifactId>
             <version>2.2.1</version>
+        </dependency> 
+        <!-- Apache Poi  -->
+        <dependency>
+    	   <groupId>org.apache.poi</groupId>
+    	   <artifactId>poi-scratchpad</artifactId>
+    	   <version>3.0.1-FINAL</version>
         </dependency>
-     <!-- Apache Poi  -->
-      <dependency>
-    	<groupId>org.apache.poi</groupId>
-    	<artifactId>poi-scratchpad</artifactId>
-    	<version>3.0.1-FINAL</version>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.poi</groupId>
-          <artifactId>poi</artifactId>
-          <version>3.7</version>
-      </dependency>  
-      <dependency>
-         <groupId>org.apache.poi</groupId>
-         <artifactId>poi-ooxml</artifactId>
-         <version>3.7</version>
-      </dependency> 
-     <!-- PDF Box -->
-      <dependency>
-           <groupId>pdfbox</groupId>
-    <artifactId>pdfbox</artifactId>
-    <version>0.7.3</version>
-      </dependency>
-    <dependency>
-           <groupId>com.google.api.client</groupId>
-           <artifactId>google-api-client</artifactId>
-           <version>1.2.2-alpha</version>
-       </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.7</version>
+        </dependency>  
+        <dependency>
+           <groupId>org.apache.poi</groupId>
+           <artifactId>poi-ooxml</artifactId>
+           <version>3.7</version>
+        </dependency> 
+        <!-- PDF Box -->
+        <dependency>
+            <groupId>pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+        <dependency>
+             <groupId>com.google.api.client</groupId>
+             <artifactId>google-api-client</artifactId>
+             <version>1.2.2-alpha</version>
+        </dependency>
+
     <dependency>
 	 <groupId>org.apache.lucene</groupId>
    	 <artifactId>lucene-highlighter</artifactId>
@@ -1558,7 +1593,51 @@
     	<artifactId>lucene-fast-vector-highlighter</artifactId>
     	<version>2.9.1</version>
      </dependency>
-   
+  	<!-- CommetD -->
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>bayeux-api</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.javascript</groupId>
+            <artifactId>cometd-javascript-dojo</artifactId>
+            <version>${comet.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-server</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-annotations</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+                <dependency>
+            <groupId>org.cometd.javascript</groupId>
+            <artifactId>cometd-javascript-dojo</artifactId>
+            <version>${comet.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-oort</artifactId>
+            <version>${comet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>${jetty7.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+>>>>>>> 10d240f46cf77540d873eb8cf834b1de81f5a786
       </dependencies>
     </dependencyManagement>
 </project>

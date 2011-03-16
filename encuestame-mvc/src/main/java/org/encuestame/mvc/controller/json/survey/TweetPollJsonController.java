@@ -30,7 +30,7 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitHashTag;
 import org.encuestame.utils.web.UnitQuestionBean;
@@ -174,9 +174,9 @@ public class TweetPollJsonController extends AbstractJsonController {
                         String tweetText;
                             tweetText = getTweetPollService()
                                     .generateTweetPollText(tweetPoll, getUrlDomain(request, Boolean.TRUE));
-                        final List<UnitTwitterAccountBean> accountBeans = new ArrayList<UnitTwitterAccountBean>();
+                        final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
                         for (int row = 0; row < twitterAccountsId.length; row++) {
-                            final UnitTwitterAccountBean twitter = new UnitTwitterAccountBean();
+                            final SocialAccountBean twitter = new SocialAccountBean();
                                    twitter.setAccountId(twitterAccountsId[row]);
                                    accountBeans.add(twitter);
                         }

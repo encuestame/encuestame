@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.mail.MailService;
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
@@ -42,7 +42,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  */
 
 @SuppressWarnings("unchecked")
-public class MailServiceImpl extends AbstractBaseService implements MailService, IService {
+public class MailServiceImpl extends AbstractBaseService implements MailService, ServiceOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 

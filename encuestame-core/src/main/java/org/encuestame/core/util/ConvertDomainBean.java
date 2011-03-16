@@ -42,7 +42,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.TweetPoll;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.security.ProfileUserAccount;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
@@ -113,20 +113,20 @@ public class ConvertDomainBean {
 
 
     /**
-     * Twitter Account.
-     * @param twitterAccounts
-     * @return
+     * Social Account.
+     * @param socialAccount {@link SocialAccount}.
+     * @return {@link SocialAccountBean}
      */
-    public static final UnitTwitterAccountBean convertTwitterAccountToBean(final SocialAccount twitterAccounts){
-           final UnitTwitterAccountBean twitterAccountBean = new UnitTwitterAccountBean();
-                   twitterAccountBean.setAccount(twitterAccounts.getSocialAccountName());
-                   twitterAccountBean.setAccountId(twitterAccounts.getId());
-                   twitterAccountBean.setToken(twitterAccounts.getToken());
-                   twitterAccountBean.setSecretToken(twitterAccounts.getSecretToken());
-                   twitterAccountBean.setTypeAccount(twitterAccounts.getAccounType().name());
-                   twitterAccountBean.setType(twitterAccounts.getType() == null
-                          ? SocialAccount.TypeAuth.PASSWORD.name() : twitterAccounts.getType().name());
-           return twitterAccountBean;
+    public static final SocialAccountBean convertSocialAccountToBean(final SocialAccount socialAccount){
+           final SocialAccountBean socialAccountBean = new SocialAccountBean();
+                   socialAccountBean.setAccount(socialAccount.getSocialAccountName());
+                   socialAccountBean.setAccountId(socialAccount.getId());
+                   socialAccountBean.setToken(socialAccount.getToken());
+                   socialAccountBean.setSecretToken(socialAccount.getSecretToken());
+                   socialAccountBean.setTypeAccount(socialAccount.getAccounType().toString());
+                   socialAccountBean.setType(socialAccount.getType() == null
+                          ? SocialAccount.TypeAuth.OAUTH.name() : socialAccount.getType().name());
+           return socialAccountBean;
     }
 
     /**
@@ -159,10 +159,10 @@ public class ConvertDomainBean {
      * @param accounts
      * @return
      */
-    public static final  List<UnitTwitterAccountBean> convertListTwitterAccountsToBean(final List<SocialAccount> accounts) {
-        final List<UnitTwitterAccountBean> loadListPermission = new ArrayList<UnitTwitterAccountBean>();
+    public static final  List<SocialAccountBean> convertListSocialAccountsToBean(final List<SocialAccount> accounts) {
+        final List<SocialAccountBean> loadListPermission = new ArrayList<SocialAccountBean>();
         for (SocialAccount account : accounts) {
-            loadListPermission.add(ConvertDomainBean.convertTwitterAccountToBean(account));
+            loadListPermission.add(ConvertDomainBean.convertSocialAccountToBean(account));
         }
         return loadListPermission;
     }

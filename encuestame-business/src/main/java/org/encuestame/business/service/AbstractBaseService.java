@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
@@ -31,7 +32,7 @@ import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -49,7 +50,7 @@ import twitter4j.http.AccessToken;
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
  */
-public abstract class AbstractBaseService extends AbstractConfigurationService {
+public abstract class AbstractBaseService extends AbstractSocialService {
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -62,11 +63,6 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      *  {@link MailServiceImpl}.
      */
     private MailServiceImpl serviceMail;
-
-    /**
-     *
-     */
-    private static int TWITTER_AUTH_ERROR = 401;
 
     /**
      * Constructor.
@@ -223,58 +219,6 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      }
 
     /**
-     * Verify OAuth Credentials
-     * @param token token stored
-     * @param secretToken secret Token
-     * @param pin pin
-     * @return
-     * @throws TwitterException
-     */
-    public Boolean verifyCredentials(final String token,
-                                     final String tokenSecret,
-                                     final String consumerKey,
-                                     final String consumerSecret,
-                final String pin){
-        Boolean verified = false;
-        log.debug("verifyCredentials OAuth");
-        log.debug("Token {"+token);
-        log.debug("secretToken {"+tokenSecret);
-        log.debug("pin {"+pin);
-        log.debug("consumerKey {"+consumerKey);
-        log.debug("consumerSecret {"+consumerSecret);
-        Twitter twitter = null;
-        try {
-             twitter = new TwitterFactory().getInstance();
-            if(token == null || token.isEmpty()){
-                verified = false;
-            } else {
-                log.debug("Exist Previous Token.");
-                final AccessToken accessToken = new AccessToken(token, tokenSecret);
-                log.debug("Created Token "+accessToken);
-                twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
-                log.debug("Verifying Credentials");
-                final User user = twitter.verifyCredentials();
-                log.debug("Verifying Credentials User "+user);
-                if (user != null) {
-                    log.debug("Verify OAuth User " + user.getId());
-                    verified = true;
-                }
-            }
-        } catch (TwitterException te) {
-            log.error("Twitter Error "+te.getMessage());
-            if (AbstractBaseService.TWITTER_AUTH_ERROR == te.getStatusCode()) {
-                log.error("Twitter Error "+te.getStatusCode());
-                verified = false;
-            } else {
-                log.error(te);
-            }
-            log.error("Verify OAuth Error " + te.getLocalizedMessage());
-        }
-        log.debug("verified "+verified);
-        return verified;
-    }
-
-    /**
      * Get Access Token.
      * @param token
      * @param tokenSecret
@@ -301,13 +245,13 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     /**
      * Load list of users.
      * @return list of users with groups and permission
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion excepcion
      */
     public List<UserAccountBean> loadListUsers(
            final String currentUsername,
            final Integer maxResults,
-           final Integer start) throws EnMeDomainNotFoundException {
+           final Integer start) throws EnMeNoResultsFoundException {
         log.info("currentUsername "+currentUsername);
         List<UserAccountBean> loadListUsers = new LinkedList<UserAccountBean>();
         final UserAccount userAccount = this.getUserAccount(currentUsername);
@@ -342,9 +286,9 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * Get User Complete Info.
      * @param currentUsername
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException {
+    public UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeNoResultsFoundException {
         UserAccountBean userInfo = null;
         final UserAccount user = getAccountDao().getUserAccountById(userId);
         if(this.validateOwnerGroup(user, currentUsername)){
@@ -438,5 +382,4 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
             throw new EnMeExpcetion("error on create directory");
         }
     }
-
 }

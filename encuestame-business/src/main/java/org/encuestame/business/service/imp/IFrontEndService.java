@@ -14,7 +14,7 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 
@@ -24,7 +24,7 @@ import org.encuestame.utils.web.frontEnd.UnitSearchItem;
  * @since Oct 17, 2010 11:29:51 AM
  * @version $Id:$
  */
-public interface IFrontEndService extends IService {
+public interface IFrontEndService extends ServiceOperations {
 
 
     /**

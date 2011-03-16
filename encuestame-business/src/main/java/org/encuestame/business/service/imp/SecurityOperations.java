@@ -17,17 +17,15 @@ import java.util.List;
 
 import org.encuestame.business.service.SecurityService.FollowOperations;
 import org.encuestame.business.service.SecurityService.Profile;
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.UnitTwitterAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
@@ -40,7 +38,7 @@ import org.springframework.mail.MailSendException;
  * @since 27/04/2009  11:35:01
  * @version $Id$
  */
-public interface ISecurityService extends IService {
+public interface SecurityOperations extends ServiceOperations {
 
      String getDefaultUserPermission();
     /**f
@@ -56,29 +54,29 @@ public interface ISecurityService extends IService {
      * Retrieve Total Own Users.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    Long totalOwnUsers(final String username) throws EnMeDomainNotFoundException;
+    Long totalOwnUsers(final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Get User Complete Info.
      * @param currentUsername
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeDomainNotFoundException;
+    UserAccountBean getUserCompleteInfo(final Long userId, final String currentUsername) throws EnMeNoResultsFoundException;
 
 
     /**
      * Assing Group to User.
      * @param user user
      * @param group group
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     void assingGroupFromUser(
             final Long groupId,
             final Long userId,
-            final String username) throws EnMeDomainNotFoundException;
+            final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Search user by username.
@@ -102,10 +100,10 @@ public interface ISecurityService extends IService {
     /**
      * Delete user.
      * @param userBean user to delete
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion exception
      */
-     void deleteUser(final UserAccountBean userBean) throws EnMeDomainNotFoundException;
+     void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException;
     /**
      * Renew password.
      * @param userBean {@link UserAccountBean}
@@ -128,9 +126,9 @@ public interface ISecurityService extends IService {
     /**
      * Create a new Group.
      * @param groupBean group bean
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UnitGroupBean createGroup(final UnitGroupBean groupBean , final String username) throws EnMeDomainNotFoundException;
+    UnitGroupBean createGroup(final UnitGroupBean groupBean , final String username) throws EnMeNoResultsFoundException;
     /**
      * Create a new Permisssion.
      * @param permissionBean {@link UnitPermission}
@@ -219,37 +217,13 @@ public interface ISecurityService extends IService {
      */
     void setSuspendedNotification(final Boolean suspendedNotification);
 
-    /**
-     * Update Twitter Account.
-     * @param accountBean accountBean
-     * @param password password
-     * @param verify verify
-     */
-     void updateTwitterAccount(final UnitTwitterAccountBean accountBean, final String password,
-                               final Boolean verify);
-
-     /**
-      * Update OAuth Secret Twitter Credentials.
-      * @param accountBean
-      * @param username
-      */
-     void updateSecretTwitterCredentials(final UnitTwitterAccountBean accountBean,
-             final String username) throws EnMeExpcetion;
-
-     /**
-      * Get Twitter Account.
-      * @param twitterAccountId
-      * @return
-      */
-     UnitTwitterAccountBean getTwitterAccount(final Long twitterAccountId);
-
 
     /**
      * Load Groups by Client.
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeDomainNotFoundException;
+    List<UnitGroupBean> loadGroups(final String currentUsername) throws EnMeNoResultsFoundException;
 
     /**
      * SingUp User
@@ -296,43 +270,12 @@ public interface ISecurityService extends IService {
     UserAccountBean findUserByEmail(final String email);
 
     /**
-     * Get User Logged Twitter Accounts.
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    List<UnitTwitterAccountBean> getUserLoggedTwitterAccount(final String username) throws EnMeDomainNotFoundException;
-
-    /**
-     * Get User Logged Verified Twitter Accounts.
-     * @param username username
-     * @return
-     * @throws EnMeDomainNotFoundException
-     */
-    List<UnitTwitterAccountBean> getUserLoggedVerifiedTwitterAccount(final String username) throws EnMeDomainNotFoundException;
-
-    /**
      * Get Email List by Username.
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    List<UnitLists> getListbyUsername(final String username) throws EnMeDomainNotFoundException;
-
-    /**
-     * Update OAuth Token/Secret Social Account.
-     * @param socialAccountId
-     * @param token
-     * @param tokenSecret
-     * @param username
-     * @param account
-     * @throws EnMeExpcetion
-     */
-    public void addOAuthTokenSocialAccount(
-            final Long socialAccountId,
-            final String token,
-            final String tokenSecret,
-            final String username,
-            final UserAccount account) throws EnMeExpcetion;
+    List<UnitLists> getListbyUsername(final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Assign Permission,
@@ -353,9 +296,9 @@ public interface ISecurityService extends IService {
      * @param groupId
      * @param username
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeDomainNotFoundException;
+    Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * User Bean.
@@ -370,7 +313,7 @@ public interface ISecurityService extends IService {
      * @param username
      * @return
      */
-    Long getUserbyGroup(final Long groupId, final String username)throws EnMeDomainNotFoundException;
+    Long getUserbyGroup(final Long groupId, final String username)throws EnMeNoResultsFoundException;
 
     /**
      * Count Users by Groups
@@ -392,12 +335,12 @@ public interface ISecurityService extends IService {
      * @param property
      * @param value
      * @param username
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     void upadteAccountProfile(
             final Profile property,
             final String value,
-            final String username) throws EnMeDomainNotFoundException;
+            final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Update Account Profile.
@@ -406,13 +349,13 @@ public interface ISecurityService extends IService {
      * @param username
      * @param language
      * @param completeName
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     void upadteAccountProfile(
             final String bio,
             final String language,
             final String completeName,
-            final String loggedUsername) throws EnMeDomainNotFoundException;
+            final String loggedUsername) throws EnMeNoResultsFoundException;
 
     /**
      * User Account Is Activated.
@@ -426,9 +369,9 @@ public interface ISecurityService extends IService {
      * @param myUser
      * @param followerUser
      * @return
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    UserAccount addFollower(final String myUser, final String followerUser) throws EnMeDomainNotFoundException;
+    UserAccount addFollower(final String myUser, final String followerUser) throws EnMeNoResultsFoundException;
 
    /**
     * Follow Operations.
@@ -436,9 +379,9 @@ public interface ISecurityService extends IService {
     * @param myUsername
     * @param followerUser
     * @param operation
-    * @throws EnMeDomainNotFoundException
+    * @throws EnMeNoResultsFoundException
     */
     void followOperations(final UserAccount userAcc,
             final String myUsername, final String followerUser,
-            final FollowOperations operation) throws EnMeDomainNotFoundException;
+            final FollowOperations operation) throws EnMeNoResultsFoundException;
 }

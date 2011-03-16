@@ -28,7 +28,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.exception.EnMeDomainNotFoundException;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -160,10 +160,10 @@ public class TestPollDao extends AbstractBase {
 
     /**
      * Test Get Polls By PollFolderId.
-     * @throws EnMeDomainNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testGetPollsByPollFolderId() throws EnMeDomainNotFoundException{
+    public void testGetPollsByPollFolderId() throws EnMeNoResultsFoundException{
          assertNotNull(this.pollFolder);
          assertNotNull(poll);
          final Poll addPoll = addPollToFolder(this.pollFolder.getId(), this.user.getUid(), this.poll.getPollId());
