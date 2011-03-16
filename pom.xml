@@ -41,10 +41,13 @@
         <org.slf4j-version>1.6.1</org.slf4j-version>
 
         <!-- Hibernate Version -->
-        <hibernate.version>3.5.6-Final</hibernate.version>
+        <hibernate.version>3.6.0.Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
-        <hibernate.search.version>3.2.1.Final</hibernate.search.version>
-        <lucene.version>2.9.3</lucene.version>
+        <hibernate.search.version>3.3.0.Final</hibernate.search.version>
+	<hibernate.validator>4.0.2.GA</hibernate.validator>
+
+        <!-- Lucene Version -->
+	<lucene.version>3.0.3</lucene.version>
 
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.9</twitter4j.version>
@@ -235,10 +238,6 @@
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Repository for Maven</name>
             <url>https://maven2-repository.dev.java.net/nonav/repository</url>
-        </repository>
-        <repository>
-            <id>ibiblio</id>
-            <url>http://www.ibiblio.org/maven2</url>
         </repository>
         <repository>
             <id>taneshanet</id>
@@ -783,17 +782,6 @@
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-annotations</artifactId>
-                <version>3.5.6-Final</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>hibernate</artifactId>
-                        <groupId>org.hibernate</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
@@ -826,7 +814,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.0.2.GA</version>
+                <version>${hibernate.validator}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>com.sun.xml.bind</groupId>

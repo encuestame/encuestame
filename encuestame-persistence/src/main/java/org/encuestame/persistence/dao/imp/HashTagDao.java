@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.util.Version;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.hibernate.HibernateException;
@@ -40,12 +41,12 @@ import org.springframework.stereotype.Repository;
 @Repository("hashTagDao")
 public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagDao {
 
-	
-	@Autowired
-	public HashTagDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+
+    @Autowired
+    public HashTagDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
     /**
      * Create Hash TAg.
      * @param hashTag
@@ -83,7 +84,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                         try {
                             final FullTextSession fullTextSession = Search.getFullTextSession(session);
                             //fullTextSession.flushToIndexes();
-                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(
+                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
                                                   new String[]{"hashTag"},
                                                   new SimpleAnalyzer());
                             final org.apache.lucene.search.Query query = parser.parse(keyword);
