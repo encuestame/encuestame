@@ -29,6 +29,7 @@
         <list>
              <ref bean="enMeInterceptor"/>
              <ref bean="openSessionInViewInterceptor"/>
+             <ref bean="setupInterceptor"/>
         </list>
     </property>
        <property name="order" value="1"/>

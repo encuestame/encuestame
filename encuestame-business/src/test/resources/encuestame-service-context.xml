@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <!-- Message Resources -->
+  <bean id="resourceBundleMessageSource"
+    class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basename">
+      <value>messages</value>
+    </property>
+  </bean>
+
+  <bean id="chartService" class="org.encuestame.business.service.ChartService" parent="abstractchart"/>
+
+  <bean id="abstractchart" class="org.encuestame.business.service.AbstractChartService"
+        abstract="true" parent="service">
+  </bean>
+
+  <bean id="abstractsurvey" class="org.encuestame.business.service.AbstractSurveyService"
+        abstract="true" parent="abstractchart">
+        <property name="twitterService">
+          <ref bean="twitterService" />
+        </property>
+        <property name="tweetPollDao">
+          <ref bean="tweetPollDao" />
+        </property>
+         <property name="hashTagDao">
+          <ref bean="hashTagDao" />
+        </property>
+  </bean>
+
+   <bean id="tweetPollService" class="org.encuestame.business.service.TweetPollService"
+       parent="abstractsurvey">
+       <property name="answerPollPath">
+           <value>${answers.answerPoll}</value>
+       </property>
+       <property name="tweetPollResultsPath">
+           <value>${answers.tweetPollResults}</value>
+       </property>
+       <property name="tweetPath">
+           <value>${answers.tweetPath}/</value>
+       </property>
+       <property name="twitterDomain">
+            <value>${twitter.url.domain}</value>
+       </property>
+   </bean>
+
+    <bean id="abstractConfig" class="org.encuestame.business.service.AbstractBaseService"
+     abstract="true" parent="dataEnMeSource">
+       <property name="domainUrl">
+           <value>${application.domain}</value>
+       </property>
+       <property name="proxyPass">
+           <value>${application.proxyPass}</value>
+       </property>
+       <property name="name">
+            <value>${application.name}</value>
+       </property>
+       <property name="encoding">
+            <value>${application.encoding}</value>
+       </property>
+       <property name="apiKeygoogle">
+            <value>${application.apiKeygoogle}</value>
+       </property>
+     </bean>
+
+  <bean id="service" class="org.encuestame.business.service.AbstractBaseService"
+      abstract="true" parent="abstractConfig">
+      <property name="messageSource">
+          <ref bean="messageSource" />
+      </property>
+      <property name="serviceMail">
+           <ref bean="serviceMail"></ref>
+      </property>
+  </bean>
+
+  <bean id="dataEnMeSource" class="org.encuestame.business.service.AbstractDataSource" abstract="true">
+  </bean>
+
+  <bean id="messageSource"
+    class="org.encuestame.core.util.MessageSourceFactoryBean">
+    <property name="messagesource" ref="resourceBundleMessageSource" />
+  </bean>
+
+  <bean id="servicesManager" class="org.encuestame.business.service.ServiceManager">
+    <property name="applicationServices">
+      <ref bean="applicationServices"></ref>
+    </property>
+    <property name="messageSource">
+          <ref bean="messageSource" />
+    </property>
+  </bean>
+
+  <bean id="twitterService" class="org.encuestame.business.service.social.provider.TwitterService"
+        parent="service">
+    <property name="tinyApi" value="${twitter.tinyUrl}" />
+  </bean>
+
+  <bean id="linkedInService" class="org.encuestame.business.service.social.provider.LinkedInService"
+        parent="service">
+  </bean>
+
+  <bean id="surveyService" class="org.encuestame.business.service.SurveyService"
+    parent="abstractsurvey">
+  </bean>
+
+  <bean id="securityService" class="org.encuestame.business.service.SecurityService"
+    parent="service">
+    <property name="suspendedNotification">
+      <value>${sec.suspendedNotification}</value>
+    </property>
+  </bean>
+
+  <bean id="frontEndService" class="org.encuestame.business.service.FrontEndService" parent="service"/>
+
+  <bean id="pollService" class="org.encuestame.business.service.PollService" parent="abstractsurvey"/>
+
+  <bean id="projectService" class="org.encuestame.business.service.ProjectService" parent="service"/>
+
+  <bean id="locationService" class="org.encuestame.business.service.LocationService" parent="service"/>
+
+  <bean id="pictureService" class="org.encuestame.business.service.PictureService" parent="service"/>
+
+  <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices" parent="service">
+    <property name="securityService">
+      <ref bean="securityService"></ref>
+    </property>
+    <property name="surveyService">
+        <ref bean="surveyService"></ref>
+    </property>
+    <property name="pollService">
+        <ref bean="pollService"></ref>
+    </property>
+    <property name="tweetPollService">
+         <ref bean="tweetPollService"></ref>
+    </property>
+    <property name="locationService">
+         <ref bean="locationService"></ref>
+    </property>
+     <property name="projectService">
+         <ref bean="projectService"></ref>
+    </property>
+    <property name="chartService">
+         <ref bean="chartService"></ref>
+    </property>
+    <property name="frontEndService">
+         <ref bean="frontEndService"/>
+    </property>
+    <property name="pictureService">
+         <ref bean="pictureService"/>
+    </property>
+  </bean>
+
+  <bean id="serviceMail" class="org.encuestame.business.mail.MailServiceImpl"  parent="service">
+      <property name="mailSender" ref="mailSender" />
+      <property name="templateMessage" ref="templateMessage" />
+      <property name="noEmailResponse" value="${mail.noresponse}" />
+      <property name="velocityEngine" ref="velocityEngine"/>
+  </bean>
+
+  <!--
+        Social Accounts Beans
+        This beans provide next features:
+        * Facebook Connect
+        * Twitter Connect
+        * LinkedIn Connect
+        Future
+        * TripIt
+  -->
+
+     <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider"
+          abstract="true">
+    </bean>
+
+    <!-- Twitter Service Provider Consumer -->
+    <bean id="twitterServiceConnect" autowire="byName"
+          class="org.encuestame.business.service.social.connect.TwitterSocialService" parent="abstractSocialProvider">
+    </bean>
+
+    <!-- Facebook OAuth Consumer -->
+    <bean id="facebookServiceConnect" autowire="byName"
+          class="org.encuestame.business.service.social.connect.FacebookSocialService"
+          parent="abstractSocialProvider">
+    </bean>
+
+    <!-- LinkedIn OAuth Consumer
+    <bean id="linkedInServiceConnect" autowire="byName"
+          class="org.encuestame.business.service.social.connect.LinkedInSocialService"
+          parent="abstractSocialProvider">
+    </bean>
+    -->
+
+  <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"/>
+
+
+</beans>

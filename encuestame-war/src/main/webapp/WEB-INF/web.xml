@@ -29,6 +29,11 @@
       <param-name>log4jConfigLocation</param-name>
       <param-value>"classpath:log4j.properties</param-value>
     </context-param>
+
+   <!--  <filter>
+        <filter-name>SetupFilter</filter-name>
+        <filter-class>org.encuestame.business.setup.SetupFilter</filter-class>
+    </filter> -->
     <!--
     Enforce UTF-8 Character Encoding -->
     <filter>
@@ -106,18 +111,28 @@
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/j_spring_security_check</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>*.json</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>*.jspx</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+   <!--  <filter-mapping>
+        <filter-name>SetupFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping> -->
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
         <filter-name>charEncodingFilter</filter-name>

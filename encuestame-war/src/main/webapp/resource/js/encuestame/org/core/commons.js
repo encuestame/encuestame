@@ -319,8 +319,8 @@ encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/a
 encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/add-permission.json";
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
-//TODO: replace twitter
-encuestame.service.list.twitterAccount = encuestame.contextWidget()+"/api/common/social/confirmed-accounts.json";
+//TODO: replace twitter encuestame.service.list.socialAccounts
+encuestame.service.list.socialAccounts = encuestame.contextWidget()+"/api/common/social/confirmed-accounts.json";
 encuestame.service.list.allSocialAccount = encuestame.contextWidget()+"/api/common/social/accounts.json";
 
 //tweetpoll service
