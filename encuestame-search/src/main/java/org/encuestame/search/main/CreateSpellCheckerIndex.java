@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.search.spell.LuceneDictionary;
+import org.apache.lucene.search.spell.SpellChecker;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -19,15 +21,14 @@ public class CreateSpellCheckerIndex {
         String indexField = args[2];
         System.out.println("Now build SpellChecker index...");
         Directory dir = FSDirectory.open(new File(spellCheckDir));
-     //   SpellChecker spell = new SpellChecker(dir);
+        SpellChecker spell = new SpellChecker(dir);
         long startTime = System.currentTimeMillis();
 
         Directory dir2 = FSDirectory.open(new File(indexDir));
 
         IndexReader r = IndexReader.open(dir2,true);
         try {
-       // spell.indexDictionary(
-        //new LuceneDictionary(r, indexField));
+        spell.indexDictionary(new LuceneDictionary(r, indexField));
         } finally {
         r.close();
         }
