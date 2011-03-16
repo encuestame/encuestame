@@ -1593,6 +1593,11 @@
     	<artifactId>lucene-fast-vector-highlighter</artifactId>
     	<version>2.9.1</version>
      </dependency>
+    <dependency>
+    	<groupId>org.apache.lucene</groupId>
+    	<artifactId>lucene-spellchecker</artifactId>
+    	<version>3.0.3</version>
+    </dependency>
   	<!-- CommetD -->
         <dependency>
             <groupId>org.cometd.java</groupId>
@@ -1637,7 +1642,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
->>>>>>> 10d240f46cf77540d873eb8cf834b1de81f5a786
-      </dependencies>
+     </dependencies>
     </dependencyManagement>
 </project>

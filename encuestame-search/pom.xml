@@ -141,6 +141,9 @@
 	    <groupId>org.apache.lucene</groupId>
    	    <artifactId>lucene-fast-vector-highlighter</artifactId>
       </dependency>
-    </dependencies>
-   
+      <dependency>
+	   <groupId>org.apache.lucene</groupId>
+           <artifactId>lucene-spellchecker</artifactId>
+ </dependency>
+    </dependencies> 
 </project>
