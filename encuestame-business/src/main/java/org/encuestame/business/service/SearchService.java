@@ -65,8 +65,10 @@ public class SearchService extends ISearchService {
     public List<Poll> searchPolls(String searchString, String path, String fieldName,
             int results) throws IOException, ParseException {
         List<Poll> pollList = new ArrayList<Poll>();
-        IndexReader reader = IndexReader.open(path, true);
-        Searcher searcher = new IndexSearcher(reader);
+        //IndexReader reader = IndexReader.open(path, true);
+        //IndexReader reader = IndexReader.open(path);
+        //Searcher searcher = new IndexSearcher(reader);
+        Searcher searcher = null;
         QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
                 new StandardAnalyzer(Version.LUCENE_29));
         Query query = qp.parse(searchString);
@@ -88,7 +90,10 @@ public class SearchService extends ISearchService {
             throws IOException, ParseException {
         Map<String, Object> map = new HashMap<String, Object>();
         List<Poll> articles = new ArrayList<Poll>();
-        Searcher searcher = new IndexSearcher(IndexReader.open(path));
+        //Searcher searcher = new IndexSearcher(IndexReader.open(path));
+        //IndexReader reader = IndexReader.open(path);
+        //Searcher searcher = new IndexSearcher(reader);
+        Searcher searcher = null;
         QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
                 new StandardAnalyzer(Version.LUCENE_29));
         Query query = qp.parse(searchString);
@@ -117,8 +122,9 @@ public class SearchService extends ISearchService {
     public List<Poll> searchArticle(String searchString, String path, String fieldName,
             int results) throws IOException, ParseException {
         List<Poll> articles = new ArrayList<Poll>();
-        IndexReader reader = IndexReader.open(path);
-        Searcher searcher = new IndexSearcher(reader);
+        //IndexReader reader = IndexReader.open(path);
+        //Searcher searcher = new IndexSearcher(reader);
+        Searcher searcher = null;
         QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
                 new StandardAnalyzer(Version.LUCENE_29));
         Query query = qp.parse(searchString);

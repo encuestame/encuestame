@@ -195,4 +195,6 @@
     </bean>
     -->
 
+    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"/>
+
 </beans>

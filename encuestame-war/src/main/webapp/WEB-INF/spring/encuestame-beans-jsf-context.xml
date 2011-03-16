@@ -24,4 +24,10 @@
         <property name="servicemanagerBean" ref="servicesManager" />
   </bean>
    -->
+
+   <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"
+         scope="singleton">
+  </bean>
+
+
 </beans>

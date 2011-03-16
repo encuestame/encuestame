@@ -284,9 +284,7 @@ dojo.declare(
             postCreate : function(){
               console.debug("account", this.account);
               dojo.subscribe("/encuestame/social/account/row/show", this, function(widget){
-                  console.debug(this.id, widget.id);
                   if (this.id != widget.id) {
-                      console.debug("hiding ...", widget.id);
                       this._secrets = true;
                       this._showHideAction();
                   } else {

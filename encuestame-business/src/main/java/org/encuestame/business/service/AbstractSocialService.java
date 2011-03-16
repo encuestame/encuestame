@@ -240,6 +240,7 @@ public class AbstractSocialService extends AbstractConfigurationService {
         final List<SocialAccount> socialAccounts = getAccountDao()
                 .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
         for (SocialAccount socialAccount : socialAccounts) {
+            log.debug("getTwitterService() "+getTwitterService());
             if(getTwitterService().verifyCredentials(socialAccount)){
                 log.debug("Confirmed Account  -- "+socialAccount.getSocialAccountName());
                 comfirmedSocialAccounts.add(ConvertDomainBean.convertSocialAccountToBean(socialAccount));

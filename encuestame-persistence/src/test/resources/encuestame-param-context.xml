@@ -17,13 +17,13 @@
   </bean>
    -->
 
-   <bean id="propertyConfigurer" class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <constructor-arg ref="configurationEncryptor" />
         <property name="locations">
             <list>
-                <value>${encuestame.properties.path}</value>
-                <value>${hibernate.properties.path}</value>
-                <value>${lucene.properties.path}</value>
+                <value>classpath:encuestame-config-overwrite.properties</value>
+                <value>classpath:hibernate.prod.properties</value>
+                <value>classpath:lucene.index.properties</value>
                 <value>classpath:email-config.properties</value>
             </list>
         </property>
@@ -36,7 +36,7 @@
           value="org.springframework.util.Log4jConfigurer.initLogging" />
         <property name="arguments">
           <list>
-            <value>${log4j.properties.path}</value>
+            <value>classpath:log4j.properties</value>
           </list>
         </property>
       </bean>
