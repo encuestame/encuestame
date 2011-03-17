@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -54,7 +54,7 @@ import org.springframework.stereotype.Service;
  * @since 27/04/2009 11:35:01
  */
 @Service
-public class SecurityService extends AbstractBaseService implements ISecurityService {
+public class SecurityService extends AbstractBaseService implements SecurityOperations {
 
     private Logger log = Logger.getLogger(this.getClass());
 

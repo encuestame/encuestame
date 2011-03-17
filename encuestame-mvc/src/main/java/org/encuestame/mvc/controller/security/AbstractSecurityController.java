@@ -12,7 +12,7 @@
  */
 package org.encuestame.mvc.controller.security;
 
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,14 +25,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractSecurityController extends BaseController{
 
     /**
-     * {@link ISecurityService}.
+     * {@link SecurityOperations}.
      */
-    private ISecurityService securityService;
+    private SecurityOperations securityService;
 
     /**
      * @return the securityService
      */
-    public ISecurityService getSecurityService() {
+    public SecurityOperations getSecurityService() {
         return securityService;
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractSecurityController extends BaseController{
      * @param securityService the securityService to set
      */
     @Autowired
-    public void setSecurityService(final ISecurityService securityService) {
+    public void setSecurityService(final SecurityOperations securityService) {
         this.securityService = securityService;
     }
 }

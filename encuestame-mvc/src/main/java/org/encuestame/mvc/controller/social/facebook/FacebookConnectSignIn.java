@@ -12,7 +12,7 @@
  */
 package org.encuestame.mvc.controller.social.facebook;
 
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.social.connect.IFacebookSocialService;
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.mvc.controller.social.AbstractSocialController;

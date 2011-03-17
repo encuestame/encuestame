@@ -30,7 +30,7 @@
          <i:queue capacity="500"/>
      </i:channel>
 
-     <!--    <import resource="classpath:encuestame-mail-sender.xml" />-->
-    <import resource="classpath:TwitterSendUpdates-context.xml" />
+     <!--    <import resource="encuestame-mail-sender.xml" />-->
+    <import resource="TwitterSendUpdates-context.xml" />
 
 </beans>

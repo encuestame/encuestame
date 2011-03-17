@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -61,7 +61,7 @@ public class ValidateOperations {
      *
      * @param securityService
      */
-    public ValidateOperations(final ISecurityService securityService) {
+    public ValidateOperations(final SecurityOperations securityService) {
         this.securityService = securityService;
     }
 
@@ -70,12 +70,12 @@ public class ValidateOperations {
      * @param securityService
      * @param currentUser
      */
-    public ValidateOperations(final ISecurityService securityService, final UserAccount currentUser) {
+    public ValidateOperations(final SecurityOperations securityService, final UserAccount currentUser) {
         this.securityService = securityService;
         this.userAccount = currentUser;
     }
 
-    private ISecurityService securityService;
+    private SecurityOperations securityService;
 
     /**
      *
@@ -225,14 +225,14 @@ public class ValidateOperations {
     /**
      * @return the securityService
      */
-    public ISecurityService getSecurityService() {
+    public SecurityOperations getSecurityService() {
         return securityService;
     }
 
     /**
      * @param securityService the securityService to set
      */
-    public void setSecurityService(final ISecurityService securityService) {
+    public void setSecurityService(final SecurityOperations securityService) {
         this.securityService = securityService;
     }
 

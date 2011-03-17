@@ -143,6 +143,8 @@
         </property>
     </bean>
 
+    <import resource="encuestame-test-encrypt-context.xml"/>
+
     <!-- ehcache configuration
 
     <ehcache:config configLocation="classpath:ehcache.xml" />

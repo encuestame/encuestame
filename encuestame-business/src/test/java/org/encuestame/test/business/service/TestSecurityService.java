@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.business.service.SecurityService;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
@@ -52,7 +52,7 @@ public class TestSecurityService extends AbstractServiceBase{
 
     /** {@link SecurityService}. **/
     @Autowired
-    private ISecurityService securityService;
+    private SecurityOperations securityService;
 
     /** User Primary. **/
     private Account userPrimary;

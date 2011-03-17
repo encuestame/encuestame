@@ -14,7 +14,7 @@ package org.encuestame.mvc.validator;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.SecurityService;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.utils.security.SignUpBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
@@ -40,7 +40,7 @@ public class SignUpBeanValidator{
      * Reference to {@link SecurityService}.
      */
     @Autowired
-    private ISecurityService securityService;
+    private SecurityOperations securityService;
 
     /**
      * Validate SignUn Bean.
@@ -68,14 +68,14 @@ public class SignUpBeanValidator{
     /**
      * @return the securityService
      */
-    public ISecurityService getSecurityService() {
+    public SecurityOperations getSecurityService() {
         return securityService;
     }
 
     /**
      * @param securityService the securityService to set
      */
-    public void setSecurityService(final ISecurityService securityService) {
+    public void setSecurityService(final SecurityOperations securityService) {
         this.securityService = securityService;
     }
 }

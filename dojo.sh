@@ -1,8 +1,8 @@
 #!/bin/bash
 DOJO_PATH=dojo
-SVN_DOJO=http://svn.dojotoolkit.org/src/tags/release-1.5.0/
-FILE_DOJO=http://download.dojotoolkit.org/release-1.5.0/dojo-release-1.5.0.zip
-FILE_NAME=dojo-release-1.5.0.zip
+SVN_DOJO=http://svn.dojotoolkit.org/src/tags/release-1.6.0/
+FILE_DOJO=http://download.dojotoolkit.org/release-1.6.0/dojo-release-1.6.0-src.zip
+FILE_NAME=dojo-release-1.6.0-src.zip
 
 function createFromDownload {
         if [ -d ${DOJO_PATH} ]; then
@@ -65,7 +65,7 @@ function warningNoResources {
 
 function warningShow {
     echo "****************************************************************"
-    echo "*  WARNING !!! -- DOJO 1.5 IS REQUIRED                         *"
+    echo "*  WARNING !!! -- DOJO 1.6 IS REQUIRED                         *"
     echo "*  Download from http://dojotoolkit.org/download               *"
     echo "*  Copy the content on root folder named DOJO                  *"   
     echo "*  After that run again this script                            *"
@@ -94,7 +94,7 @@ function fileDownload {
     wget ${FILE_DOJO}
     echo "ZIP - Create work path"
     unzip ${FILE_NAME}
-    mv dojo-release-1.5.0 ${DOJO_PATH}
+    mv dojo-release-1.6.0-src ${DOJO_PATH}
     echo "ZIP - Copy Resources"
     rm ${FILE_NAME}
     copyResources

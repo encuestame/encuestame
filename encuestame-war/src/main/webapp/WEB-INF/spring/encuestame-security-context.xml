@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+  <!-- To enable @Pre and @Post Annotations -->
+  <security:global-method-security pre-post-annotations="enabled"/>
+
+  <!-- Authentication Manager -->
+  <security:authentication-manager alias="authenticationManager">
+    <security:authentication-provider  user-service-ref="enMeAuthenticationDao">
+        <security:password-encoder ref="passwordEncoder" />
+    </security:authentication-provider>
+  </security:authentication-manager>
+
+  <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
+    <property name="passwordEncryptor">
+      <ref bean="jasyptPasswordEncryptor" />
+    </property>
+  </bean>
+
+  <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+
+
+  <bean id="enMeAuthenticationDao" class="org.encuestame.core.security.EnMeUserServiceImp">
+    <property name="roleGroupAuth" value="${spring.sec.roleByGroup}" />
+    <property name="roleUserAuth" value="${spring.sec.roleByAuthor}" />
+  </bean>
+
+  <bean id="authenticationEntryPoint"
+    class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+    <property name="loginFormUrl" value="${spring.sec.loginPath}" />
+    <property name="forceHttps" value="${spring.sec.forceLoginSSL}" />
+  </bean>
+
+  <security:http auto-config="false"
+                 entry-point-ref="authenticationEntryPoint"
+                 access-decision-manager-ref="voteAccessDecisionManager"
+                 access-denied-page="${spring.sec.login.denied}">
+    <security:intercept-url pattern="index.jsp" filters="none" />
+
+    <!-- Public Paths -->
+    <security:intercept-url pattern="/index.jspx" filters="none"/>
+    <security:intercept-url pattern="/error.jspx" filters="none"/>
+    <security:intercept-url pattern="/home" filters="none"/>
+    <security:intercept-url pattern="/users.jspx" filters="none"/>
+    <security:intercept-url pattern="/tags.jspx" filters="none"/>
+    <security:intercept-url pattern="/signin.jspx" filters="none"/>
+    <security:intercept-url pattern="/forgot.jspx" filters="none"/>
+    <security:intercept-url pattern="/signup.jspx" filters="none"/>
+
+    <!-- Admon Paths -->
+    <security:intercept-url pattern="/admon/**/*" access="ENCUESTAME_ADMIN, ENCUESTAME_USER"/>
+
+    <!-- Account Paths
+    <security:intercept-url pattern="/user/signin.jspx" access="ENCUESTAME_ANONYMOUS"/>
+    <security:intercept-url pattern="/user/forgot.jspx" access="ENCUESTAME_ANONYMOUS" />
+    <security:intercept-url pattern="/user/signup.jspx" access="ENCUESTAME_ANONYMOUS"/>
+    -->
+
+    <security:intercept-url pattern="/user/logout" access="ENCUESTAME_USER"/>
+
+    <!-- Super Admin -->
+    <security:intercept-url pattern="/superAdmin.jspx" access="ENCUESTAME_SUPER"/>
+
+    <!-- Shared areas -->
+    <security:intercept-url pattern="/settings/**/*" access="ENCUESTAME_USER"/>
+
+    <!-- Surveys / Poll / TweetPoll Paths -->
+    <security:intercept-url pattern="/tweetpoll.jspx" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"   />
+    <security:intercept-url pattern="/poll.jspx" access="ENCUESTAME_USER"/>
+    <security:intercept-url pattern="/survey.jspx" access="ENCUESTAME_USER, ENCUESTAME_EDITOR"/>
+
+    <!-- Vote Paths
+    <security:intercept-url pattern="/tweet/*" access="ENCUESTAME_USER" />
+    -->
+
+    <!-- Resources Path -->
+    <security:intercept-url pattern="/resources/*"  filters="none" />
+
+    <security:remember-me key="${spring.sec.rememberMe.key}" services-alias="_rememberMeServices" token-validity-seconds="10080"/>
+    <security:anonymous enabled="true" granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
+    <security:logout logout-success-url="${spring.sec.logout.sucess}" invalidate-session="true"
+                     logout-url="${spring.sec.logout.url}"/>
+    <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
+  </security:http>
+
+  <!--  Enable OAuth Security.
+  <import resource="encuestame-security-oauth-context.xml"/>
+    -->
+
+  <bean id="authenticationProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+      <property name="authenticationManager" ref="authenticationManager"/>
+      <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+      <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+      <property name="filterProcessesUrl" value="/j_spring_security_check"/>
+  </bean>
+
+   <bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+       <property name="defaultTargetUrl" value="${spring.sec.defaultLoginUrl}"/>
+   </bean>
+
+   <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+       <property name="defaultFailureUrl" value="${spring.sec.login.error}"/>
+   </bean>
+
+  <bean id="voteAccessDecisionManager"
+    class="org.springframework.security.access.vote.AffirmativeBased">
+    <property name="allowIfAllAbstainDecisions">
+      <value>false</value>
+    </property>
+    <property name="decisionVoters">
+      <list>
+        <ref bean="roleVoter" />
+      </list>
+    </property>
+  </bean>
+
+  <bean id="roleVoter" class="org.encuestame.core.security.EnMeRoleVoter">
+    <property name="rolePrefix" value="${spring.sec.role.prefix}" />
+  </bean>
+
+  <!--  reCaptcha -->
+
+   <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl" scope="singleton">
+        <property name="privateKey" value="6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd" />
+        <property name="publicKey" value="6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU" />
+        <property name="includeNoscript" value="false" />
+        <!-- po ssl -->
+        <property name="recaptchaServer" value="https://api-secure.recaptcha.net" />
+   </bean>
+
+</beans>
