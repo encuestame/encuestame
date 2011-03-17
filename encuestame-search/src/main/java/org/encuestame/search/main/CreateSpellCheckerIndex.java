@@ -16,11 +16,13 @@ public class CreateSpellCheckerIndex {
         "SpellCheckerIndexDir IndexDir IndexField");
         System.exit(1);
         }
-        String spellCheckDir = args[0];
-        String indexDir = args[1];
-        String indexField = args[2];
+        String spellCheckDir = args[0]; // SpellCheck Directory
+        String indexDir = args[1]; // Index Directory
+        String indexField = args[2]; // field to Index.
         System.out.println("Now build SpellChecker index...");
+        // Open Spellchecker Index
         Directory dir = FSDirectory.open(new File(spellCheckDir));
+        // Create Spellchecker
         SpellChecker spell = new SpellChecker(dir);
         long startTime = System.currentTimeMillis();
 

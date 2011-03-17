@@ -15,9 +15,10 @@ package org.encuestame.search;
 import java.io.File;
 import java.io.IOException;
 
+import junit.framework.TestCase;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.analysis.StopAnalyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -30,22 +31,16 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
-import org.apache.lucene.search.TopDocCollector;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.search.highlight.TokenSources;
-
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-
 import org.apache.lucene.util.Version;
 import org.encuestame.search.main.TestUtil;
-
-
-import junit.framework.TestCase;
 
 /**
  * Test Service Search.
@@ -61,7 +56,7 @@ public class TestSearch extends TestCase {
     public void testSearcher() throws CorruptIndexException, IOException, ParseException{
 
         Directory directory = FSDirectory.open(new File(indexDir));
-        IndexReader reader = IndexReader.open(indexDir);
+        IndexReader reader = IndexReader.open(directory, true);
         IndexSearcher searcher = new IndexSearcher(reader);
         QueryParser parser = new QueryParser(Version.LUCENE_29, "content",
                     new StandardAnalyzer(Version.LUCENE_29));
