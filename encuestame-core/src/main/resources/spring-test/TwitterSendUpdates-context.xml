@@ -9,7 +9,7 @@
     xmlns:i="http://www.springframework.org/schema/integration"
     xmlns:twitter="http://www.springframework.org/schema/integration/twitter">
 
-    <context:property-placeholder location="classpath:twitter-config.properties"/>
+    <context:property-placeholder location="classpath:properties-test/twitter-config.properties"/>
 
 
     <bean id="twitterTemplate"

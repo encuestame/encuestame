@@ -35,13 +35,13 @@
                   </execution>
                 </executions>
             </plugin>
-
         </plugins>
         <resources>
             <resource>
               <directory>src/main/resources/</directory>
               <includes>
-                <include>*.*</include>
+                <include>spring-test/*.*</include>
+                <include>properties-test/*.*</include>
               </includes>
               <filtering>true</filtering>
             </resource>

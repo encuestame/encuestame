@@ -19,7 +19,6 @@
     </property>
   </bean>
 
-
 <!--     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
 <!--         <constructor-arg ref="configurationEncryptor" /> -->
 <!--         <property name="locations"> -->
