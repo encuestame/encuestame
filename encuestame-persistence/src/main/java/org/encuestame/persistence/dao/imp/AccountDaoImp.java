@@ -120,6 +120,36 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
+     * Get Social Account.
+     * @param socialProvider
+     * @param socialAccountId
+     * @return
+     */
+    public SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
+        log.debug("accounType "+socialProvider);
+        log.debug("socialAccountId "+socialAccountId);
+        criteria.add(Restrictions.eq("accounType", socialProvider));
+        criteria.add(Restrictions.eq("socialUserId", socialAccountId) );
+        return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
+     * Get Social Account.
+     * @param socialAccountId
+     * @param account
+     * @return
+     */
+    public SocialAccount getSocialAccount(final Long socialAccountId, final Account account){
+        log.debug("account "+account.getUid());
+        log.debug("socialAccountId "+socialAccountId);
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
+        criteria.add(Restrictions.eq("secUsers", account));
+        criteria.add(Restrictions.eq("id", socialAccountId));
+        return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
      * Get Primary User By Id.
      * @param userId user id
      * @return {@link Account}
@@ -166,12 +196,18 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     /**
      * Get Twitter Accounts.
      * @param secUsers {@link Account}.
+     * @param provider
      * @return List {@link SocialAccount}.
      *
      */
-    public List<SocialAccount> getTwitterAccountByUser(final Account secUsers){
+    public List<SocialAccount> getTwitterAccountByUser(
+            final Account secUsers,
+            final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("secUsers", secUsers) );
+        if (provider != null) { //if provider is null, we fetch everything
+            criteria.add(Restrictions.eq("accounType", provider));
+        }
         return   getHibernateTemplate().findByCriteria(criteria);
     }
 

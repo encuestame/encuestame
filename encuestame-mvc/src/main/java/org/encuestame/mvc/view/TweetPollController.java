@@ -19,7 +19,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.BaseController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.survey.TweetPollSwitch;
@@ -127,7 +127,7 @@ public class TweetPollController extends BaseController {
              log.info("recaptcha_challenge_field "+challenge);
              log.info("recaptcha_rforgotesponse_field "+response);
              log.info("vote_code "+code);
-             final ISecurityService securityService = getServiceManager().getApplicationServices().getSecurityService();
+             final SecurityOperations securityService = getServiceManager().getApplicationServices().getSecurityService();
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ValidateOperations validation = new ValidateOperations(securityService);
              validation.validateCaptcha(reCaptchaResponse, result);

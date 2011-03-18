@@ -18,12 +18,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.business.service.SecurityService;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -51,7 +52,7 @@ public class TestSecurityService extends AbstractServiceBase{
 
     /** {@link SecurityService}. **/
     @Autowired
-    private ISecurityService securityService;
+    private SecurityOperations securityService;
 
     /** User Primary. **/
     private Account userPrimary;
@@ -232,7 +233,7 @@ public class TestSecurityService extends AbstractServiceBase{
     @Ignore
     public void testaddNewTwitterAccount() throws EnMeNoResultsFoundException{
         //this.securityService.addNewTwitterAccount("encuestameTest", this.secUserSecondary.getUsername());
-        assertEquals(getAccountDao().getTwitterAccountByUser(this.userPrimary).size(), 1);
+        assertEquals(getAccountDao().getTwitterAccountByUser(this.userPrimary, SocialProvider.SocialProvider.TWITTER).size(), 1);
     }
 
     /**

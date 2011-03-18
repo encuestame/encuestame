@@ -1,4 +1,3 @@
-
 package org.encuestame.mvc.controller.social.json;
 
 import java.io.IOException;
@@ -14,6 +13,8 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -92,11 +93,8 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     }
 
     /**
-     * Create or Update Twitter Social Account.
+     * Change state of social account.
      * @param type
-     * @param consumerKey
-     * @param consumerSecret
-     * @param usernameAccount
      * @param socialAccountId
      * @param request
      * @param response
@@ -109,26 +107,14 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     @RequestMapping(value = "/api/social/twitter/account/{type}.json", method = RequestMethod.GET)
     public ModelMap actionTwitterAccount(
             @PathVariable String type,
-            @RequestParam(value = "consumerKey", required = true) String consumerKey,
-            @RequestParam(value = "consumerSecret", required = true) String consumerSecret,
-            @RequestParam(value = "username", required = true) String usernameAccount,
-            @RequestParam(value = "socialAccountId", required = false) String socialAccountId,
+            @RequestParam(value = "socialAccountId", required = true) Long socialAccountId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         log.debug("consumerKey "+consumerKey);
-         log.debug("consumerSecret "+ (consumerSecret));
          try {
-           final UserAccount userAccount = getUserAccount();
-           if("create".equals(type)){
-               //getSecurityService().addNewTwitterAccount(userAccount, usernameAccount, consumerKey, consumerSecret);
-               setSuccesResponse();
-           } else if("update".equals(type)){
-              log.info("update social twitter account");
-           } else {
-               setError("type not valid", response);
-           }
-        } catch (EnMeExpcetion e) {
-            setItemResponse("url", "");
+           getSecurityService().changeStateSocialAccount(socialAccountId, getUserPrincipalUsername(), type);
+        } catch (IllegalSocialActionException e) {
+            setError(e.getMessage(), response);
+        } catch (EnMeNoResultsFoundException e) {
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -154,12 +140,15 @@ public class SocialAccountsJsonController extends AbstractJsonController {
          log.debug("pin "+pin);
          try {
             final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
-            final HashMap<String, Object> r = this.createOAuthSocialAccountWithPinNumber(pin, getUserAccount());
+            final HashMap<String, Object> r = this.createOAuthSocialAccountWithPinNumber(pin, getUserAccount(), SocialProvider.TWITTER);
             jsonResponse.put("confirm", r.get("confirm"));
-            jsonResponse.put("screenName", r.get("screenName"));
+            jsonResponse.put("message", r.get("message"));
             setItemResponse(jsonResponse);
         } catch (Exception e) {
-            setItemResponse("url", "");
+            final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
+            jsonResponse.put("confirm", false);
+            jsonResponse.put("message", e.getMessage());
+            setItemResponse(jsonResponse);
             setError(e.getMessage(), response);
         }
          return returnData();
@@ -177,7 +166,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/common/social/valid-accounts.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/social/confirmed-accounts.json", method = RequestMethod.GET)
     public ModelMap get(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -186,6 +175,36 @@ public class SocialAccountsJsonController extends AbstractJsonController {
         try {
              final List<SocialAccountBean> accounts = getSecurityService()
                    .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+             setItemReadStoreResponse("socialAccounts", "id", accounts);
+             log.debug("Twitter Accounts Loaded");
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Return Social Valid Accounts.
+     * @param request
+     * @param response
+     * @param provider
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/social/accounts.json", method = RequestMethod.GET)
+    public ModelMap getSocialAccountByType(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam(value = "provider", required = false) String provider)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+             final List<SocialAccountBean> accounts = getSecurityService()
+                   .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
              setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
         } catch (Exception e) {
@@ -238,13 +257,17 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     }
 
     /**
-     *
+     * Create Social Account with Pin Number.
      * @param pin
      * @param account
+     * @param socialProvider
      * @param userId
      * @return
      */
-    public HashMap<String, Object> createOAuthSocialAccountWithPinNumber(final String pin, final UserAccount account){
+    public HashMap<String, Object> createOAuthSocialAccountWithPinNumber(
+            final String pin,
+            final UserAccount account,
+            final SocialProvider socialProvider){
         log.debug("confirmOAuthPin");
         boolean confirmed = false;
         AccessToken accessToken = null;
@@ -268,19 +291,23 @@ public class SocialAccountsJsonController extends AbstractJsonController {
                          log.debug("Access Token UserId {"+accessToken.getUserId());
                          log.debug("New Token {"+accessToken.getToken());
                          log.debug("New Secret Token {"+accessToken.getTokenSecret());
-                         getSecurityService().addOAuthTokenSocialAccount((long) accessToken.getUserId(),
+                         getSecurityService().addOrUpdateOAuthTokenSocialAccount((long) accessToken.getUserId(),
                                  accessToken.getToken(),
                                  accessToken.getTokenSecret(),
                                  accessToken.getScreenName(),
-                                 account);
+                                 account,
+                                 socialProvider);
                          confirmed = true;
+                         response.put("message", "ok");
                     }
                 }
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
+                response.put("message", e.getMessage());
             }
         }
+        response.put("confirm", confirmed);
         return response;
     }
 

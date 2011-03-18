@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.mail.MailService;
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
@@ -42,7 +42,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  */
 
 @SuppressWarnings("unchecked")
-public class MailServiceImpl extends AbstractBaseService implements MailService, IService {
+public class MailServiceImpl extends AbstractBaseService implements MailService, ServiceOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -175,7 +175,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
               Map model = new HashMap();
               model.put("invitation", invitation);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
-                 velocityEngine, "invitation.vm", model);
+                 velocityEngine, "/org/encuestame/business/mail/templates/invitation.vm", model);
               message.setText(text, true);
            }
         };
@@ -196,7 +196,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
               Map model = new HashMap();
               model.put("notification", notification);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
-                 velocityEngine, "notification.vm", model);
+                 velocityEngine, "/org/encuestame/business/mail/templates/notification.vm", model);
               message.setText(text, true);
            }
         };
@@ -217,7 +217,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
               Map model = new HashMap();
               model.put("user", user);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
-                 velocityEngine, "password-confirmation.vm", model);
+                 velocityEngine, "/org/encuestame/business/mail/templates/password-confirmation.vm", model);
               message.setText(text, true);
            }
         };
@@ -239,7 +239,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
               model.put("user", user);
               model.put("inviteCode", inviteCode);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
-                              velocityEngine, "confirm-your-account.vm", model);
+                              velocityEngine, "/org/encuestame/business/mail/templates/confirm-your-account.vm", model);
               message.setText(text, true);
            }
         };
@@ -254,7 +254,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         final Map<String, UserAccountBean> model = new HashMap<String, UserAccountBean>();
         model.put("user", unitUserBean);
         this.sendMimeEmail(model, unitUserBean.getEmail(), "Your New Password", this.noEmailResponse,
-                           "renew-password.vm");
+                           "/org/encuestame/business/mail/templates/renew-password.vm");
     }
 
     /**

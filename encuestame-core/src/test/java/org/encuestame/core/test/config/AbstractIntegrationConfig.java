@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
 @ContextConfiguration(locations = {
-         "classpath:encuestame-integration.xml"
+         "classpath:spring-test/encuestame-integration.xml"
           })
 @Ignore
 public class AbstractIntegrationConfig{

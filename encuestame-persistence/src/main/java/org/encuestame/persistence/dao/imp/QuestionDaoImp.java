@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.util.Version;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
@@ -87,10 +88,9 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                     public Object doInHibernate(org.hibernate.Session session) {
                         try {
                             final FullTextSession fullTextSession = Search.getFullTextSession(session);
-                            //fullTextSession.flushToIndexes();
-                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(
-                                                  new String[]{"question"},
-                                                  new SimpleAnalyzer());
+                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
+                                    new String[]{"question"},
+                                    new SimpleAnalyzer());
                             final org.apache.lucene.search.Query query = parser.parse(keyword);
                             final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Question.class);
                             final Criteria criteria = session.createCriteria(Question.class);

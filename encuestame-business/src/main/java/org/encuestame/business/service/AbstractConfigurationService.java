@@ -34,8 +34,9 @@ public abstract class AbstractConfigurationService extends AbstractDataSource {
 
     private String proxyPass;
 
-    private @Value("${application.picture.path}") String dataGlobalPath;
+    //private @Value("${dir.data.warehouse}") String dataGlobalPath;
 
+    private String dataGlobalPath;
     /**
      * App Consumer Key.
      */
