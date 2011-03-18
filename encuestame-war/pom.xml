@@ -137,7 +137,7 @@
                  <systemProperties>
                       <systemProperty>
                          <name>encuestame.custom.config</name>
-                         <value>${project.build.directory}/test-classes/encuestame-config-custom.properties</value>
+                         <value>${project.basedir}/src/main/resources/encuestame-config-custom.properties</value>
                      </systemProperty>
                   </systemProperties>
                     <connectors>
@@ -226,6 +226,9 @@
                 <includes>
                     <include>*.*</include>
                 </includes>
+                <excludes>
+                    <exclude>encuestame-config-custom.properties</exclude>
+                </excludes>
                 <filtering>true</filtering>
             </resource>
         </resources>
