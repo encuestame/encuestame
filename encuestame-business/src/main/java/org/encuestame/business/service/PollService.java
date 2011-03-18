@@ -34,7 +34,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -187,7 +187,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public void updateAnswersPoll( ){
     }
 
-    public void updateQuestionPoll(UnitQuestionBean unitQuestionPoll)
+    public void updateQuestionPoll(QuestionBean unitQuestionPoll)
             throws EnMeExpcetion {
         // TODO Auto-generated method stub
 

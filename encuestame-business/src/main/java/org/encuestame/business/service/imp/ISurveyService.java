@@ -22,7 +22,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
@@ -39,10 +39,10 @@ public interface ISurveyService extends IMasterSurveyService {
 
     /**
      * Load all questions.
-     * @return List of {@link UnitQuestionBean}
+     * @return List of {@link QuestionBean}
      * @throws EnMeExpcetion exception
      */
-    List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion;
+    List<QuestionBean> loadAllQuestions() throws EnMeExpcetion;
 
     /**
      * Load pattern info.
@@ -69,10 +69,10 @@ public interface ISurveyService extends IMasterSurveyService {
 
     /**
      * Create Question.
-     * @param questionBean {@link UnitQuestionBean}.
+     * @param questionBean {@link QuestionBean}.
      * @throws EnMeExpcetion exception
      */
-     Question createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion;
+     Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion;
 
     /**
      * Retrieve Answer By Question Id.

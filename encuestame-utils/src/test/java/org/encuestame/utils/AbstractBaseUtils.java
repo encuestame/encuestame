@@ -5,14 +5,14 @@ import java.util.List;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 
 import junit.framework.TestCase;
 
@@ -109,18 +109,18 @@ public abstract class AbstractBaseUtils extends TestCase{
     * @param questionName questionName
     * @param version version
     * @param unitAnswer unitAnswer
-    * @return {@link UnitQuestionBean}
+    * @return {@link QuestionBean}
     */
 
 
-    public UnitQuestionBean createUnitQuestionBean(
+    public QuestionBean createUnitQuestionBean(
         final Long questionId,
         final String questionName,
         final String version,
         final List unitAnswer,
         final UnitPatternBean pattern
     ){
-        final UnitQuestionBean unitQuestionBean = new UnitQuestionBean();
+        final QuestionBean unitQuestionBean = new QuestionBean();
         unitQuestionBean.setId(questionId);
         unitQuestionBean.setQuestionName(questionName);
         unitQuestionBean.setVersion(version);
@@ -182,7 +182,7 @@ public abstract class AbstractBaseUtils extends TestCase{
             final Boolean completedPoll,
             final Date creationDate,
             final Long id,
-            final UnitQuestionBean questionBean){
+            final QuestionBean questionBean){
         final UnitPoll unitPoll = new UnitPoll();
         unitPoll.setCompletedPoll(completedPoll);
         unitPoll.setCreationDate(creationDate);
@@ -219,10 +219,10 @@ public abstract class AbstractBaseUtils extends TestCase{
       * @param hashId
       * @return unitHashTag
       */
-     public UnitHashTag createUnitHashTag(
+     public HashTagBean createUnitHashTag(
              final String hashTagName,
              final Long hashId){
-         final UnitHashTag unitHashTag = new UnitHashTag();
+         final HashTagBean unitHashTag = new HashTagBean();
          unitHashTag.setId(hashId);
          unitHashTag.setHashTagName(hashTagName);
         return unitHashTag;
@@ -272,10 +272,10 @@ public abstract class AbstractBaseUtils extends TestCase{
              final Boolean completedPoll,
              final Date creationDate,
              final Date finishDate,
-             final List<UnitHashTag> hashTags,
+             final List<HashTagBean> hashTags,
              final Long idPoll,
              final Boolean publishPoll,
-             final UnitQuestionBean questionBean,
+             final QuestionBean questionBean,
              final Boolean showResultsPoll){
          final UnitPoll unitPollComplete = new UnitPoll();
          unitPollComplete.setCloseNotification(closeNotification);

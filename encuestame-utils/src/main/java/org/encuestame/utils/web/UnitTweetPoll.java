@@ -34,7 +34,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
      */
     private static final long serialVersionUID = 5248987840986024954L;
     private Long id;
-    private UnitQuestionBean questionBean = new UnitQuestionBean();
+    private QuestionBean questionBean = new QuestionBean();
     private Boolean closeNotification;
     private Boolean resultNotification;
     private Boolean publishPoll;
@@ -164,7 +164,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the questionBean
      */
-    public final UnitQuestionBean getQuestionBean() {
+    public final QuestionBean getQuestionBean() {
         return questionBean;
     }
 
@@ -172,7 +172,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
      * @param questionBean
      *            the questionBean to set
      */
-    public final void setQuestionBean(final UnitQuestionBean questionBean) {
+    public final void setQuestionBean(final QuestionBean questionBean) {
         this.questionBean = questionBean;
     }
 

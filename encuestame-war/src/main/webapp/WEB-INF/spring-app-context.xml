@@ -11,7 +11,7 @@
 
      <!-- Security -->
      <import resource="spring/encuestame-security-context.xml" />
-     <import resource="spring/encuestame-security-oauth-context.xml" />
+     <!-- <import resource="spring/encuestame-security-oauth-context.xml" /> -->
 
      <!-- Logic Layer -->
      <import resource="spring/encuestame-email-context.xml" />
@@ -31,8 +31,8 @@
      <import resource="spring/encuestame-comet-context.xml" />
 
      <!-- Task -->
-     <import resource="spring/encuestame-quartz-context.xml" />
      <import resource="spring/encuestame-task.xml" />
+
 
      <!-- Reports -->
      <!-- <import resource="spring/encuestame-report-context.xml" /> -->

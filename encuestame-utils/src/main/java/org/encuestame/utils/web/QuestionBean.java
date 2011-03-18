@@ -23,7 +23,7 @@ import java.util.List;
  * @since 01/06/2009 15:22:10
  * @version $Id$
  **/
-public class UnitQuestionBean implements Serializable {
+public class QuestionBean implements Serializable {
 
     /**
      * Serial.
@@ -65,14 +65,14 @@ public class UnitQuestionBean implements Serializable {
     /**
      * Constructor.
      */
-    public UnitQuestionBean() {
+    public QuestionBean() {
     }
 
     /**
      * Constructor Name.
      * @param name
      */
-    public UnitQuestionBean(final String name){
+    public QuestionBean(final String name){
         this.questionName = name;
     }
 

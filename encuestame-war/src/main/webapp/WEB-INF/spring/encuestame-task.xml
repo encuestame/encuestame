@@ -12,4 +12,6 @@
     <!-- Worker thread pool -->
     <executor id="taskExecutor" />
 
+    <beans:import resource="encuestame-quartz-context.xml"/>
+
 </beans:beans>

@@ -40,7 +40,7 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     private Date creationDate;
 
     /***/
-    private UnitQuestionBean questionBean = new UnitQuestionBean();
+    private QuestionBean questionBean = new QuestionBean();
 
     /***/
     private Date finishDate;
@@ -100,13 +100,13 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the questionBean
      */
-    public final UnitQuestionBean getQuestionBean() {
+    public final QuestionBean getQuestionBean() {
         return questionBean;
     }
     /**
      * @param questionBean the questionBean to set
      */
-    public final void setQuestionBean(final UnitQuestionBean questionBean) {
+    public final void setQuestionBean(final QuestionBean questionBean) {
         this.questionBean = questionBean;
     }
 
