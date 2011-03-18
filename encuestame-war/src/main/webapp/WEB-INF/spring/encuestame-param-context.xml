@@ -6,40 +6,28 @@
 
 
   <bean id="propertyConfigurer"
-    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    class="org.encuestame.business.config.EncuestamePlaceHolderConfigurer">
     <property name="ignoreResourceNotFound" value="true"/>
     <property name="locations">
         <list>
-          <value>classpath:encuestame-config-overwrite.properties</value>
-          <value>classpath:encuestame-config.properties</value>
-          <value>classpath:hibernate.prod.properties</value>
+          <value>classpath:/org/encuestame/business/config/encuestame-config.properties</value>
           <value>classpath:lucene.index.properties</value>
           <value>classpath:email-config.properties</value>
+          <value>classpath:encuestame-config-custom.properties</value>
         </list>
     </property>
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
   </bean>
 
-<!--     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
-<!--         <constructor-arg ref="configurationEncryptor" /> -->
-<!--         <property name="locations"> -->
-<!--             <list> -->
-<!--                 <value>classpath:hibernate.prod.properties</value> -->
-<!--                 <value>classpath:lucene.index.properties</value> -->
-<!--                 <value>classpath:email-config.properties</value> -->
-<!--             </list> -->
-<!--         </property> -->
-<!--         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/> -->
-<!--     </bean> -->
-
-     <bean id="log4jInitializer"
+    <bean id="log4jInitializer"
         class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="staticMethod"
-          value="org.springframework.util.Log4jConfigurer.initLogging" />
+            value="org.springframework.util.Log4jConfigurer.initLogging" />
         <property name="arguments">
-          <list>
-            <value>classpath:log4j.properties</value>
-          </list>
+            <list>
+                <value>classpath:log4j.properties</value>
+            </list>
         </property>
-      </bean>
+    </bean>
 
 </beans>

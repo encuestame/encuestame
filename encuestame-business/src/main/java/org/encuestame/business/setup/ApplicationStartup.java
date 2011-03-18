@@ -5,13 +5,14 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Manages encuestame application startup.
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 15, 2011
  */
-public class ApplicationStartup implements Startup {
+public class ApplicationStartup implements Startup, InitializingBean {
 
     public ApplicationStartup() {
         System.out.println("**********************ApplicationStartup*************************************");
@@ -38,6 +39,11 @@ public class ApplicationStartup implements Startup {
     }
 
     public void startProcess() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void afterPropertiesSet() throws Exception {
         // TODO Auto-generated method stub
 
     }
