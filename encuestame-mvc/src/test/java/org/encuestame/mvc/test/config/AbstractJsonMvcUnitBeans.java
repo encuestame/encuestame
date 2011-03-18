@@ -59,10 +59,10 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Transactional
 @Scope("singleton")
 @ContextConfiguration(locations = {
-        "classpath:encuestame-test-json-context.xml",
-        "classpath:encuestame-rss-context.xml",
-        "classpath:encuestame-upload-context.xml",
-        "classpath:encuestame-param-test-context.xml" })
+        "classpath:spring-test/encuestame-test-json-context.xml",
+        "classpath:spring-test/encuestame-rss-context.xml",
+        "classpath:spring-test/encuestame-upload-context.xml",
+        "classpath:spring-test/encuestame-param-test-context.xml" })
 public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**

@@ -31,6 +31,6 @@
      </i:channel>
 
      <!--    <import resource="classpath:encuestame-mail-sender.xml" />-->
-    <import resource="classpath:TwitterSendUpdates-context.xml" />
+    <import resource="TwitterSendUpdates-context.xml" />
 
 </beans>

@@ -55,7 +55,6 @@ public class EncuestameConfig {
             final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
             if(enviromentPropertyFile != null && enviromentPropertyFile.length() > 0) {
                 customEncuestameFile = new File(enviromentPropertyFile);
-
                 // make sure the file exists, then try and load it
                 if(customEncuestameFile != null && customEncuestameFile.exists()) {
                     is = new FileInputStream(customEncuestameFile);
