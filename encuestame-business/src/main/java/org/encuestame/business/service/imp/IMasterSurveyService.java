@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.web.UnitHashTag;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.QuestionBean;
 
  /**
  * Master Survey Service Interface.
@@ -31,7 +31,7 @@ public interface IMasterSurveyService extends ServiceOperations{
      * @param questionKeyword
      * @return
      */
-    List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException;
+    List<QuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * List Suggested Hash Tags.
@@ -39,5 +39,5 @@ public interface IMasterSurveyService extends ServiceOperations{
      * @param maxResults
      * @return
      */
-    List<UnitHashTag> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults);
+    List<HashTagBean> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults);
 }

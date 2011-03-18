@@ -28,7 +28,7 @@ import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -36,7 +36,7 @@ import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitPollResult;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -146,7 +146,7 @@ import org.junit.Test;
         tweetPoll.setCloseNotification(true);
         tweetPoll.setPublishPoll(true);
         tweetPoll.setUserId(1L);
-        tweetPoll.setQuestionBean(new UnitQuestionBean());
+        tweetPoll.setQuestionBean(new QuestionBean());
         tweetPoll.setResultNotification(true);
         List<ResumeResultTweetPoll> results = new ArrayList<ResumeResultTweetPoll>();
         tweetPoll.setResults(results);
@@ -236,11 +236,11 @@ import org.junit.Test;
         poll.setId(1L);
         poll.setCompletedPoll(true);
         poll.setCreationDate(new Date());
-        poll.setQuestionBean(new UnitQuestionBean());
+        poll.setQuestionBean(new QuestionBean());
         poll.setFinishDate(new Date());
         poll.setPublishPoll(true);
         poll.setCloseNotification(true);
-        poll.setHashTags(new ArrayList<UnitHashTag>());
+        poll.setHashTags(new ArrayList<HashTagBean>());
         poll.setShowResultsPoll(true);
         assertNotNull(poll.getId());
         assertNotNull(poll.getHashTags());
@@ -399,11 +399,11 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitQuestionBean}.
+     * Test {@link QuestionBean}.
      */
     @Test
     public void testUnitQuestionBean(){
-        final UnitQuestionBean questionBean = new UnitQuestionBean();
+        final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(1L);
         questionBean.setListAnswers(new ArrayList<UnitAnswersBean>());
         questionBean.setPattern(new UnitPatternBean());
@@ -516,7 +516,7 @@ import org.junit.Test;
      */
     @Test
     public void testUnitHashTag(){
-        final UnitHashTag hashTag = new UnitHashTag();
+        final HashTagBean hashTag = new HashTagBean();
         hashTag.setHashTagName("nicaragua");
         hashTag.setId(1L);
         assertNotNull(hashTag.getHashTagName());

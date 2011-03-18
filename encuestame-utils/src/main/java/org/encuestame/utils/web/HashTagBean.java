@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @since Jul 31, 2010 7:49:45 AM
  * @version $Id:$
  */
-public class UnitHashTag implements Serializable {
+public class HashTagBean implements Serializable {
 
     /**
      * Serial
@@ -34,11 +34,11 @@ public class UnitHashTag implements Serializable {
     private Long id;
 
     /** Constructor. **/
-    public UnitHashTag() {}
+    public HashTagBean() {}
 
 
     /** Constructor. **/
-    public UnitHashTag(String hashTagName) {
+    public HashTagBean(String hashTagName) {
         super();
         this.hashTagName = hashTagName;
     }
@@ -99,7 +99,7 @@ public class UnitHashTag implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        UnitHashTag other = (UnitHashTag) obj;
+        HashTagBean other = (HashTagBean) obj;
         if (hashTagName == null) {
             if (other.hashTagName != null)
                 return false;

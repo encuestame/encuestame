@@ -18,6 +18,6 @@ package org.encuestame.business.service.imp;
  * @since February 09, 2011
  * @version $Id$
  */
-public class ISearchService {
+public interface ISearchService {
 
 }

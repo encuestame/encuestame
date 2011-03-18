@@ -38,7 +38,7 @@ import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -104,7 +104,7 @@ public class TestPollService extends AbstractServiceBase{
      */
     @Test
     public void testcreatePoll() throws Exception{
-        final UnitQuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
+        final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final UnitPoll unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
         this.pollService.createPoll(unitPoll, this.userAccount.getUsername(), this.question);
@@ -215,7 +215,7 @@ public class TestPollService extends AbstractServiceBase{
          answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
          answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
          patternBean = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.html");
-         final UnitQuestionBean unitQuestion = createUnitQuestion(this.question.getQid(), expectedResponse, 1L, this.user.getUid(), answers, patternBean);
+         final QuestionBean unitQuestion = createUnitQuestion(this.question.getQid(), expectedResponse, 1L, this.user.getUid(), answers, patternBean);
          pollService.updateQuestionPoll(unitQuestion);
          assertEquals(this.question.getQuestion(), expectedResponse);
      }
@@ -235,7 +235,7 @@ public class TestPollService extends AbstractServiceBase{
          answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
          answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
          patternBean = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.html");
-         final UnitQuestionBean unitQuestion = createUnitQuestion(1L,"Why the sea is blue", 1L, this.user.getUid(), answers, patternBean);
+         final QuestionBean unitQuestion = createUnitQuestion(1L,"Why the sea is blue", 1L, this.user.getUid(), answers, patternBean);
          pollService.updateQuestionPoll(unitQuestion);
      }
 

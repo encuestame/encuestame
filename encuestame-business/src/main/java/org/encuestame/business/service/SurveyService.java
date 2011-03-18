@@ -35,7 +35,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSurvey;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
@@ -59,10 +59,10 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 
     /**
      * Create Question.
-     * @param questionBean {@link UnitQuestionBean}.
+     * @param questionBean {@link QuestionBean}.
      * @throws EnMeExpcetion exception
      */
-    public Question createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
+    public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
             final Question question = new Question();
             try{
 
@@ -147,18 +147,18 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 
     /**
      * Load all questions.
-     * @return List of {@link UnitQuestionBean}
+     * @return List of {@link QuestionBean}
      * @throws EnMeExpcetion exception
      */
-    public List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion {
-        final List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
+    public List<QuestionBean> loadAllQuestions() throws EnMeExpcetion {
+        final List<QuestionBean> listQuestionBean = new LinkedList<QuestionBean>();
         try {
             final  List<Question> questionsList = getQuestionDao()
                     .loadAllQuestions();
             if (questionsList.size() > 0) {
 
                for (Question questions : questionsList) {
-                    final UnitQuestionBean q = new UnitQuestionBean();
+                    final QuestionBean q = new QuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
                     listQuestionBean.add(q);
@@ -284,7 +284,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         try {
             final SurveySection surveySectionDomain = new SurveySection();
             surveySectionDomain.setDescSection(surveySectionBean.getName());
-            for (final UnitQuestionBean questionBean : surveySectionBean.getListQuestions()) {
+            for (final QuestionBean questionBean : surveySectionBean.getListQuestions()) {
                 this.saveQuestions(questionBean);
             }
         } catch (Exception e) {
@@ -297,7 +297,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * Save Questions.
      * @param questionBean
      */
-    public void saveQuestions(final UnitQuestionBean questionBean){
+    public void saveQuestions(final QuestionBean questionBean){
         final Question question = new Question();
         question.setQuestion(questionBean.getQuestionName());
         //	question.setQidKey();

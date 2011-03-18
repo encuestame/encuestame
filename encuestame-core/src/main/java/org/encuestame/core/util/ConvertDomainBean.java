@@ -47,7 +47,7 @@ import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -56,7 +56,7 @@ import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -130,24 +130,24 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link HashTag} to {@link UnitHashTag}.
+     * Convert {@link HashTag} to {@link HashTagBean}.
      * @param hashTag name
      * @return
      */
-    public static final UnitHashTag convertHashTagDomain(final HashTag hashTag){
-        final UnitHashTag unitHashTag = new UnitHashTag();
+    public static final HashTagBean convertHashTagDomain(final HashTag hashTag){
+        final HashTagBean unitHashTag = new HashTagBean();
         unitHashTag.setHashTagName(hashTag.getHashTag());
         unitHashTag.setId(hashTag.getHashTagId());
         return unitHashTag;
     }
 
     /**
-     * Convert List of {@link HashTag} to List of {@link UnitHashTag}.
+     * Convert List of {@link HashTag} to List of {@link HashTagBean}.
      * @param tags list of tags
      * @return
      */
-    public static final  List<UnitHashTag> convertListHashTagsToBean(final List<HashTag> tags) {
-        final List<UnitHashTag> listTags = new ArrayList<UnitHashTag>();
+    public static final  List<HashTagBean> convertListHashTagsToBean(final List<HashTag> tags) {
+        final List<HashTagBean> listTags = new ArrayList<HashTagBean>();
         for (HashTag account : tags) {
             listTags.add(ConvertDomainBean.convertHashTagDomain(account));
         }
@@ -438,12 +438,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link Question} to {@link UnitQuestionBean}.
+     * Convert {@link Question} to {@link QuestionBean}.
      * @param questions {@link Question}
-     * @return {@link UnitQuestionBean}
+     * @return {@link QuestionBean}
      */
-    public static final UnitQuestionBean convertQuestionsToBean(final Question questions){
-        final UnitQuestionBean questionBean = new UnitQuestionBean();
+    public static final QuestionBean convertQuestionsToBean(final Question questions){
+        final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(questions.getQid());
         questionBean.setQuestionName(questions.getQuestion());
         questionBean.setUserId(questions.getAccountQuestion().getUid());
@@ -595,8 +595,8 @@ public class ConvertDomainBean {
      * @return collection of question beans.
      * @throws Exception
      */
-    public static final List<UnitQuestionBean> convertListToUnitQuestionBean(final List<Question> questions){
-        final List<UnitQuestionBean> loadListQuestions = new LinkedList<UnitQuestionBean>();
+    public static final List<QuestionBean> convertListToUnitQuestionBean(final List<Question> questions){
+        final List<QuestionBean> loadListQuestions = new LinkedList<QuestionBean>();
             for (Question question : questions) {
                 loadListQuestions.add(ConvertDomainBean.convertQuestionsToBean(question));
             }
