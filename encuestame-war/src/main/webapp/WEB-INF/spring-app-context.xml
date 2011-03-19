@@ -30,9 +30,9 @@
      <import resource="spring/encuestame-integration.xml" />
      <import resource="spring/encuestame-comet-context.xml" />
 
-     <!-- Task
+     <!-- Task -->
      <import resource="spring/encuestame-task.xml" />
-     -->
+
 
      <!-- Reports -->
      <!-- <import resource="spring/encuestame-report-context.xml" /> -->

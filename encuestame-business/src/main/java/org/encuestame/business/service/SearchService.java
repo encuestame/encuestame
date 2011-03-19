@@ -41,7 +41,7 @@ import org.encuestame.search.utils.Search;
  * @since February 09, 2011
  * @version $Id$
  */
-public class SearchService extends ISearchService {
+public class SearchService extends AbstractIndexService  implements ISearchService {
 
     private Search search;
 

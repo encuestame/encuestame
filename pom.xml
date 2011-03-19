@@ -1542,7 +1542,7 @@
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-el</artifactId>
             <version>2.2.1</version>
-        </dependency>
+        </dependency> 
         <!-- Apache Poi  -->
         <dependency>
     	   <groupId>org.apache.poi</groupId>
@@ -1570,6 +1570,22 @@
              <artifactId>google-api-client</artifactId>
              <version>1.2.2-alpha</version>
         </dependency>
+
+    <dependency>
+	 <groupId>org.apache.lucene</groupId>
+   	 <artifactId>lucene-highlighter</artifactId>
+  	 <version>2.9.3</version>
+     </dependency>
+     <dependency>
+    	<groupId>org.apache.lucene</groupId>
+    	<artifactId>lucene-fast-vector-highlighter</artifactId>
+    	<version>2.9.1</version>
+     </dependency>
+    <dependency>
+    	<groupId>org.apache.lucene</groupId>
+    	<artifactId>lucene-spellchecker</artifactId>
+    	<version>3.0.3</version>
+    </dependency>
   	<!-- CommetD -->
         <dependency>
             <groupId>org.cometd.java</groupId>
@@ -1614,6 +1630,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+	<dependency>
+	    <groupId>commons-dbcp</groupId>
+	    <artifactId>commons-dbcp</artifactId>
+	    <version>1.4</version>
+	</dependency>
       </dependencies>
+     </dependencies>
     </dependencyManagement>
 </project>
