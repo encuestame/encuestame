@@ -18,7 +18,7 @@ public class SetupInterceptor implements HandlerInterceptor {
 
     protected Logger log = Logger.getLogger(this.getClass());
 
-    @Autowired
+    //@Autowired
     public Startup startup;
 
     @Override

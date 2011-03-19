@@ -20,7 +20,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 
 /**
  * Poll Service Interface.
@@ -65,7 +65,7 @@ public interface IPollService extends IMasterSurveyService{
     * @param unitQuestionPoll
     * @throws EnMeExpcetion exception
     */
-    void updateQuestionPoll(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion;
+    void updateQuestionPoll(final QuestionBean unitQuestionPoll) throws EnMeExpcetion;
 
     /**
     * Create Url Poll.

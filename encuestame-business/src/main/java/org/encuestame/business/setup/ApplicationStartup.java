@@ -12,7 +12,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 15, 2011
  */
-public class ApplicationStartup implements Startup, InitializingBean {
+public class ApplicationStartup {
 
     public ApplicationStartup() {
         System.out.println("**********************ApplicationStartup*************************************");
@@ -39,12 +39,19 @@ public class ApplicationStartup implements Startup, InitializingBean {
     }
 
     public void startProcess() {
-        // TODO Auto-generated method stub
+        log.debug("*******************************");
+        log.debug("*                             *");
+        log.debug("*         STARTUP 1111           *");
+        log.debug("*                             *");
+        log.debug("*******************************");
 
     }
 
     public void afterPropertiesSet() throws Exception {
-        // TODO Auto-generated method stub
-
+        log.debug("*******************************");
+        log.debug("*                             *");
+        log.debug("*         SHUTHDOWN   222222        *");
+        log.debug("*                             *");
+        log.debug("*******************************");
     }
 }

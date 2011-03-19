@@ -18,7 +18,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class TestSearchService extends AbstractServiceBase {
      */
     @Test
     public void testcreatePoll() throws Exception{
-        final UnitQuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
+        final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final UnitPoll unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
         assertNotNull(unitPoll);

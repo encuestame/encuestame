@@ -28,7 +28,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UserAccountBean;
 
@@ -52,13 +52,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public UnitQuestionBean createUnitQuestionBean(
+    public QuestionBean createUnitQuestionBean(
             final String questionName,
             final Long stateId,
             final Long userId,
             final List listAnswers,
             final UnitPatternBean pattern){
-         final UnitQuestionBean question = new UnitQuestionBean();
+         final QuestionBean question = new QuestionBean();
          question.setQuestionName(questionName);
          question.setStateId(stateId);
          question.setUserId(userId);
@@ -138,7 +138,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final Date scheduleDate,
              final String tweetUrl,
              final Long userId,
-             final UnitQuestionBean questionBean,
+             final QuestionBean questionBean,
              final String userTwitterAccount
 
              ){
@@ -174,7 +174,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final Boolean publishPoll,
              final String tweetUrl,
              final Long userId,
-             final UnitQuestionBean questionBean,
+             final QuestionBean questionBean,
              final String userTwitterAccount
 
              ){
@@ -246,14 +246,14 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @return
       */
      @SuppressWarnings("unchecked")
-     public UnitQuestionBean createUnitQuestion(
+     public QuestionBean createUnitQuestion(
              final Long questionId,
              final String questionName,
              final Long stateId,
              final Long userId,
              final List listAnswers,
              final UnitPatternBean pattern){
-          final UnitQuestionBean question = new UnitQuestionBean();
+          final QuestionBean question = new QuestionBean();
           question.setId(questionId);
           question.setQuestionName(questionName);
           question.setStateId(stateId);

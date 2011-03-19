@@ -24,7 +24,7 @@ import org.apache.commons.collections.ListUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.HashTagBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -71,7 +71,7 @@ public class HashTagsJsonService extends AbstractJsonController{
                     jsonResponse.put("hashtags", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
                 } else {
-                    final List<UnitHashTag> hashTags = getTweetPollService().listSuggestHashTags(keyword, limit);
+                    final List<HashTagBean> hashTags = getTweetPollService().listSuggestHashTags(keyword, limit);
                     log.debug("List Hash Tags "+hashTags.size());
                     setItemReadStoreResponse("hashTagName", "id", hashTags);
                 }

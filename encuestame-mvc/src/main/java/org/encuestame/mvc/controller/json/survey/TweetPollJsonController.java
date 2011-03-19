@@ -32,8 +32,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
-import org.encuestame.utils.web.UnitHashTag;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -132,7 +132,7 @@ public class TweetPollJsonController extends AbstractJsonController {
         log.debug("user " +user.getUsername());
         if (user != null) {
             // set user id to question bean.
-            final UnitQuestionBean questionBean = new UnitQuestionBean();
+            final QuestionBean questionBean = new QuestionBean();
             questionBean.setQuestionName(question);
             questionBean.setUserId(user.getUid());
             log.debug("questionBean.name() " +questionBean.getQuestionName());
@@ -151,7 +151,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 //Setting Hash Tags
                 hashtags = hashtags == null ?  new String[0] : hashtags;
                 for (int row = 0; row < hashtags.length; row++) {
-                    final UnitHashTag hashTag = new UnitHashTag();
+                    final HashTagBean hashTag = new HashTagBean();
                     hashTag.setHashTagName(answers[row].toLowerCase().trim());
                     tweetPoll.getHashTags().add(hashTag);
                 }

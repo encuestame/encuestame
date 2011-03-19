@@ -158,7 +158,7 @@ dojo.extend(dojox.data.QueryReadStore, {
     _filterResponse: function(data){
         data = data.success;
         return data;
-    },
+    }
 });
 /**
  * Suggested Item.

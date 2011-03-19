@@ -24,6 +24,17 @@
         <property name="password" value="${datasource.pass}" />
     </bean>
 
+    <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${datasource.classname}"/>
+        <property name="url" value="${datasource.urldb}"/>
+        <property name="username" value="${datasource.userbd}"/>
+        <property name="password" value="${datasource.pass}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="jdbcDataSource"/>
+    </bean>
+
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
