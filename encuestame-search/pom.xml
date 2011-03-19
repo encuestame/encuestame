@@ -125,13 +125,25 @@
            <groupId>org.apache.poi</groupId>
            <artifactId>poi</artifactId>
         </dependency>
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi-ooxml</artifactId>
+        <dependency>
+     	   <groupId>org.apache.poi</groupId>
+     	   <artifactId>poi-ooxml</artifactId>
         </dependency>
         <dependency>
             <groupId>pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
         </dependency>
-    </dependencies>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+   	    <artifactId>lucene-highlighter</artifactId>
+       </dependency> 
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+   	    <artifactId>lucene-fast-vector-highlighter</artifactId>
+       </dependency>
+       <dependency>
+	   <groupId>org.apache.lucene</groupId>
+           <artifactId>lucene-spellchecker</artifactId>
+       </dependency>
+    </dependencies> 
 </project>
