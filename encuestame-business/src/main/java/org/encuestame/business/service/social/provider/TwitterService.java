@@ -87,12 +87,33 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
         //Twitter twitter = new TwitterFactory().getInstance();
         log.debug("publicTweet Before  Token  {"+socialTwitterAccount.getToken());
         log.debug("publicTweet Before Secret Token  {"+socialTwitterAccount.getSecretToken());
-        final AccessToken accessToken = this.createNewOAuthAccessToken(socialTwitterAccount);
-        log.debug("Access Token "+accessToken);
-        final Twitter twitter = this.getOAuthAuthorizedInstance(socialTwitterAccount, accessToken);
+        final Twitter twitter = this.getTwitterInsstance(socialTwitterAccount);
         log.debug("Verify  "+twitter.verifyCredentials());
         log.debug("Update Status "+tweet);
         return twitter.updateStatus(tweet);
+    }
+
+    /**
+     *
+     * @param socialTwitterAccount
+     * @return
+     */
+    public Twitter getTwitterInsstance(final SocialAccount socialTwitterAccount){
+        final AccessToken accessToken = this.createNewOAuthAccessToken(socialTwitterAccount);
+        log.debug("Access Token "+accessToken);
+        return this.getOAuthAuthorizedInstance(socialTwitterAccount, accessToken);
+    }
+
+    /**
+     * Verify Credentials.
+     * @param socialAccount
+     * @return
+     */
+    public Boolean verifyCredentials(final SocialAccount socialAccount){
+        final Twitter twitter = this.getTwitterInsstance(socialAccount);
+        final Boolean confirmed = twitter.isOAuthEnabled();
+        log.debug("Twitter Account "+socialAccount.getSocialAccountName()+ " is confirmed? "+confirmed);
+        return confirmed;
     }
 
     /**

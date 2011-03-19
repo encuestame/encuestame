@@ -32,7 +32,7 @@ import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +67,8 @@ public class TestSurveyService  extends AbstractServiceBase{
 
     private List<UnitAnswersBean> answers;
 
-    /** {@link UnitQuestionBean} **/
-    private UnitQuestionBean questionBean;
+    /** {@link QuestionBean} **/
+    private QuestionBean questionBean;
 
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
@@ -100,7 +100,7 @@ public class TestSurveyService  extends AbstractServiceBase{
      */
     @Test
     public void testloadAllQuestions() throws EnMeExpcetion{
-        final List<UnitQuestionBean> alist = surveyService.loadAllQuestions();
+        final List<QuestionBean> alist = surveyService.loadAllQuestions();
         assertEquals("Should be equals", 1, alist.size());
     }
 
@@ -218,7 +218,7 @@ public class TestSurveyService  extends AbstractServiceBase{
      */
     @Test
     public void testSuggestionQuestionList() throws EnMeNoResultsFoundException{
-         List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
+         List<QuestionBean> unitQuestionBean = new ArrayList<QuestionBean>();
         final String keyword = "sky";
         flushIndexes();
         unitQuestionBean = surveyService.listSuggestQuestion(keyword, this.userSecondary.getUsername());

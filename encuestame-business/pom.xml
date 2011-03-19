@@ -36,6 +36,17 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+              <directory>src/main/resources/</directory>
+              <includes>
+                <include>spring-test/*.*</include>
+                <include>org/**/*.*</include>
+                <include>properties-test/*.*</include>
+              </includes>
+              <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
     <dependencies>
      <dependency>
@@ -91,10 +102,6 @@
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

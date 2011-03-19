@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.business.service.SecurityService.Profile;
-import org.encuestame.business.service.imp.ISecurityService;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -64,7 +64,7 @@ public class SettingsJsonController extends AbstractJsonController{
         log.debug("update profile type:"+type);
         log.debug("update profile data:"+data);
         try {
-            final ISecurityService security = getSecurityService();
+            final SecurityOperations security = getSecurityService();
             final ValidateOperations operations = new ValidateOperations(security);
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter data
@@ -131,7 +131,7 @@ public class SettingsJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-            final ISecurityService security = getSecurityService();
+            final SecurityOperations security = getSecurityService();
             final UserAccount account = getUserAccount();
             final ValidateOperations operations = new ValidateOperations(security);
             final HashMap<String, Object> listError = new HashMap<String, Object>();

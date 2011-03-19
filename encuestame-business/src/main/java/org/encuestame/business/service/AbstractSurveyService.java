@@ -41,9 +41,9 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.UnitAnswersBean;
-import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
@@ -61,9 +61,6 @@ import twitter4j.http.RequestToken;
  */
 @Service
 public class AbstractSurveyService extends AbstractChartService {
-
-    /** Twitter Service. **/
-    private ITwitterService twitterService;
 
     /** AnswerPoll Path. **/
     private String answerPollPath;
@@ -86,10 +83,10 @@ public class AbstractSurveyService extends AbstractChartService {
 
     /**
      * Create Question.
-     * @param questionBean {@link UnitQuestionBean}.
+     * @param questionBean {@link QuestionBean}.
      * @throws EnMeExpcetion exception
      */
-    public Question createQuestion(final UnitQuestionBean questionBean) throws EnMeExpcetion{
+    public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
               final Question question = new Question();
             try{
 
@@ -128,7 +125,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return
      * @throws EnMeExpcetion exception.
      */
-    public HashTag createHashTag(final UnitHashTag unitHashTag) throws EnMeExpcetion{
+    public HashTag createHashTag(final HashTagBean unitHashTag) throws EnMeExpcetion{
         try{
             final HashTag tag = new HashTag();
             tag.setHashTag(unitHashTag.getHashTagName());
@@ -330,18 +327,18 @@ public class AbstractSurveyService extends AbstractChartService {
 
     /**
      * Load all questions.
-     * @return List of {@link UnitQuestionBean}
+     * @return List of {@link QuestionBean}
      * @throws EnMeExpcetion exception
      */
-    public List<UnitQuestionBean> loadAllQuestions() throws EnMeExpcetion {
-        final List<UnitQuestionBean> listQuestionBean = new LinkedList<UnitQuestionBean>();
+    public List<QuestionBean> loadAllQuestions() throws EnMeExpcetion {
+        final List<QuestionBean> listQuestionBean = new LinkedList<QuestionBean>();
         try {
             final  List<Question> questionsList = getQuestionDao()
                     .loadAllQuestions();
             if (questionsList.size() > 0) {
 
                for (Question questions : questionsList) {
-                    final UnitQuestionBean q = new UnitQuestionBean();
+                    final QuestionBean q = new QuestionBean();
                     q.setId(Long.valueOf(questions.getQid().toString()));
                     q.setQuestionName(questions.getQuestion());
                     listQuestionBean.add(q);
@@ -449,26 +446,14 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return unitQuestionBean
      * @throws EnMeNoResultsFoundException
      */
-    public List<UnitQuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException{
-        final List<UnitQuestionBean> unitQuestionBean = new ArrayList<UnitQuestionBean>();
+    public List<QuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException{
+        final List<QuestionBean> unitQuestionBean = new ArrayList<QuestionBean>();
         final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
         log.info("listSuggestQuestion "+questionsList.size());
         for (Question question : questionsList) {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
         }
         return unitQuestionBean;
-    }
-
-    /**
-     * List Suggested Hash Tags.
-     * @param hashTagKeyWord
-     * @param maxResults
-     * @return
-     */
-    public List<UnitHashTag> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults){
-        final List<HashTag> tags = getHashTagDao().getListHashTagsByKeyword(hashTagKeyWord, maxResults);
-        log.debug("Hash Tag Suggested size "+tags.size());
-        return ConvertDomainBean.convertListHashTagsToBean(tags);
     }
 
     /**
@@ -486,7 +471,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param unitQuestionPoll
      * @throws EnMeExpcetion  Exception
      */
-     public void updateQuestion(final UnitQuestionBean unitQuestionPoll) throws EnMeExpcetion{
+     public void updateQuestion(final QuestionBean unitQuestionPoll) throws EnMeExpcetion{
          final Question question = getQuestionDao().retrieveQuestionById(unitQuestionPoll.getId());
          if (question == null){
              throw new EnMeExpcetion("question not found");
@@ -496,20 +481,6 @@ public class AbstractSurveyService extends AbstractChartService {
              getQuestionDao().saveOrUpdate(question);
          }
      }
-
-    /**
-     * @return the twitterService
-     */
-    public ITwitterService getTwitterService() {
-        return twitterService;
-    }
-
-    /**
-     * @param twitterService the twitterService to set
-     */
-    public void setTwitterService(final ITwitterService twitterService) {
-        this.twitterService = twitterService;
-    }
 
     /**
      * @return the answerPollPath

@@ -319,8 +319,9 @@ encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/a
 encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/add-permission.json";
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
-//TODO: replace twitter
-encuestame.service.list.twitterAccount = encuestame.contextWidget()+"/api/common/social/valid-accounts.json";
+//TODO: replace twitter encuestame.service.list.socialAccounts
+encuestame.service.list.socialAccounts = encuestame.contextWidget()+"/api/common/social/confirmed-accounts.json";
+encuestame.service.list.allSocialAccount = encuestame.contextWidget()+"/api/common/social/accounts.json";
 
 //tweetpoll service
 encuestame.service.list.publishTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/publish.json";
@@ -355,5 +356,10 @@ encuestame.service.social.twitter = {};
 encuestame.service.social.twitter.authorize = encuestame.contextWidget()+"/api/social/twitter/authorize/url.json";
 encuestame.service.social.twitter.confirm = encuestame.contextWidget()+"/api/social/twitter/authorize/confirm.json";
 encuestame.service.social.twitter.create = encuestame.contextWidget()+"/api/social/twitter/account/create.json";
+
+encuestame.service.social.twitter.defaultState = encuestame.contextWidget()+"/api/social/twitter/account/default.json";
+encuestame.service.social.twitter.remove = encuestame.contextWidget()+"/api/social/twitter/account/remove.json";
+encuestame.service.social.twitter.valid = encuestame.contextWidget()+"/api/social/twitter/account/valid.json";
+
 encuestame.service.social.facebook = {};
 encuestame.service.social.linkedIn = {};

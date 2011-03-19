@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:device="http://www.springframework.org/schema/mobile/device"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                        http://www.springframework.org/schema/mobile/device
+                        http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
+
+   <!-- Tiles Configuration -->
+   <import resource="encuestame-tiles-context.xml"/>
+
+   <!-- Define url mappings to web flow controller.  -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+       <property name="mappings">
+         <value>
+           /signup=flowController
+         </value>
+       </property>
+       <property name="defaultHandler" ref="urlFilenameViewController"/>
+       <property name="interceptors">
+        <list>
+             <ref bean="enMeInterceptor"/>
+             <ref bean="openSessionInViewInterceptor"/>
+             <ref bean="setupInterceptor"/>
+        </list>
+    </property>
+       <property name="order" value="1"/>
+    </bean>
+
+  <!-- Maps request paths to @Controller classes;
+       e.g. a path of /signup looks for a controller named SignUpController -->
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="3" />
+        <property name="defaultHandler">
+            <ref bean="urlFilenameViewController"></ref>
+        </property>
+    </bean>
+
+    <!-- Configures File Upload -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- the maximum file size in bytes = 10MB -->
+        <property name="maxUploadSize" value="10485760" />
+    </bean>
+
+    <!-- Resolvers -->
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+         <property name="order" value="0"/>
+    </bean>
+
+  <!--
+  This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver
+  <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="order" value="3"/>
+      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+      <property name="prefix" value="/WEB-INF/jsp/"/>
+      <property name="suffix" value=".jsp"/>
+  </bean>
+  -->
+
+  <!-- Controller Views -->
+  <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+
+  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+    <property name="flowExecutor" ref="flowExecutor"/>
+  </bean>
+
+  <!-- Dispatches requests mapped to
+    org.springframework.web.servlet.mvc.Controller implementations
+    required to render urlFilenameViewController.
+    -->
+  <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+
+  <!--
+    Dispatches requests mapped to flows to FlowHandler implementations
+   <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+    <property name="flowExecutor" ref="flowExecutor" />
+  </bean>
+  -->
+
+    <!-- Maps request paths to flows in the flowRegistry;
+        e.g. a path of /hotels/booking looks for a flow with id "hotels/booking"
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry"/>
+        <property name="order" value="1"/>
+    </bean>
+     -->
+
+    <!-- Create Cookie Default Locale
+
+    <bean id="localeResolver"
+           class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+           <property name="cookieName" value="locale" />
+           <property name="cookieMaxAge" value="30" />
+           <property name="defaultLocale" value="en" />
+    </bean>
+-->
+
+
+  <!--
+    - This bean resolves specific types of exceptions to corresponding
+    logical - view names for error views. The default behaviour of
+    DispatcherServlet - is to propagate all exceptions to the servlet
+    container: this will happen - here with all other types of exceptions.
+    http://forum.springsource.org/showthread.php?t=36960
+  <bean
+    class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    <property name="exceptionMappings">
+      <props>
+        <prop key="org.springframework.dao.DataAccessException">errorController</prop>
+        <prop key="org.springframework.transaction.TransactionException">errorController</prop>
+        <prop key="org.springframework.web.util.NestedServletException">errorController</prop>
+        <prop key="java.lang.Exception">errorController</prop>
+      </props>
+    </property>
+  </bean>
+  -->
+
+    <!--
+     http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/view.html
+    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+       <property name="order" value="3"/>
+       <property name="basename" value="views"/>
+    </bean>
+    -->
+
+</beans>

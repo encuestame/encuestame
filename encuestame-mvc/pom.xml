@@ -74,10 +74,6 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
@@ -381,6 +377,22 @@
           <groupId>org.springframework.mobile</groupId>
          <artifactId>spring-mobile-device</artifactId>
       </dependency>
+      <!-- Commet API -->
+      <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>bayeux-api</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-server</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-annotations</artifactId>
+            <version>2.1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -407,19 +419,20 @@
                 </executions>
             </plugin>
         </plugins>
-        <testResources>
+<!--         <testResources>
             <testResource>
                 <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/config</directory>
             </testResource>
             <testResource>
                 <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/classes</directory>
             </testResource>
-        </testResources>
+        </testResources> -->
         <resources>
             <resource>
               <directory>src/main/resources/</directory>
               <includes>
-                <include>*.*</include>
+                <include>spring-test/*.*</include>
+                <include>properties-test/*.*</include>
               </includes>
               <filtering>true</filtering>
             </resource>

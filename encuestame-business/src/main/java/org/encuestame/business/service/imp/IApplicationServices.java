@@ -12,7 +12,7 @@
  */
 package org.encuestame.business.service.imp;
 
-import org.encuestame.core.service.IService;
+import org.encuestame.core.service.ServiceOperations;
 
 /**
  * Interface to Application Bean Service.
@@ -20,20 +20,20 @@ import org.encuestame.core.service.IService;
  * @since 11/05/2009 14:35:21
  * @version $Id$
  */
-public interface IApplicationServices  extends IService {
+public interface IApplicationServices  extends ServiceOperations {
 
 
     /**
      * Getter.
-     * @return {@link ISecurityService}
+     * @return {@link SecurityOperations}
      */
-    public ISecurityService getSecurityService();
+    public SecurityOperations getSecurityService();
 
     /**
      * Setter.
-     * @param securityService {@link ISecurityService}
+     * @param securityService {@link SecurityOperations}
      */
-    public void setSecurityService(ISecurityService securityService);
+    public void setSecurityService(SecurityOperations securityService);
 
     /**
      * @return the surveyService

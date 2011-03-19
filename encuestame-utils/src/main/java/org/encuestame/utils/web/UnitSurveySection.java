@@ -29,7 +29,7 @@ public class UnitSurveySection{
     private Integer id;
     private String name;
     private Integer stateId;
-    private List<UnitQuestionBean> listQuestions = new ArrayList<UnitQuestionBean>();
+    private List<QuestionBean> listQuestions = new ArrayList<QuestionBean>();
     private Boolean showPanel = false;
 
     public UnitSurveySection() {}
@@ -89,14 +89,14 @@ public class UnitSurveySection{
     /**
      * @return the listQuestions
      */
-    public List<UnitQuestionBean> getListQuestions() {
+    public List<QuestionBean> getListQuestions() {
         return listQuestions;
     }
 
     /**
      * @param listQuestions the listQuestions to set
      */
-    public void setListQuestions(List<UnitQuestionBean> listQuestions) {
+    public void setListQuestions(List<QuestionBean> listQuestions) {
         this.listQuestions = listQuestions;
     }
 

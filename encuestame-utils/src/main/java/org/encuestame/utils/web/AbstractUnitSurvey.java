@@ -31,19 +31,19 @@ public abstract class AbstractUnitSurvey implements Serializable{
 
 
     /** List of HashTags. **/
-    private List<UnitHashTag> hashTags = new ArrayList<UnitHashTag>();
+    private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
 
     /**
      * @return the hashTags
      */
-    public final List<UnitHashTag> getHashTags() {
+    public final List<HashTagBean> getHashTags() {
         return hashTags;
     }
 
     /**
      * @param hashTags the hashTags to set
      */
-    public final void setHashTags(List<UnitHashTag> hashTags) {
+    public final void setHashTags(List<HashTagBean> hashTags) {
         this.hashTags = hashTags;
     }
 }

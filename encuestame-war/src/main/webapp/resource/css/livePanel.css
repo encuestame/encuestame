@@ -110,5 +110,9 @@ div.counter{
     cursor: pointer;
 }
 
+div.notificationWrapper div.new{
+    color: red !important;
+}
+
 div.counter:hover{
 }

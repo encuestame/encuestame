@@ -21,6 +21,6 @@ import org.springframework.stereotype.Service;
  * @version $Id:$
  */
 @Service
-public abstract class AbstractChartService extends AbstractBaseService {
+public abstract class AbstractChartService extends AbstractIndexService {
 
 }

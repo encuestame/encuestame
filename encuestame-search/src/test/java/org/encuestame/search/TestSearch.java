@@ -15,26 +15,31 @@ package org.encuestame.search;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.lucene.analysis.StopAnalyzer;
+import junit.framework.TestCase;
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.SimpleAnalyzer;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocCollector;
 import org.apache.lucene.search.TopDocs;
-
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
+import org.apache.lucene.search.highlight.TokenSources;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-
 import org.apache.lucene.util.Version;
-
-
-import junit.framework.TestCase;
+import org.encuestame.search.main.TestUtil;
 
 /**
  * Test Service Search.
@@ -50,9 +55,13 @@ public class TestSearch extends TestCase {
     public void testSearcher() throws CorruptIndexException, IOException, ParseException{
 
         Directory directory = FSDirectory.open(new File(indexDir));
-        IndexReader reader = IndexReader.open(indexDir);
-        IndexSearcher searcher = new IndexSearcher(reader);
+
+        //IndexReader reader = IndexReader.open(indexDir);
+        //IndexSearcher searcher = new IndexSearcher(reader);
+        IndexSearcher searcher = null;
+
         QueryParser parser = new QueryParser(Version.LUCENE_29, "content",
+
                     new StandardAnalyzer(Version.LUCENE_29));
         Query query = parser.parse(this.queryString); // Parse Qu
         TopDocs hits = searcher.search(query, 10); // Search Index
@@ -66,6 +75,29 @@ public class TestSearch extends TestCase {
                 System.out.println(doc.getField("fullpath").stringValue());
             }
             searcher.close(); // Close IndexSearcher.
-            System.out.println("Total number of docs "+reader.maxDoc());
+            //System.out.println("Total number of docs "+reader.maxDoc());
         }
+    /**
+     *
+     * @throws IOException
+     * @throws InvalidTokenOffsetsException
+     */
+    public void testHits() throws IOException, InvalidTokenOffsetsException  {
+        IndexSearcher searcher = new IndexSearcher(TestUtil.getBookIndexDirectory(), true);
+        TermQuery query = new TermQuery(new Term("title", "action"));
+        TopDocs hits = searcher.search(query, 10);
+        QueryScorer scorer = new QueryScorer(query, "title");
+        Highlighter highlighter = new Highlighter(scorer);
+        highlighter.setTextFragmenter(
+                new SimpleSpanFragmenter(scorer));
+        Analyzer analyzer = new SimpleAnalyzer();
+        for (ScoreDoc sd : hits.scoreDocs) {
+                Document doc = searcher.doc(sd.doc);
+                String title = doc.get("title");
+                TokenStream stream = TokenSources.getAnyTokenStream(searcher.getIndexReader(),
+                        sd.doc, "title", doc, analyzer);
+                String fragment = highlighter.getBestFragment(stream, title);
+                System.out.println(fragment);
+            }
+}
 }

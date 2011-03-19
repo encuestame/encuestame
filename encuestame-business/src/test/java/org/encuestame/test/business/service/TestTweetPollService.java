@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -36,7 +37,7 @@ import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitQuestionBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
@@ -73,8 +74,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
 
-    /** {@link UnitQuestionBean} **/
-    private UnitQuestionBean questionBean;
+    /** {@link QuestionBean} **/
+    private QuestionBean questionBean;
 
     /** List {@link UnitAnswersBean}. **/
     private List<UnitAnswersBean> answersSaveTweet;
@@ -128,7 +129,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     createQuestionAnswer("yes", question, "12345");
     createQuestionAnswer("no", question, "12346");
     final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
-    final UnitQuestionBean questionBean = new UnitQuestionBean();
+    final QuestionBean questionBean = new QuestionBean();
     questionBean.setId(question.getQid());
     tweetPollBean.setQuestionBean(questionBean);
     tweetPollBean.setPublishPoll(true);
@@ -234,7 +235,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     @Test
     public void testPublicMultiplesTweetAccounts(){
             createDefaultSettedTwitterAccount(this.userAccount.getAccount());
-            final List<SocialAccount> list = getAccountDao().getTwitterAccountByUser(this.userAccount.getAccount());
+            final List<SocialAccount> list = getAccountDao().getTwitterAccountByUser(this.userAccount.getAccount(), SocialProvider.TWITTER);
             final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);

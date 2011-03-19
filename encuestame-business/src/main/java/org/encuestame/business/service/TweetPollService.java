@@ -39,7 +39,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitFolder;
-import org.encuestame.utils.web.UnitHashTag;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
@@ -233,7 +233,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
             //Save Hash Tags for this tweetPoll.
             log.debug("HashTag Size"+tweetPollBean.getHashTags().size());
-            for (UnitHashTag unitHashTag : tweetPollBean.getHashTags()) {
+            for (HashTagBean unitHashTag : tweetPollBean.getHashTags()) {
                 HashTag hashTag = getHashTagDao().getHashTagByName(unitHashTag.getHashTagName().toLowerCase());
                 //If is null, create new hashTag.
                 if(hashTag == null){

@@ -14,7 +14,7 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        delay: 1000,
+        delay: 20000,
 
         limit: 8,
 
@@ -26,14 +26,19 @@ dojo.declare(
 
         timer: null,
 
+        _updateNotifications : false,
+
         openNot : false,
 
         postCreate: function() {
-            this.loadStatus();
-            this.loadTimer();
+            dojo.addOnLoad(dojo.hitch(this, function(){
+                this.loadStatus();
+                this.loadTimer();
+            }));
+            dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
         },
 
-        /**
+        /*
          * Load Timer.
          */
         loadTimer : function(){
@@ -72,19 +77,54 @@ dojo.declare(
         },
 
         /*
+         * Update label status.
+         * @param totalNew
+         * @param lastNew
+         */
+        _updateStatus : function(totalNew, lastNew){
+            var total = parseInt(totalNew);
+            var totalNew = parseInt(lastNew);
+            if (totalNew > this.lastNew) {
+               //highligth new notifications.
+                this._displayNewHighlight();
+            } else if (totalNew == this.lastNew) {
+                this._displayNewHighlight();
+            } else {
+                this._hideNewHighlight();
+            }
+            this.lastNew = totalNew;
+            this.totalNot = total;
+            this._count.innerHTML = total;
+        },
+
+        /*
+         *
+         */
+        _displayNewHighlight : function(){
+            dojo.addClass(this._count, "new");
+        },
+
+        _hideNewHighlight : function(){
+            dojo.removeClass(this._count, "new");
+        },
+
+        /*
          * load notifications
          */
         loadStatus : function() {
-            var load = dojo.hitch(this, function(data){
-                var total = data.success.t;
-                var totalNew = data.success.n;
-                this.lastNew = totalNew;
-                this._count.innerHTML = data.success.t;
-            });
-            var error =  dojo.hitch(this, function(error) {
-                this.timer.stop();
-            });
-            encuestame.service.xhrGet(encuestame.service.list.getStatusNotifications, {}, load, error);
+//            var load = dojo.hitch(this, function(data){
+//                var total = data.success.t;
+//                var totalNew = data.success.n;
+//                this.lastNew = totalNew;
+//                this._count.innerHTML = data.success.t;
+//            });
+//            var error =  dojo.hitch(this, function(error) {
+//                this.timer.stop();
+//            });
+            // Publish on a service channel since the message is for
+            // the server only
+            cometd.publish('/service/notification/status', {});
+            //encuestame.service.xhrGet(encuestame.service.list.getStatusNotifications, {}, load, error);
         },
 
         // load notifications
