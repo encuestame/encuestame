@@ -11,13 +11,13 @@ public interface InstallerOperations {
     /**
      * Start database installations.
      */
-    public void startInstall();
+    void executeSql(String sql);
 
 
     /**
      * Execute sql
      */
-    public void executeInitialData();
+    void executeInitialData();
 
     /**
      *

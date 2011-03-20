@@ -26,7 +26,7 @@
 
     <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${datasource.classname}"/>
-        <property name="url" value="${datasource.urldb}"/>
+        <property name="url" value="jdbc:postgresql://localhost/test"/>
         <property name="username" value="${datasource.userbd}"/>
         <property name="password" value="${datasource.pass}"/>
     </bean>
