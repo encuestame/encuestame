@@ -1636,6 +1636,5 @@
 	    <version>1.4</version>
 	</dependency>
       </dependencies>
-     </dependencies>
     </dependencyManagement>
 </project>

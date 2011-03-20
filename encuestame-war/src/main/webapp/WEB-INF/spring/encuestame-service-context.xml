@@ -195,4 +195,7 @@
     </bean>
     -->
 
+    <bean id="install" class="org.encuestame.business.setup.install.InstallDatabase"/>
+
+
 </beans>
