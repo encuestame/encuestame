@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
-public class InstallDatabase implements InstallDatabaseOperations{
+public class DatabaseInstall implements InstallDatabaseOperations{
 
-    private static Log log = LogFactory.getLog(InstallDatabase.class);
+    private static Log log = LogFactory.getLog(DatabaseInstall.class);
 
     private String databaseType = null;
 
@@ -28,7 +28,10 @@ public class InstallDatabase implements InstallDatabaseOperations{
     @Autowired
     private InstallerOperations installerOperations;
 
-
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.setup.install.InstallDatabaseOperations#install()
+     */
     public void install(){
         log.debug("install.............");
         final String tables = this.buildTableScript(this.TABLES);
@@ -83,5 +86,10 @@ public class InstallDatabase implements InstallDatabaseOperations{
      */
     public void setInstallerOperations(InstallerOperations installerOperations) {
         this.installerOperations = installerOperations;
+    }
+
+    public void upgrade(int version) {
+        // TODO Auto-generated method stub
+
     }
 }

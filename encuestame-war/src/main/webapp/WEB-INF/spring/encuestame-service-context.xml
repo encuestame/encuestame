@@ -195,7 +195,8 @@
     </bean>
     -->
 
-    <bean id="install" class="org.encuestame.business.setup.install.InstallDatabase"/>
-
+    <!-- Startup Support -->
+    <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall" scope="singleton"/>
+    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup" scope="singleton"/>
 
 </beans>
