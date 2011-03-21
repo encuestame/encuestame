@@ -195,6 +195,7 @@
     </bean>
     -->
 
-    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"/>
+    <bean id="install" class="org.encuestame.business.setup.install.InstallDatabase"/>
+
 
 </beans>
