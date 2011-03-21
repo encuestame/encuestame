@@ -90,8 +90,8 @@
                 <prop key="hibernate.dialect">${datasource.dialect}</prop>
                 <prop key="hibernate.show_sql">${datasource.showsql}</prop>
                 <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
-                <prop key="hibernate.search.default.directory_provider">${datasource.hibernate.search.provider}</prop>
-                <prop key="hibernate.search.default.indexBase">${datasource.hibernate.search.store.path}</prop>
+                <prop key="hibernate.search.default.directory_provider">${hibernate.search.provider}</prop>
+                <prop key="hibernate.search.default.indexBase">${dir.data.index.hibernate.search.store.path}</prop>
             </props>
         </property>
     </bean>
