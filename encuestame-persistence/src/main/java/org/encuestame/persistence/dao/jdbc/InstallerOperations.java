@@ -20,9 +20,10 @@ public interface InstallerOperations {
     void executeInitialData();
 
     /**
+     * @return
      *
      */
-    public void checkDatabaseConection();
+    public int checkDatabaseConection();
 
     /**
      *

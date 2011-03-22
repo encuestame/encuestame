@@ -8,15 +8,25 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.object.BatchSqlUpdate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Installer database jdbc support.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Mar 21, 2011
+ */
 @Repository("installerDao")
 public class InstallerDao extends JdbcDaoSupport implements InstallerOperations {
 
     private static Log log = LogFactory.getLog(InstallerDao.class);
 
+    /**
+     * Constructor.
+     * @param jdbcTemplate {@link JdbcTemplate}.
+     */
     @Autowired
     public InstallerDao(JdbcTemplate jdbcTemplate) {
         setJdbcTemplate(jdbcTemplate);
     }
+
 
     public void executeSql(String sql) {
         try{
@@ -30,9 +40,8 @@ public class InstallerDao extends JdbcDaoSupport implements InstallerOperations 
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.jdbc.InstallerOperations#checkDatabaseConection()
      */
-    public void checkDatabaseConection() {
-        getJdbcTemplate().execute("select 1");
-        //BatchSqlUpdate d = new BatchSqlUpdate(getDataSource(), "");
+    public int checkDatabaseConection() {
+        return getJdbcTemplate().queryForInt("select 1");
     }
 
     /*
