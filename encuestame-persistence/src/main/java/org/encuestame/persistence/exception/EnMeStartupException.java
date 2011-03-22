@@ -22,6 +22,14 @@ public class EnMeStartupException extends EnMeExpcetion {
     }
 
     /**
+     * Exception.
+     * @param cause cause
+     */
+    public EnMeStartupException(final Throwable cause) {
+        super(cause);
+    }
+
+    /**
      *
      * @param message
      */

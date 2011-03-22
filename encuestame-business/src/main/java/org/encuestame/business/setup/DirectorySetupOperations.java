@@ -4,13 +4,11 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
-import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**
  * Directory Operations.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 20, 2011
  */
@@ -18,45 +16,45 @@ public class DirectorySetupOperations {
 
     protected static Logger log = Logger
             .getLogger(DirectorySetupOperations.class);
-    private final static String DEFAULT_ROOT_FOLDER = "encuestameXY";
+    /** Default root directory name. */
+    private final static String DEFAULT_ROOT_FOLDER = "encuestame";
+    /** Default picture directory name. **/
     private final static String PICTURES_DEFAULT_FOLDER = "pictures";
+    /** Default profiles directory name. **/
     private final static String PROFILES_DEFAULT_FOLDER = "profiles";
+    /** Default indexes directory name. **/
     private final static String INDEXES_DEFAULT_FOLDER = "indexes";
 
     /**
-     *
+     * Constructor.
      */
-    public DirectorySetupOperations() {
-    }
+    public DirectorySetupOperations() {}
 
     /**
-     * Check If Exist Root Directory.
-     *
-     * @return
-     * @throws EnmeFailOperation
+     * Check if ROOT directory exist, by default is not created.
+     * @return if the directoy exist or not.
+     * @throws EnmeFailOperation exception if exist issues on create directory.
      */
     public static boolean checkIfExistRootDirectory() throws EnmeFailOperation {
-        final File rootDir = new File(
-                DirectorySetupOperations.getRootDirectory());
-        log.debug("root directory " + rootDir);
-        DirectorySetupOperations.checkIfStructureDirectoryExist(rootDir,
+        final File rootDir = new File(DirectorySetupOperations.getRootDirectory());
+        log.debug("EnMe: Root directory: " + rootDir);
+        DirectorySetupOperations.validateInternalStructureDirectory(rootDir,
                 Boolean.TRUE);
         return rootDir.exists();
     }
 
     /**
-     *
-     * @param createIfNotExist
-     * @return
-     * @throws EnmeFailOperation
+     * Check if profiles directory exist, by default is not created.
+     * @param createIfNotExist true to create if not exist.
+     * @return if the directoy exist or not.
+     * @throws EnmeFailOperation exception if exist issues on create directory.
      */
-    public static boolean checkIfExistProfilesDirectory(boolean createIfNotExist)
+    public static boolean checkIfProfilesDirectoryExist(boolean createIfNotExist)
             throws EnmeFailOperation {
         final File rootDir = new File(
                 DirectorySetupOperations.getProfilesDirectory());
-        log.debug("profile directory " + rootDir);
-        if (createIfNotExist) {
-            boolean indexes = rootDir.mkdir();
+        if (createIfNotExist  && !rootDir.exists()) {
+            boolean indexes = rootDir.mkdirs();
             if (!indexes) {
                 log.error("Encuestame Directory, not able to create picture folder");
                 throw new EnmeFailOperation(
@@ -67,18 +65,17 @@ public class DirectorySetupOperations {
     }
 
     /**
-     *
-     * @param createIfNotExist
-     * @return
-     * @throws EnmeFailOperation
+     * Check if pictures directory exist, by default is not created.
+     * @param createIfNotExist true to create if not exist.
+     * @return if the directoy exist or not.
+     * @throws EnmeFailOperation exception if exist issues on create directory.
      */
-    public static boolean checkIfExistPicturesDirectory(boolean createIfNotExist)
+    public static boolean checkIfPicturesDirectoryExist(boolean createIfNotExist)
             throws EnmeFailOperation {
         final File rootDir = new File(
                 DirectorySetupOperations.getPictureDirectory());
-        log.debug("picture directory " + rootDir);
-        if (createIfNotExist) {
-            boolean indexes = rootDir.mkdir();
+        if (createIfNotExist && !rootDir.exists()) {
+            boolean indexes = rootDir.mkdirs();
             if (!indexes) {
                 log.error("Encuestame Directory, not able to create picture folder");
                 throw new EnmeFailOperation(
@@ -89,39 +86,37 @@ public class DirectorySetupOperations {
     }
 
     /**
-     *
-     * @param createIfNotExist
-     * @return
-     * @throws EnmeFailOperation
+     * Check if indexed directory exist, by default is not created.
+     * @param createIfNotExist true to create if not exist.
+     * @return if the directoy exist or not.
+     * @throws EnmeFailOperation exception if exist issues on create directory.
      */
-    public static boolean checkIfExistIndexedDirectory(boolean createIfNotExist)
+    public static boolean checkIfIndexedDirectoryExist(boolean createIfNotExist)
             throws EnmeFailOperation {
-        final File rootDir = new File(
+        final File indexedDir = new File(
                 DirectorySetupOperations.getIndexesDirectory());
-        log.debug("indexes directory " + rootDir);
-        if (createIfNotExist) {
-            boolean indexes = rootDir.mkdir();
+        //if autocreate is enabled and directory not exist
+        if (createIfNotExist && !indexedDir.exists()) {
+            boolean indexes = indexedDir.mkdirs();
             if (!indexes) {
                 log.error("Encuestame Directory, not able to create index folder");
                 throw new EnmeFailOperation(
                         "EnMe: not able to create index folder");
             }
         }
-        return rootDir.exists();
+        return indexedDir.exists();
     }
 
     /**
-     * Get Root Folder.
-     *
-     * @return
+     * Get root directory path.
+     * @return real path of roor directory.
      */
-    private static String getRootDirectory() {
+    public static String getRootDirectory() {
         String root = EncuestamePlaceHolderConfigurer
                 .getProperty("dir.data.warehouse");
-        if (root == null) {
-            root = DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
+        if (root != null) {
+            root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
         }
-
         if (!root.endsWith("/")) {
             root = root + "/";
         }
@@ -130,11 +125,10 @@ public class DirectorySetupOperations {
     }
 
     /**
-     * Get picture directory path.
-     *
-     * @return
+     * Get picture directory real path.
+     * @return picture path.
      */
-    private static String getPictureDirectory() {
+    public static String getPictureDirectory() {
         String picture = EncuestamePlaceHolderConfigurer
                 .getProperty("dir.data.picture");
         if (picture == null) {
@@ -149,10 +143,9 @@ public class DirectorySetupOperations {
 
     /**
      * Get profile directory path.
-     *
-     * @return
+     * @return real path of directory path.
      */
-    private static String getProfilesDirectory() {
+    public static String getProfilesDirectory() {
         String profiles = EncuestamePlaceHolderConfigurer
                 .getProperty("dir.data.profiles");
         if (profiles == null) {
@@ -165,11 +158,10 @@ public class DirectorySetupOperations {
     }
 
     /**
-     * Get indexes directory.
-     *
-     * @return
+     * Get indexes directory path.
+     * @return indexed real path.
      */
-    private static String getIndexesDirectory() {
+    public static String getIndexesDirectory() {
         String index = EncuestamePlaceHolderConfigurer
                 .getProperty("dir.data.index");
         if (index == null) {
@@ -183,8 +175,7 @@ public class DirectorySetupOperations {
     }
 
     /**
-     * Create root folder and required
-     *
+     * Create root folder and required.
      * @throws EnmeFailOperation
      *             exception on try to create directory.
      */
@@ -194,7 +185,7 @@ public class DirectorySetupOperations {
         boolean success = rootFolder.mkdirs();
         log.info("created root folder");
         if (success && rootFolder.canWrite() && rootFolder.isDirectory()) {
-            DirectorySetupOperations.checkIfStructureDirectoryExist(rootFolder,
+            DirectorySetupOperations.validateInternalStructureDirectory(rootFolder,
                     true);
         } else {
             throw new EnmeFailOperation("EnMe: not able to create ROOT folder");
@@ -203,27 +194,22 @@ public class DirectorySetupOperations {
 
     /**
      * Create required directory structure.
-     *
-     * @param rootFolder
+     * @param rootFolder {@link File} reference or root directory.
      * @throws EnMeStartupException
      */
-    private static void checkIfStructureDirectoryExist(final File rootFolder,
+    private static void validateInternalStructureDirectory(final File rootFolder,
             final boolean createIfNoExist) throws EnmeFailOperation {
-        if (rootFolder.exists() && rootFolder.isDirectory()) {
             if (!DirectorySetupOperations
-                    .checkIfExistIndexedDirectory(createIfNoExist)) {
+                    .checkIfIndexedDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }
             if (!DirectorySetupOperations
-                    .checkIfExistProfilesDirectory(createIfNoExist)) {
+                    .checkIfProfilesDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }
             if (!DirectorySetupOperations
-                    .checkIfExistPicturesDirectory(createIfNoExist)) {
+                    .checkIfPicturesDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }
-        } else {
-            throw new EnmeFailOperation("EnMe: Root directory not found");
-        }
     }
 }

@@ -88,14 +88,16 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
      * @param username
      *            username return {@link UserDetails}
      */
-    public UserDetails loadUserByUsername(final String username)
-            throws UsernameNotFoundException, DataAccessException {
-        //log.debug("username "+username);
+    public UserDetails loadUserByUsername(final String username){
+        log.debug("loggin with username: {"+username+"}");
+        log.debug("loggin with user dao instance: {"+this.accountDao+"}");
         final UserAccount user = this.accountDao.getUserByUsername(username);
+        log.debug("fetch username: {"+user+"}");
         if (user == null) {
-            //log.error("user not found");
+            log.error("user not found");
             throw new UsernameNotFoundException("user not found");
         } else {
+            log.debug("Loggin with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
             this.updateLoggedInfo(user);
             return SecurityUtils.convertUserAccount(user, this.roleUserAuth);
         }
@@ -108,7 +110,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     private void updateLoggedInfo(final UserAccount secUserSecondary){
         final Calendar calendar = Calendar.getInstance();
         secUserSecondary.setLastTimeLogged(calendar.getTime());
-        //log.debug("Updating logged time "+calendar.getTime());
+        log.debug("Updating logged time: "+calendar.getTime());
         accountDao.saveOrUpdate(secUserSecondary);
     }
 }

@@ -56,7 +56,7 @@ public class EnMeContext extends ContextLoaderListener implements
             startup.startProcess();
         } catch (EnMeStartupException e) {
            log.fatal("EnMe: Error on stat encuestame context");
-           return;
+           throw new IllegalStateException("EnMe: Error on stat encuestame context : "+e.getMessage());
         }
 
         //log.debug("******************************* "+install);

@@ -3,25 +3,22 @@ package org.encuestame.business.setup;
 
 import org.encuestame.persistence.exception.EnMeStartupException;
 
-
+/**
+ * Implementation for start up process.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Mar 22, 2011
+ */
 public interface StartupProcess {
 
+    /**
+     *  Start up initialize process/
+     * @throws EnMeStartupException if exist some error.
+     */
     void startProcess() throws EnMeStartupException;
 
-    boolean checkDatabase();
-
-    boolean checkDatabaseVersion();
-
-    boolean upgradeDatabase(int version);
-
-    boolean checkStoreDirectyIfExist();
-
-    boolean checkRequiredDataExist();
-
-    void notifyStartupByEmail();
-
+    /**
+     * Display version after succesfull start up.
+     */
     void displayVersionOnStartup();
-
-    void installDatabase();
 
 }
