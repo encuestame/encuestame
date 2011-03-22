@@ -39,6 +39,7 @@ public class DateUtil {
 
     public static final String DEFAULT_FORMAT_TIME = "hh:mm:ss";
 
+    public static final String DEFAULT_FORMAT_ALL = "yyyy-MM-dd hh:mm:ss";
 
     /**
      * Get Format Date.
@@ -46,11 +47,22 @@ public class DateUtil {
      * @return
      */
     public static String getFormatDate(final Date date){
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
-
-       return simpleDateFormat.format(date);
+       return DateUtil.getFormatDate(date, DEFAULT_FORMAT_DATE);
     }
 
+    /**
+     * Return current formate date, minutes and date.
+     * @return current formate date.
+     */
+    public static String getCurrentFormatedDate(){
+        return DateUtil.getFormatDate(new Date(), DateUtil.DEFAULT_FORMAT_ALL);
+     }
+
+
+    public static String getFormatDate(final Date date, final String format){
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
+     }
 
     /**
      * Get Seconds Between Dates.

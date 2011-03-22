@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.mail.MailService;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
@@ -79,11 +80,9 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         this.templateMessage = templateMessage;
     }
 
-    /**
-     * Send a email.
-     * @param to email to send
-     * @param subject subject
-     * @param text text of body
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.mail.MailService#send(java.lang.String, java.lang.String, java.lang.String)
      */
     public void send(
             final String to,
@@ -202,6 +201,29 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         };
         send(preparator);
      }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.mail.MailService#sendStartUpNotification(java.lang.String)
+     */
+    public void sendStartUpNotification(
+            final String startupMessage){
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+               message.setTo(EncuestamePlaceHolderConfigurer
+                       .getProperty("setup.email.notification.webmaster"));
+               message.setSubject("Start Up Notification");
+               message.setFrom(noEmailResponse);
+               Map model = new HashMap();
+               model.put("message", startupMessage);
+               String text = VelocityEngineUtils.mergeTemplateIntoString(
+                  velocityEngine, "/org/encuestame/business/mail/templates/startup.vm", model);
+               message.setText(text, true);
+            }
+         };
+         send(preparator);
+    }
 
     /**
      * Send Password Confirmation Email.

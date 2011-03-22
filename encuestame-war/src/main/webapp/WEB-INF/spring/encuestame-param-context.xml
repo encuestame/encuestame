@@ -11,7 +11,6 @@
     <property name="locations">
         <list>
           <value>classpath:/org/encuestame/business/config/encuestame-config.properties</value>
-          <value>classpath:lucene.index.properties</value>
           <value>classpath:email-config.properties</value>
           <value>classpath:encuestame-config-custom.properties</value>
         </list>

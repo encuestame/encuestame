@@ -53,6 +53,5 @@ public class EnMeExpcetion extends Exception{
      */
     public EnMeExpcetion(final Throwable cause) {
         super(cause);
-
     }
 }

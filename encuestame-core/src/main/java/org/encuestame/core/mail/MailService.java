@@ -49,8 +49,23 @@ public interface MailService extends ServiceOperations {
      */
     void sendRenewPasswordEmail(final UserAccountBean unitUserBean);
 
+    /**
+     *
+     * @param invitation
+     */
     void sendEmailInvitation(final InvitationBean invitation);
 
+    /**
+     *
+     * @param notification
+     */
     void sendEmailNotification(final NotificationBean notification);
+
+    /**
+     * Send start up email notification.
+     * @param startupMessage message
+     */
+    void sendStartUpNotification(
+            final String startupMessage);
 
 }

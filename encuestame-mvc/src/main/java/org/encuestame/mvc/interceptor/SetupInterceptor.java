@@ -1,15 +1,11 @@
 
 package org.encuestame.mvc.interceptor;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.IApplicationServices;
-import org.encuestame.business.setup.ApplicationStartup;
-import org.encuestame.business.setup.Startup;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.encuestame.business.setup.StartupProcess;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +15,7 @@ public class SetupInterceptor implements HandlerInterceptor {
     protected Logger log = Logger.getLogger(this.getClass());
 
     //@Autowired
-    public Startup startup;
+    public StartupProcess startup;
 
     @Override
     public void afterCompletion(HttpServletRequest arg0,
@@ -48,14 +44,14 @@ public class SetupInterceptor implements HandlerInterceptor {
     /**
      * @return the startup
      */
-    public Startup getStartup() {
+    public StartupProcess getStartup() {
         return startup;
     }
 
     /**
      * @param startup the startup to set
      */
-    public void setStartup(Startup startup) {
+    public void setStartup(StartupProcess startup) {
         this.startup = startup;
     }
 

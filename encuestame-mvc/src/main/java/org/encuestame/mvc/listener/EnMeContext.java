@@ -5,8 +5,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
+import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
-import org.encuestame.persistence.dao.jdbc.InstallerOperations;
+import org.encuestame.persistence.exception.EnMeStartupException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -49,11 +50,17 @@ public class EnMeContext extends ContextLoaderListener implements
         log.debug("*         CONTEXT             *");
         log.debug("*        "+ctx+"              *");
         log.debug("*******************************");
-        log.debug("Testing get Bean Service "+ctx.getBean("installerDao"));
         log.debug("Security Context "+SecurityContextHolder.getContext());
-        final InstallDatabaseOperations install = (InstallDatabaseOperations) ctx.getBean("install");
-        log.debug("******************************* "+install);
-        install.install();
+        final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
+        try {
+            startup.startProcess();
+        } catch (EnMeStartupException e) {
+           log.fatal("EnMe: Error on stat encuestame context");
+           throw new IllegalStateException("EnMe: Error on stat encuestame context : "+e.getMessage());
+        }
+
+        //log.debug("******************************* "+install);
+        //install.install();
         log.debug("*******************************");
     }
 
