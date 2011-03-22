@@ -29,30 +29,6 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     @Autowired
     private InstallerOperations installerOperations;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.business.setup.install.InstallDatabaseOperations#install()
-     */
-    public void install() {
-        log.debug("install.............");
-        final String tables = this.buildTableScript(this.TABLES);
-        try {
-            final String[] scripts = this.getScripts(tables);
-            log.debug("scripts size ... " + scripts.length);
-            for (int i = 0; i < scripts.length; i++) {
-                final String script = scripts[i];
-                log.debug("script to execute ... " + script);
-                installerOperations.executeSql(script);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.fatal(e);
-        }
-
-    }
-
     /**
      *
      * @param scriptFilePath
@@ -60,6 +36,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @throws IOException
      */
     private String[] getScripts(final String scriptFilePath) throws IOException {
+        log.debug("scriptFilePath "+scriptFilePath);
         return SqlScriptParser.readScript(scriptFilePath);
     }
 
@@ -70,6 +47,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @return
      */
     private String buildTableScript(final String typeScript) {
+        log.debug("Database Type"+this.databaseType.name());
         final StringBuilder builder = new StringBuilder(this.SQLPATH);
         builder.append(this.databaseType.name().toLowerCase());
         builder.append("/install/");
@@ -100,8 +78,35 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * installDatabase()
      */
     public void installDatabase() {
-        // TODO Auto-generated method stub
+        try {
+          // First step: Install Tables
+          log.info("Creating tables...");
+          this.installScript(this.buildTableScript(this.TABLES));
+          // Second step: Install Alters
+          log.info("Creating alter table...");
+          this.installScript(this.buildTableScript(this.ALTER));
+          // Four step: Install Required Data
+          log.info("Creating table index...");
+          this.installScript(this.buildTableScript(this.INDEX));
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.fatal("Error con create database "+e);
+        }
+    }
 
+    /**
+     *
+     * @param sqlLocation
+     * @throws IOException
+     */
+    private void installScript(final String sqlLocation) throws IOException{
+        final String[] scripts = this.getScripts(sqlLocation);
+        log.debug("scripts size ... " + scripts.length);
+        for (int i = 0; i < scripts.length; i++) {
+            final String script = scripts[i];
+            log.debug("script to execute ... " + script);
+            installerOperations.executeSql(script);
+        }
     }
 
     /*
@@ -111,8 +116,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * upgradeDatabase(int)
      */
     public void upgradeDatabase(int version) {
-        // TODO Auto-generated method stub
-
+        //TODO: ENCUESTAME-134
     }
 
     /*
@@ -123,8 +127,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * ()
      */
     public boolean checkDatabase() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.installerOperations.checkIfDatabaseIsInstalled();
     }
 
     /*
@@ -134,8 +137,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * checkDatabaseVersion()
      */
     public int checkDatabaseVersion() {
-        // TODO Auto-generated method stub
-        return 0;
+        //TODO: ENCUESTAME-135
+        return 1;
     }
 
     /*
@@ -145,7 +148,6 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * checkRequiredDataExist()
      */
     public boolean checkRequiredDataExist() {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -157,18 +159,22 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     public void initializeDatabase(final TypeDatabase installDatabase)
             throws EnmeFailOperation {
+        setDatabaseType(installDatabase);
         log.debug("Check Database Conection..");
         // verify database connection.
         if (this.installerOperations.checkDatabaseConection() == 1) {
-            if (this.installerOperations.checkIfDatabaseIsInstalled()) {
+            if (this.checkDatabase()) {
                 //get current version of database.
+                log.debug("Database is installed ... checking version");
                 int currentVersion = this.checkDatabaseVersion();
                 //if current version is smaller, we need upgrde
                 if (getVersionDatabaseFromProperty() > currentVersion) {
                     //start database upgrade.
+                    log.info("EnMe : Upgrading database...");
                     this.upgradeDatabase(getVersionDatabaseFromProperty());
                 // if not, should be equals. Never less.
                 } else {
+                    //TODO:
                     log.info("EnMe : Database Already up-to-date");
                 }
             } else {
@@ -196,5 +202,12 @@ public class DatabaseInstall implements InstallDatabaseOperations {
                     "encuestame.database.version").intValue();
         }
         return version;
+    }
+
+    /**
+     * @param databaseType the databaseType to set
+     */
+    public void setDatabaseType(TypeDatabase databaseType) {
+        this.databaseType = databaseType;
     }
 }
