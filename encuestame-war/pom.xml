@@ -137,7 +137,7 @@
                  <systemProperties>
                       <systemProperty>
                          <name>encuestame.custom.config</name>
-                         <value>${project.basedir}/src/main/resources/encuestame-config-custom.properties</value>
+                         <value>${encuestame.local.properties}</value>
                      </systemProperty>
                   </systemProperties>
                     <connectors>
