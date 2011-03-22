@@ -256,6 +256,7 @@
                 </property>
             </activation>
             <properties>
+		<encuestame.local.properties>${user.home}/encuestame-config-custom.properties</encuestame.local.properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>true</surefire.failures.ignore>
                 <app.proxypass>false</app.proxypass>
@@ -317,6 +318,7 @@
                 </property>
             </activation>
             <properties>
+ 		<encuestame.local.properties>${user.home}/encuestame-config-custom.properties</encuestame.local.properties>	        
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>false</surefire.failures.ignore>
                 <app.proxypass>true</app.proxypass>
@@ -439,6 +441,7 @@
                 </property>
             </activation>
             <properties>
+		<encuestame.local.properties>${user.home}/encuestame-config-custom.properties</encuestame.local.properties>
                 <encuestame.logs.path>logs</encuestame.logs.path>
                 <surefire.failures.ignore>true</surefire.failures.ignore>
                 <app.proxypass>false</app.proxypass>
@@ -493,6 +496,6 @@
         </profile>
     </profiles>
     <activeProfiles>
-        <activeProfile>default</activeProfile>
+        <activeProfile>postgres</activeProfile>
     </activeProfiles>
 </profilesXml>
