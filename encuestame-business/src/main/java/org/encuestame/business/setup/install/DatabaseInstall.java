@@ -25,6 +25,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     private final String INDEX = "index.sql";
     private final String ALTER = "alter.sql";
     private final String TABLES = "tables.sql";
+    private final String INSTALL = "install.sql";
+    private final String DEMO = "demo.sql";
 
     @Autowired
     private InstallerOperations installerOperations;
@@ -82,12 +84,20 @@ public class DatabaseInstall implements InstallDatabaseOperations {
           // First step: Install Tables
           log.info("Creating tables...");
           this.installScript(this.buildTableScript(this.TABLES));
-          // Second step: Install Alters
+          // Second step: Install Alter,
           log.info("Creating alter table...");
           this.installScript(this.buildTableScript(this.ALTER));
-          // Four step: Install Required Data
+          // Third step: Install Required Data.
           log.info("Creating table index...");
           this.installScript(this.buildTableScript(this.INDEX));
+          // Fourth step: install required data.
+          this.installScript(this.buildTableScript(this.INSTALL));
+          // Six step : demo data if is enabled.
+          if(EncuestamePlaceHolderConfigurer
+                                .getBooleanProperty("setup.installation.demo").booleanValue()){
+             this.installScript(this.buildTableScript(this.DEMO));
+          }
+
         } catch (IOException e) {
             e.printStackTrace();
             log.fatal("Error con create database "+e);
