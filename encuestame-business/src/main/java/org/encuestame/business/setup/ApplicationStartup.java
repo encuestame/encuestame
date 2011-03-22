@@ -10,7 +10,6 @@ import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.vendor.Database;
 
 /**
  * Manages encuestame application startup.
@@ -85,7 +84,9 @@ public class ApplicationStartup implements StartupProcess {
             }
             // check database
             if (install != null) {
-                install.initializeDatabase(TypeDatabase.POSTGRES);
+                install.initializeDatabase(TypeDatabase
+                        .getTypeDatabaseByString(EncuestamePlaceHolderConfigurer
+                                .getProperty("datasource.database")));
             } else {
                 log.fatal("Install operations is not available");
                 throw new EnmeFailOperation(
@@ -117,13 +118,17 @@ public class ApplicationStartup implements StartupProcess {
     }
 
     /**
-     * @param install
-     *            the install to set
+     * Set {@link InstallDatabaseOperations}.
+     * @param install the install to set
      */
     public void setInstall(final InstallDatabaseOperations install) {
         this.install = install;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.setup.StartupProcess#displayVersionOnStartup()
+     */
     public void displayVersionOnStartup() {
         // TODO Auto-generated method stub
     }
