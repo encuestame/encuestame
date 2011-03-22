@@ -94,4 +94,27 @@ public class EncuestamePlaceHolderConfigurer extends PropertyPlaceholderConfigur
     public static String getProperty(final String name) {
         return propertiesMap.get(name);
     }
+
+    /**
+     * Get boolean property.
+     * @param property
+     * @return
+     */
+    public static Boolean getBooleanProperty(final String property){
+        String value = EncuestamePlaceHolderConfigurer.getProperty(property);
+        if(value == null){
+            value = "false";
+        }
+        return new Boolean(value);
+    }
+
+    /**
+     * Get integer property.
+     * @param property
+     * @return
+     */
+    public static Integer getIntegerProperty(final String property){
+        String value = EncuestamePlaceHolderConfigurer.getProperty(property);
+        return new Integer(value);
+    }
 }

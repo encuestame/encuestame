@@ -1,0 +1,8 @@
+<html>
+<body>
+    <h3>Encuestame: Start Up Notification </h3>
+    <div>
+        ${message}
+    </div>
+</body>
+</html>
