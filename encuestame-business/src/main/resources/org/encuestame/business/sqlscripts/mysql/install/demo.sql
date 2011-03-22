@@ -11,8 +11,8 @@ INSERT INTO `account` (`uid`, `twitter_consumer_key`, `twitter_consumer_secret`,
 -- Username: demo
 -- Password: 12345
 -- Email: encuestamedemo@gmail.com
-INSERT INTO `userAccount` (`uid`, `name`, `date_new`, `invite_code`, `password`, `email`, `status`, `twitter`, `username`, `account_uid`, `last_ip_logged`, `last_time_logged`) VALUES
-(1, 'Demo User', '2010-01-20 12:47:40', '', '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', 'encuestamedemo@gmail.com', ' ', NULL, 'demo', 1, NULL, '2010-09-26 10:07:25');
+INSERT INTO `userAccount` (`uid`, `name`, `date_new`, `invite_code`, `password`, `email`, `twitter`, `username`, `account_uid`, `last_ip_logged`, `last_time_logged`) VALUES
+(1, 'Demo User', '2010-01-20 12:47:40', '', '6xAX8siGWDJXfkJUVxWLqsk0rz8U+aG6Y8yA1IokxuhEIZ8+RugleJtLUYbdGxc+', 'encuestamedemo@gmail.com', NULL, 'demo', 1, NULL, '2010-09-26 10:07:25');
 
 
 -- Default Permissions
