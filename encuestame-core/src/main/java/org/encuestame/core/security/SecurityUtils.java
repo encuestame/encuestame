@@ -54,6 +54,7 @@ public class SecurityUtils {
         // sec permissions
         if (roleUserAuth) {
             authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
+            log.debug("EnMeUserDetails: Authorities size :"+authorities.size());
         }
 
          //creating user details
@@ -71,10 +72,9 @@ public class SecurityUtils {
          );
          userDetails.setAccountNonExpired(true);
          userDetails.setAccountNonLocked(true);
-         //log.debug("user details "+userDetails.getPassword());
-         //log.debug("user details "+userDetails.getPassword());
-         //log.debug("user details "+userDetails.getAuthorities());
-         //log.debug("user details "+userDetails.getUserEmail());
+         log.debug("EnMeUserDetails : user password "+userDetails.getPassword());
+         log.debug("EnMeUserDetails : user authorities "+userDetails.getAuthorities());
+         log.debug("EnMeUserDetails : user email "+userDetails.getUserEmail());
          return userDetails;
     }
 
