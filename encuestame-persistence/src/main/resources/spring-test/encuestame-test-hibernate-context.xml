@@ -16,6 +16,17 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+     <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${datasource.classname}"/>
+        <property name="url" value="${datasource.urldb}"/>
+        <property name="username" value="${datasource.userbd}"/>
+        <property name="password" value="${datasource.pass}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="jdbcDataSource"/>
+    </bean>
+
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${datasource.classname}" />
