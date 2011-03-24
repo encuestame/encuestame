@@ -72,8 +72,7 @@ public class ReIndexAttachmentsJob {
             log.debug("Initialize Index Starting...");
             this.indexerManager.initializeIndex();
         } catch (Exception e) {
-            log.fatal("Error al indexar "+e);
-            e.printStackTrace();
+            log.fatal("Index on reindex: "+e);
         }
     }
 }

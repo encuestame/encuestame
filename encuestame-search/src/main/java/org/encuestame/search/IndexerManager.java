@@ -107,12 +107,19 @@ public class IndexerManager {
     public int index(final File dataDir) throws Exception {
         log.debug("Index file is directory: " + dataDir.isDirectory());
         File[] files = dataDir.listFiles();
-        for (File f : files) {
-            if (!f.isDirectory() && !f.isHidden() && f.exists() && f.canRead()) {
-                indexFile(f); // Write documents in Index
+        int numberDocs = 0;
+        if ( files == null) {
+            log.info("No files in the directory ");
+        } else {
+            numberDocs = this.indexWriter.numDocs();
+            log.debug("List of files in the directory :"+numberDocs);
+            for (File f : files) {
+                if (!f.isDirectory() && !f.isHidden() && f.exists() && f.canRead()) {
+                    indexFile(f); // Write documents in Index
+                }
             }
         }
-        return this.indexWriter.numDocs();
+        return numberDocs;
     }
 
 
