@@ -48,6 +48,15 @@
 
         <!-- Lucene Version -->
 	<lucene.version>3.0.3</lucene.version>
+	
+	<!-- Apache POI Version -->
+	<apache.poi.version>3.5-FINAL</apache.poi.version>
+	
+	<!-- Apache POI Scratchpad Version -->
+	<apache.poi.scratchpad.version>3.5-FINAL</apache.poi.scratchpad.version>
+
+	<!-- Apache POI Scratchpad Version -->
+	<apache.poi.ooxml.version>3.5-FINAL</apache.poi.ooxml.version>
 
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.9</twitter4j.version>
@@ -1525,6 +1534,21 @@
            <version>${lucene.version}</version>
            <scope>compile</scope>
         </dependency>
+  	<dependency>
+	   <groupId>org.apache.lucene</groupId>
+   	   <artifactId>lucene-highlighter</artifactId>
+  	   <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.lucene</groupId>
+    	   <artifactId>lucene-fast-vector-highlighter</artifactId>
+    	   <version>${lucene.version}</version>
+       </dependency>
+       <dependency>
+    	   <groupId>org.apache.lucene</groupId>
+    	   <artifactId>lucene-spellchecker</artifactId>
+    	   <version>${lucene.version}</version>
+      </dependency>
         <!-- Apache Tiles -->
         <dependency>
             <groupId>org.apache.tiles</groupId>
@@ -1547,17 +1571,17 @@
         <dependency>
     	   <groupId>org.apache.poi</groupId>
     	   <artifactId>poi-scratchpad</artifactId>
-    	   <version>3.0.1-FINAL</version>
+    	   <version>${apache.poi.scratchpad.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.7</version>
+            <version>${apache.poi.version}</version>
         </dependency>  
         <dependency>
            <groupId>org.apache.poi</groupId>
            <artifactId>poi-ooxml</artifactId>
-           <version>3.7</version>
+           <version>${apache.poi.ooxml.version}</version>
         </dependency> 
         <!-- PDF Box -->
         <dependency>
@@ -1569,23 +1593,7 @@
              <groupId>com.google.api.client</groupId>
              <artifactId>google-api-client</artifactId>
              <version>1.2.2-alpha</version>
-        </dependency>
-
-    <dependency>
-	 <groupId>org.apache.lucene</groupId>
-   	 <artifactId>lucene-highlighter</artifactId>
-  	 <version>2.9.3</version>
-     </dependency>
-     <dependency>
-    	<groupId>org.apache.lucene</groupId>
-    	<artifactId>lucene-fast-vector-highlighter</artifactId>
-    	<version>2.9.1</version>
-     </dependency>
-    <dependency>
-    	<groupId>org.apache.lucene</groupId>
-    	<artifactId>lucene-spellchecker</artifactId>
-    	<version>3.0.3</version>
-    </dependency>
+        </dependency>  
   	<!-- CommetD -->
         <dependency>
             <groupId>org.cometd.java</groupId>
