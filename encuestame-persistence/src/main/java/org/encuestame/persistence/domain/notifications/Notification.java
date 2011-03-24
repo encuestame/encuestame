@@ -30,6 +30,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Notifications domain.
@@ -40,6 +44,7 @@ import org.encuestame.persistence.domain.security.Account;
  */
 
 @Entity
+@Indexed(index="Notification")
 @Table(name = "notification")
 public class Notification {
 
@@ -69,14 +74,14 @@ public class Notification {
      * @param notificationId
      *            the notificationId to set
      */
-    public void setNotificationId(Long notificationId) {
+    public void setNotificationId(final Long notificationId) {
         this.notificationId = notificationId;
     }
 
     /**
      * @return the description
      */
-
+    @Field(index=Index.TOKENIZED, store=Store.NO)
     @Column(name = "description", nullable = false)
     @Enumerated(EnumType.STRING)
     public NotificationEnum getDescription() {
@@ -87,7 +92,7 @@ public class Notification {
      * @param description
      *            the description to set
      */
-    public void setDescription(NotificationEnum description) {
+    public void setDescription(final NotificationEnum description) {
         this.description = description;
     }
 
@@ -101,10 +106,9 @@ public class Notification {
     }
 
     /**
-     * @param secUser
-     *            the secUser to set
+     * @param account account
      */
-    public void setAccount(Account account) {
+    public void setAccount(final Account account) {
         this.account = account;
     }
 
@@ -120,7 +124,7 @@ public class Notification {
     /**
      * @param created the created to set
      */
-    public void setCreated(Date created) {
+    public void setCreated(final Date created) {
         this.created = created;
     }
 
@@ -134,15 +138,16 @@ public class Notification {
     }
 
     /**
-     * @param rearded the rearded to set
+     * @param readed the rearded to set
      */
-    public void setReaded(Boolean readed) {
+    public void setReaded(final Boolean readed) {
         this.readed = readed;
     }
 
     /**
      * @return the additionalDescription
      */
+    @Field(index=Index.TOKENIZED, store=Store.NO)
     @Column(name = "additional_description", nullable = false)
     public String getAdditionalDescription() {
         return additionalDescription;
@@ -151,7 +156,7 @@ public class Notification {
     /**
      * @param additionalDescription the additionalDescription to set
      */
-    public void setAdditionalDescription(String additionalDescription) {
+    public void setAdditionalDescription(final String additionalDescription) {
         this.additionalDescription = additionalDescription;
     }
 }

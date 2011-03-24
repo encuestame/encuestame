@@ -172,7 +172,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
         setDatabaseType(installDatabase);
         log.debug("Check Database Conection..");
         // verify database connection.
-        if (this.installerOperations.checkDatabaseConection() == 1) {
+        //if (this.installerOperations.checkDatabaseConection() == 1) {
+        if (Boolean.TRUE) {
             if (this.checkDatabase()) {
                 //get current version of database.
                 log.debug("Database is installed ... checking version");

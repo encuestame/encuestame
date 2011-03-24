@@ -1543,12 +1543,17 @@
            <groupId>org.apache.lucene</groupId>
     	   <artifactId>lucene-fast-vector-highlighter</artifactId>
     	   <version>${lucene.version}</version>
-       </dependency>
-       <dependency>
+        </dependency>
+        <dependency>
     	   <groupId>org.apache.lucene</groupId>
     	   <artifactId>lucene-spellchecker</artifactId>
     	   <version>${lucene.version}</version>
-      </dependency>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.lucene</groupId>
+           <artifactId>lucene-snowball</artifactId>
+           <version>${lucene.version}</version>
+        </dependency>
         <!-- Apache Tiles -->
         <dependency>
             <groupId>org.apache.tiles</groupId>

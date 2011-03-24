@@ -95,6 +95,10 @@
             <artifactId>hibernate-search</artifactId>
         </dependency>
         <dependency>
+           <groupId>org.apache.lucene</groupId>
+           <artifactId>lucene-snowball</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
         </dependency>

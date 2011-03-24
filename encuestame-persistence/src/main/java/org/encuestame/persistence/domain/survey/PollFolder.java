@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.AbstractFolder;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
 
 /**
  * Polls Folder.
@@ -30,6 +32,7 @@ import org.encuestame.persistence.domain.AbstractFolder;
  */
 @Entity
 @Table(name = "poll_folder")
+@Indexed(index="PollFolder")
 public class PollFolder extends AbstractFolder implements IFolder{
      private Long id;
 
@@ -37,6 +40,7 @@ public class PollFolder extends AbstractFolder implements IFolder{
      * @return the pollFolderId
      */
      @Id
+     @DocumentId
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name = "pollFolderId", unique = true, nullable = true)
     public Long getId() {
