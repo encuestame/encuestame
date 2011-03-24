@@ -41,6 +41,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.encuestame.search.main.TestUtil;
+import org.junit.Ignore;
 
 /**
  * Test Service Search.
@@ -49,6 +50,7 @@ import org.encuestame.search.main.TestUtil;
  * @since February 09, 2011
  * @version $Id: $
  */
+@Ignore
 public class TestSearch extends TestCase {
     final String queryString = "indexing";
     final String indexDir = "src/main/resources/Indexer2";
