@@ -12,12 +12,50 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.util.List;
+
+import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.search.IndexerManager;
+
 /**
  * Search Service Operations.
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since February 09, 2011
  */
-public interface SearchServiceOperations {
+public interface SearchServiceOperations extends ServiceOperations{
+
+
+    /**
+     * Quick search by keyword.
+     * @param keyword
+     * @return
+     */
+    List<GlobalSearchItem> quickSearch(final String  keyword);
+
+    /**
+     * Quick search based on language analyzer.
+     * @param keyword
+     * @param language
+     * @return
+     */
+    List<GlobalSearchItem> quickSearch(final String  keyword, final String language);
+
+    /**
+     *
+     * @param keyword
+     * @param language
+     * @return
+     */
+    List<GlobalSearchItem> globalKeywordSearch(final String  keyword, final String language);
+
+    /**
+     *
+     * @param keyword
+     * @return
+     */
+    List<GlobalSearchItem> globalKeywordSearch(final String  keyword);
+
 
 
 

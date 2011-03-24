@@ -73,18 +73,18 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     }
 
     /**
-     * Retrieve Indexes Question By Keyword
-     * @param keyword
-     * @param userId
-     * @return
+     * Retrieve Indexes Question By Keyword.
+     * @param keyword keyword to search
+     * @param userId user id
+     * @return results list of questions
      */
     @SuppressWarnings("unchecked")
     public List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
         log.info("keyword "+keyword);
         log.info("userId "+userId);
-        List<Question> searchResult = (List) getHibernateTemplate().execute(
+        @SuppressWarnings("rawtypes")
+        List<Question> searchResult = (List<Question>) getHibernateTemplate().execute(
                 new HibernateCallback() {
-                    @SuppressWarnings("deprecation")
                     public Object doInHibernate(org.hibernate.Session session) {
                         try {
                             final FullTextSession fullTextSession = Search.getFullTextSession(session);
