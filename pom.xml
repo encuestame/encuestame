@@ -48,6 +48,15 @@
 
         <!-- Lucene Version -->
 	<lucene.version>3.0.3</lucene.version>
+	
+	<!-- Apache POI Version -->
+	<apache.poi.version>3.5-FINAL</apache.poi.version>
+	
+	<!-- Apache POI Scratchpad Version -->
+	<apache.poi.scratchpad.version>3.5-FINAL</apache.poi.scratchpad.version>
+
+	<!-- Apache POI Scratchpad Version -->
+	<apache.poi.ooxml.version>3.5-FINAL</apache.poi.ooxml.version>
 
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.9</twitter4j.version>
@@ -1562,17 +1571,17 @@
         <dependency>
     	   <groupId>org.apache.poi</groupId>
     	   <artifactId>poi-scratchpad</artifactId>
-    	   <version>3.0.1-FINAL</version>
+    	   <version>${apache.poi.scratchpad.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.7</version>
+            <version>${apache.poi.version}</version>
         </dependency>  
         <dependency>
            <groupId>org.apache.poi</groupId>
            <artifactId>poi-ooxml</artifactId>
-           <version>3.7</version>
+           <version>${apache.poi.ooxml.version}</version>
         </dependency> 
         <!-- PDF Box -->
         <dependency>
