@@ -31,43 +31,44 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.util.Version;
-import org.encuestame.business.service.imp.ISearchService;
+import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.search.utils.Search;
 
 /**
  * Search Service.
+ *
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since February 09, 2011
  * @version $Id$
  */
-public class SearchService extends AbstractIndexService  implements ISearchService {
+public class SearchService extends AbstractIndexService implements
+        SearchServiceOperations {
 
     private Search search;
 
-    public void indexDocument(final String indexDirPath, final String indexDirStore) throws IOException{
+    public void indexDocument(final String indexDirPath,
+            final String indexDirStore) throws IOException {
         search.getIndexer(indexDirPath);
 
     }
 
-    public void searchContent(final String dirPath){
+    public void searchContent(final String dirPath) {
 
     }
 
-    public void IndexPoll(Poll poll, String path) throws IOException{
+    public void IndexPoll(Poll poll, String path) throws IOException {
 
     }
 
     /**************************************************************************/
 
-
-
-    public List<Poll> searchPolls(String searchString, String path, String fieldName,
-            int results) throws IOException, ParseException {
+    public List<Poll> searchPolls(String searchString, String path,
+            String fieldName, int results) throws IOException, ParseException {
         List<Poll> pollList = new ArrayList<Poll>();
-        //IndexReader reader = IndexReader.open(path, true);
-        //IndexReader reader = IndexReader.open(path);
-        //Searcher searcher = new IndexSearcher(reader);
+        // IndexReader reader = IndexReader.open(path, true);
+        // IndexReader reader = IndexReader.open(path);
+        // Searcher searcher = new IndexSearcher(reader);
         Searcher searcher = null;
         QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
                 new StandardAnalyzer(Version.LUCENE_29));
@@ -84,20 +85,20 @@ public class SearchService extends AbstractIndexService  implements ISearchServi
         return pollList;
     }
 
-
     public Map<String, Object> searchPollPaginateResults(String searchString,
             String path, String fieldName, int page, int results)
             throws IOException, ParseException {
         Map<String, Object> map = new HashMap<String, Object>();
         List<Poll> articles = new ArrayList<Poll>();
-        //Searcher searcher = new IndexSearcher(IndexReader.open(path));
-        //IndexReader reader = IndexReader.open(path);
-        //Searcher searcher = new IndexSearcher(reader);
+        // Searcher searcher = new IndexSearcher(IndexReader.open(path));
+        // IndexReader reader = IndexReader.open(path);
+        // Searcher searcher = new IndexSearcher(reader);
         Searcher searcher = null;
         QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
                 new StandardAnalyzer(Version.LUCENE_29));
         Query query = qp.parse(searchString);
-        TopScoreDocCollector collector = TopScoreDocCollector.create(page * results, true);
+        TopScoreDocCollector collector = TopScoreDocCollector.create(page
+                * results, true);
         searcher.search(query, collector);
         ScoreDoc[] docs = collector.topDocs().scoreDocs;
         map.put("resultados", collector.getTotalHits());
@@ -118,12 +119,11 @@ public class SearchService extends AbstractIndexService  implements ISearchServi
         return map;
     }
 
-
-    public List<Poll> searchArticle(String searchString, String path, String fieldName,
-            int results) throws IOException, ParseException {
+    public List<Poll> searchArticle(String searchString, String path,
+            String fieldName, int results) throws IOException, ParseException {
         List<Poll> articles = new ArrayList<Poll>();
-        //IndexReader reader = IndexReader.open(path);
-        //Searcher searcher = new IndexSearcher(reader);
+        // IndexReader reader = IndexReader.open(path);
+        // Searcher searcher = new IndexSearcher(reader);
         Searcher searcher = null;
         QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
                 new StandardAnalyzer(Version.LUCENE_29));
@@ -140,31 +140,32 @@ public class SearchService extends AbstractIndexService  implements ISearchServi
         return articles;
     }
 
-    public void searchArticleWithPagination(String path)
-        throws IOException, ParseException {
+    public void searchArticleWithPagination(String path) throws IOException,
+            ParseException {
         SearchService searcher = new SearchService();
-        Map<String, Object> map = searcher.searchPollPaginateResults("articulo", path, "POLLNAME", 1, 2);
+        Map<String, Object> map = searcher.searchPollPaginateResults(
+                "articulo", path, "POLLNAME", 1, 2);
         List<Poll> articles = (List<Poll>) map.get("articulos");
-        System.out.println("Búsqueda finalizada, resultados: " + articles.size() + " de " + map.get("resultados"));
+        System.out.println("Búsqueda finalizada, resultados: "
+                + articles.size() + " de " + map.get("resultados"));
         for (Poll articlePoll : articles) {
-        System.out.println("ID " + articlePoll.getPollId());
-        System.out.println("NAME POLL " + articlePoll.getName());
+            System.out.println("ID " + articlePoll.getPollId());
+            System.out.println("NAME POLL " + articlePoll.getName());
         }
     }
-
 
     private Document generateDocumentFromPoll(Poll poll) {
         Document doc = new Document();
         doc.add(new Field("ID", String.valueOf(poll.getPollId()),
                 Field.Store.YES, Field.Index.NO));
-        doc.add(new Field("POLLNAME", poll.getName(),
-                Field.Store.YES, Field.Index.ANALYZED));
+        doc.add(new Field("POLLNAME", poll.getName(), Field.Store.YES,
+                Field.Index.ANALYZED));
         return doc;
     }
 
     public void indexPoll(Poll poll, String path) throws IOException {
         IndexWriter writer = search.getIndexer(path);
-         try {
+        try {
             Document doc = generateDocumentFromPoll(poll);
             writer.addDocument(doc);
             writer.commit();
@@ -173,6 +174,5 @@ public class SearchService extends AbstractIndexService  implements ISearchServi
             writer.close();
         }
     }
-
 
 }
