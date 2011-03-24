@@ -33,7 +33,6 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.util.Version;
 import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.search.utils.Search;
 
 /**
  * Search Service.
@@ -45,12 +44,8 @@ import org.encuestame.search.utils.Search;
 public class SearchService extends AbstractIndexService implements
         SearchServiceOperations {
 
-    private Search search;
-
     public void indexDocument(final String indexDirPath,
             final String indexDirStore) throws IOException {
-        search.getIndexer(indexDirPath);
-
     }
 
     public void searchContent(final String dirPath) {
@@ -163,16 +158,5 @@ public class SearchService extends AbstractIndexService implements
         return doc;
     }
 
-    public void indexPoll(Poll poll, String path) throws IOException {
-        IndexWriter writer = search.getIndexer(path);
-        try {
-            Document doc = generateDocumentFromPoll(poll);
-            writer.addDocument(doc);
-            writer.commit();
-            writer.optimize();
-        } finally {
-            writer.close();
-        }
-    }
 
 }
