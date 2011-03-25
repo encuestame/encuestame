@@ -186,7 +186,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
+        //log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
         return props.getProperty(property);
     }
 

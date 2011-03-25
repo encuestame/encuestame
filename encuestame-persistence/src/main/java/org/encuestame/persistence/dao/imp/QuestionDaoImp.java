@@ -12,12 +12,14 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.util.Version;
+import org.apache.lucene.search.Query;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -28,9 +30,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.search.FullTextQuery;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
@@ -77,35 +76,37 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IQuestionDao#retrieveIndexQuestionsByKeyword(java.lang.String, java.lang.Long)
      */
-    @SuppressWarnings("unchecked")
     public final List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
-        log.info("keyword "+keyword);
-        log.info("userId "+userId);
+        return this.retrieveIndexQuestionsByKeyword(keyword, userId, new String[]{"question"}, new SimpleAnalyzer());
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveIndexQuestionsByKeyword(java.lang.String, java.lang.Long, java.lang.String[], org.apache.lucene.analysis.Analyzer)
+     */
+    @SuppressWarnings("unchecked")
+    public final List<Question> retrieveIndexQuestionsByKeyword(
+            final String keyword,
+                 final Long userId,
+                 final String[] fields,
+                 final Analyzer analyzer){
+        log.debug("keyword "+keyword);
+        log.debug("userId " + userId);
+        log.debug("fields " + fields);
         @SuppressWarnings("rawtypes")
-        List<Question> searchResult = (List<Question>) getHibernateTemplate().execute(
-                new HibernateCallback() {
-                    public Object doInHibernate(org.hibernate.Session session) {
-                        try {
-                            final FullTextSession fullTextSession = Search.getFullTextSession(session);
-                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
-                                    new String[]{"question"},
-                                    new SimpleAnalyzer());
-                            final org.apache.lucene.search.Query query = parser.parse(keyword);
-                            final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Question.class);
-                            final Criteria criteria = session.createCriteria(Question.class);
-                            criteria.createAlias("accountQuestion", "accountQuestion");
-                            criteria.add(Restrictions.eq("accountQuestion.uid", userId));
-                            hibernateQuery.setCriteriaQuery(criteria);
-                            final List<Question> result = hibernateQuery.list();
-                            log.info("result LUCENE "+result.size());
-                            return result;
-                        } catch (ParseException ex) {
-                            log.error("Index Search Erro "+ex.getMessage());
-                            return null;
-                        }
-                    }
-                });
-        return searchResult;
+        final List<Question> searchResult = (List<Question>) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(org.hibernate.Session session) {
+                List<Question> searchResult = new ArrayList<Question>();
+                final Criteria criteria = session.createCriteria(Question.class);
+                criteria.createAlias("accountQuestion", "accountQuestion");
+                criteria.add(Restrictions.eq("accountQuestion.uid", userId));
+                searchResult =  (List<Question>) fetchMultiFieldQueryParserFullText(keyword,
+                            new String[] { "question"}, Question.class,
+                            criteria, new SimpleAnalyzer());
+                return  searchResult;
+            }
+        });
+        return (List<Question>) searchResult;
     }
 
     /*

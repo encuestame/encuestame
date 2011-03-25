@@ -92,5 +92,7 @@ public class TestQuestionDao extends AbstractBase{
         log.debug("Lucene Index "+listOfQuestions.size());
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
 
+        //final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword(", userId, fields, analyzer)
+
     }
 }

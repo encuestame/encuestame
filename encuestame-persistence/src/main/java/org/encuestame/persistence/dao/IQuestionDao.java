@@ -14,6 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -93,4 +94,15 @@ public interface IQuestionDao extends IBaseDao {
      * @return
      */
     List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId);
+
+    /**
+     * Retrieve Indexes Question By Keyword.
+     * @param keyword
+     * @param userId
+     * @param fields
+     * @param analyzer
+     * @return
+     */
+    List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId, final String[] fields,
+                                                  final Analyzer analyzer);
 }
