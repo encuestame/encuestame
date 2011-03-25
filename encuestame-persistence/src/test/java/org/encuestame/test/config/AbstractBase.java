@@ -210,7 +210,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Flush Indexes.
      */
     public void flushIndexes(){
-        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate().getSessionFactory().getCurrentSession());
+        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate()
+                                                .getSessionFactory().getCurrentSession());
         fullTextSession.flushToIndexes();
     }
 

@@ -86,13 +86,32 @@ public class TestQuestionDao extends AbstractBase{
      */
     @Test
     public void testRetrieveIndexedQuestionsByName(){
+        //flush indexes
         flushIndexes();
+
+        //keyword: iPods
         final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods",
                              this.user.getUid());
         log.debug("Lucene Index "+listOfQuestions.size());
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
 
-        //final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword(", userId, fields, analyzer)
+        //keyword: i
+        final List<Question> startlistOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("i",
+                this.user.getUid());
+        log.debug("Lucene Index "+startlistOfQuestions.size());
+        assertEquals("Results should be equals", 3,  startlistOfQuestions.size());
+
+        //keyword: a
+        final List<Question> startlistOfQuestions2 = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("a",
+                this.user.getUid());
+        log.debug("Lucene Index "+startlistOfQuestions2.size());
+        assertEquals("Results should be equals", 2,  startlistOfQuestions2.size());
+
+        //keyword: 2010
+        final List<Question> startlistOfQuestions3 = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("2010",
+                this.user.getUid());
+        log.debug("Lucene Index "+startlistOfQuestions3.size());
+        assertEquals("Results should be equals", 1,  startlistOfQuestions3.size());
 
     }
 }

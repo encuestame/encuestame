@@ -20,7 +20,6 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
@@ -32,11 +31,9 @@ import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
 import org.encuestame.persistence.domain.question.Question;
 import org.hibernate.Criteria;
-import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -44,7 +41,6 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Abstract Base Dao Class extend Spring class {@link HibernateDaoSupport}
@@ -56,12 +52,20 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
 
      protected Log log = LogFactory.getLog(this.getClass());
 
+     /**
+      * Session.
+      */
      protected Session session = null;
 
      /**
       * Default lucene version.
       */
      protected Version version = Version.LUCENE_30;
+
+     /**
+      * Default value to similarity searchs.
+      */
+     protected final Float SIMILARITY_VALUE = 0.4f;
 
      /**
       * Save or Create entity.
@@ -165,12 +169,12 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
 
     /**
      * Fetch full text session by regular expresion.
-     * @param regExp
-     * @param field
-     * @param clazz
-     * @param criteria
-     * @param analyzer
-     * @return
+     * @param regExp regular expresion.
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @return list of results.
      */
     public List<?> fetchWildcardFullText(
             final String regExp,
@@ -190,7 +194,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param clazz class reference
      * @param criteria criteria referece
      * @param analyzer {@link Analyzer}.
-     * @return
+     * @return list of results.
      */
     public List<?> fetchPrefixQueryFullText(
             final String keyword,
@@ -204,10 +208,31 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     }
 
     /**
+     * Fetch fuzzy keywords as full text search.
+     * @param keyword keyword
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @return list of results.
+     */
+    public List<?> fetchFuzzyQueryFullText(
+            final String keyword,
+            final String field,
+            final Class<?> clazz,
+            final Criteria criteria,
+            final Analyzer analyzer,
+            final Float similarity) {
+        final FuzzyQuery query = new FuzzyQuery(new Term(field,
+                keyword), similarity);
+        log.debug("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
      * Abstract fetch full text session.
      * @param clazz class to search.
      * @param criteria {@link Criteria}
-     * @param fields fields to fetch
      * @param analyzer {@link Analyzer} reference
      * @param queryOperation {@link Query} reference
      * @return list of results.
@@ -232,9 +257,11 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                         return result;
                     }
                 });
-        for (Object object : searchResult) {
-            Question q = (Question) object;
-            log.debug("q->"+q.getQuestion());
+        if (log.isDebugEnabled()) {
+            for (Object object : searchResult) {
+                Question q = (Question) object;
+                log.debug("q->"+q.getQuestion());
+            }
         }
         return searchResult;
     }

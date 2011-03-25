@@ -13,8 +13,10 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -103,29 +105,43 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                 searchResult =  (List<Question>) fetchMultiFieldQueryParserFullText(keyword,
                             new String[] { "question"}, Question.class,
                             criteria, new SimpleAnalyzer());
+                        final List listAllSearch = new LinkedList();
+                        listAllSearch.addAll(searchResult);
 
-                        /*
-                         * Testing Zone. ENCUESTAME-137
-                         */
-                        List<Question> searchResult2 = (List<Question>) fetchPhraseFullText(
+                        //Fetch result by phrase
+                        final List<Question> phraseFullTestResult = (List<Question>) fetchPhraseFullText(
                                 keyword, "question", Question.class, criteria,
                                 new SimpleAnalyzer());
-                        log.debug("searchResult2 " + searchResult2.size());
+                        log.debug("phraseFullTestResult:{" + phraseFullTestResult.size());
+                        listAllSearch.addAll(phraseFullTestResult);
 
-                        List<Question> searchResult3 = (List<Question>) fetchWildcardFullText(
+                        //Fetch result by wildcard
+                        final List<Question> wildcardFullTextResult = (List<Question>) fetchWildcardFullText(
                                 keyword, "question", Question.class, criteria,
                                 new SimpleAnalyzer());
-                        log.debug("searchResult3 " + searchResult3.size());
-
-                        List<Question> searchResult4 = (List<Question>) fetchPrefixQueryFullText(
+                        log.debug("wildcardFullTextResult:{" + wildcardFullTextResult.size());
+                        listAllSearch.addAll(wildcardFullTextResult);
+                        //Fetch result by prefix
+                        final List<Question> prefixQueryFullTextResuslts = (List<Question>) fetchPrefixQueryFullText(
                                 keyword, "question", Question.class, criteria,
                                 new SimpleAnalyzer());
-                        log.debug("searchResult4 " + searchResult4.size());
-                        /*
-                         * Testing Zone.
-                         */
+                        log.debug("prefixQueryFullTextResuslts:{" + prefixQueryFullTextResuslts.size());
+                        listAllSearch.addAll(prefixQueryFullTextResuslts);
+                        //Fetch fuzzy results
+                        final List<Question> fuzzyQueryFullTextResults = (List<Question>) fetchFuzzyQueryFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer(), SIMILARITY_VALUE)
+                                ;
+                        log.debug("fuzzyQueryFullTextResults: {" + fuzzyQueryFullTextResults.size());
+                        listAllSearch.addAll(fuzzyQueryFullTextResults);
 
-                        return searchResult;
+                        log.debug("listAllSearch size:{" + listAllSearch.size());
+
+                        //removing duplcates
+                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet.decorate(new LinkedList());
+                        totalResultsWithoutDuplicates.addAll(listAllSearch);
+                        log.debug("totalResultsWithoutDuplicates:{" + totalResultsWithoutDuplicates.size());
+                        return totalResultsWithoutDuplicates.asList();
             }
         });
         return (List<Question>) searchResult;

@@ -31,6 +31,7 @@ import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.search.FullTextSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -87,6 +88,11 @@ public class IndexRebuilder {
      */
     public static void reindex(final FullTextSession fullTextSession, final Class<?>
     clazz) {
+            log.debug(clazz.getName() + " purge index ...");
+            //purge all index content.
+            fullTextSession.purgeAll(clazz);
+            fullTextSession.flushToIndexes();
+            fullTextSession.getSearchFactory().optimize(clazz);
             log.debug(clazz.getName() + " starting index ...");
             final long startTime = System.currentTimeMillis();
             fullTextSession.setFlushMode(FlushMode.MANUAL);
@@ -95,6 +101,7 @@ public class IndexRebuilder {
             //Scrollable results will avoid loading too many objects in memory
             final ScrollableResults results = fullTextSession.createCriteria(clazz)
                 .setFetchSize(100)
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .scroll(ScrollMode.FORWARD_ONLY);
             int index = 0;
             while(results.next()) {
@@ -106,6 +113,8 @@ public class IndexRebuilder {
                     fullTextSession.clear();
                 }
             }
+            fullTextSession.flushToIndexes();
+            fullTextSession.getSearchFactory().optimize(clazz);
             transaction.commit();
             log.debug(clazz.getName() + " Reindex end in "
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
