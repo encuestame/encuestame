@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPointFolderType;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
-import org.encuestame.persistence.domain.survey.TweetPoll;
-import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UnitAnswersBean;
 import org.encuestame.utils.web.UnitEmails;

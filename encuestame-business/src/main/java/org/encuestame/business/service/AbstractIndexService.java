@@ -7,7 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionBean;

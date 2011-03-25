@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.tweetpoll;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

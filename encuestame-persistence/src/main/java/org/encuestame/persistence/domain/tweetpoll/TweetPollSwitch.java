@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.tweetpoll;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 
 
 /**

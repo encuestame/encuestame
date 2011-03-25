@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.question;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.encuestame.persistence.domain.survey.Survey;
 import org.hibernate.search.annotations.Indexed;
 
 /**

@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 
 /**
  * Implementation for FrontEnd Dao.

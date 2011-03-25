@@ -27,7 +27,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.security.SocialAccountBean;

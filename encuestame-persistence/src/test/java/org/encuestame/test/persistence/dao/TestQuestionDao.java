@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;

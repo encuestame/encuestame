@@ -25,7 +25,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.Email;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;

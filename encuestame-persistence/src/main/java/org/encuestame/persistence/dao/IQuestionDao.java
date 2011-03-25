@@ -14,9 +14,9 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.hibernate.HibernateException;
 
  /**

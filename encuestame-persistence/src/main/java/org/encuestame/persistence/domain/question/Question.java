@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain;
+package org.encuestame.persistence.domain.question;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,9 +29,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.survey.QuestionColettion;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
