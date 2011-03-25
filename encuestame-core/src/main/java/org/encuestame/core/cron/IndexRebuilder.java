@@ -12,8 +12,6 @@
  */
 package org.encuestame.core.cron;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.HashTag;
@@ -64,27 +62,28 @@ public class IndexRebuilder {
     public void reindexEntities() throws Exception {
         log.debug("Starting domain reindex...");
         long start = System.currentTimeMillis();
-        final FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(getHibernateTemplate().getSessionFactory().openSession());
-        reindex(fullTextSession, Question.class);
-        reindex(fullTextSession, UserAccount.class);
-        reindex(fullTextSession, TweetPollSavedPublishedStatus.class);
-        reindex(fullTextSession, TweetPollFolder.class);
-        reindex(fullTextSession, SurveyFolder.class);
-        reindex(fullTextSession, PollFolder.class);
-        //reindex(fullTextSession, Project.class); //TODO: ENCUESTAME-145
-        reindex(fullTextSession, Notification.class);
-        reindex(fullTextSession, SocialAccount.class);
-        reindex(fullTextSession, TweetPollResult.class);
-        reindex(fullTextSession, HashTag.class);
+        final FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(
+                              getHibernateTemplate().getSessionFactory().openSession());
+        IndexRebuilder.reindex(fullTextSession, Question.class);
+        IndexRebuilder.reindex(fullTextSession, UserAccount.class);
+        IndexRebuilder.reindex(fullTextSession, TweetPollSavedPublishedStatus.class);
+        IndexRebuilder.reindex(fullTextSession, TweetPollFolder.class);
+        IndexRebuilder.reindex(fullTextSession, SurveyFolder.class);
+        IndexRebuilder.reindex(fullTextSession, PollFolder.class);
+        IndexRebuilder.reindex(fullTextSession, Project.class); //TODO: ENCUESTAME-145
+        IndexRebuilder.reindex(fullTextSession, Notification.class);
+        IndexRebuilder.reindex(fullTextSession, SocialAccount.class);
+        IndexRebuilder.reindex(fullTextSession, TweetPollResult.class);
+        IndexRebuilder.reindex(fullTextSession, HashTag.class);
         fullTextSession.close();
         long end = System.currentTimeMillis();
         log.debug("Indexing : took " + (end - start) + " milliseconds");
     }
 
     /**
-     * Reindex.
-     * @param fullTextSession
-     * @param clazz
+     * Reindex domain object.
+     * @param fullTextSession {@link FullTextSession}.
+     * @param clazz domain class.
      */
     public static void reindex(final FullTextSession fullTextSession, final Class<?>
     clazz) {

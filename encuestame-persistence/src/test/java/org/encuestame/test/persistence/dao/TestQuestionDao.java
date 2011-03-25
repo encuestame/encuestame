@@ -15,12 +15,16 @@ package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.DateUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,14 +41,23 @@ public class TestQuestionDao extends AbstractBase{
 
     /**
      * Before.
+     * @throws ParseException
      */
     @Before
-    public void beforeQuestion(){
+    public void beforeQuestion() throws ParseException{
         this.user = createUser("testEncuesta", "testEncuesta123");
         createQuestion("Do you want soccer?",  this.user);
         createQuestion("Do you like apple's?",  this.user);
         createQuestion("Do you buy iPods?",  this.user);
         createQuestion("Do you like sky iPods Touch?",  this.user);
+        createQuestion("Ipad VS Ipad2?",  this.user);
+        createQuestion("How Often Do You Tweet? Survey Says Not That Often",  this.user);
+        createQuestion("Is survey usseful on Twitter?",  this.user);
+        createQuestion("Should be happy?",  this.user);
+        createQuestion("Are you home alone?",  this.user);
+        createQuestion("Word Cup 2010, Spain is a good champion?",  this.user);
+        final Date createDate = DateUtil.parseDate("2011-01-01", DateUtil.DEFAULT_FORMAT_DATE);
+        createQuestion("Question with date and hits", this.user, createDate, 200L);
     }
 
 
@@ -63,7 +76,8 @@ public class TestQuestionDao extends AbstractBase{
      */
     @Test
     public void testRetrieveQuestionsByName(){
-        final List<Question> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods",  this.user.getUid());
+        final List<Question> listOfQuestions = getQuestionDaoImp().retrieveQuestionsByName("iPods",
+                              this.user.getUid());
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
     }
 
@@ -73,8 +87,9 @@ public class TestQuestionDao extends AbstractBase{
     @Test
     public void testRetrieveIndexedQuestionsByName(){
         flushIndexes();
-        final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods", this.user.getUid());
-        //TODO: need check this search
+        final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods",
+                             this.user.getUid());
+        log.debug("Lucene Index "+listOfQuestions.size());
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
 
     }

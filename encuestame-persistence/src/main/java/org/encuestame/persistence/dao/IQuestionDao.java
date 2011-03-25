@@ -87,13 +87,6 @@ public interface IQuestionDao extends IBaseDao {
     QuestionAnswer retrieveAnswerById(final Long answerId);
 
     /**
-     *
-     * @param keywordQuestion
-     * @return
-     */
-    List<Question> getQuestionbyKeyword(final String keywordQuestion);
-
-    /**
      * Retrieve Indexes Question By Keyword
      * @param keyword
      * @param userId

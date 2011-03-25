@@ -37,49 +37,48 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Question Dao.
- * @author Picado, Juan Carlos juan@encuestame.org
+ * @author Picado, Juan Carlos juanATencuestame.org
  * @since June 02, 2009
- * @version $Id$
  */
 @Repository("questionDaoImp")
 public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQuestionDao {
 
+    /**
+     * Constructor.
+     * @param sessionFactory {@link SessionFactory}.
+     */
     @Autowired
-    public QuestionDaoImp(SessionFactory sessionFactory) {
+    public QuestionDaoImp(final SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);
     }
 
-    /**
-     * Create Question.
-     * @param question question
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#createQuestion(org.encuestame.persistence.domain.question.Question)
      */
     //@CacheFlush(modelId="createQuestion")
-    public void createQuestion(final Question question) throws HibernateException {
+    public final void createQuestion(final Question question){
         saveOrUpdate(question);
     }
 
-    /**
-     * Retrieve Questions by Name.
-     * @param keyword keyword
-     * @return list of questions
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveQuestionsByName(java.lang.String, java.lang.Long)
      */
     //@Cacheable(modelId="retrieveQuestionsByName")
     @SuppressWarnings("unchecked")
-    public List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
+    public final List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
         criteria.add(Restrictions.like("question", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Retrieve Indexes Question By Keyword.
-     * @param keyword keyword to search
-     * @param userId user id
-     * @return results list of questions
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveIndexQuestionsByKeyword(java.lang.String, java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
+    public final List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
         log.info("keyword "+keyword);
         log.info("userId "+userId);
         @SuppressWarnings("rawtypes")
@@ -109,80 +108,57 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
         return searchResult;
     }
 
-    /**
-     * Retrieve Question By Id.
-     * @param questionId question id
-     * @return  {@link Question}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveQuestionById(java.lang.Long)
      */
-    public Question retrieveQuestionById(final Long questionId){
+    public final Question retrieveQuestionById(final Long questionId){
         return (Question) getHibernateTemplate().get(Question.class, questionId);
     }
 
-    /**
-     * Retrieve Answer by Id.
-     * @param answerId answer id
-     * @return {@link QuestionAnswer}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveAnswerById(java.lang.Long)
      */
-    public QuestionAnswer retrieveAnswerById(final Long answerId){
+    public final QuestionAnswer retrieveAnswerById(final Long answerId){
        return (QuestionAnswer) getHibernateTemplate().get(QuestionAnswer.class, answerId);
     }
 
-    /**
-     * Get Questions Answer By Question Id.
-     * @param questionId question id
-     * @return list of answers
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#getAnswersByQuestionId(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
+    public final List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
         return getHibernateTemplate().findByNamedParam("from QuestionAnswer where questions.id =:questionId ",
                                                        "questionId", questionId);
     }
 
-    /**
-     * Load All Questions.
-     * @return List of {@link Question}
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestions()
      */
     @SuppressWarnings("unchecked")
-    public List<Question> loadAllQuestions() throws HibernateException {
+    public final List<Question> loadAllQuestions() throws HibernateException {
         return getHibernateTemplate().find("from Question");
     }
 
-    /**
-     * Load All Questions Patron.
-     * @return  List of {@link QuestionPattern}
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestionPattern()
      */
     @SuppressWarnings("unchecked")
-    public List<QuestionPattern> loadAllQuestionPattern()
+    public final List<QuestionPattern> loadAllQuestionPattern()
             throws HibernateException {
         return getHibernateTemplate().find("from QuestionPattern");
 
     }
 
-    /**
-     * Load pattern info.
-     * @param patronId patron id
-     * @return QuestionPatron
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#loadPatternInfo(java.lang.Long)
      */
-    public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException{
-        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patronId);
-    }
-
-
-    /**
-     * Retrieve Polls by Question Keyword.
-     * @param keywordQuestion keywordQuestion
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @Deprecated
-    //We have similar method on the top of the class.
-    public List<Question> getQuestionbyKeyword(final String keywordQuestion){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
-        criteria.add(Restrictions.like("question", "%"+keywordQuestion+"%"));
-        return getHibernateTemplate().findByCriteria(criteria);
+    public final QuestionPattern loadPatternInfo(final Long patternId) throws HibernateException{
+        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patternId);
     }
 }

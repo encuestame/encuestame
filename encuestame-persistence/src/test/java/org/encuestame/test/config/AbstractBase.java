@@ -13,6 +13,7 @@
 package org.encuestame.test.config;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -50,6 +51,7 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
@@ -471,7 +473,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param name Project's name
      * @param descProject Project Description
      * @param infoProject Informations's Project
-     * @param state Project's state
      * @param user user
      * @return {@link Project}
      */
@@ -480,13 +481,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String descProject,
             final String infoProject,
             final Account user) {
-          Project project = new Project();
-          project.setProjectDateFinish(new Date());
-          project.setProjectDateStart(new Date());
+          final Project project = new Project();
+          final Calendar start = Calendar.getInstance();
+          final Calendar end = Calendar.getInstance();
+          end.add(Calendar.MONTH, 4);
+          project.setProjectDateFinish(end.getTime());
+          project.setProjectDateStart(start.getTime());
           project.setProjectInfo(infoProject);
-          project.setProjectName("name");
+          project.setProjectName(RandomStringUtils.randomAscii(4)+"_name");
           project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createUser()));
           project.setProjectDescription(descProject);
+          project.setProjectStatus(Status.ACTIVE);
+          project.setPriority(Priority.MEDIUM);
+          project.setHideProject(Boolean.FALSE);
+          project.setPublished(Boolean.TRUE);
           project.setUsers(user);
           getProjectDaoImp().saveOrUpdate(project);
           return project;
@@ -755,15 +763,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Create question.
      * @param question question
-     * @param patron patron
+     * @param pattern pattern
      * @return {@link Question}
      */
-    public Question createQuestion(final String question, String patron){
+    public Question createQuestion(
+            final String question,
+            final String pattern){
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);
-        questions.setQuestionPattern(createQuestionPattern(patron));
-        questions.setAccountQuestion(createUser());
+        questions.setQuestionPattern(this.createQuestionPattern(pattern));
+        questions.setAccountQuestion(this.createUser());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
     }
@@ -786,10 +796,30 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Question createQuestion(final String questionName, final Account user){
-        final Question question =  createQuestion(questionName, "patter");
+        final Question question =  this.createQuestion(questionName, "pattern");
         question.setAccountQuestion(user);
         getQuestionDaoImp().saveOrUpdate(question);
-        //log.info("user assigned "+question.getSecUsersQuestion().getUid());
+        return question;
+    }
+
+    /**
+     * Create {@link Question}.
+     * @param questionName
+     * @param user
+     * @param createDate
+     * @param hits
+     * @return
+     */
+    public Question createQuestion(
+            final String questionName,
+            final Account user,
+            final Date createDate,
+            final Long hits){
+        final Question question =  this.createQuestion(questionName, "pattern");
+        question.setAccountQuestion(user);
+        question.setCreateDate(createDate);
+        question.setHits(hits);
+        getQuestionDaoImp().saveOrUpdate(question);
         return question;
     }
 
