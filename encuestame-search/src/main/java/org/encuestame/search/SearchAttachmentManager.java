@@ -14,6 +14,8 @@ package org.encuestame.search;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,10 +34,11 @@ import org.apache.lucene.util.Version;
 
 /**
  * Query Search Manager to Lucene Index.
+ *
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Mar 24, 2011
  */
-public class SearchManager {
+public class SearchAttachmentManager {
 
     /** Log. **/
     private static final Log log = LogFactory.getLog(IndexerManager.class);
@@ -43,66 +46,75 @@ public class SearchManager {
     /** Index Directory Path. **/
     final String directoryIndex;
 
-    /** Query String. **/
-    final String queryText;
-
-    /** Option to Read Index Directory.**/
+    /** Option to Read Index Directory. **/
     private Boolean readDirectory = true;
 
-    /** Index Directory**/
+    /** Index Directory **/
     private Directory directory;
 
-    /** Index Searcher**/
+    /** Index Searcher **/
     private IndexSearcher indexSearcher;
 
     /**
     * Constructor.
     */
-    public SearchManager(final String directoryIndex, final String queryText) {
+    public SearchAttachmentManager(final String directoryIndex) {
         this.directoryIndex = directoryIndex;
-        this.queryText = queryText;
     }
 
     /**
-     *
-     * @throws IOException
-     */
-    private void startIndexSearcher() throws IOException{
+    * Start Index Searcher.
+    * @throws IOException
+    */
+    private void startIndexSearcher() throws IOException {
         // Open Index Directory to Search.
-      this.directory = FSDirectory.open(new File(this.directoryIndex));
-      IndexSearcher indexSearcher = new IndexSearcher(this.directory, true);
+        this.directory = FSDirectory.open(new File(this.directoryIndex));
+        IndexSearcher indexSearcher = new IndexSearcher(this.directory, true);
 
-    }
-
-    private IndexSearcher indexSearch() throws CorruptIndexException, IOException{
-        return this.indexSearcher = new IndexSearcher(this.directory, this.readDirectory);
     }
 
     /**
-     * Search Query in Lucene Index
-     * @param indexDir
-     * @param q
+     * Index Searcher.
+     * @return
+     * @throws CorruptIndexException
      * @throws IOException
-     * @throws ParseException
      */
-    public void search() throws IOException, ParseException {
-        QueryParser parser = new QueryParser(Version.LUCENE_30, "contents",
-                  new StandardAnalyzer(Version.LUCENE_30));
-        Query query = parser.parse(this.queryText); // Parse Query
+    private IndexSearcher indexSearch() throws CorruptIndexException,
+            IOException {
+        return this.indexSearcher = new IndexSearcher(this.directory,
+                this.readDirectory);
+    }
+
+    /**
+    * Search Query in Lucene Index.
+    * @param indexDir
+    * @param q
+    * @throws IOException
+    * @throws ParseException
+    */
+    public List<Document> search(final String queryText, final int max, final String field) throws IOException,
+            ParseException {
+        this.startIndexSearcher();
+        final List<Document> results = new ArrayList<Document>();
+        QueryParser parser = new QueryParser(Version.LUCENE_30, field,
+                new StandardAnalyzer(Version.LUCENE_30));
+        Query query = parser.parse(queryText); // Parse Query
         long start = System.currentTimeMillis();
-        TopDocs hits = indexSearch().search(query, 10); // Search Index
+        TopDocs hits = this.indexSearch().search(query, max); // Search Index
         long end = System.currentTimeMillis();
 
         log.debug("Found " + hits.totalHits + " document(s) (in "
-                + (end - start) + " milliseconds) that matched query '" + this.queryText
-                + "':"); // Write search Stats
+                + (end - start) + " milliseconds) that matched query '"
+                + queryText + "':"); // Write search Stats
 
         for (ScoreDoc scoreDoc : hits.scoreDocs) {
             // Retrieving matching document.
             Document doc = indexSearch().doc(scoreDoc.doc);
-            log.debug("Fullpath Document -->"+ doc.get("fullpath"));
-}
-     // Close IndexSearcher.
+            log.debug("Fullpath Document -->" + doc.get("fullpath"));
+            results.add(doc);
+        }
+        // Close IndexSearcher.
         indexSearch().close();
-}
+        return results;
+    }
 }
