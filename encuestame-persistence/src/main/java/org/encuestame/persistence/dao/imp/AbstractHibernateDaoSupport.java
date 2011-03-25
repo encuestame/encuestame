@@ -26,7 +26,9 @@ import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.PhraseQuery;
+import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
 import org.encuestame.persistence.domain.question.Question;
 import org.hibernate.Criteria;
@@ -157,6 +159,47 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
         while (st.hasMoreTokens()) {
                 query.add(new Term(field, st.nextToken()));
         }
+        log.debug("fetchPhraseFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
+     * Fetch full text session by regular expresion.
+     * @param regExp
+     * @param field
+     * @param clazz
+     * @param criteria
+     * @param analyzer
+     * @return
+     */
+    public List<?> fetchWildcardFullText(
+            final String regExp,
+            final String field,
+            final Class<?> clazz, final Criteria criteria,
+            final Analyzer analyzer) {
+        final WildcardQuery query = new WildcardQuery(new Term(field,
+                regExp));
+        log.debug("fetchWildcardFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
+     * Fetch by prefix as full text search.
+     * @param keyword keyword
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @return
+     */
+    public List<?> fetchPrefixQueryFullText(
+            final String keyword,
+            final String field,
+            final Class<?> clazz, final Criteria criteria,
+            final Analyzer analyzer) {
+        final PrefixQuery query = new PrefixQuery(new Term(field,
+                keyword));
+        log.debug("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
         return fetchFullTextSession(clazz, criteria, analyzer, query);
     }
 
@@ -180,7 +223,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                     public Object doInHibernate(org.hibernate.Session session) {
                         final FullTextSession fullTextSession = Search
                                 .getFullTextSession(session);
-                        log.debug("fetchFullTextSession query " + queryOperation.toString());
+                        log.debug("fetchFullTextSession query:{" + queryOperation.toString()+"}");
                         final FullTextQuery hibernateQuery = fullTextSession
                                 .createFullTextQuery(queryOperation, clazz);
                         hibernateQuery.setCriteriaQuery(criteria);
@@ -189,6 +232,10 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                         return result;
                     }
                 });
+        for (Object object : searchResult) {
+            Question q = (Question) object;
+            log.debug("q->"+q.getQuestion());
+        }
         return searchResult;
     }
 }

@@ -103,7 +103,29 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                 searchResult =  (List<Question>) fetchMultiFieldQueryParserFullText(keyword,
                             new String[] { "question"}, Question.class,
                             criteria, new SimpleAnalyzer());
-                return  searchResult;
+
+                        /*
+                         * Testing Zone. ENCUESTAME-137
+                         */
+                        List<Question> searchResult2 = (List<Question>) fetchPhraseFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("searchResult2 " + searchResult2.size());
+
+                        List<Question> searchResult3 = (List<Question>) fetchWildcardFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("searchResult3 " + searchResult3.size());
+
+                        List<Question> searchResult4 = (List<Question>) fetchPrefixQueryFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("searchResult4 " + searchResult4.size());
+                        /*
+                         * Testing Zone.
+                         */
+
+                        return searchResult;
             }
         });
         return (List<Question>) searchResult;
