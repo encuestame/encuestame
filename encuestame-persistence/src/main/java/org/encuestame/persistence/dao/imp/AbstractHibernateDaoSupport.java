@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -55,12 +55,12 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      /**
       * Session.
       */
-     protected Session session = null;
+     private Session session = null;
 
      /**
       * Default lucene version.
       */
-     protected Version version = Version.LUCENE_30;
+     private Version version = Version.LUCENE_30;
 
      /**
       * Default value to similarity searchs.
@@ -265,5 +265,19 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             }
         }
         return searchResult;
+    }
+
+    /**
+     * @return the version
+     */
+    public Version getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(Version version) {
+        this.version = version;
     }
 }

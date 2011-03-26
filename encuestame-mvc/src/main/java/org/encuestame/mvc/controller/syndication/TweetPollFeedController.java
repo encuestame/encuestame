@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -34,6 +35,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class TweetPollFeedController extends AbstractFeedController {
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Default Tweet Poll Feed Title.

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
+import org.apache.log4j.Logger;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.utils.security.SignUpBean;
@@ -43,8 +44,18 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(types = SignUpBean.class)
 public class SignUpAccountFormController extends AbstractSecurityController {
 
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
     private final Integer PASSWORD_LENGHT = 8;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");

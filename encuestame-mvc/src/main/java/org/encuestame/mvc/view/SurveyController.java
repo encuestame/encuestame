@@ -13,6 +13,7 @@
 
 package org.encuestame.mvc.view;
 
+import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +28,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class SurveyController  extends BaseController {
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Survey Controller.

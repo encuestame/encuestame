@@ -46,7 +46,7 @@ public class HTMLInputFilter {
 
 
     /** Log. **/
-    protected Logger log = Logger.getLogger(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * flag determining whether to try to make tags when presented with
@@ -69,41 +69,48 @@ public class HTMLInputFilter {
      * set of allowed html elements, along with allowed attributes for each
      * element
      **/
-    protected Map<String, List<String>> vAllowed;
+    private Map<String, List<String>> vAllowed;
 
     /** counts of open tags for each (allowable) html element **/
-    protected Map<String, Integer> vTagCounts;
+    private Map<String, Integer> vTagCounts;
 
     /** html elements which must always be self-closing (e.g. "<img />") **/
-    protected String[] vSelfClosingTags;
+    private String[] vSelfClosingTags;
 
     /**
      * html elements which must always have separate opening and closing tags
      * (e.g. "<b></b>")
      **/
-    protected String[] vNeedClosingTags;
+    private String[] vNeedClosingTags;
 
     /** attributes which should be checked for valid protocols **/
-    protected String[] vProtocolAtts;
+    private String[] vProtocolAtts;
 
     /** allowed protocols **/
-    protected String[] vAllowedProtocols;
+    private String[] vAllowedProtocols;
 
     /**
      * tags which should be removed if they contain no content (e.g. "<b></b>"
      * or "<b />")
      **/
-    protected String[] vRemoveBlanks;
+    private String[] vRemoveBlanks;
 
     /** entities allowed within html markup **/
-    protected String[] vAllowedEntities;
+    private String[] vAllowedEntities;
 
-    protected boolean vDebug;
+    private boolean vDebug;
 
+    /**
+     * Constructor.
+     */
     public HTMLInputFilter() {
         this(false);
     }
 
+    /**
+     * Constructor
+     * @param debug enable debug.
+     */
     public HTMLInputFilter(boolean debug) {
         vDebug = debug;
 

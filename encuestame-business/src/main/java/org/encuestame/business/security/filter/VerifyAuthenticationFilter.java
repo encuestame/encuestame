@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.business.security.filter;
 
 import java.io.IOException;
@@ -6,7 +18,6 @@ import java.util.Collection;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -14,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,15 +34,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Verify Authentication Filter.
  * @author Picado, Juan juanATencuestameDOTorg
  * @since Aug 21, 2010 10:41:38 PM
- * @version $Id: $
  */
 public class VerifyAuthenticationFilter implements Filter {
 
-    protected Logger log = Logger.getLogger(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
-    protected  String loginUrl = "/user/signin";
+    private  String loginUrl = "/user/signin";
 
-    protected  String redirectUrl = "/account/dashboard";
+    private  String redirectUrl = "/account/dashboard";
 
     /**
      * Do Filter.
