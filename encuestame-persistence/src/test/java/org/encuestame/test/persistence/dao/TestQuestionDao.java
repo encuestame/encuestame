@@ -55,7 +55,12 @@ public class TestQuestionDao extends AbstractBase{
         createQuestion("Is survey usseful on Twitter?",  this.user);
         createQuestion("Should be happy?",  this.user);
         createQuestion("Are you home alone?",  this.user);
-        createQuestion("Word Cup 2010, Spain is a good champion?",  this.user);
+
+        //masive insert.
+        for (int i = 0; i < 200; i++) {
+            createQuestion("Word Cup 2010, Spain is a good champion?",  this.user);
+        }
+
         final Date createDate = DateUtil.parseDate("2011-01-01", DateUtil.DEFAULT_FORMAT_DATE);
         createQuestion("Question with date and hits", this.user, createDate, 200L);
     }
@@ -91,27 +96,33 @@ public class TestQuestionDao extends AbstractBase{
 
         //keyword: iPods
         final List<Question> listOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("iPods",
-                             this.user.getUid());
+                             this.user.getUid(), 100, 0);
         log.debug("Lucene Index "+listOfQuestions.size());
         assertEquals("Results should be equals", 2,  listOfQuestions.size());
 
         //keyword: i
         final List<Question> startlistOfQuestions = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("i",
-                this.user.getUid());
+                this.user.getUid(), 100, 0);
         log.debug("Lucene Index "+startlistOfQuestions.size());
         assertEquals("Results should be equals", 3,  startlistOfQuestions.size());
 
+        //keyword: i
+        final List<Question> startlistOfQuestionsLimitResults = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("i",
+                this.user.getUid(), 2, 0);
+        log.debug("Lucene Index "+startlistOfQuestionsLimitResults.size());
+        assertEquals("Results should be equals", 2,  startlistOfQuestionsLimitResults.size());
+
         //keyword: a
         final List<Question> startlistOfQuestions2 = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("a",
-                this.user.getUid());
+                this.user.getUid(), 100, 0);
         log.debug("Lucene Index "+startlistOfQuestions2.size());
         assertEquals("Results should be equals", 2,  startlistOfQuestions2.size());
 
         //keyword: 2010
         final List<Question> startlistOfQuestions3 = getQuestionDaoImp().retrieveIndexQuestionsByKeyword("2010",
-                this.user.getUid());
+                this.user.getUid(), 100, 0);
         log.debug("Lucene Index "+startlistOfQuestions3.size());
-        assertEquals("Results should be equals", 1,  startlistOfQuestions3.size());
+        assertEquals("Results should be equals", 100,  startlistOfQuestions3.size());
 
     }
 }

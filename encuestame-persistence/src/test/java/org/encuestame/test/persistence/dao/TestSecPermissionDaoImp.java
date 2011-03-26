@@ -71,9 +71,6 @@ public class TestSecPermissionDaoImp extends AbstractBase {
     @Test
     public void testFindAllPermissions(){
           final List<Permission> findPermissions = getPermissionDaoImp().findAllPermissions();
-          for (Permission secPermission : findPermissions) {
-              log.info("s "+secPermission.getPermission());
-          }
           assertEquals("should be equals", 5, findPermissions.size());
       }
 
