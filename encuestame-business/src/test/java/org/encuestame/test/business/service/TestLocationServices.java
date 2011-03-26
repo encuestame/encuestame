@@ -56,7 +56,7 @@ public class TestLocationServices extends AbstractServiceBase{
 
     @Before
     public void init(){
-        this.secondary = createUserAccount("jota", createUser());
+        this.secondary = createUserAccount("jota", createAccount());
     }
 
     /**

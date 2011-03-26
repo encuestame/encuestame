@@ -45,7 +45,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
      */
     @Before
     public void initService(){
-        this.userPrimary = createUser();
+        this.userPrimary = createAccount();
         this.defaultLocation = createGeoPoint("Managua", "Capital", 1, this.userPrimary);
         createGeoPoint("Esteli", "Esteli", 2, this.userPrimary);
     }

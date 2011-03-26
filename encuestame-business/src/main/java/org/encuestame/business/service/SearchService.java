@@ -19,10 +19,8 @@ import org.encuestame.business.service.imp.SearchServiceOperations;
 
 /**
  * Search Service.
- *
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since February 09, 2011
- * @version $Id$
  */
 public class SearchService extends AbstractIndexService implements SearchServiceOperations {
 
