@@ -203,6 +203,8 @@ public class FolderJsonServiceController extends AbstractJsonController{
                      getSurveyService().addSurveyToFolder(folderId, getUserPrincipalUsername(), itemId);
                  } else {
                      //set error
+                     setError("type of folder invalid :{"+actionType, response);
+                     log.info("type of folder invalid:{"+actionType);
                  }
             } catch (Exception e) {
             log.error(e);
