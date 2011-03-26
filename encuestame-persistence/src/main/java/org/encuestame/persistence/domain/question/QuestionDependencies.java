@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.question;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

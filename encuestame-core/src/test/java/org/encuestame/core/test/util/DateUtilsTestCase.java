@@ -17,8 +17,8 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
-import org.encuestame.core.util.DateUtil;
-import org.encuestame.core.util.RelativeTimeEnum;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.junit.Test;
 
 /**

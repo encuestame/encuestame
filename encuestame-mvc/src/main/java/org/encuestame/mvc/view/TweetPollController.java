@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.BaseController;
 import org.encuestame.mvc.validator.ValidateOperations;
-import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

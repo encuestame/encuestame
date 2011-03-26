@@ -14,9 +14,10 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.apache.lucene.analysis.Analyzer;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.hibernate.HibernateException;
 
  /**
@@ -87,17 +88,31 @@ public interface IQuestionDao extends IBaseDao {
     QuestionAnswer retrieveAnswerById(final Long answerId);
 
     /**
-     *
-     * @param keywordQuestion
-     * @return
+     *  Retrieve Indexes Question By Keyword
+     * @param keyword keyword to search
+     * @param userId user id
+     * @param maxResults  limit of results for each search
+     * @param startOn start on page
+     * @return list of question
      */
-    List<Question> getQuestionbyKeyword(final String keywordQuestion);
+    List<Question> retrieveIndexQuestionsByKeyword(
+            final String keyword,
+            final Long userId,
+            final Integer maxResults,
+            final Integer startOn);
 
     /**
-     * Retrieve Indexes Question By Keyword
-     * @param keyword
-     * @param userId
-     * @return
+     * Retrieve Indexes Question By Keyword.
+     *
+     * @param keyword keyword to search
+     * @param userId user id
+     * @param fields list of fields.
+     * @param analyzer {@link Analyzer}.
+     * @param maxResults  limit of result for each search
+     * @param startOn start on page
+     * @return list of question
      */
-    List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId);
+    List<Question> retrieveIndexQuestionsByKeyword(final String keyword,
+            final Long userId, final String[] fields, final Analyzer analyzer,
+            final Integer maxResults, final Integer startOn);
 }

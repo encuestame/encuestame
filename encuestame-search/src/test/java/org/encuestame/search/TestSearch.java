@@ -14,6 +14,8 @@ package org.encuestame.search;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -50,7 +52,7 @@ import org.junit.Ignore;
  * @since February 09, 2011
  * @version $Id: $
  */
-@Ignore
+
 public class TestSearch extends TestCase {
     final String queryString = "indexing";
     final String indexDir = "src/main/resources/Indexer2";
@@ -59,9 +61,9 @@ public class TestSearch extends TestCase {
 
         Directory directory = FSDirectory.open(new File(indexDir));
 
-        //IndexReader reader = IndexReader.open(indexDir);
-        //IndexSearcher searcher = new IndexSearcher(reader);
-        IndexSearcher searcher = null;
+         IndexReader reader = IndexReader.open(directory, true);
+         IndexSearcher searcher = new IndexSearcher(reader);
+      //  IndexSearcher searcher = null;
 
         QueryParser parser = new QueryParser(Version.LUCENE_29, "content",
 
@@ -69,22 +71,32 @@ public class TestSearch extends TestCase {
         Query query = parser.parse(this.queryString); // Parse Qu
         TopDocs hits = searcher.search(query, 10); // Search Index
         System.out.println("Total number of HITS "+ hits.totalHits);
+        System.out.println("-----------------------------------------------");
+        final List<Document> results = new ArrayList<Document>();
             for (ScoreDoc scoreDoc : hits.scoreDocs) {
                 Document doc = searcher.doc(scoreDoc.doc); // Retrieving matching document.
                 System.out.println(doc);
-                System.out.println("*****************************************");
                 // get the filename
                 System.out.println(doc.get("filename"));
                 System.out.println(doc.getField("fullpath").stringValue());
+                System.out.println(doc.getField("filename").stringValue());
+                System.out.println(doc.getField("author").stringValue());
+                results.add(doc);
+                System.out.println("*****************************************");
             }
             searcher.close(); // Close IndexSearcher.
-            //System.out.println("Total number of docs "+reader.maxDoc());
+           System.out.println("Total number of docs ------> "+reader.maxDoc());
+           for (Document document : results) {
+            System.out.println("My Document -->"+ document);
+         }
+
         }
     /**
      *
      * @throws IOException
      * @throws InvalidTokenOffsetsException
      */
+    @Ignore
     public void testHits() throws IOException, InvalidTokenOffsetsException  {
         IndexSearcher searcher = new IndexSearcher(TestUtil.getBookIndexDirectory(), true);
         TermQuery query = new TermQuery(new Term("title", "action"));
@@ -100,7 +112,7 @@ public class TestSearch extends TestCase {
                 TokenStream stream = TokenSources.getAnyTokenStream(searcher.getIndexReader(),
                         sd.doc, "title", doc, analyzer);
                 String fragment = highlighter.getBestFragment(stream, title);
-                System.out.println(fragment);
+               // System.out.println(fragment);
             }
 }
 }
