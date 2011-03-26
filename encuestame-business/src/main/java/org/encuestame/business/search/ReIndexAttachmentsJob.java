@@ -18,7 +18,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.DirectorySetupOperations;
-import org.encuestame.search.IndexerManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * ReIndex Attachments Job.
@@ -43,10 +43,8 @@ public class ReIndexAttachmentsJob {
      */
     private String attachmentsPlacesHolder = "/home/dmorales/encuestame/profiles/1/";
 
-    private String attachmentsPlacesHolder2 = "/home/dmorales/encuestame/profiles/2/";
-
+    @Autowired
     private IndexerManager indexerManager;
-
 
     /**
      * Constructor.
@@ -68,11 +66,18 @@ public class ReIndexAttachmentsJob {
         log.debug("Location size"+userDomainAttachmentsLocation.size());
         try {
             log.debug("IndexManager initialize....");
-            this.indexerManager = new IndexerManager(userDomainAttachmentsLocation, this.indexStorePath);
             log.debug("Initialize Index Starting...");
-            this.indexerManager.initializeIndex();
+            this.indexerManager.initializeIndex(userDomainAttachmentsLocation);
         } catch (Exception e) {
             log.fatal("Index on reindex: "+e);
         }
     }
+
+    /**
+    * @param indexerManager the indexerManager to set
+    */
+    public void setIndexerManager(IndexerManager indexerManager) {
+        this.indexerManager = indexerManager;
+    }
+
 }

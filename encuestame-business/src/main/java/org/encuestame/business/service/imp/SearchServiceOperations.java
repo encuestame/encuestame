@@ -15,8 +15,8 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.business.search.IndexerManager;
 import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.search.IndexerManager;
 
 /**
  * Search Service Operations.
