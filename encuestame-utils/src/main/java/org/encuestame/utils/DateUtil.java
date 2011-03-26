@@ -27,10 +27,9 @@ import org.joda.time.Years;
 
 
 /**
- * Description Class.
+ * Collection of helper for dates.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 18, 2010 11:04:07 PM
- * @version Id:
  */
 public class DateUtil {
 
@@ -188,10 +187,8 @@ public class DateUtil {
         final Integer hour = DateUtil.getHoursBetweenDates(startDate);
         //System.out.println("hour ago  "+hour);
         final Integer days = DateUtil.getDaysBetweenDates(startDate);
-        //System.out.println("days ago  "+days);
-        //System.out.println("start date "+startDate);
         if (seconds < 0) {
-            // TODO: no yet
+            numbers.put(seconds, RelativeTimeEnum.RIGTH_NOW);
         } else if (seconds < 1 * MINUTE) {
             numbers.put(seconds,
                     (seconds == 1 ? RelativeTimeEnum.ONE_SECOND_AGO

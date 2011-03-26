@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.INotification;
@@ -44,6 +45,11 @@ import org.springframework.web.servlet.ModelAndView;
  * @version $Id:$
  */
 public abstract class AbstractJsonController extends BaseController{
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /** Model. **/
     private ModelMap jsonMap = new ModelMap();

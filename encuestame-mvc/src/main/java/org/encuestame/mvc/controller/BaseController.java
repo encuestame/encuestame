@@ -78,10 +78,16 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 @SuppressWarnings("deprecation")
 public abstract class BaseController extends AbstractSecurityContext{
 
-     protected Logger log = Logger.getLogger(this.getClass());
+     private Logger log = Logger.getLogger(this.getClass());
 
+     /**
+      * Simple date format.
+      */
      public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
 
+     /**
+      * Simple time format.
+      */
      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
      /**

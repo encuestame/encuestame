@@ -22,9 +22,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class EnMeContext extends ContextLoaderListener implements
         ServletContextListener {
 
+    /**
+     * Local service context.
+     */
     private static ServletContext servletContext = null;
 
-    protected Logger log = Logger.getLogger(this.getClass());
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Constructor, inizialize parent context.

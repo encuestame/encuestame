@@ -14,7 +14,8 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
  */
 public class DirectorySetupOperations {
 
-    protected static Logger log = Logger
+    /** Log. **/
+    private static Logger log = Logger
             .getLogger(DirectorySetupOperations.class);
     /** Default root directory name. */
     private final static String DEFAULT_ROOT_FOLDER = "encuestame";

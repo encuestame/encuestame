@@ -15,6 +15,7 @@ package org.encuestame.mvc.controller.social.twitter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.connect.ITwitterSocialProvider;
 import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
@@ -38,6 +39,11 @@ import org.springframework.web.context.request.WebRequest;
  */
 @Controller
 public class TwitterConnectSignIn extends AbstractSocialController {
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Default Base CallBack.

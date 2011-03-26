@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -43,27 +43,27 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterApi> imp
     /**
      * Consumer Key.
      */
-    public @Value("${twitter.oauth.consumerKey}") String consumerKey;
+     @Value("${twitter.oauth.consumerKey}") private String consumerKey;
 
     /**
      * Consumer Secret.
      */
-    public @Value("${twitter.oauth.consumerSecret}") String consumerSecret;
+    @Value("${twitter.oauth.consumerSecret}") private String consumerSecret;
 
     /**
      * Authorize Url.
      */
-    public @Value("${twitter.oauth.authorize}") String authorizeUrl;
+    @Value("${twitter.oauth.authorize}") private String authorizeUrl;
 
     /**
      * Access Token Url.
      */
-    public @Value("${twitter.oauth.access.token}") String accessTokenUrl;
+    @Value("${twitter.oauth.access.token}") private String accessTokenUrl;
 
     /**
      * Request Token Url.
      */
-    public @Value("${twitter.oauth.request.token}") String requestTokenUrl;
+    @Value("${twitter.oauth.request.token}") private String requestTokenUrl;
 
     /**
      *

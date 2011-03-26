@@ -19,6 +19,7 @@ package org.encuestame.utils;
  * @version $Id:$
  */
 public enum RelativeTimeEnum {
+    RIGTH_NOW,
     ONE_SECOND_AGO,
     SECONDS_AGO,
     A_MINUTE_AGO,

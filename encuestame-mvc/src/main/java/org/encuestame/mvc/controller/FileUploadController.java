@@ -15,6 +15,7 @@ package org.encuestame.mvc.controller;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.log4j.Logger;
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,14 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Controller
 public class FileUploadController extends BaseController {
 
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     * {@link ThumbnailGeneratorEngine}.
+     */
     @Autowired
     private ThumbnailGeneratorEngine thumbnailGeneratorEngine;
 
