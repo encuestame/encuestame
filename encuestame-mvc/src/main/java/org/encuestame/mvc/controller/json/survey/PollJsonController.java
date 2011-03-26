@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.QuestionBean;
 import org.springframework.security.access.prepost.PreAuthorize;

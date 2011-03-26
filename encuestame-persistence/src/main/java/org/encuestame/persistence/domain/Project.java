@@ -36,6 +36,11 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Project.
@@ -46,6 +51,7 @@ import org.encuestame.persistence.domain.survey.SurveyGroup;
  */
 @Entity
 @Table(name = "project")
+@Indexed(index="Project")
 public class Project {
 
     private Long proyectId;
@@ -91,6 +97,7 @@ public class Project {
      * @return proyectId
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "project_id", unique = true, nullable = false)
     public Long getProyectId() {
@@ -107,7 +114,8 @@ public class Project {
     /**
      * @return projectDescription
      */
-    @Column(name = "description", length = 600)
+    @Field(index = Index.TOKENIZED)
+    @Column(name = "description", nullable = true, length = 600)
     public String getProjectDescription() {
         return this.projectDescription;
     }
@@ -122,7 +130,8 @@ public class Project {
     /**
      * @return the projectName
      */
-    @Column(name = "name", nullable = false)
+    @Field(index = Index.TOKENIZED)
+    @Column(name = "project_name", nullable = false)
     public String getProjectName() {
         return projectName;
     }
@@ -139,6 +148,7 @@ public class Project {
      */
     @Column(name = "project_info")
     @Lob
+    @Field(index = Index.TOKENIZED)
     public String getProjectInfo() {
         return this.projectInfo;
     }
@@ -146,7 +156,7 @@ public class Project {
     /**
      * @param projectInfo projectInfo
      */
-    public void setProjectInfo(String projectInfo) {
+    public void setProjectInfo(final String projectInfo) {
         this.projectInfo = projectInfo;
     }
 
@@ -154,6 +164,7 @@ public class Project {
      * @return projectDateStart
      */
     @Temporal(TemporalType.TIMESTAMP)
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "date_start", nullable = false)
     public Date getProjectDateStart() {
         return this.projectDateStart;
@@ -170,6 +181,7 @@ public class Project {
      * @return projectDateFinish
      */
     @Temporal(TemporalType.TIMESTAMP)
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "date_finish", nullable = false)
     public Date getProjectDateFinish() {
         return this.projectDateFinish;

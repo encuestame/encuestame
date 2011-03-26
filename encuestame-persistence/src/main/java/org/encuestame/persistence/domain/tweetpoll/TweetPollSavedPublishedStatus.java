@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.tweetpoll;
 
 import java.util.Date;
 
@@ -28,6 +28,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * TweetPoll Status Save Tweet Id.
@@ -36,6 +41,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
  * @version $Id:$
  */
 @Entity
+@Indexed(index="TweetPollSavedPublishedStatus")
 @Table(name = "tweetPoll_save_published_status")
 public class TweetPollSavedPublishedStatus {
 
@@ -47,6 +53,9 @@ public class TweetPollSavedPublishedStatus {
 
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
+
+    /** Tweet Content. **/
+    private String tweetContent;
 
     /**. Tweet Id. **/
     private Long tweetId;
@@ -95,6 +104,7 @@ public class TweetPollSavedPublishedStatus {
      * @return the id
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "status_save_poll_id", unique = true, nullable = false)
     public Long getId() {
@@ -135,7 +145,7 @@ public class TweetPollSavedPublishedStatus {
     /**
      * @param tweetPoll the tweetPoll to set
      */
-    public void setTweetPoll(TweetPoll tweetPoll) {
+    public void setTweetPoll(final TweetPoll tweetPoll) {
         this.tweetPoll = tweetPoll;
     }
 
@@ -216,5 +226,21 @@ public class TweetPollSavedPublishedStatus {
      */
     public void setDescriptionStatus(String descriptionStatus) {
         this.descriptionStatus = descriptionStatus;
+    }
+
+    /**
+     * @return the tweetContent
+     */
+    @Field(index=Index.TOKENIZED, store=Store.NO)
+    @Column(name = "tweet_content")
+    public String getTweetContent() {
+        return tweetContent;
+    }
+
+    /**
+     * @param tweetContent the tweetContent to set
+     */
+    public void setTweetContent(final String tweetContent) {
+        this.tweetContent = tweetContent;
     }
 }

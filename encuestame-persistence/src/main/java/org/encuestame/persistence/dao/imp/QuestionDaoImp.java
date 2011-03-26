@@ -12,177 +12,218 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.util.Version;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.domain.Question;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.search.FullTextQuery;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 /**
  * Question Dao.
- * @author Picado, Juan Carlos juan@encuestame.org
+ * @author Picado, Juan Carlos juanATencuestame.org
  * @since June 02, 2009
- * @version $Id$
  */
 @Repository("questionDaoImp")
 public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQuestionDao {
 
+    /**
+     * Constructor.
+     * @param sessionFactory {@link SessionFactory}.
+     */
     @Autowired
-    public QuestionDaoImp(SessionFactory sessionFactory) {
+    public QuestionDaoImp(final SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);
     }
 
-    /**
-     * Create Question.
-     * @param question question
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#createQuestion(org.encuestame.persistence.domain.question.Question)
      */
     //@CacheFlush(modelId="createQuestion")
-    public void createQuestion(final Question question) throws HibernateException {
+    public final void createQuestion(final Question question){
         saveOrUpdate(question);
     }
 
-    /**
-     * Retrieve Questions by Name.
-     * @param keyword keyword
-     * @return list of questions
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveQuestionsByName(java.lang.String, java.lang.Long)
      */
     //@Cacheable(modelId="retrieveQuestionsByName")
     @SuppressWarnings("unchecked")
-    public List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
+    public final List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
         criteria.add(Restrictions.like("question", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Retrieve Indexes Question By Keyword
-     * @param keyword
-     * @param userId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveIndexQuestionsByKeyword(java.lang.String, java.lang.Long)
      */
-    @SuppressWarnings("unchecked")
-    public List<Question> retrieveIndexQuestionsByKeyword(final String keyword, final Long userId){
-        log.info("keyword "+keyword);
-        log.info("userId "+userId);
-        List<Question> searchResult = (List) getHibernateTemplate().execute(
-                new HibernateCallback() {
-                    @SuppressWarnings("deprecation")
-                    public Object doInHibernate(org.hibernate.Session session) {
-                        try {
-                            final FullTextSession fullTextSession = Search.getFullTextSession(session);
-                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
-                                    new String[]{"question"},
-                                    new SimpleAnalyzer());
-                            final org.apache.lucene.search.Query query = parser.parse(keyword);
-                            final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, Question.class);
-                            final Criteria criteria = session.createCriteria(Question.class);
-                            criteria.createAlias("accountQuestion", "accountQuestion");
-                            criteria.add(Restrictions.eq("accountQuestion.uid", userId));
-                            hibernateQuery.setCriteriaQuery(criteria);
-                            final List<Question> result = hibernateQuery.list();
-                            log.info("result LUCENE "+result.size());
-                            return result;
-                        } catch (ParseException ex) {
-                            log.error("Index Search Erro "+ex.getMessage());
-                            return null;
-                        }
-                    }
-                });
-        return searchResult;
+    public final List<Question> retrieveIndexQuestionsByKeyword(
+            final String keyword,
+            final Long userId,
+            final Integer maxResults,
+            final Integer startOn){
+        return this.retrieveIndexQuestionsByKeyword(
+                keyword, userId, new String[]{"question"},
+                new SimpleAnalyzer(), maxResults, startOn);
     }
 
-    /**
-     * Retrieve Question By Id.
-     * @param questionId question id
-     * @return  {@link Question}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveIndexQuestionsByKeyword(java.lang.String, java.lang.Long, java.lang.String[], org.apache.lucene.analysis.Analyzer)
      */
-    public Question retrieveQuestionById(final Long questionId){
+    @SuppressWarnings("unchecked")
+    public final List<Question> retrieveIndexQuestionsByKeyword(
+            final String keyword,
+                 final Long userId,
+                 final String[] fields,
+                 final Analyzer analyzer,
+                 final Integer maxResults,
+                 final Integer startOn){
+        log.debug("keyword "+keyword);
+        log.debug("userId " + userId);
+        log.debug("fields " + fields);
+        @SuppressWarnings("rawtypes")
+        final List<Question> searchResult = (List<Question>) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(org.hibernate.Session session) {
+                List<Question> searchResult = new ArrayList<Question>();
+                long start = System.currentTimeMillis();
+                final Criteria criteria = session.createCriteria(Question.class);
+                criteria.createAlias("accountQuestion", "accountQuestion");
+                criteria.add(Restrictions.eq("accountQuestion.uid", userId));
+                //limit results
+                if (maxResults != null) {
+                    criteria.setMaxResults(maxResults.intValue());
+                }
+                //start on page x
+                if (startOn != null) {
+                    criteria.setFirstResult(startOn.intValue());
+                }
+                searchResult =  (List<Question>) fetchMultiFieldQueryParserFullText(keyword,
+                            new String[] { "question"}, Question.class,
+                            criteria, new SimpleAnalyzer());
+                        final List listAllSearch = new LinkedList();
+                        listAllSearch.addAll(searchResult);
+
+                        //Fetch result by phrase
+                        final List<Question> phraseFullTestResult = (List<Question>) fetchPhraseFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("phraseFullTestResult:{" + phraseFullTestResult.size());
+                        listAllSearch.addAll(phraseFullTestResult);
+                        //Fetch result by wildcard
+                        final List<Question> wildcardFullTextResult = (List<Question>) fetchWildcardFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("wildcardFullTextResult:{" + wildcardFullTextResult.size());
+                        listAllSearch.addAll(wildcardFullTextResult);
+                        //Fetch result by prefix
+                        final List<Question> prefixQueryFullTextResuslts = (List<Question>) fetchPrefixQueryFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("prefixQueryFullTextResuslts:{" + prefixQueryFullTextResuslts.size());
+                        listAllSearch.addAll(prefixQueryFullTextResuslts);
+                        //Fetch fuzzy results
+                        final List<Question> fuzzyQueryFullTextResults = (List<Question>) fetchFuzzyQueryFullText(
+                                keyword, "question", Question.class, criteria,
+                                new SimpleAnalyzer(), SIMILARITY_VALUE)
+                                ;
+                        log.debug("fuzzyQueryFullTextResults: {" + fuzzyQueryFullTextResults.size());
+                        listAllSearch.addAll(fuzzyQueryFullTextResults);
+
+                        log.debug("listAllSearch size:{" + listAllSearch.size());
+
+                        //removing duplcates
+                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet.decorate(new LinkedList());
+                        totalResultsWithoutDuplicates.addAll(listAllSearch);
+
+                        /*
+                         * Limit results if is enabled.
+                         */
+                        List<Question> totalList = totalResultsWithoutDuplicates
+                                .asList();
+                        if (maxResults != null && startOn != null) {
+                            log.debug("split to "+maxResults  + " starting on "+startOn + " to list with size "+totalList.size());
+                            totalList = totalList.size() > maxResults ? totalList
+                                    .subList(startOn, maxResults) : totalList;
+                        }
+                        long end = System.currentTimeMillis();
+                        log.debug("Question{ totalResultsWithoutDuplicates:{" + totalList.size()
+                                   + " items with search time:" + (end - start) + " milliseconds");
+                        return totalList;
+            }
+        });
+        return (List<Question>) searchResult;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveQuestionById(java.lang.Long)
+     */
+    public final Question retrieveQuestionById(final Long questionId){
         return (Question) getHibernateTemplate().get(Question.class, questionId);
     }
 
-    /**
-     * Retrieve Answer by Id.
-     * @param answerId answer id
-     * @return {@link QuestionAnswer}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveAnswerById(java.lang.Long)
      */
-    public QuestionAnswer retrieveAnswerById(final Long answerId){
+    public final QuestionAnswer retrieveAnswerById(final Long answerId){
        return (QuestionAnswer) getHibernateTemplate().get(QuestionAnswer.class, answerId);
     }
 
-    /**
-     * Get Questions Answer By Question Id.
-     * @param questionId question id
-     * @return list of answers
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#getAnswersByQuestionId(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
+    public final List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
         return getHibernateTemplate().findByNamedParam("from QuestionAnswer where questions.id =:questionId ",
                                                        "questionId", questionId);
     }
 
-    /**
-     * Load All Questions.
-     * @return List of {@link Question}
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestions()
      */
     @SuppressWarnings("unchecked")
-    public List<Question> loadAllQuestions() throws HibernateException {
+    public final List<Question> loadAllQuestions() throws HibernateException {
         return getHibernateTemplate().find("from Question");
     }
 
-    /**
-     * Load All Questions Patron.
-     * @return  List of {@link QuestionPattern}
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestionPattern()
      */
     @SuppressWarnings("unchecked")
-    public List<QuestionPattern> loadAllQuestionPattern()
+    public final List<QuestionPattern> loadAllQuestionPattern()
             throws HibernateException {
         return getHibernateTemplate().find("from QuestionPattern");
 
     }
 
-    /**
-     * Load pattern info.
-     * @param patronId patron id
-     * @return QuestionPatron
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#loadPatternInfo(java.lang.Long)
      */
-    public QuestionPattern loadPatternInfo(final Long patronId) throws HibernateException{
-        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patronId);
-    }
-
-
-    /**
-     * Retrieve Polls by Question Keyword.
-     * @param keywordQuestion keywordQuestion
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @Deprecated
-    //We have similar method on the top of the class.
-    public List<Question> getQuestionbyKeyword(final String keywordQuestion){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
-        criteria.add(Restrictions.like("question", "%"+keywordQuestion+"%"));
-        return getHibernateTemplate().findByCriteria(criteria);
+    public final QuestionPattern loadPatternInfo(final Long patternId) throws HibernateException{
+        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patternId);
     }
 }

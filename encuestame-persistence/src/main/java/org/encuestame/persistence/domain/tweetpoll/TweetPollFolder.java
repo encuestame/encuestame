@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.tweetpoll;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +21,8 @@ import javax.persistence.Table;
 
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.AbstractFolder;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
 
 /**
  * Poll Domain.
@@ -32,6 +34,7 @@ import org.encuestame.persistence.domain.AbstractFolder;
 
 @Entity
 @Table(name = "tweetPoll_Folder")
+@Indexed(index="TweetPollFolder")
 public class TweetPollFolder extends AbstractFolder implements IFolder{
      private Long id;
 
@@ -39,6 +42,7 @@ public class TweetPollFolder extends AbstractFolder implements IFolder{
      * @return the tweetPollFolderId
      */
      @Id
+     @DocumentId
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name = "tweetPollFolderId", unique = true, nullable = true)
     public Long getId() {
@@ -51,6 +55,4 @@ public class TweetPollFolder extends AbstractFolder implements IFolder{
     public void  setId(Long id) {
         this.id = id;
     }
-
-
 }

@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain.survey;
+package org.encuestame.persistence.domain.question;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.Question;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * QuestionsAnswers.
@@ -32,6 +36,8 @@ import org.encuestame.persistence.domain.Question;
  */
 @Entity
 @Table(name = "questions_answers")
+
+@Indexed(index="QuestionAnswer")
 public class QuestionAnswer {
 
     /** questionAnswerId. **/
@@ -81,6 +87,7 @@ public class QuestionAnswer {
      * @return the questionAnswerId
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "q_answer_id", unique = true, nullable = false)
     public Long getQuestionAnswerId() {
@@ -115,6 +122,7 @@ public class QuestionAnswer {
     /**
      * @return the answer
      */
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column(name = "answer")
     public String getAnswer() {
         return answer;

@@ -10,8 +10,10 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain;
+package org.encuestame.persistence.domain.question;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,15 +29,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.survey.QuestionColettion;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 
 /**
@@ -50,15 +53,52 @@ import org.hibernate.search.annotations.Store;
 @Table(name = "questions")
 public class Question {
 
+    /**
+     * Id.
+     */
     private Long qid;
+    /**
+     * Question description.
+     */
     private String question;
+    /**
+     * String optional id.
+     */
     private String qidKey;
+
+    /**
+     * Is this question shared?
+     */
     private Boolean sharedQuestion;
+
+    /**
+     * When this questions was created.
+     */
+    private Date createDate = Calendar.getInstance().getTime();
+
+    /**
+     * Hits.
+     */
+    private Long hits;
+
+    /**
+     * Type of pattern.
+     */
     private QuestionPattern questionPattern;
+    /**
+     * Account relationship.
+     */
     private Account accountQuestion;
+
+    /**
+     * This questions belongs to user collection.
+     */
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
-    /** {@link QuestionAnswer}. **/
+    /**
+     * Question Answers.{@link QuestionAnswer}.
+     *
+     */
     private Set<QuestionAnswer> questionsAnswers = new HashSet<QuestionAnswer>();
 
     /**
@@ -189,5 +229,37 @@ public class Question {
      */
     public void setQuestionsAnswers(final Set<QuestionAnswer> questionsAnswers) {
         this.questionsAnswers = questionsAnswers;
+    }
+
+    /**
+     * @return the createDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateBridge(resolution = Resolution.DAY)
+    @Column(name = "question_created_date", nullable = true)
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * @param createDate the createDate to set
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    /**
+     * @return the hits
+     */
+    @Column(name = "question_hits")
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+     * @param hits the hits to set
+     */
+    public void setHits(Long hits) {
+        this.hits = hits;
     }
 }

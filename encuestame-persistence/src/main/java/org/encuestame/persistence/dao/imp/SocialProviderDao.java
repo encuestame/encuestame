@@ -41,6 +41,7 @@ public class SocialProviderDao extends AbstractHibernateDaoSupport implements IS
      * @param socialAccountId social account id.
      * @return {@link SocialAccountProvider}.
      */
+    @SuppressWarnings("deprecation")
     public SocialAccountProvider getSocialAccountProviderId(final Long socialAccountId) {
         return (SocialAccountProvider)
                (getHibernateTemplate().get(SocialAccountProvider.class,

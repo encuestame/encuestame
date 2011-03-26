@@ -678,9 +678,13 @@
             <version>${jetty-plugin-version}</version>
         </dependency>
         <dependency>
-          <groupId>commons-dbcp</groupId>
-          <artifactId>commons-dbcp</artifactId>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
         </dependency>
+        <dependency> 
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-snowball</artifactId>
+        </dependency>                                          
     </dependencies>
 
     <repositories>

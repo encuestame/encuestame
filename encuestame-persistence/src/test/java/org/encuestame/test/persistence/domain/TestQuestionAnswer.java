@@ -14,7 +14,7 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.*;
 
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 

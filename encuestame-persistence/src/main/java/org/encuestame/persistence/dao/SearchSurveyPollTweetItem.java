@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 
 /**
  * Represent item on a Search.

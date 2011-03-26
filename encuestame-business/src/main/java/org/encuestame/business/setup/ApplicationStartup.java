@@ -5,10 +5,10 @@ import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.mail.MailService;
-import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

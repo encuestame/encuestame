@@ -31,6 +31,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.util.Version;
+import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.survey.Poll;
 
@@ -41,8 +42,7 @@ import org.encuestame.persistence.domain.survey.Poll;
  * @since February 09, 2011
  * @version $Id$
  */
-public class SearchService extends AbstractIndexService implements
-        SearchServiceOperations {
+public class SearchService extends AbstractIndexService implements SearchServiceOperations {
 
     public void indexDocument(final String indexDirPath,
             final String indexDirStore) throws IOException {
@@ -156,6 +156,27 @@ public class SearchService extends AbstractIndexService implements
         doc.add(new Field("POLLNAME", poll.getName(), Field.Store.YES,
                 Field.Index.ANALYZED));
         return doc;
+    }
+
+    public List<GlobalSearchItem> quickSearch(String keyword) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<GlobalSearchItem> quickSearch(String keyword, String language) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<GlobalSearchItem> globalKeywordSearch(String keyword,
+            String language) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<GlobalSearchItem> globalKeywordSearch(String keyword) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 
