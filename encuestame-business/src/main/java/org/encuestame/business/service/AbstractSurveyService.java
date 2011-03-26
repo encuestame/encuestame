@@ -443,12 +443,15 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Get List Suggestion Question.
      * @param questionKeyword question keyword
+     * @param username
      * @return unitQuestionBean
      * @throws EnMeNoResultsFoundException
      */
     public List<QuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException{
         final List<QuestionBean> unitQuestionBean = new ArrayList<QuestionBean>();
-        final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
+        final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(
+                questionKeyword,
+                getPrimaryUser(username), null, null);
         log.info("listSuggestQuestion "+questionsList.size());
         for (Question question : questionsList) {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
