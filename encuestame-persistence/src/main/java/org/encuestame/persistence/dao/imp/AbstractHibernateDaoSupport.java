@@ -214,6 +214,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param clazz class reference
      * @param criteria criteria referece
      * @param analyzer {@link Analyzer}.
+     * @param similarity similarity factor
      * @return list of results.
      */
     public List<?> fetchFuzzyQueryFullText(
