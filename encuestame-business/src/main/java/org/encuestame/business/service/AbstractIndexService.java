@@ -39,14 +39,14 @@ public abstract class AbstractIndexService extends AbstractBaseService{
     /**
      * Return suggested list of questions by keyword on indexed results.
      * @param keyword keyword to search
-     * @param username username logged
+     * @param userId userId
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public List<QuestionBean> searchIndexedQuestions(final String keyword, final String username)
+    public List<Question> retrieveQuestionByKeyword(final String keyword, final Long userId)
            throws EnMeNoResultsFoundException{
         final List<Question> questions = getQuestionDao().retrieveIndexQuestionsByKeyword(keyword,
-                                         getUserAccount(username).getAccount().getUid(), null, null);
-        return ConvertDomainBean.convertListToUnitQuestionBean(questions);
+                                         userId, null, null);
+        return questions;
     }
 }

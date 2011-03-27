@@ -121,14 +121,69 @@ public class GlobalSearchItem {
     public void setItemSearchDescription(String itemSearchDescription) {
         this.itemSearchDescription = itemSearchDescription;
     }
-}
 
-/**
- * Type search result.
- * @author Picado, Juan juanATencuestame.org
- * @since Mar 23, 2011
- */
-enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENTS
-    // TODO: etc etc etc etc
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((hits == null) ? 0 : hits.hashCode());
+        result = prime
+                * result
+                + ((itemSearchDescription == null) ? 0 : itemSearchDescription
+                        .hashCode());
+        result = prime * result
+                + ((itemSearchTitle == null) ? 0 : itemSearchTitle.hashCode());
+        result = prime * result + ((score == null) ? 0 : score.hashCode());
+        result = prime
+                * result
+                + ((typeSearchResult == null) ? 0 : typeSearchResult.hashCode());
+        result = prime * result
+                + ((urlLocation == null) ? 0 : urlLocation.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof GlobalSearchItem))
+            return false;
+        GlobalSearchItem other = (GlobalSearchItem) obj;
+        if (hits == null) {
+            if (other.hits != null)
+                return false;
+        } else if (!hits.equals(other.hits))
+            return false;
+        if (itemSearchDescription == null) {
+            if (other.itemSearchDescription != null)
+                return false;
+        } else if (!itemSearchDescription.equals(other.itemSearchDescription))
+            return false;
+        if (itemSearchTitle == null) {
+            if (other.itemSearchTitle != null)
+                return false;
+        } else if (!itemSearchTitle.equals(other.itemSearchTitle))
+            return false;
+        if (score == null) {
+            if (other.score != null)
+                return false;
+        } else if (!score.equals(other.score))
+            return false;
+        if (typeSearchResult != other.typeSearchResult)
+            return false;
+        if (urlLocation == null) {
+            if (other.urlLocation != null)
+                return false;
+        } else if (!urlLocation.equals(other.urlLocation))
+            return false;
+        return true;
+    }
 }

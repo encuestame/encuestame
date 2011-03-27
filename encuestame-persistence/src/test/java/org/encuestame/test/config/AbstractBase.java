@@ -787,6 +787,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);
+        questions.setSharedQuestion(Boolean.TRUE);
         questions.setQuestionPattern(this.createQuestionPattern(pattern));
         questions.setAccountQuestion(this.createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);

@@ -12,40 +12,67 @@
  */
 package org.encuestame.business.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Search Service.
+ *
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since February 09, 2011
  */
-public class SearchService extends AbstractIndexService implements SearchServiceOperations {
+public class SearchService extends AbstractIndexService implements
+        SearchServiceOperations {
 
+    /**
+     * Log.
+     */
+    private Log log = LogFactory.getLog(this.getClass());
 
-
-    public List<GlobalSearchItem> quickSearch(String keyword) {
+    public List<GlobalSearchItem> quickSearch(String keyword,
+            final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public List<GlobalSearchItem> quickSearch(String keyword, String language) {
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.business.service.imp.SearchServiceOperations#quickSearch
+     * (java.lang.String, java.lang.String)
+     */
+    public List<GlobalSearchItem> quickSearch(final String keyword,
+            String language, final Integer start, final Integer limit)
+            throws EnMeNoResultsFoundException {
+        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
+                .decorate(new LinkedList<GlobalSearchItem>());
+        final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
+                .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
+                        null));
+        log.debug("questionResult " + questionResult.size());
+        totalResultsWithoutDuplicates.addAll(questionResult);
+        return totalResultsWithoutDuplicates.asList();
+    }
+
+    public List<GlobalSearchItem> globalKeywordSearch(String keyword,
+            String language, final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
 
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,
-            String language) {
+            final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
-
-    public List<GlobalSearchItem> globalKeywordSearch(String keyword) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
 }

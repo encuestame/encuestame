@@ -17,29 +17,37 @@ import java.util.List;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.IndexerManager;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Search Service Operations.
+ *
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since February 09, 2011
  */
-public interface SearchServiceOperations extends ServiceOperations{
-
+public interface SearchServiceOperations extends ServiceOperations {
 
     /**
      * Quick search by keyword.
+     *
      * @param keyword
+     * @param limit
      * @return
      */
-    List<GlobalSearchItem> quickSearch(final String  keyword);
+    List<GlobalSearchItem> quickSearch(final String keyword,
+            final Integer start, final Integer limit);
 
     /**
      * Quick search based on language analyzer.
+     *
      * @param keyword
      * @param language
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    List<GlobalSearchItem> quickSearch(final String  keyword, final String language);
+    List<GlobalSearchItem> quickSearch(final String keyword,
+            final String language, final Integer start, final Integer limit)
+            throws EnMeNoResultsFoundException;
 
     /**
      *
@@ -47,16 +55,15 @@ public interface SearchServiceOperations extends ServiceOperations{
      * @param language
      * @return
      */
-    List<GlobalSearchItem> globalKeywordSearch(final String  keyword, final String language);
+    List<GlobalSearchItem> globalKeywordSearch(final String keyword,
+            final String language, final Integer start, final Integer limit);
 
     /**
      *
      * @param keyword
      * @return
      */
-    List<GlobalSearchItem> globalKeywordSearch(final String  keyword);
-
-
-
+    List<GlobalSearchItem> globalKeywordSearch(final String keyword,
+            final Integer start, final Integer limit);
 
 }

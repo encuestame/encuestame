@@ -15,14 +15,13 @@ package org.encuestame.business.search;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.aspectj.apache.bcel.generic.ACONST_NULL;
 import org.encuestame.business.setup.DirectorySetupOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeIllegalProviderException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
