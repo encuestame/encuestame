@@ -75,7 +75,7 @@ public class JsonUsersController extends AbstractJsonController{
             //TODO: should be limit and paginate results.
             log.debug("limit "+limit);
             log.debug("start "+start);
-            final Map<String, Object> sucess = new HashMap<String, Object>();
+            final Map<String, Object> success = new HashMap<String, Object>();
             final List<UserAccountBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
             log.debug("size users to retrieve "+userList.size());
@@ -91,12 +91,12 @@ public class JsonUsersController extends AbstractJsonController{
                     unitUserBean.setRelateTimeEnjoy(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
                 }
             }
-            sucess.put("users", userList);
+            success.put("users", userList);
             long total = getServiceManager().getApplicationServices()
             .getSecurityService().totalOwnUsers(getUserPrincipalUsername());
             log.debug("user total users "+total);
-            sucess.put("total", total);
-            setItemResponse(sucess);
+            success.put("total", total);
+            setItemResponse(success);
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();

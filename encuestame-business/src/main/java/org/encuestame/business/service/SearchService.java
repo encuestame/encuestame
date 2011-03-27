@@ -12,8 +12,11 @@
  */
 package org.encuestame.business.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
@@ -54,14 +57,13 @@ public class SearchService extends AbstractIndexService implements
     public List<GlobalSearchItem> quickSearch(final String keyword,
             String language, final Integer start, final Integer limit)
             throws EnMeNoResultsFoundException {
-        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
-                .decorate(new LinkedList<GlobalSearchItem>());
+        HashSet<GlobalSearchItem> hashset = new java.util.HashSet<GlobalSearchItem>();
         final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                 .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
                         null));
         log.debug("questionResult " + questionResult.size());
-        totalResultsWithoutDuplicates.addAll(questionResult);
-        return totalResultsWithoutDuplicates.asList();
+        hashset.addAll(questionResult);
+        return new ArrayList<GlobalSearchItem>(hashset);
     }
 
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,

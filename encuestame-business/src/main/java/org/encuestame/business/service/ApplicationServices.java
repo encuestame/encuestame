@@ -19,6 +19,7 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
+import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
@@ -51,6 +52,8 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private IFrontEndService frontEndService;
     /** {@link PictureService}. **/
     private IPictureService pictureService;
+    /** {@link SearchServiceOperations}. **/
+    private SearchServiceOperations searchService;
 
     /**
      * @return the securityService
@@ -176,5 +179,19 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      */
     public void setPictureService(IPictureService pictureService) {
         this.pictureService = pictureService;
+    }
+
+    /**
+     * @return the searchService
+     */
+    public SearchServiceOperations getSearchService() {
+        return searchService;
+    }
+
+    /**
+     * @param searchService the searchService to set
+     */
+    public void setSearchService(SearchServiceOperations searchService) {
+        this.searchService = searchService;
     }
 }

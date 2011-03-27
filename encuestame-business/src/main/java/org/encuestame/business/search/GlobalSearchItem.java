@@ -186,4 +186,15 @@ public class GlobalSearchItem {
             return false;
         return true;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "GlobalSearchItem [urlLocation=" + urlLocation + ", score="
+                + score + ", hits=" + hits + ", typeSearchResult="
+                + typeSearchResult + ", itemSearchTitle=" + itemSearchTitle
+                + ", itemSearchDescription=" + itemSearchDescription + "]";
+    }
 }

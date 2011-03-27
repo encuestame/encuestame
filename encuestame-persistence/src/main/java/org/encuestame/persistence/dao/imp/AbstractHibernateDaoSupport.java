@@ -261,7 +261,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
         if (log.isDebugEnabled()) {
             for (Object object : searchResult) {
                 Question q = (Question) object;
-                //log.debug("q->"+q.getQuestion());
+                log.debug("q->"+q.getQuestion());
             }
         }
         return searchResult;

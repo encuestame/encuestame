@@ -31,6 +31,11 @@ public class UtilConvertToSearchItems {
      */
     public static GlobalSearchItem convertQuestionToSearchItem(final Question question){
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem.setUrlLocation("/question/detail/"+question.getQid());
+        globalSearchItem.setHits(question.getHits());
+        globalSearchItem.setItemSearchTitle(question.getQuestion());
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.QUESTION);
+        globalSearchItem.setScore(100L);
         return globalSearchItem;
     }
 
