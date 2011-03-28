@@ -29,13 +29,13 @@ import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
-import org.encuestame.persistence.domain.survey.TweetPoll;
-import org.encuestame.persistence.domain.survey.TweetPollResult;
-import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -443,12 +443,15 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Get List Suggestion Question.
      * @param questionKeyword question keyword
+     * @param username
      * @return unitQuestionBean
      * @throws EnMeNoResultsFoundException
      */
     public List<QuestionBean> listSuggestQuestion(final String questionKeyword, final String username) throws EnMeNoResultsFoundException{
         final List<QuestionBean> unitQuestionBean = new ArrayList<QuestionBean>();
-        final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(questionKeyword, getPrimaryUser(username));
+        final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(
+                questionKeyword,
+                getPrimaryUser(username), null, null);
         log.info("listSuggestQuestion "+questionsList.size());
         for (Question question : questionsList) {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));

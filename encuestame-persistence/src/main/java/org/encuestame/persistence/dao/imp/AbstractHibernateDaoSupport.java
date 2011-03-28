@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,17 +15,32 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.FlushMode;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.search.FuzzyQuery;
+import org.apache.lucene.search.PhraseQuery;
+import org.apache.lucene.search.PrefixQuery;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.WildcardQuery;
+import org.apache.lucene.util.Version;
+import org.encuestame.persistence.domain.question.Question;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.search.FullTextQuery;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Abstract Base Dao Class extend Spring class {@link HibernateDaoSupport}
@@ -37,7 +52,20 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
 
      protected Log log = LogFactory.getLog(this.getClass());
 
-     protected Session session = null;
+     /**
+      * Session.
+      */
+     private Session session = null;
+
+     /**
+      * Default lucene version.
+      */
+     private Version version = Version.LUCENE_30;
+
+     /**
+      * Default value to similarity searchs.
+      */
+     protected final Float SIMILARITY_VALUE = 0.4f;
 
      /**
       * Save or Create entity.
@@ -79,16 +107,177 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
           return results;
      }
 
-     /**
-     *
-     * @param date
-     * @return
+    /**
+     * Return current midnight date.
+     * @return midnight date
      */
     public Date getCurrentMidnightDate(){
         DateTime midNight = new DateTime();
         midNight = midNight.plusDays(1);
-        DateMidnight d  = midNight.toDateMidnight();
-        System.out.println("midNight---->"+d.toDate());
-        return d.toDate();
+        final DateMidnight midnightDate  = midNight.toDateMidnight();
+        return midnightDate.toDate();
+    }
+
+    /**
+     * Fetch by multi query parser full text.
+     * @param keyword keyword to search
+     * @param fields list of fields.
+     * @param clazz class referece
+     * @param criteria {@link Criteria} reference.
+     * @param analyzer {@link Analyzer} reference.
+     * @return list of results.
+     */
+    public List<?> fetchMultiFieldQueryParserFullText(
+            final String keyword,
+            final String[] fields,
+            final Class<?> clazz, final Criteria criteria,
+            final Analyzer analyzer) {
+        final MultiFieldQueryParser parser = new MultiFieldQueryParser(
+                version, fields, analyzer);
+        Query query = null;
+        try {
+            query = parser.parse(keyword);
+        } catch (ParseException e) {
+            log.error("Error on Parse Query " + e);
+        }
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+
+    /**
+     * Querying for an exact match on one phrase.
+     * @param keyword keyword
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @return
+     */
+    public List<?> fetchPhraseFullText(
+            final String keyword,
+            final String field,
+            final Class<?> clazz, final Criteria criteria,
+            final Analyzer analyzer) {
+        final StringTokenizer st = new StringTokenizer(keyword, " ");
+        final PhraseQuery query = new PhraseQuery();
+        while (st.hasMoreTokens()) {
+                query.add(new Term(field, st.nextToken()));
+        }
+        log.debug("fetchPhraseFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
+     * Fetch full text session by regular expresion.
+     * @param regExp regular expresion.
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @return list of results.
+     */
+    public List<?> fetchWildcardFullText(
+            final String regExp,
+            final String field,
+            final Class<?> clazz, final Criteria criteria,
+            final Analyzer analyzer) {
+        final WildcardQuery query = new WildcardQuery(new Term(field,
+                regExp));
+        log.debug("fetchWildcardFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
+     * Fetch by prefix as full text search.
+     * @param keyword keyword
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @return list of results.
+     */
+    public List<?> fetchPrefixQueryFullText(
+            final String keyword,
+            final String field,
+            final Class<?> clazz, final Criteria criteria,
+            final Analyzer analyzer) {
+        final PrefixQuery query = new PrefixQuery(new Term(field,
+                keyword));
+        log.debug("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
+     * Fetch fuzzy keywords as full text search.
+     * @param keyword keyword
+     * @param field field to search.
+     * @param clazz class reference
+     * @param criteria criteria referece
+     * @param analyzer {@link Analyzer}.
+     * @param similarity similarity factor
+     * @return list of results.
+     */
+    public List<?> fetchFuzzyQueryFullText(
+            final String keyword,
+            final String field,
+            final Class<?> clazz,
+            final Criteria criteria,
+            final Analyzer analyzer,
+            final Float similarity) {
+        final FuzzyQuery query = new FuzzyQuery(new Term(field,
+                keyword), similarity);
+        log.debug("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
+        return fetchFullTextSession(clazz, criteria, analyzer, query);
+    }
+
+    /**
+     * Abstract fetch full text session.
+     * @param clazz class to search.
+     * @param criteria {@link Criteria}
+     * @param analyzer {@link Analyzer} reference
+     * @param queryOperation {@link Query} reference
+     * @return list of results.
+     */
+    public final List<?> fetchFullTextSession(
+            final Class<?> clazz,
+            final Criteria criteria,
+            final Analyzer analyzer,
+            final Query  queryOperation) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        List<?> searchResult = (List<?>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        final FullTextSession fullTextSession = Search
+                                .getFullTextSession(session);
+                        log.debug("fetchFullTextSession query:{" + queryOperation.toString()+"}");
+                        final FullTextQuery hibernateQuery = fullTextSession
+                                .createFullTextQuery(queryOperation, clazz);
+                        hibernateQuery.setCriteriaQuery(criteria);
+                        final List<?> result = hibernateQuery.list();
+                        log.info("fetchFullTextSession result size:{" + result.size()+"}");
+                        return result;
+                    }
+                });
+        if (log.isDebugEnabled()) {
+            for (Object object : searchResult) {
+                Question q = (Question) object;
+                log.debug("q->"+q.getQuestion());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * @return the version
+     */
+    public Version getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(Version version) {
+        this.version = version;
     }
 }

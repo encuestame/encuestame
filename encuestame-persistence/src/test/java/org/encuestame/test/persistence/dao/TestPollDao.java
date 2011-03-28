@@ -20,14 +20,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;

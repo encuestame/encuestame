@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 
 import org.encuestame.persistence.domain.GeoPointType;
-import org.encuestame.persistence.domain.CatQuestionCategory;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.Email;
@@ -26,17 +25,18 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.question.CatQuestionCategory;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionColettion;
+import org.encuestame.persistence.domain.question.QuestionDependenceSurvey;
+import org.encuestame.persistence.domain.question.QuestionDependencies;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.survey.QuestionColettion;
-import org.encuestame.persistence.domain.survey.QuestionDependenceSurvey;
-import org.encuestame.persistence.domain.survey.QuestionDependencies;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
@@ -64,7 +64,7 @@ public class TestHibernateDomains extends AbstractBase{
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
         catLoc.setTidtype(createGeoPointType("aldea"));
-        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createUser()));
+        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createAccount()));
         getGeoPointDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }
@@ -93,9 +93,9 @@ public class TestHibernateDomains extends AbstractBase{
         project.setProjectDateFinish(new Date());
         project.setProjectName("Name");
          project.getSurveyGroups().add(createSurveyGroup("Education"));
-        project.getSecUserSecondaries().add(createUserAccount("Diana",createUser()));
+        project.getSecUserSecondaries().add(createUserAccount("Diana",createAccount()));
         project.getGroups().add(createGroups("editor"));
-        project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createUser()));
+        project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createAccount()));
         getProjectDaoImp().saveOrUpdate(project);
         assertNotNull(project.getProyectId());
     }
@@ -106,7 +106,7 @@ public class TestHibernateDomains extends AbstractBase{
     @Test
     public void testQuestionCollection(){
         final QuestionColettion questionCollect = new QuestionColettion();
-        questionCollect.setSecUsers(createUser());
+        questionCollect.setSecUsers(createAccount());
         questionCollect.setDesColeccion("Generalities Collection");
         questionCollect.setCreationDate(new Date());
         getQuestionDaoImp().saveOrUpdate(questionCollect);
@@ -143,7 +143,7 @@ public class TestHibernateDomains extends AbstractBase{
         questions.setQidKey("2");
         questions.setQuestionPattern(createQuestionPattern("options"));
         questions.getQuestionColettions().add(createQuestionCollect("options"));
-        questions.setAccountQuestion(createUser());
+        questions.setAccountQuestion(createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);
         assertNotNull(questions.getQid());
 
@@ -170,9 +170,9 @@ public class TestHibernateDomains extends AbstractBase{
         final Group groups = new Group();
         groups.setGroupName("writers");
         groups.setGroupDescriptionInfo("writers");
-        groups.setAccount(createUser());
+        groups.setAccount(createAccount());
         groups.getPermissions().add(createPermission("administrator"));
-        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
+        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createAccount()));
         getGroup().saveOrUpdate(groups);
         assertNotNull(groups.getGroupId());
     }
@@ -186,7 +186,7 @@ public class TestHibernateDomains extends AbstractBase{
         permission.setPermission(EnMePermission.getPermissionString("ENCUESTAME_ADMIN"));
         permission.setPermissionDescription("Administrator of alls options");
         permission.getGroups().add(createGroups("administrator"));
-        permission.getSecUserSecondaries().add(createUserAccount("juan carlos", createUser()));
+        permission.getSecUserSecondaries().add(createUserAccount("juan carlos", createAccount()));
         getPermissionDaoImp().saveOrUpdate(permission);
         assertNotNull(permission.getIdPermission());
     }
@@ -215,7 +215,7 @@ public class TestHibernateDomains extends AbstractBase{
         userSec.setEnjoyDate(new Date());
         userSec.setUserStatus(true);
         userSec.setUserTwitterAccount("si");
-        userSec.setAccount(createUser());
+        userSec.setAccount(createAccount());
         getAccountDao().saveOrUpdate(userSec);
         assertNotNull(userSec.getUid());
     }
@@ -245,7 +245,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveyGroup.setGroupName("Education");
          surveyGroup.setDateCreate(new Date());
          surveyGroup.getSurveyFormats().add(createSurveyFormat("Schools",new Date()));
-         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createUser()));
+         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createAccount()));
          getSurveyDaoImp().saveOrUpdate(surveyGroup);
          assertNotNull(surveyGroup.getSgId());
      }
@@ -256,7 +256,7 @@ public class TestHibernateDomains extends AbstractBase{
      @Test
      public void testSurveys(){
          final Survey surveys = new Survey();
-         surveys.setSecUsers(createUser());
+         surveys.setSecUsers(createAccount());
          surveys.setTicket(1);
          surveys.setStartDate(new Date());
          surveys.setEndDate(new Date());
@@ -276,7 +276,7 @@ public class TestHibernateDomains extends AbstractBase{
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
          geoPointFolder.setLocationFolderName("test folder");
-         geoPointFolder.setAccount(createUser());
+         geoPointFolder.setAccount(createAccount());
          getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 
@@ -300,7 +300,7 @@ public class TestHibernateDomains extends AbstractBase{
          final EmailList catListEmails = new EmailList();
          catListEmails.setCreatedAt(new Date());
          catListEmails.setListName("default encuestame list");
-         catListEmails.setUsuarioEmail(createUser());
+         catListEmails.setUsuarioEmail(createAccount());
          getCatEmailDao().saveOrUpdate(catListEmails);
          assertNotNull(catListEmails.getIdList());
      }
@@ -314,7 +314,7 @@ public class TestHibernateDomains extends AbstractBase{
          surveyFolders.setCreatedAt(new Date());
          surveyFolders.setFolderName("My Surveys");
          //surveyFolders.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat()));
-         surveyFolders.setUsers(createUser());
+         surveyFolders.setUsers(createAccount());
          getSurveyDaoImp().saveOrUpdate(surveyFolders);
          assertNotNull(surveyFolders.getId());
      }
@@ -340,7 +340,7 @@ public class TestHibernateDomains extends AbstractBase{
      //@Test
      public void testQuestionDependenceSurvey(){
          final QuestionDependenceSurvey questionDepSurvey = new QuestionDependenceSurvey();
-         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createUser(), new Date(), createSurveyFormat("Schools",new Date()),"FirstSurvey"));
+         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createAccount(), new Date(), createSurveyFormat("Schools",new Date()),"FirstSurvey"));
          getQuestionDaoImp().saveOrUpdate(questionDepSurvey);
          assertNotNull(questionDepSurvey.getQuestionDependenceId());
      }
@@ -351,7 +351,7 @@ public class TestHibernateDomains extends AbstractBase{
      //@Test
      public void testQuestionDependencies(){
          final QuestionDependencies questionDep = new QuestionDependencies();
-         questionDep.setAnswers((createQuestionAnswer("Yes", createQuestion("DD", createUser()), "DD")));
+         questionDep.setAnswers((createQuestionAnswer("Yes", createQuestion("DD", createAccount()), "DD")));
          questionDep.setDescriptionDependence("My question dependencies");
          questionDep.setQuestionId_from(5L);
          questionDep.setQuestionId_to(3L);
@@ -379,6 +379,6 @@ public class TestHibernateDomains extends AbstractBase{
          client.setClientTelephone("34232423432");
          client.setClientTwitter("encuestame");
          client.setClientUrl("http://www.encuestame.org");
-         client.setProject(createProject("encuestame","open source", "info", createUser()));
+         client.setProject(createProject("encuestame","open source", "info", createAccount()));
      }
 }

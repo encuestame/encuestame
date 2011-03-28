@@ -21,14 +21,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.business.service.SecurityService.Profile;
-import org.encuestame.core.util.RelativeTimeEnum;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,6 +48,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class JsonUsersController extends AbstractJsonController{
 
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Get List of Users.
@@ -70,7 +75,7 @@ public class JsonUsersController extends AbstractJsonController{
             //TODO: should be limit and paginate results.
             log.debug("limit "+limit);
             log.debug("start "+start);
-            final Map<String, Object> sucess = new HashMap<String, Object>();
+            final Map<String, Object> success = new HashMap<String, Object>();
             final List<UserAccountBean> userList = getServiceManager()
                   .getApplicationServices().getSecurityService().loadListUsers(getUserPrincipalUsername(), start, limit);
             log.debug("size users to retrieve "+userList.size());
@@ -86,12 +91,12 @@ public class JsonUsersController extends AbstractJsonController{
                     unitUserBean.setRelateTimeEnjoy(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
                 }
             }
-            sucess.put("users", userList);
+            success.put("users", userList);
             long total = getServiceManager().getApplicationServices()
             .getSecurityService().totalOwnUsers(getUserPrincipalUsername());
             log.debug("user total users "+total);
-            sucess.put("total", total);
-            setItemResponse(sucess);
+            success.put("total", total);
+            setItemResponse(success);
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();

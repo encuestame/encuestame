@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
@@ -5,10 +17,10 @@ import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.mail.MailService;
-import org.encuestame.core.util.DateUtil;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -20,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ApplicationStartup implements StartupProcess {
 
     /** Log. **/
-    protected Logger log = Logger.getLogger(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
     /** Say is app is started. **/
     private static boolean started = false;
@@ -29,13 +41,13 @@ public class ApplicationStartup implements StartupProcess {
      * Install database operations.
      */
     @Autowired
-    public InstallDatabaseOperations install;
+    private InstallDatabaseOperations install;
 
     /**
      * Mail service provider.
      */
     @Autowired
-    public MailService mailService;
+    private MailService mailService;
 
     /**
      * Constructor.

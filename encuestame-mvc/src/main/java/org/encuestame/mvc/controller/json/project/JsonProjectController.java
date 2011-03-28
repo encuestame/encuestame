@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
@@ -41,7 +42,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class JsonProjectController extends AbstractJsonController{
 
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Return list of projects.
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/admon/project/projects.json", method = RequestMethod.GET)
     public ModelMap get(

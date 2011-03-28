@@ -38,6 +38,7 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
+import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
@@ -46,10 +47,10 @@ import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.DateUtil;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,10 +79,16 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 @SuppressWarnings("deprecation")
 public abstract class BaseController extends AbstractSecurityContext{
 
-     protected Logger log = Logger.getLogger(this.getClass());
+     private Logger log = Logger.getLogger(this.getClass());
 
+     /**
+      * Simple date format.
+      */
      public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
 
+     /**
+      * Simple time format.
+      */
      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
      /**
@@ -315,6 +322,14 @@ public abstract class BaseController extends AbstractSecurityContext{
      */
     public SecurityOperations getSecurityService(){
         return getServiceManager().getApplicationServices().getSecurityService();
+    }
+
+    /**
+     * Get {@link SearchServiceOperations}.
+     * @return
+     */
+    public SearchServiceOperations getSearchService(){
+        return getServiceManager().getApplicationServices().getSearchService();
     }
 
     /**

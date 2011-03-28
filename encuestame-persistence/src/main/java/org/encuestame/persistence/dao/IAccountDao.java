@@ -33,6 +33,7 @@ import org.hibernate.HibernateException;
  * @since May 05, 2009
  * @version $Id$
  */
+@SuppressWarnings("deprecation")
 public interface IAccountDao extends IBaseDao {
 
     /**
@@ -257,7 +258,13 @@ public interface IAccountDao extends IBaseDao {
      * @return
      * @throws EnMeExpcetion
      */
-    public AccountConnection findAccountConnectionByAccessToken(
+    AccountConnection findAccountConnectionByAccessToken(
                        final String provider,
                        final String accessToken);
+
+    /**
+     * Get list of id accounts only if are enabled.
+     * @return list of id's.
+     */
+    List<Long> getAccountsEnabled();
 }

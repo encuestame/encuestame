@@ -22,13 +22,13 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.imp.ITweetPollService;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.survey.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;

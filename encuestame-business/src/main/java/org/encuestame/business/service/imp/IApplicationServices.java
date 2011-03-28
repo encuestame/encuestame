@@ -99,4 +99,9 @@ public interface IApplicationServices  extends ServiceOperations {
     IPictureService getPictureService();
 
     void setPictureService(IPictureService pictureService);
+
+    SearchServiceOperations getSearchService();
+
+    void setSearchService(SearchServiceOperations searchService);
+
 }

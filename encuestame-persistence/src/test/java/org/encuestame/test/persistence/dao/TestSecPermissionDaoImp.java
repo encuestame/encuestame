@@ -71,9 +71,6 @@ public class TestSecPermissionDaoImp extends AbstractBase {
     @Test
     public void testFindAllPermissions(){
           final List<Permission> findPermissions = getPermissionDaoImp().findAllPermissions();
-          for (Permission secPermission : findPermissions) {
-              log.info("s "+secPermission.getPermission());
-          }
           assertEquals("should be equals", 5, findPermissions.size());
       }
 
@@ -83,8 +80,6 @@ public class TestSecPermissionDaoImp extends AbstractBase {
     @Test
     public void testGetPermissionById(){
         final Permission perm = getPermissionDaoImp().getPermissionById(this.permission.getIdPermission());
-        System.out.println("PERMISSIOn "+ this.permission.getPermission());
-        System.out.println("PERMISSIOn2 "+ perm.getPermission());
         assertNotNull(perm);
         assertEquals("should be equals", EnMePermission.ENCUESTAME_USER, perm.getPermission());
     }

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -30,6 +30,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -419,6 +421,19 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         //:provider and accountId in ( :providerAccountIds ))";
 
         return null;
+    }
+
+
+    /**
+     * Get list of id accounts only if are enabled.
+     * @return list of id's.
+     */
+    public List<Long> getAccountsEnabled(){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Account.class);
+        criteria.add(Restrictions.eq("enabled", Boolean.TRUE));
+        criteria.setProjection(Projections.id());
+        final List<Long> accountsId = getHibernateTemplate().findByCriteria(criteria);
+        return accountsId;
     }
 
     /**

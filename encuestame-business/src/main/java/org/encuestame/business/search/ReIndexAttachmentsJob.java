@@ -15,9 +15,13 @@ package org.encuestame.business.search;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.DirectorySetupOperations;
+import org.encuestame.persistence.dao.IAccountDao;
+import org.encuestame.persistence.dao.imp.AccountDaoImp;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -32,42 +36,80 @@ public class ReIndexAttachmentsJob {
      */
     private static final Log log = LogFactory.getLog(ReIndexAttachmentsJob.class);
 
+    /**
+     * {@link AccountDaoImp}.
+     */
+    @Autowired
+    private IAccountDao accountDao;
 
     /**
-     *
+     * {@link IndexerManager}
      */
-    private String indexStorePath;
-
-    /**
-     *
-     */
-    private String attachmentsPlacesHolder = "/home/dmorales/encuestame/profiles/1/";
-
     @Autowired
     private IndexerManager indexerManager;
 
+
+    /**
+     * Enable/Disable autocreate missing directories.
+     */
+    private Boolean autoCreateDirectories = Boolean.FALSE;
+
     /**
      * Constructor.
+     * @throws EnMeExpcetion if indexes directoty is null;
      */
-    public ReIndexAttachmentsJob() {    	//
-        this.indexStorePath = DirectorySetupOperations.getIndexesDirectory();
-        log.debug("Index path location "+this.indexStorePath);
-
+    public ReIndexAttachmentsJob() throws EnMeExpcetion {    	//
     }
 
+    /**
+     * Return list of enabled account directories.
+     * @return
+     */
+    private List<File> getListOfAccountEnabledDirectories(){
+        final List<File> userDomainAttachmentsLocation = new ArrayList<File>();
+        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled();
+        log.debug("listOfAccounts enabled"+listOfAccounts.size());
+        for (Long accountId : listOfAccounts) {
+            final StringBuilder path = new StringBuilder(DirectorySetupOperations.getProfilesDirectory());
+            path.append("/");
+            path.append(accountId.toString());
+            path.append("/");
+            log.debug("Path builded "+path.toString());
+            final File accountPath = new File(path.toString());
+            if (accountPath.exists()) {
+                userDomainAttachmentsLocation.add(accountPath);
+            } else {
+                log.warn("Account Id: "+accountId+ " profile propery is missing, enable autocreate to create missings directories");
+                if (this.autoCreateDirectories) {
+                    log.debug("Autocreate enabled: creating folder for profile:{"+accountId);
+                    accountPath.mkdir();
+                    if(accountPath.exists()){
+                        userDomainAttachmentsLocation.add(accountPath);
+                    }
+                }
+            }
+        }
+        return userDomainAttachmentsLocation;
+    }
 
     /**
      * Reindex.
      */
     public void reindexAttachments(){
         log.debug("reindexAttachments");
-        final List<File> userDomainAttachmentsLocation = new ArrayList<File>();
-        userDomainAttachmentsLocation.add(new File(this.attachmentsPlacesHolder));
-        log.debug("Location size"+userDomainAttachmentsLocation.size());
+        final List<File> userDomainAttachmentsLocation = this.getListOfAccountEnabledDirectories();
+        log.debug("Location size:{"+userDomainAttachmentsLocation.size());
         try {
-            log.debug("IndexManager initialize....");
-            log.debug("Initialize Index Starting...");
-            this.indexerManager.initializeIndex(userDomainAttachmentsLocation);
+            if (userDomainAttachmentsLocation.size() > 0) {
+                if (this.indexerManager == null) {
+                    log.fatal("IntexManager is missing.");
+                } else {
+                    log.debug("Initialize Index Starting...");
+                    this.indexerManager.initializeIndex(userDomainAttachmentsLocation);
+                }
+            } else {
+                log.debug("Nothing to index... ");
+            }
         } catch (Exception e) {
             log.fatal("Index on reindex: "+e);
         }
@@ -76,8 +118,37 @@ public class ReIndexAttachmentsJob {
     /**
     * @param indexerManager the indexerManager to set
     */
-    public void setIndexerManager(IndexerManager indexerManager) {
+    public void setIndexerManager(final IndexerManager indexerManager) {
         this.indexerManager = indexerManager;
     }
 
+
+    /**
+     * @return the accountDao
+     */
+    public IAccountDao getAccountDao() {
+        return accountDao;
+    }
+
+
+    /**
+     * @param accountDao the accountDao to set
+     */
+    public void setAccountDao(final IAccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    /**
+     * @return the autoCreateDirectories
+     */
+    public Boolean getAutoCreateDirectories() {
+        return autoCreateDirectories;
+    }
+
+    /**
+     * @param autoCreateDirectories the autoCreateDirectories to set
+     */
+    public void setAutoCreateDirectories(final Boolean autoCreateDirectories) {
+        this.autoCreateDirectories = autoCreateDirectories;
+    }
 }

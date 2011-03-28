@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.util;
+package org.encuestame.utils;
 
 /**
  * Relative Time Enumeration.
@@ -19,6 +19,7 @@ package org.encuestame.core.util;
  * @version $Id:$
  */
 public enum RelativeTimeEnum {
+    RIGTH_NOW,
     ONE_SECOND_AGO,
     SECONDS_AGO,
     A_MINUTE_AGO,

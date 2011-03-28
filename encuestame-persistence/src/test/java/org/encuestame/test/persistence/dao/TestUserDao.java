@@ -17,16 +17,16 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
-import org.encuestame.persistence.domain.survey.TweetPoll;
-import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +74,7 @@ public class TestUserDao extends AbstractBase {
      **/
     @Before
     public void initService(){
-        this.account = createUser();
+        this.account = createAccount();
         this.userAccount = createUserAccount("user 1", this.account);
         this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
         this.question = createQuestion("What day is today?", "");
@@ -281,5 +281,28 @@ public class TestUserDao extends AbstractBase {
         this.poll = createPoll(new Date(), this.question, "FDK125", this.account, Boolean.TRUE, Boolean.TRUE);
         final List<Long> polls = getAccountDao().getTotalPollByUser(this.account.getUid());
         assertEquals("Should be equals", 1, polls.size());
+    }
+
+    /**
+     * Test for getAccountsEnabled.
+     */
+    @Test
+    public void testGetAccountsEnabled(){
+        for (int i = 0; i < 20; i++) {
+            createAccount();
+        }
+        //create disabled account.
+        createAccount(false);
+        createAccount(false);
+        createAccount(false);
+        createAccount(false);
+        final List<Long> d = getAccountDao().getAccountsEnabled();
+        //20 + 2 on @Before.
+        assertEquals("Should be equals", 22, d.size());
+        if(log.isDebugEnabled()){
+            for (Long long1 : d) {
+                log.debug("d->"+long1);
+            }
+        }
     }
 }

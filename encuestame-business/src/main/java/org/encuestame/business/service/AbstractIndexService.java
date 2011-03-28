@@ -7,7 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionBean;
@@ -39,14 +39,14 @@ public abstract class AbstractIndexService extends AbstractBaseService{
     /**
      * Return suggested list of questions by keyword on indexed results.
      * @param keyword keyword to search
-     * @param username username logged
+     * @param userId userId
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public List<QuestionBean> searchIndexedQuestions(final String keyword, final String username)
+    public List<Question> retrieveQuestionByKeyword(final String keyword, final Long userId)
            throws EnMeNoResultsFoundException{
         final List<Question> questions = getQuestionDao().retrieveIndexQuestionsByKeyword(keyword,
-                                         getUserAccount(username).getAccount().getUid());
-        return ConvertDomainBean.convertListToUnitQuestionBean(questions);
+                                         userId, null, null);
+        return questions;
     }
 }

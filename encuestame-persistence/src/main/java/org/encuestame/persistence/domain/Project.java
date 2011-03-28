@@ -115,7 +115,7 @@ public class Project {
      * @return projectDescription
      */
     @Field(index = Index.TOKENIZED)
-    @Column(name = "description", columnDefinition = "text", nullable = true)
+    @Column(name = "description", nullable = true, length = 600)
     public String getProjectDescription() {
         return this.projectDescription;
     }
@@ -131,7 +131,7 @@ public class Project {
      * @return the projectName
      */
     @Field(index = Index.TOKENIZED)
-    @Column(name = "name", nullable = false)
+    @Column(name = "project_name", nullable = false)
     public String getProjectName() {
         return projectName;
     }

@@ -10,13 +10,12 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.util;
+package org.encuestame.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -28,17 +27,25 @@ import org.joda.time.Years;
 
 
 /**
- * Description Class.
+ * Collection of helper for dates.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 18, 2010 11:04:07 PM
- * @version Id:
  */
 public class DateUtil {
 
+    /**
+     * yyyy-MM-dd
+     */
     public static final String DEFAULT_FORMAT_DATE = "yyyy-MM-dd";
 
+    /**
+     * hh:mm:ss
+     */
     public static final String DEFAULT_FORMAT_TIME = "hh:mm:ss";
 
+    /**
+     * yyyy-MM-dd hh:mm:ss
+     */
     public static final String DEFAULT_FORMAT_ALL = "yyyy-MM-dd hh:mm:ss";
 
     /**
@@ -58,10 +65,27 @@ public class DateUtil {
         return DateUtil.getFormatDate(new Date(), DateUtil.DEFAULT_FORMAT_ALL);
      }
 
-
+    /**
+     * Get format date.
+     * @param date date
+     * @param format format
+     * @return
+     */
     public static String getFormatDate(final Date date, final String format){
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
+     }
+
+    /**
+     * Parse date.
+     * @param date date on string
+     * @param format format of date.
+     * @return
+     * @throws ParseException error on parse..
+     */
+    public static Date parseDate(final String date, final String format) throws ParseException{
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.parse(date);
      }
 
     /**
@@ -163,10 +187,8 @@ public class DateUtil {
         final Integer hour = DateUtil.getHoursBetweenDates(startDate);
         //System.out.println("hour ago  "+hour);
         final Integer days = DateUtil.getDaysBetweenDates(startDate);
-        //System.out.println("days ago  "+days);
-        //System.out.println("start date "+startDate);
         if (seconds < 0) {
-            // TODO: no yet
+            numbers.put(seconds, RelativeTimeEnum.RIGTH_NOW);
         } else if (seconds < 1 * MINUTE) {
             numbers.put(seconds,
                     (seconds == 1 ? RelativeTimeEnum.ONE_SECOND_AGO
