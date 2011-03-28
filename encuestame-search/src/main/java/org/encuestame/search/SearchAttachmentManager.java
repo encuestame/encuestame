@@ -31,7 +31,6 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-import org.encuestame.business.search.IndexerManager;
 
 /**
  * Query Search Manager to Lucene Index.
@@ -42,7 +41,7 @@ import org.encuestame.business.search.IndexerManager;
 public class SearchAttachmentManager {
 
     /** Log. **/
-    private static final Log log = LogFactory.getLog(IndexerManager.class);
+    private static final Log log = LogFactory.getLog(SearchAttachmentManager.class);
 
     /** Index Directory Path. **/
     final String directoryIndex;
