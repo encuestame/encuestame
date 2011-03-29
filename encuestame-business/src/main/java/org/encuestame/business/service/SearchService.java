@@ -21,6 +21,7 @@ import java.util.Set;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.search.AttachmentSearchItem;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
@@ -70,13 +71,18 @@ public class SearchService extends AbstractIndexService implements
         final List<GlobalSearchItem> tags = UtilConvertToSearchItems
         .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
 
+        final List<GlobalSearchItem> attachments = UtilConvertToSearchItems
+                                    .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword));
+
         log.debug("questionResult " + questionResult.size());
         log.debug("profiles " + profiles.size());
         log.debug("tags " + tags.size());
+        log.debug("attachments " + attachments.size());
 
         hashset.addAll(questionResult);
         hashset.addAll(profiles);
         hashset.addAll(tags);
+        hashset.addAll(attachments);
         return new ArrayList<GlobalSearchItem>(hashset);
     }
 

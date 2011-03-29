@@ -1,16 +1,20 @@
 
 package org.encuestame.business.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.search.AttachmentSearchItem;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.search.SearchManagerOperation;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Provide of index/search layer.
@@ -23,6 +27,10 @@ public abstract class AbstractIndexService extends AbstractBaseService{
      * Log.
      */
     private Log log = LogFactory.getLog(this.getClass());
+
+    /** Search Manager Operation**/
+    @Autowired
+    private SearchManagerOperation searchOperation;
 
     /**
      * List Suggested Hash Tags.
@@ -48,5 +56,25 @@ public abstract class AbstractIndexService extends AbstractBaseService{
         final List<Question> questions = getQuestionDao().retrieveIndexQuestionsByKeyword(keyword,
                                          userId, null, null);
         return questions;
+    }
+
+
+    public List<AttachmentSearchItem> getAttachmentItem(final String keyword){
+        //getSearchOperation().search(queryText, max, field)
+        return new ArrayList<AttachmentSearchItem>();
+    }
+
+    /**
+    * @return the searchOperation
+    */
+    public SearchManagerOperation getSearchOperation() {
+        return searchOperation;
+    }
+
+    /**
+    * @param searchOperation the searchOperation to set
+    */
+    public void setSearchOperation(SearchManagerOperation searchOperation) {
+        this.searchOperation = searchOperation;
     }
 }

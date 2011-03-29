@@ -115,15 +115,15 @@ public class IndexerManager {
         Document doc = null;
         log.debug("get Document extension " + ext);
         if ("docx".equals(ext)) {
-      //      doc = SearchUtils.createWordDocument(file);
+             doc = SearchUtils.createWordDocument(file);
         } else if ("xls".equals(ext)) {
-     //       doc = SearchUtils.createSpreadsheetsDocument(file);
+             doc = SearchUtils.createSpreadsheetsDocument(file);
         } else if ("pdf".equals(ext)) {
-     //       doc = SearchUtils.createPdfDocument(file);
+             doc = SearchUtils.createPdfDocument(file);
         } else if ("txt".equals(ext)) {
-     //       doc = SearchUtils.createTextDocument(file);
+             doc = SearchUtils.createTextDocument(file);
         }
-        return doc;
+        return doc ;
     }
 
     /**

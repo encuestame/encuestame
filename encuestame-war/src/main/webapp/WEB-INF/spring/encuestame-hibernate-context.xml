@@ -82,6 +82,7 @@
                 <value>org.encuestame.persistence.domain.survey.SurveyFolder</value>
                 <value>org.encuestame.persistence.domain.survey.PollFolder</value>
                 <value>org.encuestame.persistence.domain.notifications.Notification</value>
+                <value>org.encuestame.persistence.domain.Attachment</value>
             </list>
         </property>
         <property name="hibernateProperties">
