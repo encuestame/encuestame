@@ -20,6 +20,8 @@ package org.encuestame.business.search;
  */
 public class GlobalSearchItem {
 
+    private Long id;
+
     private String urlLocation;
 
     private Long score;
@@ -120,6 +122,20 @@ public class GlobalSearchItem {
      */
     public void setItemSearchDescription(String itemSearchDescription) {
         this.itemSearchDescription = itemSearchDescription;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /* (non-Javadoc)

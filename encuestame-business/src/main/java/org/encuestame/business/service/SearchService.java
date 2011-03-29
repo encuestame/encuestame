@@ -83,7 +83,14 @@ public class SearchService extends AbstractIndexService implements
         hashset.addAll(profiles);
         hashset.addAll(tags);
         hashset.addAll(attachments);
-        return new ArrayList<GlobalSearchItem>(hashset);
+
+        final List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
+        int x = 1;
+        for (int i = 0; i < totalItems.size(); i++) {
+            totalItems.get(i).setId(Long.valueOf(x));
+            x++;
+        }
+        return totalItems;
     }
 
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,

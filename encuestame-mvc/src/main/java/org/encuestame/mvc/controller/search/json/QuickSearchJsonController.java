@@ -13,10 +13,8 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +39,6 @@ public class QuickSearchJsonController extends AbstractJsonController {
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "api/search/quick-suggest.json", method = RequestMethod.GET)
     public ModelMap quickSuggestionSearchService(
             @RequestParam(value = "keyword", required = true) String keyword,
@@ -52,9 +49,7 @@ public class QuickSearchJsonController extends AbstractJsonController {
             final List<GlobalSearchItem> results = getSearchService()
                     .quickSearch(keyword, "English", 0, 10);
             log.debug("GlobalSearchItem results " + results.size());
-            final Map<String, Object> success = new HashMap<String, Object>();
-            success.put("suggest", results);
-            setItemResponse(success);
+            setItemReadStoreResponse("itemSearchTitle", "id", results);
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e);

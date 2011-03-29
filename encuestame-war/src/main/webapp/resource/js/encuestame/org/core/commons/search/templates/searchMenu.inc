@@ -1,5 +1,6 @@
-<span>
-    <input type="text" name="search" id="search" size="20" class="defaultInputClass"
-                         value="SEARCH"
-                         onclick = "if(this.value=='SEARCH') this.value=''"/>
-</span>
+<div>
+   <div dojoAttachPoint="_suggest"></div>
+    <div class="wrapperHashTagItems">
+        <div dojoAttachPoint="_items"></div>
+    </div>
+</div>

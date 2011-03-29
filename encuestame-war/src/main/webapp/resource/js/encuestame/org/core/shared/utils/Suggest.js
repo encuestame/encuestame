@@ -23,6 +23,8 @@ dojo.declare(
 
         buttonWidget : null,
 
+        hideLabel : false,
+
         selectedItem : null,
 
         addButton : true,
@@ -30,6 +32,8 @@ dojo.declare(
         limit : 10,
 
         label : "Label",
+
+        query :  {hashTagName : "*"},
 
         searchParam: { limit : 10, keyword : ""},
 
@@ -58,6 +62,9 @@ dojo.declare(
                     this._suggestButton);
                     console.debug(this.buttonWidget);
                 }
+                if (this.hideLabel) {
+                   dojo.addClass(this._label,"defaultDisplayHide");
+                }
             } else {
                 console.error("Error");
             }
@@ -69,13 +76,14 @@ dojo.declare(
 
         callSuggest : function(){
             var fetch = {
-                    query: {hashTagName : "*"},
+                    query: this.query,
                     queryOptions: {
                         ignoreCase: this.ignoreCase,
                         deep: true
                     },
                     serverQuery: this.searchParam,
                     onComplete: dojo.hitch(this, function(result, dataObject){
+                        console.info("suggeest onComplete...", result);
                         this.evaluateItems(result);
                     }),
                     onError: function(errText){
@@ -87,6 +95,7 @@ dojo.declare(
 
         /** Evaluate Items. **/
         evaluateItems : function(data){
+            console.info("suggeest data.length...", data.length);
             if(data.length > 0){
                  dojo.empty(this._suggestItems);
                  var fadeArgs = {
@@ -106,6 +115,9 @@ dojo.declare(
             }
         },
 
+        /*
+         * hide with fade out the suggest box.
+         */
         hide : function(){
             var fadeArgs = {
                     node: this._suggestItems
@@ -114,8 +126,11 @@ dojo.declare(
             this.clear();
         },
 
-        /** Build Row. **/
+        /*
+         *  Build Row.
+         */
         buildRow : function(data){
+          console.info("suggeest buildRow...", data);
             var widget = new encuestame.org.core.shared.utils.SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},
