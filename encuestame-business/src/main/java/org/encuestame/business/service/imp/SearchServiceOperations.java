@@ -12,8 +12,10 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.IndexerManager;
 import org.encuestame.core.service.ServiceOperations;
@@ -47,7 +49,7 @@ public interface SearchServiceOperations extends ServiceOperations {
      */
     List<GlobalSearchItem> quickSearch(final String keyword,
             final String language, final Integer start, final Integer limit)
-            throws EnMeNoResultsFoundException;
+            throws EnMeNoResultsFoundException, IOException, ParseException ;
 
     /**
      *
