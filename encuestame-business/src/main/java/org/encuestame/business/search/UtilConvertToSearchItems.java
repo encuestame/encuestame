@@ -47,6 +47,38 @@ public class UtilConvertToSearchItems {
 
     /**
      *
+     * @param item
+     * @return
+     */
+    public static GlobalSearchItem convertAttachmentSearchToSearchItem(
+            final AttachmentSearchItem item) {
+        final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem
+                .setUrlLocation("/resource/detail/" + item.getAttachId()+"/"+RestFullUtil.slugify(item.getDescription()));
+        globalSearchItem.setHits(200L);
+        globalSearchItem.setItemSearchTitle(item.getDescription());
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.ATTACHMENT);
+        globalSearchItem.setScore(100L);
+        return globalSearchItem;
+    }
+
+    /**
+     *
+     * @param items
+     * @return
+     */
+    public static List<GlobalSearchItem> convertAttachmentSearchToSearchItem(
+            final List<AttachmentSearchItem> items) {
+        final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+        for (AttachmentSearchItem item : items) {
+            globalSearchItems.add(UtilConvertToSearchItems
+                    .convertAttachmentSearchToSearchItem(item));
+        }
+        return globalSearchItems;
+    }
+
+    /**
+     *
      * @param tag
      * @return
      */

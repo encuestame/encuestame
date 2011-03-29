@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.search;
+package org.encuestame.business.search;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +31,8 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.encuestame.business.setup.DirectorySetupOperations;
+import org.encuestame.search.SearchManagerOperation;
 
 /**
  * Query Search Manager to Lucene Index.
@@ -38,7 +40,7 @@ import org.apache.lucene.util.Version;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Mar 24, 2011
  */
-public class SearchAttachmentManager {
+public class SearchAttachmentManager implements SearchManagerOperation {
 
     /** Log. **/
     private static final Log log = LogFactory.getLog(SearchAttachmentManager.class);
@@ -58,8 +60,8 @@ public class SearchAttachmentManager {
     /**
     * Constructor.
     */
-    public SearchAttachmentManager(final String directoryIndex) {
-        this.directoryIndex = directoryIndex;
+    public SearchAttachmentManager() {
+        this.directoryIndex = DirectorySetupOperations.getIndexesDirectory();
     }
 
     /**
@@ -69,8 +71,7 @@ public class SearchAttachmentManager {
     private void startIndexSearcher() throws IOException {
         // Open Index Directory to Search.
         this.directory = FSDirectory.open(new File(this.directoryIndex));
-        IndexSearcher indexSearcher = new IndexSearcher(this.directory, true);
-
+        this.indexSearcher = new IndexSearcher(this.directory, true);
     }
 
     /**

@@ -9,5 +9,5 @@
     <!-- Open and Close Lucene Index Directory to write and index information -->
     <beans:bean name="indexWriter" class="org.encuestame.business.search.IndexWriterManager" scope="singleton"/>
     <beans:bean name="indexerManager" class="org.encuestame.business.search.IndexerManager" scope="prototype"> </beans:bean>
-
+    <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton"></beans:bean>
 </beans:beans>

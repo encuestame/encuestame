@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.queryParser.ParseException;
+import org.encuestame.business.search.SearchAttachmentManager;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class TestSearchManager extends AbstractBase{
     @Test
     public void testSearchDocuments(){
         final SearchAttachmentManager manager = new SearchAttachmentManager(getProperty("data.test.index"));
-        final String query = "extension";
+        final String query = "java";
         final int max = 10;
         final String fieldIndex = "content";
         System.out.println("Index Directory-->"+ getProperty("data.test.index"));
