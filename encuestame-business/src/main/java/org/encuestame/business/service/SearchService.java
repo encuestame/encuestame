@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ import java.util.Set;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.AttachmentSearchItem;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.UtilConvertToSearchItems;
@@ -57,7 +59,7 @@ public class SearchService extends AbstractIndexService implements
      */
     public List<GlobalSearchItem> quickSearch(final String keyword,
             String language, final Integer start, final Integer limit)
-            throws EnMeNoResultsFoundException {
+            throws EnMeNoResultsFoundException, IOException, ParseException {
         HashSet<GlobalSearchItem> hashset = new java.util.HashSet<GlobalSearchItem>();
 
 
@@ -72,7 +74,7 @@ public class SearchService extends AbstractIndexService implements
         .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
 
         final List<GlobalSearchItem> attachments = UtilConvertToSearchItems
-                                    .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword));
+                                    .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
 
         log.debug("questionResult " + questionResult.size());
         log.debug("profiles " + profiles.size());
