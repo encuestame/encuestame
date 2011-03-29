@@ -18,5 +18,5 @@ package org.encuestame.business.search;
  * @since Mar 23, 2011
  */
 enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG
 }

@@ -29,7 +29,6 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
-import org.encuestame.persistence.domain.question.Question;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -258,12 +257,6 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                         return result;
                     }
                 });
-        if (log.isDebugEnabled()) {
-            for (Object object : searchResult) {
-                Question q = (Question) object;
-                log.debug("q->"+q.getQuestion());
-            }
-        }
         return searchResult;
     }
 

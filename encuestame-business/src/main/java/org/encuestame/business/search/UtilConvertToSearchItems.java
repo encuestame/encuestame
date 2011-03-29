@@ -15,10 +15,14 @@ package org.encuestame.business.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.RestFullUtil;
 
 /**
  * Utils to convert items to {@link GlobalSearchItem}.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 26, 2011
  */
@@ -29,9 +33,11 @@ public class UtilConvertToSearchItems {
      * @param question
      * @return
      */
-    public static GlobalSearchItem convertQuestionToSearchItem(final Question question){
+    public static GlobalSearchItem convertQuestionToSearchItem(
+            final Question question) {
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
-        globalSearchItem.setUrlLocation("/question/detail/"+question.getQid());
+        globalSearchItem
+                .setUrlLocation("/question/detail/" + question.getQid()+"/"+RestFullUtil.slugify(question.getQuestion()));
         globalSearchItem.setHits(question.getHits());
         globalSearchItem.setItemSearchTitle(question.getQuestion());
         globalSearchItem.setTypeSearchResult(TypeSearchResult.QUESTION);
@@ -41,13 +47,78 @@ public class UtilConvertToSearchItems {
 
     /**
      *
+     * @param tag
+     * @return
+     */
+    public static GlobalSearchItem convertHashTagToSearchItem(final HashTag tag) {
+        final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem.setUrlLocation("/hashtag/"
+                + RestFullUtil.formatHasgTag(tag.getHashTag()));
+        globalSearchItem.setHits(tag.getHits());
+        globalSearchItem.setItemSearchTitle(tag.getHashTag());
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.HASHTAG);
+        globalSearchItem.setScore(100L);
+        return globalSearchItem;
+    }
+
+    /**
+     *
+     * @param profile
+     * @return
+     */
+    public static GlobalSearchItem convertProfileToSearchItem(
+            final UserAccount profile) {
+        final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem.setUrlLocation("/users/profile/"
+                + profile.getUsername());
+        globalSearchItem.setHits(0L);
+        globalSearchItem.setItemSearchTitle(profile.getCompleteName());
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.PROFILE);
+        globalSearchItem.setScore(100L);
+        return globalSearchItem;
+    }
+
+    /**
+     *
+     * @param profiles
+     * @return
+     */
+    public static List<GlobalSearchItem> convertProfileToSearchItem(
+            final List<UserAccount> profiles) {
+        final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+        for (UserAccount profile : profiles) {
+            globalSearchItems.add(UtilConvertToSearchItems
+                    .convertProfileToSearchItem(profile));
+        }
+        return globalSearchItems;
+    }
+
+    /**
+     *
      * @param questions
      * @return
      */
-    public static List<GlobalSearchItem> convertQuestionToSearchItem(final List<Question> questions){
+    public static List<GlobalSearchItem> convertQuestionToSearchItem(
+            final List<Question> questions) {
         final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
         for (Question question : questions) {
-            globalSearchItems.add(UtilConvertToSearchItems.convertQuestionToSearchItem(question));
+            globalSearchItems.add(UtilConvertToSearchItems
+                    .convertQuestionToSearchItem(question));
+        }
+        return globalSearchItems;
+    }
+
+    /**
+     *
+     * @param tags
+     * @return
+     */
+    public static List<GlobalSearchItem> convertHashTagToSearchItem(
+            final List<HashTag> tags) {
+        final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+        for (HashTag tag : tags) {
+            globalSearchItems.add(UtilConvertToSearchItems
+                    .convertHashTagToSearchItem(tag));
         }
         return globalSearchItems;
     }

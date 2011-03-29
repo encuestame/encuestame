@@ -267,4 +267,14 @@ public interface IAccountDao extends IBaseDao {
      * @return list of id's.
      */
     List<Long> getAccountsEnabled();
+
+    /**
+     *
+     * @param keyword
+     * @param maxResults
+     * @param startOn
+     * @return
+     */
+    List<UserAccount> getPublicProfiles(final String keyword,
+            final Integer maxResults, final Integer startOn);
 }

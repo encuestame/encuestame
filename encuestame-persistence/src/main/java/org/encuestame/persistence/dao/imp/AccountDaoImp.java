@@ -12,8 +12,12 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.Account;
@@ -22,19 +26,20 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuthToken;
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -444,9 +449,97 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
-     * @param socialProviderDao the socialProviderDao to set
+     * @param socialProviderDao thed socialProviderDao to set
      */
     public void setSocialProviderDao(final ISocialProviderDao socialProviderDao) {
         this.socialProviderDao = socialProviderDao;
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getPublicProfiles(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<UserAccount> getPublicProfiles(final String keyword,
+            final Integer maxResults, final Integer startOn) {
+        final List<UserAccount> searchResult = (List<UserAccount>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        List<UserAccount> searchResult = new ArrayList<UserAccount>();
+                        long start = System.currentTimeMillis();
+                        final Criteria criteria = session
+                                .createCriteria(UserAccount.class);
+                        //only shared profiles.
+                        criteria.add(Restrictions.eq("sharedProfile", Boolean.TRUE));
+                        // limit results
+                        if (maxResults != null) {
+                            criteria.setMaxResults(maxResults.intValue());
+                        }
+                        // start on page x
+                        if (startOn != null) {
+                            criteria.setFirstResult(startOn.intValue());
+                        }
+                        searchResult = (List<UserAccount>) fetchMultiFieldQueryParserFullText(
+                                keyword, new String[] { "completeName, username" },
+                                UserAccount.class, criteria, new SimpleAnalyzer());
+                        final List listAllSearch = new LinkedList();
+                        listAllSearch.addAll(searchResult);
+
+                        // Fetch result by phrase
+                        final List<UserAccount> phraseFullTestResult = (List<UserAccount>) fetchPhraseFullText(
+                                keyword, "completeName", UserAccount.class,
+                                criteria, new SimpleAnalyzer());
+                        log.debug("phraseFullTestResult:{"
+                                + phraseFullTestResult.size());
+                        listAllSearch.addAll(phraseFullTestResult);
+                        // Fetch result by wildcard
+                        final List<UserAccount> wildcardFullTextResult = (List<UserAccount>) fetchWildcardFullText(
+                                keyword, "completeName", UserAccount.class,
+                                criteria, new SimpleAnalyzer());
+                        log.debug("wildcardFullTextResult:{"
+                                + wildcardFullTextResult.size());
+                        listAllSearch.addAll(wildcardFullTextResult);
+                        // Fetch result by prefix
+                        final List<UserAccount> prefixQueryFullTextResuslts = (List<UserAccount>) fetchPrefixQueryFullText(
+                                keyword, "completeName", UserAccount.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("prefixQueryFullTextResuslts:{"
+                                + prefixQueryFullTextResuslts.size());
+                        listAllSearch.addAll(prefixQueryFullTextResuslts);
+                        // Fetch fuzzy results
+                        final List<UserAccount> fuzzyQueryFullTextResults = (List<UserAccount>) fetchFuzzyQueryFullText(
+                                keyword, "completeName", UserAccount.class, criteria,
+                                new SimpleAnalyzer(), SIMILARITY_VALUE);
+                        log.debug("fuzzyQueryFullTextResults: {"
+                                + fuzzyQueryFullTextResults.size());
+                        listAllSearch.addAll(fuzzyQueryFullTextResults);
+
+                        log.debug("listAllSearch size:{" + listAllSearch.size());
+
+                        // removing duplcates
+                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
+                                .decorate(new LinkedList());
+                        totalResultsWithoutDuplicates.addAll(listAllSearch);
+
+                        /*
+                         * Limit results if is enabled.
+                         */
+                        List<UserAccount> totalList = totalResultsWithoutDuplicates
+                                .asList();
+                        if (maxResults != null && startOn != null) {
+                            log.debug("split to " + maxResults
+                                    + " starting on " + startOn
+                                    + " to list with size " + totalList.size());
+                            totalList = totalList.size() > maxResults ? totalList
+                                    .subList(startOn, maxResults) : totalList;
+                        }
+                        long end = System.currentTimeMillis();
+                        log.debug("UserAccount{ totalResultsWithoutDuplicates:{"
+                                + totalList.size() + " items with search time:"
+                                + (end - start) + " milliseconds");
+                        return totalList;
+                    }
+                });
+        return searchResult;
     }
 }

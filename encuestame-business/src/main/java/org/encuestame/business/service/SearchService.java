@@ -58,11 +58,25 @@ public class SearchService extends AbstractIndexService implements
             String language, final Integer start, final Integer limit)
             throws EnMeNoResultsFoundException {
         HashSet<GlobalSearchItem> hashset = new java.util.HashSet<GlobalSearchItem>();
+
+
         final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                 .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
                         null));
+        final List<GlobalSearchItem> profiles = UtilConvertToSearchItems
+                .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
+
+
+        final List<GlobalSearchItem> tags = UtilConvertToSearchItems
+        .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
+
         log.debug("questionResult " + questionResult.size());
+        log.debug("profiles " + profiles.size());
+        log.debug("tags " + tags.size());
+
         hashset.addAll(questionResult);
+        hashset.addAll(profiles);
+        hashset.addAll(tags);
         return new ArrayList<GlobalSearchItem>(hashset);
     }
 
