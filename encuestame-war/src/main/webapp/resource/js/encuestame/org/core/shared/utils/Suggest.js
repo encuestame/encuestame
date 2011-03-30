@@ -40,7 +40,7 @@ dojo.declare(
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
             if(this.textBoxWidget){
-                dojo.connect(this.textBoxWidget, "onKeyDown", dojo.hitch(this, function(e) {
+                dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     this._setParams({limit:this.limit, keyword : this.textBoxWidget.get("value")});
                     this.callSuggest();
                 }));
