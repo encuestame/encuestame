@@ -10,7 +10,8 @@ dojo.require('encuestame.org.core.commons');
 dojo.declare(
     "encuestame.org.core.shared.utils.Suggest",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
+
+      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -51,19 +52,24 @@ dojo.declare(
                 );
                 this.callSuggest();
                 if(this.addButton){
-                    dojo.style(this._suggestButton, "display", "block");
-                    this.buttonWidget = new dijit.form.Button({
-                        label: "Add",
-                        onClick: dojo.hitch(this, function(event) {
-                            dojo.stopEvent(event);
-                            this.processSelectedItemButton();
-                        })
-                    },
-                    this._suggestButton);
-                    console.debug(this.buttonWidget);
+                  //check if node exist.
+                  if (this._suggestButton) {
+                      dojo.style(this._suggestButton, "display", "block");
+                      this.buttonWidget = new dijit.form.Button({
+                          label: "Add",
+                          onClick: dojo.hitch(this, function(event) {
+                              dojo.stopEvent(event);
+                              this.processSelectedItemButton();
+                          })
+                      },
+                      this._suggestButton);
+                      console.debug(this.buttonWidget);
+                  }
                 }
                 if (this.hideLabel) {
-                   dojo.addClass(this._label,"defaultDisplayHide");
+                   if(this._label) {
+                     dojo.addClass(this._label,"defaultDisplayHide");
+                   }
                 }
             } else {
                 console.error("Error");

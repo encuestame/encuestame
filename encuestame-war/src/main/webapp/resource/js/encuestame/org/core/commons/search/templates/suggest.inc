@@ -1,4 +1,5 @@
 <div class="suggest">
+    <label  dojoAttachPoint="_label">${label}</label>
     <input type="text" dojoAttachPoint="_suggest"
            dojoType="dijit.form.TextBox"
            trim="true" class="inputClass"></input>
