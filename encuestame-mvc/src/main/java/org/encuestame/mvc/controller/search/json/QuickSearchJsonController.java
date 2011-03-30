@@ -1,9 +1,8 @@
 package org.encuestame.mvc.controller.search.json;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +27,11 @@ public class QuickSearchJsonController extends AbstractJsonController {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
+     * Default limit results.
+     */
+    private final Integer LIMIT_RESULTS = 10;
+
+    /**
      * Quick suggestion search service.
      *
      * @param keyword
@@ -46,8 +50,14 @@ public class QuickSearchJsonController extends AbstractJsonController {
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-            final List<GlobalSearchItem> results = getSearchService()
-                    .quickSearch(keyword, "English", 0, 10);
+            final List<GlobalSearchItem> results = new ArrayList<GlobalSearchItem>();
+            keyword = filterValue(keyword);
+            if (!keyword.isEmpty()) {
+                results.addAll(getSearchService()
+                        .quickSearch(keyword, "English", 0, LIMIT_RESULTS));
+            } else {
+                log.debug("keyword is empty");
+            }
             log.debug("GlobalSearchItem results " + results.size());
             setItemReadStoreResponse("itemSearchTitle", "id", results);
         } catch (Exception e) {

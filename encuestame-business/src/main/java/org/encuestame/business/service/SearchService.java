@@ -15,19 +15,14 @@ package org.encuestame.business.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
-import org.encuestame.business.search.AttachmentSearchItem;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
@@ -86,7 +81,17 @@ public class SearchService extends AbstractIndexService implements
         hashset.addAll(tags);
         hashset.addAll(attachments);
 
-        final List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
+        List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
+
+        //TODO: order by rated or something.
+
+        //filter my limit
+        if (limit != null && start != null) {
+            log.debug("split to "+limit  + " starting on "+start + " to list with size "+totalItems.size());
+            totalItems = totalItems.size() > limit ? totalItems
+                    .subList(start, limit) : totalItems;
+        }
+        //auto enumerate results.
         int x = 1;
         for (int i = 0; i < totalItems.size(); i++) {
             totalItems.get(i).setId(Long.valueOf(x));
