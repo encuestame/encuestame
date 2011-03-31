@@ -19,14 +19,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <meta name="description" content="encuestame survey system" />
     <meta name="keywords" content="survey, twitter, social, open source, etc, etc" />
+    <script type="text/javascript">
+        var config = {
+            contextPath: '<%=request.getContextPath()%>'
+        };
+        var cometd = dojox.cometd;
+
+        var contextPathRoot = '<%=request.getContextPath()%>';
+    </script>
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
-         dojo.require("encuestame.org.core.contextWidget");
-         dojo.require("encuestame.org.core.commons.notifications.Notification");
-         dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
          dojo.require("encuestame.org.core.commons.search.SearchMenu");
          dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
          dojo.require("encuestame.org.core.commons.error.ErrorSessionHandler");
@@ -37,17 +42,16 @@
          dojo.require("dojo.io.script");
          dojo.require("dojox.cometd");
          //dojo.require("dojox.cometd.callbackPollTransport");
-    </script>
-<script type="text/javascript">
-    var config = {
-        contextPath: '<%=request.getContextPath()%>'
-    };
-    var cometd = dojox.cometd;
 </script>
+<c:if test="${logged}">
+  <script type="text/javascript">
+             dojo.require("encuestame.org.core.commons.notifications.Notification");
+             dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
+  </script>
+</c:if>
 <script src="<%=request.getContextPath()%>/resource/js/cometd.js"></script>
 </head>
 <body class="claro">
-<div id="contextWidget" dojoType="encuestame.org.core.contextWidget" contextPath="<%=request.getContextPath()%>"></div>
      <div id="mainWrapper">
         <div id="header">
             <tiles:insertAttribute name="header" />
