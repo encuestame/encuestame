@@ -48,10 +48,10 @@
 </head>
 <body class="claro">
 <div id="contextWidget" dojoType="encuestame.org.core.contextWidget" contextPath="<%=request.getContextPath()%>"></div>
-    <div id="header">
-        <tiles:insertAttribute name="header" />
-    </div>
      <div id="mainWrapper">
+        <div id="header">
+            <tiles:insertAttribute name="header" />
+        </div>
         <tiles:insertAttribute name="menu" ignore="true" />
         <div id="content-container">
             <div id="content">

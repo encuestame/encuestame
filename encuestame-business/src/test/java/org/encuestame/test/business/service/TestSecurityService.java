@@ -69,7 +69,7 @@ public class TestSecurityService extends AbstractServiceBase{
     @Before
     public void initService(){
         securityService.setSuspendedNotification(getActivateNotifications());
-        this.userPrimary = createUser();
+        this.userPrimary = createAccount();
         this.secUserSecondary = createUserAccount("default", this.userPrimary);
         final Group group = createGroups("admin");
         final Group group2 = createGroups("editors");
@@ -463,7 +463,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setName("demo3");
         userCreateBean.setPassword(null);
         userCreateBean.setDateNew(new Date());
-        userCreateBean.setPrimaryUserId(createUser().getUid());
+        userCreateBean.setPrimaryUserId(createAccount().getUid());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
         final UserAccount user = getAccountDao().getUserByUsername(userCreateBean.getUsername());
@@ -485,7 +485,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setUsername("demo2");
         userCreateBean.setStatus(true);
         userCreateBean.setName("Diana Paola");
-        userCreateBean.setPrimaryUserId(createUser().getUid());
+        userCreateBean.setPrimaryUserId(createAccount().getUid());
         userCreateBean.setDateNew(new Date());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
@@ -509,7 +509,7 @@ public class TestSecurityService extends AbstractServiceBase{
         userCreateBean.setStatus(true);
         userCreateBean.setName("Diana Paola");
         userCreateBean.setDateNew(new Date());
-        userCreateBean.setPrimaryUserId(createUser().getUid());
+        userCreateBean.setPrimaryUserId(createAccount().getUid());
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
         //TODO: need assert
         final UserAccount user = getAccountDao().getUserByUsername(userCreateBean.getUsername());

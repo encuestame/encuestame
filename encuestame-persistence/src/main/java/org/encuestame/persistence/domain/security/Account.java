@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,19 +12,22 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * SecUsers.
- *
- * @author Picado, Juan juan@encuestame.org
+ * Account.
+ * @author Picado, Juan juanATencuestame.org
  * @since October 17, 2009
- * @version $Id$
  */
 
 @Entity
@@ -33,6 +36,19 @@ public class Account{
 
     /** User Id. **/
     private Long uid;
+
+
+    /**
+     * Define if account is enabled.
+     * by default is enabled.
+     */
+    private Boolean enabled = Boolean.TRUE;
+
+    /**
+     * Store when this account was created.
+     * by default is the current date.
+     */
+    private Date createdAccount = Calendar.getInstance().getTime();
 
 /*
     private Set<CatLocationUser> catLocationUsers = new HashSet<CatLocationUser>(
@@ -61,4 +77,34 @@ public class Account{
         this.uid = uid;
     }
 
+    /**
+     * @return the enabled
+     */
+    @Column(name="account_enabled")
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setEnabled(final Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * @return the createdAccount
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "account_created_date", nullable = false)
+    public Date getCreatedAccount() {
+        return createdAccount;
+    }
+
+    /**
+     * @param createdAccount the createdAccount to set
+     */
+    public void setCreatedAccount(final Date createdAccount) {
+        this.createdAccount = createdAccount;
+    }
 }

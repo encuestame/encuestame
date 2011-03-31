@@ -1590,9 +1590,9 @@
         </dependency> 
         <!-- PDF Box -->
         <dependency>
-            <groupId>pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>0.7.3</version>
+          <groupId>org.apache.pdfbox</groupId>
+   	  <artifactId>pdfbox</artifactId>
+          <version>1.4.0</version>
         </dependency>
         <dependency>
              <groupId>com.google.api.client</groupId>

@@ -33,7 +33,7 @@ public class TestQuestionAnswer extends AbstractBase {
     public void testQuestionAnswer(){
         final QuestionAnswer qanswer = new QuestionAnswer();
         qanswer.setAnswer("Yes");
-        qanswer.setQuestions(createQuestion("Are you single?", "yesNo",createUser()));
+        qanswer.setQuestions(createQuestion("Are you single?", "yesNo",createAccount()));
         qanswer.setUniqueAnserHash("AKDL12");
         getQuestionDaoImp().saveOrUpdate(qanswer);
         assertNotNull(qanswer);

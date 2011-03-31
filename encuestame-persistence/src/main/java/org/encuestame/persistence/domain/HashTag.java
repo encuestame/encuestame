@@ -43,6 +43,9 @@ public class HashTag {
     /** Tag String.**/
     private String hashTag;
 
+    /** Total of hits. **/
+    private Long hits;
+
     /**
      * @return the hashTagId
      */
@@ -75,5 +78,20 @@ public class HashTag {
      */
     public  void setHashTag( String hashTag) {
         this.hashTag = hashTag;
+    }
+
+    /**
+     * @return the hits
+     */
+    @Column(name = "hits")
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+     * @param hits the hits to set
+     */
+    public void setHits(final Long hits) {
+        this.hits = hits;
     }
 }

@@ -34,56 +34,58 @@
             </form>
       </div>
     </div>
-    <div class="socialConnect">
-        <div class="title">Do you already have an account on one of these sites?</div>
-        <div class="twitter">
-            <form action="<%=request.getContextPath()%>/signin/twitter.jspx" method="POST">
-                <button type="submit">
-                    <img src="<c:url value="/resource/images/social/twitter/signin.png" />"
-                </button>
-            </form>
-        </div>
-        <div class="facebook">
-                <script>
-                    function signInWithFacebook() {
-                        FB.getLoginStatus(function(response) {
-                            if (response.session) {
-                                dojo.byId('fb_signin').submit();
-                            }
+     <c:if test="${social}">
+      <div class="socialConnect">
+          <div class="title">Do you already have an account on one of these sites?</div>
+          <div class="twitter">
+              <form action="<%=request.getContextPath()%>/signin/twitter.jspx" method="POST">
+                  <button type="submit">
+                      <img src="<c:url value="/resource/images/social/twitter/signin.png" />"
+                  </button>
+              </form>
+          </div>
+          <div class="facebook">
+                  <script>
+                      function signInWithFacebook() {
+                          FB.getLoginStatus(function(response) {
+                              if (response.session) {
+                                  dojo.byId('fb_signin').submit();
+                              }
+                            });
+                      }
+                  </script>
+                  <div id="fb-root"></div>
+                  <form id="fb_signin" action="<c:url value="/signin/facebook" />" method="post">
+                      <fb:login-button perms="email,publish_stream,offline_access" onlogin="signInWithFacebook();" v="2"
+                          length="long">Sign in with Facebook</fb:login-button>
+                  </form>
+                   <script>
+                  if(FB) {
+                      FB.requireSessionThenGoTo = function(url) {
+                          FB.getLoginStatus(function(response) {
+                              if (response.session) {
+                                  window.location = url;
+                              } else {
+                                  FB.login(function(response) {
+                                      if (response.session) {
+                                          window.location = url;
+                                      }
+                                  });
+                              }
                           });
-                    }
-                </script>
-                <div id="fb-root"></div>
-                <form id="fb_signin" action="<c:url value="/signin/facebook" />" method="post">
-                    <fb:login-button perms="email,publish_stream,offline_access" onlogin="signInWithFacebook();" v="2"
-                        length="long">Sign in with Facebook</fb:login-button>
-                </form>
-                 <script>
-                if(FB) {
-                    FB.requireSessionThenGoTo = function(url) {
-                        FB.getLoginStatus(function(response) {
-                            if (response.session) {
-                                window.location = url;
-                            } else {
-                                FB.login(function(response) {
-                                    if (response.session) {
-                                        window.location = url;
-                                    }
-                                });
-                            }
-                        });
-                    };
+                      };
 
-                    FB.logoutThenGoTo = function(url) {
-                        FB.logout(function(response) {
-                            window.location = url;
-                        });
-                    };
-                }
-                </script>
-                <script type='text/javascript'>
-                    FB.init({appId: '102345790957', status: true, cookie: true, xfbml: true});
-                    FB.Event.subscribe('auth.sessionChange', function(response) { if (response.session) {} else {} });
-                </script>
-        </div>
+                      FB.logoutThenGoTo = function(url) {
+                          FB.logout(function(response) {
+                              window.location = url;
+                          });
+                      };
+                  }
+                  </script>
+                  <script type='text/javascript'>
+                      FB.init({appId: '102345790957', status: true, cookie: true, xfbml: true});
+                      FB.Event.subscribe('auth.sessionChange', function(response) { if (response.session) {} else {} });
+                  </script>
+          </div>
+         </c:if>
     </div>
