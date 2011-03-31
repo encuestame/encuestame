@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,8 +12,12 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.Account;
@@ -22,17 +26,20 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuthToken;
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -60,19 +67,17 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
            setSessionFactory(sessionFactory);
     }
 
-   /**
-     * Find All Users.
-     * @return list of all users
-     * @throws HibernateException hibernate
-     */
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.persistence.dao.IAccountDao#findAll()
+    */
     public List<UserAccount> findAll() throws HibernateException {
         return getHibernateTemplate().find("from UserAccount");
     }
 
-    /**
-     * Retrieve List of Secondary users without owner account.
-     * @param secUsers {@link Account}.
-     * @return List of {@link UserAccount}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#retrieveListOwnerUsers(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
      */
     public List<UserAccount> retrieveListOwnerUsers(final Account account,
                final Integer maxResults, final Integer start){
@@ -83,10 +88,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return getHibernateTemplate().findByCriteria(criteria, start, maxResults);
     }
 
-    /**
-     * Retrieve Total Users.
-     * @param secUsers
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#retrieveTotalUsers(org.encuestame.persistence.domain.security.Account)
      */
     public Long retrieveTotalUsers(final Account account){
          Long resultsSize = 0L;
@@ -99,31 +103,25 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
          return resultsSize;
      }
 
-    /**
-     * Get User By Id.
-     *
-     * @param userId userId
-     * @return SecUserSecondary
-     * @throws HibernateException hibernate exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getUserAccountById(java.lang.Long)
      */
     public UserAccount getUserAccountById(final Long userId){
             return (UserAccount) (getHibernateTemplate().get(UserAccount.class, userId));
     }
 
-    /**
-     * Get Twitter Account.
-     * @param twitterAccountId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccount(java.lang.Long)
      */
     public SocialAccount getTwitterAccount(final Long twitterAccountId){
         return (SocialAccount) (getHibernateTemplate().get(SocialAccount.class, twitterAccountId));
     }
 
-    /**
-     * Get Social Account.
-     * @param socialProvider
-     * @param socialAccountId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(org.encuestame.persistence.domain.social.SocialProvider, java.lang.Long)
      */
     public SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
@@ -134,11 +132,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /**
-     * Get Social Account.
-     * @param socialAccountId
-     * @param account
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(java.lang.Long, org.encuestame.persistence.domain.security.Account)
      */
     public SocialAccount getSocialAccount(final Long socialAccountId, final Account account){
         log.debug("account "+account.getUid());
@@ -149,31 +145,30 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /**
-     * Get Primary User By Id.
-     * @param userId user id
-     * @return {@link Account}
-     * @throws HibernateException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getUserById(java.lang.Long)
      */
     public Account getUserById(final Long userId) throws HibernateException {
             return (Account) getHibernateTemplate().get(Account.class, userId);
     }
 
-    /**
-     * Get one user by username.
-     * @param username username
-     * @return list of users
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getUserByUsername(java.lang.String)
      */
     public UserAccount getUserByUsername(final String username)throws HibernateException {
-            final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
-            criteria.add(Restrictions.eq("username", username) );
-            return (UserAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
+        criteria.add(Restrictions.eq("username", username));
+        final UserAccount userAccount = (UserAccount) DataAccessUtils
+                .uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        log.debug("getUserByUsername: "+userAccount);
+        return userAccount;
     }
 
-    /**
-     * Get one user by email.
-     * @param email
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getUserByEmail(java.lang.String)
      */
     public UserAccount getUserByEmail(final String email){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
@@ -182,10 +177,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                 .findByCriteria(criteria));
     }
 
-    /**
-     * Get list of users by username.
-     * @param username username
-     * @return list of users
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getUsersByUsername(java.lang.String)
      */
     public List<UserAccount> getUsersByUsername(final String username) {
             final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
@@ -193,12 +187,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
             return   getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Get Twitter Accounts.
-     * @param secUsers {@link Account}.
-     * @param provider
-     * @return List {@link SocialAccount}.
-     *
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
     public List<SocialAccount> getTwitterAccountByUser(
             final Account secUsers,
@@ -211,11 +202,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return   getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Get Twitter Verified Accounts.
-     * @param secUsers {@link AccountDaoImp}
-     * @param provider
-     * @return List {@link SocialAccount}.
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getTwitterVerifiedAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
     public List<SocialAccount> getTwitterVerifiedAccountByUser(
             final Account secUsers,
@@ -229,11 +218,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Search user by email
-     * @param email email
-     * @return
-     */
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.persistence.dao.IAccountDao#searchUsersByEmail(java.lang.String)
+    */
     public List<UserAccount> searchUsersByEmail(final String email){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.like("userEmail", email) );
@@ -241,10 +229,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
 
-    /**
-     * Get {@link UserAccount} but {@link Account} id.
-     * @param userId user id
-     * @return secondary user list
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getSecondaryUsersByUserId(java.lang.Long)
      */
     public List<UserAccount> getSecondaryUsersByUserId(final Long userId){
             return getHibernateTemplate().findByNamedParam("from UserAccount"
@@ -441,6 +428,19 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return null;
     }
 
+
+    /**
+     * Get list of id accounts only if are enabled.
+     * @return list of id's.
+     */
+    public List<Long> getAccountsEnabled(){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Account.class);
+        criteria.add(Restrictions.eq("enabled", Boolean.TRUE));
+        criteria.setProjection(Projections.id());
+        final List<Long> accountsId = getHibernateTemplate().findByCriteria(criteria);
+        return accountsId;
+    }
+
     /**
      * @return the socialProviderDao
      */
@@ -449,9 +449,97 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
-     * @param socialProviderDao the socialProviderDao to set
+     * @param socialProviderDao thed socialProviderDao to set
      */
     public void setSocialProviderDao(final ISocialProviderDao socialProviderDao) {
         this.socialProviderDao = socialProviderDao;
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getPublicProfiles(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<UserAccount> getPublicProfiles(final String keyword,
+            final Integer maxResults, final Integer startOn) {
+        final List<UserAccount> searchResult = (List<UserAccount>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        List<UserAccount> searchResult = new ArrayList<UserAccount>();
+                        long start = System.currentTimeMillis();
+                        final Criteria criteria = session
+                                .createCriteria(UserAccount.class);
+                        //only shared profiles.
+                        criteria.add(Restrictions.eq("sharedProfile", Boolean.TRUE));
+                        // limit results
+                        if (maxResults != null) {
+                            criteria.setMaxResults(maxResults.intValue());
+                        }
+                        // start on page x
+                        if (startOn != null) {
+                            criteria.setFirstResult(startOn.intValue());
+                        }
+                        searchResult = (List<UserAccount>) fetchMultiFieldQueryParserFullText(
+                                keyword, new String[] { "completeName, username" },
+                                UserAccount.class, criteria, new SimpleAnalyzer());
+                        final List listAllSearch = new LinkedList();
+                        listAllSearch.addAll(searchResult);
+
+                        // Fetch result by phrase
+                        final List<UserAccount> phraseFullTestResult = (List<UserAccount>) fetchPhraseFullText(
+                                keyword, "completeName", UserAccount.class,
+                                criteria, new SimpleAnalyzer());
+                        log.debug("phraseFullTestResult:{"
+                                + phraseFullTestResult.size());
+                        listAllSearch.addAll(phraseFullTestResult);
+                        // Fetch result by wildcard
+                        final List<UserAccount> wildcardFullTextResult = (List<UserAccount>) fetchWildcardFullText(
+                                keyword, "completeName", UserAccount.class,
+                                criteria, new SimpleAnalyzer());
+                        log.debug("wildcardFullTextResult:{"
+                                + wildcardFullTextResult.size());
+                        listAllSearch.addAll(wildcardFullTextResult);
+                        // Fetch result by prefix
+                        final List<UserAccount> prefixQueryFullTextResuslts = (List<UserAccount>) fetchPrefixQueryFullText(
+                                keyword, "completeName", UserAccount.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("prefixQueryFullTextResuslts:{"
+                                + prefixQueryFullTextResuslts.size());
+                        listAllSearch.addAll(prefixQueryFullTextResuslts);
+                        // Fetch fuzzy results
+                        final List<UserAccount> fuzzyQueryFullTextResults = (List<UserAccount>) fetchFuzzyQueryFullText(
+                                keyword, "completeName", UserAccount.class, criteria,
+                                new SimpleAnalyzer(), SIMILARITY_VALUE);
+                        log.debug("fuzzyQueryFullTextResults: {"
+                                + fuzzyQueryFullTextResults.size());
+                        listAllSearch.addAll(fuzzyQueryFullTextResults);
+
+                        log.debug("listAllSearch size:{" + listAllSearch.size());
+
+                        // removing duplcates
+                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
+                                .decorate(new LinkedList());
+                        totalResultsWithoutDuplicates.addAll(listAllSearch);
+
+                        /*
+                         * Limit results if is enabled.
+                         */
+                        List<UserAccount> totalList = totalResultsWithoutDuplicates
+                                .asList();
+                        if (maxResults != null && startOn != null) {
+                            log.debug("split to " + maxResults
+                                    + " starting on " + startOn
+                                    + " to list with size " + totalList.size());
+                            totalList = totalList.size() > maxResults ? totalList
+                                    .subList(startOn, maxResults) : totalList;
+                        }
+                        long end = System.currentTimeMillis();
+                        log.debug("UserAccount{ totalResultsWithoutDuplicates:{"
+                                + totalList.size() + " items with search time:"
+                                + (end - start) + " milliseconds");
+                        return totalList;
+                    }
+                });
+        return searchResult;
     }
 }

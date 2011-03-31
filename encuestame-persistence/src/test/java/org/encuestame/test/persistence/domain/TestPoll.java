@@ -16,11 +16,11 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -50,7 +50,7 @@ public class TestPoll extends AbstractBase {
         poll.setCreatedAt(new Date());
         poll.setQuestion(createQuestion("Do you eat pizza", "yesNo"));
         poll.setPollHash("HASH");
-        poll.setPollOwner(createUser());
+        poll.setPollOwner(createAccount());
         poll.setPollCompleted(true);
         getiPoll().saveOrUpdate(poll);
         assertNotNull(poll.getPollId());

@@ -19,7 +19,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +32,11 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.Project;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Security User Secondary.
@@ -44,6 +48,7 @@ import org.encuestame.persistence.domain.Project;
 @Table(name = "userAccount",
        uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
   )
+@Indexed(index="UserAccount")
 public class UserAccount {
 
     private Long uid;
@@ -59,6 +64,7 @@ public class UserAccount {
     private Date lastTimeLogged;
     private String lastIpLogged;
     private String userProfilePicture;
+    private Boolean sharedProfile = Boolean.FALSE;
 
     /**
      * Account Enabled.
@@ -98,6 +104,7 @@ public class UserAccount {
      * @return uid
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uid", unique = true, nullable = false)
     public Long getUid() {
@@ -115,6 +122,7 @@ public class UserAccount {
     /**
      * @return completeName
      */
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column(name = "name", nullable = true, length = 50)
     public String getCompleteName() {
         return this.completeName;
@@ -130,6 +138,7 @@ public class UserAccount {
     /**
      * @return userEmail userEmail
      */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @org.hibernate.annotations.Index(name = "emailIndex")
     @Column(name = "email", unique = true, nullable = false, length = 150)
     public String getUserEmail() {
@@ -146,6 +155,7 @@ public class UserAccount {
     /**
      * @return username
      */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @org.hibernate.annotations.Index(name = "usernameIndex")
     @Column(name = "username", nullable = false, length = 30, unique = true)
     public String getUsername() {
@@ -364,5 +374,20 @@ public class UserAccount {
      */
     public void setUserProfilePicture(String userProfilePicture) {
         this.userProfilePicture = userProfilePicture;
+    }
+
+    /**
+     * @return the sharedProfile
+     */
+    @Column(name = "shared_profile")
+    public Boolean getSharedProfile() {
+        return sharedProfile;
+    }
+
+    /**
+     * @param sharedProfile the sharedProfile to set
+     */
+    public void setSharedProfile(Boolean sharedProfile) {
+        this.sharedProfile = sharedProfile;
     }
  }

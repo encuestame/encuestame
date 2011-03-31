@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.34-SNAPSHOT</version>
+        <version>1.1.35-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-persistence</artifactId>
     <packaging>jar</packaging>
@@ -93,6 +93,10 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.lucene</groupId>
+           <artifactId>lucene-snowball</artifactId>
         </dependency>
         <dependency>
             <groupId>jaxen</groupId>
@@ -350,5 +354,9 @@
              <groupId>joda-time</groupId>
              <artifactId>joda-time</artifactId>
          </dependency>
+        <dependency>
+          <groupId>commons-dbcp</groupId>
+          <artifactId>commons-dbcp</artifactId>
+        </dependency>
     </dependencies>
 </project>

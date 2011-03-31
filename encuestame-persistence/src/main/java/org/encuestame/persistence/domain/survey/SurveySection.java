@@ -24,7 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.Question;
+import org.encuestame.persistence.domain.question.Question;
 
 /**
  * SurveySection.

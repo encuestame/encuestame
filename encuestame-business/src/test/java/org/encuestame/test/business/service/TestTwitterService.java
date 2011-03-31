@@ -55,7 +55,7 @@ public class TestTwitterService extends AbstractServiceBase {
      */
     @Before
     public void before(){
-        this.user = createUser();
+        this.user = createAccount();
         this.socialTwitterAccount = createDefaultSettedTwitterAccount(this.user);
     }
 

@@ -2,7 +2,7 @@
   Main
   -------
 
-  <<encuestame 1.1.33-SNAPSHOT>> is on development. We are working actively on own free time for  first release  this project.
+  <<encuestame 1.1.35-SNAPSHOT>> is on development. We are working actively on own free time for  first release  this project.
 
   This is an important release of Encuestame including a lot of exciting new advances! See
 
@@ -53,11 +53,11 @@ Links
 
     * {{{http://trac.encuesta.me/} Issues}}
     
-    * {{{http://http://code.encuestame.org}/ Browser Code}}
+    * {{{http://http://code.encuestame.org} Browser Code}}
 
     * {{{http://metrics.encuestame.org/} Metrics}}
 
-    * {{{http://demo.encuestame.org/encuestame/} Demo}}
+    * {{{http://demo.encuestame.org/} Demo}}
 
     * {{{http://stats.encuestame.org/git/} GIT Stats}}
 

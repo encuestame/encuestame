@@ -1,25 +1,36 @@
-
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.mvc.interceptor;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.IApplicationServices;
-import org.encuestame.business.setup.ApplicationStartup;
-import org.encuestame.business.setup.Startup;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.encuestame.business.setup.StartupProcess;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-
+/**
+ * Setup interceptor.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Mar 25, 2011
+ */
 public class SetupInterceptor implements HandlerInterceptor {
 
-    protected Logger log = Logger.getLogger(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
     //@Autowired
-    public Startup startup;
+    public StartupProcess startup;
 
     @Override
     public void afterCompletion(HttpServletRequest arg0,
@@ -48,14 +59,14 @@ public class SetupInterceptor implements HandlerInterceptor {
     /**
      * @return the startup
      */
-    public Startup getStartup() {
+    public StartupProcess getStartup() {
         return startup;
     }
 
     /**
      * @param startup the startup to set
      */
-    public void setStartup(Startup startup) {
+    public void setStartup(StartupProcess startup) {
         this.startup = startup;
     }
 

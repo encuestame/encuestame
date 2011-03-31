@@ -26,7 +26,7 @@
 
     <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${datasource.classname}"/>
-        <property name="url" value="jdbc:postgresql://localhost/test"/>
+        <property name="url" value="${datasource.urldb}"/>
         <property name="username" value="${datasource.userbd}"/>
         <property name="password" value="${datasource.pass}"/>
     </bean>
@@ -58,30 +58,31 @@
                 <value>org.encuestame.persistence.domain.security.UserAccount</value>
                 <value>org.encuestame.persistence.domain.survey.Poll</value>
                 <value>org.encuestame.persistence.domain.survey.PollResult</value>
-                <value>org.encuestame.persistence.domain.survey.QuestionColettion</value>
-                <value>org.encuestame.persistence.domain.Question</value>
-                <value>org.encuestame.persistence.domain.survey.QuestionAnswer</value>
-                <value>org.encuestame.persistence.domain.survey.QuestionPattern</value>
+                <value>org.encuestame.persistence.domain.question.Question</value>
+                <value>org.encuestame.persistence.domain.question.QuestionAnswer</value>
+                <value>org.encuestame.persistence.domain.question.QuestionPattern</value>
+                <value>org.encuestame.persistence.domain.question.QuestionDependencies</value>
+                <value>org.encuestame.persistence.domain.question.QuestionDependenceSurvey</value>
+                <value>org.encuestame.persistence.domain.question.QuestionColettion</value>
+                <value>org.encuestame.persistence.domain.question.CatQuestionCategory</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyFormat</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyGroup</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyResult</value>
                 <value>org.encuestame.persistence.domain.survey.Survey</value>
                 <value>org.encuestame.persistence.domain.survey.SurveySection</value>
-                <value>org.encuestame.persistence.domain.survey.TweetPollSwitch</value>
-                <value>org.encuestame.persistence.domain.survey.TweetPoll</value>
-                <value>org.encuestame.persistence.domain.survey.TweetPollResult</value>
-                <value>org.encuestame.persistence.domain.survey.TweetPollSavedPublishedStatus</value>
+                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch</value>
+                <value>org.encuestame.persistence.domain.tweetpoll.TweetPoll</value>
+                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollResult</value>
+                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollFolder</value>
+                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus</value>
                 <value>org.encuestame.persistence.domain.Email</value>
                 <value>org.encuestame.persistence.domain.EmailList</value>
                 <value>org.encuestame.persistence.domain.EmailSubscribe</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyPagination</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyFolder</value>
-                <value>org.encuestame.persistence.domain.survey.TweetPollFolder</value>
                 <value>org.encuestame.persistence.domain.survey.PollFolder</value>
-                <value>org.encuestame.persistence.domain.survey.QuestionDependencies</value>
-                <value>org.encuestame.persistence.domain.survey.QuestionDependenceSurvey</value>
                 <value>org.encuestame.persistence.domain.notifications.Notification</value>
-                <value>org.encuestame.persistence.domain.CatQuestionCategory</value>
+                <value>org.encuestame.persistence.domain.Attachment</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -90,8 +91,10 @@
                 <prop key="hibernate.dialect">${datasource.dialect}</prop>
                 <prop key="hibernate.show_sql">${datasource.showsql}</prop>
                 <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
-                <prop key="hibernate.search.default.directory_provider">${datasource.hibernate.search.provider}</prop>
-                <prop key="hibernate.search.default.indexBase">${datasource.hibernate.search.store.path}</prop>
+                <prop key="hibernate.search.default.directory_provider">${hibernate.search.provider}</prop>
+                <prop key="hibernate.search.default.indexBase">${dir.data.index.hibernate.search.store.path}</prop>
+                <prop key="hibernate.search.worker.execution">async</prop>
+                <prop key="hibernate.search.worker.buffer_queue.max">100</prop>
             </props>
         </property>
     </bean>

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
+import org.apache.log4j.Logger;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -34,70 +35,85 @@ import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * Forgot Password Controller.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 14, 2010 8:37:05 PM
  * @version $Id:$
  */
 @Controller
 @SessionAttributes(types = ForgotPasswordBean.class)
-public class ForgetPasswordController extends AbstractSecurityController{
+public class ForgetPasswordController extends AbstractSecurityController {
 
-        @RequestMapping(value = "/user/forgot.html" , method = RequestMethod.GET)
-        public String addHandler(Model model) {
-            log.info("/forgot");
-            final ForgotPasswordBean forgot = new ForgotPasswordBean();
-            final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
-            forgot.setCaptcha(captcha);
-            model.addAttribute(forgot);
-            return "forgot";
-        }
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
-        /**
-         * Process Submit.
-         * @param req
-         * @param challenge
-         * @param response
-         * @param user
-         * @param result
-         * @param status
-         * @return
-         * @throws EnMeNoResultsFoundException
-         */
-        @RequestMapping(method = RequestMethod.POST)
-        public String processSubmit(
-            HttpServletRequest req,
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/user/forgot.html", method = RequestMethod.GET)
+    public String addHandler(Model model) {
+        log.info("/forgot");
+        final ForgotPasswordBean forgot = new ForgotPasswordBean();
+        final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
+        forgot.setCaptcha(captcha);
+        model.addAttribute(forgot);
+        return "forgot";
+    }
+
+    /**
+     * Process Submit.
+     *
+     * @param req
+     * @param challenge
+     * @param response
+     * @param user
+     * @param result
+     * @param status
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public String processSubmit(HttpServletRequest req,
             @RequestParam("recaptcha_challenge_field") String challenge,
             @RequestParam("recaptcha_response_field") String response,
-            @ModelAttribute ForgotPasswordBean user, BindingResult result, SessionStatus status) throws EnMeNoResultsFoundException {
-                 log.info("recaptcha_challenge_field "+challenge);
-                 log.info("recaptcha_response_field "+response);
-                 final String email = user.getEmail();
-                 log.debug("email "+email);
-                 final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
-                 final ValidateOperations validation = new ValidateOperations(getSecurityService());
-                 if(validation.validateUserEmail((email == null ? "" : email),  getUserAccount())){
-                     result.rejectValue("email", "secure.email.notvalid", new Object[]{user.getEmail()}, "");
-                 }
-                 validation.validateCaptcha(reCaptchaResponse, result);
-                log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
-                log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
-                log.info("result.hasErrors() "+result.hasErrors());
-                if (result.hasErrors()) {
-                    return "forgot";
-                }
-                else {
-                    final String password = PasswordGenerator.getPassword(6);
-//                    try {
-//                        //getSecurityService().renewPassword(unitUserBean, password);
-//                        //TODO: refactor this method.
-//                        log.debug("foo");
-//                    } catch (EnMeExpcetion e) {
-//                        log.error("Error Renewd password "+e.getMessage());
-//                        return "forgot";
-//                    }
-                     status.setComplete();
-                    log.info("password generated "+password);
-                    return "redirect:/user/signup";
-                }
+            @ModelAttribute ForgotPasswordBean user, BindingResult result,
+            SessionStatus status) throws EnMeNoResultsFoundException {
+        log.info("recaptcha_challenge_field " + challenge);
+        log.info("recaptcha_response_field " + response);
+        final String email = user.getEmail();
+        log.debug("email " + email);
+        final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(
+                req.getRemoteAddr(), challenge, response);
+        final ValidateOperations validation = new ValidateOperations(
+                getSecurityService());
+        if (validation.validateUserEmail((email == null ? "" : email),
+                getUserAccount())) {
+            result.rejectValue("email", "secure.email.notvalid",
+                    new Object[] { user.getEmail() }, "");
         }
+        validation.validateCaptcha(reCaptchaResponse, result);
+        log.info("reCaptchaResponse " + reCaptchaResponse.getErrorMessage());
+        log.info("reCaptchaResponse " + reCaptchaResponse.isValid());
+        log.info("result.hasErrors() " + result.hasErrors());
+        if (result.hasErrors()) {
+            return "forgot";
+        } else {
+            final String password = PasswordGenerator.getPassword(6);
+            // try {
+            // //getSecurityService().renewPassword(unitUserBean, password);
+            // //TODO: refactor this method.
+            // log.debug("foo");
+            // } catch (EnMeExpcetion e) {
+            // log.error("Error Renewd password "+e.getMessage());
+            // return "forgot";
+            // }
+            status.setComplete();
+            log.info("password generated " + password);
+            return "redirect:/user/signup";
+        }
+    }
 }

@@ -126,6 +126,12 @@
 
   <bean id="pictureService" class="org.encuestame.business.service.PictureService" parent="service"/>
 
+    <!-- Seach Service  -->
+  <bean id="abstractIndexService" class="org.encuestame.business.service.AbstractIndexService" abstract="true"
+      parent="service"/>
+
+  <bean id="searchService" class="org.encuestame.business.service.SearchService" parent="abstractIndexService"/>
+
   <bean id="applicationServices" class="org.encuestame.business.service.ApplicationServices" parent="service">
     <property name="securityService">
       <ref bean="securityService"></ref>
@@ -153,6 +159,9 @@
     </property>
     <property name="pictureService">
          <ref bean="pictureService"/>
+    </property>
+    <property name="searchService">
+         <ref bean="searchService"/>
     </property>
   </bean>
 
@@ -195,7 +204,8 @@
     </bean>
     -->
 
-  <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"/>
-
+    <!-- Startup Support -->
+    <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall" scope="singleton"/>
+    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup" scope="singleton"/>
 
 </beans>

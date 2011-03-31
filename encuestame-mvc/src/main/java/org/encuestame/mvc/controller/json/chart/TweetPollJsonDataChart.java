@@ -20,9 +20,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,65 +37,86 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * TweetPoll Json Data Chart.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 15, 2010 10:30:29 AM
  */
 @Controller("tweetPollJsonDataChart")
-public class TweetPollJsonDataChart extends AbstractJsonController{
+public class TweetPollJsonDataChart extends AbstractJsonController {
 
-        //@PreAuthorize("hasRole('ENCUESTAME_USER')")
-        @RequestMapping(value = "/api/{username}/tweetPoll/votes.json", method = RequestMethod.GET)
-        public ModelMap get(
-                @PathVariable String username,
-                @RequestParam(value = "tweetPollId") Long tweetPollId,
-                HttpServletRequest request,
-                HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-             log.debug("TweetPollId "+tweetPollId);
-             log.debug("TweetPollId "+ (tweetPollId instanceof Long));
-             //TODO: we need check if user able to display this tweetpoll. eg. If is published or if is public
-             this.getVotesStore(tweetPollId, response);
-             return returnData();
-        }
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
-        /**
-         *
-         * @param username
-         * @param tweetPollId
-         * @param request
-         * @param response
-         * @return
-         * @throws JsonGenerationException
-         * @throws JsonMappingException
-         * @throws IOException
-         */
-        @PreAuthorize("hasRole('ENCUESTAME_USER')")
-        @RequestMapping(value = "/api/chart/tweetPoll/votes.json", method = RequestMethod.GET)
-        public ModelMap getVotes(
-                @RequestParam(value = "tweetPollId") Long tweetPollId,
-                HttpServletRequest request,
-                HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-             log.debug("TweetPollId "+tweetPollId);
-             log.debug("TweetPollId "+ (tweetPollId instanceof Long));
-             //TODO: we need check if user able to display this tweetpoll. eg. If is published or if is public
-             this.getVotesStore(tweetPollId, response);
-             return returnData();
-        }
+    /**
+     * Get votes for {@link TweetPoll}.
+     * @param username
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    // @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/{username}/tweetPoll/votes.json", method = RequestMethod.GET)
+    public ModelMap get(@PathVariable String username,
+            @RequestParam(value = "tweetPollId") Long tweetPollId,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        log.debug("TweetPollId " + tweetPollId);
+        log.debug("TweetPollId " + (tweetPollId instanceof Long));
+        // TODO: we need check if user able to display this tweetpoll. eg. If is
+        // published or if is public
+        this.getVotesStore(tweetPollId, response);
+        return returnData();
+    }
 
-        /**
-         * Get Votes Store.
-         * @param tweetPollId
-         * @param response
-         */
-        private void getVotesStore(final Long tweetPollId, final HttpServletResponse response){
-            try {
-                final Map<String, Object> jsonResult = new HashMap<String, Object>();
-                List<UnitTweetPollResult> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
-                jsonResult.put("votesResult", results);
-                log.debug("TweetPoll results "+results.size());
-                setItemResponse(jsonResult);
-            } catch (EnMeNoResultsFoundException e) {
-                log.equals(e);
-                setError(e.getMessage(), response);
-            }
+    /**
+     *
+     * @param username
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/chart/tweetPoll/votes.json", method = RequestMethod.GET)
+    public ModelMap getVotes(
+            @RequestParam(value = "tweetPollId") Long tweetPollId,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        log.debug("TweetPollId " + tweetPollId);
+        log.debug("TweetPollId " + (tweetPollId instanceof Long));
+        // TODO: we need check if user able to display this tweetpoll. eg. If is
+        // published or if is public
+        this.getVotesStore(tweetPollId, response);
+        return returnData();
+    }
+
+    /**
+     * Get Votes Store.
+     *
+     * @param tweetPollId
+     * @param response
+     */
+    private void getVotesStore(final Long tweetPollId,
+            final HttpServletResponse response) {
+        try {
+            final Map<String, Object> jsonResult = new HashMap<String, Object>();
+            List<UnitTweetPollResult> results = getTweetPollService()
+                    .getResultsByTweetPollId(tweetPollId);
+            jsonResult.put("votesResult", results);
+            log.debug("TweetPoll results " + results.size());
+            setItemResponse(jsonResult);
+        } catch (EnMeNoResultsFoundException e) {
+            log.equals(e);
+            setError(e.getMessage(), response);
         }
+    }
 }

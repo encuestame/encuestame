@@ -23,6 +23,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 @MappedSuperclass
 public abstract class AbstractFolder {
@@ -39,6 +42,7 @@ public abstract class AbstractFolder {
     /**
      * @return the folderName
      */
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column(name = "folderName", nullable = false)
     public String getFolderName() {
         return folderName;

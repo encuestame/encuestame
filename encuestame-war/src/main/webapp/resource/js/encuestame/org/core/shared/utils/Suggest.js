@@ -10,7 +10,8 @@ dojo.require('encuestame.org.core.commons');
 dojo.declare(
     "encuestame.org.core.shared.utils.Suggest",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
+
+      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -23,6 +24,8 @@ dojo.declare(
 
         buttonWidget : null,
 
+        hideLabel : false,
+
         selectedItem : null,
 
         addButton : true,
@@ -31,12 +34,14 @@ dojo.declare(
 
         label : "Label",
 
+        query :  {hashTagName : "*"},
+
         searchParam: { limit : 10, keyword : ""},
 
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
             if(this.textBoxWidget){
-                dojo.connect(this.textBoxWidget, "onKeyDown", dojo.hitch(this, function(e) {
+                dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     this._setParams({limit:this.limit, keyword : this.textBoxWidget.get("value")});
                     this.callSuggest();
                 }));
@@ -47,16 +52,24 @@ dojo.declare(
                 );
                 this.callSuggest();
                 if(this.addButton){
-                    dojo.style(this._suggestButton, "display", "block");
-                    this.buttonWidget = new dijit.form.Button({
-                        label: "Add",
-                        onClick: dojo.hitch(this, function(event) {
-                            dojo.stopEvent(event);
-                            this.processSelectedItemButton();
-                        })
-                    },
-                    this._suggestButton);
-                    console.debug(this.buttonWidget);
+                  //check if node exist.
+                  if (this._suggestButton) {
+                      dojo.style(this._suggestButton, "display", "block");
+                      this.buttonWidget = new dijit.form.Button({
+                          label: "Add",
+                          onClick: dojo.hitch(this, function(event) {
+                              dojo.stopEvent(event);
+                              this.processSelectedItemButton();
+                          })
+                      },
+                      this._suggestButton);
+                      console.debug(this.buttonWidget);
+                  }
+                }
+                if (this.hideLabel) {
+                   if(this._label) {
+                     dojo.addClass(this._label,"defaultDisplayHide");
+                   }
                 }
             } else {
                 console.error("Error");
@@ -69,13 +82,14 @@ dojo.declare(
 
         callSuggest : function(){
             var fetch = {
-                    query: {hashTagName : "*"},
+                    query: this.query,
                     queryOptions: {
                         ignoreCase: this.ignoreCase,
                         deep: true
                     },
                     serverQuery: this.searchParam,
                     onComplete: dojo.hitch(this, function(result, dataObject){
+                        console.info("suggeest onComplete...", result);
                         this.evaluateItems(result);
                     }),
                     onError: function(errText){
@@ -87,6 +101,7 @@ dojo.declare(
 
         /** Evaluate Items. **/
         evaluateItems : function(data){
+            console.info("suggeest data.length...", data.length);
             if(data.length > 0){
                  dojo.empty(this._suggestItems);
                  var fadeArgs = {
@@ -106,6 +121,9 @@ dojo.declare(
             }
         },
 
+        /*
+         * hide with fade out the suggest box.
+         */
         hide : function(){
             var fadeArgs = {
                     node: this._suggestItems
@@ -114,8 +132,11 @@ dojo.declare(
             this.clear();
         },
 
-        /** Build Row. **/
+        /*
+         *  Build Row.
+         */
         buildRow : function(data){
+          console.info("suggeest buildRow...", data);
             var widget = new encuestame.org.core.shared.utils.SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},

@@ -24,6 +24,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * SecUser Twitter Acounts.
@@ -40,6 +45,7 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 
 @Entity
 @Table(name = "social_account")
+@Indexed(index="SocialAccount")
 public class SocialAccount {
 
     /**
@@ -110,6 +116,7 @@ public class SocialAccount {
      * @return the id
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name="sec_user_twitter_id", unique=true)
     public Long getId() {
@@ -141,6 +148,7 @@ public class SocialAccount {
     /**
      * @return the twitterAccount
      */
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column (name="social_account_name", nullable = false, unique = true)
     public String getSocialAccountName() {
         return socialAccountName;

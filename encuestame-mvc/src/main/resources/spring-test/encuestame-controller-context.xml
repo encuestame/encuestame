@@ -22,7 +22,7 @@
      <property name="order" value="0"/>
   </bean>
 
-  <bean id="mobileInterceptor" class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+  <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
   <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
   <bean name="openSessionInViewInterceptor"
             class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">

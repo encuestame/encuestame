@@ -55,7 +55,7 @@ public class TestSurveyDao extends AbstractBase {
 
     @Before
     public void initData(){
-        this.user  = createUser();
+        this.user  = createAccount();
         this.secondaryUser = createUserAccount("paola", this.user);
         this.survey = createDefaultSurvey(user);
         this.surveyFolder = createSurveyFolders("My Survey Folder", user);

@@ -20,6 +20,7 @@ import org.encuestame.persistence.domain.security.SocialAccountProvider;
  * @since Dec 25, 2010 9:56:46 AM
  * @version $Id:$
  */
+@SuppressWarnings("deprecation")
 public interface ISocialProviderDao extends IBaseDao {
 
      /**

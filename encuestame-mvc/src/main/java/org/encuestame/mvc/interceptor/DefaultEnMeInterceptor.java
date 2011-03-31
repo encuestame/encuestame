@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.joda.time.DateTimeZone;
 import org.springframework.security.core.Authentication;
@@ -30,7 +31,6 @@ import org.springframework.web.util.WebUtils;
  * Default Interceptor for all Controllers.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 26, 2010 3:34:59 PM
- * @version $Id:$
  */
 public class DefaultEnMeInterceptor implements HandlerInterceptor {
 
@@ -43,6 +43,23 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
     private final String COOKIE_TIMEZONE = "en_me-timezone";
 
     private final String COOKIE_CONTEXT = "en_me-context";
+
+    /**
+     * Default logo path.
+     */
+    private final String DEFAULT_LOGO = "/images/logos/logo.jpg";
+
+    /**
+     * Return customized logo path or default is customized is not defined.
+     */
+    private String getCustomizedHeaderLogo(){
+        String customizedLogo = EncuestamePlaceHolderConfigurer.getProperty("application.logo.small");
+        if (customizedLogo == null) {
+            customizedLogo = this.DEFAULT_LOGO;
+        }
+        log.debug("customized logo:{"+customizedLogo);
+        return customizedLogo;
+    }
 
     /* (non-Javadoc)
      * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
@@ -70,6 +87,8 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
             log.info("Session Expired");
             request.setAttribute("logged", false);
         }
+        //customized logo
+        request.setAttribute("logo", this.getCustomizedHeaderLogo());
         return true;
     }
 

@@ -76,7 +76,8 @@ public class PictureService extends AbstractBaseService implements IPictureServi
         // Get the size of the file
         long length = file.length();
         if (length > Integer.MAX_VALUE) {
-            // File is too large
+            log.error("File is too large");
+            //TODO: add customize exception.
         }
         // Create the byte array to hold the data
         byte[] bytes = new byte[(int)length];

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.34-SNAPSHOT</version>
+        <version>1.1.35-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-search</artifactId>
     <packaging>jar</packaging>
@@ -130,7 +130,7 @@
      	   <artifactId>poi-ooxml</artifactId>
         </dependency>
         <dependency>
-            <groupId>pdfbox</groupId>
+            <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
         </dependency>
 	<dependency>

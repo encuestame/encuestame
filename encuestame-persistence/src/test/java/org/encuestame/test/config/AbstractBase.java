@@ -13,11 +13,13 @@
 package org.encuestame.test.config;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.aspectj.apache.bcel.generic.ACONST_NULL;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
@@ -49,10 +51,15 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Question;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionColettion;
+import org.encuestame.persistence.domain.question.QuestionPattern;
+import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
@@ -63,20 +70,16 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.survey.QuestionAnswer;
-import org.encuestame.persistence.domain.survey.QuestionAnswer.AnswerType;
-import org.encuestame.persistence.domain.survey.QuestionColettion;
-import org.encuestame.persistence.domain.survey.QuestionPattern;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.TweetPoll;
-import org.encuestame.persistence.domain.survey.TweetPollFolder;
-import org.encuestame.persistence.domain.survey.TweetPollResult;
-import org.encuestame.persistence.domain.survey.TweetPollSwitch;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -184,7 +187,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
+        //log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
         return props.getProperty(property);
     }
 
@@ -208,7 +211,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Flush Indexes.
      */
     public void flushIndexes(){
-        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate().getSessionFactory().getCurrentSession());
+        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate()
+                                                .getSessionFactory().getCurrentSession());
         fullTextSession.flushToIndexes();
     }
 
@@ -471,7 +475,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param name Project's name
      * @param descProject Project Description
      * @param infoProject Informations's Project
-     * @param state Project's state
      * @param user user
      * @return {@link Project}
      */
@@ -480,13 +483,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String descProject,
             final String infoProject,
             final Account user) {
-          Project project = new Project();
-          project.setProjectDateFinish(new Date());
-          project.setProjectDateStart(new Date());
+          final Project project = new Project();
+          final Calendar start = Calendar.getInstance();
+          final Calendar end = Calendar.getInstance();
+          end.add(Calendar.MONTH, 4);
+          project.setProjectDateFinish(end.getTime());
+          project.setProjectDateStart(start.getTime());
           project.setProjectInfo(infoProject);
-          project.setProjectName("name");
-          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createUser()));
+          project.setProjectName(RandomStringUtils.randomAscii(4)+"_name");
+          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createAccount()));
           project.setProjectDescription(descProject);
+          project.setProjectStatus(Status.ACTIVE);
+          project.setPriority(Priority.MEDIUM);
+          project.setHideProject(Boolean.FALSE);
+          project.setPublished(Boolean.TRUE);
           project.setUsers(user);
           getProjectDaoImp().saveOrUpdate(project);
           return project;
@@ -586,16 +596,29 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * Create User.
+     * Create account.
      * @return {@link Account}
      */
-    public Account createUser(){
+    public Account createAccount(){
         Account user = new Account();
-       // user.setTwitterAccount("testTWitterAccount");
-       // user.setTwitterPassword("testTwitterPwsd");
+        user.setEnabled(Boolean.TRUE);
+        user.setCreatedAccount(new Date());
         getAccountDao().saveOrUpdate(user);
         return user;
     }
+
+    /**
+     * Create account with customized enabled.
+     * @param enabled cuztomized enabled.
+     * @return {@link Account}.
+     */
+    public Account createAccount(final Boolean enabled){
+       final Account account = this.createAccount();
+       account.setEnabled(enabled);
+       getAccountDao().saveOrUpdate(account);
+       return account;
+    }
+
     /**
      * Create User.
      * @param twitterAccount account
@@ -618,7 +641,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final GeoPointType catLocatType = new GeoPointType();
         catLocatType.setLocationTypeDescription(locationTypeName);
         catLocatType.setLocationTypeLevel(1);
-        catLocatType.setUsers(createUser());
+        catLocatType.setUsers(createAccount());
         getGeoPointTypeDao().saveOrUpdate(catLocatType);
         return catLocatType;
     }
@@ -672,7 +695,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return state
      */
     public Group createGroups(final String groupname){
-        return createGroups(groupname, this.createUser());
+        return createGroups(groupname, this.createAccount());
     }
 
     public Group createGroups(final String groupname, final Account secUser){
@@ -755,15 +778,18 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Create question.
      * @param question question
-     * @param patron patron
+     * @param pattern pattern
      * @return {@link Question}
      */
-    public Question createQuestion(final String question, String patron){
+    public Question createQuestion(
+            final String question,
+            final String pattern){
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);
-        questions.setQuestionPattern(createQuestionPattern(patron));
-        questions.setAccountQuestion(createUser());
+        questions.setSharedQuestion(Boolean.TRUE);
+        questions.setQuestionPattern(this.createQuestionPattern(pattern));
+        questions.setAccountQuestion(this.createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
     }
@@ -786,10 +812,30 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Question createQuestion(final String questionName, final Account user){
-        final Question question =  createQuestion(questionName, "patter");
+        final Question question =  this.createQuestion(questionName, "pattern");
         question.setAccountQuestion(user);
         getQuestionDaoImp().saveOrUpdate(question);
-        //log.info("user assigned "+question.getSecUsersQuestion().getUid());
+        return question;
+    }
+
+    /**
+     * Create {@link Question}.
+     * @param questionName
+     * @param user
+     * @param createDate
+     * @param hits
+     * @return
+     */
+    public Question createQuestion(
+            final String questionName,
+            final Account user,
+            final Date createDate,
+            final Long hits){
+        final Question question =  this.createQuestion(questionName, "pattern");
+        question.setAccountQuestion(user);
+        question.setCreateDate(createDate);
+        question.setHits(hits);
+        getQuestionDaoImp().saveOrUpdate(question);
         return question;
     }
 
@@ -871,7 +917,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final QuestionColettion qCollection = new QuestionColettion();
         qCollection.setCreationDate(new Date());
         qCollection.setDesColeccion(desCollection);
-        qCollection.setSecUsers(createUser());
+        qCollection.setSecUsers(createAccount());
         getQuestionDaoImp().saveOrUpdate(qCollection);
         return qCollection;
     }
@@ -1000,7 +1046,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return tweet poll
      */
     public TweetPoll createFastTweetPollVotes(){
-        final UserAccount secondary = createUserAccount("jhon-"+RandomStringUtils.randomAscii(4), createUser());
+        final UserAccount secondary = createUserAccount("jhon-"+RandomStringUtils.randomAscii(4), createAccount());
         final Question question = createQuestion("who I am?", "");
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
@@ -1062,7 +1108,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public SurveyPagination createDefaultSurveyPagination(final SurveySection surveySection){
-        return this.createSurveyPagination(1, surveySection,this.createDefaultSurvey(this.createUser()));
+        return this.createSurveyPagination(1, surveySection,this.createDefaultSurvey(this.createAccount()));
     }
 
     /**
@@ -1143,7 +1189,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public EmailList createDefaultListEmail(){
-        return this.createListEmails(createUser(), "default", new Date());
+        return this.createListEmails(createAccount(), "default", new Date());
     }
 
     /**
@@ -1153,7 +1199,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
 
     public EmailList createDefaultListEmail(final String list){
-        return this.createListEmails(createUser(), list, new Date());
+        return this.createListEmails(createAccount(), list, new Date());
     }
 
     /**

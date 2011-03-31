@@ -45,7 +45,7 @@ public class TestSecGroupDaoImp extends AbstractBase{
 
     @Before
     public void initData(){
-        this.secUser = createUser();
+        this.secUser = createAccount();
         this.secGroup = createGroups("adminGroup",this.secUser);
         this.secondary = createSecondaryUserGroup("paola", this.secUser, this.secGroup);
     }

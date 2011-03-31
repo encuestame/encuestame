@@ -8,6 +8,8 @@
         <property name="indexRebuilder" ref="indexRebuilder"/>
     </bean>
 
+    <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
+
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
 
     <bean id="reindexingInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -18,14 +20,33 @@
         </property>
     </bean>
 
+    <!-- Attachments process indexer -->
+    <bean id="reindexingAttachmentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="reindexAttachmentJob"/>
+        <property name="targetMethod" value="reindexAttachments"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+
     <bean id="schedulerFactoryBean"
         class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
+                 <!--  Reindex domains -->
                  <bean id="cronReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0/15 * * * ?" />
+                    <property name="cronExpression" value="0 0/5 * * * ?" />
                     <!-- Every 5 minutes 0 0/5 * * * ? -->
+                    <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
+                    <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
+                </bean>
+                <!-- Reindex attachments -->
+                <bean id="attachmentsReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="reindexingAttachmentsJobDetail" />
+                    <property name="cronExpression" value="0 15 10 * * ? *" />
+                    <!-- Every 5 minutes 0 0/5 * * * ? -->
+                    <!-- Fire at 10:15am every day 0 15 10 * * ? * -->
                     <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
                 </bean>
             </list>
