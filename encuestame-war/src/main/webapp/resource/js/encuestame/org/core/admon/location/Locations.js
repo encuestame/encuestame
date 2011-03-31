@@ -1,12 +1,12 @@
-dojo.provide("encuestame.org.core.commons.dashboard.Dashboard");
+dojo.provide("encuestame.org.core.admon.location.Locations");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 
 dojo.declare(
-    "encuestame.org.core.commons.dashboard.Dashboard",
+    "encuestame.org.core.admon.location.Locations",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/Dashboard.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.admon.location", "template/location.inc"),
 
         widgetsInTemplate: true,
 
