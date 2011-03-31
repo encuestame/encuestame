@@ -136,7 +136,9 @@ public class IndexerManager {
         final String pathFileName = file.getName().toString();
         final String ext = SearchUtils.getExtension(pathFileName);
         final Document doc = this.getDocument(file, ext);
-        log.debug("Adding document..." + doc);
+        this.indexWriterManager.openIndexWriter();
+        log.debug("Indexing Files *******************");
+        //log.debug("Adding document..." + doc);
         if (doc == null) {
             log.warn("Document is null for this file: "+file.getAbsolutePath());
         } else {
@@ -150,6 +152,7 @@ public class IndexerManager {
     * @throws IOException
     */
     public void close() throws IOException {
+        this.indexWriterManager.getIndexWriter().commit();
         this.indexWriterManager.getIndexWriter().close();
     }
 
