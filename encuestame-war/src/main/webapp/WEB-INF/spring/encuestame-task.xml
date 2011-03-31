@@ -7,10 +7,12 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <!-- Enables annotation-driven asynchronous tasks e.g. @Async -->
-    <annotation-driven mode="aspectj" executor="taskExecutor" />
+    <task:annotation-driven executor="taskExecutor" />
+    <!--   mode="aspectj" problem on deploy on tomcat. ENCUESTAME-130 -->
 
     <!-- Worker thread pool -->
-    <executor id="taskExecutor" />
+    <task:executor id="taskExecutor" />
+
 
     <beans:import resource="encuestame-quartz-context.xml"/>
     <beans:import resource="encuestame-task-search.xml"/>
