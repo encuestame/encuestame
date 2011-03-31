@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
@@ -39,6 +40,11 @@ import twitter4j.http.RequestToken;
  */
 @Controller
 public class SocialAccountsJsonController extends AbstractJsonController {
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Twitter Instance.
@@ -134,15 +140,16 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/social/twitter/authorize/confirm.json", method = RequestMethod.GET)
     public ModelMap confirmTwitterPin(
-            @RequestParam(value = "pin") String pin,
+            @RequestParam(value = "pin", required = true) String pin,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
          log.debug("pin "+pin);
          try {
             final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
-            final HashMap<String, Object> r = this.createOAuthSocialAccountWithPinNumber(pin, getUserAccount(), SocialProvider.TWITTER);
-            jsonResponse.put("confirm", r.get("confirm"));
-            jsonResponse.put("message", r.get("message"));
+            final HashMap<String, Object> pinResponse = this.createOAuthSocialAccountWithPinNumber(
+                                          pin, getUserAccount(), SocialProvider.TWITTER);
+            jsonResponse.put("confirm", pinResponse.get("confirm"));
+            jsonResponse.put("message", pinResponse.get("message"));
             setItemResponse(jsonResponse);
         } catch (Exception e) {
             final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -272,7 +279,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
         boolean confirmed = false;
         AccessToken accessToken = null;
         final HashMap<String, Object> response = new HashMap<String, Object>();
-        if (pin != null || !pin.isEmpty()) {
+        if (pin != null) {
             try{
                 if(this.requestToken == null){
                     log.error("Request Token is null");

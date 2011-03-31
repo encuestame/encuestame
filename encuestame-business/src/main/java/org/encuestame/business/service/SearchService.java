@@ -14,170 +14,101 @@ package org.encuestame.business.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.Searcher;
-import org.apache.lucene.search.TopScoreDocCollector;
-import org.apache.lucene.util.Version;
 import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Search Service.
  *
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since February 09, 2011
- * @version $Id$
  */
-public class SearchService extends AbstractIndexService implements SearchServiceOperations {
+public class SearchService extends AbstractIndexService implements
+        SearchServiceOperations {
 
-    public void indexDocument(final String indexDirPath,
-            final String indexDirStore) throws IOException {
-    }
+    /**
+     * Log.
+     */
+    private Log log = LogFactory.getLog(this.getClass());
 
-    public void searchContent(final String dirPath) {
-
-    }
-
-    public void IndexPoll(Poll poll, String path) throws IOException {
-
-    }
-
-    /**************************************************************************/
-
-    public List<Poll> searchPolls(String searchString, String path,
-            String fieldName, int results) throws IOException, ParseException {
-        List<Poll> pollList = new ArrayList<Poll>();
-        // IndexReader reader = IndexReader.open(path, true);
-        // IndexReader reader = IndexReader.open(path);
-        // Searcher searcher = new IndexSearcher(reader);
-        Searcher searcher = null;
-        QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
-                new StandardAnalyzer(Version.LUCENE_29));
-        Query query = qp.parse(searchString);
-        ScoreDoc[] docs = searcher.search(query, results).scoreDocs;
-
-        for (int i = 0; i < docs.length; i++) {
-            Document doc = searcher.doc(docs[i].doc);
-            Poll articlePoll = new Poll();
-            articlePoll.setPollId(1L);
-            articlePoll.setName(doc.getField("TITLE").stringValue());
-            pollList.add(articlePoll);
-        }
-        return pollList;
-    }
-
-    public Map<String, Object> searchPollPaginateResults(String searchString,
-            String path, String fieldName, int page, int results)
-            throws IOException, ParseException {
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<Poll> articles = new ArrayList<Poll>();
-        // Searcher searcher = new IndexSearcher(IndexReader.open(path));
-        // IndexReader reader = IndexReader.open(path);
-        // Searcher searcher = new IndexSearcher(reader);
-        Searcher searcher = null;
-        QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
-                new StandardAnalyzer(Version.LUCENE_29));
-        Query query = qp.parse(searchString);
-        TopScoreDocCollector collector = TopScoreDocCollector.create(page
-                * results, true);
-        searcher.search(query, collector);
-        ScoreDoc[] docs = collector.topDocs().scoreDocs;
-        map.put("resultados", collector.getTotalHits());
-        map.put("articulos", articles);
-        int startResult = (page - 1) * results;
-        if (startResult > docs.length) {
-            return map;
-        }
-        int end = Math.min(docs.length, startResult + results);
-
-        for (int i = startResult; i < end; i++) {
-            Document doc = searcher.doc(docs[i].doc);
-            Poll article = new Poll();
-            article.setPollId(1L);
-            article.setName(doc.getField("POLLNAME").stringValue());
-            articles.add(article);
-        }
-        return map;
-    }
-
-    public List<Poll> searchArticle(String searchString, String path,
-            String fieldName, int results) throws IOException, ParseException {
-        List<Poll> articles = new ArrayList<Poll>();
-        // IndexReader reader = IndexReader.open(path);
-        // Searcher searcher = new IndexSearcher(reader);
-        Searcher searcher = null;
-        QueryParser qp = new QueryParser(Version.LUCENE_29, fieldName,
-                new StandardAnalyzer(Version.LUCENE_29));
-        Query query = qp.parse(searchString);
-        ScoreDoc[] docs = searcher.search(query, results).scoreDocs;
-
-        for (int i = 0; i < docs.length; i++) {
-            Document doc = searcher.doc(docs[i].doc);
-            Poll article = new Poll();
-            article.setPollId(1L);
-            article.setName((doc.getField("POLLNAME").stringValue()));
-            articles.add(article);
-        }
-        return articles;
-    }
-
-    public void searchArticleWithPagination(String path) throws IOException,
-            ParseException {
-        SearchService searcher = new SearchService();
-        Map<String, Object> map = searcher.searchPollPaginateResults(
-                "articulo", path, "POLLNAME", 1, 2);
-        List<Poll> articles = (List<Poll>) map.get("articulos");
-        System.out.println("Búsqueda finalizada, resultados: "
-                + articles.size() + " de " + map.get("resultados"));
-        for (Poll articlePoll : articles) {
-            System.out.println("ID " + articlePoll.getPollId());
-            System.out.println("NAME POLL " + articlePoll.getName());
-        }
-    }
-
-    private Document generateDocumentFromPoll(Poll poll) {
-        Document doc = new Document();
-        doc.add(new Field("ID", String.valueOf(poll.getPollId()),
-                Field.Store.YES, Field.Index.NO));
-        doc.add(new Field("POLLNAME", poll.getName(), Field.Store.YES,
-                Field.Index.ANALYZED));
-        return doc;
-    }
-
-    public List<GlobalSearchItem> quickSearch(String keyword) {
+    public List<GlobalSearchItem> quickSearch(String keyword,
+            final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public List<GlobalSearchItem> quickSearch(String keyword, String language) {
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.business.service.imp.SearchServiceOperations#quickSearch
+     * (java.lang.String, java.lang.String)
+     */
+    public List<GlobalSearchItem> quickSearch(final String keyword,
+            String language, final Integer start, final Integer limit)
+            throws EnMeNoResultsFoundException, IOException, ParseException {
+        HashSet<GlobalSearchItem> hashset = new java.util.HashSet<GlobalSearchItem>();
+
+
+        final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
+                .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
+                        null));
+        final List<GlobalSearchItem> profiles = UtilConvertToSearchItems
+                .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
+
+
+        final List<GlobalSearchItem> tags = UtilConvertToSearchItems
+        .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
+
+        final List<GlobalSearchItem> attachments = UtilConvertToSearchItems
+                                    .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
+
+        log.debug("questionResult " + questionResult.size());
+        log.debug("profiles " + profiles.size());
+        log.debug("tags " + tags.size());
+        log.debug("attachments " + attachments.size());
+
+        hashset.addAll(questionResult);
+        hashset.addAll(profiles);
+        hashset.addAll(tags);
+        hashset.addAll(attachments);
+
+        List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
+
+        //TODO: order by rated or something.
+
+        //filter my limit
+        if (limit != null && start != null) {
+            log.debug("split to "+limit  + " starting on "+start + " to list with size "+totalItems.size());
+            totalItems = totalItems.size() > limit ? totalItems
+                    .subList(start, limit) : totalItems;
+        }
+        //auto enumerate results.
+        int x = 1;
+        for (int i = 0; i < totalItems.size(); i++) {
+            totalItems.get(i).setId(Long.valueOf(x));
+            x++;
+        }
+        return totalItems;
+    }
+
+    public List<GlobalSearchItem> globalKeywordSearch(String keyword,
+            String language, final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
 
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,
-            String language) {
+            final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
-
-    public List<GlobalSearchItem> globalKeywordSearch(String keyword) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
 }

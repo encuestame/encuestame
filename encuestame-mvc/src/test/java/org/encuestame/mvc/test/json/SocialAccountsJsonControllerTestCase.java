@@ -25,7 +25,7 @@ public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBea
 
       @Before
       public void beforeSocialTest(){
-          this.user = createUser();
+          this.user = createAccount();
           this.socialTwitterAccount = createDefaultSettedTwitterAccount(this.user);
       }
 

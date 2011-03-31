@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
+import org.apache.log4j.Logger;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.utils.security.SignUpBean;
@@ -43,17 +45,34 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(types = SignUpBean.class)
 public class SignUpAccountFormController extends AbstractSecurityController {
 
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
     private final Integer PASSWORD_LENGHT = 8;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
-        final SignUpBean user = new SignUpBean();
-        final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
-        user.setCaptcha(captcha);
-        log.info("username "+user.getCaptcha());
-        model.addAttribute(user);
-        return "user/signup";
+        final Boolean privateHome = EncuestamePlaceHolderConfigurer
+        .getBooleanProperty("application.signup.enabled");
+        if (privateHome) {
+            log.debug("signup is disabled");
+            return "redirect:/signin.jspx";
+        } else {
+            final SignUpBean user = new SignUpBean();
+            final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
+            user.setCaptcha(captcha);
+            log.info("username "+user.getCaptcha());
+            model.addAttribute(user);
+            return "user/signup";
+        }
     }
 
     /**

@@ -130,7 +130,7 @@
      	   <artifactId>poi-ooxml</artifactId>
         </dependency>
         <dependency>
-            <groupId>pdfbox</groupId>
+            <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
         </dependency>
 	<dependency>

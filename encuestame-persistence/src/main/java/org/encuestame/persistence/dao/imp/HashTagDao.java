@@ -12,14 +12,18 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.util.Version;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -81,23 +85,71 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                 new HibernateCallback() {
                     @SuppressWarnings("deprecation")
                     public Object doInHibernate(org.hibernate.Session session) {
-                        try {
-                            final FullTextSession fullTextSession = Search.getFullTextSession(session);
-                            //fullTextSession.flushToIndexes();
-                            final MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
-                                                  new String[]{"hashTag"},
-                                                  new SimpleAnalyzer());
-                            final org.apache.lucene.search.Query query = parser.parse(keyword);
-                            final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(query, HashTag.class);
-                            hibernateQuery.setMaxResults(maxResults);
-                            final List<HashTag> result = hibernateQuery.list();
-                            log.info("result LUCENE "+result.size());
-                            return result;
+                        List<HashTag> searchResult = new ArrayList<HashTag>();
+                        long start = System.currentTimeMillis();
+                        final Criteria criteria = session
+                                .createCriteria(HashTag.class);
+                        // limit results
+                        if (maxResults != null) {
+                            criteria.setMaxResults(maxResults.intValue());
                         }
-                        catch (ParseException ex) {
-                            log.error("Index Search Error "+ex.getMessage());
-                            return null;
+                        searchResult = (List<HashTag>) fetchMultiFieldQueryParserFullText(
+                                keyword, new String[] { "hashTag"},
+                                HashTag.class, criteria, new SimpleAnalyzer());
+                        final List<HashTag> listAllSearch = new LinkedList<HashTag>();
+                        listAllSearch.addAll(searchResult);
+                        // Fetch result by phrase
+                        final List<HashTag> phraseFullTestResult = (List<HashTag>) fetchPhraseFullText(
+                                keyword, "hashTag", HashTag.class,
+                                criteria, new SimpleAnalyzer());
+                        log.debug("phraseFullTestResult hashTag:{"
+                                + phraseFullTestResult.size());
+                        listAllSearch.addAll(phraseFullTestResult);
+                        // Fetch result by wildcard
+                        final List<HashTag> wildcardFullTextResult = (List<HashTag>) fetchWildcardFullText(
+                                keyword, "hashTag", HashTag.class,
+                                criteria, new SimpleAnalyzer());
+                        log.debug("wildcardFullTextResult hashTag:{"
+                                + wildcardFullTextResult.size());
+                        listAllSearch.addAll(wildcardFullTextResult);
+                        // Fetch result by prefix
+                        final List<HashTag> prefixQueryFullTextResuslts = (List<HashTag>) fetchPrefixQueryFullText(
+                                keyword, "hashTag", HashTag.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("prefixQueryFullTextResuslts hashTag:{"
+                                + prefixQueryFullTextResuslts.size());
+                        listAllSearch.addAll(prefixQueryFullTextResuslts);
+                        // Fetch fuzzy results
+                        final List<HashTag> fuzzyQueryFullTextResults = (List<HashTag>) fetchFuzzyQueryFullText(
+                                keyword, "hashTag", HashTag.class, criteria,
+                                new SimpleAnalyzer(), SIMILARITY_VALUE);
+                        log.debug("fuzzyQueryFullTextResults hashTag: {"
+                                + fuzzyQueryFullTextResults.size());
+                        listAllSearch.addAll(fuzzyQueryFullTextResults);
+
+                        log.debug("listAllSearch size:{" + listAllSearch.size());
+
+                        // removing duplcates
+                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
+                                .decorate(new LinkedList());
+                        totalResultsWithoutDuplicates.addAll(listAllSearch);
+
+                        /*
+                         * Limit results if is enabled.
+                         */
+                        List<HashTag> totalList = totalResultsWithoutDuplicates
+                                .asList();
+                        if (maxResults != null) {
+                            log.debug("split to " + maxResults
+                                    + " to list with size " + totalList.size());
+                            totalList = totalList.size() > maxResults ? totalList
+                                    .subList(0, maxResults) : totalList;
                         }
+                        long end = System.currentTimeMillis();
+                        log.debug("HashTag{ totalResultsWithoutDuplicates:{"
+                                + totalList.size() + " items with search time:"
+                                + (end - start) + " milliseconds");
+                        return totalList;
                     }
                 });
         return searchResult;

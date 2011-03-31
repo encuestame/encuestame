@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller.search;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,10 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Home or FrontEnd Controller.
- * @author Picado, Juan juan@encuestame.org
+ * Search Controller.
+ * @author Picado, Juan juanATencuestame.org
  * @since Mar 6, 2010 10:58:02 AM
- * @version $Id: $
  */
 
 @Controller

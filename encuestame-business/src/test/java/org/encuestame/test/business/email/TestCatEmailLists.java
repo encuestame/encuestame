@@ -49,7 +49,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
 
     @Before
     public void before() {
-        this.user = createUser();
+        this.user = createAccount();
         this.secondary = createUserAccount("paola", this.user);
         this.emailList = createDefaultListEmail(this.secondary.getAccount());
         createDefaultListEmail(this.user, "default");

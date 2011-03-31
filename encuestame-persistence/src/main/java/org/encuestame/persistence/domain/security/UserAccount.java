@@ -64,6 +64,7 @@ public class UserAccount {
     private Date lastTimeLogged;
     private String lastIpLogged;
     private String userProfilePicture;
+    private Boolean sharedProfile = Boolean.FALSE;
 
     /**
      * Account Enabled.
@@ -373,5 +374,20 @@ public class UserAccount {
      */
     public void setUserProfilePicture(String userProfilePicture) {
         this.userProfilePicture = userProfilePicture;
+    }
+
+    /**
+     * @return the sharedProfile
+     */
+    @Column(name = "shared_profile")
+    public Boolean getSharedProfile() {
+        return sharedProfile;
+    }
+
+    /**
+     * @param sharedProfile the sharedProfile to set
+     */
+    public void setSharedProfile(Boolean sharedProfile) {
+        this.sharedProfile = sharedProfile;
     }
  }

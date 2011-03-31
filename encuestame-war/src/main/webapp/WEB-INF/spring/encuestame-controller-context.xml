@@ -18,12 +18,13 @@
                <ref bean="enMeInterceptor"/>
                <ref bean="openSessionInViewInterceptor"/>
                <ref bean="setupInterceptor"/>
+               <ref bean="mobileInterceptor"/>
           </list>
       </property>
      <property name="order" value="0"/>
   </bean>
 
-  <bean id="mobileInterceptor" class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+  <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
   <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
   <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
   <bean name="openSessionInViewInterceptor"
