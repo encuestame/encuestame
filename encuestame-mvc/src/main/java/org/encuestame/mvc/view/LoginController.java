@@ -1,7 +1,11 @@
 
 package org.encuestame.mvc.view;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +31,13 @@ public class LoginController extends BaseController{
      * @return template
      */
     @RequestMapping(value = "/signin.jspx", method = RequestMethod.GET)
-    public String signInController(final ModelMap model) {
+    public String signInController(
+            final ModelMap model,
+            HttpServletResponse response,
+            HttpServletRequest request) {
+        final Boolean enabledSocialSignIn = EncuestamePlaceHolderConfigurer
+                     .getBooleanProperty("application.social.signin.enabled");
+        request.setAttribute("social", enabledSocialSignIn);
         log.debug("login");
         return "signin";
     }

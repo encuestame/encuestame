@@ -126,7 +126,7 @@
 
   <bean id="pictureService" class="org.encuestame.business.service.PictureService" parent="service"/>
 
-  <!-- Seach Service  -->
+    <!-- Seach Service  -->
   <bean id="abstractIndexService" class="org.encuestame.business.service.AbstractIndexService" abstract="true"
       parent="service"/>
 
@@ -204,5 +204,8 @@
     </bean>
     -->
 
+    <!-- Startup Support -->
+    <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall" scope="singleton"/>
+    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup" scope="singleton"/>
 
 </beans>

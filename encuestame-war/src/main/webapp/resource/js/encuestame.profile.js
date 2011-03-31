@@ -1,17 +1,15 @@
 dependencies ={
     layers:  [
         {
-            name: "encuestame-widgets.js",
+            name: "encuestame-commons.js",
+            //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
-                "encuestame.org.core.contextWidget",
-                "encuestame.org.core.commons",
                 "encuestame.org.core.commons.tweetPoll.TweetPoll",
                 "encuestame.org.core.commons.tweetPoll.TweetPollList",
                 "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
                 "encuestame.org.core.commons.tweetPoll.HashTags",
                 "encuestame.org.core.commons.tweetPoll.Answers",
                 "encuestame.org.core.commons.poll.Poll",
-                "encuestame.org.core.commons.signup.SignupProfile",
                 "encuestame.org.core.commons.social.SocialAccounts",
                 "encuestame.org.core.commons.dashboard.Dashboard",
                 "encuestame.org.core.commons.dashboard.chart.DashboardPie",
@@ -25,15 +23,25 @@ dependencies ={
                 "encuestame.org.core.map.Map",
                 "encuestame.org.core.commons.profile.ProfileMenu",
                 "encuestame.org.core.commons.profile.Profile",
-                "encuestame.org.core.commons.search.SearchMenu",
                 "encuestame.org.core.commons.dashboard.DashBoardMenu",
-                "encuestame.org.core.commons.security.Login",
                 "encuestame.org.core.commons.security.Password",
+                "encuestame.org.core.admon.location.Locations",
                 "encuestame.org.core.commons.error.ErrorSessionHandler",
                 "encuestame.org.core.commons.error.ErrorConexionHandler",
-                "encuestame.org.core.commons.error.ErrorHandler"
+                "encuestame.org.core.commons.error.ErrorHandler",
+                "encuestame.org.core.commons.dialog.Confirm",
+                "encuestame.org.core.commons.dialog.Dialog",
+                "encuestame.org.core.commons.signup.SignupProfile",
+                "encuestame.org.core.commons.security.Login",
+                "encuestame.org.core.shared.utils.Suggest",
+                "encuestame.org.core.shared.utils.Table",
+                "encuestame.org.core.commons.error.AbstractErrorHandler",
+                "encuestame.org.core.commons",
+                "encuestame.org.core.commons.search.SearchMenu",
+                "encuestame.org.core.commons.search.SearchSuggestItem"
                 ]
-            }/*,
+            }
+          /*,
             {
                 name: "../dijit/dijit.js",
                 dependencies: [

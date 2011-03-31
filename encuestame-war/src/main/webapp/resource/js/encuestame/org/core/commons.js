@@ -8,7 +8,7 @@ dojo.require("dijit.Dialog");
 encuestame.service = {};
 encuestame.service.offline = false;
 encuestame.service.timeout = 20000;
-encuestame.contextDefault = "/encuestame";
+encuestame.contextDefault = config.contextPath;
 encuestame.signin = encuestame.contextDefault+"/signin.jspx";
 
 /**
@@ -293,15 +293,8 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
  * TODO: review if this works properly.
  */
 encuestame.contextWidget = function(){
-    var contextWidget2 = dijit.byId("contextWidget");
-    //console.debug("Context Widget: ", contextWidget2)
-    if(contextWidget2){
-        //console.debug("Found Context Path");
-        return contextWidget2.contextPath;
-    } else {
-        //console.debug("Not found, default context");
+        console.debug("Not found, default context");
         return encuestame.contextDefault;
-    }
 };
 
 encuestame.service.list = {};

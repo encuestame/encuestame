@@ -9,7 +9,10 @@ dojo.require("encuestame.org.core.shared.utils.Suggest");
 dojo.declare(
     "encuestame.org.core.commons.search.SearchMenu",
     [encuestame.org.core.shared.utils.SuggestItem],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchMenu.inc"),
+      /*
+       * template.
+       */
+      templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchMenu.inc"),
 
         /*
          * enable widget on template.
@@ -35,7 +38,8 @@ dojo.declare(
                 { url :encuestame.service.search.suggest,
                   addButton : false,
                   hideLabel: true,
-                  query :  {itemSearchTitle : "*"}});
+                  query :  {itemSearchTitle : "*"},
+                  templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/suggest.inc")});
             //override build row method.
             this.suggestWidget.buildRow = dojo.hitch(this, function(data){
                   console.info("suggest buildRow...", data);

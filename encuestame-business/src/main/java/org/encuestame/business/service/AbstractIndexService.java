@@ -37,8 +37,8 @@ public abstract class AbstractIndexService extends AbstractBaseService{
     private Log log = LogFactory.getLog(this.getClass());
 
     /** Search Manager Operation**/
-    @Autowired
-    private SearchManagerOperation searchOperation;
+    @Autowired(required = false)
+    private SearchManagerOperation searchOperation; //TODO:ENCUESTAME-154
 
     /**
      * List Suggested Hash Tags.
@@ -66,9 +66,20 @@ public abstract class AbstractIndexService extends AbstractBaseService{
         return questions;
     }
 
-
-    public List<AttachmentSearchItem> getAttachmentItem(final String keyword, final int maxResults, final String field) throws IOException, ParseException{
-        final List<Document> attachItems = getSearchOperation().search(keyword, maxResults, field);
+    /**
+     *
+     * @param keyword
+     * @param maxResults
+     * @param field
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
+    public List<AttachmentSearchItem> getAttachmentItem(final String keyword,
+            final int maxResults, final String field) throws IOException,
+            ParseException {
+        final List<Document> attachItems = getSearchOperation().search(keyword,
+                maxResults, field);
         return this.convertDocumentToListAttachment(attachItems);
     }
 
@@ -82,7 +93,7 @@ public abstract class AbstractIndexService extends AbstractBaseService{
     /**
     * @param searchOperation the searchOperation to set
     */
-    public void setSearchOperation(SearchManagerOperation searchOperation) {
+    public void setSearchOperation(final SearchManagerOperation searchOperation) {
         this.searchOperation = searchOperation;
     }
 

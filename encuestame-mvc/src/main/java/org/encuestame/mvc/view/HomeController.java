@@ -13,8 +13,12 @@
 
 package org.encuestame.mvc.view;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,8 +42,17 @@ public class HomeController extends BaseController {
      * @return template
      */
     @RequestMapping(value = "/home.jspx", method = RequestMethod.GET)
-    public String homeController(ModelMap model) {
+    public String homeController(
+            ModelMap model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        final Boolean privateHome = EncuestamePlaceHolderConfigurer.getBooleanProperty("application.private");
         log.debug("HOME");
-        return "home";
+        if (privateHome) {
+            log.debug("signup is disabled");
+            return "redirect:/signin.jspx";
+        } else {
+            return "home";
+        }
     }
 }

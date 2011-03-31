@@ -61,7 +61,8 @@ a:hover{
 }
 
 #mainWrapper {
-    margin: 0em 10em auto;
+    margin: 0em 4em auto;
+    width: 90%;
 }
 
 .wrapper {
@@ -181,7 +182,7 @@ a:hover{
 }
 
 .defaultMarginWrapper{
-    margin: 0 8%;
+
 }
 
 .defaultDisplayBlock{
