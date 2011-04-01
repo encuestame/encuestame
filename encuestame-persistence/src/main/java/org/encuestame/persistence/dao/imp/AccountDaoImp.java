@@ -162,11 +162,11 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     //@Cacheable(cacheName = "userByUsername")
     public UserAccount getUserByUsername(final String username)throws HibernateException {
+        log.debug("getUserByUsername by :{"+username);
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));
         final UserAccount userAccount = (UserAccount) DataAccessUtils
                 .uniqueResult(getHibernateTemplate().findByCriteria(criteria));
-        log.debug("getUserByUsername: "+userAccount);
         return userAccount;
     }
 

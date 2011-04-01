@@ -92,8 +92,16 @@
                 <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
                 <prop key="hibernate.search.default.directory_provider">${hibernate.search.provider}</prop>
                 <prop key="hibernate.search.default.indexBase">${dir.data.index.hibernate.search.store.path}</prop>
+
+                <!-- Check this properties, seems alter results on test cases -->
                 <prop key="hibernate.search.worker.execution">async</prop>
                 <prop key="hibernate.search.worker.buffer_queue.max">100</prop>
+                <!-- Check this properties, seems alter results on test cases -->
+
+                <prop key="hibernate.search.default.indexBase">${datasource.hibernate.search.store.path}</prop>
+                <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+<!--                 <prop key="hibernate.cache.use_query_cache">true</prop> -->
             </props>
         </property>
     </bean>

@@ -33,6 +33,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
@@ -51,6 +53,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="Question")
 @Table(name = "questions")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Question {
 
     /**

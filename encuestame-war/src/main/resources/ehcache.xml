@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <ehcache>
     <defaultCache
          maxElementsInMemory="500"
@@ -8,4 +6,57 @@
          memoryStoreEvictionPolicy="LFU" />
          <cache name="userAccountById" maxElementsInMemory="10" eternal="true" overflowToDisk="false" />
          <cache name="userByUsername" maxElementsInMemory="10" eternal="true" overflowToDisk="false" />
+         <cache
+            name="org.encuestame.persistence.domain.security.UserAccount"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"
+          />
+          <cache
+             name="org.encuestame.persistence.domain.security.UserAccount.secUserPermissions"
+             maxElementsInMemory="450"
+             eternal="false"
+             timeToLiveSeconds="600"
+             overflowToDisk="true"
+           />
+          <cache
+             name="org.encuestame.persistence.domain.security.UserAccount.followers"
+             maxElementsInMemory="450"
+             eternal="false"
+             timeToLiveSeconds="600"
+             overflowToDisk="true"
+           />
+          <cache
+             name="org.encuestame.persistence.domain.security.UserAccount.projects"
+             maxElementsInMemory="450"
+             eternal="false"
+             timeToLiveSeconds="600"
+             overflowToDisk="true"
+           />
+          <cache
+            name="org.encuestame.persistence.domain.security.Account"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"
+          />
+          <cache
+            name="org.encuestame.persistence.domain.security.Permission"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"
+          />
+          <cache
+            name="org.encuestame.persistence.domain.question.Question"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"
+          />
 </ehcache>
