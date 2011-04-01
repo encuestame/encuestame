@@ -42,6 +42,8 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
+import com.googlecode.ehcache.annotations.Cacheable;
+
 /**
  * Account, UsserAccount, AccountConnection Data Repository.
  * @author Picado, Juan juan@encuestame.org
@@ -107,6 +109,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserAccountById(java.lang.Long)
      */
+    //@Cacheable(cacheName = "userAccountById")
     public UserAccount getUserAccountById(final Long userId){
             return (UserAccount) (getHibernateTemplate().get(UserAccount.class, userId));
     }
@@ -157,6 +160,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserByUsername(java.lang.String)
      */
+    //@Cacheable(cacheName = "userByUsername")
     public UserAccount getUserByUsername(final String username)throws HibernateException {
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));

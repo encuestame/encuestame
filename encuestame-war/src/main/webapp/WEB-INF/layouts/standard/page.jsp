@@ -21,7 +21,8 @@
     <meta name="keywords" content="survey, twitter, social, open source, etc, etc" />
     <script type="text/javascript">
         var config = {
-            contextPath: '<%=request.getContextPath()%>'
+            contextPath: '<%=request.getContextPath()%>',
+            delay : 2000
         };
         var cometd = dojox.cometd;
 
