@@ -44,6 +44,15 @@ dojo.declare(
              dojo.connect(this.answerSource, "onDrop", this, this.onDrop);
         },
 
+        getAnswers : function(){
+            var array = [];
+             dojo.forEach(this.listItems,
+                   dojo.hitch(this,function(item) {
+                   array.push(item.answer);
+                   }));
+            return array;
+        },
+
         onDrop : function(){
              if(dojo.dnd.manager().target !== this.answerSource){
                  return;add

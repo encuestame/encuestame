@@ -241,7 +241,8 @@ public class AbstractSocialService extends AbstractConfigurationService {
                 .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
         for (SocialAccount socialAccount : socialAccounts) {
             log.debug("getTwitterService() "+getTwitterService());
-            if(getTwitterService().verifyCredentials(socialAccount)){
+            //if (getTwitterService().verifyCredentials(socialAccount)) {
+            if (socialAccount.getVerfied()) {
                 log.debug("Confirmed Account  -- "+socialAccount.getSocialAccountName());
                 comfirmedSocialAccounts.add(ConvertDomainBean.convertSocialAccountToBean(socialAccount));
             }

@@ -7,7 +7,7 @@ dojo.require("dijit.Dialog");
 
 encuestame.service = {};
 encuestame.service.offline = false;
-encuestame.service.timeout = 20000;
+encuestame.service.timeout = config.delay;
 encuestame.contextDefault = config.contextPath;
 encuestame.signin = encuestame.contextDefault+"/signin.jspx";
 
@@ -290,10 +290,8 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
 
 /*
  * get context widget.
- * TODO: review if this works properly.
  */
 encuestame.contextWidget = function(){
-        console.debug("Not found, default context");
         return encuestame.contextDefault;
 };
 

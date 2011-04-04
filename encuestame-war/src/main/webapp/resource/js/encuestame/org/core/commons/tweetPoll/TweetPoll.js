@@ -9,6 +9,7 @@ dojo.require("dijit._Templated");
 dojo.require("dijit.form.CheckBox");
 dojo.require("dijit._Widget");
 dojo.require("dojox.widget.Dialog");
+dojo.require("dojo.dnd.Source");
 dojo.require("dijit.form.NumberSpinner");
 dojo.require("dijit.Dialog");
 
@@ -40,53 +41,38 @@ dojo.declare(
             if(this.questionWidget
                     || this.answerWidget
                     || this.hashTagWidget
-                    || this.previeWidget){
+                    ){
                 this.initialize();
             } else {
                 this.errorLoading();
             }
+            var node = dojo.byId("wrapper");
+            document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", this.scroll, false);
+            window.onscroll = this.scroll;
         },
+
+        scroll : function(arguments){
+            var node = dojo.byId("defaultMarginWrapper");
+            var nodeFixed = dojo.byId("previewWrapper");
+            var coords = dojo.coords(node);
+            if(coords.y < 0){
+              dojo.addClass(nodeFixed, "previewFixed");
+              dojo.removeClass(nodeFixed, "previewAbsolute");
+            } else {
+              dojo.addClass(nodeFixed, "previewAbsolute");
+              dojo.removeClass(nodeFixed, "previewFixed");
+            }
+          },
 
         initialize : function(){
              dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
-             dojo.connect(this.questionWidget, "onKeyDown", dojo.hitch(this, function(e) {
-                  this.updatePreview();
+             dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(e) {
+                  this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
              }));
         },
 
         updatePreview : function(){
-            //console.debug("updatePreview");
-            var previousPreview = this.previeWidget.get('value');
-            var lastTweetText = previousPreview.length;
-            var newPreview = "";
-            //question
-            newPreview = this.questionWidget.get("value").trim();
-            //hash answers
-            dojo.forEach(
-                this.answerWidget.listItems,
-                dojo.hitch(this, function(data, index) {
-                    newPreview += " ";
-                    newPreview += data.buildDemoUrl().trim();
-                    //newPreview += " ";
-            }));
-
-            //hash tags
-            dojo.forEach(
-                this.hashTagWidget.listItems,
-                dojo.hitch(this, function(data, index) {
-                    newPreview += this.answerWidget.listItems.length == 0 ? " #" : "#";
-                    newPreview += data.data.label.trim();
-            }));
-            lastTweetText = this.maxTweetText - newPreview.trim().length;
-            this._tweetCount.innerHTML = lastTweetText;
-            this.previeWidget.set("value", newPreview);
-            if(parseInt(lastTweetText) < 0){
-                this.showExcededTweet("red");
-            } else if(parseInt(lastTweetText) <  30 && parseInt(lastTweetText) > -1){
-                this.showExcededTweet("#FAF05C");
-            } else {
-                this.showExcededTweet("#9E9DA4")
-            }
+            this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
         },
 
         showExcededTweet : function(endColor){
@@ -225,11 +211,164 @@ dojo.declare(
     }
 );
 
+/*
+ * A preview of tweetpoll.
+ */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPreview",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpollPreview.inc")
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpollPreview.inc"),
 
+            _questionBox : {node:null,initialize:false},
+            _answersBox : {node:null,initialize:false},
+            _hashTagsBox : {node:null,initialize:false},
+            _completeText : "",
+
+            postCreate : function(){
+                this.initialize();
+                this.showEmtpyContent();
+            },
+
+            showEmtpyContent : function(){
+              dojo.empty(this._content);
+              var emtpy = dojo.doc.createElement("div");
+              emtpy.innerHTML = "The tweetPoll is emtpy";
+              this._content.appendChild(emtpy);
+            },
+
+            initialize : function(){
+//              var wishlist = new dojo.dnd.Source(this._content);
+//              var arrayItem = [];
+//              var span1 = dojo.doc.createElement("span");
+//              span1.innerHTML = "Wrist watch1";
+//              var span2 = dojo.doc.createElement("span");
+//              span2.innerHTML = "Wrist watch2";
+//              var span3 = dojo.doc.createElement("span");
+//              span3.innerHTML = "Wrist watch3";
+//              var span4 = dojo.doc.createElement("span");
+//              span4.innerHTML = "Wrist watch4";
+//              var span5 = dojo.doc.createElement("span");
+//              span5.innerHTML = "Wrist watch5";
+//              arrayItem.push(span1);
+//              arrayItem.push(span2);
+//              arrayItem.push(span3);
+//              arrayItem.push(span4);
+//              arrayItem.push(span5);
+//              wishlist.insertNodes(false, arrayItem);
+            },
+
+            /*
+             *
+             */
+            _buildQuestion : function(question){
+              dojo.empty(this._content);
+              //console.debug("_buildQuestion", this._questionBox);
+                if (this._questionBox.node == null) {
+                  this._questionBox.node = dojo.doc.createElement("span");
+                  dojo.addClass(this._questionBox.node, "previewQuestion");
+                  this._questionBox.innerHTML = "";
+                  this._questionBox.initialize = true;
+                }
+                if (question) {
+                  var newPreview = question.get("value");
+                  //console.debug("_buildQuestion newPreview", newPreview);
+                  //question
+                  this._questionBox.node.innerHTML = newPreview;
+                  //console.debug("_buildQuestion newPreview", this._questionBox.node);
+                  this._completeText = newPreview;
+                } else {
+                   //question widget is null.
+                  console.info("question is null");
+                }
+                this._content.appendChild(this._questionBox.node);
+            },
+
+            /*
+             *
+             */
+            _buildAnswers : function(answers){
+              if (answers != null) {
+                console.info("answers", answers);
+                var arrayItem = [];
+                var questionDiv = dojo.doc.createElement("span");
+                var wishlist = new dojo.dnd.Source(questionDiv);
+                dojo.forEach(answers.getAnswers(),
+                        dojo.hitch(this,function(item) {
+                        console.info("item", item);
+                          var span1 = dojo.doc.createElement("span");
+                          span1.innerHTML = item.label;
+                          this._completeText = this._completeText + " "+item.label;
+                          dojo.addClass(span1, "previewAnswer");
+                          arrayItem.push(span1);
+                        }));
+                wishlist.insertNodes(false, arrayItem);
+                console.info("questionDiv", questionDiv);
+                this._content.appendChild(questionDiv);
+              } else {
+                console.info("no answers widget");
+              }
+            },
+
+            _buildHahsTags : function(hashtags){
+
+            },
+
+            _updateCounter : function(textTweet){
+              if(this._counter){
+                var counter = parseInt(this._counter.innerHTML);
+                  if (counter <= 140) {
+                    var currentCounter = 140 - textTweet.length;
+                    this._counter.innerHTML = currentCounter;
+                  } else {
+                    //block counter.
+                  }
+              }
+            },
+
+           getCompleteTweet : function(){
+               return this._completeText;
+           },
+
+            /*
+             * Update preview.
+             */
+            updatePreview : function(question, answers, hashtags){
+                 this._buildQuestion(question);
+                 this._buildAnswers(answers);
+                 this._updateCounter(this.getCompleteTweet());
+                //console.debug("updatePreview");
+//              var previousPreview = this.previeWidget.getCompleteTweet();
+//                var lastTweetText = previousPreview.length;
+//                var newPreview = "";
+//                //question
+//                newPreview = this.questionWidget.get("value").trim();
+//                //hash answers
+//                dojo.forEach(
+//                    this.answerWidget.listItems,
+//                    dojo.hitch(this, function(data, index) {
+//                        newPreview += " ";
+//                        newPreview += data.buildDemoUrl().trim();
+//                        //newPreview += " ";
+//                }));
+//
+//                //hash tags
+//                dojo.forEach(
+//                    this.hashTagWidget.listItems,
+//                    dojo.hitch(this, function(data, index) {
+//                        newPreview += this.answerWidget.listItems.length == 0 ? " #" : "#";
+//                        newPreview += data.data.label.trim();
+//                }));
+//                lastTweetText = this.maxTweetText - newPreview.trim().length;
+//                this._tweetCount.innerHTML = lastTweetText;
+//                //this.previeWidget.set("value", newPreview);
+//                if(parseInt(lastTweetText) < 0){
+//                    this.showExcededTweet("red");
+//                } else if(parseInt(lastTweetText) <  30 && parseInt(lastTweetText) > -1){
+//                    this.showExcededTweet("#FAF05C");
+//                } else {
+//                    this.showExcededTweet("#9E9DA4")
+//                }
+            }
 
 });
 

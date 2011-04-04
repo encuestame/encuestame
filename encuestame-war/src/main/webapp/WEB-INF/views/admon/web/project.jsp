@@ -6,6 +6,6 @@
   dojo.require("dijit.form.DateTextBox");
   dojo.require("encuestame.org.core.admon.project.Projects");
 </script>
-<div>
+<div class="defaultMarginWrapper">
   <div dojoType="encuestame.org.core.admon.project.Projects"></div>
 </div>
