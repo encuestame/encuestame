@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
@@ -265,13 +266,14 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * Create HashTag.
+     * Create {@link HashTag}.
      * @param name tag name
      * @return {@link HashTag}.
      */
     public final HashTag createHashTag(final String name){
         final HashTag hashTag = new HashTag();
-        hashTag.setHashTag(name);
+        hashTag.setHashTag(ValidationUtils.removeNonAlphanumericCharacters(name));
+        hashTag.setHits(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }

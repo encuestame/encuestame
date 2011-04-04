@@ -65,18 +65,19 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
             final Question question = new Question();
             try{
-
                 question.setQuestion(questionBean.getQuestionName());
                 question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
-                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
-                question.setSharedQuestion(false);
+                //question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
+                question.setQidKey("testId");
+                question.setSharedQuestion(Boolean.TRUE);
+                question.setHits(0L);
+                question.setCreateDate(new Date());
                 //save question
                 getQuestionDao().saveOrUpdate(question);
                 //questionBean.setId(question.getQid());
                 for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
                     this.saveAnswer(answerBean, question);
                 }
-
             }
             catch (Exception e) {
                 log.error("Error Creating Question "+e.getMessage());

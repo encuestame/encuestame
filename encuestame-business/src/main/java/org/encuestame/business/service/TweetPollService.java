@@ -32,26 +32,24 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus.Type;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
-import twitter4j.User;
 
 /**
  * Tweet Poll Service Interface.
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since  April 02, 2010
- * @version $Id: $
  */
 public class TweetPollService extends AbstractSurveyService implements ITweetPollService{
 
@@ -324,13 +322,16 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final String accountsResult[] = {};
             log.debug("publicMultiplesTweetAccounts "+twitterAccounts.size());
             for (SocialAccountBean unitTwitterAccountBean : twitterAccounts) {
+                log.debug("publicMultiplesTweetAccounts unitTwitterAccountBean "+unitTwitterAccountBean.toString());
                 final String account[] = {};
                 final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
                 final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+                log.debug("publicMultiplesTweetAccounts tweetPoll"+tweetPoll);
                 final SocialAccount socialTwitterAccounts = getAccountDao().getTwitterAccount(unitTwitterAccountBean.getAccountId());
+                log.debug("publicMultiplesTweetAccounts socialTwitterAccounts: {"+socialTwitterAccounts);
                 publishedStatus.setApiType(Type.TWITTER);
-                if(socialTwitterAccounts != null && tweetPoll != null){
-                    log.debug("secUserTwitterAccounts Account"+socialTwitterAccounts.getSocialAccountName());
+                if (socialTwitterAccounts != null && tweetPoll != null) {
+                    log.debug("secUserTwitterAccounts Account:{"+socialTwitterAccounts.getSocialAccountName());
                     publishedStatus.setTweetPoll(tweetPoll);
                     publishedStatus.setTwitterAccount(socialTwitterAccounts);
                     try {
@@ -339,6 +340,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         publishedStatus.setTweetId(status.getId());
                         publishedStatus.setPublicationDateTweet(status.getCreatedAt());
                         publishedStatus.setStatus(TweetPollSavedPublishedStatus.Status.SUCCESS);
+                        publishedStatus.setTweetContent(status.getText());
+                        //create notification
                         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
                                 buildTwitterItemView(socialTwitterAccounts.getSocialAccountName(), String.valueOf(status.getId())),
                                 socialTwitterAccounts.getSecUsers());
@@ -348,8 +351,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         publishedStatus.setDescriptionStatus(e.getMessage().substring(254));
                     }
                     getTweetPollDao().saveOrUpdate(publishedStatus);
-                }
-                else{
+                } else {
                     log.warn("Twitter Account Not Found [Id:"+unitTwitterAccountBean.getAccountId()+"]");
                 }
             }

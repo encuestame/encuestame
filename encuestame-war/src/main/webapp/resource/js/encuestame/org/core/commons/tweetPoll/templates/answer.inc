@@ -1,10 +1,10 @@
 <div class="addAnswers">
     <div class="answerAddForm">
+        <div class="title">Answers</div>
         <div class="labelQuestion">
-            <label>Add new answer</label>
             <input type="text" dojoAttachPoint="_suggest"
                dojoType="dijit.form.TextBox"
-               trim="true" class="inputClass"
+               trim="true" class="littleInputClass"
                ></input>
                <button id="answerAddButton" type="button" dojoAttachPoint="_addButton">
                   Add
