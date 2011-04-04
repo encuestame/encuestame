@@ -26,8 +26,8 @@
                      </span>
                  </span>
              </c:if>
-             <form method="get" action="<%=request.getContextPath()%>/search.jspx" style="float: right;margin: 4px 4px 3px 0;">
-                     <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
-             </form>
+             <span class="link">
+                   <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
+             </span>
         </div>
 </div>

@@ -2,7 +2,7 @@ div.menuWrapper{
     font-weight: bold;
     -moz-box-shadow: 0px 2px 2px #888;
     -webkit-box-shadow: 0px 2px 2px #888;
-    box-shadow: 10px 10px 5px #888;
+     box-shadow: 0px 0px 2px #888;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
      border-radius: 0px 0px 5px 5px;
@@ -38,7 +38,7 @@ div.menuWrapper{
     background-color: #E8E8E8;
     -moz-box-shadow: 0px 2px 2px #888;
     -webkit-box-shadow: 0px 2px 2px #888;
-    box-shadow: 10px 10px 5px #888;
+    box-shadow: 0px 0px 2px #888;
 }
 
 .menuWrapper {

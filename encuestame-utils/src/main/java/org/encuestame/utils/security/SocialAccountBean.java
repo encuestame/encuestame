@@ -161,4 +161,15 @@ public class SocialAccountBean implements Serializable {
     public void setTypeAccount(String typeAccount) {
         this.typeAccount = typeAccount;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "SocialAccountBean [accountId=" + accountId + ", account="
+                + account + ", type=" + type + ", secret=" + secret + ", key="
+                + key + ", token=" + token + ", secretToken=" + secretToken
+                + ", pin=" + pin + ", typeAccount=" + typeAccount + "]";
+    }
 }

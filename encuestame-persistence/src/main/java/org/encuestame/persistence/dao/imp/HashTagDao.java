@@ -70,7 +70,13 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
     public HashTag getHashTagByName(final String hashTag)throws HibernateException {
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
         criteria.add(Restrictions.eq("hashTag", hashTag) );
-        return (HashTag) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+        final List<HashTag> results = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("hashtag by :"+hashTag+ " size:"+results.size());
+        if (results.size() >= 1) {
+            return results.get(0); //TODO: it's possible repeated HashTags?
+        } else {
+            return null;
+        }
 }
 
     /**

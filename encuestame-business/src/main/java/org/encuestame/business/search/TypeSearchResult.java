@@ -17,6 +17,6 @@ package org.encuestame.business.search;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 23, 2011
  */
-enum TypeSearchResult {
+public enum TypeSearchResult {
     TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG
 }

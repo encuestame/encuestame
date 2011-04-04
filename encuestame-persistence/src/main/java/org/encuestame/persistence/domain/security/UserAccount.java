@@ -32,6 +32,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.Project;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -49,6 +51,7 @@ import org.hibernate.search.annotations.Store;
        uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
   )
 @Indexed(index="UserAccount")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserAccount {
 
     private Long uid;

@@ -127,12 +127,14 @@ public class TweetPollJsonController extends AbstractJsonController {
     public ModelMap get(
             @RequestParam(value = "twitterAccounts", required = true) final Long[] twitterAccountsId,
             @RequestParam(value = "question", required = true) final String question,
+            @RequestParam(value = "publish", required = false) Boolean publish,
             @RequestParam(value = "scheduled", required = false) final Boolean scheduled,
             @RequestParam(value = "hashtags", required = false) String[] hashtags,
             @RequestParam(value = "answers", required = true) final String[] answers,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final UnitTweetPoll tweetPoll = new UnitTweetPoll();
+        tweetPoll.setPublishPoll(publish == null ? true : publish);
         // Get User Logged.
         final UserAccount user = getByUsername(getUserPrincipalUsername());
         log.debug("user " +user.getUsername());
@@ -153,19 +155,21 @@ public class TweetPollJsonController extends AbstractJsonController {
                             + RandomStringUtils.randomAlphabetic(2)));
                     questionBean.getListAnswers().add(answer);
                 }
-
                 //Setting Hash Tags
                 hashtags = hashtags == null ?  new String[0] : hashtags;
+                log.debug("HashTag size:{"+hashtags.length);
                 for (int row = 0; row < hashtags.length; row++) {
                     final HashTagBean hashTag = new HashTagBean();
-                    hashTag.setHashTagName(answers[row].toLowerCase().trim());
+                    log.debug("HashTag:{"+hashTag);
+                    if (hashtags[row] != null) {
+                        hashTag.setHashTagName(hashtags[row].toLowerCase().trim());
+                    }
                     tweetPoll.getHashTags().add(hashTag);
                 }
-
                 log.debug("questionBean.getListAnswers() " +questionBean.getListAnswers().size());
-                //save question
+                // save question
                   final Question questionDomain = getSurveyService().createQuestion(questionBean);
-                // save create tweet poll
+                    // save create tweet poll
                     tweetPoll.setUserId(user.getAccount().getUid());
                     tweetPoll.setCloseNotification(Boolean.FALSE);
                     tweetPoll.setResultNotification(Boolean.FALSE);

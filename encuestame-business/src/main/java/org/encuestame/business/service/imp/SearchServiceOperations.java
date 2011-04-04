@@ -14,10 +14,13 @@ package org.encuestame.business.service.imp;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.IndexerManager;
+import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
@@ -36,7 +39,7 @@ public interface SearchServiceOperations extends ServiceOperations {
      * @param limit
      * @return
      */
-    List<GlobalSearchItem> quickSearch(final String keyword,
+    Map<String, List<GlobalSearchItem>> quickSearch(final String keyword,
             final Integer start, final Integer limit);
 
     /**
@@ -47,8 +50,8 @@ public interface SearchServiceOperations extends ServiceOperations {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<GlobalSearchItem> quickSearch(final String keyword,
-            final String language, final Integer start, final Integer limit)
+    Map<String, List<GlobalSearchItem>> quickSearch(final String keyword,
+            final String language, final Integer start, final Integer limit, final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException ;
 
     /**

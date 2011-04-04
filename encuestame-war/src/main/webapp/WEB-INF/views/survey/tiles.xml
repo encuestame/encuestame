@@ -4,7 +4,7 @@
 <tiles-definitions>
 
     <definition name="survey" extends="page">
-        <put-attribute name="title" value="Home | encuestame" />
+        <put-attribute name="title" value="Survey | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/survey/${currentDevice.mobile ? 'mobile/' : 'web/'}survey.jsp" />
     </definition>
