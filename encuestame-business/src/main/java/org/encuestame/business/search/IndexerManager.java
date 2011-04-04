@@ -37,6 +37,11 @@ public class IndexerManager {
     @Autowired
     private IndexWriterManager indexWriterManager;
 
+    /**
+     * Check the file extensions allowed to index
+     */
+    private List extensionFilesAllowed;
+
     /** Constructor. **/
     public IndexerManager() {
     }
@@ -47,6 +52,9 @@ public class IndexerManager {
      */
      public void initializeIndex(final List<File> filesDirectory) throws Exception {
          log.debug("Initialize");
+         for (Object docExtensions : getExtensionFilesAllowed()) {
+             log.debug("Check the file extensions allowed to index  ---->"+ docExtensions);
+         }
          for (File file : filesDirectory) {
              long start = System.currentTimeMillis();
              int numIndexed;
@@ -114,15 +122,18 @@ public class IndexerManager {
             throws POIXMLException, Exception {
         Document doc = null;
         log.debug("get Document extension " + ext);
-        if ("docx".equals(ext)) {
-             doc = SearchUtils.createWordDocument(file);
-        } else if ("xls".equals(ext)) {
-             doc = SearchUtils.createSpreadsheetsDocument(file);
-        } else if ("pdf".equals(ext)) {
-             doc = SearchUtils.createPdfDocument(file);
-        } else if ("txt".equals(ext)) {
-             doc = SearchUtils.createTextDocument(file);
-        }
+            if ("docx".equals(ext) && getExtensionFilesAllowed().indexOf(ext) != -1) {
+                   doc = SearchUtils.createWordDocument(file);
+              } else if ("xls".equals(ext) && getExtensionFilesAllowed().indexOf(ext) != -1) {
+                   doc = SearchUtils.createSpreadsheetsDocument(file);
+              } else if ("pdf".equals(ext) && getExtensionFilesAllowed().indexOf(ext) != -1) {
+                   doc = SearchUtils.createPdfDocument(file);
+              } else if ("txt".equals(ext) && getExtensionFilesAllowed().indexOf(ext) != -1) {
+                   doc = SearchUtils.createTextDocument(file);
+              }
+              else{
+                log.warn("Doc extension is disabled ---------> "+ext);
+              }
         return doc ;
     }
 
@@ -162,4 +173,24 @@ public class IndexerManager {
     public void setIndexWriterManager(final IndexWriterManager indexWriterManager) {
         this.indexWriterManager = indexWriterManager;
     }
+
+    /**
+    * @return the extensionFilesAllowed
+    */
+    public List getExtensionFilesAllowed() {
+        return extensionFilesAllowed;
+    }
+
+    /**
+    * @param extensionFilesAllowed the extensionFilesAllowed to set
+    */
+    public void setExtensionFilesAllowed(final List extensionFilesAllowed) {
+        log.debug("Num extension files available --> "+ extensionFilesAllowed.size());
+        this.extensionFilesAllowed = extensionFilesAllowed;
+    }
+
+
+
+
+
 }
