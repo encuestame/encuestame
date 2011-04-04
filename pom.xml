@@ -60,6 +60,9 @@
 
         <!-- Twitter4J Version -->
         <twitter4j.version>2.1.9</twitter4j.version>
+	
+	<!-- Apache PDF Box -->
+	<apache.pdf.box>1.4.0</apache.pdf.box>
 
         <servlet-api>2.5</servlet-api>
 
@@ -1592,7 +1595,7 @@
         <dependency>
           <groupId>org.apache.pdfbox</groupId>
    	  <artifactId>pdfbox</artifactId>
-          <version>1.4.0</version>
+          <version>${apache.pdf.box}</version>
         </dependency>
         <dependency>
              <groupId>com.google.api.client</groupId>
