@@ -65,8 +65,14 @@ public class TweetPollCometService extends AbstractCometService {
         log.debug("tweetPoll hashtags:{"+tweetPollJson.get("hashtags"));
         String[] a = {"hashtaga1", "hashtag2"};
         String[] b = {"asnwer1", "answers2"};
-        final String[] hashtags =  (String[]) tweetPollJson.get("hashtags");
-        final String[] answers =  (String[]) tweetPollJson.get("anwers");
+        final Object[] hashtags =  (Object[]) tweetPollJson.get("hashtags");
+        for (int i = 0; i < hashtags.length; i++) {
+            log.debug(hashtags[i]);
+        }
+        final Object[] answers =  (Object[]) tweetPollJson.get("anwers");
+        for (int i = 0; i < answers.length; i++) {
+            log.debug(answers[i]);
+        }
         log.debug("tweetPoll map hashtags:{"+hashtags);
         log.debug("tweetPoll map answers:{"+answers);
         final String question = filterValue(tweetPollJson.get("question").toString());
