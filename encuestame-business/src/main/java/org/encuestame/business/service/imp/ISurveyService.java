@@ -19,7 +19,7 @@ import org.encuestame.business.service.social.provider.TwitterService;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
@@ -79,7 +79,7 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param questionId question Id
      * @return List of Answers
      */
-    List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId);
+    List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId);
 
     /**
      * Update Answer Name by Answer Id.
@@ -99,7 +99,7 @@ public interface ISurveyService extends IMasterSurveyService {
     RequestToken getTwitterToken(final String consumerKey, final String consumerSecret) throws TwitterException;
 
 
-    void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion;
+    void saveAnswer(final QuestionAnswerBean answerBean, Question question) throws EnMeExpcetion;
 
     /**
      * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set

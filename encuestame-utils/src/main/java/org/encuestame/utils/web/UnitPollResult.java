@@ -24,20 +24,20 @@ import java.util.Date;
 
 public class UnitPollResult {
 
-    private UnitAnswersBean answerBean;
+    private QuestionAnswerBean answerBean;
     private Long result;
     private Date votedDate;
     private UnitPoll poll;
     /**
      * @return the answerBean
      */
-    public UnitAnswersBean getAnswerBean() {
+    public QuestionAnswerBean getAnswerBean() {
         return answerBean;
     }
     /**
      * @param answerBean the answerBean to set
      */
-    public void setAnswerBean(UnitAnswersBean answerBean) {
+    public void setAnswerBean(QuestionAnswerBean answerBean) {
         this.answerBean = answerBean;
     }
     /**

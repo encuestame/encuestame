@@ -1,4 +1,15 @@
-
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.comet.services;
 
 import java.util.HashMap;
@@ -7,14 +18,12 @@ import java.util.Map;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.apache.log4j.Logger;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
-import org.encuestame.persistence.dao.INotification;
-import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Notification comet service.
@@ -26,45 +35,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service("notificationService")
 public class NotificationCometService extends AbstractCometService {
 
-    /** {@link NotificationDao}. **/
-    @Autowired
-    private INotification notificationDao;
+    /*
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Notificiaton process.
+     * Notification services response.
      * @param remote
      * @param message
      */
     @Listener("/service/notification/status")
     public void processNotification(final ServerSession remote, final ServerMessage.Mutable message) {
         final Map<String, Object> input = message.getDataAsMap();
-        log.debug("Notification Input "+input);
+        //log.debug("Notification Input "+input);
         final Map<String, Object> output = new HashMap<String, Object>();
         final UserAccount userAccount = getByUsername(getUserPrincipalUsername());
         if (userAccount != null) {
             final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
-            log.debug("totalNot "+totalNot);
+            //log.debug("totalNot "+totalNot);
             final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
-            log.debug("totalNewNot "+totalNewNot);
+            //log.debug("totalNewNot "+totalNewNot);
             output.put("totalNot", totalNot);
             output.put("totalNewNot", totalNewNot);
         } else {
-            log.error("Error username");
+            //log.error("Error username");
         }
-        remote.deliver(serverSession, "/notificationStatus", output, null);
-    }
-
-    /**
-     * @return the notificationDao
-     */
-    public INotification getNotificationDao() {
-        return notificationDao;
-    }
-
-    /**
-     * @param notificationDao the notificationDao to set
-     */
-    public void setNotificationDao(INotification notificationDao) {
-        this.notificationDao = notificationDao;
+        remote.deliver(getServerSession(), message.getChannel(), output, null);
     }
 }

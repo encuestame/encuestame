@@ -60,7 +60,7 @@ public class QuestionBean implements Serializable {
     /**
      *
      */
-    private List<UnitAnswersBean> listAnswers = new ArrayList<UnitAnswersBean>();
+    private List<QuestionAnswerBean> listAnswers = new ArrayList<QuestionAnswerBean>();
 
     /**
      * Constructor.
@@ -139,7 +139,7 @@ public class QuestionBean implements Serializable {
     /**
      * @return the listAnswers
      */
-    public final List<UnitAnswersBean> getListAnswers() {
+    public final List<QuestionAnswerBean> getListAnswers() {
         return listAnswers;
     }
 
@@ -147,7 +147,7 @@ public class QuestionBean implements Serializable {
      * @param listAnswers
      *            the listAnswers to set
      */
-    public final void setListAnswers(final List<UnitAnswersBean> listAnswers) {
+    public final void setListAnswers(final List<QuestionAnswerBean> listAnswers) {
         this.listAnswers = listAnswers;
     }
 

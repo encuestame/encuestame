@@ -15,11 +15,15 @@ package org.encuestame.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IProjectDao;
+import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -77,6 +81,30 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
         return getHibernateTemplate().fin
         final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";*/
         return   getHibernateTemplate().find("");
+    }
+
+    /**
+    * Get Attachment by Id.
+    * @param attachmentId
+    * @return
+    */
+    @SuppressWarnings("unchecked")
+    public Attachment getAttachmentbyId(final Long attachmentId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Attachment.class);
+        criteria.add(Restrictions.eq("attachmentId", attachmentId));
+        return (Attachment) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
+     * Get Attachment List by Project Id.
+     * @param projectId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Attachment> getAttachmentsListbyProject(final Long projectId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Attachment.class);
+          criteria.add(Restrictions.eq("projectAttachment.proyectId", projectId));
+          return getHibernateTemplate().findByCriteria(criteria);
     }
 
 }

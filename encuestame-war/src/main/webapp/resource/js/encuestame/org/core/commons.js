@@ -355,8 +355,11 @@ encuestame.service.social.twitter.valid = encuestame.contextWidget()+"/api/socia
 encuestame.service.social.facebook = {};
 encuestame.service.social.linkedIn = {};
 
-//search
-
+//search.
 encuestame.service.search = {};
 encuestame.service.search.suggest = encuestame.contextWidget()+"/api/search/quick-suggest.json";
 
+//short url service.
+encuestame.service.short = {};
+encuestame.service.short.google = "/api/short/url/google.json";
+encuestame.service.short.tinyurl = "/api/short/url/tinyurl.json";

@@ -14,6 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
+import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 import org.hibernate.HibernateException;
@@ -49,4 +50,18 @@ public interface IProjectDao extends IBaseDao {
      * @throws HibernateException exception
      */
     List<Project> findProjectsByUserID(final Long userId);
+
+    /**
+     * Get Attachment Info by Attachment Id.
+     * @param attachmentId
+     * @return
+     */
+    Attachment getAttachmentbyId(final Long attachmentId);
+
+    /**
+     * Get all Attachments by Project.
+     * @param projectId
+     * @return
+     */
+    List<Attachment> getAttachmentsListbyProject(final Long projectId);
 }

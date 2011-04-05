@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.apache.commons.validator.UrlValidator;
 import org.apache.log4j.Logger;
 
 /**
@@ -39,6 +40,17 @@ public class InternetUtils {
             log.error("hostReachable " + e.getMessage());
         }
         return reachable;
+    }
+
+    /**
+     * Validate URL.
+     * @param url URL
+     * @return if validate or not.
+     */
+    public static boolean validateUrl(final String url){
+        final String[] schemes = {"http","https"};
+        final UrlValidator urlValidator = new UrlValidator(schemes);
+        return urlValidator.isValid(url);
     }
 
     public static boolean pingTwitter() {

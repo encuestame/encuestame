@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,10 +20,10 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.joda.time.DateTimeZone;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
@@ -32,16 +32,31 @@ import org.springframework.web.util.WebUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 26, 2010 3:34:59 PM
  */
-public class DefaultEnMeInterceptor implements HandlerInterceptor {
+public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
 
-    private static Logger log = Logger.getLogger(DefaultEnMeInterceptor.class);
+    /**
+     * Log.
+     */
+    private static Logger log = Logger.getLogger(EnMeSecurityInterceptor.class);
 
+    /**
+     * default cookie name.
+     */
     private final String COOKIE_NAME = "en_me_cookie";
 
+    /**
+     * language cookie name.
+     */
     private final String COOKIE_LANGUAGE = "en_me-language";
 
+    /**
+     * timezone cookie name.
+     */
     private final String COOKIE_TIMEZONE = "en_me-timezone";
 
+    /**
+     * context cookie nane.
+     */
     private final String COOKIE_CONTEXT = "en_me-context";
 
     /**
@@ -76,6 +91,9 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
             } else {
                 //cookies
                 log.debug("session is valid");
+                final UserAccount user = getByUsername(getUserPrincipalUsername());
+                log.debug("Account User Interceptor "+user);
+                request.setAttribute("account", user);
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
                     log.debug("Cookie "+cookieName.getName());
@@ -92,20 +110,6 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    /**
-     *
-     * @param cookieName
-     * @param response
-     */
-    private void createAddCookie(
-            final String cookieName,
-            final HttpServletResponse response,
-            final String value){
-        //Cookie cookie = new Cookie(cookieName, value);
-        //cookie.setMaxAge(expiry)
-        //response.addCookie(cookie);
-    }
-
     /* (non-Javadoc)
      * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.web.servlet.ModelAndView)
      */
@@ -115,19 +119,19 @@ public class DefaultEnMeInterceptor implements HandlerInterceptor {
             log.debug("postHandle");
             Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
             if(cookieName == null){
-                this.createAddCookie(COOKIE_NAME, response, RandomStringUtils.random(4));
+                createAddCookie(COOKIE_NAME, response, RandomStringUtils.random(4));
             }
             Cookie cookieLanguage = WebUtils.getCookie(request, this.COOKIE_LANGUAGE);
             if(cookieLanguage == null){
-                this.createAddCookie(COOKIE_LANGUAGE, response, request.getLocale().toString());
+                createAddCookie(COOKIE_LANGUAGE, response, request.getLocale().toString());
             }
             Cookie cookieTimeZone = WebUtils.getCookie(request, this.COOKIE_TIMEZONE);
             if(cookieTimeZone == null){
-                this.createAddCookie(COOKIE_TIMEZONE, response, DateTimeZone.getDefault().toTimeZone().toString());
+                createAddCookie(COOKIE_TIMEZONE, response, DateTimeZone.getDefault().toTimeZone().toString());
             }
             Cookie cookieContext = WebUtils.getCookie(request, this.COOKIE_CONTEXT);
             if(cookieContext == null){
-                this.createAddCookie(COOKIE_CONTEXT, response, request.getContextPath());
+                createAddCookie(COOKIE_CONTEXT, response, request.getContextPath());
             }
     }
 

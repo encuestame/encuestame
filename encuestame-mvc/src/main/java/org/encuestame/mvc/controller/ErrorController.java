@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version $Id: $
  */
 @Controller
-public class ErrorController  extends BaseController {
+public class ErrorController  extends AbstractBaseOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 

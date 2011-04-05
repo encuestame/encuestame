@@ -35,7 +35,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
  * @version $Id:$
  */
 @Controller
-public class FileUploadController extends BaseController {
+public class FileUploadController extends AbstractBaseOperations {
 
     /**
      * Log.
