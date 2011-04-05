@@ -42,8 +42,6 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import com.googlecode.ehcache.annotations.Cacheable;
-
 /**
  * Account, UsserAccount, AccountConnection Data Repository.
  * @author Picado, Juan juan@encuestame.org

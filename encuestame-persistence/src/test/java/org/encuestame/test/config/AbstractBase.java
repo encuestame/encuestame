@@ -41,6 +41,7 @@ import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
@@ -403,6 +404,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
 
+
     /**
      * Helper to create poll
      * @return poll
@@ -500,6 +502,26 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
           project.setUsers(user);
           getProjectDaoImp().saveOrUpdate(project);
           return project;
+    }
+
+   /**
+    * Create Attachment.
+    * @param filename
+    * @param uploadDate
+    * @param project
+    * @return Attachment data.
+    */
+    public Attachment createAttachment(
+            final String filename,
+            final Date uploadDate,
+            final Project project
+            ){
+        final Attachment attachmentInfo = new Attachment();
+        attachmentInfo.setFilename(filename);
+        attachmentInfo.setUploadDate(uploadDate);
+        attachmentInfo.setProjectAttachment(project);
+        getProjectDaoImp().saveOrUpdate(attachmentInfo);
+        return attachmentInfo;
     }
 
     /**
@@ -1539,4 +1561,5 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
     }
+
 }
