@@ -45,12 +45,12 @@ dojo.addOnLoad(function() {
             if (handshake.successful === true) {
                 cometd.batch(function() {
                     cometd.subscribe('/service/notification/status', function(message) {
-                        console.debug("notification commet message OLD", message);
+                        //console.debug("notification commet message OLD", message);
                         dojo.publish("/encuestame/notifications/update/status",
                                      [message.data.totalNot, message.data.totalNot]);
                     });
                     cometd.subscribe('/service/tweetpoll/autosave', function(message) {
-                        console.debug("autosave", message);
+                        //console.debug("autosave", message);
                         dojo.publish("/encuestame/tweetpoll/autosave/status",[message]);
                     });
                 });

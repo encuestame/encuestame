@@ -39,7 +39,7 @@ import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
@@ -124,7 +124,7 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitTweetPoll}.
+     * Test {@link TweetPollBean}.
      */
     @Test
     public void testUnitTweetPollResults(){
@@ -140,7 +140,7 @@ import org.junit.Test;
      */
     @Test
     public void testUnitTweetPoll(){
-        final UnitTweetPoll tweetPoll = new UnitTweetPoll();
+        final TweetPollBean tweetPoll = new TweetPollBean();
         tweetPoll.setId(1L);
         tweetPoll.setAllowLiveResults(true);
         tweetPoll.setCloseNotification(true);

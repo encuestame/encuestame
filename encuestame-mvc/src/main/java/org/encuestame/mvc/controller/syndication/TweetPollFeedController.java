@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +59,7 @@ public class TweetPollFeedController extends AbstractFeedController {
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
          model.addAttribute("url", getDomain(request));
          //find and add tweetPolls.
-         final List<UnitTweetPoll> tweetPolls = getTweetPolls(secUserSecondary.getUsername());
+         final List<TweetPollBean> tweetPolls = getTweetPolls(secUserSecondary.getUsername());
          log.debug("Tweet Polls size "+tweetPolls.size());
          model.addAttribute("tweetPolls", tweetPolls);
     }

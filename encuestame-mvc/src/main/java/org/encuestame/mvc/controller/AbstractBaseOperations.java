@@ -14,8 +14,10 @@
 package org.encuestame.mvc.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,14 +48,18 @@ import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -187,6 +193,48 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             throw new EnMeNoResultsFoundException("user not found");
         }
         return account;
+    }
+
+    /**
+     * Create new tweetPoll.
+     * @param question
+     * @param hashtags
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll createTweetPoll(final String question,
+            String[] hashtags,
+            String[] answers,
+            UserAccount user) throws EnMeExpcetion{
+        //create new tweetPoll
+        final TweetPollBean tweetPollBean = new TweetPollBean();
+        tweetPollBean.getHashTags().addAll(fillListOfHashTagsBean(hashtags));
+        // save create tweet poll
+        tweetPollBean.setUserId(user.getAccount().getUid());
+        tweetPollBean.setCloseNotification(Boolean.FALSE);
+        tweetPollBean.setResultNotification(Boolean.FALSE);
+        //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
+        tweetPollBean.setSchedule(Boolean.FALSE);
+        return getTweetPollService().createTweetPoll(tweetPollBean, question,
+                answers, user);
+    }
+
+    /**
+     * Update tweetpoll
+     * @param tweetPoll {@link TweetPoll}
+     * @param question list of questions.
+     * @param hashtags
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll updateTweetPoll(final TweetPoll tweetPoll,
+            final String question, String[] hashtags, String[] answers, UserAccount user) throws EnMeExpcetion{
+
+        return tweetPoll;
     }
 
     /**
@@ -421,13 +469,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
     }
 
-
     /**
-     *
-     * @param questionName
-     * @param user
-     * @return
-     * @throws EnMeExpcetion
+     * Create question with answers.
+     * @param questionName question description
+     * @param user {@link UserAccount} owner.
+     * @return {@link Question}
+     * @throws EnMeExpcetion exception
      */
     public Question createQuestion(final String questionName, final String[] answers, final UserAccount user) throws EnMeExpcetion{
         final QuestionBean questionBean = new QuestionBean();
@@ -437,11 +484,31 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         for (int row = 0; row < answers.length; row++) {
             final QuestionAnswerBean answer = new QuestionAnswerBean();
             answer.setAnswers(answers[row].trim());
-            answer.setAnswerHash("hash temp");
+            answer.setAnswerHash(RandomStringUtils.randomAscii(5));
             questionBean.getListAnswers().add(answer);
         }
         final Question questionDomain = getSurveyService().createQuestion(
                 questionBean);
         return questionDomain;
+    }
+
+    /**
+     * Create a list of {@link HashTagBean}.
+     * @param hashtags array of hashtags strings.
+     * @return list of {@link HashTagBean}.
+     */
+    public List<HashTagBean> fillListOfHashTagsBean(String[] hashtags) {
+        final List<HashTagBean> hashtagsList = new ArrayList<HashTagBean>();
+        hashtags = hashtags == null ? new String[0] : hashtags;
+        log.debug("HashTag size:{" + hashtags.length);
+        for (int row = 0; row < hashtags.length; row++) {
+            final HashTagBean hashTag = new HashTagBean();
+            log.debug("HashTag:{" + hashTag);
+            if (hashtags[row] != null) {
+                hashTag.setHashTagName(hashtags[row].toLowerCase().trim());
+            }
+            hashtagsList.add(hashTag);
+        }
+        return hashtagsList;
     }
 }
