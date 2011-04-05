@@ -12,14 +12,16 @@
  */
 package org.encuestame.test.persistence.dao;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
+import org.encuestame.persistence.dao.IProjectDao;
+import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +45,9 @@ public class TestProjectDaoImp extends AbstractBase{
     /** {@link UserAccount}.**/
     UserAccount user;
 
+    private Attachment attachment;
+
+    private Date uploadDate = Calendar.getInstance().getTime();
     /**
      * Before.
      */
@@ -50,6 +55,7 @@ public class TestProjectDaoImp extends AbstractBase{
     public void initService(){
         user  = createUserAccount("user 1", createAccount());
         project = createProject("project 1","TIC Project","Project", user.getAccount());
+        attachment = createAttachment("Spring Reference.pdf", uploadDate, project);
 
     }
     /**
@@ -92,6 +98,28 @@ public class TestProjectDaoImp extends AbstractBase{
         createProject("encuestame", "survey system", "the best", user.getAccount());
         final List<Project> projectList = getProjectDaoImp().findProjectsByUserID(user.getAccount().getUid());
         assertEquals("Should be equals", 2, projectList.size());
+    }
+
+    /**
+     * Test Get Attachment Info by Attachment Id.
+     */
+    @Test
+    public void tesGetAttachmentbyId(){
+        assertNotNull(attachment);
+        Attachment attach = getProjectDaoImp().getAttachmentbyId(this.attachment.getAttachmentId());
+        System.out.println("Attachment id created before--> "+ attachment.getAttachmentId());
+        System.out.println("Attachment id retrieved -> "+ attach.getAttachmentId());
+        assertEquals("Should be equals", this.attachment.getAttachmentId(), attach.getAttachmentId());
+    }
+
+    @Test
+    public void testGetAttachmentsListbyProject(){
+        Attachment attachment2 = createAttachment("DojoReference.pdf", uploadDate, this.project);
+        assertNotNull(attachment);
+        assertNotNull(attachment2);
+        final List<Attachment> attachList = getProjectDaoImp().getAttachmentsListbyProject(this.project.getProyectId());
+        System.out.println("Attach List -->" + attachList.size());
+        assertEquals("Should be equals", 2, attachList.size());
     }
 
 }
