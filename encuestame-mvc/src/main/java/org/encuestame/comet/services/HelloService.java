@@ -4,25 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
-import org.cometd.java.annotation.Session;
 
 @Named
 @Singleton
 @Service("helloService")
-public class HelloService {
-    @Inject
-    private BayeuxServer bayeux;
-    @Session
-    private ServerSession serverSession;
+public class HelloService extends AbstractCometService {
 
     @PostConstruct
     public void init() {
@@ -35,6 +28,6 @@ public class HelloService {
 
         Map<String, Object> output = new HashMap<String, Object>();
         output.put("greeting", "Hello, " + name);
-        remote.deliver(serverSession, "/hello", output, null);
+        remote.deliver(getServerSession(), "/hello", output, null);
     }
 }

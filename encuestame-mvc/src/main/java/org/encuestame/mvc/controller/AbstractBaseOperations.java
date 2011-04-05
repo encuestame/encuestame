@@ -14,19 +14,17 @@
 package org.encuestame.mvc.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
-
 import net.tanesha.recaptcha.ReCaptcha;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -38,20 +36,24 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.business.service.imp.SearchServiceOperations;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,12 +61,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -77,7 +77,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * @version $Id: $
  */
 @SuppressWarnings("deprecation")
-public abstract class BaseController extends AbstractSecurityContext{
+public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 
      private Logger log = Logger.getLogger(this.getClass());
 
@@ -419,5 +419,29 @@ public abstract class BaseController extends AbstractSecurityContext{
      */
     public ProfileUserAccount getProfileUserInfo() throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
+    }
+
+
+    /**
+     *
+     * @param questionName
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public Question createQuestion(final String questionName, final String[] answers, final UserAccount user) throws EnMeExpcetion{
+        final QuestionBean questionBean = new QuestionBean();
+        questionBean.setQuestionName(questionName);
+        questionBean.setUserId(user.getUid());
+        // setting Answers.
+        for (int row = 0; row < answers.length; row++) {
+            final QuestionAnswerBean answer = new QuestionAnswerBean();
+            answer.setAnswers(answers[row].trim());
+            answer.setAnswerHash("hash temp");
+            questionBean.getListAnswers().add(answer);
+        }
+        final Question questionDomain = getSurveyService().createQuestion(
+                questionBean);
+        return questionDomain;
     }
 }

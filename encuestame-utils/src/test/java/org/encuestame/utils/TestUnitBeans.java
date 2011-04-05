@@ -24,7 +24,7 @@ import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -60,7 +60,7 @@ import org.junit.Test;
     **/
     @Test
     public void testUnitAnswerBean() {
-        final UnitAnswersBean unitAnswer = createUnitAnswerBean(1L, "yes",
+        final QuestionAnswerBean unitAnswer = createUnitAnswerBean(1L, "yes",
                 "HASH", 2L);
         assertNotNull(unitAnswer.getAnswerHash());
         assertNotNull(unitAnswer.getAnswers());
@@ -130,7 +130,7 @@ import org.junit.Test;
     public void testUnitTweetPollResults(){
         final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
         tweetPollResult.setResults(1L);
-        tweetPollResult.setAnswersBean(new UnitAnswersBean());
+        tweetPollResult.setAnswersBean(new QuestionAnswerBean());
         assertNotNull(tweetPollResult.getResults());
         assertNotNull(tweetPollResult.getAnswersBean());
     }
@@ -259,7 +259,7 @@ import org.junit.Test;
     @Test
     public void testUnitPollResult(){
         final UnitPollResult pollResult =  new UnitPollResult();
-        pollResult.setAnswerBean(new UnitAnswersBean());
+        pollResult.setAnswerBean(new QuestionAnswerBean());
         pollResult.setPoll( new UnitPoll());
         pollResult.setResult(1L);
         pollResult.setVotedDate(new Date());
@@ -405,7 +405,7 @@ import org.junit.Test;
     public void testUnitQuestionBean(){
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(1L);
-        questionBean.setListAnswers(new ArrayList<UnitAnswersBean>());
+        questionBean.setListAnswers(new ArrayList<QuestionAnswerBean>());
         questionBean.setPattern(new UnitPatternBean());
         questionBean.setQuestionName("Why sky is blue?");
         questionBean.setStateId(1L);

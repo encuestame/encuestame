@@ -22,7 +22,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
@@ -98,11 +98,11 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param questionId
       * @return
       */
-     public UnitAnswersBean createAnswersBean(
+     public QuestionAnswerBean createAnswersBean(
              final String answerHash,
              final String answers,
              final Long questionId){
-         final UnitAnswersBean answerBean = new UnitAnswersBean();
+         final QuestionAnswerBean answerBean = new QuestionAnswerBean();
          answerBean.setAnswerHash(answerHash);
          answerBean.setAnswers(answers);
          answerBean.setQuestionId(questionId);

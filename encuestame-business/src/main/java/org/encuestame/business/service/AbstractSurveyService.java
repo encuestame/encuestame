@@ -40,7 +40,7 @@ import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
@@ -96,7 +96,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);
                 questionBean.setId(question.getQid());
-                for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
+                for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
                     this.saveAnswer(answerBean);
                 }
             }
@@ -143,7 +143,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param answerBean answer
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion{
+    public void saveAnswer(final QuestionAnswerBean answerBean) throws EnMeExpcetion{
             final QuestionAnswer answer = new QuestionAnswer();
             if(answerBean.getQuestionId()!= null){
                 final Question question = getQuestionDao().retrieveQuestionById(answerBean.getQuestionId());
@@ -179,10 +179,10 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionId question Id
      * @return List of Answers
      */
-    public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
+    public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
         log.debug("answers by question id ["+questionId+"] answers size "+answers.size());
-        final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
+        final List<QuestionAnswerBean> answersBean = new ArrayList<QuestionAnswerBean>();
         for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
         }
@@ -285,7 +285,7 @@ public class AbstractSurveyService extends AbstractChartService {
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             final List<QuestionAnswer> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
-            if(answers.size()==2){
+            if (answers.size() == 2) {
                 for (final QuestionAnswer questionsAnswers : answers) {
                     tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
                 }

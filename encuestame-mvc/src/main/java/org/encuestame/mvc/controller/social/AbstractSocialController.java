@@ -12,7 +12,7 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 
 /**
  * Contains helper methods to social connect.
@@ -20,6 +20,6 @@ import org.encuestame.mvc.controller.BaseController;
  * @since Dec 25, 2010 4:47:05 PM
  * @version $Id:$
  */
-public abstract class AbstractSocialController extends BaseController {
+public abstract class AbstractSocialController extends AbstractBaseOperations {
 
 }

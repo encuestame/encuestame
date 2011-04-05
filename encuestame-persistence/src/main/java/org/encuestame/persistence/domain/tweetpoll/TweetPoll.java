@@ -36,10 +36,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * TweetPoll Domain.
- *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since February 13, 2009
- * @version $Id$
  */
 
 @Entity

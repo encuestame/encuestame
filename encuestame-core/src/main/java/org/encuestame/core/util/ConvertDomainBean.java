@@ -45,7 +45,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -452,12 +452,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link QuestionAnswer} to {@link UnitAnswersBean}.
+     * Convert {@link QuestionAnswer} to {@link QuestionAnswerBean}.
      * @param questionsAnswer {@link QuestionAnswer}
-     * @return {@link UnitAnswersBean}.
+     * @return {@link QuestionAnswerBean}.
      */
-    public static final UnitAnswersBean convertAnswerToBean(final QuestionAnswer questionsAnswer){
-            final UnitAnswersBean answersBean = new UnitAnswersBean();
+    public static final QuestionAnswerBean convertAnswerToBean(final QuestionAnswer questionsAnswer){
+            final QuestionAnswerBean answersBean = new QuestionAnswerBean();
             answersBean.setAnswerId(questionsAnswer.getQuestionAnswerId());
             answersBean.setAnswers(questionsAnswer.getAnswer());
             answersBean.setUrl(questionsAnswer.getUrlAnswer());

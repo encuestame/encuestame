@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.encuestame.business.service.PictureService.PictureType;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version Id:
  */
 @Controller
-public class PictureProfileFactoryController extends BaseController {
+public class PictureProfileFactoryController extends AbstractBaseOperations {
 
     /**
      * Returns the byte[] that contains the requested thumbnail image (128x128 constrained).

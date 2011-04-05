@@ -14,11 +14,14 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
+import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -41,7 +44,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    void createTweetPoll(final UnitTweetPoll tweetPollBean, final Question question) throws EnMeExpcetion;
+    void saveTweetPoll(final UnitTweetPoll tweetPollBean, final Question question) throws EnMeExpcetion;
 
     /**
      * Generate TweetPoll Text.
@@ -119,10 +122,16 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
-    String[] publicMultiplesTweetAccounts(
+    List<TweetPollSavedPublishedStatus> publicMultiplesTweetAccounts(
             final List<SocialAccountBean> twitterAccounts,
             final Long tweetPollId,
             final String tweetText);
+
+   /**
+    * Publish single {@link TweetPoll}.
+    * @param accountId social account id.
+    */
+   TweetPollSavedPublishedStatus publishTweetPoll(final Long accountId, final TweetPoll tweetPoll, final SocialProvider provider);
 
     /**
      * Update Question Name.
@@ -284,5 +293,3 @@ public interface ITweetPollService extends IMasterSurveyService{
      void changeCloseNotificationTweetPoll(final Long tweetPollId, final String username)
                 throws EnMeNoResultsFoundException, EnmeFailOperation;
 }
-
-

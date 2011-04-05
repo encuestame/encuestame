@@ -14,7 +14,7 @@ package org.encuestame.mvc.controller.syndication;
 
 import java.util.List;
 
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitTweetPoll;
 
@@ -24,7 +24,7 @@ import org.encuestame.utils.web.UnitTweetPoll;
  * @since Jul 3, 2010 3:29:57 AM
  * @version $Id:$
  */
-public abstract class AbstractFeedController extends BaseController{
+public abstract class AbstractFeedController extends AbstractBaseOperations{
 
     /**
      * Get TweetPolls.

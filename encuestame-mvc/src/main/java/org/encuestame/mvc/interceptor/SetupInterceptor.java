@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -25,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 25, 2011
  */
-public class SetupInterceptor implements HandlerInterceptor {
+public class SetupInterceptor extends AbstractEnMeInterceptor{
 
     private Logger log = Logger.getLogger(this.getClass());
 

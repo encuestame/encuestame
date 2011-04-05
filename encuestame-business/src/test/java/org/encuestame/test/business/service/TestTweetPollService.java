@@ -35,7 +35,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitTweetPoll;
@@ -69,7 +69,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     /** {@link UserAccount}. **/
     private UserAccount userAccount;
 
-    private List<UnitAnswersBean> answers;
+    private List<QuestionAnswerBean> answers;
 
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
@@ -77,8 +77,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;
 
-    /** List {@link UnitAnswersBean}. **/
-    private List<UnitAnswersBean> answersSaveTweet;
+    /** List {@link QuestionAnswerBean}. **/
+    private List<QuestionAnswerBean> answersSaveTweet;
 
     private List<SocialAccountBean> twitterAccount;
 
@@ -93,7 +93,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         this.pattern = createQuestionPattern("html");
         createQuestionAnswer("Yes", this.question,"SSSA");
         //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
-        answers = new ArrayList<UnitAnswersBean>();
+        answers = new ArrayList<QuestionAnswerBean>();
         answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
         answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
         patternBean = createPatternBean("radio.class",
@@ -136,7 +136,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     tweetPollBean.setScheduleDate(new Date());
     tweetPollBean.setCompleted(false);
     tweetPollBean.setUserId(this.user.getUid());
-    this.tweetPollService.createTweetPoll(tweetPollBean, question);
+    this.tweetPollService.saveTweetPoll(tweetPollBean, question);
     final String s = this.tweetPollService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
     //final Status status = this.tweetPollService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
     //assertNotNull(status.getId());
@@ -152,7 +152,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         final String tweetUrl = "http://www.encuestame.org";
         final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), usersave, questionSave);
 
-        answersSaveTweet = new ArrayList<UnitAnswersBean>();
+        answersSaveTweet = new ArrayList<QuestionAnswerBean>();
         answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
         answersSaveTweet.add(createAnswersBean("GTJU", "Yes", questionSave.getQid()));
 

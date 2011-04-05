@@ -44,7 +44,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since Sep 15, 2010 11:31:20 AM
  * @version $Id:$
  */
-public abstract class AbstractJsonController extends BaseController{
+public abstract class AbstractJsonController extends AbstractBaseOperations{
 
     /**
      * Log.
