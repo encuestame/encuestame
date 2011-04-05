@@ -4,5 +4,5 @@
         </div>
         <div dojoAttachPoint="_content" class="content">
 
-        </div/>
+        </div>
  </div>

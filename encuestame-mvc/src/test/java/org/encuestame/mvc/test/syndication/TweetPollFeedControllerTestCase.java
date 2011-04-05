@@ -32,7 +32,7 @@ import org.encuestame.mvc.view.TweetPollAtomFeedView;
 import org.encuestame.mvc.view.TweetPollRssFeedView;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -89,7 +89,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
         this.request = new MockHttpServletRequest();
         this.response = new MockHttpServletResponse();
         final Map<String, Object> model = new HashMap<String, Object>();
-        model.put("tweetPolls", new ArrayList<UnitTweetPoll>());
+        model.put("tweetPolls", new ArrayList<TweetPollBean>());
         this.tweetPollRssFeedView.render(model, request, response);
         log.debug(response.getContentType());
         log.debug(response.getContentAsString());
@@ -111,7 +111,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
         this.request = new MockHttpServletRequest();
         this.response = new MockHttpServletResponse();
         final Map<String, Object> model = new HashMap<String, Object>();
-        model.put("tweetPolls", new ArrayList<UnitTweetPoll>());
+        model.put("tweetPolls", new ArrayList<TweetPollBean>());
         this.tweetPollAtomFeedView.render(model, request, response);
         log.debug(response.getContentType());
         log.debug(response.getContentAsString());

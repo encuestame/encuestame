@@ -13,7 +13,7 @@
 
 package org.encuestame.mvc.view;
 
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 
 /**
  * Class Description.
@@ -21,6 +21,6 @@ import org.encuestame.mvc.controller.BaseController;
  * @since Mar 11, 2010 9:22:44 PM
  * @version $Id: change to one dolar simbol
  */
-public class ReportController  extends BaseController {
+public class ReportController  extends AbstractBaseOperations {
 
 }

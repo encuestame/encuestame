@@ -13,7 +13,7 @@
 package org.encuestame.mvc.controller.security;
 
 import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Jun 14, 2010 8:44:12 PM
  * @version Id:
  */
-public abstract class AbstractSecurityController extends BaseController{
+public abstract class AbstractSecurityController extends AbstractBaseOperations{
 
     /**
      * {@link SecurityOperations}.

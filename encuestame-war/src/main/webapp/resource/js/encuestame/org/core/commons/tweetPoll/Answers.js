@@ -82,6 +82,7 @@ dojo.declare(
             this.answerSource.insertNodes(false, items);
             text.set('value', "");
             dojo.publish("/encuestame/tweetpoll/updatePreview");
+            dojo.publish("/encuestame/tweetpoll/autosave");
         },
 
         getDialog : function(){

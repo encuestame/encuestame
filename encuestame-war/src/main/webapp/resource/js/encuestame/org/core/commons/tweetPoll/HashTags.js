@@ -45,6 +45,7 @@ dojo.declare(
         printHashTag : function(data){
             this.newHashTag(data);
         },
+
         //new Hash Tag.
         newHashTag : function(data){
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
@@ -55,6 +56,7 @@ dojo.declare(
             this.listItems.push(widget);
             this._items.appendChild(widget.domNode);
             dojo.publish("/encuestame/tweetpoll/updatePreview");
+            dojo.publish("/encuestame/tweetpoll/autosave");
         },
         //Get Dialog
         getDialog : function(){

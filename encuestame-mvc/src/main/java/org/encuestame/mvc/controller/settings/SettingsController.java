@@ -14,7 +14,7 @@ package org.encuestame.mvc.controller.settings;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version $Id:$
  */
 @Controller
-public class SettingsController extends BaseController{
+public class SettingsController extends AbstractBaseOperations{
 
     private Log log = LogFactory.getLog(this.getClass());
 

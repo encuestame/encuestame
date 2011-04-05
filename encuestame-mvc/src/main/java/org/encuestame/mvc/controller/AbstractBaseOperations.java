@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
-
 import net.tanesha.recaptcha.ReCaptcha;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -38,20 +38,28 @@ import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.IServiceManager;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.business.service.imp.SearchServiceOperations;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,12 +67,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -77,7 +83,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * @version $Id: $
  */
 @SuppressWarnings("deprecation")
-public abstract class BaseController extends AbstractSecurityContext{
+public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 
      private Logger log = Logger.getLogger(this.getClass());
 
@@ -187,6 +193,48 @@ public abstract class BaseController extends AbstractSecurityContext{
             throw new EnMeNoResultsFoundException("user not found");
         }
         return account;
+    }
+
+    /**
+     * Create new tweetPoll.
+     * @param question
+     * @param hashtags
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll createTweetPoll(final String question,
+            String[] hashtags,
+            String[] answers,
+            UserAccount user) throws EnMeExpcetion{
+        //create new tweetPoll
+        final TweetPollBean tweetPollBean = new TweetPollBean();
+        tweetPollBean.getHashTags().addAll(fillListOfHashTagsBean(hashtags));
+        // save create tweet poll
+        tweetPollBean.setUserId(user.getAccount().getUid());
+        tweetPollBean.setCloseNotification(Boolean.FALSE);
+        tweetPollBean.setResultNotification(Boolean.FALSE);
+        //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
+        tweetPollBean.setSchedule(Boolean.FALSE);
+        return getTweetPollService().createTweetPoll(tweetPollBean, question,
+                answers, user);
+    }
+
+    /**
+     * Update tweetpoll
+     * @param tweetPoll {@link TweetPoll}
+     * @param question list of questions.
+     * @param hashtags
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll updateTweetPoll(final TweetPoll tweetPoll,
+            final String question, String[] hashtags, String[] answers, UserAccount user) throws EnMeExpcetion{
+
+        return tweetPoll;
     }
 
     /**
@@ -419,5 +467,48 @@ public abstract class BaseController extends AbstractSecurityContext{
      */
     public ProfileUserAccount getProfileUserInfo() throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertUserAccountToUserProfileBean(getUserAccount());
+    }
+
+    /**
+     * Create question with answers.
+     * @param questionName question description
+     * @param user {@link UserAccount} owner.
+     * @return {@link Question}
+     * @throws EnMeExpcetion exception
+     */
+    public Question createQuestion(final String questionName, final String[] answers, final UserAccount user) throws EnMeExpcetion{
+        final QuestionBean questionBean = new QuestionBean();
+        questionBean.setQuestionName(questionName);
+        questionBean.setUserId(user.getUid());
+        // setting Answers.
+        for (int row = 0; row < answers.length; row++) {
+            final QuestionAnswerBean answer = new QuestionAnswerBean();
+            answer.setAnswers(answers[row].trim());
+            answer.setAnswerHash(RandomStringUtils.randomAscii(5));
+            questionBean.getListAnswers().add(answer);
+        }
+        final Question questionDomain = getSurveyService().createQuestion(
+                questionBean);
+        return questionDomain;
+    }
+
+    /**
+     * Create a list of {@link HashTagBean}.
+     * @param hashtags array of hashtags strings.
+     * @return list of {@link HashTagBean}.
+     */
+    public List<HashTagBean> fillListOfHashTagsBean(String[] hashtags) {
+        final List<HashTagBean> hashtagsList = new ArrayList<HashTagBean>();
+        hashtags = hashtags == null ? new String[0] : hashtags;
+        log.debug("HashTag size:{" + hashtags.length);
+        for (int row = 0; row < hashtags.length; row++) {
+            final HashTagBean hashTag = new HashTagBean();
+            log.debug("HashTag:{" + hashTag);
+            if (hashtags[row] != null) {
+                hashTag.setHashTagName(hashtags[row].toLowerCase().trim());
+            }
+            hashtagsList.add(hashTag);
+        }
+        return hashtagsList;
     }
 }

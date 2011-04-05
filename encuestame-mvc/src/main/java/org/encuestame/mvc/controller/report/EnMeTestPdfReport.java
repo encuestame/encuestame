@@ -15,7 +15,7 @@ package org.encuestame.mvc.controller.report;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.commons.collections.ListUtils;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version $Id:$
  */
 @Controller
-public class EnMeTestPdfReport extends BaseController{
+public class EnMeTestPdfReport extends AbstractBaseOperations{
 
      @RequestMapping(value ="/report.pdf", method = RequestMethod.GET)
      public String report(ModelMap modelMap) {

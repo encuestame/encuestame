@@ -27,7 +27,7 @@ import java.util.List;
  * @since Feb 14, 2010 10:00:58 AM
  * @version $Id$
  */
-public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
+public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
 
     /**
      * Serial.
@@ -68,7 +68,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
     /**
      * Constructor.
      */
-    public UnitTweetPoll() {
+    public TweetPollBean() {
     }
 
     /**
@@ -196,7 +196,7 @@ public class UnitTweetPoll extends AbstractUnitSurvey implements Serializable{
      */
     public final String getTweetUrl() {
         final StringBuffer tweetUrlString = new StringBuffer(
-                UnitTweetPoll.TWITTER_STATUS_URL);
+                TweetPollBean.TWITTER_STATUS_URL);
         tweetUrlString.append(getTwitterUserAcoount());
         tweetUrlString.append("/status/");
         this.tweetUrl = tweetUrlString.toString();
