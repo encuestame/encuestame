@@ -15,6 +15,7 @@ package org.encuestame.core.security;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -29,7 +30,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * Encuestame user service implementation.
  * @author Picado, Juan juan@encuestame.org
  * @since 07/05/2009 14:19:02
- * @version $Id$
  */
 public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
@@ -83,21 +83,23 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
     }
 
     /**
-     * Search user by username
-     *
-     * @param username
-     *            username return {@link UserDetails}
+     * Search user by username.
+     * @param username username
+     * return {@link UserDetails}
      */
-    public UserDetails loadUserByUsername(final String username){
+    public UserDetails loadUserByUsername(String username){
         log.debug("loggin with username: {"+username+"}");
         log.debug("loggin with user dao instance: {"+this.accountDao+"}");
+        //filter username.
+        final HTMLInputFilter filter = new HTMLInputFilter();
+        username = filter.filter(username);
         final UserAccount user = this.accountDao.getUserByUsername(username);
-        log.debug("fetch username: {"+user+"}");
+        log.debug("fetch username filtered: {"+user+"}");
         if (user == null) {
-            log.error("user not found");
+            log.error("user not found :{"+username);
             throw new UsernameNotFoundException("user not found");
         } else {
-            log.debug("Loggin with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
+            log.debug("Logged with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
             this.updateLoggedInfo(user);
             return SecurityUtils.convertUserAccount(user, this.roleUserAuth);
         }
@@ -105,12 +107,12 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
 
     /**
      * Update Logged Info.
-     * @param secUserSecondary
+     * @param userAccount {@link UserAccount}.
      */
-    private void updateLoggedInfo(final UserAccount secUserSecondary){
+    private void updateLoggedInfo(final UserAccount userAccount){
         final Calendar calendar = Calendar.getInstance();
-        secUserSecondary.setLastTimeLogged(calendar.getTime());
-        log.debug("Updating logged time: "+calendar.getTime());
-        accountDao.saveOrUpdate(secUserSecondary);
+        userAccount.setLastTimeLogged(calendar.getTime());
+        log.debug("Updating logged time to:{"+calendar.getTime());
+        accountDao.saveOrUpdate(userAccount);
     }
 }

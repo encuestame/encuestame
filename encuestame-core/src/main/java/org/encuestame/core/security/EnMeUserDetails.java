@@ -3,6 +3,7 @@ package org.encuestame.core.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,6 +18,11 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
      * Username.
      */
     private String username = null;
+
+    /**
+     * {@link UserAccount}.
+     */
+    private UserAccount userAccount;
 
     /**
      * Password;
@@ -49,11 +55,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     private static final long serialVersionUID = -4232011056933663058L;
 
     /**
-     * Twitter Account.
-     */
-    private String twitterAccount = null;
-
-    /**
      * User Email.
      */
     private String userEmail;
@@ -72,7 +73,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
      * @param credentialsNonExpired
      * @param enabled
      * @param accountNonLocked
-     * @param twitterAccount
      * @param isOwner
      * @param completeName
      * @param email
@@ -84,9 +84,9 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
             final boolean credentialsNonExpired,
             final boolean enabled,
             final boolean accountNonLocked,
-            final String twitterAccount,
             final String completeName,
-            final String email) {
+            final String email,
+            final UserAccount account) {
         this.username = username;
         this.password = password;
         this.accountNonExpired = accountNonExpired;
@@ -97,9 +97,9 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
            authorities = new ArrayList<GrantedAuthority>();
         }
         this.authorities = authorities;
-        this.twitterAccount = twitterAccount;
         this.completeName = completeName;
         this.userEmail = email;
+        this.userAccount = account;
     }
 
     /**
@@ -164,13 +164,6 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     }
 
     /**
-     * Twitter Account.
-     */
-    public String getTwitterAccount() {
-        return this.twitterAccount;
-    }
-
-    /**
      * User Email.
      */
     public String getUserEmail() {
@@ -187,14 +180,14 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     /**
      * @param username the username to set
      */
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -227,24 +220,32 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     }
 
     /**
-     * @param twitterAccount the twitterAccount to set
-     */
-    public void setTwitterAccount(String twitterAccount) {
-        this.twitterAccount = twitterAccount;
-    }
-
-    /**
      * @param userEmail the userEmail to set
      */
-    public void setUserEmail(String userEmail) {
+    public void setUserEmail(final String userEmail) {
         this.userEmail = userEmail;
     }
 
     /**
      * @param completeName the completeName to set
      */
-    public void setCompleteName(String completeName) {
+    public void setCompleteName(final String completeName) {
         this.completeName = completeName;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.security.EnMeUserDetailsDataAccount#getUserAccount()
+     */
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    /**
+     * @param userAccount the userAccount to set
+     */
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     /* (non-Javadoc)
@@ -253,10 +254,11 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     @Override
     public String toString() {
         return "EnMeUserDetails [authorities=" + authorities + ", username="
-                + username + ", enabled=" + enabled + ", accountNonExpired="
+                + username + ", userAccount=" + userAccount + ", password="
+                + password + ", enabled=" + enabled + ", accountNonExpired="
                 + accountNonExpired + ", accountNonLocked=" + accountNonLocked
                 + ", credentialsNonExpired=" + credentialsNonExpired
-                + ", userEmail=" + userEmail + ", completeName=" + completeName
-                + "]";
+                + ", userEmail="
+                + userEmail + ", completeName=" + completeName + "]";
     }
 }
