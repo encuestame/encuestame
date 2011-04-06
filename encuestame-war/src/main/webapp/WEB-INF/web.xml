@@ -105,6 +105,11 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/activity/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>*.jspx</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
@@ -134,7 +139,7 @@
     </filter>
     <filter-mapping>
         <filter-name>cross-origin</filter-name>
-        <url-pattern>/cometd/*</url-pattern>
+        <url-pattern>/activity/*</url-pattern>
     </filter-mapping>
 
     <listener>

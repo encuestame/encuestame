@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.dao.IEmail;
@@ -59,7 +60,7 @@ import org.springframework.stereotype.Service;
  * @version $Id: DataSource.java 478 2010-04-07 03:39:10Z dianmorales $
  */
 @Service
-public abstract class AbstractDataSource{
+public abstract class AbstractDataSource extends AbstractSecurityContext{
 
     /** {@link GeoPoint}. */
     @Autowired

@@ -211,7 +211,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     @SuppressWarnings("unchecked")
     private TweetPollSwitch searchByParamStringTweetPollSwitch(final String param, final  String value){
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
-        criteria.add(Restrictions.eq(param, value) );
+        criteria.add(Restrictions.eq(param, value));
         return (TweetPollSwitch) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
@@ -251,6 +251,19 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
         criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
         return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
+     *
+     * @param tweetPoll
+     * @param questionAnswer
+     * @return
+     */
+    public TweetPollSwitch getAnswerTweetSwitch(final TweetPoll tweetPoll, final QuestionAnswer questionAnswer){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
+        criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        criteria.add(Restrictions.eq("answers", questionAnswer));
+        return (TweetPollSwitch) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**

@@ -110,10 +110,9 @@ public class AbstractSurveyService extends AbstractChartService {
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);
                 for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
-                    this.saveAnswer(answerBean, question);
+                    this.createQuestionAnswer(answerBean, question);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 log.error(e);
                 throw new EnMeExpcetion(e);
             }
@@ -155,41 +154,57 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Create vote support for each tweetpoll answer.
      * @param questionId
-     * @param tweetPollDomain
+     * @param tweetPoll
      */
-    public void createTweetPollSwitchSupport(final Long questionId, final TweetPoll tweetPollDomain){
-        final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
-        for (QuestionAnswer questionsAnswers : answers) {
-            final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
-            tPollSwitch.setAnswers(questionsAnswers);
-            tPollSwitch.setTweetPoll(tweetPollDomain);
+    public void updateTweetPollSwitchSupport(final TweetPoll tweetPoll){
+        final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid());
+        log.debug("updateTweetPollSwitchSupport answers size:{"+answers.size());
+        //iterate answer for one question
+        for (QuestionAnswer answer : answers) {
+            //try to locate current switch if exist
+            TweetPollSwitch tPollSwitch = getTweetPollDao().getAnswerTweetSwitch(tweetPoll, answer);
+            if (tPollSwitch == null) {
+                log.debug("created tweetpoll switch for tweetpoll:{"+tweetPoll.getTweetPollId());
+                //create new tweetpoll switch
+                tPollSwitch = new TweetPollSwitch();
+                tPollSwitch.setAnswers(answer);
+                tPollSwitch.setTweetPoll(tweetPoll);
+                tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + answer.getAnswer()));
+            } else {
+                log.debug("updated tweetpoll switch:{"+tPollSwitch.getSwitchId()+" for tweetpoll :{"+tweetPoll.getTweetPollId());
+            }
+            //update every new change.
             tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
-            tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + questionsAnswers.getAnswer()));
             final StringBuffer voteUrlWithoutDomain = new StringBuffer();
             voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
             voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
+            final StringBuffer completeDomain = new StringBuffer(EncuestamePlaceHolderConfigurer.getProperty("application.domain"));
+            completeDomain.append(voteUrlWithoutDomain.toString());
             try {
                  log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
-                 final StringBuffer completeDomain = new StringBuffer(EncuestamePlaceHolderConfigurer.getProperty("application.domain"));
                  if (InternetUtils.validateUrl(completeDomain.toString())) {
-                    completeDomain.append(voteUrlWithoutDomain.toString());
                     //TODO: setted google short url by default. Why? Thinking ...
                     tPollSwitch.setShortUrl(SocialUtils.getGoGl(completeDomain.toString(),
                                 EncuestamePlaceHolderConfigurer.getProperty("short.google.key")));
                  } else {
+                     tPollSwitch.setShortUrl(completeDomain.toString());
                      log.warn("Invalid format vote url:{"+voteUrlWithoutDomain.toString());
                  }
             } catch (EnmeFailOperation e) {
-                tPollSwitch.setShortUrl("http://short.fk/xxxxx"); //TODO: decide with todo when short url is missing.
+                tPollSwitch.setShortUrl(completeDomain.toString()); //TODO: decide with todo when short url is missing.
                 log.error("Short error:{"+e.getMessage());
             }
+
             getTweetPollDao().saveOrUpdate(tPollSwitch);
+
+            //notification create tweetpoll
             createNotification(NotificationEnum.TWEETPOL_CREATED,
-                    tweetPollDomain.getQuestion().getQuestion(),
-                    tweetPollDomain.getQuestion().getAccountQuestion());
+                    tweetPoll.getQuestion().getQuestion(),
+                    tweetPoll.getQuestion().getAccountQuestion());
+
             //update answer url.
-            questionsAnswers.setUrlAnswer(voteUrlWithoutDomain.toString()); //store url without short.
-            getQuestionDao().saveOrUpdate(questionsAnswers);
+            answer.setUrlAnswer(voteUrlWithoutDomain.toString()); //store url without short.
+            getQuestionDao().saveOrUpdate(answer);
         }
     }
 
@@ -211,9 +226,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param answerBean answer
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void saveAnswer(
+    public void createQuestionAnswer(
             final QuestionAnswerBean answerBean,
-            final Question question) throws EnMeExpcetion {
+            final Question question){
         final QuestionAnswer answer = new QuestionAnswer();
         answer.setQuestions(question);
         answer.setAnswer(answerBean.getAnswers());

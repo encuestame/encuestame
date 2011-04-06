@@ -59,41 +59,47 @@ public class TweetPollCometService extends AbstractCometService {
         log.debug("Messages content:{"+inputMessage.toString());
         log.debug("Messages content JSON:{"+message.getJSON());
         final Map<String, Object> tweetPollJson = (Map<String, Object>) inputMessage.get("tweetPoll");
-        log.debug("tweetPoll content:{"+tweetPollJson.toString());
-        log.debug("tweetPoll question:{"+tweetPollJson.get("question"));
-        log.debug("tweetPoll anwers:{"+tweetPollJson.get("anwers"));
-        log.debug("tweetPoll hashtags:{"+tweetPollJson.get("hashtags"));
-        String[] a = {"hashtaga1", "hashtag2"};
-        String[] b = {"asnwer1", "answers2"};
-        log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        String[] hastagsArray = new String[15];
+        String[] answerArray = new String[5];
         final Object[] hashtags =  (Object[]) tweetPollJson.get("hashtags");
         for (int i = 0; i < hashtags.length; i++) {
-            log.debug("H---->"+hashtags[i]);
+            HashMap<String, String> hashtagsMap = (HashMap<String, String>) hashtags[i];
+            log.debug("Hashtags: ---->"+hashtagsMap.get("value"));
+            //if (hashtagsMap.get("value") != null) {
+                hastagsArray[i] = hashtagsMap.get("value");
+            //}
         }
         final Object[] answers =  (Object[]) tweetPollJson.get("anwers");
         for (int i = 0; i < answers.length; i++) {
-            log.debug("A---->"+answers[i]);
+            HashMap<String, String> answersMap = (HashMap<String, String>) answers[i];
+            log.debug("Answer: ---->"+answersMap.get("value"));
+            //if (answersMap.get("value") != null) {
+                answerArray[i] = answersMap.get("value");
+            //}
         }
-        log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        log.debug("tweetPoll map hashtags:{"+hashtags);
-        log.debug("tweetPoll map answers:{"+answers);
-        final String question = filterValue(tweetPollJson.get("question").toString());
+        log.debug("review answerArray: "+answerArray);
+        log.debug("review hastagsArray: "+hastagsArray);
+        final HashMap<String, String> questionMap = (HashMap<String, String>) tweetPollJson.get("question");
+        final String question = filterValue(questionMap.get("value") == null ? "" : questionMap.get("value"));
         try {
             final UserAccount user = getUserAccount();
-            final Long tweetPollId =  tweetPollJson.get("tweetPollId") == null
-                  ? null : Long.valueOf(tweetPollJson.get("tweetPollId").toString());
-            if(tweetPollId == null){
-                final TweetPoll tweetPoll = createTweetPoll(question, a, b, user);
-                outPutMessage.put("tweetPollId", tweetPoll.getTweetPollId());
-                //retrieve answers stored.
-                log.debug("tweet poll created.");
+            if (user != null) {
+                final Long tweetPollId =  tweetPollJson.get("tweetPollId") == null
+                      ? null : Long.valueOf(tweetPollJson.get("tweetPollId").toString());
+                if (tweetPollId == null) {
+                    final TweetPoll tweetPoll = createTweetPoll(question, hastagsArray, answerArray, user);
+                    outPutMessage.put("tweetPollId", tweetPoll.getTweetPollId());
+                    //retrieve answers stored.
+                    log.debug("tweet poll created.");
+                } else {
+                    log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
+                    //update tweetPoll
+                    final TweetPoll tweetPoll = updateTweetPoll(tweetPollId, question, hastagsArray, answerArray);
+                    outPutMessage = inputMessage;
+                    log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
+                }
             } else {
-                log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
-                TweetPoll tweetPoll = getTweetPollService().getTweetPollById(tweetPollId, user);
-                //update tweetPoll
-                tweetPoll = updateTweetPoll(tweetPoll, question, a, b, user);
-                outPutMessage = inputMessage;
-                log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
+                log.warn("forbiden access");
             }
         } catch (EnMeExpcetion e) {
             log.error(e);

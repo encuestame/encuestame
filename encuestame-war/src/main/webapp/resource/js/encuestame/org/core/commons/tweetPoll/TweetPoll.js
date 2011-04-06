@@ -44,24 +44,16 @@ dojo.declare(
             started : false,
             question: {},
             anwers : [
-                      { answer : "answer1",
-                        answerId : 1,
-                        url : "http://www.google.es"
+                      { value : "answer1"
                       },
                       {
-                        answer : "answer2",
-                        answerId : 2,
-                        url : "http://www.google.es"
+                        value : "answer2"
                        },
                        {
-                           answer : "answer3",
-                           answerId : 3,
-                           url : "http://www.google.es"
+                         value : "answer3"
                        },
                        {
-                           answer : "answer3",
-                           answerId : 4,
-                           url : "http://www.google.es"
+                         value : "answer4"
                        }],
             hashtags : [{value : "hash1"}, {value : "hash2"}, { value: "hash3"} ]
           },

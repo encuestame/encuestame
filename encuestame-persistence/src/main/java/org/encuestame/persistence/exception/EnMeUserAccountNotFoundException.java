@@ -8,6 +8,6 @@ public class EnMeUserAccountNotFoundException extends EnMeNoResultsFoundExceptio
      * Constructor.
      */
     public EnMeUserAccountNotFoundException() {
-        super("user not found");
+        super("tweetpoll not found");
     }
 }

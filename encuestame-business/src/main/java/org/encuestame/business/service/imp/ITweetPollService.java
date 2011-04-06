@@ -15,6 +15,7 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -24,8 +25,10 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -55,8 +58,9 @@ public interface ITweetPollService extends IMasterSurveyService{
 
     /**
      * Get tweetPoll by id and user logged.
+     * @throws EnMeTweetPollNotFoundException
      */
-    TweetPoll getTweetPollById(final Long tweetPollId, final UserAccount account);
+    TweetPoll getTweetPollById(final Long tweetPollId, final UserAccount account) throws EnMeTweetPollNotFoundException;
 
     /**
      * Generate TweetPoll Text.
@@ -65,7 +69,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    String generateTweetPollText(final TweetPoll tweetPoll, final String url) throws EnMeExpcetion;
+    String generateTweetPollContent(final TweetPoll tweetPoll, final String url) throws EnMeExpcetion;
 
     /**
      * Search {@link TweetPoll} by Keyword.
@@ -304,4 +308,16 @@ public interface ITweetPollService extends IMasterSurveyService{
      */
      void changeCloseNotificationTweetPoll(final Long tweetPollId, final String username)
                 throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+     /**
+      * Update tweetpoll.
+      * @param tweetPoll {@link TweetPoll} reference/
+      * @param answers new list of answers.
+      * @param hashTagsSelected new list of hashtags
+     * @throws EnMeNoResultsFoundException
+      */
+     public TweetPoll updateTweetPoll(
+             final Long tweetPollId,
+             final String[] answers,
+             final List<HashTagBean> hashTagsSelected) throws EnMeNoResultsFoundException;
 }
