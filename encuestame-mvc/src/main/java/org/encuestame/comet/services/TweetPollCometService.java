@@ -60,19 +60,21 @@ public class TweetPollCometService extends AbstractCometService {
         log.debug("Messages content JSON:{"+message.getJSON());
         final Map<String, Object> tweetPollJson = (Map<String, Object>) inputMessage.get("tweetPoll");
         log.debug("tweetPoll content:{"+tweetPollJson.toString());
-        log.debug("tweetPoll content:{"+tweetPollJson.get("question"));
+        log.debug("tweetPoll question:{"+tweetPollJson.get("question"));
         log.debug("tweetPoll anwers:{"+tweetPollJson.get("anwers"));
         log.debug("tweetPoll hashtags:{"+tweetPollJson.get("hashtags"));
         String[] a = {"hashtaga1", "hashtag2"};
         String[] b = {"asnwer1", "answers2"};
+        log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         final Object[] hashtags =  (Object[]) tweetPollJson.get("hashtags");
         for (int i = 0; i < hashtags.length; i++) {
-            log.debug(hashtags[i]);
+            log.debug("H---->"+hashtags[i]);
         }
         final Object[] answers =  (Object[]) tweetPollJson.get("anwers");
         for (int i = 0; i < answers.length; i++) {
-            log.debug(answers[i]);
+            log.debug("A---->"+answers[i]);
         }
+        log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         log.debug("tweetPoll map hashtags:{"+hashtags);
         log.debug("tweetPoll map answers:{"+answers);
         final String question = filterValue(tweetPollJson.get("question").toString());
@@ -81,10 +83,9 @@ public class TweetPollCometService extends AbstractCometService {
             final Long tweetPollId =  tweetPollJson.get("tweetPollId") == null
                   ? null : Long.valueOf(tweetPollJson.get("tweetPollId").toString());
             if(tweetPollId == null){
-                TweetPoll tweetPoll;
-
-                    tweetPoll = createTweetPoll(question, a, b, user);
+                final TweetPoll tweetPoll = createTweetPoll(question, a, b, user);
                 outPutMessage.put("tweetPollId", tweetPoll.getTweetPollId());
+                //retrieve answers stored.
                 log.debug("tweet poll created.");
             } else {
                 log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));

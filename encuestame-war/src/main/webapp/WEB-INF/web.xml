@@ -216,7 +216,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>cometd</servlet-name>
-        <url-pattern>/cometd/*</url-pattern>
+        <url-pattern>/activity/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

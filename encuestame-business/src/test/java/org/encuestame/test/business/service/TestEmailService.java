@@ -14,7 +14,6 @@ package org.encuestame.test.business.service;
 
 import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,17 +21,19 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Email Services Test.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 12, 2010 10:02:41 AM
- * @version Id:
  */
 public class TestEmailService extends AbstractServiceBase {
 
+    /**
+     * Service email.
+     */
     @Autowired
     private MailServiceImpl serviceMail;
 
     /**
      * Test Send Email.
      */
-    @Test(timeout=30000)
+    @Test(timeout = 30000)
     public void testSendEmail(){
         this.serviceMail.sendInvitation(getProperty("mail.test.email"), "12355");
     }

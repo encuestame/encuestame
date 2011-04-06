@@ -178,7 +178,7 @@ public class QuestionAnswer {
     /**
      * @param urlAnswer the urlAnswer to set
      */
-    public void setUrlAnswer(String urlAnswer) {
+    public void setUrlAnswer(final String urlAnswer) {
         this.urlAnswer = urlAnswer;
     }
 }

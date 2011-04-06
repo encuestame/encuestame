@@ -14,6 +14,7 @@ package org.encuestame.business.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -25,15 +26,20 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.MD5Utils;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -41,6 +47,7 @@ import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -83,15 +90,22 @@ public class AbstractSurveyService extends AbstractChartService {
     private String tweetPath;
 
     /**
+     * Twee poll vote.
+     */
+    private final String TWEETPOLL_VOTE = "tweetpoll/vote/";
+
+    /**
      * Create Question.
      * @param questionBean {@link QuestionBean}.
      * @throws EnMeExpcetion exception
      */
-    public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
+    public Question createQuestion(
+            final QuestionBean questionBean,
+            final UserAccount account) throws EnMeExpcetion{
             final Question question = new Question();
             try{
                 question.setQuestion(questionBean.getQuestionName());
-                question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
+                question.setAccountQuestion(account.getAccount());
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);
@@ -100,6 +114,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 }
             }
             catch (Exception e) {
+                log.error(e);
                 throw new EnMeExpcetion(e);
             }
             return question;
@@ -148,11 +163,33 @@ public class AbstractSurveyService extends AbstractChartService {
             final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
             tPollSwitch.setAnswers(questionsAnswers);
             tPollSwitch.setTweetPoll(tweetPollDomain);
-            tPollSwitch.setCodeTweet(MD5Utils.shortMD5(RandomStringUtils.randomAscii(6)));
+            tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
+            tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + questionsAnswers.getAnswer()));
+            final StringBuffer voteUrlWithoutDomain = new StringBuffer();
+            voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
+            voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
+            try {
+                 log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
+                 final StringBuffer completeDomain = new StringBuffer(EncuestamePlaceHolderConfigurer.getProperty("application.domain"));
+                 if (InternetUtils.validateUrl(completeDomain.toString())) {
+                    completeDomain.append(voteUrlWithoutDomain.toString());
+                    //TODO: setted google short url by default. Why? Thinking ...
+                    tPollSwitch.setShortUrl(SocialUtils.getGoGl(completeDomain.toString(),
+                                EncuestamePlaceHolderConfigurer.getProperty("short.google.key")));
+                 } else {
+                     log.warn("Invalid format vote url:{"+voteUrlWithoutDomain.toString());
+                 }
+            } catch (EnmeFailOperation e) {
+                tPollSwitch.setShortUrl("http://short.fk/xxxxx"); //TODO: decide with todo when short url is missing.
+                log.error("Short error:{"+e.getMessage());
+            }
             getTweetPollDao().saveOrUpdate(tPollSwitch);
             createNotification(NotificationEnum.TWEETPOL_CREATED,
                     tweetPollDomain.getQuestion().getQuestion(),
                     tweetPollDomain.getQuestion().getAccountQuestion());
+            //update answer url.
+            questionsAnswers.setUrlAnswer(voteUrlWithoutDomain.toString()); //store url without short.
+            getQuestionDao().saveOrUpdate(questionsAnswers);
         }
     }
 
@@ -208,7 +245,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
-        log.debug("answers by question id ["+questionId+"] answers size "+answers.size());
+        log.debug("answers by question id ["+questionId+"] answers size:{"+answers.size());
         final List<QuestionAnswerBean> answersBean = new ArrayList<QuestionAnswerBean>();
         for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
@@ -246,45 +283,6 @@ public class AbstractSurveyService extends AbstractChartService {
             }
             answer.setAnswer(nameUpdated);
             getQuestionDao().saveOrUpdate(answer);
-    }
-
-    /**
-     * Create Tweet Poll.
-     * @param tweetPollBean tweet poll bean.
-     * @throws EnMeExpcetion exception
-     */
-    public void createTweetPoll(final TweetPollBean tweetPollBean) throws EnMeExpcetion {
-        try{
-            final TweetPoll tweetPollDomain = new TweetPoll();
-            final Question question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
-            log.debug("question found "+question);
-            if(question == null){
-                throw new EnMeExpcetion("question not found");
-            }
-            tweetPollDomain.setQuestion(question);
-            tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
-            //tweetPollDomain.setPublicationDateTweet(tweetPollBean.getPublicationDateTweet());
-            tweetPollDomain.setCompleted(Boolean.FALSE);
-            tweetPollDomain.setTweetOwner(getAccountDao().getUserById(tweetPollBean.getUserId()));
-            tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
-            tweetPollDomain.setPublishTweetPoll(tweetPollBean.getPublishPoll());
-            tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
-            tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
-            tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
-            this.getTweetPollDao().saveOrUpdate(tweetPollDomain);
-            final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(question.getQid());
-            for (QuestionAnswer questionsAnswers : answers) {
-                final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
-                tPollSwitch.setAnswers(questionsAnswers);
-                tPollSwitch.setTweetPoll(tweetPollDomain);
-                tPollSwitch.setCodeTweet(questionsAnswers.getUniqueAnserHash());
-                getTweetPollDao().saveOrUpdate(tPollSwitch);
-            }
-            tweetPollBean.setId(tweetPollDomain.getTweetPollId());
-        }
-        catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
     }
 
     /**

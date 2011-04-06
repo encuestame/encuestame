@@ -34,13 +34,36 @@ dojo.declare(
 
         maxTweetText : 140,
 
+        timerAutoSave: null,
+
+        delay: 300000, //every 5 minutes.
+
         /* stored save tweetPoll. */
         tweetPoll : {
             tweetPollId : null,
             started : false,
             question: {},
-            anwers : [{value:"answer3"},{ url : "url"}],
-            hashtags : [{value:"hash1"}, {value:"hash2"}, {value:"hash3"} ]
+            anwers : [
+                      { answer : "answer1",
+                        answerId : 1,
+                        url : "http://www.google.es"
+                      },
+                      {
+                        answer : "answer2",
+                        answerId : 2,
+                        url : "http://www.google.es"
+                       },
+                       {
+                           answer : "answer3",
+                           answerId : 3,
+                           url : "http://www.google.es"
+                       },
+                       {
+                           answer : "answer3",
+                           answerId : 4,
+                           url : "http://www.google.es"
+                       }],
+            hashtags : [{value : "hash1"}, {value : "hash2"}, { value: "hash3"} ]
           },
 
         /*
@@ -71,7 +94,23 @@ dojo.declare(
             if (this.autosave) {
               dojo.subscribe("/encuestame/tweetpoll/autosave", this, this._autoSave);
               dojo.subscribe("/encuestame/tweetpoll/autosave/status", this, this._autoSaveStatus);
+              this.loadAutoSaveTimer();
             }
+        },
+
+        /*
+         * Load AutoSave timer.
+         */
+        loadAutoSaveTimer : function(){
+            console.info("enabled autosave timer");
+            var widget = this;
+            this.timerAutoSave = new dojox.timing.Timer(this.delay);
+            this.timerAutoSave.onTick = function() {
+              widget._autoSave();
+              console.info("enabled autosave execute");
+            };
+            this.timerAutoSave.onStart = function() {};
+            this.timerAutoSave.start();
         },
 
         /*
@@ -84,7 +123,7 @@ dojo.declare(
         _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags){
             console.debug("auto save");
             if(this.tweetPoll.tweetPollId == null){
-               console.debug("tweet poll is autosaving again...");
+               console.debug("tweet poll is autosaving ...", this.tweetPoll);
             } else {
                console.info("tweetPol exist", this.tweetPoll.tweetPollId) ;
             }
@@ -133,7 +172,7 @@ dojo.declare(
              if(hash.id){
               //retrieve tweetPoll autosaved information.
               console.debug("url id ", hash.id);
-              this.tweetPoll.tweetPollId = hash.id;
+              //this.tweetPoll.tweetPollId = hash.id;
              }
              dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
              dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(e) {

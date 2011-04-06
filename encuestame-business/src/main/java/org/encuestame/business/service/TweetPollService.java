@@ -13,16 +13,20 @@
 package org.encuestame.business.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
@@ -229,8 +233,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param user
      * @return
      * @throws EnMeExpcetion
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
      */
-    public Question createQuestion(final String questionName, final String[] answers, final UserAccount user) throws EnMeExpcetion{
+    public Question createQuestion(
+            final String questionName,
+            final String[] answers,
+            final UserAccount user) throws EnMeExpcetion, NoSuchAlgorithmException, UnsupportedEncodingException{
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setQuestionName(questionName);
         questionBean.setUserId(user.getUid());
@@ -238,10 +247,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         for (int row = 0; row < answers.length; row++) {
             final QuestionAnswerBean answer = new QuestionAnswerBean();
             answer.setAnswers(answers[row].trim());
-            answer.setAnswerHash("hash temp");
+            answer.setAnswerHash(MD5Utils.md5(RandomStringUtils.randomAscii(10)));
             questionBean.getListAnswers().add(answer);
         }
-        final Question questionDomain = createQuestion( questionBean);
+        final Question questionDomain = createQuestion(questionBean, user);
         return questionDomain;
     }
 
@@ -257,12 +266,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         try{
             final Question question = createQuestion(questionName, answers, user);
             log.debug("question found:{"+question);
-            if(question == null){
+            if (question == null) {
                 throw new EnMeNoResultsFoundException("question not found");
             } else {
                 final TweetPoll tweetPollDomain = newTweetPoll(tweetPollBean, question);
-                //create tweetpoll switch support
-                createTweetPollSwitchSupport(question.getQid(), tweetPollDomain);
                 //save Hash tags for this tweetPoll.
                 log.debug("HashTag size:{"+tweetPollBean.getHashTags().size());
                 //update TweetPoll.
@@ -271,7 +278,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     log.debug("Update Hash Tag");
                     getTweetPollDao().saveOrUpdate(tweetPollDomain);
                 }
-                tweetPollBean.setId(tweetPollDomain.getTweetPollId());
+                //create tweetpoll switch support
+                createTweetPollSwitchSupport(question.getQid(), tweetPollDomain);
                 return tweetPollDomain;
             }
         } catch (Exception e) {
