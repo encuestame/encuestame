@@ -49,6 +49,9 @@ public class IndexWriterManager  {
      */
     private Boolean isOpen = false;
 
+    /****/
+    private static final Version LUCENE_VERSION = Version.LUCENE_30;
+
     /**
      * Initialize writer lucene index directory.
      * @throws IOException
@@ -60,7 +63,7 @@ public class IndexWriterManager  {
         final Directory directory = FSDirectory.open(new File(dir));
         try {
             this.indexWriter = new IndexWriter(directory, new StandardAnalyzer(
-                    Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
+                    LUCENE_VERSION), true, IndexWriter.MaxFieldLength.UNLIMITED);
         } catch (CorruptIndexException e) {
              log.error(e);
         } catch (LockObtainFailedException e) {

@@ -24,4 +24,5 @@
         </beans:property>
      </beans:bean>
     <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton"></beans:bean>
+    <beans:bean name="indexerFile" class="org.encuestame.business.search.IndexerFile" scope="prototype"></beans:bean>
 </beans:beans>

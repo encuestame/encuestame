@@ -64,4 +64,11 @@ public interface IProjectDao extends IBaseDao {
      * @return
      */
     List<Attachment> getAttachmentsListbyProject(final Long projectId);
+
+    /**
+     * Get Attachment filename
+     * @param filename
+     * @return
+     */
+    Attachment getAttachmentbyName(final String filename);
 }
