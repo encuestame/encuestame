@@ -18,6 +18,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.HttpException;
 import org.encuestame.core.util.SocialUtils;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.junit.Test;
 
 /**
@@ -32,19 +33,20 @@ public class SocialUtilsTestCase extends TestCase{
      * Test Period Date.
      * @throws IOException
      * @throws HttpException
+     * @throws EnmeFailOperation
      */
-    @Test
-    public void testGetGoGlShortUrl() throws HttpException, IOException{
+    @Test(timeout = 5000)
+    public void testGetGoGlShortUrl() throws HttpException, IOException, EnmeFailOperation{
         System.out.println(SocialUtils.getGoGl("http://blog.jotadeveloper.com",
                                                 "AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ"));
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void testgetTinyUrl() throws HttpException, IOException{
         System.out.println(SocialUtils.getTinyUrl("http://blog.jotadeveloper.com"));
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void testgetGoogleStas() throws HttpException, IOException{
         System.out.println(SocialUtils.getGoGlStats("http://blog.jotadeveloper.com"));
     }

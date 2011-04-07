@@ -187,7 +187,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     @Test
     public void testSaveAnswers() throws EnMeExpcetion{
         final QuestionAnswerBean answersBean = createAnswersBean("ASJKE", "Yes", this.question.getQid());
-        surveyService.saveAnswer(answersBean);
+        surveyService.createQuestionAnswer(answersBean, this.question);
         assertNotNull(answersBean.getAnswerId());
     }
 

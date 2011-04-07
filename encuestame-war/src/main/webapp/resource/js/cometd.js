@@ -58,7 +58,7 @@ dojo.addOnLoad(function() {
         }
 
         var cometURL = location.protocol + "//" + location.host
-                + config.contextPath + "/cometd";
+                + config.contextPath + "/activity";
         cometd.configure({
           url : cometURL,
             logLevel : 'info',

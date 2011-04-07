@@ -83,7 +83,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
                 //questionBean.setId(question.getQid());
                 //save answers.
                 for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
-                    this.saveAnswer(answerBean, question);
+                    this.createQuestionAnswer(answerBean, question);
                 }
             }
             catch (Exception e) {
@@ -98,7 +98,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param answerBean answer
      * @param question question
      */
-    public void saveAnswer(final QuestionAnswerBean answerBean, final Question question){
+    public void createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
             final QuestionAnswer answer = new QuestionAnswer();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());

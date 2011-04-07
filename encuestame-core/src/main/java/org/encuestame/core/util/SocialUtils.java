@@ -26,6 +26,8 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**
  * Social Util Helpers.
@@ -59,8 +61,9 @@ public class SocialUtils {
     /**
      * Get Google Short Url.
      * @return
+     * @throws EnmeFailOperation
      */
-    public static String getGoGl(final String urlPath, String key) {
+    public static String getGoGl(final String urlPath, String key) throws EnmeFailOperation {
         URL simpleURL = null;
         HttpsURLConnection url = null;
         BufferedInputStream bStream = null;
@@ -76,7 +79,7 @@ public class SocialUtils {
             pw.print(inputString);
             pw.close();
         } catch (Exception ex) {
-            return "Exception in Connecting to API";
+            throw new EnmeFailOperation("Exception in Connecting to API");
         }
         try {
             bStream = new BufferedInputStream(url.getInputStream());

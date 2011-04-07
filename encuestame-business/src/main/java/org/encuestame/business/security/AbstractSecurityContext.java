@@ -14,6 +14,7 @@ package org.encuestame.business.security;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.EnMeUserDetails;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -38,12 +39,30 @@ public abstract class AbstractSecurityContext {
      */
     public String getUserPrincipalUsername(){
         String username = "";
-        if(getSecCtx().getAuthentication() != null){
+        if (getSecCtx().getAuthentication() != null) {
             username = getSecCtx().getAuthentication().getName();
         }
        return username;
     }
 
+    /**
+     * Get logged {@link UserAccount}.
+     * @return {@link UserAccount}.
+     */
+    public UserAccount getUserAccountLogged(){
+        UserAccount account = null;
+        final EnMeUserDetails details = getSecurityDetails();
+        if (details != null) {
+            account = details.getUserAccount();
+            log.debug("info logged user account: "+account);
+            if (account != null) {
+                log.debug("info logged user account: "+account.getUserEmail());
+                log.debug("info logged user account: "+account.getUsername());
+                log.debug("info logged user account: "+account.getUid());
+            }
+        }
+        return account;
+    }
 
     /**
      * @return the secCtx
@@ -57,7 +76,7 @@ public abstract class AbstractSecurityContext {
      */
     public EnMeUserDetails getSecurityDetails(){
         EnMeUserDetails details = null;
-        log.debug("Authentication Object "+getSecCtx().getAuthentication());
+        //log.debug("Authentication Object:{"+getSecCtx().getAuthentication());
         if(getSecCtx().getAuthentication() != null){
             if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserDetails){
                 details =  (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();

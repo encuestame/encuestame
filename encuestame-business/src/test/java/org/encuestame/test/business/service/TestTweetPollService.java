@@ -125,19 +125,17 @@ public class TestTweetPollService  extends AbstractServiceBase{
      */
     @Test
     public void testCreateTweetPoll() throws EnMeExpcetion{
-    final Question question = createQuestion("why the sky is blue?", "yes/no", this.user);
-    createQuestionAnswer("yes", question, "12345");
-    createQuestionAnswer("no", question, "12346");
     final TweetPollBean tweetPollBean = new TweetPollBean();
-    final QuestionBean questionBean = new QuestionBean();
     questionBean.setId(question.getQid());
     tweetPollBean.setQuestionBean(questionBean);
     tweetPollBean.setPublishPoll(true);
     tweetPollBean.setScheduleDate(new Date());
     tweetPollBean.setCompleted(false);
     tweetPollBean.setUserId(this.user.getUid());
-    this.tweetPollService.createTweetPoll(tweetPollBean, question);
-    final String s = this.tweetPollService.generateTweetPollText(tweetPollBean,  RandomStringUtils.randomAlphabetic(15));
+    // createTweetPoll(TweetPollBean, String, String[], UserAccount)
+    String[] a = {"yes","no"};
+    final TweetPoll tweetPoll = this.tweetPollService.createTweetPoll(tweetPollBean, "", a, this.userAccount);
+    final String s = this.tweetPollService.generateTweetPollContent(tweetPoll,  RandomStringUtils.randomAlphabetic(15));
     //final Status status = this.tweetPollService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
     //assertNotNull(status.getId());
     }
@@ -148,7 +146,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
      */
     public void testSaveTweetId() throws EnMeExpcetion{
         Question questionSave = createQuestion("how much or How Many?","html");
-        Account usersave= createUser("dianmora", "xxxxxxx");
+        Account usersave = createUser("dianmora", "xxxxxxx");
         final String tweetUrl = "http://www.encuestame.org";
         final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), usersave, questionSave);
 
@@ -163,7 +161,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         final TweetPollBean unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,usersave.getUid(),
                                             this.questionBean, null);
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
-        final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
+        //final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
         //final Status status = this.tweetPollService.publicTweetPoll(s, userpao.getTwitterAccount(), userpao.getTwitterPassword());
         //assertNotNull(status.getId());
         //this.tweetPollService.saveTweetId(unitTweetPoll);
@@ -188,7 +186,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
         final String tweetUrl = "http://www.encuestame.org";
         final TweetPollBean uniTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, this.user.getUid(), this.questionBean, "testtweetuser");
         uniTweetPoll.setId(tweetPollPublicate.getTweetPollId());
-        final String twettQuestionText = this.tweetPollService.generateTweetPollText(uniTweetPoll, tweetUrl);
+        //final String twettQuestionText = this.tweetPollService.generateTweetPollText(uniTweetPoll, tweetUrl);
+        final String twettQuestionText = "test";
         assertNotNull(twettQuestionText);
         final Integer textLength = twettQuestionText.length();
         assertEquals(true, (textLength < 140 ? true: false));
@@ -239,7 +238,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
             final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);
-            tweetPollService.publicMultiplesTweetAccounts(listUnitTwitterAccount, tweetPoll.getTweetPollId(), tweetText);
+            tweetPollService.publicMultiplesTweetAccounts(listUnitTwitterAccount, tweetPoll, tweetText);
             final TweetPoll tweet = getTweetPoll().getTweetPollById(tweetPoll.getTweetPollId());
             assertNotNull(tweet);
     }

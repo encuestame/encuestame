@@ -178,7 +178,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 setError("tweetpoll id invalid", response);
             } else {
                  String tweetText;
-                 tweetText = getTweetPollService().generateTweetPollText(
+                 tweetText = getTweetPollService().generateTweetPollContent(
                          tweetPoll, getUrlDomain(request, Boolean.TRUE));
                 final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
                 for (int row = 0; row < twitterAccountsId.length; row++) {

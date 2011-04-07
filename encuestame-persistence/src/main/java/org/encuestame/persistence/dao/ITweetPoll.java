@@ -204,4 +204,12 @@ public interface ITweetPoll extends IBaseDao{
       */
      List<TweetPoll> retrieveTweetPollByDate(final Long userId, final Date initDate, final Integer maxResults,
              final Integer start);
+
+    /**
+     * Retrieve {@link TweetPollSwitch} by tweetpoll and answer. (should be unique)
+     * @param tweetPoll {@link TweetPoll}
+     * @param questionAnswer {@link QuestionAnswer}
+     * @return {@link TweetPollSwitch}.
+     */
+    TweetPollSwitch getAnswerTweetSwitch(final TweetPoll tweetPoll, final QuestionAnswer questionAnswer);
 }

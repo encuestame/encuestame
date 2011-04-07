@@ -231,10 +231,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll updateTweetPoll(final TweetPoll tweetPoll,
-            final String question, String[] hashtags, String[] answers, UserAccount user) throws EnMeExpcetion{
-
-        return tweetPoll;
+    public TweetPoll updateTweetPoll(final Long tweetPollId,
+         final String question,
+         final String[] hashtags,
+         final String[] answers) throws EnMeExpcetion{
+         final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
+         return getTweetPollService().updateTweetPoll(tweetPollId, answers, hashtagsList);
     }
 
     /**
@@ -503,11 +505,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         log.debug("HashTag size:{" + hashtags.length);
         for (int row = 0; row < hashtags.length; row++) {
             final HashTagBean hashTag = new HashTagBean();
-            log.debug("HashTag:{" + hashTag);
             if (hashtags[row] != null) {
+                log.debug("HashTag:{" + hashTag);
                 hashTag.setHashTagName(hashtags[row].toLowerCase().trim());
+                hashtagsList.add(hashTag);
             }
-            hashtagsList.add(hashTag);
         }
         return hashtagsList;
     }

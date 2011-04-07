@@ -44,7 +44,7 @@ public class ConvertDomainsToSecurityContext {
                 if(permission != null){
                     authorities.add(new GrantedAuthorityImpl(permission.getPermission().toString()));
                 } else {
-                    log.warn("Impossible granted authority");
+                    log.warn("impossible granted authority");
                 }
             }
             log.info("list granted "+authorities.size());

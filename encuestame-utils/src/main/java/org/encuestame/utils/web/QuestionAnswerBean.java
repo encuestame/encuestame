@@ -46,6 +46,21 @@ public class QuestionAnswerBean implements Serializable{
     private	 Long questionId;
 
     /**
+     * Constructor.
+     */
+    public QuestionAnswerBean() {
+    }
+
+    /**
+     * Constructor with answers.
+     * @param answers
+     */
+    public QuestionAnswerBean(final String answers) {
+        super();
+        this.answers = answers;
+    }
+
+    /**
      * @return the answerId
      */
     public final Long getAnswerId() {

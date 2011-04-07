@@ -43,14 +43,16 @@ public class SecurityUtils {
     public static EnMeUserDetails convertUserAccount(final UserAccount user, final Boolean roleUserAuth){
           //log.debug("convertToUserDetails username "+user.getUsername());
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
         // search if authorities if the group are activated
-       /* if (this.roleGroupAuth) {
+        /* if (this.roleGroupAuth) {
             // search groups of the user
             final Set<SecGroup> groups = user.getSecGroups();
             for (final SecGroup secGroups : groups) {
                 authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(secGroups.getSecPermissions()));
             }
         }*/
+
         // sec permissions
         if (roleUserAuth) {
             authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
@@ -66,9 +68,9 @@ public class SecurityUtils {
          true, // account not expired
          true, // credentials not expired
          true, // account not locked
-         user.getUserTwitterAccount() == null ? "" : user.getUserTwitterAccount(), //twitter account
          user.getCompleteName() == null ? "" : user.getCompleteName(), // complete name
-         user.getUserEmail() // user email
+         user.getUserEmail(), // user email
+         user
          );
          userDetails.setAccountNonExpired(true);
          userDetails.setAccountNonLocked(true);

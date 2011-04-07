@@ -183,7 +183,6 @@ dojo.declare(
             item : null,
 
             postCreate : function(){
-                console.debug("item", this.item);
             },
 
             /*

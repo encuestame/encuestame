@@ -100,7 +100,7 @@ dojo.declare(
                     },
                     serverQuery: this.searchParam,
                     onComplete: dojo.hitch(this, function(result, dataObject){
-                        console.info("suggest onComplete...", result);
+                        //console.info("suggest onComplete...", result);
                         this.evaluateItems(result);
                     }),
                     onError: function(errText){
@@ -112,7 +112,7 @@ dojo.declare(
 
         /** Evaluate Items. **/
         evaluateItems : function(data){
-            console.info("suggeest data.length...", data.length);
+            //console.info("suggeest data.length...", data.length);
             if(data.length > 0){
                  dojo.empty(this._suggestItems);
                  var fadeArgs = {
@@ -147,7 +147,7 @@ dojo.declare(
          *  Build Row.
          */
         buildRow : function(data){
-          console.info("suggeest buildRow...", data);
+          //console.info("suggeest buildRow...", data);
             var widget = new encuestame.org.core.shared.utils.SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},
