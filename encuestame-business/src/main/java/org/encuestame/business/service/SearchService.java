@@ -12,10 +12,10 @@
  */
 package org.encuestame.business.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +24,10 @@ import org.encuestame.business.search.GlobalSearchItem;
 import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
+import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.UnitAttachment;
 
 /**
  * Search Service.
@@ -123,5 +126,27 @@ public class SearchService extends AbstractIndexService implements
             final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public String indexAttachment(final File file, final Long attachmentId){
+
+        return "Attachment indexed";
+    }
+
+    /**
+     *
+     * @param unitAttachment
+     * @throws EnMeExpcetion
+     */
+    public final void addAttachment(final UnitAttachment unitAttachment) throws EnMeExpcetion{
+        try {
+            Attachment attachment = new Attachment();
+            attachment.setAttachmentId(unitAttachment.getAttachmentId());
+            attachment.setFilename(unitAttachment.getFilename());
+            attachment.setUploadDate(unitAttachment.getUploadDate());
+            this.getProjectDaoImp().saveOrUpdate(attachment);
+        } catch (Exception e) {
+            throw new EnMeExpcetion(e);
+        }
     }
 }

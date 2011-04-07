@@ -16,9 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Iterator;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,7 +25,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.Term;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -75,9 +72,6 @@ public class IndexerFile {
     @Autowired
     private IndexWriterManager indexWriter;
 
-    /** {@link IndexerManager}. **/
-    private IndexerManager indexManager;
-
     /** Log. **/
     private static final Log log = LogFactory.getLog(IndexerFile.class);
 
@@ -101,10 +95,10 @@ public class IndexerFile {
            return doc;
         }
 
-     /**
-      * Add files to index
-      * @param attachment
-      */
+    /**
+     * Add files to index
+     * @param attachment
+     */
     public void addToIndex(AttachmentIndex attachment) {
         try {
             long start = System.currentTimeMillis();
@@ -143,32 +137,32 @@ public class IndexerFile {
      }
 
 
-     /**
-      * Delete Document from index
-      * @param topic
-      * @throws IOException
-      */
+    /**
+     * Delete Document from index
+     * @param topic
+     * @throws IOException
+     */
      private void deleteFromIndex(AttachmentIndex topic) throws IOException {
          this.indexWriter.getIndexWriter().deleteDocuments(new Term(FILENAME, topic.getFilename()));
      }
 
-     /**
-      * Commit into lucene index.
-      * @param commitNow
-      * @throws IOException
-      */
+    /**
+     * Commit into lucene index.
+     * @param commitNow
+     * @throws IOException
+     */
      private void commit(final boolean commitNow) throws IOException {
          if (commitNow) {
              this.indexWriter.getIndexWriter().commit();
          }
      }
 
-     /**
-      * Create Attachment Document.
-      * @param file
-      * @return
-      * @throws IOException
-      */
+    /**
+     * Create Attachment Document.
+     * @param file
+     * @return
+     * @throws IOException
+     */
      private AttachmentIndex createAttachmentDocument(final File file) throws IOException{
         final String path = file.getCanonicalPath();
         final String fileExtension = SearchUtils.getExtension(path);
@@ -177,13 +171,13 @@ public class IndexerFile {
         return attachmentBean;
      }
 
-     /**
-      * Parse Word Document.
-      * @param file
-      * @return
-      * @throws POIXMLException
-      * @throws Exception
-      */
+    /**
+     * Parse Word Document.
+     * @param file
+     * @return
+     * @throws POIXMLException
+     * @throws Exception
+     */
     public static XWPFWordExtractor parseWordDocument(final File file) throws POIXMLException, Exception {
         InputStream is = new FileInputStream(file);
         XWPFWordExtractor wde = null;
@@ -213,11 +207,11 @@ public class IndexerFile {
     }
 
     /**
-    * Parse pdf Document.
-    * @param file
-    * @return
-    * @throws IOException
-    */
+     * Parse pdf Document.
+     * @param file
+     * @return
+     * @throws IOException
+     */
      public static PDDocument parsePdfDocument(final File file) throws IOException {
          InputStream is = new FileInputStream(file);
          COSDocument cosDoc = null;
@@ -261,29 +255,14 @@ public class IndexerFile {
          return docText;
      }
 
-     /**
-      * Extract Metadata in PDF Documents.
-      * @param pdDoc
-      * @return
-      */
-     public static AttachmentIndex extractMetadataPDFDocument(final PDDocument pdDoc){
-        PDDocumentInformation docInfo = pdDoc.getDocumentInformation();
-        String author = docInfo.getAuthor();
-        String title = docInfo.getTitle();
-        String producer = docInfo.getProducer();
-        String subject = docInfo.getSubject();
-        AttachmentIndex attachmentMetadata =  IndexerFile.addMetadatatoBean(author, title, producer, subject);
-        return attachmentMetadata;
-     }
-
-     /**
-      *
-      * @param author
-      * @param title
-      * @param producer
-      * @param subject
-      * @return
-      */
+    /**
+     *
+     * @param author
+     * @param title
+     * @param producer
+     * @param subject
+     * @return
+     */
      public static AttachmentIndex addMetadatatoBean(final String author, final String title, final String producer,
             final String subject){
         AttachmentIndex attachmentPdfMetadata = new AttachmentIndex();
@@ -317,12 +296,12 @@ public class IndexerFile {
          return workBook;
      }
 
-     /**
-      * Extract spreadsheets content.
-      * @param workBook
-      * @return
-      * @throws Exception
-      */
+    /**
+     * Extract spreadsheets content.
+     * @param workBook
+     * @return
+     * @throws Exception
+     */
      public static String extractContentSpreadsheetsDocument(final HSSFWorkbook workBook) throws Exception {
          StringBuilder contents = new StringBuilder();
          for (int i = 0; i < workBook.getNumberOfSheets(); i++) {
