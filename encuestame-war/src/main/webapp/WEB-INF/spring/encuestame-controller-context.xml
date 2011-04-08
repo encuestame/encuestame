@@ -25,7 +25,7 @@
   </bean>
 
   <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
-  <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.DefaultEnMeInterceptor" />
+  <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
   <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
   <bean name="openSessionInViewInterceptor"
             class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">

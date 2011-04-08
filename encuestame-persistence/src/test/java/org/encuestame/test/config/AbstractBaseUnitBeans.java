@@ -22,8 +22,9 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -31,7 +32,6 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UserAccountBean;
 
 
@@ -100,11 +100,11 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param questionId
       * @return
       */
-     public UnitAnswersBean createAnswersBean(
+     public QuestionAnswerBean createAnswersBean(
              final String answerHash,
              final String answers,
              final Long questionId){
-         final UnitAnswersBean answerBean = new UnitAnswersBean();
+         final QuestionAnswerBean answerBean = new QuestionAnswerBean();
          answerBean.setAnswerHash(answerHash);
          answerBean.setAnswers(answers);
          answerBean.setQuestionId(questionId);
@@ -129,7 +129,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @return
      */
 
-     public UnitTweetPoll createTweetPoll(
+     public TweetPollBean createTweetPoll(
              final Boolean allowLiveResults,
              final Boolean closeNotification,
              final Boolean completed,
@@ -144,7 +144,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final String userTwitterAccount
 
              ){
-         UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+         TweetPollBean unitTweetPoll = new TweetPollBean();
          unitTweetPoll.setUserId(userId);
          unitTweetPoll.setAllowLiveResults(allowLiveResults);
          unitTweetPoll.setCloseNotification(closeNotification);
@@ -171,7 +171,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param userTwitterAccount
       * @return
       */
-      public UnitTweetPoll createUnitTweetPollPublicated(
+      public TweetPollBean createUnitTweetPollPublicated(
              final Date publicationDateTweet,
              final Boolean publishPoll,
              final String tweetUrl,
@@ -180,7 +180,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final String userTwitterAccount
 
              ){
-     UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+     TweetPollBean unitTweetPoll = new TweetPollBean();
      unitTweetPoll.setUserId(userId);
      unitTweetPoll.setPublishPoll(publishPoll);
      unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));

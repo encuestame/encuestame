@@ -45,7 +45,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -60,7 +60,7 @@ import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 
@@ -452,12 +452,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link QuestionAnswer} to {@link UnitAnswersBean}.
+     * Convert {@link QuestionAnswer} to {@link QuestionAnswerBean}.
      * @param questionsAnswer {@link QuestionAnswer}
-     * @return {@link UnitAnswersBean}.
+     * @return {@link QuestionAnswerBean}.
      */
-    public static final UnitAnswersBean convertAnswerToBean(final QuestionAnswer questionsAnswer){
-            final UnitAnswersBean answersBean = new UnitAnswersBean();
+    public static final QuestionAnswerBean convertAnswerToBean(final QuestionAnswer questionsAnswer){
+            final QuestionAnswerBean answersBean = new QuestionAnswerBean();
             answersBean.setAnswerId(questionsAnswer.getQuestionAnswerId());
             answersBean.setAnswers(questionsAnswer.getAnswer());
             answersBean.setUrl(questionsAnswer.getUrlAnswer());
@@ -466,12 +466,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link TweetPoll} to {@link UnitTweetPoll}.
+     * Convert {@link TweetPoll} to {@link TweetPollBean}.
      * @param poll tweet poll.
-     * @return {@link UnitTweetPoll}
+     * @return {@link TweetPollBean}
      */
-    public static final UnitTweetPoll convertTweetPollToBean(final TweetPoll poll){
-        final UnitTweetPoll unitTweetPoll = new UnitTweetPoll();
+    public static final TweetPollBean convertTweetPollToBean(final TweetPoll poll){
+        final TweetPollBean unitTweetPoll = new TweetPollBean();
         unitTweetPoll.setId(poll.getTweetPollId());
         unitTweetPoll.setScheduleDate(poll.getScheduleDate());
         unitTweetPoll.setCreateDate(DateUtil.getFormatDate(poll.getCreateDate()));

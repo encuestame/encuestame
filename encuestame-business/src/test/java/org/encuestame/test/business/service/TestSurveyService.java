@@ -30,7 +30,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.junit.Before;
@@ -65,7 +65,7 @@ public class TestSurveyService  extends AbstractServiceBase{
 
     private UserAccount userSecondary;
 
-    private List<UnitAnswersBean> answers;
+    private List<QuestionAnswerBean> answers;
 
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;
@@ -85,7 +85,7 @@ public class TestSurveyService  extends AbstractServiceBase{
          this.pattern = createQuestionPattern("html");
          createQuestionAnswer("Yes", this.question,"SSSA");
          //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
-         answers = new ArrayList<UnitAnswersBean>();
+         answers = new ArrayList<QuestionAnswerBean>();
          answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
          answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
          patternBean = createPatternBean("radio.class",
@@ -186,7 +186,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     **/
     @Test
     public void testSaveAnswers() throws EnMeExpcetion{
-        final UnitAnswersBean answersBean = createAnswersBean("ASJKE", "Yes", this.question.getQid());
+        final QuestionAnswerBean answersBean = createAnswersBean("ASJKE", "Yes", this.question.getQid());
         surveyService.saveAnswer(answersBean);
         assertNotNull(answersBean.getAnswerId());
     }
@@ -196,7 +196,7 @@ public class TestSurveyService  extends AbstractServiceBase{
      **/
     @Test
     public void testRetrieveAnswerByQuestionId(){
-           final List<UnitAnswersBean> listUnitAnswerBean = surveyService.retrieveAnswerByQuestionId(this.question.getQid());
+           final List<QuestionAnswerBean> listUnitAnswerBean = surveyService.retrieveAnswerByQuestionId(this.question.getQid());
             assertEquals("Should be equals",1, listUnitAnswerBean.size());
     }
 

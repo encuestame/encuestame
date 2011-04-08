@@ -20,7 +20,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 
 @Controller
-public class TweetPollController extends BaseController {
+public class TweetPollController extends AbstractBaseOperations {
 
     /**
      * Log.

@@ -35,10 +35,10 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,7 +69,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     /** {@link UserAccount}. **/
     private UserAccount userAccount;
 
-    private List<UnitAnswersBean> answers;
+    private List<QuestionAnswerBean> answers;
 
     /** {@link UnitPatternBean}**/
     private UnitPatternBean patternBean;
@@ -77,8 +77,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;
 
-    /** List {@link UnitAnswersBean}. **/
-    private List<UnitAnswersBean> answersSaveTweet;
+    /** List {@link QuestionAnswerBean}. **/
+    private List<QuestionAnswerBean> answersSaveTweet;
 
     private List<SocialAccountBean> twitterAccount;
 
@@ -93,7 +93,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         this.pattern = createQuestionPattern("html");
         createQuestionAnswer("Yes", this.question,"SSSA");
         //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
-        answers = new ArrayList<UnitAnswersBean>();
+        answers = new ArrayList<QuestionAnswerBean>();
         answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
         answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
         patternBean = createPatternBean("radio.class",
@@ -128,7 +128,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     final Question question = createQuestion("why the sky is blue?", "yes/no", this.user);
     createQuestionAnswer("yes", question, "12345");
     createQuestionAnswer("no", question, "12346");
-    final UnitTweetPoll tweetPollBean = new UnitTweetPoll();
+    final TweetPollBean tweetPollBean = new TweetPollBean();
     final QuestionBean questionBean = new QuestionBean();
     questionBean.setId(question.getQid());
     tweetPollBean.setQuestionBean(questionBean);
@@ -152,7 +152,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         final String tweetUrl = "http://www.encuestame.org";
         final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), usersave, questionSave);
 
-        answersSaveTweet = new ArrayList<UnitAnswersBean>();
+        answersSaveTweet = new ArrayList<QuestionAnswerBean>();
         answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
         answersSaveTweet.add(createAnswersBean("GTJU", "Yes", questionSave.getQid()));
 
@@ -160,7 +160,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
                    "radio buttons", "2", "Yes/No", "template.php");
         questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, usersave.getUid(),
                    answersSaveTweet, patternBean);
-        final UnitTweetPoll unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,usersave.getUid(),
+        final TweetPollBean unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,usersave.getUid(),
                                             this.questionBean, null);
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
@@ -186,7 +186,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         createQuestionAnswer("Yes", this.question, "EEEE");
         createQuestionAnswer("No", this.question, "FFFF");
         final String tweetUrl = "http://www.encuestame.org";
-        final UnitTweetPoll uniTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, this.user.getUid(), this.questionBean, "testtweetuser");
+        final TweetPollBean uniTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, this.user.getUid(), this.questionBean, "testtweetuser");
         uniTweetPoll.setId(tweetPollPublicate.getTweetPollId());
         final String twettQuestionText = this.tweetPollService.generateTweetPollText(uniTweetPoll, tweetUrl);
         assertNotNull(twettQuestionText);
@@ -226,7 +226,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
         createTweetPollPublicated(true, true, new Date(), this.user, question1);
         createTweetPollPublicated(true, true, new Date(), this.user, question2);
         final UserAccount secUser = createUserAccount("diana", this.user);
-        final List<UnitTweetPoll> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(
+        final List<TweetPollBean> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(
                 secUser.getUsername(),5,0);
         assertEquals("Should be equals", 2 , tweetPollsByUser.size());
 

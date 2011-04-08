@@ -5,13 +5,14 @@ dojo.require("dijit.form.Textarea");
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
-dojo.require("dijit._Templated");
 dojo.require("dijit.form.CheckBox");
-dojo.require("dijit._Widget");
-dojo.require("dojox.widget.Dialog");
-dojo.require("dojo.dnd.Source");
 dojo.require("dijit.form.NumberSpinner");
+dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
+dojo.require("dijit._Widget");
+dojo.require("dojo.dnd.Source");
+dojo.require("dojo.hash");
+dojo.require("dojox.widget.Dialog");
 
 dojo.require("encuestame.org.core.commons.tweetPoll.Answers");
 dojo.require("encuestame.org.core.commons.tweetPoll.HashTags");
@@ -33,6 +34,23 @@ dojo.declare(
 
         maxTweetText : 140,
 
+        /* stored save tweetPoll. */
+        tweetPoll : {
+            tweetPollId : null,
+            started : false,
+            question: {},
+            anwers : [{value:"answer3"},{ url : "url"}],
+            hashtags : [{value:"hash1"}, {value:"hash2"}, {value:"hash3"} ]
+          },
+
+        /*
+         * enable or disable autosave.
+         */
+        autosave : true,
+
+        /*
+         * post create.
+         */
         postCreate: function() {
             this.questionWidget = dijit.byId("question");
             this.answerWidget = dijit.byId("answers");
@@ -49,9 +67,52 @@ dojo.declare(
             var node = dojo.byId("wrapper");
             document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", this.scroll, false);
             window.onscroll = this.scroll;
+            //enable auto save.
+            if (this.autosave) {
+              dojo.subscribe("/encuestame/tweetpoll/autosave", this, this._autoSave);
+              dojo.subscribe("/encuestame/tweetpoll/autosave/status", this, this._autoSaveStatus);
+            }
         },
 
-        scroll : function(arguments){
+        /*
+         * Auto save tweetPoll.
+         * @param tweetPollId if is null we crete new tweetPoll.
+         * @param question { id, question}
+         * @param hastags [id,id,id,id]
+         * @param anseerws { id, question}
+         */
+        _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags){
+            console.debug("auto save");
+            if(this.tweetPoll.tweetPollId == null){
+               console.debug("tweet poll is autosaving again...");
+            } else {
+               console.info("tweetPol exist", this.tweetPoll.tweetPollId) ;
+            }
+            cometd.publish('/service/tweetpoll/autosave', { tweetPoll: this.tweetPoll});
+         },
+
+         /*
+          * Get activity services response after save tweetpoll.
+          */
+         _autoSaveStatus : function(status){
+             console.debug("auto save status", status);
+
+             if(this.tweetPoll.tweetPollId == null){
+               this.tweetPoll.tweetPollId = status.data.tweetPollId;
+               var tweetPoll = {id:this.tweetPoll.tweetPollId};
+               dojo.hash(dojo.objectToQuery(tweetPoll));
+             }
+             //this.tweetPoll.hashtags = status.hashTags;
+             //this.tweetPoll.anwsers = status.answers;
+             //
+             this.tweetPoll.started = true;
+             console.debug("_autoSaveStatus FINISH", this.tweetPoll);
+         },
+
+        /*
+         * auto-scroll publish top bar.
+         */
+        scroll : function(){
             var node = dojo.byId("defaultMarginWrapper");
             var nodeFixed = dojo.byId("previewWrapper");
             var coords = dojo.coords(node);
@@ -64,17 +125,36 @@ dojo.declare(
             }
           },
 
+        /*
+         * initialize new tweetpoll create.
+         */
         initialize : function(){
+           var hash = dojo.queryToObject(dojo.hash());
+             if(hash.id){
+              //retrieve tweetPoll autosaved information.
+              console.debug("url id ", hash.id);
+              this.tweetPoll.tweetPollId = hash.id;
+             }
              dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
              dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(e) {
                   this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
              }));
+             this.questionWidget.onChange = dojo.hitch(this, function(){
+                 this.tweetPoll.question.value = this.questionWidget.get("value");
+                 dojo.publish("/encuestame/tweetpoll/autosave");
+             });
         },
 
+        /*
+         * update widget preview.
+         */
         updatePreview : function(){
             this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
         },
 
+        /*
+         * show exceted tweet.
+         */
         showExcededTweet : function(endColor){
              dojo.animateProperty({
                  node: dojo.byId("tweetPollPreview"),
@@ -94,6 +174,9 @@ dojo.declare(
              }).play();
         },
 
+        /*
+         * is valid.
+         */
         _isValid : function(){
             return true;
         },
@@ -110,12 +193,18 @@ dojo.declare(
             }
         },
 
+        /*
+         *
+         */
         loadPublicationDialogContent : function(){
             //loadTwitterAccounts.
             dijit.byId("accounts")._loadTwitterAccounts();
             this._displayPublishContent();
         },
 
+        /*
+         *
+         */
         _publishTweet : function(event){
             dojo.stopEvent(event);
             var valid = true;
@@ -288,13 +377,13 @@ dojo.declare(
              */
             _buildAnswers : function(answers){
               if (answers != null) {
-                console.info("answers", answers);
+                //console.info("answers", answers);
                 var arrayItem = [];
                 var questionDiv = dojo.doc.createElement("span");
                 var wishlist = new dojo.dnd.Source(questionDiv);
                 dojo.forEach(answers.getAnswers(),
                         dojo.hitch(this,function(item) {
-                        console.info("item", item);
+                        //console.info("item", item);
                           var span1 = dojo.doc.createElement("span");
                           span1.innerHTML = item.label;
                           this._completeText = this._completeText + " "+item.label;
@@ -302,7 +391,7 @@ dojo.declare(
                           arrayItem.push(span1);
                         }));
                 wishlist.insertNodes(false, arrayItem);
-                console.info("questionDiv", questionDiv);
+                //console.info("questionDiv", questionDiv);
                 this._content.appendChild(questionDiv);
               } else {
                 console.info("no answers widget");

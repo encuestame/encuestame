@@ -15,7 +15,7 @@ package org.encuestame.utils.web.frontEnd;
 import java.util.List;
 
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 
 /**
  * Represent a Item on Search Form.
@@ -27,7 +27,7 @@ import org.encuestame.utils.web.UnitTweetPoll;
 public class UnitSearchItem {
 
     /** List of TweetPolls. **/
-    private List<UnitTweetPoll> tweetPolls;
+    private List<TweetPollBean> tweetPolls;
 
     /** List of Polls. **/
     private List<UnitPoll>  polls;
@@ -37,14 +37,14 @@ public class UnitSearchItem {
     /**
      * @return the tweetPolls
      */
-    public List<UnitTweetPoll> getTweetPolls() {
+    public List<TweetPollBean> getTweetPolls() {
         return tweetPolls;
     }
 
     /**
      * @param tweetPolls the tweetPolls to set
      */
-    public void setTweetPolls(List<UnitTweetPoll> tweetPolls) {
+    public void setTweetPolls(List<TweetPollBean> tweetPolls) {
         this.tweetPolls = tweetPolls;
     }
 

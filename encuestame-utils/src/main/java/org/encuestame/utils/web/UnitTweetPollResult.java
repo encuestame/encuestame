@@ -30,14 +30,14 @@ public class UnitTweetPollResult implements Serializable {
      */
     private static final long serialVersionUID = 5592511215675708669L;
 
-    private UnitAnswersBean answersBean;
+    private QuestionAnswerBean answersBean;
 
     private Long results;
 
     /**
      * @return the answersBean
      */
-    public final UnitAnswersBean getAnswersBean() {
+    public final QuestionAnswerBean getAnswersBean() {
         return answersBean;
     }
 
@@ -45,7 +45,7 @@ public class UnitTweetPollResult implements Serializable {
      * @param answersBean
      *            the answersBean to set
      */
-    public final void setAnswersBean(final UnitAnswersBean answersBean) {
+    public final void setAnswersBean(final QuestionAnswerBean answersBean) {
         this.answersBean = answersBean;
     }
 

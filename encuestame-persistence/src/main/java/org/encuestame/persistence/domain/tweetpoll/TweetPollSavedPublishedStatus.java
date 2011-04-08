@@ -28,6 +28,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -61,7 +62,7 @@ public class TweetPollSavedPublishedStatus {
     private Long tweetId;
 
     /** Api Type. **/
-    private Type apiType;
+    private SocialProvider apiType;
 
     /** Status. **/
     private Status status;
@@ -71,20 +72,6 @@ public class TweetPollSavedPublishedStatus {
 
     /** Publication Date Tweet. This date is from twitter after publish. **/
     private Date publicationDateTweet;
-
-    /**
-     */
-    public enum Type {
-    /**
-     *
-     */
-    TWITTER,
-    /**
-     *
-     */
-    IDENTICA
-    //TODO: In the future we can add more API's Tumblr, Plurk, Jaiku.
-    }
 
     /**
      */
@@ -123,14 +110,14 @@ public class TweetPollSavedPublishedStatus {
      */
     @Column(name="type")
     @Enumerated(EnumType.STRING)
-    public Type getApiType() {
+    public SocialProvider getApiType() {
         return apiType;
     }
 
     /**
      * @param apiType the apiType to set
      */
-    public void setApiType(Type apiType) {
+    public void setApiType(SocialProvider apiType) {
         this.apiType = apiType;
     }
 

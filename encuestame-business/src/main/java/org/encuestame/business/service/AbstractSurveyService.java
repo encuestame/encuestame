@@ -29,6 +29,7 @@ import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -40,11 +41,11 @@ import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -87,17 +88,15 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws EnMeExpcetion exception
      */
     public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
-              final Question question = new Question();
+            final Question question = new Question();
             try{
-
                 question.setQuestion(questionBean.getQuestionName());
                 question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);
-                questionBean.setId(question.getQid());
-                for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
-                    this.saveAnswer(answerBean);
+                for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
+                    this.saveAnswer(answerBean, question);
                 }
             }
             catch (Exception e) {
@@ -120,22 +119,54 @@ public class AbstractSurveyService extends AbstractChartService {
     }
 
     /**
+     *
+     * @param hashtagBeans
+     * @return
+     */
+    public List<HashTag> retrieveListOfHashTags(final List<HashTagBean> hashtagBeans){
+        final List<HashTag> tagList = new ArrayList<HashTag>();
+        for (HashTagBean unitHashTag : hashtagBeans) {
+            HashTag hashTag = getHashTagDao().getHashTagByName(unitHashTag.getHashTagName().toLowerCase());
+            //if is null, create new hashTag.
+            if(hashTag == null && unitHashTag.getHashTagName() != null){
+                log.debug("created new hashTag:{"+unitHashTag.getHashTagName().toLowerCase());
+                hashTag = createHashTag(unitHashTag.getHashTagName().toLowerCase());
+            }
+            tagList.add(hashTag);
+        }
+        return tagList;
+    }
+
+    /**
+     * Create vote support for each tweetpoll answer.
+     * @param questionId
+     * @param tweetPollDomain
+     */
+    public void createTweetPollSwitchSupport(final Long questionId, final TweetPoll tweetPollDomain){
+        final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
+        for (QuestionAnswer questionsAnswers : answers) {
+            final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+            tPollSwitch.setAnswers(questionsAnswers);
+            tPollSwitch.setTweetPoll(tweetPollDomain);
+            tPollSwitch.setCodeTweet(MD5Utils.shortMD5(RandomStringUtils.randomAscii(6)));
+            getTweetPollDao().saveOrUpdate(tPollSwitch);
+            createNotification(NotificationEnum.TWEETPOL_CREATED,
+                    tweetPollDomain.getQuestion().getQuestion(),
+                    tweetPollDomain.getQuestion().getAccountQuestion());
+        }
+    }
+
+    /**
      * Create Hash Tag.
      * @param unitHashTag new tag
-     * @return
+     * @return {@link HashTag}
      * @throws EnMeExpcetion exception.
      */
-    public HashTag createHashTag(final HashTagBean unitHashTag) throws EnMeExpcetion{
-        try{
-            final HashTag tag = new HashTag();
-            tag.setHashTag(unitHashTag.getHashTagName());
-            getHashTagDao().saveOrUpdate(tag);
-            log.debug("Hash Tag Saved");
-            return tag;
-        }
-        catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
+    public HashTag createHashTag(final HashTagBean unitHashTag) {
+        final HashTag tag = createHashTag(unitHashTag.getHashTagName());
+        getHashTagDao().saveOrUpdate(tag);
+        log.debug("Hash Tag Saved.");
+        return tag;
     }
 
     /**
@@ -143,19 +174,15 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param answerBean answer
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void saveAnswer(final UnitAnswersBean answerBean) throws EnMeExpcetion{
-            final QuestionAnswer answer = new QuestionAnswer();
-            if(answerBean.getQuestionId()!= null){
-                final Question question = getQuestionDao().retrieveQuestionById(answerBean.getQuestionId());
-                answer.setQuestions(question);
-                answer.setAnswer(answerBean.getAnswers());
-                answer.setUniqueAnserHash(answerBean.getAnswerHash());
-                this.getQuestionDao().saveOrUpdate(answer);
-                answerBean.setAnswerId(answer.getQuestionAnswerId());
-            }
-            else{
-                  throw new EnMeExpcetion("questionId not found");
-            }
+    public void saveAnswer(
+            final QuestionAnswerBean answerBean,
+            final Question question) throws EnMeExpcetion {
+        final QuestionAnswer answer = new QuestionAnswer();
+        answer.setQuestions(question);
+        answer.setAnswer(answerBean.getAnswers());
+        answer.setUniqueAnserHash(answerBean.getAnswerHash());
+        this.getQuestionDao().saveOrUpdate(answer);
+        answerBean.setAnswerId(answer.getQuestionAnswerId());
     }
 
     /**
@@ -163,11 +190,11 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param userId user Id.
      * @return list of Tweet polls bean
      */
-    public List<UnitTweetPoll> getTweetsPollsByUserId(final Long userId){
+    public List<TweetPollBean> getTweetsPollsByUserId(final Long userId){
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(userId, null, null);
-        final List<UnitTweetPoll> tweetPollsBean = new ArrayList<UnitTweetPoll>();
+        final List<TweetPollBean> tweetPollsBean = new ArrayList<TweetPollBean>();
         for (TweetPoll tweetPoll : tweetPolls) {
-            final UnitTweetPoll unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
+            final TweetPollBean unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
              unitTweetPoll.getQuestionBean().setListAnswers(this.retrieveAnswerByQuestionId(unitTweetPoll.getQuestionBean().getId()));
              tweetPollsBean.add(unitTweetPoll);
         }
@@ -179,10 +206,10 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionId question Id
      * @return List of Answers
      */
-    public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
+    public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
         log.debug("answers by question id ["+questionId+"] answers size "+answers.size());
-        final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
+        final List<QuestionAnswerBean> answersBean = new ArrayList<QuestionAnswerBean>();
         for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
         }
@@ -191,10 +218,10 @@ public class AbstractSurveyService extends AbstractChartService {
 
     /**
      * Save Tweet Id.
-     * @param tweetPollBean {@link UnitTweetPoll}
+     * @param tweetPollBean {@link TweetPollBean}
      * @throws EnMeExpcetion exception
      */
-    public void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion{
+    public void saveTweetId(final TweetPollBean tweetPollBean) throws EnMeExpcetion{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
         if(tweetPoll != null){
             //tweetPoll.setTweetId(tweetPollBean.getTweetId());
@@ -226,7 +253,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param tweetPollBean tweet poll bean.
      * @throws EnMeExpcetion exception
      */
-    public void createTweetPoll(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion {
+    public void createTweetPoll(final TweetPollBean tweetPollBean) throws EnMeExpcetion {
         try{
             final TweetPoll tweetPollDomain = new TweetPoll();
             final Question question = getQuestionDao().retrieveQuestionById(tweetPollBean.getQuestionBean().getId());
@@ -279,13 +306,13 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    public String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion{
+    public String generateTweetPollText(final TweetPollBean tweetPoll, final String url) throws EnMeExpcetion{
         String tweetQuestionText = "";
         try{
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             final List<QuestionAnswer> answers = getQuestionDao().getAnswersByQuestionId(tweetPollDomain.getQuestion().getQid());
-            if(answers.size()==2){
+            if (answers.size() == 2) {
                 for (final QuestionAnswer questionsAnswers : answers) {
                     tweetQuestionText += " "+questionsAnswers.getAnswer()+" "+buildUrlAnswer(questionsAnswers, url);
                 }

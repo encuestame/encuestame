@@ -112,15 +112,6 @@ dojo.declare(
          * load notifications
          */
         loadStatus : function() {
-//            var load = dojo.hitch(this, function(data){
-//                var total = data.success.t;
-//                var totalNew = data.success.n;
-//                this.lastNew = totalNew;
-//                this._count.innerHTML = data.success.t;
-//            });
-//            var error =  dojo.hitch(this, function(error) {
-//                this.timer.stop();
-//            });
             // Publish on a service channel since the message is for
             // the server only
             cometd.publish('/service/notification/status', {});

@@ -15,17 +15,19 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitFolder;
-import org.encuestame.utils.web.UnitTweetPoll;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
@@ -38,10 +40,23 @@ public interface ITweetPollService extends IMasterSurveyService{
 
     /**
      * Create Tweet Poll.
-     * @param tweetPollBean tweet poll bean.
-     * @throws EnMeExpcetion exception
+     * @param tweetPollBean
+     * @param question
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
      */
-    void createTweetPoll(final UnitTweetPoll tweetPollBean, final Question question) throws EnMeExpcetion;
+    TweetPoll createTweetPoll(
+            final TweetPollBean tweetPollBean,
+            final String question,
+            final String[] answers,
+            final UserAccount user) throws EnMeExpcetion;
+
+    /**
+     * Get tweetPoll by id and user logged.
+     */
+    TweetPoll getTweetPollById(final Long tweetPollId, final UserAccount account);
 
     /**
      * Generate TweetPoll Text.
@@ -50,7 +65,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    String generateTweetPollText(final UnitTweetPoll tweetPoll, final String url) throws EnMeExpcetion;
+    String generateTweetPollText(final TweetPoll tweetPoll, final String url) throws EnMeExpcetion;
 
     /**
      * Search {@link TweetPoll} by Keyword.
@@ -60,16 +75,16 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollsByKeyWord(final String username,
+    List<TweetPollBean> searchTweetsPollsByKeyWord(final String username,
             final String keyword,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException, EnMeExpcetion;
 
     /**
      * Save Tweet Id.
-     * @param tweetPollBean {@link UnitTweetPoll}
+     * @param tweetPollBean {@link TweetPollBean}
      * @throws EnMeExpcetion exception
      */
-    void saveTweetId(final UnitTweetPoll tweetPollBean) throws EnMeExpcetion;
+    void saveTweetId(final TweetPollBean tweetPollBean) throws EnMeExpcetion;
 
     /**
      * Get Tweet Path.
@@ -110,7 +125,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<UnitTweetPoll> getTweetsPollsByUserName(final String username,
+    List<TweetPollBean> getTweetsPollsByUserName(final String username,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
     /**
@@ -119,10 +134,16 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
-    String[] publicMultiplesTweetAccounts(
+    List<TweetPollSavedPublishedStatus> publicMultiplesTweetAccounts(
             final List<SocialAccountBean> twitterAccounts,
-            final Long tweetPollId,
+            final TweetPoll tweetPoll,
             final String tweetText);
+
+   /**
+    * Publish single {@link TweetPoll}.
+    * @param accountId social account id.
+    */
+   TweetPollSavedPublishedStatus publishTweetPoll(final Long accountId, final TweetPoll tweetPoll, final SocialProvider provider);
 
     /**
      * Update Question Name.
@@ -218,7 +239,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollScheduled(final String username,
+    List<TweetPollBean> searchTweetsPollScheduled(final String username,
              final Integer maxResults, final Integer start) throws EnMeExpcetion;
 
     /**
@@ -229,7 +250,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollFavourites(final String username,
+    List<TweetPollBean> searchTweetsPollFavourites(final String username,
              final Integer maxResults, final Integer start) throws EnMeExpcetion;
 
     /**
@@ -240,7 +261,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollsLastWeek(final String username,
+    List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion;
 
     /**
@@ -251,7 +272,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeExpcetion
      */
-    List<UnitTweetPoll> searchTweetsPollsToday(final String username,
+    List<TweetPollBean> searchTweetsPollsToday(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion;
 
     /**
@@ -284,5 +305,3 @@ public interface ITweetPollService extends IMasterSurveyService{
      void changeCloseNotificationTweetPoll(final Long tweetPollId, final String username)
                 throws EnMeNoResultsFoundException, EnmeFailOperation;
 }
-
-

@@ -1,16 +1,23 @@
+dojo.require("dojox.cometd");
+dojo.require("dojox.cometd.timestamp");
+dojo.require("dojox.cometd.ack");
+dojo.require("dojox.cometd.reload");
+
 dojo.addOnLoad(function() {
-        // More Info: http://cometd.org/node/49
+
+        //more info: http://cometd.org/node/49
+
 
         function _connectionEstablished() {
-            dojo.byId('body').innerHTML += '<div>CometD Connection Established</div>';
+            console.info('CometD Connection Established');
         }
 
         function _connectionBroken() {
-            dojo.byId('body').innerHTML += '<div>CometD Connection Broken</div>';
+            console.info('CometD Connection Broken');
         }
 
         function _connectionClosed() {
-            dojo.byId('body').innerHTML += '<div>CometD Connection Closed</div>';
+            console.info('CometD Connection Closed');
         }
 
         // Function that manages the connection status with the Bayeux
@@ -37,29 +44,36 @@ dojo.addOnLoad(function() {
         function _metaHandshake(handshake) {
             if (handshake.successful === true) {
                 cometd.batch(function() {
-                    cometd.subscribe('/not', function(message) {
-                        //console.debug("notification commet message", message);
+                    cometd.subscribe('/service/notification/status', function(message) {
+                        //console.debug("notification commet message OLD", message);
                         dojo.publish("/encuestame/notifications/update/status",
                                      [message.data.totalNot, message.data.totalNot]);
+                    });
+                    cometd.subscribe('/service/tweetpoll/autosave', function(message) {
+                        //console.debug("autosave", message);
+                        dojo.publish("/encuestame/tweetpoll/autosave/status",[message]);
                     });
                 });
             }
         }
 
-        // Disconnect when the page unloads
-        dojo.addOnUnload(function() {
-            cometd.disconnect(true);
-        });
-
         var cometURL = location.protocol + "//" + location.host
                 + config.contextPath + "/cometd";
         cometd.configure({
-            url : cometURL,
-            logLevel : 'warn'
+          url : cometURL,
+            logLevel : 'info',
+            jsonDebug : true
         });
 
         cometd.addListener('/meta/handshake', _metaHandshake);
         cometd.addListener('/meta/connect', _metaConnect);
 
         cometd.handshake();
+});
+
+
+// disconnect when the page unloads
+dojo.addOnUnload(function() {
+    dojox.cometd.reload();
+    cometd.disconnect(true);
 });
