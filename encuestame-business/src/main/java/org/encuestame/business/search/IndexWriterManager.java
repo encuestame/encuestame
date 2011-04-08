@@ -25,6 +25,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
+import org.encuestame.business.service.imp.IIndexWriter;
 import org.encuestame.business.setup.DirectorySetupOperations;
 
 /**
@@ -32,7 +33,7 @@ import org.encuestame.business.setup.DirectorySetupOperations;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Mar 25, 2011
  */
-public class IndexWriterManager  {
+public class IndexWriterManager implements IIndexWriter {
 
     /**
     * Log.

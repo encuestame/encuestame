@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Iterator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -38,7 +39,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.encuestame.search.utils.SearchUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Indexer File description.
@@ -68,10 +68,6 @@ public class IndexerFile {
     /** Attachment title. **/
     protected static final String ATTACHMENT_TITLE = "title";
 
-    /** {@link IndexWriterManager}. **/
-    @Autowired
-    private IndexWriterManager indexWriter;
-
     /** Log. **/
     private static final Log log = LogFactory.getLog(IndexerFile.class);
 
@@ -83,7 +79,7 @@ public class IndexerFile {
      * @param attachFile
      * @return {@link Document} doc
      */
-    private Document createStandardLuceneDocument(AttachmentIndex attachFile) {
+    public static Document createStandardLuceneDocument(AttachmentIndex attachFile) {
             Document doc = new Document();
             doc.add(new Field(CONTENT, attachFile.getContent(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.add(new Field(FULLPATH, attachFile.getFilepath(), Field.Store.YES, Field.Index.NO));
@@ -99,11 +95,11 @@ public class IndexerFile {
      * Add files to index
      * @param attachment
      */
-    public void addToIndex(AttachmentIndex attachment) {
+    public static void addToIndex(final AttachmentIndex attachment, final IndexWriterManager indexWriter) {
         try {
             long start = System.currentTimeMillis();
-            this.indexWriter.openIndexWriter();
-            this.addToIndex(attachment);
+            indexWriter.openIndexWriter();
+            IndexerFile.addDocumentToIndex(attachment, indexWriter);
             log.debug("Add to search index for topic " + attachment.getFilename() + " in " + ((System.currentTimeMillis() - start) / 1000.000) + " s.");
         } catch (Exception e) {
             log.error("Exception while adding topic " + attachment.getFilename(), e);
@@ -115,24 +111,25 @@ public class IndexerFile {
      * @param documentAttachment
      * @throws IOException
      */
-    private void addDocumentToIndex(final AttachmentIndex documentAttachment) throws IOException {
-        Document standardLuceneDocument = this.createStandardLuceneDocument(documentAttachment);
-        this.indexWriter.getIndexWriter().addDocument(standardLuceneDocument);
+    private static void addDocumentToIndex(final AttachmentIndex documentAttachment, final IndexWriterManager indexWriter)
+                                    throws IOException {
+        Document standardLuceneDocument =  createStandardLuceneDocument(documentAttachment);
+        indexWriter.getIndexWriter().addDocument(standardLuceneDocument);
     }
 
     /**
      * Delete attachment from index.
      * @param topic
      */
-     public void deleteAttachmentFromIndex(AttachmentIndex topic) {
+     public void deleteAttachmentFromIndex(AttachmentIndex attachmentIndex, final IndexWriterManager indexWriter ) {
          try {
              long start = System.currentTimeMillis();
              // delete the current document
-             this.indexWriter.getIndexWriter();
-             this.deleteFromIndex(topic);
-             log.debug("Delete from search index for topic " + topic.getFilename() + " in " + ((System.currentTimeMillis() - start) / 1000.000) + " s.");
+             indexWriter.getIndexWriter();
+             this.deleteFromIndex(attachmentIndex, indexWriter);
+             log.debug("Delete from search index for topic " + attachmentIndex.getFilename() + " in " + ((System.currentTimeMillis() - start) / 1000.000) + " s.");
          } catch (Exception e) {
-             log.error("Exception while adding topic " + topic.getFilename(), e);
+             log.error("Exception while adding topic " + attachmentIndex.getFilename(), e);
          }
      }
 
@@ -142,8 +139,8 @@ public class IndexerFile {
      * @param topic
      * @throws IOException
      */
-     private void deleteFromIndex(AttachmentIndex topic) throws IOException {
-         this.indexWriter.getIndexWriter().deleteDocuments(new Term(FILENAME, topic.getFilename()));
+     private void deleteFromIndex(AttachmentIndex attachmentIndex, final IndexWriterManager indexWriter) throws IOException {
+         indexWriter.getIndexWriter().deleteDocuments(new Term(FILENAME, attachmentIndex.getFilename()));
      }
 
     /**
@@ -151,9 +148,9 @@ public class IndexerFile {
      * @param commitNow
      * @throws IOException
      */
-     private void commit(final boolean commitNow) throws IOException {
+     private void commit(final boolean commitNow, final IndexWriterManager indexWriter) throws IOException {
          if (commitNow) {
-             this.indexWriter.getIndexWriter().commit();
+             indexWriter.getIndexWriter().commit();
          }
      }
 
@@ -163,12 +160,56 @@ public class IndexerFile {
      * @return
      * @throws IOException
      */
-     private AttachmentIndex createAttachmentDocument(final File file) throws IOException{
+     public static AttachmentIndex createAttachmentDocument(final File file, final Long attachmentId) throws IOException{
         final String path = file.getCanonicalPath();
         final String fileExtension = SearchUtils.getExtension(path);
-        log.debug("Create attachment document type --> "+fileExtension);
-        AttachmentIndex attachmentBean = new AttachmentIndex();
-        return attachmentBean;
+        final String filename = file.getName();
+        String contentText = "";
+        AttachmentIndex attachmentIndexBean = new AttachmentIndex();
+        log.debug("Creating attachment document type --> "+fileExtension);
+        if ("docx".equals(fileExtension)) {
+            XWPFWordExtractor parserDoc;
+            try {
+                //1- Parsear word Document
+                parserDoc = IndexerFile.parseWordDocument(file);
+                //2- Extract word document content
+                contentText = IndexerFile.extractContentWordDocument(parserDoc);
+                //3- Set values to Attachment Index
+
+            } catch (POIXMLException e) {
+                log.error("Fail createAttachmentDocument POIXMLException --> " + e);
+            } catch (Exception e) {
+                log.error("Fail createAttachmentDocument Exception --> " + e);
+            }
+         } else if ("pdf".equals(fileExtension)) {
+            PDDocument parsePdf;
+            parsePdf = IndexerFile.parsePdfDocument(file);
+            try {
+                contentText = IndexerFile.extractContentPdfDocument(parsePdf);
+            } catch (Exception e) {
+                log.error("Fail createAttachmentDocument PDF Exception --> " + e);
+            }
+         }
+         else if ("xls".equals(fileExtension) ) {
+            HSSFWorkbook parseSpreadsheets;
+            try {
+                parseSpreadsheets = IndexerFile.parseSpreadsheetsDocument(file);
+                contentText = extractContentSpreadsheetsDocument(parseSpreadsheets);
+            } catch (Exception e) {
+                log.error("Fail createAttachmentDocument spreadsheets Exception --> " + e);
+            }
+         }
+         else if ("txt".equals(fileExtension) ) {
+            contentText = "Document text file";
+         }
+        attachmentIndexBean.setContent(contentText);
+        attachmentIndexBean.setFilepath(path);
+        attachmentIndexBean.setFilename(filename);
+        attachmentIndexBean.setDocumentId(attachmentId);
+        attachmentIndexBean.setUploadDate(new Date());
+        attachmentIndexBean.setDocumentType(fileExtension);
+        attachmentIndexBean.setTitle("ENCUESTAME - TITLE");
+        return attachmentIndexBean;
      }
 
     /**
@@ -346,11 +387,4 @@ public class IndexerFile {
          }
          return contents.toString();
      }
-
-    /**
-    * @param indexWriter the indexWriter to set
-    */
-    public void setIndexWriter(final IndexWriterManager indexWriter) {
-        this.indexWriter = indexWriter;
-    }
 }
