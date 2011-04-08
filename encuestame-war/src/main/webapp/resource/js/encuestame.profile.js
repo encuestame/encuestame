@@ -38,7 +38,13 @@ dependencies ={
                 "encuestame.org.core.commons.error.AbstractErrorHandler",
                 "encuestame.org.core.commons",
                 "encuestame.org.core.commons.search.SearchMenu",
-                "encuestame.org.core.commons.search.SearchSuggestItem"
+                "encuestame.org.core.commons.search.SearchSuggestItem",
+                "encuestame.org.activity.Activity",
+                "org.cometd",
+                "org.cometd.AckExtension",
+                "org.cometd.ReloadExtension",
+                "org.cometd.TimeStampExtension",
+                "org.cometd.TimeSyncExtension"
                 ]
             }
           /*,
@@ -61,6 +67,7 @@ dependencies ={
         prefixes: [
             ["encuestame", "../../encuestame-war/src/main/webapp/resource/js/encuestame"],
             ["dijit", "../dijit" ],
-            ["dojox", "../dojox" ]
+            ["dojox", "../dojox" ],
+            ["org", "../../encuestame-war/src/main/webapp/resource/js/org" ]
         ]
     };

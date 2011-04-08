@@ -30,8 +30,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 4, 2011
  */
-@Named
-@Singleton
+@Named // Tells Spring that this is a bean
+@Singleton // Tells Spring that this is a singleton
 @Service("notificationService")
 public class NotificationCometService extends AbstractCometService {
 
@@ -58,6 +58,7 @@ public class NotificationCometService extends AbstractCometService {
             //log.debug("totalNewNot "+totalNewNot);
             output.put("totalNot", totalNot);
             output.put("totalNewNot", totalNewNot);
+
         } else {
             //log.error("Error username");
         }

@@ -16,7 +16,7 @@ dojo.require("encuestame.org.core.shared.utils.YesNoWidget");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListDetail.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListDetail.html"),
         //widget
         widgetsInTemplate: true,
         //data

@@ -39,7 +39,7 @@ public class SurveyController  extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/survey.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/survey", method = RequestMethod.GET)
     public String surveyController(final ModelMap model) {
         log.debug("survey");
         return "survey";

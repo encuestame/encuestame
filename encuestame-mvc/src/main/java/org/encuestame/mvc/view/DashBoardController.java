@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * DashBoard Controller.
  * @author Picado, Juan juan@encuestame.org
  * @since Mar 6, 2010 10:58:02 AM
- * @version $Id: $
  */
 
 @Controller
@@ -39,7 +38,7 @@ public class DashBoardController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/dashboard.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
     public String dashBoardController(ModelMap model, UserAccount account) {
         log.debug("dashboard");
         return "dashboard";

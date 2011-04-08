@@ -9,7 +9,7 @@ dojo.require("dijit.form.Form");
 dojo.declare(
     "encuestame.org.core.commons.profile.Profile",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.profile", "templates/profile.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.profile", "templates/profile.html"),
 
         widgetsInTemplate: true,
 

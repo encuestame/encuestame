@@ -6,7 +6,7 @@ dojo.require("dijit.form.Button");
 dojo.declare(
     "encuestame.org.core.commons.dialog.Confirm",
     [encuestame.org.core.commons.dialog.Dialog],{
-        //templatePath: dojo.moduleUrl("encuestame.org.core.commons.dialog", "templates/dialog.inc"),
+        //templatePath: dojo.moduleUrl("encuestame.org.core.commons.dialog", "templates/dialog.html"),
 
         draggable : false,
 

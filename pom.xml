@@ -85,7 +85,7 @@
         <!-- Dojo
             http://www.mahieu.org/?p=3
          -->
-         <dojo.version>1.5.0</dojo.version>
+         <dojo.version>1.6.0</dojo.version>
          <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
 	
 	<!--CometD -->
@@ -104,7 +104,6 @@
         <module>encuestame-persistence</module>
         <module>encuestame-search</module>
         <module>encuestame-business</module>
-<!--        <module>encuestame-web</module>-->
         <module>encuestame-mvc</module>
         <module>encuestame-war</module>
     </modules>

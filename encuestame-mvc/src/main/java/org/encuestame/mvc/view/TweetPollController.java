@@ -56,7 +56,7 @@ public class TweetPollController extends AbstractBaseOperations {
      * @param id id tweet
      * @return template
      */
-    @RequestMapping(value = "/tweet/{tweetId}/vote.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/tweetpoll/vote/{tweetId}", method = RequestMethod.GET)
     public String tweetPollController(ModelMap model,
             @PathVariable String tweetId) {
         log.debug("tweetId: "+tweetId);
@@ -162,7 +162,7 @@ public class TweetPollController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/tweetpoll.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(final ModelMap model) {
         log.debug("tweetpoll");
         return "tweetpoll";
@@ -173,7 +173,7 @@ public class TweetPollController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/newTweetPoll.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
         log.debug("tweetpoll new");
         return "tweetpoll/new";

@@ -11,7 +11,7 @@ dojo.declare(
     "encuestame.org.core.shared.utils.Suggest",
     [dijit._Widget, dijit._Templated],{
 
-      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
+      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.html"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -52,7 +52,9 @@ dojo.declare(
               //enable keyword events
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     this._setParams({limit:this.limit, keyword : this.textBoxWidget.get("value")});
-                    this.callSuggest();
+                    if (this.textBoxWidget.get("value") != "") {
+                        this.callSuggest();
+                    }
                 }));
                 //query read store.
                 this.store = new dojox.data.QueryReadStore({
@@ -91,6 +93,9 @@ dojo.declare(
             this.searchParam = value;
         },
 
+        /*
+         * start suggestion call.
+         */
         callSuggest : function(){
             var fetch = {
                     query: this.query,
@@ -100,7 +105,6 @@ dojo.declare(
                     },
                     serverQuery: this.searchParam,
                     onComplete: dojo.hitch(this, function(result, dataObject){
-                        //console.info("suggest onComplete...", result);
                         this.evaluateItems(result);
                     }),
                     onError: function(errText){
@@ -110,9 +114,10 @@ dojo.declare(
             this.store.fetch(fetch);
         },
 
-        /** Evaluate Items. **/
+        /*
+         *  Evaluate Items.
+         */
         evaluateItems : function(data){
-            //console.info("suggeest data.length...", data.length);
             if(data.length > 0){
                  dojo.empty(this._suggestItems);
                  var fadeArgs = {
@@ -198,7 +203,7 @@ dojo.extend(dojox.data.QueryReadStore, {
 dojo.declare(
         "encuestame.org.core.shared.utils.SuggestItem",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggestItem.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggestItem.html"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,

@@ -39,7 +39,7 @@
                             </classpath>
                             <jvmarg value="-Xmx512M"/>
                             <arg value="build.js"/>
-                            <arg value="version=1.5.0"/>
+                            <arg value="version=1.6.0"/>
                             <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
                             <arg value="action=clean,release"/>
                             <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
@@ -49,7 +49,6 @@
                             <arg value="mini=true"/>
                           </java>
                           <delete includeEmptyDirs="true" verbose="true">
-                               <fileset dir="${basedir}/target/dojo-compiled/" includes="**/.svn" defaultexcludes="false"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
@@ -84,8 +83,6 @@
                     resource/js/dojo/**/*,
                     resource/js/dijit/**/*,
                     resource/js/dojox/**/*,
-                    resource/js/cometd.js,
-                    resource/js/chart.js,
                     resource/js/org/**/*,
                     **/*.properties,
                     **/*.class,
@@ -107,7 +104,7 @@
                 </webResources>
             </configuration>
             </plugin>-->
-        <!-- Development War Configuration - NOT Optimized-->
+        <!-- Development War Configuration - NOT Optimized -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
@@ -346,10 +343,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.tuckey</groupId>
-            <artifactId>urlrewritefilter</artifactId>
         </dependency>
         <dependency>
             <groupId>jstl</groupId>

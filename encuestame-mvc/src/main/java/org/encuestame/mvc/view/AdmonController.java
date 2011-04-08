@@ -39,19 +39,19 @@ public class AdmonController extends AbstractBaseOperations {
      * @param id id tweet
      * @return template
      */
-    @RequestMapping(value = "/admon/location.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/location", method = RequestMethod.GET)
     public String admonLocation(ModelMap model) {
         log.debug("LOCATION");
         return "location";
     }
 
-    @RequestMapping(value = "/admon/members.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
         log.debug("MEMGERS");
         return "members";
     }
 
-    @RequestMapping(value = "/admon/project.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
     public String admonProject(ModelMap model) {
         log.debug("PROJECT");
         return "project";

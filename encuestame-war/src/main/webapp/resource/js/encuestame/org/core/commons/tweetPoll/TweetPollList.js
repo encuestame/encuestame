@@ -17,7 +17,7 @@ dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollList",
         [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollList.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollList.html"),
         widgetsInTemplate: true,
         url : encuestame.service.list.listTweetPoll,
         listItems : null,
@@ -46,7 +46,7 @@ dojo.declare(
         _onSwichChange : function(event){
             dojo.stopEvent(event);
             console.debug("new");
-            location.href = this.contextPath + "/newTweetPoll.jspx";
+            location.href = this.contextPath + "/user/tweetpoll/new";
             //future, should add effects.
             /*var slideArgs = {
                     node: "detail",
@@ -157,7 +157,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollListItem",
         [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListItem.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListItem.html"),
         //widget
         widgetsInTemplate: true,
         //data

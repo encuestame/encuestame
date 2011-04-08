@@ -5,14 +5,15 @@ dojo.require("encuestame.org.core.commons.error.ErrorHandler");
 dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 dojo.require("dijit.Dialog");
 
+encuestame.activity = {};
 encuestame.service = {};
 encuestame.service.offline = false;
 encuestame.service.timeout = config.delay;
 encuestame.contextDefault = config.contextPath;
-encuestame.signin = encuestame.contextDefault+"/signin.jspx";
+encuestame.signin = encuestame.contextDefault+"/signin";
 
 /**
- * Json Get Call.
+ * JSON GET call.
  */
 encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
     if (logginHandler == null) {
@@ -26,7 +27,7 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
       console.error("default error");
     }
     if (load == null || url == null || params == null) {
-        console.error("error params required.")
+        console.error("error params required.");
     } else {
         dojo.xhrGet({
             url : url,
@@ -360,6 +361,6 @@ encuestame.service.search = {};
 encuestame.service.search.suggest = encuestame.contextWidget()+"/api/search/quick-suggest.json";
 
 //short url service.
-encuestame.service.short = {};
-encuestame.service.short.google = "/api/short/url/google.json";
-encuestame.service.short.tinyurl = "/api/short/url/tinyurl.json";
+//encuestame.service.short = {};
+//encuestame.service.short.google = "/api/short/url/google.json";
+//encuestame.service.short.tinyurl = "/api/short/url/tinyurl.json";

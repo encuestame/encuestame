@@ -37,7 +37,7 @@ public class SearchController extends AbstractBaseOperations {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/search.jspx", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchHomePost(ModelMap model) {
         log.debug("search post");
         return "search";
@@ -48,7 +48,7 @@ public class SearchController extends AbstractBaseOperations {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/search.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchHomeGet(ModelMap model) {
         log.debug("search get");
         return "search";

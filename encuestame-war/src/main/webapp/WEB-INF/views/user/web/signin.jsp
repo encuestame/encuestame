@@ -37,7 +37,7 @@
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
           <div class="twitter">
-              <form action="<%=request.getContextPath()%>/signin/twitter.jspx" method="POST">
+              <form action="<%=request.getContextPath()%>/signin/twitter" method="POST">
                   <button type="submit">
                       <img src="<c:url value="/resource/images/social/twitter/signin.png" />"
                   </button>
