@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,19 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
+import org.encuestame.business.search.AttachmentIndex;
 import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.business.search.IndexWriterManager;
+import org.encuestame.business.search.IndexerFile;
 import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
+import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.search.SearchManagerOperation;
+import org.encuestame.utils.web.UnitAttachment;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Search Service.
@@ -40,6 +49,8 @@ public class SearchService extends AbstractIndexService implements
      */
     private Log log = LogFactory.getLog(this.getClass());
 
+    @Autowired
+    private IndexWriterManager indexWriter; //TODO:ENCUESTAME-154
     /*
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SearchServiceOperations#quickSearch(java.lang.String, java.lang.Integer, java.lang.Integer)
@@ -124,4 +135,38 @@ public class SearchService extends AbstractIndexService implements
         // TODO Auto-generated method stub
         return null;
     }
+
+    public String indexAttachment(final File file, final Long attachmentId){
+     long start = System.currentTimeMillis();
+               try {
+                AttachmentIndex attachmentBean = IndexerFile.createAttachmentDocument(file, attachmentId);
+                IndexerFile.addToIndex(attachmentBean, this.indexWriter);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            long end = System.currentTimeMillis();
+            log.debug("Indexing " + "numIndexed "+ " files took " + (end - start)
+                    + " milliseconds");
+
+        return "Attachment indexed";
+    }
+
+    /**
+     *
+     * @param unitAttachment
+     * @throws EnMeExpcetion
+     */
+    public final void addAttachment(final UnitAttachment unitAttachment) throws EnMeExpcetion{
+        try {
+            Attachment attachment = new Attachment();
+            attachment.setAttachmentId(unitAttachment.getAttachmentId());
+            attachment.setFilename(unitAttachment.getFilename());
+            attachment.setUploadDate(unitAttachment.getUploadDate());
+            this.getProjectDaoImp().saveOrUpdate(attachment);
+        } catch (Exception e) {
+            throw new EnMeExpcetion(e);
+        }
+    }
+
 }

@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IProjectDao;
@@ -107,4 +108,15 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
           return getHibernateTemplate().findByCriteria(criteria);
     }
 
+    /**
+     * Get Attachment by Name.
+     * @param filename
+     * @return {@link Attachment} filename
+     */
+    @SuppressWarnings("unchecked")
+    public Attachment getAttachmentbyName(final String filename){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Attachment.class);
+        criteria.add(Restrictions.eq("filename", filename));
+        return (Attachment) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
 }

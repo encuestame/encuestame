@@ -22,10 +22,11 @@ import org.springframework.test.context.ContextConfiguration;
  * @version Id:
  */
 @ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-email-context.xml",
-        "classpath:spring-test/encuestame-security-context.xml",
-        "classpath:spring-test/encuestame-service-context.xml",
-        "classpath:spring-test/encuestame-integration.xml"
+        "classpath:spring-test/encuestame-test-email-context.xml",
+        "classpath:spring-test/encuestame-test-security-context.xml",
+        "classpath:spring-test/encuestame-test-service-context.xml",
+        "classpath:spring-test/encuestame-test-integration.xml",
+        "classpath:spring-test/encuestame-test-search-context.xml"
          })
 public class AbstractServiceBase extends AbstractBaseUnitBeans{
 

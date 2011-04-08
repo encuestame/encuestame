@@ -12,17 +12,18 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.GlobalSearchItem;
-import org.encuestame.business.search.IndexerManager;
 import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.UnitAttachment;
 
 /**
  * Search Service Operations.
@@ -70,5 +71,20 @@ public interface SearchServiceOperations extends ServiceOperations {
      */
     List<GlobalSearchItem> globalKeywordSearch(final String keyword,
             final Integer start, final Integer limit);
+
+    /**
+     * Add Attachment Info.
+     * @param unitAttachment
+     * @throws EnMeExpcetion
+     */
+    void addAttachment(final UnitAttachment unitAttachment) throws EnMeExpcetion;
+
+    /**
+     * Index Attachment file.
+     * @param file
+     * @param attachmentId
+     * @return
+     */
+    String indexAttachment(final File file, final Long attachmentId);
 
 }
