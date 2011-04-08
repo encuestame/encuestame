@@ -26,7 +26,8 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:spring-test/encuestame-test-security-context.xml",
         "classpath:spring-test/encuestame-test-service-context.xml",
         "classpath:spring-test/encuestame-test-integration.xml",
-        "classpath:spring-test/encuestame-test-search-context.xml"
+        "classpath:spring-test/encuestame-test-search-context.xml",
+        "classpath:spring-test/encuestame-param-test-context.xml"
          })
 public class AbstractServiceBase extends AbstractBaseUnitBeans{
 

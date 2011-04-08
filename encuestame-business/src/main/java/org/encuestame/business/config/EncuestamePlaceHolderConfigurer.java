@@ -31,9 +31,11 @@ public class EncuestamePlaceHolderConfigurer extends PropertyPlaceholderConfigur
     /**
      * List of Properties.
      */
-    private static Map<String, String> propertiesMap;
+    private static Map<String, String> propertiesMap = new HashMap<String, String>();
 
-
+    /**
+     * Log.
+     */
     private static Log log = LogFactory.getLog(EncuestamePlaceHolderConfigurer.class);
 
     /**

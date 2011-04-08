@@ -120,6 +120,22 @@ public class AbstractSurveyService extends AbstractChartService {
     }
 
     /**
+     * Save Question Answer.
+     * @param answerBean answer
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    public void createQuestionAnswer(
+            final QuestionAnswerBean answerBean,
+            final Question question){
+        final QuestionAnswer answer = new QuestionAnswer();
+        answer.setQuestions(question);
+        answer.setAnswer(answerBean.getAnswers());
+        answer.setUniqueAnserHash(answerBean.getAnswerHash());
+        this.getQuestionDao().saveOrUpdate(answer);
+        answerBean.setAnswerId(answer.getQuestionAnswerId());
+    }
+
+    /**
      * Update Question Name.
      * @param questionId
      * @param questionName
@@ -219,22 +235,6 @@ public class AbstractSurveyService extends AbstractChartService {
         getHashTagDao().saveOrUpdate(tag);
         log.debug("Hash Tag Saved.");
         return tag;
-    }
-
-    /**
-     * Save Question Answer.
-     * @param answerBean answer
-     * @throws EnMeExpcetion EnMeExpcetion
-     */
-    public void createQuestionAnswer(
-            final QuestionAnswerBean answerBean,
-            final Question question){
-        final QuestionAnswer answer = new QuestionAnswer();
-        answer.setQuestions(question);
-        answer.setAnswer(answerBean.getAnswers());
-        answer.setUniqueAnserHash(answerBean.getAnswerHash());
-        this.getQuestionDao().saveOrUpdate(answer);
-        answerBean.setAnswerId(answer.getQuestionAnswerId());
     }
 
     /**
