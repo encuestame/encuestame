@@ -12,7 +12,7 @@ dojo.require('encuestame.org.core.commons');
 dojo.declare(
     "encuestame.org.core.shared.utils.Table",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/Table.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/Table.html"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -120,7 +120,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.shared.utils.TableRow",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/TableRow.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/TableRow.html"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,

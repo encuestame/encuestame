@@ -15,7 +15,7 @@ package org.encuestame.mvc.view;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class AdmonController extends BaseController {
+public class AdmonController extends AbstractBaseOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -39,19 +39,19 @@ public class AdmonController extends BaseController {
      * @param id id tweet
      * @return template
      */
-    @RequestMapping(value = "/admon/location.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/location", method = RequestMethod.GET)
     public String admonLocation(ModelMap model) {
         log.debug("LOCATION");
         return "location";
     }
 
-    @RequestMapping(value = "/admon/members.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
         log.debug("MEMGERS");
         return "members";
     }
 
-    @RequestMapping(value = "/admon/project.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
     public String admonProject(ModelMap model) {
         log.debug("PROJECT");
         return "project";

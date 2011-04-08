@@ -88,12 +88,23 @@ public class SearchUtils {
     public static Document createPdfDocument(final File file) throws Exception {
        InputStream is = new FileInputStream(file);
        COSDocument cosDoc = null;
-       cosDoc = parseDocument(is);
-       PDDocument pdDoc = new PDDocument(cosDoc);
        String docText = "";
-       PDFTextStripper stripper = new PDFTextStripper();
-       docText = stripper.getText(pdDoc);
-       log.debug("PDF Doc Text "+docText.length());
+       PDDocument pdDoc = null;
+       try {
+           cosDoc = parseDocument(is);
+           pdDoc = new PDDocument(cosDoc);
+           PDFTextStripper stripper = new PDFTextStripper();
+           docText = stripper.getText(pdDoc);
+           log.debug("PDF Doc Text "+docText.length());
+       }
+       finally {
+        if( pdDoc == null ) {
+            log.error("PdDocument is null");
+            }
+        else{
+            pdDoc.close();
+        }
+       }
        Document doc = new Document();
        if (StringUtils.isNotEmpty(docText)) {
            doc.add(new Field("content", docText, Field.Store.NO,

@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -52,14 +53,22 @@ public class QuickSearchJsonController extends AbstractJsonController {
         try {
             final List<GlobalSearchItem> results = new ArrayList<GlobalSearchItem>();
             keyword = filterValue(keyword);
+            //
+            final List<TypeSearchResult> typesEnabled = new ArrayList<TypeSearchResult>();
+            typesEnabled.add(TypeSearchResult.QUESTION);
+            typesEnabled.add(TypeSearchResult.ATTACHMENT);
+            typesEnabled.add(TypeSearchResult.HASHTAG);
+            typesEnabled.add(TypeSearchResult.POLL);
+            typesEnabled.add(TypeSearchResult.PROFILE);
+            typesEnabled.add(TypeSearchResult.TWEETPOLL);
             if (!keyword.isEmpty()) {
-                results.addAll(getSearchService()
-                        .quickSearch(keyword, "English", 0, LIMIT_RESULTS));
+                 setItemReadStoreResponse("itemSearchTitle", "id",getSearchService()
+                        .quickSearch(keyword, "English", 0, LIMIT_RESULTS, typesEnabled));
             } else {
                 log.debug("keyword is empty");
             }
             log.debug("GlobalSearchItem results " + results.size());
-            setItemReadStoreResponse("itemSearchTitle", "id", results);
+            //setItemReadStoreResponse("itemSearchTitle", "id", results);
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e);

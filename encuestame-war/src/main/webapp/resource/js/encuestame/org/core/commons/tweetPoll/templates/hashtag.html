@@ -1,7 +1,7 @@
 <div class="hashTagWrapper">
+    <div class="title">HashTags</div>
     <div>
-        <div id="hashTagSuggest_${id}" dojoType="encuestame.org.core.shared.utils.Suggest"
-        label="Add your HashTag"></div>
+        <div id="hashTagSuggest_${id}" dojoAttachPoint="_suggest"></div>
     </div>
     <div class="wrapperHashTagItems">
         <div dojoAttachPoint="_items"></div>

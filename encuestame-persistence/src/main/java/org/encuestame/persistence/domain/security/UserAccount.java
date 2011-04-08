@@ -32,6 +32,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.Project;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -49,6 +51,7 @@ import org.hibernate.search.annotations.Store;
        uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
   )
 @Indexed(index="UserAccount")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserAccount {
 
     private Long uid;
@@ -60,6 +63,7 @@ public class UserAccount {
     private String inviteCode;
     private Date enjoyDate;
     private Boolean userStatus;
+    @Deprecated
     private String userTwitterAccount;
     private Date lastTimeLogged;
     private String lastIpLogged;
@@ -247,7 +251,9 @@ public class UserAccount {
 
     /**
      * @return userTwitterAccount
+     * @deprecated twitter account should be on {@link SocialAccount}.
      */
+    @Deprecated
     @Column(name = "twitter", nullable = true)
     public String getUserTwitterAccount() {
         return this.userTwitterAccount;
@@ -389,5 +395,17 @@ public class UserAccount {
      */
     public void setSharedProfile(Boolean sharedProfile) {
         this.sharedProfile = sharedProfile;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "UserAccount [uid=" + uid + ", completeName=" + completeName
+                + ", userEmail=" + userEmail + ", lastTimeLogged="
+                + lastTimeLogged + ", lastIpLogged=" + lastIpLogged
+                + ", userProfilePicture=" + userProfilePicture + ", enabled="
+                + enabled + "]";
     }
  }

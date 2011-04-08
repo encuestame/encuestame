@@ -19,7 +19,9 @@ import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
@@ -58,7 +60,7 @@ import org.springframework.stereotype.Service;
  * @version $Id: DataSource.java 478 2010-04-07 03:39:10Z dianmorales $
  */
 @Service
-public abstract class AbstractDataSource{
+public abstract class AbstractDataSource extends AbstractSecurityContext{
 
     /** {@link GeoPoint}. */
     @Autowired
@@ -121,7 +123,8 @@ public abstract class AbstractDataSource{
      * @throws EnMeNoResultsFoundException exception
      */
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
-        final UserAccount userAccount = getAccountDao().getUserByUsername(username);
+        final UserAccount userAccount = getUserAccountLogged() == null
+              ? getAccountDao().getUserByUsername(username) : getUserAccountLogged();
         if(userAccount == null){
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
@@ -265,13 +268,14 @@ public abstract class AbstractDataSource{
     }
 
     /**
-     * Create HashTag.
+     * Create {@link HashTag}.
      * @param name tag name
      * @return {@link HashTag}.
      */
     public final HashTag createHashTag(final String name){
         final HashTag hashTag = new HashTag();
-        hashTag.setHashTag(name);
+        hashTag.setHashTag(ValidationUtils.removeNonAlphanumericCharacters(name));
+        hashTag.setHits(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }

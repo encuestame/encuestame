@@ -13,7 +13,7 @@ dojo.require("dojo.hash");
 dojo.declare(
     "encuestame.org.core.commons.social.SocialAccounts",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccounts.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccounts.html"),
 
         widgetsInTemplate: true,
 
@@ -31,7 +31,7 @@ dojo.declare(
 
             widgetsInTemplate: true,
 
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialButton.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialButton.html"),
 
             postCreate : function(){
                 var hash = dojo.queryToObject(dojo.hash());
@@ -123,7 +123,7 @@ dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountTwitterDetail",
         [encuestame.org.core.commons.social.SocialAccountDetail],{
 
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/twitterAccounts.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/twitterAccounts.html"),
 
             key : "twitter",
 
@@ -271,7 +271,7 @@ dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountRow",
         [dijit._Widget, dijit._Templated],{
 
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountRow.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountRow.html"),
 
             account : null,
 
@@ -377,7 +377,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountFacebookDetail",
         [encuestame.org.core.commons.social.SocialAccountDetail],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/facebookAccounts.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/facebookAccounts.html"),
 
             postCreate : function(){
                 this.inherited(arguments);
@@ -388,7 +388,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountLinkedInDetail",
         [encuestame.org.core.commons.social.SocialAccountDetail],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linkedInAccounts.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linkedInAccounts.html"),
 
             postCreate : function(){
                 this.inherited(arguments);
@@ -398,7 +398,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountGoogleBuzzDetail",
         [encuestame.org.core.commons.social.SocialAccountDetail],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/buzzAccounts.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/buzzAccounts.html"),
 
             postCreate : function(){
                 this.inherited(arguments);

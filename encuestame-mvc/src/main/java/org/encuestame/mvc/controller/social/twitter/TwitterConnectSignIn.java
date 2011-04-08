@@ -70,9 +70,9 @@ public class TwitterConnectSignIn extends AbstractSocialController {
     /**
      * Render the signin form for the service provider.
      */
-    @RequestMapping(value="/connect/twitter.jspx", method = RequestMethod.GET)
+    @RequestMapping(value="/connect/twitter", method = RequestMethod.GET)
     public String signinTwitterGet(){
-        String baseViewPath = "signin/twitter.jspx";
+        String baseViewPath = "signin/twitter";
         if (this.twitterServiceConnect.isConnected(1L)) {
             return baseViewPath + "Connected";
         } else {
@@ -86,7 +86,7 @@ public class TwitterConnectSignIn extends AbstractSocialController {
      * @throws EnMeNoResultsFoundException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value="/signin/twitter.jspx", method=RequestMethod.DELETE)
+    @RequestMapping(value="/signin/twitter", method=RequestMethod.DELETE)
     public String disconnect(@PathVariable String name) throws EnMeNoResultsFoundException {
         this.twitterServiceConnect.disconnect(getUserAccount().getUid());
         return "redirect:/signin/" + name;
@@ -98,7 +98,7 @@ public class TwitterConnectSignIn extends AbstractSocialController {
      * Fetches a new request token from the provider, temporarily stores it in the session,
      * then redirects the member to the provider's site for authorization.
      */
-    @RequestMapping(value="/signin/twitter.jspx", method = RequestMethod.POST)
+    @RequestMapping(value="/signin/twitter", method = RequestMethod.POST)
     public String signinTwitterPost(
             final WebRequest request,
             final HttpServletRequest request2,
@@ -107,7 +107,7 @@ public class TwitterConnectSignIn extends AbstractSocialController {
         log.debug("api key "+provider.getApiKey());
         //preConnect(provider, request);
         OAuthToken requestToken =
-                       provider.fetchNewRequestToken(getDomain(request2)+baseCallbackUrl + "twitter.jspx");
+                       provider.fetchNewRequestToken(getDomain(request2)+baseCallbackUrl + "twitter");
         log.debug("RequesToken "+requestToken.toString());
         request.setAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
         //stored in the session
@@ -121,7 +121,7 @@ public class TwitterConnectSignIn extends AbstractSocialController {
      * @param request
      * @return
      */
-    @RequestMapping(value="/signin/twitter.jspx", method = RequestMethod.GET, params = "oauth_token")
+    @RequestMapping(value="/signin/twitter", method = RequestMethod.GET, params = "oauth_token")
     public String authorizeCallback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value="oauth_verifier", defaultValue = "verifier")
@@ -162,7 +162,7 @@ public class TwitterConnectSignIn extends AbstractSocialController {
             }*/
         } else {
             log.error("Request token not found");
-            return "redirect:/signin/" + "twitter.jspx";
+            return "redirect:/signin/" + "twitter";
         }
         //postConnect(provider, 1, request);
         //FlashMap.setSuccessMessage("Your Greenhouse account is now connected to your " + provider.getDisplayName() + " account!");

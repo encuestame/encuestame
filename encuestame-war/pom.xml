@@ -39,7 +39,7 @@
                             </classpath>
                             <jvmarg value="-Xmx512M"/>
                             <arg value="build.js"/>
-                            <arg value="version=1.5.0"/>
+                            <arg value="version=1.6.0"/>
                             <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
                             <arg value="action=clean,release"/>
                             <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
@@ -49,7 +49,6 @@
                             <arg value="mini=true"/>
                           </java>
                           <delete includeEmptyDirs="true" verbose="true">
-                               <fileset dir="${basedir}/target/dojo-compiled/" includes="**/.svn" defaultexcludes="false"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
@@ -84,8 +83,6 @@
                     resource/js/dojo/**/*,
                     resource/js/dijit/**/*,
                     resource/js/dojox/**/*,
-                    resource/js/cometd.js,
-                    resource/js/chart.js,
                     resource/js/org/**/*,
                     **/*.properties,
                     **/*.class,
@@ -107,7 +104,7 @@
                 </webResources>
             </configuration>
             </plugin>-->
-        <!-- Development War Configuration - NOT Optimized-->
+        <!-- Development War Configuration - NOT Optimized -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
@@ -122,7 +119,7 @@
                     </manifestEntries>
                 </archive>
             </configuration>
-        </plugin> 
+        </plugin>
         <plugin>
            <groupId>org.mortbay.jetty</groupId>
            <artifactId>jetty-maven-plugin</artifactId>
@@ -348,10 +345,6 @@
             <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.tuckey</groupId>
-            <artifactId>urlrewritefilter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
@@ -381,7 +374,7 @@
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
+            <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate.java-persistence</groupId>
@@ -414,14 +407,6 @@
         <dependency>
             <groupId>net.tanesha.recaptcha4j</groupId>
             <artifactId>recaptcha4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springmodules</groupId>
-            <artifactId>spring-modules-cache</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -685,6 +670,10 @@
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-snowball</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.ehcache-spring-annotations</groupId>
+            <artifactId>ehcache-spring-annotations</artifactId>
         </dependency>
     </dependencies>
 

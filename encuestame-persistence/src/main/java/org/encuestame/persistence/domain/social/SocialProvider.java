@@ -46,15 +46,15 @@ public enum SocialProvider {
      * To String.
      */
     public String toString() {
-        String permission = "";
-        if (this == TWITTER) { permission = "TWITTER"; }
-        else if (this == FACEBOOK) { permission = "FACEBOOK"; }
-        else if (this == IDENTICA) { permission = "IDENTICA"; }
-        else if (this == TRIP_IT) { permission = "TRIP_IT"; }
-        else if (this == LINKEDIN) { permission = "LINKEDIN"; }
-        else if (this == BUZZ) { permission = "BUZZ"; }
-        else if (this == YAHOO) { permission = "YAHOO"; }
-        return permission;
+        String provider = "";
+        if (this == TWITTER) { provider = "TWITTER"; }
+        else if (this == FACEBOOK) { provider = "FACEBOOK"; }
+        else if (this == IDENTICA) { provider = "IDENTICA"; }
+        else if (this == TRIP_IT) { provider = "TRIP_IT"; }
+        else if (this == LINKEDIN) { provider = "LINKEDIN"; }
+        else if (this == BUZZ) { provider = "BUZZ"; }
+        else if (this == YAHOO) { provider = "YAHOO"; }
+        return provider;
     }
 
     /**

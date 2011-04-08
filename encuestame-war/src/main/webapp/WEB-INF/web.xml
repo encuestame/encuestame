@@ -41,54 +41,6 @@
         <filter-name>OpenSessionInViewFilter</filter-name>
         <filter-class>org.encuestame.persistence.filter.SessionFilter</filter-class>
     </filter>
-<!--    <filter>-->
-<!--        <filter-name>VerifyAuthenticationFilter</filter-name>-->
-<!--        <filter-class>org.encuestame.business.security.filter.VerifyAuthenticationFilter</filter-class>-->
-<!--    </filter>-->
-    <filter>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-        <!--
-            set the amount of seconds the conf file will be checked for reload
-            can be a valid integer (0 denotes check every time, empty/not set
-            denotes no reload check)
-        -->
-        <init-param>
-            <param-name>confReloadCheckInterval</param-name>
-            <param-value>1</param-value>
-        </init-param>
-        <init-param>
-            <param-name>confPath</param-name>
-            <param-value>/WEB-INF/urlrewrite.xml</param-value>
-        </init-param>
-        <!--
-            sets up log level (will be logged to context log) can be: TRACE,
-            DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons,
-            sysout:{level} (ie, sysout:DEBUG) if you are having trouble using
-            normal levels use sysout:DEBUG
-        -->
-        <init-param>
-            <param-name>logLevel</param-name>
-            <param-value>INFO</param-value>
-        </init-param>
-        <!--
-            you can disable status page if desired can be: true, false (default
-            true)
-        -->
-        <init-param>
-            <param-name>statusEnabled</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <!--
-            you can change status path so that it does not conflict with your
-            installed apps (note, defaults to /rewrite-status) note, must start
-            with /
-        -->
-        <init-param>
-            <param-name>statusPath</param-name>
-            <param-value>/status</param-value>
-        </init-param>
-    </filter>
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -105,7 +57,27 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
-        <url-pattern>*.jspx</url-pattern>
+        <url-pattern>/activity/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/admon/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/settings/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/search/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
    <!--  <filter-mapping>
@@ -123,18 +95,13 @@
         <filter-name>charEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
     <filter>
         <filter-name>cross-origin</filter-name>
         <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>cross-origin</filter-name>
-        <url-pattern>/cometd/*</url-pattern>
+        <url-pattern>/activity/*</url-pattern>
     </filter-mapping>
 
     <listener>
@@ -157,18 +124,19 @@
     <servlet>
        <servlet-name>Resource Servlet</servlet-name>
        <servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
-       <load-on-startup>0</load-on-startup>
+       <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
        <servlet-name>Resource Servlet</servlet-name>
-       <url-pattern>/resources/*</url-pattern>
+       <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
 
-    <!--
-        Serves static resource content from .jar files such as
-        spring-faces.jar
-    -->
     <servlet-mapping>
+        <servlet-name>encuestame-spring-dispacher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.jspx</url-pattern>
     </servlet-mapping>
@@ -207,7 +175,7 @@
     <servlet-mapping>
         <servlet-name>encuestame-spring-dispacher</servlet-name>
         <url-pattern>*.json</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
 
    <!-- Cometd Servlet -->
     <servlet>
@@ -216,11 +184,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>cometd</servlet-name>
-        <url-pattern>/cometd/*</url-pattern>
+        <url-pattern>/activity/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 
 </web-app>

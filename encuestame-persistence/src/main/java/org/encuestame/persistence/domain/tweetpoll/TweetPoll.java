@@ -23,6 +23,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -36,10 +37,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * TweetPoll Domain.
- *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since February 13, 2009
- * @version $Id$
  */
 
 @Entity
@@ -339,7 +338,10 @@ public class TweetPoll {
     /**
      * @return the hashTags
      */
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+    name = "tweetpoll_hashtags", joinColumns = {@JoinColumn(name = "tweetpoll_id")},
+                                 inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
     public Set<HashTag> getHashTags() {
         return hashTags;
     }

@@ -1,11 +1,8 @@
 package org.encuestame.core.security;
 
-public interface EnMeUserDetailsDataAccount {
+import org.encuestame.persistence.domain.security.UserAccount;
 
-    /**
-     * Twitter Account.
-     */
-    String getTwitterAccount();
+public interface EnMeUserDetailsDataAccount {
 
     /**
      * Get User Email.
@@ -17,5 +14,12 @@ public interface EnMeUserDetailsDataAccount {
      * Complete Name.
      */
     String getCompleteName();
+
+
+    /**
+     * Get {@link UserAccount}.
+     * @return
+     */
+    UserAccount getUserAccount();
 
 }

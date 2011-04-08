@@ -13,7 +13,7 @@ dojo.require("dijit._Widget");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.Answers",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answer.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answer.html"),
 
         widgetsInTemplate: true,
 
@@ -42,6 +42,15 @@ dojo.declare(
                  isSource : true
               });
              dojo.connect(this.answerSource, "onDrop", this, this.onDrop);
+        },
+
+        getAnswers : function(){
+            var array = [];
+             dojo.forEach(this.listItems,
+                   dojo.hitch(this,function(item) {
+                   array.push(item.answer);
+                   }));
+            return array;
         },
 
         onDrop : function(){
@@ -73,6 +82,7 @@ dojo.declare(
             this.answerSource.insertNodes(false, items);
             text.set('value', "");
             dojo.publish("/encuestame/tweetpoll/updatePreview");
+            dojo.publish("/encuestame/tweetpoll/autosave");
         },
 
         getDialog : function(){
@@ -101,7 +111,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.AnswerItem",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answerItem.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answerItem.html"),
 
         widgetsInTemplate: true,
 

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 import com.sun.syndication.feed.rss.Channel;
 
 import com.sun.syndication.feed.rss.Item;
@@ -53,9 +53,9 @@ public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
     @Override
     protected List<Item> buildFeedItems(Map<String, Object> model,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<UnitTweetPoll> contentList = (List<UnitTweetPoll>) model.get("tweetPolls");
+        List<TweetPollBean> contentList = (List<TweetPollBean>) model.get("tweetPolls");
         List<Item> entries = new ArrayList<Item>(contentList.size());
-        for (UnitTweetPoll content : contentList) {
+        for (TweetPollBean content : contentList) {
             final Item item = new Item();
             String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             item.setTitle(String.format("On %s, %s publish", date, content.getQuestionBean().getQuestionName()));

@@ -4,13 +4,13 @@
 <div id="publicLineHeader">
         <div class="logo">
             <a href="<%=request.getContextPath()%>">
-                <img alt="logo" src="<%=request.getContextPath()%>/resource/${logo}">
+                <img alt="logo" src="<%=request.getContextPath()%>/resources/${logo}">
             </a>
         </div>
         <div class="headerOptions">
             <c:if test="${!logged}">
                <span class="link">
-                   <a href="<%=request.getContextPath()%>/signin.jspx">Sign In</a>
+                   <a href="<%=request.getContextPath()%>/user/signin">Sign In</a>
                </span>
              </c:if>
              <c:if test="${logged}">
@@ -26,8 +26,8 @@
                      </span>
                  </span>
              </c:if>
-             <form method="get" action="<%=request.getContextPath()%>/search.jspx" style="float: right;margin: 4px 4px 3px 0;">
-                     <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
-             </form>
+             <span class="link">
+                   <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
+             </span>
         </div>
 </div>

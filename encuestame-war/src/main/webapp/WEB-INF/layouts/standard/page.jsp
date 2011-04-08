@@ -19,46 +19,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <meta name="description" content="encuestame survey system" />
     <meta name="keywords" content="survey, twitter, social, open source, etc, etc" />
-    <script type="text/javascript">
-        var config = {
-            contextPath: '<%=request.getContextPath()%>'
-        };
-        var cometd = dojox.cometd;
-
-        var contextPathRoot = '<%=request.getContextPath()%>';
-    </script>
-    <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
+         dojo.require("dojo.io.script");
          dojo.require("encuestame.org.core.commons.search.SearchMenu");
-         dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
          dojo.require("encuestame.org.core.commons.error.ErrorSessionHandler");
          dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
          dojo.require("encuestame.org.core.commons.error.ErrorHandler");
-         //cometd libs
-         dojo.require("dojox.cometd");
-         dojo.require("dojo.io.script");
-         dojo.require("dojox.cometd");
-         //dojo.require("dojox.cometd.callbackPollTransport");
+     <c:if test="${logged}">
+         dojo.require("encuestame.org.activity.Activity");
+         dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
+         dojo.require("encuestame.org.core.commons.notifications.Notification");
+         dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
+         encuestame.activity = new encuestame.org.activity.Activity(true);
+     </c:if>
 </script>
-<c:if test="${logged}">
-  <script type="text/javascript">
-             dojo.require("encuestame.org.core.commons.notifications.Notification");
-             dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
-  </script>
-</c:if>
-<script src="<%=request.getContextPath()%>/resource/js/cometd.js"></script>
 </head>
 <body class="claro">
      <div id="mainWrapper">
         <div id="header">
             <tiles:insertAttribute name="header" />
         </div>
-        <tiles:insertAttribute name="menu" ignore="true" />
         <div id="content-container">
-            <div id="content">
+            <div id="enme-content">
+                <tiles:insertAttribute name="menu" ignore="true" />
                 <tiles:insertAttribute name="content"/>
             </div>
             <div id="footer">

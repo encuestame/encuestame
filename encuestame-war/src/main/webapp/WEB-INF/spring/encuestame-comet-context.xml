@@ -9,4 +9,27 @@
     <!-- Commet @Components -->
     <context:component-scan base-package="org.encuestame.comet" />
 
+
+    <!-- <bean id="bayeux" class="org.cometd.server.BayeuxServerImpl" init-method="start" destroy-method="stop">
+        <property name="options">
+            <map>
+                <entry key="logLevel" value="3" />
+                <entry key="timeout" value="15000" />
+            </map>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+        <property name="attributes">
+            <map>
+                <entry key="org.cometd.bayeux">
+                    <ref local="bayeux" />
+                </entry>
+            </map>
+        </property>
+    </bean> -->
+
+
+
+
 </beans>

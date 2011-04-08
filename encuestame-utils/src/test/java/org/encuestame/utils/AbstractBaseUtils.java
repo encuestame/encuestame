@@ -2,7 +2,7 @@ package org.encuestame.utils;
 
 import java.util.Date;
 import java.util.List;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -86,15 +86,15 @@ public abstract class AbstractBaseUtils extends TestCase{
     * @param answers answers
     * @param answerHash answerHash
     * @param questionId questionId
-    * @return {@link UnitAnswersBean}
+    * @return {@link QuestionAnswerBean}
     */
 
-    public UnitAnswersBean createUnitAnswerBean(
+    public QuestionAnswerBean createUnitAnswerBean(
         final Long answerId,
         final String answers,
         final String answerHash,
         final Long questionId){
-        final UnitAnswersBean unitAnswerBean = new UnitAnswersBean();
+        final QuestionAnswerBean unitAnswerBean = new QuestionAnswerBean();
         unitAnswerBean.setAnswerHash(answerHash);
         unitAnswerBean.setAnswerId(answerId);
         unitAnswerBean.setAnswers(answers);

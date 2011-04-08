@@ -10,7 +10,7 @@ dojo.require("encuestame.org.core.shared.utils.Suggest");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTags",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.html"),
 
         widgetsInTemplate: true,
 
@@ -22,9 +22,17 @@ dojo.declare(
             this.suggestWidget = dijit.byId("hashTagSuggest_"+this.id);
             if(this.suggestWidget){
                 this.suggestWidget.processSelectedItem = dojo.hitch(this, function(data){
-                    console.info("Processing Item Selected ...", data);
+                    //console.info("Processing Item Selected ...", data);
                     this.addNewHashTag(data);
                 });
+            }
+            var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({});
+            var node = dojo.byId("hashTagSuggest_"+this.id);
+            //console.debug("create suggest", node);
+            if (this._suggest){
+               //console.debug("create suggest", hashTagWidget.domNode);
+               //console.debug("create suggest", hashTagWidget);
+               this._suggest.appendChild(hashTagWidget.domNode);
             }
         },
         //Add New Hash Tag.
@@ -37,6 +45,7 @@ dojo.declare(
         printHashTag : function(data){
             this.newHashTag(data);
         },
+
         //new Hash Tag.
         newHashTag : function(data){
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
@@ -47,6 +56,7 @@ dojo.declare(
             this.listItems.push(widget);
             this._items.appendChild(widget.domNode);
             dojo.publish("/encuestame/tweetpoll/updatePreview");
+            dojo.publish("/encuestame/tweetpoll/autosave");
         },
         //Get Dialog
         getDialog : function(){
@@ -74,7 +84,7 @@ dojo.declare(
         "encuestame.org.core.commons.tweetPoll.HashTagsItem",
         [dijit._Widget, dijit._Templated],{
         //template
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.html"),
         //widgets in template
         wigetsInTemplate: true,
          //data
@@ -92,3 +102,12 @@ dojo.declare(
             dialog.show();
         }
 });
+
+
+dojo.declare(
+    "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
+    [encuestame.org.core.shared.utils.Suggest],{
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html")
+
+});
+

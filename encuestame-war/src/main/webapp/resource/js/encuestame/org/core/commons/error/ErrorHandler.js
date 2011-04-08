@@ -11,7 +11,7 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.error", "template/error.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.error", "template/error.html"),
 
         type : "Error",
 

@@ -7,7 +7,7 @@ dojo.declare(
     "encuestame.org.core.commons.error.AbstractErrorHandler",
     [dijit._Widget, dijit._Templated],{
 
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.error", "template/error.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.error", "template/error.html"),
 
         widgetsInTemplate: true,
 

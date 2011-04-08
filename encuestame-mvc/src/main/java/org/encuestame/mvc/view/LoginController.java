@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Mar 6, 2010 10:58:02 AM
  */
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends AbstractBaseOperations{
 
     /**
      * Log.
@@ -30,7 +30,7 @@ public class LoginController extends BaseController{
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/signin.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/signin", method = RequestMethod.GET)
     public String signInController(
             final ModelMap model,
             HttpServletResponse response,
@@ -47,7 +47,7 @@ public class LoginController extends BaseController{
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/forgot.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/forgot", method = RequestMethod.GET)
     public String forgotPasswordController(final ModelMap model) {
         log.debug("forgot password");
         return "forgot";

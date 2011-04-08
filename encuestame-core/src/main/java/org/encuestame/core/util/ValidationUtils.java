@@ -14,6 +14,7 @@ package org.encuestame.core.util;
 
 /**
  * Validations Utils.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 13, 2010 7:06:15 PM
  * @version $Id: $
@@ -23,5 +24,17 @@ public final class ValidationUtils {
     public static final String EMAIL_REGEXP = "^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\\.-][a-z0-9]+)*)+\\.[a-z]{2,}$";
 
     public static final String NAME_PATTERN = "[A-Za-z0-9]*";
+
+    public static final String CHARACTERS_PATTERN = "[^a-zA-Z0-9]";
+
+    /**
+     * Remove non-alphanumeric characters.
+     * @param word
+     * @return
+     */
+    public static String removeNonAlphanumericCharacters(String word) {
+        word = word.replaceAll(ValidationUtils.CHARACTERS_PATTERN, "");
+        return word;
+    }
 
 }

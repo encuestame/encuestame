@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.rss.AbstractBaseAtomFeedView;
 import org.encuestame.core.util.FeedUtils;
-import org.encuestame.utils.web.UnitTweetPoll;
+import org.encuestame.utils.web.TweetPollBean;
 
 import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.atom.Feed;
@@ -55,9 +55,9 @@ public final class TweetPollAtomFeedView extends AbstractBaseAtomFeedView {
     @Override
     protected List<Entry> buildFeedEntries(Map<String, Object> model, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        List<UnitTweetPoll> contentList = (List<UnitTweetPoll>) model.get("tweetPolls");
+        List<TweetPollBean> contentList = (List<TweetPollBean>) model.get("tweetPolls");
         List<Entry> entries = new ArrayList<Entry>(contentList.size());
-        for (UnitTweetPoll content : contentList) {
+        for (TweetPollBean content : contentList) {
             final Entry entry = new Entry();
             String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             entry.setId(content.getQuestionBean().getQuestionName());

@@ -13,6 +13,9 @@
 
 package org.encuestame.persistence.domain.tweetpoll;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +25,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 
@@ -38,13 +43,35 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 @Table(name = "tweetpoll_switch")
 public class TweetPollSwitch {
 
+    /**
+     * Switch id.
+     */
     private Long switchId;
 
+    /**
+     * Code tweet.
+     */
     private String codeTweet;
 
+    /**
+     * {@link TweetPoll}.
+     */
     private TweetPoll tweetPoll;
 
+    /**
+     * {@link QuestionAnswer}.
+     */
     private QuestionAnswer answers;
+
+    /**
+     * Last date updated.
+     */
+    private Date dateUpdated = Calendar.getInstance().getTime();
+
+    /**
+     * Short URL.
+     */
+    private String shortUrl;
 
     /**
      * @return the switchId
@@ -113,5 +140,36 @@ public class TweetPollSwitch {
      */
     public void setAnswers(QuestionAnswer answers) {
         this.answers = answers;
+    }
+
+    /**
+     * @return the shortUrl
+     */
+    @Column(name = "short_url", nullable = true)
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    /**
+     * @param shortUrl the shortUrl to set
+     */
+    public void setShortUrl(final String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
+    /**
+     * @return the dateUpdated
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_date_updated", nullable = false)
+    public Date getDateUpdated() {
+        return dateUpdated;
+    }
+
+    /**
+     * @param dateUpdated the dateUpdated to set
+     */
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 }

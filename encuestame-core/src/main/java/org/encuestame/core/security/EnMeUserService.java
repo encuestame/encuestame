@@ -17,7 +17,6 @@ package org.encuestame.core.security;
  * Encuestame User Service.
  * @author Picado, Juan juan@encuestame.org
  * @since October 19, 2009
- * @version $Id$
  */
 public interface EnMeUserService {
 }

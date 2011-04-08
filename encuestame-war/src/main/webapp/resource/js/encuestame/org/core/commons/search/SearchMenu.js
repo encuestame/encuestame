@@ -12,7 +12,7 @@ dojo.declare(
       /*
        * template.
        */
-      templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchMenu.inc"),
+      templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchMenu.html"),
 
         /*
          * enable widget on template.
@@ -39,7 +39,7 @@ dojo.declare(
                   addButton : false,
                   hideLabel: true,
                   query :  {itemSearchTitle : "*"},
-                  templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/suggest.inc")});
+                  templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/suggest.html")});
             //override build row method.
             this.suggestWidget.buildRow = dojo.hitch(this, function(data){
                   console.info("suggest buildRow...", data);
@@ -80,7 +80,7 @@ dojo.declare(
         "encuestame.org.core.commons.search.SearchSuggestItem",
         [dijit._Widget, dijit._Templated],{
         //template
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItem.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItem.html"),
         //widgets in template
         wigetsInTemplate: true,
         //reference of suggest widget.

@@ -15,17 +15,15 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 
 /**
- * Unit Answers Bean.
- *
+ * Answer Bean.
  * @author Picado, Juan Carlos juanATencuestame.org
  * @since 01/06/2009 15:24:16
- * @version $Id$
  */
 
-public class UnitAnswersBean implements Serializable{
+public class QuestionAnswerBean implements Serializable{
 
     /**
-     *
+     * Serial.
      */
     private static final long serialVersionUID = 1914430351701434773L;
 
@@ -41,8 +39,26 @@ public class UnitAnswersBean implements Serializable{
     /** Url. **/
     private String url;
 
+    /** Short url. **/
+    private String shortUrl;
+
     /** Question Id. **/
     private	 Long questionId;
+
+    /**
+     * Constructor.
+     */
+    public QuestionAnswerBean() {
+    }
+
+    /**
+     * Constructor with answers.
+     * @param answers
+     */
+    public QuestionAnswerBean(final String answers) {
+        super();
+        this.answers = answers;
+    }
 
     /**
      * @return the answerId
@@ -116,5 +132,19 @@ public class UnitAnswersBean implements Serializable{
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * @return the shortUrl
+     */
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    /**
+     * @param shortUrl the shortUrl to set
+     */
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
     }
 }

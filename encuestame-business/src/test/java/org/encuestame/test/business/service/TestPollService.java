@@ -33,7 +33,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -209,9 +209,9 @@ public class TestPollService extends AbstractServiceBase{
     //@Test
     public void testUpdateQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the tooth are white";
-         final List<UnitAnswersBean> answers;
+         final List<QuestionAnswerBean> answers;
          final UnitPatternBean patternBean;
-         answers = new ArrayList<UnitAnswersBean>();
+         answers = new ArrayList<QuestionAnswerBean>();
          answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
          answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
          patternBean = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.html");
@@ -229,9 +229,9 @@ public class TestPollService extends AbstractServiceBase{
     //@ExpectedException(EnMeExpcetion.class)
     public void testUpdateNullQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the sea is blue";
-         final List<UnitAnswersBean> answers;
+         final List<QuestionAnswerBean> answers;
          final UnitPatternBean patternBean;
-         answers = new ArrayList<UnitAnswersBean>();
+         answers = new ArrayList<QuestionAnswerBean>();
          answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
          answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
          patternBean = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.html");

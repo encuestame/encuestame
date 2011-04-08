@@ -24,6 +24,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -37,6 +40,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "permission")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Permission {
 
     private Long idPermission;

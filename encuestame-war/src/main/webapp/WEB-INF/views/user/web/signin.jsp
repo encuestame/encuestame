@@ -2,7 +2,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<script src='http://connect.facebook.net/en_US/all.js'></script>
  <div id="loginWrapper">
        <div class="formWrapper">
            <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/j_spring_security_check"  method="post">
@@ -38,12 +37,13 @@
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
           <div class="twitter">
-              <form action="<%=request.getContextPath()%>/signin/twitter.jspx" method="POST">
+              <form action="<%=request.getContextPath()%>/signin/twitter" method="POST">
                   <button type="submit">
                       <img src="<c:url value="/resource/images/social/twitter/signin.png" />"
                   </button>
               </form>
           </div>
+          <script src='http://connect.facebook.net/en_US/all.js'></script>
           <div class="facebook">
                   <script>
                       function signInWithFacebook() {

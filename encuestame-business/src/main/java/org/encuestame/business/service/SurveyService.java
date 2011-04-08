@@ -32,7 +32,7 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitAnswersBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitFolder;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
@@ -53,8 +53,14 @@ import twitter4j.http.RequestToken;
 @Service
 public class SurveyService extends AbstractSurveyService implements ISurveyService {
 
+    /**
+     * Log.
+     */
     private Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * Random question key value.
+     */
     private static Integer RANDOM_QUESTION_KEY = 500;
 
     /**
@@ -65,18 +71,20 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
             final Question question = new Question();
             try{
-
                 question.setQuestion(questionBean.getQuestionName());
                 question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
-                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
-                question.setSharedQuestion(false);
+                //question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
+                question.setQidKey("xxxxxxxxxxxxxx");
+                question.setSharedQuestion(Boolean.TRUE);
+                question.setHits(0L);
+                question.setCreateDate(new Date());
                 //save question
                 getQuestionDao().saveOrUpdate(question);
                 //questionBean.setId(question.getQid());
-                for (final UnitAnswersBean answerBean : questionBean.getListAnswers()) {
-                    this.saveAnswer(answerBean, question);
+                //save answers.
+                for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
+                    this.createQuestionAnswer(answerBean, question);
                 }
-
             }
             catch (Exception e) {
                 log.error("Error Creating Question "+e.getMessage());
@@ -90,11 +98,12 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param answerBean answer
      * @param question question
      */
-    public void saveAnswer(final UnitAnswersBean answerBean, final Question question){
+    public void createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
             final QuestionAnswer answer = new QuestionAnswer();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
-            answer.setUrlAnswer(answerBean.getUrl());
+            answer.setUrlAnswer(answerBean.getShortUrl());
+            //TODO: and real url? /{type}/answer/{id}
             answer.setUniqueAnserHash(answerBean.getAnswerHash());
             this.getQuestionDao().saveOrUpdate(answer);
             answerBean.setAnswerId(answer.getQuestionAnswerId());
@@ -105,9 +114,9 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param questionId question Id
      * @return List of Answers
      */
-    public List<UnitAnswersBean> retrieveAnswerByQuestionId(final Long questionId){
+    public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId){
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
-        final List<UnitAnswersBean> answersBean = new ArrayList<UnitAnswersBean>();
+        final List<QuestionAnswerBean> answersBean = new ArrayList<QuestionAnswerBean>();
         for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
         }

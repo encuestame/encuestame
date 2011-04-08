@@ -14,7 +14,7 @@
 package org.encuestame.mvc.view;
 
 import org.apache.log4j.Logger;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version $Id:$
  */
 @Controller
-public class SurveyController  extends BaseController {
+public class SurveyController  extends AbstractBaseOperations {
 
     /**
      * Log.
@@ -39,7 +39,7 @@ public class SurveyController  extends BaseController {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/survey.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/survey", method = RequestMethod.GET)
     public String surveyController(final ModelMap model) {
         log.debug("survey");
         return "survey";

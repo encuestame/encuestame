@@ -20,7 +20,7 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 
 @Controller
-public class TweetPollController extends BaseController {
+public class TweetPollController extends AbstractBaseOperations {
 
     /**
      * Log.
@@ -56,7 +56,7 @@ public class TweetPollController extends BaseController {
      * @param id id tweet
      * @return template
      */
-    @RequestMapping(value = "/tweet/{tweetId}/vote.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/tweetpoll/vote/{tweetId}", method = RequestMethod.GET)
     public String tweetPollController(ModelMap model,
             @PathVariable String tweetId) {
         log.debug("tweetId: "+tweetId);
@@ -162,7 +162,7 @@ public class TweetPollController extends BaseController {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/tweetpoll.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(final ModelMap model) {
         log.debug("tweetpoll");
         return "tweetpoll";
@@ -173,7 +173,7 @@ public class TweetPollController extends BaseController {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/newTweetPoll.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
         log.debug("tweetpoll new");
         return "tweetpoll/new";

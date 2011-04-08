@@ -64,7 +64,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
         .getBooleanProperty("application.signup.enabled");
         if (privateHome) {
             log.debug("signup is disabled");
-            return "redirect:/signin.jspx";
+            return "redirect:/signin";
         } else {
             final SignUpBean user = new SignUpBean();
             final String captcha = getReCaptcha().createRecaptchaHtml(null, null);

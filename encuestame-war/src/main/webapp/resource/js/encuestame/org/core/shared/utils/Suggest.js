@@ -11,7 +11,7 @@ dojo.declare(
     "encuestame.org.core.shared.utils.Suggest",
     [dijit._Widget, dijit._Templated],{
 
-      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.inc"),
+      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.html"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
@@ -30,27 +30,41 @@ dojo.declare(
 
         addButton : true,
 
+        modeMultiSearch : false,
+
+        multiStores : [],
+
+        modeQuery : "get",
+
         limit : 10,
 
         label : "Label",
 
         query :  {hashTagName : "*"},
 
+        sortFields : [{attribute: 'hashTagName', descending: true}],
+
         searchParam: { limit : 10, keyword : ""},
 
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
             if(this.textBoxWidget){
+              //enable keyword events
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     this._setParams({limit:this.limit, keyword : this.textBoxWidget.get("value")});
-                    this.callSuggest();
+                    if (this.textBoxWidget.get("value") != "") {
+                        this.callSuggest();
+                    }
                 }));
+                //query read store.
                 this.store = new dojox.data.QueryReadStore({
                     url: this.url,
-                    sortFields : [{attribute: 'hashTagName', descending: true}],
-                    requestMethod : "get"}
+                    sortFields : this.sortFields,
+                    requestMethod : this.modeQuery}
                 );
+                //call first time suggest.
                 this.callSuggest();
+                //enable add button, if not the default add is click on item.
                 if(this.addButton){
                   //check if node exist.
                   if (this._suggestButton) {
@@ -63,7 +77,6 @@ dojo.declare(
                           })
                       },
                       this._suggestButton);
-                      console.debug(this.buttonWidget);
                   }
                 }
                 if (this.hideLabel) {
@@ -80,6 +93,9 @@ dojo.declare(
             this.searchParam = value;
         },
 
+        /*
+         * start suggestion call.
+         */
         callSuggest : function(){
             var fetch = {
                     query: this.query,
@@ -89,7 +105,6 @@ dojo.declare(
                     },
                     serverQuery: this.searchParam,
                     onComplete: dojo.hitch(this, function(result, dataObject){
-                        console.info("suggeest onComplete...", result);
                         this.evaluateItems(result);
                     }),
                     onError: function(errText){
@@ -99,9 +114,10 @@ dojo.declare(
             this.store.fetch(fetch);
         },
 
-        /** Evaluate Items. **/
+        /*
+         *  Evaluate Items.
+         */
         evaluateItems : function(data){
-            console.info("suggeest data.length...", data.length);
             if(data.length > 0){
                  dojo.empty(this._suggestItems);
                  var fadeArgs = {
@@ -136,7 +152,7 @@ dojo.declare(
          *  Build Row.
          */
         buildRow : function(data){
-          console.info("suggeest buildRow...", data);
+          //console.info("suggeest buildRow...", data);
             var widget = new encuestame.org.core.shared.utils.SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},
@@ -187,7 +203,7 @@ dojo.extend(dojox.data.QueryReadStore, {
 dojo.declare(
         "encuestame.org.core.shared.utils.SuggestItem",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggestItem.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggestItem.html"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,

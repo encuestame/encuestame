@@ -107,6 +107,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserAccountById(java.lang.Long)
      */
+    //@Cacheable(cacheName = "userAccountById")
     public UserAccount getUserAccountById(final Long userId){
             return (UserAccount) (getHibernateTemplate().get(UserAccount.class, userId));
     }
@@ -157,12 +158,13 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserByUsername(java.lang.String)
      */
+    //@Cacheable(cacheName = "userByUsername")
     public UserAccount getUserByUsername(final String username)throws HibernateException {
+        log.debug("getUserByUsername by :{"+username);
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));
         final UserAccount userAccount = (UserAccount) DataAccessUtils
                 .uniqueResult(getHibernateTemplate().findByCriteria(criteria));
-        log.debug("getUserByUsername: "+userAccount);
         return userAccount;
     }
 

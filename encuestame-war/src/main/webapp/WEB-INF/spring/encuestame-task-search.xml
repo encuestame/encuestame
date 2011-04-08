@@ -8,6 +8,20 @@
 
     <!-- Open and Close Lucene Index Directory to write and index information -->
     <beans:bean name="indexWriter" class="org.encuestame.business.search.IndexWriterManager" scope="prototype"/>
-    <beans:bean name="indexerManager" class="org.encuestame.business.search.IndexerManager" scope="prototype"> </beans:bean>
+    <beans:bean name="indexerManager" class="org.encuestame.business.search.IndexerManager" scope="prototype">
+        <!-- Extensions files allowed to index -->
+        <beans:property name="extensionFilesAllowed">
+            <beans:list>
+                <!-- Document word 2007 -->
+                <beans:value >docx</beans:value>
+                <!-- PDF Document -->
+                <beans:value>pdf</beans:value>
+                <!-- Spreadsheets Documents(Excel 2003) -->
+                <beans:value>xls</beans:value>
+                <!-- Text Document -->
+                <beans:value>txt</beans:value>
+            </beans:list>
+        </beans:property>
+     </beans:bean>
     <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton"></beans:bean>
 </beans:beans>

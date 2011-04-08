@@ -13,14 +13,15 @@
 package org.encuestame.business.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.GlobalSearchItem;
+import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -39,7 +40,11 @@ public class SearchService extends AbstractIndexService implements
      */
     private Log log = LogFactory.getLog(this.getClass());
 
-    public List<GlobalSearchItem> quickSearch(String keyword,
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SearchServiceOperations#quickSearch(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public Map<String, List<GlobalSearchItem>> quickSearch(String keyword,
             final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
@@ -52,41 +57,49 @@ public class SearchService extends AbstractIndexService implements
      * org.encuestame.business.service.imp.SearchServiceOperations#quickSearch
      * (java.lang.String, java.lang.String)
      */
-    public List<GlobalSearchItem> quickSearch(final String keyword,
-            String language, final Integer start, final Integer limit)
+    public Map<String, List<GlobalSearchItem>> quickSearch(
+            final String keyword,
+            String language,
+            final Integer start,
+            final Integer limit,
+            final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
-        HashSet<GlobalSearchItem> hashset = new java.util.HashSet<GlobalSearchItem>();
+        final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
 
+        if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
+            final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
+                    .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
+                            null));
+            log.debug("questionResult " + questionResult.size());
+            hashset.put("questions", questionResult);
+        }
 
-        final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
-                .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
-                        null));
-        final List<GlobalSearchItem> profiles = UtilConvertToSearchItems
-                .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
+        if (resultsAllowed.indexOf(TypeSearchResult.PROFILE) != -1) {
+            final List<GlobalSearchItem> profiles = UtilConvertToSearchItems
+                    .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
+            log.debug("profiles " + profiles.size());
+            hashset.put("profiles", profiles);
+        }
 
+        if (resultsAllowed.indexOf(TypeSearchResult.HASHTAG) != -1) {
+            final List<GlobalSearchItem> tags = UtilConvertToSearchItems
+            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
+            log.debug("tags " + tags.size());
+            hashset.put("tags", tags);
+        }
 
-        final List<GlobalSearchItem> tags = UtilConvertToSearchItems
-        .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
-
-        final List<GlobalSearchItem> attachments = UtilConvertToSearchItems
-                                    .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
-
-        log.debug("questionResult " + questionResult.size());
-        log.debug("profiles " + profiles.size());
-        log.debug("tags " + tags.size());
-        log.debug("attachments " + attachments.size());
-
-        hashset.addAll(questionResult);
-        hashset.addAll(profiles);
-        hashset.addAll(tags);
-        hashset.addAll(attachments);
-
-        List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
+        if (resultsAllowed.indexOf(TypeSearchResult.ATTACHMENT) != -1) {
+            final List<GlobalSearchItem> attachments = UtilConvertToSearchItems
+                                        .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
+            log.debug("attachments " + attachments.size());
+            hashset.put("attachments", attachments);
+        }
+       // List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
 
         //TODO: order by rated or something.
 
         //filter my limit
-        if (limit != null && start != null) {
+        /*if (limit != null && start != null) {
             log.debug("split to "+limit  + " starting on "+start + " to list with size "+totalItems.size());
             totalItems = totalItems.size() > limit ? totalItems
                     .subList(start, limit) : totalItems;
@@ -96,8 +109,8 @@ public class SearchService extends AbstractIndexService implements
         for (int i = 0; i < totalItems.size(); i++) {
             totalItems.get(i).setId(Long.valueOf(x));
             x++;
-        }
-        return totalItems;
+        }*/
+        return hashset;
     }
 
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,

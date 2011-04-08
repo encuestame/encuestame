@@ -15,7 +15,8 @@ package org.encuestame.mvc.view;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.BaseController;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * DashBoard Controller.
  * @author Picado, Juan juan@encuestame.org
  * @since Mar 6, 2010 10:58:02 AM
- * @version $Id: $
  */
 
 @Controller
-public class DashBoardController extends BaseController {
+public class DashBoardController extends AbstractBaseOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -38,8 +38,8 @@ public class DashBoardController extends BaseController {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/dashboard.jspx", method = RequestMethod.GET)
-    public String dashBoardController(ModelMap model) {
+    @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
+    public String dashBoardController(ModelMap model, UserAccount account) {
         log.debug("dashboard");
         return "dashboard";
     }

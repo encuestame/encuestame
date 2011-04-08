@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 dojo.provide("encuestame.org.core.admon.user.Users");
 
 dojo.require("dijit.Dialog");
@@ -19,7 +31,7 @@ dojo.declare(
     "encuestame.org.core.admon.user.Users",
     [encuestame.org.core.shared.utils.Table],{
 
-        templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/Users.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/Users.html"),
 
         widgetsInTemplate: true,
 
@@ -100,7 +112,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.admon.user.UserTableRow",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserTableRow.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserTableRow.html"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,
@@ -244,7 +256,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.admon.user.UserPermissions",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserPermissions.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserPermissions.html"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,
@@ -343,7 +355,7 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.admon.user.UserGroup",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserGroup.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserGroup.html"),
 
             /** Allow other widgets in the template. **/
             widgetsInTemplate: true,

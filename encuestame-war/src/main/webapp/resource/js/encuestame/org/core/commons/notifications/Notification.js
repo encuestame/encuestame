@@ -10,13 +10,19 @@ dojo.require('encuestame.org.core.commons');
 dojo.declare(
     "encuestame.org.core.commons.notifications.Notification",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notification.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notification.html"),
 
         widgetsInTemplate: true,
 
-        delay: 20000,
+        /*
+         * delay to retrieve new notification.
+         */
+        delay: config.notification.delay,
 
-        limit: 8,
+        /*
+         * limit of notifications.
+         */
+        limit: config.notification.limit,
 
         notifications : null,
 
@@ -30,12 +36,25 @@ dojo.declare(
 
         openNot : false,
 
+        /*
+         *
+         */
         postCreate: function() {
+            var subscriptionNotification;
             dojo.addOnLoad(dojo.hitch(this, function(){
                 this.loadStatus();
                 this.loadTimer();
-            }));
             dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
+            subscriptionNotification  = encuestame.activity.cometd.subscribe('/service/notification/status',
+                dojo.hitch(this, function(message) {
+                    this._updateStatus(message.data.totalNot, message.data.totalNot);
+              }));
+            }));
+            dojo.addOnUnload(function() {
+                if(subscriptionNotification != null){
+                    encuestame.activity.cometd.unsubscribe(subscriptionNotification);
+                }
+            });
         },
 
         /*
@@ -112,19 +131,13 @@ dojo.declare(
          * load notifications
          */
         loadStatus : function() {
-//            var load = dojo.hitch(this, function(data){
-//                var total = data.success.t;
-//                var totalNew = data.success.n;
-//                this.lastNew = totalNew;
-//                this._count.innerHTML = data.success.t;
-//            });
-//            var error =  dojo.hitch(this, function(error) {
-//                this.timer.stop();
-//            });
             // Publish on a service channel since the message is for
+            //console.debug("notification commet message OLD", message);
             // the server only
-            cometd.publish('/service/notification/status', {});
+              encuestame.activity.cometd.startBatch()
+            encuestame.activity.cometd.publish('/service/notification/status', {});
             //encuestame.service.xhrGet(encuestame.service.list.getStatusNotifications, {}, load, error);
+              encuestame.activity.cometd.endBatch()
         },
 
         // load notifications
@@ -185,14 +198,13 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.notifications.NotificationItem",
         [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notificationItem.inc"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notificationItem.html"),
 
             widgetsInTemplate: true,
 
             item : null,
 
             postCreate : function(){
-                console.debug("item", this.item);
             },
 
             /*
