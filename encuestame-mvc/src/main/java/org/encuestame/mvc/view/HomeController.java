@@ -41,7 +41,7 @@ public class HomeController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/home.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homeController(
             ModelMap model,
             HttpServletRequest request,
@@ -50,9 +50,18 @@ public class HomeController extends AbstractBaseOperations {
         log.debug("HOME");
         if (privateHome) {
             log.debug("signup is disabled");
-            return "redirect:/signin.jspx";
+            return "redirect:/user/signin";
         } else {
             return "home";
         }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(
+            ModelMap model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+            log.debug("INDEX INDEX INDEX INDEX INDEX INDEX");
+            return "redirect:/home";
     }
 }

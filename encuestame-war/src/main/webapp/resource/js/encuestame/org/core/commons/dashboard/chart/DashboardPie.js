@@ -16,7 +16,7 @@ dojo.require("dojox.charting.widget.Legend");
 dojo.declare(
     "encuestame.org.core.commons.dashboard.chart.DashboardPie",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardPie.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardPie.html"),
 
         widgetsInTemplate: true,
 

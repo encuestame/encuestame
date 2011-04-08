@@ -8,7 +8,7 @@ dojo.require('encuestame.org.core.commons');
 dojo.declare(
     "encuestame.org.core.shared.utils.YesNoWidget",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/yesno.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/yesno.html"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,

@@ -30,7 +30,7 @@ public class LoginController extends AbstractBaseOperations{
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/signin.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/signin", method = RequestMethod.GET)
     public String signInController(
             final ModelMap model,
             HttpServletResponse response,
@@ -47,7 +47,7 @@ public class LoginController extends AbstractBaseOperations{
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/forgot.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/forgot", method = RequestMethod.GET)
     public String forgotPasswordController(final ModelMap model) {
         log.debug("forgot password");
         return "forgot";

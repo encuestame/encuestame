@@ -4,7 +4,7 @@ dojo.declare(
     "encuestame.org.core.commons.dashboard.DashBoardMenu",
     [dijit._Widget, dijit._Templated],{
 
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/dashboardMenu.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/dashboardMenu.html"),
 
         widgetsInTemplate: true,
 

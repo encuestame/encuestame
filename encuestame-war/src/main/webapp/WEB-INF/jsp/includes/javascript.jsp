@@ -1,8 +1,11 @@
-<script src="<%=request.getContextPath()%>/resource/js/dojo/dojo.js"
+<script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"
         djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: false"></script>
-<script src="<%=request.getContextPath()%>/resource/js/dojo/encuestame-commons.js"></script>
-<style type="text/css">
-      @import "<%=request.getContextPath()%>/resource/js/dijit/themes/claro/claro.css";
-      @import "<%=request.getContextPath()%>/resource/js/dojox/form/resources/Rating.css";
-      @import "<%=request.getContextPath()%>/resource/js/dojo/resources/dojo.css"
-</style>
+<script type="text/javascript">
+        var config = {
+            contextPath: '<%=request.getContextPath()%>',
+            delay : 2000,
+            activity : { levelDebug :"info", maxConnections : 2, maxNetworkDelay : 50000},
+            notification : { delay : 60000, limit : 8}
+        };
+</script>
+<script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js"></script>

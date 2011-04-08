@@ -10,7 +10,7 @@ dojo.require("encuestame.org.core.shared.utils.Suggest");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTags",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.html"),
 
         widgetsInTemplate: true,
 
@@ -84,7 +84,7 @@ dojo.declare(
         "encuestame.org.core.commons.tweetPoll.HashTagsItem",
         [dijit._Widget, dijit._Templated],{
         //template
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.html"),
         //widgets in template
         wigetsInTemplate: true,
          //data
@@ -107,7 +107,7 @@ dojo.declare(
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
     [encuestame.org.core.shared.utils.Suggest],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.inc")
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html")
 
 });
 

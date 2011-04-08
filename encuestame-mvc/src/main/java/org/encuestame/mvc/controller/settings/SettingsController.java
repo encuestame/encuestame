@@ -38,7 +38,7 @@ public class SettingsController extends AbstractBaseOperations{
      * @param model
      * @return
      */
-    @RequestMapping(value = "/configuration.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/configuration", method = RequestMethod.GET)
     public String settingsAccountController(ModelMap model) {
         try {
             final ProfileUserAccount user = getProfileUserInfo();
@@ -55,7 +55,7 @@ public class SettingsController extends AbstractBaseOperations{
     * @param model
     * @return
     */
-   @RequestMapping(value = "/social.jspx", method = RequestMethod.GET)
+   @RequestMapping(value = "/social", method = RequestMethod.GET)
    public String socialSettingsController(ModelMap model) {
        log.debug("social");
        return "settings/social";

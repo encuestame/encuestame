@@ -12,8 +12,8 @@ import org.junit.Ignore;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.support.ConnectionRepository;
-import org.springframework.social.linkedin.connect.LinkedInServiceProvider;
+//import org.springframework.social.connect.support.ConnectionRepository;
+//import org.springframework.social.linkedin.connect.LinkedInServiceProvider;
 import org.springframework.social.oauth1.OAuth1Template;
 import org.springframework.social.oauth1.OAuthToken;
 import org.springframework.util.Assert;
@@ -52,14 +52,14 @@ public class SocialServiceTestCase extends AbstractBaseService{
         final String requestTokenUrl = "https://api.linkedin.com/uas/oauth/requestToken";
         final String authorizeUrl = "https://www.linkedin.com/uas/oauth/authorize?oauth_token={requestToken}";
         final String accessTokenUrl = "https://api.linkedin.com/uas/oauth/accessToken";
-        OAuth1Template tp =  new OAuth1Template(consumerKey, consumerSecret,
-                requestTokenUrl,
-                authorizeUrl,
-                accessTokenUrl);
-       OAuthToken requestToken = tp.fetchNewRequestToken("http://localhost:8080/encuestame/user/linkedIn");
-       System.out.println("********************************  OAuthToken * "+requestToken);
-       String url = tp.buildAuthorizeUrl(requestToken.getValue(), "http://localhost:8080/encuestame/user/linkedIn");
-       System.out.println("********URL "+url);
+        //OAuth1Template tp =  new OAuth1Template(consumerKey, consumerSecret,
+       //         requestTokenUrl,
+       //         authorizeUrl,
+       //         accessTokenUrl);
+      // OAuthToken requestToken = tp.fetchNewRequestToken("http://localhost:8080/encuestame/user/linkedIn");
+      // System.out.println("********************************  OAuthToken * "+requestToken);
+      // String url = tp.buildAuthorizeUrl(requestToken.getValue(), "http://localhost:8080/encuestame/user/linkedIn");
+      // System.out.println("********URL "+url);
         //request.setAttribute(OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
     }
 

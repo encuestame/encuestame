@@ -39,7 +39,7 @@ public class PollController  extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/poll.jspx", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/poll", method = RequestMethod.GET)
     public String pollController(final ModelMap model) {
         log.debug("poll");
         return "poll";

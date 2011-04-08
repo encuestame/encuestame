@@ -6,7 +6,7 @@ dojo.require("dijit._Widget");
 dojo.declare(
     "encuestame.org.core.commons.dashboard.chart.DashboardColumn2D",
     [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardColumn2D.inc"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardColumn2D.html"),
 
         widgetsInTemplate: true,
 

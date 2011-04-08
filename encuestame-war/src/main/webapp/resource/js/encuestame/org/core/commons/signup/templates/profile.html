@@ -3,13 +3,13 @@
         <tr>
             <td>
                 <div class="pictureWrapper" dojoAttachPoint="_pictureWrapper">
-                    <img src="${contextPath}/resource/images/default.png"/>
+                    <img src="${contextPath}/resources/images/default.png"/>
                 </div>
             </td>
             <td>
                 <div class="pictureProfileNew">
                 Choose one file from your computer (10 MB máx.):
-                <form method="post" action="/encuestame/user/file/upload/profile" enctype="multipart/form-data" id="imageForm">
+                <form method="post" action="${contextPath}/user/file/upload/profile" enctype="multipart/form-data" id="imageForm">
                       <input type="file" class="file" onkeydown="javascript:return false;" dojoAttachEvent="onchange:_uploadImage"/>
                 </form>
                 </div>
