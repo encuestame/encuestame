@@ -30,7 +30,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
@@ -169,7 +169,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
+    FolderBean createTweetPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Update TweetPoll Folder.
@@ -179,7 +179,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    UnitFolder updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException;
+    FolderBean updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Delete TweetPoll Folder.

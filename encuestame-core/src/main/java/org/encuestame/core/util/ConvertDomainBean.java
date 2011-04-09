@@ -46,7 +46,7 @@ import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
@@ -605,12 +605,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert Folder to {@link UnitFolder}.
+     * Convert Folder to {@link FolderBean}.
      * @param folder
      * @return
      */
-    public static final UnitFolder convertFolderToBeanFolder(final IFolder folder){
-        final UnitFolder unitFolder = new UnitFolder();
+    public static final FolderBean convertFolderToBeanFolder(final IFolder folder){
+        final FolderBean unitFolder = new FolderBean();
         unitFolder.setCreateAt(folder.getCreatedAt());
         unitFolder.setFolderName(folder.getFolderName());
         unitFolder.setId(folder.getId());
@@ -618,12 +618,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert List of {@link IFolder} to {@link UnitFolder}.
+     * Convert List of {@link IFolder} to {@link FolderBean}.
      * @param folders List of Folders.
      * @return
      */
-    public static final List<UnitFolder> convertListToUniUnitFolder(final List<IFolder> folders){
-        final List<UnitFolder> folderList = new LinkedList<UnitFolder>();
+    public static final List<FolderBean> convertListToUniUnitFolder(final List<IFolder> folders){
+        final List<FolderBean> folderList = new LinkedList<FolderBean>();
             for (IFolder folder : folders) {
                 folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
             }

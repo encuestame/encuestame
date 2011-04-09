@@ -33,7 +33,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSurvey;
@@ -325,7 +325,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public UnitFolder createSurveyFolder(final String folderName, final String username)
+    public FolderBean createSurveyFolder(final String folderName, final String username)
             throws EnMeNoResultsFoundException{
         final SurveyFolder surveyFolderDomain = new SurveyFolder();
         surveyFolderDomain.setUsers(getUserAccount(username).getAccount());
@@ -343,7 +343,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public UnitFolder updateSurveyFolder(final Long folderId, final String folderName, final String username)
+    public FolderBean updateSurveyFolder(final Long folderId, final String folderName, final String username)
                 throws EnMeNoResultsFoundException{
         final SurveyFolder surveyPollFolder = this.getSurveyFolder(folderId);
         if(surveyPollFolder == null) {

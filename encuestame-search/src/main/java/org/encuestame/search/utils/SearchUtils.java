@@ -28,7 +28,6 @@ import org.apache.lucene.document.Field;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -48,6 +47,15 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  * @since Mar 23, 2011
  */
 public class SearchUtils {
+
+    /****/
+    protected static final String CONTENT = "content";
+
+    /****/
+    protected static final String FULLPATH = "fullpath";
+
+    /****/
+    protected static final String FILENAME = "filename";
 
     /**
     * Log
@@ -79,9 +87,32 @@ public class SearchUtils {
        return parser.getDocument();
    }
 
+    /**
+     * Add Lucene Document fields.
+     * @param file
+     * @param docText
+     * @return
+     * @throws IOException
+     */
+    public static Document addFields(final File file, final String docText) throws IOException{
+        final String fullpath = file.getCanonicalPath();
+        final String filename = file.getName();
+        final Document doc = new Document();
+        if (StringUtils.isNotEmpty(docText)) {
+            doc.add(new Field(CONTENT, docText, Field.Store.NO,
+                    Field.Index.ANALYZED));
+            doc.add(new Field(FULLPATH, fullpath,
+                    Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.add(new Field(FILENAME, filename, Field.Store.YES,
+                    Field.Index.NOT_ANALYZED));
+        }
+        return doc;
+    }
+
    /**
     * Create PDF Document.
     * @param file {@link File}
+    * @param Long attachmentId.
     * @return {@link Document}
     * @throws Exception
     */
@@ -98,51 +129,20 @@ public class SearchUtils {
            log.debug("PDF Doc Text "+docText.length());
        }
        finally {
-        if( pdDoc == null ) {
-            log.error("PdDocument is null");
+            if( pdDoc == null ) {
+                log.error("PdDocument is null");
+            } else {
+                pdDoc.close();
             }
-        else{
-            pdDoc.close();
-        }
        }
-       Document doc = new Document();
-       if (StringUtils.isNotEmpty(docText)) {
-           doc.add(new Field("content", docText, Field.Store.NO,
-                   Field.Index.ANALYZED));
-           doc.add(new Field("fullpath", file.getCanonicalPath(),
-                   Field.Store.YES, Field.Index.NOT_ANALYZED)); // Index Full
-                                                                   // Path.
-           doc.add(new Field("filename", file.getName(), Field.Store.YES,
-                   Field.Index.NOT_ANALYZED));
-       }
-       // extract PDF document's meta-data
-       PDDocumentInformation docInfo = pdDoc.getDocumentInformation();
-       String author = docInfo.getAuthor();
-       String title = docInfo.getTitle();
-       String keywords = docInfo.getKeywords();
-       String summary = docInfo.getSubject();
-       if (StringUtils.isNotEmpty(author)) {
-           doc.add(new Field("author", author, Field.Store.YES,
-                   Field.Index.NOT_ANALYZED));
-       }
-       if (StringUtils.isNotEmpty(title)) {
-           doc.add(new Field("title", title, Field.Store.YES,
-                   Field.Index.ANALYZED));
-       }
-       if (StringUtils.isNotEmpty(keywords)) {
-           doc.add(new Field("keywords", keywords, Field.Store.YES,
-                   Field.Index.ANALYZED));
-       }
-       if (StringUtils.isNotEmpty(summary)) {
-           doc.add(new Field("summary", summary, Field.Store.YES,
-                   Field.Index.ANALYZED));
-       }
+       final Document doc = SearchUtils.addFields(file, docText);
        return doc;
    }
 
     /**
     * Create Document Word.
     * @param file {@link File}
+    * @param Long attachmentId.
     * @return {@link Document}
     * @throws POIXMLException
     * @throws Exception
@@ -151,7 +151,6 @@ public class SearchUtils {
            Exception {
        InputStream is = new FileInputStream(file);
        String bodyText = null;
-       StringBuilder content = new StringBuilder();
        try {
            XWPFDocument wd = new XWPFDocument(is);
            XWPFWordExtractor wde = new XWPFWordExtractor(wd);
@@ -159,26 +158,18 @@ public class SearchUtils {
        } catch (Exception e) {
            e.printStackTrace();
        }
-       Document doc = new Document();
-       if (!bodyText.equals("") && bodyText != null) {
-           doc.add(new Field("content", bodyText, Field.Store.NO,
-                   Field.Index.ANALYZED));
-           doc.add(new Field("filename", file.getName(), Field.Store.NO,
-                   Field.Index.ANALYZED));
-           doc.add(new Field("fullpath", file.getCanonicalPath(), Field.Store.NO,
-                   Field.Index.ANALYZED));
-       }
+       Document doc = SearchUtils.addFields(file, bodyText);
        return doc;
    }
 
     /**
     * Create Spreadsheets Document.
     * @param file Spreadsheet {@link File}.
+    * @param Long attachmentId.
     * @return {@link Document}
     * @throws FileNotFoundException
     */
     public static Document createSpreadsheetsDocument(final File file) throws Exception {
-       log.debug("FileName Excel: " + file.getName());
        InputStream is = new FileInputStream(file);
        StringBuilder contents = new StringBuilder();
        POIFSFileSystem fileSystem = new POIFSFileSystem(is);
@@ -222,29 +213,20 @@ public class SearchUtils {
                }
            }
        }
-       Document doc = new Document();
-       doc.add(new Field("content", contents.toString(), Field.Store.YES,
-               Field.Index.ANALYZED));
-       log.debug("Content Spreadsheets " + contents.toString());
+       Document doc = SearchUtils.addFields(file, contents.toString());
        return doc;
    }
 
     /**
     * Create Text Document.
     * @param file Text File.
+    * @param Long attachmentId.
     * @return {@link Document}
     * @throws Exception
     */
     public static Document createTextDocument(final File file) throws Exception {
-       Document doc = new Document();
-       //Index file contents
-       doc.add(new Field("contents", new FileReader(file)));
-       // Index File Name.
-       doc.add(new Field("filename", file.getName(), Field.Store.YES,
-               Field.Index.NOT_ANALYZED));
-       // Index Full Path.
-       doc.add(new Field("fullpath", file.getCanonicalPath(), Field.Store.YES,
-               Field.Index.NOT_ANALYZED));
-       return doc;
+        final String docText = new FileReader(file).toString();
+        final Document doc = SearchUtils.addFields(file, docText);
+        return doc;
    }
 }

@@ -61,7 +61,7 @@ public class UnitProjectBean implements Serializable {
      * @param id
      *            the id to set
      */
-    public final void setId(Long id) {
+    public final void setId(final Long id) {
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class UnitProjectBean implements Serializable {
      * @param name
      *            the name to set
      */
-    public final void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
@@ -91,7 +91,7 @@ public class UnitProjectBean implements Serializable {
      * @param dateInit
      *            the dateInit to set
      */
-    public final void setDateInit(Date dateInit) {
+    public final void setDateInit(final Date dateInit) {
         this.dateInit = dateInit;
     }
 
@@ -106,7 +106,7 @@ public class UnitProjectBean implements Serializable {
      * @param dateFinish
      *            the dateFinish to set
      */
-    public final void setDateFinish(Date dateFinish) {
+    public final void setDateFinish(final Date dateFinish) {
         this.dateFinish = dateFinish;
     }
 
@@ -121,7 +121,7 @@ public class UnitProjectBean implements Serializable {
      * @param state
      *            the state to set
      */
-    public final void setState(String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 
@@ -136,7 +136,7 @@ public class UnitProjectBean implements Serializable {
      * @param description
      *            the description to set
      */
-    public final void setDescription(String description) {
+    public final void setDescription(final String description) {
         this.description = description;
     }
 
@@ -234,7 +234,7 @@ public class UnitProjectBean implements Serializable {
     /**
      * @param projectInfo the projectInfo to set
      */
-    public void setProjectInfo(String projectInfo) {
+    public void setProjectInfo(final String projectInfo) {
         this.projectInfo = projectInfo;
     }
 
@@ -248,7 +248,7 @@ public class UnitProjectBean implements Serializable {
     /**
      * @param published the published to set
      */
-    public void setPublished(Boolean published) {
+    public void setPublished(final Boolean published) {
         this.published = published;
     }
 
@@ -262,7 +262,7 @@ public class UnitProjectBean implements Serializable {
     /**
      * @param formatedDateInit the formatedDateInit to set
      */
-    public void setFormatedDateInit(String formatedDateInit) {
+    public void setFormatedDateInit(final String formatedDateInit) {
         this.formatedDateInit = formatedDateInit;
     }
 
@@ -276,7 +276,7 @@ public class UnitProjectBean implements Serializable {
     /**
      * @param formatedDateFinish the formatedDateFinish to set
      */
-    public void setFormatedDateFinish(String formatedDateFinish) {
+    public void setFormatedDateFinish(final String formatedDateFinish) {
         this.formatedDateFinish = formatedDateFinish;
     }
 

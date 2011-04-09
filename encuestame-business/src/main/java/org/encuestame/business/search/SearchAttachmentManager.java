@@ -31,6 +31,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.encuestame.business.service.imp.DirectoryIndexStore;
 import org.encuestame.business.setup.DirectorySetupOperations;
 import org.encuestame.search.SearchManagerOperation;
 
@@ -54,6 +55,9 @@ public class SearchAttachmentManager implements SearchManagerOperation {
     /** Index Directory **/
     private Directory directory;
 
+    /** {@link DirectoryIndexStore}**/
+    private DirectoryIndexStore directoryIndexStore;
+
     /** Index Searcher **/
     private IndexSearcher indexSearcher;
 
@@ -70,7 +74,7 @@ public class SearchAttachmentManager implements SearchManagerOperation {
     */
     private void startIndexSearcher() throws IOException {
         // Open Index Directory to Search.
-        this.directory = FSDirectory.open(new File(this.directoryIndex));
+        this.directory = getDirectoryIndexStore().getDirectory();
         this.indexSearcher = new IndexSearcher(this.directory, true);
     }
 
@@ -118,4 +122,20 @@ public class SearchAttachmentManager implements SearchManagerOperation {
         indexSearch().close();
         return results;
     }
+
+    /**
+    * @return the directoryIndexStore
+    */
+    public DirectoryIndexStore getDirectoryIndexStore() {
+        return directoryIndexStore;
+    }
+
+    /**
+    * @param directoryIndexStore the directoryIndexStore to set
+    */
+    public void setDirectoryIndexStore(DirectoryIndexStore directoryIndexStore) {
+        this.directoryIndexStore = directoryIndexStore;
+    }
+
+
 }
