@@ -4,6 +4,7 @@ dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
 dojo.require("encuestame.org.core.commons.error.ErrorHandler");
 dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 dojo.require("dijit.Dialog");
+dojo.require("dojo.cookie");
 
 encuestame.activity = {};
 encuestame.service = {};
@@ -253,6 +254,49 @@ encuestame.session.getSession = function(){
     }
 };
 
+encuestame.session.activity = {};
+
+encuestame.session.activity.name = "enme-ac";
+encuestame.session.activity.notification = {t:0,n:0};
+
+/*
+ * Return activity cookie.
+ */
+encuestame.session.activity.cookie = function(){
+    var sessionCookie = dojo.cookie(encuestame.session.activity.name);
+    if(!sessionCookie) {
+        //new cookie.
+        encuestame.session.update(encuestame.session.activity.name,
+                encuestame.session.activity.notification);
+        sessionCookie = dojo.cookie(encuestame.session.activity.name);
+    }
+    return dojo.fromJson(sessionCookie);
+};
+
+/*
+ * Update notification cookie info.
+ */
+encuestame.session.activity.updateNot = function(t,n){
+    var cokienotification = encuestame.session.activity.cookie();
+    if (cokienotification) {
+        cokienotification.t = t;
+        cokienotification.n = n;
+        encuestame.session.update(encuestame.session.activity.name, cokienotification);
+    }
+};
+
+/*
+ *  Creates the cookie with default values.
+ */
+encuestame.session.update = function(name, data){
+    dojo.cookie(
+        name,
+        dojo.toJson(data),
+        {path:'/'}
+    );
+};
+
+
 /**
  * Json Get Call.
  */
@@ -298,9 +342,8 @@ encuestame.contextWidget = function(){
 
 encuestame.service.list = {};
 encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";
-encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications.json";
-encuestame.service.list.getStatusNotifications = encuestame.contextWidget()+"/api/status-notifications.json";
-encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/change-status-notifications.json";
+encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications/list.json";
+encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/notifications/readed.json";
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
 encuestame.service.list.createUser = encuestame.contextWidget()+"/api/admon/create-user.json";
