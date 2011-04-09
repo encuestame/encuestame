@@ -51,6 +51,7 @@ public class SearchService extends AbstractIndexService implements
 
     @Autowired
     private IndexWriterManager indexWriter; //TODO:ENCUESTAME-154
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SearchServiceOperations#quickSearch(java.lang.String, java.lang.Integer, java.lang.Integer)
