@@ -266,10 +266,8 @@ encuestame.session.activity.cookie = function(){
     var sessionCookie = dojo.cookie(encuestame.session.activity.name);
     if(!sessionCookie) {
         //new cookie.
-        console.debug("sessionCookie", "NEW");
         encuestame.session.update(encuestame.session.activity.name,
                 encuestame.session.activity.notification);
-        console.debug("sessionCookie", "CREATED");
         sessionCookie = dojo.cookie(encuestame.session.activity.name);
     }
     return dojo.fromJson(sessionCookie);
@@ -291,7 +289,6 @@ encuestame.session.activity.updateNot = function(t,n){
  *  Creates the cookie with default values.
  */
 encuestame.session.update = function(name, data){
-    console.debug(name, data);
     dojo.cookie(
         name,
         dojo.toJson(data),

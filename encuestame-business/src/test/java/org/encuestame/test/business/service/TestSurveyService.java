@@ -168,7 +168,7 @@ public class TestSurveyService  extends AbstractServiceBase{
      */
     @Test(expected = OutOfMemoryError.class)
     public void testCreateQuestionException() throws EnMeExpcetion {
-        this.surveyService.setRandomQuestionKey(600000000);
+        this.surveyService.setRandomQuestionKey(60);
         this.surveyService.createQuestion(this.questionBean);
         assertNotNull(questionBean);
     }
