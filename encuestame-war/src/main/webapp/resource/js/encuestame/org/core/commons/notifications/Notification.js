@@ -30,7 +30,7 @@ dojo.declare(
 
         timer: null,
 
-        _updateNotifications : false,
+        _updateNotifications : true,
 
         openNot : false,
 
@@ -45,7 +45,7 @@ dojo.declare(
             dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
             subscriptionNotification  = encuestame.activity.cometd.subscribe('/service/notification/status',
                 dojo.hitch(this, function(message) {
-                    this._updateStatus(message.data.totalNot, message.data.totalNot);
+                    this._updateStatus(message.data.totalNewNot, message.data.totalNot);
               }));
             }));
             dojo.addOnUnload(function() {
@@ -74,7 +74,6 @@ dojo.declare(
          */
         open: function(event){
             dojo.stopEvent(event);
-            console.debug("this._updateNotifications OPEN", this._updateNotifications);
             if(!this.openNot){
                 dojo.addClass(this._panel, "openLivePanel");
                 if(this._updateNotifications){
@@ -99,20 +98,21 @@ dojo.declare(
          * @param totalNew
          * @param lastNew
          */
-        _updateStatus : function(totalNew, lastNew){
-            if (totalNew >= encuestame.session.activity.cookie().t) {
-               //highlight new notifications.
-                this._displayNewHighlight();
+        _updateStatus : function(totalNew, total){
+            console.debug(totalNew, encuestame.session.activity.cookie().t);
+            if (totalNew < encuestame.session.activity.cookie().n
+                || totalNew == encuestame.session.activity.cookie().n) {
+                //highlight new notifications.
                 this._updateNotifications = true;
+                this._displayNewHighlight();
             } else {
                 this._hideNewHighlight();
                 this._updateNotifications = false;
             }
             //update cookie
-            encuestame.session.activity.updateNot(totalNew, lastNew);
+            encuestame.session.activity.updateNot(total, totalNew);
             this.totalNot = totalNew;
             this._count.innerHTML = this.totalNot;
-            console.debug("this._updateNotifications", this._updateNotifications);
         },
 
         /*
@@ -130,12 +130,14 @@ dojo.declare(
          * load notifications
          */
         loadStatus : function() {
-            encuestame.activity.cometd.startBatch()
+            encuestame.activity.cometd.startBatch();
             encuestame.activity.cometd.publish('/service/notification/status', {});
-            encuestame.activity.cometd.endBatch()
+            encuestame.activity.cometd.endBatch();
         },
 
-        // load notifications
+        /*
+         * load notifications.
+         */
         loadNotifications : function() {
             var load = dojo.hitch(this, function(data){
                 this.notifications = data.success.notifications;
@@ -145,9 +147,13 @@ dojo.declare(
             var error =  dojo.hitch(this, function(error) {
                 this.timer.stop();
             });
+            dojo.empty(this._not);
             encuestame.service.xhrGet(encuestame.service.list.getNotifications, {limit:this.limit}, load, error);
         },
 
+        /*
+         * build notifications node.
+         */
         buildNotifications : function(){
              dojo.empty(this._not);
              dojo.forEach(this.notifications,
@@ -156,8 +162,10 @@ dojo.declare(
               }));
         },
 
+        /*
+         * clean nodes.
+         */
         cleanNodeName : function(){
-             console.debug("cleanNodeName");
              var name = dojo.byId(this.nodeName);
              if(name != null){
                 name.innerHTML = '';
@@ -200,17 +208,18 @@ dojo.declare(
 
             item : null,
 
+            clickItem : null,
+
             postCreate : function(){
-                dojo.connect(this.domNode, "onclick", dojo.hitch(this, function(e) {
-                    console.debug("not click", this.item);
+                this.clickItem = dojo.connect(this.domNode, "onclick", dojo.hitch(this, function(e) {
                     this._markAsReaded();
                }));
             },
 
             _markAsReaded : function(){
                  var load = dojo.hitch(this, function(data){
-                     console.debug("not "+this.item.id+" mark as readed");
                      encuestame.activity.cometd.publish('/service/notification/status', {});
+                     dojo.disconnect(this.clickItem);
                  });
                  var error =  dojo.hitch(this, function(error) {
                  });

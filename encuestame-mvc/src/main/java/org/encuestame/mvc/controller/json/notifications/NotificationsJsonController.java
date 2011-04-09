@@ -129,7 +129,7 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Notification notification = getNotificationDao().retrieveNotificationById(id);
             if (notification == null) {
-                setError("operation not valid", response);
+                setError("nothing to do", response);
             } else {
                 notification.setReaded(notification.getReaded() == null ? true : !notification.getReaded());
                 getNotificationDao().saveOrUpdate(notification);
