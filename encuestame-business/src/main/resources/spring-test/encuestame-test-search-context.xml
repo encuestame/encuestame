@@ -6,8 +6,15 @@
     xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+
+    <!--
+        Index directory description.
+     -->
+    <beans:bean id="indexRamDirectory" class="org.encuestame.business.search.IndexRAMDirectory" scope="singleton"/>
     <!-- Open and Close Lucene Index Directory to write and index information -->
-    <beans:bean name="indexWriter" class="org.encuestame.business.search.IndexWriterManager" scope="prototype"/>
+    <beans:bean name="indexWriter" class="org.encuestame.business.search.IndexWriterManager" scope="prototype">
+           <beans:property name="directoryStore" ref="indexRamDirectory"></beans:property>
+    </beans:bean>
     <beans:bean name="indexerManager" class="org.encuestame.business.search.IndexerManager" scope="prototype">
         <!-- Extensions files allowed to index -->
         <beans:property name="extensionFilesAllowed">
@@ -23,5 +30,7 @@
             </beans:list>
         </beans:property>
      </beans:bean>
-    <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton"></beans:bean>
+    <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton">
+        <beans:property name="directoryIndexStore" ref="indexRamDirectory"></beans:property>
+    </beans:bean>
 </beans:beans>

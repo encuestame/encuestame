@@ -12,21 +12,21 @@
  */
 package org.encuestame.business.search;
 
-import java.io.File;
 import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
+import org.encuestame.business.service.imp.DirectoryIndexStore;
 import org.encuestame.business.service.imp.IIndexWriter;
-import org.encuestame.business.setup.DirectorySetupOperations;
 
 /**
  * Index Writer Manager.
@@ -45,6 +45,12 @@ public class IndexWriterManager implements IIndexWriter {
     */
     private IndexWriter indexWriter;
 
+
+    /**
+     * {@link DirectoryIndexStore}.
+     */
+    private DirectoryIndexStore directoryStore;
+
     /**
      * Checking index directory is open to write.
      */
@@ -59,9 +65,7 @@ public class IndexWriterManager implements IIndexWriter {
      */
     @PostConstruct
     public void openIndexWriter() throws IOException{
-        String dir = DirectorySetupOperations.getIndexesDirectory();
-        log.debug("Index Directory -->"+ dir);
-        final Directory directory = FSDirectory.open(new File(dir));
+        final Directory directory = this.getDirectoryStore().getDirectory();
         try {
             this.indexWriter = new IndexWriter(directory, new StandardAnalyzer(
                     LUCENE_VERSION), true, IndexWriter.MaxFieldLength.UNLIMITED);
@@ -100,5 +104,19 @@ public class IndexWriterManager implements IIndexWriter {
     */
     public IndexWriter getIndexWriter() {
         return indexWriter;
+    }
+
+    /**
+    * @return the directoryStore
+    */
+    public DirectoryIndexStore getDirectoryStore() {
+        return directoryStore;
+    }
+
+    /**
+    * @param directoryStore the directoryStore to set
+    */
+    public void setDirectoryStore(final DirectoryIndexStore directoryStore) {
+        this.directoryStore = directoryStore;
     }
 }

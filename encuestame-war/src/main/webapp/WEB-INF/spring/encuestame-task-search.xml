@@ -7,7 +7,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <!-- Open and Close Lucene Index Directory to write and index information -->
-    <beans:bean name="indexWriter" class="org.encuestame.business.search.IndexWriterManager" scope="prototype"/>
+    <beans:bean name="indexWriter" class="org.encuestame.business.search.IndexWriterManager" scope="prototype">
+      <beans:property name="directoryStore" ref="indexFSDirectory"></beans:property></beans:bean>
     <beans:bean name="indexerManager" class="org.encuestame.business.search.IndexerManager" scope="prototype">
         <!-- Extensions files allowed to index -->
         <beans:property name="extensionFilesAllowed">
@@ -24,4 +25,5 @@
         </beans:property>
      </beans:bean>
     <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton"></beans:bean>
+    <beans:bean id="indexFSDirectory" class="org.encuestame.business.search.IndexFSDirectory" scope="singleton"/>
 </beans:beans>
