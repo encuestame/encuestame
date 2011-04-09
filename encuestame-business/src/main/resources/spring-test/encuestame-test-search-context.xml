@@ -23,5 +23,11 @@
             </beans:list>
         </beans:property>
      </beans:bean>
-    <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton"></beans:bean>
+    <beans:bean name="searchManager" class="org.encuestame.business.search.SearchAttachmentManager" scope="singleton">
+        <beans:property name="provider">
+            <beans:bean class="${dir.lucene.provider}"></beans:bean>
+        </beans:property>
+    </beans:bean>
+
+
 </beans:beans>

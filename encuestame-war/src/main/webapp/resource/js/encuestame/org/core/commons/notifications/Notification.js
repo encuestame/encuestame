@@ -26,8 +26,6 @@ dojo.declare(
 
         notifications : null,
 
-        lastNew : 0,
-
         totalNot : 0,
 
         timer: null,
@@ -76,9 +74,10 @@ dojo.declare(
          */
         open: function(event){
             dojo.stopEvent(event);
+            console.debug("this._updateNotifications OPEN", this._updateNotifications);
             if(!this.openNot){
                 dojo.addClass(this._panel, "openLivePanel");
-                if(!this.notifications){
+                if(this._updateNotifications){
                     this.loadNotifications();
                 }
             } else {
@@ -101,19 +100,19 @@ dojo.declare(
          * @param lastNew
          */
         _updateStatus : function(totalNew, lastNew){
-            var total = parseInt(totalNew);
-            var totalNew = parseInt(lastNew);
-            if (totalNew > this.lastNew) {
-               //highligth new notifications.
+            if (totalNew >= encuestame.session.activity.cookie().t) {
+               //highlight new notifications.
                 this._displayNewHighlight();
-            } else if (totalNew == this.lastNew) {
-                this._displayNewHighlight();
+                this._updateNotifications = true;
             } else {
                 this._hideNewHighlight();
+                this._updateNotifications = false;
             }
-            this.lastNew = totalNew;
-            this.totalNot = total;
-            this._count.innerHTML = total;
+            //update cookie
+            encuestame.session.activity.updateNot(totalNew, lastNew);
+            this.totalNot = totalNew;
+            this._count.innerHTML = this.totalNot;
+            console.debug("this._updateNotifications", this._updateNotifications);
         },
 
         /*
@@ -131,13 +130,9 @@ dojo.declare(
          * load notifications
          */
         loadStatus : function() {
-            // Publish on a service channel since the message is for
-            //console.debug("notification commet message OLD", message);
-            // the server only
-              encuestame.activity.cometd.startBatch()
+            encuestame.activity.cometd.startBatch()
             encuestame.activity.cometd.publish('/service/notification/status', {});
-            //encuestame.service.xhrGet(encuestame.service.list.getStatusNotifications, {}, load, error);
-              encuestame.activity.cometd.endBatch()
+            encuestame.activity.cometd.endBatch()
         },
 
         // load notifications
@@ -145,6 +140,7 @@ dojo.declare(
             var load = dojo.hitch(this, function(data){
                 this.notifications = data.success.notifications;
                 this.buildNotifications();
+                this._updateNotifications = false;
             });
             var error =  dojo.hitch(this, function(error) {
                 this.timer.stop();
@@ -205,6 +201,20 @@ dojo.declare(
             item : null,
 
             postCreate : function(){
+                dojo.connect(this.domNode, "onclick", dojo.hitch(this, function(e) {
+                    console.debug("not click", this.item);
+                    this._markAsReaded();
+               }));
+            },
+
+            _markAsReaded : function(){
+                 var load = dojo.hitch(this, function(data){
+                     console.debug("not "+this.item.id+" mark as readed");
+                     encuestame.activity.cometd.publish('/service/notification/status', {});
+                 });
+                 var error =  dojo.hitch(this, function(error) {
+                 });
+                 encuestame.service.xhrGet(encuestame.service.list.changeStatusNotification, {id:this.item.id}, load, error);
             },
 
             /*

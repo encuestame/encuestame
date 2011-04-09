@@ -83,7 +83,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/notifications.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
     public ModelMap get(
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
@@ -122,11 +122,19 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/change-status-notifications.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/notifications/readed.json", method = RequestMethod.GET)
     public ModelMap changeStatus(
-            @RequestParam(value = "notificationId") Integer limit,
+            @RequestParam(value = "id", required = true) Long id,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+            final Notification notification = getNotificationDao().retrieveNotificationById(id);
+            if (notification == null) {
+                setError("operation not valid", response);
+            } else {
+                notification.setReaded(notification.getReaded() == null ? true : !notification.getReaded());
+                getNotificationDao().saveOrUpdate(notification);
+                setSuccesResponse();
+            }
         return returnData();
     }
 
