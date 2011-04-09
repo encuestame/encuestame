@@ -54,4 +54,11 @@ public interface INotification extends IBaseDao{
     */
 
    Long retrieveTotalNotReadedNotificationStatus(final Account secUser);
+
+   /**
+    * Get {@link Notification} unreaded.
+    * @param id id
+    * @return {@link Notification} unreaded.
+    */
+   Notification getNotificationUnReaded(final Long id);
 }

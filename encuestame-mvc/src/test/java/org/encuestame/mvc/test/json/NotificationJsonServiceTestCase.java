@@ -54,14 +54,14 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void notificationsInJsonFormatTest() throws Exception {
-        initService("/api/notifications.json", MethodJson.GET);
+        initService("/api/notifications/list.json", MethodJson.GET);
         setParameter("limit", "10");
         final JSONObject response = callJsonService();
         final JSONObject sucess = getSucess(response);
         JSONArray listNotifications = (JSONArray) sucess.get("notifications");
         final List<Notification> list = getNotification().loadNotificationByUserAndLimit(getSecondary().getAccount(), 100);
         Assert.assertEquals(list.size(), listNotifications.size());
-        initService("/api/notifications.json", MethodJson.GET);
+        initService("/api/notifications/list.json", MethodJson.GET);
         setParameter("limit", "1");
         final JSONObject response2 = callJsonService();
         final JSONObject sucess2 = getSucess(response2);
