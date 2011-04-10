@@ -699,7 +699,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final Long id = user.getId();
             final List<Long> tweetPoll = getAccountDao().getTotalTweetPollByUser(id);
             final List<Long> poll = getAccountDao().getTotalPollByUser(id);
-            final List<Long> surveys = getAccountDao().getTotalSurveyByOwner(id);
+            final List<Long> surveys = getSurveyDaoImp().getTotalSurveyByOwner(id);
             if(tweetPoll.size() > 0){
                 user.setTweetPoll(tweetPoll.get(0));
             }

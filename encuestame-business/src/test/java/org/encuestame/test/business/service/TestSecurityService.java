@@ -618,16 +618,6 @@ public class TestSecurityService extends AbstractServiceBase{
         }
 
         /**
-         * Test searchUsersByEmail.
-         */
-        @Test
-        public void testsearchUsersByUsername(){
-            createUserAccount("emailUser2", this.userPrimary);
-            List<UserAccount> emailUsers = this.securityService.searchUsersByUsername("emailUser2");
-            assertEquals(emailUsers.size(), 1);
-        }
-
-        /**
          * Test assingGroupFromUser.
          * @throws EnMeExpcetion exception
          */
