@@ -15,7 +15,6 @@ package org.encuestame.business.service.social.connect;
 import org.encuestame.utils.oauth.OAuthToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.social.linkedin.LinkedInApi;
-import org.springframework.social.linkedin.LinkedInApi;
 import org.springframework.social.linkedin.LinkedInTemplate;
 
 /**

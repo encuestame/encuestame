@@ -17,7 +17,6 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.AccountConnection;
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -80,20 +79,6 @@ public interface IAccountDao extends IBaseDao {
     UserAccount getUserAccountById(final Long userId);
 
     /**
-     * Get list of users by username.
-     * @param username username
-     * @return list of users
-     */
-    List<UserAccount> getUsersByUsername(final String username);
-
-    /**
-     * Get {@link UserAccount} but {@link Account} id.
-     * @param userId user id
-     * @return secondary user list
-     */
-    List<UserAccount> getSecondaryUsersByUserId(final Long userId);
-
-    /**
      * Search user by email
      * @param email email
      * @return
@@ -114,7 +99,7 @@ public interface IAccountDao extends IBaseDao {
      * @return List {@link SocialAccount}.
      *
      */
-    List<SocialAccount> getTwitterAccountByUser(final Account secUsers,
+    List<SocialAccount> getSocialAccountByAccount(final Account secUsers,
             final SocialProvider provider);
 
     /**
@@ -164,21 +149,6 @@ public interface IAccountDao extends IBaseDao {
    */
    List<Long> getTotalPollByUser(final Long userId);
 
-   /**
-    * Get Total of TweetPoll By User Editor.
-    * @param userSecondary
-    * @return
-    */
-   List<Long> getTotalSurveyByUser(final Long userId);
-
-   /**
-    * Find user account connected.
-    * @param provider
-    * @param providerAccount
-    * @return
-    */
-   List<?> findUserAccountsConnectedTo(String provider,
-                  List<SocialAccountProvider> providerAccount);
 
    /**
     * Return {@link UserAccount} by provider name and access token key.

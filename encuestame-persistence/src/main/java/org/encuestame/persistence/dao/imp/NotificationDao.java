@@ -17,7 +17,6 @@ import java.util.List;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -89,11 +88,12 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @param user {@link UserAccount}.
      * @return total not readed notification.
      */
+    @SuppressWarnings("unchecked")
     public Long retrieveTotalNotReadedNotificationStatus(final Account user){
          final DetachedCriteria crit = DetachedCriteria.forClass(Notification.class);
          crit.setProjection(Projections.rowCount());
          crit.add(Restrictions.eq("readed", Boolean.FALSE));
-         List results = getHibernateTemplate().findByCriteria(crit);
+         List<Long> results = getHibernateTemplate().findByCriteria(crit);
          log.debug("retrieveTotalNotReadedNotificationStatus "+results.size());
          return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
@@ -111,6 +111,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.INotification#getNotificationUnReaded(java.lang.Long)
      */
+    @SuppressWarnings("unchecked")
     public Notification getNotificationUnReaded(final Long id){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
         criteria.add(Restrictions.eq("readed", Boolean.FALSE));
