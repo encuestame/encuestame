@@ -44,7 +44,6 @@ import org.springframework.stereotype.Repository;
  * Account, UsserAccount, AccountConnection Data Repository.
  * @author Picado, Juan juan@encuestame.org
  * @since May 05, 2009
- * @version $Id$
  */
 @SuppressWarnings("unchecked")
 @Repository("accountDao")
@@ -63,7 +62,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     * (non-Javadoc)
     * @see org.encuestame.persistence.dao.IAccountDao#findAll()
     */
-    public List<UserAccount> findAll() throws HibernateException {
+    public final List<UserAccount> findAll() throws HibernateException {
         return getHibernateTemplate().find("from UserAccount");
     }
 
@@ -71,7 +70,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#retrieveListOwnerUsers(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
      */
-    public List<UserAccount> retrieveListOwnerUsers(final Account account,
+    public final List<UserAccount> retrieveListOwnerUsers(final Account account,
                final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("account", account));
@@ -84,7 +83,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#retrieveTotalUsers(org.encuestame.persistence.domain.security.Account)
      */
-    public Long retrieveTotalUsers(final Account account){
+    public final Long retrieveTotalUsers(final Account account){
          Long resultsSize = 0L;
          final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount "
                  +" WHERE account = :account", "account", account);
@@ -99,8 +98,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserAccountById(java.lang.Long)
      */
-    //@Cacheable(cacheName = "userAccountById")
-    public UserAccount getUserAccountById(final Long userId){
+    public final UserAccount getUserAccountById(final Long userId){
             return (UserAccount) (getHibernateTemplate().get(UserAccount.class, userId));
     }
 
@@ -108,7 +106,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccount(java.lang.Long)
      */
-    public SocialAccount getTwitterAccount(final Long twitterAccountId){
+    public final SocialAccount getTwitterAccount(final Long twitterAccountId){
         return (SocialAccount) (getHibernateTemplate().get(SocialAccount.class, twitterAccountId));
     }
 
@@ -116,7 +114,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(org.encuestame.persistence.domain.social.SocialProvider, java.lang.Long)
      */
-    public SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
+    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         log.debug("accounType "+socialProvider);
         log.debug("socialAccountId "+socialAccountId);
@@ -129,7 +127,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(java.lang.Long, org.encuestame.persistence.domain.security.Account)
      */
-    public SocialAccount getSocialAccount(final Long socialAccountId, final Account account){
+    public final SocialAccount getSocialAccount(final Long socialAccountId, final Account account){
         log.debug("account "+account.getUid());
         log.debug("socialAccountId "+socialAccountId);
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
@@ -142,7 +140,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserById(java.lang.Long)
      */
-    public Account getUserById(final Long userId) throws HibernateException {
+    public final Account getUserById(final Long userId) throws HibernateException {
             return (Account) getHibernateTemplate().get(Account.class, userId);
     }
 
@@ -151,7 +149,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @see org.encuestame.persistence.dao.IAccountDao#getUserByUsername(java.lang.String)
      */
     //@Cacheable(cacheName = "userByUsername")
-    public UserAccount getUserByUsername(final String username)throws HibernateException {
+    public final UserAccount getUserByUsername(final String username)throws HibernateException {
         log.debug("getUserByUsername by :{"+username);
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));
@@ -164,7 +162,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserByEmail(java.lang.String)
      */
-    public UserAccount getUserByEmail(final String email){
+    public final UserAccount getUserByEmail(final String email){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("userEmail", email) );
         return (UserAccount) DataAccessUtils.uniqueResult(getHibernateTemplate()
@@ -175,7 +173,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccount> getSocialAccountByAccount(
+    public final List<SocialAccount> getSocialAccountByAccount(
             final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
@@ -190,7 +188,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterVerifiedAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccount> getTwitterVerifiedAccountByUser(
+    public final List<SocialAccount> getTwitterVerifiedAccountByUser(
             final Account secUsers,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);

@@ -24,7 +24,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -36,8 +35,12 @@ import org.springframework.stereotype.Repository;
 @Repository("notificationDao")
 public class NotificationDao extends AbstractHibernateDaoSupport implements INotification{
 
+    /**
+     * Constructor.
+     * @param sessionFactory {@link SessionFactory}.
+     */
     @Autowired
-    public NotificationDao(SessionFactory sessionFactory) {
+    public NotificationDao(final SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);
     }
 
@@ -48,7 +51,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Notification> loadNotificationByUserAndLimit(final Account user, final Integer limit){
+    public final List<Notification> loadNotificationByUserAndLimit(final Account user, final Integer limit){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
             criteria.add(Restrictions.or(Restrictions.eq("account", user), Restrictions.isNull("account")));
             criteria.add(Restrictions.eq("readed", Boolean.FALSE));
@@ -61,7 +64,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @param secUser
      * @return
      */
-    public Long retrieveTotalNotificationStatus(final Account secUser){
+    public final Long retrieveTotalNotificationStatus(final Account secUser){
         return retrieveCountNotification(secUser, "select count(*) from Notification "
                 +" WHERE account = :secUser");
     }
@@ -73,7 +76,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    private Long retrieveCountNotification(final Account account, final String query){
+    private final Long retrieveCountNotification(final Account account, final String query){
         Long resultsSize = 0L;
         final List<Object> list =  getHibernateTemplate().findByNamedParam("select count(*) from Notification "
                 +" WHERE account =:user", "user", account);
@@ -89,7 +92,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return total not readed notification.
      */
     @SuppressWarnings("unchecked")
-    public Long retrieveTotalNotReadedNotificationStatus(final Account user){
+    public final Long retrieveTotalNotReadedNotificationStatus(final Account user){
          final DetachedCriteria crit = DetachedCriteria.forClass(Notification.class);
          crit.setProjection(Projections.rowCount());
          crit.add(Restrictions.eq("readed", Boolean.FALSE));
@@ -103,19 +106,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @param notificationId
      * @return
      */
-    public Notification retrieveNotificationById(final Long notificationId){
+    public final Notification retrieveNotificationById(final Long notificationId){
         return (Notification) getHibernateTemplate().get(Notification.class, notificationId);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.INotification#getNotificationUnReaded(java.lang.Long)
-     */
-    @SuppressWarnings("unchecked")
-    public Notification getNotificationUnReaded(final Long id){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
-        criteria.add(Restrictions.eq("readed", Boolean.FALSE));
-        criteria.add(Restrictions.eq("notificationId", id) );
-        return (Notification) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 }

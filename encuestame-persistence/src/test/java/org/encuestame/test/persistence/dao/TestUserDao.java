@@ -378,6 +378,15 @@ public class TestUserDao extends AbstractBase {
      * @throws EnMeNoResultsFoundException
      */
     @Test(expected= EnMeNoResultsFoundException.class)
+    public void testfindAccountByConnection() throws EnMeNoResultsFoundException{
+         getAccountDao().findAccountByConnection("TWITTER", "xxxxxxxx");
+    }
+
+    /**
+     * Test exception getAccessToken.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test(expected= EnMeNoResultsFoundException.class)
     public void testgetAccessToken2() throws EnMeNoResultsFoundException{
          getAccountDao().getAccessToken(account.getUid(), "TWITTER");
     }
