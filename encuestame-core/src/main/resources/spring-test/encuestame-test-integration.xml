@@ -3,30 +3,34 @@
     xmlns:i="http://www.springframework.org/schema/integration"
     xmlns:twitter="http://www.springframework.org/schema/integration/twitter"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:file="http://www.springframework.org/schema/integration/file"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/integration
             http://www.springframework.org/schema/integration/spring-integration.xsd
             http://www.springframework.org/schema/integration/twitter
-            http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.0.xsd">
+            http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.0.xsd
+            http://www.springframework.org/schema/integration/file
+            http://www.springframework.org/schema/integration/file/spring-integration-file-2.0.xsd">
 
-    <import resource="classpath:encuestame-integration.xml" />
+   <i:gateway id="twitterGateway"
+        default-request-channel="actionChannel"
+        service-interface="org.encuestame.core.integration.gateway.TwitterGateway" />
 
-    <bean id="mailSender" scope="singleton"
-        class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="${mail.host}" />
-        <property name="port" value="${mail.port}" />
-        <property name="protocol" value="${mail.protocol}" />
-        <property name="username" value="${mail.username}" />
-        <property name="password" value="${mail.password}" />
-        <property name="defaultEncoding" value="UTF-8" />
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtps.auth">true</prop>
-                <prop key="mail.smtps.debug">true</prop>
-                <prop key="mail.smtps.starttls.enable">false</prop>
-            </props>
-        </property>
-    </bean>
+   <i:gateway id="emailGateway" default-request-channel="actionChannel"
+        service-interface="org.encuestame.core.integration.gateway.EmailGateway" />
+
+    <i:channel id="actionChannel">
+        <i:queue capacity="6000"/>
+    </i:channel>
+
+    <i:bridge input-channel="actionChannel" output-channel="twitterChannel" />
+
+    <i:channel id="errorChannel">
+         <i:queue capacity="500"/>
+     </i:channel>
+
+     <!--    <import resource="classpath:encuestame-mail-sender.xml" />-->
+    <import resource="TwitterSendUpdates-context.xml" />
 
 </beans>

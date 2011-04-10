@@ -34,7 +34,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -128,7 +128,7 @@ public class TestPollService extends AbstractServiceBase{
      */
     @Test
     public void testretrieveFolderPoll() throws EnMeNoResultsFoundException{
-        List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
+        List<FolderBean> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
         assertEquals(folders.size(), 1);
     }
 
@@ -139,7 +139,7 @@ public class TestPollService extends AbstractServiceBase{
     @Test
     public void testcreatePollFolder() throws EnMeNoResultsFoundException{
          this.pollService.createPollFolder("folder 2", this.userAccount.getUsername());
-         List<UnitFolder> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
+         List<FolderBean> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
          assertEquals(folders.size(), 2);
     }
 

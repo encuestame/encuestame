@@ -259,6 +259,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @param questionAnswer
      * @return
      */
+    @SuppressWarnings("unchecked")
     public TweetPollSwitch getAnswerTweetSwitch(final TweetPoll tweetPoll, final QuestionAnswer questionAnswer){
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
         criteria.add(Restrictions.eq("tweetPoll", tweetPoll));

@@ -73,6 +73,7 @@ public class SqlScriptParser {
      * @return A list of SQL statements.
      * @throws Exception
      */
+    @SuppressWarnings("unused")
     public static String[] readScript(final String scriptFilePath) throws IOException {
         //BufferedReader reader = new BufferedReader(new FileReader(scriptFilePath));
         log.debug("readScript "+scriptFilePath);
@@ -82,7 +83,7 @@ public class SqlScriptParser {
         String line = null;
 
         StringBuffer sqlStatements = new StringBuffer();
-        List specialStatements = new ArrayList();
+        List<String> specialStatements = new ArrayList<String>();
         StringTokenizer sqlTokens = null;
         String[] sqlStmnts = null;
         String[] spslSqlStmnts = null;

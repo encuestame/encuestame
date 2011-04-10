@@ -10,104 +10,100 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain;
+package org.encuestame.utils.web;
 
-import java.util.Calendar;
+import java.io.File;
 import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
- * Attachment.
+ * Unit attachment Bean.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since Mar 28, 2011
+ * @since Apr 7, 2011
  */
-@Entity
-@Table(name = "attachment")
-public class Attachment {
+public class UnitAttachment {
 
-    /** Attachment id**/
+    /** Attachment Id. **/
     private Long attachmentId;
 
-    /** Filename**/
+    /** Attachment file name. **/
     private String filename;
 
-    /** Attachment upload date. **/
-    private Date uploadDate = Calendar.getInstance().getTime();
+    /** Attachment file. **/
+    private File file;
 
-    /** Project. **/
-    private Project projectAttachment ;
+    /** Attachment upload date. **/
+    private Date uploadDate;
+
+    /** {@link UnitProjectBean} **/
+    private UnitProjectBean projectBean;
 
     /**
-    * @return the attachmentId.
+    * @return the attachmentId
     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "attachment_id", unique = true, nullable = false)
     public Long getAttachmentId() {
         return attachmentId;
     }
 
     /**
-    * @param attachmentId the attachmentId to set.
+    * @param attachmentId the attachmentId to set
     */
     public void setAttachmentId(final Long attachmentId) {
         this.attachmentId = attachmentId;
     }
 
     /**
-     * @return the filename.
-     */
-    @Column(name = "filename", nullable = false)
+    * @return the filename
+    */
     public String getFilename() {
         return filename;
     }
 
     /**
-    * @param filename the filename to set.
+    * @param filename the filename to set
     */
     public void setFilename(final String filename) {
         this.filename = filename;
     }
 
     /**
+    * @return the file
+    */
+    public File getFile() {
+        return file;
+    }
+
+    /**
+    * @param file the file to set
+    */
+    public void setFile(final File file) {
+        this.file = file;
+    }
+
+    /**
     * @return the uploadDate
     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "uploadDate", nullable = true)
     public Date getUploadDate() {
         return uploadDate;
     }
 
     /**
-    * @param uploadDate the uploadDate to set.
+    * @param uploadDate the uploadDate to set
     */
     public void setUploadDate(final Date uploadDate) {
         this.uploadDate = uploadDate;
     }
 
     /**
-    * @return the projectAttachment
+    * @return the projectBean
     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_id", nullable = false)
-    public Project getProjectAttachment() {
-        return projectAttachment;
+    public UnitProjectBean getProjectBean() {
+        return projectBean;
     }
 
     /**
-    * @param projectAttachment the projectAttachment to set
+    * @param projectBean the projectBean to set
     */
-    public void setProjectAttachment(final Project projectAttachment) {
-        this.projectAttachment = projectAttachment;
+    public void setProjectBean(final UnitProjectBean projectBean) {
+        this.projectBean = projectBean;
     }
 }

@@ -225,7 +225,7 @@ public class AbstractSocialService extends AbstractConfigurationService {
     public List<SocialAccountBean> getUserLoggedSocialAccount(final String username, final SocialProvider provider)
            throws EnMeNoResultsFoundException{
          return ConvertDomainBean.convertListSocialAccountsToBean(getAccountDao()
-                                 .getTwitterAccountByUser(getUserAccount(username).getAccount(), provider));
+                                 .getSocialAccountByAccount(getUserAccount(username).getAccount(), provider));
     }
 
     /**

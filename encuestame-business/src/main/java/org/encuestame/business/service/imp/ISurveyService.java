@@ -20,7 +20,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
 
@@ -112,7 +112,7 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param username
      * @return
      */
-    UnitFolder createSurveyFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
+    FolderBean createSurveyFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Update Survey Folder.
@@ -122,7 +122,7 @@ public interface ISurveyService extends IMasterSurveyService {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    UnitFolder updateSurveyFolder(final Long folderId, final String folderName, final String username)
+    FolderBean updateSurveyFolder(final Long folderId, final String folderName, final String username)
         throws EnMeNoResultsFoundException;
 
     /**

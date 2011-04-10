@@ -17,7 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.QuestionBean;
@@ -97,7 +97,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-    UnitFolder createPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
+    FolderBean createPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Update FolderName.
@@ -107,7 +107,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-    public UnitFolder updateFolderName(final Long folderId,
+    public FolderBean updateFolderName(final Long folderId,
           final String newFolderName,
           final String username) throws EnMeNoResultsFoundException;
 
@@ -117,7 +117,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException exception
     */
-    List<UnitFolder> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException;
+    List<FolderBean> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Get Polls by Folder.
@@ -126,7 +126,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-  List<UnitPoll> getPollsByFolder(final UnitFolder folder, final String username) throws EnMeNoResultsFoundException;
+  List<UnitPoll> getPollsByFolder(final FolderBean folder, final String username) throws EnMeNoResultsFoundException;
 
       /**
     *

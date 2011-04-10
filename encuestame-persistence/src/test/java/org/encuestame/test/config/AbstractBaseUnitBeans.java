@@ -23,13 +23,15 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
 
 
@@ -188,34 +190,6 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      return unitTweetPoll;
      }
 
-    /**
-     * Helper
-     * Create Tweet Poll Publicated
-     * @param publishTweetPoll
-     * @param completed
-     * @param scheduleDate
-     * @param tweetOwner
-     * @param question
-     * @return
-     */
-
-     public TweetPoll createTweetPollPublicated(
-              Boolean publishTweetPoll,
-              Boolean completed,
-              Date scheduleDate,
-              Account tweetOwner,
-              Question question){
-         final TweetPoll tweetPoll = new TweetPoll();
-         tweetPoll.setPublishTweetPoll(publishTweetPoll);
-         tweetPoll.setCompleted(completed);
-         tweetPoll.setScheduleDate(scheduleDate);
-         tweetPoll.setCreateDate(new Date());
-         tweetPoll.setQuestion(question);
-         tweetPoll.setTweetOwner(tweetOwner);
-         getTweetPoll().saveOrUpdate(tweetPoll);
-         return tweetPoll;
-     }
-
      /**
       *
       * @param tweetPoll
@@ -368,4 +342,21 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          bean.setPassword("xxxxx");
          return bean;
      }
+
+     /**
+      * Create Unit Attachment Bean.
+      * @param filename
+      * @param uploadDate
+      * @param projectBean
+      * @return
+      */
+     public UnitAttachment createUnitAttachment(final String filename, final Date uploadDate,
+                            final UnitProjectBean projectBean){
+        final UnitAttachment unitAttachmentBean = new UnitAttachment();
+        unitAttachmentBean.setFilename(filename);
+        unitAttachmentBean.setProjectBean(projectBean);
+        unitAttachmentBean.setUploadDate(uploadDate);
+        return unitAttachmentBean;
+     }
+
 }

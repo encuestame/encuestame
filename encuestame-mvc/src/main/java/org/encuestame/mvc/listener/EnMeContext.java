@@ -51,12 +51,11 @@ public class EnMeContext extends ContextLoaderListener implements
 
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 
-        log.debug("*******************************");
-        log.debug("*                             *");
-        log.debug("*         CONTEXT             *");
-        log.debug("*        "+ctx+"              *");
-        log.debug("*******************************");
-        log.debug("Security Context "+SecurityContextHolder.getContext());
+        log.debug("**********************************************");
+        log.debug("*         ENCUESTAME IS RUNNING              *");
+        log.debug("*         http://www.encuestame.org          *");
+        log.debug("**********************************************");
+
         final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
         try {
             startup.startProcess();

@@ -13,7 +13,6 @@
 package org.encuestame.test.persistence.dao;
 
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;

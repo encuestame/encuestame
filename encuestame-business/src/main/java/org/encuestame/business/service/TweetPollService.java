@@ -44,28 +44,28 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
-import org.encuestame.persistence.exception.EnMeUserAccountNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
-import org.encuestame.utils.web.UnitFolder;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
-import org.springframework.transaction.annotation.Transactional;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
 /**
- * Tweet Poll Service Interface.
+ * {@link TweetPoll} service support.
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since  April 02, 2010
  */
 public class TweetPollService extends AbstractSurveyService implements ITweetPollService{
 
-
+    /**
+     * Log.
+     */
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
@@ -88,6 +88,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     private String twitterDomain;
 
+    /**
+     * Default votes.
+     */
     private final Long TOTALVOTE = 0L ;
 
     /**
@@ -369,8 +372,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  buffer.append(tag.getHashTag());
                  tweetQuestionText = buffer.toString();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EnMeExpcetion(e);
         }
         log.debug("Question Generated: "+tweetQuestionText);
@@ -383,6 +385,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws IOException exception
      * @throws HttpException exception
      */
+    @Deprecated
     private String buildUrlAnswer(final QuestionAnswer answer, final String domain) throws HttpException, IOException{
         final StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(this.getTweetPath());
@@ -463,6 +466,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param id
      * @return
      */
+    @Deprecated
     public String buildTwitterItemView(final String username, final String id){
         final StringBuilder builder = new  StringBuilder(getTwitterDomain());
         builder.append(username);
@@ -595,7 +599,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public UnitFolder createTweetPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException{
+    public FolderBean createTweetPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException{
         final TweetPollFolder tweetPollFolderDomain = new TweetPollFolder();
         tweetPollFolderDomain.setUsers(getUserAccount(username).getAccount());
         tweetPollFolderDomain.setCreatedAt(new Date());
@@ -610,7 +614,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * Update Tweet Poll Folder.
      * @throws EnMeNoResultsFoundException
      */
-    public UnitFolder updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException{
+    public FolderBean updateTweetPollFolder(final Long folderId, final String folderName, final String username)
+           throws EnMeNoResultsFoundException{
         final TweetPollFolder tweetPollFolder = this.getTweetPollFolder(folderId);
         if(tweetPollFolder == null) {
             throw new EnMeNoResultsFoundException("Tweet Poll Folder not found");
@@ -629,7 +634,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public void deleteTweetPollFolder(final Long folderId) throws EnMeNoResultsFoundException{
         final TweetPollFolder tweetPollfolder = this.getTweetPollFolder(folderId);
-        if(tweetPollfolder != null){
+        if(tweetPollfolder != null) {
             getTweetPollDao().delete(tweetPollfolder);
         } else {
             throw new EnMeNoResultsFoundException("TweetPoll folder not found");
@@ -650,9 +655,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param folderId
      * @throws EnMeNoResultsFoundException
      */
-    public void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId) throws EnMeNoResultsFoundException{
+    public void addTweetPollToFolder(final Long folderId, final String username, final Long tweetPollId)
+           throws EnMeNoResultsFoundException{
         final TweetPollFolder tpfolder = this.getTweetPollFolderByFolderIdandUser(folderId, getPrimaryUser(username));
-         if(tpfolder!=null) {
+         if (tpfolder!=null) {
              final TweetPoll tpoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
              tpoll.setTweetPollFolder(tpfolder);
              getTweetPollDao().saveOrUpdate(tpoll);
@@ -667,9 +673,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeNoResultsFoundException
      */
-    public void changeStatusTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation{
+    public void changeStatusTweetPoll(final Long tweetPollId, final String username)
+           throws EnMeNoResultsFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPoll(tweetPollId, username);
-        if (tweetPoll != null){
+        if (tweetPoll != null) {
             tweetPoll.setCloseNotification(Boolean.TRUE);
             getTweetPollDao().saveOrUpdate(tweetPoll);
         } else {
@@ -678,7 +685,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
     /**
-     * Set Favourite TweetPoll.
+     * Set if {@link TweetPoll} as favorite.
      * @param tweetPollId
      * @param username
      * @throws EnMeNoResultsFoundException
@@ -687,7 +694,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void setFavouriteTweetPoll(final Long tweetPollId, final String username) throws
            EnMeNoResultsFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPoll(tweetPollId, username);
-        if (tweetPoll != null){
+        if (tweetPoll != null) {
             tweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : !tweetPoll.getFavourites());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         } else {
@@ -702,10 +709,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeNoResultsFoundException
      */
-    public void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation{
+    public void changeAllowLiveResultsTweetPoll(final Long tweetPollId, final String username)
+                throws EnMeNoResultsFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
         if (tweetPoll != null){
-            tweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : !tweetPoll.getAllowLiveResults());
+            tweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null
+                      ? false : !tweetPoll.getAllowLiveResults());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {
@@ -719,13 +728,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeNoResultsFoundException
      */
-    public void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation{
+    public void changeAllowCaptchaTweetPoll(final Long tweetPollId, final String username)
+           throws EnMeNoResultsFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = getTweetPoll(tweetPollId, username);
-        if (tweetPoll != null){
+        if (tweetPoll != null) {
              tweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false : !tweetPoll.getCaptcha());
              getTweetPollDao().saveOrUpdate(tweetPoll);
-        }
-        else {
+        } else {
             throw new EnmeFailOperation("Fail Change Allow Captcha Operation");
         }
     }
@@ -736,10 +745,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param username
      * @throws EnMeNoResultsFoundException
      */
-    public void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation{
+    public void changeResumeLiveResultsTweetPoll(final Long tweetPollId, final String username)
+           throws EnMeNoResultsFoundException, EnmeFailOperation {
         final TweetPoll tweetPoll = getTweetPoll(tweetPollId, username);
-        if (tweetPoll != null){
-            tweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : !tweetPoll.getResumeLiveResults());
+        if (tweetPoll != null) {
+            tweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null
+                      ? false : !tweetPoll.getResumeLiveResults());
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }
         else {

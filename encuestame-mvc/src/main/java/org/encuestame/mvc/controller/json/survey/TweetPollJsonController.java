@@ -13,7 +13,6 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,24 +21,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.core.util.InternetUtils;
-import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -151,6 +144,20 @@ public class TweetPollJsonController extends AbstractJsonController {
         return returnData();
     }
 
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/tweetpoll/save2.json", method = RequestMethod.GET)
+    public ModelMap createAnswer(
+            @RequestParam(value = "id", required = true) final Long tweetPollId,
+            @RequestParam(value = "answer", required = true) String answer,
+            HttpServletRequest request, HttpServletResponse response,
+            final UserAccount user)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        //jsonResponse.put("tweetPoll", tweetPoll);
+        setItemResponse(jsonResponse);
+        return returnData();
+    }
+
     /**
      * Publish tweetPoll.
      * @param tweetPollId
@@ -203,7 +210,7 @@ public class TweetPollJsonController extends AbstractJsonController {
     }
 
     /**
-     * Change TweetPoll Properties.
+     * Update {@link TweetPoll} properties.
      * @param propertyType
      * @param tweetPollId
      * @param request

@@ -21,7 +21,7 @@ import java.util.Date;
  * @since Oct 9, 2010 12:34:11 PM
  * @version $Id:$
  */
-public class UnitFolder implements Serializable {
+public class FolderBean implements Serializable {
 
     /**
      * Serial.

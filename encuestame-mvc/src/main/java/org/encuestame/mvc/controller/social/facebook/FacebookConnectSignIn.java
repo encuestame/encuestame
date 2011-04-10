@@ -19,7 +19,9 @@ import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.facebook.FacebookProfile;
+//import org.springframework.social.facebook.FacebookProfile;
+//import org.springframework.social.facebook.FacebookProfile;
+//import org.springframework.social.facebook.FacebookProfile;
 import org.springframework.social.facebook.FacebookTemplate;
 import org.springframework.social.facebook.web.FacebookCookieValue;
 import org.springframework.stereotype.Controller;
@@ -51,7 +53,8 @@ public class FacebookConnectSignIn extends AbstractSocialController{
             authenticate(account);
             return "redirect:/";
         } catch (EnMeNoSuchAccountConnectionException e) {
-            return handleNoFacebookConnection(new FacebookTemplate(accessToken).getUserProfile());
+            //return handleNoFacebookConnection(new FacebookTemplate(accessToken).getUserProfile());
+            return null;
         } catch (EnMeNoResultsFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -61,7 +64,7 @@ public class FacebookConnectSignIn extends AbstractSocialController{
 
     // internal helpers
 
-    private String handleNoFacebookConnection(FacebookProfile userInfo) {
+    private String handleNoFacebookConnection(Object userInfo) {
         try {
             //accountRepository.findBySignin(userInfo.getEmail());
             //FlashMap.setWarningMessage("Your Facebook account is not linked with your Greenhouse account. To connect them, sign in and then go to the Settings page.");

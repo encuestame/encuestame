@@ -240,13 +240,6 @@ public interface SecurityOperations extends ServiceOperations {
     List<UserAccount> searchUsersByEmail(final String email);
 
     /**
-     * Search List of User By Username
-     * @param username username
-     * @return
-     */
-    List<UserAccount> searchUsersByUsername(final String username);
-
-    /**
      * Load list of {@link Permission}.
      * @return list of permissions.
      */

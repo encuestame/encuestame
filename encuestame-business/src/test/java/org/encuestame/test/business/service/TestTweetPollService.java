@@ -234,7 +234,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     @Test
     public void testPublicMultiplesTweetAccounts(){
             createDefaultSettedTwitterAccount(this.userAccount.getAccount());
-            final List<SocialAccount> list = getAccountDao().getTwitterAccountByUser(this.userAccount.getAccount(), SocialProvider.TWITTER);
+            final List<SocialAccount> list = getAccountDao().getSocialAccountByAccount(this.userAccount.getAccount(), SocialProvider.TWITTER);
             final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);
