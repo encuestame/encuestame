@@ -1508,12 +1508,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUser {@link Account}.
      * @param description {@link NotificationEnum}.
      */
-    public Notification createNotification(final String message, final Account secUser, final NotificationEnum description){
+    public Notification createNotification(
+            final String message,
+            final Account secUser,
+            final NotificationEnum description,
+            final Boolean readed){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
          notification.setCreated(new Date());
          notification.setDescription(description);
-         notification.setReaded(Boolean.FALSE);
+         notification.setReaded(readed);
          notification.setAccount(secUser);
          getNotification().saveOrUpdate(notification);
          return notification;
@@ -1560,7 +1564,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
 
     /**
-     *
+     * Create {@link AccountConnection}.
      * @param provider
      * @param token
      * @param socialAccountId
