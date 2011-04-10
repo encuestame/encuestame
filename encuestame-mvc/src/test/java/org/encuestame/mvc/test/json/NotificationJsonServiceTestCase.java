@@ -43,9 +43,9 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     @Before
     public void initTest() {
        notification = createNotification("test notification", getSecondary().getAccount(),
-                NotificationEnum.PROJECT_CREATED);
+                NotificationEnum.PROJECT_CREATED, false);
         createNotification("test notification", getSecondary().getAccount(),
-                NotificationEnum.TWEETPOL_CREATED);
+                NotificationEnum.TWEETPOL_CREATED, false);
     }
 
     /**
@@ -80,6 +80,37 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject response = callJsonService();
         final JSONObject sucess = getSucess(response);
         Assert.assertEquals(sucess.get("removed"), "ok");
+        initService("/api/remove-notification.json", MethodJson.GET);
+        setParameter("notificationId", "12345");
+        final JSONObject responseFail = callJsonService();
+        final JSONObject error = getErrors(responseFail);
+        Assert.assertEquals(error.get("message"), "notification not found");
     }
 
+    /**
+     * Test /api/notifications/readed.json
+     * @throws Exception
+     */
+    @Test
+    public void changeStatusTest() throws Exception {
+        initService("/api/notifications/readed.json", MethodJson.GET);
+        setParameter("id", this.notification.getNotificationId().toString());
+        final JSONObject response = callJsonService();
+        final JSONObject sucess = getSucess(response);
+        Assert.assertEquals(sucess.get("r").toString(), "0");
+    }
+
+    /**
+     * Test /api/status-notifications.json.
+     * @throws Exception
+     */
+    @Test
+    public void statusTest() throws Exception {
+        initService("/api/status-notifications.json", MethodJson.GET);
+        setParameter("id", this.notification.getNotificationId().toString());
+        final JSONObject response = callJsonService();
+        final JSONObject sucess = getSucess(response);
+        Assert.assertEquals(sucess.get("t").toString(), "2");
+        Assert.assertEquals(sucess.get("n").toString(), "2");
+    }
 }
