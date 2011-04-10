@@ -190,34 +190,6 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      return unitTweetPoll;
      }
 
-    /**
-     * Helper
-     * Create Tweet Poll Publicated
-     * @param publishTweetPoll
-     * @param completed
-     * @param scheduleDate
-     * @param tweetOwner
-     * @param question
-     * @return
-     */
-
-     public TweetPoll createTweetPollPublicated(
-              Boolean publishTweetPoll,
-              Boolean completed,
-              Date scheduleDate,
-              Account tweetOwner,
-              Question question){
-         final TweetPoll tweetPoll = new TweetPoll();
-         tweetPoll.setPublishTweetPoll(publishTweetPoll);
-         tweetPoll.setCompleted(completed);
-         tweetPoll.setScheduleDate(scheduleDate);
-         tweetPoll.setCreateDate(new Date());
-         tweetPoll.setQuestion(question);
-         tweetPoll.setTweetOwner(tweetOwner);
-         getTweetPoll().saveOrUpdate(tweetPoll);
-         return tweetPoll;
-     }
-
      /**
       *
       * @param tweetPoll
