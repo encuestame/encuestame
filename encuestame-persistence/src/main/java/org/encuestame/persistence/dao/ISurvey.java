@@ -99,4 +99,11 @@ public interface ISurvey extends IBaseDao{
        * @return
        */
       List<SurveyFolder> retrieveAllFolders(final Long userId);
+
+      /**
+       * Get Total of TweetPoll By User Editor.
+       * @param userSecondary
+       * @return
+       */
+      List<Long> getTotalSurveyByOwner(final Long userId);
 }

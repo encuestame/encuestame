@@ -410,15 +410,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
-     * Search List of User By Username
-     * @param username username
-     * @return
-     */
-    public List<UserAccount> searchUsersByUsername(final String username){
-        return getAccountDao().getUsersByUsername(username);
-    }
-
-    /**
      * Get Permission by {@link EnMePermission}.
      * @param permission permission.
      * @return
@@ -708,7 +699,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final Long id = user.getId();
             final List<Long> tweetPoll = getAccountDao().getTotalTweetPollByUser(id);
             final List<Long> poll = getAccountDao().getTotalPollByUser(id);
-            final List<Long> surveys = getAccountDao().getTotalSurveyByUser(id);
+            final List<Long> surveys = getAccountDao().getTotalSurveyByOwner(id);
             if(tweetPoll.size() > 0){
                 user.setTweetPoll(tweetPoll.get(0));
             }

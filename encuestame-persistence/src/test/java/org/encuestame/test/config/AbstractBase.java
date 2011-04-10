@@ -32,7 +32,6 @@ import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -166,10 +165,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Url Poll. **/
     public final String URLPOLL = "http://www.encuestame.org";
-
-    /** Social Account Dao.**/
-    @Autowired
-    private ISocialProviderDao providerDao;
 
     /** {@link HashTagDao} **/
     @Autowired
@@ -1298,7 +1293,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String secretToken,
             final Account secUsers,
             final String twitterAccount,
-            final Boolean verified){
+            final Boolean verified,
+            final SocialProvider provider){
         final SocialAccount socialTwitterAccounts = new SocialAccount();
         socialTwitterAccounts.setToken(token);
         socialTwitterAccounts.setSecretToken(secretToken);
@@ -1306,8 +1302,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         long randomNum = 100 + (int)(Math.random()* 4000);
         socialTwitterAccounts.setSocialUserId(randomNum);
         socialTwitterAccounts.setVerfied(verified);
-        socialTwitterAccounts.setAccounType(SocialProvider.TWITTER);
-        socialTwitterAccounts.setSocialAccountName(twitterAccount);
+        socialTwitterAccounts.setAccounType(provider);
+        socialTwitterAccounts.setSocialAccountName(twitterAccount+randomNum);
         getAccountDao().saveOrUpdate(socialTwitterAccounts);
         return socialTwitterAccounts;
      }
@@ -1322,22 +1318,36 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 secUsers,
-                getProperty("twitter.test.account"), Boolean.FALSE);
+                getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
+    }
+
+    /**
+     * Create {@link SocialAccount} with {@link SocialProvider}.
+     * @param account {@link Account}
+     * @param provider {@link SocialProvider}
+     * @return {@link SocialAccount}.
+     */
+    public SocialAccount createSocialProviderAccount(final Account account, final SocialProvider provider){
+        return this.createTwitterAccount(
+                getProperty("twitter.test.token"),
+                getProperty("twitter.test.tokenSecret"),
+                account,
+                getProperty("twitter.test.account"), Boolean.FALSE, provider);
     }
 
 
     /**
      * Create Default Setted Verified Twitter Account.
-     * @param secUsers
+     * @param account
      * @return
      */
-    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account secUsers){
+    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account account){
         return this.createTwitterAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
-                secUsers,
+                account,
                 getProperty("twitter.test.account"),
-                Boolean.TRUE);
+                Boolean.TRUE, SocialProvider.TWITTER);
     }
 
   /**
@@ -1532,20 +1542,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public void setNotification(final INotification notification) {
         this.notificationDao = notification;
-    }
-
-    /**
-     * @return the providerDao
-     */
-    public ISocialProviderDao getProviderDao() {
-        return providerDao;
-    }
-
-    /**
-     * @param providerDao the providerDao to set
-     */
-    public void setProviderDao(ISocialProviderDao providerDao) {
-        this.providerDao = providerDao;
     }
 
     /**

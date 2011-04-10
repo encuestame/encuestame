@@ -110,6 +110,4 @@ public class Attachment {
     public void setProjectAttachment(final Project projectAttachment) {
         this.projectAttachment = projectAttachment;
     }
-
-
 }

@@ -19,11 +19,9 @@ import java.util.List;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -51,12 +49,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unchecked")
 @Repository("accountDao")
 public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccountDao {
-
-    /**
-     * Social Provider Dao.
-     */
-    @Autowired
-    private ISocialProviderDao socialProviderDao;
 
     /**
      * Constructor.
@@ -181,23 +173,13 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IAccountDao#getUsersByUsername(java.lang.String)
-     */
-    public List<UserAccount> getUsersByUsername(final String username) {
-            final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
-            criteria.add(Restrictions.like("username", username) );
-            return   getHibernateTemplate().findByCriteria(criteria);
-    }
-
-    /*
-     * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccount> getTwitterAccountByUser(
-            final Account secUsers,
+    public List<SocialAccount> getSocialAccountByAccount(
+            final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", secUsers) );
+        criteria.add(Restrictions.eq("secUsers", account) );
         if (provider != null) { //if provider is null, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
         }
@@ -230,16 +212,6 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         return   getHibernateTemplate().findByCriteria(criteria);
     }
 
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IAccountDao#getSecondaryUsersByUserId(java.lang.Long)
-     */
-    public List<UserAccount> getSecondaryUsersByUserId(final Long userId){
-            return getHibernateTemplate().findByNamedParam("from UserAccount"
-                                          +" WHERE secUser.id = :userId", "userId", userId);
-    }
-
     /**
      * Get Total of TweetPoll By User Editor.
      * @param userSecondary
@@ -261,16 +233,6 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
-     * Get Total of TweetPoll By User Editor.
-     * @param userSecondary
-     * @return
-     */
-    public List<Long> getTotalSurveyByUser(final Long userId){ //editorOwner
-        return getHibernateTemplate().findByNamedParam("select count(sid) "
-               +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
-    }
-
-    /**
      * Add connection.
      * @param accountId
      * @param provider
@@ -287,9 +249,8 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                 final String providerProfileUrl){
         final AccountConnection connection = new AccountConnection();
         //get provider
-        final SocialAccountProvider providerSocial = getSocialProviderDao()
-                                   .getSocialAccountProviderId(provider);
-        connection.setAccountProvider(SocialProvider.TWITTER); //TODO: FIX THIS HARD CODE.
+        final SocialProvider providerSocial = SocialProvider.getProvider(provider);
+        connection.setAccountProvider(providerSocial);
         connection.setAccessToken(token.getValue());
         connection.setSocialAccountId(socialAccountId);
         connection.setSecret(token.getSecret());
@@ -417,21 +378,6 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     }
 
     /**
-     * Find user account connected.
-     * @param provider
-     * @param providerAccount
-     * @return
-     */
-    public List<?> findUserAccountsConnectedTo(String provider,
-                   List<SocialAccountProvider> providerAccount) {
-         //where id in (select member from AccountConnection where provider =
-        //:provider and accountId in ( :providerAccountIds ))";
-
-        return null;
-    }
-
-
-    /**
      * Get list of id accounts only if are enabled.
      * @return list of id's.
      */
@@ -442,21 +388,6 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         final List<Long> accountsId = getHibernateTemplate().findByCriteria(criteria);
         return accountsId;
     }
-
-    /**
-     * @return the socialProviderDao
-     */
-    public ISocialProviderDao getSocialProviderDao() {
-        return socialProviderDao;
-    }
-
-    /**
-     * @param socialProviderDao thed socialProviderDao to set
-     */
-    public void setSocialProviderDao(final ISocialProviderDao socialProviderDao) {
-        this.socialProviderDao = socialProviderDao;
-    }
-
 
     /*
      * (non-Javadoc)

@@ -233,7 +233,7 @@ public class TestSecurityService extends AbstractServiceBase{
     @Ignore
     public void testaddNewTwitterAccount() throws EnMeNoResultsFoundException{
         //this.securityService.addNewTwitterAccount("encuestameTest", this.secUserSecondary.getUsername());
-        assertEquals(getAccountDao().getTwitterAccountByUser(this.userPrimary, SocialProvider.SocialProvider.TWITTER).size(), 1);
+        assertEquals(getAccountDao().getSocialAccountByAccount(this.userPrimary, SocialProvider.SocialProvider.TWITTER).size(), 1);
     }
 
     /**
