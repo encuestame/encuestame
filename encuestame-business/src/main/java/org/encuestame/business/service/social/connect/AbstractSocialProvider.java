@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.dao.ISocialProviderDao;
+
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -53,12 +53,6 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
      */
     @Autowired
     private IAccountDao accountDaoImp;
-
-    /**
-     * Social Provide Dao.
-     */
-    @Autowired
-    private ISocialProviderDao socialProviderDao;
 
     /**
      * Get Provider Name.
@@ -334,19 +328,5 @@ public abstract class AbstractSocialProvider<S> implements SocialProviderOperati
      */
     public void setAccountDaoImp(final IAccountDao accountDaoImp) {
         this.accountDaoImp = accountDaoImp;
-    }
-
-    /**
-     * @return the socialProviderDao
-     */
-    public ISocialProviderDao getSocialProviderDao() {
-        return socialProviderDao;
-    }
-
-    /**
-     * @param socialProviderDao the socialProviderDao to set
-     */
-    public void setSocialProviderDao(final ISocialProviderDao socialProviderDao) {
-        this.socialProviderDao = socialProviderDao;
     }
 }
