@@ -1597,4 +1597,47 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         createQuestion("Should be happy?",  user);
         createQuestion("Are you home alone?",  user);
     }
+
+    /**
+     * Create a list of fakes {@link TweetPoll}.
+     * @param userAccount
+     */
+    public void createFakesTweetPoll(final UserAccount userAccount){
+        final Question question = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question1);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question2);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question3);
+    }
+
+    /**
+     * Helper
+     * Create Tweet Poll Publicated
+     * @param publishTweetPoll
+     * @param completed
+     * @param scheduleDate
+     * @param tweetOwner
+     * @param question
+     * @return
+     */
+
+     public TweetPoll createTweetPollPublicated(
+              Boolean publishTweetPoll,
+              Boolean completed,
+              Date scheduleDate,
+              Account tweetOwner,
+              Question question){
+         final TweetPoll tweetPoll = new TweetPoll();
+         tweetPoll.setPublishTweetPoll(publishTweetPoll);
+         tweetPoll.setCompleted(completed);
+         tweetPoll.setScheduleDate(scheduleDate);
+         tweetPoll.setCreateDate(new Date());
+         tweetPoll.setQuestion(question);
+         tweetPoll.setTweetOwner(tweetOwner);
+         getTweetPoll().saveOrUpdate(tweetPoll);
+         return tweetPoll;
+     }
 }
