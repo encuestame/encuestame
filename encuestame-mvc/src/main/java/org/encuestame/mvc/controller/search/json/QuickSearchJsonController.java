@@ -62,7 +62,7 @@ public class QuickSearchJsonController extends AbstractJsonController {
             typesEnabled.add(TypeSearchResult.PROFILE);
             typesEnabled.add(TypeSearchResult.TWEETPOLL);
             if (!keyword.isEmpty()) {
-                 setItemReadStoreResponse("itemSearchTitle", "id",getSearchService()
+                 setItemReadStoreResponse("itemSearchTitle", "id", getSearchService()
                         .quickSearch(keyword, "English", 0, LIMIT_RESULTS, typesEnabled));
             } else {
                 log.debug("keyword is empty");

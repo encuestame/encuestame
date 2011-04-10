@@ -20,18 +20,39 @@ package org.encuestame.business.search;
  */
 public class GlobalSearchItem {
 
+    /**
+     * Id.
+     */
     private Long id;
 
+    /**
+     * URI path.
+     */
     private String urlLocation;
 
-    private Long score;
+    /**
+     * Score.
+     */
+    private Long score  = 0L;
 
-    private Long hits;
+    /**
+     * Score hits.
+     */
+    private Long hits = 0L;
 
+    /**
+     * {@link TypeSearchResult}.
+     */
     private TypeSearchResult typeSearchResult;
 
+    /**
+     * Item search title.
+     */
     private String itemSearchTitle;
 
+    /**
+     * Description.
+     */
     private String itemSearchDescription;
 
     /**
@@ -168,38 +189,48 @@ public class GlobalSearchItem {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (!(obj instanceof GlobalSearchItem))
+        }
+        if (!(obj instanceof GlobalSearchItem)){
             return false;
-        GlobalSearchItem other = (GlobalSearchItem) obj;
+        }
+        final GlobalSearchItem other = (GlobalSearchItem) obj;
         if (hits == null) {
-            if (other.hits != null)
+            if (other.hits != null) {
                 return false;
-        } else if (!hits.equals(other.hits))
+            }
+        } else if (!hits.equals(other.hits)) {
             return false;
+        }
         if (itemSearchDescription == null) {
-            if (other.itemSearchDescription != null)
+            if (other.itemSearchDescription != null) {
                 return false;
+            }
         } else if (!itemSearchDescription.equals(other.itemSearchDescription))
             return false;
         if (itemSearchTitle == null) {
-            if (other.itemSearchTitle != null)
+            if (other.itemSearchTitle != null) {
                 return false;
+            }
         } else if (!itemSearchTitle.equals(other.itemSearchTitle))
             return false;
         if (score == null) {
-            if (other.score != null)
+            if (other.score != null) {
                 return false;
+            }
         } else if (!score.equals(other.score))
             return false;
-        if (typeSearchResult != other.typeSearchResult)
+        if (typeSearchResult != other.typeSearchResult) {
             return false;
+        }
         if (urlLocation == null) {
-            if (other.urlLocation != null)
+            if (other.urlLocation != null) {
                 return false;
-        } else if (!urlLocation.equals(other.urlLocation))
+            }
+        } else if (!urlLocation.equals(other.urlLocation)) {
             return false;
+        }
         return true;
     }
 

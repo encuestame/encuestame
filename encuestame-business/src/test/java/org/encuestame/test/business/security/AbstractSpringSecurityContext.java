@@ -43,9 +43,11 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
      */
     private String usernameLogged;
 
+    private final String ADMINISTRATIVE_USER = "admin";
+
     @Before
     public void setUp() throws Exception {
-       this.secondary = createUserAccount("admin", createAccount());
+       this.secondary = createUserAccount(this.ADMINISTRATIVE_USER, createAccount());
        createPermission("ENCUESTAME_USER");
        createPermission("ENCUESTAME_ADMIN");
        //TODO:  maybe we need more specific here.
