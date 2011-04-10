@@ -359,10 +359,18 @@ public class TestUserDao extends AbstractBase {
     public void testgetAccessToken() throws EnMeNoResultsFoundException{
         final UserAccount account = createUserAccount("jota", this.account);
         final OAuthToken token = new OAuthToken("token", "secret");
-        createConnection("TWITTER", token, "12345", account.getUid() , "ur");
+        final AccountConnection accountConnection = createConnection("TWITTER", token, "12345",
+              account.getUid() , "ur");
         final OAuthToken token2 = getAccountDao().getAccessToken(account.getUid(), "TWITTER");
         assertEquals("Should be equals", token.getSecret(),token2.getSecret());
         assertEquals("Should be equals", token.getValue(),token2.getValue());
+        final AccountConnection ac2 = getAccountDao().findAccountConnectionByAccessToken("TWITTER",
+              accountConnection.getAccessToken());
+        assertNotNull(ac2);
+        final UserAccount exAccount = getAccountDao().findAccountByConnection("TWITTER",
+              accountConnection.getAccessToken());
+        assertNotNull(exAccount);
+        assertEquals("Should be equals", exAccount, account);
     }
 
     /**
@@ -385,5 +393,15 @@ public class TestUserDao extends AbstractBase {
         final AccountConnection exAc = getAccountDao().getAccountConnection(account.getUid(), "TWITTER");
         assertNotNull(exAc);
         assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
+    }
+
+    /**
+     * Test getPublicProfiles.
+     */
+    @Test
+    public void testgetPublicProfiles(){
+        flushIndexes();
+        final List<UserAccount> profiles = getAccountDao().getPublicProfiles("user", 100, 0);
+        assertEquals("Should be equals", profiles.size(), 1);
     }
 }
