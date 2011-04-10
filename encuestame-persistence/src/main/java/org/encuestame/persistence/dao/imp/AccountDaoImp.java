@@ -286,9 +286,8 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     public AccountConnection getAccountConnection(final Long accountId, final String provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(AccountConnection.class);
         criteria.createAlias("userAccout","userAccout");
-        criteria.createAlias("accountProvider","accountProvider");
         criteria.add(Restrictions.eq("userAccout.uid", accountId));
-        criteria.add(Restrictions.eq("accountProvider.name", provider));
+        criteria.add(Restrictions.eq("accountProvider", SocialProvider.getProvider(provider)));
         return (AccountConnection) DataAccessUtils.uniqueResult(getHibernateTemplate()
                 .findByCriteria(criteria));
     }
