@@ -1531,9 +1531,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public HashTag createHashTag(final String hashTagName){
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(hashTagName);
+        hashTag.setHits(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }
+
     /**
      * @return the notification
      */
@@ -1578,5 +1580,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Long userAccountId,
             final String providerProfileUrl){
         return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+    }
+
+    /**
+     * Create fake questions.
+     * @param user {@link Account};
+     */
+    public void createFakesQuestions(final Account user){
+        createQuestion("Do you want soccer?",  user);
+        createQuestion("Do you like apple's?",  user);
+        createQuestion("Do you buy iPods?",  user);
+        createQuestion("Do you like sky iPods Touch?",  user);
+        createQuestion("Ipad VS Ipad2?",  user);
+        createQuestion("How Often Do You Tweet? Survey Says Not That Often",  user);
+        createQuestion("Is survey usseful on Twitter?",  user);
+        createQuestion("Should be happy?",  user);
+        createQuestion("Are you home alone?",  user);
     }
 }

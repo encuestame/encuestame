@@ -19,7 +19,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -91,9 +90,9 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("tweetPolls", new ArrayList<TweetPollBean>());
         this.tweetPollRssFeedView.render(model, request, response);
-        log.debug(response.getContentType());
-        log.debug(response.getContentAsString());
-        System.out.println(response.getContentAsString());
+        //log.debug(response.getContentType());
+        //log.debug(response.getContentAsString());
+        //System.out.println(response.getContentAsString());
         Assert.assertEquals("application/rss+xml", response.getContentType());
         assertXpathExists("//rss", response.getContentAsString());
         assertXpathExists("//description", response.getContentAsString());
@@ -115,7 +114,6 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
         this.tweetPollAtomFeedView.render(model, request, response);
         log.debug(response.getContentType());
         log.debug(response.getContentAsString());
-        System.out.println(response.getContentAsString());
         Assert.assertEquals("application/atom+xml", response.getContentType());
         //assertXpathExists("//feed", response.getContentAsString());
         final SAXBuilder builder = new SAXBuilder();
@@ -141,7 +139,6 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
     public void testTweetpollDOTatom() throws ServletException, IOException, JDOMException{
           initService("/feed/"+getSecondary().getUsername()+"/tweetpoll.atom", MethodJson.GET);
           final Document response = callFeedService();
-          System.out.println(response);
           Assert.assertEquals(response.getRootElement().getName(), "feed");
     }
 
@@ -155,7 +152,6 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
     public void testTweetpollDOTrss() throws ServletException, IOException, JDOMException{
           initService("/feed/"+getSecondary().getUsername()+"/tweetpoll.rss", MethodJson.GET);
           final Document response = callFeedService();
-          System.out.println(response);
           Assert.assertEquals(response.getRootElement().getName(), "rss");
     }
 
