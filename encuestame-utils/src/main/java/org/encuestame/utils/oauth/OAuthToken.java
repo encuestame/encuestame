@@ -2,8 +2,14 @@ package org.encuestame.utils.oauth;
 
 public final class OAuthToken {
 
+    /**
+     * Value.
+     */
     private final String value;
 
+    /**
+     * Secret.
+     */
     private final String secret;
 
     /**
@@ -18,7 +24,7 @@ public final class OAuthToken {
      * Create a new OAuth token with a token value and secret.
      * Use this for OAuth 1.
      */
-    public OAuthToken(String value, String secret) {
+    public OAuthToken(final String value, final String secret) {
         this.value = value;
         this.secret = secret;
     }
@@ -41,5 +47,4 @@ public final class OAuthToken {
                 .append(secret).append("]");
         return builder.toString();
     }
-
 }

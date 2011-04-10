@@ -59,18 +59,18 @@ public enum SocialProvider {
 
     /**
      * Get Provider by String.
-     * @param permission period
+     * @param socialProvider period
      * @return provider enum
      */
-    public static SocialProvider getProvider(final String permission) {
-        if (null == permission) { return null; }
-        else if (permission.equalsIgnoreCase("TWITTER")) { return TWITTER; }
-        else if (permission.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
-        else if (permission.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
-        else if (permission.equalsIgnoreCase("TRIPIT")) { return TRIP_IT; }
-        else if (permission.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
-        else if (permission.equalsIgnoreCase("BUZZ")) { return BUZZ; }
-        else if (permission.equalsIgnoreCase("YAHOO")) { return YAHOO; }
+    public static SocialProvider getProvider(final String socialProvider) {
+        if (null == socialProvider) { return null; }
+        else if (socialProvider.equalsIgnoreCase("TWITTER")) { return TWITTER; }
+        else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
+        else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
+        else if (socialProvider.equalsIgnoreCase("TRIPIT")) { return TRIP_IT; }
+        else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
+        else if (socialProvider.equalsIgnoreCase("BUZZ")) { return BUZZ; }
+        else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
         else return null;
     }
 }

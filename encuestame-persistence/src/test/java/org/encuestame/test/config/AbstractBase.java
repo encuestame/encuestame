@@ -18,8 +18,6 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.aspectj.apache.bcel.generic.ACONST_NULL;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
@@ -51,16 +49,17 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPattern;
-import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
@@ -81,6 +80,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.oauth.OAuthToken;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1558,4 +1558,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.hashTagDao = hashTagDao;
     }
 
+
+    /**
+     *
+     * @param provider
+     * @param token
+     * @param socialAccountId
+     * @param userAccountId
+     * @param providerProfileUrl
+     * @return
+     */
+    public AccountConnection createConnection(final String provider,
+            final OAuthToken token,
+            final String socialAccountId,
+            final Long userAccountId,
+            final String providerProfileUrl){
+        return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+    }
 }
