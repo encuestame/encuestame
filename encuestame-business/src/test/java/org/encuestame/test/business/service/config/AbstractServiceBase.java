@@ -19,7 +19,6 @@ import org.springframework.test.context.ContextConfiguration;
  * Description Class.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 23, 2010 10:42:59 AM
- * @version Id:
  */
 @ContextConfiguration(locations = {
         "classpath:spring-test/encuestame-test-email-context.xml",
@@ -29,6 +28,6 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:spring-test/encuestame-test-search-context.xml",
         "classpath:spring-test/encuestame-param-test-context.xml"
          })
-public class AbstractServiceBase extends AbstractBaseUnitBeans{
+public abstract class AbstractServiceBase extends AbstractBaseUnitBeans{
 
 }

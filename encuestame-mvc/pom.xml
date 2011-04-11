@@ -378,6 +378,10 @@
             <artifactId>cometd-java-annotations</artifactId>
             <version>2.1.0</version>
         </dependency>
+	<dependency>
+ 	    <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+       </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -59,7 +59,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
         "classpath:spring-test/encuestame-test-json-context.xml",
         "classpath:spring-test/encuestame-test-rss-context.xml",
         "classpath:spring-test/encuestame-test-upload-context.xml"})
-public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityContext {
+public abstract class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**
      * Fake Request.
@@ -70,16 +70,6 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * Fake Response.
      */
     protected MockHttpServletResponse response;
-
-    /**
-     * Fake Session.
-     */
-    protected MockHttpSession session;
-
-    /**
-     * Json View.
-     */
-    public MappingJacksonJsonView jacksonJsonView = new MappingJacksonJsonView();
 
     /**
      * Model and View.
@@ -94,7 +84,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
     /**
      * Constructor.
      */
-    public AbstractJsonMvcUnitBeans() {
+    public AbstractMvcUnitBeans() {
         //jacksonJsonView.setPrefixJson(false);
         //jacksonJsonView.setDisableCaching(true);
         //session = new MockHttpSession();
@@ -113,78 +103,6 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
         this.request = new MockHttpServletRequest(method.name(), url);
         this.response = new MockHttpServletResponse();
     }
-
-    /**
-     * Call String Service.
-     * @return
-     * @throws ServletException servletException
-     * @throws IOException io exception.
-     */
-    private String callStringService() throws ServletException, IOException{
-        servlet.init(new MockServletConfig());
-        Assert.assertNotNull("Request is null, you need call initServices first ",this.request);
-        Assert.assertNotNull("Response is null, you need call initServices first ",this.response);
-        servlet.service(this.request, this.response);
-        return this.response.getContentAsString();
-    }
-
-    /**
-     * Call Feed Service.
-     * @return {@link MockHttpServletResponse}
-     * @throws ServletException exception
-     * @throws IOException
-     * @throws JDOMException
-     */
-    public Document callFeedService() throws ServletException, IOException, JDOMException{
-        final String responseAsString = this.callStringService();
-        final SAXBuilder builder = new SAXBuilder();
-        final Document document = builder.build(new StringReader(responseAsString));
-       return document;
-    }
-
-    /**
-     * Call JSON Service.
-     * @return {@link MockHttpServletResponse}
-     * @throws ServletException exception
-     * @throws IOException
-     */
-    public JSONObject callJsonService() throws ServletException, IOException{
-        final String responseAsString = this.callStringService();
-        Assert.assertNotNull(responseAsString);
-        log.debug(responseAsString);
-        return (JSONObject) JSONValue.parse(responseAsString);
-    }
-
-    /**e
-     * Get Errors on response.
-     * @param response response.
-     * @return
-     */
-    public JSONObject getErrors(final JSONObject response){
-        Assert.assertNotNull("You need call first callJsonService", this.response);
-        return (JSONObject) response.get("error");
-    }
-
-    /**
-     * Get Success response.
-     * @param response response
-     * @return
-     */
-    public JSONObject getSucess(final JSONObject response){
-        Assert.assertNotNull("You need call first callJsonService", this.response);
-        return (JSONObject) response.get("success");
-    }
-
-    /**
-     * Set Parameter.
-     * @param param param
-     * @param value value
-     */
-    public void setParameter(final String param, final String value){
-        Assert.assertNotNull(request);
-        this.request.setParameter(param, value);
-    }
-
 
     /**
      * using @Before is convenient, but with JUnit these annotated methods must
