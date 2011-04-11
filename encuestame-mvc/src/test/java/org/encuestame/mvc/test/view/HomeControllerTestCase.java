@@ -12,54 +12,46 @@
  */
 package org.encuestame.mvc.test.view;
 
-import javax.inject.Inject;
+import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
-import junit.framework.Assert;
-
-import org.encuestame.business.security.AbstractSecurityContext;
+import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
+import org.encuestame.mvc.view.DashBoardController;
 import org.encuestame.mvc.view.HomeController;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
+
 
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 10, 2011
  */
-public class HomeControllerTestCase{
+public class HomeControllerTestCase extends AbstractMvcUnitBeans{
 
-        @Inject
-        private ApplicationContext applicationContext;
-
-        private MockHttpServletRequest request;
-        private MockHttpServletResponse response;
-        private HandlerAdapter handlerAdapter;
-        private HomeController controller;
 
         @Before
-        public void setUp() {
-           request = new MockHttpServletRequest();
-           response = new MockHttpServletResponse();
-           Assert.assertNotNull(applicationContext);
-           handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
-           // I could get the controller from the context here
-           controller = new HomeController();
+        public void initMVc() {
+
         }
 
         @Test
-        public void testFoo() throws Exception {
-           request.setRequestURI("/home");
-           final ModelAndView mav = handlerAdapter.handle(request, response,
-               controller);
-           System.out.println(mav);
-           //assertViewName(mav, null);
-           //assertAndReturnModelAttributeOfType(mav, "image", Image.class);
+        public void testHome() throws Exception {
+            HomeController controller = new HomeController();
+            request = new MockHttpServletRequest("GET", "/home");
+            final ModelAndView mav = handlerAdapter.handle(request, response,
+                controller);
+            assertViewName(mav, "home");
+        }
+
+        @Test
+        public void testDashBoardController() throws Exception {
+            DashBoardController controller = new DashBoardController();
+            request = new MockHttpServletRequest("GET", "/user/dashboard");
+            final ModelAndView mav = handlerAdapter.handle(request, response,
+                controller);
+            assertViewName(mav, "dashboard");
         }
 
 }

@@ -48,7 +48,6 @@ public class HomeController extends AbstractBaseOperations {
             HttpServletResponse response) {
         final Boolean privateHome = EncuestamePlaceHolderConfigurer.getBooleanProperty("application.private");
         log.debug("HOME");
-        System.out.println("HO<EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         if (privateHome) {
             log.debug("signup is disabled");
             return "redirect:/user/signin";
