@@ -47,7 +47,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 2, 2010 10:11:07 PM
- * @version $Id:$
  */
 @Controller
 public class TweetPollJsonController extends AbstractJsonController {
