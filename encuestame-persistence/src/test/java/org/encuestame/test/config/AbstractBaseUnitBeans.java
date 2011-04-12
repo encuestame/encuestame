@@ -16,9 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPointFolderType;
-import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
@@ -39,7 +37,6 @@ import org.encuestame.utils.web.UserAccountBean;
  * Abstract Base Unit Beans.
  * @author Morales Urbina, Diana paola@encuestame.org
  * @since 19/04/2010 20:54:56
- * @version $Id:$
  */
 
 public abstract class AbstractBaseUnitBeans extends AbstractBase{

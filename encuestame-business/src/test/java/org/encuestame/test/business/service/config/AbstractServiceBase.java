@@ -30,4 +30,9 @@ import org.springframework.test.context.ContextConfiguration;
          })
 public abstract class AbstractServiceBase extends AbstractBaseUnitBeans{
 
+    /**
+     * Constructror.
+     */
+    public AbstractServiceBase() {
+    }
 }
