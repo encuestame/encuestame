@@ -13,6 +13,7 @@
 package org.encuestame.mvc.test.view;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
+import junit.framework.Assert;
 
 import org.bouncycastle.util.test.TestFailedException;
 import org.encuestame.mvc.controller.json.MethodJson;
@@ -26,6 +27,7 @@ import org.encuestame.mvc.view.SurveyController;
 import org.encuestame.mvc.view.TweetPollController;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +39,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ViewControllerTestCase extends AbstractMvcUnitBeans{
 
+        @Autowired
+        private TweetPollController pollController;
 
         @Before
         public void initMVc() {
@@ -160,27 +164,37 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testTweetPollController() throws Exception {
-            final TweetPollController controller = new TweetPollController();
+            //pollController = new TweetPollController();
+            Assert.assertNotNull(pollController);
             //vote view.
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/1");
             final ModelAndView mav = handlerAdapter.handle(request, response,
-                controller);
+                    pollController);
             System.out.println(mav);
-            assertViewName(mav, "survey");
+            assertViewName(mav, "badTweetVote");
+
             ///user/tweetpoll/list
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");
             final ModelAndView mav2 = handlerAdapter.handle(request, response,
-                controller);
+                    pollController);
             System.out.println(mav2);
-            assertViewName(mav, "tweetpoll");
+            assertViewName(mav2, "tweetpoll");
 
             ///user/tweetpoll/list
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/new");
             final ModelAndView mav3 = handlerAdapter.handle(request, response,
-                controller);
+                    pollController);
             System.out.println(mav3);
-            assertViewName(mav, "tweetpoll/new");
+            assertViewName(mav3, "tweetpoll/new");
 
         }
+
+        /**
+         * @param pollController the pollController to set
+         */
+        public void setPollController(TweetPollController pollController) {
+            this.pollController = pollController;
+        }
+
 
 }
