@@ -12,16 +12,16 @@
  */
 package org.encuestame.mvc.test.config;
 
+import javax.servlet.ServletRequestEvent;
+
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.HandlerAdapter;
 
 /**
@@ -44,10 +44,15 @@ public abstract class AbstractMvcUnitBeans extends AbstractSpringSecurityContext
      */
     @Before
     public void setUp() {
-       request = new MockHttpServletRequest();
+       //mock servlet context.
+       final MockServletContext servletContext = new MockServletContext("");
+       request = new MockHttpServletRequest(servletContext);
+       //to simulate request context listener.
+       final RequestContextListener requestContextListener = new RequestContextListener();
+       final ServletRequestEvent requestEvent = new ServletRequestEvent(servletContext, request);
+             requestContextListener.requestInitialized(requestEvent);
+       request.setRemoteAddr("80.43.23.54");
        response = new MockHttpServletResponse();
        handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
     }
-
-
 }
