@@ -56,12 +56,18 @@ public class HomeController extends AbstractBaseOperations {
         }
     }
 
+    /**
+     * Index view.
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(
             ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) {
-            log.debug("INDEX INDEX INDEX INDEX INDEX INDEX");
             return "redirect:/home";
     }
 }

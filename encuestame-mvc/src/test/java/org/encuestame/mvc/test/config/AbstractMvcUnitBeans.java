@@ -29,13 +29,10 @@ import org.springframework.web.servlet.HandlerAdapter;
  * @author Picado, Juan juanATencuestame.org
  * @since April 10, 2011
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-@Transactional
-@Scope("singleton")
 @ContextConfiguration(locations = {
         "classpath:spring-test/encuestame-test-controller-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml"})
+        "classpath:spring-test/encuestame-test-upload-context.xml",
+        "classpath:spring-test/encuestame-param-test-context.xml"})
 public abstract class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
 
     protected MockHttpServletRequest request;
