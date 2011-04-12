@@ -31,7 +31,6 @@ import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.search.SearchManagerOperation;
 import org.encuestame.utils.web.UnitAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,6 +48,9 @@ public class SearchService extends AbstractIndexService implements
      */
     private Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * {@link IndexWriterManager}.
+     */
     @Autowired
     private IndexWriterManager indexWriter; //TODO:ENCUESTAME-154
 
@@ -76,7 +78,7 @@ public class SearchService extends AbstractIndexService implements
             final Integer limit,
             final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
-        final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
+        final Map<String, List<GlobalSearchItem>> hashset = new HashedMap	();
 
         if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
             final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems

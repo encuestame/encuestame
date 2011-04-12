@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * Implementation for Notification Domain.
@@ -42,16 +43,16 @@ public interface INotification extends IBaseDao{
 
     /**
      * Retrieve Notification Status
-     * @param secUser
+     * @param accountUser {@link UserAccount}.
      * @return
      */
-    Long retrieveTotalNotificationStatus(final Account secUser);
+    Long retrieveTotalNotificationStatus(final Account accountUser);
 
    /**
     * Retrieve Notification Status
-    * @param secUser
+    * @param accountUser
     * @return
     */
 
-   Long retrieveTotalNotReadedNotificationStatus(final Account secUser);
+   Long retrieveTotalNotReadedNotificationStatus(final Account accountUser);
 }

@@ -80,7 +80,8 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> i
 
     @Override
     protected String fetchProviderAccountId(FacebookApi serviceOperations) {
-      return serviceOperations.getProfileId();
+      //return serviceOperations.userOperations().getUserProfile()
+        return null;
     }
 
     @Override

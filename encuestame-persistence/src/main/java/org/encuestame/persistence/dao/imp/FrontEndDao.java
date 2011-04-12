@@ -30,7 +30,6 @@ import org.springframework.stereotype.Repository;
  * Front End Dao.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 16, 2010 10:53:26 PM
- * @version $Id:$
  */
 @Repository("frontEndDao")
 public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEndDao{
@@ -38,20 +37,24 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     /** {@link HashTagDao}. **/
     private IHashTagDao hashTagDao;
     /** Represent 24 hours. **/
-    private final Integer PERIOD24 = 1;
+    private final Integer PERIOD_24 = 1;
     /** Represent 7 days. **/
-    private final Integer PERIOD7DAYS = 7;
+    private final Integer PERIOD_7_DAYS = 7;
     /** Represent 30 days. **/
-    private final Integer PERIOD30DAYS = 30;
+    private final Integer PERIOD_30_DAYS = 30;
     /** Represent All Items in the time. **/
-    private final Integer PERIODALL = null;
+    private final Integer PERIOD_ALL = null;
     /** Represent All Items in the time. **/
     private final Integer WITHOUT_FIRST_RESULTS = -1;
 
-    
-	@Autowired
-	public FrontEndDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+
+    /**
+     * Constructor.
+     * @param sessionFactory {@link SessionFactory}.
+     */
+    @Autowired
+    public FrontEndDao(SessionFactory sessionFactory) {
+           setSessionFactory(sessionFactory);
     }
 
     /**
@@ -62,9 +65,9 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of tweetPoll.
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> getTweetPollFrontEnd(Integer period, final Integer maxResults, final Integer firstResult){
+    public final List<TweetPoll> getTweetPollFrontEnd(Integer period, final Integer maxResults, final Integer firstResult){
         if(period == null){
-            period = 1;
+            period = PERIOD_24;
         }
         final Calendar hi = Calendar.getInstance();
         hi.add(Calendar.DAY_OF_YEAR, -period);
@@ -84,7 +87,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of poll.
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollFrontEnd(final Integer period, final Integer maxResults, final Integer firstResult){
+    public final List<Poll> getPollFrontEnd(final Integer period, final Integer maxResults, final Integer firstResult){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("question", "question");
         if(period != null){
@@ -102,7 +105,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param tag
      * @return
      */
-    public List<SearchSurveyPollTweetItem> searchByTag(final String tag){
+    public final List<SearchSurveyPollTweetItem> searchByTag(final String tag){
         return null;
     }
 
@@ -111,8 +114,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<TweetPoll> getTweetPollFrontEndLast24(final Integer maxResults){
-        return this.getTweetPollFrontEnd(this.PERIOD24, maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final List<TweetPoll> getTweetPollFrontEndLast24(final Integer maxResults){
+        return this.getTweetPollFrontEnd(this.PERIOD_24, maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -120,8 +123,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<TweetPoll> getTweetPollFrontEndLast7Days(final Integer maxResults){
-        return this.getTweetPollFrontEnd(this.PERIOD7DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final List<TweetPoll> getTweetPollFrontEndLast7Days(final Integer maxResults) {
+        return this.getTweetPollFrontEnd(this.PERIOD_7_DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -129,8 +132,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<TweetPoll> getTweetPollFrontEndLast30Days(final Integer maxResults){
-        return this.getTweetPollFrontEnd(this.PERIOD30DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final List<TweetPoll> getTweetPollFrontEndLast30Days(final Integer maxResults){
+        return this.getTweetPollFrontEnd(this.PERIOD_30_DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -138,8 +141,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<TweetPoll> getTweetPollFrontEndAllTime(final Integer maxResults){
-        return this.getTweetPollFrontEnd(this.PERIODALL , maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final List<TweetPoll> getTweetPollFrontEndAllTime(final Integer maxResults){
+        return this.getTweetPollFrontEnd(this.PERIOD_ALL , maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -147,8 +150,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<Poll> getPollFrontEndLast24(final Integer maxResults){
-        return this.getPollFrontEnd(this.PERIOD24, maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final  List<Poll> getPollFrontEndLast24(final Integer maxResults){
+        return this.getPollFrontEnd(this.PERIOD_24, maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -157,7 +160,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of tweetPoll.
      */
     public List<Poll> getPollFrontEndLast7Days(final Integer maxResults){
-        return this.getPollFrontEnd(this.PERIOD7DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
+        return this.getPollFrontEnd(this.PERIOD_7_DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -165,8 +168,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<Poll> getPollFrontEndLast30Days(final Integer maxResults){
-        return this.getPollFrontEnd(this.PERIOD30DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final List<Poll> getPollFrontEndLast30Days(final Integer maxResults){
+        return this.getPollFrontEnd(this.PERIOD_30_DAYS , maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -174,8 +177,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public List<Poll> getPollFrontEndAllTime(final Integer maxResults){
-        return this.getPollFrontEnd(this.PERIODALL , maxResults, this.WITHOUT_FIRST_RESULTS);
+    public final List<Poll> getPollFrontEndAllTime(final Integer maxResults){
+        return this.getPollFrontEnd(this.PERIOD_ALL , maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 
     /**
@@ -192,4 +195,3 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         this.hashTagDao = hashTagDao;
     }
 }
-

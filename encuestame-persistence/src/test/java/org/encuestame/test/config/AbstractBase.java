@@ -18,8 +18,6 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.aspectj.apache.bcel.generic.ACONST_NULL;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
@@ -32,7 +30,6 @@ import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.ISocialProviderDao;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -52,16 +49,17 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPattern;
-import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
@@ -82,6 +80,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.oauth.OAuthToken;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,10 +165,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Url Poll. **/
     public final String URLPOLL = "http://www.encuestame.org";
-
-    /** Social Account Dao.**/
-    @Autowired
-    private ISocialProviderDao providerDao;
 
     /** {@link HashTagDao} **/
     @Autowired
@@ -1298,7 +1293,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String secretToken,
             final Account secUsers,
             final String twitterAccount,
-            final Boolean verified){
+            final Boolean verified,
+            final SocialProvider provider){
         final SocialAccount socialTwitterAccounts = new SocialAccount();
         socialTwitterAccounts.setToken(token);
         socialTwitterAccounts.setSecretToken(secretToken);
@@ -1306,8 +1302,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         long randomNum = 100 + (int)(Math.random()* 4000);
         socialTwitterAccounts.setSocialUserId(randomNum);
         socialTwitterAccounts.setVerfied(verified);
-        socialTwitterAccounts.setAccounType(SocialProvider.TWITTER);
-        socialTwitterAccounts.setSocialAccountName(twitterAccount);
+        socialTwitterAccounts.setAccounType(provider);
+        socialTwitterAccounts.setSocialAccountName(twitterAccount+randomNum);
         getAccountDao().saveOrUpdate(socialTwitterAccounts);
         return socialTwitterAccounts;
      }
@@ -1322,22 +1318,36 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 secUsers,
-                getProperty("twitter.test.account"), Boolean.FALSE);
+                getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
+    }
+
+    /**
+     * Create {@link SocialAccount} with {@link SocialProvider}.
+     * @param account {@link Account}
+     * @param provider {@link SocialProvider}
+     * @return {@link SocialAccount}.
+     */
+    public SocialAccount createSocialProviderAccount(final Account account, final SocialProvider provider){
+        return this.createTwitterAccount(
+                getProperty("twitter.test.token"),
+                getProperty("twitter.test.tokenSecret"),
+                account,
+                getProperty("twitter.test.account"), Boolean.FALSE, provider);
     }
 
 
     /**
      * Create Default Setted Verified Twitter Account.
-     * @param secUsers
+     * @param account
      * @return
      */
-    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account secUsers){
+    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account account){
         return this.createTwitterAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
-                secUsers,
+                account,
                 getProperty("twitter.test.account"),
-                Boolean.TRUE);
+                Boolean.TRUE, SocialProvider.TWITTER);
     }
 
   /**
@@ -1498,12 +1508,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUser {@link Account}.
      * @param description {@link NotificationEnum}.
      */
-    public Notification createNotification(final String message, final Account secUser, final NotificationEnum description){
+    public Notification createNotification(
+            final String message,
+            final Account secUser,
+            final NotificationEnum description,
+            final Boolean readed){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
          notification.setCreated(new Date());
          notification.setDescription(description);
-         notification.setReaded(Boolean.FALSE);
+         notification.setReaded(readed);
          notification.setAccount(secUser);
          getNotification().saveOrUpdate(notification);
          return notification;
@@ -1517,9 +1531,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public HashTag createHashTag(final String hashTagName){
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(hashTagName);
+        hashTag.setHits(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }
+
     /**
      * @return the notification
      */
@@ -1532,20 +1548,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public void setNotification(final INotification notification) {
         this.notificationDao = notification;
-    }
-
-    /**
-     * @return the providerDao
-     */
-    public ISocialProviderDao getProviderDao() {
-        return providerDao;
-    }
-
-    /**
-     * @param providerDao the providerDao to set
-     */
-    public void setProviderDao(ISocialProviderDao providerDao) {
-        this.providerDao = providerDao;
     }
 
     /**
@@ -1562,4 +1564,80 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.hashTagDao = hashTagDao;
     }
 
+
+    /**
+     * Create {@link AccountConnection}.
+     * @param provider
+     * @param token
+     * @param socialAccountId
+     * @param userAccountId
+     * @param providerProfileUrl
+     * @return
+     */
+    public AccountConnection createConnection(final String provider,
+            final OAuthToken token,
+            final String socialAccountId,
+            final Long userAccountId,
+            final String providerProfileUrl){
+        return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+    }
+
+    /**
+     * Create fake questions.
+     * @param user {@link Account};
+     */
+    public void createFakesQuestions(final Account user){
+        createQuestion("Do you want soccer?",  user);
+        createQuestion("Do you like apple's?",  user);
+        createQuestion("Do you buy iPods?",  user);
+        createQuestion("Do you like sky iPods Touch?",  user);
+        createQuestion("Ipad VS Ipad2?",  user);
+        createQuestion("How Often Do You Tweet? Survey Says Not That Often",  user);
+        createQuestion("Is survey usseful on Twitter?",  user);
+        createQuestion("Should be happy?",  user);
+        createQuestion("Are you home alone?",  user);
+    }
+
+    /**
+     * Create a list of fakes {@link TweetPoll}.
+     * @param userAccount
+     */
+    public void createFakesTweetPoll(final UserAccount userAccount){
+        final Question question = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question1);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question2);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question3);
+    }
+
+    /**
+     * Helper
+     * Create Tweet Poll Publicated
+     * @param publishTweetPoll
+     * @param completed
+     * @param scheduleDate
+     * @param tweetOwner
+     * @param question
+     * @return
+     */
+
+     public TweetPoll createTweetPollPublicated(
+              Boolean publishTweetPoll,
+              Boolean completed,
+              Date scheduleDate,
+              Account tweetOwner,
+              Question question){
+         final TweetPoll tweetPoll = new TweetPoll();
+         tweetPoll.setPublishTweetPoll(publishTweetPoll);
+         tweetPoll.setCompleted(completed);
+         tweetPoll.setScheduleDate(scheduleDate);
+         tweetPoll.setCreateDate(new Date());
+         tweetPoll.setQuestion(question);
+         tweetPoll.setTweetOwner(tweetOwner);
+         getTweetPoll().saveOrUpdate(tweetPoll);
+         return tweetPoll;
+     }
 }

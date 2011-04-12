@@ -17,25 +17,29 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.oauth.OAuthToken;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * UserDao.
+ * {@link AccountDaoImp} Test Case.
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 27, 2009
- * @version $Id$
  */
 public class TestUserDao extends AbstractBase {
 
@@ -78,7 +82,6 @@ public class TestUserDao extends AbstractBase {
         this.userAccount = createUserAccount("user 1", this.account);
         this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
         this.question = createQuestion("What day is today?", "");
-
     }
 
     /***
@@ -168,16 +171,6 @@ public class TestUserDao extends AbstractBase {
     }
 
     /**
-     * Test getSecondaryUsersByUserId.
-     */
-    public void testGetSecondaryUsersByUserId(){
-         createUserAccount("user 1", this.account);
-         createUserAccount("user 2", this.account);
-         final List<UserAccount> userList = getAccountDao().getSecondaryUsersByUserId(this.account.getUid());
-         assertEquals("Should be equals", 2, userList.size());
-    }
-
-    /**
      * Test.
      */
     @Test
@@ -194,9 +187,7 @@ public class TestUserDao extends AbstractBase {
     @Test
     public void testRetrieveTotalUsers(){
          final Long totalUserAccount = getAccountDao().retrieveTotalUsers(this.account);
-         System.out.println("TOTAL USER ACCOUNT --> "+totalUserAccount);
          assertEquals("Should be equals", 1, 1);
-
     }
 
     /**
@@ -250,9 +241,13 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testgetTwitterVerifiedAccountByUser(){
-        //final List<SocialAccount> socAccount = getAccountDao().getTwitterVerifiedAccountByUser(this.account);
-        //assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
-        //assertEquals("Should be equals", 1, socAccount.size());
+        final List<SocialAccount> socAccount = getAccountDao().getTwitterVerifiedAccountByUser(this.account,
+              SocialProvider.TWITTER);
+        assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
+        assertEquals("Should be equals", 1, socAccount.size());
+        final List<SocialAccount> socAccount2 = getAccountDao().getTwitterVerifiedAccountByUser(this.account,
+               null);
+        assertEquals("Should be equals", 1, socAccount2.size());
     }
 
     /**
@@ -304,5 +299,118 @@ public class TestUserDao extends AbstractBase {
                 log.debug("d->"+long1);
             }
         }
+    }
+
+    /**
+     * Test getSocialAccount.
+     */
+    @Test
+    public void testgetSocialAccount(){
+        final SocialAccount ac = createSocialProviderAccount(this.account, SocialProvider.BUZZ);
+        final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
+        assertEquals("Should be equals", ac.getId(),ex.getId());
+        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.BUZZ, ex.getSocialUserId());
+        assertNotNull(ex2);
+        assertEquals("Should be equals", ac.getId(), ex2.getId());
+    }
+
+    /**
+     * Test getSocialAccountByAccount.
+     */
+    @Test
+    public void testgetSocialAccountByAccount(){
+        final List<SocialAccount> accounts = getAccountDao().getSocialAccountByAccount(this.account, SocialProvider.TWITTER);
+        assertEquals("Should be equals", accounts.size(), 1);
+    }
+
+    /**
+     * {@link AccountConnection} test case.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testisConnected() throws EnMeNoResultsFoundException{
+        final UserAccount account = createUserAccount("jota", this.account);
+        final OAuthToken token = new OAuthToken("token", "secret");
+        final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
+        //final AccountConnection exAc = getAccountDao().getAccountConnection(ac.getUserAccout().getUid(), "TWITTER");
+        //assertNotNull(exAc);
+        //assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
+        final boolean conected = getAccountDao().isConnected(account.getUid(), "TWITTER");
+        assertTrue(conected);
+        getAccountDao().disconnect(account.getUid(), "TWITTER");
+        final boolean conected2 = getAccountDao().isConnected(account.getUid(), "TWITTER");
+        assertFalse(conected2);
+    }
+
+    /**
+     * Disconected test case.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test(expected= EnMeNoResultsFoundException.class)
+    public void testdisconnect() throws EnMeNoResultsFoundException{
+        getAccountDao().disconnect(account.getUid(), "TWITTER");
+    }
+
+    /**
+     * Test getAccessToken.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testgetAccessToken() throws EnMeNoResultsFoundException{
+        final UserAccount account = createUserAccount("jota", this.account);
+        final OAuthToken token = new OAuthToken("token", "secret");
+        final AccountConnection accountConnection = createConnection("TWITTER", token, "12345",
+              account.getUid() , "ur");
+        final OAuthToken token2 = getAccountDao().getAccessToken(account.getUid(), "TWITTER");
+        assertEquals("Should be equals", token.getSecret(),token2.getSecret());
+        assertEquals("Should be equals", token.getValue(),token2.getValue());
+        final AccountConnection ac2 = getAccountDao().findAccountConnectionByAccessToken("TWITTER",
+              accountConnection.getAccessToken());
+        assertNotNull(ac2);
+        final UserAccount exAccount = getAccountDao().findAccountByConnection("TWITTER",
+              accountConnection.getAccessToken());
+        assertNotNull(exAccount);
+        assertEquals("Should be equals", exAccount, account);
+    }
+
+    /**
+     * Test exception getAccessToken.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test(expected= EnMeNoResultsFoundException.class)
+    public void testfindAccountByConnection() throws EnMeNoResultsFoundException{
+         getAccountDao().findAccountByConnection("TWITTER", "xxxxxxxx");
+    }
+
+    /**
+     * Test exception getAccessToken.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test(expected= EnMeNoResultsFoundException.class)
+    public void testgetAccessToken2() throws EnMeNoResultsFoundException{
+         getAccountDao().getAccessToken(account.getUid(), "TWITTER");
+    }
+
+    /**
+     * Test getAccountConnection.
+     */
+    @Test
+    public void testgetAccountConnection(){
+        final UserAccount account = createUserAccount("jota", this.account);
+        final OAuthToken token = new OAuthToken("token", "secret");
+        final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
+        final AccountConnection exAc = getAccountDao().getAccountConnection(account.getUid(), "TWITTER");
+        assertNotNull(exAc);
+        assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
+    }
+
+    /**
+     * Test getPublicProfiles.
+     */
+    @Test
+    public void testgetPublicProfiles(){
+        flushIndexes();
+        final List<UserAccount> profiles = getAccountDao().getPublicProfiles("user", 100, 0);
+        assertEquals("Should be equals", profiles.size(), 1);
     }
 }

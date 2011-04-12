@@ -170,5 +170,15 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          return (Survey) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
+    /**
+     * Get Total of TweetPoll By User Editor.
+     * @param userSecondary
+     * @return
+     */
+    public List<Long> getTotalSurveyByOwner(final Long userId){ //editorOwner
+        return getHibernateTemplate().findByNamedParam("select count(sid) "
+               +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
+    }
+
 }
 

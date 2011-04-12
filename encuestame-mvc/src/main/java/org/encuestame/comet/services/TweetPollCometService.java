@@ -13,7 +13,6 @@
 package org.encuestame.comet.services;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
@@ -28,7 +27,6 @@ import org.cometd.java.annotation.Service;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
@@ -53,6 +51,7 @@ public class TweetPollCometService extends AbstractCometService {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @Listener("/service/tweetpoll/autosave")
+    @SuppressWarnings("unchecked")
     public void processAutoSave(final ServerSession remote, final ServerMessage.Mutable message) {
         final Map<String, Object> inputMessage = message.getDataAsMap();
         Map<String, Object> outPutMessage = new HashedMap();

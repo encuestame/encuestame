@@ -233,7 +233,7 @@ public class TestSecurityService extends AbstractServiceBase{
     @Ignore
     public void testaddNewTwitterAccount() throws EnMeNoResultsFoundException{
         //this.securityService.addNewTwitterAccount("encuestameTest", this.secUserSecondary.getUsername());
-        assertEquals(getAccountDao().getTwitterAccountByUser(this.userPrimary, SocialProvider.SocialProvider.TWITTER).size(), 1);
+        assertEquals(getAccountDao().getSocialAccountByAccount(this.userPrimary, SocialProvider.SocialProvider.TWITTER).size(), 1);
     }
 
     /**
@@ -614,16 +614,6 @@ public class TestSecurityService extends AbstractServiceBase{
         public void testsearchUsersByEmail(){
             final UserAccount email = createUserAccount("emailUser1", this.userPrimary);
             List<UserAccount> emailUsers = this.securityService.searchUsersByEmail(email.getUserEmail());
-            assertEquals(emailUsers.size(), 1);
-        }
-
-        /**
-         * Test searchUsersByEmail.
-         */
-        @Test
-        public void testsearchUsersByUsername(){
-            createUserAccount("emailUser2", this.userPrimary);
-            List<UserAccount> emailUsers = this.securityService.searchUsersByUsername("emailUser2");
             assertEquals(emailUsers.size(), 1);
         }
 
