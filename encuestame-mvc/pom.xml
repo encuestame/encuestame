@@ -16,7 +16,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>
         </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>
             <scope>test</scope>
@@ -26,7 +26,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-persistence</artifactId>
         </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-persistence</artifactId>
             <scope>test</scope>
@@ -36,7 +36,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
         </dependency>
-         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
             <scope>test</scope>
@@ -46,7 +46,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
         </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
             <scope>test</scope>
@@ -378,6 +378,10 @@
             <artifactId>cometd-java-annotations</artifactId>
             <version>2.1.0</version>
         </dependency>
+    <dependency>
+         <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+       </dependency>
     </dependencies>
     <build>
         <plugins>

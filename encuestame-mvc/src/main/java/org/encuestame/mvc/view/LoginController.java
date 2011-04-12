@@ -47,7 +47,7 @@ public class LoginController extends AbstractBaseOperations{
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/forgot", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/forgot", method = RequestMethod.GET)
     public String forgotPasswordController(final ModelMap model) {
         log.debug("forgot password");
         return "forgot";
