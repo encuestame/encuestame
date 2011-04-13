@@ -41,14 +41,11 @@
                     <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
                     <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
                 </bean>
-                <!-- Reindex attachments -->
+                <!-- Reindex attachments
                 <bean id="attachmentsReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingAttachmentsJobDetail" />
                     <property name="cronExpression" value="0 15 10 * * ? *" />
-                    <!-- Every 5 minutes 0 0/5 * * * ? -->
-                    <!-- Fire at 10:15am every day 0 15 10 * * ? * -->
-                    <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
-                </bean>
+                </bean> -->
             </list>
         </property>
     </bean>

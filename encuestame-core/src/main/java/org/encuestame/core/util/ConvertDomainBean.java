@@ -490,6 +490,19 @@ public class ConvertDomainBean {
     }
 
     /**
+     * Convert TweetPoll List to TweetPoll Bean.
+     * @param tweetPollBean
+     * @return
+     */
+    public static final List<TweetPollBean> convertListToTweetPollBean(final List<TweetPoll> tweetPol){
+        final List<TweetPollBean> listTweetPolls = new ArrayList<TweetPollBean>();
+        for (TweetPoll tweets : tweetPol) {
+            listTweetPolls.add(ConvertDomainBean.convertTweetPollToBean(tweets));
+        }
+    return listTweetPolls;
+    }
+
+    /**
      * Convert {@link Poll} to {@link UnitPoll}.
      * @param poll
      * @return unitPoll unitPoll
@@ -505,9 +518,20 @@ public class ConvertDomainBean {
         unitPoll.setShowResultsPoll(poll.getShowVotes());
         unitPoll.setFinishDate(poll.getEndDate());
        return unitPoll;
-
     }
 
+    /**
+     * Convert list to poll bean.
+     * @param poll
+     * @return
+     */
+    public static final List<UnitPoll> convertListToPollBean(final List<Poll> poll){
+        final List<UnitPoll> listPolls = new ArrayList<UnitPoll>();
+        for (Poll polls : poll) {
+            listPolls.add(ConvertDomainBean.convertPollDomainToBean(polls));
+        }
+    return listPolls;
+    }
 
     /**
      * Convert Set to Unit Poll bean.

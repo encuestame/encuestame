@@ -13,10 +13,10 @@
 package org.encuestame.business.service.imp;
 
 import java.util.List;
-
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.utils.web.frontEnd.UnitSearchItem;
+import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.UnitPoll;
 
 /**
  * Implementation for Front End Service.
@@ -26,18 +26,26 @@ import org.encuestame.utils.web.frontEnd.UnitSearchItem;
  */
 public interface IFrontEndService extends ServiceOperations {
 
-
     /**
-     * Search Items By Keyword.
-     * @param keyword keyword.
+     * Search Items By TweetPoll.
      * @param maxResults limit of results to return.
      * @return result of the search.
      * @throws EnMeSearchException search exception.
      */
-    List<UnitSearchItem> searchItemsByKeyword(
-                final String keyword,
-                final String period,
-                Integer maxResults)
-           throws EnMeSearchException;
+     List<TweetPollBean> searchItemsByTweetPoll(
+            final String period,
+            Integer maxResults)
+            throws EnMeSearchException;
 
+     /**
+      * Search items by poll.
+      * @param period
+      * @param maxResults
+      * @return
+      * @throws EnMeSearchException
+      */
+    List<UnitPoll> searchItemsByPoll(
+             final String period,
+             Integer maxResults)
+             throws EnMeSearchException;
 }
