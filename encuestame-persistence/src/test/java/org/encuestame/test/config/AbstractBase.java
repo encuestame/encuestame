@@ -93,7 +93,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * Base Class to Test Cases.
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
- * @version $Id$
  */
 
 public abstract class AbstractBase extends AbstractConfigurationBase{
@@ -204,7 +203,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * Flush Indexes.
+     * Force to push HIBERNATE domains saved to HIBERNATE SEARCH indexes.
+     * This is useful to test full text session search on test cases.
      */
     public void flushIndexes(){
         final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate()
@@ -1607,15 +1607,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
         final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
         final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question1);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question2);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question3);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question1);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question2);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question3);
     }
 
     /**
-     * Helper
-     * Create Tweet Poll Publicated
+     * Create {@link TweetPoll} published.
      * @param publishTweetPoll
      * @param completed
      * @param scheduleDate
@@ -1623,13 +1622,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question
      * @return
      */
-
      public TweetPoll createTweetPollPublicated(
-              Boolean publishTweetPoll,
-              Boolean completed,
-              Date scheduleDate,
-              Account tweetOwner,
-              Question question){
+              final Boolean publishTweetPoll,
+              final Boolean completed,
+              final Date scheduleDate,
+              final UserAccount tweetOwner,
+              final Question question){
          final TweetPoll tweetPoll = new TweetPoll();
          tweetPoll.setPublishTweetPoll(publishTweetPoll);
          tweetPoll.setCompleted(completed);
@@ -1637,7 +1635,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          tweetPoll.setCreateDate(new Date());
          tweetPoll.setFavourites(false);
          tweetPoll.setQuestion(question);
-         tweetPoll.setTweetOwner(tweetOwner);
+         tweetPoll.setTweetOwner(tweetOwner.getAccount());
+         tweetPoll.setEditorOwner(tweetOwner);
          getTweetPoll().saveOrUpdate(tweetPoll);
          return tweetPoll;
      }

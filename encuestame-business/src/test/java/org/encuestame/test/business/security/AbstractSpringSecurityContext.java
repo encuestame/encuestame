@@ -52,7 +52,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
      * @throws Exception
      */
     @Before
-    public void setUpSpringLoggin() throws Exception {
+    public void setUp() throws Exception {
        this.springSecurityLoggedUserAccount = createUserAccount(this.ADMINISTRATIVE_USER, createAccount());
        createPermission("ENCUESTAME_USER");
        createPermission("ENCUESTAME_ADMIN");

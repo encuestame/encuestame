@@ -125,7 +125,6 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getUserAccountLogged() == null
               ? getAccountDao().getUserByUsername(username) : getUserAccountLogged();
-        log.debug("getUserAccount "+userAccount);
         if(userAccount == null){
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
