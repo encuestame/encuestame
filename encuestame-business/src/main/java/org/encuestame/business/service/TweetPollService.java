@@ -102,6 +102,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> getTweetsPollsByUserName(final String username,
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
+        log.debug("tweetPoll username "+username);
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username), maxResults, start);
          log.info("tweetPoll size "+tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls);

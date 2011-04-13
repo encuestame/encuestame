@@ -1635,6 +1635,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          tweetPoll.setCompleted(completed);
          tweetPoll.setScheduleDate(scheduleDate);
          tweetPoll.setCreateDate(new Date());
+         tweetPoll.setFavourites(false);
          tweetPoll.setQuestion(question);
          tweetPoll.setTweetOwner(tweetOwner);
          getTweetPoll().saveOrUpdate(tweetPoll);
