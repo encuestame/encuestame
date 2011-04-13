@@ -154,7 +154,6 @@ public class IndexerManager {
         } else {
             // Add Document to Lucene Index.
             this.indexWriterManager.getIndexWriter().addDocument(doc);
-            this.close();
         }
     }
 
