@@ -15,6 +15,7 @@ package org.encuestame.business.service.imp;
 import java.io.IOException;
 
 import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexWriter;
 
 /**
  * Class description.
@@ -35,4 +36,11 @@ public interface IIndexWriter {
      * @throws IOException
      */
     void closeIndexWriter() throws CorruptIndexException, IOException;
+
+
+    /**
+     *
+     * @return
+     */
+    IndexWriter getIndexWriter() ;
 }

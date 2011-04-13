@@ -23,6 +23,7 @@ import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
  * ReIndex Attachments Job.
@@ -102,15 +103,17 @@ public class ReIndexAttachmentsJob {
         try {
             if (userDomainAttachmentsLocation.size() > 0) {
                 if (this.indexerManager == null) {
-                    log.fatal("IntexManager is missing.");
+                    log.fatal("IndexManager is missing.");
                 } else {
                     log.debug("Initialize Index Starting...");
+                    Assert.notNull(userDomainAttachmentsLocation);
                     this.indexerManager.initializeIndex(userDomainAttachmentsLocation);
                 }
             } else {
                 log.debug("Nothing to index... ");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.fatal("Index on reindex: "+e);
         }
     }
