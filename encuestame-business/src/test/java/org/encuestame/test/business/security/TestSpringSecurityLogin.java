@@ -26,7 +26,7 @@ public class TestSpringSecurityLogin extends AbstractSpringSecurityContext {
 
     @Test
     public void testSecurity(){
-         assertEquals("Should be", getAuthentication().getPrincipal(), getSecondary().getUsername());
+         assertEquals("Should be", getAuthentication().getPrincipal(), getSpringSecurityLoggedUserAccount().getUsername());
     }
 
 }

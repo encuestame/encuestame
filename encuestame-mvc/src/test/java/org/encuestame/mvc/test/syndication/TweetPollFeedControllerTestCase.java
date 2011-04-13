@@ -69,7 +69,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
     public void initView(){
         Assert.assertNotNull(this.tweetPollAtomFeedView);
         Assert.assertNotNull(this.tweetPollRssFeedView);
-        createFakesTweetPoll(getSecondary());
+        createFakesTweetPoll(getSpringSecurityLoggedUserAccount());
     }
 
     /**
@@ -130,7 +130,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testTweetpollDOTatom() throws ServletException, IOException, JDOMException{
-          initService("/feed/"+getSecondary().getUsername()+"/tweetpoll.atom", MethodJson.GET);
+          initService("/feed/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll.atom", MethodJson.GET);
           final Document response = callFeedService();
           Assert.assertEquals(response.getRootElement().getName(), "feed");
     }
@@ -143,7 +143,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testTweetpollDOTrss() throws ServletException, IOException, JDOMException{
-          initService("/feed/"+getSecondary().getUsername()+"/tweetpoll.rss", MethodJson.GET);
+          initService("/feed/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll.rss", MethodJson.GET);
           final Document response = callFeedService();
           Assert.assertEquals(response.getRootElement().getName(), "rss");
     }
