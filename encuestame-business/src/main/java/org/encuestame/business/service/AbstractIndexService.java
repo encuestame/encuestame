@@ -1,27 +1,20 @@
 
 package org.encuestame.business.service;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.AttachmentSearchItem;
-import org.encuestame.business.search.GlobalSearchItem;
-import org.encuestame.business.search.UtilConvertToSearchItems;
+import org.encuestame.business.search.SearchManagerOperation;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.search.SearchManagerOperation;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

@@ -10,37 +10,21 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.service.imp;
+package org.encuestame.business.search;
 
 import java.io.IOException;
+import java.util.List;
 
-import org.apache.lucene.index.CorruptIndexException;
-import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.queryParser.ParseException;
 
 /**
- * Class description.
+ * Search Manager Operation.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since Apr 7, 2011
+ * @since Mar 28, 2011
  */
-public interface IIndexWriter {
+public interface SearchManagerOperation {
 
-    /**
-    * Open index writer.
-    * @throws IOException
-    */
-    void openIndexWriter() throws IOException;
-
-    /**
-     * Close index writer.
-     * @throws CorruptIndexException
-     * @throws IOException
-     */
-    void closeIndexWriter() throws CorruptIndexException, IOException;
-
-
-    /**
-     *
-     * @return
-     */
-    IndexWriter getIndexWriter() ;
+    List<Document> search(final String queryText, final int max, final String field) throws IOException,
+    ParseException;
 }

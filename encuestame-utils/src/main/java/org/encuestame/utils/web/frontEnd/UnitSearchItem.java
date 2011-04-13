@@ -22,7 +22,6 @@ import org.encuestame.utils.web.TweetPollBean;
  * This item store list of poll, tweetpoll and survey.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 17, 2010 8:47:46 PM
- * @version $Id:$
  */
 public class UnitSearchItem {
 

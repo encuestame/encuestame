@@ -18,6 +18,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.encuestame.utils.mail.InvitationBean;
+import org.encuestame.utils.mail.NotificationBean;
+import org.encuestame.utils.oauth.AuthorizedRequestToken;
+import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.ForgotPasswordBean;
 import org.encuestame.utils.security.SocialAccountBean;
@@ -43,6 +48,7 @@ import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.junit.Test;
 
@@ -537,8 +543,6 @@ import org.junit.Test;
         accountBean.setToken("token");
         accountBean.setSecretToken("token");
         accountBean.setType("type");
-
-
         assertNotNull(accountBean.getAccount());
         assertNotNull(accountBean.getAccountId());
         assertNotNull(accountBean.getKey());
@@ -548,4 +552,92 @@ import org.junit.Test;
         assertNotNull(accountBean.getToken());
         assertNotNull(accountBean.getType());
     }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testInvitationBean(){
+        final InvitationBean ib = new InvitationBean();
+        ib.setCode("code");
+        ib.setEmail("juan@encuestame.org");
+        ib.setListName("list");
+        ib.setUrlInvitation("url");
+        assertNotNull(ib.getCode());
+        assertNotNull(ib.getEmail());
+        assertNotNull(ib.getListName());
+        assertNotNull(ib.getUrlInvitation());
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testNotificationBean(){
+        final NotificationBean ib = new NotificationBean();
+        ib.setCode("code");
+        ib.setEmail("juan@encuestame.org");
+        ib.setMessage("message");
+        ib.setUrlUnsuscribe("unUrl");
+        assertNotNull(ib.getCode());
+        assertNotNull(ib.getEmail());
+        assertNotNull(ib.getMessage());
+        assertNotNull(ib.getUrlUnsuscribe());
+    }
+
+    /**
+     * Test {@link UtilNotification}.
+     */
+    @Test
+    public void testUtilNotification(){
+        final UtilNotification nt = new UtilNotification();
+        nt.setAdditionalDescription("additional des");
+        nt.setDate("1 hour");
+        nt.setDescription("description");
+        nt.setHour("1");
+        nt.setIcon("icon");
+        nt.setId(1L);
+        nt.setType("TWEETPOLL");
+        assertNotNull(nt.getAdditionalDescription());
+        assertNotNull(nt.getDate());
+        assertNotNull(nt.getDescription());
+        assertNotNull(nt.getHour());
+        assertNotNull(nt.getIcon());
+        assertNotNull(nt.getType());
+    }
+
+    /**
+     * Test {@link UnitSearchItem}.
+     */
+    @Test
+    public void testUnitSearchItem(){
+        final UnitSearchItem si = new UnitSearchItem();
+        si.setPolls(new ArrayList<UnitPoll>());
+        si.setTweetPolls(new ArrayList<TweetPollBean>());
+        assertNotNull(si.getPolls());
+        assertNotNull(si.getTweetPolls());
+    }
+
+    /**
+     * Test {@link AuthorizedRequestToken} and {@link OAuthToken}.
+     */
+    @Test
+    public void testAuthorizedRequestToken(){
+        final OAuthToken token = new OAuthToken("value", "secret");
+        final AuthorizedRequestToken tk = new AuthorizedRequestToken(token, "veri");
+        assertNotNull(tk.getSecret());
+        assertNotNull(tk.getValue());
+        assertNotNull(tk.getVerifier());
+        assertNotNull(token.getSecret());
+        assertNotNull(token.getValue());
+        final StandardOAuthSession oa = new StandardOAuthSession("api", "call", "token", "secret");
+        oa.authorize(1235L, "veri");
+        assertNotNull(oa.getApiKey());
+        assertNotNull(oa.getCallbackUrl());
+        assertNotNull(oa.getRequestToken());
+        assertNotNull(oa.getSecret());
+        assertNotNull(oa.getVerifier());
+        assertNotNull(oa.getAuthorizingAccountId());
+    }
+
 }

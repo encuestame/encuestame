@@ -29,44 +29,50 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Abstract Security Base Test.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 30, 2010 9:03:50 PM
- * @version $Id:$
  */
 public abstract class AbstractSpringSecurityContext extends AbstractServiceBase {
 
     /**
      * {@link UserAccount}.
      */
-    public UserAccount secondary;
+    public UserAccount springSecurityLoggedUserAccount;
 
     /**
      * Username of User Logged.
      */
     private String usernameLogged;
 
+    /**
+     * Administrative user.
+     */
     private final String ADMINISTRATIVE_USER = "admin";
 
+    /**
+     * Before.
+     * @throws Exception
+     */
     @Before
-    public void setUp() throws Exception {
-       this.secondary = createUserAccount(this.ADMINISTRATIVE_USER, createAccount());
+    public void setUpSpringLoggin() throws Exception {
+       this.springSecurityLoggedUserAccount = createUserAccount(this.ADMINISTRATIVE_USER, createAccount());
        createPermission("ENCUESTAME_USER");
        createPermission("ENCUESTAME_ADMIN");
        //TODO:  maybe we need more specific here.
-       setAuthentication(this.secondary.getUsername(), "12345");
+       setAuthentication(this.springSecurityLoggedUserAccount.getUsername(), "12345");
     }
 
 
     /**
      * @return the secondary
      */
-    public UserAccount getSecondary() {
-        return secondary;
+    public UserAccount getSpringSecurityLoggedUserAccount() {
+        return springSecurityLoggedUserAccount;
     }
 
     /**
      * @param secondary the secondary to set
      */
-    public void setSecondary(UserAccount secondary) {
-        this.secondary = secondary;
+    public void setSpringSecurityLoggedUserAccount(final UserAccount springSecurityLoggedUserAccount) {
+        this.springSecurityLoggedUserAccount = springSecurityLoggedUserAccount;
     }
 
     /**
@@ -83,7 +89,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
         token.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(token);
         //System.out.println("creando SecurityContextHolder "+SecurityContextHolder.getContext().getAuthentication());
-        setUsernameLogged(this.secondary.getUsername());
+        setUsernameLogged(this.springSecurityLoggedUserAccount.getUsername());
     }
 
     /**

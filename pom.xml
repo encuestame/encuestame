@@ -101,8 +101,7 @@
     <modules>
         <module>encuestame-utils</module>
         <module>encuestame-core</module>
-        <module>encuestame-persistence</module>
-        <module>encuestame-search</module>
+        <module>encuestame-persistence</module>        
         <module>encuestame-business</module>
         <module>encuestame-mvc</module>
         <module>encuestame-war</module>
@@ -1539,6 +1538,11 @@
 	  <groupId>com.googlecode.ehcache-spring-annotations</groupId>
 	  <artifactId>ehcache-spring-annotations</artifactId>
 	  <version>1.1.3</version>
+	</dependency>
+	<dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+	    <version>3.0</version>
 	</dependency>
       </dependencies>
     </dependencyManagement>

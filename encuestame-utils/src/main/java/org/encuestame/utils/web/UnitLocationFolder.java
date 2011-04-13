@@ -14,15 +14,12 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
-import org.encuestame.utils.dnd.ItemFolderDrag;
-
 /**
  * Location Folder Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since May 16, 2010 1:54:45 PM
- * @version Id:
  */
-public class UnitLocationFolder extends AbstractUnitLocation implements Serializable, ItemFolderDrag {
+public class UnitLocationFolder extends AbstractUnitLocation implements Serializable {
 
     /**
      * Serial.

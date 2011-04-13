@@ -42,13 +42,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 /**
- *
- * Description Class.
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 26, 2010 8:12:32 PM
@@ -60,9 +57,8 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @Scope("singleton")
 @ContextConfiguration(locations = {
         "classpath:spring-test/encuestame-test-json-context.xml",
-        "classpath:spring-test/encuestame-rss-context.xml",
-        "classpath:spring-test/encuestame-upload-context.xml",
-        "classpath:spring-test/encuestame-param-test-context.xml" })
+        "classpath:spring-test/encuestame-test-rss-context.xml",
+        "classpath:spring-test/encuestame-test-upload-context.xml"})
 public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**
@@ -76,12 +72,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
     protected MockHttpServletResponse response;
 
     /**
-     * Handler Adapter.
-     */
-    protected HandlerAdapter handlerAdapter;
-
-    /**
-     * Fake Session
+     * Fake Session.
      */
     protected MockHttpSession session;
 
@@ -104,7 +95,6 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * Constructor.
      */
     public AbstractJsonMvcUnitBeans() {
-        // http://forum.springsource.org/showthread.ph519
         //jacksonJsonView.setPrefixJson(false);
         //jacksonJsonView.setDisableCaching(true);
         //session = new MockHttpSession();
@@ -139,7 +129,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
     }
 
     /**
-     * Call JSON Service.
+     * Call Feed Service.
      * @return {@link MockHttpServletResponse}
      * @throws ServletException exception
      * @throws IOException
@@ -147,7 +137,6 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      */
     public Document callFeedService() throws ServletException, IOException, JDOMException{
         final String responseAsString = this.callStringService();
-        System.out.println(responseAsString);
         final SAXBuilder builder = new SAXBuilder();
         final Document document = builder.build(new StringReader(responseAsString));
        return document;

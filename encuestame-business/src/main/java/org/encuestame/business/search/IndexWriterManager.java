@@ -19,14 +19,12 @@ import javax.annotation.PreDestroy;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
-import org.apache.lucene.util.Version;
 import org.encuestame.business.service.imp.DirectoryIndexStore;
 import org.encuestame.business.service.imp.IIndexWriter;
+import org.springframework.util.Assert;
 
 /**
  * Index Writer Manager.
@@ -56,25 +54,24 @@ public class IndexWriterManager implements IIndexWriter {
      */
     private Boolean isOpen = false;
 
-    /****/
-    private static final Version LUCENE_VERSION = Version.LUCENE_30;
-
     /**
      * Initialize writer lucene index directory.
      * @throws IOException
      */
     @PostConstruct
-    public void openIndexWriter() throws IOException{
-        final Directory directory = this.getDirectoryStore().getDirectory();
+    public void openIndexWriter() {
         try {
-            this.indexWriter = new IndexWriter(directory, new StandardAnalyzer(
-                    LUCENE_VERSION), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            this.indexWriter = SearchUtils.openIndexWriter(getDirectoryStore(), this.indexWriter);
+            Assert.notNull(this.indexWriter);
         } catch (CorruptIndexException e) {
-             log.error(e);
+            log.fatal(e);
+            e.printStackTrace();
         } catch (LockObtainFailedException e) {
-             log.error(e);
+            log.fatal(e);
+            e.printStackTrace();
         } catch (IOException e) {
-             log.error(e);
+            log.fatal(e);
+            e.printStackTrace();
         }
     }
 
@@ -85,11 +82,8 @@ public class IndexWriterManager implements IIndexWriter {
      */
     @PreDestroy
     public void closeIndexWriter() throws CorruptIndexException, IOException{
-        if (this.indexWriter == null){
-            log.error("Index writer is null");
-        } else {
-            this.indexWriter.close();
-        }
+        Assert.notNull(this.indexWriter);
+        SearchUtils.closeIndexWriter(indexWriter);
     }
 
     /**
@@ -103,6 +97,7 @@ public class IndexWriterManager implements IIndexWriter {
     * @return the indexWriter
     */
     public IndexWriter getIndexWriter() {
+        Assert.notNull(this.indexWriter);
         return indexWriter;
     }
 
