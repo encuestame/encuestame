@@ -64,9 +64,9 @@ public class TweetPollController extends AbstractBaseOperations {
         if (tweetId.isEmpty()) {
             log.debug("tweet is empty");
             model.put("message", "Tweet Not Valid..");
-        }
-        else {
-            log.info("search code");
+        } else {
+            tweetId = filterValue(tweetId);
+            log.info("search code->"+tweetId);
             final TweetPollSwitch tweetPoll = getTweetPollService()
                     .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
             if (tweetPoll == null

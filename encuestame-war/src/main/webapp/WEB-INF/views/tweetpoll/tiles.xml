@@ -15,4 +15,20 @@
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}new.jsp" />
     </definition>
 
+
+    <definition name="tweetVoted" extends="page">
+        <put-attribute name="title" value="TweetPoll Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voted.jsp" />
+    </definition>
+
+    <definition name="repeatedTweetVote" extends="page">
+        <put-attribute name="title" value="TweetPoll Repeated Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}repeated.jsp" />
+    </definition>
+
+    <definition name="voteCaptcha" extends="page">
+        <put-attribute name="title" value="TweetPoll Captcha Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voteCaptcha.jsp" />
+    </definition>
+
 </tiles-definitions>
