@@ -43,6 +43,11 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
     private UserAccount userAccount;
 
     /**
+     * {@link TweetPoll}.
+     */
+    private TweetPoll tp1;
+
+    /**
      * Init.
      */
     @Before
@@ -52,16 +57,16 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
         final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
         final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final TweetPoll tp1 = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question);
+        this.tp1 = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question1);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question2);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question3);
-        tp1.setFavourites(true);
+        this.tp1.setFavourites(true);
         final Calendar ca = Calendar.getInstance();
         ca.add(Calendar.WEEK_OF_YEAR, -1);
-        tp1.setCreateDate(ca.getTime());
-        tp1.setScheduleTweetPoll(true);
-        getAccountDao().saveOrUpdate(tp1);
+        this.tp1.setCreateDate(ca.getTime());
+        this.tp1.setScheduleTweetPoll(true);
+        getAccountDao().saveOrUpdate(this.tp1);
     }
 
     /**
@@ -132,6 +137,29 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         Assert.assertNotNull(sucess6.get("tweetPolls"));
         final JSONArray array6 = (JSONArray) sucess6.get("tweetPolls");
         Assert.assertEquals(array6.size(), 1);
-
+        //WHAT ELSE
+        initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
+        setParameter("typeSearch", "");
+        setParameter("max", "100");
+        setParameter("start", "0");
+        final JSONObject response7= callJsonService();
+        final JSONObject sucess7 = getSucess(response7);
+        Assert.assertNotNull(sucess7.get("tweetPolls"));
+        final JSONArray array7 = (JSONArray) sucess7.get("tweetPolls");
+        Assert.assertEquals(array7.size(), 4);
     }
+
+    /**
+     * Test /api/survey/tweetpoll/{propertyType}-tweetpoll.json.
+     * @throws IOException
+     * @throws ServletException
+     */
+    //@Test
+    public void testchangeTweetPollProperties() throws ServletException, IOException{
+        initService("/api/survey/tweetpoll/resumeliveResults-tweetpoll.json", MethodJson.GET);
+        setParameter("tweetPollId", "1234");
+        final JSONObject response6= callJsonService();
+        final JSONObject sucess6 = getSucess(response6);
+    }
+
 }
