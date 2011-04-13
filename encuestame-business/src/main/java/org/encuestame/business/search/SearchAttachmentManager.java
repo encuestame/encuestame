@@ -12,7 +12,6 @@
  */
 package org.encuestame.business.search;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +28,9 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.encuestame.business.service.imp.DirectoryIndexStore;
 import org.encuestame.business.setup.DirectorySetupOperations;
-import org.encuestame.search.SearchManagerOperation;
 
 /**
  * Query Search Manager to Lucene Index.
@@ -72,9 +69,9 @@ public class SearchAttachmentManager implements SearchManagerOperation {
     * Start Index Searcher.
     * @throws IOException
     */
-    private void startIndexSearcher() throws IOException {
+    private void startIndexSearcher(final DirectoryIndexStore d) throws IOException {
         // Open Index Directory to Search.
-        this.directory = getDirectoryIndexStore().getDirectory();
+        this.directory = d.getDirectory();
         this.indexSearcher = new IndexSearcher(this.directory, true);
     }
 
@@ -99,10 +96,10 @@ public class SearchAttachmentManager implements SearchManagerOperation {
     */
     public List<Document> search(final String queryText, final int max, final String field) throws IOException,
             ParseException {
-        this.startIndexSearcher();
+        this.startIndexSearcher(this.getDirectoryIndexStore());
         final List<Document> results = new ArrayList<Document>();
-        QueryParser parser = new QueryParser(Version.LUCENE_30, field,
-                new StandardAnalyzer(Version.LUCENE_30));
+        QueryParser parser = new QueryParser(SearchUtils.LUCENE_VERSION, field,
+                new StandardAnalyzer(SearchUtils.LUCENE_VERSION));
         Query query = parser.parse(queryText); // Parse Query
         long start = System.currentTimeMillis();
         TopDocs hits = this.indexSearch().search(query, max); // Search Index
@@ -133,7 +130,7 @@ public class SearchAttachmentManager implements SearchManagerOperation {
     /**
     * @param directoryIndexStore the directoryIndexStore to set
     */
-    public void setDirectoryIndexStore(DirectoryIndexStore directoryIndexStore) {
+    public void setDirectoryIndexStore(final DirectoryIndexStore directoryIndexStore) {
         this.directoryIndexStore = directoryIndexStore;
     }
 

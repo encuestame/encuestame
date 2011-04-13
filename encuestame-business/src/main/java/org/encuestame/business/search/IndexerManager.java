@@ -20,7 +20,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.document.Document;
 import org.apache.poi.POIXMLException;
-import org.encuestame.search.utils.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -51,20 +50,23 @@ public class IndexerManager {
      * @throws Exception
      */
      public void initializeIndex(final List<File> filesDirectory) throws Exception {
-         log.debug("Initialize");
-         for (Object docExtensions : getExtensionFilesAllowed()) {
-             log.debug("Check the file extensions allowed to index  ---->"+ docExtensions);
+         log.debug("InitializeIndex list of directories :"+filesDirectory.size());
+         if (log.isDebugEnabled()) {
+            for (Object docExtensions : getExtensionFilesAllowed()) {
+                log.debug("Check the file extensions allowed to index: "+ docExtensions);
+            }
          }
          for (File file : filesDirectory) {
              long start = System.currentTimeMillis();
-             int numIndexed;
+             int numIndexed = 0;
              try {
-                 numIndexed = this.index(file);
-             } finally {
-                 this.close();
-             }
-             long end = System.currentTimeMillis();
-             log.debug("Indexing " + numIndexed + " files took " + (end - start)
+                    numIndexed = this.index(file);
+            } catch (Exception e) {
+                    log.fatal("Initialize Index Exception --->"+e);
+                    e.printStackTrace();
+            }
+            long end = System.currentTimeMillis();
+            log.debug("Indexing " + numIndexed + " files took " + (end - start)
                      + " milliseconds");
          }
      }
@@ -92,17 +94,17 @@ public class IndexerManager {
      * @throws Exception
      */
     public int index(final File dataDir) throws Exception {
-        log.debug("Index file is directory: " + dataDir.isDirectory());
+        log.debug("Index file is directory? --->: " + dataDir.isDirectory());
         File[] files = dataDir.listFiles();
         int numberDocs = 0;
         if ( files == null) {
-            log.info("No files in the directory ");
+            log.debug("No files in the directory ");
         } else {
             numberDocs = this.indexWriterManager.getIndexWriter().numDocs();
             log.debug("List of files in the directory :"+numberDocs);
             for (File f : files) {
                 if (!f.isDirectory() && !f.isHidden() && f.exists() && f.canRead()) {
-                    indexFile(f); // Write documents in Index
+                    this.indexFile(f); // Write documents in Index
                 }
             }
         }
@@ -147,14 +149,12 @@ public class IndexerManager {
         final String pathFileName = file.getName().toString();
         final String ext = SearchUtils.getExtension(pathFileName);
         final Document doc = this.getDocument(file, ext);
-        this.indexWriterManager.openIndexWriter();
-        log.debug("Indexing Files *******************");
-        //log.debug("Adding document..." + doc);
         if (doc == null) {
             log.warn("Document is null for this file: "+file.getAbsolutePath());
         } else {
             // Add Document to Lucene Index.
             this.indexWriterManager.getIndexWriter().addDocument(doc);
+            this.close();
         }
     }
 
@@ -188,9 +188,4 @@ public class IndexerManager {
         log.debug("Num extension files available --> "+ extensionFilesAllowed.size());
         this.extensionFilesAllowed = extensionFilesAllowed;
     }
-
-
-
-
-
 }
