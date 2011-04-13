@@ -42,7 +42,7 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Before
     public void initTest() {
-       notification = createNotification("test notification", getSpringSecurityLoggedUserAccount().getAccount(),
+       this.notification = createNotification("test notification", getSpringSecurityLoggedUserAccount().getAccount(),
                 NotificationEnum.PROJECT_CREATED, false);
         createNotification("test notification", getSpringSecurityLoggedUserAccount().getAccount(),
                 NotificationEnum.TWEETPOL_CREATED, false);

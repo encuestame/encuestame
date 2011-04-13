@@ -93,7 +93,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * Base Class to Test Cases.
  * @author Picado, Juan juan@encuestame.org
  * @since October 15, 2009
- * @version $Id$
  */
 
 public abstract class AbstractBase extends AbstractConfigurationBase{

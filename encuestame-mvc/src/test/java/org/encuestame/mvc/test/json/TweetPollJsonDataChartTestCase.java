@@ -85,14 +85,14 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     public void tweetPollJsonDataChartTest() throws Exception {
 
         //Invalid Vote.
-        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetPoll/votes.json", MethodJson.GET);
+        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/votes.json", MethodJson.GET);
         setParameter("tweetPollId", "1234");
         final JSONObject response = callJsonService();
         final JSONObject error = getErrors(response);
         Assert.assertEquals("tweetPoll not found", error.get("error"));
 
         //Valid Vote.
-        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetPoll/votes.json", MethodJson.GET);
+        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/votes.json", MethodJson.GET);
         setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
         final JSONObject response2 = callJsonService();
         final JSONObject sucess2 = getSucess(response2);

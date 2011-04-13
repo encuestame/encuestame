@@ -70,7 +70,6 @@ public class HashTagsJsonServiceTestCase extends AbstractJsonMvcUnitBeans{
         setParameter("limit", limit);
         setParameter("keyword", keyword);
         final JSONObject response = callJsonService();
-        System.out.println(response);
         //{"error":{},"success":{"items":[],"label":"hashTagName","identifier":"id"}}
         final JSONObject success = getSucess(response);
         final JSONArray items = (JSONArray) success.get("items");
