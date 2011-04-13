@@ -96,8 +96,7 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         initService("/api/notifications/readed.json", MethodJson.GET);
         setParameter("id", this.notification.getNotificationId().toString());
         final JSONObject response = callJsonService();
-        final JSONObject sucess = getSucess(response);
-        Assert.assertEquals(sucess.get("r").toString(), "0");
+        assertSuccessResponse(response);
     }
 
     /**

@@ -65,7 +65,7 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     @Before
     public void init(){
         final Question question = createQuestion("Real Madrid or Barcelona?", getSpringSecurityLoggedUserAccount().getAccount());
-        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSpringSecurityLoggedUserAccount().getAccount(), question);
+        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSpringSecurityLoggedUserAccount(), question);
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("Yes", question, "hash1");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("No", question, "hash2");
         this.answer1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
