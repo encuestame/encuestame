@@ -8,8 +8,8 @@ bin/
 Log/
 log/
 *.db
-*.log
-*./*.log
+*.log*
+*./*.log*
 *.settings/*
 */.classpath
 */.project
