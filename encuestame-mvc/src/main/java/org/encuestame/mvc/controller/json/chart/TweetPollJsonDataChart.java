@@ -60,8 +60,7 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
      * @throws JsonMappingException
      * @throws IOException
      */
-    // @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/{username}/tweetPoll/votes.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/{username}/tweetpoll/votes.json", method = RequestMethod.GET)
     public ModelMap get(@PathVariable String username,
             @RequestParam(value = "tweetPollId") Long tweetPollId,
             HttpServletRequest request, HttpServletResponse response)
@@ -86,7 +85,7 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/chart/tweetPoll/votes.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/chart/tweetpoll/votes.json", method = RequestMethod.GET)
     public ModelMap getVotes(
             @RequestParam(value = "tweetPollId") Long tweetPollId,
             HttpServletRequest request, HttpServletResponse response)
@@ -100,17 +99,16 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
     }
 
     /**
-     * Get Votes Store.
-     *
-     * @param tweetPollId
-     * @param response
+     * Get votes store.
+     * @param tweetPollId tweetpoll id
+     * @param response {@link HttpServletResponse}.
      */
     private void getVotesStore(final Long tweetPollId,
             final HttpServletResponse response) {
         try {
             final Map<String, Object> jsonResult = new HashMap<String, Object>();
-            List<UnitTweetPollResult> results = getTweetPollService()
-                    .getResultsByTweetPollId(tweetPollId);
+            //results by tweetpoll id.
+            final List<UnitTweetPollResult> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
             jsonResult.put("votesResult", results);
             log.debug("TweetPoll results " + results.size());
             setItemResponse(jsonResult);

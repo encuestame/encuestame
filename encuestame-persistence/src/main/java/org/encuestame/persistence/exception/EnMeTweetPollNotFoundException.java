@@ -10,4 +10,8 @@ public class EnMeTweetPollNotFoundException extends EnMeNoResultsFoundException 
     public EnMeTweetPollNotFoundException() {
         super("user not found");
     }
+
+    public EnMeTweetPollNotFoundException(String message) {
+        super(message);
+    }
 }

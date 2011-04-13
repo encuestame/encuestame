@@ -10,22 +10,21 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.search.utils;
+package org.encuestame.business.search;
 
-import java.io.File;
-import java.io.FileFilter;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.lucene.document.Document;
+import org.apache.lucene.queryParser.ParseException;
 
 /**
- * Document Files Filter.
+ * Search Manager Operation.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since Mar 23, 2011
+ * @since Mar 28, 2011
  */
-public class DocumentFilesFilter implements FileFilter {
+public interface SearchManagerOperation {
 
-    /**
-     * Filter file
-     */
-    public boolean accept(final File path) {
-           return path.getName().toLowerCase().endsWith(".txt");
-       }
-   }
+    List<Document> search(final String queryText, final int max, final String field) throws IOException,
+    ParseException;
+}

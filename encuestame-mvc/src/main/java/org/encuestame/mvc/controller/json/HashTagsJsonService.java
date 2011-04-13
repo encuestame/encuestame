@@ -65,7 +65,7 @@ public class HashTagsJsonService extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/hashtags.json", method = RequestMethod.GET)
-    public ModelMap get(
+    public ModelMap getHashTags(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "keyword", required = false) String keyword,
             HttpServletRequest request,

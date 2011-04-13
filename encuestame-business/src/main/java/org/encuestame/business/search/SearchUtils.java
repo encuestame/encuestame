@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.search.utils;
+package org.encuestame.business.search;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,8 +23,14 @@ import java.util.Iterator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.LockObtainFailedException;
+import org.apache.lucene.util.Version;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -40,6 +46,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.encuestame.business.service.imp.DirectoryIndexStore;
+import org.springframework.util.Assert;
 
 /**
  * Search Utils.
@@ -56,6 +64,9 @@ public class SearchUtils {
 
     /****/
     protected static final String FILENAME = "filename";
+
+    /** Lucene Version. **/
+    public static final Version LUCENE_VERSION = Version.LUCENE_30;
 
     /**
     * Log
@@ -229,4 +240,46 @@ public class SearchUtils {
         final Document doc = SearchUtils.addFields(file, docText);
         return doc;
    }
+
+    /**
+     * Open Index Writer
+     * @param directoryStore
+     * @param indexWriter
+     * @throws CorruptIndexException
+     * @throws LockObtainFailedException
+     * @throws IOException
+     */
+    public static IndexWriter openIndexWriter(
+            final DirectoryIndexStore directoryStore, IndexWriter indexWriter)
+            throws CorruptIndexException, LockObtainFailedException,
+            IOException {
+        final Directory directory = directoryStore.getDirectory();
+        log.debug("Get Directory ----------" + directory.toString());
+        if(indexWriter != null){
+        indexWriter.close();
+        }
+        log.debug("Index Directory is locked?  ----------> " + indexWriter.isLocked(directory));
+        indexWriter = new IndexWriter(directory, new StandardAnalyzer(
+                SearchUtils.LUCENE_VERSION), true,
+                IndexWriter.MaxFieldLength.UNLIMITED);
+        Assert.notNull(indexWriter);
+        System.out.println(indexWriter);
+        return indexWriter;
+    }
+
+    /**
+     * Close Index writer.
+     * @param indexWriter
+     * @throws CorruptIndexException
+     * @throws IOException
+     */
+    public static void closeIndexWriter(final IndexWriter indexWriter) throws CorruptIndexException, IOException{
+        Assert.notNull(indexWriter);
+        if (indexWriter == null){
+            log.error("Index writer is null");
+        } else {
+           indexWriter.close();
+           log.debug("Index writer was closed");
+        }
+    }
 }

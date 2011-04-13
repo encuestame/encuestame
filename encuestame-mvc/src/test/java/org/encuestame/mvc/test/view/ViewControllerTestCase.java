@@ -25,6 +25,11 @@ import org.encuestame.mvc.view.LoginController;
 import org.encuestame.mvc.view.PollController;
 import org.encuestame.mvc.view.SurveyController;
 import org.encuestame.mvc.view.TweetPollController;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,14 +169,38 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testTweetPollController() throws Exception {
-            //pollController = new TweetPollController();
+            final UserAccount userAccount = createUserAccount("jota", createAccount());
+            createFakesTweetPoll(userAccount);
+            System.out.println(getHibernateTemplate().find("from TweetPoll").size());
+            final TweetPoll tp1 = (TweetPoll) getHibernateTemplate().find("from TweetPoll").get(0);
+            final Question q1 = tp1.getQuestion();
+            final QuestionAnswer a1 = createQuestionAnswer("yes", q1, "12345");
+            final QuestionAnswer a2 = createQuestionAnswer("no", q1, "12346");
+            final TweetPollSwitch tps1 = createTweetPollSwitch(a1, tp1);
+            final TweetPollSwitch tps2 = createTweetPollSwitch(a2, tp1);
             Assert.assertNotNull(pollController);
-            //vote view.
+
+            //bad vote view.
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/1");
             final ModelAndView mav = handlerAdapter.handle(request, response,
                     pollController);
             System.out.println(mav);
             assertViewName(mav, "badTweetVote");
+
+            //vote view.
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+tps1.getCodeTweet());
+            final ModelAndView mavVote = handlerAdapter.handle(request, response,
+                    pollController);
+            System.out.println(mavVote);
+            assertViewName(mavVote, "tweetVoted");
+
+            //repeated vote view.
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+tps1.getCodeTweet());
+            final ModelAndView mavVote1 = handlerAdapter.handle(request, response,
+                    pollController);
+            System.out.println(mavVote1);
+            assertViewName(mavVote1, "repeatedTweetVote");
+
 
             ///user/tweetpoll/list
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");

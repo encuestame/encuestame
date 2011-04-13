@@ -219,4 +219,13 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
         XMLUnit.setNormalize(true);
     }
 
+    /**
+     * Assert succes json response.
+     * @param response JSON response.
+     */
+    public void assertSuccessResponse(final JSONObject response){
+         final JSONObject sucess = getSucess(response);
+        Assert.assertEquals(sucess.get("r").toString(), "0");
+    }
+
 }
