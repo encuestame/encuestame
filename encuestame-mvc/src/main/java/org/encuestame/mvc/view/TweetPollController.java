@@ -25,6 +25,7 @@ import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -66,6 +67,7 @@ public class TweetPollController extends AbstractBaseOperations {
             model.put("message", "Tweet Not Valid..");
         } else {
             tweetId = filterValue(tweetId);
+            model.put("tweetId", tweetId);
             log.info("search code->"+tweetId);
             final TweetPollSwitch tweetPoll = getTweetPollService()
                     .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
@@ -78,18 +80,13 @@ public class TweetPollController extends AbstractBaseOperations {
                     final String IP = getIpClient();
                     log.info("IP" + IP);
                     if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
-                        if(!tweetPoll.getTweetPoll().getCaptcha()){
+                        if (!tweetPoll.getTweetPoll().getCaptcha()) {
                             getTweetPollService().tweetPollVote(tweetPoll, IP);
                             model.put("message", "Tweet Poll Voted.");
                             pathVote = "tweetVoted";
                             log.debug("VOTED");
-                        }
-                        else{
-                            final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
-                            final UtilVoteCaptcha captchaBean = new UtilVoteCaptcha();
-                            captchaBean.setCaptcha(captcha);
-                            captchaBean.setCodeVote(tweetId);
-                            model.addAttribute("captchaForm", captchaBean);
+                        } else {
+                            this.createCaptcha(model, tweetId);
                             log.debug("VOTE WITH CAPTCHA");
                             pathVote = "voteCaptcha";
                         }
@@ -107,51 +104,79 @@ public class TweetPollController extends AbstractBaseOperations {
     }
 
     /**
-     * Process Submit.
-     * @param req
-     * @param challenge
-     * @param response
-     * @param code
-     * @param vote
-     * @param result
-     * @param status
+     *
+     * @param model
+     * @param tweetId
      * @return
+     */
+    public UtilVoteCaptcha createCaptcha(final ModelMap model, final String tweetId){
+        final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
+        final UtilVoteCaptcha captchaBean = new UtilVoteCaptcha();
+        captchaBean.setCaptcha(captcha);
+        captchaBean.setCodeVote(tweetId);
+        model.addAttribute("captchaForm", captchaBean);
+        return captchaBean;
+    }
+
+    /**
+     * reCAPTCHA validate process.
+     * @param req {@link HttpServletRequest}.
+     * @param challenge recaptcha_challenge_field parameter
+     * @param response recaptcha_response_field paremeter
+     * @param code code vote
+     * @param result {@link BindingResult}.
+     * @param model {@link ModelMap}.
+     * @return view to redirect.
      */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(
-        HttpServletRequest req,
-        @RequestParam("recaptcha_challenge_field") String challenge,
-        @RequestParam("recaptcha_response_field") String response,
-        @RequestParam("vote_code") String code,
-        @ModelAttribute UtilVoteCaptcha vote, BindingResult result, SessionStatus status) {
+            HttpServletRequest req,
+            @RequestParam("recaptcha_challenge_field") String challenge,
+            @RequestParam("recaptcha_response_field") String response,
+            @RequestParam("vote_code") String code,
+            @ModelAttribute("captchaForm") UtilVoteCaptcha vote,
+            BindingResult result,
+            Model model) {
              log.info("recaptcha_challenge_field "+challenge);
              log.info("recaptcha_rforgotesponse_field "+response);
-             log.info("vote_code "+code);
+             log.info("vote_code "+code.toString());
+             challenge = filterValue(challenge);
+             response = filterValue(response);
+             code = filterValue(code);
+             //security service
              final SecurityOperations securityService = getServiceManager().getApplicationServices().getSecurityService();
+             //check if captcha is valid
              final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
+             //validation layer
              final ValidateOperations validation = new ValidateOperations(securityService);
              validation.validateCaptcha(reCaptchaResponse, result);
              log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
              log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
              log.info("result.hasErrors() "+result.hasErrors());
              if (result.hasErrors()) {
-                log.debug("bad captcha");
-                return "tweetVoted";
-             }
-             else {
+                //build new reCAPTCHA
+                final String errMsg = reCaptchaResponse.getErrorMessage();
+                final String html = getReCaptcha().createRecaptchaHtml(errMsg, null);
+                vote.setCaptcha(html);
+                vote.setCodeVote(code);
+                model.addAttribute("captchaForm", vote);
+                result.reject("form.problems");
+                //reload page.
+                return "voteCaptcha";
+             } else {
                  //Find Answer To Vote.
-                 final TweetPollSwitch tweetPoll = getTweetPollService().getTweetPollDao().retrieveTweetsPollSwitch(code);
+                 final TweetPollSwitch tweetPoll = getTweetPollService().getTweetPollDao()
+                        .retrieveTweetsPollSwitch(code);
                  //Validate Code.
                  if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                      log.debug("tweetpoll answer not found");
                      return "badTweetVote";
-                     //model.put("message", "Tweet Not Valid.");
+                     //model.addAttribute("message", "Tweet Not Valid.");
                  } else {
-                     //Save Vote.
+                     //save the vote.
                      final String IP = getIpClient();
                      log.info("IP" + IP);
                      getTweetPollService().tweetPollVote(tweetPoll, IP);
-                     //log.info("password generated "+password);
                      return "tweetVoted";
                  }
             }
