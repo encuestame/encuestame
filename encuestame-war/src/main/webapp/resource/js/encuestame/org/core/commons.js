@@ -368,7 +368,7 @@ encuestame.service.list.favouriteTweetPoll = encuestame.contextWidget()+"/api/su
 encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/liveResults-tweetpoll.json";
 encuestame.service.list.notificationTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/notification-tweetpoll.json";
 encuestame.service.list.repeatedTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/repeated-tweetpoll.json";
-encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetPoll/votes.json";
+encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetpoll/votes.json";
 
 //group services
 encuestame.service.list.groupCreate = encuestame.contextWidget()+"/api/groups/createGroup.json";

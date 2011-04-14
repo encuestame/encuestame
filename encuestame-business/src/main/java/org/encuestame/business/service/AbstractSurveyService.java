@@ -48,6 +48,7 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -105,6 +106,7 @@ public class AbstractSurveyService extends AbstractChartService {
             final Question question = new Question();
             try{
                 question.setQuestion(questionBean.getQuestionName());
+                question.setSlugQuestion(RestFullUtil.slugify(questionBean.getQuestionName()));
                 question.setAccountQuestion(account.getAccount());
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);

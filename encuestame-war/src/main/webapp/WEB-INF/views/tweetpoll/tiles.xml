@@ -36,4 +36,9 @@
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad.jsp" />
     </definition>
 
+    <definition name="tweetpoll/detail" extends="page">
+        <put-attribute name="title" value="TweetPoll Detail" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail.jsp" />
+    </definition>
+
 </tiles-definitions>
