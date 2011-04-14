@@ -494,12 +494,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @see org.encuestame.business.service.imp.ITweetPollService#getTweetPollById(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
      */
     public TweetPoll getTweetPollById(final Long tweetPollId, final UserAccount account) throws EnMeTweetPollNotFoundException{
-        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, account.getUid());
-        if(tweetPoll == null){
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, account.getAccount().getUid());
+        if (tweetPoll == null) {
             log.error("tweet poll invalid with this id "+tweetPollId+ " and username:{"+account);
-            throw new EnMeTweetPollNotFoundException();
+            throw new EnMeTweetPollNotFoundException("tweet poll invalid with this id "+tweetPollId+ " and username:{"+account);
         }
-         return tweetPoll;
+        return tweetPoll;
     }
 
     /**
@@ -519,7 +519,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws EnMeNoResultsFoundException
      */
     private TweetPoll getTweetPoll(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException{
-        return getTweetPollById(tweetPollId, getUserAccount(username));
+        return getTweetPollById(tweetPollId, getUserAccount(getUserPrincipalUsername()));
     }
 
     /**

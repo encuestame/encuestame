@@ -53,14 +53,14 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
     @Before
     public void initJsonService(){
         this.userAccount = getSpringSecurityLoggedUserAccount();
-        final Question question = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question = createQuestion("Real Madrid VS Barcelona?", userAccount.getAccount());
         final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
         final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
         final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        this.tp1 = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question1);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question2);
-        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount.getAccount(), question3);
+        this.tp1 = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question1);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question2);
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question3);
         this.tp1.setFavourites(true);
         final Calendar ca = Calendar.getInstance();
         ca.add(Calendar.WEEK_OF_YEAR, -1);
@@ -150,16 +150,33 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
     }
 
     /**
+     *
+     * @param type
+     * @throws IOException
+     * @throws ServletException
+     */
+    private void testTweetPollProperties(final String type) throws ServletException, IOException{
+         initService("/api/survey/tweetpoll/"+type+"-tweetpoll.json", MethodJson.GET);
+         setParameter("tweetPollId", this.tp1.getTweetPollId().toString());
+         final JSONObject response = callJsonService();
+         assertSuccessResponse(response);
+    }
+
+
+    /**
      * Test /api/survey/tweetpoll/{propertyType}-tweetpoll.json.
      * @throws IOException
      * @throws ServletException
      */
-    //@Test
+    @Test
     public void testchangeTweetPollProperties() throws ServletException, IOException{
-        initService("/api/survey/tweetpoll/resumeliveResults-tweetpoll.json", MethodJson.GET);
-        setParameter("tweetPollId", "1234");
-        final JSONObject response6= callJsonService();
-        final JSONObject sucess6 = getSucess(response6);
+        testTweetPollProperties("resumeliveResults");
+        testTweetPollProperties("change-open-status");
+        testTweetPollProperties("captcha");
+        testTweetPollProperties("favourite");
+        testTweetPollProperties("liveResults");
+        testTweetPollProperties("notification");
+        testTweetPollProperties("repeated");
+        testTweetPollProperties("");
     }
-
 }

@@ -146,9 +146,10 @@ public class TestTweetPollService  extends AbstractServiceBase{
      */
     public void testSaveTweetId() throws EnMeExpcetion{
         Question questionSave = createQuestion("how much or How Many?","html");
-        Account usersave = createUser("dianmora", "xxxxxxx");
+        final Account usersave = createUser("dianmora", "xxxxxxx");
+        final UserAccount account = createUserAccount("jota", usersave);
         final String tweetUrl = "http://www.encuestame.org";
-        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), usersave, questionSave);
+        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), account, questionSave);
 
         answersSaveTweet = new ArrayList<QuestionAnswerBean>();
         answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
@@ -158,7 +159,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
                    "radio buttons", "2", "Yes/No", "template.php");
         questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, usersave.getUid(),
                    answersSaveTweet, patternBean);
-        final TweetPollBean unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl,usersave.getUid(),
+        final TweetPollBean unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, usersave.getUid(),
                                             this.questionBean, null);
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         //final String s = this.tweetPollService.generateTweetPollText(unitTweetPoll, tweetUrl);
@@ -180,7 +181,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
      */
     @Test
     public void testGenerateTweetPollText() throws EnMeExpcetion{
-        final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.user, this.question);
+        final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.userAccount, this.question);
         createQuestionAnswer("Yes", this.question, "EEEE");
         createQuestionAnswer("No", this.question, "FFFF");
         final String tweetUrl = "http://www.encuestame.org";
@@ -222,8 +223,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
     public void testGetTweetsPollsByUserName() throws EnMeNoResultsFoundException{
         final Question question1 = createQuestion("Why the sea is salad?","html");
         final Question question2 = createQuestion("Why the sea is big?","html");
-        createTweetPollPublicated(true, true, new Date(), this.user, question1);
-        createTweetPollPublicated(true, true, new Date(), this.user, question2);
+        createTweetPollPublicated(true, true, new Date(), this.userAccount, question1);
+        createTweetPollPublicated(true, true, new Date(), this.userAccount, question2);
         final UserAccount secUser = createUserAccount("diana", this.user);
         final List<TweetPollBean> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(
                 secUser.getUsername(),5,0);
@@ -237,7 +238,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
             final List<SocialAccount> list = getAccountDao().getSocialAccountByAccount(this.userAccount.getAccount(), SocialProvider.TWITTER);
             final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
-            final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.user, question);
+            final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.userAccount, question);
             tweetPollService.publicMultiplesTweetAccounts(listUnitTwitterAccount, tweetPoll, tweetText);
             final TweetPoll tweet = getTweetPoll().getTweetPollById(tweetPoll.getTweetPollId());
             assertNotNull(tweet);

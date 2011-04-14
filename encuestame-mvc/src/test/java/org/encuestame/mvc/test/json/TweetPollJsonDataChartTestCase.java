@@ -65,7 +65,7 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     @Before
     public void init(){
         final Question question = createQuestion("Real Madrid or Barcelona?", getSpringSecurityLoggedUserAccount().getAccount());
-        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSpringSecurityLoggedUserAccount().getAccount(), question);
+        this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSpringSecurityLoggedUserAccount(), question);
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("Yes", question, "hash1");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("No", question, "hash2");
         this.answer1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
@@ -85,14 +85,14 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     public void tweetPollJsonDataChartTest() throws Exception {
 
         //Invalid Vote.
-        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetPoll/votes.json", MethodJson.GET);
+        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/votes.json", MethodJson.GET);
         setParameter("tweetPollId", "1234");
         final JSONObject response = callJsonService();
         final JSONObject error = getErrors(response);
         Assert.assertEquals("tweetPoll not found", error.get("error"));
 
         //Valid Vote.
-        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetPoll/votes.json", MethodJson.GET);
+        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/votes.json", MethodJson.GET);
         setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
         final JSONObject response2 = callJsonService();
         final JSONObject sucess2 = getSucess(response2);
