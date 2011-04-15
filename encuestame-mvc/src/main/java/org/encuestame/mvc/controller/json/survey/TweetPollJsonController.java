@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
@@ -168,18 +169,25 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "answer", required = false) final String answer,
             @RequestParam(value = "answerId", required = false) final Long answerId,
             @PathVariable final String type,
-            HttpServletRequest request, HttpServletResponse response,
-            final UserAccount user)
+            HttpServletRequest request,
+            HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
                     tweetPollId, getUserAccountLogged());
+            log.debug("tweetpoll"+tweetPoll.getTweetPollId());
             if(!tweetPoll.getPublishTweetPoll()){
+            log.debug("action ANSWER "+type);
             final Question question = tweetPoll.getQuestion();
             if("add".equals(type)) {
-                final QuestionAnswer questionAnswer = getTweetPollService().createQuestionAnswer(new QuestionAnswerBean(answer), question);
-                jsonResponse.put("answer", questionAnswer);
+
+                final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
+                log.debug("new answer bean "+answerBean.toString());
+                final QuestionAnswer questionAnswer = getTweetPollService().createQuestionAnswer(answerBean, question);
+                log.debug("new answer bean DOMAIN "+questionAnswer.toString());
+                //log.debug("action questionAnswer "+questionAnswer);
+                jsonResponse.put("newAnswer", ConvertDomainBean.convertAnswerToBean(questionAnswer));
                 setItemResponse(jsonResponse);
             } else if("remove".equals(type)) {
                 getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));
@@ -191,6 +199,8 @@ public class TweetPollJsonController extends AbstractJsonController {
                 throw new EnMeExpcetion("tweetpoll is published");
             }
         } catch (EnMeExpcetion e) {
+            log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

@@ -130,12 +130,14 @@ public class AbstractSurveyService extends AbstractChartService {
     public QuestionAnswer createQuestionAnswer(
             final QuestionAnswerBean answerBean,
             final Question question){
+        log.debug("action createQuestionAnswer "+answerBean.toString());
         final QuestionAnswer answer = new QuestionAnswer();
         answer.setQuestions(question);
         answer.setAnswer(answerBean.getAnswers());
         answer.setUniqueAnserHash(answerBean.getAnswerHash());
         this.getQuestionDao().saveOrUpdate(answer);
         answerBean.setAnswerId(answer.getQuestionAnswerId());
+        log.debug("QuestionAnswer created "+answer.toString());
         return answer;
     }
 

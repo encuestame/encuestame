@@ -99,8 +99,6 @@ public interface ISurveyService extends IMasterSurveyService {
     RequestToken getTwitterToken(final String consumerKey, final String consumerSecret) throws TwitterException;
 
 
-    void createQuestionAnswer(final QuestionAnswerBean answerBean, Question question) throws EnMeExpcetion;
-
     /**
      * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
      */

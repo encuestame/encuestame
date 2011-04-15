@@ -97,12 +97,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             return question;
     }
 
-    /**
-     * Save Question Answer.
-     * @param answerBean answer
-     * @param question question
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.AbstractSurveyService#createQuestionAnswer(org.encuestame.utils.web.QuestionAnswerBean, org.encuestame.persistence.domain.question.Question)
      */
-    public void createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
+    public QuestionAnswer createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
             final QuestionAnswer answer = new QuestionAnswer();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
@@ -111,6 +110,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             answer.setUniqueAnserHash(answerBean.getAnswerHash());
             this.getQuestionDao().saveOrUpdate(answer);
             answerBean.setAnswerId(answer.getQuestionAnswerId());
+            return answer;
     }
 
     /**
