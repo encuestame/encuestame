@@ -349,5 +349,25 @@ div.tweetPollVote div.answer{
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+}
 
+/** tweetPollDetail. **/
+
+div.tweetPollDetail{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+div.tweetPollDetail div.question{
+    padding: 15px;
+    background-color: #E5EEE9;
+    font-size: 160%;
+    font-weight: bold;
+    color: #BAACAC;
+}
+
+div.tweetPollDetail div.answerVote{
+    padding: 5px;
 }

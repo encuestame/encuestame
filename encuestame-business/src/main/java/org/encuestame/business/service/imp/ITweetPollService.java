@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -55,6 +56,19 @@ public interface ITweetPollService extends IMasterSurveyService{
             final String question,
             final String[] answers,
             final UserAccount user) throws EnMeExpcetion;
+
+
+    /**
+     * Remove ALL {@link QuestionAnswer} on {@link TweetPoll}.
+     * @param tweetPoll
+     */
+    void removeAllQuestionsAnswers(final TweetPoll tweetPoll);
+
+    /**
+     * Remove {@link QuestionAnswer}.
+     * @param questionAnswer {@link QuestionAnswer}.
+     */
+    void removeQuestionAnswer(final QuestionAnswer questionAnswer);
 
     /**
      * Get tweetPoll by id and user logged.

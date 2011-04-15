@@ -14,8 +14,12 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
 
  /**
@@ -40,4 +44,15 @@ public interface IMasterSurveyService extends ServiceOperations{
      * @return
      */
     List<HashTagBean> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults);
+
+    /**
+     * Save Question Answer.
+     * @param answerBean answer
+     * @throws EnMeExpcetion EnMeExpcetion
+     */
+    QuestionAnswer createQuestionAnswer(
+            final QuestionAnswerBean answerBean,
+            final Question question);
+
+    QuestionAnswer getQuestionAnswerById(final Long id) throws EnMeNoResultsFoundException;
 }

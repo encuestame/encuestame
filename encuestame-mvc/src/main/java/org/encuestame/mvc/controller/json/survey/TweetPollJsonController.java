@@ -28,11 +28,15 @@ import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -106,7 +110,7 @@ public class TweetPollJsonController extends AbstractJsonController {
     }
 
     /**
-     * Publish tweet on social accout.
+     * Publish tweet on social account.
      * @param twitterAccountsId
      * @param question
      * @param scheduled
@@ -143,17 +147,52 @@ public class TweetPollJsonController extends AbstractJsonController {
         return returnData();
     }
 
+    /**
+     * Add or Remove new Answer on TweetPoll.
+     * @param tweetPollId
+     * @param answer
+     * @param answerId
+     * @param type
+     * @param request
+     * @param response
+     * @param user
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/tweetpoll/save2.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/tweetpoll/answer/{type}.json", method = RequestMethod.GET)
     public ModelMap createAnswer(
             @RequestParam(value = "id", required = true) final Long tweetPollId,
-            @RequestParam(value = "answer", required = true) String answer,
+            @RequestParam(value = "answer", required = false) final String answer,
+            @RequestParam(value = "answerId", required = false) final Long answerId,
+            @PathVariable final String type,
             HttpServletRequest request, HttpServletResponse response,
             final UserAccount user)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-        //jsonResponse.put("tweetPoll", tweetPoll);
-        setItemResponse(jsonResponse);
+        try {
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
+                    tweetPollId, getUserAccountLogged());
+            if(!tweetPoll.getPublishTweetPoll()){
+            final Question question = tweetPoll.getQuestion();
+            if("add".equals(type)) {
+                final QuestionAnswer questionAnswer = getTweetPollService().createQuestionAnswer(new QuestionAnswerBean(answer), question);
+                jsonResponse.put("answer", questionAnswer);
+                setItemResponse(jsonResponse);
+            } else if("remove".equals(type)) {
+                getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));
+                setSuccesResponse();
+            } else {
+                throw new EnmeFailOperation("operation not valid");
+            }
+            } else {
+                throw new EnMeExpcetion("tweetpoll is published");
+            }
+        } catch (EnMeExpcetion e) {
+            setError(e.getMessage(), response);
+        }
         return returnData();
     }
 

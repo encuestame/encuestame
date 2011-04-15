@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -111,9 +112,9 @@ public class AbstractSurveyService extends AbstractChartService {
                 question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
                 question.setSharedQuestion(false);
                 getQuestionDao().saveOrUpdate(question);
-                for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
-                    this.createQuestionAnswer(answerBean, question);
-                }
+//                for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
+//                    this.createQuestionAnswer(answerBean, question);
+//                }
             } catch (Exception e) {
                 log.error(e);
                 throw new EnMeExpcetion(e);
@@ -126,7 +127,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param answerBean answer
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void createQuestionAnswer(
+    public QuestionAnswer createQuestionAnswer(
             final QuestionAnswerBean answerBean,
             final Question question){
         final QuestionAnswer answer = new QuestionAnswer();
@@ -135,6 +136,21 @@ public class AbstractSurveyService extends AbstractChartService {
         answer.setUniqueAnserHash(answerBean.getAnswerHash());
         this.getQuestionDao().saveOrUpdate(answer);
         answerBean.setAnswerId(answer.getQuestionAnswerId());
+        return answer;
+    }
+
+    /**
+     * Retrieve {@link QuestionAnswer} by Id.
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public QuestionAnswer getQuestionAnswerById(final Long id) throws EnMeNoResultsFoundException{
+        final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(id);
+        if(answer == null){
+            throw new EnMeNoResultsFoundException("answer not found");
+        }
+        return  answer;
     }
 
     /**
