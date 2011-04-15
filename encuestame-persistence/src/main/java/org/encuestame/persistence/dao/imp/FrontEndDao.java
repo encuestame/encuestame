@@ -74,7 +74,6 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
         criteria.createAlias("question", "question");
         criteria.add(Restrictions.between("createDate", Calendar.getInstance().getTime(), hi.getTime()));
-        criteria.add(Restrictions.le("enabled", Boolean.FALSE)); //should be enabled
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE)); //should be published
         return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
@@ -95,7 +94,6 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             hi.add(Calendar.DAY_OF_YEAR, -period);
             criteria.add(Restrictions.between("createdAt", Calendar.getInstance().getTime(), hi.getTime()));
         }
-        criteria.add(Restrictions.le("enabled", Boolean.FALSE)); //should be enabled
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
         return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
