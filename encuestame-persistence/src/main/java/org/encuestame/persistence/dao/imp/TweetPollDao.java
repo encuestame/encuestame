@@ -199,7 +199,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return switch
      */
     public TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode){
-        return searchByParamStringTweetPollSwitch("codeTweet", tweetCode);
+        log.debug("retrieveTweetsPollSwitch codeTweet:"+tweetCode);
+        return this.searchByParamStringTweetPollSwitch("codeTweet", tweetCode);
     }
 
     /**

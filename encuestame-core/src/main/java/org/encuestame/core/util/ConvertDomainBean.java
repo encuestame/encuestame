@@ -67,36 +67,15 @@ import org.encuestame.utils.web.UtilTreeNode;
 
 /**
  * Convert Domain to  Beans.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 03/12/2009 06:38:32
- * @version $Id$
  */
 public class ConvertDomainBean {
 
-    private static Log log = LogFactory.getLog(ConvertDomainBean.class);
-
     /**
-     * Convert Domain user to Bean User.
-     * @param domainUser Domain User
-     * @return Bean User
+     * Log.
      */
-    @Deprecated
-    public static final UserAccountBean convertUserDaoToUserBean(final UserAccount domainUser) {
-        final UserAccountBean user = new UserAccountBean();
-        try {
-            user.setName(domainUser.getCompleteName());
-            user.setUsername(domainUser.getUsername());
-            user.setEmail(domainUser.getUserEmail());
-            user.setId(domainUser.getUid());
-            user.setStatus(domainUser.isUserStatus());
-            user.setPassword(domainUser.getPassword());
-            user.setDateNew(domainUser.getEnjoyDate());
-            user.setInviteCode(domainUser.getInviteCode());
-        } catch (Exception e) {
-            log.error("error user bean converter -" + e.getMessage());
-        }
-        return user;
-    }
+    private static Log log = LogFactory.getLog(ConvertDomainBean.class);
 
     /**
      *

@@ -64,6 +64,11 @@ public class Question {
      * Question description.
      */
     private String question;
+
+    /**
+     * Slug question.
+     */
+    private String slugQuestion;
     /**
      * String optional id.
      */
@@ -126,7 +131,7 @@ public class Question {
      * @return question
      */
     @Field(index=Index.TOKENIZED, store=Store.YES)
-    @Column(name = "question")
+    @Column(name = "question", nullable = false)
     public String getQuestion() {
         return this.question;
     }
@@ -262,7 +267,23 @@ public class Question {
     /**
      * @param hits the hits to set
      */
-    public void setHits(Long hits) {
+    public void setHits(final Long hits) {
         this.hits = hits;
+    }
+
+    /**
+     * @return the slugQuestion
+     */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Column(name = "question_slug", nullable = false)
+    public String getSlugQuestion() {
+        return slugQuestion;
+    }
+
+    /**
+     * @param slugQuestion the slugQuestion to set
+     */
+    public void setSlugQuestion(String slugQuestion) {
+        this.slugQuestion = slugQuestion;
     }
 }

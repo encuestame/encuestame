@@ -320,7 +320,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final Question question = tweetPoll.getQuestion();
         final Set<QuestionAnswer> currentQuestionAnswers = question.getQuestionsAnswers();
         //removing old data.
-
         final List<TweetPollSwitch> list = getTweetPollDao().getListAnswesByTweetPoll(tweetPoll);
         for (TweetPollSwitch tweetPollSwitch : list) {
             getTweetPollDao().delete(tweetPollSwitch);
@@ -340,6 +339,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         //update switchs question..
         updateTweetPollSwitchSupport(tweetPoll);
         return tweetPoll;
+    }
+
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.business.service.imp.ITweetPollService#getTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+    */
+    public List<TweetPollSwitch> getTweetPollSwitch(final TweetPoll tweetPoll){
+        return getTweetPollDao().getListAnswesByTweetPoll(tweetPoll);
     }
 
     /**
@@ -502,6 +509,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return tweetPoll;
     }
 
+    public TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException{
+        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+        if (tweetPoll == null) {
+            log.error("tweet poll invalid with this id "+tweetPollId);
+            throw new EnMeTweetPollNotFoundException("tweet poll invalid with this id "+tweetPollId);
+        }
+        return tweetPoll;
+    }
+
     /**
      * Get Tweet Poll Folder by User and FolderId.
      * @param id
@@ -528,14 +544,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return list of {@link UnitTweetPollResult}
      * @throws EnMeNoResultsFoundException
      */
-    //FIXME: this service don' retrieve data if answer never was voted.
+    //FIXME: this service don't retrieve data if answer never was voted.
     public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException{
         log.debug("getResultsByTweetPollId "+tweetPollId);
         final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
         log.debug("tweetPoll "+tweetPoll);
         if(tweetPoll == null){
-            throw new EnMeNoResultsFoundException("tweetPoll not found");
+            throw new EnMeTweetPollNotFoundException("tweetPoll not found");
         } else {
             for (QuestionAnswer questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
                   log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());

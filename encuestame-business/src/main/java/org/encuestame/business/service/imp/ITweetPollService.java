@@ -63,6 +63,21 @@ public interface ITweetPollService extends IMasterSurveyService{
     TweetPoll getTweetPollById(final Long tweetPollId, final UserAccount account) throws EnMeTweetPollNotFoundException;
 
     /**
+     * Get tweetpoll by id.
+     * @param tweetPollId
+     * @return
+     * @throws EnMeTweetPollNotFoundException
+     */
+    TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException;
+
+    /**
+     * Get complete list of {@link TweetPollSwitch}/
+     * @param tweetPoll {@link TweetPoll}.
+     * @return resutls.
+     */
+    List<TweetPollSwitch> getTweetPollSwitch(final TweetPoll tweetPoll);
+
+    /**
      * Generate TweetPoll Text.
      * @param tweetPoll tweetPoll
      * @param url url

@@ -123,7 +123,7 @@ public class QuestionAnswer {
      * @return the answer
      */
     @Field(index = Index.TOKENIZED, store = Store.YES)
-    @Column(name = "answer")
+    @Column(name = "answer", nullable = false)
     public String getAnswer() {
         return answer;
     }

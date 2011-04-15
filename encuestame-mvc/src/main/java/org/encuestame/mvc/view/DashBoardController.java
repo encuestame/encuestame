@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class DashBoardController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
     public String dashBoardController(ModelMap model, UserAccount account) {
         log.debug("dashboard");
