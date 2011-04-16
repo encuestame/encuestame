@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitPatternBean;
@@ -67,20 +68,23 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * Create Question.
      * @param questionBean {@link QuestionBean}.
      * @throws EnMeExpcetion exception
+     * @deprecated use the parent method.
      */
+    @Deprecated
     public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
             final Question question = new Question();
             try{
                 question.setQuestion(questionBean.getQuestionName());
                 question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
-                //question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
-                question.setQidKey("xxxxxxxxxxxxxx");
+                question.setQidKey(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(SurveyService.RANDOM_QUESTION_KEY)));
+                question.setSlugQuestion(RestFullUtil.slugify(questionBean.getQuestionName()));
+                //question.setQidKey("xxxxxxxxxxxxxx");
                 question.setSharedQuestion(Boolean.TRUE);
                 question.setHits(0L);
                 question.setCreateDate(new Date());
                 //save question
                 getQuestionDao().saveOrUpdate(question);
-                //questionBean.setId(question.getQid());
+                questionBean.setId(question.getQid());
                 //save answers.
                 for (final QuestionAnswerBean answerBean : questionBean.getListAnswers()) {
                     this.createQuestionAnswer(answerBean, question);
@@ -93,12 +97,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             return question;
     }
 
-    /**
-     * Save Question Answer.
-     * @param answerBean answer
-     * @param question question
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.AbstractSurveyService#createQuestionAnswer(org.encuestame.utils.web.QuestionAnswerBean, org.encuestame.persistence.domain.question.Question)
      */
-    public void createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
+    public QuestionAnswer createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
             final QuestionAnswer answer = new QuestionAnswer();
             answer.setQuestions(question);
             answer.setAnswer(answerBean.getAnswers());
@@ -107,6 +110,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             answer.setUniqueAnserHash(answerBean.getAnswerHash());
             this.getQuestionDao().saveOrUpdate(answer);
             answerBean.setAnswerId(answer.getQuestionAnswerId());
+            return answer;
     }
 
     /**

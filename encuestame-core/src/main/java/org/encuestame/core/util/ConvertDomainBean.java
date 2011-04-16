@@ -40,10 +40,12 @@ import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.FolderBean;
@@ -67,36 +69,15 @@ import org.encuestame.utils.web.UtilTreeNode;
 
 /**
  * Convert Domain to  Beans.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 03/12/2009 06:38:32
- * @version $Id$
  */
 public class ConvertDomainBean {
 
-    private static Log log = LogFactory.getLog(ConvertDomainBean.class);
-
     /**
-     * Convert Domain user to Bean User.
-     * @param domainUser Domain User
-     * @return Bean User
+     * Log.
      */
-    @Deprecated
-    public static final UserAccountBean convertUserDaoToUserBean(final UserAccount domainUser) {
-        final UserAccountBean user = new UserAccountBean();
-        try {
-            user.setName(domainUser.getCompleteName());
-            user.setUsername(domainUser.getUsername());
-            user.setEmail(domainUser.getUserEmail());
-            user.setId(domainUser.getUid());
-            user.setStatus(domainUser.isUserStatus());
-            user.setPassword(domainUser.getPassword());
-            user.setDateNew(domainUser.getEnjoyDate());
-            user.setInviteCode(domainUser.getInviteCode());
-        } catch (Exception e) {
-            log.error("error user bean converter -" + e.getMessage());
-        }
-        return user;
-    }
+    private static Log log = LogFactory.getLog(ConvertDomainBean.class);
 
     /**
      *
@@ -112,6 +93,20 @@ public class ConvertDomainBean {
         }
     }
 
+
+    /**
+     *
+     * @param pollSwitch
+     * @return
+     */
+    public static final TweetPollAnswerSwitchBean convertTweetPollSwitchToBean(final TweetPollSwitch pollSwitch){
+        final TweetPollAnswerSwitchBean answerSwitchBean = new TweetPollAnswerSwitchBean();
+        answerSwitchBean.setTweetPollId(pollSwitch.getTweetPoll().getTweetPollId());
+        answerSwitchBean.setAnswerBean(ConvertDomainBean.convertAnswerToBean(pollSwitch.getAnswers()));
+        answerSwitchBean.setShortUrl(pollSwitch.getShortUrl());
+        answerSwitchBean.setId(pollSwitch.getSwitchId());
+        return answerSwitchBean;
+    }
 
     /**
      * Social Account.
@@ -461,7 +456,9 @@ public class ConvertDomainBean {
             answersBean.setAnswerId(questionsAnswer.getQuestionAnswerId());
             answersBean.setAnswers(questionsAnswer.getAnswer());
             answersBean.setUrl(questionsAnswer.getUrlAnswer());
+            answersBean.setShortUrl(questionsAnswer.getProvider() == null ? null : questionsAnswer.getProvider().toString());
             answersBean.setAnswerHash(questionsAnswer.getUniqueAnserHash());
+            answersBean.setQuestionId(questionsAnswer.getQuestions().getQid());
             return answersBean;
     }
 
@@ -486,7 +483,21 @@ public class ConvertDomainBean {
         unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
         unitTweetPoll.setAllowRepeatedVotes(poll.getAllowRepatedVotes() == null ? false : poll.getAllowRepatedVotes());
+        unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
         return unitTweetPoll;
+    }
+
+    /**
+     * Convert TweetPoll List to TweetPoll Bean.
+     * @param tweetPollBean
+     * @return
+     */
+    public static final List<TweetPollBean> convertListToTweetPollBean(final List<TweetPoll> tweetPol){
+        final List<TweetPollBean> listTweetPolls = new ArrayList<TweetPollBean>();
+        for (TweetPoll tweets : tweetPol) {
+            listTweetPolls.add(ConvertDomainBean.convertTweetPollToBean(tweets));
+        }
+    return listTweetPolls;
     }
 
     /**
@@ -505,9 +516,20 @@ public class ConvertDomainBean {
         unitPoll.setShowResultsPoll(poll.getShowVotes());
         unitPoll.setFinishDate(poll.getEndDate());
        return unitPoll;
-
     }
 
+    /**
+     * Convert list to poll bean.
+     * @param poll
+     * @return
+     */
+    public static final List<UnitPoll> convertListToPollBean(final List<Poll> poll){
+        final List<UnitPoll> listPolls = new ArrayList<UnitPoll>();
+        for (Poll polls : poll) {
+            listPolls.add(ConvertDomainBean.convertPollDomainToBean(polls));
+        }
+    return listPolls;
+    }
 
     /**
      * Convert Set to Unit Poll bean.

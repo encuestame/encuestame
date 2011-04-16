@@ -8,4 +8,14 @@
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}home.jsp" />
     </definition>
 
+    <definition name="search" extends="page">
+        <put-attribute name="title" value="Search | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}search.jsp" />
+    </definition>
+
+    <definition name="cloud" extends="page">
+        <put-attribute name="title" value="Cloud | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}cloud.jsp" />
+    </definition>
+
 </tiles-definitions>

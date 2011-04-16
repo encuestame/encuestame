@@ -181,8 +181,7 @@ public class HTMLInputFilter {
      */
     public synchronized String filter(String input) {
         reset();
-        String inputString = input;
-
+        String inputString = input == null ? "" : input;
         debug("************************************************");
         debug("              INPUT: " + input);
 

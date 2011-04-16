@@ -14,6 +14,8 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
+import org.encuestame.utils.ShortUrlProvider;
+
 /**
  * Answer Bean.
  * @author Picado, Juan Carlos juanATencuestame.org
@@ -44,6 +46,9 @@ public class QuestionAnswerBean implements Serializable{
 
     /** Question Id. **/
     private	 Long questionId;
+
+    /** short url type. **/
+    private ShortUrlProvider shortUrlType;
 
     /**
      * Constructor.
@@ -147,4 +152,30 @@ public class QuestionAnswerBean implements Serializable{
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
+    /**
+     * @return the shortUrlType
+     */
+    public ShortUrlProvider getShortUrlType() {
+        return shortUrlType;
+    }
+
+    /**
+     * @param shortUrlType the shortUrlType to set
+     */
+    public void setShortUrlType(final ShortUrlProvider shortUrlType) {
+        this.shortUrlType = shortUrlType;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "QuestionAnswerBean [answerId=" + answerId + ", answers="
+                + answers + ", answerHash=" + answerHash + ", url=" + url
+                + ", shortUrl=" + shortUrl + ", questionId=" + questionId + "]";
+    }
+
+
 }

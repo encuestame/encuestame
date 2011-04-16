@@ -194,12 +194,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 
 
     /**
-     * Retrieve Tweets Poll Switch.
-     * @param tweetCode tweetCode
-     * @return switch
+     * Retrieve {@link TweetPollSwitch} by code.
+     * @param tweetCode tweetCode code.
+     * @return switch {@link TweetPollSwitch}
      */
     public TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode){
-        return searchByParamStringTweetPollSwitch("codeTweet", tweetCode);
+        log.debug("retrieveTweetsPollSwitch codeTweet:"+tweetCode);
+        return this.searchByParamStringTweetPollSwitch("codeTweet", tweetCode);
     }
 
     /**
@@ -253,11 +254,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     *
-     * @param tweetPoll
-     * @param questionAnswer
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getAnswerTweetSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.question.QuestionAnswer)
      */
     @SuppressWarnings("unchecked")
     public TweetPollSwitch getAnswerTweetSwitch(final TweetPoll tweetPoll, final QuestionAnswer questionAnswer){
@@ -266,6 +265,18 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Restrictions.eq("answers", questionAnswer));
         return (TweetPollSwitch) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getAnswerTweetSwitch(org.encuestame.persistence.domain.question.QuestionAnswer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollSwitch> getAnswerTweetSwitch(final QuestionAnswer questionAnswer){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSwitch.class);
+        criteria.add(Restrictions.eq("answers", questionAnswer));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
 
     /**
      * Get Votes By {@link TweetPollSwitch}..

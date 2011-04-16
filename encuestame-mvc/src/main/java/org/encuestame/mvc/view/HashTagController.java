@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,39 +10,32 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-
 package org.encuestame.mvc.view;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * DashBoard Controller.
- * @author Picado, Juan juan@encuestame.org
- * @since Mar 6, 2010 10:58:02 AM
+ * HashTag Controller.
+ * @author Morales, Diana Paola paolaATencuestame.org
+ * @since Apr 15, 2011
  */
-
 @Controller
-public class DashBoardController extends AbstractBaseOperations {
+public class HashTagController {
 
-    private Log log = LogFactory.getLog(this.getClass());
+    /** Log. **/
+        private Log log = LogFactory.getLog(this.getClass());
 
-    /**
-     * DashBoard Controller.
-     * @param model model
-     * @return template
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
-    public String dashBoardController(ModelMap model, UserAccount account) {
-        log.debug("dashboard");
-        return "dashboard";
-    }
+        @RequestMapping(value = "/cloud", method = RequestMethod.GET)
+        public String hashTagController(ModelMap model, HttpServletRequest request,
+                HttpServletResponse response) {
+                return "cloud";
+        }
 }

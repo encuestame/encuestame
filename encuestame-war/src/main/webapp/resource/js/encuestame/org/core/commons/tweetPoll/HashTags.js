@@ -19,20 +19,20 @@ dojo.declare(
         listItems : [],
 
         postCreate: function() {
-            this.suggestWidget = dijit.byId("hashTagSuggest_"+this.id);
+             var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({});
+             var node = dojo.byId("hashTagSuggest_"+this.id);
+             //console.debug("create suggest", node);
+             if (this._suggest){
+                //console.debug("create suggest", hashTagWidget.domNode);
+                //console.debug("create suggest", hashTagWidget);
+                this._suggest.appendChild(hashTagWidget.domNode);
+             }
+            this.suggestWidget = hashTagWidget;
             if(this.suggestWidget){
                 this.suggestWidget.processSelectedItem = dojo.hitch(this, function(data){
-                    //console.info("Processing Item Selected ...", data);
+                    console.info("Processing Item Selected ...", data);
                     this.addNewHashTag(data);
                 });
-            }
-            var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({});
-            var node = dojo.byId("hashTagSuggest_"+this.id);
-            //console.debug("create suggest", node);
-            if (this._suggest){
-               //console.debug("create suggest", hashTagWidget.domNode);
-               //console.debug("create suggest", hashTagWidget);
-               this._suggest.appendChild(hashTagWidget.domNode);
             }
         },
         //Add New Hash Tag.
@@ -58,11 +58,18 @@ dojo.declare(
             dojo.publish("/encuestame/tweetpoll/updatePreview");
             dojo.publish("/encuestame/tweetpoll/autosave");
         },
-        //Get Dialog
+
+        /*
+         * Get Dialog.
+         */
         getDialog : function(){
             var dialog = dijit.byId("option_"+this.id);
             return dialog;
         },
+
+        /*
+         * remove hashtag.
+         */
         _removeItem : function(event){
             dojo.stopEvent(event);
             var i = dojo.indexOf(this.listItems, this.getDialog().item);
@@ -108,6 +115,5 @@ dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
     [encuestame.org.core.shared.utils.Suggest],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html")
-
 });
 

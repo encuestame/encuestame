@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IFrontEndDao;
@@ -66,15 +67,17 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      */
     @SuppressWarnings("unchecked")
     public final List<TweetPoll> getTweetPollFrontEnd(Integer period, final Integer maxResults, final Integer firstResult){
-        if(period == null){
-            period = PERIOD_24;
-        }
-        final Calendar hi = Calendar.getInstance();
-        hi.add(Calendar.DAY_OF_YEAR, -period);
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
-        criteria.createAlias("question", "question");
-        criteria.add(Restrictions.between("createDate", Calendar.getInstance().getTime(), hi.getTime()));
-        criteria.add(Restrictions.le("enabled", Boolean.FALSE)); //should be enabled
+            criteria.createAlias("question", "question");
+        if (period != null) {
+            final Calendar hi = Calendar.getInstance();
+            hi.add(Calendar.DAY_OF_YEAR, -period);
+            final Date startDate = hi.getTime();
+            final Date endDate = Calendar.getInstance().getTime();
+            log.debug(" Start Date ----------------> "+startDate);
+            log.debug(" End Date --------------------> "+ endDate);
+            criteria.add(Restrictions.between("createDate", startDate, endDate));
+        }
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE)); //should be published
         return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
@@ -95,7 +98,6 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             hi.add(Calendar.DAY_OF_YEAR, -period);
             criteria.add(Restrictions.between("createdAt", Calendar.getInstance().getTime(), hi.getTime()));
         }
-        criteria.add(Restrictions.le("enabled", Boolean.FALSE)); //should be enabled
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
         return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }

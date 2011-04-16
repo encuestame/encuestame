@@ -212,4 +212,11 @@ public interface ITweetPoll extends IBaseDao{
      * @return {@link TweetPollSwitch}.
      */
     TweetPollSwitch getAnswerTweetSwitch(final TweetPoll tweetPoll, final QuestionAnswer questionAnswer);
+
+    /**
+     * Retrieve all {@link TweetPollSwitch} by {@link QuestionAnswer}.
+     * @param questionAnswer {@link QuestionAnswer}.
+     * @return
+     */
+    List<TweetPollSwitch> getAnswerTweetSwitch(final QuestionAnswer questionAnswer);
 }

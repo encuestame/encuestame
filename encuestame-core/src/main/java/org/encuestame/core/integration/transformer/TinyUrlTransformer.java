@@ -25,17 +25,7 @@ public class TinyUrlTransformer {
             String token = tokenizer.nextToken();
             System.out.println("token "+token);
             if (validUrl(token)) {
-                try {
-                    token = SocialUtils.getTinyUrl(token);
-                } catch (HttpException e) {
-                    System.out.println("transform errHTP"+e);
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    System.out.println("transform IOException "+e);
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    System.out.println("exception "+e);
-                }
+                token = SocialUtils.getTinyUrl(token);
             }
             tranformedMessage.append(" ").append(token);
         }
