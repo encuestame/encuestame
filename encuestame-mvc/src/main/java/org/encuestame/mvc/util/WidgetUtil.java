@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.MD5Utils;
+import org.jfree.util.Log;
 
 /**
  * Dojo Widget Utils.
@@ -57,6 +58,29 @@ public class WidgetUtil {
         // buffer.append("//");
         domain.append(request.getContextPath());
         return domain.toString();
+    }
+
+    /**
+     * Build correctly period filter url.
+     * @param request
+     * @param period
+     * @return
+     */
+    public static final String getHomeFilterPeriodParameter(final HttpServletRequest request, final String period){
+        StringBuilder url = new StringBuilder();
+        url.append(request.getContextPath());
+        url.append("/home?");
+        if (request.getParameter("view") == null) {
+            url.append("period=");
+            url.append(period);
+        } else {
+            url.append("view=");
+            url.append(request.getParameter("view"));
+            url.append("&period=");
+            url.append(period);
+        }
+        Log.debug("getHomeFilterPeriodParameter "+url.toString());
+        return url.toString();
     }
 
     /**

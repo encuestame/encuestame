@@ -8,7 +8,10 @@
           <div class="categoryMenu">
                 <div style="clear: both;">
                 <div style="float: right;">
-                    filter by date
+                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "24")%>">Hot</a>
+                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "7")%>">Week</a>
+                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "30")%>">Month</a>
+                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "all")%>">All</a>
                 </div>
                 <div style="float: left;">
                     <span><a href="<%=request.getContextPath()%>/home?view=survey">All Surveys</a></span>
@@ -19,10 +22,7 @@
             </div>
     <c:forEach items="${items}" var="item">
      <div class="item">
-          ${item}
-     </div>
-   </c:forEach>
-             <div class="item">
+           <div class="item">
                 <div class="img">
                         <div class="stats">
                             <div class="vote">
@@ -38,8 +38,7 @@
                 </div>
                 <div class="content">
                     <h3>
-                         <a href="/survey/12345">Ever take silverware, glasses or other serving ware from a restaurant
-                            becouse Nicaragua is the country more poor of the region?</a>
+                         <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test">${item.questionBean.questionName}</a>
                     </h3>
                     <div style="padding: 2px;">
 
@@ -47,8 +46,8 @@
                     <div class="bottom">
                        <div class="share">
                                 <span class="title">Share on:</span><br/>
-                                <img src="resource/images/icons/enme_twitter.png" alt="Twitter" />
-                                <img src="resource/images/icons/enme_facebook.png" alt="Facebook" />
+                                <img src="resources/images/icons/enme_twitter.png" alt="Twitter" />
+                                <img src="resources/images/icons/enme_facebook.png" alt="Facebook" />
                        </div>
                        <div class="options">
                             <div class="image">
@@ -56,19 +55,19 @@
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
                             <div>(Submited By <strong><a href="#">Jota</a></strong>) added <strong>45 minutes</strong> ago</div>
-                            <div><img src="/resource/images/icons/enme_comment_reply.png"/> 25 Comments</div>
+                            <div><img src="/resources/images/icons/enme_comment_reply.png"/> 25 Comments</div>
 
                        </div>
                        <div class="tags">
-                                <a href="#" class="tag">Nicaragua</a>
-                                <a href="#" class="tag">Venezuela</a>
-                                <a href="#" class="tag">Hugo Chavez</a>
-                                <a href="#" class="tag">Estados Unidos</a>
-                                <a href="#" class="tag">Guerra</a>
+                            <c:forEach items="${item.hashTags}" var="h">
+                                <a href="<%=request.getContextPath()%>/hashtag/${h.hashTagName}/" class="tag">${h.hashTagName}</a>
+                           </c:forEach>
                        </div>
                     </div>
                 </div>
                 <p class="clear"></p>
             </div>
+     </div>
+   </c:forEach>
     </div>
 </div>
