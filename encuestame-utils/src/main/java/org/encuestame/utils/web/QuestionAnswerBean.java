@@ -147,4 +147,16 @@ public class QuestionAnswerBean implements Serializable{
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "QuestionAnswerBean [answerId=" + answerId + ", answers="
+                + answers + ", answerHash=" + answerHash + ", url=" + url
+                + ", shortUrl=" + shortUrl + ", questionId=" + questionId + "]";
+    }
+
+
 }

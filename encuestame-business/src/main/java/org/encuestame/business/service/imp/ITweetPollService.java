@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -29,6 +30,7 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -55,6 +57,30 @@ public interface ITweetPollService extends IMasterSurveyService{
             final String question,
             final String[] answers,
             final UserAccount user) throws EnMeExpcetion;
+
+
+    /**
+     * Remove ALL {@link QuestionAnswer} on {@link TweetPoll}.
+     * @param tweetPoll
+     */
+    void removeAllQuestionsAnswers(final TweetPoll tweetPoll);
+
+    /**
+     * Remove {@link QuestionAnswer}.
+     * @param questionAnswer {@link QuestionAnswer}.
+     */
+    void removeQuestionAnswer(final QuestionAnswer questionAnswer);
+
+   /**
+    * Create TweetPoll answer.
+    * @param answerBean
+    * @param tp
+    * @return
+    * @throws EnMeNoResultsFoundException
+    */
+   public TweetPollSwitch createTweetPollQuestionAnswer(
+           final QuestionAnswerBean answerBean, final TweetPoll tp)
+           throws EnMeNoResultsFoundException;
 
     /**
      * Get tweetPoll by id and user logged.

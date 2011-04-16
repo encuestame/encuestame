@@ -40,10 +40,12 @@ import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.FolderBean;
@@ -91,6 +93,19 @@ public class ConvertDomainBean {
         }
     }
 
+
+    /**
+     *
+     * @param pollSwitch
+     * @return
+     */
+    public static final TweetPollAnswerSwitchBean convertTweetPollSwitchToBean(final TweetPollSwitch pollSwitch){
+        final TweetPollAnswerSwitchBean answerSwitchBean = new TweetPollAnswerSwitchBean();
+        answerSwitchBean.setTweetPollBean(ConvertDomainBean.convertTweetPollToBean(pollSwitch.getTweetPoll()));
+        answerSwitchBean.setAnswerBean(ConvertDomainBean.convertAnswerToBean(pollSwitch.getAnswers()));
+        answerSwitchBean.setShortUrl(pollSwitch.getShortUrl());
+        return answerSwitchBean;
+    }
 
     /**
      * Social Account.
