@@ -27,7 +27,11 @@ public class TweetPollAnswerSwitchBean implements Serializable {
      */
     private static final long serialVersionUID = -5463311757853384293L;
 
+    private Long id;
+
     public TweetPollBean tweetPollBean;
+
+    public Long tweetPollId;
 
     public QuestionAnswerBean answerBean;
 
@@ -77,5 +81,35 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
+    /**
+     * @return the tweetPollId
+     */
+    public Long getTweetPollId() {
+        return tweetPollId;
+    }
+
+    /**
+     * @param tweetPollId the tweetPollId to set
+     */
+    public void setTweetPollId(Long tweetPollId) {
+        this.tweetPollId = tweetPollId;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 
 }

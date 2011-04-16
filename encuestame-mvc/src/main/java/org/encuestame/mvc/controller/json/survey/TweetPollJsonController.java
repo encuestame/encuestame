@@ -37,6 +37,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollBean;
@@ -169,6 +170,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "answer", required = false) final String answer,
             @RequestParam(value = "answerId", required = false) final Long answerId,
+            @RequestParam(value = "shortUrl", required = false) final String shortUrl,
             @PathVariable final String type,
             HttpServletRequest request,
             HttpServletResponse response)
@@ -183,6 +185,7 @@ public class TweetPollJsonController extends AbstractJsonController {
 
             if("add".equals(type)) {
                 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
+                answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
                 log.debug("new answer bean "+answerBean.toString());
                 final TweetPollSwitch tweetPollSwitch = getTweetPollService()
                       .createTweetPollQuestionAnswer(answerBean, tweetPoll);

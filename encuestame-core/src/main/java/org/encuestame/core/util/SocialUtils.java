@@ -68,12 +68,16 @@ public class SocialUtils {
      * @return
      * @throws EnmeFailOperation
      */
-    public static String getGoGl(final String urlPath, String key) throws EnmeFailOperation {
+    public static String getGoGl(final String urlPath, String key) {
+        log.debug("getGoGl url "+urlPath);
+        log.debug("getGoGl key "+key);
+        String shortUrl = null;
         URL simpleURL = null;
         HttpsURLConnection url = null;
         BufferedInputStream bStream = null;
         StringBuffer resultString = new StringBuffer("");
         String inputString = "{\"longUrl\":\"" + urlPath + "\"}";
+        log.debug("getGoGl inputString "+inputString);
         try {
             simpleURL = new URL(
                     "https://www.googleapis.com/urlshortener/v1/url?key=" + key);
@@ -84,7 +88,8 @@ public class SocialUtils {
             pw.print(inputString);
             pw.close();
         } catch (Exception ex) {
-            throw new EnmeFailOperation("Exception in Connecting to API");
+            log.error(ex);
+            shortUrl = urlPath;
         }
         try {
             bStream = new BufferedInputStream(url.getInputStream());
@@ -92,14 +97,14 @@ public class SocialUtils {
             while ((i = bStream.read()) >= 0) {
                 resultString.append((char) i);
             }
+            final Object jsonObject = JSONValue.parse(resultString.toString());
+            final JSONObject o = (JSONObject) jsonObject;
+            shortUrl = (String) o.get("id");
         } catch (Exception ex) {
             SocialUtils.log.error(ex);
-            throw new EnmeFailOperation("short url operation not valid");
+            shortUrl = urlPath;
         }
-        final Object jsonObject = JSONValue.parse(resultString.toString());
-        final JSONObject o = (JSONObject) jsonObject;
-        System.out.println(o.get("id"));
-        return o.get("id").toString();
+        return shortUrl;
     }
 
     /**
@@ -110,27 +115,38 @@ public class SocialUtils {
      * @throws HttpException
      * @throws IOException
      */
-    public static String getTinyUrl(String string) throws HttpException,
-            IOException {
+    public static String getTinyUrl(String string){
+        String tinyUrl = string;
         HttpClient httpclient = new HttpClient();
-
         HttpMethod method = new GetMethod(SocialUtils.tinyURL);
         method.setQueryString(new NameValuePair[] { new NameValuePair("url",
                 string) });
-        httpclient.executeMethod(method);
-        String tinyUrl = method.getResponseBodyAsString();
-        method.releaseConnection();
+        try {
+            httpclient.executeMethod(method);
+            tinyUrl = method.getResponseBodyAsString();
+        } catch (HttpException e) {
+            log.error(e);
+            e.printStackTrace();
+            tinyUrl = string;
+        } catch (IOException e) {
+            log.error(e);
+            e.printStackTrace();
+            tinyUrl = string;
+        } finally{
+            method.releaseConnection();
+        }
         return tinyUrl;
     }
 
     /**
-     * Sho
-     * @param urlPath
-     * @param key
+     * Short URL with bitly.com.
+     * @param urlPath url
+     * @param key bitly key
+     * @param login bitly login
      * @return
      * @throws EnmeFailOperation
      */
-    public static String getBitLy(final String urlPath, final String key, final String login) throws EnmeFailOperation {
+    public static String getBitLy(final String urlPath, final String key, final String login){
         final HttpClient httpclient = new HttpClient();
         final HttpMethod method = new GetMethod(SocialUtils.bitLyUrlApi);
         method.setQueryString(
@@ -157,10 +173,13 @@ public class SocialUtils {
             responseXml = (String) url.get("shortUrl");
         } catch (HttpException e1) {
             log.error(e1);
-            e1.printStackTrace();
+            responseXml = urlPath;
         } catch (IOException e1) {
             log.error(e1);
-            e1.printStackTrace();
+            responseXml = urlPath;
+        } catch (Exception e) {
+            log.error(e);
+            responseXml = urlPath;
         }
         return responseXml;
     }
