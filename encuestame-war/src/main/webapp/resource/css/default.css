@@ -177,6 +177,7 @@ a:hover{
    border: 1px solid #BCBCBC;
    min-width: 100px;
    padding: 4px;
+   cursor: pointer;
  }
 
  .defaultInputClass{
@@ -197,6 +198,11 @@ a:hover{
     font-weight: bold;
 }
 
+#content-container #enme-content div.publicMarginWrapper{
+    width: 100%;
+    margin-top: 29px;
+}
+
 #content-container #enme-content div.defaultMarginWrapper{
     width: 100%;
     margin-top: 29px;
@@ -208,6 +214,12 @@ a:hover{
     box-shadow: 0px 1px 2px #888;
     border: 1px solid #D7D7D7;
 }
+
+#content-container #enme-content div.votes{
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 3em;
+    padding: 25px;
 }
 
 .defaultDisplayBlock{
@@ -315,3 +327,27 @@ div.defaultMarginWrapper .dijitButton .dijitButtonNode{
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
 }
 
+/** tweetPollVote **/
+
+div.tweetPollVote{
+
+
+}
+
+div.tweetPollVote div.question{
+    font-size: 180%;
+    font-weight: bold;
+    padding: 5px;
+    color: #C4C4C4;
+}
+div.tweetPollVote div.answer{
+    font-size: 150%;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #DCE0FF;
+    color: #515151;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+}

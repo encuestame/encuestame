@@ -30,10 +30,12 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.ProjectService;
 import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.business.service.imp.ILocationService;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
@@ -408,6 +410,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public IProjectService getProjectService(){
         return getServiceManager().getApplicationServices().getProjectService();
+    }
+
+    /**
+     * Get {@link FrontEndService}.
+     * @return
+     */
+    public IFrontEndService getFrontService(){
+        return getServiceManager().getApplicationServices().getFrontEndService();
     }
 
     /**

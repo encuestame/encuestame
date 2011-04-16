@@ -1,7 +1,3 @@
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
-<body>
-
+<div class="defaultMarginWrapper votes tweetPollVote" id="defaultMarginWrapper">
    BAD
-
-<%@ include file="/WEB-INF/jsp/includes/footer.jsp" %>
+</div>

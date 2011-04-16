@@ -16,6 +16,7 @@ package org.encuestame.mvc.view;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,22 +40,24 @@ public class AdmonController extends AbstractBaseOperations {
      * @param id id tweet
      * @return template
      */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/location", method = RequestMethod.GET)
     public String admonLocation(ModelMap model) {
         log.debug("LOCATION");
         return "location";
     }
 
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
         log.debug("MEMGERS");
         return "members";
     }
 
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
     public String admonProject(ModelMap model) {
         log.debug("PROJECT");
         return "project";
     }
-
 }

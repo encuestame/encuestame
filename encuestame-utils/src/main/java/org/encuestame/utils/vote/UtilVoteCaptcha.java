@@ -52,4 +52,12 @@ public class UtilVoteCaptcha {
         this.codeVote = codeVote;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "UtilVoteCaptcha [captcha=" + captcha + ", codeVote=" + codeVote
+                + "]";
+    }
 }
