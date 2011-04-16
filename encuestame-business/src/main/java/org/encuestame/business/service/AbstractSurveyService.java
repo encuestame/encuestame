@@ -188,6 +188,41 @@ public class AbstractSurveyService extends AbstractChartService {
     }
 
     /**
+     * Create {@link TweetPollSwitch}.
+     * @return {@link TweetPollSwitch}.
+     */
+    public TweetPollSwitch createTweetPollSwitch(
+            final TweetPoll tweetPoll,
+            final QuestionAnswer answer){
+        final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+        tPollSwitch.setAnswers(answer);
+        tPollSwitch.setTweetPoll(tweetPoll);
+        tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + answer.getAnswer()));
+        tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
+        final StringBuffer voteUrlWithoutDomain = new StringBuffer();
+        voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
+        voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
+        final StringBuffer completeDomain = new StringBuffer(EncuestamePlaceHolderConfigurer.getProperty("application.domain"));
+        completeDomain.append(voteUrlWithoutDomain.toString());
+        try {
+             log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
+             if (InternetUtils.validateUrl(completeDomain.toString())) {
+                //TODO: setted google short url by default. Why? Thinking ...
+                tPollSwitch.setShortUrl(SocialUtils.getGoGl(completeDomain.toString(),
+                            EncuestamePlaceHolderConfigurer.getProperty("short.google.key")));
+             } else {
+                 tPollSwitch.setShortUrl(completeDomain.toString());
+                 log.warn("Invalid format vote url:{"+voteUrlWithoutDomain.toString());
+             }
+        } catch (EnmeFailOperation e) {
+            tPollSwitch.setShortUrl(completeDomain.toString()); //TODO: decide with todo when short url is missing.
+            log.error("Short error:{"+e.getMessage());
+        }
+        getTweetPollDao().saveOrUpdate(tPollSwitch);
+        return tPollSwitch;
+    }
+
+    /**
      * Create vote support for each tweetpoll answer.
      * @param questionId
      * @param tweetPoll
@@ -201,45 +236,12 @@ public class AbstractSurveyService extends AbstractChartService {
             TweetPollSwitch tPollSwitch = getTweetPollDao().getAnswerTweetSwitch(tweetPoll, answer);
             if (tPollSwitch == null) {
                 log.debug("created tweetpoll switch for tweetpoll:{"+tweetPoll.getTweetPollId());
-                //create new tweetpoll switch
-                tPollSwitch = new TweetPollSwitch();
-                tPollSwitch.setAnswers(answer);
-                tPollSwitch.setTweetPoll(tweetPoll);
-                tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + answer.getAnswer()));
+                tPollSwitch = this.createTweetPollSwitch(tweetPoll, answer);
             } else {
                 log.debug("updated tweetpoll switch:{"+tPollSwitch.getSwitchId()+" for tweetpoll :{"+tweetPoll.getTweetPollId());
             }
-            //update every new change.
-            tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
-            final StringBuffer voteUrlWithoutDomain = new StringBuffer();
-            voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
-            voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
-            final StringBuffer completeDomain = new StringBuffer(EncuestamePlaceHolderConfigurer.getProperty("application.domain"));
-            completeDomain.append(voteUrlWithoutDomain.toString());
-            try {
-                 log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
-                 if (InternetUtils.validateUrl(completeDomain.toString())) {
-                    //TODO: setted google short url by default. Why? Thinking ...
-                    tPollSwitch.setShortUrl(SocialUtils.getGoGl(completeDomain.toString(),
-                                EncuestamePlaceHolderConfigurer.getProperty("short.google.key")));
-                 } else {
-                     tPollSwitch.setShortUrl(completeDomain.toString());
-                     log.warn("Invalid format vote url:{"+voteUrlWithoutDomain.toString());
-                 }
-            } catch (EnmeFailOperation e) {
-                tPollSwitch.setShortUrl(completeDomain.toString()); //TODO: decide with todo when short url is missing.
-                log.error("Short error:{"+e.getMessage());
-            }
-
-            getTweetPollDao().saveOrUpdate(tPollSwitch);
-
-            //notification create tweetpoll
-            createNotification(NotificationEnum.TWEETPOL_CREATED,
-                    tweetPoll.getQuestion().getQuestion(),
-                    tweetPoll.getQuestion().getAccountQuestion());
-
             //update answer url.
-            answer.setUrlAnswer(voteUrlWithoutDomain.toString()); //store url without short.
+            answer.setUrlAnswer(tPollSwitch.getShortUrl()); //store url without short.
             getQuestionDao().saveOrUpdate(answer);
         }
     }

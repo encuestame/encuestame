@@ -34,6 +34,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SocialAccountBean;
@@ -179,15 +180,15 @@ public class TweetPollJsonController extends AbstractJsonController {
             log.debug("tweetpoll"+tweetPoll.getTweetPollId());
             if(!tweetPoll.getPublishTweetPoll()){
             log.debug("action ANSWER "+type);
-            final Question question = tweetPoll.getQuestion();
-            if("add".equals(type)) {
 
+            if("add".equals(type)) {
                 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
                 log.debug("new answer bean "+answerBean.toString());
-                final QuestionAnswer questionAnswer = getTweetPollService().createQuestionAnswer(answerBean, question);
+                final TweetPollSwitch questionAnswer = getTweetPollService()
+                      .createTweetPollQuestionAnswer(answerBean, tweetPoll);
                 log.debug("new answer bean DOMAIN "+questionAnswer.toString());
                 //log.debug("action questionAnswer "+questionAnswer);
-                jsonResponse.put("newAnswer", ConvertDomainBean.convertAnswerToBean(questionAnswer));
+                jsonResponse.put("newAnswer", questionAnswer);
                 setItemResponse(jsonResponse);
             } else if("remove".equals(type)) {
                 getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));

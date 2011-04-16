@@ -78,8 +78,7 @@ public class SearchService extends AbstractIndexService implements
             final Integer limit,
             final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
-        final Map<String, List<GlobalSearchItem>> hashset = new HashedMap	();
-
+        final Map hashset = new HashedMap();
         if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
             final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                     .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,

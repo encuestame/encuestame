@@ -293,7 +293,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     getTweetPollDao().saveOrUpdate(tweetPollDomain);
                 }
                 //update tweetpoll switch support
-                updateTweetPollSwitchSupport(tweetPollDomain);
+                this.updateTweetPollSwitchSupport(tweetPollDomain);
                 return tweetPollDomain;
             }
         } catch (Exception e) {
@@ -360,6 +360,25 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         log.debug("removing answer:{"+questionAnswer.getQuestionAnswerId());
         getQuestionDao().delete(questionAnswer); //remove answer.
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.ITweetPollService#createTweetPollQuestionAnswer(org.encuestame.utils.web.QuestionAnswerBean, org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     */
+    public TweetPollSwitch createTweetPollQuestionAnswer(
+            final QuestionAnswerBean answerBean,
+            final TweetPoll tp)
+            throws EnMeNoResultsFoundException {
+        final Question question = tp.getQuestion();
+        final QuestionAnswer questionAnswer = createQuestionAnswer(answerBean,
+                question);
+        if (questionAnswer == null) {
+            throw new EnMeNoResultsFoundException("answer is missing");
+        } else {
+            final TweetPollSwitch tpSwitch = this.createTweetPollSwitch(tp, questionAnswer);
+            return tpSwitch;
+        }
     }
 
    /*
@@ -530,6 +549,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return tweetPoll;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.ITweetPollService#getTweetPollById(java.lang.Long)
+     */
     public TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
         if (tweetPoll == null) {
