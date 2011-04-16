@@ -480,6 +480,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
         unitTweetPoll.setAllowRepeatedVotes(poll.getAllowRepatedVotes() == null ? false : poll.getAllowRepatedVotes());
+        unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
         return unitTweetPoll;
     }
 

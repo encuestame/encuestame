@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,47 +29,68 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Home or FrontEnd Controller.
+ *
  * @author Picado, Juan juan@encuestame.org
  * @since Mar 6, 2010 10:58:02 AM
- * @version $Id: $
  */
 @Controller
 public class HomeController extends AbstractBaseOperations {
 
+    /**
+    * Log.
+    */
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Home Controller.
-     * @param model model
-     * @return template
-     */
+    * Home Controller.
+    *
+    * @param model
+    *            model
+    * @return template
+    */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String homeController(
-            ModelMap model,
-            HttpServletRequest request,
+    public String homeController(ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
-        final Boolean privateHome = EncuestamePlaceHolderConfigurer.getBooleanProperty("application.private");
-        log.debug("HOME");
+        final Boolean privateHome = EncuestamePlaceHolderConfigurer
+                .getBooleanProperty("application.private");
         if (privateHome) {
             log.debug("signup is disabled");
             return "redirect:/user/signin";
         } else {
+            final String view = filterValue(request.getParameter("view"));
+            final String period = filterValue(request.getParameter("period"));
+            final IFrontEndService service = getFrontService();
+            try {
+                if (view.isEmpty()) {
+                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                } else {
+                    if ("tweetpoll".equals(view)){
+                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                    } else if("poll".equals(view)){
+                        model.addAttribute("items", service.searchItemsByPoll(period, 20));
+                    } else if("survey".equals(view)){
+                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                    }
+                }
+                //TODO: search hashtags and other information.
+            } catch (EnMeSearchException e) {
+                return "error";
+            }
             return "home";
         }
     }
 
     /**
-     * Index view.
-     * @param model
-     * @param request
-     * @param response
-     * @return
-     */
+    * Index view.
+    *
+    * @param model
+    * @param request
+    * @param response
+    * @return
+    */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(
-            ModelMap model,
-            HttpServletRequest request,
+    public String index(ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
-            return "redirect:/home";
+        return "redirect:/home";
     }
 }
