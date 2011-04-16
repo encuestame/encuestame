@@ -184,11 +184,11 @@ public class TweetPollJsonController extends AbstractJsonController {
             if("add".equals(type)) {
                 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
                 log.debug("new answer bean "+answerBean.toString());
-                final TweetPollSwitch questionAnswer = getTweetPollService()
+                final TweetPollSwitch tweetPollSwitch = getTweetPollService()
                       .createTweetPollQuestionAnswer(answerBean, tweetPoll);
-                log.debug("new answer bean DOMAIN "+questionAnswer.toString());
+                log.debug("new answer bean DOMAIN "+tweetPollSwitch.toString());
                 //log.debug("action questionAnswer "+questionAnswer);
-                jsonResponse.put("newAnswer", questionAnswer);
+                jsonResponse.put("newAnswer", ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch));
                 setItemResponse(jsonResponse);
             } else if("remove".equals(type)) {
                 getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));
