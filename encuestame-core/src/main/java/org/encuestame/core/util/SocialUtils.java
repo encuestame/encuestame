@@ -15,7 +15,6 @@ package org.encuestame.core.util;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -26,8 +25,10 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 /**
  * Social Util Helpers.
@@ -36,11 +37,15 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
  */
 public class SocialUtils {
 
+    private static org.apache.commons.logging.Log log = LogFactory.getLog(SocialUtils.class);
+
     public final static String tinyURL = "http://tinyurl.com/api-create.php";
 
     public final static String googleURL = "https://www.googleapis.com/urlshortener/v1/url";
 
     public final static String googleURLStas = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
+
+    public final static String bitLyUrlApi = "http://api.bit.ly/shorten";
 
     /**
      * Get Google Stats from google short url.
@@ -88,9 +93,13 @@ public class SocialUtils {
                 resultString.append((char) i);
             }
         } catch (Exception ex) {
-            return "Exception in Reading Result";
+            SocialUtils.log.error(ex);
+            throw new EnmeFailOperation("short url operation not valid");
         }
-        return resultString.toString();
+        final Object jsonObject = JSONValue.parse(resultString.toString());
+        final JSONObject o = (JSONObject) jsonObject;
+        System.out.println(o.get("id"));
+        return o.get("id").toString();
     }
 
     /**
@@ -112,5 +121,47 @@ public class SocialUtils {
         String tinyUrl = method.getResponseBodyAsString();
         method.releaseConnection();
         return tinyUrl;
+    }
+
+    /**
+     * Sho
+     * @param urlPath
+     * @param key
+     * @return
+     * @throws EnmeFailOperation
+     */
+    public static String getBitLy(final String urlPath, final String key, final String login) throws EnmeFailOperation {
+        final HttpClient httpclient = new HttpClient();
+        final HttpMethod method = new GetMethod(SocialUtils.bitLyUrlApi);
+        method.setQueryString(
+                new NameValuePair[]{
+                        new NameValuePair("longUrl",urlPath),
+                        new NameValuePair("version","2.0.1"),
+                        new NameValuePair("login", login),
+                        new NameValuePair("apiKey", key),
+                        new NameValuePair("format","json"),
+                        new NameValuePair("history","1")
+                        }
+                );
+        String responseXml = null;
+        try {
+            httpclient.executeMethod(method);
+            //{"errorCode": 0, "errorMessage": "",
+            //"results": {"http://www.encuestame.org": {"userHash": "gmks0X", "shortKeywordUrl": "", "hash": "hMMQuX",
+           // "shortCNAMEUrl": "http://bit.ly/gmks0X", "shortUrl": "http://bit.ly/gmks0X"}},
+            //"statusCode": "OK"}
+            final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
+            final JSONObject o = (JSONObject) jsonObject;
+            final JSONObject results = (JSONObject) o.get("results");
+            final JSONObject url = (JSONObject) results.get(urlPath);
+            responseXml = (String) url.get("shortUrl");
+        } catch (HttpException e1) {
+            log.error(e1);
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            log.error(e1);
+            e1.printStackTrace();
+        }
+        return responseXml;
     }
 }
