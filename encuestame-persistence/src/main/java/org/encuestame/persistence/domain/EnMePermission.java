@@ -17,7 +17,6 @@ package org.encuestame.persistence.domain;
  * Encuestame Global Permissions
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 3, 2010 4:14:05 PM
- * @version $Id:$
  */
 public enum EnMePermission {
     ENCUESTAME_USER,

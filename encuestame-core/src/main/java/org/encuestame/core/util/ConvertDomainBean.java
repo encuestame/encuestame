@@ -101,9 +101,10 @@ public class ConvertDomainBean {
      */
     public static final TweetPollAnswerSwitchBean convertTweetPollSwitchToBean(final TweetPollSwitch pollSwitch){
         final TweetPollAnswerSwitchBean answerSwitchBean = new TweetPollAnswerSwitchBean();
-        answerSwitchBean.setTweetPollBean(ConvertDomainBean.convertTweetPollToBean(pollSwitch.getTweetPoll()));
+        answerSwitchBean.setTweetPollId(pollSwitch.getTweetPoll().getTweetPollId());
         answerSwitchBean.setAnswerBean(ConvertDomainBean.convertAnswerToBean(pollSwitch.getAnswers()));
         answerSwitchBean.setShortUrl(pollSwitch.getShortUrl());
+        answerSwitchBean.setId(pollSwitch.getSwitchId());
         return answerSwitchBean;
     }
 
@@ -455,7 +456,9 @@ public class ConvertDomainBean {
             answersBean.setAnswerId(questionsAnswer.getQuestionAnswerId());
             answersBean.setAnswers(questionsAnswer.getAnswer());
             answersBean.setUrl(questionsAnswer.getUrlAnswer());
+            answersBean.setShortUrl(questionsAnswer.getProvider() == null ? null : questionsAnswer.getProvider().toString());
             answersBean.setAnswerHash(questionsAnswer.getUniqueAnserHash());
+            answersBean.setQuestionId(questionsAnswer.getQuestions().getQid());
             return answersBean;
     }
 

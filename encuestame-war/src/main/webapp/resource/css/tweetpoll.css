@@ -370,6 +370,18 @@ div.tweetPollWrapper div.previewWrapperContent .previewAnswer{
     box-shadow: 1px 1px 1x #000000; -webkit-box-shadow: 1px 1px 1px #000000; -moz-box-shadow: 1px 1px 1px #000000;
 }
 
+div.tweetPollWrapper div.previewWrapperContent .previewHashTag{
+    padding: 4px;
+    background-color: #FEBEB2;
+    font-size: 120%;
+    color: #000;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
+    -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
+    box-shadow: 1px 1px 1x #000000; -webkit-box-shadow: 1px 1px 1px #000000; -moz-box-shadow: 1px 1px 1px #000000;
+}
+
 /** Add Answers **/
 
 div.addAnswers{

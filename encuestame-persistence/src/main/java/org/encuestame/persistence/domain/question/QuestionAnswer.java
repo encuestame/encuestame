@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.encuestame.utils.ShortUrlProvider;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -57,6 +58,9 @@ public class QuestionAnswer {
 
     /** Answer Type. **/
     private AnswerType answerType = AnswerType.DEFAULT;
+
+    /** Default short url provider. **/
+    private ShortUrlProvider provider = ShortUrlProvider.GOOGL;
 
     /** Answer Type Enum. **/
     public enum AnswerType {
@@ -180,5 +184,20 @@ public class QuestionAnswer {
      */
     public void setUrlAnswer(final String urlAnswer) {
         this.urlAnswer = urlAnswer;
+    }
+
+    /**
+     * @return the provider
+     */
+    @Column(name = "short_url_provider", nullable = false)
+    public ShortUrlProvider getProvider() {
+        return provider;
+    }
+
+    /**
+     * @param provider the provider to set
+     */
+    public void setProvider(final ShortUrlProvider provider) {
+        this.provider = provider;
     }
 }

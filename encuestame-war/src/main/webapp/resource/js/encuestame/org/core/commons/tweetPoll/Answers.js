@@ -19,7 +19,11 @@ dojo.declare(
 
         listItems : [],
 
+        _provider : encuestame.short,
+
         buttonWidget : null,
+
+        tweetPollId : null,
 
         answerSource : null,
 
@@ -48,7 +52,7 @@ dojo.declare(
             var array = [];
              dojo.forEach(this.listItems,
                    dojo.hitch(this,function(item) {
-                   array.push(item.answer);
+                   array.push({ value : item.getAnswerText()});
                    }));
             return array;
         },
@@ -71,18 +75,42 @@ dojo.declare(
         },
 
         addAnswer : function(){
+            //dojo.publish("/encuestame/tweetpoll/autosave");
             var text = dijit.byId(this._suggest);
-            var items = [];
-            var answerWidget = new encuestame.org.core.commons.tweetPoll.AnswerItem({
-                answer : { label : text.get('value'), id : 0},
-                parentAnswer : this
-            });
-            items.push(answerWidget.domNode);
-            this.listItems.push(answerWidget);
-            this.answerSource.insertNodes(false, items);
-            text.set('value', "");
-            dojo.publish("/encuestame/tweetpoll/updatePreview");
-            dojo.publish("/encuestame/tweetpoll/autosave");
+            var params = {
+                    "id" : this.tweetPollId,
+                    "answer" : text.get("value"),
+                    "shortUrl" : this._provider[2].code
+               };
+               console.debug("params", params);
+               var load = dojo.hitch(this, function(data){
+                   console.debug(data);
+                   var items = [];
+                   var answerWidget = new encuestame.org.core.commons.tweetPoll.AnswerItem({
+                       answer :{
+                           answerId : data.success.newAnswer.answerBean.answerId,
+                           label: data.success.newAnswer.answerBean.answers,
+                           shortUrl : data.success.newAnswer.shortUrl,
+                           provider: this._provider[0]
+                      },
+                      parentAnswer : this,
+                      tweetPollId : this.tweetPollId
+                   });
+                   items.push(answerWidget.domNode);
+                   this.listItems.push(answerWidget);
+                   this.answerSource.insertNodes(false, items);
+                   text.set('value', "");
+                   dojo.publish("/encuestame/tweetpoll/updatePreview");
+               });
+               var error = function(error) {
+                   console.debug("error", error);
+               };
+               if(this.tweetPollId != null){
+                   encuestame.service.xhrGet(
+                           encuestame.service.list.addAnswer, params, load, error);
+               } else {
+                   console.info("Please, save your tweetpoll first");
+               }
         },
 
         getDialog : function(){
@@ -115,9 +143,11 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        demoShortUrl : "http://en.me/",
+        tweetPollId : null,
 
-        answer : {id: null, label: ''},
+        _provider : encuestame.short,
+
+        answer : {},
 
         parentAnswer : null,
 
@@ -125,15 +155,36 @@ dojo.declare(
             console.debug("answer", this.answer);
         },
 
-        buildDemoUrl : function(){
-            var buf = this.answer.label;
-            buf +=	" ["
-            buf += this.demoShortUrl;
-            buf += this.answer.label;
-            buf += "] "
-            return buf;
+        /*
+         * remove this answer.
+         */
+        _removeAnswer : function(){
+             var params = {
+                     "id" : 1233,
+                    "answerId" : 2345
+            };
+            console.debug("params", params);
+            var load = dojo.hitch(this, function(data){
+                console.debug(data);
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(
+                    encuestame.service.list.removeAnswer, params, load, error);
         },
 
+        /*
+         *
+         */
+        getAnswerText: function(){
+            var answer = this.answer.label+ " "+this.answer.shortUrl;
+            return answer;
+        },
+
+        /*
+         * on click the dom node.
+         */
         _options : function(event){
             var dialog = this.parentAnswer.getDialog();
             dialog.item = this;

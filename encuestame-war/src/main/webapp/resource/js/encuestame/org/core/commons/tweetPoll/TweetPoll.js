@@ -43,19 +43,8 @@ dojo.declare(
             tweetPollId : null,
             started : false,
             question: {},
-            anwers : [
-                      { value : "answer1"
-                      },
-                      {
-                        value : "answer2"
-                       },
-                       {
-                         value : "answer3"
-                       },
-                       {
-                         value : "answer4"
-                       }],
-            hashtags : [{value : "hash1"}, {value : "hash2"}, { value: "hash3"} ]
+            anwers : [],
+            hashtags : []
           },
 
         /*
@@ -135,14 +124,15 @@ dojo.declare(
          },
 
          /*
-          * Get activity services response after save tweetpoll.
+          * get activity services response after save tweetpoll.
           */
          _autoSaveStatus : function(status){
              console.debug("auto save status", status);
-
-             if(this.tweetPoll.tweetPollId == null){
+             if (this.tweetPoll.tweetPollId == null) {
                this.tweetPoll.tweetPollId = status.data.tweetPollId;
                var tweetPoll = {id:this.tweetPoll.tweetPollId};
+               this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
+               this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
                dojo.hash(dojo.objectToQuery(tweetPoll));
              }
              //this.tweetPoll.hashtags = status.hashTags;
@@ -419,17 +409,15 @@ dojo.declare(
              *
              */
             _buildAnswers : function(answers){
-              if (answers != null) {
-                //console.info("answers", answers);
+              if (answers != null) {;
                 var arrayItem = [];
                 var questionDiv = dojo.doc.createElement("span");
                 var wishlist = new dojo.dnd.Source(questionDiv);
                 dojo.forEach(answers.getAnswers(),
                         dojo.hitch(this,function(item) {
-                        //console.info("item", item);
                           var span1 = dojo.doc.createElement("span");
-                          span1.innerHTML = item.label;
-                          this._completeText = this._completeText + " "+item.label;
+                          span1.innerHTML = item.value;
+                          this._completeText = this._completeText + " "+item.value;
                           dojo.addClass(span1, "previewAnswer");
                           arrayItem.push(span1);
                         }));
@@ -441,10 +429,33 @@ dojo.declare(
               }
             },
 
-            _buildHahsTags : function(hashtags){
+            /*
+             * build hashtag items on preview.
+             */
+            _buildHahsTags : function(hashtags) {
+                if (hashtags != null) {
+                        var arrayItem = [];
+                        var questionDiv = dojo.doc.createElement("span");
+                        var wishlist = new dojo.dnd.Source(questionDiv);
+                        dojo.forEach(hashtags.listItems, dojo.hitch(this, function(item,
+                                index) {
+                            var span1 = dojo.doc.createElement("span");
+                            span1.innerHTML = "#"+item.data.label;
+                            this._completeText = this._completeText + " " + "#"+item.data.label.trim();
+                            dojo.addClass(span1, "previewHashTag");
+                            arrayItem.push(span1);
+                        }));
+                        wishlist.insertNodes(false, arrayItem);
+                        // console.info("questionDiv", questionDiv);
+                        this._content.appendChild(questionDiv);
+                      } else {
+                          console.info("no hashtags widget");
+                      }
+               },
 
-            },
-
+             /*
+              * update counter.
+              */
             _updateCounter : function(textTweet){
               if(this._counter){
                 var counter = parseInt(this._counter.innerHTML);
@@ -452,11 +463,14 @@ dojo.declare(
                     var currentCounter = 140 - textTweet.length;
                     this._counter.innerHTML = currentCounter;
                   } else {
-                    //block counter.
+                    // block counter.
                   }
               }
             },
 
+           /*
+            * return complete tweet.
+            */
            getCompleteTweet : function(){
                return this._completeText;
            },
@@ -467,6 +481,7 @@ dojo.declare(
             updatePreview : function(question, answers, hashtags){
                  this._buildQuestion(question);
                  this._buildAnswers(answers);
+                 this._buildHahsTags(hashtags);
                  this._updateCounter(this.getCompleteTweet());
                 //console.debug("updatePreview");
 //              var previousPreview = this.previeWidget.getCompleteTweet();

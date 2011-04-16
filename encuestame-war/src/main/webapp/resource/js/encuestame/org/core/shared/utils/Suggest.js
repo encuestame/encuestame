@@ -187,7 +187,6 @@ dojo.declare(
         //Process Selected Item.
         processSelectedItem : function(selectedItem){
             console.info("implemt this method in the parent widget 2", selectedItem);
-            this.clear();
         }
 });
 

@@ -110,6 +110,12 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
     }
 };
 
+encuestame.short = [
+                    {code:"googl",label:"http://googl.com"},
+                    {code:"tinyurl",label:"http://tinyurl.com"},
+                    {code:"bitly",label:"http://bit.ly/"}
+                   ];
+
 encuestame.error = {};
 encuestame.error.debug = true;
 encuestame.error.dialog = null;
@@ -369,7 +375,8 @@ encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/
 encuestame.service.list.notificationTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/notification-tweetpoll.json";
 encuestame.service.list.repeatedTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/repeated-tweetpoll.json";
 encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetpoll/votes.json";
-
+encuestame.service.list.addAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/add.json";
+encuestame.service.list.removeAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/remove.json";
 //group services
 encuestame.service.list.groupCreate = encuestame.contextWidget()+"/api/groups/createGroup.json";
 encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/updateGroup.json";
