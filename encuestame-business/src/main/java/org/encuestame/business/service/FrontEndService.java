@@ -18,9 +18,11 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.springframework.stereotype.Service;
@@ -112,6 +114,30 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         log.debug("Poll "+items.size());
         results.addAll(ConvertDomainBean.convertListToPollBean((items)));
     }
+
     return results;
     }
+
+    /**
+     * Get hashTags
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    public List<HashTagBean> getHashTags(
+              Integer maxResults,
+              final Integer start){
+        final List<HashTagBean> hashBean = new ArrayList<HashTagBean>();
+        if(maxResults == null){
+            maxResults = this.MAX_RESULTS;
+        }
+        log.debug("Max Results HashTag -----> "+maxResults);
+        List<HashTag> tags = new ArrayList<HashTag>();
+        tags.addAll(getHashTagDao().getHashTags(maxResults, start));
+        log.debug("Hashtag total size ---> "+tags.size());
+        hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
+        return hashBean;
+    }
+
+
 }

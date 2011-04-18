@@ -15,24 +15,17 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.util.Version;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.search.FullTextQuery;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
@@ -77,12 +70,25 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
         } else {
             return null;
         }
-}
+    }
 
-    /**
-     * Get List of HashTags by Keyword.
-     * @param keyword keyword
-     * @return
+    /*
+    * (non-Javadoc)
+    * @see org.encuestame.persistence.dao.IHashTagDao#getHashTags(java.lang.Integer, java.lang.Integer)
+    */
+    @SuppressWarnings("unchecked")
+    public List<HashTag> getHashTags( final Integer maxResults,
+                    final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
+        criteria.add(Restrictions.gt("hits", 0L));//review
+        criteria.addOrder(Order.desc("hits"));
+        criteria.addOrder(Order.asc("hashTag"));
+        return (List<HashTag>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IHashTagDao#getListHashTagsByKeyword(java.lang.String, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
     public List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults){
