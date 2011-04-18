@@ -1,10 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
     <div id="mainPublicLineWrapper">
-                   <div style="float: right; border: 0px solid rgb(0, 0, 0); width: 20%;">
-                               In progress...  ${logged}
-                  </div>
-                  <div class="itemWrapper" style="border: 0px solid #FFF; width: 79%;">
-
+    <div class="itemWrapper" style="border: 0px solid #FFF; width: 79%;">
           <div class="categoryMenu">
                 <div style="clear: both;">
                 <div style="float: right;">

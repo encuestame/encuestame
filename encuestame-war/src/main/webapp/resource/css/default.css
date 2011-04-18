@@ -6,17 +6,12 @@
 @import url("livePanel.css");
 
 html, body {
-       height: 100%;
+    height: 100%;
 }
 
 body {
     font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
     font-size: 12px;
-    margin: 0;
-    padding: 0;
-}
-
-*{
     margin: 0;
     padding: 0;
 }
@@ -69,23 +64,18 @@ a:hover{
 }
 
 #mainWrapper {
-
+    min-height: 92%;
+    position: relative;
 }
 
 #content-container {
     padding-top: 39px;
+    min-height: 100%;
 }
 
 #content-container #enme-content {
     margin: 0 auto;
     width: 92%;
-}
-
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -4em;
 }
 
 #defaultWrapper{
@@ -112,22 +102,22 @@ a:hover{
     width: 245px;
 }
 
-#footer{
-    text-align: center;
-    margin-top: 5px;
-    opacity:0.8;
-    filter:alpha(opacity=80);
+#footer {
+  background-color: #F7F7F7;
+  color: #666666;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
 }
 
-#footer .wrapper{
-    border-top: 1px solid #D1D7E3;
-    padding: 10px 35px 5px 1px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    text-align: right;
-    font-size: 10px;
-    max-height: 20px;
+#footer .footer{
+  font-size: 0.9em;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
 }
 
 .message{
