@@ -18,13 +18,30 @@ dojo.declare(
 
         listItems : [],
 
+        _itemsSelected : [],
+
         postCreate: function() {
              var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({});
+             hashTagWidget.processSelectedItemButton = dojo.hitch(this, function(){
+                 console.debug("customized add button");
+                 if(hashTagWidget.textBoxWidget && hashTagWidget.addButton){
+                     var newValue = {id:null, label:"", newValue: true};
+                     newValue.label = hashTagWidget.textBoxWidget.get("value");
+                     hashTagWidget.selectedItem = newValue;
+                     if(newValue.label != ''){
+                         hashTagWidget.processSelectedItem(hashTagWidget.selectedItem);
+                     }
+                     hashTagWidget.hide();
+                 }
+             });
+             //if user click on space bar.
+             hashTagWidget.processSpaceAction =  dojo.hitch(this, function(){
+                 if (hashTagWidget.textBoxWidget) {
+
+                 }
+             });
              var node = dojo.byId("hashTagSuggest_"+this.id);
-             //console.debug("create suggest", node);
              if (this._suggest){
-                //console.debug("create suggest", hashTagWidget.domNode);
-                //console.debug("create suggest", hashTagWidget);
                 this._suggest.appendChild(hashTagWidget.domNode);
              }
             this.suggestWidget = hashTagWidget;
@@ -32,6 +49,9 @@ dojo.declare(
                 this.suggestWidget.processSelectedItem = dojo.hitch(this, function(data){
                     console.info("Processing Item Selected ...", data);
                     this.addNewHashTag(data);
+                    if (data.id != null) {
+                        this.suggestWidget.exclude.push(data.id);
+                    }
                 });
             }
         },
@@ -48,12 +68,14 @@ dojo.declare(
 
         //new Hash Tag.
         newHashTag : function(data){
+            console.debug(data);
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
                     {
                      data : data,
                      parentWidget : this
                      });
             this.listItems.push(widget);
+            this._itemsSelected.push(data.id);
             this._items.appendChild(widget.domNode);
             dojo.publish("/encuestame/tweetpoll/updatePreview");
             dojo.publish("/encuestame/tweetpoll/autosave");
@@ -84,6 +106,7 @@ dojo.declare(
         }
     }
 );
+
 /**
  * HashTag Item.
  */

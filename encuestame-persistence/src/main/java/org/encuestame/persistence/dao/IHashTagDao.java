@@ -38,7 +38,8 @@ public interface IHashTagDao extends IBaseDao	{
      * @param keyword keyword
      * @return
      */
-    List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults);
+    List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults,
+            final Long[] excludes);
 
     /**
      * Get HashTag By Name.

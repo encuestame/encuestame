@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * HashTag Json Controller.
  * @author Picado, Juan juanATencuestame.org
  * @since Nov 20, 2010 12:43:46 PM
- * @version $Id:$
  */
 @Controller
 public class HashTagsJsonService extends AbstractJsonController{
@@ -68,6 +67,7 @@ public class HashTagsJsonService extends AbstractJsonController{
     public ModelMap getHashTags(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "excludes", required = false) Long[] excludes,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
@@ -77,11 +77,13 @@ public class HashTagsJsonService extends AbstractJsonController{
                 }
                 log.debug("Limit "+limit);
                 log.debug("Keyword "+keyword);
+                log.debug("excludes "+excludes);
                 if(keyword == null || keyword.isEmpty()){
                     jsonResponse.put("hashtags", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
                 } else {
-                    final List<HashTagBean> hashTags = getTweetPollService().listSuggestHashTags(keyword, limit);
+                    final List<HashTagBean> hashTags = getTweetPollService().listSuggestHashTags(keyword,
+                          limit, excludes);
                     log.debug("List Hash Tags "+hashTags.size());
                     setItemReadStoreResponse("hashTagName", "id", hashTags);
                 }

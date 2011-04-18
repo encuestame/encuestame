@@ -36,6 +36,8 @@ dojo.declare(
 
         timerAutoSave: null,
 
+        _questionTextLastSucessMessage : "",
+
         delay: 300000, //every 5 minutes.
 
         /* stored save tweetPoll. */
@@ -89,6 +91,28 @@ dojo.declare(
                   }
               });
             }
+            dojo.subscribe("/encuestame/tweetpoll/block", this, this._block);
+            dojo.subscribe("/encuestame/tweetpoll/unblock", this, this._unblock);
+        },
+
+        /*
+         * block widgets.
+         */
+        _block : function(){
+            this.answerWidget.block();
+            this.questionWidget.maxLength = 0;
+            console.info("block this.questionWidget.maxLength ", this.questionWidget.maxLength);
+            this.questionWidget.block = true;
+        },
+
+        /*
+         * unblock items.
+         */
+        _unblock : function(){
+            console.info("unblock");
+            this.answerWidget.unblock();
+            this.questionWidget.maxLength = 140;
+            this.questionWidget.block = false;
         },
 
         /*
@@ -107,7 +131,7 @@ dojo.declare(
         },
 
         /*
-         * Auto save tweetPoll.
+         * auto save tweetPoll.
          * @param tweetPollId if is null we crete new tweetPoll.
          * @param question { id, question}
          * @param hastags [id,id,id,id]
@@ -169,8 +193,23 @@ dojo.declare(
               //this.tweetPoll.tweetPollId = hash.id;
              }
              dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
-             dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(e) {
-                  this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
+             this.questionWidget.block = false;
+             dojo.connect(this.questionWidget, "onKeyPress", dojo.hitch(this, function(event) {
+                 if (dojo.keys.DELETE == event.keyCode || dojo.keys.BACKSPACE == event.keyCode) {
+                        console.debug("is removing");
+                        this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
+                        if(!this.questionWidget.block){
+                            this._questionTextLastSucessMessage = this.questionWidget.get("value");
+                        }
+                 } else {
+                     this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
+                     if(!this.questionWidget.block){
+                         this._questionTextLastSucessMessage = this.questionWidget.get("value");
+                     } else {
+                         this.questionWidget.set('value', this._questionTextLastSucessMessage);
+                         console.info("question is bloked",  this.questionWidget.maxLength);
+                     }
+                 }
              }));
              this.questionWidget.onChange = dojo.hitch(this, function(){
                  this.tweetPoll.question.value = this.questionWidget.get("value");
@@ -346,11 +385,24 @@ dojo.declare(
             _hashTagsBox : {node:null,initialize:false},
             _completeText : "",
 
+            /*
+             * max length text.
+             */
+            _counterMax : 140,
+
+            _lastedCounter : 0,
+
+            /*
+             * post create.
+             */
             postCreate : function(){
                 this.initialize();
                 this.showEmtpyContent();
             },
 
+            /*
+             * show empty content.
+             */
             showEmtpyContent : function(){
               dojo.empty(this._content);
               var emtpy = dojo.doc.createElement("div");
@@ -359,24 +411,7 @@ dojo.declare(
             },
 
             initialize : function(){
-//              var wishlist = new dojo.dnd.Source(this._content);
-//              var arrayItem = [];
-//              var span1 = dojo.doc.createElement("span");
-//              span1.innerHTML = "Wrist watch1";
-//              var span2 = dojo.doc.createElement("span");
-//              span2.innerHTML = "Wrist watch2";
-//              var span3 = dojo.doc.createElement("span");
-//              span3.innerHTML = "Wrist watch3";
-//              var span4 = dojo.doc.createElement("span");
-//              span4.innerHTML = "Wrist watch4";
-//              var span5 = dojo.doc.createElement("span");
-//              span5.innerHTML = "Wrist watch5";
-//              arrayItem.push(span1);
-//              arrayItem.push(span2);
-//              arrayItem.push(span3);
-//              arrayItem.push(span4);
-//              arrayItem.push(span5);
-//              wishlist.insertNodes(false, arrayItem);
+
             },
 
             /*
@@ -423,6 +458,7 @@ dojo.declare(
                         }));
                 wishlist.insertNodes(false, arrayItem);
                 //console.info("questionDiv", questionDiv);
+                dojo.addClass(questionDiv, "inlineBlock")
                 this._content.appendChild(questionDiv);
               } else {
                 console.info("no answers widget");
@@ -447,23 +483,35 @@ dojo.declare(
                         }));
                         wishlist.insertNodes(false, arrayItem);
                         // console.info("questionDiv", questionDiv);
+                        dojo.addClass(questionDiv, "inlineBlock")
                         this._content.appendChild(questionDiv);
                       } else {
                           console.info("no hashtags widget");
                       }
-               },
+            },
+
+            _getCurrentLengthText : function(){
+                return this._lastedCounter;
+            },
 
              /*
               * update counter.
               */
             _updateCounter : function(textTweet){
               if(this._counter){
-                var counter = parseInt(this._counter.innerHTML);
-                  if (counter <= 140) {
-                    var currentCounter = 140 - textTweet.length;
+                var counter = this._getCurrentLengthText();
+                  console.debug("counter", counter);
+                  if (counter >= 0) {
+                    var currentCounter = this._counterMax - textTweet.length;
                     this._counter.innerHTML = currentCounter;
+                    this._lastedCounter = currentCounter;
+                    dojo.publish("/encuestame/tweetpoll/unblock");
                   } else {
-                    // block counter.
+                    dojo.publish("/encuestame/tweetpoll/block");
+                    //this._lastedCounter = 0;
+                    var currentCounter = this._counterMax - textTweet.length;
+                    this._counter.innerHTML = currentCounter;
+                    this._lastedCounter = currentCounter;
                   }
               }
             },
@@ -483,40 +531,7 @@ dojo.declare(
                  this._buildAnswers(answers);
                  this._buildHahsTags(hashtags);
                  this._updateCounter(this.getCompleteTweet());
-                //console.debug("updatePreview");
-//              var previousPreview = this.previeWidget.getCompleteTweet();
-//                var lastTweetText = previousPreview.length;
-//                var newPreview = "";
-//                //question
-//                newPreview = this.questionWidget.get("value").trim();
-//                //hash answers
-//                dojo.forEach(
-//                    this.answerWidget.listItems,
-//                    dojo.hitch(this, function(data, index) {
-//                        newPreview += " ";
-//                        newPreview += data.buildDemoUrl().trim();
-//                        //newPreview += " ";
-//                }));
-//
-//                //hash tags
-//                dojo.forEach(
-//                    this.hashTagWidget.listItems,
-//                    dojo.hitch(this, function(data, index) {
-//                        newPreview += this.answerWidget.listItems.length == 0 ? " #" : "#";
-//                        newPreview += data.data.label.trim();
-//                }));
-//                lastTweetText = this.maxTweetText - newPreview.trim().length;
-//                this._tweetCount.innerHTML = lastTweetText;
-//                //this.previeWidget.set("value", newPreview);
-//                if(parseInt(lastTweetText) < 0){
-//                    this.showExcededTweet("red");
-//                } else if(parseInt(lastTweetText) <  30 && parseInt(lastTweetText) > -1){
-//                    this.showExcededTweet("#FAF05C");
-//                } else {
-//                    this.showExcededTweet("#9E9DA4")
-//                }
             }
-
 });
 
 dojo.declare(

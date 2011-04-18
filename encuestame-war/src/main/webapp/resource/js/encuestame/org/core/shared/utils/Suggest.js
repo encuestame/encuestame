@@ -46,14 +46,24 @@ dojo.declare(
 
         searchParam: { limit : 10, keyword : ""},
 
+        exclude : [],
+
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
             if(this.textBoxWidget){
               //enable keyword events
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
-                    this._setParams({limit:this.limit, keyword : this.textBoxWidget.get("value")});
-                    if (this.textBoxWidget.get("value") != "") {
-                        this.callSuggest();
+                    if (dojo.keys.SPACE == e.keyCode) {
+                         this.processSpaceAction();
+                    } else {
+                        this._setParams(
+                                { limit: this.limit,
+                                  keyword : this.textBoxWidget.get("value"),
+                                  excludes : this.exclude});
+                        console.debug("suggest", this.textBoxWidget.get("value"));
+                        if (this.textBoxWidget.get("value") != "") {
+                            this.callSuggest();
+                        }
                     }
                 }));
                 //query read store.
@@ -87,6 +97,13 @@ dojo.declare(
             } else {
                 console.error("Error");
             }
+        },
+
+        /*
+         * if user click up space bar.
+         */
+        processSpaceAction : function(){
+            //overide.
         },
 
         _setParams: function(value){
@@ -196,6 +213,7 @@ dojo.extend(dojox.data.QueryReadStore, {
         return data;
     }
 });
+
 /**
  * Suggested Item.
  */

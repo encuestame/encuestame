@@ -1,12 +1,13 @@
-#tweetPollForm{
-
+#tweetPollWrapper{
+    -webkit-border-radius: 5px 5px 0px 0px ;
+   -moz-border-radius: 5px 5px 0px 0px ;
+    border-radius: 5px 5px 0px 0px ;
+    -moz-box-shadow: 0px 1px 2px #888;
+    -webkit-box-shadow: 0px 1px 2px #888;
+    box-shadow: 0px 1px 2px #888;
+    border: 1px solid #D7D7D7;
+    margin-top: 29px;
 }
-
-.tableWrapper{
-    padding-top: 10px;
-    margin: 10px;
-}
-
 
 /** List TweetPoll **/
 
@@ -176,6 +177,7 @@ div.tweetPollListWrapper div.tweetListContent div.tweetPollListDetailWrapper div
 
 div.tweetPollWrapper{
     min-height: 45em;
+    margin-bottom: 5em;
 }
 
 div.tweetPollWrapper div.spaceBlock{
@@ -198,11 +200,22 @@ div.tweetPollWrapper div.tweetPollQuestion {
   z-index: 5;
 }
 
+div.tweetPollWrapper div.tweetPollQuestion .counterGlobal {
+  -moz-border-radius: 100px 100px 100px 100px;
+  background-color: green;
+  color: white;
+  float: right;
+  max-width: 17px;
+  padding: 10px;
+  position: relative;
+  right: 185px;
+  top: 61px;
+}
+
 div.tweetPollWrapper div.tweetPollSecondQuestion {
-  background-color: #000000;
   clear: left;
-  min-height: 200px;
-  background-color: #F6F6F6;
+  min-height: 160px;
+  background-color: #FFF;
   padding: 10px 0 20px 20px;
   width: 90%;
     border-color: #E5E5E5;
@@ -213,10 +226,9 @@ div.tweetPollWrapper div.tweetPollSecondQuestion {
 }
 
 div.tweetPollWrapper div.tweetPollPublish{
-   background-color: #000000;
     clear: left;
-    min-height: 200px;
-    background-color: #F6F6F6;
+    min-height: 160px;
+    background-color: #FFF;
     padding: 10px 0 20px 20px;
     width: 90%;
     border-color: #E5E5E5;
@@ -255,7 +267,7 @@ div.tweetPollWrapper div.previewFixed {
 div.tweetPollWrapper div.tweetPollQuestion .tweetThis{
     width: 90%;
     clear: both;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 div.tweetPollWrapper  div.tweetPollOptions .left{
@@ -277,7 +289,6 @@ div.tweetPollWrapper .title{
     color: gray;
     font-size: 150%;
     font-weight: bold;
-    padding: 5px;
 }
 
 div.tweetPollWrapper div.tweetPollQuestion .inputClass{
@@ -345,41 +356,51 @@ div.tweetPollWrapper div.previewWrapperContent div.counter {
 
 div.tweetPollWrapper div.previewWrapperContent div.content{
     float: left;
-    max-width: 85%;
+    max-width: 90%;
 }
 
-div.tweetPollWrapper div.previewWrapperContent .previewQuestion{
-    padding: 4px;
-    background-color: #F9F9C2;
-    font-size: 120%;
-    color: #000;
-    font-weight: bold;
-    -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
-    box-shadow: 1px 1px 1x #000000; -webkit-box-shadow: 1px 1px 1px #000000; -moz-box-shadow: 1px 1px 1px #000000;
+div.tweetPollWrapper div.previewWrapperContent .inlineBlock{
+/*     display: inline-block !important; */
+    margin: 3px;
+}
+
+div.tweetPollWrapper div.previewWrapperContent .previewQuestion {
+  -moz-border-radius: 9px 9px 9px 9px;
+  -webkit-border-radius: 9px 9px 9px 9px;
+   border-radius: 9px 9px 9px 9px;
+  background-color: #F9F9C2;
+  border: 1px solid #C1B6B6;
+  color: #525252;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 3px;
+  padding: 6px;
 }
 
 div.tweetPollWrapper div.previewWrapperContent .previewAnswer{
-    padding: 4px;
+    padding: 6px;
     background-color: #C9F5C8;
-    font-size: 120%;
     color: #000;
+    border: 1px solid #C1B6B6;
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
-    -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
-    box-shadow: 1px 1px 1x #000000; -webkit-box-shadow: 1px 1px 1px #000000; -moz-box-shadow: 1px 1px 1px #000000;
+   -moz-border-radius: 9px 9px 9px 9px;
+   -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    display: inline-block;
 }
 
 div.tweetPollWrapper div.previewWrapperContent .previewHashTag{
-    padding: 4px;
+    padding: 6px;
     background-color: #FEBEB2;
-    font-size: 120%;
     color: #000;
     font-weight: bold;
-    margin-left: 5px;
     margin-right: 5px;
-    -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
-    box-shadow: 1px 1px 1x #000000; -webkit-box-shadow: 1px 1px 1px #000000; -moz-box-shadow: 1px 1px 1px #000000;
+    -moz-border-radius: 9px 9px 9px 9px;
+   -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    display: inline-block;
 }
 
 /** Add Answers **/
@@ -428,6 +449,9 @@ div.answerAddForm .addButton{
    padding: 4px;
 }
 
+div.answerAddForm div.labelQuestion{
+    max-width: 90%;
+}
 
 div.addAnswers div.addNewAnswer{
     font-size: 12px;
@@ -444,24 +468,71 @@ div.addAnswers div.addNewAnswer{
 
 div.addAnswers  div.listAnswerWrapper{
     margin: 0px;
+    max-width: 80%;
 }
 
-div.addAnswers div.answerItem{
-    background-color: #9C9C9C;
-    vertical-align: top;
-    padding: 0px 2px 2px;
-    font-size: 12px;
+div.addAnswers div.answerItem {
+  -moz-border-radius: 4px 4px 4px 4px;
+  -moz-box-shadow: 1px 1px 1px #000000;
+  background-color: #444444;
+  color: #FFFFFF;
+  cursor: pointer;
+  margin-top: 5px;
+  max-width: 99%;
+  font-size: 100%;
+  min-height: 39px;
+  overflow: auto;
+  padding-top: 3px;
+  vertical-align: top;
+}
+
+div.addAnswers div.answerItem div.title{
+    font-size: 110%;
+    font-weight: bold;
     color: #FFF;
-    margin-top : 5px;
-    cursor: pointer;
-    border-radius: 10px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    box-shadow: 1px 1px 1x #000000;
-    -webkit-box-shadow: 1px 1px 1px #000000;
-    -moz-box-shadow: 1px 1px 1px #000000;
-    min-height: 39px;
-    max-width: 222px;
+}
+
+div.addAnswers div.answerItem div.title .answerItemTitle {
+  display: inline-block;
+  margin: 2px;
+  min-width: 39%;
+  padding: 5px;
+  max-width: 50%;
+}
+
+div.addAnswers div.answerItem div.title .answerItemShortUrl {
+  color: red;
+  display: inline-block;
+  float: right;
+  max-width: 40%;
+  overflow: auto;
+  padding: 5px;
+}
+
+div.addAnswers div.answerItem .shortUrlEnter {
+  background-color: #AAADAC;
+  border: 1px solid #D5D1D1;
+  color: white !important;
+}
+
+div.addAnswers div.answerItem .shortUrlEnter  a{
+    color: white;
+}
+
+div.addAnswers div.answerItem div.title .answerItemShortUrl a:link{
+   text-decoration: none;
+}
+
+div.addAnswers div.answerItem div.title .answerItemShortUrl a:visited{
+    color: #FFF;
+}
+
+div.addAnswers div.answerItem div.title .answerItemShortUrl a:hover{
+    text-decoration: none;
+}
+
+div.addAnswers div.answerItem div.options{
+
 }
 
 div.addAnswers div.answerItem:hover{
@@ -482,48 +553,7 @@ div.addAnswers div.answerItem .answer{
     float: left;
 }
 
-div.addAnswers div.answerItem  .url{
-    display: inline-block;
-    min-width: 140px;
-    margin: 3px;
-}
-
-div.addAnswers div.answerItem  .changeUrl{
-    display: inline-block;
-    min-width: 210px;
-    margin: 3px;
-    float: left;
-
-}
-
-div.addAnswers div.answerItem  .url a{
-    font-size: 12px;
-    color: #FFF;
-}
-
-div.addAnswers div.answerItem .url a:hover{
-    font-size: 12px;
-    color: #FFF;
-}
-
-div.addAnswers div.answerItem .remove{
-    float: left;
-}
-
-div.addAnswers div.answerItem .remove a{
-    color: #840000;
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-div.addAnswers div.answerItem .remove a:hover{
-    text-decoration: underline;
-}
-
-.buttonclass {
-    background-image: url(../images/icons/add.png);
-}
+/** hash tags **/
 
 div.addAnswers div.addNewHashTag{
     padding: 10px;
@@ -579,6 +609,11 @@ div.wrapperHashTagItems div.addNewHashTag{
     min-height: 262px;
     -moz-border-radius : 2px;
     border-radius: 2px;
+}
+
+div.hashTagWrapper .suggestBox{
+    width: 72%;
+    position: relative;
 }
 
 div.wrapperHashTagItems div.addNewHashTag .label{

@@ -3,7 +3,7 @@
 <script type="text/javascript">
         var config = {
             contextPath: '<%=request.getContextPath()%>',
-            delay : 2000,
+            delay : 60000,
             activity : { levelDebug :"info", maxConnections : 2, maxNetworkDelay : 50000},
             notification : { delay : 60000, limit : 8}
         };
