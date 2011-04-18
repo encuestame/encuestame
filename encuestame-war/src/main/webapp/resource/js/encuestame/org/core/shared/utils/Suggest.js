@@ -48,12 +48,14 @@ dojo.declare(
 
         exclude : [],
 
+        _itemStored : [],
+
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
             if(this.textBoxWidget){
               //enable keyword events
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
-                    if (dojo.keys.SPACE == e.keyCode) {
+                    if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
                          this.processSpaceAction();
                     } else {
                         this._setParams(
@@ -99,6 +101,14 @@ dojo.declare(
             }
         },
 
+        block : function(){
+
+        },
+
+        unblock : function(){
+
+        },
+
         /*
          * if user click up space bar.
          */
@@ -122,7 +132,8 @@ dojo.declare(
                     },
                     serverQuery: this.searchParam,
                     onComplete: dojo.hitch(this, function(result, dataObject){
-                        this.evaluateItems(result);
+                        this._itemStored = result;
+                        this.evaluateItems();
                     }),
                     onError: function(errText){
                         console.error('dijit.form.FilteringSelect: ' + errText);
@@ -134,15 +145,15 @@ dojo.declare(
         /*
          *  Evaluate Items.
          */
-        evaluateItems : function(data){
-            if(data.length > 0){
+        evaluateItems : function(){
+            if(this._itemStored.length > 0){
                  dojo.empty(this._suggestItems);
                  var fadeArgs = {
                          node: this._suggestItems
                  };
                  dojo.fadeIn(fadeArgs).play();
                  dojo.forEach(
-                        data,
+                        this._itemStored,
                         dojo.hitch(this, function(data, index) {
                             this.buildRow(data.i);
                         }));
@@ -158,6 +169,8 @@ dojo.declare(
          * hide with fade out the suggest box.
          */
         hide : function(){
+            console.info("HIDE");
+            this._itemStored = [];
             var fadeArgs = {
                     node: this._suggestItems
             };
@@ -168,8 +181,7 @@ dojo.declare(
         /*
          *  Build Row.
          */
-        buildRow : function(data){
-          //console.info("suggeest buildRow...", data);
+        buildRow : function(/** hashtag item. **/ data){
             var widget = new encuestame.org.core.shared.utils.SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},

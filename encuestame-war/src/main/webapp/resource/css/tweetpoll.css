@@ -223,19 +223,33 @@ div.tweetPollWrapper div.tweetPollSecondQuestion {
   border-width: 1px 6px 1px 1px;
   z-index: -1;
   margin: 0 auto;
+  overflow: auto;
 }
 
-div.tweetPollWrapper div.tweetPollPublish{
-    clear: left;
-    min-height: 160px;
-    background-color: #FFF;
-    padding: 10px 0 20px 20px;
-    width: 90%;
-    border-color: #E5E5E5;
-    border-style: solid;
-    border-width: 1px 6px 1px 1px;
-    z-index: -1;
-    margin: 0 auto;
+div.tweetPollWrapper div.tweetPollPublish {
+  background-color: #FFFFFF;
+  border-color: #E5E5E5;
+  border-style: solid;
+  border-width: 1px 6px 1px 1px;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 10px 0 20px 20px;
+  width: 90%;
+}
+
+div.tweetPollWrapper div.tweetPollPublish div.item {
+  border-right: 1px solid #CCCBCA;
+  float: left;
+  min-height: 80px;
+  width: 232px;
+}
+
+div.tweetPollWrapper div.tweetPollPublish div.item-padding{
+    padding: 0 16px;
+}
+
+div.tweetPollWrapper div.tweetPollPublish div.section{
+    padding: 5px;
 }
 
 div.tweetPollWrapper div.tweetPollPreviewRelative {

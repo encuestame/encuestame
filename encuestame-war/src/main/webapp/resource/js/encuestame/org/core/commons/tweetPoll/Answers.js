@@ -48,6 +48,12 @@ dojo.declare(
                  isSource : true
               });
              dojo.connect(this.answerSource, "onDrop", this, this.onDrop);
+             // on key up.
+             dojo.connect(this._suggest, "onKeyUp", dojo.hitch(this, function(e) {
+                 if (dojo.keys.ENTER == e.keyCode) {
+                     this.addAnswer();
+                 }
+             }));
         },
 
         block : function(){
