@@ -11,7 +11,7 @@
     <packaging>war</packaging>
     <name>encuestame war</name>
     <build>
-    <finalName>encuestame</finalName>
+    <finalName>encuestame-${encuestame.version}</finalName>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -116,6 +116,8 @@
                     </manifest>
                     <manifestEntries>
                         <Implementation-Build>${buildNumber}</Implementation-Build>
+                         <manifest_entry>value</manifest_entry>
+                         <addClasspath>true</addClasspath>
                     </manifestEntries>
                 </archive>
             </configuration>

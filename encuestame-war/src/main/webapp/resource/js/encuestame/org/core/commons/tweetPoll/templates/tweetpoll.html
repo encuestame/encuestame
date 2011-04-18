@@ -8,9 +8,10 @@
         <div class="tweetThis">
             <div class="title">Tweet this !</div>
             <div id="question" dojoType="dijit.form.TextBox"
-                 class="questionTextBox inputClass"
-                 selectOnClick="true"
-                 displayedValue ="Insert your question here.."></div>
+                  class="questionTextBox inputClass"
+                  maxSize="140"
+                  maxLength="140"
+                  selectOnClick="true"></div>
          </div>
     </div>
     <div class="tweetPollSecondQuestion spaceBlock">
@@ -25,7 +26,81 @@
     </div>
 
     <div class="tweetPollPublish spaceBlock">
-
+         <div class="item">
+            <h4>Scheduled</h4>
+            <div class="section">
+                <input id="schedule" name="schedule" dojoType="dijit.form.CheckBox">
+                <label for="schedule">
+                    Schedule this tweetPoll
+                </label>
+            </div>
+            <div class="section">
+               <input type="text" name="scheduledTime" id="scheduledTime" value="T15:00:00" dojoType="dijit.form.TimeTextBox" />
+           </div>
+           <div class="section">
+             <input id="scheduledDate" type="text" name="shortYear" dojoType="dijit.form.DateTextBox"
+                    required="true" />
+            </div>
+         </div>
+         <div class="item item-padding">
+            <h4>Chart Features</h4>
+             <div class="section">
+                <input id="liveResults" name="liveResults"" dojoType="dijit.form.CheckBox">
+                <label for="liveResults">
+                    Allow live Results
+                </label>
+            </div>
+         </div>
+         <div class="item item-padding">
+            <h4>Anti-SPAM</h4>
+             <div class="section">
+                <input id="captcha" name="captcha"" dojoType="dijit.form.CheckBox">
+                <label for="captcha">
+                    Captcha
+                </label>
+            </div>
+            <div class="section">
+                <input id="limitVotes" name="limitVotes"" dojoType="dijit.form.CheckBox">
+                <label for="limitVotes">
+                    Limit Votes
+                </label>
+            </div>
+            <div class="section">
+                <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limiteNumbers"
+                    constraints="{min:0,max:4000}" value="15">
+                </div>
+            </div>
+            <div class="section">
+                <input id="ip" name="ip" dojoType="dijit.form.CheckBox">
+                <label for="ip">
+                    Allow Repeated Votes.
+                </label>
+            </div>
+            <div class="section">
+                <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
+                    constraints="{min:2,max:10}" value="2">
+                </div>
+            </div>
+         </div>
+         <div class="item item-padding">
+                <h4>Report</h4>
+             <div class="section">
+                <input id="resume" name="resume" dojoType="dijit.form.CheckBox">
+                <label for="resume">
+                    Resume Live Results
+                </label>
+            </div>
+            <div class="section">
+                <input id="dashboard" name="dashboard" dojoType="dijit.form.CheckBox">
+                <label for="dashboard">
+                    Follow on DashBoard
+                </label>
+            </div>
+         </div>
     </div>
 
+
+     <div class="tweetPollPublish spaceBlock">
+        SOCIAL ACCOUNTS
+     </div>
 </div>

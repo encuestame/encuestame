@@ -18,13 +18,59 @@ dojo.declare(
 
         listItems : [],
 
+        _itemsSelected : [],
+
         postCreate: function() {
              var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({});
+             hashTagWidget.processSelectedItemButton = dojo.hitch(this, function(){
+                 console.debug("customized add button");
+                 if(hashTagWidget.textBoxWidget && hashTagWidget.addButton){
+                     var newValue = {id:null, label:"", newValue: true};
+                     newValue.label = hashTagWidget.textBoxWidget.get("value");
+                     hashTagWidget.selectedItem = newValue;
+                     if(newValue.label != ''){
+                         hashTagWidget.processSelectedItem(hashTagWidget.selectedItem);
+                     }
+                     hashTagWidget.hide();
+                 }
+             });
+             //if user click on space bar.
+             hashTagWidget.processSpaceAction =  dojo.hitch(this, function(){
+                 console.debug("processSpaceAction item");
+                 if (hashTagWidget.textBoxWidget) {
+                     var currentText = hashTagWidget.textBoxWidget.get("value");
+                     var added = false;
+                     if (hashTagWidget._itemStored.length > 0) {
+                         dojo.forEach(
+                             hashTagWidget._itemStored,
+                             dojo.hitch(this, function(data, index) {
+                                 if(!added){
+                                 console.debug("processing item ",index);
+                                 console.debug("processing item ",data.i);
+                                 if(currentText.toLowerCase() == data.i.hashTagName.toLowerCase()){
+                                     console.debug("adding existing item", data.i);
+                                     hashTagWidget.processSelectedItem({id:data.i.id, label:data.i.hashTagName, newValue: false});
+                                     hashTagWidget.hide();
+                                     added = true;
+                                 } else {
+                                    console.debug("adding existing NEW item",{id:null, label:currentText, newValue: true} );
+                                    if(currentText != ''){
+                                      hashTagWidget.processSelectedItem({id:null, label:currentText, newValue: true});
+                                      hashTagWidget.hide();
+                                      added = true;
+                                    }
+                                 }
+                                }
+                             }));
+                      } else {
+                          hashTagWidget.processSelectedItem({id:null, label:currentText, newValue: true});
+                          hashTagWidget.hide();
+                      }
+                   //console.debug(hashTagWidget._itemStored);
+                 }
+             });
              var node = dojo.byId("hashTagSuggest_"+this.id);
-             //console.debug("create suggest", node);
              if (this._suggest){
-                //console.debug("create suggest", hashTagWidget.domNode);
-                //console.debug("create suggest", hashTagWidget);
                 this._suggest.appendChild(hashTagWidget.domNode);
              }
             this.suggestWidget = hashTagWidget;
@@ -32,15 +78,30 @@ dojo.declare(
                 this.suggestWidget.processSelectedItem = dojo.hitch(this, function(data){
                     console.info("Processing Item Selected ...", data);
                     this.addNewHashTag(data);
+                    if (data.id != null) {
+                        this.suggestWidget.exclude.push(data.id);
+                    }
                 });
             }
         },
+
+        //block add more items.
+        block : function(){
+            //dojo.byId("hashTagSuggest_"+this.id).block();
+        },
+
+        //unblock items.
+        unblock : function(){
+            //dojo.byId("hashTagSuggest_"+this.id).unblock();
+        },
+
         //Add New Hash Tag.
         addNewHashTag : function(hashTag){
             if(hashTag && this.listItems){
                 this.printHashTag(hashTag);
             }
         },
+
         //print hashTag
         printHashTag : function(data){
             this.newHashTag(data);
@@ -48,12 +109,14 @@ dojo.declare(
 
         //new Hash Tag.
         newHashTag : function(data){
+            console.debug(data);
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
                     {
                      data : data,
                      parentWidget : this
                      });
             this.listItems.push(widget);
+            this._itemsSelected.push(data.id);
             this._items.appendChild(widget.domNode);
             dojo.publish("/encuestame/tweetpoll/updatePreview");
             dojo.publish("/encuestame/tweetpoll/autosave");
@@ -84,6 +147,7 @@ dojo.declare(
         }
     }
 );
+
 /**
  * HashTag Item.
  */
@@ -114,6 +178,13 @@ dojo.declare(
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
     [encuestame.org.core.shared.utils.Suggest],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html")
-});
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html"),
 
+        block : function(){
+
+        },
+
+        unblock : function(){
+
+        }
+});

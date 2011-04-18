@@ -96,7 +96,7 @@ public class SearchService extends AbstractIndexService implements
 
         if (resultsAllowed.indexOf(TypeSearchResult.HASHTAG) != -1) {
             final List<GlobalSearchItem> tags = UtilConvertToSearchItems
-            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit));
+            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit, null));
             log.debug("tags " + tags.size());
             hashset.put("tags", tags);
         }

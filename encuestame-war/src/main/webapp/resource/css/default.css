@@ -204,15 +204,9 @@ a:hover{
 }
 
 #content-container #enme-content div.defaultMarginWrapper{
-    width: 100%;
+    width: 85%;
     margin-top: 29px;
-   -webkit-border-radius: 5px 5px 0px 0px ;
-   -moz-border-radius: 5px 5px 0px 0px ;
-    border-radius: 5px 5px 0px 0px ;
-    -moz-box-shadow: 0px 1px 2px #888;
-    -webkit-box-shadow: 0px 1px 2px #888;
-    box-shadow: 0px 1px 2px #888;
-    border: 1px solid #D7D7D7;
+    margin: 0 auto;
 }
 
 #content-container #enme-content div.votes{

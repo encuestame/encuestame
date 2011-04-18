@@ -6,6 +6,7 @@
   dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardColumn2D");
   dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardLine");
   dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
+  dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 </script>
 <div>
   <div id="body"></div>
@@ -15,4 +16,5 @@
     <div id="column" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardColumn2D"></div>
     <div id="line" dojoType="encuestame.org.core.commons.dashboard.chart.DashboardLine"></div>
     -->
+    <div dojoType="encuestame.org.core.commons.social.SocialAccountPicker"/>
 </div>

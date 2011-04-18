@@ -39,8 +39,11 @@ public abstract class AbstractIndexService extends AbstractBaseService{
      * @param maxResults limit of results
      * @return list of hash tags.
      */
-    public List<HashTagBean> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults){
-        final List<HashTag> tags = getHashTagDao().getListHashTagsByKeyword(hashTagKeyWord, maxResults);
+    public List<HashTagBean> listSuggestHashTags(
+            final String hashTagKeyWord,
+            final Integer maxResults,
+            final Long[] exludes){
+        final List<HashTag> tags = getHashTagDao().getListHashTagsByKeyword(hashTagKeyWord, maxResults, exludes);
         log.debug("Hash Tag Suggested size "+tags.size());
         return ConvertDomainBean.convertListHashTagsToBean(tags);
     }

@@ -41,7 +41,7 @@
         <org.slf4j-version>1.6.1</org.slf4j-version>
 
         <!-- Hibernate Version -->
-        <hibernate.version>3.6.0.Final</hibernate.version>
+        <hibernate.version>3.6.2.Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.3.0.Final</hibernate.search.version>
 	<hibernate.validator>4.0.2.GA</hibernate.validator>
@@ -413,12 +413,13 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                 </plugin>
-                <plugin>
+                <!--
+		<plugin>
                   <groupId>net.sf</groupId>
                   <artifactId>stat-scm</artifactId>
                   <version>1.2.0</version>
                 </plugin>
-
+		-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -445,30 +446,24 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-
          <plugins>
-<!--            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.0-beta-4</version>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                <useLastCommittedRevision>true</useLastCommittedRevision>
-                <timestampFormat>{0,date,yyyy-MM-dd}</timestampFormat>
-                <items>
-                     <item>timestamp</item>
-                 </items>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
+	      <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>buildnumber-maven-plugin</artifactId>
+		<version>1.0</version>
+		<executions>
+		  <execution>
+		    <phase>validate</phase>
+		    <goals>
+		      <goal>create</goal>
+		    </goals>
+		  </execution>
+		</executions>
+		<configuration>
+		  <doCheck>false</doCheck>
+		  <doUpdate>false</doUpdate>
+		</configuration>
+	      </plugin>
          </plugins>
     </build>
     <reporting>
@@ -496,7 +491,7 @@
 		  </reportSet>
 		</reportSets>
 	     </plugin>
-             <plugin>
+             <!--<plugin>
                  <groupId>net.sf</groupId>
                  <artifactId>stat-scm</artifactId>
                  <configuration>
@@ -509,6 +504,7 @@
                  </configuration>
                  <version>1.2.0</version>
             </plugin>
+    	    -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -557,7 +553,6 @@
                             <report>issue-tracking</report>
                             <report>license</report>
                             <report>summary</report>
-                            <report>scm</report>
                             <report>index</report>
                         </reports>
                     </reportSet>
