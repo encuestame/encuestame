@@ -134,6 +134,9 @@ public class ConvertDomainBean {
         final HashTagBean unitHashTag = new HashTagBean();
         unitHashTag.setHashTagName(hashTag.getHashTag());
         unitHashTag.setId(hashTag.getHashTagId());
+        unitHashTag.setHits(hashTag.getHits());
+        //TODO: ENCUESTAME-191
+        unitHashTag.setSize(100);
         return unitHashTag;
     }
 

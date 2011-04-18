@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Apr 15, 2011
  */
 @Controller
-public class HashTagController {
+public class HashTagController extends AbstractBaseOperations{
 
     /** Log. **/
         private Log log = LogFactory.getLog(this.getClass());
@@ -36,6 +39,8 @@ public class HashTagController {
         @RequestMapping(value = "/cloud", method = RequestMethod.GET)
         public String hashTagController(ModelMap model, HttpServletRequest request,
                 HttpServletResponse response) {
-                return "cloud";
+            final IFrontEndService service = getFrontService();
+           model.addAttribute("hashtags", service.getHashTags(20, 0));
+           return "cloud";
         }
 }
