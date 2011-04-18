@@ -19,13 +19,15 @@ dojo.declare(
 
         listItems : [],
 
-        _provider : encuestame.short,
+        _provider : encuestame.shortUrlProvider,
 
         buttonWidget : null,
 
         tweetPollId : null,
 
         answerSource : null,
+
+        _blocked : false,
 
         postCreate: function() {
              this.buttonWidget = new dijit.form.Button({
@@ -46,6 +48,24 @@ dojo.declare(
                  isSource : true
               });
              dojo.connect(this.answerSource, "onDrop", this, this.onDrop);
+             // on key up.
+             dojo.connect(this._suggest, "onKeyUp", dojo.hitch(this, function(e) {
+                 if (dojo.keys.ENTER == e.keyCode) {
+                     this.addAnswer();
+                 }
+             }));
+        },
+
+        block : function(){
+            //console.debug("blocking answer...");
+            this.buttonWidget.disabled = true;
+            dijit.byId("answerAddText").disabled = true;
+        },
+
+        unblock : function() {
+           // console.debug("unblocking answer...");
+            this.buttonWidget.disabled = false;
+            dijit.byId("answerAddText").disabled = false;
         },
 
         getAnswers : function(){
@@ -141,27 +161,79 @@ dojo.declare(
         [dijit._Widget, dijit._Templated],{
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answerItem.html"),
 
+        /*
+         * enabled widget on template.
+         */
         widgetsInTemplate: true,
 
+        /*
+         * tweetpoll Id reference.
+         */
         tweetPollId : null,
 
-        _provider : encuestame.short,
+        /*
+         * provider list.
+         */
+        _provider : encuestame.shortUrlProvider,
 
+        /*
+         * answer data.
+         */
         answer : {},
 
+        /*
+         * parent answer.
+         */
         parentAnswer : null,
 
+        /*
+         * constructor.
+         */
         postCreate : function(){
-            console.debug("answer", this.answer);
+            if(this._item){
+                var answer = dojo.doc.createElement("span");
+                answer.innerHTML = this.answer.label;
+                dojo.addClass(answer, "answerItemTitle");
+                var url = dojo.doc.createElement("span");
+                var urlA = dojo.doc.createElement("a");
+                urlA.innerHTML = this.answer.shortUrl;
+                urlA.href = "#";
+                //urlA.target = "_blank";
+                url.appendChild(urlA);
+                dojo.addClass(url, "answerItemShortUrl");
+                dojo.connect(urlA, "onclick", this, this.editShortUrl);
+                dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
+                    dojo.stopEvent(event);
+                    dojo.addClass(urlA, "shortUrlEnter");
+                    dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
+
+                    }));
+                }));
+                dojo.connect(urlA, "onmouseleave", this,  dojo.hitch(this, function(event){
+                    dojo.stopEvent(event);
+                    dojo.removeClass(url, "shortUrlEnter");
+                }));
+                this._item.appendChild(answer);
+                this._item.appendChild(url);
+            }
         },
+
+        /*
+         * display or short url
+         */
+        editShortUrl : function(event){
+            dojo.stopEvent(event);
+            console.debug(event);
+        },
+
 
         /*
          * remove this answer.
          */
         _removeAnswer : function(){
              var params = {
-                     "id" : 1233,
-                    "answerId" : 2345
+                     "id" : this.tweetPollId,
+                    "answerId" : this.answer.answerId
             };
             console.debug("params", params);
             var load = dojo.hitch(this, function(data){
@@ -175,7 +247,7 @@ dojo.declare(
         },
 
         /*
-         *
+         * answer text.
          */
         getAnswerText: function(){
             var answer = this.answer.label+ " "+this.answer.shortUrl;

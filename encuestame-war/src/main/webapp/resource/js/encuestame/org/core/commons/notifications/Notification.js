@@ -38,6 +38,9 @@ dojo.declare(
          *
          */
         postCreate: function() {
+            //load from cookie.
+            this._count.innerHTML = encuestame.session.activity.cookie().n;
+            //loadin notification subscription.
             var subscriptionNotification;
             dojo.addOnLoad(dojo.hitch(this, function(){
                 this.loadStatus();
@@ -99,7 +102,6 @@ dojo.declare(
          * @param lastNew
          */
         _updateStatus : function(totalNew, total){
-            console.debug(totalNew, encuestame.session.activity.cookie().t);
             if (totalNew < encuestame.session.activity.cookie().n
                 || totalNew == encuestame.session.activity.cookie().n) {
                 //highlight new notifications.

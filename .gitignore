@@ -12,6 +12,8 @@ log/
 *./*.log*
 *.settings/*
 */.classpath
+*/buildNumber.properties
+buildNumber.properties
 */.project
 .project
 .classpath

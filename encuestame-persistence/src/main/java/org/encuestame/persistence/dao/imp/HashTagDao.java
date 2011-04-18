@@ -91,7 +91,10 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
      * @see org.encuestame.persistence.dao.IHashTagDao#getListHashTagsByKeyword(java.lang.String, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults){
+    public List<HashTag> getListHashTagsByKeyword(
+            final String keyword,
+            final Integer maxResults,
+            final Long[] excludes){
         log.info("keyword "+keyword);
         List<HashTag> searchResult = (List) getHibernateTemplate().execute(
                 new HibernateCallback() {
@@ -104,6 +107,12 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                         // limit results
                         if (maxResults != null) {
                             criteria.setMaxResults(maxResults.intValue());
+                        }
+                        if (excludes != null && excludes.length > 0) {
+                            for (int i = 0; i < excludes.length; i++) {
+                                log.debug("excluding hashtag... "+excludes[i]);
+                                criteria.add(Restrictions.ne("hashTagId", excludes[i]));
+                            }
                         }
                         searchResult = (List<HashTag>) fetchMultiFieldQueryParserFullText(
                                 keyword, new String[] { "hashTag"},

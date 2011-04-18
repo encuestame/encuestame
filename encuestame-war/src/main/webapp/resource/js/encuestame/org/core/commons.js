@@ -110,7 +110,7 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
     }
 };
 
-encuestame.short = [
+encuestame.shortUrlProvider = [
                     {code:"googl",label:"http://googl.com"},
                     {code:"tinyurl",label:"http://tinyurl.com"},
                     {code:"bitly",label:"http://bit.ly/"}
