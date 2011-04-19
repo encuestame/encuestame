@@ -87,7 +87,7 @@ public class TestTwitterService extends AbstractServiceBase {
      */
     @Test
     public void testVerifyCredentials() throws TwitterException{
-        final Twitter twitter = getTwitterService().getOAuthAuthorizedInstance(this.socialTwitterAccount, getTwitterService().createNewOAuthAccessToken(this.socialTwitterAccount));
+        final Twitter twitter = getTwitterService().getOAuthAuthorizedInstance(getTwitterService().createNewOAuthAccessToken(this.socialTwitterAccount));
         final User user = twitter.verifyCredentials();
         assertNotNull(user);
     }

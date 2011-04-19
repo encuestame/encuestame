@@ -6,5 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://www.springframework.org/spring-social/facebook/tags" prefix="facebook" %>
 <%@page import="org.encuestame.mvc.util.WidgetUtil"%>
+<%@page import="org.encuestame.business.config.EncuestamePlaceHolderConfigurer"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>

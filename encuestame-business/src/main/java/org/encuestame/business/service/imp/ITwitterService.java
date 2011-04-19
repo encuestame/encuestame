@@ -76,7 +76,7 @@ public interface ITwitterService extends ServiceOperations{
      * @param socialAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    Twitter getOAuthAuthorizedInstance(final SocialAccount socialAccount, final AccessToken accessToken);
+    Twitter getOAuthAuthorizedInstance(final AccessToken accessToken);
 
     /**
      * Create New OAuth Access Token.
