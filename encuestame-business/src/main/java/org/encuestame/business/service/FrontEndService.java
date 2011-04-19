@@ -22,6 +22,7 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -139,5 +140,21 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return hashBean;
     }
 
-
+    /**
+     * Get hashTag item.
+     * @param tagName
+     * @return
+     * @throws EnmeFailOperation
+     */
+    public HashTagBean getHashTagItem(final String tagName) throws EnmeFailOperation{
+        final HashTagBean tagBean;
+        if (tagName == null){
+            throw new EnmeFailOperation("tag Name params required.");
+        }
+        else {
+            final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+            tagBean  = ConvertDomainBean.convertHashTagDomain(tag);
+        }
+        return tagBean;
+    }
 }

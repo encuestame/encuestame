@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.EmailList;
@@ -136,7 +137,9 @@ public class ConvertDomainBean {
         unitHashTag.setId(hashTag.getHashTagId());
         unitHashTag.setHits(hashTag.getHits());
         //TODO: ENCUESTAME-191
-        unitHashTag.setSize(100);
+        int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
+        log.debug("random hastag number "+x);
+        unitHashTag.setSize(x);
         return unitHashTag;
     }
 

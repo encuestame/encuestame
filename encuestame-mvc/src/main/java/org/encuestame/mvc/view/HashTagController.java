@@ -12,16 +12,23 @@
  */
 package org.encuestame.mvc.view;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.web.HashTagBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,11 +43,48 @@ public class HashTagController extends AbstractBaseOperations{
     /** Log. **/
         private Log log = LogFactory.getLog(this.getClass());
 
-        @RequestMapping(value = "/cloud", method = RequestMethod.GET)
-        public String hashTagController(ModelMap model, HttpServletRequest request,
-                HttpServletResponse response) {
-            final IFrontEndService service = getFrontService();
-           model.addAttribute("hashtags", service.getHashTags(20, 0));
-           return "cloud";
+    /**
+     * HashTag List.
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/cloud", method = RequestMethod.GET)
+    public String hashTagController(ModelMap model, HttpServletRequest request,
+                  HttpServletResponse response) {
+        final IFrontEndService service = getFrontService();
+        final List<HashTagBean> hashTagList = service.getHashTags(20, 0);
+        log.debug("Tag list size ---> "+ hashTagList.size());
+        model.addAttribute("hashtags", hashTagList);
+        return "cloud";
         }
+
+    /**
+     * HashTag detail
+     * @param model
+     * @param request
+     * @param response
+     * @param name
+     * @return
+     * @throws EnmeFailOperation
+     */
+    @RequestMapping(value = "/tag/{name}", method = RequestMethod.GET)
+    public String tagController(ModelMap model , HttpServletRequest request,
+                  HttpServletResponse response,
+                  @PathVariable String name) throws EnmeFailOperation{
+        final IFrontEndService service = getFrontService();
+        log.debug("hashTag Name ---> "+name);
+        name = filterValue(name);
+        if ((name == null)){
+            return "pageNotFound";
+        }
+        else
+            try {
+                model.addAttribute("tagName", service.getHashTagItem(name));
+            } catch (Exception e) {
+                return "pageNotFound";
+            }
+        return "tag/detail";
+    }
 }
