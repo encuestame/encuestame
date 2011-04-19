@@ -21,6 +21,7 @@ import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
@@ -144,17 +145,13 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * Get hashTag item.
      * @param tagName
      * @return
-     * @throws EnmeFailOperation
+     * @throws EnMeNoResultsFoundException
      */
-    public HashTagBean getHashTagItem(final String tagName) throws EnmeFailOperation{
-        final HashTagBean tagBean;
-        if (tagName == null){
-            throw new EnmeFailOperation("tag Name params required.");
+    public HashTagBean getHashTagItem(final String tagName) throws EnMeNoResultsFoundException {
+        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+        if (tag == null){
+            throw new EnMeNoResultsFoundException("hashtag not found");
         }
-        else {
-            final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-            tagBean  = ConvertDomainBean.convertHashTagDomain(tag);
-        }
-        return tagBean;
+        return ConvertDomainBean.convertHashTagDomain(tag);
     }
 }

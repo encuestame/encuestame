@@ -13,9 +13,10 @@
 package org.encuestame.business.service.imp;
 
 import java.util.List;
+
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -65,7 +66,7 @@ public interface IFrontEndService extends ServiceOperations {
      * Get hashTag item.
      * @param tagName
      * @return
-     * @throws EnmeFailOperation
+     * @throws EnMeNoResultsFoundException
      */
-    HashTagBean getHashTagItem(final String tagName) throws EnmeFailOperation;
+    HashTagBean getHashTagItem(final String tagName) throws EnMeNoResultsFoundException;
 }

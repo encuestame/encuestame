@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IFrontEndService;
-import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.stereotype.Controller;
@@ -76,15 +73,17 @@ public class HashTagController extends AbstractBaseOperations{
         final IFrontEndService service = getFrontService();
         log.debug("hashTag Name ---> "+name);
         name = filterValue(name);
-        if ((name == null)){
-            return "pageNotFound";
-        }
-        else
-            try {
-                model.addAttribute("tagName", service.getHashTagItem(name));
-            } catch (Exception e) {
+        try {
+            final HashTagBean tag = service.getHashTagItem(name);
+            if(tag == null) {
                 return "pageNotFound";
             }
+            else {
+                model.addAttribute("tagName", service.getHashTagItem(name));
+           }
+        }catch (Exception e) {
+            return "pageNotFound";
+        }
         return "tag/detail";
     }
 }
