@@ -48,4 +48,12 @@ public interface IHashTagDao extends IBaseDao	{
      * @throws HibernateException
      */
     HashTag getHashTagByName(final String hashTag)throws HibernateException;
+
+    /**
+     * Get hashTags.
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<HashTag> getHashTags( final Integer maxResults,final Integer start);
 }

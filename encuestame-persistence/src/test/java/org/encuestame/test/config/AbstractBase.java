@@ -1538,6 +1538,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create hashtag with hits.
+     * @param hashTagName name
+     * @param hits total hits.
+     * @return {@link HashTag}
+     */
+    public HashTag createHashTag(final String hashTagName, final Long hits){
+        final HashTag hastag = this.createHashTag(hashTagName);
+        hastag.setHits(hits);
+        getHashTagDao().saveOrUpdate(hastag);
+        return hastag;
+    }
+
+    /**
      * @return the notification
      */
     public INotification getNotification() {
