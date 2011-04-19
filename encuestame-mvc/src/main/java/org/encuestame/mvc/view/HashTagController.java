@@ -75,12 +75,11 @@ public class HashTagController extends AbstractBaseOperations{
         name = filterValue(name);
         try {
             final HashTagBean tag = service.getHashTagItem(name);
-            if(tag == null) {
+            if (tag == null) {
                 return "pageNotFound";
-            }
-            else {
+            } else {
                 model.addAttribute("tagName", service.getHashTagItem(name));
-           }
+            }
         }catch (Exception e) {
             return "pageNotFound";
         }
