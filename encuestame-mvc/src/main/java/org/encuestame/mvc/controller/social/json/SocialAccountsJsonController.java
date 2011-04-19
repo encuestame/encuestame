@@ -1,6 +1,7 @@
 package org.encuestame.mvc.controller.social.json;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -214,6 +215,40 @@ public class SocialAccountsJsonController extends AbstractJsonController {
                    .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
              setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Return list of enabled providers.
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/social/providers.json", method = RequestMethod.GET)
+    public ModelMap getProvidersEnabled(
+            HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+             final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
+             final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+                 providers.add(SocialProvider.TWITTER);
+                 providers.add(SocialProvider.BUZZ);
+                 //providers.add(SocialProvider.FACEBOOK);
+                 //providers.add(SocialProvider.IDENTICA);
+                 //providers.add(SocialProvider.TRIP_IT);
+                 providers.add(SocialProvider.LINKEDIN);
+                 //providers.add(SocialProvider.YAHOO);
+             jsonResponse.put("provider", providers);
+             setItemResponse(jsonResponse);
+             log.debug("Social providers enabled "+providers.size());
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();

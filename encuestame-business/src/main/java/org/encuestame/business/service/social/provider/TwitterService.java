@@ -33,6 +33,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 
@@ -101,7 +102,7 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
     public Twitter getTwitterInsstance(final SocialAccount socialTwitterAccount){
         final AccessToken accessToken = this.createNewOAuthAccessToken(socialTwitterAccount);
         log.debug("Access Token "+accessToken);
-        return this.getOAuthAuthorizedInstance(socialTwitterAccount, accessToken);
+        return this.getOAuthAuthorizedInstance(accessToken);
     }
 
     /**
@@ -111,9 +112,15 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      */
     public Boolean verifyCredentials(final SocialAccount socialAccount){
         final Twitter twitter = this.getTwitterInsstance(socialAccount);
-        final Boolean confirmed = twitter.isOAuthEnabled();
-        log.debug("Twitter Account "+socialAccount.getSocialAccountName()+ " is confirmed? "+confirmed);
-        return confirmed;
+        User user;
+        try {
+            user = twitter.verifyCredentials();
+        } catch (TwitterException e) {
+            user = null;
+            log.error(e);
+        }
+        log.debug("Twitter Account "+socialAccount.getSocialAccountName()+ " is confirmed? "+user);
+        return user == null ? false : true;
     }
 
     /**
@@ -131,10 +138,16 @@ public class TwitterService extends AbstractBaseService implements ITwitterServi
      * @param socialTwitterAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    public Twitter getOAuthAuthorizedInstance(final SocialAccount socialTwitterAccount, final AccessToken accessToken){
-         return new TwitterFactory().getOAuthAuthorizedInstance(consumerKey,
-                 consumerSecret,
-                 accessToken);
+    public Twitter getOAuthAuthorizedInstance(final AccessToken accessToken){
+        final ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+          .setOAuthConsumerKey(this.consumerKey)
+          .setOAuthConsumerSecret(this.consumerSecret)
+          .setOAuthAccessToken(accessToken.getToken())
+          .setOAuthAccessTokenSecret(accessToken.getTokenSecret());
+        final TwitterFactory tf = new TwitterFactory(cb.build());
+        final Twitter twitter = tf.getInstance();
+        return twitter;
     }
 
     /**

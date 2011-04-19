@@ -355,3 +355,41 @@ div.tweetPollDetail div.question{
 div.tweetPollDetail div.answerVote{
     padding: 5px;
 }
+
+/** social accounts **/
+
+div.socialAccountPicker{
+    width: 100%;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    max-width: 600px;
+    padding: 4px;
+    max-height: 240px;
+    overflow: auto;
+}
+
+div.socialAccountPicker .list{
+    float: left;
+    width: 250px;
+    overflow: auto;
+    max-height: 200px;
+}
+
+div.socialAccountPicker .selected{
+    float: right;
+    min-width: 400px;
+    border: 1px solid gray;
+}
+
+div.socialAccountPicker div.account{
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    font-size: 130%;
+    border: 1px solid black;
+    padding: 5px;
+    min-width: 200px;
+}
