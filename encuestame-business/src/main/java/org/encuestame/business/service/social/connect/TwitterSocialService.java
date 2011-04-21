@@ -15,7 +15,7 @@ package org.encuestame.business.service.social.connect;
 import org.encuestame.utils.oauth.OAuthToken;
 import org.scribe.builder.api.TwitterApi;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.social.twitter.TwitterTemplate;
+//import org.springframework.social.twitter.TwitterTemplate;
 
 /**
  * Twitter Social Service.
@@ -33,7 +33,7 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterApi> imp
     /**
      * Twitter Template.
      */
-    private TwitterTemplate twitterTemplate;
+  //  private TwitterTemplate twitterTemplate;
 
     /**
      * Twitter Url.
@@ -76,10 +76,10 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterApi> imp
     @Override
     protected TwitterApi createServiceOperations(OAuthToken accessToken) {
         log.debug("Twitter Operations createServiceOperations "+accessToken.toString());
-        if(this.twitterTemplate == null){
+     /*   if(this.twitterTemplate == null){
             log.debug("Creando Provider");
             this.createTwitterTemplate(accessToken);
-        }
+        }*/
         return null;
     }
 
@@ -88,13 +88,13 @@ public class TwitterSocialService extends AbstractSocialProvider<TwitterApi> imp
      * @param accessToken
      */
     private void createTwitterTemplate(final OAuthToken accessToken){
-        this.twitterTemplate = accessToken != null ?
+       /* this.twitterTemplate = accessToken != null ?
                 new TwitterTemplate(
                         getApiKey(),
                         getSecret(),
                         accessToken.getValue(),
                         accessToken.getSecret())
-        : new TwitterTemplate();
+        : new TwitterTemplate();*/
     }
 
     /**

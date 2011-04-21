@@ -71,7 +71,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                    sucess.put("folder", getPollService().createPollFolder(folderName, getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else if("survey".equals(actionType)){
-                   sucess.put("survey", getSurveyService().createSurveyFolder(folderName, getUserPrincipalUsername()));
+                   sucess.put("folder", getSurveyService().createSurveyFolder(folderName, getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else {
                    setError("operation not valid", response); //if type no exist.

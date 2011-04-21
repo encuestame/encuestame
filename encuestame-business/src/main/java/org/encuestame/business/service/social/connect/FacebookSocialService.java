@@ -75,7 +75,8 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> i
         if (accessToken == null) {
             throw new IllegalStateException("Cannot access Facebook without an access token");
         }
-        return new FacebookTemplate(accessToken.getValue());
+        //return new FacebookTemplate(accessToken.getValue());
+        return null;
     }
 
     @Override

@@ -70,7 +70,8 @@ public class LinkedInSocialService extends AbstractSocialProvider<LinkedInApi>{
             log.debug("Creando Provider");
             this.createLinkedInTemplate(accessToken);
         }
-        return this.linkedInTemplate;
+        //return this.linkedInTemplate;
+        return null;
     }
 
     /**
