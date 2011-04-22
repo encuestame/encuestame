@@ -721,6 +721,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final TweetPollFolder tpfolder = this.getTweetPollFolderByFolderIdandUser(folderId, getPrimaryUser(username));
          if (tpfolder!=null) {
              final TweetPoll tpoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+             if (tpoll == null){
+                throw new EnMeNoResultsFoundException("TweetPoll not found");
+             }
              tpoll.setTweetPollFolder(tpfolder);
              getTweetPollDao().saveOrUpdate(tpoll);
          } else {

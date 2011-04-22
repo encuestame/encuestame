@@ -15,6 +15,7 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.FolderBean;
@@ -149,4 +150,20 @@ public interface IPollService extends IMasterSurveyService{
      */
     List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException;
 
+    /**
+     * Add poll to folder.
+     * @param folderId
+     * @param username
+     * @param pollId
+     * @throws EnMeNoResultsFoundException
+     */
+    void addPollToFolder(final Long folderId, final String username, final Long pollId) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param folderId
+     * @param userId
+     * @return
+     */
+    PollFolder getPollFolderByFolderIdandUser(final Long folderId, final Long userId);
 }

@@ -13,6 +13,7 @@
 package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 
@@ -20,6 +21,7 @@ import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.survey.FolderJsonServiceController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
@@ -40,27 +42,30 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     /** {@link PollFolder}. **/
     private PollFolder pollFolder;
 
-    /** {@link TweetPollFolder} **/
+    /** {@link TweetPollFolder}. **/
     private TweetPollFolder tweetPollFolder;
 
-    /** {@link SurveyFolder} **/
+    /** {@link SurveyFolder}. **/
     private SurveyFolder surveyFolder;
 
+    /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
 
+    /** {@link Survey}. **/
     private Survey survey;
+
+    /** {@link Poll}. **/
+    private Poll poll;
 
     @Before
     public void initService(){
         this.pollFolder = createPollFolder("My first poll folder", getSpringSecurityLoggedUserAccount().getAccount());
         this.tweetPollFolder = createTweetPollFolder("My first tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
         this.surveyFolder = createSurveyFolders("My first survey Folder", getSpringSecurityLoggedUserAccount().getAccount());
-        createPollFolder("My second poll folder", getSpringSecurityLoggedUserAccount().getAccount());
-        createTweetPollFolder("My second tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
-        createSurveyFolders("My second survey Folder", getSpringSecurityLoggedUserAccount().getAccount());
         final Question question = createQuestion("Who I am?", "");
         this.tweetPoll = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
         this.survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
+        this.poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount().getAccount(), true, true);
     }
 
     /**
@@ -176,8 +181,10 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     @Test
     public void testMoveItemJsonFolder() throws ServletException, IOException{
         TweetPollFolder tpf = createTweetPollFolder("My third tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
+        PollFolder pf = createPollFolder("My second poll folder", getSpringSecurityLoggedUserAccount().getAccount());
         assertSuccessResponse(moveItemJsonFolder("tweetPoll", tpf.getId(), this.tweetPoll.getTweetPollId()));
         assertSuccessResponse(moveItemJsonFolder("survey",  this.surveyFolder.getId(), this.survey.getSid()));
+        assertSuccessResponse(moveItemJsonFolder("poll",  this.pollFolder.getId(), this.poll.getPollId()));
     }
 
     /**

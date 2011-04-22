@@ -201,9 +201,11 @@ public class FolderJsonServiceController extends AbstractJsonController{
                      getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), itemId);
                      setSuccesResponse();
                  } else if("poll".equals(actionType)){
-                     //add poll to folder. itemId == pollId
+                     getPollService().addPollToFolder(folderId,  getUserPrincipalUsername(), itemId);
+                     setSuccesResponse();
                  } else if("survey".equals(actionType)){
                      getSurveyService().addSurveyToFolder(folderId, getUserPrincipalUsername(), itemId);
+                     setSuccesResponse();
                  } else {
                      //set error
                      setError("type of folder invalid :{"+actionType, response);

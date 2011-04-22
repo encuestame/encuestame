@@ -29,6 +29,8 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.FolderBean;
@@ -307,4 +309,37 @@ public class PollService extends AbstractSurveyService implements IPollService{
         // TODO Auto-generated method stub
         return null;
     }
+
+    /**
+     * Add poll to Folder.
+     * @param folderId
+     * @param username
+     * @param pollId
+     * @throws EnMeNoResultsFoundException
+     */
+    public void addPollToFolder(final Long folderId, final String username, final Long pollId)
+                                throws EnMeNoResultsFoundException{
+        final PollFolder pfolder = this.getPollFolderByFolderIdandUser(folderId, getPrimaryUser(username));
+        if (pfolder!=null) {
+            final Poll poll = getPollDao().getPollByIdandUserId(pollId, getPrimaryUser(username));
+            if (poll == null){
+                throw new EnMeNoResultsFoundException("TweetPoll not found");
+             }
+            poll.setPollFolder(pfolder);
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnMeNoResultsFoundException("TweetPoll folder not found");
+    }
+}
+
+    /**
+     * Get Poll folder.
+     * @param folderId
+     * @param userId
+     * @return
+     */
+    public PollFolder getPollFolderByFolderIdandUser(final Long folderId, final Long userId){
+        return this.getPollDao().getPollFolderByIdandUser(folderId, userId);
+    }
+
 }
