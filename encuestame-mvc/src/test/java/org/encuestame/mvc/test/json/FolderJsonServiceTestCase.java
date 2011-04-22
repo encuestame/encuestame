@@ -13,7 +13,6 @@
 package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 
@@ -21,7 +20,6 @@ import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.survey.FolderJsonServiceController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
@@ -42,9 +40,6 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     /** {@link PollFolder}. **/
     private PollFolder pollFolder;
 
-    /** {@link Account}. **/
-    private Account user;
-
     /** {@link TweetPollFolder} **/
     private TweetPollFolder tweetPollFolder;
 
@@ -57,15 +52,15 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
 
     @Before
     public void initService(){
-        this.user = createAccount();
-        this.pollFolder = createPollFolder("My first poll folder", this.user);
-        this.tweetPollFolder = createTweetPollFolder("My first tweetPoll folder", this.user);
-        this.surveyFolder = createSurveyFolders("My first survey Folder", this.user);
-        createPollFolder("My second poll folder", this.user);
-        createTweetPollFolder("My second tweetPoll folder", this.user);
-        createSurveyFolders("My second survey Folder", this.user);
+        this.pollFolder = createPollFolder("My first poll folder", getSpringSecurityLoggedUserAccount().getAccount());
+        this.tweetPollFolder = createTweetPollFolder("My first tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
+        this.surveyFolder = createSurveyFolders("My first survey Folder", getSpringSecurityLoggedUserAccount().getAccount());
+        createPollFolder("My second poll folder", getSpringSecurityLoggedUserAccount().getAccount());
+        createTweetPollFolder("My second tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
+        createSurveyFolders("My second survey Folder", getSpringSecurityLoggedUserAccount().getAccount());
         final Question question = createQuestion("Who I am?", "");
-        this.tweetPoll = createPublishedTweetPoll(this.user, question);
+        this.tweetPoll = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
+        this.survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
     }
 
     /**
@@ -170,7 +165,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
         System.out.println("RESPONSE REMOVE----------->"+response);
-       return response;
+        return response;
     }
 
     /**
@@ -178,11 +173,11 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
+    @Test
     public void testMoveItemJsonFolder() throws ServletException, IOException{
-        TweetPollFolder tpf = createTweetPollFolder("My third tweetPoll folder", this.user);
-        moveItemJsonFolder("tweetPoll", tpf.getId(), this.tweetPoll.getTweetPollId());
-        //Assert.assertEquals(updateJsonFolder("survey", "My Last Survey Folder",this.surveyFolder.getId()),this.surveyFolder.getId());
-
+        TweetPollFolder tpf = createTweetPollFolder("My third tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
+        assertSuccessResponse(moveItemJsonFolder("tweetPoll", tpf.getId(), this.tweetPoll.getTweetPollId()));
+        assertSuccessResponse(moveItemJsonFolder("survey",  this.surveyFolder.getId(), this.survey.getSid()));
     }
 
     /**
@@ -198,7 +193,6 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         setParameter("folderId", folderId.toString());
         setParameter("itemId", itemId.toString());
         final JSONObject response = callJsonService();
-        System.out.println("RESPONSE MOVE----------->"+response);
         return response;
     }
 
