@@ -170,20 +170,20 @@
         * TripIt
   -->
 
-     <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider"
-          abstract="true">
-    </bean>
+<!--      <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider" -->
+<!--           abstract="true"> -->
+<!--     </bean> -->
 
-    <!-- Twitter Service Provider Consumer -->
+    <!-- Twitter Service Provider Consumer
     <bean id="twitterServiceConnect" autowire="byName"
           class="org.encuestame.business.service.social.connect.TwitterSocialService" parent="abstractSocialProvider">
-    </bean>
+    </bean>-->
 
-    <!-- Facebook OAuth Consumer -->
+    <!-- Facebook OAuth Consumer
     <bean id="facebookServiceConnect" autowire="byName"
           class="org.encuestame.business.service.social.connect.FacebookSocialService"
           parent="abstractSocialProvider">
-    </bean>
+    </bean> -->
 
     <!-- LinkedIn OAuth Consumer
     <bean id="linkedInServiceConnect" autowire="byName"

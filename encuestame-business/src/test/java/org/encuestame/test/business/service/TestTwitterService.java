@@ -62,17 +62,6 @@ public class TestTwitterService extends AbstractServiceBase {
     }
 
     /**
-     * Test Tiny Url.
-     * @throws IOException io exception
-     * @throws HttpException http exception
-     */
-    @Test
-    public void testTinyUrl() throws HttpException, IOException{
-       final String tinyUrl = twitterService.getTinyUrl("http://www.google.es");
-       assertNotNull(tinyUrl);
-    }
-
-    /**
      * Test Public Tweet.
      * @throws TwitterException exception
      */
