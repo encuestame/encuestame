@@ -61,7 +61,7 @@ public class SignInController extends AbstractBaseOperations{
      * @param provider
      * @return
      */
-    @RequestMapping(value="/signin/{provider}", method = RequestMethod.GET)
+    @RequestMapping(value="/signin/{provider}", method = RequestMethod.POST)
     public String signinFacebookGet(
         @PathVariable String provider){
         final StringBuilder url = new StringBuilder();
@@ -71,15 +71,15 @@ public class SignInController extends AbstractBaseOperations{
             url.append("404");
         } else {
             if (SocialProvider.TWITTER.equals(providerEnum)) {
-                 url.append("signin/provider");
+                 url.append("signin/provider/register");
             } else if (SocialProvider.BUZZ.equals(providerEnum)) {
-                url.append("signin/provider");
+                url.append("signin/provider/register");
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
-                url.append("signin/provider");
+                url.append("signin/provider/register");
             } else if (SocialProvider.IDENTICA.equals(providerEnum)) {
-                url.append("signin/provider");
+                url.append("signin/provider/register");
             } else if (SocialProvider.LINKEDIN.equals(providerEnum)) {
-                url.append("signin/provider");
+                url.append("signin/provider/register");
             }
         }
         return url.toString();

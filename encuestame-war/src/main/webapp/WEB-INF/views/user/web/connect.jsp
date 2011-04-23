@@ -22,4 +22,9 @@
     <form id="twitter_signin" action="<%=request.getContextPath()%>/connect/twitter" method="post">
         <button type="submit" value="Connect TWITTER CONNECT">TWITTER CONNECT</button>
     </form>
+
+        <form id="yahoo_signin" action="<%=request.getContextPath()%>/connect/yahoo" method="post">
+        <button type="submit" value="Connect YAHOO CONNECT">YAHOO CONNECT</button>
+    </form>
+
 </div>
