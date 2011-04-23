@@ -27,8 +27,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+//import org.json.simple.JSONObject;
+//import org.json.simple.JSONValue;
 
 /**
  * Social Util Helpers.
@@ -97,9 +97,9 @@ public class SocialUtils {
             while ((i = bStream.read()) >= 0) {
                 resultString.append((char) i);
             }
-            final Object jsonObject = JSONValue.parse(resultString.toString());
-            final JSONObject o = (JSONObject) jsonObject;
-            shortUrl = (String) o.get("id");
+          //  final Object jsonObject = JSONValue.parse(resultString.toString());
+         //   final JSONObject o = (JSONObject) jsonObject;
+         //   shortUrl = (String) o.get("id");
         } catch (Exception ex) {
             SocialUtils.log.error(ex);
             shortUrl = urlPath;
@@ -166,11 +166,11 @@ public class SocialUtils {
             //"results": {"http://www.encuestame.org": {"userHash": "gmks0X", "shortKeywordUrl": "", "hash": "hMMQuX",
            // "shortCNAMEUrl": "http://bit.ly/gmks0X", "shortUrl": "http://bit.ly/gmks0X"}},
             //"statusCode": "OK"}
-            final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
-            final JSONObject o = (JSONObject) jsonObject;
-            final JSONObject results = (JSONObject) o.get("results");
-            final JSONObject url = (JSONObject) results.get(urlPath);
-            responseXml = (String) url.get("shortUrl");
+     //       final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
+  //          final JSONObject o = (JSONObject) jsonObject;
+    //        final JSONObject results = (JSONObject) o.get("results");
+   //         final JSONObject url = (JSONObject) results.get(urlPath);
+     //       responseXml = (String) url.get("shortUrl");
         } catch (HttpException e1) {
             log.error(e1);
             responseXml = urlPath;

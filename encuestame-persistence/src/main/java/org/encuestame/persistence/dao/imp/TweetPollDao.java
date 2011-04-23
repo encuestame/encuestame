@@ -365,7 +365,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     @SuppressWarnings("unchecked")
     public TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
-         criteria.add(Restrictions.eq("users.id", userId));
+         criteria.createAlias("users", "users");
+         criteria.add(Restrictions.eq("users.uid", userId));
          criteria.add(Restrictions.eq("id", FolderId));
          return (TweetPollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }

@@ -13,9 +13,19 @@
 
 package org.encuestame.mvc.controller.search;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.queryParser.ParseException;
+import org.encuestame.business.search.TypeSearchResult;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,14 +54,57 @@ public class SearchController extends AbstractBaseOperations {
     }
 
     /**
+     *
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchGet(
+           ModelMap model,
+            final HttpServletRequest request,
+            final HttpServletResponse response) {
+        final String keyword = request.getParameter("q");
+        String redirect =  "redirect:/search?q=";
+        if(keyword != null){
+            redirect += keyword;
+        } else {
+            redirect += "a";
+        }
+        return redirect;
+    }
+
+    /**
      * Search.
      * @param model
      * @return
      */
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchHomeGet(ModelMap model) {
-        log.debug("search get");
-        return "search";
-    }
+     @RequestMapping(value = "/search", method = RequestMethod.GET, params = "q")
+    public String searchHomeGet(
+           ModelMap model,
+            final HttpServletRequest request,
+            final HttpServletResponse response) {
+       final String keyword = request.getParameter("q");
+       final List<TypeSearchResult> types = new ArrayList<TypeSearchResult>();
+       types.add(TypeSearchResult.TWEETPOLL);
+       types.add(TypeSearchResult.HASHTAG);
+       types.add(TypeSearchResult.PROFILE);
+       types.add(TypeSearchResult.QUESTION);
+       try {
+           getSearchService().quickSearch(keyword, "", 0, 50, types);
+       } catch (EnMeNoResultsFoundException e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+       } catch (IOException e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+       } catch (ParseException e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+       }
+       log.debug("search get");
+       return "search";
+     }
 
 }

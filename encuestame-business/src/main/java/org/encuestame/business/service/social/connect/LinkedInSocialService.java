@@ -61,7 +61,7 @@ public class LinkedInSocialService{
      * @param socialProviderName
      */
     public LinkedInSocialService() {
-       //this.loadParameters();
+
     }
 //
 //    @Override

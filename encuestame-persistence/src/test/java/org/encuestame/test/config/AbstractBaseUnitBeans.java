@@ -20,6 +20,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
@@ -29,8 +30,11 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitPatternBean;
+import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
+
+import com.sun.mail.imap.protocol.BODY;
 
 
 /**
@@ -356,4 +360,54 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         return unitAttachmentBean;
      }
 
+     /**
+      * Create folder bean.
+      * @param createdAt
+      * @param folderName
+      * @return
+      */
+     public FolderBean createFolderBean(final Date createdAt, final String folderName){
+        final FolderBean fbean = new FolderBean();
+        fbean.setCreateAt(createdAt);
+        fbean.setFolderName(folderName);
+        return fbean;
+     }
+
+     /**
+      * Create unitPoll.
+      * @param closeNotification
+      * @param completedPoll
+      * @param creationDate
+      * @param finishDate
+      * @param hashPoll
+      * @param publishPoll
+      * @param questionBean
+      * @param showResultsPoll
+      * @return
+      */
+     public UnitPoll createUnitPoll(final Boolean closeNotification, final Boolean completedPoll,
+                                    final Date creationDate, final Date finishDate, final String hashPoll,
+                                    final Boolean publishPoll, final QuestionBean questionBean,
+                                    final Boolean showResultsPoll){
+        final UnitPoll unitPoll = new UnitPoll();
+        unitPoll.setCloseNotification(closeNotification);
+        unitPoll.setCompletedPoll(completedPoll);
+        unitPoll.setCreationDate(creationDate);
+        unitPoll.setFinishDate(finishDate);
+        unitPoll.setHashPoll(hashPoll);
+        unitPoll.setPublishPoll(publishPoll);
+        unitPoll.setQuestionBean(questionBean);
+        unitPoll.setShowResultsPoll(showResultsPoll);
+        return unitPoll;
+     }
+
+     /**
+      * Create unitPoll default.
+      * @param questionBean
+      * @return
+      */
+     public UnitPoll createUnitPollDefault(final QuestionBean questionBean){
+        return this.createUnitPoll(Boolean.TRUE, Boolean.TRUE, new Date(), new Date(), "h1a2s3hP", Boolean.TRUE,
+                questionBean, Boolean.TRUE);
+     }
 }
