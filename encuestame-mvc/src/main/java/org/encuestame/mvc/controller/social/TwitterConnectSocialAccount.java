@@ -58,7 +58,7 @@ public class TwitterConnectSocialAccount extends AbstractSocialController {
      * Constructor.
      */
     public TwitterConnectSocialAccount() {
-        this.baseCallbackUrl = "/signin/";
+        this.baseCallbackUrl = "/conect/";
     }
 
     /**
@@ -85,10 +85,10 @@ public class TwitterConnectSocialAccount extends AbstractSocialController {
      * @throws EnMeNoResultsFoundException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value="/signin/twitter", method=RequestMethod.DELETE)
+    @RequestMapping(value="/conect/twitter", method=RequestMethod.DELETE)
     public String disconnect(@PathVariable String name) throws EnMeNoResultsFoundException {
         this.twitterServiceConnect.disconnect(getUserAccount().getUid());
-        return "redirect:/signin/" + name;
+        return "redirect:/conect/" + name;
     }
 
     /**
@@ -97,7 +97,7 @@ public class TwitterConnectSocialAccount extends AbstractSocialController {
      * Fetches a new request token from the provider, temporarily stores it in the session,
      * then redirects the member to the provider's site for authorization.
      */
-    @RequestMapping(value="/signin/twitter", method = RequestMethod.POST)
+    @RequestMapping(value="/conect/twitter", method = RequestMethod.POST)
     public String signinTwitterPost(
             final WebRequest request,
             final HttpServletRequest requestHttp,
@@ -121,7 +121,7 @@ public class TwitterConnectSocialAccount extends AbstractSocialController {
      * @param request
      * @return
      */
-    @RequestMapping(value="/signin/twitter", method = RequestMethod.GET, params = "oauth_token")
+    @RequestMapping(value="/conect/twitter", method = RequestMethod.GET, params = "oauth_token")
     public String authorizeCallback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value="oauth_verifier", defaultValue = "verifier")
@@ -162,7 +162,7 @@ public class TwitterConnectSocialAccount extends AbstractSocialController {
             }*/
         } else {
             log.error("Request token not found");
-            return "redirect:/signin/" + "twitter";
+            return "redirect:/conect/" + "twitter";
         }
         //postConnect(provider, 1, request);
         //FlashMap.setSuccessMessage("Your Greenhouse account is now connected to your " + provider.getDisplayName() + " account!");

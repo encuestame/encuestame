@@ -13,22 +13,19 @@
 package org.encuestame.business.service.social.connect;
 
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
-import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuth1Token;
 
 /**
- * Description Class.
+ * Abstract layer to user connecto with social account.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 31, 2010 3:34:55 PM
- * @version Id:
  */
 public abstract interface AbstractISocialService {
 
-     boolean isConnected(Long id);
+        boolean isConnected(Long id);
 
         /**
          * Sever the connection between the member account and this service provider.
@@ -47,12 +44,14 @@ public abstract interface AbstractISocialService {
          */
         String getApiKey();
 
+
         OAuth1Token fetchNewRequestToken(final String callbackUrl);
+
 
         String buildAuthorizeUrl(final String requestToken);
 
-        void connect(Long accountId, AuthorizedRequestToken requestToken) throws EnMeExistPreviousConnectionException;
 
+        void connect(Long accountId, AuthorizedRequestToken requestToken) throws EnMeExistPreviousConnectionException;
 
         UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 
