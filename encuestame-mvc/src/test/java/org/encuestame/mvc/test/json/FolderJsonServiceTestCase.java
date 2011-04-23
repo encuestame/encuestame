@@ -27,6 +27,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
@@ -57,12 +58,15 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     /** {@link Poll}. **/
     private Poll poll;
 
+    /** {@link Question}. **/
+    private Question question;
+
     @Before
     public void initService(){
         this.pollFolder = createPollFolder("My first poll folder", getSpringSecurityLoggedUserAccount().getAccount());
         this.tweetPollFolder = createTweetPollFolder("My first tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
         this.surveyFolder = createSurveyFolders("My first survey Folder", getSpringSecurityLoggedUserAccount().getAccount());
-        final Question question = createQuestion("Who I am?", "");
+        this.question = createQuestion("Who I am?", "");
         this.tweetPoll = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
         this.survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
         this.poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount().getAccount(), true, true);
@@ -181,7 +185,6 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     @Test
     public void testMoveItemJsonFolder() throws ServletException, IOException{
         TweetPollFolder tpf = createTweetPollFolder("My third tweetPoll folder", getSpringSecurityLoggedUserAccount().getAccount());
-        PollFolder pf = createPollFolder("My second poll folder", getSpringSecurityLoggedUserAccount().getAccount());
         assertSuccessResponse(moveItemJsonFolder("tweetPoll", tpf.getId(), this.tweetPoll.getTweetPollId()));
         assertSuccessResponse(moveItemJsonFolder("survey",  this.surveyFolder.getId(), this.survey.getSid()));
         assertSuccessResponse(moveItemJsonFolder("poll",  this.pollFolder.getId(), this.poll.getPollId()));
@@ -203,4 +206,36 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         return response;
     }
 
+    /**
+     * Test retrieve items( {@link Poll}, {@link Survey}, {@link TweetPoll} ).
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testRetrieveItemsbyFolder() throws ServletException, IOException{
+        this.question = createQuestion("What day is today?", "");
+        final Poll pollSec = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount().getAccount(), true, true);
+        assertSuccessResponse(moveItemJsonFolder("poll", this.pollFolder.getId(), this.poll.getPollId()));
+        assertSuccessResponse(moveItemJsonFolder("poll", this.pollFolder.getId(), pollSec.getPollId()));
+        Assert.assertEquals(retrieveItemsbyFolder("poll",this.pollFolder.getId()).intValue(), 2);
+
+    }
+
+
+    /**
+     * Run retrieve item to folder json service.
+     * @param actionType
+     * @param folderId
+     * @throws IOException
+     * @throws ServletException
+     */
+    public Integer retrieveItemsbyFolder(final String actionType, final Long folderId) throws ServletException, IOException{
+        initService("/api/survey/folder/"+actionType+"/list.json", MethodJson.GET);
+        setParameter("folderId", folderId.toString());
+        final JSONObject response = callJsonService();
+        System.out.println("RESPONSE Retrieve----------->"+response);
+        final JSONObject success = getSucess(response);
+        final JSONArray polls = (JSONArray) success.get("polls");
+        return polls.size();
+    }
 }

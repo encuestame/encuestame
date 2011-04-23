@@ -13,7 +13,9 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,9 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.utils.web.FolderBean;
+import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.UnitPoll;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -219,4 +224,35 @@ public class FolderJsonServiceController extends AbstractJsonController{
             return returnData();
     }
 
+    /**
+     * Retrieve Folder Items.
+     * @param actionType
+     * @param folderId
+     * @param request
+     * @param response
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
+    public ModelMap retrieveItemsbyFolder(
+             @PathVariable String actionType,
+             @RequestParam(value = "folderId", required = true) Long folderId,
+             HttpServletRequest request,
+             HttpServletResponse response){
+             List<UnitPoll> list = new ArrayList<UnitPoll>();
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            try {
+                if("poll".equals(actionType)){
+                    FolderBean fbean = new FolderBean(folderId);
+                    list =  getPollService().getPollsByFolder(fbean, getUserPrincipalUsername());
+                    jsonResponse.put("polls", list);
+                    setItemResponse(jsonResponse);
+                }
+            } catch (Exception e) {
+               log.error(e);
+               e.printStackTrace();
+               setError(e.getMessage(), response);
+            }
+        return returnData();
+    }
 }
