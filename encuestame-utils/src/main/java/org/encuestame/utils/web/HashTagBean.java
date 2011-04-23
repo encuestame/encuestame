@@ -33,12 +33,18 @@ public class HashTagBean implements Serializable {
     /** Id. **/
     private Long id;
 
+    /**Size. **/
+    private Integer size;
+
+    /** Hits.**/
+    private Long hits;
+
     /** Constructor. **/
     public HashTagBean() {}
 
 
     /** Constructor. **/
-    public HashTagBean(String hashTagName) {
+    public HashTagBean(final String hashTagName) {
         super();
         this.hashTagName = hashTagName;
     }
@@ -53,7 +59,7 @@ public class HashTagBean implements Serializable {
     /**
      * @param hashTagName the hashTagName to set
      */
-    public final void setHashTagName(String hashTagName) {
+    public final void setHashTagName(final String hashTagName) {
         this.hashTagName = hashTagName;
     }
 
@@ -67,10 +73,37 @@ public class HashTagBean implements Serializable {
     /**
      * @param id the id to set
      */
-    public final void setId(Long id) {
+    public final void setId(final Long id) {
         this.id = id;
     }
 
+    /**
+    * @return the size
+    */
+    public Integer getSize() {
+        return size;
+    }
+
+    /**
+    * @param size the size to set
+    */
+    public void setSize(final Integer size) {
+        this.size = size;
+    }
+
+    /**
+    * @return the hits
+    */
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+    * @param hits the hits to set
+    */
+    public void setHits(final Long hits) {
+        this.hits = hits;
+    }
 
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()

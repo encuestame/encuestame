@@ -12,19 +12,22 @@
  */
 package org.encuestame.business.service.social.connect;
 
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.business.service.social.AbstractSocialSignInConnect;
+import org.encuestame.business.service.social.api.FacebookAPITemplate;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.social.FacebookAPIOperations;
+import org.encuestame.core.social.SocialAccountProvider;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.oauth.AuthorizedRequestToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.social.facebook.FacebookApi;
-import org.springframework.social.facebook.FacebookTemplate;
-import org.springframework.social.twitter.TwitterTemplate;
-
 /**
  * Facebook. Social Service.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 5:57:35 PM
- * @version $Id:$
  */
-public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> implements IFacebookSocialService{
+public class FacebookSocialService implements IFacebookSocialService{
 
 
     /**
@@ -35,7 +38,7 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> i
     /**
      * Twitter Template.
      */
-    private FacebookTemplate facebookTemplate;
+    private FacebookAPITemplate facebookTemplate;
 
     /**
      * Consumer Key.
@@ -70,36 +73,74 @@ public class FacebookSocialService extends AbstractSocialProvider<FacebookApi> i
         this.parameters.setSecret(this.secret);
     }
 
-    @Override
-    protected FacebookApi createServiceOperations(OAuthToken accessToken) {
-        if (accessToken == null) {
-            throw new IllegalStateException("Cannot access Facebook without an access token");
-        }
-        return new FacebookTemplate(accessToken.getValue());
+//    @Override
+//    protected FacebookAPIOperations createServiceOperations(OAuth1Token accessToken) {
+//        if (accessToken == null) {
+//            throw new IllegalStateException("Cannot access Facebook without an access token");
+//        }
+//        //return new FacebookTemplate(accessToken.getValue());
+//        return null;
+//    }
+//
+//    @Override
+//    protected String fetchProviderAccountId(FacebookAPIOperations serviceOperations) {
+//      //return serviceOperations.userOperations().getUserProfile()
+//        return null;
+//    }
+//
+//    @Override
+//    protected String buildProviderProfileUrl(String providerAccountId,
+//            FacebookAPIOperations serviceOperations) {
+//        return "http://www.facebook.com/profile.php?id=" + providerAccountId;
+//    }
+
+    public boolean isConnected(Long id) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
-    @Override
-    protected String fetchProviderAccountId(FacebookApi serviceOperations) {
-      //return serviceOperations.userOperations().getUserProfile()
-        return null;
+    public void disconnect(Long accountId) {
+        // TODO Auto-generated method stub
+
     }
 
-    @Override
-    protected String buildProviderProfileUrl(String providerAccountId,
-            FacebookApi serviceOperations) {
-        return "http://www.facebook.com/profile.php?id=" + providerAccountId;
-    }
-
-    @Override
-    SocialAccountProvider getParameters() {
+    public String getApiKey() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
-    SocialAccountProvider setParameters(SocialAccountProvider accountProvider) {
+    public OAuth1Token fetchNewRequestToken(String callbackUrl) {
         // TODO Auto-generated method stub
         return null;
     }
+
+    public String buildAuthorizeUrl(String requestToken) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void connect(Long accountId, AuthorizedRequestToken requestToken)
+            throws EnMeExistPreviousConnectionException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public UserAccount findAccountByConnection(String accessToken)
+            throws EnMeNoResultsFoundException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+//    @Override
+//    SocialAccountProvider getParameters() {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
+//
+//    @Override
+//    SocialAccountProvider setParameters(SocialAccountProvider accountProvider) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 
 }

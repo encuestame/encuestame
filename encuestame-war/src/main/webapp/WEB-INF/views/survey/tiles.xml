@@ -3,10 +3,14 @@
 
 <tiles-definitions>
 
-    <definition name="survey" extends="page">
+    <definition name="user/survey" extends="page">
         <put-attribute name="title" value="Survey | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/survey/${currentDevice.mobile ? 'mobile/' : 'web/'}survey.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/survey/${currentDevice.mobile ? 'mobile/' : 'web/'}surveyUser.jsp" />
     </definition>
 
+    <definition name="survey" extends="page">
+        <put-attribute name="title" value="Survey | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/survey/${currentDevice.mobile ? 'mobile/' : 'web/'}survey.jsp" />
+    </definition>
 </tiles-definitions>

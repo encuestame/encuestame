@@ -21,7 +21,7 @@ import java.util.List;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.ForgotPasswordBean;
@@ -619,11 +619,11 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link AuthorizedRequestToken} and {@link OAuthToken}.
+     * Test {@link AuthorizedRequestToken} and {@link OAuth1Token}.
      */
     @Test
     public void testAuthorizedRequestToken(){
-        final OAuthToken token = new OAuthToken("value", "secret");
+        final OAuth1Token token = new OAuth1Token("value", "secret");
         final AuthorizedRequestToken tk = new AuthorizedRequestToken(token, "veri");
         assertNotNull(tk.getSecret());
         assertNotNull(tk.getValue());

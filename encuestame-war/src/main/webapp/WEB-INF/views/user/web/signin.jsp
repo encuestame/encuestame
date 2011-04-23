@@ -33,13 +33,13 @@
             </form>
       </div>
     </div>
-     <c:if test="${social}">
+     <c:if test="${!social}">
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
           <div class="twitter">
               <form action="<%=request.getContextPath()%>/signin/twitter" method="POST">
                   <button type="submit">
-                      <img src="<c:url value="/resource/images/social/twitter/signin.png" />"
+                      <img src="<c:url value="/resources/images/social/twitter/signin.png" />"
                   </button>
               </form>
           </div>
@@ -87,4 +87,5 @@
                       FB.Event.subscribe('auth.sessionChange', function(response) { if (response.session) {} else {} });
                   </script>
           </div>
+        </div>
          </c:if>

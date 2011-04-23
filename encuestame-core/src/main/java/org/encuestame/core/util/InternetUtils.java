@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.validator.UrlValidator;
 import org.apache.log4j.Logger;
 
@@ -51,6 +53,38 @@ public class InternetUtils {
         final String[] schemes = {"http","https"};
         final UrlValidator urlValidator = new UrlValidator(schemes);
         return urlValidator.isValid(url);
+    }
+
+    /**
+     * Build Domain.
+     * @param request {@link HttpServletRequest}.
+     * @return
+     */
+    public static String getDomain(final HttpServletRequest request){
+            final StringBuffer stringBuffer = new StringBuffer(InternetUtils.isSecure(request) ? "https://" : "http://");
+            stringBuffer.append(request.getServerName());
+            if(request.getRemotePort() != 80){
+                stringBuffer.append(":");
+                stringBuffer.append(request.getLocalPort());
+            }
+            stringBuffer.append(request.getContextPath());
+            return stringBuffer.toString();
+    }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    public static Boolean isSecure(final HttpServletRequest request){
+        Boolean secure = false;
+        final String protocol = request.getProtocol();
+        if (protocol.indexOf("HTTPS") > -1) {
+            secure = true;
+        } else {
+            secure = false;
+            }
+        return secure;
     }
 
     public static boolean pingTwitter() {

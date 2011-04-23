@@ -29,12 +29,12 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.FolderBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.QuestionBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -181,6 +181,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final List<Poll> polls = getPollDao().getPollsByPollFolder(account, getPollFolder(folder.getId()));
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
+
     /**
      *
     */
@@ -209,6 +210,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      *
      */
+    @SuppressWarnings("unused")
     public void publicPollByList(String urlPoll, UnitLists emailList) {
         final List<Email> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
         if(emailList !=null){
@@ -283,9 +285,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * Get Poll Folder.
      * @param id
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    private PollFolder getPollFolder(final Long id){
+    private PollFolder getPollFolder(final Long id) throws EnMeNoResultsFoundException{
+        if(id == null){
+             throw new EnMeNoResultsFoundException("poll folder id not found");
+        }else {
         return this.getPollDao().getPollFolderById(id);
+        }
     }
 
     /**
@@ -307,4 +314,37 @@ public class PollService extends AbstractSurveyService implements IPollService{
         // TODO Auto-generated method stub
         return null;
     }
+
+    /**
+     * Add poll to Folder.
+     * @param folderId
+     * @param username
+     * @param pollId
+     * @throws EnMeNoResultsFoundException
+     */
+    public void addPollToFolder(final Long folderId, final String username, final Long pollId)
+                                throws EnMeNoResultsFoundException{
+        final PollFolder pfolder = this.getPollFolderByFolderIdandUser(folderId, getPrimaryUser(username));
+        if (pfolder!=null) {
+            final Poll poll = getPollDao().getPollByIdandUserId(pollId, getPrimaryUser(username));
+            if (poll == null){
+                throw new EnMeNoResultsFoundException("TweetPoll not found");
+             }
+            poll.setPollFolder(pfolder);
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnMeNoResultsFoundException("TweetPoll folder not found");
+    }
+}
+
+    /**
+     * Get Poll folder.
+     * @param folderId
+     * @param userId
+     * @return
+     */
+    public PollFolder getPollFolderByFolderIdandUser(final Long folderId, final Long userId){
+        return this.getPollDao().getPollFolderByIdandUser(folderId, userId);
+    }
+
 }

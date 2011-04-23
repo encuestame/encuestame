@@ -23,9 +23,6 @@
 
   <bean id="abstractsurvey" class="org.encuestame.business.service.AbstractSurveyService"
         abstract="true" parent="abstractchart">
-        <property name="twitterService">
-          <ref bean="twitterService" />
-        </property>
         <property name="tweetPollDao">
           <ref bean="tweetPollDao" />
         </property>
@@ -94,15 +91,6 @@
     <property name="messageSource">
           <ref bean="messageSource" />
     </property>
-  </bean>
-
-  <bean id="twitterService" class="org.encuestame.business.service.social.provider.TwitterService"
-        parent="service">
-    <property name="tinyApi" value="${twitter.tinyUrl}" />
-  </bean>
-
-  <bean id="linkedInService" class="org.encuestame.business.service.social.provider.LinkedInService"
-        parent="service">
   </bean>
 
   <bean id="surveyService" class="org.encuestame.business.service.SurveyService"
@@ -182,20 +170,20 @@
         * TripIt
   -->
 
-     <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider"
-          abstract="true">
-    </bean>
+<!--      <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider" -->
+<!--           abstract="true"> -->
+<!--     </bean> -->
 
-    <!-- Twitter Service Provider Consumer -->
+    <!-- Twitter Service Provider Consumer
     <bean id="twitterServiceConnect" autowire="byName"
           class="org.encuestame.business.service.social.connect.TwitterSocialService" parent="abstractSocialProvider">
-    </bean>
+    </bean>-->
 
-    <!-- Facebook OAuth Consumer -->
+    <!-- Facebook OAuth Consumer
     <bean id="facebookServiceConnect" autowire="byName"
           class="org.encuestame.business.service.social.connect.FacebookSocialService"
           parent="abstractSocialProvider">
-    </bean>
+    </bean> -->
 
     <!-- LinkedIn OAuth Consumer
     <bean id="linkedInServiceConnect" autowire="byName"

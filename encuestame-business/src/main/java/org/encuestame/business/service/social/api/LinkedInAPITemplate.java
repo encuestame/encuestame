@@ -1,0 +1,101 @@
+package org.encuestame.business.service.social.api;
+
+import java.util.List;
+
+import org.encuestame.business.service.social.AbstractSocialAPISupport;
+import org.encuestame.core.social.LinkedInAPIOperations;
+import org.encuestame.core.social.LinkedInConnections;
+import org.encuestame.core.social.LinkedInProfile;
+
+public class LinkedInAPITemplate extends AbstractSocialAPISupport implements LinkedInAPIOperations {
+
+    /**
+    *
+    */
+    static final String GET_CURRENT_USER_INFO = "https://api.linkedin.com/v1/people/~:public";
+
+    /**
+    *
+    */
+    static final String PUT_STATUS = "http://api.linkedin.com/v1/people/~/current-status";
+
+    /**
+     * Creates a new LinkedInTemplate given the minimal amount of information
+     * needed to sign requests with OAuth 1 credentials.
+     *
+     * @param apiKey the application's API key
+     * @param apiSecret the application's API secret
+     * @param accessToken an access token acquired through OAuth authentication with LinkedIn
+     * @param accessTokenSecret an access token secret acquired through OAuth authentication with LinkedIn
+     */
+    public LinkedInAPITemplate(String apiKey, String apiSecret,
+            String accessToken, String accessTokenSecret) {
+        setRestTemplate(org.encuestame.core.social.oauth1.ProtectedResourceClientFactory
+                .create(apiKey, apiSecret, accessToken, accessTokenSecret));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfileId()
+     */
+    public String getProfileId() {
+        return getUserProfile().getId();
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfileUrl()
+     */
+    public String getProfileUrl() {
+        return getUserProfile().getPublicProfileUrl();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public LinkedInProfile getUserProfile() {
+        return getRestTemplate().getForObject(GET_CURRENT_USER_INFO,
+                LinkedInProfile.class);
+    }
+
+    /**
+     *
+     * @param status
+     * @param twitter
+     */
+    public String updateStatus(final String status, final Boolean twitter) {
+        final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><current-status>"
+                + status + "</current-status>";
+        final StringBuffer url = new StringBuffer(PUT_STATUS);
+        if (twitter) {
+            url.append("?twitter-post=true");
+        }
+        getRestTemplate().put(url.toString(), xml);
+        return "";
+    }
+
+    /**
+     * Update Status.
+     */
+    public String updateStatus(final String status) {
+        return this.updateStatus(status, false);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<LinkedInProfile> getConnections() {
+        LinkedInConnections connections = getRestTemplate().getForObject(
+                "https://api.linkedin.com/v1/people/~/connections",
+                LinkedInConnections.class);
+        return connections.getConnections();
+    }
+
+    @Override
+    public String getProfile() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+}

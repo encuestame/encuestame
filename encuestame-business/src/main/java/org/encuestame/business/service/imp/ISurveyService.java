@@ -15,7 +15,7 @@ package org.encuestame.business.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.service.social.provider.TwitterService;
+import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -60,12 +60,6 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     Collection<UnitPatternBean> loadAllPatrons()
     throws EnMeExpcetion;
-
-    /**
-     * Getter {@link TwitterService}.
-     * @return the twitterService
-     */
-     ITwitterService getTwitterService();
 
     /**
      * Create Question.

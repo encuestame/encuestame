@@ -17,6 +17,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
+import org.apache.xerces.impl.xpath.regex.REUtil;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.test.config.AbstractBase;
@@ -59,4 +62,33 @@ public class TestHashTagDao  extends AbstractBase{
         assertEquals("Should be equals", 2, hashTagList.size());
     }
 
+    /**
+     * Get hash tags test.
+     */
+    @Test
+    public void testGetHashTags(){
+        final HashTag hashTag1 = createHashTag("America", 2000L);
+        final HashTag hashTag2 = createHashTag("Amazonas", 900L);
+        final HashTag hashTag3 = createHashTag("Carazo",  50L);
+        final HashTag hashTag4 = createHashTag("Nicaragua", 100L);
+        final HashTag hashTag5 = createHashTag("Paraguay", 0L);
+
+        final int limit = 20;
+        final int start = 0;
+        final List<HashTag> results = getHashTagDao().getHashTags(limit, start);
+        Assert.assertNotNull(results);
+        assertEquals("Should be equals", 4, results.size());
+
+        final HashTag expHas1 = results.get(0);
+        final HashTag expHas2 = results.get(1);
+        final HashTag expHas3 = results.get(2);
+        final HashTag expHas4 = results.get(3);
+        System.out.println("Hash 1 --->"+ hashTag1.getHashTag() + "-- EXP---" + expHas1.getHashTag());
+        System.out.println("HASH 2 --->"+ hashTag2.getHashTag() + " --EXP---" + expHas2.getHashTag());
+
+        assertEquals("Should be equals", hashTag1.getHashTag(), expHas1.getHashTag());
+        assertEquals("Should be equals", hashTag2.getHashTag(), expHas2.getHashTag());
+        assertEquals("Should be equals", hashTag4.getHashTag(), expHas3.getHashTag());
+        assertEquals("Should be equals", hashTag3.getHashTag(), expHas4.getHashTag());
+    }
 }
