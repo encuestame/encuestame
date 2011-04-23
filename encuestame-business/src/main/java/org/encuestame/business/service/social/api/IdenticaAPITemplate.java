@@ -33,10 +33,13 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
     static final String FRIENDS_TIMELINE_URL = API_URL_BASE + "statuses/friends_timeline.json";
     static final String USER_TIMELINE_URL = API_URL_BASE + "statuses/user_timeline.json";
 
-    private DateFormat searchDateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-    private DateFormat timelineDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
-
-
+    /**
+     * Constructor.
+     * @param apiKey
+     * @param apiSecret
+     * @param accessToken
+     * @param accessTokenSecret
+     */
     public IdenticaAPITemplate(String apiKey, String apiSecret,
             String accessToken, String accessTokenSecret) {
         setRestTemplate(org.encuestame.core.social.oauth1.ProtectedResourceClientFactory
@@ -48,20 +51,31 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         return (String) response.get("screen_name");
     }
 
-    public Long getProfileId() {
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfileId()
+     */
+    public String getProfileId() {
         Map<?, ?> response = getRestTemplate().getForObject(VERIFY_CREDENTIALS_URL, Map.class);
-        return Long.valueOf(response.get("id").toString());
+        return response.get("id").toString();
     }
+
 
     public IdentiCaProfile getUserProfile(long userId) {
         Map<?, ?> response = getRestTemplate().getForObject(USER_PROFILE_URL + "?user_id={userId}", Map.class, userId);
         return getProfileFromResponseMap(response);
     }
 
-    public void updateStatus(String message) {
+
+
+    public String updateStatus(String message) {
         updateStatus(message, new IdenticaStatusDetails());
+        return "";
     }
 
+    /*
+     *
+     */
     public void updateStatus(String message, IdenticaStatusDetails details) {
         MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
         tweetParams.add("status", message);
@@ -71,18 +85,18 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
 
     }
 
+    /*
+     *
+     */
     private void handleIdentiCaResponseErrors(ResponseEntity<Map> response) {
        //FUTURE: translate identica errors.
     }
 
-    private Date toDate(String dateString, DateFormat dateFormat) {
-        try {
-            return dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
+    /**
+     *
+     * @param response
+     * @return
+     */
     private IdentiCaProfile getProfileFromResponseMap(Map<?, ?> response) {
         IdentiCaProfile profile = new IdentiCaProfile();
         profile.setId(Long.valueOf(String.valueOf(response.get("id"))).longValue());
@@ -94,5 +108,17 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         profile.setProfileImageUrl(String.valueOf(response.get("profile_image_url")));
         profile.setCreatedDate(toDate(String.valueOf(response.get("created_at")), timelineDateFormat));
         return profile;
+    }
+
+    @Override
+    public String getProfile() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProfileUrl() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

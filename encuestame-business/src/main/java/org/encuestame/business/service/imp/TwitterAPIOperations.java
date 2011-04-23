@@ -44,32 +44,11 @@ public interface TwitterAPIOperations{
             throws TwitterException;
 
     /**
-     * Verify Credentials.
-     * @param socialAccount
-     * @return
-     */
-    Boolean verifyCredentials(final SocialAccount socialAccount);
-
-    /**
-     * Get OAuthorized Token.
-     * @param socialAccount {@link SocialAccount}.
-     * @return {@link Twitter}.
-     */
-    Twitter getOAuthAuthorizedInstance(final AccessToken accessToken);
-
-    /**
-     * Create New OAuth Access Token.
-     * @param socialAccount {@link SocialAccount}.
-     * @return {@link AccessToken}.
-     */
-    AccessToken createNewOAuthAccessToken(final SocialAccount socialAccount);
-
-    /**
      * OAuth Public Tweet.
      * @param socialAccount
      * @param tweet
      * @return
      * @throws TwitterException
      */
-    Status publicTweet(final SocialAccount socialAccount, final String tweet) throws TwitterException;
+    Status updateStatus(final SocialAccount socialAccount, final String tweet) throws TwitterException;
 }

@@ -14,15 +14,11 @@ package org.encuestame.persistence.domain.security;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.encuestame.persistence.domain.social.SocialProvider;
 
 /**
  * Define Account App Coonection.
@@ -32,7 +28,7 @@ import org.encuestame.persistence.domain.social.SocialProvider;
  */
 @Entity
 @Table(name = "oauth_account_connection")
-public class AccountConnection {
+public class AccountConnection extends AbstractSocial{
 
     /**
      * Account Id.
@@ -43,26 +39,6 @@ public class AccountConnection {
      * Reference to User Account.
      */
     private UserAccount userAccout;
-
-    /**
-     * Reference to Account Provider.
-     */
-    private SocialProvider accountProvider;
-
-    /**
-     * Access Token.
-     */
-    private String accessToken;
-
-    /**
-     * Social Account Id, eg: @encuestame
-     */
-    private String socialAccountId;
-
-    /**
-     * Secret Key.
-     */
-    private String secret;
 
     /**
      * Url to Social User Profile.
@@ -84,37 +60,6 @@ public class AccountConnection {
      */
     public void setAccountConnectionId(Long accountConnectionId) {
         this.accountConnectionId = accountConnectionId;
-    }
-
-    /**
-     * @return the accountProvider
-     */
-    @Column(name="account_provider")
-    @Enumerated(EnumType.STRING)
-    public SocialProvider getAccountProvider() {
-        return accountProvider;
-    }
-
-    /**
-     * @param accountProvider the accountProvider to set
-     */
-    public void setAccountProvider(SocialProvider accountProvider) {
-        this.accountProvider = accountProvider;
-    }
-
-    /**
-     * @return the accessToken
-     */
-    @Column(name = "access_token")
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    /**
-     * @param accessToken the accessToken to set
-     */
-    public void setAccessToken(final String accessToken) {
-        this.accessToken = accessToken;
     }
 
     /**
@@ -145,34 +90,5 @@ public class AccountConnection {
      */
     public void setProfileUrl(final String profileUrl) {
         this.profileUrl = profileUrl;
-    }
-
-    /**
-     * @return the secret
-     */
-    public String getSecret() {
-        return secret;
-    }
-
-    /**
-     * @param secret the secret to set
-     */
-    @Column(name = "secret")
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    /**
-     * @return the socialAccountId
-     */
-    public String getSocialAccountId() {
-        return socialAccountId;
-    }
-
-    /**
-     * @param socialAccountId the socialAccountId to set
-     */
-    public void setSocialAccountId(final String socialAccountId) {
-        this.socialAccountId = socialAccountId;
     }
 }

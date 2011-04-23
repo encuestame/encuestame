@@ -36,36 +36,56 @@ import org.springframework.web.client.RestTemplate;
  */
 public class FacebookAPITemplate extends AbstractSocialAPISupport implements FacebookAPIOperations {
 
-    private final RestTemplate restTemplate;
+        private static final String OBJECT_URL = "https://graph.facebook.com/{objectId}";
+        private static final String CONNECTION_URL = OBJECT_URL + "/{connection}";
+        private static final String FRIENDS = "friends";
+        private static final String FEED = "feed";
+        private static final String CURRENT_USER_ID = "me";
 
     /**
      * Create a new instance of FacebookTemplate.
      * This constructor creates the FacebookTemplate using a given access token.
-     * @param accessToken An access token given by Facebook after a successful OAuth 2 authentication (or through Facebook's JS library).
+     * @param accessToken An access token given by Facebook after a successful OAuth 2 authentication
      */
     public FacebookAPITemplate(String accessToken) {
-        this.restTemplate = ProtectedResourceClientFactory.draft10(accessToken);
-        // Facebook returns JSON data with text/javascript content type
-        MappingJacksonHttpMessageConverter json = new MappingJacksonHttpMessageConverter();
+        setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
+        // facebook returns JSON data with text/javascript content type
+        final MappingJacksonHttpMessageConverter json = new MappingJacksonHttpMessageConverter();
         json.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "javascript")));
-        restTemplate.getMessageConverters().add(json);
+        getRestTemplate().getMessageConverters().add(json);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfileId()
+     */
     public String getProfileId() {
         return Long.toString(getUserProfile().getId());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfileUrl()
+     */
     public String getProfileUrl() {
         return "http://www.facebook.com/profile.php?id=" + getProfileId();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.FacebookAPIOperations#getUserProfile()
+     */
     public FacebookProfile getUserProfile() {
         return getUserProfile(CURRENT_USER_ID);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.FacebookAPIOperations#getUserProfile(java.lang.String)
+     */
     public FacebookProfile getUserProfile(String facebookId) {
         @SuppressWarnings("unchecked")
-        Map<String, ?> profileMap = restTemplate.getForObject(OBJECT_URL, Map.class,
+        Map<String, ?> profileMap = getRestTemplate().getForObject(OBJECT_URL, Map.class,
                 facebookId);
 
         long id = Long.valueOf(String.valueOf(profileMap.get("id")));
@@ -76,23 +96,37 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         return new FacebookProfile(id, name, firstName, lastName, email);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.FacebookAPIOperations#getFriendIds()
+     */
     public List<String> getFriendIds() {
-        ResponseEntity<Map> response = restTemplate.getForEntity(CONNECTION_URL, Map.class, CURRENT_USER_ID, FRIENDS);
-        Map<String, List<Map<String, String>>> resultsMap = response.getBody();
-        List<Map<String, String>> friends = resultsMap.get("data");
-        List<String> friendIds = new ArrayList<String>();
+        final ResponseEntity<Map> response = getRestTemplate().getForEntity(CONNECTION_URL, Map.class,
+              CURRENT_USER_ID, FRIENDS);
+        final Map<String, List<Map<String, String>>> resultsMap = response.getBody();
+        final List<Map<String, String>> friends = resultsMap.get("data");
+        final List<String> friendIds = new ArrayList<String>();
         for (Map<String, String> friendData : friends) {
             friendIds.add(friendData.get("id"));
         }
         return friendIds;
     }
 
-    public void updateStatus(String message) {
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
+     */
+    public String updateStatus(String message) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("message", message);
         publish(CURRENT_USER_ID, FEED, map);
+        return "";
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.FacebookAPIOperations#updateStatus(java.lang.String, org.encuestame.core.social.FacebookLink)
+     */
     public void updateStatus(String message, FacebookLink link) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("link", link.getLink());
@@ -103,16 +137,19 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         publish(CURRENT_USER_ID, FEED, map);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.FacebookAPIOperations#publish(java.lang.String, java.lang.String, org.springframework.util.MultiValueMap)
+     */
     public void publish(String object, String connection, MultiValueMap<String, String> data) {
         MultiValueMap<String, String> requestData = new LinkedMultiValueMap<String, String>(data);
-        restTemplate.postForLocation(CONNECTION_URL, requestData, object, connection);
+        getRestTemplate().postForLocation(CONNECTION_URL, requestData, object, connection);
     }
 
+    @Override
+    public String getProfile() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-    static final String OBJECT_URL = "https://graph.facebook.com/{objectId}";
-    static final String CONNECTION_URL = OBJECT_URL + "/{connection}";
-
-    static final String FRIENDS = "friends";
-    static final String FEED = "feed";
-    static final String CURRENT_USER_ID = "me";
 }

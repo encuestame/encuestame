@@ -12,13 +12,22 @@
  */
 package org.encuestame.core.social;
 
-import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+
 
 /**
- * Description.
+ * Define basic social operations.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 20, 2011
  */
 public interface SocialAPIOperations {
+
+    String getProfile();
+
+    String getProfileId();
+
+    String updateStatus(final String status) throws EnMeFailSendSocialTweetException;
+
+    String getProfileUrl();
 
 }

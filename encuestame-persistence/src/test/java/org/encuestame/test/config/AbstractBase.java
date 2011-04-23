@@ -1297,11 +1297,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean verified,
             final SocialProvider provider){
         final SocialAccount socialTwitterAccounts = new SocialAccount();
-        socialTwitterAccounts.setToken(token);
+        socialTwitterAccounts.setAccessToken(token);
         socialTwitterAccounts.setSecretToken(secretToken);
-        socialTwitterAccounts.setSecUsers(secUsers);
+        socialTwitterAccounts.setAccount(secUsers);
         long randomNum = 100 + (int)(Math.random()* 4000);
-        socialTwitterAccounts.setSocialUserId(randomNum);
+        socialTwitterAccounts.setSocialProfileId(String.valueOf(randomNum));
         socialTwitterAccounts.setVerfied(verified);
         socialTwitterAccounts.setAccounType(provider);
         socialTwitterAccounts.setSocialAccountName(twitterAccount+randomNum);
@@ -1311,14 +1311,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /**
      * Create Default Setted User.
-     * @param secUsers {@link Account}.
+     * @param account {@link Account}.
      * @return {@link SocialAccount}.
      */
-    public SocialAccount createDefaultSettedTwitterAccount(final Account secUsers){
+    public SocialAccount createDefaultSettedTwitterAccount(final Account account){
         return this.createTwitterAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
-                secUsers,
+                account,
                 getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
     }
 

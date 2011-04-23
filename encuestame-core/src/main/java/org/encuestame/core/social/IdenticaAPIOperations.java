@@ -17,6 +17,6 @@ package org.encuestame.core.social;
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 21, 2011
  */
-public interface IdenticaAPIOperations {
+public interface IdenticaAPIOperations extends SocialAPIOperations {
 
 }

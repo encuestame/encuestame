@@ -68,19 +68,8 @@ public class TestTwitterService extends AbstractServiceBase {
     @Test
     public void testPublicTweet() throws TwitterException{
         final String testTweet = RandomStringUtils.randomAlphabetic(5);
-        final Status tweet = twitterService.publicTweet(this.socialTwitterAccount, testTweet);
+        final Status tweet = twitterService.updateStatus(this.socialTwitterAccount, testTweet);
         assertNotNull(tweet.getId());
-    }
-
-    /**
-     * @throws TwitterException
-     *
-     */
-    @Test
-    public void testVerifyCredentials() throws TwitterException{
-        final Twitter twitter = getTwitterService().getOAuthAuthorizedInstance(getTwitterService().createNewOAuthAccessToken(this.socialTwitterAccount));
-        final User user = twitter.verifyCredentials();
-        assertNotNull(user);
     }
 
     /**

@@ -12,6 +12,12 @@
  */
 package org.encuestame.business.service.social;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -22,6 +28,23 @@ import org.springframework.web.client.RestTemplate;
 public abstract class AbstractSocialAPISupport {
 
     private RestTemplate restTemplate;
+
+    protected DateFormat searchDateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+    protected DateFormat timelineDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
+
+    /**
+     *
+     * @param dateString
+     * @param dateFormat
+     * @return
+     */
+    protected Date toDate(String dateString, DateFormat dateFormat) {
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
     /**
      * @return the restTemplate

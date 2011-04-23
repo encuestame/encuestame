@@ -13,17 +13,9 @@
 
 package org.encuestame.business.service.social.api;
 
-import java.io.IOException;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.TwitterAPIOperations;
-import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 
@@ -46,9 +38,11 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
 
     private Log log = LogFactory.getLog(this.getClass());
 
+
     private String consumerSecret;
 
     private String consumerKey;
+
 
     /**
      * Constructor.
@@ -73,10 +67,10 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @return
      * @throws TwitterException
      */
-    public Status publicTweet(final SocialAccount socialTwitterAccount, final String tweet) throws TwitterException{
+    public Status updateStatus(final SocialAccount socialTwitterAccount, final String tweet) throws TwitterException{
         log.debug("publicTweet "+socialTwitterAccount.getSocialAccountName());
         //Twitter twitter = new TwitterFactory().getInstance();
-        log.debug("publicTweet Before  Token  {"+socialTwitterAccount.getToken());
+        log.debug("publicTweet Before  Token  {"+socialTwitterAccount.getAccessToken());
         log.debug("publicTweet Before Secret Token  {"+socialTwitterAccount.getSecretToken());
         final Twitter twitter = this.getTwitterInstance(socialTwitterAccount);
         log.debug("Verify  "+twitter.verifyCredentials());
@@ -89,7 +83,7 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param socialTwitterAccount
      * @return
      */
-    public Twitter getTwitterInstance(final SocialAccount socialTwitterAccount){
+    private Twitter getTwitterInstance(final SocialAccount socialTwitterAccount){
         final AccessToken accessToken = this.createNewOAuthAccessToken(socialTwitterAccount);
         log.debug("Access Token "+accessToken);
         return this.getOAuthAuthorizedInstance(accessToken);
@@ -132,8 +126,8 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param socialTwitterAccount {@link SocialAccount}.
      * @return {@link AccessToken}.
      */
-    public AccessToken createNewOAuthAccessToken(final SocialAccount socialTwitterAccount){
-         final AccessToken accessToken = new AccessToken(socialTwitterAccount.getToken(), socialTwitterAccount.getSecretToken());
+    private AccessToken createNewOAuthAccessToken(final SocialAccount socialTwitterAccount){
+         final AccessToken accessToken = new AccessToken(socialTwitterAccount.getAccessToken(), socialTwitterAccount.getSecretToken());
          return accessToken;
     }
 
@@ -142,7 +136,7 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param socialTwitterAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    public Twitter getOAuthAuthorizedInstance(final AccessToken accessToken){
+    private Twitter getOAuthAuthorizedInstance(final AccessToken accessToken){
         final ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
           .setOAuthConsumerKey(this.consumerKey)

@@ -12,11 +12,48 @@
  */
 package org.encuestame.core.social;
 
+import java.util.List;
+
+import org.springframework.util.MultiValueMap;
+
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 22, 2011
  */
-public interface FacebookAPIOperations {
+public interface FacebookAPIOperations extends SocialAPIOperations{
 
+    /**
+     *
+     * @param object
+     * @param connection
+     * @param data
+     */
+    void publish(String object, String connection, MultiValueMap<String, String> data);
+
+    /**
+     *
+     * @param message
+     * @param link
+     */
+    void updateStatus(String message, FacebookLink link);
+
+    /**
+     *
+     * @return
+     */
+    List<String> getFriendIds();
+
+    /**
+     *
+     * @param facebookId
+     * @return
+     */
+    FacebookProfile getUserProfile(String facebookId);
+
+    /**
+     *
+     * @return
+     */
+    FacebookProfile getUserProfile();
 }

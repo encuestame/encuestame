@@ -901,7 +901,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("Verify OAuth Credentials");
                 if(verifyCredentials(
                         //Token and Secret token should be always from database
-                        twitterAccount.getToken(),
+                        twitterAccount.getAccessToken(),
                         twitterAccount.getSecretToken(),
                         //consumer key's
                         accountBean.getKey(),
@@ -1030,14 +1030,14 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
             log.debug("Updating  Token to {"+token);
             log.debug("Updating Secret Token to {"+tokenSecret);
-            socialAccount.setToken(token);
+            socialAccount.setAccessToken(token);
             socialAccount.setVerfied(Boolean.TRUE);
             socialAccount.setAccounType(socialProvider);
-            socialAccount.setSecUsers(account.getAccount());
+            socialAccount.setAccount(account.getAccount());
             socialAccount.setSocialAccountName(username);
-            socialAccount.setType(TypeAuth.OAUTH);
+            socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
             socialAccount.setSecretToken(tokenSecret);
-            socialAccount.setSocialUserId(socialAccountId);
+            socialAccount.setSocialProfileId(String.valueOf(socialAccountId));
             getAccountDao().saveOrUpdate(socialAccount);
             log.debug("Updated Token");
     }

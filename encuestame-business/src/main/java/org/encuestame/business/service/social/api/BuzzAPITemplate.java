@@ -12,26 +12,13 @@
  */
 package org.encuestame.business.service.social.api;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.Data;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
-import org.jfree.util.Log;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.encuestame.persistence.domain.security.SocialAccount;
 
 /**
  * Google Buzz
@@ -44,9 +31,22 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * Google Key.
      */
     private String GOOGLE_KEY;
+    private String GOOGLE_REST_UPDATE = "https://www.googleapis.com/buzz/v1/activities/@me/@self?key={key}&alt=json";
+    private String GOOGLE_REST_PROFILE = "https://www.googleapis.com/buzz/v1/people/@me/@self?alt=json";
+    private String GOOGLE_REST_LIKE = "https://www.googleapis.com/buzz/v1/activities/@me/@liked/{activityId}?key={key}";
+    private String GOOGLE_ACTIVITIES = "https://www.googleapis.com/buzz/v1/activities/@me/@public?alt=json";
+
 
     /**
      *
+     * @param socialAccount
+     */
+    public BuzzAPITemplate(final SocialAccount socialAccount){
+        this(socialAccount.getAccessToken(), socialAccount.getApplicationKey().toString());
+    }
+
+    /**
+     * Constructor.
      * @param accessToken
      */
     public BuzzAPITemplate(final String accessToken, final String googleKey) {
@@ -54,55 +54,58 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
           this.GOOGLE_KEY = googleKey;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfile()
+     */
     public String getProfile(){
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$RESTFUL PROFILE$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        String profile = "https://www.googleapis.com/buzz/v1/people/@me/@self?alt=json";
-        Object profileMap = getRestTemplate().getForObject(profile, Object.class);
+        //TOOD: conver to BuzzProfile.
+        Object profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Object.class);
         System.out.println(profileMap);
         return "";
     }
 
-    public String updateStatus(final String status) throws IOException{
-         final Data jsonData = new Data();
-         jsonData.getData().getObject().setType("note");
-         jsonData.getData().getObject().setComment(status);
-         ObjectMapper m = new ObjectMapper();
-         JsonFactory jf = new JsonFactory();
-         StringWriter sw = new StringWriter();
-         org.codehaus.jackson.JsonGenerator jg = jf.createJsonGenerator(sw);
-         jg.useDefaultPrettyPrinter();
-         m.writeValue(jg, jsonData);
-        String PROFILE_URL = "https://www.googleapis.com/buzz/v1/activities/@me/@self?key={key}&alt=json";
-        //getRestTemplate().post
-        MultiValueMap<String, String> requestData = new LinkedMultiValueMap<String, String>();
-        //System.out.println(getRestTemplate().postForEntity(PROFILE_URL, requestData, String.class));
-        //HttpEntity<?> requestEntity = new HttpEntity<String>(buildBaseHeaders());
-        String h = "<entry xmlns=\"http://www.w3.org/2005/Atom\" xmlns:activity=\"http://activitystrea.ms/spec/1.0\"><activity:object><activity:object-type>http://activitystrea.ms/schema/1.0/note</activity:object-type> <content type=\"html\">hji hi hi hi hihih!</content></activity:object></entry>";
-
-        Map response = getRestTemplate().postForObject(PROFILE_URL, jsonData, Map.class, GOOGLE_KEY);
-        //URI d = getRestTemplate().postForLocation(PROFILE_URL, h);
-        System.out.println(response);
-        //System.out.println(response.getHeaders());
-        //System.out.println(response.getStatusCode());
-        //Log.debug("mappp-------"+response);
-        return "google";
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
+     */
+    public String updateStatus(final String status) {
+        final Data jsonData = new Data();
+        jsonData.getData().getObject().setType("note");
+        jsonData.getData().getObject().setComment(status);
+        @SuppressWarnings("rawtypes")
+        final Map response = getRestTemplate().postForObject(
+                this.GOOGLE_REST_UPDATE, jsonData, Map.class, this.GOOGLE_KEY);
+        return response.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.BuzzAPIOperations#likeActivity(java.lang.String)
+     */
     public void likeActivity(String id){
-        final String URL = "https://www.googleapis.com/buzz/v1/activities/@me/@liked/{activityId}?key="+GOOGLE_KEY;
-         getRestTemplate().put(URL, Map.class, id);
+         getRestTemplate().put(GOOGLE_REST_LIKE, Map.class, id, this.GOOGLE_KEY);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.BuzzAPIOperations#getActivities()
+     */
     public String getActivities(){
-        final String x = "https://www.googleapis.com/buzz/v1/activities/@me/@public?alt=json";
-        Object f = getRestTemplate().getForObject(x, Object.class);
+        Object f = getRestTemplate().getForObject(this.GOOGLE_ACTIVITIES, Object.class);
         System.out.println(f);
         return "google";
     }
 
-    private MultiValueMap<String, String> buildBaseHeaders() {
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-        headers.add("Accept", "application/json");
-        return headers;
+    @Override
+    public String getProfileId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProfileUrl() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

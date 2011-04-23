@@ -1,5 +1,7 @@
 package org.encuestame.persistence.domain.social;
 
+import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
+
 /**
  * Social Provider.
  * @author Picado, Juan juanATencuestame.org
@@ -67,5 +69,21 @@ public enum SocialProvider {
         else if (socialProvider.equalsIgnoreCase("BUZZ")) { return BUZZ; }
         else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
         else return null;
+    }
+
+    /**
+     * Provide OAuth protocol.
+     * @param provider {@link SocialProvider}.
+     * @return
+     */
+    public static TypeAuth getTypeAuth(final SocialProvider provider){
+        if(provider.equals(TWITTER) || provider.equals(IDENTICA)
+                || provider.equals(LINKEDIN) || provider.equals(YAHOO)){
+            return TypeAuth.OAUTH1;
+        } else if (provider.equals(BUZZ) || provider.equals(FACEBOOK)){
+            return TypeAuth.OAUTH2;
+        } else {
+            return null;
+        }
     }
 }

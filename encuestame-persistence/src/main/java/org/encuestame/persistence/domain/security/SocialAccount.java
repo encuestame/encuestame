@@ -46,7 +46,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Table(name = "social_account")
 @Indexed(index="SocialAccount")
-public class SocialAccount {
+public class SocialAccount extends AbstractSocial{
 
     /**
      * Id.
@@ -56,27 +56,12 @@ public class SocialAccount {
     /**
      * {@link Account}.
      */
-    private Account secUsers;
+    private Account account;
 
     /**
      * Social Account Name.
      */
     private String socialAccountName;
-
-    /**
-     * Social User Id.
-     */
-    private Long socialUserId;
-
-    /**
-     * Tokeb
-     */
-    private String token;
-
-    /**
-     * Secret Token.
-     */
-    private String secretToken;
 
     /**
      * Default Selected.
@@ -86,12 +71,7 @@ public class SocialAccount {
     /**
      * Type.
      */
-    private TypeAuth type = TypeAuth.OAUTH; //Twitter only accept OAuth.
-
-    /**
-     * Type Accountd.
-     */
-    private SocialProvider accounType = SocialProvider.TWITTER;
+    private TypeAuth type = TypeAuth.OAUTH1;
 
 
     /** Verfied. **/
@@ -102,15 +82,16 @@ public class SocialAccount {
     public enum TypeAuth {
 
     /**
-     * OAuth.
+     * OAuth1 protocol.
      */
-    OAUTH,
+    OAUTH1,
+
     /**
-     * Password.
-     * Twitter as deprecated password login from 31/10/10.
+     * OAuth2 protocol
      */
-    @Deprecated
-    PASSWORD};
+    OAUTH2
+
+    };
 
     /**
      * @return the id
@@ -131,18 +112,18 @@ public class SocialAccount {
     }
 
     /**
-     * @return the secUsers
+     * @return the account
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public Account getSecUsers() {
-        return secUsers;
+    public Account getAccount() {
+        return account;
     }
 
     /**
-     * @param secUsers the secUsers to set
+     * @param secUsers the account to set
      */
-    public void setSecUsers(final Account secUsers) {
-        this.secUsers = secUsers;
+    public void setAccount(final Account account) {
+        this.account = account;
     }
 
     /**
@@ -162,21 +143,6 @@ public class SocialAccount {
     }
 
     /**
-     * @return the socialUserId
-     */
-    @Column (name="social_account_id", nullable = false, unique = true)
-    public Long getSocialUserId() {
-        return socialUserId;
-    }
-
-    /**
-     * @param socialUserId the socialUserId to set
-     */
-    public void setSocialUserId(Long socialUserId) {
-        this.socialUserId = socialUserId;
-    }
-
-    /**
      * @return the type
      */
     @Column(name="type_auth")
@@ -192,24 +158,6 @@ public class SocialAccount {
         this.type = type;
     }
 
-
-
-    /**
-     * @return the accounType
-     */
-    @Column(name="type_account")
-    @Enumerated(EnumType.STRING)
-    public SocialProvider getAccounType() {
-        return accounType;
-    }
-
-    /**
-     * @param accounType the accounType to set
-     */
-    public void setAccounType(final SocialProvider accounType) {
-        this.accounType = accounType;
-    }
-
     /**
      * @return the verfied
      */
@@ -223,24 +171,6 @@ public class SocialAccount {
      */
     public void setVerfied(Boolean verfied) {
         this.verfied = verfied;
-    }
-
-    @Column(name = "oauth_token", nullable = true)
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    @Column(name = "oauth_secret_token", nullable = true)
-    public String getSecretToken() {
-        return secretToken;
-    }
-
-    public void setSecretToken(String secretToken) {
-        this.secretToken = secretToken;
     }
 
     /**

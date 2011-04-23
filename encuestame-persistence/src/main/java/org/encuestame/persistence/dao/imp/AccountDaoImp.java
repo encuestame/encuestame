@@ -131,7 +131,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         log.debug("account "+account.getUid());
         log.debug("socialAccountId "+socialAccountId);
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", account));
+        criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("id", socialAccountId));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -177,7 +177,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
             final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", account) );
+        criteria.add(Restrictions.eq("account", account) );
         if (provider != null) { //if provider is null, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
         }
@@ -189,10 +189,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterVerifiedAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
     public final List<SocialAccount> getTwitterVerifiedAccountByUser(
-            final Account secUsers,
+            final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", secUsers));
+        criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("verfied", Boolean.TRUE) );
         if (provider != null) { //if provider is null, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
@@ -248,10 +248,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         final AccountConnection connection = new AccountConnection();
         //get provider
         final SocialProvider providerSocial = SocialProvider.getProvider(provider);
-        connection.setAccountProvider(providerSocial);
+        connection.setAccounType(providerSocial);
         connection.setAccessToken(token.getValue());
-        connection.setSocialAccountId(socialAccountId);
-        connection.setSecret(token.getSecret());
+        connection.setSocialProfileId(socialAccountId);
+        connection.setSecretToken(token.getSecret());
         connection.setProfileUrl(providerProfileUrl);
         connection.setUserAccout(this.getUserAccountById(userAccountId));
         getHibernateTemplate().saveOrUpdate(connection);
@@ -316,7 +316,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
             final OAuth1Token oAuthToken = new OAuth1Token(ac.getAccessToken(),
-                    ac.getSecret());
+                    ac.getSecretToken());
             return oAuthToken;
         } else {
             throw new EnMeNoResultsFoundException("connection not found");

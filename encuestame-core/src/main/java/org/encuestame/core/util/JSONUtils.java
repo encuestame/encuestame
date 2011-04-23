@@ -10,24 +10,32 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.social;
+package org.encuestame.core.util;
+
+import java.io.IOException;
+import java.io.StringWriter;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.encuestame.core.social.Data;
 
 /**
- *
+ * Helper to JSON.
  * @author Picado, Juan juanATencuestame.org
- * @since Apr 20, 2011
+ * @since Apr 23, 2011
  */
-public interface BuzzAPIOperations extends SocialAPIOperations{
+public class JSONUtils {
 
-    /**
-     * Like Activity.
-     * @param id
-     */
-     void likeActivity(final String id);
 
-     /**
-      * Get list of Activities.
-      * @return
-      */
-     String getActivities();
+    public static String convertPojoToJSON(final Object object) throws IOException{
+        final ObjectMapper m = new ObjectMapper();
+        final JsonFactory jf = new JsonFactory();
+        final StringWriter sw = new StringWriter();
+        final JsonGenerator jg = jf.createJsonGenerator(sw);
+        jg.useDefaultPrettyPrinter();
+        m.writeValue(jg, object);
+        return sw.toString();
+    }
+
 }
