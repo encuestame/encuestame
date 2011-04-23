@@ -1,6 +1,7 @@
 package org.encuestame.mvc.controller.social.json;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -116,13 +117,13 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             @RequestParam(value = "socialAccountId", required = true) Long socialAccountId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         try {
-           getSecurityService().changeStateSocialAccount(socialAccountId, getUserPrincipalUsername(), type);
-        } catch (IllegalSocialActionException e) {
-            setError(e.getMessage(), response);
-        } catch (EnMeNoResultsFoundException e) {
-            setError(e.getMessage(), response);
-        }
+//         try {
+//           //getSecurityService().changeStateSocialAccount(socialAccountId, getUserPrincipalUsername(), type);
+//        } catch (IllegalSocialActionException e) {
+//            setError(e.getMessage(), response);
+//        } catch (EnMeNoResultsFoundException e) {
+//            setError(e.getMessage(), response);
+//        }
         return returnData();
     }
 
@@ -180,9 +181,9 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-             final List<SocialAccountBean> accounts = getSecurityService()
-                   .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-             setItemReadStoreResponse("socialAccounts", "id", accounts);
+//             final List<SocialAccountBean> accounts = getSecurityService()
+//                   .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+//             setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
         } catch (Exception e) {
             log.error(e);
@@ -209,11 +210,47 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             HttpServletResponse response,
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
+//        try {final List<SocialAccountBean> accounts = getSecurityService()
+//            .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+//        setItemReadStoreResponse("socialAccounts", "id", accounts);
+//             final List<SocialAccountBean> accounts = getSecurityService()
+//                   .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+//             setItemReadStoreResponse("socialAccounts", "id", accounts);
+//             log.debug("Twitter Accounts Loaded");
+//        } catch (Exception e) {
+//            log.error(e);
+//            e.printStackTrace();
+//            setError(e.getMessage(), response);
+//        }
+        return returnData();
+    }
+
+    /**
+     * Return list of enabled providers.
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/social/providers.json", method = RequestMethod.GET)
+    public ModelMap getProvidersEnabled(
+            HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
         try {
-             final List<SocialAccountBean> accounts = getSecurityService()
-                   .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-             setItemReadStoreResponse("socialAccounts", "id", accounts);
-             log.debug("Twitter Accounts Loaded");
+             final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
+             final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+                 providers.add(SocialProvider.TWITTER);
+                 providers.add(SocialProvider.BUZZ);
+                 //providers.add(SocialProvider.FACEBOOK);
+                 //providers.add(SocialProvider.IDENTICA);
+                 //providers.add(SocialProvider.TRIP_IT);
+                 providers.add(SocialProvider.LINKEDIN);
+                 //providers.add(SocialProvider.YAHOO);
+             jsonResponse.put("provider", providers);
+             setItemResponse(jsonResponse);
+             log.debug("Social providers enabled "+providers.size());
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
@@ -298,14 +335,14 @@ public class SocialAccountsJsonController extends AbstractJsonController {
                          log.debug("Access Token UserId {"+accessToken.getUserId());
                          log.debug("New Token {"+accessToken.getToken());
                          log.debug("New Secret Token {"+accessToken.getTokenSecret());
-                         getSecurityService().addOrUpdateOAuthTokenSocialAccount((long) accessToken.getUserId(),
-                                 accessToken.getToken(),
-                                 accessToken.getTokenSecret(),
-                                 accessToken.getScreenName(),
-                                 account,
-                                 socialProvider);
-                         confirmed = true;
-                         response.put("message", "ok");
+//                         getSecurityService().addOrUpdateOAuthTokenSocialAccount((long) accessToken.getUserId(),
+//                                 accessToken.getToken(),
+//                                 accessToken.getTokenSecret(),
+//                                 accessToken.getScreenName(),
+//                                 account,
+//                                 socialProvider);
+//                         confirmed = true;
+//                         response.put("message", "ok");
                     }
                 }
             } catch (Exception e) {

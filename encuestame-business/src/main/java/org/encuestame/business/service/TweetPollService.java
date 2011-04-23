@@ -438,7 +438,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(this.getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
-        return getTwitterService().getTinyUrl(stringBuffer.toString());
+        //return getTwitterService().getTinyUrl(stringBuffer.toString());
+        return "";
     }
 
     /*
@@ -487,7 +488,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  //create notification
                  createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
                          buildTwitterItemView(socialTwitterAccounts.getSocialAccountName(), String.valueOf(status.getId())),
-                         socialTwitterAccounts.getSecUsers());
+                         socialTwitterAccounts.getAccount());
              } catch (Exception e) {
                  log.error("Error publish tweet:{"+e.getMessage());
                  //change status to failed
@@ -721,6 +722,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final TweetPollFolder tpfolder = this.getTweetPollFolderByFolderIdandUser(folderId, getPrimaryUser(username));
          if (tpfolder!=null) {
              final TweetPoll tpoll = getTweetPollDao().getTweetPollByIdandUserId(tweetPollId, getPrimaryUser(username));
+             if (tpoll == null){
+                throw new EnMeNoResultsFoundException("TweetPoll not found");
+             }
              tpoll.setTweetPollFolder(tpfolder);
              getTweetPollDao().saveOrUpdate(tpoll);
          } else {

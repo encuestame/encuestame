@@ -43,7 +43,8 @@ public interface IMasterSurveyService extends ServiceOperations{
      * @param maxResults
      * @return
      */
-    List<HashTagBean> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults);
+    List<HashTagBean> listSuggestHashTags(final String hashTagKeyWord, final Integer maxResults,
+            final Long[] exludes);
 
     /**
      * Save Question Answer.

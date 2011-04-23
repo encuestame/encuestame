@@ -13,8 +13,11 @@
 package org.encuestame.business.service.imp;
 
 import java.util.List;
+
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
 
@@ -48,4 +51,22 @@ public interface IFrontEndService extends ServiceOperations {
              final String period,
              Integer maxResults)
              throws EnMeSearchException;
+
+    /**
+     * List Hash tags
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<HashTagBean> getHashTags(
+            Integer maxResults,
+            final Integer start);
+
+    /**
+     * Get hashTag item.
+     * @param tagName
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    HashTagBean getHashTagItem(final String tagName) throws EnMeNoResultsFoundException;
 }

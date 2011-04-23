@@ -32,7 +32,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -309,7 +309,7 @@ public class TestUserDao extends AbstractBase {
         final SocialAccount ac = createSocialProviderAccount(this.account, SocialProvider.BUZZ);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
         assertEquals("Should be equals", ac.getId(),ex.getId());
-        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.BUZZ, ex.getSocialUserId());
+        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.BUZZ, Long.valueOf(ex.getSocialProfileId()));
         assertNotNull(ex2);
         assertEquals("Should be equals", ac.getId(), ex2.getId());
     }
@@ -330,7 +330,7 @@ public class TestUserDao extends AbstractBase {
     @Test
     public void testisConnected() throws EnMeNoResultsFoundException{
         final UserAccount account = createUserAccount("jota", this.account);
-        final OAuthToken token = new OAuthToken("token", "secret");
+        final OAuth1Token token = new OAuth1Token("token", "secret");
         final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
         //final AccountConnection exAc = getAccountDao().getAccountConnection(ac.getUserAccout().getUid(), "TWITTER");
         //assertNotNull(exAc);
@@ -358,10 +358,10 @@ public class TestUserDao extends AbstractBase {
     @Test
     public void testgetAccessToken() throws EnMeNoResultsFoundException{
         final UserAccount account = createUserAccount("jota", this.account);
-        final OAuthToken token = new OAuthToken("token", "secret");
+        final OAuth1Token token = new OAuth1Token("token", "secret");
         final AccountConnection accountConnection = createConnection("TWITTER", token, "12345",
               account.getUid() , "ur");
-        final OAuthToken token2 = getAccountDao().getAccessToken(account.getUid(), "TWITTER");
+        final OAuth1Token token2 = getAccountDao().getAccessToken(account.getUid(), "TWITTER");
         assertEquals("Should be equals", token.getSecret(),token2.getSecret());
         assertEquals("Should be equals", token.getValue(),token2.getValue());
         final AccountConnection ac2 = getAccountDao().findAccountConnectionByAccessToken("TWITTER",
@@ -397,7 +397,7 @@ public class TestUserDao extends AbstractBase {
     @Test
     public void testgetAccountConnection(){
         final UserAccount account = createUserAccount("jota", this.account);
-        final OAuthToken token = new OAuthToken("token", "secret");
+        final OAuth1Token token = new OAuth1Token("token", "secret");
         final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
         final AccountConnection exAc = getAccountDao().getAccountConnection(account.getUid(), "TWITTER");
         assertNotNull(exAc);

@@ -11,7 +11,7 @@
     <packaging>war</packaging>
     <name>encuestame war</name>
     <build>
-    <finalName>encuestame</finalName>
+    <finalName>encuestame-${project.version}-r${buildNumber}</finalName>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -116,6 +116,8 @@
                     </manifest>
                     <manifestEntries>
                         <Implementation-Build>${buildNumber}</Implementation-Build>
+                         <manifest_entry>value</manifest_entry>
+                         <addClasspath>true</addClasspath>
                     </manifestEntries>
                 </archive>
             </configuration>
@@ -492,39 +494,6 @@
             <dependency>
                 <groupId>org.springframework.integration</groupId>
                 <artifactId>spring-integration-mail</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-core</artifactId>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-facebook</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-twitter</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-linkedin</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-github</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-tripit</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-web</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-gowalla</artifactId>
             </dependency>
               <!-- Spring Security -->
              <dependency>

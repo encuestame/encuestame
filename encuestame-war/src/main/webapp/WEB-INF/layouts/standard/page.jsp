@@ -8,7 +8,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib uri="http://www.springframework.org/spring-social/facebook/tags" prefix="facebook" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html>
@@ -48,10 +47,10 @@
                 <tiles:insertAttribute name="menu" ignore="true" />
                 <tiles:insertAttribute name="content"/>
             </div>
-            <div id="footer">
-                <tiles:insertAttribute name="footer" />
-            </div>
         </div>
+     </div>
+     <div id="footer">
+          <tiles:insertAttribute name="footer" />
      </div>
 </body>
 </html>

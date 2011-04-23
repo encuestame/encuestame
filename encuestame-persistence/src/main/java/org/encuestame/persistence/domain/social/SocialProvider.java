@@ -1,5 +1,7 @@
 package org.encuestame.persistence.domain.social;
 
+import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
+
 /**
  * Social Provider.
  * @author Picado, Juan juanATencuestame.org
@@ -18,10 +20,7 @@ public enum SocialProvider {
      * Identica provider.
      */
     IDENTICA,
-    /**
-     * TripIt provider.
-     */
-    TRIP_IT,
+
     /**
      * Linked In provider.
      */
@@ -50,7 +49,6 @@ public enum SocialProvider {
         if (this == TWITTER) { provider = "TWITTER"; }
         else if (this == FACEBOOK) { provider = "FACEBOOK"; }
         else if (this == IDENTICA) { provider = "IDENTICA"; }
-        else if (this == TRIP_IT) { provider = "TRIP_IT"; }
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
         else if (this == BUZZ) { provider = "BUZZ"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
@@ -67,10 +65,25 @@ public enum SocialProvider {
         else if (socialProvider.equalsIgnoreCase("TWITTER")) { return TWITTER; }
         else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
         else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
-        else if (socialProvider.equalsIgnoreCase("TRIPIT")) { return TRIP_IT; }
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
         else if (socialProvider.equalsIgnoreCase("BUZZ")) { return BUZZ; }
         else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
         else return null;
+    }
+
+    /**
+     * Provide OAuth protocol.
+     * @param provider {@link SocialProvider}.
+     * @return
+     */
+    public static TypeAuth getTypeAuth(final SocialProvider provider){
+        if(provider.equals(TWITTER) || provider.equals(IDENTICA)
+                || provider.equals(LINKEDIN) || provider.equals(YAHOO)){
+            return TypeAuth.OAUTH1;
+        } else if (provider.equals(BUZZ) || provider.equals(FACEBOOK)){
+            return TypeAuth.OAUTH2;
+        } else {
+            return null;
+        }
     }
 }

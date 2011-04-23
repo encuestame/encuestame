@@ -80,7 +80,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1297,11 +1297,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean verified,
             final SocialProvider provider){
         final SocialAccount socialTwitterAccounts = new SocialAccount();
-        socialTwitterAccounts.setToken(token);
+        socialTwitterAccounts.setAccessToken(token);
         socialTwitterAccounts.setSecretToken(secretToken);
-        socialTwitterAccounts.setSecUsers(secUsers);
+        socialTwitterAccounts.setAccount(secUsers);
         long randomNum = 100 + (int)(Math.random()* 4000);
-        socialTwitterAccounts.setSocialUserId(randomNum);
+        socialTwitterAccounts.setSocialProfileId(String.valueOf(randomNum));
         socialTwitterAccounts.setVerfied(verified);
         socialTwitterAccounts.setAccounType(provider);
         socialTwitterAccounts.setSocialAccountName(twitterAccount+randomNum);
@@ -1311,14 +1311,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /**
      * Create Default Setted User.
-     * @param secUsers {@link Account}.
+     * @param account {@link Account}.
      * @return {@link SocialAccount}.
      */
-    public SocialAccount createDefaultSettedTwitterAccount(final Account secUsers){
+    public SocialAccount createDefaultSettedTwitterAccount(final Account account){
         return this.createTwitterAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
-                secUsers,
+                account,
                 getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
     }
 
@@ -1538,6 +1538,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create hashtag with hits.
+     * @param hashTagName name
+     * @param hits total hits.
+     * @return {@link HashTag}
+     */
+    public HashTag createHashTag(final String hashTagName, final Long hits){
+        final HashTag hastag = this.createHashTag(hashTagName);
+        hastag.setHits(hits);
+        getHashTagDao().saveOrUpdate(hastag);
+        return hastag;
+    }
+
+    /**
      * @return the notification
      */
     public INotification getNotification() {
@@ -1576,7 +1589,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public AccountConnection createConnection(final String provider,
-            final OAuthToken token,
+            final OAuth1Token token,
             final String socialAccountId,
             final Long userAccountId,
             final String providerProfileUrl){

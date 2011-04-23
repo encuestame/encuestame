@@ -189,7 +189,7 @@ public class QuestionAnswer {
     /**
      * @return the provider
      */
-    @Column(name = "short_url_provider", nullable = false)
+    @Column(name = "short_url_provider", nullable = true)
     public ShortUrlProvider getProvider() {
         return provider;
     }

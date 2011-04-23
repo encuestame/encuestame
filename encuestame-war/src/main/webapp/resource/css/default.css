@@ -6,17 +6,12 @@
 @import url("livePanel.css");
 
 html, body {
-       height: 100%;
+    height: 100%;
 }
 
 body {
     font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
     font-size: 12px;
-    margin: 0;
-    padding: 0;
-}
-
-*{
     margin: 0;
     padding: 0;
 }
@@ -69,23 +64,18 @@ a:hover{
 }
 
 #mainWrapper {
-
+    min-height: 92%;
+    position: relative;
 }
 
 #content-container {
     padding-top: 39px;
+    min-height: 100%;
 }
 
 #content-container #enme-content {
     margin: 0 auto;
     width: 92%;
-}
-
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -4em;
 }
 
 #defaultWrapper{
@@ -112,22 +102,22 @@ a:hover{
     width: 245px;
 }
 
-#footer{
-    text-align: center;
-    margin-top: 5px;
-    opacity:0.8;
-    filter:alpha(opacity=80);
+#footer {
+  background-color: #F7F7F7;
+  color: #666666;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
 }
 
-#footer .wrapper{
-    border-top: 1px solid #D1D7E3;
-    padding: 10px 35px 5px 1px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    text-align: right;
-    font-size: 10px;
-    max-height: 20px;
+#footer .footer{
+  font-size: 0.9em;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
 }
 
 .message{
@@ -204,15 +194,9 @@ a:hover{
 }
 
 #content-container #enme-content div.defaultMarginWrapper{
-    width: 100%;
+    width: 85%;
     margin-top: 29px;
-   -webkit-border-radius: 5px 5px 0px 0px ;
-   -moz-border-radius: 5px 5px 0px 0px ;
-    border-radius: 5px 5px 0px 0px ;
-    -moz-box-shadow: 0px 1px 2px #888;
-    -webkit-box-shadow: 0px 1px 2px #888;
-    box-shadow: 0px 1px 2px #888;
-    border: 1px solid #D7D7D7;
+    margin: 0 auto;
 }
 
 #content-container #enme-content div.votes{
@@ -370,4 +354,42 @@ div.tweetPollDetail div.question{
 
 div.tweetPollDetail div.answerVote{
     padding: 5px;
+}
+
+/** social accounts **/
+
+div.socialAccountPicker{
+    width: 100%;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    max-width: 600px;
+    padding: 4px;
+    max-height: 240px;
+    overflow: auto;
+}
+
+div.socialAccountPicker .list{
+    float: left;
+    width: 250px;
+    overflow: auto;
+    max-height: 200px;
+}
+
+div.socialAccountPicker .selected{
+    float: right;
+    min-width: 400px;
+    border: 1px solid gray;
+}
+
+div.socialAccountPicker div.account{
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    font-size: 130%;
+    border: 1px solid black;
+    padding: 5px;
+    min-width: 200px;
 }

@@ -34,6 +34,15 @@ public class FolderBean implements Serializable {
 
     private Date createAt;
 
+    public FolderBean() {
+
+    }
+
+    public FolderBean(Long id) {
+        super();
+        this.id = id;
+    }
+
     /**
      * @return the id
      */
@@ -75,4 +84,12 @@ public class FolderBean implements Serializable {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
+
+    @Override
+    public String toString() {
+        return "FolderBean [id=" + id + ", folderName=" + folderName
+                + ", createAt=" + createAt + "]";
+    }
+
+
 }

@@ -38,7 +38,8 @@ public interface IHashTagDao extends IBaseDao	{
      * @param keyword keyword
      * @return
      */
-    List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults);
+    List<HashTag> getListHashTagsByKeyword(final String keyword, final Integer maxResults,
+            final Long[] excludes);
 
     /**
      * Get HashTag By Name.
@@ -47,4 +48,12 @@ public interface IHashTagDao extends IBaseDao	{
      * @throws HibernateException
      */
     HashTag getHashTagByName(final String hashTag)throws HibernateException;
+
+    /**
+     * Get hashTags.
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<HashTag> getHashTags( final Integer maxResults,final Integer start);
 }

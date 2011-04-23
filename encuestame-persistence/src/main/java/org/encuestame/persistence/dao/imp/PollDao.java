@@ -193,6 +193,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.add(Restrictions.eq("pollId", pollId));
         return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
     /**
      * Get Poll Folder by PollId and UserId
      * @param pollFolderId

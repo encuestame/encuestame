@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.EmailList;
@@ -85,12 +86,7 @@ public class ConvertDomainBean {
      * @return
      */
     public static final	 TypeAuth convertStringToEnum(final String type){
-        if(type.equals(TypeAuth.PASSWORD.name())){
-            return TypeAuth.PASSWORD;
-        }
-        else{
-            return TypeAuth.OAUTH;
-        }
+            return TypeAuth.OAUTH1;
     }
 
 
@@ -117,11 +113,11 @@ public class ConvertDomainBean {
            final SocialAccountBean socialAccountBean = new SocialAccountBean();
                    socialAccountBean.setAccount(socialAccount.getSocialAccountName());
                    socialAccountBean.setAccountId(socialAccount.getId());
-                   socialAccountBean.setToken(socialAccount.getToken());
+                   socialAccountBean.setToken(socialAccount.getAccessToken());
                    socialAccountBean.setSecretToken(socialAccount.getSecretToken());
                    socialAccountBean.setTypeAccount(socialAccount.getAccounType().toString());
                    socialAccountBean.setType(socialAccount.getType() == null
-                          ? SocialAccount.TypeAuth.OAUTH.name() : socialAccount.getType().name());
+                          ? SocialAccount.TypeAuth.OAUTH1.name() : socialAccount.getType().name());
            return socialAccountBean;
     }
 
@@ -134,6 +130,11 @@ public class ConvertDomainBean {
         final HashTagBean unitHashTag = new HashTagBean();
         unitHashTag.setHashTagName(hashTag.getHashTag());
         unitHashTag.setId(hashTag.getHashTagId());
+        unitHashTag.setHits(hashTag.getHits());
+        //TODO: ENCUESTAME-191
+        int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
+        log.debug("random hastag number "+x);
+        unitHashTag.setSize(x);
         return unitHashTag;
     }
 

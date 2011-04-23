@@ -21,7 +21,7 @@ import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.mvc.view.AdmonController;
 import org.encuestame.mvc.view.DashBoardController;
 import org.encuestame.mvc.view.HomeController;
-import org.encuestame.mvc.view.LoginController;
+import org.encuestame.mvc.view.SignInController;
 import org.encuestame.mvc.view.PollController;
 import org.encuestame.mvc.view.SurveyController;
 import org.encuestame.mvc.view.TweetPollController;
@@ -117,12 +117,12 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         }
 
         /**
-         * Test {@link LoginController}.
+         * Test {@link SignInController}.
          * @throws Exception exception.
          */
         @Test
         public void testLoginController() throws Exception {
-            final LoginController controller = new LoginController();
+            final SignInController controller = new SignInController();
             //"/user/signin
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/signin");
             final ModelAndView mav = handlerAdapter.handle(request, response,
@@ -136,7 +136,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         }
 
         /**
-         * Test {@link LoginController}.
+         * Test {@link SignInController}.
          * @throws Exception exception.
          */
         @Test
