@@ -12,18 +12,17 @@
  */
 package org.encuestame.business.service.social.connect;
 
-import org.springframework.social.linkedin.LinkedInApi;
+import org.encuestame.core.social.LinkedInAPIOperations;
 
 
 /**
  * Interface for Twitter Service Provider Implementation.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 30, 2010 11:22:51 PM
- * @version $Id:$
  */
 public interface ILinkedInSocialProvider extends AbstractISocialService {
 
-    String fetchProviderAccountId(LinkedInApi serviceOperations);
+    String fetchProviderAccountId(LinkedInAPIOperations serviceOperations);
 
 
 }

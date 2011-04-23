@@ -46,7 +46,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.encuestame.business.service.imp.DirectoryIndexStore;
+import org.encuestame.core.search.DirectoryIndexStore;
 import org.springframework.util.Assert;
 
 /**

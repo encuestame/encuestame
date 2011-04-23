@@ -26,7 +26,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
@@ -241,7 +241,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public AccountConnection addConnection(
                 final String provider,
-                final OAuthToken token,
+                final OAuth1Token token,
                 final String socialAccountId,
                 final Long userAccountId,
                 final String providerProfileUrl){
@@ -312,10 +312,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public OAuthToken getAccessToken(Long accountId, String provider) throws EnMeNoResultsFoundException {
+    public OAuth1Token getAccessToken(Long accountId, String provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
-            final OAuthToken oAuthToken = new OAuthToken(ac.getAccessToken(),
+            final OAuth1Token oAuthToken = new OAuth1Token(ac.getAccessToken(),
                     ac.getSecret());
             return oAuthToken;
         } else {

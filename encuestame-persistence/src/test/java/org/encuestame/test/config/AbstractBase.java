@@ -80,7 +80,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1589,7 +1589,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public AccountConnection createConnection(final String provider,
-            final OAuthToken token,
+            final OAuth1Token token,
             final String socialAccountId,
             final Long userAccountId,
             final String providerProfileUrl){

@@ -438,7 +438,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(this.getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
-        return getTwitterService().getTinyUrl(stringBuffer.toString());
+        //return getTwitterService().getTinyUrl(stringBuffer.toString());
+        return "";
     }
 
     /*

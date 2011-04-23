@@ -142,38 +142,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
-     * Build Domain.
-     * @param request {@link HttpServletRequest}.
-     * @return
-     */
-    public String getDomain(final HttpServletRequest request){
-            final StringBuffer stringBuffer = new StringBuffer(this.isSecure(request) ? "https://" : "http://");
-            stringBuffer.append(request.getServerName());
-            if(request.getRemotePort() != 80){
-                stringBuffer.append(":");
-                stringBuffer.append(request.getLocalPort());
-            }
-            stringBuffer.append(request.getContextPath());
-            return stringBuffer.toString();
-    }
-
-    /**
-     *
-     * @param request
-     * @return
-     */
-    public Boolean isSecure(final HttpServletRequest request){
-        Boolean secure = false;
-        final String protocol = request.getProtocol();
-        if (protocol.indexOf("HTTPS") > -1) {
-            secure = true;
-        } else {
-            secure = false;
-            }
-        return secure;
-    }
-
-    /**
      * Get By Username.
      * @param username username
      * @return

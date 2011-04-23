@@ -41,7 +41,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since Nov 29, 2010 12:25:00 AM
  * @version $Id:$
  */
-@Controller
+//@Controller
+@Deprecated
 public class UrlShortAddressController extends AbstractJsonController{
 
     /**
@@ -60,28 +61,28 @@ public class UrlShortAddressController extends AbstractJsonController{
       * @throws JsonMappingException
       * @throws IOException
       */
-     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-        @RequestMapping(value = "/api/common/url/{typeUrlShorter}.json", method = RequestMethod.GET)
-        public ModelMap get(
-                @PathVariable String typeUrlShorter, //tinyUrl
-                @RequestParam(value = "url", required = false) String url,
-                HttpServletRequest request,
-                HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            try {
-                if("tinyUrl".equals(typeUrlShorter)){
-                    //tweetpoll service.
-                    final StringBuilder voterUrl = new StringBuilder(url);
-                    final String tinyUrl = getTweetPollService().getTwitterService().getTinyUrl(voterUrl.toString());
-                    jsonResponse.put("url", tinyUrl);
-                } else {
-                    log.warn("No exist more url shorters");
-                }
-                setItemResponse(jsonResponse);
-            } catch (Exception e) {
-                log.error(e);
-                setError(e.getMessage(), response);
-            }
-            return returnData();
-     }
+//     @PreAuthorize("hasRole('ENCUESTAME_USER')")
+//        @RequestMapping(value = "/api/common/url/{typeUrlShorter}.json", method = RequestMethod.GET)
+//        public ModelMap get(
+//                @PathVariable String typeUrlShorter, //tinyUrl
+//                @RequestParam(value = "url", required = false) String url,
+//                HttpServletRequest request,
+//                HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+//             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+//            try {
+//                if("tinyUrl".equals(typeUrlShorter)){
+//                    //tweetpoll service.
+//                    final StringBuilder voterUrl = new StringBuilder(url);
+//                    final String tinyUrl = getTweetPollService().getTwitterService().getTinyUrl(voterUrl.toString());
+//                    jsonResponse.put("url", tinyUrl);
+//                } else {
+//                    log.warn("No exist more url shorters");
+//                }
+//                setItemResponse(jsonResponse);
+//            } catch (Exception e) {
+//                log.error(e);
+//                setError(e.getMessage(), response);
+//            }
+//            return returnData();
+//     }
 }

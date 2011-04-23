@@ -19,7 +19,8 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.business.service.imp.ITwitterService;
+import org.encuestame.business.service.imp.TwitterAPIOperations;
+import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
@@ -34,16 +35,16 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 
 /**
- * {@link TwitterService} test case.
+ * {@link TwitterAPIOperations} test case.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 13, 2010 5:05:12 PM
  * @version $Id$
  */
 public class TestTwitterService extends AbstractServiceBase {
 
-    /** {@link TwitterService}.  */
-    @Autowired
-    public ITwitterService twitterService;
+    /** {@link TwitterAPIOperations}.  */
+    //@Autowired
+    public TwitterAPIOperations twitterService;
 
     /** {@link Account}. **/
     private Account user;
@@ -57,6 +58,7 @@ public class TestTwitterService extends AbstractServiceBase {
     public void before(){
         this.user = createAccount();
         this.socialTwitterAccount = createDefaultSettedTwitterAccount(this.user);
+        this.twitterService = new TwitterAPITemplate("", "");
     }
 
     /**
@@ -95,14 +97,14 @@ public class TestTwitterService extends AbstractServiceBase {
     /**
      * @return the twitterService
      */
-    public ITwitterService getTwitterService() {
+    public TwitterAPIOperations getTwitterService() {
         return twitterService;
     }
 
     /**
      * @param twitterService the twitterService to set
      */
-    public void setTwitterService(ITwitterService twitterService) {
+    public void setTwitterService(TwitterAPIOperations twitterService) {
         this.twitterService = twitterService;
     }
 }

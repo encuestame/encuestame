@@ -17,6 +17,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -57,7 +58,7 @@ public class TweetPollFeedController extends AbstractFeedController {
                  final UserAccount secUserSecondary) throws EnMeNoResultsFoundException{
          model.addAttribute("username", username);
          model.addAttribute("feedTitle", String.format(TWEET_POLL_FEED_TITLE, username));
-         model.addAttribute("url", getDomain(request));
+         model.addAttribute("url", InternetUtils.getDomain(request));
          //find and add tweetPolls.
          final List<TweetPollBean> tweetPolls = getTweetPolls(secUserSecondary.getUsername());
          log.debug("Tweet Polls size "+tweetPolls.size());

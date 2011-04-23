@@ -12,12 +12,13 @@
  */
 package org.encuestame.business.service.social.connect;
 
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.oauth.AuthorizedRequestToken;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 
 /**
  * Description Class.
@@ -46,7 +47,7 @@ public abstract interface AbstractISocialService {
          */
         String getApiKey();
 
-        OAuthToken fetchNewRequestToken(final String callbackUrl);
+        OAuth1Token fetchNewRequestToken(final String callbackUrl);
 
         String buildAuthorizeUrl(final String requestToken);
 

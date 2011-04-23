@@ -22,6 +22,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ISurveyService;
+import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.question.Question;
@@ -154,7 +155,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public RequestToken getTwitterToken(final String consumerKey,  final String consumerSecret) throws TwitterException{
             log.debug("getTwitterToken");
-            return getTwitterService().getTwitterPing(consumerKey, consumerSecret);
+            //return getTwitterService().getTwitterPing(consumerKey, consumerSecret);
+            return null;
     }
 
 
@@ -411,5 +413,4 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             throw new EnMeNoResultsFoundException("Survey folder not found");
         }
    }
-
 }
