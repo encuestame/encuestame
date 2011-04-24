@@ -25,6 +25,7 @@ import org.encuestame.utils.oauth.OAuth1Token;
  */
 public abstract interface AbstractISocialService {
 
+
         boolean isConnected(Long id);
 
         /**

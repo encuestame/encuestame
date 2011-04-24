@@ -1006,28 +1006,18 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
 
-    /**
-     * Update OAuth Token/Secret Social Account.
-     * @param socialAccountId
-     * @param token
-     * @param tokenSecret
-     * @param username
-     * @param account
-     * @param socialProvider
-     * @throws EnMeExpcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public void addOrUpdateOAuthTokenSocialAccount(
+    public void addNewSocialAccount(
             final Long socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
             final UserAccount account,
-            final SocialProvider socialProvider) throws EnMeExpcetion{
-            SocialAccount socialAccount = getAccountDao().getSocialAccount(socialProvider, socialAccountId);
-            if (socialAccount == null) {
-                log.info("adding new social account");
-                socialAccount = new SocialAccount();
-            }
+            final SocialProvider socialProvider){
+            final SocialAccount socialAccount = new SocialAccount();
             log.debug("Updating  Token to {"+token);
             log.debug("Updating Secret Token to {"+tokenSecret);
             socialAccount.setAccessToken(token);
@@ -1042,14 +1032,25 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("Updated Token");
     }
 
-
     /**
-     * Get Twitter Account.
-     * @param twitterAccountId
+     *
+     * @param socialProvider
+     * @param socialAccountId
      * @return
      */
-    public SocialAccountBean getTwitterAccount(final Long twitterAccountId){
-        return ConvertDomainBean.convertSocialAccountToBean(getAccountDao().getTwitterAccount(twitterAccountId));
+    public SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final Long socialProfileId){
+        return getAccountDao().getSocialAccount(socialProvider, socialProfileId);
+    }
+
+
+    /**
+     * Get {@link SocialAccount}.
+     * @param socialAccountId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public SocialAccountBean getSocialAccountBean(final Long socialAccountId) throws EnMeNoResultsFoundException{
+        return ConvertDomainBean.convertSocialAccountToBean(this.getSocialAccount(socialAccountId));
     }
 
 
@@ -1093,9 +1094,14 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     * Get social account by id.
     * @param accountId
     * @return
+ * @throws EnMeNoResultsFoundException
     */
-   protected SocialAccount getSocialAccount(final Long accountId){
-        return  getAccountDao().getTwitterAccount(accountId); //TODO: ENCUESTAME-113
+   protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
+       final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
+        if(account == null){
+            throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
+        }
+        return  account;
    }
 
    /**
@@ -1103,16 +1109,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     * @param accountBean account
     * @param password password
     * TODO: this method is close to be deprecated, twitter don't allow password login.
+ * @throws EnMeNoResultsFoundException
     */
    @Deprecated
    public void updateTwitterAccount(
            final SocialAccountBean accountBean,
            final String password,
-           final Boolean verify){
+           final Boolean verify) throws EnMeNoResultsFoundException{
        if(accountBean.getAccountId() != null){
-           final SocialAccount twitterAccount = getAccountDao().getTwitterAccount(accountBean.getAccountId());
+           final SocialAccount twitterAccount = getSocialAccount(accountBean.getAccountId());
            if(twitterAccount != null){
-               //twitterAccount.setTwitterPassword(password);
                twitterAccount.setVerfied(verify);
                log.debug("Updating twitter password account");
                getAccountDao().saveOrUpdate(twitterAccount);
@@ -1125,7 +1131,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Follow Operations
      * @author Picado, Juan juanATencuestame.org
      * @since Jan 23, 2011 9:53:53 AM
-     * @version $Id:$
      */
     public enum FollowOperations{
         FOLLOW,

@@ -12,10 +12,8 @@
  */
 package org.encuestame.business.service.social.connect;
 
-import org.encuestame.business.service.social.AbstractSocialSignInConnect;
 import org.encuestame.business.service.social.api.FacebookAPITemplate;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
-import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.SocialAccountProvider;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -35,10 +33,6 @@ public class FacebookSocialService implements IFacebookSocialService{
      */
     private SocialAccountProvider parameters = new SocialAccountProvider();
 
-    /**
-     * Twitter Template.
-     */
-    private FacebookAPITemplate facebookTemplate;
 
     /**
      * Consumer Key.
@@ -73,26 +67,6 @@ public class FacebookSocialService implements IFacebookSocialService{
         this.parameters.setSecret(this.secret);
     }
 
-//    @Override
-//    protected FacebookAPIOperations createServiceOperations(OAuth1Token accessToken) {
-//        if (accessToken == null) {
-//            throw new IllegalStateException("Cannot access Facebook without an access token");
-//        }
-//        //return new FacebookTemplate(accessToken.getValue());
-//        return null;
-//    }
-//
-//    @Override
-//    protected String fetchProviderAccountId(FacebookAPIOperations serviceOperations) {
-//      //return serviceOperations.userOperations().getUserProfile()
-//        return null;
-//    }
-//
-//    @Override
-//    protected String buildProviderProfileUrl(String providerAccountId,
-//            FacebookAPIOperations serviceOperations) {
-//        return "http://www.facebook.com/profile.php?id=" + providerAccountId;
-//    }
 
     public boolean isConnected(Long id) {
         // TODO Auto-generated method stub

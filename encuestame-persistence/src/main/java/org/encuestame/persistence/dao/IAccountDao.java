@@ -107,7 +107,7 @@ public interface IAccountDao extends IBaseDao {
      * @param twitterAccountId
      * @return
      */
-    SocialAccount getTwitterAccount(final Long twitterAccountId);
+    SocialAccount getSocialAccountById(final Long twitterAccountId);
 
     /**
      * Get Social Account.

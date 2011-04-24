@@ -7,7 +7,7 @@
         <button type="submit" value="Connect LINKEDIN">LINKEDIN CONNECT</button>
     </form>
 
-    <form id="identica_signin" action="<%=request.getContextPath()%>/connect/indentica" method="post">
+    <form id="identica_signin" action="<%=request.getContextPath()%>/connect/identica" method="post">
         <button type="submit" value="Connect IDENTICA CONNECT">IDENTICA CONNECT</button>
     </form>
 

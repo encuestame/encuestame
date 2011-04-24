@@ -21,7 +21,9 @@ import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -377,4 +379,30 @@ public interface SecurityOperations extends ServiceOperations {
     void followOperations(final UserAccount userAcc,
             final String myUsername, final String followerUser,
             final FollowOperations operation) throws EnMeNoResultsFoundException;
+
+    /**
+     * Check if exist {@link SocialAccount} with unique social profile social id.
+     * @param socialProvider
+     * @param socialAccountId
+     * @return
+     */
+    SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final Long socialProfileId);
+
+    /**
+     * Update OAuth Token/Secret Social Account.
+     * @param socialAccountId
+     * @param token
+     * @param tokenSecret
+     * @param username
+     * @param account
+     * @param socialProvider
+     * @throws EnMeExpcetion
+     */
+    void addNewSocialAccount(
+            final Long socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String username,
+            final UserAccount account,
+            final SocialProvider socialProvider);
 }

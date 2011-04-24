@@ -14,29 +14,41 @@ package org.encuestame.business.service.social;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+import org.encuestame.core.social.oauth1.AuthorizedRequestToken;
 import org.encuestame.core.social.oauth1.OAuth1RestOperations;
 import org.encuestame.core.social.oauth1.OAuth1Support;
 import org.encuestame.core.util.InternetUtils;
+import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.springframework.web.context.request.WebRequest;
 
 /**
- * Description.
- *
+ * OAuth1 Generic Flow.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
  */
-public class OAuth1RequestProvider {
+public class OAuth1RequestFlow {
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
     *
     */
     private OAuth1RestOperations oAuth1RestTemplate;
 
-
+    /**
+     *
+     */
     private OAuth1Token requestToken;
 
-
+    /**
+     *
+     */
     private SocialProvider provider;
 
     /**
@@ -47,7 +59,7 @@ public class OAuth1RequestProvider {
      * @param authorizeUrl
      * @param accessToken
      */
-    public OAuth1RequestProvider(final String apiKey,
+    public OAuth1RequestFlow(final String apiKey,
             final String consumerSecret,
             final String requestTokenUrl,
             final String authorizeUrl,
@@ -56,6 +68,23 @@ public class OAuth1RequestProvider {
         this.provider = socialProvider;
         oAuth1RestTemplate = new OAuth1Support(apiKey, consumerSecret, requestTokenUrl,
                 authorizeUrl, accessToken);
+    }
+
+
+    /**
+     *
+     * @param scope
+     * @param request
+     * @param httpRequest
+     * @return
+     */
+    public String buildOAuth1AuthorizeUrl(
+            final String scope,
+            final WebRequest request,
+            final HttpServletRequest httpRequest){
+        final OAuth1Token requestToken = this.getRequestToken(httpRequest);
+        request.setAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
+        return this.buildRequestTokenUrl(httpRequest);
     }
 
     /**
@@ -67,7 +96,41 @@ public class OAuth1RequestProvider {
         return this.requestToken;
     }
 
+    /**
+     *
+     * @param verifier
+     * @param request
+     * @return
+     */
+    public OAuth1Token getAccessToken(
+            final String verifier,
+            final WebRequest request){
+        log.debug("Verifier "+verifier);
+        final OAuth1Token accessToken = getoAuth1RestTemplate()
+        .exchangeForAccessToken(new AuthorizedRequestToken(
+                extractCachedRequestToken(request), verifier));
+        return accessToken;
+    }
 
+    /**
+     * Extract request token.
+     * @param request
+     * @return
+     */
+    private OAuth1Token extractCachedRequestToken(
+            WebRequest request) {
+        OAuth1Token requestToken = (OAuth1Token) request
+                .getAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, WebRequest.SCOPE_SESSION);
+        request.removeAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, WebRequest.SCOPE_SESSION);
+        log.debug("requestToken "+requestToken.toString());
+        return requestToken;
+    }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
     public String buildCallBackUrl(final HttpServletRequest request){
         final StringBuilder callBackurl = new StringBuilder(InternetUtils.getDomain(request));
         callBackurl.append("/social/back/");
@@ -75,7 +138,11 @@ public class OAuth1RequestProvider {
         return callBackurl.toString();
     }
 
-
+    /**
+     *
+     * @param request
+     * @return
+     */
     public String buildRequestTokenUrl(final HttpServletRequest request) {
         final StringBuilder redirect = new StringBuilder("redirect:");
         redirect.append(this.getoAuth1RestTemplate().buildAuthorizeUrl(
@@ -89,7 +156,4 @@ public class OAuth1RequestProvider {
     public OAuth1RestOperations getoAuth1RestTemplate() {
         return oAuth1RestTemplate;
     }
-
-
 }
-

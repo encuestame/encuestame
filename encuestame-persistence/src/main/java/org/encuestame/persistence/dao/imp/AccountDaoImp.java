@@ -106,7 +106,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccount(java.lang.Long)
      */
-    public final SocialAccount getTwitterAccount(final Long twitterAccountId){
+    public final SocialAccount getSocialAccountById(final Long twitterAccountId){
         return (SocialAccount) (getHibernateTemplate().get(SocialAccount.class, twitterAccountId));
     }
 
@@ -114,12 +114,12 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(org.encuestame.persistence.domain.social.SocialProvider, java.lang.Long)
      */
-    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
+    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialProfileId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         log.debug("accounType "+socialProvider);
-        log.debug("socialAccountId "+socialAccountId);
+        log.debug("socialProfileId "+socialProfileId);
         criteria.add(Restrictions.eq("accounType", socialProvider));
-        criteria.add(Restrictions.eq("socialUserId", socialAccountId) );
+        criteria.add(Restrictions.eq("socialProfileId", String.valueOf(socialProfileId)));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 

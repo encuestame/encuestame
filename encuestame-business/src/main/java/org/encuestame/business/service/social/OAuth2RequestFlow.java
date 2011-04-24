@@ -17,6 +17,6 @@ package org.encuestame.business.service.social;
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
  */
-public class OAuth2RequestProvider {
+public class OAuth2RequestFlow {
 
 }

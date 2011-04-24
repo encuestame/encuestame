@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Mar 6, 2010 10:58:02 AM
  */
 @Controller
-public class SignInController extends AbstractBaseOperations{
+public class SignInController extends AbstractSocialController{
 
     /**
      * Log.
@@ -65,21 +65,21 @@ public class SignInController extends AbstractBaseOperations{
     public String signinFacebookGet(
         @PathVariable String provider){
         final StringBuilder url = new StringBuilder();
-        final SocialProvider providerEnum = SocialProvider
-                .getProvider(provider);
+        final SocialProvider providerEnum = SocialProvider.getProvider(provider);
         if (providerEnum == null) {
             url.append("404");
         } else {
+            url.append("signin/provider/register");
             if (SocialProvider.TWITTER.equals(providerEnum)) {
-                 url.append("signin/provider/register");
+
             } else if (SocialProvider.BUZZ.equals(providerEnum)) {
-                url.append("signin/provider/register");
+
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
-                url.append("signin/provider/register");
+
             } else if (SocialProvider.IDENTICA.equals(providerEnum)) {
-                url.append("signin/provider/register");
+
             } else if (SocialProvider.LINKEDIN.equals(providerEnum)) {
-                url.append("signin/provider/register");
+
             }
         }
         return url.toString();
