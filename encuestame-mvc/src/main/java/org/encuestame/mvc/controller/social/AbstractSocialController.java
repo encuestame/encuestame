@@ -12,14 +12,25 @@
  */
 package org.encuestame.mvc.controller.social;
 
+import org.encuestame.business.service.social.OAuth1RequestFlow;
+import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 
 /**
- * Contains helper methods to social connect.
+ * Define helper methods to social networks OAuth connect.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 4:47:05 PM
- * @version $Id:$
  */
 public abstract class AbstractSocialController extends AbstractBaseOperations {
+
+    /**
+     * {@link OAuth1RequestFlow}
+     */
+    public OAuth1RequestFlow auth1RequestProvider;
+
+    /**
+     *
+     */
+    public OAuth2RequestFlow auth2RequestProvider;
 
 }

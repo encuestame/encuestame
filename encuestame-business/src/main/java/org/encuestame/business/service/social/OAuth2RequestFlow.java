@@ -10,23 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.social;
-
-import org.encuestame.core.social.oauth2.OAuth2RestOperations;
-
+package org.encuestame.business.service.social;
 
 /**
- * OAuth2 layer for social connect controllers.
+ * Description.
  * @author Picado, Juan juanATencuestame.org
- * @since Apr 22, 2011
+ * @since Apr 23, 2011
  */
-public abstract class AbstractOAuth2SocialController extends AbstractSocialController {
-
-
-    protected OAuth2RestOperations tm;
-
-
-
-
+public class OAuth2RequestFlow {
 
 }

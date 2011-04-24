@@ -7,7 +7,7 @@
         <button type="submit" value="Connect LINKEDIN">LINKEDIN CONNECT</button>
     </form>
 
-    <form id="identica_signin" action="<%=request.getContextPath()%>/connect/indentica" method="post">
+    <form id="identica_signin" action="<%=request.getContextPath()%>/connect/identica" method="post">
         <button type="submit" value="Connect IDENTICA CONNECT">IDENTICA CONNECT</button>
     </form>
 
@@ -22,4 +22,9 @@
     <form id="twitter_signin" action="<%=request.getContextPath()%>/connect/twitter" method="post">
         <button type="submit" value="Connect TWITTER CONNECT">TWITTER CONNECT</button>
     </form>
+
+        <form id="yahoo_signin" action="<%=request.getContextPath()%>/connect/yahoo" method="post">
+        <button type="submit" value="Connect YAHOO CONNECT">YAHOO CONNECT</button>
+    </form>
+
 </div>

@@ -20,13 +20,11 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
     static final String PUT_STATUS = "http://api.linkedin.com/v1/people/~/current-status";
 
     /**
-     * Creates a new LinkedInTemplate given the minimal amount of information
-     * needed to sign requests with OAuth 1 credentials.
      *
-     * @param apiKey the application's API key
-     * @param apiSecret the application's API secret
-     * @param accessToken an access token acquired through OAuth authentication with LinkedIn
-     * @param accessTokenSecret an access token secret acquired through OAuth authentication with LinkedIn
+     * @param apiKey
+     * @param apiSecret
+     * @param accessToken
+     * @param accessTokenSecret
      */
     public LinkedInAPITemplate(String apiKey, String apiSecret,
             String accessToken, String accessTokenSecret) {
@@ -50,9 +48,9 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
         return getUserProfile().getPublicProfileUrl();
     }
 
-    /**
-     *
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.LinkedInAPIOperations#getUserProfile()
      */
     public LinkedInProfile getUserProfile() {
         return getRestTemplate().getForObject(GET_CURRENT_USER_INFO,

@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.service.SocialOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
@@ -34,7 +35,6 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -1006,50 +1006,50 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
 
-    /**
-     * Update OAuth Token/Secret Social Account.
-     * @param socialAccountId
-     * @param token
-     * @param tokenSecret
-     * @param username
-     * @param account
-     * @param socialProvider
-     * @throws EnMeExpcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public void addOrUpdateOAuthTokenSocialAccount(
-            final Long socialAccountId,
+    public void addNewSocialAccount(
+            final String socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
-            final UserAccount account,
-            final SocialProvider socialProvider) throws EnMeExpcetion{
-            SocialAccount socialAccount = getAccountDao().getSocialAccount(socialProvider, socialAccountId);
-            if (socialAccount == null) {
-                log.info("adding new social account");
-                socialAccount = new SocialAccount();
-            }
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
+            final SocialAccount socialAccount = new SocialAccount();
             log.debug("Updating  Token to {"+token);
             log.debug("Updating Secret Token to {"+tokenSecret);
             socialAccount.setAccessToken(token);
             socialAccount.setVerfied(Boolean.TRUE);
             socialAccount.setAccounType(socialProvider);
-            socialAccount.setAccount(account.getAccount());
+            socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
             socialAccount.setSocialAccountName(username);
             socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
             socialAccount.setSecretToken(tokenSecret);
-            socialAccount.setSocialProfileId(String.valueOf(socialAccountId));
+            socialAccount.setSocialProfileId(socialAccountId);
             getAccountDao().saveOrUpdate(socialAccount);
             log.debug("Updated Token");
     }
 
-
     /**
-     * Get Twitter Account.
-     * @param twitterAccountId
+     *
+     * @param socialProvider
+     * @param socialAccountId
      * @return
      */
-    public SocialAccountBean getTwitterAccount(final Long twitterAccountId){
-        return ConvertDomainBean.convertSocialAccountToBean(getAccountDao().getTwitterAccount(twitterAccountId));
+    public SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId){
+        return getAccountDao().getSocialAccount(socialProvider, socialProfileId);
+    }
+
+
+    /**
+     * Get {@link SocialAccount}.
+     * @param socialAccountId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public SocialAccountBean getSocialAccountBean(final Long socialAccountId) throws EnMeNoResultsFoundException{
+        return ConvertDomainBean.convertSocialAccountToBean(this.getSocialAccount(socialAccountId));
     }
 
 
@@ -1066,36 +1066,30 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                                  .getSocialAccountByAccount(getUserAccount(username).getAccount(), provider));
     }
 
-    /**
-     * Get User Logged Verified Social Accounts.
-     * @param username username
-     * @return list of social accounts.
-     * @throws EnMeNoResultsFoundException exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#getUserLoggedVerifiedTwitterAccount(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
-//    public List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(final String username, final SocialProvider provider)
-//             throws EnMeNoResultsFoundException{
-//        final List<SocialAccountBean> comfirmedSocialAccounts = new ArrayList<SocialAccountBean>();
-//        final List<SocialAccount> socialAccounts = getAccountDao()
-//                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
-//        for (SocialAccount socialAccount : socialAccounts) {
-//            log.debug("getTwitterService() "+getTwitterService());
-//            //if (getTwitterService().verifyCredentials(socialAccount)) {
-//            if (socialAccount.getVerfied()) {
-//                log.debug("Confirmed Account  -- "+socialAccount.getSocialAccountName());
-//                comfirmedSocialAccounts.add(ConvertDomainBean.convertSocialAccountToBean(socialAccount));
-//            }
-//        }
-//        log.debug("social provider verified "+comfirmedSocialAccounts.size());
-//        return comfirmedSocialAccounts;
-//   }
+    public List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(final String username, final SocialProvider provider)
+             throws EnMeNoResultsFoundException{
+        final List<SocialAccount> socialAccounts = getAccountDao()
+                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
+        log.debug("social provider verified "+socialAccounts.size());
+        return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
+   }
 
    /**
     * Get social account by id.
     * @param accountId
     * @return
+ * @throws EnMeNoResultsFoundException
     */
-   protected SocialAccount getSocialAccount(final Long accountId){
-        return  getAccountDao().getTwitterAccount(accountId); //TODO: ENCUESTAME-113
+   protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
+       final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
+        if(account == null){
+            throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
+        }
+        return  account;
    }
 
    /**
@@ -1103,16 +1097,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     * @param accountBean account
     * @param password password
     * TODO: this method is close to be deprecated, twitter don't allow password login.
+ * @throws EnMeNoResultsFoundException
     */
    @Deprecated
    public void updateTwitterAccount(
            final SocialAccountBean accountBean,
            final String password,
-           final Boolean verify){
+           final Boolean verify) throws EnMeNoResultsFoundException{
        if(accountBean.getAccountId() != null){
-           final SocialAccount twitterAccount = getAccountDao().getTwitterAccount(accountBean.getAccountId());
+           final SocialAccount twitterAccount = getSocialAccount(accountBean.getAccountId());
            if(twitterAccount != null){
-               //twitterAccount.setTwitterPassword(password);
                twitterAccount.setVerfied(verify);
                log.debug("Updating twitter password account");
                getAccountDao().saveOrUpdate(twitterAccount);
@@ -1125,7 +1119,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Follow Operations
      * @author Picado, Juan juanATencuestame.org
      * @since Jan 23, 2011 9:53:53 AM
-     * @version $Id:$
      */
     public enum FollowOperations{
         FOLLOW,

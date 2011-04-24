@@ -33,6 +33,10 @@ public enum SocialProvider {
      * Yahoo provider.
      */
     YAHOO,
+    /**
+     * My Space.
+     */
+    MYSPACE,
 
     /**
      * Constructor.
@@ -52,6 +56,7 @@ public enum SocialProvider {
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
         else if (this == BUZZ) { provider = "BUZZ"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
+        else if (this == MYSPACE) { provider = "MYSPACE"; }
         return provider;
     }
 
@@ -68,6 +73,7 @@ public enum SocialProvider {
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
         else if (socialProvider.equalsIgnoreCase("BUZZ")) { return BUZZ; }
         else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
+        else if (socialProvider.equalsIgnoreCase("MYSPACE")) { return MYSPACE; }
         else return null;
     }
 
@@ -77,8 +83,11 @@ public enum SocialProvider {
      * @return
      */
     public static TypeAuth getTypeAuth(final SocialProvider provider){
-        if(provider.equals(TWITTER) || provider.equals(IDENTICA)
-                || provider.equals(LINKEDIN) || provider.equals(YAHOO)){
+        if(provider.equals(TWITTER)
+                || provider.equals(IDENTICA)
+                || provider.equals(IDENTICA)
+                || provider.equals(MYSPACE)
+                || provider.equals(YAHOO)){
             return TypeAuth.OAUTH1;
         } else if (provider.equals(BUZZ) || provider.equals(FACEBOOK)){
             return TypeAuth.OAUTH2;
