@@ -146,4 +146,16 @@ public class IdentiCaProfile implements Serializable {
     public Date getCreatedDate() {
         return createdDate;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "IdentiCaProfile [id=" + id + ", screenName=" + screenName
+                + ", name=" + name + ", url=" + url + ", profileImageUrl="
+                + profileImageUrl + ", description=" + description
+                + ", location=" + location + ", createdDate=" + createdDate
+                + "]";
+    }
 }

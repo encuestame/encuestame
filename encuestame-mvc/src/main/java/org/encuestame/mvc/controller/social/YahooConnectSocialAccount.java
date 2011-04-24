@@ -3,7 +3,6 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,35 +13,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 /**
- *
- * Description.
+ * Yahoo OAuth Connect Support.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
  */
 @Controller
-public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
+public class YahooConnectSocialAccount extends AbstractAccountConnect {
 
     /**
-     *
-     * @param apiKey
-     * @param consumerSecret
-     * @param authorizeUrl
-     * @param requestTokenUrl
-     * @param accessToken
-     */
-    @Inject
-    public MySpaceConnectSocialAccount(
-            @Value("${myspace.consumer.key}") String apiKey,
-            @Value("${myspace.consumer.secret}") String consumerSecret,
-            @Value("${myspace.authorizeUrl}") String authorizeUrl,
-            @Value("${myspace.requestToken}") String requestTokenUrl,
-            @Value("${myspace.accessToken}") String accessToken) {
-        super(apiKey, consumerSecret, authorizeUrl, requestTokenUrl, accessToken, SocialProvider.MYSPACE);
-    }
+    *
+    * @param apiKey
+    * @param consumerSecret
+    * @param authorizeUrl
+    * @param requestTokenUrl
+    * @param accessToken
+    */
+   @Inject
+   public YahooConnectSocialAccount(
+           @Value("${yahoo.consumer.key}") String apiKey,
+           @Value("${yahoo.consumer.secret}") String consumerSecret,
+           @Value("${yahoo.authorizeUrl}") String authorizeUrl,
+           @Value("${yahoo.requestToken}") String requestTokenUrl,
+           @Value("${yahoo.accessToken}") String accessToken) {
+       super(apiKey, consumerSecret, authorizeUrl, requestTokenUrl, accessToken, SocialProvider.YAHOO);
+   }
 
-    @RequestMapping(value = "/connect/myspace", method = RequestMethod.GET)
+       /**
+        *
+        * @return
+        */
+    @RequestMapping(value = "/connect/yahoo", method = RequestMethod.GET)
     public String signinTwitterGet() {
-        return "redirect:/settings/social";
+         return "redirect:/settings/social";
     }
 
     /**
@@ -52,8 +54,8 @@ public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
      * @param httpRequest
      * @return
      */
-    @RequestMapping(value = "/connect/myspace", method = RequestMethod.POST)
-    public String signinMyspacePost(
+    @RequestMapping(value = "/connect/yahoo", method = RequestMethod.POST)
+    public String signinYahooPost(
             @RequestParam(required = false) String scope,
             final WebRequest request,
             final HttpServletRequest httpRequest) {
@@ -61,14 +63,8 @@ public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
     }
 
 
-    /**
-     *
-     * @param token
-     * @param verifier
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/social/back/myspace", method = RequestMethod.GET, params = "oauth_token")
+
+    @RequestMapping(value = "/social/back/yahoo", method = RequestMethod.GET, params = "oauth_token")
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,

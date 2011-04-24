@@ -1,6 +1,12 @@
 
 package org.encuestame.core.service;
 
+import java.util.List;
+
+import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.security.SocialAccountBean;
+
 
 /**
  * Social Factory.
@@ -65,9 +71,9 @@ public interface SocialOperations {
       * @return
       * @throws EnMeNoResultsFoundException
       */
-//     List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(
-//             final String username,
-//             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+     List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(
+             final String username,
+             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
 
      /**
       * Update OAuth Token/Secret Social Account.

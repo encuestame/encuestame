@@ -204,7 +204,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetTwitterAccount(){
-        final SocialAccount social = getAccountDao().getTwitterAccount(this.socialAccount.getId());
+        final SocialAccount social = getAccountDao().getSocialAccountById(this.socialAccount.getId());
         assertEquals("Should be equals", this.socialAccount.getId(), social.getId());
     }
 

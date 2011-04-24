@@ -15,8 +15,6 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -210,18 +208,15 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             HttpServletResponse response,
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
-//        try {final List<SocialAccountBean> accounts = getSecurityService()
-//            .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-//        setItemReadStoreResponse("socialAccounts", "id", accounts);
-//             final List<SocialAccountBean> accounts = getSecurityService()
-//                   .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-//             setItemReadStoreResponse("socialAccounts", "id", accounts);
-//             log.debug("Twitter Accounts Loaded");
-//        } catch (Exception e) {
-//            log.error(e);
-//            e.printStackTrace();
-//            setError(e.getMessage(), response);
-//        }
+        try {final List<SocialAccountBean> accounts = getSecurityService()
+            .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+            setItemReadStoreResponse("socialAccounts", "id", accounts);
+             log.debug("Twitter Accounts Loaded");
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
         return returnData();
     }
 
@@ -243,11 +238,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
              final List<SocialProvider> providers = new ArrayList<SocialProvider>();
                  providers.add(SocialProvider.TWITTER);
                  providers.add(SocialProvider.BUZZ);
-                 //providers.add(SocialProvider.FACEBOOK);
-                 //providers.add(SocialProvider.IDENTICA);
-                 //providers.add(SocialProvider.TRIP_IT);
                  providers.add(SocialProvider.LINKEDIN);
-                 //providers.add(SocialProvider.YAHOO);
              jsonResponse.put("provider", providers);
              setItemResponse(jsonResponse);
              log.debug("Social providers enabled "+providers.size());

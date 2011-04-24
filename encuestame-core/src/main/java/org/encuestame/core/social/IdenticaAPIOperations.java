@@ -19,4 +19,6 @@ package org.encuestame.core.social;
  */
 public interface IdenticaAPIOperations extends SocialAPIOperations {
 
+
+    public IdentiCaProfile getUserProfile();
 }

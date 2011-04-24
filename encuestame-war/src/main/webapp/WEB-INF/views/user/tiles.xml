@@ -23,4 +23,9 @@
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}connect.jsp" />
     </definition>
 
+    <definition name="signin/provider/register" extends="page">
+        <put-attribute name="title" value="Social Register | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}register_provider.jsp" />
+    </definition>
+
 </tiles-definitions>

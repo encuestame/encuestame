@@ -12,20 +12,16 @@
  */
 package org.encuestame.mvc.controller.social;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.social.connect.ITwitterSocialProvider;
-import org.encuestame.core.util.InternetUtils;
-import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuth1Token;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,149 +33,62 @@ import org.springframework.web.context.request.WebRequest;
  * @since Dec 25, 2010 4:46:18 PM
  */
 @Controller
-public class TwitterConnectSocialAccount extends AbstractSocialController {
+public class TwitterConnectSocialAccount extends AbstractAccountConnect {
 
-    /**
+     /**
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Default Base CallBack.
-     */
-    private String baseCallbackUrl;
-
-    /**
-     * Twitter Provider Name.
-     */
-    public final String TWITTER_PROVIDER_NAME = "twitter";
-
-    /**
      * Constructor.
      */
-    public TwitterConnectSocialAccount() {
-        this.baseCallbackUrl = "/signin/";
+    @Inject
+    public TwitterConnectSocialAccount(
+            @Value("${twitter.oauth.consumerKey}") String apiKey,
+            @Value("${twitter.oauth.consumerSecret}") String consumerSecret,
+            @Value("${twitter.oauth.authorize}") String authorizeUrl,
+            @Value("${twitter.oauth.request.token}") String requestTokenUrl,
+            @Value("${twitter.oauth.access.token}") String accessToken) {
+        super(apiKey, consumerSecret, authorizeUrl, requestTokenUrl, accessToken, SocialProvider.TWITTER);
     }
 
     /**
-     * Twitter Service Connect.
+     * Identi.ca connect Get.
+     * @return settings redirect view.
      */
-    private ITwitterSocialProvider twitterServiceConnect;
-
-    /**
-     * Render the signin form for the service provider.
-     */
-    @RequestMapping(value="/connect/twitter", method = RequestMethod.GET)
-    public String signinTwitterGet(){
-        String baseViewPath = "signin/twitter";
-        if (this.twitterServiceConnect.isConnected(1L)) {
-            return baseViewPath + "Connected";
-        } else {
-            return baseViewPath + "Connect";
-        }
+    @RequestMapping(value = "/connect/twitter", method = RequestMethod.GET)
+    public String twitterConnectPost() {
+        return "redirect:/settings/social";
     }
 
     /**
-     * Disconnect from the provider.
-     * The member has decided they no longer wish to use the service provider from this application.
-     * @throws EnMeNoResultsFoundException
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value="/signin/twitter", method=RequestMethod.DELETE)
-    public String disconnect(@PathVariable String name) throws EnMeNoResultsFoundException {
-        this.twitterServiceConnect.disconnect(getUserAccount().getUid());
-        return "redirect:/signin/" + name;
-    }
-
-    /**
-     * Process a connect form submission by commencing the process of establishing a connection to the provider
-     * on behalf of the user account.
-     * Fetches a new request token from the provider, temporarily stores it in the session,
-     * then redirects the member to the provider's site for authorization.
-     */
-    @RequestMapping(value="/signin/twitter", method = RequestMethod.POST)
-    public String signinTwitterPost(
-            final WebRequest request,
-            final HttpServletRequest requestHttp,
-            final HttpServletResponse response){
-        ITwitterSocialProvider provider = this.twitterServiceConnect;
-        log.debug("api key "+provider.getApiKey());
-        //preConnect(provider, request);
-        log.debug(InternetUtils.getDomain(requestHttp)+baseCallbackUrl + "twitter");
-        final OAuth1Token requestToken =
-                       provider.fetchNewRequestToken(InternetUtils.getDomain(requestHttp)+baseCallbackUrl + "twitter");
-        log.debug("RequesToken "+requestToken.toString());
-        request.setAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
-        //stored in the session
-        return "redirect:" + provider.buildAuthorizeUrl(requestToken.getValue());
-    }
-
-    /**
-     * Authorize Callback.
-     * @param token
-     * @param verifier
+     *
+     * @param scope
      * @param request
+     * @param httpRequest
      * @return
      */
-    @RequestMapping(value="/signin/twitter", method = RequestMethod.GET, params = "oauth_token")
-    public String authorizeCallback(
+    @RequestMapping(value = "/connect/twitter", method = RequestMethod.POST)
+    public String connectTwitterSocialAccount(@RequestParam(required = false) String scope,
+            WebRequest request,
+            HttpServletRequest httpRequest) {
+        return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+    }
+
+    /**
+     * Process the authorization callback from an OAuth 1 identi.ca provider.
+     * @throws EnMeNoResultsFoundException
+     */
+    @RequestMapping(value = "/social/back/twitter", method = RequestMethod.GET, params = "oauth_token")
+    public String oauth1Callback(
             @RequestParam("oauth_token") String token,
-            @RequestParam(value="oauth_verifier", defaultValue = "verifier")
-            final String verifier,
-            final HttpServletRequest request2,
-            final HttpServletResponse response,
-            final WebRequest request) {
-        //get token value from user session.
-        OAuth1Token requestToken = (OAuth1Token) request.getAttribute(
-                   OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, WebRequest.SCOPE_SESSION);
-        //log.debug("requestToken "+requestToken.toString());
-        if (requestToken != null) {
-            //remove attribute
-            request.removeAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, WebRequest.SCOPE_SESSION);
-            ITwitterSocialProvider provider = this.twitterServiceConnect;
-            //authorize token.
-            log.debug("oauth_token "+token);
-            log.debug("oauth_verifier "+verifier);
-            log.debug("requestToken "+requestToken);
-            UserAccount account = null;
-            /*final AuthorizedRequestToken d = new AuthorizedRequestToken(requestToken, verifier);
-            try {
-                log.debug("User token:"+token);
-                //search currently user connection
-                //account = provider.connect(account.getUid(), d); //if connection not exist, throw exception
-                //TODO: don't works with twitter.
-                //if exist, the user is authenticated.
-                authenticate(account);
-                //authenticate.
-                return "redirect:/account/dashboard";
-            } catch (EnMeDomainNotFoundException e) {
-
-               WebUtils.setSessionAttribute(request2, "test", "test2");
-               final AccountConnection connection = provider.connect(null, d);
-               //we need store connectio for complete registrer to new account.
-               WebUtils.setSessionAttribute(request2, "connection", connection);
-               return "redirect:/user/signup";
-            }*/
-        } else {
-            log.error("Request token not found");
-            return "redirect:/signin/" + "twitter";
-        }
-        //postConnect(provider, 1, request);
-        //FlashMap.setSuccessMessage("Your Greenhouse account is now connected to your " + provider.getDisplayName() + " account!");
-        return "";
-    }
-
-    /**
-     * @return the twitterServiceConnect
-     */
-    public ITwitterSocialProvider getTwitterServiceConnect() {
-        return twitterServiceConnect;
-    }
-
-    /**
-     * @param twitterServiceConnect the twitterServiceConnect to set
-     */
-    public void setTwitterServiceConnect(final ITwitterSocialProvider twitterServiceConnect) {
-        this.twitterServiceConnect = twitterServiceConnect;
+            @RequestParam(value = "oauth_verifier", required = false) String verifier,
+            WebRequest request,
+            final UserAccount account) throws EnMeNoResultsFoundException {
+        final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
+        log.debug("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
+        this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
+        return this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }

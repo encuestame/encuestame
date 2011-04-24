@@ -12,11 +12,8 @@
  */
 package org.encuestame.business.service.social.connect;
 
-import org.encuestame.business.service.social.AbstractSocialSignInConnect;
 import org.encuestame.business.service.social.api.LinkedInAPITemplate;
-import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.SocialAccountProvider;
-import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 /**
  * LinkedIn Social Service.
