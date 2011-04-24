@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -60,16 +61,17 @@ public class IdenticaConnectSocialAccount extends AbstractAccountConnect {
 
     /**
      * Process the authorization callback from an OAuth 1 identi.ca provider.
+     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping(value = "/social/back/identica", method = RequestMethod.GET, params = "oauth_token")
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
             WebRequest request,
-            final UserAccount account) {
+            final UserAccount account) throws EnMeNoResultsFoundException {
         final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
         log.debug("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
-        this.checkOAuth1SocialAccount(SocialProvider.IDENTICA, accessToken, account);
-        return "redirect:settings/social?#provider="+SocialProvider.IDENTICA.toString().toLowerCase()+"&refresh=true&successful=true";
+        this.checkOAuth1SocialAccount(SocialProvider.IDENTICA, accessToken);
+        return this.redirect+"#provider="+SocialProvider.IDENTICA.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }

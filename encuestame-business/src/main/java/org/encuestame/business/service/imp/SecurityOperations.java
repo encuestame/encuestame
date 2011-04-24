@@ -28,6 +28,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
@@ -51,6 +52,17 @@ public interface SecurityOperations extends ServiceOperations {
      */
     List<UserAccountBean> loadListUsers(final String currentUsername, final Integer maxResults,
             final Integer start) throws Exception;
+
+    /**
+     * Get User Logged Verified Social Accounts.
+     * @param username username
+     * @param socialProvider
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(
+            final String username,
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
 
     /**
      * Retrieve Total Own Users.
@@ -386,7 +398,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param socialAccountId
      * @return
      */
-    SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final Long socialProfileId);
+    SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId);
 
     /**
      * Update OAuth Token/Secret Social Account.
@@ -396,13 +408,13 @@ public interface SecurityOperations extends ServiceOperations {
      * @param username
      * @param account
      * @param socialProvider
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
     void addNewSocialAccount(
-            final Long socialAccountId,
+            final String socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
-            final UserAccount account,
-            final SocialProvider socialProvider);
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
 }

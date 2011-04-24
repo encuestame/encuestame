@@ -15,12 +15,16 @@ package org.encuestame.mvc.controller.social;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.api.IdenticaAPITemplate;
+import org.encuestame.business.service.social.api.LinkedInAPITemplate;
 import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
+import org.encuestame.core.social.LinkedInAPIOperations;
+import org.encuestame.core.social.LinkedInProfile;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -38,6 +42,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
 
     protected String apiKey;
     protected String consumerSecret;
+    protected String redirect = "redirect:/settings/social";
 
     /**
      * Constructor for OAuth1 protocol.
@@ -66,13 +71,14 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
      * @param socialProvider
      * @param accessToken
      * @param account
+     * @throws EnMeNoResultsFoundException
      */
-    public void checkOAuth1SocialAccount(
+    public String checkOAuth1SocialAccount(
             final SocialProvider socialProvider,
-            final OAuth1Token accessToken,
-            final UserAccount account){
-            Long socialAccountId = null;
+            final OAuth1Token accessToken) throws EnMeNoResultsFoundException{
+            String socialAccountId = null;
             String username = null;
+            String actionToDo = "";
             if (socialProvider.equals(SocialProvider.IDENTICA)) {
                 IdenticaAPIOperations apiOperations = new IdenticaAPITemplate(
                         apiKey, consumerSecret, accessToken.getValue(),
@@ -80,18 +86,33 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                 IdentiCaProfile profile = apiOperations.getUserProfile();
                 log.debug("identica profile "+profile.toString());
                 username = profile.getScreenName();
+                socialAccountId = String.valueOf(profile.getId());
+                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
+                      socialAccountId);
+                if (socialAccount == null) {
+                    getSecurityService().addNewSocialAccount(socialAccountId,
+                            accessToken.getValue(), accessToken.getSecret(), username,
+                            socialProvider);
+                } else {
+                    log.warn("This account already exist");
+                }
+            } else if (socialProvider.equals(SocialProvider.LINKEDIN)) {
+                LinkedInAPIOperations apiOperations = new LinkedInAPITemplate(
+                        apiKey, consumerSecret, accessToken.getValue(),
+                        accessToken.getSecret());
+                LinkedInProfile profile = apiOperations.getUserProfile();
+                log.debug("identica profile "+profile.toString());
+                username = profile.getLastName();
                 socialAccountId = profile.getId();
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
                       socialAccountId);
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(socialAccountId,
                             accessToken.getValue(), accessToken.getSecret(), username,
-                            account, socialProvider);
+                            socialProvider);
                 } else {
                     log.warn("This account already exist");
                 }
-            } else if (socialProvider.equals(SocialProvider.LINKEDIN)) {
-
             } else if (socialProvider.equals(SocialProvider.TWITTER)) {
 
             } else if (socialProvider.equals(SocialProvider.MYSPACE)) {
@@ -100,5 +121,6 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
 
             }
             log.info("Saved New Social Account");
+            return actionToDo;
     }
 }

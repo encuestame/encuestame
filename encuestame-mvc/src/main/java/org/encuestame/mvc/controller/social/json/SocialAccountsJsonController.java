@@ -15,6 +15,7 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -207,18 +208,15 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             HttpServletResponse response,
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
-//        try {final List<SocialAccountBean> accounts = getSecurityService()
-//            .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-//        setItemReadStoreResponse("socialAccounts", "id", accounts);
-//             final List<SocialAccountBean> accounts = getSecurityService()
-//                   .getUserLoggedSocialAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-//             setItemReadStoreResponse("socialAccounts", "id", accounts);
-//             log.debug("Twitter Accounts Loaded");
-//        } catch (Exception e) {
-//            log.error(e);
-//            e.printStackTrace();
-//            setError(e.getMessage(), response);
-//        }
+        try {final List<SocialAccountBean> accounts = getSecurityService()
+            .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+            setItemReadStoreResponse("socialAccounts", "id", accounts);
+             log.debug("Twitter Accounts Loaded");
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
         return returnData();
     }
 

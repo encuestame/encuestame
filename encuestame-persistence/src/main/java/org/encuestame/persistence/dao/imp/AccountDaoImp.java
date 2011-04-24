@@ -114,12 +114,12 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(org.encuestame.persistence.domain.social.SocialProvider, java.lang.Long)
      */
-    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialProfileId){
+    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final String socialProfileId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         log.debug("accounType "+socialProvider);
         log.debug("socialProfileId "+socialProfileId);
         criteria.add(Restrictions.eq("accounType", socialProvider));
-        criteria.add(Restrictions.eq("socialProfileId", String.valueOf(socialProfileId)));
+        criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 

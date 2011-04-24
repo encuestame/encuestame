@@ -3,8 +3,9 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -69,14 +70,15 @@ public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
      * @param verifier
      * @param request
      * @return
+     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping(value = "/social/back/linkedin", method = RequestMethod.GET, params = "oauth_token")
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
-            WebRequest request) {
+            WebRequest request, final UserAccount account) throws EnMeNoResultsFoundException {
          final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-         System.out.println("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
-         return "connect/account";
+         this.checkOAuth1SocialAccount(SocialProvider.LINKEDIN, accessToken);
+         return this.redirect+"#provider="+SocialProvider.LINKEDIN.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }
