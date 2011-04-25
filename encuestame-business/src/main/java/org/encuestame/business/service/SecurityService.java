@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.core.service.SocialOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
@@ -1026,6 +1025,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             socialAccount.setSocialAccountName(username);
             socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
             socialAccount.setSecretToken(tokenSecret);
+            socialAccount.setAddedAccount(new Date());
+            socialAccount.setUpgradedCredentials(new Date());
             socialAccount.setSocialProfileId(socialAccountId);
             getAccountDao().saveOrUpdate(socialAccount);
             log.debug("Updated Token");

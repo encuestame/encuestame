@@ -12,9 +12,13 @@
  */
 package org.encuestame.mvc.controller.social;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
-import org.encuestame.core.social.oauth2.OAuth2RestOperations;
-import org.encuestame.core.social.oauth2.OAuth2Support;
+import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,7 +33,7 @@ import org.springframework.web.context.request.WebRequest;
  * @since Dec 25, 2010 4:46:18 PM
  */
 @Controller
-public class FacebookConnectSocialAccount extends AbstractSocialController{
+public class FacebookConnectSocialAccount extends AbstractAccountConnect{
 
     /**
      * Log.
@@ -37,29 +41,22 @@ public class FacebookConnectSocialAccount extends AbstractSocialController{
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Consumer Key.
+     *
+     * @param appId
+     * @param accessTokenUrl
+     * @param authorizeUrl
+     * @param clientSecret
+     * @param clientId
      */
-    public @Value("${facebook.api.key}") String apiKey;
-
-    /**
-     * Consumer Secret.
-     */
-    public @Value("${facebook.api.secret}") String consumerSecret;
-
-
-    public @Value("${facebook.api.id}") String appID;
-
-    /**
-     * Authorize Url.
-     */
-    public @Value("${facebook.oauth.authorize}") String authorizeUrl;
-
-    /**
-     * Request Token Url.
-     */
-    public @Value("${facebook.oauth.accesToken}") String accessTokenUrl;
-
-    OAuth2RestOperations tm;
+    @Inject
+    public FacebookConnectSocialAccount(
+            @Value("${facebook.api.id}") String appId,
+            @Value("${facebook.oauth.accesToken}") String accessTokenUrl,
+            @Value("${facebook.oauth.authorize}") String authorizeUrl,
+            @Value("${facebook.api.secret}") String clientSecret,
+            @Value("${facebook.api.key}") String clientId) {
+       super(clientId, clientSecret,Long.valueOf(appId), accessTokenUrl, authorizeUrl, SocialProvider.FACEBOOK);
+    }
 
 
     /**
@@ -68,29 +65,43 @@ public class FacebookConnectSocialAccount extends AbstractSocialController{
      */
     @RequestMapping(value="/connect/facebook", method = RequestMethod.GET)
     public String signinTwitterGet(){
-        return "connect/account";
+        return "redirect:/settings/social";
     }
 
+    /**
+     *
+     * @param scope
+     * @param httpRequest
+     * @return
+     */
     @RequestMapping(value="/connect/facebook", method = RequestMethod.POST)
-    public String signinTwitterGet( @RequestParam(required=false) String scope){
-        this.tm = new OAuth2Support(this.appID, this.consumerSecret,
-                this.authorizeUrl,
-                this.accessTokenUrl);
-        final String urlFracebook = tm.buildAuthorizeUrl("http://localhost:8080/encuestame/social/back/facebook", "email,read_stream,publish_stream,user_status,user_location");
-        log.debug("FACEBOOKKKKK "+urlFracebook);
-                return "redirect:" + urlFracebook+"&scope=email,read_stream,publish_stream,user_status,user_location";
+    public String connectFacebookPost(
+            @RequestParam(required=false) String scope,
+            HttpServletRequest httpRequest){
+           log.debug("CONNECT POST FACEBOOK");
+           return this.auth2RequestProvider.buildOAuth2AuthorizeUrl("email,read_stream,publish_stream,user_status,user_location",
+                  httpRequest, true);
     }
 
+
+    /**
+     *
+     * @param code
+     * @param httpRequest
+     * @param request
+     * @return
+     * @throws EnMeFailSendSocialTweetException
+     * @throws EnMeNoResultsFoundException
+     */
     @RequestMapping(value="/social/back/facebook", method=RequestMethod.GET, params="code")
     public String oauth2Callback(
             @RequestParam("code") String code,
-            WebRequest request) {
-        log.debug("***********************************************************");
-        log.debug(code);
-        AccessGrant accessGrant = tm.exchangeForAccess(code, "http://localhost:8080/encuestame/social/back/facebook");
+            HttpServletRequest httpRequest,
+            WebRequest request) throws EnMeNoResultsFoundException, EnMeFailSendSocialTweetException {
+        final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
         log.debug(accessGrant.getAccessToken());
         log.debug(accessGrant.getRefreshToken());
-        log.debug("***********************************************************");
-        return "connect/account";
+        checkOAuth2SocialAccount(SocialProvider.FACEBOOK, accessGrant);
+        return this.redirect+"#provider="+SocialProvider.FACEBOOK.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }
