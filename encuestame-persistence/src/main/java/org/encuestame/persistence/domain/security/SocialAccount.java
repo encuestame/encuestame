@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,8 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +24,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -31,10 +34,9 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
 /**
- * SecUser Twitter Acounts.
+ * Social Account.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 19, 2010 7:15:32 AM
- * @version  $Id:$
  */
 
 //@TypeDef(name="encryptedString", typeClass= EncryptedStringType.class,
@@ -67,6 +69,36 @@ public class SocialAccount extends AbstractSocial{
      * Default Selected.
      */
     private Boolean defaultSelected = false;
+
+    /**
+     * Url profile account.
+     */
+    private String profileUrl;
+
+    /**
+     * Real Name Profile.
+     */
+    private String realName;
+
+    /**
+     * Added account.
+     */
+    private Date addedAccount;
+
+    /**
+     * Last date system upgrade credentials.
+     */
+    private Date upgradedCredentials;
+
+    /**
+     * Description Profile.
+     */
+    private String descriptionProfile;
+
+    /**
+     * Social account email associated.
+     */
+    private String email;
 
     /**
      * Type.
@@ -184,7 +216,99 @@ public class SocialAccount extends AbstractSocial{
     /**
      * @param defaultSelected the defaultSelected to set
      */
-    public void setDefaultSelected(Boolean defaultSelected) {
+    public void setDefaultSelected(final Boolean defaultSelected) {
         this.defaultSelected = defaultSelected;
+    }
+
+    /**
+     * @return the profileUrl
+     */
+    @Column(name = "profile_url")
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    /**
+     * @param profileUrl the profileUrl to set
+     */
+    public void setProfileUrl(final String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    /**
+     * @return the realName
+     */
+    @Column(name = "real_name")
+    public String getRealName() {
+        return realName;
+    }
+
+    /**
+     * @param realName the realName to set
+     */
+    public void setRealName(final String realName) {
+        this.realName = realName;
+    }
+
+    /**
+     * @return the addedAccount
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "added_account_date", nullable = false)
+    public Date getAddedAccount() {
+        return addedAccount;
+    }
+
+    /**
+     * @param addedAccount the addedAccount to set
+     */
+    public void setAddedAccount(final Date addedAccount) {
+        this.addedAccount = addedAccount;
+    }
+
+    /**
+     * @return the descriptionProfile
+     */
+    @Column(name = "description_profile")
+    public String getDescriptionProfile() {
+        return descriptionProfile;
+    }
+
+    /**
+     * @param descriptionProfile the descriptionProfile to set
+     */
+    public void setDescriptionProfile(final String descriptionProfile) {
+        this.descriptionProfile = descriptionProfile;
+    }
+
+    /**
+     * @return the email
+     */
+    @Column(name = "social_account_email")
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the upgradedCredentials
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "upgraded_credentials_last_date", nullable = false)
+    public Date getUpgradedCredentials() {
+        return upgradedCredentials;
+    }
+
+    /**
+     * @param upgradedCredentials the upgradedCredentials to set
+     */
+    public void setUpgradedCredentials(final Date upgradedCredentials) {
+        this.upgradedCredentials = upgradedCredentials;
     }
 }

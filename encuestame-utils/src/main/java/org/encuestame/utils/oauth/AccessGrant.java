@@ -14,15 +14,24 @@ package org.encuestame.utils.oauth;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * OAuth2 access token.
  */
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class AccessGrant implements Serializable {
 
-    private final String accessToken;
+    @JsonProperty("access_token")
+    private String accessToken;
 
-    private final String refreshToken;
+    @JsonProperty("refresh_token")
+    private String refreshToken;
+
+    @JsonProperty("expires_in")
+    private String expires;
 
     public AccessGrant(String accessToken) {
         this(accessToken, null);
@@ -31,6 +40,14 @@ public final class AccessGrant implements Serializable {
     public AccessGrant(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+    }
+
+
+    public AccessGrant(String accessToken, String refreshToken, String expires) {
+        super();
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.expires = expires;
     }
 
     /**
@@ -45,5 +62,12 @@ public final class AccessGrant implements Serializable {
      */
     public String getRefreshToken() {
         return refreshToken;
+    }
+
+    /**
+     * @return the expires
+     */
+    public String getExpires() {
+        return expires;
     }
 }

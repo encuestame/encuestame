@@ -12,6 +12,16 @@
  */
 package org.encuestame.business.service.social;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.encuestame.core.social.oauth.OAuth2Parameters;
+import org.encuestame.core.social.oauth2.OAuth2RestOperations;
+import org.encuestame.core.social.oauth2.OAuth2Support;
+import org.encuestame.core.util.InternetUtils;
+import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.oauth.AccessGrant;
+
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
@@ -19,4 +29,101 @@ package org.encuestame.business.service.social;
  */
 public class OAuth2RequestFlow {
 
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
+
+
+    OAuth2RestOperations oAuth2RestOperations;
+
+    /**
+    *
+    */
+   private SocialProvider provider;
+
+
+   /**
+    *
+    */
+   private OAuth2Parameters auth2Parameters;
+
+
+   /**
+    *
+    * @param auth2Parameters
+    */
+    public OAuth2RequestFlow(final OAuth2Parameters auth2Parameters){
+        this.provider = auth2Parameters.getSocialProvider();
+        this.auth2Parameters = auth2Parameters;
+        this.oAuth2RestOperations = new OAuth2Support(auth2Parameters.getClientId(),
+                auth2Parameters.getClientSecret(),
+                auth2Parameters.getAuthorizeUrl(),
+                auth2Parameters.getAccessTokenUrl());
+    }
+
+    /**
+     *
+     * @param code
+     * @param httpRequest
+     * @return
+     */
+    public AccessGrant getAccessGrant(final String code,final HttpServletRequest httpRequest){
+        log.debug("Access Grant "+this.buildCallBackUrl(httpRequest));
+        log.debug("Access Grant code "+code);
+        return  getoAuth2RestOperations().exchangeForAccess(code, this.buildCallBackUrl(httpRequest));
+    }
+
+    /**
+     *
+     * @param scope
+     * @param httpRequest
+     * @return
+     */
+    public String buildOAuth2AuthorizeUrl(
+            final String scope,
+            final HttpServletRequest httpRequest,
+            final Boolean forceScope){
+        this.oAuth2RestOperations = new OAuth2Support(auth2Parameters.getAppId() == null
+                ? auth2Parameters.getApiKey() : auth2Parameters.getAppId().toString(),
+                auth2Parameters.getClientSecret(),
+                auth2Parameters.getAuthorizeUrl(),
+                auth2Parameters.getAccessTokenUrl());
+        final StringBuilder authorizeUrl = new StringBuilder("redirect:");
+        authorizeUrl.append(oAuth2RestOperations.buildAuthorizeUrl(this.buildCallBackUrl(httpRequest), scope));
+        if (forceScope) {
+            authorizeUrl.append("&scope=");
+            authorizeUrl.append(scope);
+        }
+        log.debug("Authorize Url "+authorizeUrl.toString() + " for "+this.provider.name());
+        return authorizeUrl.toString();
+    }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    public String buildCallBackUrl(final HttpServletRequest request){
+        final StringBuilder callBackurl = new StringBuilder(InternetUtils.getDomain(request));
+        callBackurl.append("/social/back/");
+        callBackurl.append(provider.toString().toLowerCase());
+        log.debug("buildCallBackUrl "+callBackurl.toString());
+        return callBackurl.toString();
+    }
+
+    /**
+     * @return the oAuth2RestOperations
+     */
+    public OAuth2RestOperations getoAuth2RestOperations() {
+        return oAuth2RestOperations;
+    }
+
+    /**
+     * @return the provider
+     */
+    public SocialProvider getProvider() {
+        return provider;
+    }
 }
