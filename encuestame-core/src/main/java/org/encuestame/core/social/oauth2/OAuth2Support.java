@@ -23,6 +23,7 @@ import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriTemplate;
@@ -62,7 +63,7 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
                  return clazz.equals(Map.class) && mediaType != null && mediaType.getType().equals("text")
                          && mediaType.getSubtype().equals("plain");
              }
-         }));
+         }, new MappingJacksonHttpMessageConverter()));
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.authorizeUrlTemplate = new UriTemplate(authorizeUrl);
@@ -86,8 +87,8 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
      * @see org.encuestame.core.social.oauth2.OAuth2RestOperations#exchangeForAccess(java.lang.String, java.lang.String)
      */
     public AccessGrant exchangeForAccess(String authorizationCode, String redirectUri) {
-        log.debug("exchangeForAccess"+authorizationCode);
-        log.debug("redirectUri"+redirectUri);
+        log.debug("exchangeForAccess:{"+authorizationCode);
+        log.debug("redirectUri{: "+redirectUri);
         MultiValueMap<String, String> requestParameters = new LinkedMultiValueMap<String, String>();
         requestParameters.set("client_id", clientId);
         requestParameters.set("client_secret", clientSecret);
@@ -96,7 +97,8 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
         requestParameters.set("grant_type", "authorization_code");
         log.debug("requestParameters "+requestParameters.toString());
         @SuppressWarnings("unchecked")
-        Map<String, ?> result = getRestTemplate().postForObject(accessTokenUrl, requestParameters, Map.class);
+        Map result = getRestTemplate().postForObject(accessTokenUrl, requestParameters, Map.class);
+        log.debug("Access Grant "+result.toString());
         return new AccessGrant(valueOf(result.get("access_token")), valueOf(result.get("refresh_token")));
     }
 

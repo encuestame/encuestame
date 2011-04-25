@@ -72,7 +72,7 @@ public class SignInController extends AbstractSocialController{
             url.append("signin/provider/register");
             if (SocialProvider.TWITTER.equals(providerEnum)) {
 
-            } else if (SocialProvider.BUZZ.equals(providerEnum)) {
+            } else if (SocialProvider.GOOGLE.equals(providerEnum)) {
 
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
 

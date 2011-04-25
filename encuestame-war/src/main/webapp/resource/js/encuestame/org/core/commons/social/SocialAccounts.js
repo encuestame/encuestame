@@ -24,7 +24,7 @@ dojo.declare(
             this._createDetail("twitterDetail", "Twitter");
             this._createDetail("facebookDetail", "Facebook");
             this._createDetail("linkedinDetail", "LinkedIn");
-            this._createDetail("googleDetail", "Buzz");
+            this._createDetail("googleDetail", "Google");
             this._createDetail("identicaDetail", "Identica");
             this._createDetail("yahooDetail", "Yahoo");
             this._createDetail("myspaceDetail", "MySpace");
