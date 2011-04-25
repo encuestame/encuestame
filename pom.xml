@@ -146,9 +146,9 @@
     </mailingLists>
 
     <scm>
-        <connection>scm:git:git://jotadeveloper.com/encuestame.git</connection>
-        <developerConnection>scm:git:git://jotadeveloper.com/encuestame.git</developerConnection>
-        <url>http://git.encuestame.org</url>
+        <connection>scm:git:git://github.com/juanpicado/encuestame.git</connection>
+        <developerConnection>scm:git:git://github.com/juanpicado/encuestame.git</developerConnection>
+        <url>https://juanpicado@github.com/juanpicado/encuestame.git</url>
     </scm>
 
     <distributionManagement>
