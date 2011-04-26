@@ -14,7 +14,11 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.*;
 
+import javax.persistence.AccessType;
+
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.ShortUrlProvider;
 import org.junit.Test;
@@ -36,7 +40,9 @@ public class TestQuestionAnswer extends AbstractBase {
         qanswer.setAnswer("Yes");
         qanswer.setProvider(ShortUrlProvider.GOOGL);
         qanswer.setQuestions(createQuestion("Are you single?", "yesNo",createAccount()));
-        qanswer.setUniqueAnserHash("AKDL12");
+        qanswer.setUniqueAnserHash("AKDL12_"+RandomStringUtils.randomAlphabetic(4));
+        qanswer.setAnswerType(AnswerType.DEFAULT);
+        qanswer.setUrlAnswer("url");
         getQuestionDaoImp().saveOrUpdate(qanswer);
         assertNotNull(qanswer);
 
