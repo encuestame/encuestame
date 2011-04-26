@@ -7,7 +7,7 @@ If you want to build and deploy from source follow these instructions:
 
 Fast Deploy
 
-encuestame have 4 modules
+encuestame have this modules:
 
  encuestame-utils: Bean utils
  encuestame-persistence Domains and Dao
@@ -18,7 +18,7 @@ encuestame have 4 modules
 
 To checkout the last source code version run this.
 
-    git clone git://jotadeveloper.com/encuestame.git
+    git clone git://github.com/encuestame/encuestame.git
 
 Building this version requires Apache Maven 2 to build. Version 2.0.10 or higher is suggested.
 
@@ -35,4 +35,4 @@ After doing this, you can run jetty server running following command:
 
 If you want deploy on webcontainer you can find WAR file on (after run mvn install on top level):
 
-    encuestame-war/target/encuestame.war
+    encuestame-war/target/encuestame-{version}.war

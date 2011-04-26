@@ -6,6 +6,7 @@ import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.LinkedInConnections;
 import org.encuestame.core.social.LinkedInProfile;
+import org.encuestame.core.social.SocialUserProfile;
 
 public class LinkedInAPITemplate extends AbstractSocialAPISupport implements LinkedInAPIOperations {
 
@@ -91,9 +92,20 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
         return connections.getConnections();
     }
 
+    /**
+     *
+     */
     @Override
-    public String getProfile() {
-        // TODO Auto-generated method stub
-        return null;
+    public SocialUserProfile getProfile() throws Exception {
+        final SocialUserProfile profile = new SocialUserProfile();
+        LinkedInProfile inProfile = new LinkedInProfile();
+        profile.setFirstName(inProfile.getFirstName());
+        profile.setId(inProfile.getId());
+        profile.setHeadline(inProfile.getHeadline());
+        profile.setIndustry(inProfile.getIndustry());
+        profile.setLastName(inProfile.getLastName());
+        profile.setProfileUrl(inProfile.getPublicProfileUrl());
+        profile.setUrl(inProfile.getStandardProfileUrl());
+        return profile;
     }
 }

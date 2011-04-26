@@ -6,6 +6,7 @@ import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.IdenticaStatusDetails;
+import org.encuestame.core.social.SocialUserProfile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -108,15 +109,22 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         return profile;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
-    public String getProfile() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getProfileUrl() {
-        // TODO Auto-generated method stub
-        return null;
+    public SocialUserProfile getProfile() {
+        IdentiCaProfile profile = this.getUserProfile();
+        final SocialUserProfile socialUserProfile = new SocialUserProfile();
+        socialUserProfile.setDescription(profile.getDescription());
+        socialUserProfile.setCreatedAt(profile.getCreatedDate());
+        socialUserProfile.setId(String.valueOf(profile.getId()));
+        socialUserProfile.setLocation(profile.getLocation());
+        socialUserProfile.setProfileImageUrl(profile.getProfileImageUrl());
+        socialUserProfile.setProfileUrl(profile.getProfileUrl());
+        socialUserProfile.setScreenName(profile.getScreenName());
+        socialUserProfile.setUrl(profile.getUrl());
+        return socialUserProfile;
     }
 }

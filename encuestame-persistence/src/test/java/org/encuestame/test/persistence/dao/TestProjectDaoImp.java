@@ -107,8 +107,8 @@ public class TestProjectDaoImp extends AbstractBase{
     public void tesGetAttachmentbyId(){
         assertNotNull(attachment);
         Attachment attach = getProjectDaoImp().getAttachmentbyId(this.attachment.getAttachmentId());
-        System.out.println("Attachment id created before--> "+ attachment.getAttachmentId());
-        System.out.println("Attachment id retrieved -> "+ attach.getAttachmentId());
+        log.debug("Attachment id created before--> "+ attachment.getAttachmentId());
+        log.debug("Attachment id retrieved -> "+ attach.getAttachmentId());
         assertEquals("Should be equals", this.attachment.getAttachmentId(), attach.getAttachmentId());
     }
 
@@ -118,7 +118,7 @@ public class TestProjectDaoImp extends AbstractBase{
         assertNotNull(attachment);
         assertNotNull(attachment2);
         final List<Attachment> attachList = getProjectDaoImp().getAttachmentsListbyProject(this.project.getProyectId());
-        System.out.println("Attach List -->" + attachList.size());
+        log.debug("Attach List -->" + attachList.size());
         assertEquals("Should be equals", 2, attachList.size());
     }
 

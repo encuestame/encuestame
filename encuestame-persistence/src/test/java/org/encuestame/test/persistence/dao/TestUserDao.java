@@ -309,7 +309,7 @@ public class TestUserDao extends AbstractBase {
         final SocialAccount ac = createSocialProviderAccount(this.account, SocialProvider.GOOGLE);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
         assertEquals("Should be equals", ac.getId(),ex.getId());
-        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE, Long.valueOf(ex.getSocialProfileId()));
+        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE, ex.getSocialProfileId());
         assertNotNull(ex2);
         assertEquals("Should be equals", ac.getId(), ex2.getId());
     }

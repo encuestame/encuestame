@@ -119,9 +119,9 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
     // internal helpers
 
     protected OAuth1Token getTokenFromProvider(String tokenUrl, Map<String, String> tokenRequestParameters, Map<String, String> additionalParameters, String tokenSecret) {
-        System.out.println("getTokenFromProvider TOKEN "+tokenUrl);
-        System.out.println("getTokenFromProvider TOKEN "+tokenRequestParameters);
-        System.out.println("getTokenFromProvider TOKEN "+additionalParameters);
+        log.debug("getTokenFromProvider TOKEN "+tokenUrl);
+        log.debug("getTokenFromProvider TOKEN "+tokenRequestParameters);
+        log.debug("getTokenFromProvider TOKEN "+additionalParameters);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", getAuthorizationHeaderValue(tokenUrl, tokenRequestParameters, additionalParameters, tokenSecret));
         MultiValueMap<String, String> bodyParameters = new LinkedMultiValueMap<String, String>();
