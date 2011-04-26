@@ -21,7 +21,6 @@ import org.encuestame.core.social.Data;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.jfree.util.Log;
 
 /**
  * Google Buzz
@@ -66,6 +65,24 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#getProfile()
+     * {"data":{
+     * "kind":"buzz#person","id":"xxxxxxxxxxxxxxx",
+     * "displayName":"My name",
+     * "aboutMe":"xxxxxxxxxxxxxxxxxxxxxxxxx",
+     * "profileUrl":"https://profiles.google.com/xxxxxxxxxxxxxxx",
+     * "thumbnailUrl":"https://lh5.googleusercontent.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg",
+     * "emails":[{"value":"juanpicado19@gmail.com","type":"","primary":true}],
+     *   "urls":[{"value":"http://picasaweb.google.com/juanpicado19"},
+     *           {"value":"https://profiles.google.com/juanpicado19","type":"profile"},
+     *           {"value":"https://www.googleapis.com/buzz/v1/people/110583664879406693886/@self?alt\u003djson","type":"json"}
+     *          ],
+     * "photos":[
+     *           {"value":"https://lh5.googleusercontent.com/-dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg","type":"thumbnail","width":24,"height":24},
+     *           {"value":"https://lh5.googleusercontent.com/-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg","type":"thumbnail","width":50,"height":50}
+     *          ],
+     *"organizations":[
+     *          {"name":"xxxxxxxxx, Managua Nicaragua","title":"Computer xxxxxxxxx","type":"school"},
+     *          {"name":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","title":"Leader xxxxxxxxxxx","type":"work"}]}}"
      */
     public SocialUserProfile getProfile(){
         //TOOD: conver to BuzzProfile.

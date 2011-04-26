@@ -70,13 +70,13 @@ public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
      * @param verifier
      * @param request
      * @return
-     * @throws EnMeNoResultsFoundException
+     * @throws Exception
      */
     @RequestMapping(value = "/social/back/linkedin", method = RequestMethod.GET, params = "oauth_token")
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
-            WebRequest request, final UserAccount account) throws EnMeNoResultsFoundException {
+            WebRequest request, final UserAccount account) throws Exception {
          final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
          this.checkOAuth1SocialAccount(SocialProvider.LINKEDIN, accessToken);
          return this.redirect+"#provider="+SocialProvider.LINKEDIN.toString().toLowerCase()+"&refresh=true&successful=true";

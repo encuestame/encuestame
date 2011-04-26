@@ -57,6 +57,11 @@ public class AbstractSocial {
      */
     private Long applicationKey;
 
+    /**
+     * Profile picture url.
+     */
+    private String profilePictureUrl;
+
 
     /**
      * @return the accounType
@@ -149,7 +154,22 @@ public class AbstractSocial {
     /**
      * @param refreshToken the refreshToken to set
      */
-    public void setRefreshToken(String refreshToken) {
+    public void setRefreshToken(final String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    /**
+     * @return the profilePictureUrl
+     */
+    @Column(name = "picture_profile_url", unique = true)
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    /**
+     * @param profilePictureUrl the profilePictureUrl to set
+     */
+    public void setProfilePictureUrl(final String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 }

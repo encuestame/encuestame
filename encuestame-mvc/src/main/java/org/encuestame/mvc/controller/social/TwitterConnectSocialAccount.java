@@ -78,14 +78,14 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
 
     /**
      * Process the authorization callback from an OAuth 1 identi.ca provider.
-     * @throws EnMeNoResultsFoundException
+     * @throws Exception
      */
     @RequestMapping(value = "/social/back/twitter", method = RequestMethod.GET, params = "oauth_token")
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
             WebRequest request,
-            final UserAccount account) throws EnMeNoResultsFoundException {
+            final UserAccount account) throws Exception {
         final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
         log.debug("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
         this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);

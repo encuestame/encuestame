@@ -6,13 +6,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  * Sign In controller.
@@ -55,6 +60,7 @@ public class SignInController extends AbstractSocialController{
         return "forgot";
     }
 
+    OAuth1RequestFlow auth1RequestProvider;
 
     /**
      * Sign in by {@link SocialProvider} account.
@@ -62,16 +68,28 @@ public class SignInController extends AbstractSocialController{
      * @return
      */
     @RequestMapping(value="/signin/{provider}", method = RequestMethod.POST)
-    public String signinFacebookGet(
-        @PathVariable String provider){
+    public String signinSocialPost(
+        @PathVariable String provider,
+        WebRequest request,
+        @RequestParam(required = false) String scope,
+        HttpServletRequest httpRequest){
         final StringBuilder url = new StringBuilder();
         final SocialProvider providerEnum = SocialProvider.getProvider(provider);
+        log.debug("PROVIDER "+providerEnum);
         if (providerEnum == null) {
             url.append("404");
         } else {
-            url.append("signin/provider/register");
+            //url.append("signin/provider/register");
             if (SocialProvider.TWITTER.equals(providerEnum)) {
-
+                auth1RequestProvider = new OAuth1RequestFlow(
+                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
+                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.consumerSecret"),
+                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.request.token"),
+                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.authorize"),
+                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.access.token"),
+                         SocialProvider.TWITTER);
+                auth1RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                url.append(auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest));
             } else if (SocialProvider.GOOGLE.equals(providerEnum)) {
 
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
@@ -82,6 +100,22 @@ public class SignInController extends AbstractSocialController{
 
             }
         }
+        log.debug("PROVIDER SIGNIN url"+url);
         return url.toString();
+    }
+
+    @RequestMapping(value = "/signin/register/{provider}", method = RequestMethod.GET, params = "oauth_token")
+    public String oauth1Callback(
+            @RequestParam("oauth_token") String token,
+            @PathVariable String provider,
+            @RequestParam(value = "oauth_verifier", required = false) String verifier,
+            WebRequest request,
+            final UserAccount account) throws Exception {
+        log.debug("BACK SIGNIN PROVIDER:{ "+provider);
+        final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
+        log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
+        //this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
+        //this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
+        return "signin";
     }
 }

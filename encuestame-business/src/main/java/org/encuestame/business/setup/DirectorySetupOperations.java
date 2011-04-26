@@ -159,6 +159,20 @@ public class DirectorySetupOperations {
     }
 
     /**
+     *
+     * @param accountId
+     * @return
+     */
+    public static String getProfilesDirectory(final String accountId) {
+        final StringBuilder path = new StringBuilder(DirectorySetupOperations.getProfilesDirectory());
+        path.append("/");
+        path.append(accountId.toString());
+        path.append("/");
+        log.debug("Path builded "+path.toString());
+        return path.toString();
+    }
+
+    /**
      * Get indexes directory path.
      * @return indexed real path.
      */
