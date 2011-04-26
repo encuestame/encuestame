@@ -21,6 +21,7 @@ import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookLink;
 import org.encuestame.core.social.FacebookProfile;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -146,10 +147,20 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         getRestTemplate().postForLocation(CONNECTION_URL, requestData, object, connection);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfile()
+     */
     @Override
-    public String getProfile() {
-        // TODO Auto-generated method stub
-        return null;
+    public SocialUserProfile getProfile() {
+        final FacebookProfile facebookProfile = this.getUserProfile();
+        final SocialUserProfile profile = new SocialUserProfile();
+        profile.setEmail(facebookProfile.getEmail());
+        profile.setFirstName(facebookProfile.getFirstName());
+        profile.setLastName(facebookProfile.getLastName());
+        profile.setId(String.valueOf(facebookProfile.getId()));
+        profile.setName(facebookProfile.getName());
+        return profile;
     }
 
 }

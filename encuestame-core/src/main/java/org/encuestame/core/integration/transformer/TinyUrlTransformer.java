@@ -18,18 +18,18 @@ public class TinyUrlTransformer {
     public Log log = LogFactory.getLog(this.getClass());
 
     public String transform(String message) {
-        System.out.println("transform 1 "+message);
+        log.debug("transform 1 "+message);
         StringBuilder tranformedMessage = new StringBuilder("");
         StringTokenizer tokenizer = new StringTokenizer(message, " ");
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
-            System.out.println("token "+token);
+            log.debug("token "+token);
             if (validUrl(token)) {
                 token = SocialUtils.getTinyUrl(token);
             }
             tranformedMessage.append(" ").append(token);
         }
-        System.out.println("transform 2 "+tranformedMessage);
+        log.debug("transform 2 "+tranformedMessage);
         return tranformedMessage.toString();
     }
 

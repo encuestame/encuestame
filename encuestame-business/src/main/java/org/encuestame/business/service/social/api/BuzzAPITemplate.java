@@ -14,11 +14,14 @@ package org.encuestame.business.service.social.api;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.Data;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.jfree.util.Log;
 
 /**
  * Google Buzz
@@ -26,6 +29,12 @@ import org.encuestame.persistence.domain.security.SocialAccount;
  * @since Apr 19, 2011
  */
 public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPIOperations{
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
 
     /**
      * Google Key.
@@ -50,7 +59,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * @param accessToken
      */
     public BuzzAPITemplate(final String accessToken, final String googleKey) {
-         setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
+          setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
           this.GOOGLE_KEY = googleKey;
     }
 
@@ -58,11 +67,12 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#getProfile()
      */
-    public String getProfile(){
+    public SocialUserProfile getProfile(){
         //TOOD: conver to BuzzProfile.
         Object profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Object.class);
-        System.out.println(profileMap);
-        return "";
+        log.debug("Google Profile "+profileMap);
+        final SocialUserProfile profile = new SocialUserProfile();
+        return profile;
     }
 
     /*
@@ -93,19 +103,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      */
     public String getActivities(){
         Object f = getRestTemplate().getForObject(this.GOOGLE_ACTIVITIES, Object.class);
-        System.out.println(f);
+        log.debug(f);
         return "google";
-    }
-
-    @Override
-    public String getProfileId() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getProfileUrl() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

@@ -12,13 +12,16 @@
  */
 package org.encuestame.mvc.controller.social;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.OAuth2RequestFlow;
+import org.encuestame.business.service.social.api.BuzzAPITemplate;
 import org.encuestame.business.service.social.api.FacebookAPITemplate;
 import org.encuestame.business.service.social.api.IdenticaAPITemplate;
 import org.encuestame.business.service.social.api.LinkedInAPITemplate;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookProfile;
 import org.encuestame.core.social.IdentiCaProfile;
@@ -170,11 +173,10 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
      * @param socialProvider
      * @param accessGrant
      * @return
-     * @throws EnMeNoResultsFoundException
-     * @throws EnMeFailSendSocialTweetException
+     * @throws Exception
      */
     public String checkOAuth2SocialAccount(final SocialProvider socialProvider,
-            final AccessGrant accessGrant) throws EnMeNoResultsFoundException, EnMeFailSendSocialTweetException {
+            final AccessGrant accessGrant) throws Exception {
         String socialAccountId = null;
         String username = null;
         String actionToDo = "";
@@ -188,7 +190,19 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                     socialProvider);
             facebookAPIOperations.updateStatus("12345 @encuestame");
         } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
-
+            BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
+            log.debug(apiOperations.getProfile());
+            socialAccountId = RandomStringUtils.randomAlphabetic(10); //TEMP.
+            username = "";
+            getSecurityService().addNewSocialAccount(socialAccountId,
+                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), username,
+                    socialProvider);
+            try {
+                apiOperations.updateStatus("12345 @encuestame");
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.fatal(e);
+            }
         }
         return actionToDo;
     }

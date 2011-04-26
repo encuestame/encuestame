@@ -73,14 +73,13 @@ public class GoogleConnectSocialAccount extends AbstractAccountConnect{
      * @param httpRequest
      * @param request
      * @return
-     * @throws EnMeNoResultsFoundException
-     * @throws EnMeFailSendSocialTweetException
+     * @throws Exception
      */
     @RequestMapping(value="/social/back/google", method=RequestMethod.GET, params="code")
     public String oauth2Callback(
             @RequestParam("code") String code,
             HttpServletRequest httpRequest,
-        WebRequest request) throws EnMeNoResultsFoundException, EnMeFailSendSocialTweetException {
+        WebRequest request) throws Exception {
             final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
             log.debug(accessGrant.getAccessToken());
             log.debug(accessGrant.getRefreshToken());

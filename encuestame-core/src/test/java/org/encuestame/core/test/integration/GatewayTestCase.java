@@ -44,7 +44,7 @@ public class GatewayTestCase extends AbstractIntegrationConfig {
                 return "original www.xebia.com message http://www.xebia.com "+RandomStringUtils.randomAlphabetic(3);
             }
         });
-        System.out.println(errorChannel.getQueueSize());
+        log.debug(errorChannel.getQueueSize());
 
         this.twitterAdapter.publishTweet("text http://blog.jotadeveloper.com "+RandomStringUtils.randomAlphabetic(3));
     }

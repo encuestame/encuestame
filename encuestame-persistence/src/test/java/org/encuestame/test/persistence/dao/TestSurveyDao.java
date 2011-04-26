@@ -107,10 +107,10 @@ public class TestSurveyDao extends AbstractBase {
          this.surveyPag = createSurveyPagination(1, surveySection,this.survey);
          final SurveySection s2 = createSurveySection("Second Section");
          createSurveyPagination(1, s2, this.survey);
-         //System.out.println(surveyPag.getPageNumber());
-         //System.out.println(surveyPag.getSurveySection().getSsid());
-         //System.out.println(surveyPag.getSurveySection().getDescSection());
-         //System.out.println(surveyPag.getSurvey().getName());
+         //log.debug(surveyPag.getPageNumber());
+         //log.debug(surveyPag.getSurveySection().getSsid());
+         //log.debug(surveyPag.getSurveySection().getDescSection());
+         //log.debug(surveyPag.getSurvey().getName());
 
          final List sectionsByPage = getSurveyDaoImp().retrieveSectionByPagination(surveyPag.getPageNumber());
          assertEquals("Should be equals", 2, sectionsByPage.size());
@@ -148,8 +148,8 @@ public class TestSurveyDao extends AbstractBase {
         assertNotNull(this.surveyFolder);
         final SurveyFolder folder = getSurveyDaoImp().getSurveyFolderById(this.surveyFolder.getId());
         assertNotNull(folder.getId());
-        System.out.println("SURVEY FOLDER ID--->"+ this.surveyFolder.getId());
-        System.out.println("MY SURVEY FOLDER--->"+ surveyFolder.getId());
+        log.debug("SURVEY FOLDER ID--->"+ this.surveyFolder.getId());
+        log.debug("MY SURVEY FOLDER--->"+ surveyFolder.getId());
         assertEquals("Should be equals", this.surveyFolder.getId(), surveyFolder.getId());
     }
 
