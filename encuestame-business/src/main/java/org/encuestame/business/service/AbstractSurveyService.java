@@ -353,7 +353,8 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws TwitterException exception
      */
     public RequestToken getTwitterToken(final String consumerKey,  final String consumerSecret) throws TwitterException{
-            return getTwitterService().getTwitterPing(consumerKey, consumerSecret);
+            //return getTwitterService().getTwitterPing(consumerKey, consumerSecret);
+            return null;
     }
 
 
@@ -392,7 +393,8 @@ public class AbstractSurveyService extends AbstractChartService {
         StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
-        return getTwitterService().getTinyUrl(stringBuffer.toString());
+        //return getTwitterService().getTinyUrl(stringBuffer.toString());
+        return null;
     }
 
     /**
@@ -402,12 +404,8 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws EnMeExpcetion exception
      */
     public Status publicTweetPoll(final String tweetText, final SocialAccount account) throws EnMeExpcetion {
-        try {
-           return getTwitterService().publicTweet(account, tweetText);
-        } catch (TwitterException e) {
-            log.error(e);
-            throw new EnMeExpcetion(e);
-        }
+        //return getTwitterService().publicTweet(account, tweetText);
+        return null;
     }
 
     /**

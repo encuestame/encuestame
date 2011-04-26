@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,8 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +24,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -31,10 +34,9 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
 /**
- * SecUser Twitter Acounts.
+ * Social Account.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 19, 2010 7:15:32 AM
- * @version  $Id:$
  */
 
 //@TypeDef(name="encryptedString", typeClass= EncryptedStringType.class,
@@ -46,7 +48,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Table(name = "social_account")
 @Indexed(index="SocialAccount")
-public class SocialAccount {
+public class SocialAccount extends AbstractSocial{
 
     /**
      * Id.
@@ -56,7 +58,7 @@ public class SocialAccount {
     /**
      * {@link Account}.
      */
-    private Account secUsers;
+    private Account account;
 
     /**
      * Social Account Name.
@@ -64,34 +66,44 @@ public class SocialAccount {
     private String socialAccountName;
 
     /**
-     * Social User Id.
-     */
-    private Long socialUserId;
-
-    /**
-     * Tokeb
-     */
-    private String token;
-
-    /**
-     * Secret Token.
-     */
-    private String secretToken;
-
-    /**
      * Default Selected.
      */
     private Boolean defaultSelected = false;
 
     /**
-     * Type.
+     * Url profile account.
      */
-    private TypeAuth type = TypeAuth.OAUTH; //Twitter only accept OAuth.
+    private String profileUrl;
 
     /**
-     * Type Accountd.
+     * Real Name Profile.
      */
-    private SocialProvider accounType = SocialProvider.TWITTER;
+    private String realName;
+
+    /**
+     * Added account.
+     */
+    private Date addedAccount;
+
+    /**
+     * Last date system upgrade credentials.
+     */
+    private Date upgradedCredentials;
+
+    /**
+     * Description Profile.
+     */
+    private String descriptionProfile;
+
+    /**
+     * Social account email associated.
+     */
+    private String email;
+
+    /**
+     * Type.
+     */
+    private TypeAuth type = TypeAuth.OAUTH1;
 
 
     /** Verfied. **/
@@ -102,15 +114,16 @@ public class SocialAccount {
     public enum TypeAuth {
 
     /**
-     * OAuth.
+     * OAuth1 protocol.
      */
-    OAUTH,
+    OAUTH1,
+
     /**
-     * Password.
-     * Twitter as deprecated password login from 31/10/10.
+     * OAuth2 protocol
      */
-    @Deprecated
-    PASSWORD};
+    OAUTH2
+
+    };
 
     /**
      * @return the id
@@ -131,18 +144,18 @@ public class SocialAccount {
     }
 
     /**
-     * @return the secUsers
+     * @return the account
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public Account getSecUsers() {
-        return secUsers;
+    public Account getAccount() {
+        return account;
     }
 
     /**
-     * @param secUsers the secUsers to set
+     * @param secUsers the account to set
      */
-    public void setSecUsers(final Account secUsers) {
-        this.secUsers = secUsers;
+    public void setAccount(final Account account) {
+        this.account = account;
     }
 
     /**
@@ -162,21 +175,6 @@ public class SocialAccount {
     }
 
     /**
-     * @return the socialUserId
-     */
-    @Column (name="social_account_id", nullable = false, unique = true)
-    public Long getSocialUserId() {
-        return socialUserId;
-    }
-
-    /**
-     * @param socialUserId the socialUserId to set
-     */
-    public void setSocialUserId(Long socialUserId) {
-        this.socialUserId = socialUserId;
-    }
-
-    /**
      * @return the type
      */
     @Column(name="type_auth")
@@ -190,24 +188,6 @@ public class SocialAccount {
      */
     public void setType(final TypeAuth type) {
         this.type = type;
-    }
-
-
-
-    /**
-     * @return the accounType
-     */
-    @Column(name="type_account")
-    @Enumerated(EnumType.STRING)
-    public SocialProvider getAccounType() {
-        return accounType;
-    }
-
-    /**
-     * @param accounType the accounType to set
-     */
-    public void setAccounType(final SocialProvider accounType) {
-        this.accounType = accounType;
     }
 
     /**
@@ -225,24 +205,6 @@ public class SocialAccount {
         this.verfied = verfied;
     }
 
-    @Column(name = "oauth_token", nullable = true)
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    @Column(name = "oauth_secret_token", nullable = true)
-    public String getSecretToken() {
-        return secretToken;
-    }
-
-    public void setSecretToken(String secretToken) {
-        this.secretToken = secretToken;
-    }
-
     /**
      * @return the defaultSelected
      */
@@ -254,7 +216,99 @@ public class SocialAccount {
     /**
      * @param defaultSelected the defaultSelected to set
      */
-    public void setDefaultSelected(Boolean defaultSelected) {
+    public void setDefaultSelected(final Boolean defaultSelected) {
         this.defaultSelected = defaultSelected;
+    }
+
+    /**
+     * @return the profileUrl
+     */
+    @Column(name = "profile_url")
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    /**
+     * @param profileUrl the profileUrl to set
+     */
+    public void setProfileUrl(final String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    /**
+     * @return the realName
+     */
+    @Column(name = "real_name")
+    public String getRealName() {
+        return realName;
+    }
+
+    /**
+     * @param realName the realName to set
+     */
+    public void setRealName(final String realName) {
+        this.realName = realName;
+    }
+
+    /**
+     * @return the addedAccount
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "added_account_date", nullable = false)
+    public Date getAddedAccount() {
+        return addedAccount;
+    }
+
+    /**
+     * @param addedAccount the addedAccount to set
+     */
+    public void setAddedAccount(final Date addedAccount) {
+        this.addedAccount = addedAccount;
+    }
+
+    /**
+     * @return the descriptionProfile
+     */
+    @Column(name = "description_profile")
+    public String getDescriptionProfile() {
+        return descriptionProfile;
+    }
+
+    /**
+     * @param descriptionProfile the descriptionProfile to set
+     */
+    public void setDescriptionProfile(final String descriptionProfile) {
+        this.descriptionProfile = descriptionProfile;
+    }
+
+    /**
+     * @return the email
+     */
+    @Column(name = "social_account_email")
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the upgradedCredentials
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "upgraded_credentials_last_date", nullable = false)
+    public Date getUpgradedCredentials() {
+        return upgradedCredentials;
+    }
+
+    /**
+     * @param upgradedCredentials the upgradedCredentials to set
+     */
+    public void setUpgradedCredentials(final Date upgradedCredentials) {
+        this.upgradedCredentials = upgradedCredentials;
     }
 }

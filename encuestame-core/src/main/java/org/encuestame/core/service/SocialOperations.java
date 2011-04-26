@@ -3,18 +3,17 @@ package org.encuestame.core.service;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SocialAccountBean;
+
 
 /**
  * Social Factory.
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 8, 2011
  */
+@Deprecated
 public interface SocialOperations {
 
     /**
@@ -25,10 +24,10 @@ public interface SocialOperations {
      * @throws EnMeNoResultsFoundException
      * @throws IllegalSocialActionException
      */
-    void changeStateSocialAccount(
-            final Long accountId,
-            final String username,
-            final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException;
+//    void changeStateSocialAccount(
+//            final Long accountId,
+//            final String username,
+//            final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException;
 
     /**
      * Update Twitter Account.
@@ -36,23 +35,23 @@ public interface SocialOperations {
      * @param password password
      * @param verify verify
      */
-     void updateTwitterAccount(final SocialAccountBean accountBean, final String password,
-                               final Boolean verify);
+//     void updateTwitterAccount(final SocialAccountBean accountBean, final String password,
+//                               final Boolean verify);
 
      /**
       * Update OAuth Secret Twitter Credentials.
       * @param accountBean
       * @param username
       */
-     void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
-             final String username) throws EnMeExpcetion;
+//     void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
+//             final String username) throws EnMeExpcetion;
 
      /**
       * Get Twitter Account.
       * @param twitterAccountId
       * @return
       */
-     SocialAccountBean getTwitterAccount(final Long twitterAccountId);
+//     SocialAccountBean getTwitterAccount(final Long twitterAccountId);
 
      /**
       * Get User Logged Twitter Accounts.
@@ -61,9 +60,9 @@ public interface SocialOperations {
       * @return
       * @throws EnMeNoResultsFoundException
       */
-     List<SocialAccountBean> getUserLoggedSocialAccount(
-             final String username
-             , final SocialProvider provider) throws EnMeNoResultsFoundException;
+//     List<SocialAccountBean> getUserLoggedSocialAccount(
+//             final String username
+//             , final SocialProvider provider) throws EnMeNoResultsFoundException;
 
      /**
       * Get User Logged Verified Twitter Accounts.
@@ -86,12 +85,12 @@ public interface SocialOperations {
       * @param socialProvider
       * @throws EnMeExpcetion
       */
-     public void addOrUpdateOAuthTokenSocialAccount(
-             final Long socialAccountId,
-             final String token,
-             final String tokenSecret,
-             final String username,
-             final UserAccount account,
-             final SocialProvider socialProvider) throws EnMeExpcetion;
+//     public void addOrUpdateOAuthTokenSocialAccount(
+//             final Long socialAccountId,
+//             final String token,
+//             final String tokenSecret,
+//             final String username,
+//             final UserAccount account,
+//             final SocialProvider socialProvider) throws EnMeExpcetion;
 
 }

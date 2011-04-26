@@ -12,18 +12,16 @@
  */
 package org.encuestame.business.service.social.connect;
 
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.business.service.social.api.LinkedInAPITemplate;
+import org.encuestame.core.social.SocialAccountProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.social.linkedin.LinkedInApi;
-import org.springframework.social.linkedin.LinkedInTemplate;
-
 /**
  * LinkedIn Social Service.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 5:57:35 PM
  * @version $Id:$
  */
-public class LinkedInSocialService extends AbstractSocialProvider<LinkedInApi>{
+public class LinkedInSocialService{
 
     /**
      * Social Account Provider;
@@ -33,7 +31,7 @@ public class LinkedInSocialService extends AbstractSocialProvider<LinkedInApi>{
     /**
      * Twitter Template.
      */
-    private LinkedInTemplate linkedInTemplate;
+    private LinkedInAPITemplate linkedInTemplate;
 
     /**
      * Consumer Key.
@@ -60,110 +58,124 @@ public class LinkedInSocialService extends AbstractSocialProvider<LinkedInApi>{
      * @param socialProviderName
      */
     public LinkedInSocialService() {
-       this.loadParameters();
-    }
-
-    @Override
-    protected LinkedInApi createServiceOperations(OAuthToken accessToken) {
-        log.debug("Twitter Operations createServiceOperations "+accessToken.toString());
-        if(this.linkedInTemplate == null){
-            log.debug("Creando Provider");
-            this.createLinkedInTemplate(accessToken);
-        }
-        //return this.linkedInTemplate;
-        return null;
-    }
-
-    /**
-     * Create Twitter Template.
-     * @param accessToken
-     */
-    private void createLinkedInTemplate(final OAuthToken accessToken){
-        if (accessToken == null) {
-            throw new IllegalStateException("Cannot access LinkedIn without an access token");
-        }
-        this.linkedInTemplate = new LinkedInTemplate(getApiKey(), getSecret(), accessToken.getValue(), accessToken.getSecret());
 
     }
-
-    /**
-     * Fetch Provider Account Id.
-     */
-    @Override
-    public String fetchProviderAccountId(LinkedInApi serviceOperations) {
-      log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
-      return serviceOperations.getProfileId();
-    }
-
-    /**
-     * Build Provider Profile Url.
-     */
-    @Override
-    protected String buildProviderProfileUrl(String providerAccountId,
-            LinkedInApi serviceOperations) {
-        return "url-" + providerAccountId;
-    }
-
-    /**
-     * Load Parameters.
-     */
-    private void loadParameters(){
-        this.parameters.setApiKey(this.apiKey);
-        this.parameters.setSecret(this.consumerSecret);
-        this.parameters.setAuthorizeUrl(this.authorizeUrl);
-        this.parameters.setRequestTokenUrl(this.requestTokenUrl);
-    }
-
-    /**
-     * Get Parameters.
-     */
-    @Override
-    SocialAccountProvider getParameters() {
-        log.error("getParameters ");
-        if(this.parameters == null){
-             log.info("loadParameters");
-            this.loadParameters();
-        } else {
-            log.debug("Parametros encontrados");
-        }
-        return this.parameters;
-    }
-
-    /**
-     * Set Parameters.
-     */
-    @Override
-    SocialAccountProvider setParameters(final SocialAccountProvider accountProvider) {
-        log.error("No getParameters "+accountProvider);
-        this.parameters = accountProvider;
-        return this.parameters;
-    }
-
-    /**
-     * @return the consumerKey
-     */
-    public String getConsumerKey() {
-        return apiKey;
-    }
-
-    /**
-     * @param consumerKey the consumerKey to set
-     */
-    public void setConsumerKey(String consumerKey) {
-        this.apiKey = consumerKey;
-    }
-
-    /**
-     * @return the consumerSecret
-     */
-    public String getConsumerSecret() {
-        return consumerSecret;
-    }
-
-    /**
-     * @param consumerSecret the consumerSecret to set
-     */
-    public void setConsumerSecret(String consumerSecret) {
-        this.consumerSecret = consumerSecret;
-    }
+//
+//    @Override
+//    protected LinkedInApi createServiceOperations(OAuth1Token accessToken) {
+//        log.debug("Twitter Operations createServiceOperations "+accessToken.toString());
+//        if(this.linkedInTemplate == null){
+//            log.debug("Creando Provider");
+//            this.createLinkedInTemplate(accessToken);
+//        }
+//        //return this.linkedInTemplate;
+//        return null;
+//    }
+//
+//    /**
+//     * Create Twitter Template.
+//     * @param accessToken
+//     */
+//    private void createLinkedInTemplate(final OAuth1Token accessToken){
+//        if (accessToken == null) {
+//            throw new IllegalStateException("Cannot access LinkedIn without an access token");
+//        }
+//        this.linkedInTemplate = new LinkedInTemplate(getApiKey(), getSecret(), accessToken.getValue(), accessToken.getSecret());
+//
+//    }
+//
+//    /**
+//     * Fetch Provider Account Id.
+//     */
+//    @Override
+//    public String fetchProviderAccountId(LinkedInApi serviceOperations) {
+//      log.debug("MEAN fetchNewRequestToken "+serviceOperations.getProfileId());
+//      return serviceOperations.getProfileId();
+//    }
+//
+//    /**
+//     * Build Provider Profile Url.
+//     */
+//    @Override
+//    protected String buildProviderProfileUrl(String providerAccountId,
+//            LinkedInApi serviceOperations) {
+//        return "url-" + providerAccountId;
+//    }
+//
+//    /**
+//     * Load Parameters.
+//     */
+//    private void loadParameters(){
+//        this.parameters.setApiKey(this.apiKey);
+//        this.parameters.setSecret(this.consumerSecret);
+//        this.parameters.setAuthorizeUrl(this.authorizeUrl);
+//        this.parameters.setRequestTokenUrl(this.requestTokenUrl);
+//    }
+//
+//    /**
+//     * Get Parameters.
+//     */
+//    @Override
+//    SocialAccountProvider getParameters() {
+//        log.error("getParameters ");
+//        if(this.parameters == null){
+//             log.info("loadParameters");
+//            this.loadParameters();
+//        } else {
+//            log.debug("Parametros encontrados");
+//        }
+//        return this.parameters;
+//    }
+//
+//    /**
+//     * Set Parameters.
+//     */
+//    @Override
+//    SocialAccountProvider setParameters(final SocialAccountProvider accountProvider) {
+//        log.error("No getParameters "+accountProvider);
+//        this.parameters = accountProvider;
+//        return this.parameters;
+//    }
+//
+//    /**
+//     * @return the consumerKey
+//     */
+//    public String getConsumerKey() {
+//        return apiKey;
+//    }
+//
+//    /**
+//     * @param consumerKey the consumerKey to set
+//     */
+//    public void setConsumerKey(String consumerKey) {
+//        this.apiKey = consumerKey;
+//    }
+//
+//    /**
+//     * @return the consumerSecret
+//     */
+//    public String getConsumerSecret() {
+//        return consumerSecret;
+//    }
+//
+//    /**
+//     * @param consumerSecret the consumerSecret to set
+//     */
+//    public void setConsumerSecret(String consumerSecret) {
+//        this.consumerSecret = consumerSecret;
+//    }
+//
+//    @Override
+//    protected String fetchProviderAccountId(
+//            LinkedInAPIOperations serviceOperations) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
+//
+//    @Override
+//    protected String buildProviderProfileUrl(String providerAccountId,
+//            LinkedInAPIOperations serviceOperations) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 }

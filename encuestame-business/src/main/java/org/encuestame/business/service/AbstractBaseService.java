@@ -20,20 +20,19 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.mail.MailServiceImpl;
-import org.encuestame.business.service.imp.ITwitterService;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.MessageSourceFactoryBean;
-import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
 import org.encuestame.persistence.domain.notifications.Notification;
+import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
@@ -41,8 +40,6 @@ import org.hibernate.HibernateException;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.User;
 import twitter4j.http.AccessToken;
 
 /**
@@ -50,7 +47,7 @@ import twitter4j.http.AccessToken;
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
  */
-public abstract class AbstractBaseService extends AbstractSocialService {
+public abstract class AbstractBaseService extends AbstractConfigurationService {
 
     private Log log = LogFactory.getLog(this.getClass());
 

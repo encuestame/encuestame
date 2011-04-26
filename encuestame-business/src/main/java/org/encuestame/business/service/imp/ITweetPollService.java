@@ -198,12 +198,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     void updateQuestionName(final Long questionId, final String questionName);
 
     /**
-     * Twitter Service.
-     * @return
-     */
-    ITwitterService getTwitterService();
-
-    /**
      * Create TweetPoll Folder.
      * @param folderName
      * @param username

@@ -2,7 +2,7 @@ package org.encuestame.utils.oauth;
 
 public class AuthorizedRequestToken {
 
-    private final OAuthToken requestToken;
+    private final OAuth1Token requestToken;
 
     private final String verifier;
 
@@ -11,7 +11,7 @@ public class AuthorizedRequestToken {
      * @param requestToken the request token object
      * @param verifier the verifier returned by the provider after user authorization (OAuth 1.0 only)
      */
-    public AuthorizedRequestToken(OAuthToken requestToken, String verifier) {
+    public AuthorizedRequestToken(OAuth1Token requestToken, String verifier) {
         this.requestToken = requestToken;
         this.verifier = verifier;
     }

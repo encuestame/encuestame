@@ -17,17 +17,22 @@ dojo.declare(
 
         arrayAccounts : [],
 
+        arrayWidgetAccounts : [],
+
         postCreate : function(){
-            dojo.subscribe("/encuestame/tweetpoll/twitter/accounts", this, "showAccounts");
-            console.debug("ACCOUNTSSSSSS");
+            dojo.subscribe("/encuestame/tweetpoll/twitter/accounts", this, "showListAccounts");
             this._loadSocialConfirmedAccounts();
-            console.debug("ACCOUNTSSSSSS2222");
         },
 
+        /*
+         * load all social accounts verified.
+         */
         _loadSocialConfirmedAccounts : function(){
-           var load = dojo.hitch(this, function(data){
-                this._listSocialAccounts = data.success.items;
+           var load = dojo.hitch(this, function(data) {
+                this.arrayAccounts = data.success.items;
                 dojo.empty(this._listSocialAccounts);
+                console.debug("social", this.arrayAccounts);
+                this.showListAccounts();
             });
             var error = function(error) {
                 console.debug("error", error);
@@ -36,26 +41,24 @@ dojo.declare(
                     encuestame.service.list.socialAccounts, {}, load, error);
        },
 
-       showAccounts : function(){
+       /*
+        * show up list accounts.
+        */
+       showListAccounts : function(){
            dojo.forEach(
-                   this._listSocialAccounts,
+                   this.arrayAccounts,
                    dojo.hitch(this, function(data, index) {
-                     if (data.typeAccount == "TWITTER") {
-                         this.createTwitterAccount(data);
-                     } else if(data.typeAccount == "IDENTICA"){
-
-                     }
+                         this.createPickSocualAccount(data);
                }));
        },
 
-       createTwitterAccount : function(data){
-           var widget = new encuestame.org.core.commons.social.TwitterAccount({account : data});
-           this._tweetPublishAccounts.appendChild(widget.domNode);
-           this.arrayAccounts.push(widget);
-       },
-
-       createIdentiCaAccount : function(){
-          //future.
+       /*
+        *
+        */
+       createPickSocualAccount : function(data){
+           var widget = new encuestame.org.core.commons.social.SocialPickerAccount({account : data});
+           this._listSocialAccounts.appendChild(widget.domNode);
+           this.arrayWidgetAccounts.push(widget);
        }
 });
 
@@ -66,7 +69,7 @@ dojo.declare(
         "encuestame.org.core.commons.social.SocialPickerAccount",
         [dijit._Widget, dijit._Templated],{
 
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/twitterAccount.html"),
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialPickerAccount.html"),
 
         account : {},
 
@@ -75,6 +78,7 @@ dojo.declare(
         selected : false,
 
         postCreate : function(){
+            console.debug("social", this.account);
         },
 
         _select : function(b){

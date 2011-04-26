@@ -22,7 +22,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.HibernateException;
 
 /**
@@ -107,7 +107,7 @@ public interface IAccountDao extends IBaseDao {
      * @param twitterAccountId
      * @return
      */
-    SocialAccount getTwitterAccount(final Long twitterAccountId);
+    SocialAccount getSocialAccountById(final Long twitterAccountId);
 
     /**
      * Get Social Account.
@@ -115,7 +115,7 @@ public interface IAccountDao extends IBaseDao {
      * @param socialAccountId
      * @return
      */
-    SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId);
+    SocialAccount getSocialAccount(final SocialProvider socialProvider, final String socialAccountId);
 
     /**
      * Get Social Account.
@@ -178,7 +178,7 @@ public interface IAccountDao extends IBaseDao {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    OAuthToken getAccessToken(Long accountId, String provider)
+    OAuth1Token getAccessToken(Long accountId, String provider)
            throws EnMeNoResultsFoundException;
 
     /**
@@ -216,7 +216,7 @@ public interface IAccountDao extends IBaseDao {
      */
     AccountConnection addConnection(
                 final String provider,
-                final OAuthToken token,
+                final OAuth1Token token,
                 final String socialAccountId,
                 final Long userAccountId,
                 final String providerProfileUrl);

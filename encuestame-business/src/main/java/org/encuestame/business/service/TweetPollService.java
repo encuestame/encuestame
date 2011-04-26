@@ -438,7 +438,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final StringBuffer stringBuffer = new StringBuffer(domain);
         stringBuffer.append(this.getTweetPath());
         stringBuffer.append(answer.getUniqueAnserHash());
-        return getTwitterService().getTinyUrl(stringBuffer.toString());
+        //return getTwitterService().getTinyUrl(stringBuffer.toString());
+        return "";
     }
 
     /*
@@ -465,7 +466,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public TweetPollSavedPublishedStatus publishTweetPoll(final Long accountId, final TweetPoll tweetPoll, final SocialProvider provider){
          log.debug("publicMultiplesTweetAccounts tweetPoll"+tweetPoll);
-         final SocialAccount socialTwitterAccounts = getAccountDao().getTwitterAccount(accountId);
+         final SocialAccount socialTwitterAccounts = getAccountDao().getSocialAccountById(accountId);
          log.debug("publishTweetPoll socialTwitterAccounts: {"+socialTwitterAccounts);
          final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
          publishedStatus.setApiType(provider);
@@ -487,7 +488,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  //create notification
                  createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
                          buildTwitterItemView(socialTwitterAccounts.getSocialAccountName(), String.valueOf(status.getId())),
-                         socialTwitterAccounts.getSecUsers());
+                         socialTwitterAccounts.getAccount());
              } catch (Exception e) {
                  log.error("Error publish tweet:{"+e.getMessage());
                  //change status to failed

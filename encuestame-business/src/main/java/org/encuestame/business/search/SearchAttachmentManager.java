@@ -29,8 +29,8 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Version;
-import org.encuestame.business.service.imp.DirectoryIndexStore;
 import org.encuestame.business.setup.DirectorySetupOperations;
+import org.encuestame.core.search.DirectoryIndexStore;
 
 /**
  * Query Search Manager to Lucene Index.

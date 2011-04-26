@@ -32,11 +32,15 @@ import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
@@ -47,6 +51,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
+import twitter4j.http.AccessToken;
 
 /**
  * Security Bean Service.
@@ -75,6 +85,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
 
     private final Integer DEFAULT_LENGTH_PASSWORD = 8;
+
+
+    private static int TWITTER_AUTH_ERROR = 401;
 
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
@@ -867,10 +880,246 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
+     * Update OAuth Secret Twitter Credentials.
+     * @param accountBean {@link SocialAccountBean}
+     * @param username username logged
+     * @throws EnMeExpcetion exception
+     */
+   @Deprecated
+    public void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
+            final String username) throws EnMeExpcetion{
+         //TODO: we should search twitter account filter by username
+         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
+         //twitterAccount.setConsumerKey(accountBean.getKey());
+         //twitterAccount.setConsumerSecret(accountBean.getSecret());
+         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
+         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
+             log.debug("PIN Exists {"+accountBean.getPin());
+             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
+            //If exist pin, we can verify credentials
+            log.debug("Verify OAuth Credentials");
+                if(verifyCredentials(
+                        //Token and Secret token should be always from database
+                        twitterAccount.getAccessToken(),
+                        twitterAccount.getSecretToken(),
+                        //consumer key's
+                        accountBean.getKey(),
+                        accountBean.getSecret(),
+                        //pin, update by the user.
+                        accountBean.getPin())){
+                    twitterAccount.setVerfied(Boolean.TRUE);
+                } else {
+                    twitterAccount.setVerfied(Boolean.FALSE);
+                }
+         } else {
+             log.info("Account not verified, pin not found");
+             //twitterAccount.setTwitterPin(null);
+             twitterAccount.setVerfied(Boolean.FALSE);
+         }
+        log.debug("Update Secret Twitter Credentials");
+        getAccountDao().saveOrUpdate(twitterAccount);
+        log.info("update Twitter Account");
+    }
+
+    /**
+     * Change state social account.
+     * @param accountId
+     * @param username
+     * @param action
+     * @throws EnMeNoResultsFoundException
+     * @throws IllegalSocialActionException
+     */
+    public void changeStateSocialAccount(
+            final Long accountId,
+            final String username,
+            final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException{
+        final UserAccount userAccount = getUserAccount(username);
+        final SocialAccount social = getAccountDao().getSocialAccount(accountId, userAccount.getAccount());
+        if(social == null){
+            throw new EnMeNoResultsFoundException("social accout not found");
+        }
+        if("default".equals(action)){
+           log.info("update social twitter account");
+           social.setDefaultSelected(!social.getDefaultSelected());
+           getAccountDao().saveOrUpdate(social);
+        } else if("remove".equals(action)){
+            getAccountDao().delete(social);
+        } else if("valid".equals(action)){
+            social.setVerfied(!social.getVerfied());
+            getAccountDao().saveOrUpdate(social);
+        } else {
+            throw new IllegalSocialActionException();
+        }
+    }
+
+    /**
+     * Verify OAuth Credentials
+     * @param token token stored
+     * @param secretToken secret Token
+     * @param pin pin
+     * @return
+     * @throws TwitterException
+     */
+    public Boolean verifyCredentials(final String token,
+                                     final String tokenSecret,
+                                     final String consumerKey,
+                                     final String consumerSecret,
+                final String pin){
+        Boolean verified = false;
+        log.debug("verifyCredentials OAuth");
+        log.debug("Token {"+token);
+        log.debug("secretToken {"+tokenSecret);
+        log.debug("pin {"+pin);
+        log.debug("consumerKey {"+consumerKey);
+        log.debug("consumerSecret {"+consumerSecret);
+        Twitter twitter = null;
+        try {
+             twitter = new TwitterFactory().getInstance();
+            if(token == null || token.isEmpty()){
+                verified = false;
+            } else {
+                log.debug("Exist Previous Token.");
+                final AccessToken accessToken = new AccessToken(token, tokenSecret);
+                log.debug("Created Token "+accessToken);
+                twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
+                log.debug("Verifying Credentials");
+                final User user = twitter.verifyCredentials();
+                log.debug("Verifying Credentials User "+user);
+                if (user != null) {
+                    log.debug("Verify OAuth User " + user.getId());
+                    verified = true;
+                }
+            }
+        } catch (TwitterException te) {
+            log.error("Twitter Error "+te.getMessage());
+            if (SecurityService.TWITTER_AUTH_ERROR == te.getStatusCode()) {
+                log.error("Twitter Error "+te.getStatusCode());
+                verified = false;
+            } else {
+                log.error(te);
+            }
+            log.error("Verify OAuth Error " + te.getLocalizedMessage());
+        }
+        log.debug("verified "+verified);
+        return verified;
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.social.SocialProvider)
+     */
+    public void addNewSocialAccount(
+            final String socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String username,
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
+            final SocialAccount socialAccount = new SocialAccount();
+            log.debug("Updating  Token to {"+token);
+            log.debug("Updating Secret Token to {"+tokenSecret);
+            socialAccount.setAccessToken(token);
+            socialAccount.setVerfied(Boolean.TRUE);
+            socialAccount.setAccounType(socialProvider);
+            socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
+            socialAccount.setSocialAccountName(username);
+            socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
+            socialAccount.setSecretToken(tokenSecret);
+            socialAccount.setAddedAccount(new Date());
+            socialAccount.setUpgradedCredentials(new Date());
+            socialAccount.setSocialProfileId(socialAccountId);
+            getAccountDao().saveOrUpdate(socialAccount);
+            log.debug("Updated Token");
+    }
+
+    /**
+     *
+     * @param socialProvider
+     * @param socialAccountId
+     * @return
+     */
+    public SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId){
+        return getAccountDao().getSocialAccount(socialProvider, socialProfileId);
+    }
+
+
+    /**
+     * Get {@link SocialAccount}.
+     * @param socialAccountId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public SocialAccountBean getSocialAccountBean(final Long socialAccountId) throws EnMeNoResultsFoundException{
+        return ConvertDomainBean.convertSocialAccountToBean(this.getSocialAccount(socialAccountId));
+    }
+
+
+    /**
+     * Get User Logged Scocial Accounts.
+     * @param username
+     * @param provider
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<SocialAccountBean> getUserLoggedSocialAccount(final String username, final SocialProvider provider)
+           throws EnMeNoResultsFoundException{
+         return ConvertDomainBean.convertListSocialAccountsToBean(getAccountDao()
+                                 .getSocialAccountByAccount(getUserAccount(username).getAccount(), provider));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#getUserLoggedVerifiedTwitterAccount(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
+     */
+    public List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(final String username, final SocialProvider provider)
+             throws EnMeNoResultsFoundException{
+        final List<SocialAccount> socialAccounts = getAccountDao()
+                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
+        log.debug("social provider verified "+socialAccounts.size());
+        return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
+   }
+
+   /**
+    * Get social account by id.
+    * @param accountId
+    * @return
+ * @throws EnMeNoResultsFoundException
+    */
+   protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
+       final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
+        if(account == null){
+            throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
+        }
+        return  account;
+   }
+
+   /**
+    * Update Twitter Account.
+    * @param accountBean account
+    * @param password password
+    * TODO: this method is close to be deprecated, twitter don't allow password login.
+ * @throws EnMeNoResultsFoundException
+    */
+   @Deprecated
+   public void updateTwitterAccount(
+           final SocialAccountBean accountBean,
+           final String password,
+           final Boolean verify) throws EnMeNoResultsFoundException{
+       if(accountBean.getAccountId() != null){
+           final SocialAccount twitterAccount = getSocialAccount(accountBean.getAccountId());
+           if(twitterAccount != null){
+               twitterAccount.setVerfied(verify);
+               log.debug("Updating twitter password account");
+               getAccountDao().saveOrUpdate(twitterAccount);
+           }
+       }
+       log.info("update Twitter Account");
+   }
+
+    /**
      * Follow Operations
      * @author Picado, Juan juanATencuestame.org
      * @since Jan 23, 2011 9:53:53 AM
-     * @version $Id:$
      */
     public enum FollowOperations{
         FOLLOW,

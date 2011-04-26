@@ -33,59 +33,50 @@
             </form>
       </div>
     </div>
-     <c:if test="${social}">
+     <c:if test="${!social}">
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
           <div class="twitter">
               <form action="<%=request.getContextPath()%>/signin/twitter" method="POST">
                   <button type="submit">
-                      <img src="<c:url value="/resource/images/social/twitter/signin.png" />"
+                      <img src="<%=request.getContextPath()%>/resources/images/social/twitter/enme_signin_connect.png" />
                   </button>
               </form>
           </div>
-          <script src='http://connect.facebook.net/en_US/all.js'></script>
-          <div class="facebook">
-                  <script>
-                      function signInWithFacebook() {
-                          FB.getLoginStatus(function(response) {
-                              if (response.session) {
-                                  dojo.byId('fb_signin').submit();
-                              }
-                            });
-                      }
-                  </script>
-                  <div id="fb-root"></div>
-                  <form id="fb_signin" action="<c:url value="/signin/facebook" />" method="post">
-                      <fb:login-button perms="email,publish_stream,offline_access" onlogin="signInWithFacebook();" v="2"
-                          length="long">Sign in with Facebook</fb:login-button>
-                  </form>
-                   <script>
-                  if(FB) {
-                      FB.requireSessionThenGoTo = function(url) {
-                          FB.getLoginStatus(function(response) {
-                              if (response.session) {
-                                  window.location = url;
-                              } else {
-                                  FB.login(function(response) {
-                                      if (response.session) {
-                                          window.location = url;
-                                      }
-                                  });
-                              }
-                          });
-                      };
-
-                      FB.logoutThenGoTo = function(url) {
-                          FB.logout(function(response) {
-                              window.location = url;
-                          });
-                      };
-                  }
-                  </script>
-                  <script type='text/javascript'>
-                      FB.init({appId: '102345790957', status: true, cookie: true, xfbml: true});
-                      FB.Event.subscribe('auth.sessionChange', function(response) { if (response.session) {} else {} });
-                  </script>
+          <div class="twitter">
+              <form action="<%=request.getContextPath()%>/signin/google" method="POST">
+                  <button type="submit">
+                      <img src="<%=request.getContextPath()%>/resources/images/social/google/enme_google_conn.png" />
+                  </button>
+              </form>
           </div>
-         </c:if>
-    </div>
+          <div class="twitter">
+              <form action="<%=request.getContextPath()%>/signin/facebook" method="POST">
+                  <button type="submit">
+                      <img src="<%=request.getContextPath()%>/resources/images/social/facebook/enme_connect.gif" />
+                  </button>
+              </form>
+          </div>
+          <div class="twitter">
+              <form action="<%=request.getContextPath()%>/signin/identica" method="POST">
+                  <button type="submit">
+                      <img src="<%=request.getContextPath()%>/resources/images/social/identica/enme_identica.png" />
+                  </button>
+              </form>
+          </div>
+          <div class="twitter">
+              <form action="<%=request.getContextPath()%>/signin/linkedin" method="POST">
+                  <button type="submit">
+                      <img src="<%=request.getContextPath()%>/resources/images/social/linkedin/enme_linkedin_connect.png" />
+                  </button>
+              </form>
+          </div>
+          <div class="twitter">
+              <form action="<%=request.getContextPath()%>/signin/yahoo" method="POST">
+                  <button type="submit">
+                      <img src="<%=request.getContextPath()%>/resources/images/social/yahoo/enme_yahoo_connect.png" />
+                  </button>
+              </form>
+          </div>
+        </div>
+      </c:if>

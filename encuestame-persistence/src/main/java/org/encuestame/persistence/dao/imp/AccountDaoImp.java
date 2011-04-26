@@ -26,7 +26,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.oauth.OAuthToken;
+import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
@@ -106,7 +106,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterAccount(java.lang.Long)
      */
-    public final SocialAccount getTwitterAccount(final Long twitterAccountId){
+    public final SocialAccount getSocialAccountById(final Long twitterAccountId){
         return (SocialAccount) (getHibernateTemplate().get(SocialAccount.class, twitterAccountId));
     }
 
@@ -114,12 +114,12 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getSocialAccount(org.encuestame.persistence.domain.social.SocialProvider, java.lang.Long)
      */
-    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final Long socialAccountId){
+    public final SocialAccount getSocialAccount(final SocialProvider socialProvider, final String socialProfileId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         log.debug("accounType "+socialProvider);
-        log.debug("socialAccountId "+socialAccountId);
+        log.debug("socialProfileId "+socialProfileId);
         criteria.add(Restrictions.eq("accounType", socialProvider));
-        criteria.add(Restrictions.eq("socialUserId", socialAccountId) );
+        criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
@@ -131,7 +131,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         log.debug("account "+account.getUid());
         log.debug("socialAccountId "+socialAccountId);
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", account));
+        criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("id", socialAccountId));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -177,7 +177,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
             final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", account) );
+        criteria.add(Restrictions.eq("account", account) );
         if (provider != null) { //if provider is null, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
         }
@@ -189,10 +189,10 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterVerifiedAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
     public final List<SocialAccount> getTwitterVerifiedAccountByUser(
-            final Account secUsers,
+            final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        criteria.add(Restrictions.eq("secUsers", secUsers));
+        criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("verfied", Boolean.TRUE) );
         if (provider != null) { //if provider is null, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
@@ -241,17 +241,17 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public AccountConnection addConnection(
                 final String provider,
-                final OAuthToken token,
+                final OAuth1Token token,
                 final String socialAccountId,
                 final Long userAccountId,
                 final String providerProfileUrl){
         final AccountConnection connection = new AccountConnection();
         //get provider
         final SocialProvider providerSocial = SocialProvider.getProvider(provider);
-        connection.setAccountProvider(providerSocial);
+        connection.setAccounType(providerSocial);
         connection.setAccessToken(token.getValue());
-        connection.setSocialAccountId(socialAccountId);
-        connection.setSecret(token.getSecret());
+        connection.setSocialProfileId(socialAccountId);
+        connection.setSecretToken(token.getSecret());
         connection.setProfileUrl(providerProfileUrl);
         connection.setUserAccout(this.getUserAccountById(userAccountId));
         getHibernateTemplate().saveOrUpdate(connection);
@@ -312,11 +312,11 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public OAuthToken getAccessToken(Long accountId, String provider) throws EnMeNoResultsFoundException {
+    public OAuth1Token getAccessToken(Long accountId, String provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
-            final OAuthToken oAuthToken = new OAuthToken(ac.getAccessToken(),
-                    ac.getSecret());
+            final OAuth1Token oAuthToken = new OAuth1Token(ac.getAccessToken(),
+                    ac.getSecretToken());
             return oAuthToken;
         } else {
             throw new EnMeNoResultsFoundException("connection not found");

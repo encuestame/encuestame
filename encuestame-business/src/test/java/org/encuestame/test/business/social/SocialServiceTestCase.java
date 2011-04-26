@@ -2,7 +2,6 @@
 package org.encuestame.test.business.social;
 
 import org.encuestame.business.service.AbstractBaseService;
-import org.encuestame.business.service.imp.ILinkedInService;
 import org.encuestame.business.service.social.connect.ITwitterSocialProvider;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,11 +18,6 @@ public class SocialServiceTestCase extends AbstractBaseService{
     @Autowired
     private ITwitterSocialProvider twitterSocialService;
 
-    /**
-     *
-     */
-    @Autowired
-    private ILinkedInService linkedInService;
 
 
     /**
@@ -33,7 +27,6 @@ public class SocialServiceTestCase extends AbstractBaseService{
     @Test
     @Ignore
     public void twitterSocialServiceTest(){
-        Assert.notNull(this.linkedInService);
         Assert.isTrue(true);
         ///System.out.println(this.linkedInService.getAuthorizeLinkedInUrl());
 
@@ -65,13 +58,5 @@ public class SocialServiceTestCase extends AbstractBaseService{
      */
     public void setTwitterSocialService(ITwitterSocialProvider twitterSocialService) {
         this.twitterSocialService = twitterSocialService;
-    }
-
-
-    /**
-     * @param linkedInService the linkedInService to set
-     */
-    public void setLinkedInService(final ILinkedInService linkedInService) {
-        this.linkedInService = linkedInService;
     }
 }
