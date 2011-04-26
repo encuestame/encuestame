@@ -15,6 +15,7 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -179,4 +180,22 @@ public class TestPollDao extends AbstractBase {
         assertEquals("Should be equals", 1, allPoll.size());
 
     }
+
+    /**
+     * Test Get Polls by creation date.
+     */
+    @Test
+    public void testGetPollByIdandCreationDate(){
+        final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
+        final Date yesterdayDate= calendarDate.getTime();
+        final Calendar calendarDate2 = Calendar.getInstance();
+        final Date todayDate = calendarDate2.getTime();
+        final Poll poll2 = createPoll(yesterdayDate, this.question, "FDK135", this.user, Boolean.TRUE, Boolean.TRUE);
+        final Poll poll3 = createPoll(todayDate, this.question, "FDK456", this.user, Boolean.TRUE, Boolean.TRUE);
+        final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.user.getUid(), 10,0);
+        //System.out.println("POLL LIST SIZE ------------>"+pollList.size());
+        assertEquals("Should be equals", 2, pollList.size());
+    }
+
 }
