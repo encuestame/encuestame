@@ -347,4 +347,27 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return this.getPollDao().getPollFolderByIdandUser(folderId, userId);
     }
 
+    /**
+     * Get polls by creation date.
+     * @param userId
+     * @param date
+     * @param maxResults
+     * @param star
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<UnitPoll> getPollsbyDate(final String username, final Date date,
+        final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException{
+        List<Poll> pollList = new ArrayList<Poll>();
+        if (date !=null){
+            pollList = getPollDao().getPollByIdandCreationDate(date, getUserAccount(username).getAccount().getUid(), maxResults, start);
+            log.debug("SIZE ----->"+ pollList.size());
+
+        }
+        else{
+            throw new EnMeNoResultsFoundException("Date not found");
+        }
+        return ConvertDomainBean.convertSetToUnitPollBean(pollList);
+    }
+
 }

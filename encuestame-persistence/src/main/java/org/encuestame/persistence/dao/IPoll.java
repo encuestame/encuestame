@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.PollDao;
@@ -115,4 +116,15 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      Poll getPollByIdandUserId(final Long pollId, Long userId);
+
+     /**
+      * Get polls by creation date.
+      * @param date
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> getPollByIdandCreationDate(final Date date, final Long userId,
+            final Integer maxResults, final Integer start );
 }

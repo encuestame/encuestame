@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
@@ -166,4 +167,16 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      */
     PollFolder getPollFolderByFolderIdandUser(final Long folderId, final Long userId);
+
+    /**
+     * Get polls by date.
+     * @param username
+     * @param date
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<UnitPoll> getPollsbyDate(final String username, final Date date,
+            final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 }

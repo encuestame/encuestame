@@ -103,17 +103,25 @@ public class PollJsonController extends AbstractJsonController{
       }
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/survey/poll/searchPollby{type}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/poll/searchPollby{type}.json", method = RequestMethod.GET)
     public ModelMap countUsersByGroup(
-              @RequestParam(value = "pollId", required = true) Long pollId,
+              @RequestParam(value = "pollId", required = false) Long pollId,
               @RequestParam(value = "keyword", required = false) String keyword,
               @RequestParam(value = "maxResults", required = false) Integer maxResults,
               @RequestParam(value = "start", required = false) Integer start,
               @RequestParam(value = "folderId", required = false) Long folderId,
+              @RequestParam(value = "date", required = false) Date date,
               @PathVariable String type,
               HttpServletRequest request,
               HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
               try {
+                log.debug("pollId "+pollId);
+                log.debug("keyword "+keyword);
+                log.debug("maxResults "+maxResults);
+                log.debug("start "+start);
+                log.debug("folderId "+folderId);
+                log.debug("date "+date);
+                log.debug("type "+type);
                   final Map<String, Object> sucess = new HashMap<String, Object>();
                   if("keyword".equals(type)){
                       log.debug("Poll Id"+ pollId);
@@ -123,6 +131,11 @@ public class PollJsonController extends AbstractJsonController{
                      log.debug("Folder Id"+ folderId);
                      sucess.put("pollsByFolder", getPollService().searchPollsByFolder(folderId, getUserPrincipalUsername()));
                  }
+                  else if("date".equals(type)) {
+                    log.debug("search polls by date ---> "+ date);
+                    sucess.put("pollsByDate", getPollService().getPollsbyDate(getUserPrincipalUsername(), date, maxResults, start));
+                    setItemResponse(sucess);
+                  }
               } catch (Exception e) {
                   log.error(e);
                   e.printStackTrace();

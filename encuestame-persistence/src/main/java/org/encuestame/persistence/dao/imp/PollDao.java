@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IFolder;
@@ -207,4 +208,21 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.add(Restrictions.eq("id", pollFolderId));
         return (PollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
+    /**
+     *
+     * @param date
+     * @param userId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> getPollByIdandCreationDate(final Date date, final Long userId,
+            final Integer maxResults, final Integer start ){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.createAlias("pollOwner","pollOwner");
+        criteria.add(Restrictions.eq("pollOwner.uid", userId));
+        criteria.add(Restrictions.eq("createdAt", date));
+        return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
 }
