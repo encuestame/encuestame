@@ -1,27 +1,23 @@
 <html>
 <body>
-    <div style="padding:14px;margin-bottom:4px;background-color:#008eb9">
-        <div style="font-size:16px;font-weidth:bold:padding:5px;">
-            Encuestame Survey System
-        </div>
+<div class="container" style="border: 1px solid #BDBDBD;">
+    #parse("/org/encuestame/business/mail/templates/header.vm")
+    <div id= containerBody style="margin-bottom:25px">
+    <div style="margin:10px;font-size:11px;">
+        Hi <span style="color:#0101DF; font-size:medium;">${user.username}</span>,
+        your password has been renewed!</div>
+    <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
+        <div style="font-weight: bold; margin-bottom: 2px; font-size: 11px;">
+        To complete this process, follow this  <span><a href="#">here !!</span>
     </div>
-    <h2>Hi, ${user.username} </h2>
-    <p>
-    <div>Please confirm your encuestame account by clicking this link:</div>
-    <a href="http://localhost:8080/encuestame/account/confirm/email/${user.username}/${inviteCode}">
-        http://localhost:8080/encuestame/account/confirm/email/${user.username}/${inviteCode}
-    </a><br/>
-    <div>Once you have confirmed your account, you can access full access.</div><br/>
-
-    <div>${app.url}</div><br/>
-
-    <div>If you have received this message in error, please <a href="#">click here.</a></div><br/>
-
-    <div style="font-size:10px;">
-        footer message footer message footer message footer message footer message footer message footer message
-        footer message footer message footer messagefooter message footer message footer message footer message
-         footer message footer message footer message footer messagefooter message footer message
+    <div style="margin-bottom: 2px; margin-top:2px; font-size: 11px">
+        Your new password  is <span style="color:#0101DF; font-size:small;">${user.password}</span>
+         <div style="margin-bottom: 2px; margin-top:2px; color:#BDBDBD; font-size: 11px;">
+         If you didn't request this change, please let us know!<a href="#"> click here. </a></div>
     </div>
-    </p>
+  </div>
+</div>
+  #parse("/org/encuestame/business/mail/templates/footer.vm")
+</div>
 </body>
 </html>
