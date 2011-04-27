@@ -41,7 +41,7 @@ public class GoogleConnectSocialAccount extends AbstractAccountConnect{
             @Value("${google.client.secret}") String clientSecret,
             @Value("${google.client.id}") String clientId) {
        super(new OAuth2Parameters(clientId, clientSecret, accessTokenUrl,
-                 authorizeUrl, SocialProvider.GOOGLE, clientId));
+                 authorizeUrl, SocialProvider.GOOGLE, keyId));
     }
 
     /**

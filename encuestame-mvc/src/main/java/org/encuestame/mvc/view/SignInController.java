@@ -7,10 +7,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
+import org.encuestame.business.service.social.OAuth2RequestFlow;
+import org.encuestame.business.service.social.api.BuzzAPITemplate;
+import org.encuestame.core.social.BuzzAPIOperations;
+import org.encuestame.core.social.SocialUserProfile;
+import org.encuestame.core.social.oauth.OAuth2Parameters;
+import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.web.UnitEmails;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,12 +102,20 @@ public class SignInController extends AbstractSocialController{
                 auth1RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
                 url.append(auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest));
             } else if (SocialProvider.GOOGLE.equals(providerEnum)) {
-
+               OAuth2Parameters auth2Parameters = new OAuth2Parameters(
+                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"),
+                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.secret"),
+                        EncuestamePlaceHolderConfigurer.getProperty("google.accesToken"),
+                        EncuestamePlaceHolderConfigurer.getProperty("google.authorizeURl"),
+                        SocialProvider.GOOGLE,
+                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"));
+                auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
+                auth2RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
+                        "https://www.googleapis.com/auth/buzz", httpRequest, false));
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
 
-            } else if (SocialProvider.IDENTICA.equals(providerEnum)) {
-
-            } else if (SocialProvider.LINKEDIN.equals(providerEnum)) {
+            } else {
 
             }
         }
@@ -108,6 +127,7 @@ public class SignInController extends AbstractSocialController{
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @PathVariable String provider,
+            final ModelMap model,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
             WebRequest request,
             final UserAccount account) throws Exception {
@@ -116,6 +136,41 @@ public class SignInController extends AbstractSocialController{
         log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
         //this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
         //this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
-        return "signin";
+        //request.removeAttribute(OAuthUtils.OAUTH_TOKEN_GET, WebRequest.SCOPE_REQUEST);
+
+        model.put("jota", accessToken);
+        return "signin/provider/register";
     }
+
+    /**
+    *
+    * @param code
+    * @param httpRequest
+    * @param request
+    * @return
+    * @throws Exception
+    */
+   @RequestMapping(value="/signin/register/{provider}", method=RequestMethod.GET, params="code")
+   public String oauth2Callback(
+           @RequestParam("code") String code,
+           final ModelMap model,
+           HttpServletRequest httpRequest,
+       WebRequest request) throws Exception {
+           final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
+           log.debug(accessGrant.getAccessToken());
+           log.debug(accessGrant.getRefreshToken());
+           final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(),
+                 EncuestamePlaceHolderConfigurer.getProperty("google.api.key"));
+           final SocialUserProfile d = apiOperations.getProfile();
+           log.debug("Social "+d);
+           final SignUpBean singUpBean = new SignUpBean();
+           singUpBean.setEmail(d.getEmail());
+           singUpBean.setUsername(d.getScreenName());
+           //singUpBean.set
+           final UserAccountBean bean = getSecurityService().singupUser(singUpBean);
+           model.put("user", bean);
+           //checkOAuth2SocialAccount(SocialProvider.GOOGLE, accessGrant);
+           ///return this.redirect+"#provider="+SocialProvider.GOOGLE.toString().toLowerCase()+"&refresh=true&successful=true";
+           return "signin/provider/register";
+   }
 }

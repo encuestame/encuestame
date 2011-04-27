@@ -22,4 +22,6 @@ public class OAuthUtils {
 
     public static final String OAUTH_TOKEN_ATTRIBUTE = "oauthToken";
 
+    public static final String OAUTH_TOKEN_GET = "oauth_token";
+
 }

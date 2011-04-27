@@ -14,10 +14,12 @@ package org.encuestame.business.service.social.api;
 
 import java.util.Map;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.BuzzAPIOperations;
-import org.encuestame.core.social.Data;
+import org.encuestame.core.social.BuzzProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -38,7 +40,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
     /**
      * Google Key.
      */
-    private String GOOGLE_KEY;
+    private String GOOGLE_KEY = EncuestamePlaceHolderConfigurer.getProperty("google.api.key");
     private String GOOGLE_REST_UPDATE = "https://www.googleapis.com/buzz/v1/activities/@me/@self?key={key}&alt=json";
     private String GOOGLE_REST_PROFILE = "https://www.googleapis.com/buzz/v1/people/@me/@self?alt=json";
     private String GOOGLE_REST_LIKE = "https://www.googleapis.com/buzz/v1/activities/@me/@liked/{activityId}?key={key}";
@@ -59,7 +61,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      */
     public BuzzAPITemplate(final String accessToken, final String googleKey) {
           setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
-          this.GOOGLE_KEY = googleKey;
+          //this.GOOGLE_KEY = googleKey;
     }
 
     /*
@@ -86,9 +88,16 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      */
     public SocialUserProfile getProfile(){
         //TOOD: conver to BuzzProfile.
-        Object profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Object.class);
+        //{data={id=null, displayName=null, kind=kined, aboutMe=abbout me, profileUrl=null, emails=[], url=[], photos=null, organizations=[]}}
+        Map profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Map.class);
         log.debug("Google Profile "+profileMap);
         final SocialUserProfile profile = new SocialUserProfile();
+        Map data = (Map) profileMap.get("data");
+        log.debug("Google Profile------------ "+data);
+        profile.setEmail("juan@encuestame.org");
+        profile.setId(data.get("id").toString());
+        //profile.setScreenName(data.get("displayName").toString());
+        profile.setScreenName("test_"+RandomStringUtils.randomAlphabetic(4));
         return profile;
     }
 
@@ -97,9 +106,9 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
      */
     public String updateStatus(final String status) {
-        final Data jsonData = new Data();
-        jsonData.getData().getObject().setType("note");
-        jsonData.getData().getObject().setComment(status);
+        final BuzzProfile jsonData = new BuzzProfile();
+        //jsonData.getData().getObject().setType("note");
+        //jsonData.getData().getObject().setComment(status);
         @SuppressWarnings("rawtypes")
         final Map response = getRestTemplate().postForObject(
                 this.GOOGLE_REST_UPDATE, jsonData, Map.class, this.GOOGLE_KEY);

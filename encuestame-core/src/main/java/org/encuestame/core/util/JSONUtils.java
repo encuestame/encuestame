@@ -18,7 +18,7 @@ import java.io.StringWriter;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.encuestame.core.social.Data;
+import org.encuestame.core.social.BuzzProfile;
 
 /**
  * Helper to JSON.

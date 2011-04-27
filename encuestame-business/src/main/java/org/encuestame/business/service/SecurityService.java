@@ -592,6 +592,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         account.setCreatedAccount(Calendar.getInstance().getTime());
         account.setEnabled(Boolean.TRUE);
         getAccountDao().saveOrUpdate(account);
+        //create directory account.
+        createDirectoryAccount(account);
         //create first user account.
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
@@ -607,27 +609,23 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setCompleteName("");
         userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
-
         //create global account directory
-        createGlobalAccount(userAccount.getAccount());
         log.debug("singupUser created user account");
-        //Add default permissions, if user is signup we should add admin access
+
+        //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
-        permissions.add(getPermissionByName(SecurityService.DEFAULT));
-        permissions.add(getPermissionByName(SecurityService.ADMIN));
-        permissions.add(getPermissionByName(SecurityService.OWNER));
-        permissions.add(getPermissionByName(SecurityService.PUBLISHER));
-        permissions.add(getPermissionByName(SecurityService.EDITOR));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_OWNER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
-        log.debug("singupUser assigned default user account");
-        //Create login.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
-        log.debug("singupUser autenticated");
-        if (this.suspendedNotification) {
-            getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: BUG 97
-        }
+        //send email
+        getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
         log.debug("singupUser notificated");
         log.debug("new user "+userAccount.getUsername());
+        //loging user.
+        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
         log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
     }

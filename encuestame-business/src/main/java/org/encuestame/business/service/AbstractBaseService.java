@@ -315,7 +315,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      *
      * @param account
      */
-    public void createGlobalAccount(final Account account){
+    public void createDirectoryAccount(final Account account){
         final File file = new File(DirectorySetupOperations.getProfilesDirectory(account.getUid().toString()));
         if (!file.exists()) {
             file.mkdirs();
