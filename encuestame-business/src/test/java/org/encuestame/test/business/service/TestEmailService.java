@@ -12,8 +12,11 @@
  */
 package org.encuestame.test.business.service;
 
+import java.util.UUID;
+
 import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.security.SignUpBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +39,24 @@ public class TestEmailService extends AbstractServiceBase {
     @Test(timeout = 30000)
     public void testSendEmail(){
         this.serviceMail.sendInvitation(getProperty("mail.test.email"), "12355");
+    }
+
+    @Test
+    public void testSendConfirmYourAccountEmail(){
+        final String inviteCode = UUID.randomUUID().toString();
+        final String captcha = "CaPtCHa";
+        final String email = "dianmorales@gmail.com";
+        final String fullName = "";
+        final String password = "Diana Paola";
+        final String username = "dianmorales";
+        final SignUpBean sub = new SignUpBean();
+        sub.setCaptcha(captcha);
+        sub.setEmail(email);
+        sub.setFullName(fullName);
+        sub.setPassword(password);
+        sub.setUsername(username);
+        this.serviceMail.sendConfirmYourAccountEmail(sub, inviteCode);
+
     }
 
     /**
