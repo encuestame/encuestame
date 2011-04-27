@@ -28,4 +28,9 @@
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}register_provider.jsp" />
     </definition>
 
+      <definition name="confirmation/account" extends="page">
+        <put-attribute name="title" value="Confirm Account | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}confirm_account.jsp" />
+    </definition>
+
 </tiles-definitions>

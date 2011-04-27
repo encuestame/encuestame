@@ -12,15 +12,12 @@ import org.encuestame.business.service.social.api.BuzzAPITemplate;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
-import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,6 +39,17 @@ public class SignInController extends AbstractSocialController{
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+
+    @RequestMapping(value = "/user/signin/confirmation", method = RequestMethod.GET)
+    public String confirmAccountController(
+            final ModelMap model,
+            HttpServletResponse response,
+            HttpServletRequest request) {
+        log.debug("confirmation Account");
+        return "confirmation/account";
+    }
+
 
     /**
      * Signin Controller.
