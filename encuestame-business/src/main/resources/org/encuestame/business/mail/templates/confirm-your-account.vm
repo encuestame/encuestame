@@ -2,22 +2,30 @@
 <body>
 <div class="container" style="border: 1px solid #BDBDBD;">
     #parse("/org/encuestame/business/mail/templates/header.vm")
+
     <div id= containerBody style="margin-bottom:25px">
-    <div style="margin:10px;font-size:11px;">
-        Hi <span style="color:#0101DF; font-size:medium;">${user.username}</span>,
-        your password has been renewed!</div>
-    <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
-        <div style="font-weight: bold; margin-bottom: 2px; font-size: 11px;">
-        To complete this process, follow this  <span><a href="#">here !!</span>
+        <div style= "margin:10px;font-size:12px; ">
+             Hi,
+             <span style="color:#0101DF;font-size:medium;"> ${user.username} </span>.
+             Your new user account has been successfully set up.
+        </div>
+
+        <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
+            <div style="font-weight: bold; margin-bottom: 2px; font-size: 11px;">
+                 Please confirm your encuestame account by clicking this link  or paste it into the url field on your favorite browser:
+            </div>
+             <div style="color: rgb(59, 89, 152); text-decoration: none; font-size: 11px;">
+                 <a href="http://localhost:8080/encuestame/account/confirm/email/${user.username}/${inviteCode}">
+                    http://${domain}/account/confirm/email/${user.username}/${inviteCode}
+                 </a>
+             </div>
+            <div style="margin-bottom: 2px; margin-top:2px; font-size: 11px;">
+               Once you have confirmed your account, you can access full access.
+            </div>
+        </div>
     </div>
-    <div style="margin-bottom: 2px; margin-top:2px; font-size: 11px">
-        Your new password  is <span style="color:#0101DF; font-size:small;">${user.password}</span>
-         <div style="margin-bottom: 2px; margin-top:2px; color:#BDBDBD; font-size: 11px;">
-         If you didn't request this change, please let us know!<a href="#"> click here. </a></div>
-    </div>
-  </div>
+    #parse("/org/encuestame/business/mail/templates/footer.vm")
 </div>
-  #parse("/org/encuestame/business/mail/templates/footer.vm")
-</div>
+
 </body>
 </html>
