@@ -146,9 +146,9 @@
     </mailingLists>
 
     <scm>
-        <connection>scm:git:git://github.com/juanpicado/encuestame.git</connection>
-        <developerConnection>scm:git:git://github.com/juanpicado/encuestame.git</developerConnection>
-        <url>https://juanpicado@github.com/juanpicado/encuestame.git</url>
+        <connection>scm:git:git://github.com/encuestame/encuestame.git</connection>
+        <developerConnection>scm:git:git://github.com/encuestame/encuestame.git</developerConnection>
+        <url>https://github.com/encuestame/encuestame.git</url>
     </scm>
 
     <distributionManagement>
@@ -470,7 +470,7 @@
 		<configuration>
 		  <doCheck>false</doCheck>
 		  <doUpdate>false</doUpdate>
-		  <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+		  <format>{0,date,yyyy-MM-dd-HH:mm:ss}</format>
 	          <items>           
 		      <item>timestamp</item>         
 		  </items>

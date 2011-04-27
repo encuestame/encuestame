@@ -12,23 +12,27 @@
  */
 package org.encuestame.mvc.controller.social;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
+import org.encuestame.business.service.imp.TwitterAPIOperations;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.OAuth2RequestFlow;
+import org.encuestame.business.service.social.api.BuzzAPITemplate;
 import org.encuestame.business.service.social.api.FacebookAPITemplate;
 import org.encuestame.business.service.social.api.IdenticaAPITemplate;
 import org.encuestame.business.service.social.api.LinkedInAPITemplate;
-import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+import org.encuestame.business.service.social.api.TwitterAPITemplate;
+import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookProfile;
 import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.LinkedInProfile;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 
@@ -112,11 +116,13 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
      * @param socialProvider
      * @param accessToken
      * @param account
-     * @throws EnMeNoResultsFoundException
+     * @throws Exception
      */
     public String checkOAuth1SocialAccount(
             final SocialProvider socialProvider,
-            final OAuth1Token accessToken) throws EnMeNoResultsFoundException{
+            final OAuth1Token accessToken) throws Exception{
+            log.debug("OAUTH1AccessToken "+accessToken.toString());
+            log.debug("OAUTH1AccessToken Provider "+socialProvider);
             String socialAccountId = null;
             String username = null;
             String actionToDo = "";
@@ -155,11 +161,25 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                     log.warn("This account already exist");
                 }
             } else if (socialProvider.equals(SocialProvider.TWITTER)) {
-
+                TwitterAPIOperations operations = new TwitterAPITemplate(consumerSecret, apiKey, accessToken.getValue(),
+                        accessToken.getSecret());
+                SocialUserProfile profile = operations.getProfile();
+                log.debug("identica profile "+profile.toString());
+                username = profile.getScreenName();
+                socialAccountId = profile.getId();
+                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
+                      socialAccountId);
+                if (socialAccount == null) {
+                    getSecurityService().addNewSocialAccount(socialAccountId,
+                            accessToken.getValue(), accessToken.getSecret(), username,
+                            socialProvider);
+                } else {
+                    log.warn("This account already exist");
+                }
             } else if (socialProvider.equals(SocialProvider.MYSPACE)) {
-
+                //FUTURE - Issues with OAuth1 request.
             } else if (socialProvider.equals(SocialProvider.YAHOO)) {
-
+                //FUTURE - Only valid on defined domain.
             }
             log.info("Saved New Social Account");
             return actionToDo;
@@ -170,11 +190,10 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
      * @param socialProvider
      * @param accessGrant
      * @return
-     * @throws EnMeNoResultsFoundException
-     * @throws EnMeFailSendSocialTweetException
+     * @throws Exception
      */
     public String checkOAuth2SocialAccount(final SocialProvider socialProvider,
-            final AccessGrant accessGrant) throws EnMeNoResultsFoundException, EnMeFailSendSocialTweetException {
+            final AccessGrant accessGrant) throws Exception {
         String socialAccountId = null;
         String username = null;
         String actionToDo = "";
@@ -188,7 +207,19 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                     socialProvider);
             facebookAPIOperations.updateStatus("12345 @encuestame");
         } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
-
+            BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
+            log.debug(apiOperations.getProfile());
+            socialAccountId = RandomStringUtils.randomAlphabetic(10); //TEMP.
+            username = "";
+            getSecurityService().addNewSocialAccount(socialAccountId,
+                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), username,
+                    socialProvider);
+            try {
+                apiOperations.updateStatus("12345 @encuestame");
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.fatal(e);
+            }
         }
         return actionToDo;
     }

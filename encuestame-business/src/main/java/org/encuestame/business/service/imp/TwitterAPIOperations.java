@@ -13,17 +13,7 @@
 
 package org.encuestame.business.service.imp;
 
-import java.io.IOException;
-
-import org.apache.commons.httpclient.HttpException;
-import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.persistence.domain.security.SocialAccount;
-
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.http.AccessToken;
-import twitter4j.http.RequestToken;
+import org.encuestame.core.social.SocialAPIOperations;
 
 /**
  * Twitter Service Interface.
@@ -31,24 +21,7 @@ import twitter4j.http.RequestToken;
  * @since Feb 13, 2010 4:07:14 PM
  * @version $Id$
  */
-public interface TwitterAPIOperations{
+public interface TwitterAPIOperations extends SocialAPIOperations{
 
-    /**
-     * Get Twitter Ping.
-     * @param consumerKey consumer key
-     * @param consumerSecret consumer secret
-     * @return {@link RequestToken}
-     * @throws TwitterException exception
-     */
-    RequestToken getTwitterPing(String consumerKey, String consumerSecret)
-            throws TwitterException;
 
-    /**
-     * OAuth Public Tweet.
-     * @param socialAccount
-     * @param tweet
-     * @return
-     * @throws TwitterException
-     */
-    Status updateStatus(final SocialAccount socialAccount, final String tweet) throws TwitterException;
 }

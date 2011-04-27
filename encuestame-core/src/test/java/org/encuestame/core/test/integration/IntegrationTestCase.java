@@ -73,22 +73,22 @@ public class IntegrationTestCase extends AbstractIntegrationConfig {
         });
 
         Message<?> transformedMessage = transformerOutputChannel.receive();
-        System.out.println("trams" + transformedMessage.getPayload());
+        log.debug("trams" + transformedMessage.getPayload());
         assertNotNull(transformedMessage);
 
         assertNotSame((String) transformedMessage.getPayload(),
                 ("original www.xebia.com message http://www.xebia.com"));
-        System.out.println("tinyurl.com");
+        log.debug("tinyurl.com");
     }
 
     @Test
     public void testTwitterChannel(){
-        System.out.println("testTwitterChannel");
+        log.debug("testTwitterChannel");
         MessageChannel twitterOutChannel = this.twitterTransformedChannel;
         Message<String> twitterUpdate = new GenericMessage<String>("22 Testing  http://www.google.es new Twitter samples for #springintegration "+RandomStringUtils.random(2));
-        System.out.println("twitterOutChannel message "+twitterUpdate.getPayload());
+        log.debug("twitterOutChannel message "+twitterUpdate.getPayload());
         twitterOutChannel.send(twitterUpdate);
-        System.out.println("twitterOutChannel");
+        log.debug("twitterOutChannel");
     }
 
     @Test

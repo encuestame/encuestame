@@ -14,9 +14,13 @@ package org.encuestame.business.service.social.api;
 
 import java.util.Map;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.BuzzAPIOperations;
-import org.encuestame.core.social.Data;
+import org.encuestame.core.social.BuzzProfile;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
 
@@ -28,9 +32,15 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPIOperations{
 
     /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
+
+    /**
      * Google Key.
      */
-    private String GOOGLE_KEY;
+    private String GOOGLE_KEY = EncuestamePlaceHolderConfigurer.getProperty("google.api.key");
     private String GOOGLE_REST_UPDATE = "https://www.googleapis.com/buzz/v1/activities/@me/@self?key={key}&alt=json";
     private String GOOGLE_REST_PROFILE = "https://www.googleapis.com/buzz/v1/people/@me/@self?alt=json";
     private String GOOGLE_REST_LIKE = "https://www.googleapis.com/buzz/v1/activities/@me/@liked/{activityId}?key={key}";
@@ -50,19 +60,45 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * @param accessToken
      */
     public BuzzAPITemplate(final String accessToken, final String googleKey) {
-         setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
-          this.GOOGLE_KEY = googleKey;
+          setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
+          //this.GOOGLE_KEY = googleKey;
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#getProfile()
+     * {"data":{
+     * "kind":"buzz#person","id":"xxxxxxxxxxxxxxx",
+     * "displayName":"My name",
+     * "aboutMe":"xxxxxxxxxxxxxxxxxxxxxxxxx",
+     * "profileUrl":"https://profiles.google.com/xxxxxxxxxxxxxxx",
+     * "thumbnailUrl":"https://lh5.googleusercontent.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg",
+     * "emails":[{"value":"juanpicado19@gmail.com","type":"","primary":true}],
+     *   "urls":[{"value":"http://picasaweb.google.com/juanpicado19"},
+     *           {"value":"https://profiles.google.com/juanpicado19","type":"profile"},
+     *           {"value":"https://www.googleapis.com/buzz/v1/people/110583664879406693886/@self?alt\u003djson","type":"json"}
+     *          ],
+     * "photos":[
+     *           {"value":"https://lh5.googleusercontent.com/-dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg","type":"thumbnail","width":24,"height":24},
+     *           {"value":"https://lh5.googleusercontent.com/-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg","type":"thumbnail","width":50,"height":50}
+     *          ],
+     *"organizations":[
+     *          {"name":"xxxxxxxxx, Managua Nicaragua","title":"Computer xxxxxxxxx","type":"school"},
+     *          {"name":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","title":"Leader xxxxxxxxxxx","type":"work"}]}}"
      */
-    public String getProfile(){
+    public SocialUserProfile getProfile(){
         //TOOD: conver to BuzzProfile.
-        Object profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Object.class);
-        System.out.println(profileMap);
-        return "";
+        //{data={id=null, displayName=null, kind=kined, aboutMe=abbout me, profileUrl=null, emails=[], url=[], photos=null, organizations=[]}}
+        Map profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Map.class);
+        log.debug("Google Profile "+profileMap);
+        final SocialUserProfile profile = new SocialUserProfile();
+        Map data = (Map) profileMap.get("data");
+        log.debug("Google Profile------------ "+data);
+        profile.setEmail("juan@encuestame.org");
+        profile.setId(data.get("id").toString());
+        //profile.setScreenName(data.get("displayName").toString());
+        profile.setScreenName("test_"+RandomStringUtils.randomAlphabetic(4));
+        return profile;
     }
 
     /*
@@ -70,9 +106,9 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
      */
     public String updateStatus(final String status) {
-        final Data jsonData = new Data();
-        jsonData.getData().getObject().setType("note");
-        jsonData.getData().getObject().setComment(status);
+        final BuzzProfile jsonData = new BuzzProfile();
+        //jsonData.getData().getObject().setType("note");
+        //jsonData.getData().getObject().setComment(status);
         @SuppressWarnings("rawtypes")
         final Map response = getRestTemplate().postForObject(
                 this.GOOGLE_REST_UPDATE, jsonData, Map.class, this.GOOGLE_KEY);
@@ -93,19 +129,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      */
     public String getActivities(){
         Object f = getRestTemplate().getForObject(this.GOOGLE_ACTIVITIES, Object.class);
-        System.out.println(f);
+        log.debug(f);
         return "google";
-    }
-
-    @Override
-    public String getProfileId() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getProfileUrl() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

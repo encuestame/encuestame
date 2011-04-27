@@ -85,7 +85,7 @@ public enum SocialProvider {
     public static TypeAuth getTypeAuth(final SocialProvider provider){
         if(provider.equals(TWITTER)
                 || provider.equals(IDENTICA)
-                || provider.equals(IDENTICA)
+                || provider.equals(LINKEDIN)
                 || provider.equals(MYSPACE)
                 || provider.equals(YAHOO)){
             return TypeAuth.OAUTH1;

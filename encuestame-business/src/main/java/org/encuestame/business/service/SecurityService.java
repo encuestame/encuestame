@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
@@ -356,7 +357,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
-     * Create a secondary user, generate password for user and send email to confirmate
+     * Create a user account, generate password for user and send email to confirmate
      * the account.
      * @param userBean {@link UserAccountBean}
      * @throws EnMeExpcetion personalize exception
@@ -383,7 +384,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             userAccount.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         //TODO: maybe we need create a table for editor permissions
-        //secondaryUser.setPublisher(userBean.getPublisher());
         userAccount.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setEnjoyDate(new Date());
@@ -587,46 +587,45 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public UserAccountBean singupUser(final SignUpBean singUpBean){
         log.debug("singupUser "+singUpBean.toString());
+        //create account/
         final Account account = new Account();
+        account.setCreatedAccount(Calendar.getInstance().getTime());
+        account.setEnabled(Boolean.TRUE);
         getAccountDao().saveOrUpdate(account);
+        //create directory account.
+        createDirectoryAccount(account);
+        //create first user account.
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
-
-        final String password = encodingPassword(singUpBean.getPassword() == null
-                ? EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD) : singUpBean.getPassword());
-        if(singUpBean.getPassword() == null){
-            singUpBean.setPassword(password);
-        }
-        //Invite Code
-        final String inviteCode = "12345678910"; //BUG 98
+        //generate password.
+        final String password = encodingPassword(EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD));
         userAccount.setPassword(password);
+        //invite code
+        final String inviteCode =  UUID.randomUUID().toString();
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setUserEmail(singUpBean.getEmail());
         userAccount.setCompleteName("");
-        userAccount.setInviteCode(inviteCode);
+        userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
         //create global account directory
-        createGlobalAccount(userAccount.getAccount());
         log.debug("singupUser created user account");
-        //Add default permissions, if user is signup we should add admin access
+
+        //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
-        permissions.add(getPermissionByName(SecurityService.DEFAULT));
-        permissions.add(getPermissionByName(SecurityService.ADMIN));
-        permissions.add(getPermissionByName(SecurityService.OWNER));
-        permissions.add(getPermissionByName(SecurityService.PUBLISHER));
-        permissions.add(getPermissionByName(SecurityService.EDITOR));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_OWNER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
-        log.debug("singupUser assigned default user account");
-        //Create login.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
-        log.debug("singupUser autenticated");
-        if (this.suspendedNotification) {
-            getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: BUG 97
-        }
+        //send email
+        getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
         log.debug("singupUser notificated");
         log.debug("new user "+userAccount.getUsername());
+        //loging user.
+        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
         log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
     }

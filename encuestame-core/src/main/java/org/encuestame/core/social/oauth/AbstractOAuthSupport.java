@@ -14,6 +14,9 @@ package org.encuestame.core.social.oauth;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.jfree.util.Log;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.CommonsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -26,6 +29,11 @@ import org.springframework.web.util.UriTemplate;
  * @since Apr 22, 2011
  */
 public abstract class AbstractOAuthSupport {
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * {@link RestTemplate}.
@@ -45,6 +53,15 @@ public abstract class AbstractOAuthSupport {
     public AbstractOAuthSupport(final List<HttpMessageConverter<?>> converters) {
         this.restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
         this.restTemplate.setMessageConverters(converters);
+        log.debug("OAuth Converters Size "+this.restTemplate.getMessageConverters().size());
+        if (log.isDebugEnabled()) {
+            for (HttpMessageConverter<?> httpMessageConverter : this.restTemplate.getMessageConverters()) {
+                log.debug("--- OAuth Converters "+httpMessageConverter);
+                for (MediaType medidaType : httpMessageConverter.getSupportedMediaTypes()) {
+                    log.debug("------ Converter Media Type "+medidaType.toString());
+                }
+            }
+        }
     }
 
     /**

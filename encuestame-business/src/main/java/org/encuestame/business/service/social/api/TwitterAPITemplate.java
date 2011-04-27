@@ -16,8 +16,9 @@ package org.encuestame.business.service.social.api;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.TwitterAPIOperations;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.springframework.util.Assert;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -25,7 +26,6 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 
 /**
@@ -36,29 +36,70 @@ import twitter4j.http.RequestToken;
 
 public class TwitterAPITemplate implements TwitterAPIOperations{
 
+    /**
+     * Log.
+     */
     private Log log = LogFactory.getLog(this.getClass());
 
-
+    /**
+     * Twitter consumer secret.
+     */
     private String consumerSecret;
 
+    /**
+     * Twitter consumer key.
+     */
     private String consumerKey;
+
+    /**
+     * Access Token.
+     */
+    private String accessToken;
+
+    /**
+     * Secret Token.
+     */
+    private String secretToken;
+
+    private ConfigurationBuilder configurationBuilder;
 
 
     /**
-     * Constructor.
+     * Create Twitter API instance.
+     * @param consumerSecret
+     * @param consumerKey
      */
-    public TwitterAPITemplate() {
+    public TwitterAPITemplate(final String consumerSecret,
+            final String consumerKey, final String accessToken,
+            final String secretToken) {
+        Assert.notNull(consumerKey);
+        Assert.notNull(consumerSecret);
+        Assert.notNull(accessToken);
+        Assert.notNull(secretToken);
+        log.debug("consumer key "+consumerKey);
+        log.debug("consumer secret "+consumerSecret);
+        log.debug("secret TOKEN "+secretToken);
+        log.debug("acces TOKEN "+accessToken);
+        this.consumerKey = consumerKey;
+        this.consumerSecret = consumerSecret;
+        this.secretToken = secretToken;
+        this.accessToken = accessToken;
+        this.configurationBuilder = new ConfigurationBuilder();
+        this.configurationBuilder.setDebugEnabled(true)
+          .setOAuthConsumerKey(this.consumerKey)
+          .setOAuthConsumerSecret(this.consumerSecret)
+          .setOAuthAccessToken(this.accessToken)
+          .setOAuthAccessTokenSecret(this.secretToken);
     }
 
     /**
      *
-     * @param consumerSecret
-     * @param consumerKey
+     * @param socialTwitterAccount
+     * @return
      */
-    public TwitterAPITemplate(final String consumerSecret, final String consumerKey){
-        this.consumerKey = consumerKey;
-        this.consumerSecret = consumerSecret;
-    }
+   private Twitter getTwitterInstance(){
+       return this.getOAuthAuthorizedInstance();
+   }
 
     /**
      * OAuth Public Tweet.
@@ -67,26 +108,20 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @return
      * @throws TwitterException
      */
-    public Status updateStatus(final SocialAccount socialTwitterAccount, final String tweet) throws TwitterException{
-        log.debug("publicTweet "+socialTwitterAccount.getSocialAccountName());
-        //Twitter twitter = new TwitterFactory().getInstance();
-        log.debug("publicTweet Before  Token  {"+socialTwitterAccount.getAccessToken());
-        log.debug("publicTweet Before Secret Token  {"+socialTwitterAccount.getSecretToken());
-        final Twitter twitter = this.getTwitterInstance(socialTwitterAccount);
-        log.debug("Verify  "+twitter.verifyCredentials());
-        log.debug("Update Status "+tweet);
+    public Status updateTwitterStatus(final String tweet) throws TwitterException{
+        final Twitter twitter = this.getTwitterInstance();
         return twitter.updateStatus(tweet);
     }
 
     /**
      *
-     * @param socialTwitterAccount
-     * @return
      */
-    private Twitter getTwitterInstance(final SocialAccount socialTwitterAccount){
-        final AccessToken accessToken = this.createNewOAuthAccessToken(socialTwitterAccount);
-        log.debug("Access Token "+accessToken);
-        return this.getOAuthAuthorizedInstance(accessToken);
+    public String updateStatus(final String tweet){
+        try {
+            return String.valueOf(this.updateTwitterStatus(tweet).getId());
+        } catch (TwitterException e) {
+            return null;
+        }
     }
 
     /**
@@ -95,12 +130,8 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @return
      * @throws TwitterException
      */
-    public User getUser(final SocialAccount socialTwitterAccount) throws TwitterException{
-        if(socialTwitterAccount.getAccounType().equals(SocialProvider.TWITTER)){
-            return getTwitterInstance(socialTwitterAccount).verifyCredentials();
-        } else {
-            return null;
-        }
+    public User getUser() throws TwitterException{
+            return getTwitterInstance().verifyCredentials();
     }
 
     /**
@@ -108,8 +139,8 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param socialAccount
      * @return
      */
-    public Boolean verifyCredentials(final SocialAccount socialAccount){
-        final Twitter twitter = this.getTwitterInstance(socialAccount);
+    public Boolean verifyCredentials(){
+        final Twitter twitter = this.getTwitterInstance();
         User user;
         try {
             user = twitter.verifyCredentials();
@@ -117,18 +148,7 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
             user = null;
             log.error(e);
         }
-        log.debug("Twitter Account "+socialAccount.getSocialAccountName()+ " is confirmed? "+user);
         return user == null ? false : true;
-    }
-
-    /**
-     * Create New OAuth Access Token.
-     * @param socialTwitterAccount {@link SocialAccount}.
-     * @return {@link AccessToken}.
-     */
-    private AccessToken createNewOAuthAccessToken(final SocialAccount socialTwitterAccount){
-         final AccessToken accessToken = new AccessToken(socialTwitterAccount.getAccessToken(), socialTwitterAccount.getSecretToken());
-         return accessToken;
     }
 
     /**
@@ -136,14 +156,8 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param socialTwitterAccount {@link SocialAccount}.
      * @return {@link Twitter}.
      */
-    private Twitter getOAuthAuthorizedInstance(final AccessToken accessToken){
-        final ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(this.consumerKey)
-          .setOAuthConsumerSecret(this.consumerSecret)
-          .setOAuthAccessToken(accessToken.getToken())
-          .setOAuthAccessTokenSecret(accessToken.getTokenSecret());
-        final TwitterFactory tf = new TwitterFactory(cb.build());
+    private Twitter getOAuthAuthorizedInstance(){
+        final TwitterFactory tf = new TwitterFactory(this.configurationBuilder.build());
         final Twitter twitter = tf.getInstance();
         return twitter;
     }
@@ -155,8 +169,7 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @return {@link RequestToken}
      * @throws TwitterException exception
      */
-    public RequestToken getTwitterPing(String consumerKey, String consumerSecret)
-            throws TwitterException {
+    public RequestToken getTwitterPing() throws TwitterException {
         if (consumerKey == null) {
             throw new IllegalArgumentException("Consumer key is missing");
         }
@@ -166,5 +179,22 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
         final Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(consumerKey, consumerSecret);
         return twitter.getOAuthRequestToken();
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.social.SocialAPIOperations#getProfile()
+     */
+    @Override
+    public SocialUserProfile getProfile() throws Exception {
+        final SocialUserProfile profile = new SocialUserProfile();
+        User user = this.getUser();
+        profile.setId(String.valueOf(user.getId()));
+        profile.setCreatedAt(user.getCreatedAt());
+        profile.setProfileUrl("http://www.twitter.com/"+user.getScreenName());
+        profile.setName(user.getName());
+        profile.setScreenName(user.getScreenName());
+        profile.setDescription(user.getDescription());
+        return profile;
     }
 }

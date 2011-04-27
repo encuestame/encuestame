@@ -350,7 +350,7 @@ public class IndexerFile {
              while (rows.hasNext()) {
                  HSSFRow row = (HSSFRow) rows.next();
                  // Display the row number
-                 System.out.println(row.getRowNum());
+                 log.debug(row.getRowNum());
                  Iterator<Cell> cells = row.cellIterator();
                  while (cells.hasNext()) {
                      HSSFCell cell = (HSSFCell) cells.next();
@@ -358,7 +358,7 @@ public class IndexerFile {
                      switch (cell.getCellType()) {
 
                      case HSSFCell.CELL_TYPE_NUMERIC: {
-                         System.out.println(String.valueOf(cell
+                         log.debug(String.valueOf(cell
                                  .getNumericCellValue()));
                          contents.append(
                                  String.valueOf(cell.getNumericCellValue()))
@@ -369,7 +369,7 @@ public class IndexerFile {
                      case HSSFCell.CELL_TYPE_STRING: {
                          HSSFRichTextString richTextString = cell
                                  .getRichStringCellValue();
-                         System.out.println(richTextString.toString());
+                         log.debug(richTextString.toString());
                          contents.append(richTextString.toString()).append(" ");
                          break;
                      }
