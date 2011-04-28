@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.service.social.signin;
 
+import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.api.BuzzAPITemplate;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.persistence.dao.IAccountDao;
@@ -28,8 +29,9 @@ public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzA
      *
      * @param accessGrant
      * @param key
+     * @throws Exception
      */
-    public GoogleSignInSocialService(final IAccountDao accountDao, final AccessGrant accessToken) {
+    public GoogleSignInSocialService(final IAccountDao accountDao, final AccessGrant accessToken) throws Exception {
         super(accountDao, accessToken);
     }
 
@@ -37,23 +39,20 @@ public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzA
      *
      */
     @Override
-    SocialProvider getProvider() {
+    public SocialProvider getProvider() {
         return SocialProvider.GOOGLE;
     }
 
     @Override
     public BuzzAPIOperations getAPISocialProvider() {
-         return new BuzzAPITemplate("","");
+         return new BuzzAPITemplate(getAccessGrant().getAccessToken(),
+                 EncuestamePlaceHolderConfigurer.getProperty("google.api.key"));
     }
 
     @Override
-    public void addConnection(String accountId, String accessToken) {
+    public void disconnect() {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
-    public void disconnect(String accountId) {
-        // TODO Auto-generated method stub
-    }
 }

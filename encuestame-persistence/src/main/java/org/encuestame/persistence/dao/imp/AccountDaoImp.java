@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -238,10 +239,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      */
     public AccountConnection addConnection(
                 final SocialProvider provider,
-                final OAuth1Token token, //AOAuth1
                 final AccessGrant accessGrant, //OAuth2
                 final String socialAccountId,
-                final Long userAccountId,
+                final UserAccount userAccount,
                 final String providerProfileUrl,
                 final SocialAccount socialAccount){
         final AccountConnection connection = new AccountConnection();
@@ -252,9 +252,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         //store oauth provider permissions.
         if(SocialProvider.getTypeAuth(provider).equals(TypeAuth.OAUTH1)){
             //OAuth access token.
-            connection.setAccessToken(token.getValue());
+            //connection.setAccessToken(token.getValue());
             //OAuth1
-            connection.setSecretToken(token.getSecret());
+            //connection.setSecretToken(token.getSecret());
         } else if(SocialProvider.getTypeAuth(provider).equals(TypeAuth.OAUTH2)){
             //OAuth2
             connection.setAccessToken(accessGrant.getAccessToken());
@@ -263,7 +263,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         }
         connection.setSocialProfileId(socialAccountId);
         connection.setProfileUrl(providerProfileUrl);
-        connection.setUserAccout(this.getUserAccountById(userAccountId));
+        connection.setUserAccout(userAccount);
         getHibernateTemplate().saveOrUpdate(connection);
         return connection;
     }
@@ -369,18 +369,46 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     /**
      * Return {@link UserAccount} by provider name and access token key.
      * @param provider
-     * @param accessToken
+     * @param profileId
      * @return
      * @throws EnMeExpcetion
      */
-    public UserAccount findAccountByConnection(final SocialProvider provider, final String accessToken)
+    public UserAccount findAccountByConnection(final SocialProvider provider, final String profileId)
            throws EnMeNoResultsFoundException {
-        final AccountConnection ac = this.findAccountConnectionBySocialProfileId(provider, accessToken);
+        final AccountConnection ac = this.findAccountConnectionBySocialProfileId(provider, profileId);
         if (ac == null) {
             throw new EnMeNoResultsFoundException("connection not found");
         } else {
             return ac.getUserAccout();
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#createSocialAccount(java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.social.SocialProvider, org.encuestame.persistence.domain.security.Account)
+     */
+    public SocialAccount createSocialAccount(
+            final String socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String username,
+            final SocialProvider socialProvider,
+            final Account account){
+        final SocialAccount socialAccount = new SocialAccount();
+        log.debug("Updating  Token to {"+token);
+        log.debug("Updating Secret Token to {"+tokenSecret);
+        socialAccount.setAccessToken(token);
+        socialAccount.setVerfied(Boolean.TRUE);
+        socialAccount.setAccounType(socialProvider);
+        socialAccount.setAccount(account);
+        socialAccount.setSocialAccountName(username);
+        socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
+        socialAccount.setSecretToken(tokenSecret);
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setSocialProfileId(socialAccountId);
+        this.saveOrUpdate(socialAccount);
+        return socialAccount;
     }
 
     /**

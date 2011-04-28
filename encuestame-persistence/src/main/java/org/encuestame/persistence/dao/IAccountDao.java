@@ -219,12 +219,11 @@ public interface IAccountDao extends IBaseDao {
      */
     AccountConnection addConnection(
             final SocialProvider provider,
-            final OAuth1Token token, //AOAuth1
             final AccessGrant accessGrant, //OAuth2
             final String socialAccountId,
-            final Long userAccountId,
+            final UserAccount userAccount,
             final String providerProfileUrl,
-            final SocialAccount socialAccoun);
+            final SocialAccount socialAccount);
 
     /**
      * Retrieve {@link AccountConnection} by access token and provider name.
@@ -252,4 +251,22 @@ public interface IAccountDao extends IBaseDao {
      */
     List<UserAccount> getPublicProfiles(final String keyword,
             final Integer maxResults, final Integer startOn);
+
+    /**
+    *
+    * @param socialAccountId
+    * @param token
+    * @param tokenSecret
+    * @param username
+    * @param socialProvider
+    * @param account
+    * @return
+    */
+   public SocialAccount createSocialAccount(
+           final String socialAccountId,
+           final String token,
+           final String tokenSecret,
+           final String username,
+           final SocialProvider socialProvider,
+           final Account account);
 }

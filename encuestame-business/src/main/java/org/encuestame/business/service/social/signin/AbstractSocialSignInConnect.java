@@ -14,8 +14,10 @@ package org.encuestame.business.service.social.signin;
 
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -27,7 +29,7 @@ import org.encuestame.utils.oauth.AccessGrant;
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 2:10:36 AM
  */
-public abstract class AbstractSocialSignInConnect<S> implements SocialSignInOperations{
+public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implements SocialSignInOperations{
 
     /**
      * Log.
@@ -44,18 +46,28 @@ public abstract class AbstractSocialSignInConnect<S> implements SocialSignInOper
      */
     private AccessGrant accessGrant;
 
+    /**
+     *
+     * @return
+     */
+    abstract org.encuestame.core.social.SocialAPIOperations getAPISocialProvider();
 
-    abstract S getAPISocialProvider();
+    /**
+     *
+     */
+    private SocialUserProfile socialUserProfile;
 
     /**
      *
      * @param accountDaoImpAccountDao
+     * @throws Exception
      */
     public AbstractSocialSignInConnect(
             final IAccountDao accountDaoImpAccountDao,
-            final AccessGrant accessGrant) {
+            final AccessGrant accessGrant) throws Exception {
             this.accountDaoImp = accountDaoImpAccountDao;
             this.accessGrant = accessGrant;
+            this.setSocialUserProfile(this.getAPISocialProvider().getProfile());
     }
 
     /*
@@ -64,17 +76,10 @@ public abstract class AbstractSocialSignInConnect<S> implements SocialSignInOper
      */
     public void connect(String accountId, AccessGrant accesGrant) throws EnMeExistPreviousConnectionException {
         try {
-            final AccountConnection s = this.findAccountConnection(accountId);
+            final AccountConnection s = this.findAccountByConnection(accountId);
             if (s != null) {
                 log.debug("adding new connection");
-//                this.accountDaoImp.addConnection(
-//                        provider,
-//                        token,
-//                        accessGrant,
-//                        socialAccountId,
-//                        userAccountId,
-//                        providerProfileUrl,
-//                        socialAccoun);
+                this.addConnection(s.getUserAccout(), null);
             } else {
                 log.info("There is already a connection created");
                 throw new EnMeExistPreviousConnectionException("There is already a connection created");
@@ -85,44 +90,45 @@ public abstract class AbstractSocialSignInConnect<S> implements SocialSignInOper
         }
     }
 
+       /**
+        * Records an existing connection between a user account and this service provider.
+        * Use when the connection process happens outside of the control of this package; for example, in JavaScript.
+        * @param accountId the member account identifier
+        * @param accessToken the access token that was granted as a result of the connection
+        * @param providerAccountId the id of the user in the provider's system; may be an assigned number or a user-selected screen name.
+        */
+       public void addConnection(
+               final UserAccount account,
+               final SocialAccount socialAccount) {
+            this.accountDaoImp.addConnection(
+                    getProvider(),
+                    this.accessGrant,
+                    getSocialUserProfile().getId(),
+                    account,
+                    getSocialUserProfile().getProfileImageUrl(),
+                    socialAccount);
+        }
 
-
-    /**
-     * Records an existing connection between a user account and this service provider.
-     * Use when the connection process happens outside of the control of this package; for example, in JavaScript.
-     * @param accountId the member account identifier
-     * @param accessToken the access token that was granted as a result of the connection
-     * @param providerAccountId the id of the user in the provider's system; may be an assigned number or a user-selected screen name.
-     */
-    public void addConnection(Long accountId, String accessToken, String providerAccountId) {
-//        this.accountDaoImp.addConnection(
-//                provider,
-//                token,
-//                accessGrant,
-//                socialAccountId,
-//                userAccountId,
-//                providerProfileUrl,
-//                socialAccoun)
-    }
 
     /*
      *
      */
-    abstract SocialProvider getProvider();
+    public abstract SocialProvider getProvider();
 
     /**
      * Return if user account have previous account connection.
      * @param accessToken
      * @return
      */
-    public boolean isConnected(final String accessToken){
+    public boolean isConnected(final String profileId){
         boolean conected = false;
         try {
-            if(this.findAccountByConnection(accessToken) != null){
+            //check if this user is already conected
+            if(this.findAccountByConnection(profileId) != null){
                 conected = true;
             }
         } catch (EnMeExpcetion e) {
-            log.error("isConected error :"+e);
+            log.fatal("isConected error :"+e);
         }
         return conected;
     }
@@ -135,29 +141,20 @@ public abstract class AbstractSocialSignInConnect<S> implements SocialSignInOper
             try {
                 this.accountDaoImp.disconnect(accountId, getProvider());
             } catch (EnMeNoResultsFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+               log.fatal("error on disconect user :"+e);
             }
     }
 
     /**
-     * Find possible open provider account connections.
-     * @param accessToken
-     * @return
+     *  Find possible open provider account connections.
+     * @param profileId the id provided by social network API
+     * @return {@link AccountConnection}
      * @throws EnMeNoResultsFoundException
      */
-    public UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException {
-        return this.accountDaoImp.findAccountByConnection(getProvider(), accessToken);
-    }
-
-    /**
-     *
-     * @param accessToken
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    public AccountConnection findAccountConnection(String socialProfileId) throws EnMeNoResultsFoundException {
-        return this.accountDaoImp.findAccountConnectionBySocialProfileId(getProvider(), socialProfileId);
+    public AccountConnection findAccountByConnection(final String socialProfileId)
+            throws EnMeNoResultsFoundException {
+        return this.accountDaoImp.findAccountConnectionBySocialProfileId(
+                getProvider(), socialProfileId);
     }
 
     /**
@@ -172,5 +169,33 @@ public abstract class AbstractSocialSignInConnect<S> implements SocialSignInOper
      */
     public void setAccountDaoImp(final IAccountDao accountDaoImp) {
         this.accountDaoImp = accountDaoImp;
+    }
+
+    /**
+     * @return the accessGrant
+     */
+    public AccessGrant getAccessGrant() {
+        return accessGrant;
+    }
+
+    /**
+     * @param accessGrant the accessGrant to set
+     */
+    public void setAccessGrant(final AccessGrant accessGrant) {
+        this.accessGrant = accessGrant;
+    }
+
+    /**
+     * @return the socialUserProfile
+     */
+    public SocialUserProfile getSocialUserProfile() {
+        return socialUserProfile;
+    }
+
+    /**
+     * @param socialUserProfile the socialUserProfile to set
+     */
+    public void setSocialUserProfile(final SocialUserProfile socialUserProfile) {
+        this.socialUserProfile = socialUserProfile;
     }
 }

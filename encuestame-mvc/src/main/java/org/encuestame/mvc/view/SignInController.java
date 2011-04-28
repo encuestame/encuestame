@@ -8,21 +8,13 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.OAuth2RequestFlow;
-import org.encuestame.business.service.social.api.BuzzAPITemplate;
+import org.encuestame.business.service.social.signin.FacebookSignInSocialSupport;
 import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
-import org.encuestame.business.service.social.signin.SocialSignInOperations;
-import org.encuestame.core.social.BuzzAPIOperations;
-import org.encuestame.core.social.SocialAPIOperations;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
-import org.encuestame.utils.oauth.OAuth1Token;
-import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -132,21 +124,16 @@ public class SignInController extends AbstractSocialController{
            final ModelMap model,
            HttpServletRequest httpRequest,
            WebRequest request) throws Exception {
-
            //get AccesGrant.
            final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
            log.debug(accessGrant.getAccessToken());
            log.debug(accessGrant.getRefreshToken());
            if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-               final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(),
-                       EncuestamePlaceHolderConfigurer.getProperty("google.api.key"));
-               //create connect
                getSecurityService().connectSignInAccount(new GoogleSignInSocialService(
-                       getAccountDao(), accessGrant), accessGrant, apiOperations.getProfile());
-
+                       getAccountDao(), accessGrant), accessGrant);
            } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-
-
+               getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(
+                       getAccountDao(), accessGrant), accessGrant);
            }
            return "signin/provider/register";
    }

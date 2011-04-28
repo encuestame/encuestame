@@ -592,7 +592,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
      */
-    public UserAccountBean singupUser(final SignUpBean singUpBean){
+    public UserAccount singupUser(final SignUpBean singUpBean){
         log.debug("singupUser "+singUpBean.toString());
         //create account/
         final Account account = new Account();
@@ -634,7 +634,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         //loging user.
         setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
         log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
-        return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
+        return userAccount;
     }
 
     /**
@@ -1015,27 +1015,15 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public void addNewSocialAccount(
+    public SocialAccount addNewSocialAccount(
             final String socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
-            final SocialAccount socialAccount = new SocialAccount();
-            log.debug("Updating  Token to {"+token);
-            log.debug("Updating Secret Token to {"+tokenSecret);
-            socialAccount.setAccessToken(token);
-            socialAccount.setVerfied(Boolean.TRUE);
-            socialAccount.setAccounType(socialProvider);
-            socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
-            socialAccount.setSocialAccountName(username);
-            socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
-            socialAccount.setSecretToken(tokenSecret);
-            socialAccount.setAddedAccount(new Date());
-            socialAccount.setUpgradedCredentials(new Date());
-            socialAccount.setSocialProfileId(socialAccountId);
-            getAccountDao().saveOrUpdate(socialAccount);
-            log.debug("Updated Token");
+        return getAccountDao().createSocialAccount(socialAccountId, token,
+                tokenSecret, username, socialProvider,
+                getUserAccount(getUserPrincipalUsername()).getAccount());
     }
 
     /**
@@ -1113,17 +1101,25 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
     /* Social Account SignIn Connect. * */
 
+   /*
+    *
+    */
     public void connectSignInAccount(final SocialSignInOperations social,
-                                     final AccessGrant accessGrant,
-                                     final SocialUserProfile userProfile) throws EnMeExistPreviousConnectionException {
-        //1- create user account
-        //2- create social account
-        //3- connect with this account.
-        if (social.isConnected(userProfile.getId())) {
-            social.addConnection(userProfile.getId(), accessGrant.getAccessToken());
+                                     final AccessGrant accessGrant) throws Exception {
+        // first, we check if this social account already exist as previous connection.
+        if (social.isConnected(social.getSocialUserProfile().getId())) {
+            //if exist, we update credentials on account connect store.
+            social.connect(social.getSocialUserProfile().getId(), accessGrant);
         } else {
-            final UserAccountBean bean = this.singupUser(this.convertSocialConnectedAccountToBean(userProfile));
-            social.connect(userProfile.getId(), accessGrant);
+            //if the user account is new, we create new account quickly.
+            final UserAccount userAccount = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
+            final SocialAccount socialAccount = this.addNewSocialAccount(
+                    social.getSocialUserProfile().getId(),
+                    accessGrant.getAccessToken(),
+                    accessGrant.getRefreshToken(),
+                    social.getSocialUserProfile().getUsername(),
+                    social.getProvider());
+            social.addConnection(userAccount,socialAccount);
         }
     }
 

@@ -13,7 +13,11 @@
 package org.encuestame.business.service.social.signin;
 
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.social.SocialUserProfile;
+import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 
@@ -33,13 +37,24 @@ public interface SocialSignInOperations{
          */
         void connect(String accountId, AccessGrant acessGrant) throws EnMeExistPreviousConnectionException;
 
+
+        /**
+         * Return {@link SocialUserProfile}.
+         * @return
+         */
+        SocialUserProfile getSocialUserProfile();
+
         /**
          *
          * @param accountId
          * @param accessToken
          * @param providerAccountId
          */
-        void addConnection(String accountId, String accessToken);
+        void addConnection(
+                final UserAccount account,
+                final SocialAccount socialAccount);
+
+        SocialProvider getProvider();
 
         /**
          * Returns true if the member account is connected to this provider, false otherwise.
@@ -50,13 +65,13 @@ public interface SocialSignInOperations{
          * Sever the connection between the member account and this service provider.
          * Has no effect if no connection is established to begin with.
          */
-        void disconnect(String accountId);
+        void disconnect();
 
         /**
          * Authenticate a member Account by a connection established with this service provider.
          * Used to support "Sign in using Facebook"-type scenarios, where the access token identifying a connection is available to client code, typically a cookie managed by JavaScript.
          * @throws NoSuchAccountConnectionException no such connection has been established between a member and this service provider
          */
-        UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
+        AccountConnection findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 
 }
