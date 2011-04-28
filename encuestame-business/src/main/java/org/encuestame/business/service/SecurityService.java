@@ -47,6 +47,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.junit.Assert;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -1077,6 +1078,29 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         log.debug("social provider verified "+socialAccounts.size());
         return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
    }
+
+    /**
+     * Get {@link UserAccount} by confirmation code.
+     * @param inviteCode
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException{
+        final UserAccount userAcc;
+        if(inviteCode == null) {
+            throw new EnMeNoResultsFoundException("confirmation code is missing");
+        } else {
+            userAcc = getAccountDao().getUserAccountbyInvitationCode(inviteCode);
+            if (userAcc!=null){
+                userAcc.setInviteCode(null);
+                userAcc.setUserStatus(Boolean.TRUE);
+                getAccountDao().saveOrUpdate(userAcc);
+            }else{
+                throw new EnMeNoResultsFoundException("confirmation code not found");
+            }
+        }
+         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
+    }
 
    /**
     * Get social account by id.

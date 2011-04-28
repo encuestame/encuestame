@@ -247,4 +247,12 @@ public interface IAccountDao extends IBaseDao {
      */
     List<UserAccount> getPublicProfiles(final String keyword,
             final Integer maxResults, final Integer startOn);
+
+    /**
+     * Get {@link UserAccount} by invitationCode.
+     * @param inviteCode
+     * @return
+     */
+    UserAccount getUserAccountbyInvitationCode(final String inviteCode);
+
 }

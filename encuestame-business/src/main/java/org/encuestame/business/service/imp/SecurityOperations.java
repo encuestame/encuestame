@@ -417,4 +417,13 @@ public interface SecurityOperations extends ServiceOperations {
             final String tokenSecret,
             final String username,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+
+    /**
+     * Get {@link UserAccount} by code.
+     * @param inviteCode
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException;
+
 }

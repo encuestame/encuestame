@@ -63,6 +63,7 @@ public class TestSecurityService extends AbstractServiceBase{
     /** {@link Permission}. **/
     private Permission permission;
 
+    final String inviteCode = "250fc8e1";
     /**
      * Before.
      */
@@ -71,6 +72,7 @@ public class TestSecurityService extends AbstractServiceBase{
         securityService.setSuspendedNotification(getActivateNotifications());
         this.userPrimary = createAccount();
         this.secUserSecondary = createUserAccount("default", this.userPrimary);
+        this.secUserSecondary.setInviteCode(inviteCode);
         final Group group = createGroups("admin");
         final Group group2 = createGroups("editors");
       //  this.secUserSecondary.getSecGroups().add(group);
@@ -658,4 +660,18 @@ public class TestSecurityService extends AbstractServiceBase{
             final SignUpBean bean = createSignUpBean("newUser", "newUser@gmail.com", "12345");
             this.securityService.singupUser(bean);
         }
+    /**
+     * Test get {@link UserAccountBean} by code.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetUserAccountbyCode() throws EnMeNoResultsFoundException{
+
+
+        final UserAccountBean userAccBean = securityService.getUserAccountbyCode(inviteCode);
+        assertNotNull(userAccBean);
+        System.out.println("USER ACCOUNT ------> "+userAccBean.getName());
+        System.out.println("USER CODE ------> "+userAccBean.getInviteCode());
+        assertEquals("should be equals", userAccBean.getInviteCode(), this.inviteCode);
+    }
 }
