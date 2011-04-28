@@ -9,19 +9,21 @@ import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.business.service.social.api.BuzzAPITemplate;
+import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
+import org.encuestame.business.service.social.signin.SocialSignInOperations;
 import org.encuestame.core.social.BuzzAPIOperations;
+import org.encuestame.core.social.SocialAPIOperations;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
-import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
+import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UserAccountBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +44,9 @@ public class SignInController extends AbstractSocialController{
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+    @Autowired
+    private IAccountDao accountDao;
 
     /**
      * Signin Controller.
@@ -90,18 +95,7 @@ public class SignInController extends AbstractSocialController{
         if (providerEnum == null) {
             url.append("404");
         } else {
-            //url.append("signin/provider/register");
-            if (SocialProvider.TWITTER.equals(providerEnum)) {
-                auth1RequestProvider = new OAuth1RequestFlow(
-                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
-                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.consumerSecret"),
-                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.request.token"),
-                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.authorize"),
-                         EncuestamePlaceHolderConfigurer.getProperty("twitter.oauth.access.token"),
-                         SocialProvider.TWITTER);
-                auth1RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
-                url.append(auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest));
-            } else if (SocialProvider.GOOGLE.equals(providerEnum)) {
+            if (SocialProvider.GOOGLE.equals(providerEnum)) {
                OAuth2Parameters auth2Parameters = new OAuth2Parameters(
                         EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"),
                         EncuestamePlaceHolderConfigurer.getProperty("google.register.client.secret"),
@@ -123,25 +117,6 @@ public class SignInController extends AbstractSocialController{
         return url.toString();
     }
 
-    @RequestMapping(value = "/signin/register/{provider}", method = RequestMethod.GET, params = "oauth_token")
-    public String oauth1Callback(
-            @RequestParam("oauth_token") String token,
-            @PathVariable String provider,
-            final ModelMap model,
-            @RequestParam(value = "oauth_verifier", required = false) String verifier,
-            WebRequest request,
-            final UserAccount account) throws Exception {
-        log.debug("BACK SIGNIN PROVIDER:{ "+provider);
-        final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-        log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
-        //this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
-        //this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
-        //request.removeAttribute(OAuthUtils.OAUTH_TOKEN_GET, WebRequest.SCOPE_REQUEST);
-
-        model.put("jota", accessToken);
-        return "signin/provider/register";
-    }
-
     /**
     *
     * @param code
@@ -153,24 +128,40 @@ public class SignInController extends AbstractSocialController{
    @RequestMapping(value="/signin/register/{provider}", method=RequestMethod.GET, params="code")
    public String oauth2Callback(
            @RequestParam("code") String code,
+           @PathVariable String provider,
            final ModelMap model,
            HttpServletRequest httpRequest,
-       WebRequest request) throws Exception {
+           WebRequest request) throws Exception {
+
+           //get AccesGrant.
            final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
            log.debug(accessGrant.getAccessToken());
            log.debug(accessGrant.getRefreshToken());
-           final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(),
-                 EncuestamePlaceHolderConfigurer.getProperty("google.api.key"));
-           final SocialUserProfile d = apiOperations.getProfile();
-           log.debug("Social "+d);
-           final SignUpBean singUpBean = new SignUpBean();
-           singUpBean.setEmail(d.getEmail());
-           singUpBean.setUsername(d.getScreenName());
-           //singUpBean.set
-           final UserAccountBean bean = getSecurityService().singupUser(singUpBean);
-           model.put("user", bean);
-           //checkOAuth2SocialAccount(SocialProvider.GOOGLE, accessGrant);
-           ///return this.redirect+"#provider="+SocialProvider.GOOGLE.toString().toLowerCase()+"&refresh=true&successful=true";
+           if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
+               final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(),
+                       EncuestamePlaceHolderConfigurer.getProperty("google.api.key"));
+               //create connect
+               getSecurityService().connectSignInAccount(new GoogleSignInSocialService(
+                       getAccountDao(), accessGrant), accessGrant, apiOperations.getProfile());
+
+           } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
+
+
+           }
            return "signin/provider/register";
    }
+
+    /**
+     * @return the accountDao
+     */
+    public IAccountDao getAccountDao() {
+        return accountDao;
+    }
+
+    /**
+     * @param accountDao the accountDao to set
+     */
+    public void setAccountDao(IAccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
 }

@@ -364,7 +364,7 @@ public class TestUserDao extends AbstractBase {
         final OAuth1Token token2 = getAccountDao().getAccessToken(account.getUid(), "TWITTER");
         assertEquals("Should be equals", token.getSecret(),token2.getSecret());
         assertEquals("Should be equals", token.getValue(),token2.getValue());
-        final AccountConnection ac2 = getAccountDao().findAccountConnectionByAccessToken("TWITTER",
+        final AccountConnection ac2 = getAccountDao().findAccountConnectionBySocialProfileId("TWITTER",
               accountConnection.getAccessToken());
         assertNotNull(ac2);
         final UserAccount exAccount = getAccountDao().findAccountByConnection("TWITTER",

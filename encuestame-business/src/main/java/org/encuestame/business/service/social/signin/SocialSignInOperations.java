@@ -10,50 +10,53 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.service.social.connect;
+package org.encuestame.business.service.social.signin;
 
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.oauth.AuthorizedRequestToken;
-import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.oauth.AccessGrant;
 
 /**
- * Abstract layer to user connecto with social account.
+ * Description Class.
  * @author Picado, Juan juanATencuestame.org
- * @since Dec 31, 2010 3:34:55 PM
+ * @since Dec 25, 2010 2:11:24 AM
+ * @version Id:
  */
-public abstract interface AbstractISocialService {
+public interface SocialSignInOperations{
 
+        /**
+         *
+         * @param accountId
+         * @param requestToken
+         * @throws EnMeExistPreviousConnectionException
+         */
+        void connect(String accountId, AccessGrant acessGrant) throws EnMeExistPreviousConnectionException;
 
-        boolean isConnected(Long id);
+        /**
+         *
+         * @param accountId
+         * @param accessToken
+         * @param providerAccountId
+         */
+        void addConnection(String accountId, String accessToken);
+
+        /**
+         * Returns true if the member account is connected to this provider, false otherwise.
+         */
+        boolean isConnected(String accountId);
 
         /**
          * Sever the connection between the member account and this service provider.
          * Has no effect if no connection is established to begin with.
          */
-        void disconnect(Long accountId);
-
-
-        //String fetchProviderAccountId(TwitterOperations serviceOperations);
+        void disconnect(String accountId);
 
         /**
-         * The key used to identify the local application with the remote service provider.
-         * Used when establishing an account connection with the service provider.
-         * Available as a public property to support client code that wishes to manage the service connection process itself, for example, in JavaScript.
-         * The term "API key" is derived from the OAuth 2 specification.
+         * Authenticate a member Account by a connection established with this service provider.
+         * Used to support "Sign in using Facebook"-type scenarios, where the access token identifying a connection is available to client code, typically a cookie managed by JavaScript.
+         * @throws NoSuchAccountConnectionException no such connection has been established between a member and this service provider
          */
-        String getApiKey();
-
-
-        OAuth1Token fetchNewRequestToken(final String callbackUrl);
-
-
-        String buildAuthorizeUrl(final String requestToken);
-
-
-        void connect(Long accountId, AuthorizedRequestToken requestToken) throws EnMeExistPreviousConnectionException;
-
         UserAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 
 }

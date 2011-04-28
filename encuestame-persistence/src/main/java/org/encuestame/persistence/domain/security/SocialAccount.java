@@ -101,6 +101,16 @@ public class SocialAccount extends AbstractSocial{
     private String email;
 
     /**
+     * Profile for thumbnail url.
+     */
+    private String profileThumbanilPictureUrl;
+
+    /**
+     * Url for profile picture.
+     */
+    private String prictureUrl;
+
+    /**
      * Type.
      */
     private TypeAuth type = TypeAuth.OAUTH1;
@@ -311,4 +321,36 @@ public class SocialAccount extends AbstractSocial{
     public void setUpgradedCredentials(final Date upgradedCredentials) {
         this.upgradedCredentials = upgradedCredentials;
     }
+
+    /**
+     * @return the profileThumbailPictureUrl
+     */
+    @Column(name = "picture_thumbnail_url")
+    public String getProfileThumbnailPictureUrl() {
+        return profileThumbanilPictureUrl;
+    }
+
+    /**
+     * @param profileThumbailPictureUrl the profileThumbailPictureUrl to set
+     */
+    public void setProfileThumbailPictureUrl(final String profileThumbanilPictureUrl) {
+        this.profileThumbanilPictureUrl = profileThumbanilPictureUrl;
+    }
+
+    /**
+     * @return the prictureUrl
+     */
+    @Column(name = "picture_url")
+    public String getPrictureUrl() {
+        return prictureUrl;
+    }
+
+    /**
+     * @param prictureUrl the prictureUrl to set
+     */
+    public void setPrictureUrl(String prictureUrl) {
+        this.prictureUrl = prictureUrl;
+    }
+
+
 }

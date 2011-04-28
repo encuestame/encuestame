@@ -25,8 +25,12 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
+import org.encuestame.business.service.social.signin.SocialSignInOperations;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
@@ -40,6 +44,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -52,6 +57,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.annotations.Since;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -1091,6 +1098,38 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
         return  account;
    }
+
+   /**
+    *
+    * @param userProfile
+    * @return
+    */
+   private SignUpBean convertSocialConnectedAccountToBean(final SocialUserProfile userProfile){
+       final SignUpBean singUpBean = new SignUpBean();
+       singUpBean.setEmail(userProfile.getEmail());
+       singUpBean.setUsername(userProfile.getScreenName());
+       return singUpBean;
+   }
+
+    /* Social Account SignIn Connect. * */
+
+    public void connectSignInAccount(final SocialSignInOperations social,
+                                     final AccessGrant accessGrant,
+                                     final SocialUserProfile userProfile) throws EnMeExistPreviousConnectionException {
+        //1- create user account
+        //2- create social account
+        //3- connect with this account.
+        if (social.isConnected(userProfile.getId())) {
+            social.addConnection(userProfile.getId(), accessGrant.getAccessToken());
+        } else {
+            final UserAccountBean bean = this.singupUser(this.convertSocialConnectedAccountToBean(userProfile));
+            social.connect(userProfile.getId(), accessGrant);
+        }
+    }
+
+    public void disconnectSignInAccount(final SocialSignInOperations social) {
+
+    }
 
    /**
     * Update Twitter Account.

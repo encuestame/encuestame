@@ -12,6 +12,8 @@
  */
 package org.encuestame.business.service.social.api;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -73,9 +75,9 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * "aboutMe":"xxxxxxxxxxxxxxxxxxxxxxxxx",
      * "profileUrl":"https://profiles.google.com/xxxxxxxxxxxxxxx",
      * "thumbnailUrl":"https://lh5.googleusercontent.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/photo.jpg",
-     * "emails":[{"value":"juanpicado19@gmail.com","type":"","primary":true}],
-     *   "urls":[{"value":"http://picasaweb.google.com/juanpicado19"},
-     *           {"value":"https://profiles.google.com/juanpicado19","type":"profile"},
+     * "emails":[{"value":"xxxxxxxxxx9@gmail.com","type":"","primary":true}],
+     *   "urls":[{"value":"http://picasaweb.google.com/xxxxxxxxxx"},
+     *           {"value":"https://profiles.google.com/xxxxxxxxxxxxx","type":"profile"},
      *           {"value":"https://www.googleapis.com/buzz/v1/people/110583664879406693886/@self?alt\u003djson","type":"json"}
      *          ],
      * "photos":[
@@ -90,13 +92,16 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
         //TOOD: conver to BuzzProfile.
         //{data={id=null, displayName=null, kind=kined, aboutMe=abbout me, profileUrl=null, emails=[], url=[], photos=null, organizations=[]}}
         Map profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Map.class);
-        log.debug("Google Profile "+profileMap);
         final SocialUserProfile profile = new SocialUserProfile();
         Map data = (Map) profileMap.get("data");
         log.debug("Google Profile------------ "+data);
-        profile.setEmail("juan@encuestame.org");
         profile.setId(data.get("id").toString());
-        //profile.setScreenName(data.get("displayName").toString());
+        profile.setName(data.get("displayName").toString());
+        profile.setProfileUrl(data.get("thumbnailUrl").toString());
+        profile.setDescription(data.get("aboutMe").toString());
+        List emails = (ArrayList) data.get("emails");
+        Map email = (Map) emails.get(0);
+        profile.setEmail(email.get("value").toString());
         profile.setScreenName("test_"+RandomStringUtils.randomAlphabetic(4));
         return profile;
     }

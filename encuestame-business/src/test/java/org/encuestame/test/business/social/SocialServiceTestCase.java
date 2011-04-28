@@ -2,7 +2,7 @@
 package org.encuestame.test.business.social;
 
 import org.encuestame.business.service.AbstractBaseService;
-import org.encuestame.business.service.social.connect.ITwitterSocialProvider;
+import org.encuestame.business.service.social.signin.ITwitterSocialProvider;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

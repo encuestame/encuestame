@@ -17,7 +17,10 @@ import java.util.List;
 
 import org.encuestame.business.service.SecurityService.FollowOperations;
 import org.encuestame.business.service.SecurityService.Profile;
+import org.encuestame.business.service.social.signin.SocialSignInOperations;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -27,6 +30,7 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -417,4 +421,22 @@ public interface SecurityOperations extends ServiceOperations {
             final String tokenSecret,
             final String username,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+
+
+    /**
+     *
+     * @param social
+     * @throws EnMeExistPreviousConnectionException
+     */
+    void connectSignInAccount(final SocialSignInOperations social,
+            final AccessGrant accessGrant,
+            final SocialUserProfile userProfile) throws EnMeExistPreviousConnectionException;
+
+    /**
+     *
+     * @param social
+     */
+    void disconnectSignInAccount(final SocialSignInOperations social);
+
+
 }

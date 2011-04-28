@@ -4,7 +4,9 @@ package org.encuestame.utils.oauth;
  * Holds an OAuth token and secret.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 22, 2011
+ * @deprecated should be merge with org.encuestame.core.social.oauth.OAuth2Parameters.
  */
+@Deprecated
 public final class OAuth1Token {
 
     /**

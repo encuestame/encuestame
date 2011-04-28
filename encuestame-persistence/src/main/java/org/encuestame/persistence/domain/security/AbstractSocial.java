@@ -64,6 +64,12 @@ public class AbstractSocial {
 
 
     /**
+     * Time to expires OAuth2 access token.
+     */
+    private String expires;
+
+
+    /**
      * @return the accounType
      */
     @Column(name="type_account")
@@ -161,7 +167,7 @@ public class AbstractSocial {
     /**
      * @return the profilePictureUrl
      */
-    @Column(name = "picture_profile_url", unique = true)
+    @Column(name = "picture_profile_url")
     public String getProfilePictureUrl() {
         return profilePictureUrl;
     }
@@ -171,5 +177,20 @@ public class AbstractSocial {
      */
     public void setProfilePictureUrl(final String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    /**
+     * @return the expires
+     */
+    @Column(name = "oauth2_expires")
+    public String getExpires() {
+        return expires;
+    }
+
+    /**
+     * @param expires the expires to set
+     */
+    public void setExpires(final String expires) {
+        this.expires = expires;
     }
 }
