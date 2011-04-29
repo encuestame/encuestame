@@ -73,6 +73,8 @@ public class TestUserDao extends AbstractBase {
     /** {@link Question} **/
     private Question question;
 
+    private String inviteCode = "04e0ca0b-3e80-4c21-bae2-ead56ec3f4ea";
+
     /**
      * Before.
      **/
@@ -80,6 +82,7 @@ public class TestUserDao extends AbstractBase {
     public void initService(){
         this.account = createAccount();
         this.userAccount = createUserAccount("user 1", this.account);
+        this.userAccount.setInviteCode(this.inviteCode);
         this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
         this.question = createQuestion("What day is today?", "");
     }
@@ -304,7 +307,7 @@ public class TestUserDao extends AbstractBase {
     /**
      * Test getSocialAccount.
      */
-    @Test
+    //@Test
     public void testgetSocialAccount(){
         final SocialAccount ac = createSocialProviderAccount(this.account, SocialProvider.GOOGLE);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
@@ -412,5 +415,18 @@ public class TestUserDao extends AbstractBase {
         flushIndexes();
         final List<UserAccount> profiles = getAccountDao().getPublicProfiles("user", 100, 0);
         assertEquals("Should be equals", profiles.size(), 1);
+    }
+
+    /**
+     * Test get {@link UserAccount} by invitation code.
+     */
+    @Test
+    public void testGetUserAccountbyInviteCode(){
+        assertNotNull(this.inviteCode);
+        final UserAccount acc = getAccountDao().getUserAccountbyInvitationCode(this.inviteCode);
+        assertNotNull(acc);
+        System.out.println("Username Account ----->" + acc.getCompleteName());
+        assertEquals("Should be equals", acc.getInviteCode(), this.inviteCode);
+
     }
 }

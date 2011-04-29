@@ -3,7 +3,6 @@ package org.encuestame.mvc.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
@@ -14,8 +13,15 @@ import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.UserAccountBean;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +43,36 @@ public class SignInController extends AbstractSocialController{
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+
     @Autowired
     private IAccountDao accountDao;
+
+
+    @RequestMapping(value = "/user/confirm/email/{inviteCode}", method = RequestMethod.GET)
+    public String confirmAccountController(
+            @PathVariable String inviteCode,
+            final ModelMap model,
+            HttpServletResponse response,
+            HttpServletRequest request) throws EnMeNoResultsFoundException {
+            log.debug("Invitation Code----->" + inviteCode);
+        final UserAccountBean userAccountBean =  getSecurityService().getUserAccountbyCode(inviteCode);
+        if (userAccountBean == null) {
+            return "404";
+        }else {
+             model.put("userAccount", userAccountBean);
+        }
+        log.debug("confirmation Account");
+        return "confirmation/account";
+    }
+
+
+   /* @RequestMapping(value = "/user/confirm/email/", method = RequestMethod.GET)
+    public String confirmedAccountController(
+              final ModelMap model,
+              HttpServletResponse response,
+              HttpServletRequest request){
+        return "confirmation/account";
+    }*/
 
     /**
      * Signin Controller.

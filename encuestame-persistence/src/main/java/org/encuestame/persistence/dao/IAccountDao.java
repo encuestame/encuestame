@@ -269,4 +269,13 @@ public interface IAccountDao extends IBaseDao {
            final String username,
            final SocialProvider socialProvider,
            final Account account);
+
+       /**
+     * Get {@link UserAccount} by invitationCode.
+     * @param inviteCode
+     * @return
+     */
+    UserAccount getUserAccountbyInvitationCode(final String inviteCode);
+
+
 }

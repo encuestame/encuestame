@@ -56,6 +56,9 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
     /** VelocityEngine. **/
     private VelocityEngine velocityEngine;
 
+    private String domainDefault = EncuestamePlaceHolderConfigurer.getProperty("application.domain");
+
+
     /**
      * setter mail sender.
      * @param mailSender mail sender
@@ -171,8 +174,10 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
               message.setTo(invitation.getEmail());
               message.setSubject("New Password Confirmation");
               message.setFrom(noEmailResponse);
+              @SuppressWarnings("rawtypes")
               Map model = new HashMap();
               model.put("invitation", invitation);
+              model.put("domain", domainDefault);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
                  velocityEngine, "/org/encuestame/business/mail/templates/invitation.vm", model);
               message.setText(text, true);
