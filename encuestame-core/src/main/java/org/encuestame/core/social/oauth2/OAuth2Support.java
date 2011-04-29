@@ -117,7 +117,7 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
         log.debug("requestParameters "+requestParameters.toString());
         @SuppressWarnings("unchecked")
         Map<String, ?> result = getRestTemplate().postForObject(accessTokenUrl, requestParameters, Map.class);
-        System.out.println(result);
+        log.debug(result);
         return new AccessGrant(valueOf(result.get("access_token")), refreshToken);
     }
 

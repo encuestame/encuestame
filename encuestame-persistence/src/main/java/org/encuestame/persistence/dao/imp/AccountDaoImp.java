@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,10 +23,12 @@ import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -230,30 +233,37 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                +" from Poll where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
-    /**
-     * Add connection.
-     * @param accountId
-     * @param provider
-     * @param accessToken
-     * @param providerAccountId
-     * @param userAccountId
-     * @param providerProfileUrl
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#addConnection(org.encuestame.persistence.domain.social.SocialProvider, org.encuestame.utils.oauth.OAuth1Token, org.encuestame.utils.oauth.AccessGrant, java.lang.String, java.lang.Long, java.lang.String, org.encuestame.persistence.domain.security.SocialAccount)
      */
     public AccountConnection addConnection(
-                final String provider,
-                final OAuth1Token token,
+                final SocialProvider provider,
+                final AccessGrant accessGrant, //OAuth2
                 final String socialAccountId,
-                final Long userAccountId,
-                final String providerProfileUrl){
+                final UserAccount userAccount,
+                final String providerProfileUrl,
+                final SocialAccount socialAccount){
         final AccountConnection connection = new AccountConnection();
         //get provider
-        final SocialProvider providerSocial = SocialProvider.getProvider(provider);
-        connection.setAccounType(providerSocial);
-        connection.setAccessToken(token.getValue());
+        connection.setAccounType(provider);
+        //reference to social account.
+        connection.setSocialAccount(socialAccount);
+        //store oauth provider permissions.
+        if(SocialProvider.getTypeAuth(provider).equals(TypeAuth.OAUTH1)){
+            //OAuth access token.
+            //connection.setAccessToken(token.getValue());
+            //OAuth1
+            //connection.setSecretToken(token.getSecret());
+        } else if(SocialProvider.getTypeAuth(provider).equals(TypeAuth.OAUTH2)){
+            //OAuth2
+            connection.setAccessToken(accessGrant.getAccessToken());
+            connection.setRefreshToken(accessGrant.getRefreshToken());
+            connection.setExpires(accessGrant.getExpires());
+        }
         connection.setSocialProfileId(socialAccountId);
-        connection.setSecretToken(token.getSecret());
         connection.setProfileUrl(providerProfileUrl);
-        connection.setUserAccout(this.getUserAccountById(userAccountId));
+        connection.setUserAccout(userAccount);
         getHibernateTemplate().saveOrUpdate(connection);
         return connection;
     }
@@ -265,7 +275,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param provider
      * @return
      */
-    public boolean isConnected(Long accountId, String provider) {
+    public boolean isConnected(String accountId, SocialProvider provider) {
         boolean account = false;
         final AccountConnection connection =  this.getAccountConnection(accountId, provider);
         log.debug("Is connected "+account);
@@ -281,11 +291,11 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param proviver
      * @return
      */
-    public AccountConnection getAccountConnection(final Long accountId, final String provider){
+    public AccountConnection getAccountConnection(final String accountId, final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(AccountConnection.class);
         criteria.createAlias("userAccout","userAccout");
         criteria.add(Restrictions.eq("userAccout.uid", accountId));
-        criteria.add(Restrictions.eq("accountProvider", SocialProvider.getProvider(provider)));
+        criteria.add(Restrictions.eq("accounType", provider));
         return (AccountConnection) DataAccessUtils.uniqueResult(getHibernateTemplate()
                 .findByCriteria(criteria));
     }
@@ -296,7 +306,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param provider
      * @throws EnMeNoResultsFoundException
      */
-    public void disconnect(Long accountId, String provider) throws EnMeNoResultsFoundException {
+    public void disconnect(String accountId, SocialProvider provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if(ac == null){
             throw new EnMeNoResultsFoundException("connection not found");
@@ -312,7 +322,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public OAuth1Token getAccessToken(Long accountId, String provider) throws EnMeNoResultsFoundException {
+    public OAuth1Token getAccessToken(String accountId, SocialProvider provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
             final OAuth1Token oAuthToken = new OAuth1Token(ac.getAccessToken(),
@@ -330,7 +340,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public Long getProviderAccountId(Long accountId, String provider) throws EnMeNoResultsFoundException {
+    public Long getProviderAccountId(String accountId, SocialProvider provider) throws EnMeNoResultsFoundException {
         final AccountConnection ac = this.getAccountConnection(accountId, provider);
         if (ac != null) {
             return ac.getAccountConnectionId();
@@ -347,11 +357,11 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @return
      * @throws EnMeExpcetion
      */
-    public AccountConnection findAccountConnectionByAccessToken(final String provider,
-                       final String accessToken){
+    public AccountConnection findAccountConnectionBySocialProfileId(final SocialProvider provider,
+                       final String socialProfileId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(AccountConnection.class);
-         criteria.add(Restrictions.eq("accessToken", accessToken));
-         criteria.add(Restrictions.eq("accountProvider", SocialProvider.getProvider(provider)));
+         criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
+         criteria.add(Restrictions.eq("accounType", provider));
          return (AccountConnection) DataAccessUtils.uniqueResult(getHibernateTemplate()
                  .findByCriteria(criteria));
     }
@@ -359,18 +369,46 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
     /**
      * Return {@link UserAccount} by provider name and access token key.
      * @param provider
-     * @param accessToken
+     * @param profileId
      * @return
      * @throws EnMeExpcetion
      */
-    public UserAccount findAccountByConnection(final String provider, final String accessToken)
+    public UserAccount findAccountByConnection(final SocialProvider provider, final String profileId)
            throws EnMeNoResultsFoundException {
-        final AccountConnection ac = this.findAccountConnectionByAccessToken(provider, accessToken);
+        final AccountConnection ac = this.findAccountConnectionBySocialProfileId(provider, profileId);
         if (ac == null) {
             throw new EnMeNoResultsFoundException("connection not found");
         } else {
             return ac.getUserAccout();
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#createSocialAccount(java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.social.SocialProvider, org.encuestame.persistence.domain.security.Account)
+     */
+    public SocialAccount createSocialAccount(
+            final String socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String username,
+            final SocialProvider socialProvider,
+            final Account account){
+        final SocialAccount socialAccount = new SocialAccount();
+        log.debug("Updating  Token to {"+token);
+        log.debug("Updating Secret Token to {"+tokenSecret);
+        socialAccount.setAccessToken(token);
+        socialAccount.setVerfied(Boolean.TRUE);
+        socialAccount.setAccounType(socialProvider);
+        socialAccount.setAccount(account);
+        socialAccount.setSocialAccountName(username == null ? "" : username);
+        socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
+        socialAccount.setSecretToken(tokenSecret);
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setSocialProfileId(socialAccountId);
+        this.saveOrUpdate(socialAccount);
+        return socialAccount;
     }
 
     /**
@@ -471,4 +509,17 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                 });
         return searchResult;
     }
+
+    /**
+     * Get user account by invitation code.
+     * @param inviteCode
+     * @return
+     */
+    public UserAccount getUserAccountbyInvitationCode(final String inviteCode){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
+        criteria.add(Restrictions.eq("inviteCode", inviteCode));
+        return (UserAccount) DataAccessUtils.uniqueResult(getHibernateTemplate()
+                .findByCriteria(criteria));
+    }
+
 }

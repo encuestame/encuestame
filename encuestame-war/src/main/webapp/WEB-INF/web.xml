@@ -11,6 +11,15 @@
          </param-value>
     </context-param>
 
+        <!-- Allows attributes to be accessed on the next request -->
+    <filter>
+        <filter-name>flashMapFilter</filter-name>
+        <filter-class>org.encuestame.core.filter.MapFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>flashMapFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <!--
     Enforce UTF-8 Character Encoding -->
     <filter>
@@ -90,6 +99,11 @@
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/social/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+     <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/signin/register/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <filter-mapping>

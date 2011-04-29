@@ -20,6 +20,7 @@ import org.encuestame.business.service.social.api.IdenticaAPITemplate;
 import org.encuestame.business.service.social.api.LinkedInAPITemplate;
 import org.encuestame.core.social.LinkedInProfile;
 import org.jfree.util.Log;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -27,6 +28,7 @@ import org.junit.Test;
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 20, 2011
  */
+@Ignore
 public class SocialAPITestCase extends TestCase {
 
     final String clientId = "287300901667.apps.googleusercontent.com";

@@ -20,6 +20,7 @@ import java.io.InputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IPictureService;
+import org.encuestame.business.setup.DirectorySetupOperations;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -45,7 +46,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @param account
      */
     private String getPicturePath(final Account account){
-        final StringBuilder d = new StringBuilder(getGlobalAccountPath(account));
+        final StringBuilder d = new StringBuilder(DirectorySetupOperations.getProfilesDirectory(account.getUid().toString()));
         d.append(PathUtil.profile);
         final File profileDir =  new File(d.toString());
         if (!profileDir.exists()) {

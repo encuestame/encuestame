@@ -4,8 +4,8 @@ package org.encuestame.core.files;
  * File Upload Constants.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 22, 2011 9:44:41 PM
- * @version Id:
- */
+ * @deprecated user DirectorySetupOperations.
+ */@Deprecated
 public class PathUtil {
 
     /**

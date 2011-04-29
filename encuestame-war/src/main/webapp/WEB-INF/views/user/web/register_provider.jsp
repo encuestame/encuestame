@@ -3,4 +3,7 @@
  * Share with friends
  * Add additional data or skip.
  * Other features.
+ <p>
+   ${user}
+ </p>
 </div>

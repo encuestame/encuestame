@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.social;
 
-import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 
 
 /**
@@ -22,12 +21,8 @@ import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
  */
 public interface SocialAPIOperations {
 
-    String getProfile();
+    SocialUserProfile getProfile() throws Exception;
 
-    String getProfileId();
-
-    String updateStatus(final String status) throws EnMeFailSendSocialTweetException;
-
-    String getProfileUrl();
+    String updateStatus(final String status) throws Exception;
 
 }

@@ -21,11 +21,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
+import org.encuestame.business.service.social.signin.SocialSignInOperations;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
@@ -39,6 +44,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -46,11 +52,14 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.junit.Assert;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.annotations.Since;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -356,7 +365,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
-     * Create a secondary user, generate password for user and send email to confirmate
+     * Create a user account, generate password for user and send email to confirmate
      * the account.
      * @param userBean {@link UserAccountBean}
      * @throws EnMeExpcetion personalize exception
@@ -383,7 +392,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             userAccount.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         //TODO: maybe we need create a table for editor permissions
-        //secondaryUser.setPublisher(userBean.getPublisher());
         userAccount.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setEnjoyDate(new Date());
@@ -585,50 +593,49 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
      */
-    public UserAccountBean singupUser(final SignUpBean singUpBean){
+    public UserAccount singupUser(final SignUpBean singUpBean){
         log.debug("singupUser "+singUpBean.toString());
+        //create account/
         final Account account = new Account();
+        account.setCreatedAccount(Calendar.getInstance().getTime());
+        account.setEnabled(Boolean.TRUE);
         getAccountDao().saveOrUpdate(account);
+        //create directory account.
+        createDirectoryAccount(account);
+        //create first user account.
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
-
-        final String password = encodingPassword(singUpBean.getPassword() == null
-                ? EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD) : singUpBean.getPassword());
-        if(singUpBean.getPassword() == null){
-            singUpBean.setPassword(password);
-        }
-        //Invite Code
-        final String inviteCode = "12345678910"; //BUG 98
+        //generate password.
+        final String password = encodingPassword(EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD));
         userAccount.setPassword(password);
+        //invite code
+        final String inviteCode =  UUID.randomUUID().toString();
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setUserEmail(singUpBean.getEmail());
         userAccount.setCompleteName("");
-        userAccount.setInviteCode(inviteCode);
+        userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
         //create global account directory
-        createGlobalAccount(userAccount.getAccount());
         log.debug("singupUser created user account");
-        //Add default permissions, if user is signup we should add admin access
+
+        //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
-        permissions.add(getPermissionByName(SecurityService.DEFAULT));
-        permissions.add(getPermissionByName(SecurityService.ADMIN));
-        permissions.add(getPermissionByName(SecurityService.OWNER));
-        permissions.add(getPermissionByName(SecurityService.PUBLISHER));
-        permissions.add(getPermissionByName(SecurityService.EDITOR));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_OWNER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
-        log.debug("singupUser assigned default user account");
-        //Create login.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
-        log.debug("singupUser autenticated");
-        if (this.suspendedNotification) {
-            getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: BUG 97
-        }
+        //send email
+        getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
         log.debug("singupUser notificated");
         log.debug("new user "+userAccount.getUsername());
+        //loging user.
+        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
         log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
-        return ConvertDomainBean.convertSecondaryUserToUserBean(userAccount);
+        return userAccount;
     }
 
     /**
@@ -1009,27 +1016,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public void addNewSocialAccount(
+    public SocialAccount addNewSocialAccount(
             final String socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
-            final SocialAccount socialAccount = new SocialAccount();
-            log.debug("Updating  Token to {"+token);
-            log.debug("Updating Secret Token to {"+tokenSecret);
-            socialAccount.setAccessToken(token);
-            socialAccount.setVerfied(Boolean.TRUE);
-            socialAccount.setAccounType(socialProvider);
-            socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
-            socialAccount.setSocialAccountName(username);
-            socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
-            socialAccount.setSecretToken(tokenSecret);
-            socialAccount.setAddedAccount(new Date());
-            socialAccount.setUpgradedCredentials(new Date());
-            socialAccount.setSocialProfileId(socialAccountId);
-            getAccountDao().saveOrUpdate(socialAccount);
-            log.debug("Updated Token");
+        return getAccountDao().createSocialAccount(socialAccountId,
+                token,
+                tokenSecret, username, socialProvider,
+                getUserAccount(getUserPrincipalUsername()).getAccount());
     }
 
     /**
@@ -1079,6 +1075,29 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
    }
 
+    /**
+     * Get {@link UserAccount} by confirmation code.
+     * @param inviteCode
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException{
+        final UserAccount userAcc;
+        if(inviteCode == null) {
+            throw new EnMeNoResultsFoundException("confirmation code is missing");
+        } else {
+            userAcc = getAccountDao().getUserAccountbyInvitationCode(inviteCode);
+            if (userAcc!=null){
+                userAcc.setInviteCode(null);
+                userAcc.setUserStatus(Boolean.TRUE);
+                getAccountDao().saveOrUpdate(userAcc);
+            }else{
+                throw new EnMeNoResultsFoundException("confirmation code not found");
+            }
+        }
+         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
+    }
+
    /**
     * Get social account by id.
     * @param accountId
@@ -1092,6 +1111,46 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
         return  account;
    }
+
+   /**
+    *
+    * @param userProfile
+    * @return
+    */
+   private SignUpBean convertSocialConnectedAccountToBean(final SocialUserProfile userProfile){
+       final SignUpBean singUpBean = new SignUpBean();
+       singUpBean.setEmail(userProfile.getEmail());
+       singUpBean.setUsername(userProfile.getScreenName());
+       return singUpBean;
+   }
+
+    /* Social Account SignIn Connect. * */
+
+   /*
+    *
+    */
+    public void connectSignInAccount(final SocialSignInOperations social,
+                                     final AccessGrant accessGrant) throws Exception {
+        // first, we check if this social account already exist as previous connection.
+        if (social.isConnected(social.getSocialUserProfile().getId())) {
+            //if exist, we update credentials on account connect store.
+            social.connect(social.getSocialUserProfile().getId(), accessGrant);
+        } else {
+            //if the user account is new, we create new account quickly.
+            final UserAccount userAccount = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
+            final SocialAccount socialAccount = this.addNewSocialAccount(
+                    social.getSocialUserProfile().getId(),
+                    accessGrant.getAccessToken(),
+                    accessGrant.getRefreshToken(),
+                    social.getSocialUserProfile().getUsername(),
+                    social.getProvider());
+            social.addConnection(userAccount,socialAccount);
+        }
+    }
+
+    public void disconnectSignInAccount(final SocialSignInOperations social) {
+
+    }
 
    /**
     * Update Twitter Account.

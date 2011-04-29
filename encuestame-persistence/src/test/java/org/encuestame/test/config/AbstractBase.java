@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
@@ -64,6 +66,7 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -1289,7 +1292,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param twitterAccount
      * @return
      */
-    public SocialAccount createTwitterAccount(
+    public SocialAccount createSocialAccount(
             final String token,
             final String secretToken,
             final Account secUsers,
@@ -1304,7 +1307,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         socialTwitterAccounts.setSocialProfileId(String.valueOf(randomNum));
         socialTwitterAccounts.setVerfied(verified);
         socialTwitterAccounts.setAccounType(provider);
-        socialTwitterAccounts.setSocialAccountName(twitterAccount+randomNum);
+        socialTwitterAccounts.setSocialAccountName(twitterAccount+RandomStringUtils.randomAlphanumeric(10));
+        socialTwitterAccounts.setUpgradedCredentials(new Date());
+        socialTwitterAccounts.setAddedAccount(new Date());
+        socialTwitterAccounts.setEmail("email");
+        socialTwitterAccounts.setProfileUrl("urll");
+        socialTwitterAccounts.setRealName("real name");
+        socialTwitterAccounts.setApplicationKey(RandomUtils.nextLong(new Random(50)));
+        socialTwitterAccounts.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
+        socialTwitterAccounts.setType(TypeAuth.OAUTH1);
         getAccountDao().saveOrUpdate(socialTwitterAccounts);
         return socialTwitterAccounts;
      }
@@ -1315,7 +1326,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link SocialAccount}.
      */
     public SocialAccount createDefaultSettedTwitterAccount(final Account account){
-        return this.createTwitterAccount(
+        return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
@@ -1329,7 +1340,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link SocialAccount}.
      */
     public SocialAccount createSocialProviderAccount(final Account account, final SocialProvider provider){
-        return this.createTwitterAccount(
+        return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
@@ -1343,7 +1354,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account account){
-        return this.createTwitterAccount(
+        return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
@@ -1593,7 +1604,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String socialAccountId,
             final Long userAccountId,
             final String providerProfileUrl){
-        return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+        //return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+        return null;
     }
 
     /**

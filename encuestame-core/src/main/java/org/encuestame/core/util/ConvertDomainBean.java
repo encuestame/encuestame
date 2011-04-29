@@ -264,6 +264,7 @@ public class ConvertDomainBean {
             unitUserBean.setEmail(secUserSecondary.getUserEmail());
             unitUserBean.setUsername(secUserSecondary.getUsername());
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
+            unitUserBean.setInviteCode(secUserSecondary.getInviteCode());
         }
         return unitUserBean;
     }

@@ -17,8 +17,8 @@ public class TestSearchService extends AbstractServiceBase {
     @Test
     public void testAddAttachment() throws IOException{
         File file = new File(filepathUpload);
-        System.out.println("Getting filename -->"+ file.getName());
-        System.out.println("Getting "+file.getCanonicalPath());
+        log.debug("Getting filename -->"+ file.getName());
+        log.debug("Getting "+file.getCanonicalPath());
         //final UnitAttachment unitAttachment = createUnitAttachment(filename, uploadDate, projectBean);
 
     }

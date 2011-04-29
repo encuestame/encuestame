@@ -34,9 +34,6 @@ public abstract class AbstractConfigurationService extends AbstractDataSource {
 
     private String proxyPass;
 
-    //private @Value("${dir.data.warehouse}") String dataGlobalPath;
-
-    private String dataGlobalPath;
     /**
      * App Consumer Key.
      */
@@ -119,22 +116,5 @@ public abstract class AbstractConfigurationService extends AbstractDataSource {
      */
     public void setProxyPass(String proxyPass) {
         this.proxyPass = proxyPass;
-    }
-
-    /**
-     * @return the dataGlobalPath
-     */
-    public String getDataGlobalPath() {
-        if (!StringUtils.endsWith(dataGlobalPath, "/")) {
-            dataGlobalPath += "/";
-        }
-        return dataGlobalPath;
-    }
-
-    /**
-     * @param dataGlobalPath the dataGlobalPath to set
-     */
-    public void setDataGlobalPath(String dataGlobalPath) {
-        this.dataGlobalPath = dataGlobalPath;
     }
 }

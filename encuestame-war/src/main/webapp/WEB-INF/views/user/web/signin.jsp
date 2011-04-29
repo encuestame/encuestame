@@ -33,16 +33,16 @@
             </form>
       </div>
     </div>
-     <c:if test="${!social}">
+     <c:if test="${social}">
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
-          <div class="twitter">
+<%--           <div class="twitter">
               <form action="<%=request.getContextPath()%>/signin/twitter" method="POST">
                   <button type="submit">
                       <img src="<%=request.getContextPath()%>/resources/images/social/twitter/enme_signin_connect.png" />
                   </button>
               </form>
-          </div>
+          </div> --%>
           <div class="twitter">
               <form action="<%=request.getContextPath()%>/signin/google" method="POST">
                   <button type="submit">
@@ -57,7 +57,7 @@
                   </button>
               </form>
           </div>
-          <div class="twitter">
+         <%--  <div class="twitter">
               <form action="<%=request.getContextPath()%>/signin/identica" method="POST">
                   <button type="submit">
                       <img src="<%=request.getContextPath()%>/resources/images/social/identica/enme_identica.png" />
@@ -77,6 +77,6 @@
                       <img src="<%=request.getContextPath()%>/resources/images/social/yahoo/enme_yahoo_connect.png" />
                   </button>
               </form>
-          </div>
+          </div> --%>
         </div>
       </c:if>

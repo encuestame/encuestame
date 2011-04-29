@@ -16,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
@@ -141,6 +142,9 @@ public class TestHibernateDomains extends AbstractBase{
         final Question questions = new Question();
         questions.setQuestion("What is your Name");
         questions.setQidKey("2");
+        questions.setHits(0L);
+        questions.setSharedQuestion(Boolean.FALSE);
+        questions.setSlugQuestion(" "+RandomStringUtils.randomAscii(10));
         questions.setQuestionPattern(createQuestionPattern("options"));
         questions.getQuestionColettions().add(createQuestionCollect("options"));
         questions.setAccountQuestion(createAccount());
