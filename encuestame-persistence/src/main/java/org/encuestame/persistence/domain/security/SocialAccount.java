@@ -103,7 +103,7 @@ public class SocialAccount extends AbstractSocial{
     /**
      * Profile for thumbnail url.
      */
-    private String profileThumbanilPictureUrl;
+    private String profileThumbnailPictureUrl;
 
     /**
      * Url for profile picture.
@@ -327,14 +327,14 @@ public class SocialAccount extends AbstractSocial{
      */
     @Column(name = "picture_thumbnail_url")
     public String getProfileThumbnailPictureUrl() {
-        return profileThumbanilPictureUrl;
+        return profileThumbnailPictureUrl;
     }
 
     /**
      * @param profileThumbailPictureUrl the profileThumbailPictureUrl to set
      */
-    public void setProfileThumbailPictureUrl(final String profileThumbanilPictureUrl) {
-        this.profileThumbanilPictureUrl = profileThumbanilPictureUrl;
+    public void setProfileThumbnailPictureUrl(final String profileThumbnailPictureUrl) {
+        this.profileThumbnailPictureUrl = profileThumbnailPictureUrl;
     }
 
     /**

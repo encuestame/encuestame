@@ -2,7 +2,6 @@
 package org.encuestame.test.business.social;
 
 import org.encuestame.business.service.AbstractBaseService;
-import org.encuestame.business.service.social.signin.ITwitterSocialProvider;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,6 @@ import org.springframework.util.Assert;
 
 @Ignore
 public class SocialServiceTestCase extends AbstractBaseService{
-
-    /**
-     * Twitter Social Service.
-     */
-    @Autowired
-    private ITwitterSocialProvider twitterSocialService;
 
 
 
@@ -46,17 +39,4 @@ public class SocialServiceTestCase extends AbstractBaseService{
         //request.setAttribute(OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
     }
 
-    /**
-     * @return the twitterSocialService
-     */
-    public ITwitterSocialProvider getTwitterSocialService() {
-        return twitterSocialService;
-    }
-
-    /**
-     * @param twitterSocialService the twitterSocialService to set
-     */
-    public void setTwitterSocialService(ITwitterSocialProvider twitterSocialService) {
-        this.twitterSocialService = twitterSocialService;
-    }
 }
