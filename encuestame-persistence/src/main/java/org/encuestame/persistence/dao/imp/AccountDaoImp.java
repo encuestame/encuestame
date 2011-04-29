@@ -509,4 +509,17 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                 });
         return searchResult;
     }
+
+    /**
+     * Get user account by invitation code.
+     * @param inviteCode
+     * @return
+     */
+    public UserAccount getUserAccountbyInvitationCode(final String inviteCode){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
+        criteria.add(Restrictions.eq("inviteCode", inviteCode));
+        return (UserAccount) DataAccessUtils.uniqueResult(getHibernateTemplate()
+                .findByCriteria(criteria));
+    }
+
 }
