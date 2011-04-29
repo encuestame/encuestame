@@ -401,7 +401,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
         socialAccount.setVerfied(Boolean.TRUE);
         socialAccount.setAccounType(socialProvider);
         socialAccount.setAccount(account);
-        socialAccount.setSocialAccountName(username);
+        socialAccount.setSocialAccountName(username == null ? "" : username);
         socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
         socialAccount.setSecretToken(tokenSecret);
         socialAccount.setAddedAccount(new Date());
