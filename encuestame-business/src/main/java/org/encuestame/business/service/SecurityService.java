@@ -1021,7 +1021,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String tokenSecret,
             final String username,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
-        return getAccountDao().createSocialAccount(socialAccountId, token,
+        return getAccountDao().createSocialAccount(socialAccountId,
+                token,
                 tokenSecret, username, socialProvider,
                 getUserAccount(getUserPrincipalUsername()).getAccount());
     }
