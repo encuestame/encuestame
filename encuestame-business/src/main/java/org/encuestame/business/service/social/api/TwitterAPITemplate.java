@@ -76,6 +76,10 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
         Assert.notNull(consumerSecret);
         Assert.notNull(accessToken);
         Assert.notNull(secretToken);
+        log.debug("consumer key "+consumerKey);
+        log.debug("consumer secret "+consumerSecret);
+        log.debug("secret TOKEN "+secretToken);
+        log.debug("acces TOKEN "+accessToken);
         this.consumerKey = consumerKey;
         this.consumerSecret = consumerSecret;
         this.secretToken = secretToken;
@@ -189,6 +193,7 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
         profile.setCreatedAt(user.getCreatedAt());
         profile.setProfileUrl("http://www.twitter.com/"+user.getScreenName());
         profile.setName(user.getName());
+        profile.setScreenName(user.getScreenName());
         profile.setDescription(user.getDescription());
         return profile;
     }

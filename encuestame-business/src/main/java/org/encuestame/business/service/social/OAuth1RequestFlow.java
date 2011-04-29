@@ -51,6 +51,9 @@ public class OAuth1RequestFlow {
      */
     private SocialProvider provider;
 
+
+    public String DEFAULT_CALLBACK_PATH = "/social/back/";
+
     /**
      *
      * @param apiKey
@@ -133,7 +136,7 @@ public class OAuth1RequestFlow {
      */
     public String buildCallBackUrl(final HttpServletRequest request){
         final StringBuilder callBackurl = new StringBuilder(InternetUtils.getDomain(request));
-        callBackurl.append("/social/back/");
+        callBackurl.append(this.DEFAULT_CALLBACK_PATH);
         callBackurl.append(provider.toString().toLowerCase());
         return callBackurl.toString();
     }
@@ -147,6 +150,7 @@ public class OAuth1RequestFlow {
         final StringBuilder redirect = new StringBuilder("redirect:");
         redirect.append(this.getoAuth1RestTemplate().buildAuthorizeUrl(
                 requestToken.getValue(), this.buildCallBackUrl(request)));
+        log.debug("OAuth1 Authorize Url :"+redirect.toString());
         return redirect.toString();
     }
 

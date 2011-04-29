@@ -26,16 +26,16 @@ dojo.declare(
             this._createDetail("linkedinDetail", "LinkedIn");
             this._createDetail("googleDetail", "Google");
             this._createDetail("identicaDetail", "Identica");
-            this._createDetail("yahooDetail", "Yahoo");
-            this._createDetail("myspaceDetail", "MySpace");
+            //this._createDetail("yahooDetail", "Yahoo"); DISABLED
+            //this._createDetail("myspaceDetail", "MySpace"); DISABLED
             //buttons
             this._cretateButton("twitter", "Twitter");
             this._cretateButton("facebook", "Facebook");
             this._cretateButton("linkedin", "LinkedIn");
             this._cretateButton("google", "Google Buzz");
             this._cretateButton("identica", "Identi.ca");
-            this._cretateButton("yahoo", "Yahoo");
-            this._cretateButton("myspace", "MySpace");
+            //this._cretateButton("yahoo", "Yahoo"); DISABLED
+            //this._cretateButton("myspace", "MySpace"); DISABLED
         },
 
         /*

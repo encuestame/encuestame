@@ -35,6 +35,8 @@ public class OAuth2RequestFlow {
     private Logger log = Logger.getLogger(this.getClass());
 
 
+    public String DEFAULT_CALLBACK_PATH = "/social/back/";
+
 
     OAuth2RestOperations oAuth2RestOperations;
 
@@ -107,7 +109,7 @@ public class OAuth2RequestFlow {
      */
     public String buildCallBackUrl(final HttpServletRequest request){
         final StringBuilder callBackurl = new StringBuilder(InternetUtils.getDomain(request));
-        callBackurl.append("/social/back/");
+        callBackurl.append(DEFAULT_CALLBACK_PATH);
         callBackurl.append(provider.toString().toLowerCase());
         log.debug("buildCallBackUrl "+callBackurl.toString());
         return callBackurl.toString();

@@ -22,6 +22,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.HibernateException;
 
@@ -107,7 +108,7 @@ public interface IAccountDao extends IBaseDao {
      * @param twitterAccountId
      * @return
      */
-    SocialAccount getSocialAccountById(final Long twitterAccountId);
+    SocialAccount getSocialAccountById(final Long socialAccountId);
 
     /**
      * Get Social Account.
@@ -157,7 +158,7 @@ public interface IAccountDao extends IBaseDao {
     * @return
     * @throws EnMeExpcetion
     */
-    UserAccount findAccountByConnection(String provider,
+    UserAccount findAccountByConnection(SocialProvider provider,
                       String accessToken) throws EnMeNoResultsFoundException;
 
     /**
@@ -167,7 +168,7 @@ public interface IAccountDao extends IBaseDao {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    Long getProviderAccountId(Long accountId, String provider)
+    Long getProviderAccountId(String accountId, SocialProvider provider)
          throws EnMeNoResultsFoundException;
 
 
@@ -178,7 +179,7 @@ public interface IAccountDao extends IBaseDao {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    OAuth1Token getAccessToken(Long accountId, String provider)
+    OAuth1Token getAccessToken(String accountId, SocialProvider provider)
            throws EnMeNoResultsFoundException;
 
     /**
@@ -187,7 +188,7 @@ public interface IAccountDao extends IBaseDao {
      * @param provider
      * @throws EnMeNoResultsFoundException
      */
-    void disconnect(Long accountId, String provider) throws EnMeNoResultsFoundException;
+    void disconnect(String accountId, SocialProvider provider) throws EnMeNoResultsFoundException;
 
     /**
      * Get Account Connection.
@@ -195,7 +196,7 @@ public interface IAccountDao extends IBaseDao {
      * @param proviver
      * @return
      */
-    AccountConnection getAccountConnection(final Long accountId, final String provider);
+    AccountConnection getAccountConnection(final String accountId, final SocialProvider provider);
 
     /**
      * {@link AccountConnection} Is Connected.
@@ -203,23 +204,26 @@ public interface IAccountDao extends IBaseDao {
      * @param provider
      * @return
      */
-    boolean isConnected(Long accountId, String provider);
+    boolean isConnected(String accountId, SocialProvider provider);
 
     /**
-     * Add connection.
+     *
      * @param provider
-     * @param accessToken
-     * @param providerAccountId
+     * @param token
+     * @param accessGrant
+     * @param socialAccountId
      * @param userAccountId
      * @param providerProfileUrl
+     * @param socialAccoun
      * @return
      */
     AccountConnection addConnection(
-                final String provider,
-                final OAuth1Token token,
-                final String socialAccountId,
-                final Long userAccountId,
-                final String providerProfileUrl);
+            final SocialProvider provider,
+            final AccessGrant accessGrant, //OAuth2
+            final String socialAccountId,
+            final UserAccount userAccount,
+            final String providerProfileUrl,
+            final SocialAccount socialAccount);
 
     /**
      * Retrieve {@link AccountConnection} by access token and provider name.
@@ -228,8 +232,8 @@ public interface IAccountDao extends IBaseDao {
      * @return
      * @throws EnMeExpcetion
      */
-    AccountConnection findAccountConnectionByAccessToken(
-                       final String provider,
+    AccountConnection findAccountConnectionBySocialProfileId(
+                       final SocialProvider provider,
                        final String accessToken);
 
     /**
@@ -247,4 +251,22 @@ public interface IAccountDao extends IBaseDao {
      */
     List<UserAccount> getPublicProfiles(final String keyword,
             final Integer maxResults, final Integer startOn);
+
+    /**
+    *
+    * @param socialAccountId
+    * @param token
+    * @param tokenSecret
+    * @param username
+    * @param socialProvider
+    * @param account
+    * @return
+    */
+   public SocialAccount createSocialAccount(
+           final String socialAccountId,
+           final String token,
+           final String tokenSecret,
+           final String username,
+           final SocialProvider socialProvider,
+           final Account account);
 }

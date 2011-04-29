@@ -15,9 +15,6 @@ package org.encuestame.business.service.imp;
 
 import org.encuestame.core.social.SocialAPIOperations;
 
-import twitter4j.Status;
-import twitter4j.TwitterException;
-
 /**
  * Twitter Service Interface.
  * @author Picado, Juan juan@encuestame.org

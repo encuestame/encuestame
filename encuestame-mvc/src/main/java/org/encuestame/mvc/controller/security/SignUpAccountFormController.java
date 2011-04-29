@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
@@ -120,10 +121,10 @@ public class SignUpAccountFormController extends AbstractSecurityController {
                 final String password = PasswordGenerator.getPassword(PASSWORD_LENGHT);
                 user.setPassword(password);
                 //create
-                final UserAccountBean unitUserBean = getSecurityService().singupUser(user);
+                final UserAccount unitUserBean = getSecurityService().singupUser(user);
                 status.setComplete();
                 log.info("password generated "+password);
-                log.info("New User with userId: " + unitUserBean.getId() + " added at " + new Date());
+                log.info("New User with userId: " + unitUserBean.getUid() + " added at " + new Date());
                 //authenticate(req, username, password); //TODO: I don't know why we have Lazy here.
                 return "redirect:/user/signin";
             }

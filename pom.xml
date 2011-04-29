@@ -92,7 +92,7 @@
 
          <!-- Plugin Version -->
          <surefire.version>2.6</surefire.version>
-         <site.version>2.1.1</site.version>
+         <site.version>2.2</site.version>
     	 <jetty7.version>7.2.2.v20101205</jetty7.version>
          <jetty-plugin-version>${jetty7.version}</jetty-plugin-version>
      </properties>
@@ -470,7 +470,7 @@
 		<configuration>
 		  <doCheck>false</doCheck>
 		  <doUpdate>false</doUpdate>
-		  <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+		  <format>{0,date,yyyy-MM-dd-HH:mm:ss}</format>
 	          <items>           
 		      <item>timestamp</item>         
 		  </items>

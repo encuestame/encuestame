@@ -1604,7 +1604,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String socialAccountId,
             final Long userAccountId,
             final String providerProfileUrl){
-        return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+        //return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
+        return null;
     }
 
     /**

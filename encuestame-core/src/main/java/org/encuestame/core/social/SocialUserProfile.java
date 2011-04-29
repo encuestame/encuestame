@@ -26,6 +26,7 @@ public class SocialUserProfile {
     private String firstName;
     private String lastName;
     private String screenName;
+    private String username;
     private String email;
     private String industry;
     private String headline;
@@ -502,5 +503,16 @@ public class SocialUserProfile {
     public void setProfileUrl(String profileUrl) {
         this.profileUrl = profileUrl;
     }
-
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(final String username) {
+        this.username = username;
+    }
 }

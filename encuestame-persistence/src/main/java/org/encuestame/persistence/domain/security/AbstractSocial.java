@@ -57,6 +57,17 @@ public class AbstractSocial {
      */
     private Long applicationKey;
 
+    /**
+     * Profile picture url.
+     */
+    private String profilePictureUrl;
+
+
+    /**
+     * Time to expires OAuth2 access token.
+     */
+    private String expires;
+
 
     /**
      * @return the accounType
@@ -149,7 +160,37 @@ public class AbstractSocial {
     /**
      * @param refreshToken the refreshToken to set
      */
-    public void setRefreshToken(String refreshToken) {
+    public void setRefreshToken(final String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    /**
+     * @return the profilePictureUrl
+     */
+    @Column(name = "picture_profile_url")
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    /**
+     * @param profilePictureUrl the profilePictureUrl to set
+     */
+    public void setProfilePictureUrl(final String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
+    /**
+     * @return the expires
+     */
+    @Column(name = "oauth2_expires")
+    public String getExpires() {
+        return expires;
+    }
+
+    /**
+     * @param expires the expires to set
+     */
+    public void setExpires(final String expires) {
+        this.expires = expires;
     }
 }
