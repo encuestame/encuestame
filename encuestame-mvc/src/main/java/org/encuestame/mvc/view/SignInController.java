@@ -50,16 +50,22 @@ public class SignInController extends AbstractSocialController{
             @PathVariable String inviteCode,
             final ModelMap model,
             HttpServletResponse response,
-            HttpServletRequest request) throws EnMeNoResultsFoundException {
+            HttpServletRequest request) {
             log.debug("Invitation Code----->" + inviteCode);
-        final UserAccountBean userAccountBean =  getSecurityService().getUserAccountbyCode(inviteCode);
+        UserAccountBean userAccountBean;
+        try {
+            userAccountBean = getSecurityService().getUserAccountbyCode(inviteCode);
+        } catch (EnMeNoResultsFoundException e) {
+            log.error(e.getMessage());
+            return "signin";
+        }
         if (userAccountBean == null) {
-            return "404";
-        }else {
+            return "signin";
+        } else {
              model.put("userAccount", userAccountBean);
         }
         log.debug("confirmation Account");
-        return "confirmation/account";
+        return "user/confirm/";
     }
 
 

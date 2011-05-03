@@ -1,12 +1,28 @@
 <html>
 <body>
-    <h3>Hi, This notification has sended to you from Encuestame </h3>
-    <div>
-     ${notification.message}
-    </div>
+<div class="container" style="border: 1px solid #BDBDBD;">
+    #parse("/org/encuestame/business/mail/templates/header.vm")
 
-    <div>
-       To Unsubscribe to this Email List, follow this link ${notification.urlUnsuscribe}
+    <div id= containerBody style="margin-bottom:25px">
+        <div style= "margin:10px;font-size:12px; ">
+             Hi,
+             <span style="color:#0101DF;font-size:medium;"> ${user.username} </span>.
+            this notification has sended to you from Encuestame  <span style="color:#0101DF;font-size:medium;"> ${notification.message}</span>.
+        </div>
+
+        <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
+            <div style="font-weight: bold; margin-bottom: 2px; font-size: 11px;">
+                    To Unsubscribe to this Email List, follow this link
+            </div>
+             <div style="color: rgb(59, 89, 152); text-decoration: none; font-size: 11px;">
+                 <a href="${domain}/account/confirm/email/${inviteCode}">
+                   ${notification.urlUnsuscribe}
+                 </a>
+             </div>
+        </div>
     </div>
+    #parse("/org/encuestame/business/mail/templates/footer.vm")
+</div>
+
 </body>
 </html>

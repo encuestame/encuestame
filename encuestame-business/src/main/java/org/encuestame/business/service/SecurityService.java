@@ -1086,6 +1086,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException{
         final UserAccount userAcc;
+        SignUpBean singUp = new SignUpBean();
         if(inviteCode == null) {
             throw new EnMeNoResultsFoundException("confirmation code is missing");
         } else {
@@ -1098,7 +1099,24 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 throw new EnMeNoResultsFoundException("confirmation code not found");
             }
         }
-         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
+        singUp = ConvertDomainBean.convertBasicSecondaryUserToSignUpBean(userAcc);
+        getServiceMail().sendNotificationStatusAccount(singUp, "User status");
+        return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
+    }
+
+    /**
+     * Send notification status account.
+     * @param userAccBean
+     */
+    public void sendNotificationStatusAccount(final UserAccountBean userAccBean){
+        final SignUpBean singUp = new SignUpBean();
+        singUp.setCaptcha("CaPtChA");
+        singUp.setEmail(userAccBean.getEmail());
+        singUp.setFullName(userAccBean.getName());
+        singUp.setPassword(userAccBean.getPassword());
+        singUp.setUsername(userAccBean.getUsername());
+        getAccountDao().saveOrUpdate(singUp);
+        getServiceMail().sendNotificationStatusAccount(singUp, "Change user status");
     }
 
    /**
