@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
-import org.encuestame.utils.oauth.AuthorizedRequestToken;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.SignUpBean;
@@ -624,12 +623,12 @@ import org.junit.Test;
     @Test
     public void testAuthorizedRequestToken(){
         final OAuth1Token token = new OAuth1Token("value", "secret");
-        final AuthorizedRequestToken tk = new AuthorizedRequestToken(token, "veri");
-        assertNotNull(tk.getSecret());
-        assertNotNull(tk.getValue());
-        assertNotNull(tk.getVerifier());
-        assertNotNull(token.getSecret());
-        assertNotNull(token.getValue());
+//        final AuthorizedRequestToken tk = new AuthorizedRequestToken(token, "veri");
+//        assertNotNull(tk.getSecret());
+//        assertNotNull(tk.getValue());
+//        assertNotNull(tk.getVerifier());
+//        assertNotNull(token.getSecret());
+//        assertNotNull(token.getValue());
         final StandardOAuthSession oa = new StandardOAuthSession("api", "call", "token", "secret");
         oa.authorize(1235L, "veri");
         assertNotNull(oa.getApiKey());

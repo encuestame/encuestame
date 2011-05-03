@@ -27,7 +27,7 @@ import javax.persistence.Table;
  * @version $Id:$
  */
 @Entity
-@Table(name = "oauth_account_connection")
+@Table(name = "account_connection")
 public class AccountConnection extends AbstractSocial{
 
     /**
@@ -44,6 +44,11 @@ public class AccountConnection extends AbstractSocial{
      * Url to Social User Profile.
      */
     private String profileUrl;
+
+    /**
+     *
+     */
+    private SocialAccount socialAccount;
 
     /**
      * @return the accountConnectionId
@@ -90,5 +95,20 @@ public class AccountConnection extends AbstractSocial{
      */
     public void setProfileUrl(final String profileUrl) {
         this.profileUrl = profileUrl;
+    }
+
+    /**
+     * @return the socialAccount
+     */
+    @ManyToOne()
+    public SocialAccount getSocialAccount() {
+        return socialAccount;
+    }
+
+    /**
+     * @param socialAccount the socialAccount to set
+     */
+    public void setSocialAccount(final SocialAccount socialAccount) {
+        this.socialAccount = socialAccount;
     }
 }

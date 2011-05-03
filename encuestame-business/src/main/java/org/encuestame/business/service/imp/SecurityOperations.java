@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.encuestame.business.service.SecurityService.FollowOperations;
 import org.encuestame.business.service.SecurityService.Profile;
+import org.encuestame.business.service.social.signin.SocialSignInOperations;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
@@ -27,6 +29,7 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -244,7 +247,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
      */
-    UserAccountBean singupUser(final SignUpBean singUpBean);
+    UserAccount singupUser(final SignUpBean singUpBean);
 
     /**
      * Search {@link UserAccount} by email.
@@ -408,15 +411,31 @@ public interface SecurityOperations extends ServiceOperations {
      * @param username
      * @param account
      * @param socialProvider
+     * @return
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
-    void addNewSocialAccount(
+    SocialAccount addNewSocialAccount(
             final String socialAccountId,
             final String token,
             final String tokenSecret,
             final String username,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param social
+     * @throws EnMeExistPreviousConnectionException
+     * @throws Exception
+     */
+    void connectSignInAccount(final SocialSignInOperations social,
+            final AccessGrant accessGrant) throws EnMeExistPreviousConnectionException, Exception;
+
+    /**
+     *
+     * @param social
+     */
+    void disconnectSignInAccount(final SocialSignInOperations social);
 
     /**
      * Get {@link UserAccount} by code.
