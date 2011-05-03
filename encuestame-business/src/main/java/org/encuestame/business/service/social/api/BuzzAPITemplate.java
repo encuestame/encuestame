@@ -94,7 +94,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
         final SocialUserProfile profile = new SocialUserProfile();
         Map data = (Map) profileMap.get("data");
         log.debug("Google Profile------------ "+data);
-        profile.setEmail("juan@encuestame.org");
+        profile.setEmail("dianmorales@gmail.com");
         profile.setId(data.get("id").toString());
         //profile.setScreenName(data.get("displayName").toString());
         profile.setScreenName("test_"+RandomStringUtils.randomAlphabetic(4));

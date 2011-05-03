@@ -45,6 +45,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -268,6 +269,24 @@ public class ConvertDomainBean {
         }
         return unitUserBean;
     }
+
+    /**
+     * Convert {@link UserAccount} to {@link SignUpBean}.
+     * @param userAccount
+     * @return
+     */
+    public static final SignUpBean convertBasicSecondaryUserToSignUpBean(final UserAccount userAccount){
+        final SignUpBean signUpBean = new SignUpBean();
+        if(userAccount != null){
+            signUpBean.setCaptcha("");
+            signUpBean.setEmail(userAccount.getUserEmail());
+            signUpBean.setFullName(userAccount.getCompleteName());
+            signUpBean.setPassword(userAccount.getPassword());
+            signUpBean.setUsername(userAccount.getUsername());
+        }
+        return signUpBean;
+    }
+
 
     /**
      * Convert List of {@link UserAccount} to {@link UserAccountBean}.
