@@ -158,8 +158,7 @@ public interface IAccountDao extends IBaseDao {
     * @return
     * @throws EnMeExpcetion
     */
-    UserAccount findAccountByConnection(SocialProvider provider,
-                      String accessToken) throws EnMeNoResultsFoundException;
+    UserAccount findAccountByConnection(final SocialProvider provider, final String profileId) throws EnMeNoResultsFoundException;
 
     /**
      * Get Provider Account Id.

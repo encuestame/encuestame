@@ -12,26 +12,65 @@
  */
 package org.encuestame.core.security.service;
 
-import org.springframework.dao.DataAccessException;
+import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
+import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.security.SocialAccountConnectionException;
+import org.encuestame.persistence.dao.IAccountDao;
+import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
- * Description.
+ * Check
  * @author Picado, Juan juanATencuestame.org
  * @since May 2, 2011
  */
-public class EnMeSocialAccountUserService implements UserDetailsService {
+public class EnMeSocialAccountUserService implements SocialUserService {
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
-	 */
-	@Override
-	public UserDetails loadUserByUsername(String arg0)
-			throws UsernameNotFoundException, DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Autowired
+    private IAccountDao accountDao;
+
+    /*
+     * Log.
+     */
+    private Logger log = Logger.getLogger(SecurityUtils.class);
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.security.service.SocialUserService#loadAccountConnection(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
+     */
+    @Override
+    public UserDetails loadAccountConnection(String profileId,
+            SocialProvider provider)
+            throws EnMeNoSuchAccountConnectionException {
+        UserAccount accountConnection = null;
+        log.debug("EnMeSocialAccountUserService "+profileId);
+        log.debug("EnMeSocialAccountUserService "+provider);
+        try {
+           accountConnection = this.accountDao.findAccountByConnection(provider, profileId);
+        } catch (EnMeNoResultsFoundException e) {
+            throw new SocialAccountConnectionException("connection invalid", e);
+        }
+        return  SecurityUtils.convertUserAccountToUserDetails(accountConnection, false);
+    }
+
+    /**
+     * @return the accountDao
+     */
+    public IAccountDao getAccountDao() {
+        return accountDao;
+    }
+
+    /**
+     * @param accountDao the accountDao to set
+     */
+    public void setAccountDao(final IAccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
 
 }

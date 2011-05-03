@@ -17,7 +17,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.security.details.EnMeUsernamePasswordDetails;
+import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -58,7 +58,7 @@ public abstract class AbstractSecurityContext {
      */
     public UserAccount getUserAccountLogged(){
         UserAccount account = null;
-        final EnMeUsernamePasswordDetails details = getSecurityDetails();
+        final EnMeUserAccountDetails details = getSecurityDetails();
         if (details != null) {
             account = details.getUserAccount();
             if (log.isDebugEnabled()) {
@@ -98,7 +98,7 @@ public abstract class AbstractSecurityContext {
          //building granted authorities
          final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(account.getSecUserPermissions());
          //create user detail based on user account.
-         final EnMeUsernamePasswordDetails details = SecurityUtils.convertUserAccount(account, true);
+         final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(account, true);
          //set the social credentials permission.
          details.setSocialCredentials(socialSignIn);
          SecurityContextHolder.getContext().setAuthentication(
@@ -118,12 +118,12 @@ public abstract class AbstractSecurityContext {
     /**
      * Get Details.
      */
-    public EnMeUsernamePasswordDetails getSecurityDetails(){
-        EnMeUsernamePasswordDetails details = null;
+    public EnMeUserAccountDetails getSecurityDetails(){
+        EnMeUserAccountDetails details = null;
         log.debug("Authentication Object:{"+getSecCtx().getAuthentication());
         if(getSecCtx().getAuthentication() != null){
-            if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUsernamePasswordDetails){
-                details =  (EnMeUsernamePasswordDetails) getSecCtx().getAuthentication().getPrincipal();
+            if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserAccountDetails){
+                details =  (EnMeUserAccountDetails) getSecCtx().getAuthentication().getPrincipal();
             }
         }
         return details;

@@ -14,24 +14,34 @@ package org.encuestame.core.security.details;
 
 import java.util.Collection;
 
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Description.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since May 1, 2011
  */
 public class SocialAuthenticationToken extends AbstractAuthenticationToken {
 
-     private final Object principal;
+    /**
+      *
+      */
+    private final Object principal;
+
+    private String profileId;
+
+    private SocialProvider provider;
 
     /**
      *
      */
     private static final long serialVersionUID = 7803686361261212911L;
 
-    public SocialAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> arg0) {
+    public SocialAuthenticationToken(Object principal,
+            Collection<? extends GrantedAuthority> arg0) {
         super(null);
         this.principal = principal;
         setAuthenticated(false);
@@ -47,4 +57,33 @@ public class SocialAuthenticationToken extends AbstractAuthenticationToken {
         return this.principal;
     }
 
+    /**
+     * @return the profileId
+     */
+    public String getProfileId() {
+        return profileId;
+    }
+
+    /**
+     * @param profileId
+     *            the profileId to set
+     */
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
+    }
+
+    /**
+     * @return the provider
+     */
+    public SocialProvider getProvider() {
+        return provider;
+    }
+
+    /**
+     * @param provider
+     *            the provider to set
+     */
+    public void setProvider(SocialProvider provider) {
+        this.provider = provider;
+    }
 }

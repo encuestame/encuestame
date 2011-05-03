@@ -13,7 +13,7 @@
 package org.encuestame.core.security;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.details.EnMeUserDetailsDataAccount;
+import org.encuestame.core.security.details.EnMeUserAccount;
 import org.encuestame.core.security.service.EnMeUserServiceImp;
 import org.jasypt.spring.security3.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
             salt = this.saltSource.getSalt(userDetails);
         }
 
-        final EnMeUserDetailsDataAccount detailsDataAccount = (EnMeUserDetailsDataAccount) userDetails;
+        final EnMeUserAccount detailsDataAccount = (EnMeUserAccount) userDetails;
 
         if (log.isDebugEnabled()) {
             log.debug("detailsDataAccount "+detailsDataAccount.toString());
@@ -143,9 +143,9 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
         log.info("retrieve user customized *********************************************************");
         log.info("retrieve user customized *********************************************************");
 
-        EnMeUserDetailsDataAccount loadedUser;
+        EnMeUserAccount loadedUser;
         try {
-            loadedUser = (EnMeUserDetailsDataAccount) this.getUserDetailsService().loadUserByUsername(
+            loadedUser = (EnMeUserAccount) this.getUserDetailsService().loadUserByUsername(
                     username);
         } catch (UsernameNotFoundException notFound) {
             throw notFound;

@@ -100,7 +100,7 @@ public class EnMeUserServiceImp implements UserDetailsService {
         } else {
             log.debug("Logged with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
             this.updateLoggedInfo(user);
-            return SecurityUtils.convertUserAccount(user, this.roleUserAuth);
+            return SecurityUtils.convertUserAccountToUserDetails(user, this.roleUserAuth);
         }
     }
 

@@ -46,7 +46,7 @@ import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.security.details.EnMeUsernamePasswordDetails;
+import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
@@ -259,7 +259,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param user
      */
     public void authenticate(final UserAccount user){
-        final EnMeUsernamePasswordDetails details = SecurityUtils.convertUserAccount(user, true);
+        final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(user, true);
         final Collection<GrantedAuthority> authorities = details.getAuthorities();
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(details, null,
                 authorities));

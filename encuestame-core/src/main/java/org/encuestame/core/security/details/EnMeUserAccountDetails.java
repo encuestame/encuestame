@@ -6,7 +6,12 @@ import java.util.Collection;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
 
-public class EnMeUsernamePasswordDetails implements EnMeUserDetailsDataAccount {
+/**
+ * User account details.
+ * @author Picado, Juan juanATencuestame.org
+ * @since May 2, 2011
+ */
+public class EnMeUserAccountDetails implements EnMeUserAccount {
 
     /**
      * Authorities.
@@ -81,7 +86,7 @@ public class EnMeUsernamePasswordDetails implements EnMeUserDetailsDataAccount {
      * @param completeName
      * @param email
      */
-    public EnMeUsernamePasswordDetails(final String username,
+    public EnMeUserAccountDetails(final String username,
             final String password,
             Collection<GrantedAuthority> authorities,
             final boolean accountNonExpired,

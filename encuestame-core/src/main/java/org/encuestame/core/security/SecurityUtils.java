@@ -17,10 +17,12 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.details.EnMeUsernamePasswordDetails;
+import org.encuestame.core.security.details.EnMeSocialUserAccount;
+import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.details.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,13 +43,38 @@ public class SecurityUtils {
      */
     private static Logger log = Logger.getLogger(SecurityUtils.class);
 
+
     /**
-     * Convert User Account to {@link EnMeUsernamePasswordDetails}.
+     *
+     * @param user
+     * @return
+     */
+    public static EnMeSocialUserAccount convertUserAccountToUserDetails(final AccountConnection connection) {
+        final UserAccount user = connection.getUserAccout();
+        final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
+        final EnMeSocialUserAccount enMeSocialUserAccount = new EnMeSocialUserAccount(user.getUsername(),
+                authorities,
+                user.isUserStatus() == null ? false : user.isUserStatus(),
+                true, // account not expired
+                true, // credentials not expired
+                true, // account not locked
+                user.getCompleteName() == null ? "" : user.getCompleteName(), // complete name
+                user.getUserEmail(), // user email
+                user, connection.getAccounType(),
+                connection.getSocialProfileId(),
+                connection.getProfilePictureUrl());
+        return enMeSocialUserAccount;
+    }
+
+    /**
+     * Convert User Account to {@link EnMeUserAccountDetails}.
      * @param user
      * @param roleUserAuth
      * @return
      */
-    public static EnMeUsernamePasswordDetails convertUserAccount(final UserAccount user, final Boolean roleUserAuth){
+    public static EnMeUserAccountDetails convertUserAccountToUserDetails(
+            final UserAccount user, final Boolean roleUserAuth) {
           //log.debug("convertToUserDetails username "+user.getUsername());
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
@@ -60,14 +87,14 @@ public class SecurityUtils {
             }
         }*/
 
-        // sec permissions
+        // permissions
         if (roleUserAuth) {
             authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
             log.debug("EnMeUserDetails: Authorities size :"+authorities.size());
         }
 
          //creating user details
-         final EnMeUsernamePasswordDetails userDetails = new EnMeUsernamePasswordDetails(
+         final EnMeUserAccountDetails userDetails = new EnMeUserAccountDetails(
          user.getUsername(),
          user.getPassword(),
          authorities,
@@ -92,21 +119,24 @@ public class SecurityUtils {
      * @param password
      * @param socialSignIn
      */
-    public static void socialAuthentication(final UserAccount account) {
+    public static void socialAuthentication(final AccountConnection accountConnection) {
+        UserAccount account = accountConnection.getUserAccout();
         log.info("Register SOCIAL LOGIN USER: " + account.getUsername());
         // building granted authorities
         final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
                 .convertEnMePermission(account.getSecUserPermissions());
         // create user detail based on user account.
-        final EnMeUsernamePasswordDetails details = SecurityUtils
-                .convertUserAccount(account, true);
+        final EnMeSocialUserAccount details = SecurityUtils.convertUserAccountToUserDetails(accountConnection);
         // set the social credentials permission.
         details.setSocialCredentials(true);
-        SecurityContextHolder.getContext().setAuthentication(
-                new SocialAuthenticationToken(details, authorities));
+        final SocialAuthenticationToken token = new SocialAuthenticationToken(details, authorities);
+        token.setProfileId(accountConnection.getSocialProfileId());
+        token.setProvider(accountConnection.getAccounType());
+        SecurityContextHolder.getContext().setAuthentication(token);
         if (log.isInfoEnabled()) {
             log.info("Username " + account.getUsername() + " is logged at "
                     + new Date());
+            log.debug("created EnMeSocialUserAccount" +details);
         }
     }
 

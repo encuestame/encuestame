@@ -14,7 +14,7 @@
     <!-- Authentication Manager -->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider
-            ref="socialAccountProvider" />
+            ref="socialAccountProvider" user-service-ref="enMeAuthenticationSocialUserService" />
         <security:authentication-provider
             ref="enmeprovider" user-service-ref="enMeAuthenticationUserService">
             <security:password-encoder ref="passwordEncoder" />
@@ -32,8 +32,8 @@
         <property name="roleGroupAuth" value="${spring.sec.roleByGroup}" />
         <property name="roleUserAuth" value="${spring.sec.roleByAuthor}" />
     </bean>
-<!--     <bean id="enMeAuthenticationSocialUserService" -->
-<!--         class="org.encuestame.core.security.service.EnMeSocialAccountUserService" autowire="byName" /> -->
+    <bean id="enMeAuthenticationSocialUserService"
+        class="org.encuestame.core.security.service.EnMeSocialAccountUserService" autowire="byName" />
 
 
     <!-- Password Encoders -->
