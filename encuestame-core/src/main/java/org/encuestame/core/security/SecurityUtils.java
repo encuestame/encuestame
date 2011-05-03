@@ -14,12 +14,19 @@ package org.encuestame.core.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.security.details.EnMeUsernamePasswordDetails;
+import org.encuestame.core.security.details.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Description Class.
@@ -35,12 +42,12 @@ public class SecurityUtils {
     private static Logger log = Logger.getLogger(SecurityUtils.class);
 
     /**
-     * Convert User Account to {@link EnMeUserDetails}.
+     * Convert User Account to {@link EnMeUsernamePasswordDetails}.
      * @param user
      * @param roleUserAuth
      * @return
      */
-    public static EnMeUserDetails convertUserAccount(final UserAccount user, final Boolean roleUserAuth){
+    public static EnMeUsernamePasswordDetails convertUserAccount(final UserAccount user, final Boolean roleUserAuth){
           //log.debug("convertToUserDetails username "+user.getUsername());
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
@@ -60,7 +67,7 @@ public class SecurityUtils {
         }
 
          //creating user details
-         final EnMeUserDetails userDetails = new EnMeUserDetails(
+         final EnMeUsernamePasswordDetails userDetails = new EnMeUsernamePasswordDetails(
          user.getUsername(),
          user.getPassword(),
          authorities,
@@ -72,12 +79,35 @@ public class SecurityUtils {
          user.getUserEmail(), // user email
          user
          );
+         userDetails.setSocialCredentials(false);
          userDetails.setAccountNonExpired(true);
          userDetails.setAccountNonLocked(true);
-         log.debug("EnMeUserDetails : user password "+userDetails.getPassword());
-         log.debug("EnMeUserDetails : user authorities "+userDetails.getAuthorities());
-         log.debug("EnMeUserDetails : user email "+userDetails.getUserEmail());
+         log.debug("EnMeUserDetails : "+userDetails.toString());
          return userDetails;
+    }
+
+    /**
+     *
+     * @param account
+     * @param password
+     * @param socialSignIn
+     */
+    public static void socialAuthentication(final UserAccount account) {
+        log.info("Register SOCIAL LOGIN USER: " + account.getUsername());
+        // building granted authorities
+        final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
+                .convertEnMePermission(account.getSecUserPermissions());
+        // create user detail based on user account.
+        final EnMeUsernamePasswordDetails details = SecurityUtils
+                .convertUserAccount(account, true);
+        // set the social credentials permission.
+        details.setSocialCredentials(true);
+        SecurityContextHolder.getContext().setAuthentication(
+                new SocialAuthenticationToken(details, authorities));
+        if (log.isInfoEnabled()) {
+            log.info("Username " + account.getUsername() + " is logged at "
+                    + new Date());
+        }
     }
 
     /**
@@ -89,10 +119,13 @@ public class SecurityUtils {
         boolean session = true;
         if(authentication != null){
             session = authentication.isAuthenticated();
-            log.debug("checkIsSessionIsExpired NAME "+authentication.getName());
-            log.debug("checkIsSessionIsExpired CREDENTAISL "+authentication.getCredentials());
-            log.debug("checkIsSessionIsExpired DETAILS "+authentication.getDetails());
-            session = false;
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                GrantedAuthorityImpl auth = (GrantedAuthorityImpl) authority;
+                if(auth.getAuthority().toString() == EnMePermission.ENCUESTAME_USER.toString()){
+                    session = false;
+                    break;
+                }
+            }
         }
         log.debug("checkIsSessionIsExpired->"+session);
         return session;

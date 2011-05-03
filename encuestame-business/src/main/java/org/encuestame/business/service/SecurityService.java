@@ -25,9 +25,8 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
-import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.social.SocialUserProfile;
@@ -35,6 +34,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -44,7 +44,6 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
-import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -52,14 +51,11 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
-import org.junit.Assert;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import com.google.gson.annotations.Since;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -653,6 +649,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     private String encodingPassword(final String password){
+        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        log.info("^^ "+password);
+        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return  passwordEncryptor.encryptPassword(password);
     }
@@ -661,7 +660,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Set Spring Authentication
      * @param username
      * @param password
+     * @deprecated use {@link SecurityUtils}.
      */
+    @Deprecated
     private void setSpringSecurityAuthentication(
             final String username,
             final String password,
@@ -1025,7 +1026,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return getAccountDao().createSocialAccount(socialAccountId,
                 token,
                 tokenSecret, username, socialProvider,
-                getUserAccount(getUserPrincipalUsername()).getAccount());
+                getUserAccount(username).getAccount());
     }
 
     /**
@@ -1118,33 +1119,68 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     * @return
     */
    private SignUpBean convertSocialConnectedAccountToBean(final SocialUserProfile userProfile){
+       log.info("Social Account Profile "+userProfile.toString());
        final SignUpBean singUpBean = new SignUpBean();
        singUpBean.setEmail(userProfile.getEmail());
-       singUpBean.setUsername(userProfile.getScreenName());
+       singUpBean.setUsername(userProfile.getUsername());
        return singUpBean;
    }
 
     /* Social Account SignIn Connect. * */
 
-   /*
-    *
-    */
-    public void connectSignInAccount(final SocialSignInOperations social,
-                                     final AccessGrant accessGrant) throws Exception {
+    /*
+     *
+     */
+    public String connectSignInAccount(final SocialSignInOperations social) throws EnMeExpcetion {
         // first, we check if this social account already exist as previous connection.
+        log.info("Connecting ...");
+        social.setAccountDaoImp(getAccountDao());
         if (social.isConnected(social.getSocialUserProfile().getId())) {
+            log.info("Connecting: Exist previously connection");
             //if exist, we update credentials on account connect store.
-            social.connect(social.getSocialUserProfile().getId(), accessGrant);
+            AccountConnection connection = social.reConnect(social.getSocialUserProfile().getId(), social.getAccessGrant());
+            getAccountDao().saveOrUpdate(connection.getSocialAccount());
+            getAccountDao().saveOrUpdate(connection);
+            log.info("Print updated account "+connection);
+            log.info("Sign In with Social Account");
+            SecurityUtils.socialAuthentication(connection.getUserAccout());
+            return "redirect:/user/dashboard";
         } else {
+            log.info("Connecting: Creating new connection");
+            String email = this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()).getEmail();
+            log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            log.info("&&&&&&&&&&&&&&&"+email);
+            log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            String redirectPath =  "signin/provider/register";
+            org.springframework.util.Assert.notNull(email);
+            UserAccount accountEmail = getAccountDao().getUserByEmail(email);
             //if the user account is new, we create new account quickly.
-            final UserAccount userAccount = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
+            if (accountEmail == null) {
+                accountEmail = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
+            } else {
+                SecurityUtils.socialAuthentication(accountEmail);
+                redirectPath = "redirect:/user/dashboard";
+            }
+            log.info("Connecting: Creating new user account "+accountEmail.getUid());
+            log.info("Social Account Profile "+social.getSocialUserProfile().toString());
+
             final SocialAccount socialAccount = this.addNewSocialAccount(
                     social.getSocialUserProfile().getId(),
-                    accessGrant.getAccessToken(),
-                    accessGrant.getRefreshToken(),
+                    social.getAccessGrant().getAccessToken(),
+                    social.getAccessGrant().getRefreshToken(),
                     social.getSocialUserProfile().getUsername(),
                     social.getProvider());
-            social.addConnection(userAccount,socialAccount);
+            log.info("Connecting: Creating social account "+socialAccount.getId());
+
+            final AccountConnection accountConnection = this.getAccountDao().addConnection(
+                    social.getProvider(),
+                    social.getAccessGrant(),
+                    social.getSocialUserProfile().getId(),
+                    accountEmail,
+                    social.getSocialUserProfile().getProfileImageUrl(),
+                    socialAccount);
+            getAccountDao().saveOrUpdate(accountConnection);
+            return redirectPath;
         }
     }
 

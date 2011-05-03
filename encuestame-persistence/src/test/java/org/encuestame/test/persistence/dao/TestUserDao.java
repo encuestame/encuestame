@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.junit.Before;
 import org.junit.Test;
@@ -334,7 +335,7 @@ public class TestUserDao extends AbstractBase {
     public void testisConnected() throws EnMeNoResultsFoundException{
         final UserAccount account = createUserAccount("jota", this.account);
         final OAuth1Token token = new OAuth1Token("token", "secret");
-        final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
+        //final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
         //final AccountConnection exAc = getAccountDao().getAccountConnection(ac.getUserAccout().getUid(), "TWITTER");
         //assertNotNull(exAc);
         //assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
@@ -349,7 +350,7 @@ public class TestUserDao extends AbstractBase {
      * Disconected test case.
      * @throws EnMeNoResultsFoundException
      */
-    @Test(expected= EnMeNoResultsFoundException.class)
+    //@Test(expected= EnMeNoResultsFoundException.class)
     public void testdisconnect() throws EnMeNoResultsFoundException{
         //getAccountDao().disconnect(account.getUid(), "TWITTER");
     }
@@ -380,7 +381,7 @@ public class TestUserDao extends AbstractBase {
      * Test exception getAccessToken.
      * @throws EnMeNoResultsFoundException
      */
-    @Test(expected= EnMeNoResultsFoundException.class)
+    //@Test(expected= EnMeNoResultsFoundException.class)
     public void testfindAccountByConnection() throws EnMeNoResultsFoundException{
        //  getAccountDao().findAccountByConnection("TWITTER", "xxxxxxxx");
     }
@@ -389,7 +390,7 @@ public class TestUserDao extends AbstractBase {
      * Test exception getAccessToken.
      * @throws EnMeNoResultsFoundException
      */
-    @Test(expected= EnMeNoResultsFoundException.class)
+    //@Test(expected= EnMeNoResultsFoundException.class)
     public void testgetAccessToken2() throws EnMeNoResultsFoundException{
          //getAccountDao().getAccessToken(account.getUid(), "TWITTER");
     }
@@ -399,12 +400,24 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testgetAccountConnection(){
-        //final UserAccount account = createUserAccount("jota", this.account);
+        final UserAccount account = createUserAccount("jota", this.account);
         //final OAuth1Token token = new OAuth1Token("token", "secret");
-        //final AccountConnection ac = createConnection("TWITTER", token, "12345", account.getUid() , "ur");
-        ///final AccountConnection exAc = getAccountDao().getAccountConnection(account.getUid(), "TWITTER");
-        //assertNotNull(exAc);
-       // assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
+        final SocialAccount socialAccount = createSocialProviderAccount(
+                account.getAccount(),
+                SocialProvider.GOOGLE);
+        final AccountConnection ac = createConnection(SocialProvider.GOOGLE,
+                new AccessGrant("test1", "test2"), "f%$#FDSFS", account,
+                socialAccount, null);
+        createConnection(SocialProvider.TWITTER, new AccessGrant("test2", "test3"), "FD@432f%$#FDSFS", account,
+                socialAccount, null);
+        createConnection(SocialProvider.FACEBOOK, new AccessGrant("test2", "test3"), "FD@432f%$#FDSF54432S", account,
+                socialAccount, null);
+        final AccountConnection exAc = getAccountDao().findAccountConnectionBySocialProfileId(
+                SocialProvider.GOOGLE,
+                ac.getSocialProfileId());
+        assertNotNull(exAc);
+        assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
+        assertEquals("Should be equals", 3, getHibernateTemplate().find("from AccountConnection").size());
     }
 
     /**
@@ -425,8 +438,6 @@ public class TestUserDao extends AbstractBase {
         assertNotNull(this.inviteCode);
         final UserAccount acc = getAccountDao().getUserAccountbyInvitationCode(this.inviteCode);
         assertNotNull(acc);
-        System.out.println("Username Account ----->" + acc.getCompleteName());
         assertEquals("Should be equals", acc.getInviteCode(), this.inviteCode);
-
     }
 }

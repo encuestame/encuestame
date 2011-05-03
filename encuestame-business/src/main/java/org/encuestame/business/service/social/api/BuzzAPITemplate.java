@@ -15,6 +15,7 @@ package org.encuestame.business.service.social.api;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -102,7 +103,9 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
         List emails = (ArrayList) data.get("emails");
         Map email = (Map) emails.get(0);
         profile.setEmail(email.get("value").toString());
-        profile.setScreenName("test_"+RandomStringUtils.randomAlphabetic(4));
+        String[] tokens = email.get("value").toString().split("@");
+        profile.setScreenName(tokens[0]);
+        profile.setUsername(tokens[0]);
         return profile;
     }
 

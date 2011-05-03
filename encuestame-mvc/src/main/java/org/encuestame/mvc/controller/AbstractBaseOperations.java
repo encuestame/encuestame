@@ -45,8 +45,8 @@ import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.core.security.EnMeUserDetails;
 import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.security.details.EnMeUsernamePasswordDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
@@ -233,7 +233,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param username username
      * @param password password
      */
-    public void authenticate(HttpServletRequest request, final String username, final String password) {
+    public void authenticate(final HttpServletRequest request, final String username, final String password) {
         try{
             final UsernamePasswordAuthenticationToken usernameAndPassword = new UsernamePasswordAuthenticationToken(username, password);
             final HttpSession session = request.getSession();
@@ -259,7 +259,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param user
      */
     public void authenticate(final UserAccount user){
-        final EnMeUserDetails details = SecurityUtils.convertUserAccount(user, true);
+        final EnMeUsernamePasswordDetails details = SecurityUtils.convertUserAccount(user, true);
         final Collection<GrantedAuthority> authorities = details.getAuthorities();
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(details, null,
                 authorities));

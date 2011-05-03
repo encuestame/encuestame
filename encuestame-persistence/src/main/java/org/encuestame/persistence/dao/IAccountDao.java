@@ -226,15 +226,13 @@ public interface IAccountDao extends IBaseDao {
             final SocialAccount socialAccount);
 
     /**
-     * Retrieve {@link AccountConnection} by access token and provider name.
+     *
      * @param provider
-     * @param accessToken
+     * @param socialProfileId
      * @return
-     * @throws EnMeExpcetion
      */
-    AccountConnection findAccountConnectionBySocialProfileId(
-                       final SocialProvider provider,
-                       final String accessToken);
+    AccountConnection findAccountConnectionBySocialProfileId(final SocialProvider provider,
+            final String socialProfileId);
 
     /**
      * Get list of id accounts only if are enabled.

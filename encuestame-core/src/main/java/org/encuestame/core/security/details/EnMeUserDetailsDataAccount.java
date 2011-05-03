@@ -1,8 +1,9 @@
-package org.encuestame.core.security;
+package org.encuestame.core.security.details;
 
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public interface EnMeUserDetailsDataAccount {
+public interface EnMeUserDetailsDataAccount extends UserDetails{
 
     /**
      * Get User Email.
@@ -21,5 +22,11 @@ public interface EnMeUserDetailsDataAccount {
      * @return
      */
     UserAccount getUserAccount();
+
+    /**
+     *
+     * @return
+     */
+    boolean isSocialCredentials();
 
 }

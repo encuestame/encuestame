@@ -6,9 +6,7 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
-import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.persistence.exception.EnMeStartupException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -51,10 +49,10 @@ public class EnMeContext extends ContextLoaderListener implements
 
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 
-        log.debug("**********************************************");
-        log.debug("*         ENCUESTAME IS RUNNING              *");
-        log.debug("*         http://www.encuestame.org          *");
-        log.debug("**********************************************");
+        log.info("**********************************************");
+        log.info("*         ENCUESTAME IS RUNNING              *");
+        log.info("*         http://www.encuestame.org          *");
+        log.info("**********************************************");
 
         final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
         try {
@@ -64,9 +62,9 @@ public class EnMeContext extends ContextLoaderListener implements
            throw new IllegalStateException("EnMe: Error on stat encuestame context : "+e.getMessage());
         }
 
-        //log.debug("******************************* "+install);
+        //log.info("******************************* "+install);
         //install.install();
-        log.debug("*******************************");
+        log.info("*******************************");
     }
 
     @Override
