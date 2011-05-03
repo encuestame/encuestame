@@ -38,4 +38,9 @@
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}404.jsp" />
     </definition>
 
+     <definition name="error" extends="page">
+        <put-attribute name="title" value="Error | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}error.jsp" />
+    </definition>
+
 </tiles-definitions>

@@ -25,13 +25,19 @@ public class FacebookProfile implements Serializable {
     private final String firstName;
     private final String lastName;
     private final String email;
+    private final String username;
 
-    public FacebookProfile(long id, String name, String firstName, String lastName, String email) {
+
+
+    public FacebookProfile(long id, String name, String firstName,
+            String lastName, String email, String username) {
+        super();
         this.id = id;
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.username = username;
     }
 
     /**
@@ -79,6 +85,15 @@ public class FacebookProfile implements Serializable {
         return email;
     }
 
+
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -86,6 +101,8 @@ public class FacebookProfile implements Serializable {
     public String toString() {
         return "FacebookProfile [id=" + id + ", name=" + name + ", firstName="
                 + firstName + ", lastName=" + lastName + ", email=" + email
-                + "]";
+                + ", username=" + username + "]";
     }
+
+
 }

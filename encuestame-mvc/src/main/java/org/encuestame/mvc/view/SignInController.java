@@ -3,6 +3,7 @@ package org.encuestame.mvc.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
@@ -10,18 +11,14 @@ import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.business.service.social.signin.FacebookSignInSocialSupport;
 import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.encuestame.utils.oauth.OAuth1Token;
-import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -140,7 +137,17 @@ public class SignInController extends AbstractSocialController{
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         "https://www.googleapis.com/auth/buzz", httpRequest, false));
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
-
+                OAuth2Parameters auth2Parameters = new OAuth2Parameters(
+                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.key"),
+                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.secret"),
+                        EncuestamePlaceHolderConfigurer.getProperty("facebook.oauth.accesToken"),
+                        EncuestamePlaceHolderConfigurer.getProperty("facebook.oauth.authorize"),
+                        SocialProvider.FACEBOOK,
+                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.id"));
+                auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
+                auth2RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
+                        SocialUtils.FACEBOOK_SCOPE, httpRequest, false));
             } else {
 
             }
@@ -168,14 +175,14 @@ public class SignInController extends AbstractSocialController{
            final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
            log.debug(accessGrant.getAccessToken());
            log.debug(accessGrant.getRefreshToken());
+           String x = "signin/provider/register";
            if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-               getSecurityService().connectSignInAccount(new GoogleSignInSocialService(
-                       getAccountDao(), accessGrant), accessGrant);
+               x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
            } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-               getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(
-                       getAccountDao(), accessGrant), accessGrant);
+               x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant));
            }
-           return "signin/provider/register";
+           log.debug("oauth2Callback sign up with social account "+x);
+           return x;
    }
 
     /**

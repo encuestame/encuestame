@@ -25,9 +25,8 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
-import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.social.SocialUserProfile;
@@ -35,6 +34,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -52,14 +52,11 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
-import org.junit.Assert;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import com.google.gson.annotations.Since;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -95,8 +92,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
     private final Integer DEFAULT_LENGTH_PASSWORD = 8;
 
-
     private static int TWITTER_AUTH_ERROR = 401;
+
+    private final String DASHBOARD_REDIRECT = "redirect:/user/dashboard";
 
     /** Suspended Notification. **/
     private Boolean suspendedNotification;
@@ -653,6 +651,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     private String encodingPassword(final String password){
+        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        log.info("^^ "+password);
+        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return  passwordEncryptor.encryptPassword(password);
     }
@@ -661,7 +662,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Set Spring Authentication
      * @param username
      * @param password
+     * @deprecated use {@link SecurityUtils}.
      */
+    @Deprecated
     private void setSpringSecurityAuthentication(
             final String username,
             final String password,
@@ -1025,7 +1028,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return getAccountDao().createSocialAccount(socialAccountId,
                 token,
                 tokenSecret, username, socialProvider,
-                getUserAccount(getUserPrincipalUsername()).getAccount());
+                getUserAccount(username).getAccount());
     }
 
     /**
@@ -1136,36 +1139,92 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     * @return
     */
    private SignUpBean convertSocialConnectedAccountToBean(final SocialUserProfile userProfile){
+       log.info("Social Account Profile "+userProfile.toString());
        final SignUpBean singUpBean = new SignUpBean();
        singUpBean.setEmail(userProfile.getEmail());
-       singUpBean.setUsername(userProfile.getScreenName());
+       singUpBean.setUsername(userProfile.getUsername());
        return singUpBean;
    }
 
     /* Social Account SignIn Connect. * */
 
-   /*
-    *
-    */
-    public void connectSignInAccount(final SocialSignInOperations social,
-                                     final AccessGrant accessGrant) throws Exception {
+    /*
+     *
+     */
+    public String connectSignInAccount(final SocialSignInOperations social) throws EnMeExpcetion {
         // first, we check if this social account already exist as previous connection.
+        log.info("Sign In with Social Account");
+        social.setAccountDaoImp(getAccountDao());
+
+        //if user account is previously connected
         if (social.isConnected(social.getSocialUserProfile().getId())) {
+            log.info("Connecting: Exist previously connection");
             //if exist, we update credentials on account connect store.
-            social.connect(social.getSocialUserProfile().getId(), accessGrant);
+            final AccountConnection connection = social.reConnect(social.getSocialUserProfile().getId(), social.getAccessGrant());
+            getAccountDao().saveOrUpdate(connection.getSocialAccount());
+            getAccountDao().saveOrUpdate(connection);
+            SecurityUtils.socialAuthentication(connection);
+            return DASHBOARD_REDIRECT;
         } else {
+            //if user has been never connected
+            log.info("Connecting: Creating new connection");
+            //get email from social profile.
+            final String email = this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()).getEmail();
+            String redirectPath =  "signin/provider/register";
+            org.springframework.util.Assert.notNull(email);
+            //user account by email
+            UserAccount accountEmail = getAccountDao().getUserByEmail(email);
             //if the user account is new, we create new account quickly.
-            final UserAccount userAccount = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
-            final SocialAccount socialAccount = this.addNewSocialAccount(
-                    social.getSocialUserProfile().getId(),
-                    accessGrant.getAccessToken(),
-                    accessGrant.getRefreshToken(),
-                    social.getSocialUserProfile().getUsername(),
-                    social.getProvider());
-            social.addConnection(userAccount,socialAccount);
+            if (accountEmail == null) {
+                accountEmail = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
+                //create fist connection and social account.
+                this.signUpSocial(social.getSocialUserProfile(), social.getAccessGrant(), social.getProvider());
+            } else {
+                //if user exist, we create new account connection
+                final AccountConnection accountConnection = this.signUpSocial(
+                        social.getSocialUserProfile(), social.getAccessGrant(),
+                        social.getProvider());
+                //sign in programmatically in the app
+                SecurityUtils.socialAuthentication(accountConnection);
+                redirectPath = DASHBOARD_REDIRECT;
+            }
+            return redirectPath;
         }
     }
 
+    /**
+     *
+     * @param profile
+     * @param accessGrant
+     * @param provider
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private AccountConnection signUpSocial(final SocialUserProfile profile, final AccessGrant accessGrant,
+            final SocialProvider provider) throws EnMeNoResultsFoundException{
+        UserAccount accountEmail = this.singupUser(this.convertSocialConnectedAccountToBean(profile));
+        final SocialAccount socialAccount = this.addNewSocialAccount(
+                profile.getId(),
+                accessGrant.getAccessToken(),
+                accessGrant.getRefreshToken(),
+                profile.getUsername(),
+                provider);
+        log.info("Connecting: Creating social account "+socialAccount.getId());
+        final AccountConnection accountConnection = this.getAccountDao().addConnection(
+                provider,
+                accessGrant,
+                profile.getId(),
+                accountEmail,
+                profile.getProfileImageUrl(),
+                socialAccount);
+        getAccountDao().saveOrUpdate(accountConnection);
+        return accountConnection;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#disconnectSignInAccount(org.encuestame.business.service.social.signin.SocialSignInOperations)
+     */
     public void disconnectSignInAccount(final SocialSignInOperations social) {
 
     }

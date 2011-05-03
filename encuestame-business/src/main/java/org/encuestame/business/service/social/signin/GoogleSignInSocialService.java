@@ -31,8 +31,9 @@ public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzA
      * @param key
      * @throws Exception
      */
-    public GoogleSignInSocialService(final IAccountDao accountDao, final AccessGrant accessToken) throws Exception {
-        super(accountDao, accessToken);
+
+    public GoogleSignInSocialService(final AccessGrant accessToken) throws Exception {
+        super(accessToken);
     }
 
     /**

@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IAccountDao;
@@ -245,6 +247,12 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
                 final String providerProfileUrl,
                 final SocialAccount socialAccount){
         final AccountConnection connection = new AccountConnection();
+        log.debug("Add Connection "+provider);
+        log.debug("Add Connection "+accessGrant);
+        log.debug("Add Connection "+socialAccountId);
+        log.debug("Add Connection "+userAccount);
+        log.debug("Add Connection "+providerProfileUrl);
+        log.debug("Add Connection "+socialAccount);
         //get provider
         connection.setAccounType(provider);
         //reference to social account.
@@ -261,10 +269,11 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
             connection.setRefreshToken(accessGrant.getRefreshToken());
             connection.setExpires(accessGrant.getExpires());
         }
+        Assert.assertNotNull(socialAccountId);
         connection.setSocialProfileId(socialAccountId);
-        connection.setProfileUrl(providerProfileUrl);
         connection.setUserAccout(userAccount);
-        getHibernateTemplate().saveOrUpdate(connection);
+        this.saveOrUpdate(connection); //TODO: this seems not save or update properly.
+        log.debug("Added Connection:{"+connection.toString());
         return connection;
     }
 
@@ -291,6 +300,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * @param proviver
      * @return
      */
+    @Deprecated
     public AccountConnection getAccountConnection(final String accountId, final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(AccountConnection.class);
         criteria.createAlias("userAccout","userAccout");
@@ -350,12 +360,9 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
 
     }
 
-    /**
-     * Retrieve {@link AccountConnection} by access token and provider name.
-     * @param provider
-     * @param accessToken
-     * @return
-     * @throws EnMeExpcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#findAccountConnectionBySocialProfileId(org.encuestame.persistence.domain.social.SocialProvider, java.lang.String)
      */
     public AccountConnection findAccountConnectionBySocialProfileId(final SocialProvider provider,
                        final String socialProfileId){
