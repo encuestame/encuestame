@@ -40,9 +40,10 @@ public class SocialAuthenticationToken extends AbstractAuthenticationToken {
      */
     private static final long serialVersionUID = 7803686361261212911L;
 
-    public SocialAuthenticationToken(Object principal,
+    public SocialAuthenticationToken(
+            Object principal,
             Collection<? extends GrantedAuthority> arg0) {
-        super(null);
+        super(arg0);
         this.principal = principal;
         setAuthenticated(false);
     }

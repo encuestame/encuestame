@@ -40,6 +40,8 @@ public class SignInController extends AbstractSocialController{
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+    private final String POST_REGISTER_REDIRECT = "/user/signin/register/";
+
 
     @Autowired
     private IAccountDao accountDao;
@@ -133,7 +135,7 @@ public class SignInController extends AbstractSocialController{
                         SocialProvider.GOOGLE,
                         EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
-                auth2RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         "https://www.googleapis.com/auth/buzz", httpRequest, false));
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
@@ -145,7 +147,7 @@ public class SignInController extends AbstractSocialController{
                         SocialProvider.FACEBOOK,
                         EncuestamePlaceHolderConfigurer.getProperty("facebook.api.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
-                auth2RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         SocialUtils.FACEBOOK_SCOPE, httpRequest, false));
             } else {
@@ -164,7 +166,7 @@ public class SignInController extends AbstractSocialController{
     * @return
     * @throws Exception
     */
-   @RequestMapping(value="/signin/register/{provider}", method=RequestMethod.GET, params="code")
+   @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="code")
    public String oauth2Callback(
            @RequestParam("code") String code,
            @PathVariable String provider,

@@ -1176,7 +1176,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             UserAccount accountEmail = getAccountDao().getUserByEmail(email);
             //if the user account is new, we create new account quickly.
             if (accountEmail == null) {
-                accountEmail = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
                 //create fist connection and social account.
                 this.signUpSocial(social.getSocialUserProfile(), social.getAccessGrant(), social.getProvider());
             } else {
