@@ -3,7 +3,7 @@ package org.encuestame.business.setup;
 import java.io.File;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 
@@ -113,7 +113,7 @@ public class DirectorySetupOperations {
      * @return real path of roor directory.
      */
     public static String getRootDirectory() {
-        String root = EncuestamePlaceHolderConfigurer
+        String root = EnMePlaceHolderConfigurer
                 .getProperty("dir.data.warehouse");
         if (root != null) {
             root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
@@ -130,7 +130,7 @@ public class DirectorySetupOperations {
      * @return picture path.
      */
     public static String getPictureDirectory() {
-        String picture = EncuestamePlaceHolderConfigurer
+        String picture = EnMePlaceHolderConfigurer
                 .getProperty("dir.data.picture");
         if (picture == null) {
             picture = getRootDirectory()
@@ -147,7 +147,7 @@ public class DirectorySetupOperations {
      * @return real path of directory path.
      */
     public static String getProfilesDirectory() {
-        String profiles = EncuestamePlaceHolderConfigurer
+        String profiles = EnMePlaceHolderConfigurer
                 .getProperty("dir.data.profiles");
         if (profiles == null) {
             profiles = DirectorySetupOperations.PROFILES_DEFAULT_FOLDER;
@@ -177,7 +177,7 @@ public class DirectorySetupOperations {
      * @return indexed real path.
      */
     public static String getIndexesDirectory() {
-        String index = EncuestamePlaceHolderConfigurer
+        String index = EnMePlaceHolderConfigurer
                 .getProperty("dir.data.index");
         if (index == null) {
             index = getRootDirectory()

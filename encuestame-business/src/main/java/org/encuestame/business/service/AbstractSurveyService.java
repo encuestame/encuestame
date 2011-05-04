@@ -26,7 +26,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.MD5Utils;
@@ -200,7 +200,7 @@ public class AbstractSurveyService extends AbstractChartService {
         final StringBuffer voteUrlWithoutDomain = new StringBuffer();
         voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
         voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
-        final StringBuffer completeDomain = new StringBuffer(EncuestamePlaceHolderConfigurer.getProperty("application.domain"));
+        final StringBuffer completeDomain = new StringBuffer(EnMePlaceHolderConfigurer.getProperty("application.domain"));
         completeDomain.append(voteUrlWithoutDomain.toString());
          log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
          if (InternetUtils.validateUrl(completeDomain.toString())) {
@@ -230,16 +230,16 @@ public class AbstractSurveyService extends AbstractChartService {
         String urlShort = url;
         if (provider == null) {
             urlShort = SocialUtils.getGoGl(url,
-                    EncuestamePlaceHolderConfigurer.getProperty("short.google.key"));
+                    EnMePlaceHolderConfigurer.getProperty("short.google.key"));
         } else if (provider.equals(ShortUrlProvider.GOOGL)) {
             urlShort = SocialUtils.getGoGl(url,
-                    EncuestamePlaceHolderConfigurer.getProperty("short.google.key"));
+                    EnMePlaceHolderConfigurer.getProperty("short.google.key"));
         } else if (provider.equals(ShortUrlProvider.TINYURL)) {
             urlShort = SocialUtils.getTinyUrl(url);
         } else if (provider.equals(ShortUrlProvider.BITLY)) {
              urlShort = SocialUtils.getBitLy(url,
-                     EncuestamePlaceHolderConfigurer.getProperty("short.bitLy.key"),
-                     EncuestamePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
+                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
         }
         log.debug("shortUrlProvider SHORT "+urlShort);
         return urlShort;

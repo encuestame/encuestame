@@ -20,9 +20,9 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.mail.MailService;
 import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
@@ -56,7 +56,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
     /** VelocityEngine. **/
     private VelocityEngine velocityEngine;
 
-    private String domainDefault = EncuestamePlaceHolderConfigurer.getProperty("application.domain");
+    private String domainDefault = EnMePlaceHolderConfigurer.getProperty("application.domain");
 
 
     /**
@@ -216,7 +216,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-               message.setTo(EncuestamePlaceHolderConfigurer
+               message.setTo(EnMePlaceHolderConfigurer
                        .getProperty("setup.email.notification.webmaster"));
                message.setSubject("Start Up Notification");
                message.setFrom(noEmailResponse);

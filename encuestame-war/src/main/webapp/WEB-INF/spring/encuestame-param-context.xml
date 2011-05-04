@@ -6,7 +6,7 @@
 
 
   <bean id="propertyConfigurer"
-    class="org.encuestame.business.config.EncuestamePlaceHolderConfigurer">
+    class="org.encuestame.core.config.EnMePlaceHolderConfigurer">
     <property name="ignoreResourceNotFound" value="true"/>
     <property name="locations">
         <list>

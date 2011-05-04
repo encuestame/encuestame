@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.business.service.social.signin.FacebookSignInSocialSupport;
 import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
@@ -89,7 +89,7 @@ public class SignInController extends AbstractSocialController{
             final ModelMap model,
             HttpServletResponse response,
             HttpServletRequest request) {
-        final Boolean enabledSocialSignIn = EncuestamePlaceHolderConfigurer
+        final Boolean enabledSocialSignIn = EnMePlaceHolderConfigurer
                      .getBooleanProperty("application.social.signin.enabled");
         request.setAttribute("social", enabledSocialSignIn);
         log.debug("login");
@@ -128,24 +128,24 @@ public class SignInController extends AbstractSocialController{
         } else {
             if (SocialProvider.GOOGLE.equals(providerEnum)) {
                OAuth2Parameters auth2Parameters = new OAuth2Parameters(
-                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"),
-                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.secret"),
-                        EncuestamePlaceHolderConfigurer.getProperty("google.accesToken"),
-                        EncuestamePlaceHolderConfigurer.getProperty("google.authorizeURl"),
+                        EnMePlaceHolderConfigurer.getProperty("google.register.client.id"),
+                        EnMePlaceHolderConfigurer.getProperty("google.register.client.secret"),
+                        EnMePlaceHolderConfigurer.getProperty("google.accesToken"),
+                        EnMePlaceHolderConfigurer.getProperty("google.authorizeURl"),
                         SocialProvider.GOOGLE,
-                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"));
+                        EnMePlaceHolderConfigurer.getProperty("google.register.client.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
                 auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         "https://www.googleapis.com/auth/buzz", httpRequest, false));
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
                 OAuth2Parameters auth2Parameters = new OAuth2Parameters(
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.key"),
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.secret"),
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.oauth.accesToken"),
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.oauth.authorize"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.api.key"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.api.secret"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.oauth.accesToken"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.oauth.authorize"),
                         SocialProvider.FACEBOOK,
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.id"));
+                        EnMePlaceHolderConfigurer.getProperty("facebook.api.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
                 auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(

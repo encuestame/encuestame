@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.UrlValidator;
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 
 /**
  * Internet Utils.
@@ -60,7 +61,7 @@ public class InternetUtils {
      * @param request {@link HttpServletRequest}.
      * @return
      */
-    public static String getDomain(final HttpServletRequest request){
+    private static String getRequestDomain(final HttpServletRequest request){
             final StringBuffer stringBuffer = new StringBuffer(InternetUtils.isSecure(request) ? "https://" : "http://");
             stringBuffer.append(request.getServerName());
             if(request.getRemotePort() != 80){
@@ -69,6 +70,19 @@ public class InternetUtils {
             }
             stringBuffer.append(request.getContextPath());
             return stringBuffer.toString();
+    }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    public static String getDomain(final HttpServletRequest request){
+        String domain = EnMePlaceHolderConfigurer.getProperty("application.domain");
+        if(domain == null || domain.isEmpty()){
+            domain = InternetUtils.getRequestDomain(request);
+        }
+        return domain;
     }
 
     /**

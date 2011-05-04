@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.springframework.stereotype.Controller;
@@ -51,7 +51,7 @@ public class HomeController extends AbstractBaseOperations {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homeController(ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
-        final Boolean privateHome = EncuestamePlaceHolderConfigurer
+        final Boolean privateHome = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.private");
         if (privateHome) {
             log.debug("signup is disabled");
