@@ -5,6 +5,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page import="org.encuestame.mvc.util.WidgetUtil"%>
-<%@page import="org.encuestame.business.config.EncuestamePlaceHolderConfigurer"%>
+<%@page import="org.encuestame.core.config.EnMePlaceHolderConfigurer"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>

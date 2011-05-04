@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceResolver;
 import org.springframework.mobile.device.DeviceUtils;
@@ -67,10 +67,10 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
             HttpServletResponse response, Object handler) throws Exception {
         Device device = deviceResolver.resolveDevice(request);
         log.debug("customized mobile resolver");
-        final Boolean enabledMobileDevice = EncuestamePlaceHolderConfigurer
+        final Boolean enabledMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.enabled");
         log.debug("deviceResolver application.mobile.enabled:{"+enabledMobileDevice);
-        final Boolean forceMobileDevice = EncuestamePlaceHolderConfigurer
+        final Boolean forceMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.only");
         log.debug("deviceResolver application.mobile.only:{"+forceMobileDevice);
         // is mobile device enabled?

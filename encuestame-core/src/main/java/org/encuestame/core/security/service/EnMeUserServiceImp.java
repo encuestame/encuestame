@@ -10,17 +10,17 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security;
+package org.encuestame.core.security.service;
 
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,7 +31,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @author Picado, Juan juan@encuestame.org
  * @since 07/05/2009 14:19:02
  */
-public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
+public class EnMeUserServiceImp implements UserDetailsService {
 
     /**
      * {@link AccountDaoImp}.
@@ -82,16 +82,15 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         this.roleUserAuth = roleUserAuth;
     }
 
-    /**
-     * Search user by username.
-     * @param username username
-     * return {@link UserDetails}
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
      */
     public UserDetails loadUserByUsername(String username){
         log.debug("loggin with username: {"+username+"}");
         log.debug("loggin with user dao instance: {"+this.accountDao+"}");
         //filter username.
-        final HTMLInputFilter filter = new HTMLInputFilter();
+        final HTMLInputFilter filter = new HTMLInputFilter(true);
         username = filter.filter(username);
         final UserAccount user = this.accountDao.getUserByUsername(username);
         log.debug("fetch username filtered: {"+user+"}");
@@ -101,7 +100,7 @@ public class EnMeUserServiceImp implements EnMeUserService, UserDetailsService {
         } else {
             log.debug("Logged with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
             this.updateLoggedInfo(user);
-            return SecurityUtils.convertUserAccount(user, this.roleUserAuth);
+            return SecurityUtils.convertUserAccountToUserDetails(user, this.roleUserAuth);
         }
     }
 

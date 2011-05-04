@@ -89,7 +89,7 @@ public class AbstractSocial {
      *
      * @return
      */
-    @Column(name = "oauth_token", unique = true)
+    @Column(name = "oauth_token")
     public String getAccessToken() {
         return accessToken;
     }
@@ -106,7 +106,7 @@ public class AbstractSocial {
      *
      * @return
      */
-    @Column(name = "oauth_secret_token", unique = true)
+    @Column(name = "oauth_secret_token")
     public String getSecretToken() {
         return secretToken;
     }
@@ -137,7 +137,7 @@ public class AbstractSocial {
     /**
      * @return the application key.
      */
-    @Column(name = "oauth_app_key", unique = true)
+    @Column(name = "oauth_app_key")
     public Long getApplicationKey() {
         return applicationKey;
     }
@@ -152,7 +152,7 @@ public class AbstractSocial {
     /**
      * @return the refreshToken
      */
-    @Column(name = "oauth_refresh_token", unique = true)
+    @Column(name = "oauth_refresh_token")
     public String getRefreshToken() {
         return refreshToken;
     }

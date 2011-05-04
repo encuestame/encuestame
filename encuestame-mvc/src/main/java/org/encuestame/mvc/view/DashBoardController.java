@@ -39,10 +39,9 @@ public class DashBoardController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String dashBoardController(ModelMap model, UserAccount account) {
-        log.debug("dashboard");
-        return "dashboard";
+        log.debug("error");
+        return "error";
     }
 }

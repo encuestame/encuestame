@@ -100,27 +100,4 @@ function fileDownload {
     copyResources
 }
 
-
-cmd=(dialog --separate-output --checklist "Select options:" 22 76 16)
-options=(1 "Download DOJO FRAMEWORK Source Code from SVN" off
-         2 "Download DOJO FRAMEWORK on Download ZIP " on
-         3 "Install from local path  DOJO FRAMEWORK" off)
-choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-clear
-for choice in $choices
-do
-    case $choice in
-        1)
-            svnDownload
-	    exit
-            ;;
-        2)
-            fileDownload
-	    exit
-            ;;
-        3)
-            copyResources
-            exit
-            ;;
-    esac
-done
+fileDownload

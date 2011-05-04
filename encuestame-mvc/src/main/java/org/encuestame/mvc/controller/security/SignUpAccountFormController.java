@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -61,7 +61,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
     @RequestMapping(method = RequestMethod.GET)
     public String addHandler(Model model) {
         log.info("/register");
-        final Boolean privateHome = EncuestamePlaceHolderConfigurer
+        final Boolean privateHome = EnMePlaceHolderConfigurer
         .getBooleanProperty("application.signup.enabled");
         if (privateHome) {
             log.debug("signup is disabled");

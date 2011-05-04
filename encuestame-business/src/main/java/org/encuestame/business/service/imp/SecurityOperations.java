@@ -20,7 +20,9 @@ import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -425,11 +427,12 @@ public interface SecurityOperations extends ServiceOperations {
     /**
      *
      * @param social
+     * @return
      * @throws EnMeExistPreviousConnectionException
      * @throws Exception
      */
-    void connectSignInAccount(final SocialSignInOperations social,
-            final AccessGrant accessGrant) throws EnMeExistPreviousConnectionException, Exception;
+    String connectSignInAccount(final SocialSignInOperations social)
+                      throws EnMeExistPreviousConnectionException, Exception;
 
     /**
      *

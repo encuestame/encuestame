@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +25,9 @@ import javax.persistence.Table;
  * Define Account App Coonection.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 23, 2010 10:45:15 PM
- * @version $Id:$
  */
 @Entity
-@Table(name = "account_connection")
+@Table(name = "account_social_connection")
 public class AccountConnection extends AbstractSocial{
 
     /**
@@ -41,11 +41,6 @@ public class AccountConnection extends AbstractSocial{
     private UserAccount userAccout;
 
     /**
-     * Url to Social User Profile.
-     */
-    private String profileUrl;
-
-    /**
      *
      */
     private SocialAccount socialAccount;
@@ -55,7 +50,7 @@ public class AccountConnection extends AbstractSocial{
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "account_connection_id", unique = true, nullable = false)
+    @Column(name = "connection_id", unique = true, nullable = false)
     public Long getAccountConnectionId() {
         return accountConnectionId;
     }
@@ -63,7 +58,7 @@ public class AccountConnection extends AbstractSocial{
     /**
      * @param accountConnectionId the accountConnectionId to set
      */
-    public void setAccountConnectionId(Long accountConnectionId) {
+    public void setAccountConnectionId(final Long accountConnectionId) {
         this.accountConnectionId = accountConnectionId;
     }
 
@@ -83,24 +78,9 @@ public class AccountConnection extends AbstractSocial{
     }
 
     /**
-     * @return the profileUrl
-     */
-    @Column(name = "profile_url")
-    public String getProfileUrl() {
-        return profileUrl;
-    }
-
-    /**
-     * @param profileUrl the profileUrl to set
-     */
-    public void setProfileUrl(final String profileUrl) {
-        this.profileUrl = profileUrl;
-    }
-
-    /**
      * @return the socialAccount
      */
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     public SocialAccount getSocialAccount() {
         return socialAccount;
     }
@@ -110,5 +90,15 @@ public class AccountConnection extends AbstractSocial{
      */
     public void setSocialAccount(final SocialAccount socialAccount) {
         this.socialAccount = socialAccount;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "AccountConnection [accountConnectionId=" + accountConnectionId
+                + ", userAccout=" + userAccout + ", socialAccount="
+                + socialAccount + "]";
     }
 }

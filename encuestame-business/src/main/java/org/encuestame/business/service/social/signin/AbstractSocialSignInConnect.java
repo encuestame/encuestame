@@ -63,9 +63,7 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
      * @throws Exception
      */
     public AbstractSocialSignInConnect(
-            final IAccountDao accountDaoImpAccountDao,
             final AccessGrant accessGrant) throws Exception {
-            this.accountDaoImp = accountDaoImpAccountDao;
             this.accessGrant = accessGrant;
             this.setSocialUserProfile(this.getAPISocialProvider().getProfile());
     }
@@ -74,33 +72,37 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
      * (non-Javadoc)
      * @see org.encuestame.business.service.social.signin.SocialSignInOperations#connect(java.lang.String, org.encuestame.utils.oauth.AccessGrant)
      */
-    public void connect(String accountId, AccessGrant accesGrant) throws EnMeExistPreviousConnectionException {
-        try {
-            final AccountConnection s = this.findAccountByConnection(accountId);
-            if (s != null) {
+    public AccountConnection reConnect(String accountId, AccessGrant accesGrant) throws EnMeExistPreviousConnectionException, EnMeNoResultsFoundException {
+            log.info("reConnect ..."+accountId);
+            log.info("reConnect ..."+accesGrant.toString());
+            final AccountConnection accountConnection = this.findAccountByConnection(accountId);
+            log.info("Connect restuls: "+accountConnection);
+            if (accountConnection != null) {
                 log.debug("adding new connection");
-                this.addConnection(s.getUserAccout(), null);
+                log.info("Updating connection .... "+accountConnection.getAccountConnectionId());
+                accountConnection.setAccessToken(accesGrant.getAccessToken());
+                accountConnection.setRefreshToken(accesGrant.getRefreshToken());
+                accountConnection.setExpires(accesGrant.getExpires());
+                accountConnection.getSocialAccount().setAccessToken(accesGrant.getAccessToken());
+                accountConnection.getSocialAccount().setRefreshToken(accesGrant.getRefreshToken());
+                accountConnection.getSocialAccount().setExpires(accesGrant.getExpires());
+                return accountConnection;
             } else {
-                log.info("There is already a connection created");
+                log.fatal("There is already a connection created");
                 throw new EnMeExistPreviousConnectionException("There is already a connection created");
             }
-        } catch (EnMeNoResultsFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
        /**
         * Records an existing connection between a user account and this service provider.
-        * Use when the connection process happens outside of the control of this package; for example, in JavaScript.
-        * @param accountId the member account identifier
-        * @param accessToken the access token that was granted as a result of the connection
-        * @param providerAccountId the id of the user in the provider's system; may be an assigned number or a user-selected screen name.
+        * @return
         */
-       public void addConnection(
+        @Deprecated
+       public AccountConnection addConnection(
                final UserAccount account,
                final SocialAccount socialAccount) {
-            this.accountDaoImp.addConnection(
+            log.info("Connecting: Creating new or update connection");
+           return this.accountDaoImp.addConnection(
                     getProvider(),
                     this.accessGrant,
                     getSocialUserProfile().getId(),
@@ -123,6 +125,7 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
     public boolean isConnected(final String profileId){
         boolean conected = false;
         try {
+            log.debug("Is connected exist? "+profileId);
             //check if this user is already conected
             if(this.findAccountByConnection(profileId) != null){
                 conected = true;
@@ -130,6 +133,7 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
         } catch (EnMeExpcetion e) {
             log.fatal("isConected error :"+e);
         }
+        log.debug("Is connected "+conected);
         return conected;
     }
 
@@ -153,6 +157,7 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
      */
     public AccountConnection findAccountByConnection(final String socialProfileId)
             throws EnMeNoResultsFoundException {
+        log.info("Connect  by... "+socialProfileId);
         return this.accountDaoImp.findAccountConnectionBySocialProfileId(
                 getProvider(), socialProfileId);
     }

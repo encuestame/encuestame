@@ -32,8 +32,8 @@ public class FacebookSignInSocialSupport extends AbstractSocialSignInConnect<Fac
      * @param accountDao
      * @throws Exception
      */
-    public FacebookSignInSocialSupport(final IAccountDao accountDao, final AccessGrant accessToken) throws Exception {
-        super(accountDao, accessToken);
+    public FacebookSignInSocialSupport(final AccessGrant accessToken) throws Exception {
+        super(accessToken);
     }
 
 

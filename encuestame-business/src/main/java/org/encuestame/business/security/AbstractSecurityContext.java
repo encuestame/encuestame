@@ -12,9 +12,16 @@
  */
 package org.encuestame.business.security;
 
+import java.util.Collection;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.EnMeUserDetails;
+import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.security.details.EnMeUserAccountDetails;
+import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -51,17 +58,54 @@ public abstract class AbstractSecurityContext {
      */
     public UserAccount getUserAccountLogged(){
         UserAccount account = null;
-        final EnMeUserDetails details = getSecurityDetails();
+        final EnMeUserAccountDetails details = getSecurityDetails();
         if (details != null) {
             account = details.getUserAccount();
-            log.debug("info logged user account: "+account);
-            if (account != null) {
-                log.debug("info logged user account: "+account.getUserEmail());
-                log.debug("info logged user account: "+account.getUsername());
-                log.debug("info logged user account: "+account.getUid());
+            if (log.isDebugEnabled()) {
+                log.debug("info logged user account: "+account);
+                if (account != null) {
+                    log.debug("info logged user account: "+account.getUserEmail());
+                    log.debug("info logged user account: "+account.getUsername());
+                    log.debug("info logged user account: "+account.getUid());
+                }
             }
         }
         return account;
+    }
+
+    /**
+     * Set Spring Authentication
+     * @param username
+     * @param password
+     */
+    public void setSpringSecurityAuthentication(
+            final UserAccount account,
+            final String password){
+         this.setSpringSecurityAuthentication(account, password, Boolean.FALSE);
+    }
+
+    /**
+     *
+     * @param account
+     * @param password
+     * @param socialSignIn
+     */
+    public void setSpringSecurityAuthentication(
+            final UserAccount account,
+            final String password,
+            final Boolean socialSignIn){
+         log.info("Register login user: "+account.getUsername());
+         //building granted authorities
+         final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(account.getSecUserPermissions());
+         //create user detail based on user account.
+         final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(account, true);
+         //set the social credentials permission.
+         details.setSocialCredentials(socialSignIn);
+         SecurityContextHolder.getContext().setAuthentication(
+                 new UsernamePasswordAuthenticationToken(details, password, authorities));
+         if (log.isInfoEnabled()) {
+             log.info("Username "+account.getUsername() + " is logged at "+new Date() + " with social account?"+socialSignIn);
+         }
     }
 
     /**
@@ -74,12 +118,12 @@ public abstract class AbstractSecurityContext {
     /**
      * Get Details.
      */
-    public EnMeUserDetails getSecurityDetails(){
-        EnMeUserDetails details = null;
-        //log.debug("Authentication Object:{"+getSecCtx().getAuthentication());
+    public EnMeUserAccountDetails getSecurityDetails(){
+        EnMeUserAccountDetails details = null;
+        log.debug("Authentication Object:{"+getSecCtx().getAuthentication());
         if(getSecCtx().getAuthentication() != null){
-            if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserDetails){
-                details =  (EnMeUserDetails) getSecCtx().getAuthentication().getPrincipal();
+            if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserAccountDetails){
+                details =  (EnMeUserAccountDetails) getSecCtx().getAuthentication().getPrincipal();
             }
         }
         return details;

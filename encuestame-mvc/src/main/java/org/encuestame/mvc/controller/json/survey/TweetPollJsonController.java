@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
@@ -340,7 +340,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             if(InternetUtils.validateUrl(url)){
             if("google".equals(type)){
-                jsonResponse.put("url", SocialUtils.getGoGl(url, EncuestamePlaceHolderConfigurer.getProperty("short.google.key")));
+                jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
             } else if("tinyurl".equals(type)){
                 jsonResponse.put("url", SocialUtils.getTinyUrl(url));
             }

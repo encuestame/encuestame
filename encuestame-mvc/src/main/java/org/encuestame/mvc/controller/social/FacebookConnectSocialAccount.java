@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
@@ -79,7 +80,7 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
             @RequestParam(required=false) String scope,
             HttpServletRequest httpRequest){
            log.debug("CONNECT POST FACEBOOK");
-           return this.auth2RequestProvider.buildOAuth2AuthorizeUrl("email,read_stream,publish_stream,user_status,user_location",
+           return this.auth2RequestProvider.buildOAuth2AuthorizeUrl(SocialUtils.FACEBOOK_SCOPE,
                   httpRequest, true);
     }
 
