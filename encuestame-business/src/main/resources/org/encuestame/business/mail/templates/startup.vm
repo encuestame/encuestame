@@ -1,8 +1,19 @@
 <html>
 <body>
-    <h3>Encuestame: Start Up Notification </h3>
-    <div>
-        ${message}
+<div class="container" style="border: 1px solid #BDBDBD;">
+    #parse("/org/encuestame/business/mail/templates/header.vm")
+    <div id= containerBody style="margin-bottom:25px">
+        <div style= "margin:10px;font-size:12px; ">
+           Encuestame: Start Up Notification
+        </div>
+
+        <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
+             <div style="color: rgb(59, 89, 152); text-decoration: none; font-size: 11px;">
+                    ${message}
+             </div>
+        </div>
     </div>
+    #parse("/org/encuestame/business/mail/templates/footer.vm")
+</div>
 </body>
 </html>

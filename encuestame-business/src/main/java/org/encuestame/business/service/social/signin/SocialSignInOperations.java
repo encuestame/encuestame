@@ -14,6 +14,7 @@ package org.encuestame.business.service.social.signin;
 
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.social.SocialUserProfile;
+import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -33,9 +34,11 @@ public interface SocialSignInOperations{
          *
          * @param accountId
          * @param requestToken
+         * @return
          * @throws EnMeExistPreviousConnectionException
+         * @throws EnMeNoResultsFoundException
          */
-        void connect(String accountId, AccessGrant acessGrant) throws EnMeExistPreviousConnectionException;
+        AccountConnection reConnect(String accountId, AccessGrant acessGrant) throws EnMeExistPreviousConnectionException, EnMeNoResultsFoundException;
 
 
         /**
@@ -46,15 +49,25 @@ public interface SocialSignInOperations{
 
         /**
          *
+         * @param accountDaoImp
+         */
+        void setAccountDaoImp(final IAccountDao accountDaoImp);
+
+        /**
+         *
          * @param accountId
          * @param accessToken
          * @param providerAccountId
+         * @return
          */
-        void addConnection(
+        AccountConnection addConnection(
                 final UserAccount account,
                 final SocialAccount socialAccount);
 
         SocialProvider getProvider();
+
+
+        AccessGrant getAccessGrant();
 
         /**
          * Returns true if the member account is connected to this provider, false otherwise.

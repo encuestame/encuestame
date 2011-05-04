@@ -666,12 +666,11 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testGetUserAccountbyCode() throws EnMeNoResultsFoundException{
-
-
+        final UserAccount account = createUserAccount("jota", "jota@jota.com", createAccount());
+        account.setInviteCode(this.inviteCode);
+        getAccountDao().saveOrUpdate(account);
         final UserAccountBean userAccBean = securityService.getUserAccountbyCode(inviteCode);
         assertNotNull(userAccBean);
-        System.out.println("USER ACCOUNT ------> "+userAccBean.getName());
-        System.out.println("USER CODE ------> "+userAccBean.getInviteCode());
         assertEquals("should be equals", userAccBean.getInviteCode(), this.inviteCode);
     }
 }

@@ -23,6 +23,7 @@ import org.encuestame.core.social.FacebookLink;
 import org.encuestame.core.social.FacebookProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
+import org.jfree.util.Log;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
@@ -94,7 +95,8 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         String firstName = String.valueOf(profileMap.get("first_name"));
         String lastName = String.valueOf(profileMap.get("last_name"));
         String email = String.valueOf(profileMap.get("email"));
-        return new FacebookProfile(id, name, firstName, lastName, email);
+        String username = String.valueOf(profileMap.get("username"));
+        return new FacebookProfile(id, name, firstName, lastName, email, username);
     }
 
     /*
@@ -154,12 +156,14 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
     @Override
     public SocialUserProfile getProfile() {
         final FacebookProfile facebookProfile = this.getUserProfile();
+        Log.debug("Facebook PRofile "+facebookProfile.toString());
         final SocialUserProfile profile = new SocialUserProfile();
         profile.setEmail(facebookProfile.getEmail());
         profile.setFirstName(facebookProfile.getFirstName());
         profile.setLastName(facebookProfile.getLastName());
         profile.setId(String.valueOf(facebookProfile.getId()));
         profile.setName(facebookProfile.getName());
+        profile.setUsername(facebookProfile.getUsername());
         return profile;
     }
 

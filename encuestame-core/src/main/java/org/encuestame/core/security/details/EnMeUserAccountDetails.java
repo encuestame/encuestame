@@ -1,13 +1,17 @@
-package org.encuestame.core.security;
+package org.encuestame.core.security.details;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount {
+/**
+ * User account details.
+ * @author Picado, Juan juanATencuestame.org
+ * @since May 2, 2011
+ */
+public class EnMeUserAccountDetails implements EnMeUserAccount {
 
     /**
      * Authorities.
@@ -50,6 +54,11 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
     private boolean credentialsNonExpired = true;
 
     /**
+     * This property should be used if user logged with social account.
+     */
+    private boolean socialCredentials = false;
+
+    /**
      * Serializaded.
      */
     private static final long serialVersionUID = -4232011056933663058L;
@@ -77,7 +86,7 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
      * @param completeName
      * @param email
      */
-    public EnMeUserDetails(final String username,
+    public EnMeUserAccountDetails(final String username,
             final String password,
             Collection<GrantedAuthority> authorities,
             final boolean accountNonExpired,
@@ -246,5 +255,33 @@ public class EnMeUserDetails implements UserDetails, EnMeUserDetailsDataAccount 
      */
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+
+    /**
+     * @return the socialCredentials
+     */
+    public boolean isSocialCredentials() {
+        return socialCredentials;
+    }
+
+    /**
+     * @param socialCredentials the socialCredentials to set
+     */
+    public void setSocialCredentials(boolean socialCredentials) {
+        this.socialCredentials = socialCredentials;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "EnMeUserDetails [authorities=" + authorities + ", username="
+                + username + ", userAccount=" + userAccount + ", password="
+                + "[PROTECTED]" + ", enabled=" + enabled + ", accountNonExpired="
+                + accountNonExpired + ", accountNonLocked=" + accountNonLocked
+                + ", credentialsNonExpired=" + credentialsNonExpired
+                + ", socialCredentials=" + socialCredentials + ", userEmail="
+                + userEmail + ", completeName=" + completeName + "]";
     }
 }

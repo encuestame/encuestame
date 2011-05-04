@@ -83,6 +83,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -1599,13 +1600,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param providerProfileUrl
      * @return
      */
-    public AccountConnection createConnection(final String provider,
-            final OAuth1Token token,
+    public AccountConnection createConnection(
+            final SocialProvider provider,
+            final AccessGrant grant,
             final String socialAccountId,
-            final Long userAccountId,
+            final UserAccount userAccount,
+            final SocialAccount socialAccount,
             final String providerProfileUrl){
-        //return getAccountDao().addConnection(provider, token, socialAccountId, userAccountId, providerProfileUrl);
-        return null;
+        return getAccountDao().addConnection(provider,
+                grant,
+                socialAccountId,
+                userAccount,
+                null,
+                socialAccount);
     }
 
     /**

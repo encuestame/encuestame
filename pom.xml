@@ -1521,6 +1521,11 @@
     	  <artifactId>google-api-client</artifactId>
     	  <version>1.3.1-alpha</version>
 	</dependency>
+	<dependency>
+          <groupId>javax.inject</groupId>
+          <artifactId>javax.inject</artifactId>
+          <version>1</version>
+        </dependency>
       </dependencies>
     </dependencyManagement>
 </project>

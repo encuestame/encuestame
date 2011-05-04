@@ -285,6 +285,27 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
     }
 
     /**
+     * Send notification status account.
+     * @param user
+     * @param message
+     */
+    public void sendNotificationStatusAccount(final SignUpBean user, final String message) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(user.getEmail());
+              message.setSubject("Notificaction status account");
+              message.setFrom(noEmailResponse);
+              Map model = new HashMap();
+              model.put("user", user);
+              String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, "/org/encuestame/business/mail/templates/notification-account.vm", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
+    /**
      * Send Mime Email.
      * @param model
      * @param email

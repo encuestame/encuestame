@@ -47,6 +47,8 @@ public class SocialUtils {
 
     public final static String bitLyUrlApi = "http://api.bit.ly/shorten";
 
+    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location";
+
     /**
      * Get Google Stats from google short url.
      * @param googleShortUrl
