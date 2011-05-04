@@ -19,8 +19,8 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.BuzzProfile;
 import org.encuestame.core.social.SocialUserProfile;
@@ -44,7 +44,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
     /**
      * Google Key.
      */
-    private String GOOGLE_KEY = EncuestamePlaceHolderConfigurer.getProperty("google.api.key");
+    private String GOOGLE_KEY = EnMePlaceHolderConfigurer.getProperty("google.api.key");
     private String GOOGLE_REST_UPDATE = "https://www.googleapis.com/buzz/v1/activities/@me/@self?key={key}&alt=json";
     private String GOOGLE_REST_PROFILE = "https://www.googleapis.com/buzz/v1/people/@me/@self?alt=json";
     private String GOOGLE_REST_LIKE = "https://www.googleapis.com/buzz/v1/activities/@me/@liked/{activityId}?key={key}";

@@ -13,9 +13,9 @@
 package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.TypeDatabase;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.mail.MailService;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
@@ -77,7 +77,7 @@ public class ApplicationStartup implements StartupProcess {
                 DirectorySetupOperations.createRootFolder();
             }
             // if email notification is enabled.
-            if (EncuestamePlaceHolderConfigurer.getBooleanProperty(
+            if (EnMePlaceHolderConfigurer.getBooleanProperty(
                     "setup.email.notification").booleanValue()) {
                 final StringBuilder startupMessage = new StringBuilder();
                 startupMessage.append("startup date [");
@@ -90,14 +90,14 @@ public class ApplicationStartup implements StartupProcess {
                 mailService.sendStartUpNotification(startupMessage.toString());
             }
             // check internet connection
-            if (EncuestamePlaceHolderConfigurer.getBooleanProperty(
+            if (EnMePlaceHolderConfigurer.getBooleanProperty(
                     "setup.check.network").booleanValue()) {
                 notifyInternetConnection();
             }
             // check database
             if (install != null) {
                 install.initializeDatabase(TypeDatabase
-                        .getTypeDatabaseByString(EncuestamePlaceHolderConfigurer
+                        .getTypeDatabaseByString(EnMePlaceHolderConfigurer
                                 .getProperty("datasource.database")));
             } else {
                 log.fatal("Install operations is not available");

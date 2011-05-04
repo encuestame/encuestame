@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +93,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
           // Fourth step: install required data.
           this.installScript(this.buildTableScript(this.INSTALL));
           // Six step : demo data if is enabled.
-          if(EncuestamePlaceHolderConfigurer
+          if(EnMePlaceHolderConfigurer
                                 .getBooleanProperty("setup.installation.demo").booleanValue()){
              this.installScript(this.buildTableScript(this.DEMO));
           }
@@ -205,11 +205,11 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     private int getVersionDatabaseFromProperty() {
         int version = 0;
-        if (EncuestamePlaceHolderConfigurer
+        if (EnMePlaceHolderConfigurer
                 .getIntegerProperty("encuestame.database.version") == null) {
             log.error("Encuestame Version Property is null, this is wrong !!");
         } else {
-            version = EncuestamePlaceHolderConfigurer.getIntegerProperty(
+            version = EnMePlaceHolderConfigurer.getIntegerProperty(
                     "encuestame.database.version").intValue();
         }
         return version;

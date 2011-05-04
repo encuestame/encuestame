@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.joda.time.DateTimeZone;
@@ -67,7 +67,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
      * Return customized logo path or default is customized is not defined.
      */
     private String getCustomizedHeaderLogo(){
-        String customizedLogo = EncuestamePlaceHolderConfigurer.getProperty("application.logo.small");
+        String customizedLogo = EnMePlaceHolderConfigurer.getProperty("application.logo.small");
         if (customizedLogo == null) {
             customizedLogo = this.DEFAULT_LOGO;
         }
