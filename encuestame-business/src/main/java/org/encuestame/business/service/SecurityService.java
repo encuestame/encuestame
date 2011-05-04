@@ -1177,7 +1177,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             //if the user account is new, we create new account quickly.
             if (accountEmail == null) {
                 //create fist connection and social account.
-                this.signUpSocial(social.getSocialUserProfile(), social.getAccessGrant(), social.getProvider());
+                final AccountConnection accountConnection = this.signUpSocial(social.getSocialUserProfile(), social.getAccessGrant(), social.getProvider());
+                SecurityUtils.socialAuthentication(accountConnection);
             } else {
                 //if user exist, we create new account connection
                 final AccountConnection accountConnection = this.signUpSocial(
