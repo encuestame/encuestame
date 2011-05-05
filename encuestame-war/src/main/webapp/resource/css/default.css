@@ -126,9 +126,12 @@ a:hover{
 
 .error{
     background-color: #C88080;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #FFF;
+    font-weight: bold;
+    padding: 10px;
 }
 
 .warning{

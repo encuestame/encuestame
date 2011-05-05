@@ -16,7 +16,7 @@
         <security:authentication-provider
             ref="socialAccountProvider" user-service-ref="enMeAuthenticationSocialUserService" />
         <security:authentication-provider
-            ref="enmeprovider" user-service-ref="enMeAuthenticationUserService">
+             user-service-ref="enMeAuthenticationUserService">
             <security:password-encoder ref="passwordEncoder" />
         </security:authentication-provider>
     </security:authentication-manager>
