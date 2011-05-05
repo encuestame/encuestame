@@ -170,10 +170,6 @@ div.formWrapper a.button:active span {
     padding: 6px 0 4px 18px; /* push text down 1px */
 }
 
-#loginWrapper .error{
-    color: #DC2929;
-}
-
 .shiny_box {
     background: #0066FF;
     color: #FFF;

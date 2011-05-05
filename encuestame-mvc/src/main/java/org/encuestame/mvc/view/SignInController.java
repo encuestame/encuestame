@@ -10,6 +10,8 @@ import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.business.service.social.signin.FacebookSignInSocialSupport;
 import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
@@ -159,6 +161,28 @@ public class SignInController extends AbstractSocialController{
     }
 
     /**
+     *
+     * @param code
+     * @param provider
+     * @param model
+     * @param httpRequest
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="error")
+    public String oauth2ErrorCallback(
+            @RequestParam("error") String error,
+            @PathVariable String provider,
+            final ModelMap model,
+            HttpServletRequest httpRequest,
+            WebRequest request) throws Exception {
+            log.fatal("OAuth Error:{"+error);
+            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+            return "redirect:/user/signin";
+    }
+
+    /**
     *
     * @param code
     * @param httpRequest
@@ -172,19 +196,33 @@ public class SignInController extends AbstractSocialController{
            @PathVariable String provider,
            final ModelMap model,
            HttpServletRequest httpRequest,
-           WebRequest request) throws Exception {
+           WebRequest request){
            //get AccesGrant.
-           final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
-           log.debug(accessGrant.getAccessToken());
-           log.debug(accessGrant.getRefreshToken());
-           String x = "signin/provider/register";
-           if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-               x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
-           } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-               x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant));
-           }
-           log.debug("oauth2Callback sign up with social account "+x);
-           return x;
+       try {
+               final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
+               if (log.isDebugEnabled()) {
+                   log.debug(accessGrant.getAccessToken());
+                   log.debug(accessGrant.getRefreshToken());
+               }
+               String x = "signin/provider/register";
+               if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
+                    x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
+               } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
+                   x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant));
+               }
+               if (log.isDebugEnabled()) {
+                   log.debug("oauth2Callback sign up with social account "+x);
+               }
+               return x;
+            } catch (EnMeExistPreviousConnectionException e) {
+                 log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
+                 RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+                 return "redirect:/user/signin";
+            } catch (Exception e) {
+                 log.fatal("OAuth Exception:{"+e);
+                 RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+                 return "redirect:/user/signin";
+            }
    }
 
     /**
