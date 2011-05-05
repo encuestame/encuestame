@@ -27,10 +27,12 @@ import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitLists;
@@ -368,6 +370,38 @@ public class PollService extends AbstractSurveyService implements IPollService{
             throw new EnMeNoResultsFoundException("Date not found");
         }
         return ConvertDomainBean.convertSetToUnitPollBean(pollList);
+    }
+
+    /**
+     * Get poll by id and user.
+     * @param pollId
+     * @param account
+     * @return
+     * @throws EnMePollNotFoundException
+     */
+     public Poll getPollById(final Long pollId, final UserAccount account) throws EnMePollNotFoundException{
+        final Poll poll = getPollDao().getPollByIdandUserId(pollId, account.getAccount().getUid());
+        if (poll == null) {
+            log.error("poll invalid with this id "+pollId+ " and username:{"+account);
+            throw new EnMePollNotFoundException("poll invalid with this id "+pollId+ " and username:{"+account);
+        }
+        return poll;
+    }
+
+    /**
+     * Get poll by id.
+     * @param pollId
+     * @return
+     * @throws EnMePollNotFoundException
+
+     */
+    public Poll getPollById(final Long pollId) throws EnMePollNotFoundException{
+        final Poll poll = getPollDao().getPollById(pollId);
+        if (poll == null) {
+            log.error("poll invalid with this id "+pollId);
+            throw new EnMePollNotFoundException("poll invalid with this id "+pollId);
+        }
+        return poll;
     }
 
 }
