@@ -1,4 +1,4 @@
-package org.encuestame.business.config;
+package org.encuestame.core.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 17, 2011
  */
-public class EncuestamePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
+public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
 
     /**
      * JVM encuestame path param.
@@ -36,7 +36,7 @@ public class EncuestamePlaceHolderConfigurer extends PropertyPlaceholderConfigur
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(EncuestamePlaceHolderConfigurer.class);
+    private static Log log = LogFactory.getLog(EnMePlaceHolderConfigurer.class);
 
     /**
      * Process collection of properties.
@@ -103,7 +103,7 @@ public class EncuestamePlaceHolderConfigurer extends PropertyPlaceholderConfigur
      * @return
      */
     public static Boolean getBooleanProperty(final String property){
-        String value = EncuestamePlaceHolderConfigurer.getProperty(property);
+        String value = EnMePlaceHolderConfigurer.getProperty(property);
         if(value == null){
             value = "false";
         }
@@ -116,7 +116,7 @@ public class EncuestamePlaceHolderConfigurer extends PropertyPlaceholderConfigur
      * @return
      */
     public static Integer getIntegerProperty(final String property){
-        String value = EncuestamePlaceHolderConfigurer.getProperty(property);
+        String value = EnMePlaceHolderConfigurer.getProperty(property);
         return new Integer(value);
     }
 }

@@ -11,14 +11,17 @@ public final class WebMessage {
         this.message = text;
     }
 
-    public WebInfoType getType() {
+    /**
+     * @return the infoType
+     */
+    public WebInfoType getInfoType() {
         return infoType;
     }
 
     /**
-     * The info text.
+     * @return the message
      */
-    public String getText() {
+    public String getMessage() {
         return message;
     }
 

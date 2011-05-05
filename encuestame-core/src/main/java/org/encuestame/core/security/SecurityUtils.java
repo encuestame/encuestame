@@ -132,6 +132,9 @@ public class SecurityUtils {
         final SocialAuthenticationToken token = new SocialAuthenticationToken(details, authorities);
         token.setProfileId(accountConnection.getSocialProfileId());
         token.setProvider(accountConnection.getAccounType());
+        //clear the context.
+        SecurityContextHolder.clearContext();
+        //set new authentication.
         SecurityContextHolder.getContext().setAuthentication(token);
         if (log.isInfoEnabled()) {
             log.info("Username " + account.getUsername() + " is logged at "

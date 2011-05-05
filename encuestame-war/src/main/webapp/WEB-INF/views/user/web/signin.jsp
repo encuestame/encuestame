@@ -4,6 +4,9 @@
 
  <div id="loginWrapper">
        <div class="formWrapper">
+           <c:if test="${not empty message}">
+                <div class="${message.infoType.css}">${message.message}</div>
+           </c:if>
            <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/j_spring_security_check"  method="post">
                   <div class="field">
                   <div class="label">Username</div>

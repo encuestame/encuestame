@@ -12,8 +12,8 @@
  */
 package org.encuestame.business.service.social.signin;
 
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.api.BuzzAPITemplate;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -47,7 +47,7 @@ public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzA
     @Override
     public BuzzAPIOperations getAPISocialProvider() {
          return new BuzzAPITemplate(getAccessGrant().getAccessToken(),
-                 EncuestamePlaceHolderConfigurer.getProperty("google.api.key"));
+                 EnMePlaceHolderConfigurer.getProperty("google.api.key"));
     }
 
     @Override

@@ -5,11 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
 import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.business.service.social.signin.FacebookSignInSocialSupport;
 import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
@@ -39,6 +41,8 @@ public class SignInController extends AbstractSocialController{
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+    private final String POST_REGISTER_REDIRECT = "/user/signin/register/";
 
 
     @Autowired
@@ -87,7 +91,7 @@ public class SignInController extends AbstractSocialController{
             final ModelMap model,
             HttpServletResponse response,
             HttpServletRequest request) {
-        final Boolean enabledSocialSignIn = EncuestamePlaceHolderConfigurer
+        final Boolean enabledSocialSignIn = EnMePlaceHolderConfigurer
                      .getBooleanProperty("application.social.signin.enabled");
         request.setAttribute("social", enabledSocialSignIn);
         log.debug("login");
@@ -126,26 +130,26 @@ public class SignInController extends AbstractSocialController{
         } else {
             if (SocialProvider.GOOGLE.equals(providerEnum)) {
                OAuth2Parameters auth2Parameters = new OAuth2Parameters(
-                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"),
-                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.secret"),
-                        EncuestamePlaceHolderConfigurer.getProperty("google.accesToken"),
-                        EncuestamePlaceHolderConfigurer.getProperty("google.authorizeURl"),
+                        EnMePlaceHolderConfigurer.getProperty("google.register.client.id"),
+                        EnMePlaceHolderConfigurer.getProperty("google.register.client.secret"),
+                        EnMePlaceHolderConfigurer.getProperty("google.accesToken"),
+                        EnMePlaceHolderConfigurer.getProperty("google.authorizeURl"),
                         SocialProvider.GOOGLE,
-                        EncuestamePlaceHolderConfigurer.getProperty("google.register.client.id"));
+                        EnMePlaceHolderConfigurer.getProperty("google.register.client.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
-                auth2RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         "https://www.googleapis.com/auth/buzz", httpRequest, false));
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
                 OAuth2Parameters auth2Parameters = new OAuth2Parameters(
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.key"),
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.secret"),
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.oauth.accesToken"),
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.oauth.authorize"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.api.key"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.api.secret"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.oauth.accesToken"),
+                        EnMePlaceHolderConfigurer.getProperty("facebook.oauth.authorize"),
                         SocialProvider.FACEBOOK,
-                        EncuestamePlaceHolderConfigurer.getProperty("facebook.api.id"));
+                        EnMePlaceHolderConfigurer.getProperty("facebook.api.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
-                auth2RequestProvider.DEFAULT_CALLBACK_PATH = "/signin/register/";
+                auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         SocialUtils.FACEBOOK_SCOPE, httpRequest, false));
             } else {
@@ -157,6 +161,28 @@ public class SignInController extends AbstractSocialController{
     }
 
     /**
+     *
+     * @param code
+     * @param provider
+     * @param model
+     * @param httpRequest
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="error")
+    public String oauth2ErrorCallback(
+            @RequestParam("error") String error,
+            @PathVariable String provider,
+            final ModelMap model,
+            HttpServletRequest httpRequest,
+            WebRequest request) throws Exception {
+            log.fatal("OAuth Error:{"+error);
+            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+            return "redirect:/user/signin";
+    }
+
+    /**
     *
     * @param code
     * @param httpRequest
@@ -164,25 +190,54 @@ public class SignInController extends AbstractSocialController{
     * @return
     * @throws Exception
     */
-   @RequestMapping(value="/signin/register/{provider}", method=RequestMethod.GET, params="code")
+   @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="code")
    public String oauth2Callback(
            @RequestParam("code") String code,
            @PathVariable String provider,
            final ModelMap model,
            HttpServletRequest httpRequest,
-           WebRequest request) throws Exception {
+           WebRequest request) {
            //get AccesGrant.
-           final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
-           log.debug(accessGrant.getAccessToken());
-           log.debug(accessGrant.getRefreshToken());
-           String x = "signin/provider/register";
-           if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-               x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
-           } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-               x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant));
-           }
-           log.debug("oauth2Callback sign up with social account "+x);
-           return x;
+       try {
+               final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
+               if (log.isDebugEnabled()) {
+                   log.debug(accessGrant.getAccessToken());
+                   log.debug(accessGrant.getRefreshToken());
+               }
+               String x = "redirect:/user/signin/friends";
+               if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
+                    x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
+               } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
+                   x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant));
+               }
+               if (log.isDebugEnabled()) {
+                   log.debug("oauth2Callback sign up with social account "+x);
+               }
+               return x;
+            } catch (EnMeExistPreviousConnectionException e) {
+                 log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
+                 RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+                 return "redirect:/user/signin";
+            } catch (Exception e) {
+                 log.fatal("OAuth Exception:{"+e);
+                 RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+                 return "redirect:/user/signin";
+            }
+   }
+
+   /**
+    *
+    * @param model
+    * @param httpRequest
+    * @param request
+    * @return
+    */
+   @RequestMapping(value="/user/signin/friends", method=RequestMethod.GET)
+   public String oauth2Callback(
+           final ModelMap model,
+           HttpServletRequest httpRequest,
+           WebRequest request) {
+       return "";
    }
 
     /**

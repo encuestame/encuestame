@@ -44,22 +44,22 @@ public class EnMeRoleVoter extends RoleVoter {
      */
     private Log log = LogFactory.getLog(this.getClass());
 
-
+    /**
+     *
+     */
     public int vote(Authentication authentication, Object object,
             Collection<ConfigAttribute> attributes) {
-
         int result = ACCESS_GRANTED;
-
         final Collection<? extends GrantedAuthority> authorities = authentication
                 .getAuthorities();
-
+        log.debug("Authoritiez size "+authorities.size());
         for (ConfigAttribute attribute : attributes) {
             if (this.supports(attribute)) {
                 result = ACCESS_DENIED;
                 // Attempt to find a matching granted authority
-                //log.debug("Attribute" +attribute.getAttribute());
+                log.debug("Attribute" +attribute.getAttribute());
                 for (GrantedAuthority authority : authorities) {
-                    //log.debug("authority.getAuthority())"+authority.getAuthority());
+                    log.debug("authority.getAuthority())"+authority.getAuthority());
                     if (attribute.getAttribute().equals(
                             authority.getAuthority())) {
                         return ACCESS_GRANTED;
@@ -67,7 +67,7 @@ public class EnMeRoleVoter extends RoleVoter {
                 }
             }
         }
-        //log.debug("Result "+result);
+        log.debug("Result "+result);
         return result;
     }
 

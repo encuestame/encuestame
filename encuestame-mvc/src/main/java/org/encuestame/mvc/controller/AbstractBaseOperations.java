@@ -257,7 +257,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     /**
      * Authenticate User.
      * @param user
+     * @deprecated user {@link SecurityUtils}.
      */
+    @Deprecated
     public void authenticate(final UserAccount user){
         final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(user, true);
         final Collection<GrantedAuthority> authorities = details.getAuthorities();

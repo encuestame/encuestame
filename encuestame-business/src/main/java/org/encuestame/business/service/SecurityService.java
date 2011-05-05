@@ -604,8 +604,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
         //generate password.
-        final String password = encodingPassword(EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD));
-        userAccount.setPassword(password);
+        final String password = EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD);
+        userAccount.setPassword(encodingPassword(password));
+        singUpBean.setPassword(password);
         //invite code
         final String inviteCode =  UUID.randomUUID().toString();
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
@@ -616,8 +617,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
         //create global account directory
-        log.debug("singupUser created user account");
-
+        if (log.isDebugEnabled()) {
+            log.debug("singupUser created user account");
+        }
         //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
@@ -626,13 +628,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
-        //send email
+        //send new password
+        getServiceMail().sendPasswordConfirmationEmail(singUpBean);
+        //send confirmation account
         getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
-        log.debug("singupUser notificated");
-        log.debug("new user "+userAccount.getUsername());
-        //loging user.
+        if (log.isDebugEnabled()) {
+            log.debug("new user "+userAccount.getUsername());
+            log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
+        }
+        //login user.
         setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
-        log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return userAccount;
     }
 
@@ -642,6 +647,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     public Boolean isActivated(final SignUpBean signUpBean){
+        //TODO: true?
         return true;
     }
 
@@ -651,9 +657,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     private String encodingPassword(final String password){
-        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        log.info("^^ "+password);
-        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        //TODO: remove on stable versions, only for debug
+        if (log.isDebugEnabled()) {
+            log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            log.debug("^^ "+password);
+            log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        }
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return  passwordEncryptor.encryptPassword(password);
     }
@@ -1176,9 +1185,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             UserAccount accountEmail = getAccountDao().getUserByEmail(email);
             //if the user account is new, we create new account quickly.
             if (accountEmail == null) {
-                accountEmail = this.singupUser(this.convertSocialConnectedAccountToBean(social.getSocialUserProfile()));
                 //create fist connection and social account.
-                this.signUpSocial(social.getSocialUserProfile(), social.getAccessGrant(), social.getProvider());
+                final AccountConnection accountConnection = this.signUpSocial(social.getSocialUserProfile(), social.getAccessGrant(), social.getProvider());
+                SecurityUtils.socialAuthentication(accountConnection);
             } else {
                 //if user exist, we create new account connection
                 final AccountConnection accountConnection = this.signUpSocial(

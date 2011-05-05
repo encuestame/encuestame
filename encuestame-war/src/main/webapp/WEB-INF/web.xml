@@ -11,6 +11,11 @@
          </param-value>
     </context-param>
 
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4j.xml</param-value>
+    </context-param>
+
         <!-- Allows attributes to be accessed on the next request -->
     <filter>
         <filter-name>flashMapFilter</filter-name>
@@ -131,6 +136,10 @@
 
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <listener>
+       <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 
     <servlet>

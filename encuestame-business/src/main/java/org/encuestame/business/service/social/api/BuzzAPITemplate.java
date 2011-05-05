@@ -19,13 +19,14 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.business.config.EncuestamePlaceHolderConfigurer;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.BuzzProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
 
 /**
  * Google Buzz
@@ -43,7 +44,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
     /**
      * Google Key.
      */
-    private String GOOGLE_KEY = EncuestamePlaceHolderConfigurer.getProperty("google.api.key");
+    private String GOOGLE_KEY = EnMePlaceHolderConfigurer.getProperty("google.api.key");
     private String GOOGLE_REST_UPDATE = "https://www.googleapis.com/buzz/v1/activities/@me/@self?key={key}&alt=json";
     private String GOOGLE_REST_PROFILE = "https://www.googleapis.com/buzz/v1/people/@me/@self?alt=json";
     private String GOOGLE_REST_LIKE = "https://www.googleapis.com/buzz/v1/activities/@me/@liked/{activityId}?key={key}";
@@ -96,13 +97,20 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
         final SocialUserProfile profile = new SocialUserProfile();
         Map data = (Map) profileMap.get("data");
         profile.setId(data.get("id").toString());
-        profile.setName(data.get("displayName").toString());
-        profile.setProfileUrl(data.get("thumbnailUrl").toString());
-        profile.setDescription(data.get("aboutMe").toString());
+        profile.setName(data.get("displayName") == null ? "" : data.get("displayName").toString());
+        profile.setProfileUrl(data.get("thumbnailUrl") == null ? "" : data.get("thumbnailUrl").toString());
+        profile.setDescription(data.get("aboutMe") == null ? "" : data.get("aboutMe").toString());
+        //get list of emails.
         List emails = (ArrayList) data.get("emails");
-        Map email = (Map) emails.get(0);
-        profile.setEmail(email.get("value").toString());
-        String[] tokens = email.get("value").toString().split("@");
+        log.debug("email list "+emails.size());
+        if (emails.size() == 0) {
+            log.error("email list is emtpy");
+        }
+        final Map email = (Map) emails.get(0);
+        log.debug("email  "+email);
+        profile.setEmail(email.get("value") == null ? "" : email.get("value").toString());
+        //split username.
+        final String[] tokens = email.get("value").toString().split("@");
         profile.setScreenName(tokens[0]);
         profile.setUsername(tokens[0]);
         return profile;
