@@ -196,7 +196,7 @@ public class SignInController extends AbstractSocialController{
            @PathVariable String provider,
            final ModelMap model,
            HttpServletRequest httpRequest,
-           WebRequest request){
+           WebRequest request) {
            //get AccesGrant.
        try {
                final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
@@ -204,7 +204,7 @@ public class SignInController extends AbstractSocialController{
                    log.debug(accessGrant.getAccessToken());
                    log.debug(accessGrant.getRefreshToken());
                }
-               String x = "signin/provider/register";
+               String x = "redirect:/user/signin/friends";
                if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
                     x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
                } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
@@ -223,6 +223,21 @@ public class SignInController extends AbstractSocialController{
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             }
+   }
+
+   /**
+    *
+    * @param model
+    * @param httpRequest
+    * @param request
+    * @return
+    */
+   @RequestMapping(value="/user/signin/friends", method=RequestMethod.GET)
+   public String oauth2Callback(
+           final ModelMap model,
+           HttpServletRequest httpRequest,
+           WebRequest request) {
+       return "";
    }
 
     /**
