@@ -1061,11 +1061,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#getUserLoggedVerifiedTwitterAccount(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(final String username, final SocialProvider provider)
+    public List<SocialAccountBean> getUserLoggedVerifiedSocialAccounts(final SocialProvider provider)
              throws EnMeNoResultsFoundException{
         final List<SocialAccount> socialAccounts = getAccountDao()
-                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
-        log.debug("social provider verified "+socialAccounts.size());
+                .getSocialVerifiedAccountByUserAccount(getUserAccount(getUserPrincipalUsername()).getAccount(), provider);
+        log.debug("social provider verified:{"+socialAccounts.size());
         return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
    }
 

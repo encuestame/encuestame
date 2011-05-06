@@ -20,9 +20,7 @@ import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -31,7 +29,6 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -65,8 +62,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(
-            final String username,
+    List<SocialAccountBean> getUserLoggedVerifiedSocialAccounts(
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
 
     /**
