@@ -54,6 +54,7 @@ import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
@@ -76,11 +77,11 @@ public class AbstractSurveyService extends AbstractChartService {
     private String tweetPollResultsPath;
 
     /** TweetPoll Dao. **/
-    @Resource
+    @Autowired
     private ITweetPoll tweetPollDao;
 
     /** Hash Tag Dao. **/
-    @Resource
+    @Autowired
     private IHashTagDao hashTagDao;
 
     private Log log = LogFactory.getLog(this.getClass());

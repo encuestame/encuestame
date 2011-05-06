@@ -33,6 +33,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Search Service.
@@ -40,6 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since February 09, 2011
  */
+@Service
 public class SearchService extends AbstractIndexService implements
         SearchServiceOperations {
 

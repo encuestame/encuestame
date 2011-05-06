@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -35,13 +36,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author Picado, Juan juanATencuestameDOTorg
  * @since Aug 21, 2010 10:41:38 PM
  */
+@Deprecated
 public class VerifyAuthenticationFilter implements Filter {
 
     private Logger log = Logger.getLogger(this.getClass());
 
     private  String loginUrl = "/user/signin";
 
-    private  String redirectUrl = "/account/dashboard";
+    private  String redirectUrl = "/user/dashboard";
 
     /**
      * Do Filter.
@@ -64,13 +66,12 @@ public class VerifyAuthenticationFilter implements Filter {
                  //TODO: login, remember password and sign up should be in this condition
                  if(pauthUrl.equals(loginUrlPath.toString())){
                       log.debug("redirect processing");
-                      //responseHttp.sendRedirect("/account/dashboard");
                       response.reset();
                       response.resetBuffer();
                       final Collection<? extends GrantedAuthority>  authorities = authentication
                       .getAuthorities();
                       for (GrantedAuthority grantedAuthority : authorities) {
-                          if(grantedAuthority.getAuthority().equals("ENCUESTAME_USER")){
+                          if(grantedAuthority.getAuthority().equals(EnMePermission.ENCUESTAME_USER.name())){
                               final StringBuffer redirectUrlPath = new StringBuffer();
                               redirectUrlPath.append(httpServletRequest.getContextPath());
                               redirectUrlPath.append(this.redirectUrl);

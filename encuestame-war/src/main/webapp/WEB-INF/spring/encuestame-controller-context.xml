@@ -19,6 +19,7 @@
                <ref bean="openSessionInViewInterceptor"/>
                <ref bean="setupInterceptor"/>
                <ref bean="mobileInterceptor"/>
+               <ref bean="signInInterceptor"/>
           </list>
       </property>
      <property name="order" value="0"/>
@@ -27,6 +28,7 @@
   <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
   <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
   <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
+  <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
   <bean name="openSessionInViewInterceptor"
             class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory">

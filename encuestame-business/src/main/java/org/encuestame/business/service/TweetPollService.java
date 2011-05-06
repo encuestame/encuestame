@@ -52,6 +52,7 @@ import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
+import org.springframework.stereotype.Service;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -61,6 +62,7 @@ import twitter4j.TwitterException;
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since  April 02, 2010
  */
+@Service
 public class TweetPollService extends AbstractSurveyService implements ITweetPollService{
 
     /**
@@ -68,25 +70,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     private Log log = LogFactory.getLog(this.getClass());
 
-    /**
-     * Answer Poll Path.
-     */
-    private String answerPollPath;
 
-    /**
-     * TweetPoll Result Path.
-     */
-    private String tweetPollResultsPath;
 
-    /**
-     * Tweet Path.
-     **/
-    private String tweetPath;
-
-    /**
-     * Twitter Domain.
-     */
-    private String twitterDomain;
 
     /**
      * Default votes.
@@ -517,7 +502,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     @Deprecated
     public String buildTwitterItemView(final String username, final String id){
-        final StringBuilder builder = new  StringBuilder(getTwitterDomain());
+        final StringBuilder builder = new  StringBuilder("http://www.twitter.com");
         builder.append(username);
         builder.append("/status/");
         builder.append(id);
@@ -858,61 +843,5 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         } else {
             throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
         }
-    }
-
-    /**
-     * @return the answerPollPath
-     */
-    public String getAnswerPollPath() {
-        return answerPollPath;
-    }
-
-    /**
-     * @param answerPollPath the answerPollPath to set
-     */
-    public void setAnswerPollPath(final String answerPollPath) {
-        this.answerPollPath = answerPollPath;
-    }
-
-    /**
-     * @return the tweetPollResultsPath
-     */
-    public String getTweetPollResultsPath() {
-        return tweetPollResultsPath;
-    }
-
-    /**
-     * @param tweetPollRgetTweetPollResultsPathesultsPath the tweetPollResultsPath to set
-     */
-    public void setTweetPollResultsPath(final String tweetPollResultsPath) {
-        this.tweetPollResultsPath = tweetPollResultsPath;
-    }
-
-    /**
-     * @return the tweetPath
-     */
-    public String getTweetPath() {
-        return tweetPath;
-    }
-
-    /**
-     * @param tweetPath the tweetPath to set
-     */
-    public void setTweetPath(final String tweetPath) {
-        this.tweetPath = tweetPath;
-    }
-
-    /**
-     * @return the twitterDomain
-     */
-    public String getTwitterDomain() {
-        return twitterDomain;
-    }
-
-    /**
-     * @param twitterDomain the twitterDomain to set
-     */
-    public void setTwitterDomain(String twitterDomain) {
-        this.twitterDomain = twitterDomain;
     }
 }
