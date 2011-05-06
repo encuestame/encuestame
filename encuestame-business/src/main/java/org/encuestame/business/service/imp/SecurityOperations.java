@@ -231,13 +231,6 @@ public interface SecurityOperations extends ServiceOperations {
     UserAccount findUserAccountByEmail(final String email);
 
     /**
-     * Setter.
-     * @param suspendedNotification suspended notification
-     */
-    void setSuspendedNotification(final Boolean suspendedNotification);
-
-
-    /**
      * Load Groups by Client.
      * @return
      * @throws EnMeNoResultsFoundException

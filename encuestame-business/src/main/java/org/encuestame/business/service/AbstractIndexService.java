@@ -16,12 +16,14 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Provide of index/search layer.
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 18, 2011
  */
+@Service
 public abstract class AbstractIndexService extends AbstractBaseService{
 
     /**
