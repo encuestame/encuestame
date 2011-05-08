@@ -194,7 +194,11 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
         profile.setProfileUrl("http://www.twitter.com/"+user.getScreenName());
         profile.setName(user.getName());
         profile.setScreenName(user.getScreenName());
+        profile.setUsername(user.getScreenName());
+        profile.setProfileImageUrl(user.getProfileImageURL().toString());
         profile.setDescription(user.getDescription());
+        profile.setCreatedAt(user.getCreatedAt());
+        profile.setLocation(user.getLocation());
         return profile;
     }
 }

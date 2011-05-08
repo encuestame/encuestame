@@ -124,6 +124,7 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         socialUserProfile.setProfileImageUrl(profile.getProfileImageUrl());
         socialUserProfile.setProfileUrl(profile.getProfileUrl());
         socialUserProfile.setScreenName(profile.getScreenName());
+        socialUserProfile.setUsername(profile.getScreenName());
         socialUserProfile.setUrl(profile.getUrl());
         return socialUserProfile;
     }

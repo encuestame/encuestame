@@ -13,147 +13,96 @@
 package org.encuestame.utils.security;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.encuestame.utils.JsonDateDeserializer;
 
 /**
- * Unit Twitter Account Bean.
+ * Social Account Bean.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 26, 2010 5:15:12 PM
- * @version $Id:$
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SocialAccountBean implements Serializable {
 
     /**
      * Serial.
      */
-    private static final long serialVersionUID = 4250537795415299836L;
+    public static final long serialVersionUID = 4250537795415299836L;
 
-    private Long accountId;
+    @JsonProperty(value = "id")
+    public Long accountId;
 
-    private String account;
+    @JsonProperty(value = "account")
+    public String account;
 
-    private String type;
+    @JsonProperty(value = "type")
+    public String type;
 
-    private String secret;
+    @JsonProperty(value = "type_account")
+    public String typeAccount;
 
-    private String key;
+    @JsonProperty(value = "description")
+    public String  descriptionProfile;
 
-    private String token;
+    @JsonProperty(value = "email")
+    public String  email;
 
-    private String secretToken;
+    @JsonProperty(value = "default_selected")
+    public Boolean  defaultSelected;
 
-    private String pin;
+    @JsonProperty(value = "date_created")
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    public Date addedAccount;
 
-    private String typeAccount;
+    @JsonProperty(value = "picture_url")
+    public String prictureUrl;
 
-    /**
-     * @return the account
-     */
-    public String getAccount() {
-        return account;
+    @JsonProperty(value = "profile_picture_url")
+    public String  profilePictureUrl;
+
+    @JsonProperty(value = "profile_thumbnail_picture")
+    public String  profileThumbnailPictureUrl;
+
+    @JsonProperty(value = "real_name")
+    public String realName;
+
+    @JsonProperty(value = "social_username")
+    public String socialAccountName;
+
+
+    public SocialAccountBean() {
     }
 
-    /**
-     * @param account
-     *            the account to set
-     */
-    public void setAccount(final String account) {
-        this.account = account;
-    }
 
     /**
-     * @return the type
+     * @param accountId the accountId to set
      */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @param type
-     *            the type to set
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * @return the accountId
-     */
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    /**
-     * @param accountId
-     *            the accountId to set
-     */
-    public void setAccountId(final Long accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
-    /**
-     * @return the secret
-     */
-    public String getSecret() {
-        return secret;
-    }
 
     /**
-     * @param secret the secret to set
+     * @param account the account to set
      */
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setAccount(String account) {
+        this.account = account;
     }
+
 
     /**
-     * @return the key
+     * @param type the type to set
      */
-    public String getKey() {
-        return key;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    /**
-     * @param key the key to set
-     */
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
-     * @return the pinl
-     */
-    public String getPin() {
-        return pin;
-    }
-
-    /**
-     * @param pinl the pinl to set
-     */
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getSecretToken() {
-        return secretToken;
-    }
-
-    public void setSecretToken(String secretToken) {
-        this.secretToken = secretToken;
-    }
-
-    /**
-     * @return the typeAccount
-     */
-    public String getTypeAccount() {
-        return typeAccount;
-    }
 
     /**
      * @param typeAccount the typeAccount to set
@@ -162,14 +111,79 @@ public class SocialAccountBean implements Serializable {
         this.typeAccount = typeAccount;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
+
+    /**
+     * @param descriptionProfile the descriptionProfile to set
      */
-    @Override
-    public String toString() {
-        return "SocialAccountBean [accountId=" + accountId + ", account="
-                + account + ", type=" + type + ", secret=" + secret + ", key="
-                + key + ", token=" + token + ", secretToken=" + secretToken
-                + ", pin=" + pin + ", typeAccount=" + typeAccount + "]";
+    public void setDescriptionProfile(String descriptionProfile) {
+        this.descriptionProfile = descriptionProfile;
     }
+
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    /**
+     * @param defaultSelected the defaultSelected to set
+     */
+    public void setDefaultSelected(Boolean defaultSelected) {
+        this.defaultSelected = defaultSelected;
+    }
+
+
+    /**
+     * @param addedAccount the addedAccount to set
+     */
+    public void setAddedAccount(Date addedAccount) {
+        this.addedAccount = addedAccount;
+    }
+
+
+    /**
+     * @param prictureUrl the prictureUrl to set
+     */
+    public void setPrictureUrl(String prictureUrl) {
+        this.prictureUrl = prictureUrl;
+    }
+
+
+    /**
+     * @param profilePictureUrl the profilePictureUrl to set
+     */
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
+
+    /**
+     * @param profileThumbnailPictureUrl the profileThumbnailPictureUrl to set
+     */
+    public void setProfileThumbnailPictureUrl(String profileThumbnailPictureUrl) {
+        this.profileThumbnailPictureUrl = profileThumbnailPictureUrl;
+    }
+
+
+    /**
+     * @param realName the realName to set
+     */
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+
+    /**
+     * @param socialAccountName the socialAccountName to set
+     */
+    public void setSocialAccountName(String socialAccountName) {
+        this.socialAccountName = socialAccountName;
+    }
+
+
+
+
 }

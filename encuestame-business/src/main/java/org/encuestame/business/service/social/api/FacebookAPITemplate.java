@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookLink;
@@ -38,11 +39,17 @@ import org.springframework.web.client.RestTemplate;
  */
 public class FacebookAPITemplate extends AbstractSocialAPISupport implements FacebookAPIOperations {
 
-        private static final String OBJECT_URL = "https://graph.facebook.com/{objectId}";
-        private static final String CONNECTION_URL = OBJECT_URL + "/{connection}";
-        private static final String FRIENDS = "friends";
-        private static final String FEED = "feed";
-        private static final String CURRENT_USER_ID = "me";
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
+    private static final String OBJECT_URL = "https://graph.facebook.com/{objectId}";
+    private static final String PICTURE_PROFILE_URL = "https://graph.facebook.com/{objectId}/picture";
+    private static final String CONNECTION_URL = OBJECT_URL + "/{connection}";
+    private static final String FRIENDS = "friends";
+    private static final String FEED = "feed";
+    private static final String CURRENT_USER_ID = "me";
 
     /**
      * Create a new instance of FacebookTemplate.
@@ -98,6 +105,20 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         String username = String.valueOf(profileMap.get("username"));
         return new FacebookProfile(id, name, firstName, lastName, email, username);
     }
+
+    /**
+     *
+     * @param facebookId
+     * @return
+     */
+    public String getPictureProfile(String facebookId) {
+        @SuppressWarnings("unchecked")
+        Map<String, ?> profileMap = getRestTemplate().getForObject(PICTURE_PROFILE_URL, Map.class,
+                facebookId);
+        log.debug("PROFILE URL "+profileMap);
+        return "";
+    }
+
 
     /*
      * (non-Javadoc)
@@ -162,6 +183,7 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         profile.setFirstName(facebookProfile.getFirstName());
         profile.setLastName(facebookProfile.getLastName());
         profile.setId(String.valueOf(facebookProfile.getId()));
+        profile.setProfileImageUrl(PICTURE_PROFILE_URL.replace("{objectId}", facebookProfile.getUsername()));
         profile.setName(facebookProfile.getName());
         profile.setUsername(facebookProfile.getUsername());
         return profile;

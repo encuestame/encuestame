@@ -20,6 +20,7 @@ import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -411,6 +412,21 @@ public interface SecurityOperations extends ServiceOperations {
             final String token,
             final String tokenSecret,
             final String username,
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param token
+     * @param tokenSecret
+     * @param socialUserProfile
+     * @param socialProvider
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    SocialAccount addNewSocialAccount(
+            final String token,
+            final String tokenSecret,
+            final SocialUserProfile socialUserProfile,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
 
     /**

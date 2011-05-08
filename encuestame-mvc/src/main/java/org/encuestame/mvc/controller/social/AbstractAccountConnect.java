@@ -121,10 +121,8 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
     public String checkOAuth1SocialAccount(
             final SocialProvider socialProvider,
             final OAuth1Token accessToken) throws Exception{
-            log.debug("OAUTH1AccessToken "+accessToken.toString());
-            log.debug("OAUTH1AccessToken Provider "+socialProvider);
-            String socialAccountId = null;
-            String username = null;
+            log.trace("OAUTH1AccessToken "+accessToken.toString());
+            log.trace("OAUTH1AccessToken Provider "+socialProvider);
             String actionToDo = "";
             if (socialProvider.equals(SocialProvider.IDENTICA)) {
                 IdenticaAPIOperations apiOperations = new IdenticaAPITemplate(
@@ -132,13 +130,12 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         accessToken.getSecret());
                 IdentiCaProfile profile = apiOperations.getUserProfile();
                 log.debug("identica profile "+profile.toString());
-                username = profile.getScreenName();
-                socialAccountId = String.valueOf(profile.getId());
+                SocialUserProfile profileAPI = apiOperations.getProfile();
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
-                      socialAccountId);
+                        String.valueOf(profile.getId()));
                 if (socialAccount == null) {
-                    getSecurityService().addNewSocialAccount(socialAccountId,
-                            accessToken.getValue(), accessToken.getSecret(), username,
+                    getSecurityService().addNewSocialAccount(
+                            accessToken.getValue(), accessToken.getSecret(), profileAPI,
                             socialProvider);
                 } else {
                     log.warn("This account already exist");
@@ -148,14 +145,13 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         apiKey, consumerSecret, accessToken.getValue(),
                         accessToken.getSecret());
                 LinkedInProfile profile = apiOperations.getUserProfile();
+                SocialUserProfile profileAPI = apiOperations.getProfile();
                 log.debug("identica profile "+profile.toString());
-                username = profile.getLastName();
-                socialAccountId = profile.getId();
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
-                      socialAccountId);
+                        profile.getId());
                 if (socialAccount == null) {
-                    getSecurityService().addNewSocialAccount(socialAccountId,
-                            accessToken.getValue(), accessToken.getSecret(), username,
+                    getSecurityService().addNewSocialAccount(
+                            accessToken.getValue(), accessToken.getSecret(), profileAPI,
                             socialProvider);
                 } else {
                     log.warn("This account already exist");
@@ -165,13 +161,11 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         accessToken.getSecret());
                 SocialUserProfile profile = operations.getProfile();
                 log.debug("identica profile "+profile.toString());
-                username = profile.getScreenName();
-                socialAccountId = profile.getId();
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
-                      socialAccountId);
+                        profile.getId());
                 if (socialAccount == null) {
-                    getSecurityService().addNewSocialAccount(socialAccountId,
-                            accessToken.getValue(), accessToken.getSecret(), username,
+                    getSecurityService().addNewSocialAccount(
+                            accessToken.getValue(), accessToken.getSecret(), profile,
                             socialProvider);
                 } else {
                     log.warn("This account already exist");
@@ -194,32 +188,20 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
      */
     public String checkOAuth2SocialAccount(final SocialProvider socialProvider,
             final AccessGrant accessGrant) throws Exception {
-        String socialAccountId = null;
-        String username = null;
         String actionToDo = "";
         if (socialProvider.equals(SocialProvider.FACEBOOK)) {
-            FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(accessGrant.getAccessToken());
-            final FacebookProfile profile = facebookAPIOperations.getUserProfile();
-            socialAccountId = String.valueOf(profile.getId());
-            username = profile.getFirstName() + " "+profile.getLastName();
-            getSecurityService().addNewSocialAccount(socialAccountId,
-                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), username,
+            final FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(accessGrant.getAccessToken());
+            getSecurityService().addNewSocialAccount(
+                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(),
+                    facebookAPIOperations.getProfile(),
                     socialProvider);
-            facebookAPIOperations.updateStatus("12345 @encuestame");
         } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
-            BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
+            final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
             log.debug(apiOperations.getProfile());
-            socialAccountId = RandomStringUtils.randomAlphabetic(10); //TEMP.
-            username = "";
-            getSecurityService().addNewSocialAccount(socialAccountId,
-                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), username,
+            getSecurityService().addNewSocialAccount(
+                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(),
+                    apiOperations.getProfile(),
                     socialProvider);
-            try {
-                apiOperations.updateStatus("12345 @encuestame");
-            } catch (Exception e) {
-                e.printStackTrace();
-                log.fatal(e);
-            }
         }
         return actionToDo;
     }

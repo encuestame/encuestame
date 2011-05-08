@@ -49,6 +49,12 @@ public class LinkedInProfile implements Serializable {
     @XmlElement
     String industry;
 
+    @XmlElement(name = "public-profile-url")
+    String profileUrl;
+
+    @XmlElement(name = "picture-url")
+    String pictureUrl;
+
     /**
      * The user's LinkedIn profile ID
      *
@@ -115,6 +121,22 @@ public class LinkedInProfile implements Serializable {
         return publicProfileUrls != null && publicProfileUrls.length > 0 ? publicProfileUrls[0] : null;
     }
 
+
+    /**
+     * @return the profileUrl
+     */
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+
+    /**
+     * @return the pictureUrl
+     */
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -125,8 +147,7 @@ public class LinkedInProfile implements Serializable {
                 + ", standardProfileUrls="
                 + Arrays.toString(standardProfileUrls) + ", publicProfileUrls="
                 + Arrays.toString(publicProfileUrls) + ", industry=" + industry
+                + ", profileUrl=" + profileUrl + ", pictureUrl=" + pictureUrl
                 + "]";
     }
-
-
 }

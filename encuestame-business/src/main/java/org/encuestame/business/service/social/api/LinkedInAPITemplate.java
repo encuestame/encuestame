@@ -98,14 +98,16 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
     @Override
     public SocialUserProfile getProfile() throws Exception {
         final SocialUserProfile profile = new SocialUserProfile();
-        LinkedInProfile inProfile = new LinkedInProfile();
+        final LinkedInProfile inProfile = getUserProfile();
         profile.setFirstName(inProfile.getFirstName());
         profile.setId(inProfile.getId());
         profile.setHeadline(inProfile.getHeadline());
         profile.setIndustry(inProfile.getIndustry());
         profile.setLastName(inProfile.getLastName());
         profile.setProfileUrl(inProfile.getPublicProfileUrl());
+        profile.setProfileImageUrl(inProfile.getPictureUrl());
         profile.setUrl(inProfile.getStandardProfileUrl());
+        profile.setUsername(inProfile.getProfileUrl()); //TODO: linkedIn provide username?
         return profile;
     }
 }

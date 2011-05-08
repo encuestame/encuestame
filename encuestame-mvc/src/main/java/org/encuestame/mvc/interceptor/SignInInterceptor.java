@@ -17,10 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -67,7 +64,7 @@ public class SignInInterceptor extends AbstractEnMeInterceptor{
         StringBuilder path = new StringBuilder(context);
         path.append(PathUtil.signIn);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.debug("Sign In Auth:{ "+authentication);
+        log.trace("Sign In Auth:{ "+authentication);
         //if (arg0.getRequestURI().equals(path.toString())) {
          //   log.debug("Sign In are equals:{ "+arg0.getRequestURI());
         //    if (authentication != null) {

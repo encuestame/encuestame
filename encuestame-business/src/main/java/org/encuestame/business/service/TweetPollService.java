@@ -439,7 +439,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final List<TweetPollSavedPublishedStatus> results = new ArrayList<TweetPollSavedPublishedStatus>();
             for (SocialAccountBean unitTwitterAccountBean : twitterAccounts) {
                 log.debug("publicMultiplesTweetAccounts unitTwitterAccountBean "+unitTwitterAccountBean.toString());
-                results.add(this.publishTweetPoll(unitTwitterAccountBean.getAccountId(), tweetPoll,
+                results.add(this.publishTweetPoll(unitTwitterAccountBean.accountId, tweetPoll,
                             SocialProvider.TWITTER));
             }
             return results;

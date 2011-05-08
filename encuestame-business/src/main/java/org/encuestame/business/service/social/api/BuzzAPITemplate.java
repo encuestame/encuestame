@@ -15,9 +15,7 @@ package org.encuestame.business.service.social.api;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -26,7 +24,6 @@ import org.encuestame.core.social.BuzzProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.exception.EnmeNotAllowedException;
 
 /**
  * Google Buzz
@@ -98,7 +95,8 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
         Map data = (Map) profileMap.get("data");
         profile.setId(data.get("id").toString());
         profile.setName(data.get("displayName") == null ? "" : data.get("displayName").toString());
-        profile.setProfileUrl(data.get("thumbnailUrl") == null ? "" : data.get("thumbnailUrl").toString());
+        profile.setProfileUrl(data.get("profileUrl") == null ? "" : data.get("profileUrl").toString());
+        profile.setProfileImageUrl(data.get("thumbnailUrl") == null ? "" : data.get("thumbnailUrl").toString());
         profile.setDescription(data.get("aboutMe") == null ? "" : data.get("aboutMe").toString());
         //get list of emails.
         List emails = (ArrayList) data.get("emails");

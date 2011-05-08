@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
