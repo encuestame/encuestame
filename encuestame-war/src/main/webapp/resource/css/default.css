@@ -78,6 +78,30 @@ a:hover{
     width: 92%;
 }
 
+#content-container #enme-content div.errorWrapper {
+  font-size: 120%;
+  font-weight: bold;
+  margin: 110px 135px auto;
+}
+
+#content-container #enme-content div.errorWrapper div.extra {
+  background-color: #EFEFEF;
+  border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  margin: 22px;
+  padding: 10px;
+}
+
+#content-container #enme-content div.errorWrapper div.extra .title{
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#content-container #enme-content div.errorWrapper div.extra a{
+    padding: 5px;
+}
+
 #defaultWrapper{
     clear: left;
     padding: 1px 0 8px;

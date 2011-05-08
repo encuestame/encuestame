@@ -31,12 +31,26 @@ public class ErrorController  extends AbstractBaseOperations {
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * @param model da
-     * @return da
+     *
+     * @param model
+     * @return
      */
-    @RequestMapping("/errorController")
-    public String tweetPollController(ModelMap model) {
+    @RequestMapping("/error")
+    public String errorController(final ModelMap model) {
         log.error("errorController");
-        return "in";
+        return "error";
     }
+
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("/user/denied")
+    public String errorDeniedController(final ModelMap model) {
+        log.error("errorController");
+        return "error/denied";
+    }
+
+
 }

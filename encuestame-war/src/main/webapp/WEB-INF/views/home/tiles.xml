@@ -23,9 +23,4 @@
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}hashtag.jsp" />
     </definition>
 
-     <definition name="pageNotFound" extends="page">
-        <put-attribute name="title" value="Page Not Found" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}404.jsp" />
-    </definition>
-
 </tiles-definitions>

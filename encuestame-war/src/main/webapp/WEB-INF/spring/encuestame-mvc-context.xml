@@ -46,24 +46,13 @@
 
     <!-- Configures File Upload -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- the maximum file size in bytes = 10MB -->
-        <property name="maxUploadSize" value="10485760" />
+        <property name="maxUploadSize" value="${application.file.upload.limit}" />
     </bean>
 
     <!-- Resolvers -->
     <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
          <property name="order" value="0"/>
     </bean>
-
-  <!--
-  This Resolve it's not compatible with org.springframework.web.servlet.view.UrlBasedViewResolver
-  <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-      <property name="order" value="3"/>
-      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-      <property name="prefix" value="/WEB-INF/jsp/"/>
-      <property name="suffix" value=".jsp"/>
-  </bean>
-  -->
 
   <!-- Controller Views -->
   <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
@@ -112,26 +101,7 @@
     logical - view names for error views. The default behaviour of
     DispatcherServlet - is to propagate all exceptions to the servlet
     container: this will happen - here with all other types of exceptions.
-    http://forum.springsource.org/showthread.php?t=36960
-  <bean
-    class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-    <property name="exceptionMappings">
-      <props>
-        <prop key="org.springframework.dao.DataAccessException">errorController</prop>
-        <prop key="org.springframework.transaction.TransactionException">errorController</prop>
-        <prop key="org.springframework.web.util.NestedServletException">errorController</prop>
-        <prop key="java.lang.Exception">errorController</prop>
-      </props>
-    </property>
-  </bean>
-  -->
-
-    <!--
-     http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/view.html
-    <bean id="viewMappings" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-       <property name="order" value="3"/>
-       <property name="basename" value="views"/>
-    </bean>
-    -->
+    http://forum.springsource.org/showthread.php?t=36960-->
+  <bean class="org.encuestame.core.exception.EnMeMappingExceptionResolver"/>
 
 </beans>

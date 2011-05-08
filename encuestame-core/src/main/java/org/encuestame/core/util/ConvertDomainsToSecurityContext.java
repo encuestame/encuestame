@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.security.Permission;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * Convert Domains to Security Context.
@@ -42,7 +43,7 @@ public class ConvertDomainsToSecurityContext {
             final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             for (Permission permission : permissions) {
                 if(permission != null){
-                    authorities.add(new GrantedAuthorityImpl(permission.getPermission().toString()));
+                    authorities.add(new SimpleGrantedAuthority(permission.getPermission().toString()));
                 } else {
                     log.warn("impossible granted authority");
                 }
