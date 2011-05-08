@@ -1,13 +1,20 @@
 <%@ page session="false" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
  <div id="loginWrapper">
        <div class="formWrapper">
            <c:if test="${not empty message}">
                 <div class="${message.infoType.css}">${message.message}</div>
            </c:if>
-           <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/j_spring_security_check"  method="post">
+           <c:if test="${signinError}">
+              <div class="error">
+              Your sign in information was incorrect.<br/>
+              Please try again or <a href="<c:url value="/user/signup" />">sign up</a> free.
+              </div>
+          </c:if>
+           <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/user/signin/authenticate"
+                 method="post">
                   <div class="field">
                   <div class="label">Username</div>
                   <div class="output">

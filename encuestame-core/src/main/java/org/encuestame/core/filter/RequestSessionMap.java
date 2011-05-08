@@ -43,28 +43,32 @@ public final class RequestSessionMap {
     }
 
     /**
-     * Set the 'message' attribute to a info {@link Message} that renders the info text.
+     * Set the 'message' attribute to a info {@link WebMessage} that renders the info text.
      */
     public static void setInfoMessage(String info) {
         put(MESSAGE_ATTRIBUTE, new WebMessage(WebMessage.WebInfoType.INFO, info));
     }
 
     /**
-     * Set the 'message' attribute to a warning {@link Message} that renders the warning text.
+     * Set the 'message' attribute to a warning {@link WebMessage} that renders the warning text.
      */
     public static void setWarningMessage(String warning) {
         put(MESSAGE_ATTRIBUTE, new WebMessage(WebMessage.WebInfoType.WARNING, warning));
     }
 
     /**
-     * Set the 'message' attribute to a error {@link Message} that renders the error text.
+     * Set the 'message' attribute to a error {@link WebMessage} that renders the error text.
      */
     public static void setErrorMessage(String error) {
         put(MESSAGE_ATTRIBUTE, new WebMessage(WebMessage.WebInfoType.ERROR, error));
     }
 
+    public static void setErrorMessage(String error, final String description) {
+        put(MESSAGE_ATTRIBUTE, new WebMessage(WebMessage.WebInfoType.ERROR, error, description));
+    }
+
     /**
-     * Set the 'message' attribute to a success {@link Message} that renders the success text.
+     * Set the 'message' attribute to a success {@link WebMessage} that renders the success text.
      */
     public static void setSuccessMessage(String success) {
         put(MESSAGE_ATTRIBUTE, new WebMessage(WebMessage.WebInfoType.SUCCESS, success));

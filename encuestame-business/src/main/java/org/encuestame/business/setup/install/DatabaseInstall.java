@@ -38,7 +38,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @throws IOException
      */
     private String[] getScripts(final String scriptFilePath) throws IOException {
-        log.debug("scriptFilePath "+scriptFilePath);
+        log.trace("scriptFilePath "+scriptFilePath);
         return SqlScriptParser.readScript(scriptFilePath);
     }
 
@@ -111,10 +111,10 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     private void installScript(final String sqlLocation) throws IOException{
         final String[] scripts = this.getScripts(sqlLocation);
-        log.debug("scripts size ... " + scripts.length);
+        log.trace("scripts size ... " + scripts.length);
         for (int i = 0; i < scripts.length; i++) {
             final String script = scripts[i];
-            log.debug("script to execute ... " + script);
+            log.trace("script to execute ... " + script);
             installerOperations.executeSql(script);
         }
     }

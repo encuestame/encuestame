@@ -80,8 +80,8 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
      */
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-        log.debug("preHandle");
         final Authentication auth = getSecCtx().getAuthentication();
+        log.debug("preHandle security auth "+auth);
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
             log.debug("auth valid");
             if(SecurityUtils.checkIsSessionIsAnonymousUser(auth)){
