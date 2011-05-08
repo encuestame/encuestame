@@ -21,7 +21,7 @@
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
        <property name="mappings">
          <value>
-           /signup=flowController
+           /user/signup=flowController
          </value>
        </property>
        <property name="defaultHandler" ref="urlFilenameViewController"/>

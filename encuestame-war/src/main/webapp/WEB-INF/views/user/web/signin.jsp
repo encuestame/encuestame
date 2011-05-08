@@ -8,9 +8,10 @@
                 <div class="${message.infoType.css}">${message.message}</div>
            </c:if>
            <c:if test="${signinError}">
-          <div class="${message.infoType.css}">Your sign in information was incorrect.</div>
-              Your sign in information was incorrect.
+              <div class="error">
+              Your sign in information was incorrect.<br/>
               Please try again or <a href="<c:url value="/user/signup" />">sign up</a> free.
+              </div>
           </c:if>
            <form class="form" name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/user/signin/authenticate"
                  method="post">
