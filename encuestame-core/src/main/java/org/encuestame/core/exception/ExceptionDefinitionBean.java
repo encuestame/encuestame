@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,18 +10,15 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.service;
-
-import org.encuestame.business.service.imp.IChartService;
-import org.springframework.stereotype.Service;
+package org.encuestame.core.exception;
 
 /**
- * Chart Service.
+ * Description.
  * @author Picado, Juan juanATencuestame.org
- * @since Sep 14, 2010 12:54:22 PM
- * @version Id:
+ * @since May 6, 2011
  */
-@Service
-public class ChartService extends AbstractChartService implements IChartService{
+public class ExceptionDefinitionBean {
+
+
 
 }

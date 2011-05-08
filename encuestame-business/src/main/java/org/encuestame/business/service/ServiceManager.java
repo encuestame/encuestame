@@ -14,7 +14,8 @@ package org.encuestame.business.service;
 
 import org.encuestame.business.service.imp.IApplicationServices;
 import org.encuestame.business.service.imp.IServiceManager;
-import org.encuestame.core.util.MessageSourceFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 
@@ -31,9 +32,11 @@ public class ServiceManager implements IServiceManager {
     /**
      * {@link ApplicationServices}.
      */
+    @Autowired
     private IApplicationServices applicationServices;
 
-    private MessageSourceFactoryBean messageSource;
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * Setter of {@link ApplicationServices}.
@@ -54,14 +57,14 @@ public class ServiceManager implements IServiceManager {
     /**
      * @return the messageSource
      */
-    public MessageSourceFactoryBean getMessageSource() {
+    public MessageSource getMessageSource() {
         return messageSource;
     }
 
     /**
      * @param messageSource the messageSource to set
      */
-    public void setMessageSource(MessageSourceFactoryBean messageSource) {
+    public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 }

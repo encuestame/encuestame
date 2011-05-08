@@ -96,7 +96,6 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
         Map profileMap = getRestTemplate().getForObject(this.GOOGLE_REST_PROFILE, Map.class);
         final SocialUserProfile profile = new SocialUserProfile();
         Map data = (Map) profileMap.get("data");
-        log.debug("Google Profile------------ "+data);
         profile.setId(data.get("id").toString());
         profile.setName(data.get("displayName") == null ? "" : data.get("displayName").toString());
         profile.setProfileUrl(data.get("thumbnailUrl") == null ? "" : data.get("thumbnailUrl").toString());

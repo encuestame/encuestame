@@ -179,9 +179,9 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-//             final List<SocialAccountBean> accounts = getSecurityService()
-//                   .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
-//             setItemReadStoreResponse("socialAccounts", "id", accounts);
+           final List<SocialAccountBean> accounts = getSecurityService()
+                   .getUserLoggedVerifiedSocialAccounts(SocialProvider.getProvider(provider));
+             setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
         } catch (Exception e) {
             log.error(e);
@@ -209,7 +209,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {final List<SocialAccountBean> accounts = getSecurityService()
-            .getUserLoggedVerifiedTwitterAccount(getUserPrincipalUsername(), SocialProvider.getProvider(provider));
+            .getUserLoggedVerifiedSocialAccounts(SocialProvider.getProvider(provider));
             setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");
         } catch (Exception e) {

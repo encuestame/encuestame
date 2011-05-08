@@ -96,9 +96,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
     private final String DASHBOARD_REDIRECT = "redirect:/user/dashboard";
 
-    /** Suspended Notification. **/
-    private Boolean suspendedNotification;
-
     /**
      * Retrieve Total Own Users.
      * @param username username
@@ -201,11 +198,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
-                if (getSuspendedNotification()) {
+                //if (getSuspendedNotification()) {
                     log.info("notify delete account");
-                    getServiceMail().sendDeleteNotification(userBean.getEmail(),
+                    getMailServiceOperations().sendDeleteNotification(userBean.getEmail(),
                             getMessageProperties("MessageDeleteNotification"));
-                }
+                //}
                 log.info("deleting user");
                 getAccountDao().delete(userDomain);
                 log.info("user deleted");
@@ -227,11 +224,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             //TODO: security risk?
             userBean.setPassword(newPassword);
             //if notification is suspended we need retrieve password
-            if (getSuspendedNotification()) {
-                getServiceMail().sendRenewPasswordEmail(userBean);
-            } else {
+            //if (getSuspendedNotification()) {
+                getMailServiceOperations().sendRenewPasswordEmail(userBean);
+            //} else {
                 log.warn("Notifications Email are suspendend");
-            }
+            //}
             //saving user.
             getAccountDao().saveOrUpdate(userDomain);
         }
@@ -394,9 +391,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setEnjoyDate(new Date());
             // send to user the password to her emails
-            if((getSuspendedNotification())) {
+            //if((getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), password);
-            }
+            //}
             // save user
             getAccountDao().saveOrUpdate(userAccount);
             // assing first default group to user
@@ -604,8 +601,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
         //generate password.
-        final String password = encodingPassword(EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD));
-        userAccount.setPassword(password);
+        final String password = EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD);
+        userAccount.setPassword(encodingPassword(password));
+        singUpBean.setPassword(password);
         //invite code
         final String inviteCode =  UUID.randomUUID().toString();
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
@@ -616,8 +614,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
         //create global account directory
-        log.debug("singupUser created user account");
-
+        if (log.isDebugEnabled()) {
+            log.debug("singupUser created user account");
+        }
         //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
@@ -626,13 +625,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
-        //send email
-        getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
-        log.debug("singupUser notificated");
-        log.debug("new user "+userAccount.getUsername());
-        //loging user.
+        //send new password
+        getMailServiceOperations().sendPasswordConfirmationEmail(singUpBean);
+        //send confirmation account
+        getMailServiceOperations().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        if (log.isDebugEnabled()) {
+            log.debug("new user "+userAccount.getUsername());
+            log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
+        }
+        //login user.
         setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
-        log.debug("Get Authoritie Name"+SecurityContextHolder.getContext().getAuthentication().getName());
         return userAccount;
     }
 
@@ -642,6 +644,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     public Boolean isActivated(final SignUpBean signUpBean){
+        //TODO: true?
         return true;
     }
 
@@ -651,9 +654,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     private String encodingPassword(final String password){
-        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        log.info("^^ "+password);
-        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        //TODO: remove on stable versions, only for debug
+        if (log.isDebugEnabled()) {
+            log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            log.debug("^^ "+password);
+            log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        }
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return  passwordEncryptor.encryptPassword(password);
     }
@@ -702,7 +708,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @throws Exception excepcion
      */
     public void inviteUser(String email, String code){
-        getServiceMail().sendInvitation(email, code);
+        getMailServiceOperations().sendInvitation(email, code);
     }
 
     /**
@@ -743,7 +749,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
-        getServiceMail().send(email, getMessageProperties("NewPassWordMail"),
+        getMailServiceOperations().send(email, getMessageProperties("NewPassWordMail"),
                 password);
     }
 
@@ -762,21 +768,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public String getDefaultUserPermission() {
         return  DEFAULT.name();
-    }
-
-    /**
-     * Getter.
-     * @return suspendend notification
-     */
-    public Boolean getSuspendedNotification() {
-        return suspendedNotification;
-    }
-    /**
-     * Setter.
-     * @param suspendedNotification suspended notification
-     */
-    public void setSuspendedNotification(final Boolean suspendedNotification) {
-        this.suspendedNotification = suspendedNotification;
     }
 
     /**
@@ -1070,11 +1061,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#getUserLoggedVerifiedTwitterAccount(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(final String username, final SocialProvider provider)
+    public List<SocialAccountBean> getUserLoggedVerifiedSocialAccounts(final SocialProvider provider)
              throws EnMeNoResultsFoundException{
         final List<SocialAccount> socialAccounts = getAccountDao()
-                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
-        log.debug("social provider verified "+socialAccounts.size());
+                .getSocialVerifiedAccountByUserAccount(getUserAccount(getUserPrincipalUsername()).getAccount(), provider);
+        log.debug("social provider verified:{"+socialAccounts.size());
         return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
    }
 
@@ -1100,7 +1091,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
         }
         singUp = ConvertDomainBean.convertBasicSecondaryUserToSignUpBean(userAcc);
-        getServiceMail().sendNotificationStatusAccount(singUp, "User status");
+        getMailServiceOperations().sendNotificationStatusAccount(singUp, "User status");
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
 
@@ -1116,7 +1107,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         singUp.setPassword(userAccBean.getPassword());
         singUp.setUsername(userAccBean.getUsername());
         getAccountDao().saveOrUpdate(singUp);
-        getServiceMail().sendNotificationStatusAccount(singUp, "Change user status");
+        getMailServiceOperations().sendNotificationStatusAccount(singUp, "Change user status");
     }
 
    /**

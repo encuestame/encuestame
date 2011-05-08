@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.mail;
+package org.encuestame.business.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,42 +20,48 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
+import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.mail.MailService;
-import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**
  * Class Implements a Mail Service.
  * @author Picado, Juan juan@encuestame.org
  * @since May 05, 2009
- * @version $Id$
  */
 
 @SuppressWarnings("unchecked")
-public class MailServiceImpl extends AbstractBaseService implements MailService, ServiceOperations {
+@Service
+public class MailService extends AbstractBaseService implements MailServiceOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /** email to  no-response. **/
-    private String noEmailResponse;
+    @Value("${mail.noresponse}") private String noEmailResponse;
     /** mail sender. **/
+    @Autowired
     private JavaMailSenderImpl mailSender;
     /** template of message. **/
+    @Autowired
     private SimpleMailMessage templateMessage;
     /** VelocityEngine. **/
+    @Autowired
     private VelocityEngine velocityEngine;
-
+    /**
+     *
+     */
     private String domainDefault = EnMePlaceHolderConfigurer.getProperty("application.domain");
 
 
@@ -98,7 +104,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         msg.setTo(to);
         // msg.setCc();
         msg.setText(text);
-        msg.setSubject(subject);
+        msg.setSubject(buildSubject(subject));
         mailSender.send(msg);
         //log.debug("mail.succesful");
     }
@@ -120,7 +126,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
                 .setText("<h1>Invitation to Encuestame</h1><p>Please confirm"
                         +" this invitation <a>http://www.encuesta.me/cod/"
                         + code + "</a>");
-        msg.setSubject("test");
+        msg.setSubject(buildSubject("test"));
         try{
             //log.info("Sending email");
             //log.debug("Sending host "+mailSender.getHost());
@@ -148,19 +154,13 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
      */
     public void sendDeleteNotification(
             final String to,
-            final String body)throws MailSendException
-   {
-        //log.debug("sendDeleteNotification ->"+body);
-        //log.debug("sendDeleteNotification to->"+to);
+            final String body)throws MailSendException {
         SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
-        //log.debug("sendDeleteNotification setFrom..");
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
         msg.setText(body);
-        msg.setSubject(getMessageProperties("DeleteSubjectInvitation"));
-        //log.debug("sendDeleteNotification sending..");
+        msg.setSubject(buildSubject(getMessageProperties("DeleteSubjectInvitation")));
         mailSender.send(msg);
-        //log.debug("sendDeleteNotification sendend..");
     }
 
     /**
@@ -172,7 +172,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(invitation.getEmail());
-              message.setSubject("New Password Confirmation");
+              message.setSubject(buildSubject("New Password Confirmation"));
               message.setFrom(noEmailResponse);
               @SuppressWarnings("rawtypes")
               Map model = new HashMap();
@@ -195,7 +195,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(notification.getEmail());
-              message.setSubject("New Password Confirmation");
+              message.setSubject(buildSubject("New Password Confirmation"));
               message.setFrom(noEmailResponse);
               Map model = new HashMap();
               model.put("notification", notification);
@@ -218,7 +218,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                message.setTo(EnMePlaceHolderConfigurer
                        .getProperty("setup.email.notification.webmaster"));
-               message.setSubject("Start Up Notification");
+               message.setSubject(buildSubject("Start Up Notification"));
                message.setFrom(noEmailResponse);
                Map model = new HashMap();
                model.put("message", startupMessage);
@@ -239,7 +239,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(user.getEmail());
-              message.setSubject("New Password Confirmation");
+              message.setSubject(buildSubject(getMessageProperties("emailPasswordConfirmation")));
               message.setFrom(noEmailResponse);
               Map model = new HashMap();
               model.put("user", user);
@@ -260,11 +260,12 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(user.getEmail());
-              message.setSubject("Confirm Your Account");
+              message.setSubject(buildSubject("Confirm Your Account"));
               message.setFrom(noEmailResponse);
               final Map<String, Object> model = new HashMap<String, Object>();
               model.put("user", user);
               model.put("inviteCode", inviteCode);
+              model.put("domain", domainDefault);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
                               velocityEngine, "/org/encuestame/business/mail/templates/confirm-your-account.vm", model);
               message.setText(text, true);
@@ -294,7 +295,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(user.getEmail());
-              message.setSubject("Notificaction status account");
+              message.setSubject(buildSubject("Notificaction status account"));
               message.setFrom(noEmailResponse);
               Map model = new HashMap();
               model.put("user", user);
@@ -323,7 +324,7 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
            public void prepare(MimeMessage mimeMessage) throws Exception {
               final MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(email);
-              message.setSubject(subject);
+              message.setSubject(buildSubject(subject));
               message.setFrom(from);
               final String text = VelocityEngineUtils.mergeTemplateIntoString(
                  velocityEngine, template, model);
@@ -332,6 +333,18 @@ public class MailServiceImpl extends AbstractBaseService implements MailService,
         };
         this.send(preparator);
      }
+
+    /**
+     *
+     * @param subject
+     */
+    private String buildSubject(final String subject){
+        final StringBuilder builder = new StringBuilder();
+        builder.append(EnMePlaceHolderConfigurer.getProperty("application.name"));
+        builder.append(": ");
+        builder.append(subject);
+        return builder.toString();
+    }
 
     /**
      * Send Mime Message.

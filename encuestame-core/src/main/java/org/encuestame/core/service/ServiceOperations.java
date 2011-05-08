@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.service;
 
-import org.encuestame.core.util.MessageSourceFactoryBean;
+import org.springframework.context.MessageSource;
 
 /**
  * Service Interface.
@@ -22,17 +22,17 @@ import org.encuestame.core.util.MessageSourceFactoryBean;
  */
 public interface ServiceOperations{
 
-    /**
-     * Getter.
-     * @return {@link MessageSourceFactoryBean}
-     */
-    public MessageSourceFactoryBean getMessageSource();
-
-    /**
-     * Setter.
-     * @param messageSource {@link MessageSourceFactoryBean}
-     */
-    public void setMessageSource(MessageSourceFactoryBean messageSource);
+//    /**
+//     * Getter.
+//     * @return {@link MessageSourceFactoryBean}
+//     */
+//    public MessageSource getMessageSource();
+//
+//    /**
+//     * Setter.
+//     * @param messageSource {@link MessageSourceFactoryBean}
+//     */
+//    public void setMessageSource(MessageSource messageSource);
 
     /**
      * Getter by propertie Id.
