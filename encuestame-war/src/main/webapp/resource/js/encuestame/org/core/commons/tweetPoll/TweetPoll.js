@@ -18,6 +18,7 @@ dojo.require("dojox.widget.Dialog");
 
 dojo.require("encuestame.org.core.commons.tweetPoll.Answers");
 dojo.require("encuestame.org.core.commons.tweetPoll.HashTags");
+dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPoll",

@@ -387,36 +387,80 @@ div.tweetPollDetail div.answerVote{
 
 div.socialAccountPicker{
     width: 100%;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
     max-width: 600px;
     padding: 4px;
     max-height: 240px;
-    overflow: auto;
+}
+
+div.socialAccountPicker div.menu{
+    padding: 5px;
+    background: #888888;
+    color: white;
+    min-height: 15px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 95%;
+    text-align: right;
+}
+
+div.socialAccountPicker .pick{
+    cursor: pointer;
+}
+
+div.socialAccountPicker .pick:hover{
+    text-decoration: underline;
+}
+
+div.socialAccountPicker div.resume{
+    padding: 5px;
+    background: #888888;
+    color: white;
+    min-height: 15px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+    font-size: 95%;
+    text-align: right;
 }
 
 div.socialAccountPicker .list{
-    float: left;
-    width: 250px;
     overflow: auto;
     max-height: 200px;
 }
 
-div.socialAccountPicker .selected{
-    float: right;
-    min-width: 400px;
-    border: 1px solid gray;
+div.socialAccountPicker div.account{
+    margin: 1px;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #E6E6E6;
+    color: #776E6E;
+    font-size: 130%;
+    border: 0.1em solid #D0CFCF;
+    padding: 1px;
+    min-width: 200px;
+    cursor: pointer;
+    overflow: auto;
+    text-shadow: 0 1px 0 #FFFFFF;
 }
 
-div.socialAccountPicker div.account{
-   -webkit-border-radius: 10px;
-   -moz-border-radius: 10px;
-    border-radius: 10px;
-    background-color: blue;
-    color: white;
-    font-size: 130%;
-    border: 1px solid black;
+div.socialAccountPicker div.account:hover{
+    background-color: #A3A7A7;
+}
+
+div.socialAccountPicker div.account div.image{
+    float: left;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+
+div.socialAccountPicker div.account div.detail{
+    float: left;
+}
+
+div.socialAccountPicker div.account div.icon{
+    float: right;
     padding: 5px;
-    min-width: 200px;
 }

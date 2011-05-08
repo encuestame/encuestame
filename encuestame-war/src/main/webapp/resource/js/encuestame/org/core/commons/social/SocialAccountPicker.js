@@ -20,8 +20,18 @@ dojo.declare(
         arrayWidgetAccounts : [],
 
         postCreate : function(){
-            dojo.subscribe("/encuestame/tweetpoll/twitter/accounts", this, "showListAccounts");
+            dojo.subscribe("/encuestame/social/picker/accounts/reload", this, "showListAccounts");
             this._loadSocialConfirmedAccounts();
+            dojo.connect(this._all, "onclick", this, this.editUSer);
+            dojo.connect(this._selected, "onclick", this, this._selected);
+        },
+
+        _selectAll : function(){
+
+        },
+
+        _selected : function(){
+
         },
 
         /*
@@ -48,14 +58,14 @@ dojo.declare(
            dojo.forEach(
                    this.arrayAccounts,
                    dojo.hitch(this, function(data, index) {
-                         this.createPickSocualAccount(data);
+                         this.createPickSocialAccount(data);
                }));
        },
 
        /*
         *
         */
-       createPickSocualAccount : function(data){
+       createPickSocialAccount : function(data){
            var widget = new encuestame.org.core.commons.social.SocialPickerAccount({account : data});
            this._listSocialAccounts.appendChild(widget.domNode);
            this.arrayWidgetAccounts.push(widget);
@@ -79,21 +89,14 @@ dojo.declare(
 
         postCreate : function(){
             console.debug("social", this.account);
+            //images/social/myspace/enme_icon_myspace.png
+            var provider = this.account.type_account.toLowerCase();
+            var url = encuestame.contextDefault + "/resources/images/social/"+provider+"/enme_icon_"+provider+".png";
+            console.debug(url);
+            this._accountProviderIcon.src = url;
         },
 
         _select : function(b){
             this.selected = b;
          }
  });
-
-/*
- * Identi.ca account.
- */
-dojo.declare(
-        "encuestame.org.core.commons.social.TwitterAccount",
-        [encuestame.org.core.commons.social.SocialPickerAccount],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountPickerTwitter.html"),
-        postCreate : function(){
-        }
- });
-

@@ -68,17 +68,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     private static RequestToken requestToken = null;
 
     /**
-     * App Consumer Key.
-     */
-    private @Value("${twitter.oauth.consumerKey}") String consumerKey;
-
-    /**
-     * App consumer secret.
-     */
-    private @Value("${twitter.oauth.consumerSecret}") String consumerSecret;
-
-
-    /**
      * Change state of social account.
      * @param type
      * @param socialAccountId
@@ -184,6 +173,8 @@ public class SocialAccountsJsonController extends AbstractJsonController {
                  providers.add(SocialProvider.TWITTER);
                  providers.add(SocialProvider.GOOGLE);
                  providers.add(SocialProvider.LINKEDIN);
+                 providers.add(SocialProvider.IDENTICA);
+                 providers.add(SocialProvider.FACEBOOK);
              jsonResponse.put("provider", providers);
              setItemResponse(jsonResponse);
              log.debug("Social providers enabled "+providers.size());
