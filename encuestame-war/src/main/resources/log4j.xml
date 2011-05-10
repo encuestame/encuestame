@@ -25,6 +25,10 @@
         <level value="debug" />
     </logger>
 
+    <logger name="org.encuestame.comet">
+        <level value="debug" />
+    </logger>
+
     <logger name="org.encuestame.persistence">
         <level value="info" />
     </logger>

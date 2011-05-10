@@ -24,6 +24,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.springframework.security.core.Authentication;
@@ -39,7 +41,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Deprecated
 public class VerifyAuthenticationFilter implements Filter {
 
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     private  String loginUrl = "/user/signin";
 

@@ -12,13 +12,18 @@
  */
 package org.encuestame.comet.services;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
@@ -53,31 +58,34 @@ public class TweetPollCometService extends AbstractCometService {
     @Listener("/service/tweetpoll/autosave")
     @SuppressWarnings("unchecked")
     public void processAutoSave(final ServerSession remote, final ServerMessage.Mutable message) {
+        log.debug("--------- TweetPoll COMMET AUTOSAVE ----------");
         final Map<String, Object> inputMessage = message.getDataAsMap();
         Map<String, Object> outPutMessage = new HashedMap();
         log.debug("Messages content:{"+inputMessage.toString());
         log.debug("Messages content JSON:{"+message.getJSON());
         final Map<String, Object> tweetPollJson = (Map<String, Object>) inputMessage.get("tweetPoll");
-        String[] hastagsArray = new String[15];
-        String[] answerArray = new String[5];
+        List<String> hastagsArray = new ArrayList<String>();
+        List<String> answerArray = new ArrayList<String>();
         final Object[] hashtags =  (Object[]) tweetPollJson.get("hashtags");
+        log.debug("Array of hashtags: ---->"+hashtags.length);
         for (int i = 0; i < hashtags.length; i++) {
             HashMap<String, String> hashtagsMap = (HashMap<String, String>) hashtags[i];
-            log.debug("Hashtags: ---->"+hashtagsMap.get("value"));
-            //if (hashtagsMap.get("value") != null) {
-                hastagsArray[i] = hashtagsMap.get("value");
-            //}
+            log.debug("Hashtag: ---->"+hashtagsMap.get("value"));
+            if (hashtagsMap.get("value") != null) {
+                hastagsArray.add(hashtagsMap.get("value"));
+            }
         }
         final Object[] answers =  (Object[]) tweetPollJson.get("anwers");
+        log.debug("Array of Answer: ---->"+answers.length);
         for (int i = 0; i < answers.length; i++) {
             HashMap<String, String> answersMap = (HashMap<String, String>) answers[i];
             log.debug("Answer: ---->"+answersMap.get("value"));
-            //if (answersMap.get("value") != null) {
-                answerArray[i] = answersMap.get("value");
-            //}
+            if (answersMap.get("value") != null) {
+                answerArray.add(answersMap.get("value"));
+            }
         }
-        log.debug("review answerArray: "+answerArray);
-        log.debug("review hastagsArray: "+hastagsArray);
+        log.debug("review answerArray: "+answerArray.size());
+        log.debug("review hastagsArray: "+hastagsArray.size());
         final HashMap<String, String> questionMap = (HashMap<String, String>) tweetPollJson.get("question");
         final String question = filterValue(questionMap.get("value") == null ? "" : questionMap.get("value"));
         try {
@@ -86,14 +94,16 @@ public class TweetPollCometService extends AbstractCometService {
                 final Long tweetPollId =  tweetPollJson.get("tweetPollId") == null
                       ? null : Long.valueOf(tweetPollJson.get("tweetPollId").toString());
                 if (tweetPollId == null) {
-                    final TweetPoll tweetPoll = createTweetPoll(question, hastagsArray, answerArray, user);
+                    final TweetPoll tweetPoll = createTweetPoll(question, hastagsArray.toArray(new String[]{}),
+                          answerArray.toArray(new String[]{}), user);
                     outPutMessage.put("tweetPollId", tweetPoll.getTweetPollId());
                     //retrieve answers stored.
                     log.debug("tweet poll created.");
                 } else {
                     log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
                     //update tweetPoll
-                    final TweetPoll tweetPoll = updateTweetPoll(tweetPollId, question, hastagsArray, answerArray);
+                    final TweetPoll tweetPoll = updateTweetPoll(tweetPollId, question, hastagsArray.toArray(new String[]{}),
+                            answerArray.toArray(new String[]{}));
                     outPutMessage = inputMessage;
                     log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
                 }

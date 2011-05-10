@@ -70,9 +70,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     private Log log = LogFactory.getLog(this.getClass());
 
-
-
-
     /**
      * Default votes.
      */
@@ -307,10 +304,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         //remove answers.
         this.removeAllQuestionsAnswers(tweetPoll);
 
-        log.debug("create new answers.");
+        log.debug("create new answers.-->"+answers.length);
         //create new answers.
         for (int i = 0; i < answers.length; i++) {
+            log.debug("Creating new answer:{ "+answers[i]);
+            log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             createQuestionAnswer(new QuestionAnswerBean(answers[i]), tweetPoll.getQuestion());
+            log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         }
         log.debug("update switchs question.");
         //update switchs question..
@@ -356,11 +356,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final TweetPoll tp)
             throws EnMeNoResultsFoundException {
         final Question question = tp.getQuestion();
+        //create answer
         final QuestionAnswer questionAnswer = createQuestionAnswer(answerBean,
                 question);
         if (questionAnswer == null) {
             throw new EnMeNoResultsFoundException("answer is missing");
         } else {
+            //create tweet poll switch with tp and new answer.
+            log.debug("createTweetPollQuestionAnswer: short url provider:{ "+questionAnswer.getProvider());
             final TweetPollSwitch tpSwitch = this.createTweetPollSwitch(tp, questionAnswer);
             return tpSwitch;
         }

@@ -29,8 +29,6 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
@@ -175,18 +173,21 @@ public class TweetPollJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
+         log.debug("answer tweetPollId "+tweetPollId);
+         log.debug("tweetpoll answer"+answer);
+         log.debug("tweetpoll answerId"+answerId);
+         log.debug("tweetpoll shortUrl"+shortUrl);
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
                     tweetPollId, getUserAccountLogged());
             log.debug("tweetpoll"+tweetPoll.getTweetPollId());
             if(!tweetPoll.getPublishTweetPoll()){
-            log.debug("action ANSWER "+type);
-
+            log.debug("action ANSWER--->"+type);
             if("add".equals(type)) {
                 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
                 answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
-                log.debug("new answer bean "+answerBean.toString());
+                log.debug("new answer bean:{ "+answerBean.toString());
                 final TweetPollSwitch tweetPollSwitch = getTweetPollService()
                       .createTweetPollQuestionAnswer(answerBean, tweetPoll);
                 log.debug("new answer bean DOMAIN "+tweetPollSwitch.toString());

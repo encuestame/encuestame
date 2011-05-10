@@ -424,11 +424,13 @@ div.socialAccountPicker div.resume{
     text-align: right;
 }
 
-div.socialAccountPicker .list{
-    overflow: auto;
-    max-height: 200px;
+div.socialAccountPicker .list {
+  background: none repeat scroll 0 0 #D5D5D5;
+  max-height: 200px;
+  min-height: 15px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
-
 div.socialAccountPicker div.account{
     margin: 1px;
    -webkit-border-radius: 4px;
@@ -442,7 +444,12 @@ div.socialAccountPicker div.account{
     min-width: 200px;
     cursor: pointer;
     overflow: auto;
-    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+div.socialAccountPicker div.selected {
+  background-color: #2E2F25;
+  color: white;
+  font-weight: normal;
 }
 
 div.socialAccountPicker div.account:hover{

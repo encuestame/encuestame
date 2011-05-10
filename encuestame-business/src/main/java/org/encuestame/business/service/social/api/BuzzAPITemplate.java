@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -35,7 +37,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
 
     /**

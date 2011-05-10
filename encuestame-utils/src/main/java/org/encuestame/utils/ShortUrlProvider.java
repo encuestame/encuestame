@@ -12,6 +12,8 @@
  */
 package org.encuestame.utils;
 
+import org.apache.log4j.Logger;
+
 /**
  * Short url provider.
  * @author Picado, Juan juanATencuestame.org
@@ -26,16 +28,22 @@ public enum ShortUrlProvider {
     ShortTypeUrl(){};
 
     /**
+     * Log.
+     */
+    private static Logger log = Logger.getLogger(ShortUrlProvider.class);
+
+    /**
      * Get short url provider by string.
      * @param provider provider
      * @return
      */
     public static ShortUrlProvider get(final String provider) {
-        if (null == provider) { return GOOGL; }
+        log.debug("ShortUrlProvider:{ "+provider);
+        if (null == provider) { return BITLY; }
         else if (provider.equalsIgnoreCase("googl")) { return GOOGL; }
         else if (provider.equalsIgnoreCase("tinyurl")) { return TINYURL; }
         else if (provider.equalsIgnoreCase("bitly")) { return BITLY; }
-        else return GOOGL;
+        else return BITLY;
     }
 
     /*

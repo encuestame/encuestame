@@ -136,7 +136,7 @@ public class AbstractSurveyService extends AbstractChartService {
         answer.setUniqueAnserHash(answerBean.getAnswerHash());
         this.getQuestionDao().saveOrUpdate(answer);
         answerBean.setAnswerId(answer.getQuestionAnswerId());
-        log.debug("QuestionAnswer created:{"+answer.toString());
+        log.debug("QuestionAnswer created:{"+answerBean.toString());
         return answer;
     }
 
@@ -206,7 +206,8 @@ public class AbstractSurveyService extends AbstractChartService {
          log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
          if (InternetUtils.validateUrl(completeDomain.toString())) {
              log.debug("createTweetPollSwitch: URL IS VALID");
-             tPollSwitch.setShortUrl(this.shortUrlProvider(answer.getProvider(), completeDomain.toString()));
+             log.debug("createTweetPollSwitch: short url provider "+answer.getProvider());
+             tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
          } else {
              log.debug("createTweetPollSwitch: url IS NOT valid");
              tPollSwitch.setShortUrl(completeDomain.toString());
@@ -225,7 +226,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws IOException
      * @throws HttpException
      */
-    public String shortUrlProvider(final ShortUrlProvider provider, final String url){
+    public String createShortUrl(final ShortUrlProvider provider, final String url){
         log.debug("shortUrlProvider "+url);
         log.debug("shortUrlProvider PROVIDER "+provider);
         String urlShort = url;
@@ -238,6 +239,11 @@ public class AbstractSurveyService extends AbstractChartService {
         } else if (provider.equals(ShortUrlProvider.TINYURL)) {
             urlShort = SocialUtils.getTinyUrl(url);
         } else if (provider.equals(ShortUrlProvider.BITLY)) {
+             urlShort = SocialUtils.getBitLy(url,
+                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
+                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+        } else {
+             //if is  null, always user bitly.
              urlShort = SocialUtils.getBitLy(url,
                      EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
                      EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));

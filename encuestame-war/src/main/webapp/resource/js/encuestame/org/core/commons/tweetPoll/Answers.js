@@ -100,7 +100,7 @@ dojo.declare(
             var params = {
                     "id" : this.tweetPollId,
                     "answer" : text.get("value"),
-                    "shortUrl" : this._provider[2].code
+                    "shortUrl" : this._provider[1].code
                };
                console.debug("params", params);
                var load = dojo.hitch(this, function(data){
@@ -111,7 +111,7 @@ dojo.declare(
                            answerId : data.success.newAnswer.answerBean.answerId,
                            label: data.success.newAnswer.answerBean.answers,
                            shortUrl : data.success.newAnswer.shortUrl,
-                           provider: this._provider[0]
+                           provider: this._provider[1]
                       },
                       parentAnswer : this,
                       tweetPollId : this.tweetPollId
