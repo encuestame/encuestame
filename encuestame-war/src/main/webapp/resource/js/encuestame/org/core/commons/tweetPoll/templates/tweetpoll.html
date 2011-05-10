@@ -34,10 +34,10 @@
                     Schedule this tweetPoll
                 </label>
             </div>
-            <div class="section">
+            <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledTime">
                <input type="text" name="scheduledTime" id="scheduledTime" value="T15:00:00" dojoType="dijit.form.TimeTextBox" />
            </div>
-           <div class="section">
+           <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledDate">
              <input id="scheduledDate" type="text" name="shortYear" dojoType="dijit.form.DateTextBox"
                     required="true" />
             </div>
@@ -65,8 +65,8 @@
                     Limit Votes
                 </label>
             </div>
-            <div class="section">
-                <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limiteNumbers"
+            <div class="section defaultDisplayHide" dojoAttachPoint="_limitNumbers">
+                <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limitNumbers"
                     constraints="{min:0,max:4000}" value="15">
                 </div>
             </div>
@@ -76,7 +76,7 @@
                     Allow Repeated Votes.
                 </label>
             </div>
-            <div class="section">
+            <div class="section defaultDisplayHide" dojoAttachPoint="_repeatedNumbers">
                 <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
                     constraints="{min:2,max:10}" value="2">
                 </div>
@@ -100,7 +100,14 @@
     </div>
 
 
-     <div class="tweetPollPublish spaceBlock">
-            <div dojoType="encuestame.org.core.commons.social.SocialAccountPicker"></div>
+     <div class="tweetPollPublish spaceBlock socialBlock">
+            <div id="social" dojoType="encuestame.org.core.commons.social.SocialAccountPicker"></div>
+     </div>
+
+     <div class="tweetPollPublishButton" style="text-align: right;">
+           <button  dojoAttachPoint="_publish"  dojoType="dijit.form.Button" type="button" name="submitButtonTwo"
+                   value="Submit">
+                   Publish
+           </button>
      </div>
 </div>

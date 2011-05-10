@@ -35,6 +35,24 @@ dojo.declare(
 
         previeWidget : null,
 
+        socialWidget : null,
+
+        scheduleWidget : null,
+        scheduledDateWidget  : null,
+        scheduledTimeWidget  : null,
+
+        captchaWidget : null,
+        //Limit Votes
+        limitVotesWidget  : null,
+        limitNumbersWidget  : null,
+        //Allow Repeated Votes.
+        ipWidget  : null,
+        repeatedNumbersWidget  : null,
+
+        //report
+        resumeWidget  : null,
+        dashboardWidget  : null,
+
         maxTweetText : 140,
 
         timerAutoSave: null,
@@ -96,6 +114,60 @@ dojo.declare(
             }
             dojo.subscribe("/encuestame/tweetpoll/block", this, this._block);
             dojo.subscribe("/encuestame/tweetpoll/unblock", this, this._unblock);
+
+            //tweet poll options
+            this.liveResultsWidget = dijit.byId("liveResults");
+
+            //scheduled
+            this.scheduleWidget = dijit.byId("schedule");
+            this.scheduleWidget.onChange = dojo.hitch(this, function(event){
+                console.debug("shecduled", event);
+                if (event) {
+                    dojo.removeClass(this._scheduledTime, "defaultDisplayHide");
+                    dojo.removeClass(this._scheduledDate, "defaultDisplayHide");
+                } else {
+                    dojo.addClass(this._scheduledTime, "defaultDisplayHide");
+                    dojo.addClass(this._scheduledDate, "defaultDisplayHide");
+                }
+            });
+
+            this.scheduledDateWidget = dijit.byId("scheduledDate");
+            this.scheduledTimeWidget = dijit.byId("scheduledTime");
+
+            this.captchaWidget = dijit.byId("captcha");
+
+            //Limit Votes
+            this.limitVotesWidget = dijit.byId("limitVotes");
+            this.limitVotesWidget.onChange = dojo.hitch(this, function(event){
+                console.debug("limitVotesWidget", event);
+                if (event) {
+                    dojo.removeClass(this._limitNumbers, "defaultDisplayHide");
+                } else {
+                    dojo.addClass(this._limitNumbers, "defaultDisplayHide");
+                }
+            });
+            this.limitNumbersWidget = dijit.byId("limitNumbers");
+
+            //Allow Repeated Votes.
+            this.ipWidget = dijit.byId("ip");
+            this.ipWidget.onChange = dojo.hitch(this, function(event){
+                console.debug("ipWidget", event);
+                if (event) {
+                    dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");
+                } else {
+                    dojo.addClass(this._repeatedNumbers, "defaultDisplayHide");
+                }
+            });
+            this.repeatedNumbersWidget = dijit.byId("repeatedNumbers");
+
+            //report
+            this.resumeWidget = dijit.byId("resume");
+            this.dashboardWidget = dijit.byId("dashboard");
+
+            //button publish event.
+            dojo.connect(this._publish, "onClick", dojo.hitch(this, function(event) {
+                this._checkPublish();
+            }));
         },
 
         /*
@@ -188,7 +260,7 @@ dojo.declare(
         /*
          * initialize new tweetpoll create.
          */
-        initialize : function(){
+        initialize : function() {
            var hash = dojo.queryToObject(dojo.hash());
              if(hash.id){
               //retrieve tweetPoll autosaved information.
@@ -218,6 +290,7 @@ dojo.declare(
                  this.tweetPoll.question.value = this.questionWidget.get("value");
                  dojo.publish("/encuestame/tweetpoll/autosave");
              });
+             this.socialWidget = dijit.byId("social");
         },
 
         /*
@@ -227,112 +300,29 @@ dojo.declare(
             this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
         },
 
+
         /*
-         * show exceted tweet.
-         * @deprecated
+         * check if tweetpoll is valid and start the process to publish.
          */
-        showExcededTweet : function(endColor){
-             dojo.animateProperty({
-                 node: dojo.byId("tweetPollPreview"),
-                 duration: 500,
-                 properties: {
-                     backgroundColor: {
-                         end: endColor
-                     },
-                     color: {
-                         start: "black",
-                         end: "white"
-                     }
-                 },
-                 onEnd: function() {
-                     //dojo.byId("tweetPollPreview").innerHTML = "Granted";
-                 }
-             }).play();
+        _checkPublish : function(){
+            this._publishTweet();
         },
 
         /*
-         * is valid.
-         *  @deprecated
+         *  publish tweet poll.
          */
-        _isValid : function(){
-            return true;
-        },
-
-        /*
-         * publishTweetPoll
-         *  @deprecated
-         */
-        _publish : function(event){
-            dojo.stopEvent(event);
-            if(this._isValid()){
-                dojo.destroy(dijit.byId("publishTweetPoll").titleBar);
-                dijit.byId("publishTweetPoll").show();
-                this.loadPublicationDialogContent();
-            } else {
-                console.info("publish not valid");
-            }
-        },
-
-        /*
-         *  @deprecated
-         */
-        loadPublicationDialogContent : function(){
-            //loadTwitterAccounts.
-            dijit.byId("accounts")._loadTwitterAccounts();
-            this._displayPublishContent();
-        },
-
-        /*
-         *  @deprecated
-         */
-        _publishTweet : function(event){
-            dojo.stopEvent(event);
-            var valid = true;
-            //Question
-            var question = this.questionWidget.get("value");
-            if(!question || question == ""){
-                valid = false;
-            }
-
-            //getTwitterAccounts
-            var listAccounts = [];
-            var accountsWidget = dijit.byId("accounts").arrayAccounts;
-            if (accountsWidget.length < 0) { //answer should be 2
-                valid = false;
-            } else {
-                dojo.forEach(
-                        accountsWidget,
-                        dojo.hitch(this, function(data, index) {
-                            listAccounts.push(data.account.accountId);
-                }));
-            }
-
-            //getAnswers
-            var answers = [];
-            if (this.answerWidget.listItems.length < 2) { //answer should be 2
-                valid = false;
-            } else {
-                dojo.forEach(
-                        this.answerWidget.listItems,
-                        dojo.hitch(this, function(data, index) {
-                            answers.push(data.answer.label);
-                }));
-            }
-            //getHashTags
-            var tags = [];
-            dojo.forEach(
-                    this.hashTagWidget.listItems,
-                    dojo.hitch(this, function(data, index) {
-                        tags.push(data.data.label.trim());
-            }));
-
-            //getScheduled
+        _publishTweet : function(){
             var params = {
-                     "question" : question.trim(),
-                    "twitterAccounts" : listAccounts,
-                    "scheduled" : false,
-                    "hashtags" : tags,
-                    "answers" : answers
+                     "id" : this.tweetPoll.tweetPollId,
+                    "twitterAccounts" : this.socialWidget.getSocialAccounts(),
+                    "scheduled" : this.scheduleWidget.get('checked'),
+                    "scheduledDate" : this.scheduledDateWidget.get('displayedValue'),
+                    "scheduledTime" : this.scheduledTimeWidget.get('displayedValue'),
+                    "captcha" : this.captchaWidget.get('checked'),
+                    "limitVotes" : this.limitVotesWidget.get('checked'),
+                    "limitNumbers" : this.scheduleWidget.get('checked'),
+                    "ip" : this.ipWidget.get('checked'),
+                    "repeatedNumbers" : this.repeatedNumbersWidget.get('checked')
             };
             console.debug("params", params);
             var load = dojo.hitch(this, function(data){
@@ -341,53 +331,9 @@ dojo.declare(
             var error = function(error) {
                 console.debug("error", error);
             };
-            encuestame.service.xhrGet(
+            encuestame.service.xhrPostParam(
                     encuestame.service.list.publishTweetPoll, params, load, error);
         },
-
-        /*
-         *  @deprecated
-         */
-        _cancelPublish : function(event){
-            dijit.byId("publishTweetPoll").hide();
-            this.resetPublish();
-        },
-
-        /*
-         * @deprecated
-         */
-        resetPublish : function(){
-
-        },
-
-        /*
-         * @deprecated
-         */
-        _displayPublishContent : function(){
-
-        },
-
-        /*
-         * @deprecated
-         */
-        _activateScheduled : function(b){
-           if (b) {
-               dojo.style(dojo.byId("showDate"), "display", "block");
-           } else {
-               dojo.style(dojo.byId("showDate"), "display", "none");
-           }
-        },
-
-        /*
-         *  @deprecated
-         */
-        _activateSpinner : function(b){
-            if (b) {
-                dojo.style(dojo.byId("showSpinner"), "display", "block");
-            } else {
-                dojo.style(dojo.byId("showSpinner"), "display", "none");
-            }
-         },
 
          /*
           *  @deprecated

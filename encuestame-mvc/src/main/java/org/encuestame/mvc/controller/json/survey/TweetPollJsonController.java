@@ -224,10 +224,17 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.POST)
     public ModelMap publish(
-            @RequestParam(value = "tweetPollId", required = true) final Long tweetPollId,
+            @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "twitterAccounts", required = true) final Long[] twitterAccountsId,
+            @RequestParam(value = "ip", required = true) final Boolean ip,
+            @RequestParam(value = "limitNumbers", required = true) final Boolean limitNumbers,
+            @RequestParam(value = "limitVotes", required = true) final Integer limitVotes,
+            @RequestParam(value = "repeatedNumbers", required = true) final Integer repeatedNumbers,
+            @RequestParam(value = "scheduled", required = true) final Boolean scheduled,
+            @RequestParam(value = "scheduledDate", required = true) final String scheduledDate,
+            @RequestParam(value = "scheduledTime", required = true) final String scheduledTime,
             HttpServletRequest request,
             HttpServletResponse response,
             final UserAccount userAccount)
