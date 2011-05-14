@@ -109,6 +109,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      * @param error error.
      */
     protected void setError(final Object error,  final HttpServletResponse response){
+         log.error("JSON error "+error);
          this.error = new HashMap<String, Object>();
          this.error.put("message", error);
          this.sucess =  new HashMap<String, Object>();

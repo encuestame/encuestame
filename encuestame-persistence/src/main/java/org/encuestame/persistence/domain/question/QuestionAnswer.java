@@ -12,6 +12,9 @@
  */
 package org.encuestame.persistence.domain.question;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,12 +23,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.encuestame.utils.ShortUrlProvider;
+import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 
 /**
@@ -61,6 +68,11 @@ public class QuestionAnswer {
 
     /** Default short url provider. **/
     private ShortUrlProvider provider = ShortUrlProvider.GOOGL;
+
+    /**
+     *
+     */
+    private Date createdDate =  Calendar.getInstance().getTime();
 
     /** Answer Type Enum. **/
     public enum AnswerType {
@@ -199,5 +211,22 @@ public class QuestionAnswer {
      */
     public void setProvider(final ShortUrlProvider provider) {
         this.provider = provider;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateBridge(resolution = Resolution.DAY)
+    @Column(name = "created_date", nullable = true)
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(final Date createdDate) {
+        this.createdDate = createdDate;
     }
 }

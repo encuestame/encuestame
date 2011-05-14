@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,12 @@ import org.springframework.web.context.request.WebRequest;
  */
 @Controller
 public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
+
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      *
@@ -57,7 +64,13 @@ public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
             @RequestParam(required = false) String scope,
             final WebRequest request,
             final HttpServletRequest httpRequest) {
-        return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+        try {
+            return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+        } catch (EnMeOAuthSecurityException e) {
+               e.printStackTrace();
+                log.error(e);
+                return null;
+        }
     }
 
 
@@ -73,8 +86,15 @@ public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
             WebRequest request) {
-        final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-        System.out.println("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
-        return "connect/account";
+        OAuth1Token accessToken;
+        try {
+            accessToken = auth1RequestProvider.getAccessToken(verifier, request);
+            log.error("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
+            return "connect/account";
+        } catch (EnMeOAuthSecurityException e) {
+             e.printStackTrace();
+             log.error(e);
+           return "connect/account";
+        }
     }
 }

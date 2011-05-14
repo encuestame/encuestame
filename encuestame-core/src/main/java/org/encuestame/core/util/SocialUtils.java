@@ -51,6 +51,8 @@ public class SocialUtils {
 
     public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location";
 
+    public final static Integer TWITTER_LIMIT = 140;
+
     /**
      * Get Google Stats from google short url.
      * @param googleShortUrl

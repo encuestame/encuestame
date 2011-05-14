@@ -26,7 +26,17 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.imp.TwitterAPIOperations;
+import org.encuestame.business.service.social.api.BuzzAPITemplate;
+import org.encuestame.business.service.social.api.FacebookAPITemplate;
+import org.encuestame.business.service.social.api.IdenticaAPITemplate;
+import org.encuestame.business.service.social.api.LinkedInAPITemplate;
+import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.social.BuzzAPIOperations;
+import org.encuestame.core.social.FacebookAPIOperations;
+import org.encuestame.core.social.IdenticaAPIOperations;
+import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.MD5Utils;
@@ -39,6 +49,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -47,6 +58,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
+import org.encuestame.utils.StatusTweetPublished;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
@@ -92,7 +104,7 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Twee poll vote.
      */
-    private final String TWEETPOLL_VOTE = "tweetpoll/vote/";
+    private final String TWEETPOLL_VOTE = "/tweetpoll/vote/";
 
     /**
      * Create Question.
@@ -410,9 +422,94 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final SocialAccount account) throws EnMeExpcetion {
-        //return getTwitterService().publicTweet(account, tweetText);
-        return null;
+    public StatusTweetPublished publicTweetPoll(final String tweetText, final SocialAccount account)
+           throws EnMeExpcetion {
+        final StatusTweetPublished published = new StatusTweetPublished();
+        log.debug("publicTweetPoll "+tweetText);
+        if (account.getAccounType().equals(SocialProvider.TWITTER)) {
+            log.debug("Publish on TWITTER");
+            TwitterAPIOperations twitterAPIOperations = new TwitterAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerSecret"),
+                    EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
+                    account.getAccessToken(),
+                    account.getSecretToken());
+            published.setTextTweeted(tweetText);
+            published.setDatePublished(new Date());
+            published.setTweetId(RandomStringUtils.randomAscii(15));
+            try {
+                log.debug("Publish on Twitter............>");
+                String x = twitterAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Twitter...... "+x);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.IDENTICA)) {
+            log.debug("Publish on IDENTICA");
+            IdenticaAPIOperations identicaAPIOperations = new IdenticaAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("identica.consumer.key"),
+                    EnMePlaceHolderConfigurer.getProperty("identica.consumer.secret"),
+                    account.getAccessToken(),
+                    account.getSecretToken());
+            published.setTextTweeted(tweetText);
+            published.setDatePublished(new Date());
+            published.setTweetId(RandomStringUtils.randomAscii(15));
+            try {
+                log.debug("Publish on Identica............>");
+                String x = identicaAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Identica...... "+x);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.FACEBOOK)) {
+            log.debug("Publish on FACEBOOK");
+            FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(account.getAccessToken());
+            published.setTextTweeted(tweetText);
+            published.setDatePublished(new Date());
+            published.setTweetId(RandomStringUtils.randomAscii(15));
+            try {
+                log.debug("Publish on FACEBOOK............>");
+                String x = facebookAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on FACEBOOK...... "+x);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.LINKEDIN)) {
+            log.debug("Publish on LinkedIn");
+            LinkedInAPIOperations linkedInAPIOperations = new LinkedInAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("linkedIn.oauth.api.key"),
+                    EnMePlaceHolderConfigurer.getProperty("linkedIn.oauth.api.secret"),
+                    account.getAccessToken(),
+                    account.getSecretToken());
+            published.setTextTweeted(tweetText);
+            published.setDatePublished(new Date());
+            published.setTweetId(RandomStringUtils.randomAscii(15));
+            try {
+                log.debug("Publish on LinkedIn............>");
+                String x = linkedInAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on LinkedIn...... "+x);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.GOOGLE)) {
+            BuzzAPIOperations buzzInAPIOperations = new BuzzAPITemplate(account);
+            published.setTextTweeted(tweetText);
+            published.setDatePublished(new Date());
+            published.setTweetId(RandomStringUtils.randomAscii(15));
+            try {
+                log.debug("Publish on LinkedIn............>");
+                String x = buzzInAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on LinkedIn...... "+x);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        }
+        log.debug("publicTweetPoll:s "+published.toString());
+        return published;
     }
 
     /**

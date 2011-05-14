@@ -44,13 +44,18 @@ dojo.declare(
         captchaWidget : null,
         //Limit Votes
         limitVotesWidget  : null,
+        //
         limitNumbersWidget  : null,
+
         //Allow Repeated Votes.
         ipWidget  : null,
+        //
         repeatedNumbersWidget  : null,
 
-        //report
+        //report widget.
         resumeWidget  : null,
+
+        //dashboard widget.
         dashboardWidget  : null,
 
         maxTweetText : 140,
@@ -66,7 +71,7 @@ dojo.declare(
             tweetPollId : null,
             started : false,
             question: {},
-            anwers : [],
+            answers : [],
             hashtags : []
           },
 
@@ -96,15 +101,21 @@ dojo.declare(
             window.onscroll = this.scroll;
             //enable auto save.
             if (this.autosave) {
+              //publish suport.
               dojo.subscribe("/encuestame/tweetpoll/autosave", this, this._autoSave);
+              dojo.subscribe("/encuestame/tweetpoll/block", this, this._block);
+              dojo.subscribe("/encuestame/tweetpoll/unblock", this, this._unblock);
+              //active auto save.
               this.loadAutoSaveTimer();
+              //add comet support on load.
               dojo.addOnLoad(dojo.hitch(this, function(){
                     subscriptionAutoSave  = encuestame.activity.cometd.subscribe('/service/tweetpoll/autosave',
                     dojo.hitch(this, function(message) {
-                        console.info("notification response", message);
+                        console.info("tweetpoll autosave response", message);
                         this._autoSaveStatus(message);
                     }));
               }));
+              //remove comet support on unload.
               dojo.addOnUnload(function() {
                   if(subscriptionAutoSave != null){
                       console.info("un subsrcibe subscriptionAutoSave service");
@@ -112,8 +123,6 @@ dojo.declare(
                   }
               });
             }
-            dojo.subscribe("/encuestame/tweetpoll/block", this, this._block);
-            dojo.subscribe("/encuestame/tweetpoll/unblock", this, this._unblock);
 
             //tweet poll options
             this.liveResultsWidget = dijit.byId("liveResults");
@@ -176,7 +185,7 @@ dojo.declare(
         _block : function(){
             this.answerWidget.block();
             this.hashTagWidget.block();
-            console.info("block this.questionWidget.maxLength ", this.questionWidget.maxLength);
+            //console.info("block this.questionWidget.maxLength ", this.questionWidget.maxLength);
             this.questionWidget.block = true;
         },
 
@@ -184,7 +193,7 @@ dojo.declare(
          * unblock items.
          */
         _unblock : function(){
-            console.info("unblock");
+            //console.info("unblock");
             this.answerWidget.unblock();
             this.questionWidget.block = false;
             this.hashTagWidget.unblock();
@@ -217,8 +226,11 @@ dojo.declare(
             if(this.tweetPoll.tweetPollId == null){
                console.debug("tweet poll is autosaving ...", this.tweetPoll);
             } else {
-               console.info("tweetPol exist", this.tweetPoll.tweetPollId) ;
+               console.info("tweetPol exist", this.tweetPoll.tweetPollId);
+               this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
+               this.tweetPoll.answers = this.answerWidget.getAnswersId();
             }
+            console.debug("auto save", this.tweetPoll);
             encuestame.activity.cometd.publish('/service/tweetpoll/autosave', { tweetPoll: this.tweetPoll});
          },
 
@@ -314,15 +326,15 @@ dojo.declare(
         _publishTweet : function(){
             var params = {
                      "id" : this.tweetPoll.tweetPollId,
-                    "twitterAccounts" : this.socialWidget.getSocialAccounts(),
-                    "scheduled" : this.scheduleWidget.get('checked'),
-                    "scheduledDate" : this.scheduledDateWidget.get('displayedValue'),
-                    "scheduledTime" : this.scheduledTimeWidget.get('displayedValue'),
-                    "captcha" : this.captchaWidget.get('checked'),
-                    "limitVotes" : this.limitVotesWidget.get('checked'),
-                    "limitNumbers" : this.scheduleWidget.get('checked'),
-                    "ip" : this.ipWidget.get('checked'),
-                    "repeatedNumbers" : this.repeatedNumbersWidget.get('checked')
+                    "twitterAccounts" : this.socialWidget.getSocialAccounts()
+//                    "scheduled" : this.scheduleWidget.get('checked'),
+//                    "scheduledDate" : this.scheduledDateWidget.get('displayedValue'),
+//                    "scheduledTime" : this.scheduledTimeWidget.get('displayedValue'),
+//                    "captcha" : this.captchaWidget.get('checked'),
+//                    "limitVotes" : this.limitVotesWidget.get('checked'),
+//                    "limitNumbers" : this.scheduleWidget.get('checked'),
+//                    "ip" : this.ipWidget.get('checked'),
+//                    "repeatedNumbers" : this.repeatedNumbersWidget.get('checked')
             };
             console.debug("params", params);
             var load = dojo.hitch(this, function(data){
@@ -469,7 +481,7 @@ dojo.declare(
             _updateCounter : function(textTweet){
               if(this._counter){
                 var counter = this._getCurrentLengthText();
-                  console.debug("counter", counter);
+                  //console.debug("counter", counter);
                   if (counter >= 0) {
                     var currentCounter = this._counterMax - textTweet.length;
                     this._counter.innerHTML = currentCounter;

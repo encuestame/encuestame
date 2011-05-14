@@ -27,7 +27,9 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
      * @param accessToken
      * @param accessTokenSecret
      */
-    public LinkedInAPITemplate(String apiKey, String apiSecret,
+    public LinkedInAPITemplate(
+            String apiKey,
+            String apiSecret,
             String accessToken, String accessTokenSecret) {
         setRestTemplate(org.encuestame.core.social.oauth1.ProtectedResourceClientFactory
                 .create(apiKey, apiSecret, accessToken, accessTokenSecret));

@@ -180,7 +180,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public TweetPoll createTweetPoll(final String question,
             String[] hashtags,
-            String[] answers,
             UserAccount user) throws EnMeExpcetion{
         //create new tweetPoll
         final TweetPollBean tweetPollBean = new TweetPollBean();
@@ -191,8 +190,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         tweetPollBean.setResultNotification(Boolean.FALSE);
         //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
         tweetPollBean.setSchedule(Boolean.FALSE);
-        return getTweetPollService().createTweetPoll(tweetPollBean, question,
-                answers, user);
+        return getTweetPollService().createTweetPoll(tweetPollBean, question, user);
     }
 
     /**
@@ -208,9 +206,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     public TweetPoll updateTweetPoll(final Long tweetPollId,
          final String question,
          final String[] hashtags,
-         final String[] answers) throws EnMeExpcetion{
+         final Long[] answers) throws EnMeExpcetion{
          final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
-         return getTweetPollService().updateTweetPoll(tweetPollId, answers, hashtagsList);
+         return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
     }
 
     /**

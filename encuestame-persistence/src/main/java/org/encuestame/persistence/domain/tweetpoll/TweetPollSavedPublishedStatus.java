@@ -59,7 +59,7 @@ public class TweetPollSavedPublishedStatus {
     private String tweetContent;
 
     /**. Tweet Id. **/
-    private Long tweetId;
+    private String tweetId;
 
     /** Api Type. **/
     private SocialProvider apiType;
@@ -155,7 +155,7 @@ public class TweetPollSavedPublishedStatus {
      * @return the tweetId
      */
     @Column(name = "tweet_id", nullable = true)
-    public Long getTweetId() {
+    public String getTweetId() {
         return tweetId;
     }
 
@@ -163,7 +163,7 @@ public class TweetPollSavedPublishedStatus {
      * @param tweetId
      *            the tweetId to set
      */
-    public void setTweetId(final Long tweetId) {
+    public void setTweetId(final String tweetId) {
         this.tweetId = tweetId;
     }
 

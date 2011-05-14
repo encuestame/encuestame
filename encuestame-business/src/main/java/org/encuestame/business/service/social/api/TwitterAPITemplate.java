@@ -69,7 +69,8 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param consumerSecret
      * @param consumerKey
      */
-    public TwitterAPITemplate(final String consumerSecret,
+    public TwitterAPITemplate(
+            final String consumerSecret,
             final String consumerKey, final String accessToken,
             final String secretToken) {
         Assert.notNull(consumerKey);
@@ -109,17 +110,23 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @throws TwitterException
      */
     public Status updateTwitterStatus(final String tweet) throws TwitterException{
+        log.debug("twitter update status 1--> "+tweet);
         final Twitter twitter = this.getTwitterInstance();
-        return twitter.updateStatus(tweet);
+        final Status status = twitter.updateStatus(tweet);
+        log.debug("twitter update status "+status);
+        return status;
     }
 
     /**
      *
      */
     public String updateStatus(final String tweet){
+        log.debug("twitter update status 2--> "+tweet);
         try {
             return String.valueOf(this.updateTwitterStatus(tweet).getId());
         } catch (TwitterException e) {
+            e.printStackTrace();
+            log.error(e);
             return null;
         }
     }

@@ -21,6 +21,7 @@ import org.encuestame.core.social.oauth1.OAuth1Support;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.web.context.request.WebRequest;
 
@@ -80,11 +81,12 @@ public class OAuth1RequestFlow {
      * @param request
      * @param httpRequest
      * @return
+     * @throws EnMeOAuthSecurityException
      */
     public String buildOAuth1AuthorizeUrl(
             final String scope,
             final WebRequest request,
-            final HttpServletRequest httpRequest){
+            final HttpServletRequest httpRequest) throws EnMeOAuthSecurityException{
         final OAuth1Token requestToken = this.getRequestToken(httpRequest);
         request.setAttribute(OAuthUtils.OAUTH_TOKEN_ATTRIBUTE, requestToken, WebRequest.SCOPE_SESSION);
         return this.buildRequestTokenUrl(httpRequest);
@@ -93,8 +95,9 @@ public class OAuth1RequestFlow {
     /**
      *
      * @return the requestToken
+     * @throws EnMeOAuthSecurityException
      */
-    public OAuth1Token getRequestToken(final HttpServletRequest request) {
+    public OAuth1Token getRequestToken(final HttpServletRequest request) throws EnMeOAuthSecurityException {
         this.requestToken = oAuth1RestTemplate.fetchNewRequestToken(this.buildCallBackUrl(request));
         return this.requestToken;
     }
@@ -104,10 +107,11 @@ public class OAuth1RequestFlow {
      * @param verifier
      * @param request
      * @return
+     * @throws EnMeOAuthSecurityException
      */
     public OAuth1Token getAccessToken(
             final String verifier,
-            final WebRequest request){
+            final WebRequest request) throws EnMeOAuthSecurityException{
         log.debug("Verifier "+verifier);
         final OAuth1Token accessToken = getoAuth1RestTemplate()
         .exchangeForAccessToken(new AuthorizedRequestToken(

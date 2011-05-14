@@ -353,12 +353,11 @@ encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
     if(load == null || url == null || form == null){
         console.error("error params required.");
     } else {
-        var formValid = form == null ? {} : form;
         var xhrArgs = {
             url: url,
-            postData: dojo.toJson(formValid),
-            handleAs: "json",
-            headers: { "Content-Type": "application/json"},
+            postData: dojo.objectToQuery(form),
+            handleAs: "text",
+            //headers: { "Content-Type": "application/json", "Accept": "application/json" },
             load: load,
             preventCache: true,
             error: error
