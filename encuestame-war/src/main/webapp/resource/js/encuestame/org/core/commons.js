@@ -303,6 +303,16 @@ encuestame.session.update = function(name, data){
 };
 
 
+encuestame.date = {};
+encuestame.date.timeFormat = "hh:mm:ss";
+encuestame.date.dateFormat = "M/d/yy";
+encuestame.date.getFormatTime = function(date, fmt){
+    return dojo.date.locale.format(date, {
+        selector: "date",
+        datePattern: fmt
+    });
+}
+
 /**
  * Json Get Call.
  */

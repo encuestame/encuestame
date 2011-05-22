@@ -205,6 +205,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     private TweetPoll newTweetPoll(final TweetPollBean tweetPollBean, Question question){
         final TweetPoll tweetPollDomain = new TweetPoll();
+        log.debug("-----------> NEW");
+        log.debug(tweetPollBean.toString());
+        log.debug("----------->");
         tweetPollDomain.setQuestion(question);
         tweetPollDomain.setCloseNotification(tweetPollBean.getCloseNotification());
         tweetPollDomain.setCompleted(Boolean.FALSE);
@@ -218,6 +221,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
         tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
+        tweetPollDomain.setUpdatedDate(Calendar.getInstance().getTime());
         this.getTweetPollDao().saveOrUpdate(tweetPollDomain);
         return tweetPollDomain;
     }
@@ -280,25 +284,38 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#updateTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll, java.lang.String[], java.util.List)
      */
-    public TweetPoll updateTweetPoll(
-         final Long tweetPollId,
-         final String question,
-         final Long[] answers,
-         final List<HashTagBean> hashTagsSelected) throws EnMeNoResultsFoundException {
-        final List<HashTag> newList = retrieveListOfHashTags(hashTagsSelected);
-        log.debug("new list of hashtags size: "+newList.size());
+    public TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException {
         //updating hashtags
-        final TweetPoll tweetPoll = getTweetPoll(tweetPollId, getUserPrincipalUsername());
+        log.debug("Updated tweetpoll with id :"+tweetPollBean.getId());
+        final TweetPoll tweetPoll = getTweetPoll(tweetPollBean.getId(), getUserPrincipalUsername());
         Assert.notNull(tweetPoll);
+        if (tweetPoll == null) {
+            throw new EnMeTweetPollNotFoundException();
+        }
+        final List<HashTag> newList = retrieveListOfHashTags(tweetPollBean.getHashTags());
+        log.debug("new list of hashtags size: "+newList.size());
         //update question name.
         final Question questionDomain = tweetPoll.getQuestion();
         Assert.notNull(questionDomain);
-        questionDomain.setQuestion(question);
-        questionDomain.setSlugQuestion(RestFullUtil.slugify(question));
+        questionDomain.setQuestion(tweetPoll.getQuestion().getQuestion());
+        questionDomain.setSlugQuestion(RestFullUtil.slugify(tweetPoll.getQuestion().getQuestion()));
         questionDomain.setCreateDate(Calendar.getInstance().getTime());
         getQuestionDao().saveOrUpdate(questionDomain);
         //update hashtags.
-        tweetPoll.getHashTags().addAll(retrieveListOfHashTags(hashTagsSelected)); //check if this action remove old hashtags.
+        tweetPoll.getHashTags().addAll(retrieveListOfHashTags(tweetPollBean.getHashTags())); //TODO check if this action remove old hashtags.
+        //update options.
+        tweetPoll.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
+        tweetPoll.setAllowRepatedVotes(tweetPollBean.getAllowRepeatedVotes());
+        tweetPoll.setCaptcha(tweetPollBean.getCaptcha());
+        tweetPoll.setCloseNotification(tweetPollBean.getCloseNotification());
+        tweetPoll.setLimitVotes(tweetPollBean.getLimitVotes());
+        tweetPoll.setLimitVotesEnabled(tweetPollBean.getLimitVotesEnabled());
+        tweetPoll.setMaxRepeatedVotes(tweetPollBean.getMaxRepeatedVotes());
+        tweetPoll.setResultNotification(tweetPollBean.getResultNotification());
+        tweetPoll.setResumeLiveResults(tweetPollBean.getResumeLiveResults());
+        tweetPoll.setScheduleDate(tweetPollBean.getScheduleDate());
+        tweetPoll.setResumeTweetPollDashBoard(tweetPollBean.getResumeTweetPollDashBoard());
+        tweetPoll.setUpdatedDate(Calendar.getInstance().getTime());
         getTweetPollDao().saveOrUpdate(tweetPoll);
         log.debug("removing answers for tweetpoll id: "+tweetPoll.getTweetPollId());
 
@@ -309,15 +326,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         //this.removeAllQuestionsAnswers(tweetPoll);
 
         //create new answers.
-        for (int i = 0; i < answers.length; i++) {
-            log.debug("Creating new answer:{ "+answers[i].toString());
-            log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            //createQuestionAnswer(new QuestionAnswerBean(answers[i]), tweetPoll.getQuestion());
-            log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        }
+//        for (int i = 0; i < answers.length; i++) {
+//            log.debug("Creating new answer:{ "+answers[i].toString());
+//            log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//            //createQuestionAnswer(new QuestionAnswerBean(answers[i]), tweetPoll.getQuestion());
+//            log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//        }
         log.debug("update switchs question.");
         //update switchs question..
-        updateTweetPollSwitchSupport(tweetPoll);
+        //updateTweetPollSwitchSupport(tweetPoll);
         return tweetPoll;
     }
 

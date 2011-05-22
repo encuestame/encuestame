@@ -310,6 +310,9 @@ public class TweetPollJsonController extends AbstractJsonController {
             } else if ("liveResults".equals(propertyType)) {
                 getTweetPollService().changeAllowLiveResultsTweetPoll(
                         tweetPollId, getUserPrincipalUsername());
+            } else if ("scheduled".equals(propertyType)) {
+                getTweetPollService().changeAllowLiveResultsTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
             } else if ("notification".equals(propertyType)) {
                 getTweetPollService().changeCloseNotificationTweetPoll(
                         tweetPollId, getUserPrincipalUsername());

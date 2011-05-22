@@ -338,14 +338,8 @@ public interface ITweetPollService extends IMasterSurveyService{
 
      /**
       * Update tweetpoll.
-      * @param tweetPoll {@link TweetPoll} reference/
-      * @param answers new list of answers.
-      * @param hashTagsSelected new list of hashtags
+      * @param tweetPollBean {@link TweetPollBean}.
      * @throws EnMeNoResultsFoundException
       */
-     public TweetPoll updateTweetPoll(
-             final Long tweetPollId,
-             final String question,
-             final Long[] answers,
-             final List<HashTagBean> hashTagsSelected) throws EnMeNoResultsFoundException;
+     public TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException;
 }

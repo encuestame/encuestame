@@ -178,7 +178,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll createTweetPoll(final String question,
+    @Deprecated
+    public TweetPoll createTweetPoll(
+            final String question,
             String[] hashtags,
             UserAccount user) throws EnMeExpcetion{
         //create new tweetPoll
@@ -194,6 +196,21 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
+     *
+     * @param tweetPollBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll createTweetPoll(
+            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+        //create new tweetPoll
+        log.debug("createTweetPoll Bean "+tweetPollBean.toString());
+        return getTweetPollService().createTweetPoll(tweetPollBean,
+                tweetPollBean.getQuestionBean().getQuestionName(),
+                getUserAccount());
+    }
+
+    /**
      * Update tweetpoll
      * @param tweetPoll {@link TweetPoll}
      * @param question list of questions.
@@ -203,13 +220,28 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll updateTweetPoll(final Long tweetPollId,
+    @Deprecated
+    public TweetPoll updateTweetPoll(
+         final Long tweetPollId,
          final String question,
          final String[] hashtags,
          final Long[] answers) throws EnMeExpcetion{
          final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
-         return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
+         //return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
+         return null;
     }
+
+    /**
+     *
+     * @param tweetPollBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll updateTweetPoll(
+            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+            //final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
+            return getTweetPollService().updateTweetPoll(tweetPollBean);
+       }
 
     /**
      * Get Ip Client.

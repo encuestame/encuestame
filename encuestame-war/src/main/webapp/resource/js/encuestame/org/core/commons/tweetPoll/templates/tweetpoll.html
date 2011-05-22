@@ -67,7 +67,7 @@
             </div>
             <div class="section defaultDisplayHide" dojoAttachPoint="_limitNumbers">
                 <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limitNumbers"
-                    constraints="{min:0,max:4000}" value="15">
+                    constraints="{min:0,max:4000}" value="${tweetPoll.options.maxLimitVotes}">
                 </div>
             </div>
             <div class="section">
@@ -78,7 +78,7 @@
             </div>
             <div class="section defaultDisplayHide" dojoAttachPoint="_repeatedNumbers">
                 <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
-                    constraints="{min:2,max:10}" value="2">
+                    constraints="{min:2,max:10}" value="${tweetPoll.options.maxRepeatedVotes}">
                 </div>
             </div>
          </div>

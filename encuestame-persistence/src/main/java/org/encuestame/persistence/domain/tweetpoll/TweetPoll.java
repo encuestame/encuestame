@@ -47,10 +47,14 @@ public class TweetPoll {
 
     private Long tweetPollId;
 
-    /** Close Notification. **/
+    /** Close Notification. eg: if tweetpoll was closed, the app should be notify user with ui notification. **/
     private Boolean closeNotification;
 
-    /** Result Notification after close. **/
+    /**
+     * Result Notification after close. eg: after close the app
+     * should be notify with ui notification with
+     * resume of results.
+     * **/
     private Boolean resultNotification;
 
     /** Allow Live Results. **/
@@ -62,11 +66,19 @@ public class TweetPoll {
     /** Scheduled TweetPoll. **/
     private Boolean scheduleTweetPoll;
 
+    /**
+     * Enable display resume on dashboard.
+     */
+    private Boolean resumeTweetPollDashBoard;
+
     /** Scheduled Date. **/
     private Date scheduleDate;
 
     /** Create Date. **/
     private Date createDate;
+
+    /** Updated Date. **/
+    private Date updatedDate = new Date();
 
     /** True to close poll. **/
     private Boolean completed = false;
@@ -74,10 +86,20 @@ public class TweetPoll {
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
 
-    /** Limit Votes. **/
+
+    /**
+     * Enable a limit of valid votes.
+     **/
+    private Boolean limitVotesEnabled;
+
+    /**
+     * Limit Votes.
+     **/
     private Integer limitVotes;
 
-    /** If true, system display in left nav live results. **/
+    /**
+     *  Enable auto refresh when chart result is displayed, eg. vote page and detail page.
+     **/
     private Boolean resumeLiveResults = false;
 
     /** {@link Account}. **/
@@ -91,13 +113,24 @@ public class TweetPoll {
     /** {@link Question}. **/
     private Question question;
 
-    /** Repeated Votes. **/
+    /**
+     * Repeated Votes
+     * **/
     private Boolean allowRepatedVotes;
 
-    /** Hash Tags. **/
+    /**
+     * Limit of repeated votes by user (ip).
+     **/
+    private Integer maxRepeatedVotes;
+
+    /**
+     * Hash Tags.
+     **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
-    /** Number votes for Survey and Poll.**/
+    /**
+     * Number votes for Survey and Poll.
+     **/
      private Integer numbervotes;
 
      /** Number Hits or visits **/
@@ -446,4 +479,67 @@ public class TweetPoll {
     public void setEditorOwner(final UserAccount editorOwner) {
         this.editorOwner = editorOwner;
     }
+
+    /**
+     * @return the resumeTweetPollDashBoard
+     */
+    @Column(name = "resume_tweetpoll_dashboard")
+    public Boolean getResumeTweetPollDashBoard() {
+        return resumeTweetPollDashBoard;
+    }
+
+    /**
+     * @param resumeTweetPollDashBoard the resumeTweetPollDashBoard to set
+     */
+    public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
+        this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
+    }
+
+    /**
+     * @return the limitVotesEnabled
+     */
+    @Column(name = "limits_votes_enabled")
+    public Boolean getLimitVotesEnabled() {
+        return limitVotesEnabled;
+    }
+
+    /**
+     * @param limitVotesEnabled the limitVotesEnabled to set
+     */
+    public void setLimitVotesEnabled(Boolean limitVotesEnabled) {
+        this.limitVotesEnabled = limitVotesEnabled;
+    }
+
+    /**
+     * @return the maxRepeatedVotes
+     */
+    @Column(name = "max_repeated_votes")
+    public Integer getMaxRepeatedVotes() {
+        return maxRepeatedVotes;
+    }
+
+    /**
+     * @param maxRepeatedVotes the maxRepeatedVotes to set
+     */
+    public void setMaxRepeatedVotes(Integer maxRepeatedVotes) {
+        this.maxRepeatedVotes = maxRepeatedVotes;
+    }
+
+    /**
+     * @return the updatedDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_date_updated", nullable = true)
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+     * @param updatedDate the updatedDate to set
+     */
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+
 }
