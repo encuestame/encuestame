@@ -135,7 +135,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         String.valueOf(profile.getId()));
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
-                            accessToken.getValue(), accessToken.getSecret(), profileAPI,
+                            accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
                             socialProvider);
                 } else {
                     log.warn("This account already exist");
@@ -151,7 +151,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
-                            accessToken.getValue(), accessToken.getSecret(), profileAPI,
+                            accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
                             socialProvider);
                 } else {
                     log.warn("This account already exist");
@@ -165,7 +165,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
-                            accessToken.getValue(), accessToken.getSecret(), profile,
+                            accessToken.getValue(), accessToken.getSecret(), null, profile,
                             socialProvider);
                 } else {
                     log.warn("This account already exist");
@@ -192,14 +192,14 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
         if (socialProvider.equals(SocialProvider.FACEBOOK)) {
             final FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(accessGrant.getAccessToken());
             getSecurityService().addNewSocialAccount(
-                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(),
+                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     facebookAPIOperations.getProfile(),
                     socialProvider);
         } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
             final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
             log.debug(apiOperations.getProfile());
             getSecurityService().addNewSocialAccount(
-                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(),
+                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     apiOperations.getProfile(),
                     socialProvider);
         }

@@ -426,6 +426,7 @@ public interface SecurityOperations extends ServiceOperations {
     SocialAccount addNewSocialAccount(
             final String token,
             final String tokenSecret,
+            final String expiresToken,
             final SocialUserProfile socialUserProfile,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
 

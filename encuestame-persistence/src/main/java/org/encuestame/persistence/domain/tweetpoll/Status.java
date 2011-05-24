@@ -10,21 +10,37 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.social;
-
-import org.encuestame.utils.StatusTweetPublished;
-
-
+package org.encuestame.persistence.domain.tweetpoll;
 
 /**
- * Define basic social operations.
+ * Status.
  * @author Picado, Juan juanATencuestame.org
- * @since Apr 20, 2011
+ * @since May 23, 2011
  */
-public interface SocialAPIOperations {
+public enum Status {
 
-    SocialUserProfile getProfile() throws Exception;
+        /**
+         * failed status.
+         */
+        FAILED,
+        /**
+         * tweet send sucessfull
+         */
+        SUCCESS,
 
-    StatusTweetPublished updateStatus(final String status) throws Exception;
+        /**
+         * tweet reprogramed.
+         */
+        RE_SCHEDULED,
 
+        /**
+         * re-sended
+         */
+        RE_SEND,
+        /**
+         * on standby
+         */
+        STAND_BY,
+
+        Status(){};
 }

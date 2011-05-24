@@ -25,6 +25,8 @@ dojo.declare(
 
         _selectAll : false,
 
+        _required : 1,
+
         postCreate : function(){
             dojo.subscribe("/encuestame/social/picker/accounts/reload", this, "showListAccounts");
             this._loadSocialConfirmedAccounts();
@@ -70,6 +72,21 @@ dojo.declare(
                 }));
             console.debug("getSocialAccounts", accountsId);
             return accountsId;
+        },
+
+        /*
+         * is valid
+         */
+        isValid : function(){
+            if (this.arrayWidgetAccounts.length >= this._required) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        isValidMessage : function(){
+            return "not valid";
         },
 
         /*

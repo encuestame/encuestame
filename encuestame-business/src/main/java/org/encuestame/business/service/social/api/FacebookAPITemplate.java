@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.URI;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.FacebookAPIOperations;
@@ -24,10 +25,12 @@ import org.encuestame.core.social.FacebookLink;
 import org.encuestame.core.social.FacebookProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
+import org.encuestame.utils.StatusTweetPublished;
 import org.jfree.util.Log;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -96,13 +99,37 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         @SuppressWarnings("unchecked")
         Map<String, ?> profileMap = getRestTemplate().getForObject(OBJECT_URL, Map.class,
                 facebookId);
-
+        /*
+         *  Example of single profile.
+         *  {
+         *  id=xxxxxxxxxxxxxxx,
+         *  name=name,
+         *  first_name=xxxxxxx,
+         *  last_name=yyyyyyy,
+         *  link=http://www.facebook.com/profile.php?id=xxxxxxxxxx,
+         *  hometown={id=ccccccccccc, name=Madrid, Spain},
+         *  location={id=ccccccccccc, name=Madrid, Spain},
+         *  gender=male,
+         *  email=xxxxxxxxxccccc@gmail.com,
+         *  timezone=-6,
+         *  locale=es_LA,
+         *  updated_time=2011-05-04T07:01:01+0000}
+         */
+        if (log.isDebugEnabled()) {
+            log.debug("FacebookProfile:{ "+profileMap);
+        }
         long id = Long.valueOf(String.valueOf(profileMap.get("id")));
-        String name = String.valueOf(profileMap.get("name"));
-        String firstName = String.valueOf(profileMap.get("first_name"));
-        String lastName = String.valueOf(profileMap.get("last_name"));
-        String email = String.valueOf(profileMap.get("email"));
-        String username = String.valueOf(profileMap.get("username"));
+        final String name = String.valueOf(profileMap.get("name"));
+        final String firstName = String.valueOf(profileMap.get("first_name"));
+        final String lastName = String.valueOf(profileMap.get("last_name"));
+        Assert.notNull(profileMap.get("email"));
+        final String email = String.valueOf(profileMap.get("email"));
+        /*
+         * sometimes the username is not configured on facebook profile (eg. new profiles) in this cases
+         * our username social account is required, we use unique facebook id, this is completely valid to build
+         * facebook picture.
+         */
+        final String username = String.valueOf(profileMap.get("username") == null ? profileMap.get("id") : profileMap.get("username"));
         return new FacebookProfile(id, name, firstName, lastName, email, username);
     }
 
@@ -140,17 +167,18 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
      */
-    public String updateStatus(String message) {
+    public StatusTweetPublished updateStatus(final String message) {
+        log.debug("facebook message to publish: "+message);
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("message", message);
-        publish(CURRENT_USER_ID, FEED, map);
-        return "";
+        return this.publish(CURRENT_USER_ID, FEED, map);
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.social.FacebookAPIOperations#updateStatus(java.lang.String, org.encuestame.core.social.FacebookLink)
      */
+    //TODO un-used.
     public void updateStatus(String message, FacebookLink link) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("link", link.getLink());
@@ -158,16 +186,21 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
         map.set("caption", link.getCaption());
         map.set("description", link.getDescription());
         map.set("message", message);
-        publish(CURRENT_USER_ID, FEED, map);
+        this.publish(CURRENT_USER_ID, FEED, map);
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.social.FacebookAPIOperations#publish(java.lang.String, java.lang.String, org.springframework.util.MultiValueMap)
      */
-    public void publish(String object, String connection, MultiValueMap<String, String> data) {
-        MultiValueMap<String, String> requestData = new LinkedMultiValueMap<String, String>(data);
-        getRestTemplate().postForLocation(CONNECTION_URL, requestData, object, connection);
+    public StatusTweetPublished publish(String object, String connection, MultiValueMap<String, String> data) {
+        final MultiValueMap<String, String> requestData = new LinkedMultiValueMap<String, String>(data);
+        log.debug("before facebookResponse:{"+requestData);
+        final Map facebookResponse = getRestTemplate().postForObject(CONNECTION_URL, requestData, Map.class, object, connection);
+        log.debug("facebookResponse:{"+facebookResponse);
+        final StatusTweetPublished status = createStatus(data.get("message").toString());
+        status.setTweetId(facebookResponse.get("id").toString());
+        return status;
     }
 
     /*

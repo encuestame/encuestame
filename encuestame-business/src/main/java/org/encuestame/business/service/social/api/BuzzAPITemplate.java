@@ -26,6 +26,7 @@ import org.encuestame.core.social.BuzzProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.utils.StatusTweetPublished;
 
 /**
  * Google Buzz
@@ -120,14 +121,14 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
      */
-    public String updateStatus(final String status) {
+    public StatusTweetPublished updateStatus(final String status) {
         final BuzzProfile jsonData = new BuzzProfile();
         //jsonData.getData().getObject().setType("note");
         //jsonData.getData().getObject().setComment(status);
         @SuppressWarnings("rawtypes")
         final Map response = getRestTemplate().postForObject(
                 this.GOOGLE_REST_UPDATE, jsonData, Map.class, this.GOOGLE_KEY);
-        return response.toString();
+        return createStatus(status);
     }
 
     /*

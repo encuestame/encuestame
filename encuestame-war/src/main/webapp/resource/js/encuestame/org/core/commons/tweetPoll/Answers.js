@@ -74,7 +74,7 @@ dojo.declare(
                    dojo.hitch(this,function(item) {
                    array.push({ value : item.getAnswerText()});
                    }));
-            console.debug("getAnswers", array);
+            //console.debug("getAnswers", array);
             return array;
         },
 

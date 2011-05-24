@@ -1029,12 +1029,14 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public SocialAccount addNewSocialAccount(
             final String token,
             final String tokenSecret,
+            final String expiresToken,
             final SocialUserProfile socialUserProfile,
             final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
         final SocialAccount socialAccount = new SocialAccount();
         socialAccount.setAccessToken(token);
         socialAccount.setSecretToken(tokenSecret);
         socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
+        socialAccount.setExpires(expiresToken);
         socialAccount.setAccounType(socialProvider);
         socialAccount.setAddedAccount(new Date());
         socialAccount.setVerfied(Boolean.TRUE);

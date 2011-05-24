@@ -24,6 +24,12 @@ public class StatusTweetPublished {
 
     private String tweetId;
 
+    private Long socialAccountId;
+
+    private String socialAccountName;
+
+    private String provider;
+
     private String textTweeted;
 
     private Date datePublished;
@@ -74,6 +80,48 @@ public class StatusTweetPublished {
      */
     public void setDatePublished(Date datePublished) {
         this.datePublished = datePublished;
+    }
+
+    /**
+     * @return the socialAccountId
+     */
+    public Long getSocialAccountId() {
+        return socialAccountId;
+    }
+
+    /**
+     * @param socialAccountId the socialAccountId to set
+     */
+    public void setSocialAccountId(Long socialAccountId) {
+        this.socialAccountId = socialAccountId;
+    }
+
+    /**
+     * @return the socialAccountName
+     */
+    public String getSocialAccountName() {
+        return socialAccountName;
+    }
+
+    /**
+     * @param socialAccountName the socialAccountName to set
+     */
+    public void setSocialAccountName(String socialAccountName) {
+        this.socialAccountName = socialAccountName;
+    }
+
+    /**
+     * @return the provider
+     */
+    public String getProvider() {
+        return provider;
+    }
+
+    /**
+     * @param provider the provider to set
+     */
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
     /* (non-Javadoc)

@@ -26,6 +26,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpStatus;
 import org.encuestame.business.service.imp.TwitterAPIOperations;
 import org.encuestame.business.service.social.api.BuzzAPITemplate;
 import org.encuestame.business.service.social.api.FacebookAPITemplate;
@@ -68,6 +69,7 @@ import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -424,7 +426,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public StatusTweetPublished publicTweetPoll(final String tweetText, final SocialAccount account)
            throws EnMeExpcetion {
-        final StatusTweetPublished published = new StatusTweetPublished();
+        StatusTweetPublished published = null;
         log.debug("publicTweetPoll "+tweetText);
         if (account.getAccounType().equals(SocialProvider.TWITTER)) {
             log.debug("Publish on TWITTER");
@@ -433,13 +435,10 @@ public class AbstractSurveyService extends AbstractChartService {
                     EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
                     account.getAccessToken(),
                     account.getSecretToken());
-            published.setTextTweeted(tweetText);
-            published.setDatePublished(new Date());
-            published.setTweetId(RandomStringUtils.randomAscii(15));
             try {
                 log.debug("Publish on Twitter............>");
-                String x = twitterAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on Twitter...... "+x);
+                published = twitterAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Twitter...... "+published);
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
@@ -451,13 +450,10 @@ public class AbstractSurveyService extends AbstractChartService {
                     EnMePlaceHolderConfigurer.getProperty("identica.consumer.secret"),
                     account.getAccessToken(),
                     account.getSecretToken());
-            published.setTextTweeted(tweetText);
-            published.setDatePublished(new Date());
-            published.setTweetId(RandomStringUtils.randomAscii(15));
             try {
                 log.debug("Publish on Identica............>");
-                String x = identicaAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on Identica...... "+x);
+                published = identicaAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Identica...... "+published);
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
@@ -465,13 +461,19 @@ public class AbstractSurveyService extends AbstractChartService {
         } else if (account.getAccounType().equals(SocialProvider.FACEBOOK)) {
             log.debug("Publish on FACEBOOK");
             FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(account.getAccessToken());
-            published.setTextTweeted(tweetText);
-            published.setDatePublished(new Date());
-            published.setTweetId(RandomStringUtils.randomAscii(15));
             try {
                 log.debug("Publish on FACEBOOK............>");
-                String x = facebookAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on FACEBOOK...... "+x);
+                published = facebookAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on FACEBOOK...... "+published);
+            } catch (HttpClientErrorException e) {
+                log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 1");
+                log.error(e.getStatusCode());
+                log.error(e.getResponseBodyAsString());
+                log.error(e.getStatusText());
+                // refresh token point.
+                //offline_access scope permission is enabled by default . In this case
+                //https://developers.facebook.com/docs/authentication/permissions/
+                log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
@@ -483,32 +485,34 @@ public class AbstractSurveyService extends AbstractChartService {
                     EnMePlaceHolderConfigurer.getProperty("linkedIn.oauth.api.secret"),
                     account.getAccessToken(),
                     account.getSecretToken());
-            published.setTextTweeted(tweetText);
-            published.setDatePublished(new Date());
-            published.setTweetId(RandomStringUtils.randomAscii(15));
             try {
                 log.debug("Publish on LinkedIn............>");
-                String x = linkedInAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on LinkedIn...... "+x);
+                published = linkedInAPIOperations.updateStatus(tweetText);
+                published.setTextTweeted(tweetText);
+                published.setDatePublished(new Date());
+                published.setTweetId(RandomStringUtils.randomAscii(15));
+                log.debug("Publish on LinkedIn...... "+published);
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
             }
         } else if (account.getAccounType().equals(SocialProvider.GOOGLE)) {
             BuzzAPIOperations buzzInAPIOperations = new BuzzAPITemplate(account);
-            published.setTextTweeted(tweetText);
-            published.setDatePublished(new Date());
-            published.setTweetId(RandomStringUtils.randomAscii(15));
             try {
                 log.debug("Publish on LinkedIn............>");
-                String x = buzzInAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on LinkedIn...... "+x);
+                published = buzzInAPIOperations.updateStatus(tweetText);
+                published.setTextTweeted(tweetText);
+                published.setDatePublished(new Date());
+                published.setTweetId(RandomStringUtils.randomAscii(15));
+                log.debug("Publish on LinkedIn...... "+published);
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
             }
         }
-        log.debug("publicTweetPoll:s "+published.toString());
+        if (published != null) {
+            log.debug("publicTweetPoll:s "+published.toString());
+        }
         return published;
     }
 
