@@ -25,8 +25,16 @@
         <level value="debug" />
     </logger>
 
+    <logger name="org.encuestame.comet">
+        <level value="debug" />
+    </logger>
+
     <logger name="org.encuestame.persistence">
-        <level value="warn" />
+        <level value="info" />
+    </logger>
+
+    <logger name="org.encuestame.core">
+        <level value="debug" />
     </logger>
 
     <logger name="org.encuestame.business">
@@ -34,14 +42,13 @@
     </logger>
 
     <logger name="org.encuestame.utils">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.encuestame.search">
         <level value="warn" />
     </logger>
 
-    <!-- 3rdparty Loggers -->
     <logger name="org.springframework.core">
         <level value="warn" />
     </logger>

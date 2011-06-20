@@ -14,7 +14,7 @@ package org.encuestame.test.business.service;
 
 import java.util.UUID;
 
-import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.security.SignUpBean;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class TestEmailService extends AbstractServiceBase {
      * Service email.
      */
     @Autowired
-    private MailServiceImpl serviceMail;
+    private MailServiceOperations serviceMail;
 
     /**
      * Test Send Email.
@@ -62,14 +62,14 @@ public class TestEmailService extends AbstractServiceBase {
     /**
      * @return the serviceMail
      */
-    public MailServiceImpl getServiceMail() {
+    public MailServiceOperations getServiceMail() {
         return serviceMail;
     }
 
     /**
      * @param serviceMail the serviceMail to set
      */
-    public void setServiceMail(final MailServiceImpl serviceMail) {
+    public void setServiceMail(final MailServiceOperations serviceMail) {
         this.serviceMail = serviceMail;
     }
 }

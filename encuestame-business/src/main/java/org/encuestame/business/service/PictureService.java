@@ -25,6 +25,7 @@ import org.encuestame.core.files.PathUtil;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  * Picture / Image Service.
@@ -32,6 +33,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
  * @since Jan 16, 2011 4:12:19 PM
  * @version $Id:$
  */
+@Service
 public class PictureService extends AbstractBaseService implements IPictureService{
 
     /**

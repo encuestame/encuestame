@@ -9,4 +9,9 @@
         <put-attribute name="profile" value="/WEB-INF/jsp/includes/profile.jsp" />
     </definition>
 
+    <definition name="errorPage" templateExpression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}errorPage.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}header-error.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}footer.jsp" />
+    </definition>
+
 </tiles-definitions>

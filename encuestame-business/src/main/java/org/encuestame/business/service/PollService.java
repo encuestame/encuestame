@@ -217,7 +217,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final List<Email> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
         if(emailList !=null){
                  for (Email emails : emailsList) {
-                   getServiceMail().send(emails.getEmail(),"New Poll", urlPoll);
+                   getMailServiceOperations().send(emails.getEmail(),"New Poll", urlPoll);
                   }
          }
          else{

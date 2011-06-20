@@ -23,6 +23,7 @@ import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,24 +36,34 @@ import org.springframework.stereotype.Service;
 public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
     /** {@link SecurityService}. **/
+    @Autowired
     private SecurityOperations securityService;
     /** {@link SurveyService}. **/
+    @Autowired
     private ISurveyService surveyService;
     /** {@link PollService}. **/
+    @Autowired
     private IPollService pollService;
     /** {@link TweetPollService}. **/
+    @Autowired
     private ITweetPollService tweetPollService;
     /** {@link LocationService}. **/
+    @Autowired
     private ILocationService locationService;
     /** {@link ProjectService}. **/
+    @Autowired
     private IProjectService projectService;
     /** {@link ChartService}. **/
+    @Autowired
     private IChartService chartService;
     /** {@link FrontEndService}. **/
+    @Autowired
     private IFrontEndService frontEndService;
     /** {@link PictureService}. **/
+    @Autowired
     private IPictureService pictureService;
     /** {@link SearchServiceOperations}. **/
+    @Autowired
     private SearchServiceOperations searchService;
 
     /**

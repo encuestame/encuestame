@@ -17,10 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
@@ -49,8 +52,6 @@ import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.MD5Utils;
-import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -59,11 +60,13 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -73,9 +76,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 /**
@@ -173,9 +178,10 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll createTweetPoll(final String question,
+    @Deprecated
+    public TweetPoll createTweetPoll(
+            final String question,
             String[] hashtags,
-            String[] answers,
             UserAccount user) throws EnMeExpcetion{
         //create new tweetPoll
         final TweetPollBean tweetPollBean = new TweetPollBean();
@@ -186,8 +192,22 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         tweetPollBean.setResultNotification(Boolean.FALSE);
         //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
         tweetPollBean.setSchedule(Boolean.FALSE);
-        return getTweetPollService().createTweetPoll(tweetPollBean, question,
-                answers, user);
+        return getTweetPollService().createTweetPoll(tweetPollBean, question, user);
+    }
+
+    /**
+     *
+     * @param tweetPollBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll createTweetPoll(
+            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+        //create new tweetPoll
+        log.debug("createTweetPoll Bean "+tweetPollBean.toString());
+        return getTweetPollService().createTweetPoll(tweetPollBean,
+                tweetPollBean.getQuestionBean().getQuestionName(),
+                getUserAccount());
     }
 
     /**
@@ -200,13 +220,28 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll updateTweetPoll(final Long tweetPollId,
+    @Deprecated
+    public TweetPoll updateTweetPoll(
+         final Long tweetPollId,
          final String question,
          final String[] hashtags,
-         final String[] answers) throws EnMeExpcetion{
+         final Long[] answers) throws EnMeExpcetion{
          final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
-         return getTweetPollService().updateTweetPoll(tweetPollId, answers, hashtagsList);
+         //return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
+         return null;
     }
+
+    /**
+     *
+     * @param tweetPollBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public TweetPoll updateTweetPoll(
+            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+            //final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
+            return getTweetPollService().updateTweetPoll(tweetPollBean);
+       }
 
     /**
      * Get Ip Client.

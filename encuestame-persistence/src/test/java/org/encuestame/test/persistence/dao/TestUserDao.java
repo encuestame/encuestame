@@ -245,11 +245,11 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testgetTwitterVerifiedAccountByUser(){
-        final List<SocialAccount> socAccount = getAccountDao().getTwitterVerifiedAccountByUser(this.account,
+        final List<SocialAccount> socAccount = getAccountDao().getSocialVerifiedAccountByUserAccount(this.account,
               SocialProvider.TWITTER);
         assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
         assertEquals("Should be equals", 1, socAccount.size());
-        final List<SocialAccount> socAccount2 = getAccountDao().getTwitterVerifiedAccountByUser(this.account,
+        final List<SocialAccount> socAccount2 = getAccountDao().getSocialVerifiedAccountByUserAccount(this.account,
                null);
         assertEquals("Should be equals", 1, socAccount2.size());
     }

@@ -193,7 +193,7 @@ public class AccountDaoImp extends AbstractHibernateDaoSupport implements IAccou
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getTwitterVerifiedAccountByUser(org.encuestame.persistence.domain.security.Account, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public final List<SocialAccount> getTwitterVerifiedAccountByUser(
+    public final List<SocialAccount> getSocialVerifiedAccountByUserAccount(
             final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);

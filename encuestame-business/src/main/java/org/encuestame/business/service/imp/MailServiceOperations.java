@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.mail;
+package org.encuestame.business.service.imp;
 
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.utils.mail.InvitationBean;
@@ -23,9 +23,8 @@ import org.springframework.mail.MailSendException;
  * Interface to implement a mail service.
  * @author Picado, Juan juan@encuestame.org
  * @since May 05, 2009
- * @version $Id$
  */
-public interface MailService extends ServiceOperations {
+public interface MailServiceOperations extends ServiceOperations {
 
     /**
      * Send a email.
@@ -68,4 +67,37 @@ public interface MailService extends ServiceOperations {
     void sendStartUpNotification(
             final String startupMessage);
 
+    /**
+     * Send invitation.
+     * @param to email to send
+     * @param code code of password
+     * @throws MailSendException mail exception.
+     */
+    void sendInvitation(
+            final String to,
+            final String code) throws MailSendException;
+
+
+    /**
+     * Sent email to confirm user account by email.
+     * @param user
+     */
+    void sendConfirmYourAccountEmail(final SignUpBean user, final String inviteCode);
+
+    /**
+     * Delete notification.
+     * @param to mail to send
+     * @param body body of message
+     * @throws MailSendException exception
+     */
+    void sendDeleteNotification(
+            final String to,
+            final String body)throws MailSendException;
+
+    /**
+     * Send notification status account.
+     * @param user
+     * @param message
+     */
+    void sendNotificationStatusAccount(final SignUpBean user, final String message);
 }

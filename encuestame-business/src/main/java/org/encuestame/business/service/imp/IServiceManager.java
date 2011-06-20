@@ -12,7 +12,8 @@
  */
 package org.encuestame.business.service.imp;
 
-import org.encuestame.core.util.MessageSourceFactoryBean;
+import org.encuestame.business.service.MessageSourceFactoryBean;
+import org.springframework.context.MessageSource;
 
 /**
  * Interface to Service Manager.
@@ -38,11 +39,11 @@ public interface IServiceManager{
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSourceFactoryBean getMessageSource();
+    public MessageSource getMessageSource();
 
     /**
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(MessageSourceFactoryBean messageSource);
+    public void setMessageSource(MessageSource messageSource);
 }

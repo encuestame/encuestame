@@ -5,16 +5,16 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+       http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <!-- To enable @Pre and @Post Annotations -->
-    <security:global-method-security
-        pre-post-annotations="enabled" />
+    <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"
+                                     jsr250-annotations="enabled" />
 
     <!-- Authentication Manager -->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider
-            ref="socialAccountProvider" user-service-ref="enMeAuthenticationSocialUserService" />
+            ref="socialAccountProvider" />
         <security:authentication-provider
              user-service-ref="enMeAuthenticationUserService">
             <security:password-encoder ref="passwordEncoder" />
@@ -45,91 +45,44 @@
     <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
 
     <!-- General Configuration -->
-    <security:http auto-config="false" entry-point-ref="authenticationEntryPoint"
-        access-decision-manager-ref="voteAccessDecisionManager"
+    <security:http
+        use-expressions="true"
+        entry-point-ref="authenticationEntryPoint"
         access-denied-page="${spring.sec.login.denied}">
-
-        <security:intercept-url pattern="index.jsp"
-            filters="none" />
-
-        <!-- Public Paths -->
-        <security:intercept-url pattern="/index"
-            filters="none" />
-        <security:intercept-url pattern="/error"
-            filters="none" />
-        <security:intercept-url pattern="/home"
-            filters="none" />
-        <security:intercept-url pattern="/profile"
-            filters="none" />
-        <security:intercept-url pattern="/tags"
-            filters="none" />
-        <security:intercept-url pattern="/user/signin"
-            filters="none" />
-        <security:intercept-url pattern="/user/forgot"
-            filters="none" />
-        <security:intercept-url pattern="/user/signup"
-            filters="none" />
-
-        <!-- Admon Paths -->
-        <security:intercept-url pattern="/admon/**/*"
-            access="ENCUESTAME_ADMIN, ENCUESTAME_USER" />
-
-        <!-- Account Paths <security:intercept-url pattern="/user/signin" access="ENCUESTAME_ANONYMOUS"/>
-            <security:intercept-url pattern="/user/forgot" access="ENCUESTAME_ANONYMOUS"
-            /> <security:intercept-url pattern="/user/signup" access="ENCUESTAME_ANONYMOUS"/> -->
-
-        <security:intercept-url pattern="/user/logout"
-            access="ENCUESTAME_USER" />
-
-        <!-- Super Admin -->
-        <security:intercept-url pattern="/admin"
-            access="ENCUESTAME_SUPER" />
-
-        <!-- Shared areas -->
-        <security:intercept-url pattern="/settings/**/*"
-            access="ENCUESTAME_USER" />
-
-        <!-- App secure paths. -->
-        <security:intercept-url pattern="/user/tweetpoll"
-            access="ENCUESTAME_USER, ENCUESTAME_EDITOR" />
-        <security:intercept-url pattern="/user/poll"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/user/dashboard"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/user/tweetpoll/new"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/user/tweetpoll/list"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/user/survey"
-            access="ENCUESTAME_USER, ENCUESTAME_EDITOR" />
-
-        <!-- Api restrictions. -->
-        <security:intercept-url pattern="/api/social/**/*"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/api/settings/**/*"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/api/admon/**/*"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/api/survey/**/*"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/api/chart/**/*"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/api/groups/**/*"
-            access="ENCUESTAME_USER" />
-        <security:intercept-url pattern="/api/notifications/**/*"
-            access="ENCUESTAME_USER" />
-
-        <!-- Resources Path -->
-        <security:intercept-url pattern="/resources/*"  filters="none" />
-
         <security:remember-me key="${spring.sec.rememberMe.key}"
             services-alias="_rememberMeServices" token-validity-seconds="10080" />
-        <security:anonymous enabled="true"
-            granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
+        <security:anonymous enabled="true"  granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
         <security:logout logout-success-url="${spring.sec.logout.sucess}"
-            invalidate-session="true" logout-url="${spring.sec.logout.url}" />
-        <security:custom-filter position="FORM_LOGIN_FILTER"
-            ref="authenticationProcessingFilter" />
+            invalidate-session="true" logout-url="${spring.sec.logout.url}" delete-cookies="JSESSIONID"/>
+        <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
+<!--         <security:session-management invalid-session-url="/user/session/invalid" -->
+<!--                   session-fixation-protection="newSession"></security:session-management> -->
+        <security:intercept-url pattern="index.jsp"  access="permitAll"/>
+        <security:intercept-url pattern="/index/**" access="permitAll"/>
+        <security:intercept-url pattern="/error/**" access="permitAll" />
+        <security:intercept-url pattern="/home/**"  access="permitAll" />
+        <security:intercept-url pattern="/profile/**" access="permitAll" />
+        <security:intercept-url pattern="/tags/**"  access="permitAll" />
+        <security:intercept-url pattern="/user/signin/**" access="permitAll" />
+        <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
+        <security:intercept-url pattern="/user/signup/**" access="permitAll"  />
+        <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_ADMIN')" />
+        <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />
+        <security:intercept-url pattern="/user/tweetpoll"  access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')" />
+        <security:intercept-url pattern="/user/poll"  access="hasRole('ENCUESTAME_USER')" />
+        <security:intercept-url pattern="/user/dashboard"  access="hasRole('ENCUESTAME_USER')" />
+        <security:intercept-url pattern="/user/tweetpoll/new"    access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/user/tweetpoll/list"  access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/user/survey" access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')"  />
+        <security:intercept-url pattern="/api/social/**/*"   access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/settings/**/*"  access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/admon/**/*"   access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/survey/**/*"    access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/chart/**/*"   access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/groups/**/*"  access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/notifications/**/*"  access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/resources/**" access="permitAll"/>
     </security:http>
 
     <bean id="authenticationEntryPoint"
@@ -138,14 +91,12 @@
         <property name="forceHttps" value="${spring.sec.forceLoginSSL}" />
     </bean>
 
-
-    <!-- Username Filter -->
     <bean id="authenticationProcessingFilter"
         class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
         <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
-        <property name="filterProcessesUrl" value="/j_spring_security_check" />
+        <property name="filterProcessesUrl" value="/user/signin/authenticate" />
     </bean>
 
     <bean id="authenticationSuccessHandler"
@@ -153,16 +104,10 @@
         <property name="defaultTargetUrl" value="${spring.sec.defaultLoginUrl}" />
     </bean>
 
-    <bean id="authenticationFailureHandler"
-        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <property name="defaultFailureUrl" value="${spring.sec.login.error}" />
-    </bean>
+    <bean id="authenticationFailureHandler" class="org.encuestame.core.security.AuthenticationFailureHandlerImp"/>
 
     <bean id="voteAccessDecisionManager"
         class="org.springframework.security.access.vote.AffirmativeBased">
-        <property name="allowIfAllAbstainDecisions">
-            <value>false</value>
-        </property>
         <property name="decisionVoters">
             <list>
                 <ref bean="roleVoter" />

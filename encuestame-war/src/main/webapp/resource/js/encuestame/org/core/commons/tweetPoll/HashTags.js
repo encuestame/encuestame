@@ -16,6 +16,8 @@ dojo.declare(
 
         suggestWidget : null,
 
+        tweetPollId : null,
+
         listItems : [],
 
         _itemsSelected : [],
@@ -63,18 +65,18 @@ dojo.declare(
                                 }
                              }));
                       } else {
-                          hashTagWidget.processSelectedItem({id:null, label:currentText, newValue: true});
+                          hashTagWidget.processSelectedItem({id:null, label: currentText, newValue: true});
                           hashTagWidget.hide();
                       }
                    //console.debug(hashTagWidget._itemStored);
                  }
              });
              var node = dojo.byId("hashTagSuggest_"+this.id);
-             if (this._suggest){
+             if (this._suggest) {
                 this._suggest.appendChild(hashTagWidget.domNode);
              }
             this.suggestWidget = hashTagWidget;
-            if(this.suggestWidget){
+            if(this.suggestWidget) {
                 this.suggestWidget.processSelectedItem = dojo.hitch(this, function(data){
                     console.info("Processing Item Selected ...", data);
                     this.addNewHashTag(data);
@@ -105,6 +107,20 @@ dojo.declare(
         //print hashTag
         printHashTag : function(data){
             this.newHashTag(data);
+        },
+
+        /*
+         * get list of hashtags.
+         */
+        getHashTags : function(){
+            var hashtags = [];
+            dojo.forEach(
+                this.listItems,
+                dojo.hitch(this, function(tag, index) {
+                    hashtags.push(tag.data);
+                }));
+            console.debug("hashtags", hashtags);
+            return hashtags;
         },
 
         //new Hash Tag.
@@ -142,7 +158,7 @@ dojo.declare(
                 this.getDialog().hide();
                 dojo.publish("/encuestame/tweetpoll/updatePreview");
             } else {
-                console.error("Error on remove Item");
+                console.error("error on remove Item");
             }
         }
     }

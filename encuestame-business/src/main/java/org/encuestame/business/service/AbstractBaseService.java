@@ -19,12 +19,10 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.mail.MailServiceImpl;
+import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.business.setup.DirectorySetupOperations;
-import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.MD5Utils;
-import org.encuestame.core.util.MessageSourceFactoryBean;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
@@ -38,6 +36,8 @@ import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -48,19 +48,21 @@ import twitter4j.http.AccessToken;
  * @author Picado, Juan juan@encuestame.org
  * @since 22/05/2009 1:02:45
  */
-public abstract class AbstractBaseService extends AbstractConfigurationService {
+@Service
+public abstract class AbstractBaseService extends AbstractDataSource {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * {@link MessageSourceFactoryBean}.
      */
+    @Autowired
     private MessageSourceFactoryBean messageSource;
 
     /**
-     *  {@link MailServiceImpl}.
+     *  {@link MailService}.
      */
-    private MailServiceImpl serviceMail;
+    private MailServiceOperations mailServiceOperations;
 
     /**
      * Constructor.
@@ -80,7 +82,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(MessageSourceFactoryBean messageSource) {
+    public void setMessageSource(final MessageSourceFactoryBean messageSource) {
         this.messageSource = messageSource;
     }
 
@@ -92,19 +94,6 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
     public String getMessageProperties(String propertieId) {
         return getMessageSource() == null ? propertieId : getMessageSource()
                 .getMessage(propertieId, null, null);
-    }
-
-    /**
-     * @return {@link MailServiceImpl}.
-     */
-    public MailServiceImpl getServiceMail() {
-        return serviceMail;
-    }
-    /**
-     * @param serviceMail {@link MailServiceImpl}.
-     */
-    public void setServiceMail(MailServiceImpl serviceMail) {
-        this.serviceMail = serviceMail;
     }
 
     /**
@@ -156,7 +145,7 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
-                this.serviceMail.send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                getMailServiceOperations().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {
@@ -320,5 +309,20 @@ public abstract class AbstractBaseService extends AbstractConfigurationService {
         if (!file.exists()) {
             file.mkdirs();
         }
+    }
+
+    /**
+     * @return the mailServiceOperations
+     */
+    @Autowired
+    public MailServiceOperations getMailServiceOperations() {
+        return mailServiceOperations;
+    }
+
+    /**
+     * @param mailServiceOperations the mailServiceOperations to set
+     */
+    public void setMailServiceOperations(final MailServiceOperations mailServiceOperations) {
+        this.mailServiceOperations = mailServiceOperations;
     }
 }

@@ -24,7 +24,6 @@ import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

@@ -3,9 +3,11 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,12 @@ import org.springframework.web.context.request.WebRequest;
  */
 @Controller
 public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
+
+
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      *
@@ -61,7 +69,13 @@ public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
             @RequestParam(required = false) String scope,
             WebRequest request,
             HttpServletRequest httpRequest) {
-        return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+        try {
+            return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+        } catch (EnMeOAuthSecurityException e) {
+               e.printStackTrace();
+                log.error(e);
+                return null;
+        }
     }
 
     /**

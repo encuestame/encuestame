@@ -69,7 +69,6 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Before
     public void initService(){
-        securityService.setSuspendedNotification(getActivateNotifications());
         this.userPrimary = createAccount();
         this.secUserSecondary = createUserAccount("default", this.userPrimary);
         this.secUserSecondary.setInviteCode(inviteCode);
@@ -213,7 +212,6 @@ public class TestSecurityService extends AbstractServiceBase{
         final Long id = tempUser.getUid();
         this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser));
         final UserAccount tempUser2 = createUserAccount("second user", getProperty("mail.test.email"), this.userPrimary);
-        this.securityService.setSuspendedNotification(true);
         this.securityService.deleteUser(ConvertDomainBean.convertSecondaryUserToUserBean(tempUser2));
         assertNull(getAccountDao().getUserAccountById(id));
     }

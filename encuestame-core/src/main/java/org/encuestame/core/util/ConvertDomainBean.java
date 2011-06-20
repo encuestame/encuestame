@@ -113,11 +113,17 @@ public class ConvertDomainBean {
            final SocialAccountBean socialAccountBean = new SocialAccountBean();
                    socialAccountBean.setAccount(socialAccount.getSocialAccountName());
                    socialAccountBean.setAccountId(socialAccount.getId());
-                   socialAccountBean.setToken(socialAccount.getAccessToken());
-                   socialAccountBean.setSecretToken(socialAccount.getSecretToken());
                    socialAccountBean.setTypeAccount(socialAccount.getAccounType().toString());
-                   socialAccountBean.setType(socialAccount.getType() == null
-                          ? SocialAccount.TypeAuth.OAUTH1.name() : socialAccount.getType().name());
+                   socialAccountBean.setDescriptionProfile(socialAccount.getDescriptionProfile());
+                   socialAccount.setEmail(socialAccount.getEmail());
+                   socialAccount.setDefaultSelected(socialAccount.getDefaultSelected() ==  null
+                                    ? false : socialAccount.getDefaultSelected());
+                   socialAccountBean.setAddedAccount(socialAccount.getAddedAccount());
+                   socialAccountBean.setPrictureUrl(socialAccount.getPrictureUrl());
+                   socialAccountBean.setProfilePictureUrl(socialAccount.getProfilePictureUrl());
+                   socialAccountBean.setProfileThumbnailPictureUrl(socialAccount.getProfileThumbnailPictureUrl());
+                   socialAccountBean.setRealName(socialAccount.getRealName());
+                   socialAccountBean.setSocialAccountName(socialAccount.getSocialAccountName());
            return socialAccountBean;
     }
 

@@ -96,9 +96,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
     private final String DASHBOARD_REDIRECT = "redirect:/user/dashboard";
 
-    /** Suspended Notification. **/
-    private Boolean suspendedNotification;
-
     /**
      * Retrieve Total Own Users.
      * @param username username
@@ -201,11 +198,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
-                if (getSuspendedNotification()) {
+                //if (getSuspendedNotification()) {
                     log.info("notify delete account");
-                    getServiceMail().sendDeleteNotification(userBean.getEmail(),
+                    getMailServiceOperations().sendDeleteNotification(userBean.getEmail(),
                             getMessageProperties("MessageDeleteNotification"));
-                }
+                //}
                 log.info("deleting user");
                 getAccountDao().delete(userDomain);
                 log.info("user deleted");
@@ -227,11 +224,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             //TODO: security risk?
             userBean.setPassword(newPassword);
             //if notification is suspended we need retrieve password
-            if (getSuspendedNotification()) {
-                getServiceMail().sendRenewPasswordEmail(userBean);
-            } else {
+            //if (getSuspendedNotification()) {
+                getMailServiceOperations().sendRenewPasswordEmail(userBean);
+            //} else {
                 log.warn("Notifications Email are suspendend");
-            }
+            //}
             //saving user.
             getAccountDao().saveOrUpdate(userDomain);
         }
@@ -394,9 +391,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setUserStatus(Boolean.TRUE);
         userAccount.setEnjoyDate(new Date());
             // send to user the password to her emails
-            if((getSuspendedNotification())) {
+            //if((getSuspendedNotification())) {
             sendUserPassword(userBean.getEmail(), password);
-            }
+            //}
             // save user
             getAccountDao().saveOrUpdate(userAccount);
             // assing first default group to user
@@ -629,9 +626,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
         //send new password
-        getServiceMail().sendPasswordConfirmationEmail(singUpBean);
+        getMailServiceOperations().sendPasswordConfirmationEmail(singUpBean);
         //send confirmation account
-        getServiceMail().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        getMailServiceOperations().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
         if (log.isDebugEnabled()) {
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
@@ -711,7 +708,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @throws Exception excepcion
      */
     public void inviteUser(String email, String code){
-        getServiceMail().sendInvitation(email, code);
+        getMailServiceOperations().sendInvitation(email, code);
     }
 
     /**
@@ -752,7 +749,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
-        getServiceMail().send(email, getMessageProperties("NewPassWordMail"),
+        getMailServiceOperations().send(email, getMessageProperties("NewPassWordMail"),
                 password);
     }
 
@@ -771,21 +768,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public String getDefaultUserPermission() {
         return  DEFAULT.name();
-    }
-
-    /**
-     * Getter.
-     * @return suspendend notification
-     */
-    public Boolean getSuspendedNotification() {
-        return suspendedNotification;
-    }
-    /**
-     * Setter.
-     * @param suspendedNotification suspended notification
-     */
-    public void setSuspendedNotification(final Boolean suspendedNotification) {
-        this.suspendedNotification = suspendedNotification;
     }
 
     /**
@@ -898,47 +880,47 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         getAccountDao().saveOrUpdate(account);
     }
 
-    /**
-     * Update OAuth Secret Twitter Credentials.
-     * @param accountBean {@link SocialAccountBean}
-     * @param username username logged
-     * @throws EnMeExpcetion exception
-     */
-   @Deprecated
-    public void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
-            final String username) throws EnMeExpcetion{
-         //TODO: we should search twitter account filter by username
-         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
-         //twitterAccount.setConsumerKey(accountBean.getKey());
-         //twitterAccount.setConsumerSecret(accountBean.getSecret());
-         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
-         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
-             log.debug("PIN Exists {"+accountBean.getPin());
-             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
-            //If exist pin, we can verify credentials
-            log.debug("Verify OAuth Credentials");
-                if(verifyCredentials(
-                        //Token and Secret token should be always from database
-                        twitterAccount.getAccessToken(),
-                        twitterAccount.getSecretToken(),
-                        //consumer key's
-                        accountBean.getKey(),
-                        accountBean.getSecret(),
-                        //pin, update by the user.
-                        accountBean.getPin())){
-                    twitterAccount.setVerfied(Boolean.TRUE);
-                } else {
-                    twitterAccount.setVerfied(Boolean.FALSE);
-                }
-         } else {
-             log.info("Account not verified, pin not found");
-             //twitterAccount.setTwitterPin(null);
-             twitterAccount.setVerfied(Boolean.FALSE);
-         }
-        log.debug("Update Secret Twitter Credentials");
-        getAccountDao().saveOrUpdate(twitterAccount);
-        log.info("update Twitter Account");
-    }
+//    /**
+//     * Update OAuth Secret Twitter Credentials.
+//     * @param accountBean {@link SocialAccountBean}
+//     * @param username username logged
+//     * @throws EnMeExpcetion exception
+//     */
+//   @Deprecated
+//    public void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
+//            final String username) throws EnMeExpcetion{
+//         //TODO: we should search twitter account filter by username
+//         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
+//         //twitterAccount.setConsumerKey(accountBean.getKey());
+//         //twitterAccount.setConsumerSecret(accountBean.getSecret());
+//         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
+//         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
+//             log.debug("PIN Exists {"+accountBean.getPin());
+//             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
+//            //If exist pin, we can verify credentials
+//            log.debug("Verify OAuth Credentials");
+//                if(verifyCredentials(
+//                        //Token and Secret token should be always from database
+//                        twitterAccount.getAccessToken(),
+//                        twitterAccount.getSecretToken(),
+//                        //consumer key's
+//                        accountBean.getKey(),
+//                        accountBean.getSecret(),
+//                        //pin, update by the user.
+//                        accountBean.getPin())){
+//                    twitterAccount.setVerfied(Boolean.TRUE);
+//                } else {
+//                    twitterAccount.setVerfied(Boolean.FALSE);
+//                }
+//         } else {
+//             log.info("Account not verified, pin not found");
+//             //twitterAccount.setTwitterPin(null);
+//             twitterAccount.setVerfied(Boolean.FALSE);
+//         }
+//        log.debug("Update Secret Twitter Credentials");
+//        getAccountDao().saveOrUpdate(twitterAccount);
+//        log.info("update Twitter Account");
+//    }
 
     /**
      * Change state social account.
@@ -1040,6 +1022,37 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getUserAccount(username).getAccount());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.String, java.lang.String, org.encuestame.core.social.SocialUserProfile, org.encuestame.persistence.domain.social.SocialProvider)
+     */
+    public SocialAccount addNewSocialAccount(
+            final String token,
+            final String tokenSecret,
+            final String expiresToken,
+            final SocialUserProfile socialUserProfile,
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
+        final SocialAccount socialAccount = new SocialAccount();
+        socialAccount.setAccessToken(token);
+        socialAccount.setSecretToken(tokenSecret);
+        socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
+        socialAccount.setExpires(expiresToken);
+        socialAccount.setAccounType(socialProvider);
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setVerfied(Boolean.TRUE);
+        socialAccount.setSocialAccountName(socialUserProfile.getUsername());
+        socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setSocialProfileId(socialUserProfile.getId());
+        socialAccount.setPrictureUrl(socialUserProfile.getProfileImageUrl()); //TODO: repeated
+        socialAccount.setProfilePictureUrl(socialUserProfile.getProfileImageUrl());
+        socialAccount.setEmail(socialUserProfile.getEmail());
+        socialAccount.setProfileThumbnailPictureUrl(socialUserProfile.getProfileImageUrl());
+        socialAccount.setRealName(socialUserProfile.getRealName());
+        getAccountDao().saveOrUpdate(socialAccount);
+        return socialAccount;
+    }
+
     /**
      *
      * @param socialProvider
@@ -1079,11 +1092,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#getUserLoggedVerifiedTwitterAccount(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccountBean> getUserLoggedVerifiedTwitterAccount(final String username, final SocialProvider provider)
+    public List<SocialAccountBean> getUserLoggedVerifiedSocialAccounts(final SocialProvider provider)
              throws EnMeNoResultsFoundException{
         final List<SocialAccount> socialAccounts = getAccountDao()
-                .getTwitterVerifiedAccountByUser(getUserAccount(username).getAccount(), provider);
-        log.debug("social provider verified "+socialAccounts.size());
+                .getSocialVerifiedAccountByUserAccount(getUserAccount(getUserPrincipalUsername()).getAccount(), provider);
+        log.debug("social provider verified:{"+socialAccounts.size());
         return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
    }
 
@@ -1109,7 +1122,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
         }
         singUp = ConvertDomainBean.convertBasicSecondaryUserToSignUpBean(userAcc);
-        getServiceMail().sendNotificationStatusAccount(singUp, "User status");
+        getMailServiceOperations().sendNotificationStatusAccount(singUp, "User status");
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
 
@@ -1125,7 +1138,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         singUp.setPassword(userAccBean.getPassword());
         singUp.setUsername(userAccBean.getUsername());
         getAccountDao().saveOrUpdate(singUp);
-        getServiceMail().sendNotificationStatusAccount(singUp, "Change user status");
+        getMailServiceOperations().sendNotificationStatusAccount(singUp, "Change user status");
     }
 
    /**
@@ -1250,8 +1263,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
            final SocialAccountBean accountBean,
            final String password,
            final Boolean verify) throws EnMeNoResultsFoundException{
-       if(accountBean.getAccountId() != null){
-           final SocialAccount twitterAccount = getSocialAccount(accountBean.getAccountId());
+       if(accountBean.accountId != null){
+           final SocialAccount twitterAccount = getSocialAccount(accountBean.accountId);
            if(twitterAccount != null){
                twitterAccount.setVerfied(verify);
                log.debug("Updating twitter password account");

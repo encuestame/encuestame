@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encuestame.core.filter.RequestSessionMap;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -27,17 +28,15 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
  * @since May 1, 2011
  */
 public class AuthenticationFailureHandlerImp implements
-		AuthenticationFailureHandler {
+        AuthenticationFailureHandler {
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.web.authentication.AuthenticationFailureHandler#onAuthenticationFailure(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
-	 */
-	@Override
-	public void onAuthenticationFailure(HttpServletRequest arg0,
-			HttpServletResponse arg1, AuthenticationException arg2)
-			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-
-	}
+    /* (non-Javadoc)
+     * @see org.springframework.security.web.authentication.AuthenticationFailureHandler#onAuthenticationFailure(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
+     */
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        RequestSessionMap.getCurrent(request).put("signinError", true);
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/user/signin"));
+    }
 
 }

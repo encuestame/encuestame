@@ -59,7 +59,7 @@ public class TweetPollSavedPublishedStatus {
     private String tweetContent;
 
     /**. Tweet Id. **/
-    private Long tweetId;
+    private String tweetId;
 
     /** Api Type. **/
     private SocialProvider apiType;
@@ -72,20 +72,6 @@ public class TweetPollSavedPublishedStatus {
 
     /** Publication Date Tweet. This date is from twitter after publish. **/
     private Date publicationDateTweet;
-
-    /**
-     */
-    public enum Status {
-    /**
-     *
-     */
-    FAILED,
-    /**
-     *
-     */
-    SUCCESS
-    //TODO: In the future we can add more API's Tumblr, Plurk, Jaiku.
-    }
 
     /**
      * @return the id
@@ -155,7 +141,7 @@ public class TweetPollSavedPublishedStatus {
      * @return the tweetId
      */
     @Column(name = "tweet_id", nullable = true)
-    public Long getTweetId() {
+    public String getTweetId() {
         return tweetId;
     }
 
@@ -163,7 +149,7 @@ public class TweetPollSavedPublishedStatus {
      * @param tweetId
      *            the tweetId to set
      */
-    public void setTweetId(final Long tweetId) {
+    public void setTweetId(final String tweetId) {
         this.tweetId = tweetId;
     }
 
@@ -188,7 +174,7 @@ public class TweetPollSavedPublishedStatus {
      * @return the status
      */
     @Column(name="status")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public Status getStatus() {
         return status;
     }
@@ -229,5 +215,18 @@ public class TweetPollSavedPublishedStatus {
      */
     public void setTweetContent(final String tweetContent) {
         this.tweetContent = tweetContent;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "TweetPollSavedPublishedStatus [id=" + id + ", twitterAccount="
+                + twitterAccount + ", tweetPoll=" + tweetPoll
+                + ", tweetContent=" + tweetContent + ", tweetId=" + tweetId
+                + ", apiType=" + apiType + ", status=" + status
+                + ", descriptionStatus=" + descriptionStatus
+                + ", publicationDateTweet=" + publicationDateTweet + "]";
     }
 }

@@ -78,6 +78,30 @@ a:hover{
     width: 92%;
 }
 
+#content-container #enme-content div.errorWrapper {
+  font-size: 120%;
+  font-weight: bold;
+  margin: 110px 135px auto;
+}
+
+#content-container #enme-content div.errorWrapper div.extra {
+  background-color: #EFEFEF;
+  border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  margin: 22px;
+  padding: 10px;
+}
+
+#content-container #enme-content div.errorWrapper div.extra .title{
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#content-container #enme-content div.errorWrapper div.extra a{
+    padding: 5px;
+}
+
 #defaultWrapper{
     clear: left;
     padding: 1px 0 8px;
@@ -363,36 +387,87 @@ div.tweetPollDetail div.answerVote{
 
 div.socialAccountPicker{
     width: 100%;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
     max-width: 600px;
     padding: 4px;
     max-height: 240px;
-    overflow: auto;
 }
 
-div.socialAccountPicker .list{
-    float: left;
-    width: 250px;
-    overflow: auto;
-    max-height: 200px;
-}
-
-div.socialAccountPicker .selected{
-    float: right;
-    min-width: 400px;
-    border: 1px solid gray;
-}
-
-div.socialAccountPicker div.account{
-   -webkit-border-radius: 10px;
-   -moz-border-radius: 10px;
-    border-radius: 10px;
-    background-color: blue;
-    color: white;
-    font-size: 130%;
-    border: 1px solid black;
+div.socialAccountPicker div.menu{
     padding: 5px;
+    background: #888888;
+    color: white;
+    min-height: 15px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 95%;
+    text-align: right;
+}
+
+div.socialAccountPicker .pick{
+    cursor: pointer;
+}
+
+div.socialAccountPicker .pick:hover{
+    text-decoration: underline;
+}
+
+div.socialAccountPicker div.resume{
+    padding: 5px;
+    background: #888888;
+    color: white;
+    min-height: 15px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+    font-size: 95%;
+    text-align: right;
+}
+
+div.socialAccountPicker .list {
+  background: none repeat scroll 0 0 #D5D5D5;
+  max-height: 200px;
+  min-height: 15px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+div.socialAccountPicker div.account{
+    margin: 1px;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #E6E6E6;
+    color: #776E6E;
+    font-size: 130%;
+    border: 0.1em solid #D0CFCF;
+    padding: 1px;
     min-width: 200px;
+    cursor: pointer;
+    overflow: auto;
+}
+
+div.socialAccountPicker div.selected {
+  background-color: #2E2F25;
+  color: white;
+  font-weight: normal;
+}
+
+div.socialAccountPicker div.account:hover{
+    background-color: #A3A7A7;
+}
+
+div.socialAccountPicker div.account div.image{
+    float: left;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+
+div.socialAccountPicker div.account div.detail{
+    float: left;
+}
+
+div.socialAccountPicker div.account div.icon{
+    float: right;
+    padding: 5px;
 }

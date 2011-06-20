@@ -80,6 +80,8 @@ div.socialWrapperRow div.title{
     font-size: 150%;
     font-weight: bold;
     margin: 2px;
+    float: left;
+    padding: 4px;
 }
 
 /** Twitter Account **/

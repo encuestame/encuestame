@@ -16,7 +16,6 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 
 
@@ -25,7 +24,6 @@ import java.util.List;
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Feb 14, 2010 10:00:58 AM
- * @version $Id$
  */
 public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
 
@@ -35,7 +33,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private static final long serialVersionUID = 5248987840986024954L;
     private Long id;
     private QuestionBean questionBean = new QuestionBean();
-    private Boolean closeNotification;
+    private Boolean closeNotification; //TODO: ???????
     private Boolean resultNotification;
     private Boolean publishPoll;
     private Date scheduleDate;
@@ -47,9 +45,11 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private String tweetUrl;
     private String createDate;
     private Boolean allowRepeatedVotes;
-    private String twitterUserAcoount;
     private Long totalVotes;
     private Date relativeTime;
+    private Integer maxRepeatedVotes;
+    private Boolean limitVotesEnabled;
+    private Boolean resumeTweetPollDashBoard;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
@@ -192,18 +192,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     }
 
     /**
-     * @return the tweetUrl
-     */
-    public final String getTweetUrl() {
-        final StringBuffer tweetUrlString = new StringBuffer(
-                TweetPollBean.TWITTER_STATUS_URL);
-        tweetUrlString.append(getTwitterUserAcoount());
-        tweetUrlString.append("/status/");
-        this.tweetUrl = tweetUrlString.toString();
-        return this.tweetUrl;
-    }
-
-    /**
      * @param tweetUrl
      *            the tweetUrl to set
      */
@@ -254,20 +242,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
      */
     public final void setSchedule(Boolean schedule) {
         this.schedule = schedule;
-    }
-
-    /**
-     * @return the twitterUserAcoount
-     */
-    public final String getTwitterUserAcoount() {
-        return twitterUserAcoount;
-    }
-
-    /**
-     * @param twitterUserAcoount the twitterUserAcoount to set
-     */
-    public final void setTwitterUserAccount(final String twitterUserAcoount) {
-        this.twitterUserAcoount = twitterUserAcoount;
     }
 
     /**
@@ -380,6 +354,71 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setRelativeTime(Date relativeTime) {
         this.relativeTime = relativeTime;
+    }
+
+    /**
+     * @return the maxRepeatedVotes
+     */
+    public Integer getMaxRepeatedVotes() {
+        return maxRepeatedVotes;
+    }
+
+    /**
+     * @param maxRepeatedVotes the maxRepeatedVotes to set
+     */
+    public void setMaxRepeatedVotes(Integer maxRepeatedVotes) {
+        this.maxRepeatedVotes = maxRepeatedVotes;
+    }
+
+    /**
+     * @return the limitVotesEnabled
+     */
+    public Boolean getLimitVotesEnabled() {
+        return limitVotesEnabled;
+    }
+
+    /**
+     * @param limitVotesEnabled the limitVotesEnabled to set
+     */
+    public void setLimitVotesEnabled(Boolean limitVotesEnabled) {
+        this.limitVotesEnabled = limitVotesEnabled;
+    }
+
+    /**
+     * @return the resumeTweetPollDashBoard
+     */
+    public Boolean getResumeTweetPollDashBoard() {
+        return resumeTweetPollDashBoard;
+    }
+
+    /**
+     * @param resumeTweetPollDashBoard the resumeTweetPollDashBoard to set
+     */
+    public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
+        this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "TweetPollBean [id=" + id + ", questionBean=" + questionBean
+                + ", closeNotification=" + closeNotification
+                + ", resultNotification=" + resultNotification
+                + ", publishPoll=" + publishPoll + ", scheduleDate="
+                + scheduleDate + ", allowLiveResults=" + allowLiveResults
+                + ", schedule=" + schedule + ", completed=" + completed
+                + ", favourites=" + favourites + ", userId=" + userId
+                + ", tweetUrl=" + tweetUrl + ", createDate=" + createDate
+                + ", allowRepeatedVotes=" + allowRepeatedVotes
+                + ", totalVotes=" + totalVotes + ", relativeTime="
+                + relativeTime + ", maxRepeatedVotes=" + maxRepeatedVotes
+                + ", limitVotesEnabled=" + limitVotesEnabled
+                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
+                + ", captcha=" + captcha + ", limitVotes=" + limitVotes
+                + ", resumeLiveResults=" + resumeLiveResults + ", results="
+                + results + "]";
     }
 
 }

@@ -13,6 +13,7 @@
 package org.encuestame.business.service;
 
 import org.encuestame.business.service.imp.IChartService;
+import org.springframework.stereotype.Service;
 
 /**
  * Chart Service.
@@ -20,6 +21,7 @@ import org.encuestame.business.service.imp.IChartService;
  * @since Sep 14, 2010 12:54:22 PM
  * @version Id:
  */
+@Service
 public class ChartService extends AbstractChartService implements IChartService{
 
 }
