@@ -16,9 +16,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
@@ -179,4 +183,21 @@ public interface IPollService extends IMasterSurveyService{
      */
     List<UnitPoll> getPollsbyDate(final String username, final Date date,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
+
+    /**
+     * Get poll by poll id and User id.
+     * @param pollId
+     * @param account
+     * @return
+     * @throws EnMeTweetPollNotFoundException
+     */
+    Poll getPollById(final Long pollId, final UserAccount account) throws EnMePollNotFoundException;
+
+    /**
+     * Get poll by pollId.
+     * @param pollId
+     * @return
+     * @throws EnMeTweetPollNotFoundException
+     */
+    Poll getPollById(final Long pollId) throws EnMePollNotFoundException;
 }
