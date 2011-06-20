@@ -157,7 +157,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          unitTweetPoll.setSchedule(schedule);
          unitTweetPoll.setScheduleDate(scheduleDate);
          unitTweetPoll.setTweetUrl(tweetUrl);
-         unitTweetPoll.setTwitterUserAccount(null);
+        // unitTweetPoll.setTwitterUserAccount(null);
         return unitTweetPoll;
      }
 
@@ -187,7 +187,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
      unitTweetPoll.setResults(null);
      unitTweetPoll.setTweetUrl(tweetUrl);
-     unitTweetPoll.setTwitterUserAccount(null);
+   //  unitTweetPoll.setTwitterUserAccount(null);
      return unitTweetPoll;
      }
 

@@ -134,8 +134,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
     tweetPollBean.setUserId(this.user.getUid());
     // createTweetPoll(TweetPollBean, String, String[], UserAccount)
     String[] a = {"yes","no"};
-    final TweetPoll tweetPoll = this.tweetPollService.createTweetPoll(tweetPollBean, "", a, this.userAccount);
-    final String s = this.tweetPollService.generateTweetPollContent(tweetPoll,  RandomStringUtils.randomAlphabetic(15));
+  //  final TweetPoll tweetPoll = this.tweetPollService.createTweetPoll(tweetPollBean, "", a, this.userAccount);
+   // final String s = this.tweetPollService.generateTweetPollContent(tweetPoll,  RandomStringUtils.randomAlphabetic(15));
     //final Status status = this.tweetPollService.publicTweetPoll(s, this.user.getTwitterAccount(), this.user.getTwitterPassword());
     //assertNotNull(status.getId());
     }

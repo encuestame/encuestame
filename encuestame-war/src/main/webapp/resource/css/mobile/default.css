@@ -100,3 +100,32 @@ div.mobile-signin div.formWrapper div.mobile-signin-options a:link{
 div.mobile-signin div.formWrapper div.mobile-signin-options .item{
     padding: 3px;
 }
+
+/*** FRONTEND ****/
+
+div.home-mobile{
+
+}
+
+div.home-mobile div.mobile-items{
+
+}
+
+div.home-mobile div.mobile-items div.mobile-item{
+    border-bottom: 1px solid #DFDFDF;
+    clear: both;
+}
+
+
+div.home-mobile div.mobile-items div.mobile-item div.mobile-view{
+    background :none repeat scroll 0 0 #275296;
+    padding: 1px;
+    text-align: center;
+    width: 55px;
+    float: left;
+}
+
+div.home-mobile div.items div.item div.mobile-content {
+     color:  #B3B3B3;
+     margin-left: 65px;
+}
