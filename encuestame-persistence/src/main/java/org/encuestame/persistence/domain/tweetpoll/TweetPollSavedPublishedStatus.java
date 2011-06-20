@@ -222,8 +222,8 @@ public class TweetPollSavedPublishedStatus {
      */
     @Override
     public String toString() {
-        return "TweetPollSavedPublishedStatus [id=" + id + ", twitterAccount="
-                + twitterAccount + ", tweetPoll=" + tweetPoll
+        return "TweetPollSavedPublishedStatus [id=" + id + ", socialAccount="
+                + twitterAccount.toString() + ", tweetPoll=" + tweetPoll.toString()
                 + ", tweetContent=" + tweetContent + ", tweetId=" + tweetId
                 + ", apiType=" + apiType + ", status=" + status
                 + ", descriptionStatus=" + descriptionStatus

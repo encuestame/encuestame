@@ -428,6 +428,7 @@ dojo.declare(
             console.debug("params", params);
             var load = dojo.hitch(this, function(data){
                 console.debug(data);
+                this.tweetPollPublishWidget.process(data);
             });
             var error = function(error) {
                 console.debug("error", error);
@@ -485,12 +486,15 @@ dojo.declare(
               this._content.appendChild(emtpy);
             },
 
+            /*
+             * initialize widget.
+             */
             initialize : function(){
 
             },
 
             /*
-             *
+             * build question.
              */
             _buildQuestion : function(question){
               dojo.empty(this._content);
@@ -652,9 +656,21 @@ dojo.declare(
 
             },
 
+            /*
+             * initialize widget.
+             */
             initialize : function(){
 
+            },
+
+
+            /*
+             * process date published.
+             */
+            process: function(data){
+
             }
+
 
             //{"error":{},"success":{"socialPublish":[
             //{"tweet_id":null,"textTweeted":"dsadasdasdasdsa das dsa dsa dsa fda fda fda dsadsa

@@ -41,12 +41,20 @@ public class ConvertDomainToJson {
         return list;
     }
 
+    /**
+     *
+     * @param savedPublishedStatus
+     * @return
+     */
     public static final TweetPollStatus convertTweetPollStatusToJson(
             final TweetPollSavedPublishedStatus savedPublishedStatus) {
         final TweetPollStatus pollStatus = new TweetPollStatus();
         pollStatus.datePublished = DateUtil.getFormatDate(savedPublishedStatus.getPublicationDateTweet());
         pollStatus.textTweeted = savedPublishedStatus.getTweetContent();
-        pollStatus.statusTweet = savedPublishedStatus.getDescriptionStatus();
+        pollStatus.statusTweet = savedPublishedStatus.getStatus().name();
+        pollStatus.statusDescriptionTweet = savedPublishedStatus.getDescriptionStatus();
+        pollStatus.socialAccountId = savedPublishedStatus.getTwitterAccount().getId();
+        pollStatus.sourceTweet = savedPublishedStatus.getApiType().name();
         return pollStatus;
     }
 }

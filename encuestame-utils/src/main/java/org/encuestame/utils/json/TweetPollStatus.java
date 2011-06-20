@@ -42,4 +42,13 @@ public class TweetPollStatus implements Serializable{
     @JsonProperty(value = "status_tweet")
     public String statusTweet;
 
+    @JsonProperty(value = "status_description_tweet")
+    public String statusDescriptionTweet;
+
+    @JsonProperty(value = "source_tweet")
+    public String sourceTweet;
+
+    @JsonProperty(value = "social_account_id")
+    public Long socialAccountId;
+
 }
