@@ -58,7 +58,7 @@
         <title>Encuestame Java Open Source Survey System, Twitter, Poll, Surveys.</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="description" content="Open Source Java Survey System, Twitter, Poll, Surveys." />
-        <meta name="keywords" content="survey, java, open source, poll, twitter, spring framework, social, dojo" />
+        <meta name="keywords" content="survey, java, open source, poll, twitter, facebook, google, spring framework, social, dojo" />
         <meta name="google-site-verification" content="Cp-ow0L1hAqhoCF_7-og3NgKqUk01S-Ln_JQkZV5Bx0" />
         <meta http-equiv="Expires" content="never"/>
         <meta name="Revisit-After" content="2"/>
@@ -89,6 +89,8 @@
             <item name="Main" href="index.html" />
             <item name="Features" href="features.html" />
             <item name="Demo Site" href="http://demo.encuestame.org" />
+	    <item name="CI" href="http://ci.encuestame.org" />
+	    <item name="Bug Tracking" href="http://issues.encuestame.org" />
             <item name="Download" href="download.html" />
             <item name="Releases" href="http://wiki.encuestame.org/en/Changelog" />
             <item name="Source Repository" href="http://code.encuestame.org" />

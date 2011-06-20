@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.mvc.controller.social.json;
 
 import java.io.IOException;
@@ -56,48 +68,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     private static RequestToken requestToken = null;
 
     /**
-     * App Consumer Key.
-     */
-    private @Value("${twitter.oauth.consumerKey}") String consumerKey;
-
-    /**
-     * App consumer secret.
-     */
-    private @Value("${twitter.oauth.consumerSecret}") String consumerSecret;
-
-
-    /**
-     * Get Twitter Authorize Url.
-     * @param apiKey
-     * @param consumerSecret
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/social/twitter/authorize/url.json", method = RequestMethod.GET)
-    public ModelMap getAuthorizeTwitterUrl(
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         log.debug("consumerKey "+this.consumerKey);
-         log.debug("consumerSecret "+ (this.consumerKey));
-         final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
-         try {
-            Assert.notNull(this.consumerKey);
-            Assert.notNull(this.consumerSecret);
-            jsonResponse.put("url", this.getTwitterPinUrl(this.consumerKey, this.consumerSecret));
-        } catch (EnMeExpcetion e) {
-            jsonResponse.put("url", "");
-            setError(e.getMessage(), response);
-        }
-        setItemResponse(jsonResponse);
-        return returnData();
-    }
-
-    /**
      * Change state of social account.
      * @param type
      * @param socialAccountId
@@ -124,42 +94,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
 //        }
         return returnData();
     }
-
-    /**
-     * Confirm Twitter Pin.
-     * @param pin
-     * @param accountSocialId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/social/twitter/authorize/confirm.json", method = RequestMethod.GET)
-    public ModelMap confirmTwitterPin(
-            @RequestParam(value = "pin", required = true) String pin,
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         log.debug("pin "+pin);
-         try {
-            final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
-            final HashMap<String, Object> pinResponse = this.createOAuthSocialAccountWithPinNumber(
-                                          pin, getUserAccount(), SocialProvider.TWITTER);
-            jsonResponse.put("confirm", pinResponse.get("confirm"));
-            jsonResponse.put("message", pinResponse.get("message"));
-            setItemResponse(jsonResponse);
-        } catch (Exception e) {
-            final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
-            jsonResponse.put("confirm", false);
-            jsonResponse.put("message", e.getMessage());
-            setItemResponse(jsonResponse);
-            setError(e.getMessage(), response);
-        }
-         return returnData();
-    }
-
 
     /**
      * Return Social Valid Accounts.
@@ -239,6 +173,8 @@ public class SocialAccountsJsonController extends AbstractJsonController {
                  providers.add(SocialProvider.TWITTER);
                  providers.add(SocialProvider.GOOGLE);
                  providers.add(SocialProvider.LINKEDIN);
+                 providers.add(SocialProvider.IDENTICA);
+                 providers.add(SocialProvider.FACEBOOK);
              jsonResponse.put("provider", providers);
              setItemResponse(jsonResponse);
              log.debug("Social providers enabled "+providers.size());

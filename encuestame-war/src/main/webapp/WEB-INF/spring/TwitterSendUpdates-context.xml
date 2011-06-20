@@ -16,8 +16,8 @@
         class="org.springframework.integration.twitter.core.Twitter4jTemplate">
         <constructor-arg value="${twitter.oauth.consumerKey}" />
         <constructor-arg value="${twitter.oauth.consumerSecret}" />
-        <constructor-arg value="${twitter.oauth.accessToken}" />
-        <constructor-arg value="${twitter.oauth.accessTokenSecret}" />
+        <constructor-arg value="xxxxxxxxxxxxxxxxxxxxx" />
+        <constructor-arg value="xxxxxxxxxxxxxxxxxxxxxxxxx" />
     </bean>
 
     <bean id="twitterRejector" class="org.encuestame.core.integration.TwitterMessageSelector"></bean>

@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.social;
 
+import org.encuestame.utils.StatusTweetPublished;
+
 
 
 /**
@@ -23,6 +25,6 @@ public interface SocialAPIOperations {
 
     SocialUserProfile getProfile() throws Exception;
 
-    String updateStatus(final String status) throws Exception;
+    StatusTweetPublished updateStatus(final String status) throws Exception;
 
 }

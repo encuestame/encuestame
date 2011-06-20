@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.social.oauth1;
 
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 
 /**
@@ -23,8 +24,9 @@ public interface OAuth1RestOperations {
      * Begin the account connection process by fetching a new request token from this service provider.
      * The request token should be stored in the user's session up until the authorization callback is made and it's time to exchange it for an {@link #exchangeForAccessToken(AuthorizedRequestToken) access token}.
      * @param callbackUrl the URL the provider should redirect to after the member authorizes the connection. Ignored for OAuth 1.0 providers.
+     * @throws EnMeOAuthSecurityException
      */
-    OAuth1Token fetchNewRequestToken(String callbackUrl);
+    OAuth1Token fetchNewRequestToken(String callbackUrl) throws EnMeOAuthSecurityException;
 
     /**
      * Construct the URL to redirect the user to for connection authorization.
@@ -38,7 +40,8 @@ public interface OAuth1RestOperations {
      * Exchange the authorized request token for an access token.
      * @param requestToken an authorized request token and verifier. The verifier will be ignored for OAuth 1.0 providers.
      * @return an access token granted by the provider
+     * @throws EnMeOAuthSecurityException
      */
-    OAuth1Token exchangeForAccessToken(AuthorizedRequestToken requestToken);
+    OAuth1Token exchangeForAccessToken(AuthorizedRequestToken requestToken) throws EnMeOAuthSecurityException;
 
 }

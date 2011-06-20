@@ -71,7 +71,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
         if (customizedLogo == null) {
             customizedLogo = this.DEFAULT_LOGO;
         }
-        log.debug("customized logo:{"+customizedLogo);
+        log.trace("customized logo:{"+customizedLogo);
         return customizedLogo;
     }
 
@@ -81,17 +81,17 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
         final Authentication auth = getSecCtx().getAuthentication();
-        log.debug("preHandle security auth "+auth);
+        log.trace("preHandle security auth "+auth);
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
-            log.debug("auth valid");
+            log.trace("auth valid");
             if(SecurityUtils.checkIsSessionIsAnonymousUser(auth)){
-                log.debug("session expired");
+                log.trace("session expired");
                 request.setAttribute("logged", false);
             } else {
                 //cookies
-                log.debug("session is valid");
+                log.trace("session is valid");
                 final UserAccount user = getByUsername(getUserPrincipalUsername());
-                log.debug("Account User Interceptor "+user);
+                log.trace("Account User Interceptor "+user);
                 request.setAttribute("account", user);
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
@@ -115,7 +115,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-            log.debug("postHandle");
+            log.trace("postHandle");
             Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
             if(cookieName == null){
                 createAddCookie(COOKIE_NAME, response, RandomStringUtils.random(4));

@@ -26,7 +26,18 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpStatus;
+import org.encuestame.business.service.imp.TwitterAPIOperations;
+import org.encuestame.business.service.social.api.BuzzAPITemplate;
+import org.encuestame.business.service.social.api.FacebookAPITemplate;
+import org.encuestame.business.service.social.api.IdenticaAPITemplate;
+import org.encuestame.business.service.social.api.LinkedInAPITemplate;
+import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.social.BuzzAPIOperations;
+import org.encuestame.core.social.FacebookAPIOperations;
+import org.encuestame.core.social.IdenticaAPIOperations;
+import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.MD5Utils;
@@ -39,6 +50,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -47,6 +59,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
+import org.encuestame.utils.StatusTweetPublished;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
@@ -56,6 +69,7 @@ import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -92,7 +106,7 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Twee poll vote.
      */
-    private final String TWEETPOLL_VOTE = "tweetpoll/vote/";
+    private final String TWEETPOLL_VOTE = "/tweetpoll/vote/";
 
     /**
      * Create Question.
@@ -136,7 +150,7 @@ public class AbstractSurveyService extends AbstractChartService {
         answer.setUniqueAnserHash(answerBean.getAnswerHash());
         this.getQuestionDao().saveOrUpdate(answer);
         answerBean.setAnswerId(answer.getQuestionAnswerId());
-        log.debug("QuestionAnswer created:{"+answer.toString());
+        log.debug("QuestionAnswer created:{"+answerBean.toString());
         return answer;
     }
 
@@ -206,7 +220,8 @@ public class AbstractSurveyService extends AbstractChartService {
          log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
          if (InternetUtils.validateUrl(completeDomain.toString())) {
              log.debug("createTweetPollSwitch: URL IS VALID");
-             tPollSwitch.setShortUrl(this.shortUrlProvider(answer.getProvider(), completeDomain.toString()));
+             log.debug("createTweetPollSwitch: short url provider "+answer.getProvider());
+             tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
          } else {
              log.debug("createTweetPollSwitch: url IS NOT valid");
              tPollSwitch.setShortUrl(completeDomain.toString());
@@ -225,7 +240,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws IOException
      * @throws HttpException
      */
-    public String shortUrlProvider(final ShortUrlProvider provider, final String url){
+    public String createShortUrl(final ShortUrlProvider provider, final String url){
         log.debug("shortUrlProvider "+url);
         log.debug("shortUrlProvider PROVIDER "+provider);
         String urlShort = url;
@@ -238,6 +253,11 @@ public class AbstractSurveyService extends AbstractChartService {
         } else if (provider.equals(ShortUrlProvider.TINYURL)) {
             urlShort = SocialUtils.getTinyUrl(url);
         } else if (provider.equals(ShortUrlProvider.BITLY)) {
+             urlShort = SocialUtils.getBitLy(url,
+                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
+                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+        } else {
+             //if is  null, always user bitly.
              urlShort = SocialUtils.getBitLy(url,
                      EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
                      EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
@@ -404,9 +424,96 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public Status publicTweetPoll(final String tweetText, final SocialAccount account) throws EnMeExpcetion {
-        //return getTwitterService().publicTweet(account, tweetText);
-        return null;
+    public StatusTweetPublished publicTweetPoll(final String tweetText, final SocialAccount account)
+           throws EnMeExpcetion {
+        StatusTweetPublished published = null;
+        log.debug("publicTweetPoll "+tweetText);
+        if (account.getAccounType().equals(SocialProvider.TWITTER)) {
+            log.debug("Publish on TWITTER");
+            TwitterAPIOperations twitterAPIOperations = new TwitterAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerSecret"),
+                    EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
+                    account.getAccessToken(),
+                    account.getSecretToken());
+            try {
+                log.debug("Publish on Twitter............>");
+                published = twitterAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Twitter...... "+published);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.IDENTICA)) {
+            log.debug("Publish on IDENTICA");
+            IdenticaAPIOperations identicaAPIOperations = new IdenticaAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("identica.consumer.key"),
+                    EnMePlaceHolderConfigurer.getProperty("identica.consumer.secret"),
+                    account.getAccessToken(),
+                    account.getSecretToken());
+            try {
+                log.debug("Publish on Identica............>");
+                published = identicaAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Identica...... "+published);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.FACEBOOK)) {
+            log.debug("Publish on FACEBOOK");
+            FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(account.getAccessToken());
+            try {
+                log.debug("Publish on FACEBOOK............>");
+                published = facebookAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on FACEBOOK...... "+published);
+            } catch (HttpClientErrorException e) {
+                log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 1");
+                log.error(e.getStatusCode());
+                log.error(e.getResponseBodyAsString());
+                log.error(e.getStatusText());
+                // refresh token point.
+                //offline_access scope permission is enabled by default . In this case
+                //https://developers.facebook.com/docs/authentication/permissions/
+                log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.LINKEDIN)) {
+            log.debug("Publish on LinkedIn");
+            LinkedInAPIOperations linkedInAPIOperations = new LinkedInAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("linkedIn.oauth.api.key"),
+                    EnMePlaceHolderConfigurer.getProperty("linkedIn.oauth.api.secret"),
+                    account.getAccessToken(),
+                    account.getSecretToken());
+            try {
+                log.debug("Publish on LinkedIn............>");
+                published = linkedInAPIOperations.updateStatus(tweetText);
+                published.setTextTweeted(tweetText);
+                published.setDatePublished(new Date());
+                published.setTweetId(RandomStringUtils.randomAscii(15));
+                log.debug("Publish on LinkedIn...... "+published);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (account.getAccounType().equals(SocialProvider.GOOGLE)) {
+            BuzzAPIOperations buzzInAPIOperations = new BuzzAPITemplate(account);
+            try {
+                log.debug("Publish on LinkedIn............>");
+                published = buzzInAPIOperations.updateStatus(tweetText);
+                published.setTextTweeted(tweetText);
+                published.setDatePublished(new Date());
+                published.setTweetId(RandomStringUtils.randomAscii(15));
+                log.debug("Publish on LinkedIn...... "+published);
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
+            }
+        }
+        if (published != null) {
+            log.debug("publicTweetPoll:s "+published.toString());
+        }
+        return published;
     }
 
     /**

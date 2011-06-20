@@ -14,6 +14,7 @@ package org.encuestame.core.social;
 
 import java.util.List;
 
+import org.encuestame.utils.StatusTweetPublished;
 import org.springframework.util.MultiValueMap;
 
 /**
@@ -28,8 +29,9 @@ public interface FacebookAPIOperations extends SocialAPIOperations{
      * @param object
      * @param connection
      * @param data
+     * @return
      */
-    void publish(String object, String connection, MultiValueMap<String, String> data);
+    StatusTweetPublished publish(String object, String connection, MultiValueMap<String, String> data);
 
     /**
      *

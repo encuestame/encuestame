@@ -54,7 +54,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     TweetPoll createTweetPoll(
             final TweetPollBean tweetPollBean,
             final String question,
-            final String[] answers,
             final UserAccount user) throws EnMeExpcetion;
 
 
@@ -84,16 +83,9 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Get tweetPoll by id and user logged.
      * @throws EnMeTweetPollNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
-    TweetPoll getTweetPollById(final Long tweetPollId, final UserAccount account) throws EnMeTweetPollNotFoundException;
-
-    /**
-     * Get tweetpoll by id.
-     * @param tweetPollId
-     * @return
-     * @throws EnMeTweetPollNotFoundException
-     */
-    TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException;
+    TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException, EnMeNoResultsFoundException;
 
     /**
      * Get complete list of {@link TweetPollSwitch}/
@@ -109,7 +101,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
-    String generateTweetPollContent(final TweetPoll tweetPoll, final String url) throws EnMeExpcetion;
+    String generateTweetPollContent(final TweetPoll tweetPoll) throws EnMeExpcetion;
 
     /**
      * Search {@link TweetPoll} by Keyword.
@@ -187,7 +179,8 @@ public interface ITweetPollService extends IMasterSurveyService{
     * Publish single {@link TweetPoll}.
     * @param accountId social account id.
     */
-   TweetPollSavedPublishedStatus publishTweetPoll(final Long accountId, final TweetPoll tweetPoll, final SocialProvider provider);
+   TweetPollSavedPublishedStatus publishTweetByAccountId(final Long accountId, final TweetPoll tweetPoll,
+           final String tweetText);
 
     /**
      * Update Question Name.
@@ -345,13 +338,8 @@ public interface ITweetPollService extends IMasterSurveyService{
 
      /**
       * Update tweetpoll.
-      * @param tweetPoll {@link TweetPoll} reference/
-      * @param answers new list of answers.
-      * @param hashTagsSelected new list of hashtags
+      * @param tweetPollBean {@link TweetPollBean}.
      * @throws EnMeNoResultsFoundException
       */
-     public TweetPoll updateTweetPoll(
-             final Long tweetPollId,
-             final String[] answers,
-             final List<HashTagBean> hashTagsSelected) throws EnMeNoResultsFoundException;
+     public TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException;
 }

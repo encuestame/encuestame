@@ -37,7 +37,7 @@ public enum SocialProvider {
      * My Space.
      */
     MYSPACE,
-
+    //TODO: In the future we can add more API's Tumblr, Plurk, Jaiku.
     /**
      * Constructor.
      */

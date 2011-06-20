@@ -16,8 +16,10 @@ package org.encuestame.business.service.social.api;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.TwitterAPIOperations;
+import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.utils.StatusTweetPublished;
 import org.springframework.util.Assert;
 
 import twitter4j.Status;
@@ -34,7 +36,7 @@ import twitter4j.http.RequestToken;
  * @since Feb 13, 2010 4:07:03 PM
  */
 
-public class TwitterAPITemplate implements TwitterAPIOperations{
+public class TwitterAPITemplate extends AbstractSocialAPISupport implements TwitterAPIOperations{
 
     /**
      * Log.
@@ -69,7 +71,8 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @param consumerSecret
      * @param consumerKey
      */
-    public TwitterAPITemplate(final String consumerSecret,
+    public TwitterAPITemplate(
+            final String consumerSecret,
             final String consumerKey, final String accessToken,
             final String secretToken) {
         Assert.notNull(consumerKey);
@@ -108,18 +111,24 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
      * @return
      * @throws TwitterException
      */
-    public Status updateTwitterStatus(final String tweet) throws TwitterException{
+    public StatusTweetPublished updateTwitterStatus(final String tweet) throws TwitterException{
+        log.debug("twitter update status 1--> "+tweet);
         final Twitter twitter = this.getTwitterInstance();
-        return twitter.updateStatus(tweet);
+        final Status status = twitter.updateStatus(tweet);
+        log.debug("twitter update status "+status);
+        return createStatus(tweet);
     }
 
     /**
      *
      */
-    public String updateStatus(final String tweet){
+    public StatusTweetPublished updateStatus(final String tweet){
+        log.debug("twitter update status 2--> "+tweet);
         try {
-            return String.valueOf(this.updateTwitterStatus(tweet).getId());
+            return this.updateTwitterStatus(tweet);
         } catch (TwitterException e) {
+            e.printStackTrace();
+            log.error(e);
             return null;
         }
     }
@@ -194,7 +203,11 @@ public class TwitterAPITemplate implements TwitterAPIOperations{
         profile.setProfileUrl("http://www.twitter.com/"+user.getScreenName());
         profile.setName(user.getName());
         profile.setScreenName(user.getScreenName());
+        profile.setUsername(user.getScreenName());
+        profile.setProfileImageUrl(user.getProfileImageURL().toString());
         profile.setDescription(user.getDescription());
+        profile.setCreatedAt(user.getCreatedAt());
+        profile.setLocation(user.getLocation());
         return profile;
     }
 }

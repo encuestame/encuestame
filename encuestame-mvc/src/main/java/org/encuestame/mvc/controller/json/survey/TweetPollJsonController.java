@@ -25,17 +25,18 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainToJson;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.security.SocialAccountBean;
@@ -127,18 +128,16 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/tweetpoll/save.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/tweetpoll/save.json", method = RequestMethod.POST)
     public ModelMap get(
             @RequestParam(value = "question", required = true) final String question,
-            @RequestParam(value = "publish", required = false) Boolean publish,
-            @RequestParam(value = "scheduled", required = false) final Boolean scheduled,
             @RequestParam(value = "hashtags", required = false) String[] hashtags,
-            @RequestParam(value = "answers", required = true) final String[] answers,
+            @RequestParam(value = "answers", required = false) final Long[] answers,
             HttpServletRequest request, HttpServletResponse response,
             final UserAccount user)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-            final TweetPoll tweetPoll = createTweetPoll(question, hashtags, answers, user);
+            final TweetPoll tweetPoll = createTweetPoll(question, hashtags, user);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             jsonResponse.put("tweetPoll", tweetPoll);
             setItemResponse(jsonResponse);
@@ -175,18 +174,21 @@ public class TweetPollJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
+         log.debug("answer tweetPollId "+tweetPollId);
+         log.debug("tweetpoll answer"+answer);
+         log.debug("tweetpoll answerId"+answerId);
+         log.debug("tweetpoll shortUrl"+shortUrl);
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
-                    tweetPollId, getUserAccountLogged());
+                    tweetPollId);
             log.debug("tweetpoll"+tweetPoll.getTweetPollId());
             if(!tweetPoll.getPublishTweetPoll()){
-            log.debug("action ANSWER "+type);
-
+            log.debug("action ANSWER--->"+type);
             if("add".equals(type)) {
                 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
                 answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
-                log.debug("new answer bean "+answerBean.toString());
+                log.debug("new answer bean:{ "+answerBean.toString());
                 final TweetPollSwitch tweetPollSwitch = getTweetPollService()
                       .createTweetPollQuestionAnswer(answerBean, tweetPoll);
                 log.debug("new answer bean DOMAIN "+tweetPollSwitch.toString());
@@ -223,27 +225,38 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.POST)
     public ModelMap publish(
-            @RequestParam(value = "tweetPollId", required = true) final Long tweetPollId,
-            @RequestParam(value = "twitterAccounts", required = true) final Long[] twitterAccountsId,
+            @RequestParam(value = "id", required = true) final Long tweetPollId,
+            @RequestParam(value = "twitterAccounts", required = false) final Long[] twitterAccountsId,
+            @RequestParam(value = "ip", required = false) final Boolean ip,
+            @RequestParam(value = "limitNumbers", required = false) final Boolean limitNumbers,
+            @RequestParam(value = "limitVotes", required = false) final Integer limitVotes,
+            @RequestParam(value = "repeatedNumbers", required = false) final Integer repeatedNumbers,
+            @RequestParam(value = "scheduled", required = false) final Boolean scheduled,
+            @RequestParam(value = "scheduledDate", required = false) final String scheduledDate,
+            @RequestParam(value = "scheduledTime", required = false) final String scheduledTime,
             HttpServletRequest request,
-            HttpServletResponse response,
-            final UserAccount userAccount)
+            HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(tweetPollId, userAccount);
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(tweetPollId);
             if (tweetPoll == null) {
-                setError("tweetpoll id invalid", response);
+                setError("can not publish your tweetpoll", response);
             } else {
-                 String tweetText;
-                 tweetText = getTweetPollService().generateTweetPollContent(
-                         tweetPoll, getUrlDomain(request, Boolean.TRUE));
+                if (twitterAccountsId.length == 0) {
+                    throw new EnMeNoResultsFoundException("social accoutns are required to publish");
+                }
+                 final String tweetText = getTweetPollService().generateTweetPollContent(tweetPoll);
+                 log.debug("tweet text "+tweetText);
+                 if (tweetText.length() > SocialUtils.TWITTER_LIMIT) {
+                     throw new EnMeFailSendSocialTweetException("tweet exced length");
+                 }
                 final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
                 for (int row = 0; row < twitterAccountsId.length; row++) {
-                    final SocialAccountBean twitter = new SocialAccountBean();
-                    twitter.setAccountId(twitterAccountsId[row]);
-                    accountBeans.add(twitter);
+                    final SocialAccountBean socialAccount = new SocialAccountBean();
+                    socialAccount.setAccountId(twitterAccountsId[row]);
+                    accountBeans.add(socialAccount);
                 }
                 log.debug("Accounts:{" + accountBeans.size());
                 // multi publish social account.
@@ -252,11 +265,12 @@ public class TweetPollJsonController extends AbstractJsonController {
                                 tweetPoll, tweetText);
                 tweetPoll.setCompleted(Boolean.TRUE);
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                jsonResponse.put("socialPublish", results);
+                jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
                 setItemResponse(jsonResponse);
             }
         } catch (Exception e) {
-            setError(e, response);
+            log.fatal(e);
+            setError(e.getMessage(), response);
         }
         return returnData();
     }
@@ -294,6 +308,9 @@ public class TweetPollJsonController extends AbstractJsonController {
                 getTweetPollService().setFavouriteTweetPoll(tweetPollId,
                         getUserPrincipalUsername());
             } else if ("liveResults".equals(propertyType)) {
+                getTweetPollService().changeAllowLiveResultsTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
+            } else if ("scheduled".equals(propertyType)) {
                 getTweetPollService().changeAllowLiveResultsTweetPoll(
                         tweetPollId, getUserPrincipalUsername());
             } else if ("notification".equals(propertyType)) {

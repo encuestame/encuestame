@@ -44,6 +44,11 @@ public class DateUtil {
     public static final String DEFAULT_FORMAT_TIME = "hh:mm:ss";
 
     /**
+     * 5/25/11 hh:mm:ss
+     */
+    public static final String COMPLETE_FORMAT_TIME = "dd/MM/yy hh:mm:ss";
+
+    /**
      * yyyy-MM-dd hh:mm:ss
      */
     public static final String DEFAULT_FORMAT_ALL = "yyyy-MM-dd hh:mm:ss";

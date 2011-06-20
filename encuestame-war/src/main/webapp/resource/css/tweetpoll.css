@@ -237,6 +237,25 @@ div.tweetPollWrapper div.tweetPollPublish {
   width: 90%;
 }
 
+div.tweetPollWrapper .socialBlock {
+  -moz-border-bottom-colors: none !important;
+  -moz-border-image: none !important;
+  -moz-border-left-colors: none !important;
+  -moz-border-right-colors: none !important;
+  -moz-border-top-colors: none !important;
+  border-bottom: 0 solid !important;
+  border-left: 0 solid !important;
+  border-right: 0 solid !important;
+  border-top: 1px solid;
+}
+
+div.tweetPollWrapper div.tweetPollPublishButton{
+  background-color: #EBEBEB;
+  margin: auto 65px;
+  padding: 10px;
+  text-align: right;
+}
+
 div.tweetPollWrapper div.tweetPollPublish div.item {
   border-right: 1px solid #CCCBCA;
   float: left;

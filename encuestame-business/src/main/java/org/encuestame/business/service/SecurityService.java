@@ -880,47 +880,47 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         getAccountDao().saveOrUpdate(account);
     }
 
-    /**
-     * Update OAuth Secret Twitter Credentials.
-     * @param accountBean {@link SocialAccountBean}
-     * @param username username logged
-     * @throws EnMeExpcetion exception
-     */
-   @Deprecated
-    public void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
-            final String username) throws EnMeExpcetion{
-         //TODO: we should search twitter account filter by username
-         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
-         //twitterAccount.setConsumerKey(accountBean.getKey());
-         //twitterAccount.setConsumerSecret(accountBean.getSecret());
-         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
-         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
-             log.debug("PIN Exists {"+accountBean.getPin());
-             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
-            //If exist pin, we can verify credentials
-            log.debug("Verify OAuth Credentials");
-                if(verifyCredentials(
-                        //Token and Secret token should be always from database
-                        twitterAccount.getAccessToken(),
-                        twitterAccount.getSecretToken(),
-                        //consumer key's
-                        accountBean.getKey(),
-                        accountBean.getSecret(),
-                        //pin, update by the user.
-                        accountBean.getPin())){
-                    twitterAccount.setVerfied(Boolean.TRUE);
-                } else {
-                    twitterAccount.setVerfied(Boolean.FALSE);
-                }
-         } else {
-             log.info("Account not verified, pin not found");
-             //twitterAccount.setTwitterPin(null);
-             twitterAccount.setVerfied(Boolean.FALSE);
-         }
-        log.debug("Update Secret Twitter Credentials");
-        getAccountDao().saveOrUpdate(twitterAccount);
-        log.info("update Twitter Account");
-    }
+//    /**
+//     * Update OAuth Secret Twitter Credentials.
+//     * @param accountBean {@link SocialAccountBean}
+//     * @param username username logged
+//     * @throws EnMeExpcetion exception
+//     */
+//   @Deprecated
+//    public void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
+//            final String username) throws EnMeExpcetion{
+//         //TODO: we should search twitter account filter by username
+//         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
+//         //twitterAccount.setConsumerKey(accountBean.getKey());
+//         //twitterAccount.setConsumerSecret(accountBean.getSecret());
+//         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
+//         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
+//             log.debug("PIN Exists {"+accountBean.getPin());
+//             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
+//            //If exist pin, we can verify credentials
+//            log.debug("Verify OAuth Credentials");
+//                if(verifyCredentials(
+//                        //Token and Secret token should be always from database
+//                        twitterAccount.getAccessToken(),
+//                        twitterAccount.getSecretToken(),
+//                        //consumer key's
+//                        accountBean.getKey(),
+//                        accountBean.getSecret(),
+//                        //pin, update by the user.
+//                        accountBean.getPin())){
+//                    twitterAccount.setVerfied(Boolean.TRUE);
+//                } else {
+//                    twitterAccount.setVerfied(Boolean.FALSE);
+//                }
+//         } else {
+//             log.info("Account not verified, pin not found");
+//             //twitterAccount.setTwitterPin(null);
+//             twitterAccount.setVerfied(Boolean.FALSE);
+//         }
+//        log.debug("Update Secret Twitter Credentials");
+//        getAccountDao().saveOrUpdate(twitterAccount);
+//        log.info("update Twitter Account");
+//    }
 
     /**
      * Change state social account.
@@ -1020,6 +1020,37 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 token,
                 tokenSecret, username, socialProvider,
                 getUserAccount(username).getAccount());
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.String, java.lang.String, org.encuestame.core.social.SocialUserProfile, org.encuestame.persistence.domain.social.SocialProvider)
+     */
+    public SocialAccount addNewSocialAccount(
+            final String token,
+            final String tokenSecret,
+            final String expiresToken,
+            final SocialUserProfile socialUserProfile,
+            final SocialProvider socialProvider) throws EnMeNoResultsFoundException{
+        final SocialAccount socialAccount = new SocialAccount();
+        socialAccount.setAccessToken(token);
+        socialAccount.setSecretToken(tokenSecret);
+        socialAccount.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
+        socialAccount.setExpires(expiresToken);
+        socialAccount.setAccounType(socialProvider);
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setVerfied(Boolean.TRUE);
+        socialAccount.setSocialAccountName(socialUserProfile.getUsername());
+        socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setSocialProfileId(socialUserProfile.getId());
+        socialAccount.setPrictureUrl(socialUserProfile.getProfileImageUrl()); //TODO: repeated
+        socialAccount.setProfilePictureUrl(socialUserProfile.getProfileImageUrl());
+        socialAccount.setEmail(socialUserProfile.getEmail());
+        socialAccount.setProfileThumbnailPictureUrl(socialUserProfile.getProfileImageUrl());
+        socialAccount.setRealName(socialUserProfile.getRealName());
+        getAccountDao().saveOrUpdate(socialAccount);
+        return socialAccount;
     }
 
     /**
@@ -1232,8 +1263,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
            final SocialAccountBean accountBean,
            final String password,
            final Boolean verify) throws EnMeNoResultsFoundException{
-       if(accountBean.getAccountId() != null){
-           final SocialAccount twitterAccount = getSocialAccount(accountBean.getAccountId());
+       if(accountBean.accountId != null){
+           final SocialAccount twitterAccount = getSocialAccount(accountBean.accountId);
            if(twitterAccount != null){
                twitterAccount.setVerfied(verify);
                log.debug("Updating twitter password account");

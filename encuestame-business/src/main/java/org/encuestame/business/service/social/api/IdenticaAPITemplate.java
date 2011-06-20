@@ -2,11 +2,14 @@ package org.encuestame.business.service.social.api;
 
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.IdenticaStatusDetails;
 import org.encuestame.core.social.SocialUserProfile;
+import org.encuestame.utils.StatusTweetPublished;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,6 +31,11 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
     static final String HOME_TIMELINE_URL = API_URL_BASE + "statuses/home_timeline.json";
     static final String FRIENDS_TIMELINE_URL = API_URL_BASE + "statuses/friends_timeline.json";
     static final String USER_TIMELINE_URL = API_URL_BASE + "statuses/user_timeline.json";
+
+    /**
+     * Log.
+     */
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Constructor.
@@ -67,21 +75,49 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
        return this.getUserProfile(Long.valueOf(this.getProfileId()));
     }
 
-    public String updateStatus(String message) {
-        updateStatus(message, new IdenticaStatusDetails());
-        return "";
+    public StatusTweetPublished updateStatus(String message) {
+        log.debug("Identica updateStatus 2 "+message);
+        return this.updateStatus(message, new IdenticaStatusDetails());
     }
 
     /*
      *
      */
-    public void updateStatus(String message, IdenticaStatusDetails details) {
-        MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
+    public StatusTweetPublished updateStatus(final String message, final IdenticaStatusDetails details) {
+        log.debug("Identica updateStatus 1 "+message);
+        log.debug("Identica updateStatus 1 "+details);
+        final MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
         tweetParams.add("status", message);
         tweetParams.setAll(details.toParameterMap());
-        ResponseEntity<Map> response = getRestTemplate().postForEntity(TWEET_URL, tweetParams, Map.class);
-        this.handleIdentiCaResponseErrors(response);
-
+        final ResponseEntity<Map> response = getRestTemplate().postForEntity(TWEET_URL, tweetParams, Map.class);
+        /**
+         * {text=fdfasfasfadfa fas fa fda sfda dsadsads http://tinyurl.com/3p3fs2a dasdsadsa http://tinyurl.com/4xnfgws #dasdsaas,
+         * truncated=false, created_at=Sun May 22 23:30:03 +0000 2011, in_reply_to_status_id=null,
+         * source=<a href="http://www.encuestame.org" rel="nofollow">encuestame</a>,
+         * ---ID STATUS----> id=74199692,
+         *  in_reply_to_user_id=null, in_reply_to_screen_name=null, geo=null,
+         * favorited=false, attachments=[], user={id=423318, name=jpicado, screen_name=jpicado,
+         *  location=null, description=null, profile_image_url=http://theme.identi.ca/0.9.7/identica/default-avatar-stream.png,
+         *  url=null, protected=false, followers_count=0, profile_background_color=,
+         *  profile_text_color=, profile_link_color=, profile_sidebar_fill_color=,
+         *  profile_sidebar_border_color=, friends_count=2, created_at=Thu Apr 21 23:15:53 +0000 2011,
+         *  favourites_count=0, utc_offset=0, time_zone=UTC, profile_background_image_url=,
+         *  profile_background_tile=false, statuses_count=40, following=true, statusnet:blocking=false,
+         *  notifications=true, statusnet_profile_url=http://identi.ca/jpicado},
+         *  statusnet_html=fdfasfasfadfa fas fa fda sfda dsadsads <a href="http://tinyurl.com/3p3fs2a"
+         *  title="http://tinyurl.com/3p3fs2a" rel="nofollow external">http://tinyurl.com/3p3fs2a</a> dasdsadsa
+         *   <a href="http://tinyurl.com/4xnfgws" title="http://tinyurl.com/4xnfgws"
+         *   rel="nofollow external">http://tinyurl.com/4xnfgws</a> #<span class="tag">
+         *   <a href="http://identi.ca/tag/dasdsaas" rel="tag">dasdsaas</a></span>}
+         */
+        log.debug("Identica updateStatus "+response.getBody());
+        log.debug("Identica updateStatus "+response.getHeaders());
+        log.debug("Identica updateStatus "+response.getStatusCode());
+        final Map body = response.getBody();
+        //this.handleIdentiCaResponseErrors(response);
+        final StatusTweetPublished status = createStatus(message);
+        status.setTweetId(body.get("id").toString());
+        return status;
     }
 
     /*
@@ -124,6 +160,7 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         socialUserProfile.setProfileImageUrl(profile.getProfileImageUrl());
         socialUserProfile.setProfileUrl(profile.getProfileUrl());
         socialUserProfile.setScreenName(profile.getScreenName());
+        socialUserProfile.setUsername(profile.getScreenName());
         socialUserProfile.setUrl(profile.getUrl());
         return socialUserProfile;
     }

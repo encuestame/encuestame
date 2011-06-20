@@ -27,6 +27,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 //import org.json.simple.JSONObject;
 //import org.json.simple.JSONValue;
 
@@ -47,7 +49,9 @@ public class SocialUtils {
 
     public final static String bitLyUrlApi = "http://api.bit.ly/shorten";
 
-    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location";
+    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
+
+    public final static Integer TWITTER_LIMIT = 140;
 
     /**
      * Get Google Stats from google short url.
@@ -168,11 +172,12 @@ public class SocialUtils {
             //"results": {"http://www.encuestame.org": {"userHash": "gmks0X", "shortKeywordUrl": "", "hash": "hMMQuX",
            // "shortCNAMEUrl": "http://bit.ly/gmks0X", "shortUrl": "http://bit.ly/gmks0X"}},
             //"statusCode": "OK"}
-     //       final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
-  //          final JSONObject o = (JSONObject) jsonObject;
-    //        final JSONObject results = (JSONObject) o.get("results");
-   //         final JSONObject url = (JSONObject) results.get(urlPath);
-     //       responseXml = (String) url.get("shortUrl");
+            final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
+            log.debug("getBitLy: "+jsonObject.toString());
+            final JSONObject o = (JSONObject) jsonObject;
+            final JSONObject results = (JSONObject) o.get("results");
+            final JSONObject url = (JSONObject) results.get(urlPath);
+             responseXml = (String) url.get("shortUrl");
         } catch (HttpException e1) {
             log.error(e1);
             responseXml = urlPath;

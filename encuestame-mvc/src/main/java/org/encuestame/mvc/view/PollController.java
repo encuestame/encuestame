@@ -14,9 +14,13 @@
 package org.encuestame.mvc.view;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,9 +43,18 @@ public class PollController  extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/user/poll", method = RequestMethod.GET)
-    public String pollController(final ModelMap model) {
-        log.debug("poll");
-        return "poll";
+    @RequestMapping(value = "/user/poll/{id}", method = RequestMethod.GET)
+    public String pollController(final  ModelMap model,
+                                @PathVariable Long id ) {
+    log.debug("poll Id -->" + id);
+    try {
+        final Poll poll = getPollService().getPollById(id);
+        model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+        return "poll/detail";
+    } catch (EnMePollNotFoundException e) {
+        log.error(e);
+        e.printStackTrace();
+        return "404";
+    }
     }
 }
