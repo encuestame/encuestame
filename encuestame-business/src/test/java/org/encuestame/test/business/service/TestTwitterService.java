@@ -68,7 +68,7 @@ public class TestTwitterService extends AbstractServiceBase {
     @Test
     public void testPublicTweet() throws Exception{
         final String testTweet = RandomStringUtils.randomAlphabetic(5);
-        final String tweet = twitterService.updateStatus(testTweet);
+       // final String tweet = twitterService.updateStatus(testTweet);
         //assertNotNull(tweet.getId());
     }
 
