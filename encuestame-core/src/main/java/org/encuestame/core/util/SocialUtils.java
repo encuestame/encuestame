@@ -26,9 +26,12 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.springframework.util.Assert;
 //import org.json.simple.JSONObject;
 //import org.json.simple.JSONValue;
 
@@ -189,5 +192,42 @@ public class SocialUtils {
             responseXml = urlPath;
         }
         return responseXml;
+    }
+
+    /**
+     *
+     * @param id
+     * @param username
+     * @return
+     */
+    public static String getSocialTweetPublishedUrl(
+            final String id,
+            final String username,
+            final SocialProvider provider) {
+        log.debug("getSocialTweetPublishedUrl %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% "+id);
+        Assert.notNull(id);
+        log.debug("getSocialTweetPublishedUrl "+provider.toString());
+        final StringBuilder builder = new StringBuilder();
+        if(SocialProvider.TWITTER.equals(provider)){
+            String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.twitter");
+            twitterUrl = twitterUrl.replace("{username}", username);
+            twitterUrl = twitterUrl.replace("{id}", id);
+            builder.append(twitterUrl);
+        } else if(SocialProvider.FACEBOOK.equals(provider)){
+            String facebookUrl = EnMePlaceHolderConfigurer.getProperty("social.facebook");
+            String[] array = id.split("_");
+            log.debug("Facebook Id array:{"+array.length);
+            if (array.length > 2) {
+                facebookUrl = facebookUrl.replace("{A}", array[0]);
+                facebookUrl = facebookUrl.replace("{B}", array[1]);
+                builder.append(facebookUrl);
+            }
+        } else if(SocialProvider.LINKEDIN.equals(provider)){
+
+        } else if(SocialProvider.IDENTICA.equals(provider)){
+
+        }
+        log.debug("getSocialTweetPublishedUrl "+builder.toString());
+        return builder.toString();
     }
 }

@@ -179,7 +179,7 @@ public interface ITweetPollService extends IMasterSurveyService{
     * Publish single {@link TweetPoll}.
     * @param accountId social account id.
     */
-   TweetPollSavedPublishedStatus publishTweetByAccountId(final Long accountId, final TweetPoll tweetPoll,
+   TweetPollSavedPublishedStatus publishTweetBySocialAccountId(final Long accountId, final TweetPoll tweetPoll,
            final String tweetText);
 
     /**

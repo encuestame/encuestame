@@ -893,3 +893,18 @@ div.tweetPollPublishDialog div.items div.item{
     font-weight: bold;
     border-bottom: 1px solid gray;
 }
+
+div.tweetPollPublishDialog div.items div.item div.image{
+    float: left;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+div.tweetPollPublishDialog div.items div.item div.detail{
+    float: left;
+}
+
+div.tweetPollPublishDialog div.items div.item div.icon{
+    float: right;
+    padding: 5px;
+}

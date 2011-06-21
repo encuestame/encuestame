@@ -20,7 +20,7 @@ import java.util.Date;
  * @author Picado, Juan juanATencuestame.org
  * @since May 10, 2011
  */
-public class StatusTweetPublished {
+public class TweetPublishedMetadata {
 
     private String tweetId;
 
@@ -34,7 +34,7 @@ public class StatusTweetPublished {
 
     private Date datePublished;
 
-    public StatusTweetPublished() {
+    public TweetPublishedMetadata() {
     }
 
     /**
@@ -90,7 +90,8 @@ public class StatusTweetPublished {
     }
 
     /**
-     * @param socialAccountId the socialAccountId to set
+     * @param socialAccountId
+     *            the socialAccountId to set
      */
     public void setSocialAccountId(Long socialAccountId) {
         this.socialAccountId = socialAccountId;
@@ -104,7 +105,8 @@ public class StatusTweetPublished {
     }
 
     /**
-     * @param socialAccountName the socialAccountName to set
+     * @param socialAccountName
+     *            the socialAccountName to set
      */
     public void setSocialAccountName(String socialAccountName) {
         this.socialAccountName = socialAccountName;
@@ -118,13 +120,16 @@ public class StatusTweetPublished {
     }
 
     /**
-     * @param provider the provider to set
+     * @param provider
+     *            the provider to set
      */
     public void setProvider(String provider) {
         this.provider = provider;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#toString()
      */
     @Override

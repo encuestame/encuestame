@@ -727,10 +727,7 @@ dojo.declare(
                 var selected = null;
                 dojo.forEach(this._socialAccounts,
                         dojo.hitch(this,function(account) {
-                               console.debug("show _getSocialAccountWidget ID", id);
-                               console.debug("show _getSocialAccountWidget ID", account.id);
-                            if(account.id == id){
-                                console.debug("show _getSocialAccountWidget", account);
+                            if (account.id == id) {
                                 selected = account;
                             }
                  }));
@@ -748,17 +745,20 @@ dojo.declare(
              * create status tweet.
              */
             _createStatusTweet : function(data){
-                this._getSocialAccountWidget(2);
+                console.debug("_createStatusTweet", data);
                 var widget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishItemStatus(
                         {
                             data:data,
-                            socialAccount : this._getSocialAccountWidget(data.id)
+                            socialAccount : this._getSocialAccountWidget(data.social_account_id)
                         }
                         );
                 return widget.domNode;
             }
 });
 
+/*
+ * Represents a status of tweet published by social account.
+ */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPublishItemStatus",
         [dijit._Widget, dijit._Templated],{
@@ -767,5 +767,27 @@ dojo.declare(
             socialAccount : {},
             postCreate : function(){
                 console.debug("socialAccount", this.socialAccount);
+                this.initialize();
+            },
+
+            /*
+             * initialize widget.
+             */
+            initialize : function(){
+                console.debug("data.status_tweet", this.data.status_tweet);
+                if (this.data.status_tweet == encuestame.status[0]) { // SUCCESS
+                    this._showSuccessMessage();
+                } else if (this.data.status_tweet == encuestame.status[1]) { //FAILURE
+
+                } else {
+
+                }
+            },
+
+            /*
+             *
+             */
+            _showSuccessMessage : function() {
+                var success = dojo.doc.createElement("div");
             }
 });

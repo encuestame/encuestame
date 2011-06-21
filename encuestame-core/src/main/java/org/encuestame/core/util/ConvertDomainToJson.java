@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.json.TweetPollStatus;
+import org.encuestame.utils.json.TweetItemPublishedResponse;
 
 /**
  * Description.
@@ -32,9 +32,9 @@ public class ConvertDomainToJson {
      * @param savedPublishedStatus
      * @return
      */
-    public static final List<TweetPollStatus> convertTweetPollStatusToJson(
+    public static final List<TweetItemPublishedResponse> convertTweetPollStatusToJson(
             final List<TweetPollSavedPublishedStatus> savedPublishedStatus) {
-        final List<TweetPollStatus> list = new ArrayList<TweetPollStatus>();
+        final List<TweetItemPublishedResponse> list = new ArrayList<TweetItemPublishedResponse>();
         for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : savedPublishedStatus) {
             list.add(convertTweetPollStatusToJson(tweetPollSavedPublishedStatus));
         }
@@ -46,15 +46,20 @@ public class ConvertDomainToJson {
      * @param savedPublishedStatus
      * @return
      */
-    public static final TweetPollStatus convertTweetPollStatusToJson(
+    public static final TweetItemPublishedResponse convertTweetPollStatusToJson(
             final TweetPollSavedPublishedStatus savedPublishedStatus) {
-        final TweetPollStatus pollStatus = new TweetPollStatus();
-        pollStatus.datePublished = DateUtil.getFormatDate(savedPublishedStatus.getPublicationDateTweet());
-        pollStatus.textTweeted = savedPublishedStatus.getTweetContent();
-        pollStatus.statusTweet = savedPublishedStatus.getStatus().name();
-        pollStatus.statusDescriptionTweet = savedPublishedStatus.getDescriptionStatus();
-        pollStatus.socialAccountId = savedPublishedStatus.getTwitterAccount().getId();
-        pollStatus.sourceTweet = savedPublishedStatus.getApiType().name();
-        return pollStatus;
+        final TweetItemPublishedResponse tweetResponse = new TweetItemPublishedResponse();
+        tweetResponse.datePublished = DateUtil.getFormatDate(savedPublishedStatus.getPublicationDateTweet());
+        tweetResponse.textTweeted = savedPublishedStatus.getTweetContent();
+        tweetResponse.statusTweet = savedPublishedStatus.getStatus().name();
+        tweetResponse.statusDescriptionTweet = savedPublishedStatus.getDescriptionStatus();
+        tweetResponse.socialAccountId = savedPublishedStatus.getTwitterAccount().getId();
+        tweetResponse.sourceTweet = savedPublishedStatus.getApiType().name();
+        tweetResponse.tweetId = savedPublishedStatus.getTweetId();
+        tweetResponse.tweetUrl = SocialUtils.getSocialTweetPublishedUrl(savedPublishedStatus.getTweetId(),
+                savedPublishedStatus.getTwitterAccount().getSocialAccountName(),
+                savedPublishedStatus.getTwitterAccount().getAccounType());
+        tweetResponse.socialAccountName = savedPublishedStatus.getTwitterAccount().getSocialAccountName();
+        return tweetResponse;
     }
 }

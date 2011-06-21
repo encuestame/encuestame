@@ -10,21 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.social;
-
-import org.encuestame.utils.TweetPublishedMetadata;
-
-
+package org.encuestame.mvc.util;
 
 /**
- * Define basic social operations.
+ * Message Utils.
  * @author Picado, Juan juanATencuestame.org
- * @since Apr 20, 2011
+ * @since Jun 21, 2011
  */
-public interface SocialAPIOperations {
+public class MessageUtils {
 
-    SocialUserProfile getProfile() throws Exception;
-
-    TweetPublishedMetadata updateStatus(final String status) throws Exception;
 
 }
