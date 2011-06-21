@@ -1,3 +1,3 @@
 <div>
-    mobile tweetPoll
+    mobile tweetPoll page
 </div>
