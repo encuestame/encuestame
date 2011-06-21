@@ -26,7 +26,7 @@ import org.encuestame.core.social.BuzzProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.utils.StatusTweetPublished;
+import org.encuestame.utils.TweetPublishedMetadata;
 
 /**
  * Google Buzz
@@ -121,7 +121,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
      */
-    public StatusTweetPublished updateStatus(final String status) {
+    public TweetPublishedMetadata updateStatus(final String status) {
         final BuzzProfile jsonData = new BuzzProfile();
         //jsonData.getData().getObject().setType("note");
         //jsonData.getData().getObject().setComment(status);

@@ -9,7 +9,7 @@ import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.IdenticaStatusDetails;
 import org.encuestame.core.social.SocialUserProfile;
-import org.encuestame.utils.StatusTweetPublished;
+import org.encuestame.utils.TweetPublishedMetadata;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -75,7 +75,7 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
        return this.getUserProfile(Long.valueOf(this.getProfileId()));
     }
 
-    public StatusTweetPublished updateStatus(String message) {
+    public TweetPublishedMetadata updateStatus(String message) {
         log.debug("Identica updateStatus 2 "+message);
         return this.updateStatus(message, new IdenticaStatusDetails());
     }
@@ -83,7 +83,7 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
     /*
      *
      */
-    public StatusTweetPublished updateStatus(final String message, final IdenticaStatusDetails details) {
+    public TweetPublishedMetadata updateStatus(final String message, final IdenticaStatusDetails details) {
         log.debug("Identica updateStatus 1 "+message);
         log.debug("Identica updateStatus 1 "+details);
         final MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
@@ -115,7 +115,7 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         log.debug("Identica updateStatus "+response.getStatusCode());
         final Map body = response.getBody();
         //this.handleIdentiCaResponseErrors(response);
-        final StatusTweetPublished status = createStatus(message);
+        final TweetPublishedMetadata status = createStatus(message);
         status.setTweetId(body.get("id").toString());
         return status;
     }

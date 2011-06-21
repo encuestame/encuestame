@@ -75,6 +75,22 @@ dojo.declare(
         },
 
         /*
+         * return complete data for selected accounts.
+         */
+        getSocialCompleteAccounts : function(){
+            var accounts = [];
+            dojo.forEach(
+                    this.arrayWidgetAccounts,
+                    dojo.hitch(this, function(widget, index) {
+                        if(widget.selected){
+                            accounts.push(widget.account);
+                        }
+                }));
+            console.debug("getSocialAccounts", accounts);
+            return accounts;
+        },
+
+        /*
          * is valid
          */
         isValid : function(){
