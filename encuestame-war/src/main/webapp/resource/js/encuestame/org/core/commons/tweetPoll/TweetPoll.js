@@ -19,6 +19,7 @@ dojo.require("dojox.widget.Dialog");
 dojo.require("encuestame.org.core.commons.tweetPoll.Answers");
 dojo.require("encuestame.org.core.commons.tweetPoll.HashTags");
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
+dojo.require("encuestame.org.core.commons.dialog.Dialog");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPoll",
@@ -36,6 +37,8 @@ dojo.declare(
         previeWidget : null,
 
         socialWidget : null,
+
+        dialogWidget : null,
 
         scheduleWidget : null,
         scheduledDateWidget  : null,
@@ -377,7 +380,8 @@ dojo.declare(
              });
              this.socialWidget = dijit.byId("social");
              //initialize publish widget.
-             this.tweetPollPublishWidget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishInfo();
+             this.tweetPollPublishWidget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishInfo(
+                     { tweetPollWidget : this});
         },
 
         /*
@@ -405,14 +409,16 @@ dojo.declare(
             }
             //if is valid.
             if (valid) {
-                var myDialog = new dijit.Dialog({
-                     title: "Publishing...",
+                this.dialogWidget = new dijit.Dialog({
                      content: this.tweetPollPublishWidget.domNode,
-                     style: "width: 500px"
+                     style: "width: 700px",
+                     draggable : false
                  });
                 this.tweetPollPublishWidget.setListOfSocialAccounts(this.socialWidget.getSocialCompleteAccounts());
                 this.tweetPollPublishWidget.initialize();
-                myDialog.show();
+                //dojo.empty(myDialog.titleBar);
+                dojo.addClass(this.dialogWidget.titleBar,"defaultDisplayHide");
+                this.dialogWidget.show();
                 this._publishTweet();
             }
         },
@@ -650,10 +656,18 @@ dojo.declare(
 
             _socialAccounts : [],
 
+            tweetPollWidget : null,
+
+            widgetsInTemplate: true,
+
             _inProcess : false,
 
             postCreate : function(){
-
+                var button = dijit.byId(this._close);
+                    button.onClick = dojo.hitch(this, function(event){
+                          this.tweetPollWidget.dialogWidget.hide();
+                          location.href = encuestame.contextDefault+"/user/tweetpoll/list";
+                });
             },
 
             /*
@@ -695,9 +709,6 @@ dojo.declare(
 
             /*
              * process date published.
-             * "socialPublish":[{"tweet_id":null,"textTweeted":"[gdffdsfsdfdsafd fa fda fda asfdsfddas http://tinyurl.com/6kx3d3h fdfd http://tinyurl.com/5t55r5z #fadfad #fdsfadfdfa]","date_published":"2011-06-20","status_tweet":"SUCCESS","status_description_tweet":null,"source_tweet":"FACEBOOK","social_account_id":2},
-             * {"tweet_id":null,"textTweeted":"gdffdsfsdfdsafd fa fda fda asfdsfddas http://tinyurl.com/6kx3d3h fdfd http://tinyurl.com/5t55r5z #fadfad #fdsfadfdfa","date_published":"2011-06-20","status_tweet":"SUCCESS","status_description_tweet":null,"source_tweet":"LINKEDIN","social_account_id":3},
-             * {"tweet_id":null,"textTweeted":"gdffdsfsdfdsafd fa fda fda asfdsfddas http://tinyurl.com/6kx3d3h fdfd http://tinyurl.com/5t55r5z #fadfad #fdsfadfdfa","date_published":"2011-06-20","status_tweet":"SUCCESS","status_description_tweet":null,"source_tweet":"TWITTER","social_account_id":4}]}}
              */
             process: function(data){
                 console.debug("tweetPollPublishWidget process", data);
@@ -764,6 +775,7 @@ dojo.declare(
         [dijit._Widget, dijit._Templated],{
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemStatus.html"),
             data : {},
+            widgetsInTemplate: true,
             socialAccount : {},
             postCreate : function(){
                 console.debug("socialAccount", this.socialAccount);
@@ -776,18 +788,63 @@ dojo.declare(
             initialize : function(){
                 console.debug("data.status_tweet", this.data.status_tweet);
                 if (this.data.status_tweet == encuestame.status[0]) { // SUCCESS
-                    this._showSuccessMessage();
+                    this._detailStatus.appendChild(this._showSuccessMessage());
                 } else if (this.data.status_tweet == encuestame.status[1]) { //FAILURE
-
+                    this._detailStatus.appendChild(this._showFailureMessage());
                 } else {
-
+                    console.error("nothing to do.");
                 }
+                this._accountProviderIcon.src = encuestame.social.shortPicture(this.socialAccount.type_account);
             },
 
             /*
-             *
+             * build succes message.
              */
             _showSuccessMessage : function() {
-                var success = dojo.doc.createElement("div");
+                var success = new encuestame.org.core.commons.tweetPoll.TweetPollPublishItemSUCCESStatus({
+                    metadata : this.data
+                });
+                return success.domNode;
+            },
+
+            /*
+             * build failure message.
+             */
+            _showFailureMessage : function() {
+                var fail = new encuestame.org.core.commons.tweetPoll.TweetPollPublishItemFAILUREStatus({
+                    metadata : this.data,
+                    parentStatusWidget : this
+                });
+                return fail.domNode;
             }
 });
+
+/*
+ * success message.
+ */
+dojo.declare(
+        "encuestame.org.core.commons.tweetPoll.TweetPollPublishItemSUCCESStatus",
+        [dijit._Widget, dijit._Templated],{
+             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemSUCCESSStatus.html"),
+             metadata : null,
+             widgetsInTemplate: true
+});
+
+/*
+ * failure message.
+ */
+dojo.declare(
+        "encuestame.org.core.commons.tweetPoll.TweetPollPublishItemFAILUREStatus",
+        [dijit._Widget, dijit._Templated],{
+             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemFAILUREStatus.html"),
+             metadata : null,
+             parentStatusWidget : null,
+             widgetsInTemplate: true,
+             postCreate : function(){
+
+             },
+
+             _scheduleTweet : function(events){
+                 console.debug("TODO");
+             }
+        });

@@ -200,9 +200,7 @@ dojo.declare(
         selected : false,
 
         postCreate : function(){
-            var provider = this.account.type_account.toLowerCase();
-            var url = encuestame.contextDefault + "/resources/images/social/"+provider+"/enme_icon_"+provider+".png";
-            this._accountProviderIcon.src = url;
+            this._accountProviderIcon.src = encuestame.social.shortPicture(this.account.type_account);
             dojo.connect(this.domNode, "onclick", this, dojo.hitch(this, function(){
                 console.debug("pick account ", this.account);
                 console.debug("pick account ", this.selected);

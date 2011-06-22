@@ -884,27 +884,73 @@ div.tweetPollPublishDialog div.info {
     border-radius: 3px;
 }
 
-div.tweetPollPublishDialog div.items{
-    padding: 5px;
+div.tweetPollPublishDialog div.items {
+  max-height: 200px;
+  overflow: auto;
+  padding: 5px;
 }
 
-div.tweetPollPublishDialog div.items div.item{
-    padding: 3px;
-    font-weight: bold;
-    border-bottom: 1px solid gray;
+div.tweetPollPublishDialog div.items div.item {
+  border-bottom: 1px solid #E1DFDF;
+  clear: both;
+  font-weight: bold;
+  min-height: 36px;
+  padding: 3px;
 }
 
-div.tweetPollPublishDialog div.items div.item div.image{
-    float: left;
-    margin-right: 5px;
-    padding: 3px;
+div.tweetPollPublishDialog div.items div.item div.image {
+  float: left;
+  margin-right: 5px;
+  padding: 3px;
+  width: 30px;
+}
+
+div.tweetPollPublishDialog div.items div.item div.detail {
+  float: left;
+  padding: 4px;
+  width: 294px;
+}
+
+div.tweetPollPublishDialog div.items div.item div.icon {
+  float: right;
+  padding: 5px;
+  width: 50px;
 }
 
 div.tweetPollPublishDialog div.items div.item div.detail{
+    padding: 4px;
+}
+
+div.tweetPollPublishDialog div.items div.item div.detail .success-message{
+    padding: 3px;
+    background-color: #B1ECB1;
+    max-width: 50%;
+    padding: 4px;
+    color: #358852;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    margin-right: 10px;
     float: left;
 }
 
-div.tweetPollPublishDialog div.items div.item div.icon{
-    float: right;
-    padding: 5px;
+div.tweetPollPublishDialog div.items div.item div.detail .success-url{
+    padding: 3px;
+    padding: 4px;
+    color: #358852;
+    font-weight: bold;;
+}
+
+div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover{
+    text-decoration: underline;
+}
+
+div.tweetPollPublishDialog div.items div.item div.detail .failure-message{
+  background-color: #EB2C2C;
+  border-radius: 2px 2px 2px 2px;
+  color: #FFFFFF;
+  margin-right: 10px;
+  max-width: 50%;
+  padding: 4px;
+  float: left;
 }
