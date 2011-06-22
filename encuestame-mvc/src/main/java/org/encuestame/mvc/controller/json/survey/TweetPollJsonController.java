@@ -247,12 +247,15 @@ public class TweetPollJsonController extends AbstractJsonController {
                 if (twitterAccountsId.length == 0) {
                     throw new EnMeNoResultsFoundException("social accoutns are required to publish");
                 }
+                 //build text to tweet.
                  final String tweetText = getTweetPollService().generateTweetPollContent(tweetPoll);
                  log.debug("tweet text "+tweetText);
+                 //check real lenght if execed limit required.
                  if (tweetText.length() > SocialUtils.TWITTER_LIMIT) {
                      throw new EnMeFailSendSocialTweetException("tweet exced length");
                  }
                 final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
+                //convert accounts id to real social accounts objects.
                 for (int row = 0; row < twitterAccountsId.length; row++) {
                     final SocialAccountBean socialAccount = new SocialAccountBean();
                     socialAccount.setAccountId(twitterAccountsId[row]);
@@ -264,6 +267,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                         .publicMultiplesTweetAccounts(accountBeans,
                                 tweetPoll, tweetText);
                 tweetPoll.setCompleted(Boolean.TRUE);
+                tweetPoll.setPublishTweetPoll(Boolean.TRUE);
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                 jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
                 setItemResponse(jsonResponse);
