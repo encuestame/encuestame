@@ -52,8 +52,12 @@ public class InternetUtils {
      */
     public static boolean validateUrl(final String url){
         final String[] schemes = {"http","https"};
-        final UrlValidator urlValidator = new UrlValidator(schemes);
-        return urlValidator.isValid(url);
+        if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.debug.mode")) {
+            final UrlValidator urlValidator = new UrlValidator(schemes);
+            return urlValidator.isValid(url);
+        } else {
+            return true;
+        }
     }
 
     /**

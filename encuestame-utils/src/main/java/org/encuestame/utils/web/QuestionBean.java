@@ -181,4 +181,13 @@ public class QuestionBean implements Serializable {
         this.userId = userId;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "QuestionBean [questionName=" + questionName + "]";
+    }
+
+
 }

@@ -15,9 +15,11 @@ package org.encuestame.business.service.social;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import org.encuestame.utils.TweetPublishedMetadata;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -44,6 +46,17 @@ public abstract class AbstractSocialAPISupport {
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public TweetPublishedMetadata createStatus(final String tweetText){
+        final TweetPublishedMetadata published = new TweetPublishedMetadata();
+        published.setDatePublished(Calendar.getInstance().getTime()); //TODO: should be offial time of tweet.
+        published.setTextTweeted(tweetText);
+        return published;
     }
 
     /**

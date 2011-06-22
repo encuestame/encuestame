@@ -120,7 +120,7 @@ public abstract class AbstractSecurityContext {
      */
     public EnMeUserAccountDetails getSecurityDetails(){
         EnMeUserAccountDetails details = null;
-        log.debug("Authentication Object:{"+getSecCtx().getAuthentication());
+        log.trace("Authentication Object:{"+getSecCtx().getAuthentication());
         if(getSecCtx().getAuthentication() != null){
             if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserAccountDetails){
                 details =  (EnMeUserAccountDetails) getSecCtx().getAuthentication().getPrincipal();

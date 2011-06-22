@@ -4,10 +4,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -41,7 +39,7 @@ public class GoogleConnectSocialAccount extends AbstractAccountConnect{
             @Value("${google.client.secret}") String clientSecret,
             @Value("${google.client.id}") String clientId) {
        super(new OAuth2Parameters(clientId, clientSecret, accessTokenUrl,
-                 authorizeUrl, SocialProvider.GOOGLE, keyId));
+                 authorizeUrl, SocialProvider.GOOGLE, clientId));
     }
 
     /**

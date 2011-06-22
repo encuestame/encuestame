@@ -1,3 +1,3 @@
 <div class="defaultMarginWrapper">
-    <h3>suvey web</h3>
+    <h3>Poll question Name : ${poll.questionBean.questionName}</h3>
 </div>

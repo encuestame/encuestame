@@ -19,9 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
@@ -32,27 +32,28 @@ import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
-import org.encuestame.utils.web.TypeTreeNode;
-import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.FolderBean;
-import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
+import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.TypeTreeNode;
+import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
@@ -61,10 +62,8 @@ import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 
@@ -114,11 +113,17 @@ public class ConvertDomainBean {
            final SocialAccountBean socialAccountBean = new SocialAccountBean();
                    socialAccountBean.setAccount(socialAccount.getSocialAccountName());
                    socialAccountBean.setAccountId(socialAccount.getId());
-                   socialAccountBean.setToken(socialAccount.getAccessToken());
-                   socialAccountBean.setSecretToken(socialAccount.getSecretToken());
                    socialAccountBean.setTypeAccount(socialAccount.getAccounType().toString());
-                   socialAccountBean.setType(socialAccount.getType() == null
-                          ? SocialAccount.TypeAuth.OAUTH1.name() : socialAccount.getType().name());
+                   socialAccountBean.setDescriptionProfile(socialAccount.getDescriptionProfile());
+                   socialAccount.setEmail(socialAccount.getEmail());
+                   socialAccount.setDefaultSelected(socialAccount.getDefaultSelected() ==  null
+                                    ? false : socialAccount.getDefaultSelected());
+                   socialAccountBean.setAddedAccount(socialAccount.getAddedAccount());
+                   socialAccountBean.setPrictureUrl(socialAccount.getPrictureUrl());
+                   socialAccountBean.setProfilePictureUrl(socialAccount.getProfilePictureUrl());
+                   socialAccountBean.setProfileThumbnailPictureUrl(socialAccount.getProfileThumbnailPictureUrl());
+                   socialAccountBean.setRealName(socialAccount.getRealName());
+                   socialAccountBean.setSocialAccountName(socialAccount.getSocialAccountName());
            return socialAccountBean;
     }
 
@@ -485,26 +490,27 @@ public class ConvertDomainBean {
 
     /**
      * Convert {@link TweetPoll} to {@link TweetPollBean}.
-     * @param poll tweet poll.
+     * @param tweetPoll tweet poll.
      * @return {@link TweetPollBean}
      */
-    public static final TweetPollBean convertTweetPollToBean(final TweetPoll poll){
+    public static final TweetPollBean convertTweetPollToBean(final TweetPoll tweetPoll){
         final TweetPollBean unitTweetPoll = new TweetPollBean();
-        unitTweetPoll.setId(poll.getTweetPollId());
-        unitTweetPoll.setScheduleDate(poll.getScheduleDate());
-        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(poll.getCreateDate()));
-        unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults() == null ? false : poll.getAllowLiveResults());
-        unitTweetPoll.setResumeLiveResults(poll.getResumeLiveResults() == null ? false : poll.getResumeLiveResults());
-        unitTweetPoll.setSchedule(poll.getScheduleTweetPoll() == null ? false : poll.getScheduleTweetPoll());
-        unitTweetPoll.setResultNotification(poll.getResultNotification() == null ? false : poll.getResultNotification());
-        unitTweetPoll.setUserId(poll.getTweetOwner().getUid());
-        unitTweetPoll.setCaptcha(poll.getCaptcha() == null ? false : poll.getCaptcha());
-        unitTweetPoll.setCloseNotification(poll.getCloseNotification() == null ? false : poll.getCloseNotification());
-        unitTweetPoll.setFavourites(poll.getFavourites() == null ? false : poll.getFavourites());
-        unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
-        unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
-        unitTweetPoll.setAllowRepeatedVotes(poll.getAllowRepatedVotes() == null ? false : poll.getAllowRepatedVotes());
-        unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
+        unitTweetPoll.setId(tweetPoll.getTweetPollId());
+        unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
+        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
+        unitTweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : tweetPoll.getAllowLiveResults());
+        unitTweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : tweetPoll.getResumeLiveResults());
+        unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false : tweetPoll.getScheduleTweetPoll());
+        unitTweetPoll.setResultNotification(tweetPoll.getResultNotification() == null ? false : tweetPoll.getResultNotification());
+        unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
+        unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner().getUsername());
+        unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false : tweetPoll.getCaptcha());
+        unitTweetPoll.setCloseNotification(tweetPoll.getCloseNotification() == null ? false : tweetPoll.getCloseNotification());
+        unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : tweetPoll.getFavourites());
+        unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false : tweetPoll.getCompleted());
+        unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
+        unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
+        unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
         return unitTweetPoll;
     }
 

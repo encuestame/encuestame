@@ -74,6 +74,17 @@ dojo.declare(
                    dojo.hitch(this,function(item) {
                    array.push({ value : item.getAnswerText()});
                    }));
+            //console.debug("getAnswers", array);
+            return array;
+        },
+
+        getAnswersId : function(){
+            var array = [];
+             dojo.forEach(this.listItems,
+                   dojo.hitch(this,function(item) {
+                   array.push(item.answer.answerId);
+                   }));
+            console.debug("getAnswers", array);
             return array;
         },
 
@@ -100,7 +111,7 @@ dojo.declare(
             var params = {
                     "id" : this.tweetPollId,
                     "answer" : text.get("value"),
-                    "shortUrl" : this._provider[2].code
+                    "shortUrl" : this._provider[1].code
                };
                console.debug("params", params);
                var load = dojo.hitch(this, function(data){
@@ -111,7 +122,7 @@ dojo.declare(
                            answerId : data.success.newAnswer.answerBean.answerId,
                            label: data.success.newAnswer.answerBean.answers,
                            shortUrl : data.success.newAnswer.shortUrl,
-                           provider: this._provider[0]
+                           provider: this._provider[1]
                       },
                       parentAnswer : this,
                       tweetPollId : this.tweetPollId
@@ -141,11 +152,12 @@ dojo.declare(
         _removeItem : function(event){
             dojo.stopEvent(event);
             var i = dojo.indexOf(this.listItems, this.getDialog().item);
-            if(i != -1){
-                this.listItems.splice(i, 1);
-                dojo.destroy(this.getDialog().item.domNode);
-                this.getDialog().hide();
-                dojo.publish("/encuestame/tweetpoll/updatePreview");
+            if (i != -1) {
+                //this.listItems.splice(i, 1);
+                //dojo.destroy(this.getDialog().item.domNode);
+                //this.getDialog().hide();
+                //dojo.publish("/encuestame/tweetpoll/updatePreview");
+                this.getDialog().item._removeAnswer(i);
             } else {
                 console.error("Error on remove Item");
             }
@@ -190,6 +202,7 @@ dojo.declare(
          * constructor.
          */
         postCreate : function(){
+            console.debug("answer", this.answer);
             if(this._item){
                 var answer = dojo.doc.createElement("span");
                 answer.innerHTML = this.answer.label;
@@ -202,6 +215,7 @@ dojo.declare(
                 url.appendChild(urlA);
                 dojo.addClass(url, "answerItemShortUrl");
                 dojo.connect(urlA, "onclick", this, this.editShortUrl);
+                dojo.connect(this.domNode, "onclick", this, this._showOptions);
                 dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
                     dojo.stopEvent(event);
                     dojo.addClass(urlA, "shortUrlEnter");
@@ -226,18 +240,29 @@ dojo.declare(
             console.debug(event);
         },
 
+        _showOptions : function(){
+            var dialog = this.parentAnswer.getDialog();
+            dialog.item = this;
+            dialog.show();
+        },
+
 
         /*
          * remove this answer.
          */
-        _removeAnswer : function(){
+        _removeAnswer : function(i){
              var params = {
                      "id" : this.tweetPollId,
                     "answerId" : this.answer.answerId
             };
             console.debug("params", params);
+            console.debug("i", i);
             var load = dojo.hitch(this, function(data){
-                console.debug(data);
+                console.debug("removing answer", data);
+                this.parentAnswer.listItems.splice(i, 1);
+                dojo.destroy(this.domNode);
+                this.parentAnswer.getDialog().hide();
+                dojo.publish("/encuestame/tweetpoll/updatePreview");
             });
             var error = function(error) {
                 console.debug("error", error);
@@ -252,14 +277,5 @@ dojo.declare(
         getAnswerText: function(){
             var answer = this.answer.label+ " "+this.answer.shortUrl;
             return answer;
-        },
-
-        /*
-         * on click the dom node.
-         */
-        _options : function(event){
-            var dialog = this.parentAnswer.getDialog();
-            dialog.item = this;
-            dialog.show();
         }
 });

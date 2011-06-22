@@ -3,3 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <h2>dashboard mobile</h2>
+<div>
+<a href="<%=request.getContextPath()%>/user/tweetpoll/list">TweetPolls</a>
+</div>
