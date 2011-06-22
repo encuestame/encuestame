@@ -195,18 +195,16 @@ public class SocialUtils {
     }
 
     /**
-     *
-     * @param id
-     * @param username
-     * @return
+     * Build the original  url to tweet in the social network.
+     * @param id id
+     * @param username username (only for twitter)
+     * @return the url.
      */
     public static String getSocialTweetPublishedUrl(
             final String id,
             final String username,
             final SocialProvider provider) {
-        log.debug("getSocialTweetPublishedUrl %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% "+id);
         Assert.notNull(id);
-        log.debug("getSocialTweetPublishedUrl "+provider.toString());
         final StringBuilder builder = new StringBuilder();
         if(SocialProvider.TWITTER.equals(provider)){
             String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.twitter");
@@ -217,15 +215,17 @@ public class SocialUtils {
             String facebookUrl = EnMePlaceHolderConfigurer.getProperty("social.facebook");
             String[] array = id.split("_");
             log.debug("Facebook Id array:{"+array.length);
-            if (array.length > 2) {
-                facebookUrl = facebookUrl.replace("{A}", array[0]);
-                facebookUrl = facebookUrl.replace("{B}", array[1]);
+            if (array.length >= 2) {
+                facebookUrl = facebookUrl.replace("{B}", array[0]);
+                facebookUrl = facebookUrl.replace("{A}", array[1]);
                 builder.append(facebookUrl);
             }
         } else if(SocialProvider.LINKEDIN.equals(provider)){
-
+            builder.append(EnMePlaceHolderConfigurer.getProperty("social.linkedin"));
         } else if(SocialProvider.IDENTICA.equals(provider)){
-
+             String identicaUrl = EnMePlaceHolderConfigurer.getProperty("social.identica");
+             identicaUrl = identicaUrl.replace("{id}", id);
+             builder.append(identicaUrl);
         }
         log.debug("getSocialTweetPublishedUrl "+builder.toString());
         return builder.toString();

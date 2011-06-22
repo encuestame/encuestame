@@ -260,8 +260,15 @@ encuestame.session.getSession = function(){
     }
 };
 
-// check Status.java
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
+
+encuestame.social = {};
+
+encuestame.social.shortPicture = function(provider){
+     var url = encuestame.contextDefault + "/resources/images/social/"+provider.toLowerCase()
+               +"/enme_icon_"+provider.toLowerCase()+".png";
+     return url;
+};
 
 encuestame.session.activity = {};
 
