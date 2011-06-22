@@ -1,6 +1,16 @@
 div.mobile{
 }
 
+div.mobile-enme-content{
+    width: 100%;
+}
+
+div.mobile-footer{
+    background-color: #E8E8E8;
+    padding: 6px;
+    min-height: 30px;
+}
+
 div.mobile div.mobile-signin{
     padding: 1px;
 }
@@ -107,25 +117,194 @@ div.home-mobile{
 
 }
 
-div.home-mobile div.mobile-items{
+div.home-mobile a{
+    text-decoration: none;
+    color: #275296;
+}
 
+div.home-mobile a:visited{
+    text-decoration: none;
+    color: #275296;
+}
+
+div.home-mobile a:link{
+    text-decoration: none;
+    color: #275296;
+}
+
+div.home-mobile a:hover{
+    text-decoration: underline;
+}
+
+div.home-mobile div.mobile-items{
+   /* font-size: 100%;*/
+}
+
+div.mobile-items div.mobile-items-more{
+    padding: 10px;
+    font-size: 110%;
+    text-align: center;
+    color: #275296;
+    font-weight: normal;
+}
+
+div.home-mobile div.mobile-home-subtitle{
+    min-height: 30px;
+    background-color: #E6E6E6;
+    font-size: 160%;
+    color: #FFF;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 5px;
+    font-weight: bold;
+    text-align: center;
 }
 
 div.home-mobile div.mobile-items div.mobile-item{
-    border-bottom: 1px solid #DFDFDF;
+    border-bottom: 1px solid #E6E6E6;
     clear: both;
+    padding: 4px;
+
 }
 
+div.mobile-item{
+    min-height: 40px;
+}
 
-div.home-mobile div.mobile-items div.mobile-item div.mobile-view{
-    background :none repeat scroll 0 0 #275296;
+div.mobile-item div.mobile-view{
     padding: 1px;
     text-align: center;
     width: 55px;
     float: left;
 }
 
-div.home-mobile div.items div.item div.mobile-content {
-     color:  #B3B3B3;
-     margin-left: 65px;
+div.mobile-item div.mobile-view div.votes{
+    background :none repeat scroll 0 0 #275296;
+    color: #FFF;
+    text-align: center;
+    min-height: 40px;
+    max-width: 40px;
+}
+
+div.mobile-item div.mobile-view div.votes span.count{
+    font-size: 170%;
+    font-weight: bold;
+}
+
+div.mobile-item div.mobile-view div.votes span.voteText{
+    font-size: 80%;
+}
+
+div.item div.mobile-content{
+     color:  #5C8397;
+     margin-left: 50px;
+}
+
+div.mobile-tweetpoll{
+     font-size: 120%;
+     margin-bottom: 4px;
+     font-weight: bold;
+}
+
+div.mobile-submit-bottom div.mobile-submit-option{
+
+}
+
+div.mobile-submit-bottom div.mobile-submit-options div.mobile-submit-text{
+     font-size: 85%;
+     color: #B3B3B3;
+}
+
+/*** MENU ***/
+
+div.mobile-categoryMenu{
+    font-size: 130%;
+    min-height: 60px;
+    padding-bottom: 2px;
+    color: #FFF;
+}
+
+div.menu-options{
+    margin-top: 0.4em;
+    max-width: 100%;
+    background-color: #275296;
+    text-align: center;
+}
+
+div.home-mobile div.mobile-categoryMenu span.option{
+    display: inline-block;
+    padding: 5px 5px 5px 5px ;
+    text-align: center;
+    max-width: 62px;
+    min-width: 75px;
+}
+
+div.home-mobile div.mobile-categoryMenu span.option a:link{
+    color: #FFFFFF;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+div.home-mobile div.mobile-categoryMenu span.option a:visited{
+    color: #B5E6F1;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+div.mobile-MenuHotTags {
+    font-size: 75%;
+    text-align: center;
+    padding-top: 0.5em;
+    padding-top: 0.5em;
+    color: #000000;
+}
+
+div.mobile-MenuHotTags span.optionTags{
+    display: inline-block;
+    padding:2px 2px 2px 2px ;
+    text-align: center;
+    width: 60px;
+}
+
+div.mobile-footer div.mobile-HashTags span.mobile-optionTag {
+
+}
+
+div.mobile-footer div.mobile-HashTags span.mobile-optionTag a:link {
+    color: #022994;
+}
+
+div.mobile-subMenuFooter{
+    text-align: left;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-top: 2px;
+
+}
+div.mobile-footer div.mobile-subMenuFooter div.mobile-footerText{
+    font-size: 3px;
+    text-align: center;
+    margin-top: 3px;
+}
+
+div.home-mobile div.mobile-HashTags{
+    text-align: left;
+    padding-left: 6px;
+}
+/*** SEARCH ***/
+
+div.mobile-search{
+    margin-top: 8px;
+    padding: 1px;
+ }
+
+div.mobile-search input{
+   /* margin: 2em , 0.5em ,1em ,1em;*/
+    margin-left: 2px;
+    margin-right:1px;
+    border: 1.5px solid #DFDFDF;
+    width:98%;
+    height:30px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:15px;
 }
