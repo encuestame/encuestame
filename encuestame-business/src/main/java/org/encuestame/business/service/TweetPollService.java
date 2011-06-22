@@ -39,7 +39,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeIllegalProviderException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -209,6 +208,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setLimitVotes(tweetPollBean.getLimitVotes());
         tweetPollDomain.setTweetOwner(getAccountDao().getUserById(tweetPollBean.getUserId()));
+        tweetPollDomain.setEditorOwner(getUserAccountLogged());
         tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
         tweetPollDomain.setPublishTweetPoll(Boolean.FALSE);
         tweetPollDomain.setCreateDate(Calendar.getInstance().getTime());
