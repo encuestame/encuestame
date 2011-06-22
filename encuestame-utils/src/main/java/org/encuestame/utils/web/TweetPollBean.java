@@ -42,6 +42,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Boolean completed;
     private Boolean favourites;
     private Long userId;
+    private String ownerUsername;
     private String tweetUrl;
     private String createDate;
     private Boolean allowRepeatedVotes;
@@ -396,6 +397,21 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
         this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
+    }
+
+
+    /**
+    * @return the ownerUsername
+    */
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    /**
+    * @param ownerUsername the ownerUsername to set
+    */
+    public void setOwnerUsername(final String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     /* (non-Javadoc)

@@ -72,6 +72,7 @@ public class HomeController extends AbstractBaseOperations {
                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
                     }
                 }
+                model.addAttribute("hashTags", service.getHashTags(30, 0));
                 //TODO: search hashtags and other information.
             } catch (EnMeSearchException e) {
                 return "error";
