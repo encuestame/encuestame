@@ -867,4 +867,44 @@ div.publishButtons{
     float: right;
     margin-right: 15px;
     margin-top: 30px;
-}}
+}
+
+/** tweetPollPublishDialog **/
+
+div.tweetPollPublishDialog{
+
+}
+
+div.tweetPollPublishDialog div.info {
+    background-color: #F3F085;
+    padding: 10px;
+    font-weight: bold;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.tweetPollPublishDialog div.items{
+    padding: 5px;
+}
+
+div.tweetPollPublishDialog div.items div.item{
+    padding: 3px;
+    font-weight: bold;
+    border-bottom: 1px solid gray;
+}
+
+div.tweetPollPublishDialog div.items div.item div.image{
+    float: left;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+div.tweetPollPublishDialog div.items div.item div.detail{
+    float: left;
+}
+
+div.tweetPollPublishDialog div.items div.item div.icon{
+    float: right;
+    padding: 5px;
+}

@@ -7,7 +7,7 @@ import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.LinkedInConnections;
 import org.encuestame.core.social.LinkedInProfile;
 import org.encuestame.core.social.SocialUserProfile;
-import org.encuestame.utils.StatusTweetPublished;
+import org.encuestame.utils.TweetPublishedMetadata;
 
 public class LinkedInAPITemplate extends AbstractSocialAPISupport implements LinkedInAPIOperations {
 
@@ -66,7 +66,7 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
      * @param status
      * @param twitter
      */
-    public StatusTweetPublished updateStatus(final String status, final Boolean twitter) {
+    public TweetPublishedMetadata updateStatus(final String status, final Boolean twitter) {
         final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><current-status>"
                 + status + "</current-status>";
         final StringBuffer url = new StringBuffer(PUT_STATUS);
@@ -80,7 +80,7 @@ public class LinkedInAPITemplate extends AbstractSocialAPISupport implements Lin
     /**
      * Update Status.
      */
-    public StatusTweetPublished updateStatus(final String status) {
+    public TweetPublishedMetadata updateStatus(final String status) {
         return this.updateStatus(status, false);
     }
 

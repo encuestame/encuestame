@@ -18,12 +18,12 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Description.
+ * Tweet item published resonse.
  * @author Picado, Juan juanATencuestame.org
  * @since May 10, 2011
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TweetPollStatus implements Serializable{
+public class TweetItemPublishedResponse implements Serializable{
 
     /**
      *
@@ -31,7 +31,7 @@ public class TweetPollStatus implements Serializable{
     private static final long serialVersionUID = 5660565898832615803L;
 
     @JsonProperty(value = "tweet_id")
-    public Long tweetId;
+    public String tweetId;
 
     @JsonProperty(value = "textTweeted")
     public String textTweeted;
@@ -39,7 +39,22 @@ public class TweetPollStatus implements Serializable{
     @JsonProperty(value = "date_published")
     public String datePublished;
 
+    @JsonProperty(value = "social_account")
+    public String socialAccountName;
+
     @JsonProperty(value = "status_tweet")
     public String statusTweet;
+
+    @JsonProperty(value = "status_description_tweet")
+    public String statusDescriptionTweet;
+
+    @JsonProperty(value = "source_tweet")
+    public String sourceTweet;
+
+    @JsonProperty(value = "tweet_url")
+    public String tweetUrl;
+
+    @JsonProperty(value = "social_account_id")
+    public Long socialAccountId;
 
 }

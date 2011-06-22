@@ -44,7 +44,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
-import org.encuestame.utils.StatusTweetPublished;
+import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -447,7 +447,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final List<TweetPollSavedPublishedStatus> results = new ArrayList<TweetPollSavedPublishedStatus>();
             for (SocialAccountBean unitTwitterAccountBean : twitterAccounts) {
                 log.debug("publicMultiplesTweetAccounts unitTwitterAccountBean:{ "+unitTwitterAccountBean.toString());
-                results.add(this.publishTweetByAccountId(unitTwitterAccountBean.accountId, tweetPoll, tweetText));
+                results.add(this.publishTweetBySocialAccountId(unitTwitterAccountBean.accountId, tweetPoll, tweetText));
             }
             return results;
     }
@@ -456,15 +456,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#publishTweetPoll(java.lang.Long, org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public TweetPollSavedPublishedStatus publishTweetByAccountId(
-            final Long accountId, final TweetPoll tweetPoll, final String tweetText) {
-        log.debug("publicMultiplesTweetAccounts tweetPoll" + tweetPoll);
+    public TweetPollSavedPublishedStatus publishTweetBySocialAccountId(
+            final Long accountId,
+            final TweetPoll tweetPoll,
+            final String tweetText) {
+         log.debug("publicMultiplesTweetAccounts tweetPoll" + tweetPoll);
         //get social account
-        final SocialAccount socialAccount = getAccountDao().getSocialAccountById(accountId);
+         final SocialAccount socialAccount = getAccountDao().getSocialAccountById(accountId);
          log.debug("publishTweetPoll socialTwitterAccounts: {"+socialAccount);
-         //if(socialTwitterAccounts == null) {
-             //throw new EnMeNoResultsFoundException("social account invalid");
-         //}
          //create tweet status
          final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
          //social provider.
@@ -473,23 +472,26 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          publishedStatus.setTweetPoll(tweetPoll);
          //checking required values.
          if (socialAccount != null && tweetPoll != null) {
-             log.debug("secUserTwitterAccounts Account:{"+socialAccount.getSocialAccountName());
+             log.debug("socialAccount Account NAME:{"+socialAccount.getSocialAccountName());
              //adding social account
              publishedStatus.setTwitterAccount(socialAccount);
              try {
                  log.debug("publishTweetPoll Publishing... "+tweetText.length());
-                 final StatusTweetPublished status = publicTweetPoll(tweetText, socialAccount);
-                 if (status == null) {
+                 final TweetPublishedMetadata metadata = publicTweetPoll(tweetText, socialAccount);
+                 if (metadata == null) {
                      throw new EnMeFailSendSocialTweetException("status not valid");
+                 }//getMessageProperties(propertieId)
+                 if (metadata.getTweetId() == null) {
+                     log.warn("tweet id is empty");
                  }
                  //store original tweet id.
-                 publishedStatus.setTweetId(status.getTweetId());
+                 publishedStatus.setTweetId(metadata.getTweetId());
                  //store original publication date.
-                 publishedStatus.setPublicationDateTweet(status.getDatePublished());
+                 publishedStatus.setPublicationDateTweet(metadata.getDatePublished());
                  //success publish state..
                  publishedStatus.setStatus(Status.SUCCESS);
                  //store original tweet content.
-                 publishedStatus.setTweetContent(status.getTextTweeted());
+                 publishedStatus.setTweetContent(metadata.getTextTweeted());
                  //create notification
                  createNotification(NotificationEnum.TWEETPOLL_PUBLISHED, "tweet published", socialAccount.getAccount());
              } catch (Exception e) {

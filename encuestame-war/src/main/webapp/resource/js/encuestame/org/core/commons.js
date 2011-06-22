@@ -260,6 +260,9 @@ encuestame.session.getSession = function(){
     }
 };
 
+// check Status.java
+encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
+
 encuestame.session.activity = {};
 
 encuestame.session.activity.name = "enme-ac";

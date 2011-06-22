@@ -16,8 +16,8 @@
         <url>http://trac.encuesta.me</url>
     </issueManagement>
     <ciManagement>
-        <system>Hudson</system>
-        <url>http://hudson.encuestame.org</url>
+        <system>Jenkins</system>
+        <url>http://ci.encuestame.org</url>
     </ciManagement>
     <inceptionYear>2009</inceptionYear>
 

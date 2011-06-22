@@ -25,7 +25,7 @@ import org.encuestame.core.social.FacebookLink;
 import org.encuestame.core.social.FacebookProfile;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
-import org.encuestame.utils.StatusTweetPublished;
+import org.encuestame.utils.TweetPublishedMetadata;
 import org.jfree.util.Log;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -167,7 +167,7 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
      * (non-Javadoc)
      * @see org.encuestame.core.social.SocialAPIOperations#updateStatus(java.lang.String)
      */
-    public StatusTweetPublished updateStatus(final String message) {
+    public TweetPublishedMetadata updateStatus(final String message) {
         log.debug("facebook message to publish: "+message);
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("message", message);
@@ -193,12 +193,12 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
      * (non-Javadoc)
      * @see org.encuestame.core.social.FacebookAPIOperations#publish(java.lang.String, java.lang.String, org.springframework.util.MultiValueMap)
      */
-    public StatusTweetPublished publish(String object, String connection, MultiValueMap<String, String> data) {
+    public TweetPublishedMetadata publish(String object, String connection, MultiValueMap<String, String> data) {
         final MultiValueMap<String, String> requestData = new LinkedMultiValueMap<String, String>(data);
         log.debug("before facebookResponse:{"+requestData);
         final Map facebookResponse = getRestTemplate().postForObject(CONNECTION_URL, requestData, Map.class, object, connection);
         log.debug("facebookResponse:{"+facebookResponse);
-        final StatusTweetPublished status = createStatus(data.get("message").toString());
+        final TweetPublishedMetadata status = createStatus(data.get("message").toString());
         status.setTweetId(facebookResponse.get("id").toString());
         return status;
     }

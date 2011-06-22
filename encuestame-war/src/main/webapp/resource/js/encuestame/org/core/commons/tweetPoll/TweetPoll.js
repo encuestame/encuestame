@@ -410,7 +410,7 @@ dojo.declare(
                      content: this.tweetPollPublishWidget.domNode,
                      style: "width: 500px"
                  });
-                this.tweetPollPublishWidget.setListOfSocialAccounts(this.socialWidget.getSocialAccounts());
+                this.tweetPollPublishWidget.setListOfSocialAccounts(this.socialWidget.getSocialCompleteAccounts());
                 this.tweetPollPublishWidget.initialize();
                 myDialog.show();
                 this._publishTweet();
@@ -427,9 +427,12 @@ dojo.declare(
             };
             console.debug("params", params);
             var load = dojo.hitch(this, function(data){
-                console.debug(data);
+                //TODO: DISABLE COMET AUTOSAVE;
+                this.autosave = false;
+                this.tweetPollPublishWidget.process(dojo.fromJson(data));
             });
             var error = function(error) {
+                this.autosave = true;
                 console.debug("error", error);
             };
             encuestame.service.xhrPostParam(
@@ -485,12 +488,15 @@ dojo.declare(
               this._content.appendChild(emtpy);
             },
 
-            initialize : function(){
+            /*
+             * initialize widget.
+             */
+            initialize : function() {
 
             },
 
             /*
-             *
+             * build question.
              */
             _buildQuestion : function(question){
               dojo.empty(this._content);
@@ -644,21 +650,144 @@ dojo.declare(
 
             _socialAccounts : [],
 
+            _inProcess : false,
+
             postCreate : function(){
 
             },
 
+            /*
+             * set social account array.
+             */
             setListOfSocialAccounts : function(accounts){
-
+                this._socialAccounts = accounts;
             },
 
+            /*
+             * initialize widget.
+             */
             initialize : function(){
+                this._inProcess = true;
+                this._showProcessingMessage();
+            },
 
+            /*
+             *
+             */
+            _showProcessingMessage : function(){
+                var message = dojo.doc.createElement("div");
+                dojo.addClass(this._message, "defaultDisplayBlock");
+                dojo.removeClass(this._message, "defaultDisplayHide");
+                message.innerHTML = "Publishing your tweets, please wait ...";
+                console.debug("message", message);
+                this._message.appendChild(message);
+            },
+
+            /*
+             *
+             */
+            _hideProcessingMessage : function(){
+                console.debug("_hideProcessingMessage");
+                dojo.removeClass(this._message, "defaultDisplayBlock");
+                dojo.addClass(this._message, "defaultDisplayHide");
+                dojo.empty(this._message);
+            },
+
+            /*
+             * process date published.
+             * "socialPublish":[{"tweet_id":null,"textTweeted":"[gdffdsfsdfdsafd fa fda fda asfdsfddas http://tinyurl.com/6kx3d3h fdfd http://tinyurl.com/5t55r5z #fadfad #fdsfadfdfa]","date_published":"2011-06-20","status_tweet":"SUCCESS","status_description_tweet":null,"source_tweet":"FACEBOOK","social_account_id":2},
+             * {"tweet_id":null,"textTweeted":"gdffdsfsdfdsafd fa fda fda asfdsfddas http://tinyurl.com/6kx3d3h fdfd http://tinyurl.com/5t55r5z #fadfad #fdsfadfdfa","date_published":"2011-06-20","status_tweet":"SUCCESS","status_description_tweet":null,"source_tweet":"LINKEDIN","social_account_id":3},
+             * {"tweet_id":null,"textTweeted":"gdffdsfsdfdsafd fa fda fda asfdsfddas http://tinyurl.com/6kx3d3h fdfd http://tinyurl.com/5t55r5z #fadfad #fdsfadfdfa","date_published":"2011-06-20","status_tweet":"SUCCESS","status_description_tweet":null,"source_tweet":"TWITTER","social_account_id":4}]}}
+             */
+            process: function(data){
+                console.debug("tweetPollPublishWidget process", data);
+                if(data){
+                    this._hideProcessingMessage();
+                    dojo.empty(this._container);
+                    dojo.empty(this._message);
+                    console.debug("show accoutns", this._socialAccounts);
+                    dojo.forEach(data.success.socialPublish,
+                            dojo.hitch(this,function(tweet) {
+                                console.debug("socialPublish", tweet);
+                                var row = this._buildTweetProcessView(tweet);
+                                if(row){
+                                    this._container.appendChild(row);
+                                }
+                   }));
+                } else {
+                    console.error("data tweet process is empty");
+                }
+            },
+
+            /*
+             * search by id the complete info for selected social account.
+             */
+            _getSocialAccountWidget : function(id){
+                //this._socialAccounts
+                var selected = null;
+                dojo.forEach(this._socialAccounts,
+                        dojo.hitch(this,function(account) {
+                            if (account.id == id) {
+                                selected = account;
+                            }
+                 }));
+                return selected;
+            },
+
+            /*
+             * build tweet process view.
+             */
+            _buildTweetProcessView : function(data){
+                  return this._createStatusTweet(data);
+            },
+
+            /*
+             * create status tweet.
+             */
+            _createStatusTweet : function(data){
+                console.debug("_createStatusTweet", data);
+                var widget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishItemStatus(
+                        {
+                            data:data,
+                            socialAccount : this._getSocialAccountWidget(data.social_account_id)
+                        }
+                        );
+                return widget.domNode;
             }
+});
 
-            //{"error":{},"success":{"socialPublish":[
-            //{"tweet_id":null,"textTweeted":"dsadasdasdasdsa das dsa dsa dsa fda fda fda dsadsa
-            //http://tinyurl.com/4yl65ls dsadasdasdas dsa dsa dsa http://tinyurl.com/3wkazt6 #dassadas",
-            //"date_published":"2011-05-22","status_tweet":null}
-            //]}}
+/*
+ * Represents a status of tweet published by social account.
+ */
+dojo.declare(
+        "encuestame.org.core.commons.tweetPoll.TweetPollPublishItemStatus",
+        [dijit._Widget, dijit._Templated],{
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemStatus.html"),
+            data : {},
+            socialAccount : {},
+            postCreate : function(){
+                console.debug("socialAccount", this.socialAccount);
+                this.initialize();
+            },
+
+            /*
+             * initialize widget.
+             */
+            initialize : function(){
+                console.debug("data.status_tweet", this.data.status_tweet);
+                if (this.data.status_tweet == encuestame.status[0]) { // SUCCESS
+                    this._showSuccessMessage();
+                } else if (this.data.status_tweet == encuestame.status[1]) { //FAILURE
+
+                } else {
+
+                }
+            },
+
+            /*
+             *
+             */
+            _showSuccessMessage : function() {
+                var success = dojo.doc.createElement("div");
+            }
 });
