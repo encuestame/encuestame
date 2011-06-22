@@ -490,26 +490,27 @@ public class ConvertDomainBean {
 
     /**
      * Convert {@link TweetPoll} to {@link TweetPollBean}.
-     * @param poll tweet poll.
+     * @param tweetPoll tweet poll.
      * @return {@link TweetPollBean}
      */
-    public static final TweetPollBean convertTweetPollToBean(final TweetPoll poll){
+    public static final TweetPollBean convertTweetPollToBean(final TweetPoll tweetPoll){
         final TweetPollBean unitTweetPoll = new TweetPollBean();
-        unitTweetPoll.setId(poll.getTweetPollId());
-        unitTweetPoll.setScheduleDate(poll.getScheduleDate());
-        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(poll.getCreateDate()));
-        unitTweetPoll.setAllowLiveResults(poll.getAllowLiveResults() == null ? false : poll.getAllowLiveResults());
-        unitTweetPoll.setResumeLiveResults(poll.getResumeLiveResults() == null ? false : poll.getResumeLiveResults());
-        unitTweetPoll.setSchedule(poll.getScheduleTweetPoll() == null ? false : poll.getScheduleTweetPoll());
-        unitTweetPoll.setResultNotification(poll.getResultNotification() == null ? false : poll.getResultNotification());
-        unitTweetPoll.setUserId(poll.getTweetOwner().getUid());
-        unitTweetPoll.setCaptcha(poll.getCaptcha() == null ? false : poll.getCaptcha());
-        unitTweetPoll.setCloseNotification(poll.getCloseNotification() == null ? false : poll.getCloseNotification());
-        unitTweetPoll.setFavourites(poll.getFavourites() == null ? false : poll.getFavourites());
-        unitTweetPoll.setCompleted(poll.getCompleted() == null ? false : poll.getCompleted());
-        unitTweetPoll.setQuestionBean(convertQuestionsToBean(poll.getQuestion()));
-        unitTweetPoll.setAllowRepeatedVotes(poll.getAllowRepatedVotes() == null ? false : poll.getAllowRepatedVotes());
-        unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
+        unitTweetPoll.setId(tweetPoll.getTweetPollId());
+        unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
+        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
+        unitTweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : tweetPoll.getAllowLiveResults());
+        unitTweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : tweetPoll.getResumeLiveResults());
+        unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false : tweetPoll.getScheduleTweetPoll());
+        unitTweetPoll.setResultNotification(tweetPoll.getResultNotification() == null ? false : tweetPoll.getResultNotification());
+        unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
+        unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner().getUsername());
+        unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false : tweetPoll.getCaptcha());
+        unitTweetPoll.setCloseNotification(tweetPoll.getCloseNotification() == null ? false : tweetPoll.getCloseNotification());
+        unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : tweetPoll.getFavourites());
+        unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false : tweetPoll.getCompleted());
+        unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
+        unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
+        unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
         return unitTweetPoll;
     }
 

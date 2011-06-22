@@ -38,7 +38,7 @@
             <tiles:insertAttribute name="header" />
         </div>
         <div id="content-container">
-            <div id="enme-content">
+            <div id="mobile-enme-content">
                 <tiles:insertAttribute name="menu" ignore="true" />
                 <tiles:insertAttribute name="content"/>
             </div>
