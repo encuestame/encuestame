@@ -308,3 +308,23 @@ div.mobile-search input{
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:15px;
 }
+
+/** ITEM DETAIL **/
+div.mobile-detail {
+    background-color: #EEEEEE;
+    font-weight: bold;
+}
+
+div.mobile-question-detail{
+    background-color: #275296;
+    margin-top: 4%;
+    max-width: 100%;
+    color: #FFF;
+    padding: 6px;
+}
+
+div.mobile-answers-questions{
+    padding: 10px;
+    text-align: left;
+    color: #275296;
+}
