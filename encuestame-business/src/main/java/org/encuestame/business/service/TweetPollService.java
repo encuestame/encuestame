@@ -842,4 +842,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
         }
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.ITweetPollService#saveOrUpdateTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     */
+    public void saveOrUpdateTweetPoll(final TweetPoll tweetPoll){
+        if(tweetPoll != null) {
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        }
+    }
 }
