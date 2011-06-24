@@ -869,11 +869,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link Question}
      */
     public Question createQuestion(final String question, final String patron, final Account user){
-        final Question questions = new Question();
+        final Question questions = this.createQuestion(question, user);
         questions.setQidKey("1");
-        questions.setAccountQuestion(user);
-        questions.setQuestion(question);
         questions.setQuestionPattern(createQuestionPattern(patron));
+        questions.setHits(2L);
+        questions.setCreateDate(new Date());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
     }

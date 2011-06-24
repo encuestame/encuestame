@@ -13,6 +13,9 @@
 package org.encuestame.mvc.test.view;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
+
+import java.util.Date;
+
 import junit.framework.Assert;
 
 import org.bouncycastle.util.test.TestFailedException;
@@ -28,6 +31,7 @@ import org.encuestame.mvc.view.TweetPollController;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.junit.Before;
@@ -141,9 +145,10 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testPollController() throws Exception {
+            final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"), createAccount(), true, true);
             final PollController controller = new PollController();
             //"/user/signin
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/poll");
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/poll/"+poll.getPollId());
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
             assertViewName(mav, "poll");
